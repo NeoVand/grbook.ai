@@ -21,7 +21,7 @@ def reviewed(note):
 	except (OSError, json.JSONDecodeError):
 		return False
 	r = d.get('review') or {}
-	return d.get('schema_version') == 2 and bool(r.get('novice')) and bool(r.get('physics'))
+	return d.get('schema_version') == 2 and d.get('status') in ('physics-reviewed', 'published') and bool(r.get('novice')) and bool(r.get('physics'))
 
 
 def main(argv):

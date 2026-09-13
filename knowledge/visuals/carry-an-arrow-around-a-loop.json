@@ -4,85 +4,139 @@
 	"title": "Carry an arrow around a loop",
 	"kind": "interactive-3d",
 	"priority": "flagship",
+	"status": "proposed",
+	"revision": 1,
+	"updated": "2026-09-13",
+	"component": null,
 	"rungs": ["entry", "working"],
-	"makes_visible": "An arrow moved without ever being turned comes back turned on a curved surface, but not on a flat or merely bent one. The turn grows with the area the loop encloses and reverses when the loop is walked the other way. It is the one picture behind parallel transport, path dependence, holonomy, Gaussian curvature, and the meaning of the Riemann tensor.",
+	"makes_visible": "An arrow carried around a loop without ever swinging comes back turned on a ball, but not on a flat floor or a rolled-up tube. On a ball the turn grows with the fenced-off area, wrapping around after a full turn, so the equator returns the arrow unchanged. The turn reverses when the loop is walked the other way. It is the one picture behind parallel transport, path dependence, holonomy, Gaussian curvature, and the meaning of the Riemann tensor.",
 	"picture": {
-		"caption": "Carry an arrow around a closed path without turning it: on a ball it comes back turned, and on a flat sheet it does not.",
-		"composition": "A shaded surface with a faint grid fills the scene. A closed path is drawn on it, the region it encloses is lightly tinted, and a small arrowhead on the path shows the walking direction. Faded copies of the carried arrow mark its progress. An inset at the base point shows the starting arrow and the returned arrow side by side, with an arc between them. Readouts for the turn and the enclosed area appear only when the loop closes.",
+		"caption": "Carry an arrow around a loop without letting it swing: on a ball it usually comes back turned, and on a flat sheet it never does.",
+		"composition": "A shaded surface with a faint grid fills the scene. A loop is drawn on it, the region on the walker's left is lightly tinted, and small arrowheads along the loop show the walking direction. Faded copies of the carried arrow mark its progress. At the base point, an inset shows the starting arrow as a grey dashed line and the returned arrow as a solid orange line, with an arc between them. Readouts for the turn and the area appear only when the loop closes.",
 		"elements": [
-			{ "element": "Surface with intrinsic grid", "depicts": "the space the walker lives in: plane, tube, ball, saddle, or cone" },
-			{ "element": "Closed path with direction arrowhead", "depicts": "the loop and which way it is walked" },
-			{ "element": "Tinted enclosed region", "depicts": "the area whose curvature produces the turn" },
-			{ "element": "Faded arrow copies along the path", "depicts": "the arrow being carried without turning" },
-			{ "element": "Base-point inset with start arrow (grey, dashed) and returned arrow (accent, solid)", "depicts": "the holonomy as an angle between two arrows at the same point" },
-			{ "element": "Readouts: turn, area, area over radius squared, angular excess", "depicts": "the area law, shown only once the loop closes" }
+			{ "element": "Surface with a faint grid", "depicts": "the world the walker lives on: flat floor, tube, ball, saddle, or cone" },
+			{ "element": "Loop with direction arrowheads", "depicts": "the path and which way it is walked" },
+			{ "element": "Tinted region on the walker's left", "depicts": "the fenced-off patch whose curvature sets the turn" },
+			{ "element": "Faded arrow copies along the loop", "depicts": "the arrow being carried without swinging" },
+			{ "element": "Base-point inset with a grey dashed start arrow and a solid orange returned arrow", "depicts": "the holonomy as the angle between two arrows at the same point" },
+			{ "element": "Readouts: turn, area, area over radius squared, angle excess", "depicts": "the area rule, shown only once the loop closes" }
 		]
 	},
+	"print_figure": {
+		"description": "Two panels. Left: a ball with the three-stretch loop from the North Pole, the arrow drawn at each stretch (ahead, right, behind), and an inset at the pole showing the dashed start arrow and the solid returned arrow a right angle apart. Right: a square walk on a flat sheet, where every arrow copy points the same way.",
+		"labels": ["North Pole", "equator", "start", "return", "quarter turn", "flat sheet"],
+		"aspect": "2:1",
+		"alt_text": "On a ball, an arrow carried around a three-sided loop from the North Pole returns a quarter turn away from its start; on a flat sheet, an arrow carried around a square returns unchanged."
+	},
 	"variants": [
-		{ "form": "static-card", "description": "The octant loop on a ball with the base-point inset, showing a quarter turn. Serves as the fallback without WebGL and as a summary card." },
-		{ "form": "interactive-2d", "description": "Unrolled views of the tube and the cone, where carrying the arrow is plain sliding and the seam adds any turn." },
-		{ "form": "interactive-3d", "description": "The full experience on all surfaces, with presets, loop editing, reversal, radius changes, and scrubbing." }
+		{ "id": "static-card", "form": "static", "description": "The print figure as an SVG card, used when 3D is unavailable and as a summary card.", "fallback": true },
+		{ "id": "unrolled-2d", "form": "interactive-2d", "description": "Unrolled views of the tube and the cone, where carrying the arrow is plain sliding and the seam adds any turn.", "fallback": false },
+		{ "id": "full-3d", "form": "interactive-3d", "description": "The full experience on every surface, with presets, loop editing, reversal, radius changes, and scrubbing.", "fallback": false }
 	],
-	"interaction": [
-		{ "control": "Surface: plane, tube, ball, saddle, cone", "effect": "Controls first, then positive and negative curvature, then curvature concentrated at a tip." },
-		{ "control": "Presets: octant triangle, circle of latitude, two routes to one point", "effect": "Loads the canonical cases in one click." },
-		{ "control": "Drag vertices or sketch a free loop", "effect": "Area and shape change live; the turn updates when the loop is closed." },
-		{ "control": "Reverse direction", "effect": "The direction arrowhead and the sign of the turn flip together." },
-		{ "control": "Radius slider (ball)", "effect": "A triangle with fixed angles keeps its turn; a loop of fixed size in metres turns less on a bigger ball." },
-		{ "control": "Scrub along the loop", "effect": "Moves the arrow; the angle readout stays hidden until the loop closes." },
-		{ "control": "Unroll (tube and cone)", "effect": "Shows the flat sheet beside the surface." }
+	"params": [
+		{ "id": "surface", "label": "Surface", "type": "enum", "options": [{ "value": "plane", "label": "Flat floor" }, { "value": "tube", "label": "Tube" }, { "value": "ball", "label": "Ball" }, { "value": "saddle", "label": "Saddle" }, { "value": "cone", "label": "Cone" }], "min": null, "max": null, "step": null, "unit": null, "default": "ball", "effect": "Switches the surface; the loop is rebuilt on it." },
+		{ "id": "loop", "label": "Loop", "type": "enum", "options": [{ "value": "octant-triangle", "label": "North Pole triangle" }, { "value": "square", "label": "Square" }, { "value": "latitude-circle", "label": "Circle of latitude" }, { "value": "bracelet", "label": "Around the tube" }, { "value": "around-tip", "label": "Around the tip" }, { "value": "avoid-tip", "label": "Away from the tip" }, { "value": "two-routes", "label": "Two routes to one point" }, { "value": "free", "label": "Draw your own" }], "min": null, "max": null, "step": null, "unit": null, "default": "octant-triangle", "effect": "Chooses the loop shape; not every shape exists on every surface." },
+		{ "id": "direction", "label": "Walking direction", "type": "enum", "options": [{ "value": "counterclockwise", "label": "Turning left (counterclockwise from above)" }, { "value": "clockwise", "label": "Turning right (clockwise from above)" }], "min": null, "max": null, "step": null, "unit": null, "default": "counterclockwise", "effect": "Reverses the walk; arrowheads and the sign of the turn flip together." },
+		{ "id": "area-fraction", "label": "Loop size", "type": "number", "options": null, "min": 0.05, "max": 1, "step": 0.05, "unit": null, "default": 1, "effect": "Scales the fenced-off area relative to the chosen shape." },
+		{ "id": "radius", "label": "Ball radius", "type": "number", "options": null, "min": 0.5, "max": 10, "step": 0.5, "unit": "scene units", "default": 1, "effect": "Changes the ball's size; the loop keeps its angles." },
+		{ "id": "colatitude", "label": "Colatitude", "type": "number", "options": null, "min": 5, "max": 175, "step": 1, "unit": "deg", "default": 60, "effect": "Moves the circle of latitude, measured down from the North Pole." },
+		{ "id": "wedge-angle", "label": "Missing wedge", "type": "number", "options": null, "min": 0, "max": 300, "step": 5, "unit": "deg", "default": 60, "effect": "Sets the wedge removed to make the cone." },
+		{ "id": "windings", "label": "Times around the tip", "type": "integer", "options": null, "min": 1, "max": 4, "step": 1, "unit": null, "default": 1, "effect": "Repeats the loop around the cone's tip." },
+		{ "id": "progress", "label": "Walk progress", "type": "progress", "options": null, "min": 0, "max": 1, "step": 0.01, "unit": null, "default": 0, "effect": "Moves the arrow along the loop; readouts appear only at 1." },
+		{ "id": "unrolled", "label": "Unroll", "type": "boolean", "options": null, "min": null, "max": null, "step": null, "unit": null, "default": false, "effect": "Shows the flat sheet beside the tube or cone." },
+		{ "id": "path", "label": "Drawn loop", "type": "path", "options": null, "min": null, "max": null, "step": null, "unit": null, "default": null, "effect": "Vertices of a user-drawn loop when the loop is set to draw your own." }
+	],
+	"presets": [
+		{ "id": "octant", "label": "North Pole triangle", "state": { "surface": "ball", "loop": "octant-triangle", "direction": "counterclockwise" } },
+		{ "id": "octant-reversed", "label": "North Pole triangle, walked the other way", "state": { "surface": "ball", "loop": "octant-triangle", "direction": "clockwise" } },
+		{ "id": "octant-half-area", "label": "Half-size triangle", "state": { "surface": "ball", "loop": "octant-triangle", "area-fraction": 0.5 } },
+		{ "id": "latitude-circle", "label": "Circle of latitude", "state": { "surface": "ball", "loop": "latitude-circle", "colatitude": 60 } },
+		{ "id": "two-routes", "label": "Two routes to one point", "state": { "surface": "ball", "loop": "two-routes" } },
+		{ "id": "flat-square", "label": "Square on a flat floor", "state": { "surface": "plane", "loop": "square" } },
+		{ "id": "tube-bracelet", "label": "Around the tube", "state": { "surface": "tube", "loop": "bracelet" } },
+		{ "id": "tube-unrolled", "label": "Around the tube, unrolled", "state": { "surface": "tube", "loop": "bracelet", "unrolled": true } },
+		{ "id": "saddle-square", "label": "Square on a saddle", "state": { "surface": "saddle", "loop": "square" } },
+		{ "id": "cone-around-tip", "label": "Around the cone's tip", "state": { "surface": "cone", "loop": "around-tip", "wedge-angle": 60 } },
+		{ "id": "cone-avoid-tip", "label": "Away from the cone's tip", "state": { "surface": "cone", "loop": "avoid-tip", "wedge-angle": 60 } }
+	],
+	"readouts": [
+		{ "id": "turn", "label": "Turn", "unit": "deg", "visible_when": "on-complete", "say": "the arrow came back turned by {value} degrees" },
+		{ "id": "area", "label": "Fenced-off area", "unit": "scene units squared", "visible_when": "on-complete", "say": "the loop fences off an area of {value}" },
+		{ "id": "area-over-radius-squared", "label": "Area over radius squared", "unit": "rad", "visible_when": "on-complete", "say": "the area divided by the radius squared is {value}" },
+		{ "id": "angle-excess", "label": "Angle excess", "unit": "deg", "visible_when": "on-complete", "say": "the corners add up to {value} degrees more than half a turn" },
+		{ "id": "arrow-length", "label": "Arrow length", "unit": "scene units", "visible_when": "on-demand", "say": "the arrow's length is {value}" }
 	],
 	"tour": [
-		{ "show": "Ball with the octant loop from the North Pole down to the equator, a quarter of the way along it, and back. The arrow sits at the pole, pointing down the first path.", "say": "Here is a ball and a closed path. I will carry this arrow along the path, and I will never turn it." },
-		{ "show": "The arrow reaches the equator. The path turns left, and the arrow keeps pointing south.", "say": "At the corner I turn to follow the path. The arrow does not turn. It keeps pointing the way it was pointing." },
-		{ "show": "Back at the pole. The inset shows the starting arrow and the returned arrow, a right angle apart.", "say": "We are home. Compare the two arrows. The arrow has made a quarter turn, and nobody turned it." },
-		{ "show": "Switch to the flat plane and walk a square.", "say": "Now a walk on a flat floor, with four corners. The arrow comes back exactly as it left." },
-		{ "show": "Switch to the tube, walk a loop around it, then open the unrolled view.", "say": "A rolled-up tube looks curved, but the arrow comes back unturned. Unroll it and you see why. It is a flat sheet." },
-		{ "show": "Back on the ball, shrink the loop to half the area. The readout shows half the turn.", "say": "Fence in half as much of the ball, and the turn is half as big. The turn measures how much curving is inside the loop." }
+		{ "id": "meet-the-walk", "rung": "entry", "state": { "preset": "octant", "progress": 0 }, "animate": null, "await": "none", "predict": null, "show": "Ball with the three-stretch loop; the arrow at the North Pole points along the first stretch.", "say": "Here is a ball. The path starts at the top, goes straight to the middle line, runs a quarter of the way along it, and comes straight back to the top. I will carry this arrow along the path and never let it swing left or right.", "describe": "A ball with a three-sided path that starts at the top. A flat arrow sits at the top, pointing along the first side." },
+		{ "id": "predict-the-return", "rung": "entry", "state": { "preset": "octant", "progress": 0 }, "animate": null, "await": "prediction", "predict": "When the arrow gets back to the top, will it point the same way it points now?", "show": "Same view, paused.", "say": "Before we walk, make a guess. When the arrow gets back to the top, will it point the same way it points now?", "describe": "The arrow waits at the top of the ball, pointing along the first side of the path." },
+		{ "id": "first-stretch", "rung": "entry", "state": { "preset": "octant", "progress": 0 }, "animate": { "param": "progress", "to": 0.33, "seconds": 4 }, "await": "none", "predict": null, "show": "The arrow travels to the equator, pointing along the path.", "say": "On the first stretch, the arrow points straight ahead of the walker.", "describe": "The arrow moves from the top to the middle line, pointing along the path the whole way." },
+		{ "id": "first-corner", "rung": "entry", "state": { "preset": "octant", "progress": 0.33 }, "animate": { "param": "progress", "to": 0.67, "seconds": 5 }, "await": "none", "predict": null, "show": "At the corner the path turns left; the arrow keeps its direction and travels along the equator pointing to the walker's right.", "say": "At the corner, the walker turns left by a quarter turn. The arrow does not swing, so now it points to the walker's right. It keeps pointing right along the middle line.", "describe": "The path turns left along the middle line. The arrow now points to the right of the direction of travel." },
+		{ "id": "second-corner", "rung": "entry", "state": { "preset": "octant", "progress": 0.67 }, "animate": { "param": "progress", "to": 1, "seconds": 4 }, "await": "none", "predict": null, "show": "At the second corner the path turns left again; the arrow travels back to the pole pointing behind the walker.", "say": "At the next corner, the walker turns left again. Now the arrow points straight behind the walker, all the way back to the top.", "describe": "The path turns left toward the top. The arrow points backward along the path until it reaches the top." },
+		{ "id": "compare-at-home", "rung": "entry", "state": { "preset": "octant", "progress": 1 }, "animate": null, "await": "none", "predict": null, "show": "Inset at the pole: grey dashed start arrow and solid orange returned arrow, a right angle apart; turn readout shows 90 degrees.", "say": "We are back at the top. The grey dashed arrow shows how the arrow pointed when we left. The solid orange arrow shows how it points now. They are a quarter turn apart, yet the arrow never swung.", "describe": "Two arrows at the top of the ball, one dashed and one solid, at a right angle to each other. The readout says 90 degrees." },
+		{ "id": "flat-floor-control", "rung": "entry", "state": { "preset": "flat-square", "progress": 1 }, "animate": null, "await": "none", "predict": null, "show": "Square walk on the flat floor; the solid arrow lies exactly on the dashed one.", "say": "Now a square walk on a flat floor, with four corners. The solid arrow lands exactly on the dashed one. On a flat floor, the arrow comes back unturned.", "describe": "A square path on a flat floor. The start arrow and the returned arrow point the same way. The readout says 0 degrees." },
+		{ "id": "tube-control", "rung": "entry", "state": { "preset": "tube-unrolled", "progress": 1 }, "animate": null, "await": "none", "predict": null, "show": "Loop around the tube, with the unrolled sheet beside it; arrows on the sheet all point the same way.", "say": "A rolled-up tube looks curved, but a loop around it brings the arrow back unturned. Look at the unrolled sheet. Nothing stretched, and the arrow slides straight across the flat paper, so it did not turn on the tube either.", "describe": "A tube with a loop around it, and beside it the same paper laid flat. On the flat paper the loop is a straight line and every arrow copy points the same way." },
+		{ "id": "half-the-patch", "rung": "working", "state": { "preset": "octant-half-area", "progress": 1 }, "animate": null, "await": "none", "predict": null, "show": "A smaller triangle fencing off half the area; turn readout shows 45 degrees.", "say": "Now the loop fences off half as much of the ball, on our left as we walk. The turn is half as big, an eighth of a turn instead of a quarter.", "describe": "A smaller triangle on the ball. The readout says 45 degrees." }
 	],
 	"design_rules": [
-		{ "rule": "Never show a running angle while the arrow is moving.", "because": "Arrows at different places on a curved surface cannot be compared independently of the route; the turn exists only when the loop closes." },
-		{ "rule": "Keep the plane and the tube one click away from the ball.", "because": "Learners otherwise blame the corners, the walking rule, or mere bending for the turn." },
-		{ "rule": "Make reversal visibly symmetric: the same path, a mirrored direction arrowhead, and the opposite turn.", "because": "Many learners believe the direction of travel does not matter." },
-		{ "rule": "On the cone, make loops that miss the tip the easiest thing to draw.", "because": "Seeing them return unchanged, next to a loop around the tip that does not, is the whole lesson about flat regions and non-shrinkable loops." },
-		{ "rule": "Distinguish start and returned arrows by line style as well as colour.", "because": "Colour alone fails for colour-blind learners and in print." }
+		{ "id": "no-running-angle", "rule": "Never show a turn angle while the arrow is moving.", "because": "Arrows at different places on a curved surface cannot be compared independently of the route; the turn exists only when the loop closes.", "misconception": "holonomy/misconceptions/running-angle-halfway" },
+		{ "id": "controls-one-click-away", "rule": "Keep the flat floor and the tube one click away from the ball.", "because": "Learners otherwise blame the corners for the turn.", "misconception": "holonomy/misconceptions/corners-caused-the-turn" },
+		{ "id": "show-the-unrolled-tube", "rule": "Show the unrolled sheet beside the tube whenever the tube is on screen.", "because": "Seeing the flat sheet is what dissolves the belief that a tube must turn the arrow.", "misconception": "holonomy/misconceptions/tube-must-turn" },
+		{ "id": "symmetric-reversal", "rule": "Make reversal visibly symmetric: the same loop, mirrored arrowheads, and the opposite turn.", "because": "Many learners believe the walking direction does not matter.", "misconception": "holonomy/misconceptions/direction-does-not-matter" },
+		{ "id": "path-relative-narration", "rule": "Describe the arrow relative to the path (ahead, right, behind), never with compass words.", "because": "At the North Pole every direction is south, so compass words hide the turn and make the result sound contradictory.", "misconception": "holonomy/misconceptions/never-swung-so-never-turned" },
+		{ "id": "cone-miss-the-tip", "rule": "On the cone, make loops that avoid the tip the easiest thing to draw.", "because": "Seeing them return unchanged, next to a loop around the tip that does not, is the whole lesson about flat regions and loops that cannot be shrunk.", "misconception": "holonomy/misconceptions/flat-along-loop-means-no-turn" },
+		{ "id": "style-not-only-colour", "rule": "Distinguish the start and returned arrows by line style as well as colour.", "because": "Colour alone fails for colour-blind learners and in print.", "misconception": null }
 	],
 	"model": {
-		"summary": "The arrow is carried by integrating the parallel transport equation in the surface's own coordinates. The 3D arrow is drawn by mapping its components through the surface embedding, so the embedding never affects the physics.",
+		"summary": "The arrow is carried by integrating the transport equation in the surface's own coordinates. The 3D arrow is drawn by mapping its components through the surface embedding, so the embedding never affects the physics. The tube and cone use their unrolled flat charts, where transport is translation and the seam identification adds any rotation.",
 		"equations": [
-			"\\frac{dV^a}{ds} + \\Gamma^a{}_{bc}\\,\\frac{dx^b}{ds}\\,V^c = 0",
-			"\\Delta\\alpha = \\iint_S K\\,dA \\pmod{2\\pi}",
-			"\\text{sphere of radius } a:\\quad \\Delta\\alpha = A/a^2",
-			"\\text{cone with deficit angle } \\delta:\\quad \\Delta\\alpha = \\delta \\text{ for loops around the tip, } 0 \\text{ otherwise}"
+			{ "id": "transport-equation", "label": "Transport rule", "latex": "\\frac{dV^a}{ds} + \\Gamma^a{}_{bc}\\,\\frac{dx^b}{ds}\\,V^c = 0", "say": "along the path, the change in the arrow is set by the connection so that the arrow never swings", "conditions": "Surface coordinates; Levi-Civita connection of the surface metric." },
+			{ "id": "local-gauss-bonnet", "label": "Turn from enclosed curvature", "latex": "\\Delta\\alpha = \\iint_S K\\,dA \\pmod{2\\pi}", "say": "the turn equals the Gaussian curvature added up over the fenced-off region", "conditions": "Simple loop; region $S$ on the walker's left, containing no cone point or hole; positive in the sense of the walk." },
+			{ "id": "sphere-area-rule", "label": "Turn on a ball", "latex": "\\Delta\\alpha = A/a^2 \\pmod{2\\pi}", "say": "on a ball, the turn is the fenced-off area divided by the radius squared", "conditions": "Simple loop on a sphere of radius $a$." },
+			{ "id": "latitude-turn", "label": "Turn around a circle of latitude", "latex": "\\Delta\\alpha = 2\\pi(1 - \\cos\\theta_0) \\pmod{2\\pi}", "say": "around a circle of latitude, the turn is two pi times one minus the cosine of the colatitude", "conditions": "Walking east around the circle at colatitude $\\theta_0$." },
+			{ "id": "cone-turn", "label": "Turn around a cone's tip", "latex": "\\Delta\\alpha = n\\,\\delta", "say": "around a cone's tip, the turn is the number of windings times the missing wedge angle", "conditions": "Loop winding $n$ times around the tip of a cone made by removing a wedge of angle $\\delta$, in the sense of circulation; zero for loops that do not enclose the tip." }
 		],
-		"method": "Fourth-order Runge–Kutta in surface coordinates, switching to a rotated chart near coordinate poles. Great-circle legs are cross-checked against exact rotations. Gaussian curvature comes from the metric, and the enclosed curvature is integrated numerically for the readout. Tube and cone use their unrolled flat charts, where transport is translation and the seam identification adds any rotation.",
+		"method": "Fourth-order Runge–Kutta in surface coordinates, switching to a rotated chart near coordinate poles. Great-circle legs are cross-checked against exact rotations. The enclosed curvature for the readouts is integrated numerically from the metric.",
 		"tests": [
-			{ "case": "Octant triangle on a ball of any radius", "expected": "Turn of π/2 (90°), in the same sense as the circulation" },
-			{ "case": "Circle of latitude at colatitude 60°", "expected": "Turn of π (180°); generally 2π(1 − cos θ₀) modulo 2π" },
-			{ "case": "Any loop on the plane, and any loop on the tube including one around it", "expected": "Turn of 0" },
-			{ "case": "Cone with a 60° wedge removed, loop around the tip", "expected": "Turn of 60°; a loop not enclosing the tip gives 0" },
-			{ "case": "Same loop walked in reverse", "expected": "Exactly the negative turn" },
-			{ "case": "Arrow length along any loop", "expected": "Conserved to 1e-9 relative error" },
-			{ "case": "Small loop on the saddle", "expected": "Matches the numerically integrated curvature to 1e-4 rad, with the opposite sense to the circulation" }
+			{ "id": "octant-unit-radius", "state": { "preset": "octant" }, "expect": [{ "readout": "turn", "value": 90, "abs_tol": 1e-6, "rel_tol": null }, { "readout": "area-over-radius-squared", "value": 1.5707963268, "abs_tol": 1e-8, "rel_tol": null }, { "readout": "angle-excess", "value": 90, "abs_tol": 1e-6, "rel_tol": null }], "note": "Three right angles; one eighth of the sphere." },
+			{ "id": "octant-any-radius", "state": { "preset": "octant", "radius": 2.5 }, "expect": [{ "readout": "turn", "value": 90, "abs_tol": 1e-6, "rel_tol": null }], "note": "A triangle with fixed angles keeps its turn on a bigger ball." },
+			{ "id": "octant-reversed", "state": { "preset": "octant-reversed" }, "expect": [{ "readout": "turn", "value": -90, "abs_tol": 1e-6, "rel_tol": null }], "note": "The turn readout is positive counterclockwise, seen from outside the ball." },
+			{ "id": "half-area", "state": { "preset": "octant-half-area" }, "expect": [{ "readout": "turn", "value": 45, "abs_tol": 1e-6, "rel_tol": null }], "note": "Half the area gives half the turn." },
+			{ "id": "latitude-45", "state": { "preset": "latitude-circle", "colatitude": 45 }, "expect": [{ "readout": "turn", "value": 105.44155877, "abs_tol": 1e-4, "rel_tol": null }], "note": "Counterclockwise form of the same rotation as 254.56 degrees clockwise." },
+			{ "id": "flat-square", "state": { "preset": "flat-square" }, "expect": [{ "readout": "turn", "value": 0, "abs_tol": 1e-9, "rel_tol": null }], "note": "A flat floor never turns the arrow." },
+			{ "id": "tube-bracelet", "state": { "preset": "tube-bracelet" }, "expect": [{ "readout": "turn", "value": 0, "abs_tol": 1e-9, "rel_tol": null }], "note": "A tube is intrinsically flat, including loops that go around it." },
+			{ "id": "cone-around-tip", "state": { "preset": "cone-around-tip" }, "expect": [{ "readout": "turn", "value": 60, "abs_tol": 1e-6, "rel_tol": null }], "note": "Turn equals the wedge angle." },
+			{ "id": "cone-twice-around", "state": { "preset": "cone-around-tip", "windings": 2 }, "expect": [{ "readout": "turn", "value": 120, "abs_tol": 1e-6, "rel_tol": null }], "note": "Two windings give twice the wedge angle." },
+			{ "id": "cone-avoid-tip", "state": { "preset": "cone-avoid-tip" }, "expect": [{ "readout": "turn", "value": 0, "abs_tol": 1e-9, "rel_tol": null }], "note": "Loops that do not enclose the tip return unchanged." },
+			{ "id": "length-conserved", "state": { "preset": "latitude-circle", "colatitude": 30 }, "expect": [{ "readout": "arrow-length", "value": 1, "abs_tol": 1e-9, "rel_tol": null }], "note": "Transport preserves length." }
 		]
 	},
 	"serves": [
-		{ "concept": "parallel-transport", "uses": "the faded arrow copies and the no-turn rule" },
+		{ "concept": "parallel-transport", "uses": "the faded arrow copies and the no-swing rule" },
 		{ "concept": "path-dependence-of-parallel-transport", "uses": "the two-routes preset" },
-		{ "concept": "holonomy", "uses": "the returned arrow and the base-point inset" },
-		{ "concept": "gaussian-curvature", "uses": "the area readout on the ball and the saddle's opposite turn" },
-		{ "concept": "angular-excess", "uses": "the angle-sum readout for triangles" },
+		{ "concept": "holonomy", "uses": "the returned arrow, the base-point inset, and every control case" },
+		{ "concept": "gaussian-curvature", "uses": "the area readouts on the ball and the saddle's opposite turn" },
+		{ "concept": "angular-excess", "uses": "the angle-excess readout for triangles" },
 		{ "concept": "intrinsic-versus-extrinsic-curvature", "uses": "the tube and its unrolled view" },
 		{ "concept": "curvature-of-the-two-sphere", "uses": "the radius slider and the area over radius squared readout" },
-		{ "concept": "flatness-criterion", "uses": "the plane, tube, and cone controls" }
+		{ "concept": "flatness-criterion", "uses": "the flat floor, tube, and cone cases" }
 	],
 	"builds_on": ["slide-an-arrow-along-a-path"],
 	"leads_to": ["shrink-the-loop-to-find-riemann", "paper-cone-with-a-missing-wedge", "arrow-around-a-circle-of-latitude"],
 	"variant_of": null,
-	"accessibility": "Each tour beat has a spoken description of where the arrow points relative to the path: ahead, left, right, or behind. The returned turn is announced in degrees. Every control works from the keyboard, and the static card is the fallback when 3D is unavailable.",
+	"accessibility": {
+		"summary": "Every tour beat has a spoken description of where the arrow points relative to the path. The returned turn is announced in degrees. Start and returned arrows differ in line style as well as colour, and every control works from the keyboard.",
+		"static_alt": "On a ball, an arrow carried around a three-sided loop from the North Pole returns a quarter turn away from its start. On a flat floor and on a tube, arrows carried around loops return unchanged.",
+		"keyboard": [
+			{ "key": "Space", "action": "play or pause the walk" },
+			{ "key": "Left and Right arrows", "action": "scrub along the loop" },
+			{ "key": "R", "action": "reverse the walking direction" },
+			{ "key": "1 to 5", "action": "choose flat floor, tube, ball, saddle, or cone" },
+			{ "key": "U", "action": "unroll the tube or cone" }
+		]
+	},
 	"starting_material": {
 		"legacy_assets": ["scene-3d-parallel-transport-loop", "scene-3d-parallel-transport-two-routes", "figure-sphere-holonomy", "scene-3d-sphere-holonomy"],
-		"notes": "The earlier course's transport model and its checks can be ported almost unchanged as a TypeScript module, and the two-routes lab becomes a preset of this one. The octant SVG becomes the static card. New work: saddle and cone surfaces, the unrolled views, and the area readouts."
+		"notes": "The earlier course's transport model and its checks can be ported almost unchanged as a TypeScript module, and its two-routes lab becomes a preset of this visual. Its octant SVG becomes the static card. New work: saddle and cone surfaces, unrolled views, area readouts, and preset-driven state."
 	},
 	"provenance": {
 		"source_units": ["schutz/ch06", "gifted-amateur/ch11"],

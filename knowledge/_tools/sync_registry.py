@@ -42,7 +42,7 @@ def main(argv):
 				continue
 			d = json.loads(note.read_text())
 			r = d.get('review') or {}
-			if d.get('schema_version') != 2 or not (r.get('novice') and r.get('physics')):
+			if d.get('schema_version') != 2 or d.get('status') not in ('physics-reviewed', 'published') or not (r.get('novice') and r.get('physics')):
 				continue
 			wanted = [p['id'] for p in d['prerequisites'] if p['id'] in entries and p['id'] != c['id']]
 			if wanted == c['prerequisites']:
