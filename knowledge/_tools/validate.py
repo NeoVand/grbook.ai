@@ -1,18 +1,25 @@
 #!/usr/bin/env python3
-"""Validate knowledge-vault JSON against its schema, plus coverage and copying checks for chapter dossiers.
+"""Validate knowledge-vault JSON against its schema, plus content checks.
 
 Usage:
-  python3 knowledge/_tools/validate.py dossier <dossier.json> [...]
+  python3 knowledge/_tools/validate.py dossier <sources/<book>/chapters/<unit>.json> [...]
   python3 knowledge/_tools/validate.py concept <concepts/<domain>/<id>.json> [...]
+  python3 knowledge/_tools/validate.py visual <visuals/<id>.json> [...]
   python3 knowledge/_tools/validate.py schema <schema.json> <file.json> [...]
 
-Exit status: 0 clean, 1 schema errors, 2 warnings only (coverage gaps or copied source wording).
-Supports the JSON Schema subset used in knowledge/_schemas: type, enum, required, properties,
-additionalProperties, items, minItems, minLength, minimum, maximum, anyOf, and local $ref.
+Exit status: 0 clean, 1 schema errors, 2 warnings only. Lines starting "note:" are information and never change it.
+
+Dossiers: coverage against the source manifest, and copied source wording.
+Concept notes and visuals (knowledge/_meta/writing-guide.md): identifiers that resolve, rung coverage, the novice
+contract on entry-rung prose, unbalanced $ delimiters, mentions of the source books, and copied source wording.
+
+Supports the JSON Schema subset used in knowledge/_schemas: type, enum, required, properties, additionalProperties,
+items, minItems, minLength, pattern, minimum, maximum, anyOf, and local $ref.
 """
 import json
 import re
 import sys
+from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -64,8 +71,11 @@ def check(v, s, root, path, errs):
 		if 'items' in s:
 			for i, x in enumerate(v):
 				check(x, s['items'], root, f'{path}[{i}]', errs)
-	if isinstance(v, str) and len(v) < s.get('minLength', 0):
-		errs.append(f'{path}: shorter than {s["minLength"]} characters')
+	if isinstance(v, str):
+		if len(v) < s.get('minLength', 0):
+			errs.append(f'{path}: shorter than {s["minLength"]} characters')
+		if 'pattern' in s and not re.search(s['pattern'], v):
+			errs.append(f'{path}: {v!r} does not match {s["pattern"]}')
 	if is_type(v, 'number'):
 		if 'minimum' in s and v < s['minimum']:
 			errs.append(f'{path}: below minimum {s["minimum"]}')
@@ -109,12 +119,12 @@ def pdf_pages(obj, skip=('cross_references',)):
 			yield from pdf_pages(v, skip)
 
 
-def dossier_warnings(d):
+def dossier_warnings(d, path):
 	warns = []
 	manifest = json.loads((SRC / '_chapters' / d['book'] / 'manifest.json').read_text())
 	unit = next((u for u in manifest['units'] if u['id'] == d['unit_id']), None)
 	if not unit:
-		return [f'unit "{d["unit_id"]}" is not in the {d["book"]} manifest']
+		return [f'unit "{d["unit_id"]}" is not in the {d["book"]} manifest'], []
 	toc = json.loads((KB / 'sources' / d['book'] / 'toc.json').read_text())
 	toc_unit = next((u for u in toc['units'] if u['id'] == d['unit_id']), {})
 	lo, hi = unit['pdf_pages']
@@ -160,94 +170,302 @@ def dossier_warnings(d):
 		warns.append(
 			f'{len(copied)} prose fields repeat {SHINGLE}+ consecutive source words; paraphrase them: ' + '; '.join(copied[:12])
 		)
+	return warns, []
+
+
+# ---- Concept notes and visuals ------------------------------------------------------------------------------
+
+BOOKS = ('schutz', 'gifted-amateur', 'dinverno')
+KEBAB = re.compile(r'^[a-z0-9]+(-[a-z0-9]+)*$')
+NOTE_SKIP = {'latex', 'equations', 'provenance', 'review', 'id', 'assumes', 'symbol', 'schema_version'}
+BOOKISH = [
+	re.compile(r"\b(Schutz|Blundell|Lancaster|d['’]\s?Inverno|Vickers|Gifted Amateur)\b", re.I),
+	re.compile(r'\b(SCH|GA|DIV)\s+(ch\d|app[A-E]|§|Ex|Fig|Box|p\.)'),
+	re.compile(r'\blegacy:[a-z0-9-]+'),
+	re.compile(r'§\s?\d'),
+	re.compile(r'\bpp?\.\s?\d+'),
+	re.compile(r'\b(Exercise|Example|Problem|Figure|Fig\.|Box|Table|Section|Chapter|Eq\.|Equation)s?\s\(?\d+[.-]\d+', re.I),
+	re.compile(r'\b(one|another|each|this|that|the|our)\s+(popular\s+|standard\s+)?textbooks?\b|\bthe\s+authors?\b|\b(in|from|by)\s+the\s+book\b', re.I),
+]
+MATH = re.compile(r'\$\$.+?\$\$|\$[^$]+?\$', re.S)
+HEDGE = re.compile(
+	r'\b(clearly|obviously|trivially|evidently|it is easy to see|of course|needless to say|as is well known|recall that|it follows immediately)\b',
+	re.I,
+)
+# Technical words the entry rung must define in its glossary if it uses them (writing guide §3 rule 4).
+TECHNICAL = [
+	'vector', 'tangent', 'coordinate', 'metric', 'tensor', 'geodesic', 'invariant', 'manifold', 'curvature', 'component',
+	'derivative', 'spacetime', 'worldline', 'proper time', 'inertial', 'parallel transport', 'holonomy', 'scalar',
+	'basis', 'covariant', 'contravariant', 'index', 'indices', 'integral', 'gradient', 'divergence', 'flux', 'topology',
+	'singularity', 'redshift', 'stress-energy', 'energy-momentum', 'gauge', 'intrinsic', 'extrinsic', 'tidal',
+	'Christoffel', 'Riemann', 'Ricci', 'Lorentz', 'Gaussian', 'eigenvalue', 'four-vector', 'reference frame',
+]
+
+
+@lru_cache(maxsize=None)
+def registry_entries():
+	out = {}
+	for f in (KB / 'concepts').glob('*/_registry.json'):
+		for c in json.loads(f.read_text())['concepts']:
+			out[c['id']] = (f.parent.name, c)
+	return out
+
+
+@lru_cache(maxsize=None)
+def legacy_ids():
+	return frozenset(a['id'] for f in (KB / 'sources' / 'legacy').glob('*.json') for a in json.loads(f.read_text()).get('assets', []))
+
+
+@lru_cache(maxsize=None)
+def unit_shingles(book, unit):
+	f = SRC / '_chapters' / book / f'{unit}.md'
+	if not f.exists():
+		return frozenset()
+	ws = words(f.read_text(errors='replace'))
+	return frozenset(' '.join(ws[i : i + SHINGLE]) for i in range(len(ws) - SHINGLE + 1))
+
+
+def strings(obj, skip, path='$'):
+	if isinstance(obj, dict):
+		for k, v in obj.items():
+			if k not in skip:
+				yield from strings(v, skip, f'{path}.{k}')
+	elif isinstance(obj, list):
+		for i, v in enumerate(obj):
+			yield from strings(v, skip, f'{path}[{i}]')
+	elif isinstance(obj, str):
+		yield path, obj
+
+
+def plain(s):
+	return MATH.sub(' X ', s)
+
+
+def sentence_lengths(s):
+	parts = re.split(r'(?<=[.!?])\s+|\n+', plain(s).strip())
+	return [n for n in (len(re.findall(r"[A-Za-z0-9][A-Za-z0-9'’-]*", p)) for p in parts) if n]
+
+
+def novice_warnings(label, text, max_math=3):
+	warns = []
+	lens = sentence_lengths(text)
+	long = [n for n in lens if n > 32]
+	if long:
+		warns.append(f'{label}: {len(long)} sentence(s) over 32 words ({max(long)} max); the novice contract needs short sentences')
+	if len(lens) >= 3 and sum(lens) / len(lens) > 20:
+		warns.append(f'{label}: average sentence is {sum(lens) / len(lens):.0f} words; aim for 20 or fewer')
+	hedges = sorted({h.lower() for h in HEDGE.findall(text)})
+	if hedges:
+		warns.append(f'{label}: remove {hedges}')
+	n = len(MATH.findall(text))
+	if n > max_math:
+		warns.append(f'{label}: {n} math expressions; the entry rung allows {max_math}, each read out in words')
 	return warns
 
 
-REF = re.compile(r'^(?:(SCH|GA|DIV) (ch\d{2}|app[A-E]|front)\b.*|legacy:([a-z0-9-]+).*)$')
-BOOK_OF = {'SCH': 'schutz', 'GA': 'gifted-amateur', 'DIV': 'dinverno'}
+def common_lints(d):
+	warns = []
+	for path, s in strings(d, NOTE_SKIP):
+		if s.replace('\\$', '').count('$') % 2:
+			warns.append(f'{path}: unbalanced $ math delimiters')
+		for rx in BOOKISH:
+			m = rx.search(s)
+			if m:
+				warns.append(f'{path}: mentions a source book or locator ("{m.group(0)}"); write in our own voice, sources go in provenance only')
+				break
+	return warns
 
 
-def registry_ids():
-	ids = {}
-	for f in (KB / 'concepts').glob('*/_registry.json'):
-		for c in json.loads(f.read_text())['concepts']:
-			ids[c['id']] = f.parent.name
-	return ids
+def copy_warnings(d, units):
+	shingles = set()
+	for book, unit in units:
+		shingles |= unit_shingles(book, unit)
+	hits = []
+	for path, s in strings(d, NOTE_SKIP):
+		ws = words(s)
+		for i in range(len(ws) - SHINGLE + 1):
+			if ' '.join(ws[i : i + SHINGLE]) in shingles:
+				hits.append(f'{path}: "{" ".join(ws[i:i + SHINGLE])} ..."')
+				break
+	return [f'{len(hits)} fields repeat {SHINGLE}+ consecutive words from a source; rewrite them in your own words: ' + '; '.join(hits[:12])] if hits else []
 
 
-def legacy_ids():
-	return {a['id'] for f in (KB / 'sources' / 'legacy').glob('*.json') for a in json.loads(f.read_text()).get('assets', [])}
-
-
-def refs(obj):
-	if isinstance(obj, dict):
-		for k, v in obj.items():
-			if k in ('refs', 'inspired_by') and isinstance(v, list):
-				yield from (x for x in v if isinstance(x, str))
-			else:
-				yield from refs(v)
-	elif isinstance(obj, list):
-		for v in obj:
-			yield from refs(v)
+def provenance_units(prov, warns):
+	units = set()
+	for u in prov.get('source_units', []):
+		book, _, unit = u.partition('/')
+		if book not in BOOKS or not (SRC / '_chapters' / book / f'{unit}.md').exists():
+			warns.append(f'provenance source unit "{u}" does not exist (format book/unit, e.g. schutz/ch06)')
+		else:
+			units.add((book, unit))
+	return units
 
 
 def concept_warnings(d, path):
-	warns = []
-	ids, legacy = registry_ids(), legacy_ids()
+	warns, notes = [], []
+	reg, legacy = registry_entries(), legacy_ids()
+	cid, p = d['id'], Path(path)
+	if p.stem != cid:
+		warns.append(f'file name should be {cid}.json')
+	if cid not in reg:
+		warns.append(f'id "{cid}" is not in any _registry.json')
+	elif reg[cid][0] != d['domain'] or p.parent.name != d['domain']:
+		warns.append(f'domain should be "{reg[cid][0]}" and the file should live in concepts/{reg[cid][0]}/')
+	elif reg[cid][1]['tier'] != d['tier']:
+		warns.append(f'tier should be "{reg[cid][1]["tier"]}" as in the registry')
+
+	def known(where, i):
+		if i not in reg:
+			warns.append(f'{where}: "{i}" is not a registry concept id')
+
+	pre = [x['id'] for x in d['prerequisites']]
+	for i in pre:
+		known('prerequisites', i)
+	for x in d['leads_to']:
+		known('leads_to', x['id'])
+	for x in d['related']:
+		known('related', x['id'])
+	if cid in pre:
+		warns.append('a concept cannot be its own prerequisite')
+	both = set(pre) & {x['id'] for x in d['leads_to']}
+	if both:
+		warns.append(f'ids in both prerequisites and leads_to: {sorted(both)}')
+
+	ways = d['ways_in']
+	way_ids = [w['id'] for w in ways]
+	if len(set(way_ids)) != len(way_ids):
+		warns.append('ways_in ids must be unique')
+	for w in ways:
+		for a in w['assumes']:
+			known(f'ways_in[{w["id"]}].assumes', a)
+	rungs = {w['rung'] for w in ways}
+	for r in ('entry', 'working', 'formal'):
+		if r not in rungs:
+			warns.append(f'ways_in needs at least one "{r}" way')
+	if d['tier'] in ('advanced', 'frontier') and 'research' not in rungs and not d['research_horizon']:
+		warns.append('advanced and frontier notes need a research way or research_horizon entries')
+	check_rungs = {c['rung'] for c in d['checks']}
+	for r in ('entry', 'working', 'formal'):
+		if r not in check_rungs:
+			warns.append(f'checks need at least one "{r}" question')
+	beliefs = {m['belief'] for m in d['misconceptions']}
+	for c in d['checks']:
+		t = c.get('targets_misconception')
+		if t and t not in beliefs:
+			warns.append(f'checks: targets_misconception "{t[:70]}" does not exactly match any misconception belief')
+	if d['misconceptions'] and not any(c.get('targets_misconception') for c in d['checks']):
+		warns.append('at least one check should target a misconception')
+	if d['tier'] in ('foundation', 'core') and not d['worked_examples']:
+		warns.append('foundation and core notes need at least one worked example')
+
+	vis = {v['id'] for v in d['visuals']}
+	for v in d['visuals']:
+		if not KEBAB.match(v['id']):
+			warns.append(f'visual id "{v["id"]}" must be kebab-case')
+		elif not (KB / 'visuals' / f'{v["id"]}.json').exists():
+			if v.get('sketch'):
+				notes.append(f'visual "{v["id"]}" is proposed (not in knowledge/visuals/ yet)')
+			else:
+				warns.append(f'visual "{v["id"]}" is not in knowledge/visuals/; give it a sketch')
+	for w in ways:
+		missing = [x for x in w['visuals'] if x not in vis]
+		if missing:
+			warns.append(f'ways_in[{w["id"]}].visuals are not listed in visuals[]: {missing}')
+
+	for e in d['key_equations']:
+		if '$' in e['say_aloud'] or '\\' in e['say_aloud']:
+			warns.append(f'key_equations[{e["name"]}].say_aloud must be plain words, not LaTeX')
+	for h in d['history']:
+		if not re.match(r'^(c\. )?\d{3,4}s?([–-]\d{2,4})?$', h['year']):
+			warns.append(f'history year "{h["year"]}" should look like 1915, 1915–1916, or 1920s')
+
+	entry_text = [('summary', d['summary'], 1)] + [(f'ways_in[{w["id"]}]', w['explanation'], 3) for w in ways if w['rung'] == 'entry']
+	entry_text += [('checks(entry)', c['question'] + '\n' + c['answer'], 3) for c in d['checks'] if c['rung'] == 'entry']
+	entry_text += [(f'glossary[{g["term"]}]', g['plain_definition'], 1) for g in d['glossary']]
+	for label, text, max_math in entry_text:
+		warns += novice_warnings(label, text, max_math)
+	for w in ways:
+		if w['rung'] == 'entry':
+			n = len(words(plain(w['explanation'])))
+			if n < 120:
+				warns.append(f'ways_in[{w["id"]}]: entry explanation has {n} words; be explicit enough that a beginner cannot get lost (120+)')
+			elif n > 750:
+				warns.append(f'ways_in[{w["id"]}]: entry explanation has {n} words; split it into two ways')
+	terms = ' | '.join(g['term'].lower() for g in d['glossary'])
+	entry_blob = ' '.join(plain(t) for label, t, _ in entry_text if not label.startswith('glossary')).lower()
+	undefined = [t for t in TECHNICAL if re.search(rf'\b{re.escape(t.lower())}(s|es)?\b', entry_blob) and t.lower() not in terms]
+	if undefined:
+		warns.append(f'entry rung uses technical words the glossary does not define: {undefined}')
+
+	units = provenance_units(d['provenance'], warns)
+	for a in d['provenance']['legacy_assets']:
+		if a not in legacy:
+			warns.append(f'provenance legacy asset "{a}" does not exist')
+	if cid in reg:
+		units |= {(s['book'], s['unit']) for s in reg[cid][1]['sources'] if s['book'] in BOOKS}
+	warns += common_lints(d)
+	warns += copy_warnings(d, units)
+
+	total = sum(len(words(plain(s))) for _, s in strings(d, NOTE_SKIP))
+	if total > 5000:
+		warns.append(f'note has {total} words; remove repetition (target 1,200-3,500)')
+	notes.append(f'{total} words; rungs {sorted(rungs)}; {len(d["checks"])} checks; {len(vis)} visuals')
+	return warns, notes
+
+
+def visual_warnings(d, path):
+	warns, notes = [], []
+	reg, legacy = registry_entries(), legacy_ids()
 	if Path(path).stem != d['id']:
 		warns.append(f'file name should be {d["id"]}.json')
-	if d['id'] not in ids:
-		warns.append(f'id "{d["id"]}" is not in any _registry.json')
-	elif ids[d['id']] != d['domain'] or Path(path).parent.name != d['domain']:
-		warns.append(f'domain should be "{ids[d["id"]]}" and the file should live in concepts/{ids[d["id"]]}/')
-	for key in ('prerequisites', 'leads_to', 'related'):
-		for link in d.get(key, []):
-			if link['id'] not in ids:
-				warns.append(f'{key} id "{link["id"]}" is not in the registry')
-	for lvl in d['levels'].values():
-		for a in lvl.get('assumes', []):
-			if a not in ids:
-				warns.append(f'levels.assumes id "{a}" is not in the registry')
-	cited_units = set()
-	for r in refs(d):
-		m = REF.match(r)
-		if not m:
-			warns.append(f'reference "{r}" does not look like "SCH ch05 §5.3 p.125" or "legacy:<asset-id>"')
-		elif m.group(3) and m.group(3) not in legacy:
-			warns.append(f'legacy asset "{m.group(3)}" does not exist')
-		elif m.group(1):
-			cited_units.add((BOOK_OF[m.group(1)], m.group(2)))
-	for s in d['sources']:
-		if s['source'] != 'legacy':
-			cited_units.add((s['source'], s['unit']))
-	source_words = []
-	for book, unit in sorted(cited_units):
-		f = SRC / '_chapters' / book / f'{unit}.md'
-		if f.exists():
-			source_words.append(words(f.read_text(errors='replace')))
-	shingles = {' '.join(ws[i : i + SHINGLE]) for ws in source_words for i in range(len(ws) - SHINGLE + 1)}
-	copied = []
-	for key, text in prose(d):
-		ws = words(text)
-		for i in range(len(ws) - SHINGLE + 1):
-			if ' '.join(ws[i : i + SHINGLE]) in shingles:
-				copied.append(f'{key}: "{" ".join(ws[i:i + SHINGLE])} ..."')
-				break
-	if copied:
-		warns.append(f'{len(copied)} prose fields repeat {SHINGLE}+ consecutive words from cited source units; paraphrase: ' + '; '.join(copied[:12]))
-	return warns
+	for s in d['serves']:
+		if s['concept'] not in reg:
+			warns.append(f'serves: "{s["concept"]}" is not a registry concept id')
+	links = [('builds_on', v) for v in d['builds_on']] + [('leads_to', v) for v in d['leads_to']]
+	if d['variant_of']:
+		links.append(('variant_of', d['variant_of']))
+	for key, v in links:
+		if not KEBAB.match(v):
+			warns.append(f'{key}: "{v}" must be a kebab-case visual id')
+		elif not (KB / 'visuals' / f'{v}.json').exists():
+			notes.append(f'{key} "{v}" is not in the catalog yet')
+	if d['kind'] != 'static-figure' and not d['model']['tests']:
+		warns.append('interactive, animated, and plotted visuals need model tests')
+	if 'entry' in d['rungs']:
+		warns += novice_warnings('picture.caption', d['picture']['caption'], 0)
+		for i, b in enumerate(d['tour']):
+			warns += novice_warnings(f'tour[{i}].say', b['say'], 0)
+	for i, b in enumerate(d['tour']):
+		if '\\' in b['say']:
+			warns.append(f'tour[{i}].say must be spoken words, not LaTeX')
+	for a in d['starting_material']['legacy_assets']:
+		if a not in legacy:
+			warns.append(f'starting_material legacy asset "{a}" does not exist')
+	units = provenance_units(d['provenance'], warns)
+	for img in d['provenance']['figure_images']:
+		if not (SRC / img).exists():
+			warns.append(f'provenance figure image "{img}" does not exist under book-sources/')
+	warns += common_lints(d)
+	warns += copy_warnings(d, units)
+	return warns, notes
+
+
+MODES = {
+	'dossier': ('chapter-dossier.schema.json', dossier_warnings),
+	'concept': ('concept-note.schema.json', concept_warnings),
+	'visual': ('visual.schema.json', visual_warnings),
+}
 
 
 def main(argv):
-	if len(argv) < 3 or argv[1] not in ('dossier', 'schema', 'concept'):
+	if len(argv) < 3 or argv[1] not in (*MODES, 'schema'):
 		print(__doc__)
 		return 1
-	if argv[1] == 'dossier':
-		schema_path, files = KB / '_schemas' / 'chapter-dossier.schema.json', argv[2:]
-	elif argv[1] == 'concept':
-		schema_path, files = KB / '_schemas' / 'concept-note.schema.json', argv[2:]
+	if argv[1] == 'schema':
+		schema_path, files, extra = Path(argv[2]), argv[3:], None
 	else:
-		schema_path, files = Path(argv[2]), argv[3:]
+		name, extra = MODES[argv[1]]
+		schema_path, files = KB / '_schemas' / name, argv[2:]
 	schema = json.loads(Path(schema_path).read_text())
 	status = 0
 	for f in files:
@@ -258,20 +476,17 @@ def main(argv):
 			status = 1
 			continue
 		errs = _errors(data, schema, schema, '$')
-		warns = []
-		if not errs and argv[1] == 'dossier':
-			warns = dossier_warnings(data)
-		elif not errs and argv[1] == 'concept':
-			warns = concept_warnings(data, f)
-		label = 'OK' if not errs and not warns else ('ERRORS' if errs else 'WARNINGS')
-		print(f'{label} {f}')
+		warns, notes = extra(data, f) if extra and not errs else ([], [])
+		print(f"{'ERRORS' if errs else 'WARNINGS' if warns else 'OK'} {f}")
 		for e in errs[:60]:
 			print('  error:', e)
 		if len(errs) > 60:
 			print(f'  ... {len(errs) - 60} more errors')
 		for w in warns:
 			print('  warning:', w)
-		status = max(status, 1 if errs else (2 if warns else 0)) if status != 1 else 1
+		for n in notes:
+			print('  note:', n)
+		status = 1 if errs or status == 1 else max(status, 2 if warns else 0)
 	return status
 
 

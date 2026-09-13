@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Split the concept registry into batches for knowledge/_workflows/gr-concept-notes-batch.js.
+"""Split registry concepts into batches for knowledge/_workflows/gr-concept-notes-v2.js.
 
-Usage: python3 knowledge/_tools/make_note_batches.py [--per-run 25] [--all]
+Usage: python3 knowledge/_tools/make_note_batches.py [--domain <id>] [--per-batch 4] [--all]
 
-Batches hold concepts of one domain, in registry (learning) order: 3 per batch for prerequisite, foundation, and core
-concepts; 5 per batch for advanced and frontier ones. Concepts that already have a reviewed note are skipped unless
---all is given. Prints a size summary, then one Workflow args object per line with at most --per-run batches each.
+Batches hold concepts of one domain in registry (learning) order. Concepts whose note is already schema v2 with both
+the novice and physics reviews are skipped unless --all is given. Without --domain, every domain is listed in
+taxonomy order. Prints a summary line, then one Workflow args object per domain.
 """
 import json
 import sys
@@ -13,42 +13,39 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CONCEPTS = ROOT / 'knowledge' / 'concepts'
-SMALL = {'prerequisite', 'foundation', 'core'}
+
+
+def reviewed(note):
+	try:
+		d = json.loads(note.read_text())
+	except (OSError, json.JSONDecodeError):
+		return False
+	r = d.get('review') or {}
+	return d.get('schema_version') == 2 and bool(r.get('novice')) and bool(r.get('physics'))
 
 
 def main(argv):
-	per_run = int(argv[argv.index('--per-run') + 1]) if '--per-run' in argv else 25
+	size = int(argv[argv.index('--per-batch') + 1]) if '--per-batch' in argv else 4
+	only = argv[argv.index('--domain') + 1] if '--domain' in argv else None
 	taxonomy = json.loads((CONCEPTS / '_taxonomy.json').read_text())
-	order = [d['id'] for d in sorted(taxonomy['domains'], key=lambda d: d['order'])]
-	batches, total, done = [], 0, 0
-	for domain in order:
-		registry_file = CONCEPTS / domain / '_registry.json'
-		if not registry_file.exists():
-			continue
-		pending = {'small': [], 'large': []}
-		for c in json.loads(registry_file.read_text())['concepts']:
+	domains = [d['id'] for d in sorted(taxonomy['domains'], key=lambda d: d['order']) if not only or d['id'] == only]
+	runs, total, done = [], 0, 0
+	for domain in domains:
+		concepts = json.loads((CONCEPTS / domain / '_registry.json').read_text())['concepts']
+		pending = []
+		for c in concepts:
 			total += 1
-			note = CONCEPTS / domain / f"{c['id']}.json"
-			if note.exists() and '--all' not in argv:
-				try:
-					if json.loads(note.read_text()).get('review'):
-						done += 1
-						continue
-				except json.JSONDecodeError:
-					pass
-			pending['small' if c['tier'] in SMALL else 'large'].append(c['id'])
-		for kind, size in (('small', 3), ('large', 5)):
-			ids = pending[kind]
-			# Advanced and frontier concepts get compact, self-reviewed notes (one agent, no separate review).
-			batches += [{'domain': domain, 'ids': ids[i : i + size], 'compact': kind == 'large'} for i in range(0, len(ids), size)]
-	agents = sum(1 if b['compact'] else 2 for b in batches)
-	compact = sum(1 for b in batches if b['compact'])
-	print(
-		f'{total} concepts, {done} with reviewed notes, {len(batches)} batches to run '
-		f'({len(batches) - compact} full, {compact} compact; {agents} agents), {-(-len(batches) // per_run)} runs'
-	)
-	for i in range(0, len(batches), per_run):
-		print(json.dumps({'name': f'concept-notes-{i // per_run + 1}', 'max_agents': 5, 'batches': batches[i : i + per_run]}))
+			if '--all' not in argv and reviewed(CONCEPTS / domain / f"{c['id']}.json"):
+				done += 1
+			else:
+				pending.append(c['id'])
+		if pending:
+			batches = [{'domain': domain, 'ids': pending[i : i + size]} for i in range(0, len(pending), size)]
+			runs.append({'name': f'notes-{domain}', 'max_agents': 5, 'batches': batches})
+	batches = sum(len(r['batches']) for r in runs)
+	print(f'{total} concepts, {done} reviewed, {total - done} pending in {batches} batches ({3 * batches} agents), {len(runs)} domain runs')
+	for r in runs:
+		print(json.dumps(r))
 	return 0
 
 

@@ -1,7 +1,10 @@
 # grbook.ai knowledge vault
 
-The teaching knowledge behind grbook.ai: what general relativity contains, how three well-regarded textbooks
-teach it, and how we intend to teach it. It serves three readers:
+The teaching knowledge behind grbook.ai: a network of general relativity concepts, each explained on a depth
+ladder from a first encounter to research, and a network of visuals that explain them. We learned how to teach
+from three well-regarded textbooks and the author's earlier course; that study is internal scaffolding under
+`sources/`, and the concept notes and visuals never mention it. How to write: `_meta/writing-guide.md`.
+It serves three readers:
 
 1. **Authors** writing the new course, its lessons, and its interactive demonstrations.
 2. **The AI tutor**, which retrieves concepts, prerequisites, analogies, misconceptions, and demos while it teaches.
@@ -53,7 +56,8 @@ knowledge/
     chapters/<unit>.md          rendered note (generated; do not edit)
   sources/legacy/               inventory of the earlier "General Relativity, From the Inside Out" project
     <group>.json, overview.md   manuscript, lessons, labs, figures, app code, reviews; reuse verdicts
-  concepts/<domain>/<id>.md     one atomic note per concept, comparing how each book teaches it (later phase)
+  concepts/<domain>/<id>.json   one note per concept on the depth ladder (schema v2; .md rendered)
+  visuals/<id>.json             the visual network: diagrams, widgets, animations, 3D demos (.md rendered)
   curriculum/                   union syllabus, prerequisite graph, learning paths (later phase)
   pedagogy/                     analogies, misconceptions, thought experiments, demos, worked examples (later phase)
   notation/                     sign conventions and symbol crosswalk across the books (later phase)
@@ -67,8 +71,8 @@ knowledge/
 | 0. Source manifests | `sources/<book>/toc.json`, reading copies and inventories in `book-sources/_chapters/` | done |
 | 1. Chapter dossiers | 94 units read and independently verified (PDF renders for export losses); book profiles | done |
 | 1b. Legacy inventory | 336 assets with reuse verdicts; `sources/legacy/overview.md` ranks what to carry forward | done |
-| 2. Concept union | registry done (1,370 concepts in 24 domains, 0 check errors); concept notes next | in progress |
-| 3. Pedagogy catalogs | notation crosswalk, analogies, misconceptions, demos from figures, examples, history, glossary | planned |
+| 2. Concept union | registry done (1,370 concepts in 24 domains, 0 check errors) | done |
+| 3. Concept notes and visuals | standard v2 (`_meta/writing-guide.md`); notes per domain with novice and physics reviews; visual network | in progress |
 | 4. Curriculum | cross-book sequencing, prerequisite DAG, modules and lessons at several entry levels | planned |
 | 5. Tutor layer | generated indices, retrieval functions, learner-memory schema, completeness review | planned |
 

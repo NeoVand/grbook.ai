@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Render concept note JSON into vault markdown, and write per-domain _index.md files.
+"""Render concept note JSON (schema v2) into vault markdown, and write the concept _index.md files.
 
 Usage:
   python3 knowledge/_tools/render_concept.py <concepts/<domain>/<id>.json> [...]
   python3 knowledge/_tools/render_concept.py --indexes
-The JSON is the source of truth; never edit generated .md files by hand.
+The JSON is the source of truth; never edit generated .md files by hand. Provenance is internal and is not rendered.
 """
 import json
 import sys
@@ -14,153 +14,170 @@ ROOT = Path(__file__).resolve().parents[2]
 KB = ROOT / 'knowledge'
 
 
-def bullets(items):
-	return '\n'.join(f'- {x}' for x in items) if items else '_None recorded._'
+def cell(s):
+	return str(s if s is not None else '—').replace('|', '\\|').replace('\n', ' ')
 
 
-def refs(rs):
-	return f" *({'; '.join(rs)})*" if rs else ''
-
-
-def link(l):
-	return f"[[{l['id']}]] — {l['why']}"
+def numbered(items):
+	return '\n'.join(f'{i}. {x}' for i, x in enumerate(items, 1))
 
 
 def render(d):
-	o = ['---']
+	review = d.get('review') or {}
 	front = dict(
 		type='concept',
+		schema_version=d['schema_version'],
 		id=d['id'],
 		title=d['title'],
 		domain=d['domain'],
 		tier=d['tier'],
-		aliases=d.get('aliases', []),
-		prerequisites=[l['id'] for l in d['prerequisites']],
-		leads_to=[l['id'] for l in d['leads_to']],
-		sources=sorted({f"{s['source']}:{s['unit']}" for s in d['sources']}),
-		review=(d.get('review') or {}).get('verdict'),
+		aliases=d['aliases'],
+		prerequisites=[p['id'] for p in d['prerequisites']],
+		leads_to=[x['id'] for x in d['leads_to']],
+		visuals=[v['id'] for v in d['visuals']],
+		review={k: v['verdict'] for k, v in review.items()},
 	)
-	o += [f'{k}: {json.dumps(v, ensure_ascii=False)}' for k, v in front.items()]
-	o += ['---', '', f"# {d['title']}", '', f"> {d['summary']}", '']
+	o = ['---', *(f'{k}: {json.dumps(v, ensure_ascii=False)}' for k, v in front.items()), '---', '']
+	o += [f"# {d['title']}", '', f"`{d['id']}` · {d['domain']} · {d['tier']}", '']
+	needs = ' · '.join(f"[[{p['id']}]] ({p['needed_for']})" for p in d['prerequisites'])
+	o.append(f"**Needs:** {needs or 'nothing beyond everyday experience'}  ")
+	if d['leads_to']:
+		o.append('**Opens:** ' + ' · '.join(f"[[{x['id']}]]" for x in d['leads_to']) + '  ')
+	if d['related']:
+		o.append('**Related:** ' + ' · '.join(f"[[{x['id']}]] ({x['relation']})" for x in d['related']) + '  ')
+	if d['visuals']:
+		o.append('**Visuals:** ' + ' · '.join(('★ ' if v['priority'] == 'flagship' else '') + f"[[{v['id']}]]" for v in d['visuals']))
+	o += ['', f"> {d['summary']}", '', '## Ways in', '']
 
-	o.append('## Explanations by level\n')
-	for name in ('intuition', 'working', 'formal'):
-		lvl = d['levels'][name]
-		o.append(f'### {name.capitalize()}\n')
-		o.append(lvl['explanation'] + '\n')
-		if lvl.get('picture'):
-			o.append(f"**Picture to hold:** {lvl['picture']}\n")
-		if lvl.get('assumes'):
-			o.append('**Assumes:** ' + ', '.join(f'[[{a}]]' for a in lvl['assumes']) + '\n')
+	for i, w in enumerate(d['ways_in'], 1):
+		o += [f"### {i}. {w['title']} · {w['rung']}", '', w['explanation'].strip(), '']
+		if w.get('picture'):
+			o += [f"*Picture:* {w['picture']}", '']
+		if w.get('simplifies'):
+			o += [f"*What this leaves out:* {w['simplifies']}", '']
+		tail = []
+		if w['assumes']:
+			tail.append('*Builds on:* ' + ', '.join(f'[[{a}]]' for a in w['assumes']))
+		if w['visuals']:
+			tail.append('*Visuals:* ' + ', '.join(f'[[{v}]]' for v in w['visuals']))
+		if tail:
+			o += [' · '.join(tail), '']
 
-	o.append('## Prerequisites\n\n' + bullets([link(l) for l in d['prerequisites']]) + '\n')
-	o.append('## Leads to\n\n' + bullets([link(l) for l in d['leads_to']]) + '\n')
-	if d.get('related'):
-		o.append('## Related\n\n' + bullets([link(l) for l in d['related']]) + '\n')
-
-	o.append('## Key equations\n')
-	for e in d['key_equations']:
-		o.append(f"### {e['name']}\n\n$$\n{e['latex']}\n$$\n\n{e['meaning']}{refs(e['refs'])}\n")
-		if e.get('convention_note'):
-			o.append(f"**Convention:** {e['convention_note']}\n")
-	if d['conventions']:
-		o.append('## Conventions across the books\n')
-		o.append('| Issue | Schutz | Gifted Amateur | d\'Inverno | Course choice |\n| --- | --- | --- | --- | --- |')
-		for c in d['conventions']:
-			cells = [c['issue'], c['schutz'] or '—', c['gifted_amateur'] or '—', c['dinverno'] or '—', c['course_choice']]
-			o.append('| ' + ' | '.join(x.replace('|', '\\|') for x in cells) + ' |')
+	if d['glossary']:
+		o += ['## Glossary', '', '| Term | In plain words |', '| --- | --- |']
+		o += [f"| {cell(g['term'])} | {cell(g['plain_definition'])} |" for g in d['glossary']]
 		o.append('')
 
-	o.append('## How the sources teach it\n')
-	for t in d['how_books_teach']:
-		o.append(
-			f"### {t['source']}\n\n**Route:** {t['route']}\n\n**Representation:** {t['representation']}\n\n"
-			f"**Strengths:** {t['strengths']}\n\n**Weaknesses:** {t['weaknesses']}{refs(t['refs'])}\n"
-		)
-	o.append('## Recommended teaching path\n')
-	for i, s in enumerate(d['recommended_teaching_path'], 1):
-		o.append(f"{i}. **{s['step']}** — {s['move']} *Why:* {s['why']}{refs(s.get('inspired_by', []))}")
+	if d['key_equations']:
+		o += ['## Key equations', '']
+		for e in d['key_equations']:
+			o += [f"### {e['name']} · {e['rung']}", '', '$$', e['latex'], '$$', '', e['meaning'], '']
+			o.append('**Symbols:** ' + '; '.join(f"{s['symbol']}: {s['meaning']}" for s in e['symbols']) + '  ')
+			if e.get('conditions'):
+				o.append(f"**Holds when:** {e['conditions']}  ")
+			o += [f"**Say it:** “{e['say_aloud']}”", '']
+
+	if d['derivations']:
+		o += ['## Derivations', '']
+		for x in d['derivations']:
+			o += [f"### {x['title']} · {x['rung']}", '', f"**Goal:** {x['goal']}", '', numbered(x['steps']), '', f"**Result:** {x['result']}", '']
+
+	if d['worked_examples']:
+		o += ['## Worked examples', '']
+		for x in d['worked_examples']:
+			o += [f"### {x['title']} · {x['rung']}", '', f"**Problem:** {x['problem']}", '', numbered(x['steps']), '']
+			o += [f"**Answer:** {x['answer']}", '', f"**Takeaway:** {x['takeaway']}", '']
+
+	o += ['## Teaching arc', '', numbered(f"**{s['step']}.** {s['move']} *Why:* {s['why']}" for s in d['teaching_arc']), '']
+
+	if d['analogies']:
+		o += ['## Analogies', '']
+		for a in d['analogies']:
+			o += [f"### {a['analogy']} · {a['rung']}", '', a['explanation'], '', '| In the analogy | Stands for |', '| --- | --- |']
+			o += [f"| {cell(m['this'])} | {cell(m['stands_for'])} |" for m in a['mapping']]
+			o += ['', f"*Limits:* {a['limits']}", '']
+
+	if d['misconceptions']:
+		o += ['## Misconceptions', '']
+		for m in d['misconceptions']:
+			o += [f"### “{m['belief']}” · {m['rung']}", '']
+			o += [f"- **Why it is tempting:** {m['why_tempting']}", f"- **What is true:** {m['correction']}", f"- **Question that exposes it:** {m['diagnostic_question']}", '']
+
+	o += ['## Checks', '']
+	for i, c in enumerate(d['checks'], 1):
+		target = f" *(targets: “{c['targets_misconception']}”)*" if c.get('targets_misconception') else ''
+		o += [f"{i}. **{c['rung'].capitalize()}.** {c['question']}{target}", f"   - **Answer:** {c['answer']}"]
 	o.append('')
 
-	o.append('## Analogies\n')
-	o.append(bullets([f"**{a['analogy']}** ({a['level']}): {a['explanation']} *Limits:* {a['limits']}{refs(a['refs'])}" for a in d['analogies']]) + '\n')
-	o.append('## Misconceptions\n')
-	o.append(
-		bullets(
-			[
-				f"**{m['misconception']}** — {m['correction']}"
-				+ (f" *Why tempting:* {m['why_tempting']}" if m.get('why_tempting') else '')
-				+ f" *Diagnostic:* {m['diagnostic_question']}{refs(m['refs'])}"
-				for m in d['misconceptions']
-			]
-		)
-		+ '\n'
-	)
-	if d.get('thought_experiments'):
-		o.append('## Thought experiments\n')
-		o.append(bullets([f"**{t['name']}**: {t['setup']} *Lesson:* {t['lesson']}{refs(t['refs'])}" for t in d['thought_experiments']]) + '\n')
+	if d['notation_traps']:
+		o += ['## Notation traps', '', '| Issue | Course choice | Variants you will meet |', '| --- | --- | --- |']
+		o += [f"| {cell(t['issue'])} | {cell(t['course_choice'])} | {cell(t['variants'])} |" for t in d['notation_traps']]
+		o.append('')
 
-	o.append('## Visualizations\n')
-	for v in d['visualizations']:
-		o.append(f"### {v['title']} · {v['form']} · {v['priority']} priority\n\n{v['idea']}\n\n**Interaction:** {v['interaction']}\n")
-		if v.get('physics_model'):
-			o.append(f"**Model:** {v['physics_model']}\n")
-		if v.get('inspired_by'):
-			o.append(f"**Inspired by:** {'; '.join(v['inspired_by'])}\n")
-		if v.get('legacy_assets'):
-			o.append(f"**Legacy assets:** {', '.join(v['legacy_assets'])}\n")
+	if d['visuals']:
+		o += ['## Visuals', '']
+		for v in d['visuals']:
+			star = '★ ' if v['priority'] == 'flagship' else ''
+			o.append(f"- {star}[[{v['id']}]] ({v['priority']}): {v['role']}" + (f" *Sketch:* {v['sketch']}" if v.get('sketch') else ''))
+		o.append('')
 
-	o.append('## Worked examples\n')
-	o.append(bullets([f"**{w['title']}** ({w['level']}): {w['what_it_shows']}{refs(w['refs'])}" for w in d['worked_examples']]) + '\n')
-	if d.get('exercises'):
-		o.append('## Exercises\n')
-		o.append(bullets([f"({x['difficulty']}) {x['summary']} *Skill:* {x['skill']}{refs(x['refs'])}" for x in d['exercises']]) + '\n')
-	o.append('## Checks for understanding\n')
-	for c in d['checks_for_understanding']:
-		target = f" *(targets: {c['targets_misconception']})*" if c.get('targets_misconception') else ''
-		o.append(f"- **Q ({c['level']}):** {c['question']}\n  - **A:** {c['answer']}{target}")
-	o.append('')
-	if d.get('applications'):
-		o.append('## Applications\n')
-		o.append(bullets([f"**{a['topic']}**: {a['details']}" + (f" Key numbers: {a['key_numbers']}" if a.get('key_numbers') else '') + refs(a['refs']) for a in d['applications']]) + '\n')
-	if d.get('history'):
-		o.append('## History\n')
-		o.append(bullets([f"**{', '.join(h['people'])}{' (' + h['year'] + ')' if h.get('year') else ''}:** {h['note']}{refs(h.get('refs', []))}" for h in d['history']]) + '\n')
+	t = d['tutor_moves']
+	o += ['## Tutor moves', '', '**Open with**', '', *(f'- {q}' for q in t['opening_questions']), '']
+	o += ['**If the learner is stuck**', '', *(f"- *{s['symptom']}* → {s['move']}" for s in t['if_stuck']), '']
+	o += ['**Common questions**', '', *(f"- *{q['question']}* {q['answer']}" for q in t['common_questions']), '']
+	if t['demo_moments']:
+		o += ['**Demo moments**', '', *(f'- {m}' for m in t['demo_moments']), '']
+	o += [f"**Saying it aloud:** {t['voice_notes']}", '', f"**Switching levels:** {t['level_switching']}", '']
 
-	g = d['tutor_guidance']
-	o.append('## Tutor guidance\n')
-	o.append('**Opening questions**\n\n' + bullets(g['opening_questions']) + '\n')
-	o.append('**Common questions**\n\n' + bullets([f"*{q['question']}* — {q['answer']}" for q in g['common_questions']]) + '\n')
-	o.append('**Pitfalls when explaining**\n\n' + bullets(g['explaining_pitfalls']) + '\n')
-	o.append('**When to show a demo**\n\n' + bullets(g['demo_moments']) + '\n')
-	if g.get('voice_notes'):
-		o.append(f"**Saying it aloud:** {g['voice_notes']}\n")
-
-	o.append('## Sources\n')
-	for s in d['sources']:
-		locs = ', '.join(f"p.{l.get('printed_page')}" + (f" §{l['section']}" if l.get('section') else '') for l in s.get('locators', []))
-		o.append(f"- {s['source']} {s['unit']} ({s['depth']}){': ' + locs if locs else ''}")
-	o.append('')
-	r = d.get('review')
-	if r:
-		o.append(f"## Review\n\n**Verdict:** {r['verdict']}\n\n**Fixes**\n\n{bullets(r['fixes'])}\n\n**Concerns**\n\n{bullets(r['concerns'])}\n")
+	if d['history']:
+		o += ['## History', '']
+		for h in d['history']:
+			work = f", *{h['work']}*" if h.get('work') else ''
+			o.append(f"- **{', '.join(h['people'])} ({h['year']}){work}.** {h['contribution']}")
+		o.append('')
+	if d['research_horizon']:
+		o += ['## Research horizon', '']
+		for r in d['research_horizon']:
+			ptr = f" *Pointers:* {'; '.join(r['pointers'])}" if r['pointers'] else ''
+			o.append(f"- **{r['topic']}.** {r['connection']}{ptr}")
+		o.append('')
+	for stage in ('novice', 'physics'):
+		r = review.get(stage)
+		if r:
+			o += [f'## Review: {stage}', '', f"**Verdict:** {r['verdict']}", '']
+			o += ['**Fixes**', '', *(f'- {x}' for x in r['fixes'] or ['none']), '', '**Concerns**', '', *(f'- {x}' for x in r['concerns'] or ['none']), '']
 	return '\n'.join(o)
+
+
+def note_status(path):
+	if not path.exists():
+		return '—'
+	try:
+		d = json.loads(path.read_text())
+	except json.JSONDecodeError:
+		return 'invalid'
+	if d.get('schema_version') != 2:
+		return 'old draft'
+	r = d.get('review') or {}
+	return 'reviewed' if r.get('novice') and r.get('physics') else 'draft'
 
 
 def write_indexes():
 	taxonomy = json.loads((KB / 'concepts' / '_taxonomy.json').read_text())
 	top = ['# Concepts\n', 'Generated from `_taxonomy.json` and each domain registry. Do not edit.\n']
-	for dom in taxonomy['domains']:
+	for dom in sorted(taxonomy['domains'], key=lambda x: x['order']):
 		reg_file = KB / 'concepts' / dom['id'] / '_registry.json'
 		if not reg_file.exists():
 			continue
 		reg = json.loads(reg_file.read_text())
 		lines = [f"# {reg['title']}\n", reg['scope'] + '\n', '| Concept | Tier | Summary | Note |', '| --- | --- | --- | --- |']
+		done = 0
 		for c in reg['concepts']:
-			has_note = (KB / 'concepts' / dom['id'] / f"{c['id']}.json").exists()
-			lines.append(f"| [[{c['id']}]] {c['title']} | {c['tier']} | {c['summary'].replace('|', '/')} | {'yes' if has_note else '—'} |")
+			status = note_status(KB / 'concepts' / dom['id'] / f"{c['id']}.json")
+			done += status == 'reviewed'
+			lines.append(f"| [[{c['id']}]] {c['title']} | {c['tier']} | {cell(c['summary'])} | {status} |")
 		(KB / 'concepts' / dom['id'] / '_index.md').write_text('\n'.join(lines) + '\n')
-		top.append(f"- **{reg['title']}** (`{dom['id']}`, {len(reg['concepts'])} concepts): {dom.get('scope', '')}")
+		top.append(f"- **{reg['title']}** (`{dom['id']}`, {len(reg['concepts'])} concepts, {done} reviewed notes): {dom.get('scope', '')}")
 	(KB / 'concepts' / '_index.md').write_text('\n'.join(top) + '\n')
 	print('indexes written')
 

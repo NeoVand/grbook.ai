@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Visual: a diagram, widget, animation, or 3D demo in the visual network",
+  "description": "One reusable picture that serves one or more concepts and links to other visuals. Written in our own voice; sources appear only in provenance. See knowledge/_meta/writing-guide.md section 6.",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "title", "kind", "priority", "rungs", "makes_visible", "picture", "variants", "interaction",
+    "tour", "design_rules", "model", "serves", "builds_on", "leads_to", "variant_of", "accessibility",
+    "starting_material", "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "enum": [2] },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Names the picture, not the concept" },
+    "title": { "type": "string", "minLength": 3 },
+    "kind": { "enum": ["static-figure", "interactive-2d", "interactive-3d", "animation", "plot", "simulation"] },
+    "priority": { "enum": ["flagship", "core", "supporting"] },
+    "rungs": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/rung" } },
+    "makes_visible": { "type": "string", "minLength": 60, "description": "What the learner comes to see, in plain words" },
+    "picture": {
+      "type": "object",
+      "required": ["caption", "composition", "elements"],
+      "additionalProperties": false,
+      "properties": {
+        "caption": { "type": "string", "minLength": 20, "description": "One plain sentence a novice understands" },
+        "composition": { "type": "string", "minLength": 60 },
+        "elements": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["element", "depicts"],
+            "additionalProperties": false,
+            "properties": { "element": { "type": "string" }, "depicts": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["form", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "form": { "enum": ["static-card", "interactive-2d", "interactive-3d", "animation", "plot"] },
+          "description": { "type": "string", "minLength": 20 }
+        }
+      }
+    },
+    "interaction": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["control", "effect"],
+        "additionalProperties": false,
+        "properties": { "control": { "type": "string" }, "effect": { "type": "string" } }
+      }
+    },
+    "tour": {
+      "type": "array",
+      "minItems": 3,
+      "description": "Beats the tutor narrates while driving the visual",
+      "items": {
+        "type": "object",
+        "required": ["show", "say"],
+        "additionalProperties": false,
+        "properties": {
+          "show": { "type": "string", "description": "State of the visual for this beat" },
+          "say": { "type": "string", "description": "Spoken line in plain words; no raw math" }
+        }
+      }
+    },
+    "design_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["rule", "because"],
+        "additionalProperties": false,
+        "properties": { "rule": { "type": "string" }, "because": { "type": "string" } }
+      }
+    },
+    "model": {
+      "type": "object",
+      "required": ["summary", "equations", "method", "tests"],
+      "additionalProperties": false,
+      "properties": {
+        "summary": { "type": "string", "minLength": 20 },
+        "equations": { "type": "array", "items": { "type": "string" }, "description": "LaTeX, course conventions" },
+        "method": { "type": ["string", "null"] },
+        "tests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["case", "expected"],
+            "additionalProperties": false,
+            "properties": { "case": { "type": "string" }, "expected": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "serves": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["concept", "uses"],
+        "additionalProperties": false,
+        "properties": { "concept": { "type": "string" }, "uses": { "type": "string" } }
+      }
+    },
+    "builds_on": { "type": "array", "items": { "type": "string" } },
+    "leads_to": { "type": "array", "items": { "type": "string" } },
+    "variant_of": { "type": ["string", "null"] },
+    "accessibility": { "type": "string", "minLength": 40 },
+    "starting_material": {
+      "type": "object",
+      "required": ["legacy_assets", "notes"],
+      "additionalProperties": false,
+      "properties": {
+        "legacy_assets": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source_units", "figure_images"],
+      "additionalProperties": false,
+      "description": "Internal only; never rendered",
+      "properties": {
+        "source_units": { "type": "array", "items": { "type": "string" } },
+        "figure_images": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "review": { "$ref": "#/definitions/stage" }
+  },
+  "definitions": {
+    "rung": { "enum": ["entry", "working", "formal", "research"] },
+    "stage": {
+      "type": "object",
+      "required": ["verdict", "fixes", "concerns"],
+      "additionalProperties": false,
+      "properties": {
+        "verdict": { "enum": ["accurate", "fixed", "needs-attention"] },
+        "fixes": { "type": "array", "items": { "type": "string" } },
+        "concerns": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

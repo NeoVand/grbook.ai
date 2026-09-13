@@ -1,172 +1,69 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"title": "Concept note",
-	"description": "One canonical concept, taught across levels and compared across the three books and the legacy project. Original wording throughout; source ideas carry references. The tutor retrieves these notes by id.",
+	"title": "Concept note (schema v2)",
+	"description": "One canonical GR concept written in our own voice on a depth ladder (entry, working, formal, research), with ways of explaining it, equations, misconceptions, checks, links to the visual network, and tutor moves. Source books never appear in prose; provenance is internal. See knowledge/_meta/writing-guide.md.",
 	"type": "object",
 	"required": [
-		"id",
-		"title",
-		"domain",
-		"tier",
-		"summary",
-		"levels",
-		"prerequisites",
-		"leads_to",
-		"key_equations",
-		"conventions",
-		"how_books_teach",
-		"recommended_teaching_path",
-		"analogies",
-		"misconceptions",
-		"visualizations",
-		"worked_examples",
-		"checks_for_understanding",
-		"tutor_guidance",
-		"sources"
+		"schema_version", "id", "title", "domain", "tier", "aliases", "summary", "ways_in", "glossary", "prerequisites",
+		"leads_to", "related", "key_equations", "derivations", "worked_examples", "teaching_arc", "analogies",
+		"misconceptions", "checks", "notation_traps", "visuals", "tutor_moves", "history", "research_horizon", "provenance"
 	],
 	"additionalProperties": false,
 	"properties": {
+		"schema_version": { "enum": [2] },
 		"id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
-		"title": { "type": "string" },
+		"title": { "type": "string", "minLength": 3 },
 		"domain": { "type": "string" },
 		"tier": { "enum": ["prerequisite", "foundation", "core", "advanced", "frontier"] },
 		"aliases": { "type": "array", "items": { "type": "string" } },
-		"summary": { "type": "string", "minLength": 40, "description": "Two or three sentences a tutor could say aloud" },
-		"levels": {
-			"type": "object",
-			"required": ["intuition", "working", "formal"],
-			"additionalProperties": false,
-			"description": "The same idea explained at three depths, so the tutor can meet any learner",
-			"properties": {
-				"intuition": { "$ref": "#/definitions/level" },
-				"working": { "$ref": "#/definitions/level" },
-				"formal": { "$ref": "#/definitions/level" }
+		"summary": { "type": "string", "minLength": 80, "description": "The idea in one breath: 2-3 entry-rung sentences a tutor can say aloud" },
+		"ways_in": { "type": "array", "minItems": 2, "items": { "$ref": "#/definitions/way" } },
+		"glossary": {
+			"type": "array",
+			"description": "Every technical term the entry rung uses",
+			"items": {
+				"type": "object",
+				"required": ["term", "plain_definition"],
+				"additionalProperties": false,
+				"properties": { "term": { "type": "string" }, "plain_definition": { "type": "string", "minLength": 15 } }
 			}
 		},
-		"prerequisites": { "type": "array", "items": { "$ref": "#/definitions/link" } },
+		"prerequisites": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["id", "why", "needed_for"],
+				"additionalProperties": false,
+				"properties": {
+					"id": { "type": "string" },
+					"why": { "type": "string", "minLength": 10 },
+					"needed_for": { "$ref": "#/definitions/rung", "description": "Lowest rung that needs this prerequisite" }
+				}
+			}
+		},
 		"leads_to": { "type": "array", "items": { "$ref": "#/definitions/link" } },
-		"related": { "type": "array", "items": { "$ref": "#/definitions/link" } },
-		"key_equations": {
+		"related": {
 			"type": "array",
 			"items": {
 				"type": "object",
-				"required": ["name", "latex", "meaning", "refs"],
+				"required": ["id", "relation"],
 				"additionalProperties": false,
-				"properties": {
-					"name": { "type": "string" },
-					"latex": { "type": "string" },
-					"meaning": { "type": "string" },
-					"convention_note": { "type": ["string", "null"] },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
-				}
+				"properties": { "id": { "type": "string" }, "relation": { "type": "string", "minLength": 5 } }
 			}
 		},
-		"conventions": {
-			"type": "array",
-			"description": "Where the books differ in sign, notation, or definition for this concept",
-			"items": {
-				"type": "object",
-				"required": ["issue", "schutz", "gifted_amateur", "dinverno", "course_choice"],
-				"additionalProperties": false,
-				"properties": {
-					"issue": { "type": "string" },
-					"schutz": { "type": ["string", "null"] },
-					"gifted_amateur": { "type": ["string", "null"] },
-					"dinverno": { "type": ["string", "null"] },
-					"course_choice": { "type": "string" }
-				}
-			}
-		},
-		"how_books_teach": {
+		"key_equations": { "type": "array", "items": { "$ref": "#/definitions/equation" } },
+		"derivations": {
 			"type": "array",
 			"items": {
 				"type": "object",
-				"required": ["source", "route", "representation", "strengths", "weaknesses", "refs"],
-				"additionalProperties": false,
-				"properties": {
-					"source": { "enum": ["schutz", "gifted-amateur", "dinverno", "legacy"] },
-					"route": { "type": "string", "description": "Motivating question and sequence of moves" },
-					"representation": { "type": "string", "description": "Pictures, components, index-free, axioms, analogies" },
-					"strengths": { "type": "string" },
-					"weaknesses": { "type": "string" },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
-				}
-			}
-		},
-		"recommended_teaching_path": {
-			"type": "array",
-			"description": "Our synthesized sequence for teaching this concept, borrowing the best moves",
-			"items": {
-				"type": "object",
-				"required": ["step", "move", "why"],
-				"additionalProperties": false,
-				"properties": {
-					"step": { "type": "string" },
-					"move": { "type": "string" },
-					"why": { "type": "string" },
-					"inspired_by": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
-				}
-			}
-		},
-		"analogies": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"required": ["analogy", "explanation", "limits", "level", "refs"],
-				"additionalProperties": false,
-				"properties": {
-					"analogy": { "type": "string" },
-					"explanation": { "type": "string" },
-					"limits": { "type": "string" },
-					"level": { "enum": ["intuition", "working", "formal"] },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
-				}
-			}
-		},
-		"misconceptions": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"required": ["misconception", "correction", "diagnostic_question", "refs"],
-				"additionalProperties": false,
-				"properties": {
-					"misconception": { "type": "string" },
-					"correction": { "type": "string" },
-					"why_tempting": { "type": ["string", "null"] },
-					"diagnostic_question": { "type": "string" },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
-				}
-			}
-		},
-		"thought_experiments": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"required": ["name", "setup", "lesson", "refs"],
-				"additionalProperties": false,
-				"properties": {
-					"name": { "type": "string" },
-					"setup": { "type": "string" },
-					"lesson": { "type": "string" },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
-				}
-			}
-		},
-		"visualizations": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"required": ["title", "idea", "interaction", "form", "priority", "inspired_by"],
+				"required": ["title", "rung", "goal", "steps", "result"],
 				"additionalProperties": false,
 				"properties": {
 					"title": { "type": "string" },
-					"idea": { "type": "string" },
-					"interaction": { "type": "string" },
-					"form": { "enum": ["static-2d", "animated-2d", "interactive-2d", "interactive-3d", "animated-3d", "interactive-plot"] },
-					"priority": { "enum": ["high", "medium", "low"] },
-					"physics_model": { "type": ["string", "null"] },
-					"inspired_by": { "type": "array", "items": { "$ref": "#/definitions/ref" } },
-					"legacy_assets": { "type": "array", "items": { "type": "string" } }
+					"rung": { "$ref": "#/definitions/rung" },
+					"goal": { "type": "string" },
+					"steps": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+					"result": { "type": "string" }
 				}
 			}
 		},
@@ -174,81 +71,124 @@
 			"type": "array",
 			"items": {
 				"type": "object",
-				"required": ["title", "what_it_shows", "level", "refs"],
+				"required": ["title", "rung", "problem", "steps", "answer", "takeaway"],
 				"additionalProperties": false,
 				"properties": {
 					"title": { "type": "string" },
-					"what_it_shows": { "type": "string" },
-					"level": { "enum": ["intuition", "working", "formal"] },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
+					"rung": { "$ref": "#/definitions/rung" },
+					"problem": { "type": "string", "minLength": 20 },
+					"steps": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+					"answer": { "type": "string" },
+					"takeaway": { "type": "string" }
 				}
 			}
 		},
-		"exercises": {
+		"teaching_arc": {
+			"type": "array",
+			"minItems": 3,
+			"items": {
+				"type": "object",
+				"required": ["step", "move", "why"],
+				"additionalProperties": false,
+				"properties": { "step": { "type": "string" }, "move": { "type": "string" }, "why": { "type": "string" } }
+			}
+		},
+		"analogies": {
 			"type": "array",
 			"items": {
 				"type": "object",
-				"required": ["summary", "skill", "difficulty", "refs"],
+				"required": ["analogy", "explanation", "mapping", "limits", "rung"],
 				"additionalProperties": false,
 				"properties": {
-					"summary": { "type": "string" },
-					"skill": { "type": "string" },
-					"difficulty": { "enum": ["intro", "standard", "challenging"] },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
+					"analogy": { "type": "string" },
+					"explanation": { "type": "string", "minLength": 40 },
+					"mapping": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"type": "object",
+							"required": ["this", "stands_for"],
+							"additionalProperties": false,
+							"properties": { "this": { "type": "string" }, "stands_for": { "type": "string" } }
+						}
+					},
+					"limits": { "type": "string", "minLength": 20 },
+					"rung": { "$ref": "#/definitions/rung" }
 				}
 			}
 		},
-		"checks_for_understanding": {
+		"misconceptions": {
 			"type": "array",
-			"minItems": 2,
 			"items": {
 				"type": "object",
-				"required": ["question", "answer", "level"],
+				"required": ["belief", "why_tempting", "correction", "diagnostic_question", "rung"],
+				"additionalProperties": false,
+				"properties": {
+					"belief": { "type": "string", "description": "In the learner's own words" },
+					"why_tempting": { "type": "string" },
+					"correction": { "type": "string" },
+					"diagnostic_question": { "type": "string" },
+					"rung": { "$ref": "#/definitions/rung" }
+				}
+			}
+		},
+		"checks": {
+			"type": "array",
+			"minItems": 3,
+			"items": {
+				"type": "object",
+				"required": ["question", "answer", "rung", "targets_misconception"],
 				"additionalProperties": false,
 				"properties": {
 					"question": { "type": "string" },
-					"answer": { "type": "string" },
-					"level": { "enum": ["intuition", "working", "formal"] },
-					"targets_misconception": { "type": ["string", "null"] }
+					"answer": { "type": "string", "description": "Fully worked" },
+					"rung": { "$ref": "#/definitions/rung" },
+					"targets_misconception": { "type": ["string", "null"], "description": "Exact belief text of a misconception" }
 				}
 			}
 		},
-		"applications": {
+		"notation_traps": {
 			"type": "array",
 			"items": {
 				"type": "object",
-				"required": ["topic", "details", "refs"],
+				"required": ["issue", "course_choice", "variants"],
 				"additionalProperties": false,
-				"properties": {
-					"topic": { "type": "string" },
-					"details": { "type": "string" },
-					"key_numbers": { "type": ["string", "null"] },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
-				}
+				"properties": { "issue": { "type": "string" }, "course_choice": { "type": "string" }, "variants": { "type": "string" } }
 			}
 		},
-		"history": {
+		"visuals": {
 			"type": "array",
 			"items": {
 				"type": "object",
-				"required": ["people", "year", "note"],
+				"required": ["id", "role", "priority", "sketch"],
 				"additionalProperties": false,
 				"properties": {
-					"people": { "type": "array", "items": { "type": "string" } },
-					"year": { "type": ["string", "null"] },
-					"note": { "type": "string" },
-					"refs": { "type": "array", "items": { "$ref": "#/definitions/ref" } }
+					"id": { "type": "string", "description": "Visual catalog id naming the picture (knowledge/visuals/<id>.json)" },
+					"role": { "type": "string", "description": "What this visual does for this concept" },
+					"priority": { "enum": ["flagship", "core", "supporting"] },
+					"sketch": { "type": ["string", "null"], "description": "Required when the visual is not in the catalog yet: what the learner sees, changes, and learns" }
 				}
 			}
 		},
-		"tutor_guidance": {
+		"tutor_moves": {
 			"type": "object",
-			"required": ["opening_questions", "common_questions", "explaining_pitfalls", "demo_moments"],
+			"required": ["opening_questions", "if_stuck", "common_questions", "demo_moments", "voice_notes", "level_switching"],
 			"additionalProperties": false,
 			"properties": {
-				"opening_questions": { "type": "array", "items": { "type": "string" } },
+				"opening_questions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+				"if_stuck": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "object",
+						"required": ["symptom", "move"],
+						"additionalProperties": false,
+						"properties": { "symptom": { "type": "string" }, "move": { "type": "string" } }
+					}
+				},
 				"common_questions": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
 						"type": "object",
 						"required": ["question", "answer"],
@@ -256,39 +196,101 @@
 						"properties": { "question": { "type": "string" }, "answer": { "type": "string" } }
 					}
 				},
-				"explaining_pitfalls": { "type": "array", "items": { "type": "string" } },
 				"demo_moments": { "type": "array", "items": { "type": "string" } },
-				"voice_notes": { "type": ["string", "null"], "description": "How to say the key equations and ideas aloud" }
+				"voice_notes": { "type": "string" },
+				"level_switching": { "type": "string" }
 			}
 		},
-		"sources": {
+		"history": {
 			"type": "array",
-			"minItems": 1,
 			"items": {
 				"type": "object",
-				"required": ["source", "unit", "depth"],
+				"required": ["people", "year", "work", "contribution"],
 				"additionalProperties": false,
 				"properties": {
-					"source": { "enum": ["schutz", "gifted-amateur", "dinverno", "legacy"] },
-					"unit": { "type": "string" },
-					"depth": { "enum": ["mention", "introduced", "developed", "core", "revisited"] },
-					"locators": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"required": ["pdf_page"],
-							"additionalProperties": false,
-							"properties": {
-								"pdf_page": { "type": "integer" },
-								"printed_page": { "type": ["integer", "null"] },
-								"section": { "type": ["string", "null"] }
-							}
-						}
-					}
+					"people": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+					"year": { "type": "string" },
+					"work": { "type": ["string", "null"], "description": "Primary work title, only when certain" },
+					"contribution": { "type": "string" }
 				}
 			}
 		},
+		"research_horizon": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["topic", "connection", "pointers"],
+				"additionalProperties": false,
+				"properties": {
+					"topic": { "type": "string" },
+					"connection": { "type": "string" },
+					"pointers": { "type": "array", "items": { "type": "string" }, "description": "Author (year), *Title* - only what is certain" }
+				}
+			}
+		},
+		"provenance": {
+			"type": "object",
+			"required": ["source_units", "legacy_assets"],
+			"additionalProperties": false,
+			"description": "Internal only; never rendered or shown to learners",
+			"properties": {
+				"source_units": { "type": "array", "items": { "type": "string" }, "description": "book/unit, e.g. schutz/ch06" },
+				"legacy_assets": { "type": "array", "items": { "type": "string" } }
+			}
+		},
 		"review": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": { "novice": { "$ref": "#/definitions/stage" }, "physics": { "$ref": "#/definitions/stage" } }
+		}
+	},
+	"definitions": {
+		"rung": { "enum": ["entry", "working", "formal", "research"] },
+		"link": {
+			"type": "object",
+			"required": ["id", "why"],
+			"additionalProperties": false,
+			"properties": { "id": { "type": "string" }, "why": { "type": "string", "minLength": 10 } }
+		},
+		"way": {
+			"type": "object",
+			"required": ["id", "title", "rung", "explanation", "picture", "simplifies", "assumes", "visuals"],
+			"additionalProperties": false,
+			"properties": {
+				"id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+				"title": { "type": "string" },
+				"rung": { "$ref": "#/definitions/rung" },
+				"explanation": { "type": "string", "minLength": 300 },
+				"picture": { "type": ["string", "null"], "description": "A drawable image to hold in mind" },
+				"simplifies": { "type": ["string", "null"], "description": "What this way leaves out or idealizes" },
+				"assumes": { "type": "array", "items": { "type": "string" } },
+				"visuals": { "type": "array", "items": { "type": "string" } }
+			}
+		},
+		"equation": {
+			"type": "object",
+			"required": ["name", "latex", "meaning", "symbols", "conditions", "say_aloud", "rung"],
+			"additionalProperties": false,
+			"properties": {
+				"name": { "type": "string" },
+				"latex": { "type": "string" },
+				"meaning": { "type": "string" },
+				"symbols": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "object",
+						"required": ["symbol", "meaning"],
+						"additionalProperties": false,
+						"properties": { "symbol": { "type": "string" }, "meaning": { "type": "string" } }
+					}
+				},
+				"conditions": { "type": ["string", "null"] },
+				"say_aloud": { "type": "string" },
+				"rung": { "$ref": "#/definitions/rung" }
+			}
+		},
+		"stage": {
 			"type": "object",
 			"required": ["verdict", "fixes", "concerns"],
 			"additionalProperties": false,
@@ -297,28 +299,6 @@
 				"fixes": { "type": "array", "items": { "type": "string" } },
 				"concerns": { "type": "array", "items": { "type": "string" } }
 			}
-		}
-	},
-	"definitions": {
-		"level": {
-			"type": "object",
-			"required": ["explanation"],
-			"additionalProperties": false,
-			"properties": {
-				"explanation": { "type": "string", "minLength": 60 },
-				"picture": { "type": ["string", "null"], "description": "The mental image or diagram to hold" },
-				"assumes": { "type": "array", "items": { "type": "string" }, "description": "Concept ids assumed at this level" }
-			}
-		},
-		"link": {
-			"type": "object",
-			"required": ["id", "why"],
-			"additionalProperties": false,
-			"properties": { "id": { "type": "string" }, "why": { "type": "string" } }
-		},
-		"ref": {
-			"type": "string",
-			"description": "Compact reference: 'SCH ch05 §5.3 p.125', 'GA ch11 Example 11.2', 'DIV ch09 Fig. 9.5', or a legacy asset id like 'legacy:lab-parallel-transport'"
 		}
 	}
 }
