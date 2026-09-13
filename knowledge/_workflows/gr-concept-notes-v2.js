@@ -155,9 +155,14 @@ For each note ${KB}/concepts/${b.domain}/<ID>.json:
 8. Set status "physics-reviewed". Add review.physics with verdict, date "${DATE}", verification (claim, method, result for each equation, number, analogy relation, and reference checked), counterexamples, fixes, and concerns. Validate until OK, then render.
 Return the summary object, with errors fixed counted per note.`
 
+// review_only: skip the writer (for notes that already exist, such as the exemplar)
+const REVIEW_ONLY = Boolean(args && args.review_only)
 const results = await pipeline(
   batches,
-  (b, _, i) => slot(1, () => agent(writePrompt(b), { label: `write:${b.domain}:${i}`, phase: 'Write', schema: WRITE_SCHEMA })),
+  (b, _, i) =>
+    REVIEW_ONLY
+      ? Promise.resolve({ written: b.ids.map((id) => ({ id, validator: 'WARNINGS' })), problems: ['review-only run: the note already exists'] })
+      : slot(1, () => agent(writePrompt(b), { label: `write:${b.domain}:${i}`, phase: 'Write', schema: WRITE_SCHEMA })),
   (w, b, i) => slot(2, () => agent(novicePrompt(b, w), { label: `novice:${b.domain}:${i}`, phase: 'Novice review', schema: REVIEW_SCHEMA, effort: 'high' })).then((n) => ({ w, n })),
   ({ w, n }, b, i) =>
     slot(3, () => agent(physicsPrompt(b, n), { label: `physics:${b.domain}:${i}`, phase: 'Physics review', schema: REVIEW_SCHEMA, effort: 'high' })).then((p) => ({
