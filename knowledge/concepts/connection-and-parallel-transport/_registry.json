@@ -1,0 +1,2695 @@
+{
+	"domain": "connection-and-parallel-transport",
+	"title": "Connection, covariant derivative and parallel transport",
+	"scope": "How to differentiate tensor fields when the basis changes from point to point, and how that defines parallelism. Starts from curvilinear coordinates and position-dependent (coordinate and noncoordinate) bases in flat space, shows why partial derivatives of components are not tensorial, introduces Christoffel symbols and their inhomogeneous transformation law, and builds the covariant derivative of vectors, one-forms, general tensors and tensor densities with the Leibniz rule. Then the affine connection and its axioms, the covariant (absolute) derivative along a curve, parallel transport and its equation, torsion and torsion-free connections, metric compatibility, the Levi-Civita connection and its uniqueness, the Christoffel formula from the metric, the contracted Christoffel identity and divergence formula, second covariant derivatives, geodesic coordinates, covariant versus coordinate acceleration, parallel-propagated frames and Fermi-Walker transport. Geodesics, path dependence and curvature, Riemann normal coordinates, connection forms and gauge connections are owned elsewhere.",
+	"concepts": [
+		{
+			"id": "comparing-vectors-at-different-points",
+			"title": "Comparing vectors at different points",
+			"aliases": [
+				"no natural comparison across tangent spaces",
+				"comparison of tensors at different points",
+				"three types of differentiation"
+			],
+			"kind": "principle",
+			"tier": "foundation",
+			"summary": "Vectors at two different points of a manifold live in different tangent spaces, so a bare manifold offers no invariant way to subtract them or call them equal. Differentiating a vector field therefore needs extra structure: a flow (giving the Lie derivative) or a connection (giving the covariant derivative).",
+			"prerequisites": [
+				"tangent-space",
+				"tensor-transformation-law"
+			],
+			"related": [
+				{
+					"id": "affine-connection",
+					"relation": "motivates"
+				},
+				{
+					"id": "lie-derivative",
+					"relation": "contrasts-with"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch31",
+					"depth": "introduced",
+					"names": [
+						"comparing vectors at different points requires a connection"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"auxiliary structure for tensorial differentiation",
+						"comparison of tensors at different points"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-06-covariant-differentiation",
+					"depth": "developed",
+					"names": [
+						"tangent spaces at p and q"
+					]
+				}
+			],
+			"merged_from": [
+				"auxiliary structure for tensorial differentiation",
+				"comparing vectors at different points requires a connection",
+				"comparison of tensors at different points"
+			],
+			"notes": "DIV makes the point with transformation matrices evaluated at two different points; GA ch31 recalls it before the Lie derivative. The roadmap of three kinds of derivative (Lie, affine, metric) is folded in here."
+		},
+		{
+			"id": "curvilinear-coordinates",
+			"title": "Curvilinear coordinates",
+			"aliases": [
+				"general coordinates",
+				"curvilinear coordinate transformation"
+			],
+			"kind": "definition",
+			"tier": "foundation",
+			"summary": "Curvilinear coordinates label flat space with coordinate lines that are not straight, uniformly spaced and mutually perpendicular, polar coordinates being the standard example. Because the increments relate to Cartesian ones only through a position-dependent matrix of partial derivatives, Pythagoras no longer holds in its naive form.",
+			"prerequisites": [
+				"polar-coordinates",
+				"coordinate-transformation-matrix"
+			],
+			"related": [
+				{
+					"id": "position-dependent-basis",
+					"relation": "motivates"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "developed",
+					"names": [
+						"curvilinear coordinate transformation"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch03",
+					"depth": "mention",
+					"names": [
+						"curvilinear coordinates"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-6-1-fixed-arrow-changing-components",
+					"depth": "introduced",
+					"names": [
+						"polar coordinates on the plane"
+					]
+				}
+			],
+			"merged_from": [
+				"curvilinear coordinates",
+				"curvilinear coordinate transformation"
+			],
+			"notes": "SCH ch05 uses a general smooth relabelling (xi, eta) of the plane as the rehearsal for curved manifolds, with a degenerate example showing why invertibility matters."
+		},
+		{
+			"id": "position-dependent-basis",
+			"title": "Position-dependent basis vectors",
+			"aliases": [
+				"non-constant basis",
+				"coordinate basis in polar coordinates",
+				"moving basis",
+				"metric tensor in polar coordinates"
+			],
+			"kind": "phenomenon",
+			"tier": "foundation",
+			"summary": "In curvilinear coordinates the coordinate basis vectors and basis one-forms change in direction and length from point to point: in plane polars e_theta has length r and d-theta has length 1/r. A constant vector field can therefore have non-constant components, which is why differentiating components alone does not differentiate the vector.",
+			"prerequisites": [
+				"curvilinear-coordinates",
+				"basis-vectors",
+				"dual-basis"
+			],
+			"related": [
+				{
+					"id": "christoffel-symbols",
+					"relation": "motivates"
+				},
+				{
+					"id": "noncoordinate-basis",
+					"relation": "contrasts-with"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "core",
+					"names": [
+						"coordinate basis vectors and basis one-forms in polar coordinates",
+						"metric tensor in polar coordinates",
+						"position-dependent basis"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"position-dependent basis vectors",
+						"position vector is not a vector in general coordinates"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "figure-moving-basis",
+					"depth": "developed",
+					"names": [
+						"moving basis"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "lab-vector-field-two-arrows",
+					"depth": "developed",
+					"names": [
+						"component change versus frame change"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "lesson-differentiate-the-arrow-not-its-address",
+					"depth": "developed",
+					"names": [
+						"an unchanged arrow can have changing components"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-6-1-fixed-arrow-changing-components",
+					"depth": "core",
+					"names": [
+						"a fixed arrow with changing components"
+					]
+				}
+			],
+			"merged_from": [
+				"coordinate basis vectors and basis one-forms in polar coordinates",
+				"metric tensor in polar coordinates",
+				"position-dependent basis",
+				"position-dependent basis vectors",
+				"position vector is not a vector in general coordinates"
+			],
+			"notes": "Examples folded in: the polar basis e_r = cos theta e_x + sin theta e_y, e_theta = -r sin theta e_x + r cos theta e_y, their dual one-forms, and the polar metric components g_rr = 1, g_theta theta = r^2 (the same metric tensor, different components). Also folded in: GA ch07 point that the position vector x^mu e_mu is not a vector in general coordinates, so tangent vectors are built from dx^mu/dlambda."
+		},
+		{
+			"id": "noncoordinate-basis",
+			"title": "Noncoordinate basis",
+			"aliases": [
+				"non-coordinate basis",
+				"orthonormal polar basis",
+				"unit polar vectors",
+				"rotating orthonormal polar basis vectors",
+				"anholonomic basis"
+			],
+			"kind": "mathematical-object",
+			"tier": "foundation",
+			"summary": "A noncoordinate basis is a field of basis vectors that are not the partial-derivative directions of any coordinate system, such as the unit polar vectors r-hat and theta-hat = (1/r) d/d theta. Its vectors generally fail to commute, so connection coefficients in such a basis need not be symmetric in their lower indices even for a torsion-free connection.",
+			"prerequisites": [
+				"position-dependent-basis",
+				"orthonormal-basis"
+			],
+			"related": [
+				{
+					"id": "physical-versus-coordinate-components",
+					"relation": "motivates"
+				},
+				{
+					"id": "orthonormal-frame",
+					"relation": "generalizes"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch03",
+					"depth": "developed",
+					"names": [
+						"orthonormal polar basis"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch10",
+					"depth": "developed",
+					"names": [
+						"acceleration components in plane polar coordinates"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch20",
+					"depth": "revisited",
+					"names": [
+						"plane polar orthonormal basis"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch36",
+					"depth": "introduced",
+					"names": [
+						"asymmetry of connection coefficients in a non-coordinate basis"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "lab-visual-lesson-rotating-polar-basis",
+					"depth": "introduced",
+					"names": [
+						"rotating orthonormal polar basis"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-06-covariant-differentiation",
+					"depth": "mention",
+					"names": [
+						"non-coordinate basis",
+						"polar unit-frame bracket"
+					]
+				}
+			],
+			"merged_from": [
+				"acceleration components in plane polar coordinates",
+				"asymmetry of connection coefficients in a non-coordinate basis",
+				"orthonormal polar basis",
+				"plane polar orthonormal basis",
+				"rotating orthonormal polar basis vectors"
+			],
+			"notes": "Classic example (GA ch10, ch20): differentiating r = r r-hat twice with d r-hat/d theta = theta-hat and d theta-hat/d theta = -r-hat gives the polar acceleration components r-ddot - r theta-dot^2 and r theta-ddot + 2 r-dot theta-dot. GA ch36 warns that in an orthonormal frame on a sphere Gamma^phi-hat_{phi-hat theta-hat} differs from Gamma^phi-hat_{theta-hat phi-hat}. Orthonormal frames on spacetime (tetrads) are owned by differential-forms-and-frames."
+		},
+		{
+			"id": "physical-versus-coordinate-components",
+			"title": "Physical versus coordinate components",
+			"aliases": [
+				"coordinate-basis components versus orthonormal components",
+				"hatted versus unhatted components"
+			],
+			"kind": "convention",
+			"tier": "foundation",
+			"summary": "The same vector has different components in a coordinate basis and in the normalized (orthonormal) basis built from it; in polar coordinates a vector with coordinate components (a, b) has orthonormal components (a, r b). Formulas from vector-calculus books usually use the orthonormal ones, so they look different from tensor formulas while describing the same quantity.",
+			"prerequisites": [
+				"noncoordinate-basis"
+			],
+			"related": [
+				{
+					"id": "covariant-divergence-formula",
+					"relation": "applies"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "introduced",
+					"names": [
+						"physical versus coordinate components"
+					]
+				}
+			],
+			"merged_from": [
+				"physical versus coordinate components"
+			],
+			"notes": "SCH ch05 uses this to reconcile its polar divergence with the textbook formula. A frequent source of apparent contradictions for learners."
+		},
+		{
+			"id": "non-tensoriality-of-partial-derivatives",
+			"title": "Partial derivatives of tensors are not tensors",
+			"aliases": [
+				"ordinary derivative of a tensor is not a tensor",
+				"components of a derivative versus derivatives of components",
+				"second partial derivatives are not a tensor"
+			],
+			"kind": "theorem",
+			"tier": "foundation",
+			"summary": "Under a general coordinate change the partial derivatives of vector components pick up, besides the tensor term, an extra term with second derivatives of the coordinate transformation, so they do not form a tensor. The extra term vanishes only for linear transformations such as Lorentz transformations, which is why flat-space inertial calculus never needed a correction.",
+			"prerequisites": [
+				"tensor-transformation-law",
+				"chain-rule",
+				"comparing-vectors-at-different-points"
+			],
+			"related": [
+				{
+					"id": "covariant-derivative",
+					"relation": "motivates"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"components of a derivative versus derivatives of components"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch05",
+					"depth": "mention",
+					"names": [
+						"non-tensorial character of second partial derivatives"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"non-tensorial character of the partial derivative"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-6-1-fixed-arrow-changing-components",
+					"depth": "core",
+					"names": [
+						"partial V is not a tensor"
+					]
+				}
+			],
+			"merged_from": [
+				"components of a derivative versus derivatives of components",
+				"non-tensorial character of second partial derivatives",
+				"non-tensorial character of the partial derivative"
+			],
+			"notes": "Folded in: the component of a derivative is not the derivative of a component (GA ch07), and the array of second partials of a scalar is not a (0,2) tensor (DIV Exercise 5.9)."
+		},
+		{
+			"id": "christoffel-symbols",
+			"title": "Christoffel symbols (connection coefficients)",
+			"aliases": [
+				"connection coefficients",
+				"Gamma^mu_{alpha beta}",
+				"derivatives of basis vectors",
+				"affinity"
+			],
+			"kind": "mathematical-object",
+			"tier": "foundation",
+			"summary": "Christoffel symbols Gamma^mu_{alpha beta} are the coefficients that express how basis vectors change from point to point: the derivative of a basis vector along a coordinate direction, expanded back on the basis. In flat plane polar coordinates the only non-zero ones are Gamma^r_{theta theta} = -r and Gamma^theta_{r theta} = Gamma^theta_{theta r} = 1/r.",
+			"prerequisites": [
+				"position-dependent-basis"
+			],
+			"related": [
+				{
+					"id": "affine-connection",
+					"relation": "part-of"
+				},
+				{
+					"id": "christoffel-symbols-from-the-metric",
+					"relation": "motivates"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "core",
+					"names": [
+						"derivatives of basis vectors",
+						"Christoffel symbols"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "appB",
+					"depth": "mention",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch03",
+					"depth": "mention",
+					"names": [
+						"derivatives of basis vectors"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "core",
+					"names": [
+						"connection coefficients",
+						"Christoffel symbols of plane polar coordinates"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch08",
+					"depth": "developed",
+					"names": [
+						"connection coefficients",
+						"connection coefficients in plane polar coordinates"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch09",
+					"depth": "core",
+					"names": [
+						"connection coefficients",
+						"connection coefficients of the 2-sphere"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch10",
+					"depth": "revisited",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch11",
+					"depth": "revisited",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch13",
+					"depth": "mention",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch30",
+					"depth": "revisited",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "core",
+					"names": [
+						"connection coefficients as components of the connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch35",
+					"depth": "revisited",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch36",
+					"depth": "revisited",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch44",
+					"depth": "revisited",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "figure-connection-cancellation",
+					"depth": "developed",
+					"names": [
+						"the connection cancels a false change"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-06-covariant-differentiation",
+					"depth": "core",
+					"names": [
+						"connection coefficients"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-5-five-polar-plane-experiments",
+					"depth": "developed",
+					"names": [
+						"Gamma^r_theta theta = -r step by step"
+					]
+				}
+			],
+			"merged_from": [
+				"derivatives of basis vectors",
+				"connection coefficients",
+				"Christoffel symbols",
+				"Christoffel symbols of plane polar coordinates",
+				"connection coefficients as components of the connection",
+				"connection coefficients in plane polar coordinates",
+				"connection coefficients of the 2-sphere"
+			],
+			"notes": "Index-order convention differs: SCH writes the derivative index last (d e_alpha/dx^beta = Gamma^mu_{alpha beta} e_mu), GA puts the direction index first, DIV writes Gamma^a_{bc} with c the derivative index. Worked examples folded in: derivatives of polar basis vectors (d e_theta/d theta = -r e_r, etc.), plane polar coefficients (GA ch07, ch08, where they produce the centrifugal and Coriolis-like terms), and the unit 2-sphere (Gamma^theta_{phi phi} = -sin theta cos theta, Gamma^phi_{theta phi} = cot theta). GA ch34 defines them abstractly as components of nabla e_mu. Christoffel symbols of named spacetimes belong to those spacetimes domains."
+		},
+		{
+			"id": "covariant-derivative",
+			"title": "Covariant derivative",
+			"aliases": [
+				"nabla",
+				"semicolon derivative",
+				"V^alpha_;beta",
+				"covariant derivative of a vector",
+				"gradient of a vector field",
+				"nabla V as a (1 1) tensor",
+				"connection operator",
+				"semicolon notation"
+			],
+			"kind": "operation",
+			"tier": "foundation",
+			"summary": "The covariant derivative nabla differentiates a tensor field while accounting for the changing basis, so its result is again a tensor; for a vector V^alpha_{;beta} = V^alpha_{,beta} + Gamma^alpha_{mu beta} V^mu. On a scalar it is just the partial derivative, and in a local inertial frame or Cartesian coordinates it reduces to ordinary partial differentiation.",
+			"prerequisites": [
+				"christoffel-symbols",
+				"non-tensoriality-of-partial-derivatives",
+				"gradient-of-a-tensor-field"
+			],
+			"related": [
+				{
+					"id": "affine-connection",
+					"relation": "part-of"
+				},
+				{
+					"id": "covariant-derivative-along-a-curve",
+					"relation": "has-part"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "core",
+					"names": [
+						"covariant derivative of a scalar",
+						"covariant derivative of a vector",
+						"covariant derivative tensor nabla V"
+					]
+				},
+				{
+					"book": "schutz",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"covariant derivative on a curved manifold"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "appB",
+					"depth": "revisited",
+					"names": [
+						"covariant derivative",
+						"semicolon notation"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "core",
+					"names": [
+						"covariant derivative",
+						"covariant derivative of a scalar",
+						"connection operator"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch13",
+					"depth": "mention",
+					"names": [
+						"covariant derivative of a scalar field"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch33",
+					"depth": "mention",
+					"names": [
+						"covariant derivative"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "core",
+					"names": [
+						"covariant derivative",
+						"covariant derivative of a scalar"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch44",
+					"depth": "revisited",
+					"names": [
+						"covariant derivative"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"covariant derivative"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-06-covariant-differentiation",
+					"depth": "core",
+					"names": [
+						"covariant derivative"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-5-five-polar-plane-experiments",
+					"depth": "developed",
+					"names": [
+						"constant vector has zero covariant derivative"
+					]
+				}
+			],
+			"merged_from": [
+				"covariant derivative",
+				"covariant derivative of a scalar",
+				"connection operator",
+				"covariant derivative of a scalar field",
+				"covariant derivative of a vector",
+				"covariant derivative on a curved manifold",
+				"covariant derivative tensor nabla V",
+				"semicolon notation",
+				"gradient of a vector field",
+				"nabla_mu as a directional label",
+				"coordinate-free, mixed and coordinate notation"
+			],
+			"notes": "SCH ch05 builds it from the product rule on V^alpha e_alpha and stresses nabla V as one (1 1) tensor with many component representations; SCH ch06 defines it on a curved manifold as the partial derivative in a local inertial frame. Folded-in instance: covariant derivative of a scalar equals its gradient. Notation levels (nabla_u v, (nabla_u v)^mu, v^mu_{;alpha}) are part of this concept."
+		},
+		{
+			"id": "leibniz-rule-for-covariant-derivatives",
+			"title": "Leibniz rule for covariant derivatives",
+			"aliases": [
+				"product rule for nabla",
+				"commutes with contraction"
+			],
+			"kind": "identity",
+			"tier": "foundation",
+			"summary": "Covariant differentiation obeys the ordinary product rule for tensor products and commutes with contraction: differentiate each factor in turn and add. This rule, together with the requirement that a scalar differentiates to its gradient, fixes how the covariant derivative acts on one-forms and on higher-rank tensors.",
+			"prerequisites": [
+				"covariant-derivative",
+				"tensor-contraction"
+			],
+			"related": [
+				{
+					"id": "affine-connection",
+					"relation": "part-of"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "developed",
+					"names": [
+						"Leibniz rule for covariant derivative"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "introduced",
+					"names": [
+						"Leibniz rule for covariant derivatives"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch12",
+					"depth": "revisited",
+					"names": [
+						"Leibniz rule for the covariant derivative"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-06-covariant-differentiation",
+					"depth": "developed",
+					"names": [
+						"product rule and contraction compatibility"
+					]
+				}
+			],
+			"merged_from": [
+				"Leibniz rule for covariant derivative",
+				"Leibniz rule for covariant derivatives",
+				"Leibniz rule for the covariant derivative"
+			],
+			"notes": "SCH justifies it from Cartesian coordinates, GA ch34 lists it among the defining properties of a connection, DIV notes that nabla of the Kronecker delta vanishes so contraction commutes with covariant differentiation."
+		},
+		{
+			"id": "covariant-derivative-of-a-one-form",
+			"title": "Covariant derivative of a one-form",
+			"aliases": [
+				"covariant derivative of a covector",
+				"semicolon derivative of covectors",
+				"covariant derivative of basis one-forms"
+			],
+			"kind": "identity",
+			"tier": "foundation",
+			"summary": "For a one-form the connection term enters with the opposite sign: p_{alpha;beta} = p_{alpha,beta} - Gamma^mu_{alpha beta} p_mu. The sign follows from applying the Leibniz rule to the scalar p_alpha V^alpha, or equivalently from the fact that basis one-forms must change oppositely to basis vectors to keep their pairing constant.",
+			"prerequisites": [
+				"leibniz-rule-for-covariant-derivatives",
+				"one-form"
+			],
+			"related": [
+				{
+					"id": "covariant-derivative-of-a-tensor",
+					"relation": "special-case-of"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "core",
+					"names": [
+						"covariant derivative of one-forms and higher-rank tensors"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "developed",
+					"names": [
+						"covariant derivative of a 1-form",
+						"covariant derivative of basis 1-forms"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch43",
+					"depth": "mention",
+					"names": [
+						"covariant derivative of a 1-form"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "developed",
+					"names": [
+						"covariant derivative of a covector"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-06-covariant-differentiation",
+					"depth": "core",
+					"names": [
+						"covariant derivative of a covector"
+					]
+				}
+			],
+			"merged_from": [
+				"covariant derivative of a 1-form",
+				"covariant derivative of a covector",
+				"covariant derivative of basis 1-forms",
+				"covariant derivative of one-forms and higher-rank tensors"
+			],
+			"notes": null
+		},
+		{
+			"id": "covariant-derivative-of-a-tensor",
+			"title": "Covariant derivative of a general tensor",
+			"aliases": [
+				"one Gamma per index rule",
+				"plus for upper, minus for lower",
+				"covariant derivative of a rank-2 tensor"
+			],
+			"kind": "identity",
+			"tier": "foundation",
+			"summary": "The covariant derivative of a tensor of any rank is the partial derivative of its components plus one Christoffel term for each upper index and minus one for each lower index, each contracted into that index. The result has one more lower index than the original tensor.",
+			"prerequisites": [
+				"covariant-derivative-of-a-one-form",
+				"tensor"
+			],
+			"related": [
+				{
+					"id": "covariant-derivative",
+					"relation": "generalizes"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "core",
+					"names": [
+						"covariant derivative of one-forms and higher-rank tensors"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "introduced",
+					"names": [
+						"covariant derivative of tensors"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch12",
+					"depth": "introduced",
+					"names": [
+						"covariant derivative of a rank-2 tensor"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "core",
+					"names": [
+						"covariant derivative of tensors"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"covariant derivative of a general tensor"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-06-covariant-differentiation",
+					"depth": "core",
+					"names": [
+						"covariant derivative of a tensor"
+					]
+				}
+			],
+			"merged_from": [
+				"covariant derivative of tensors",
+				"covariant derivative of a general tensor",
+				"covariant derivative of a rank-2 tensor",
+				"covariant derivative of one-forms and higher-rank tensors"
+			],
+			"notes": "Standard worked instances: g_{mu nu;alpha} and T^{mu nu}_{;alpha}, whose contraction gives the divergence used in energy-momentum conservation. DIV contrasts the sign pattern with the Lie derivative formula."
+		},
+		{
+			"id": "transformation-law-of-the-connection",
+			"title": "Transformation law of the connection",
+			"aliases": [
+				"Christoffel symbols are not tensors",
+				"inhomogeneous transformation law",
+				"non-tensorial nature of Christoffel symbols",
+				"difference of two connections is a tensor"
+			],
+			"kind": "theorem",
+			"tier": "foundation",
+			"summary": "Under a coordinate change the Christoffel symbols transform like a (1,2) tensor plus an inhomogeneous term built from second derivatives of the coordinate transformation, so they are not tensor components and can vanish in one chart but not another. That extra term exactly cancels the non-tensorial part of the partial derivative, and the difference of two connections is a genuine tensor.",
+			"prerequisites": [
+				"christoffel-symbols",
+				"tensor-transformation-law",
+				"covariant-derivative"
+			],
+			"related": [
+				{
+					"id": "geodesic-coordinates",
+					"relation": "motivates"
+				},
+				{
+					"id": "nonzero-christoffel-symbols-in-flat-space",
+					"relation": "motivates"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "developed",
+					"names": [
+						"non-tensorial nature of Christoffel symbols"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "introduced",
+					"names": [
+						"non-tensorial transformation of connection coefficients"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "developed",
+					"names": [
+						"non-tensorial transformation of connection coefficients"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"difference of two connections is a tensor",
+						"inhomogeneous transformation law of the connection"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-4-connection-transformation-law",
+					"depth": "core",
+					"names": [
+						"connection transformation law",
+						"difference of connections"
+					]
+				}
+			],
+			"merged_from": [
+				"non-tensorial transformation of connection coefficients",
+				"difference of two connections is a tensor",
+				"inhomogeneous transformation law of the connection",
+				"non-tensorial nature of Christoffel symbols"
+			],
+			"notes": "SCH ch05 refines the slogan: for fixed alpha the Gamma^mu_{alpha beta} are components of the tensor nabla e_alpha, but a coordinate change replaces the basis vectors, so there is no single (1 2) tensor. The tensorial difference of connections underpins the Palatini variation (delta Gamma is a tensor)."
+		},
+		{
+			"id": "nonzero-christoffel-symbols-in-flat-space",
+			"title": "Non-zero Christoffel symbols do not imply curvature",
+			"aliases": [
+				"coordinate-induced Gamma",
+				"coordinate dependence of connection components",
+				"flat space in curvilinear coordinates"
+			],
+			"kind": "principle",
+			"tier": "foundation",
+			"summary": "Christoffel symbols can be non-zero in perfectly flat space simply because curvilinear coordinates are used, as in plane polar coordinates, so their presence says nothing about curvature. Only a tensor built from them and their derivatives, the Riemann tensor, can decide whether a space is curved.",
+			"prerequisites": [
+				"christoffel-symbols",
+				"curvilinear-coordinates"
+			],
+			"related": [
+				{
+					"id": "riemann-curvature-tensor",
+					"relation": "motivates"
+				},
+				{
+					"id": "transformation-law-of-the-connection",
+					"relation": "applies"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "introduced",
+					"names": [
+						"non-zero connection coefficients do not imply curvature"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch09",
+					"depth": "mention",
+					"names": [
+						"non-zero connection coefficients do not imply curvature"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch11",
+					"depth": "developed",
+					"names": [
+						"flat space in curvilinear coordinates"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch08",
+					"depth": "developed",
+					"names": [
+						"coordinate dependence of connection components"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-5-five-polar-plane-experiments",
+					"depth": "core",
+					"names": [
+						"nonzero Gamma on the flat polar plane"
+					]
+				}
+			],
+			"merged_from": [
+				"non-zero connection coefficients do not imply curvature",
+				"coordinate dependence of connection components",
+				"flat space in curvilinear coordinates",
+				"rotating-frame metric"
+			],
+			"notes": "GA ch11 checks explicitly that the polar-plane Riemann tensor vanishes term by term; DIV ch08 lists flat spacetime Gammas in spherical polars. A top misconception target."
+		},
+		{
+			"id": "affine-connection",
+			"title": "Affine connection",
+			"aliases": [
+				"connection",
+				"linear connection",
+				"affine manifold",
+				"defining properties of a connection",
+				"axioms of the connection"
+			],
+			"kind": "mathematical-object",
+			"tier": "foundation",
+			"summary": "An affine connection is the extra structure on a manifold that defines parallelism between neighbouring points and hence a covariant derivative. Abstractly it is an operator nabla that is linear over functions in its direction slot, additive, and obeys the Leibniz rule; in components it is a set of coefficients Gamma^a_{bc} with the inhomogeneous transformation law.",
+			"prerequisites": [
+				"covariant-derivative-of-a-tensor",
+				"transformation-law-of-the-connection",
+				"comparing-vectors-at-different-points"
+			],
+			"related": [
+				{
+					"id": "levi-civita-connection",
+					"relation": "generalizes"
+				},
+				{
+					"id": "torsion-tensor",
+					"relation": "has-part"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch06",
+					"depth": "mention",
+					"names": [
+						"affine connection without metric"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch31",
+					"depth": "mention",
+					"names": [
+						"parallel transport and connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch33",
+					"depth": "mention",
+					"names": [
+						"affine connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "core",
+					"names": [
+						"affine connection",
+						"defining properties of a connection"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"affine connection",
+						"affine manifold"
+					]
+				}
+			],
+			"merged_from": [
+				"affine connection",
+				"affine connection without metric",
+				"affine manifold",
+				"defining properties of a connection",
+				"parallel transport and connection"
+			],
+			"notes": "SCH mentions that a connection can be given without any metric and already defines curvature, then sets this aside. A manifold with a connection is an affine manifold (DIV). Connection one-forms belong to differential-forms-and-frames; gauge connections to action-principles-and-field-theory."
+		},
+		{
+			"id": "covariant-derivative-along-a-curve",
+			"title": "Covariant derivative along a curve",
+			"aliases": [
+				"absolute derivative",
+				"intrinsic derivative",
+				"D/dlambda",
+				"D/dtau",
+				"directional covariant derivative",
+				"nabla_u",
+				"covariant directional derivative"
+			],
+			"kind": "operation",
+			"tier": "foundation",
+			"summary": "Along a curve with tangent u the covariant (absolute) derivative is DV/dlambda = nabla_u V, with components dV^mu/dlambda + Gamma^mu_{alpha beta} u^alpha V^beta. It needs the field only on the curve and is the tensorial replacement for an ordinary rate of change along a path.",
+			"prerequisites": [
+				"covariant-derivative",
+				"tangent-vector"
+			],
+			"related": [
+				{
+					"id": "parallel-transport",
+					"relation": "motivates"
+				},
+				{
+					"id": "covariant-acceleration",
+					"relation": "motivates"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "appB",
+					"depth": "revisited",
+					"names": [
+						"covariant derivative along a curve"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "core",
+					"names": [
+						"directional covariant derivative",
+						"covariant derivative along a curve"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch08",
+					"depth": "revisited",
+					"names": [
+						"covariant derivative along a curve"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch10",
+					"depth": "revisited",
+					"names": [
+						"covariant derivative along a world line"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "developed",
+					"names": [
+						"directional covariant derivative"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch35",
+					"depth": "mention",
+					"names": [
+						"covariant derivative along a curve"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch39",
+					"depth": "core",
+					"names": [
+						"covariant directional derivative"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "developed",
+					"names": [
+						"directional covariant derivative",
+						"absolute derivative"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch10",
+					"depth": "developed",
+					"names": [
+						"Absolute derivative along a curve"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-07-connection-parallel-transport",
+					"depth": "developed",
+					"names": [
+						"covariant derivative along a curve"
+					]
+				}
+			],
+			"merged_from": [
+				"directional covariant derivative",
+				"covariant derivative along a curve",
+				"absolute derivative",
+				"Absolute derivative along a curve",
+				"covariant derivative along a world line",
+				"covariant directional derivative"
+			],
+			"notes": "GA ch39 presents nabla_u along a fluid four-velocity as the relativistic convective derivative. Books use D/dtau differently; GA appendix B notes the clash."
+		},
+		{
+			"id": "parallel-transport",
+			"title": "Parallel transport",
+			"aliases": [
+				"parallel propagation",
+				"parallel displacement",
+				"parallelism",
+				"covariantly constant along a curve",
+				"transporting a vector without turning it"
+			],
+			"kind": "operation",
+			"tier": "foundation",
+			"summary": "Parallel transport carries a vector (or tensor) along a curve so that it undergoes no intrinsic change: its covariant derivative along the tangent vanishes, nabla_u V = 0. In a local inertial frame its components are momentarily constant, and all apparent change of components comes from the turning basis.",
+			"prerequisites": [
+				"covariant-derivative-along-a-curve"
+			],
+			"related": [
+				{
+					"id": "holonomy",
+					"relation": "motivates"
+				},
+				{
+					"id": "geodesic",
+					"relation": "motivates"
+				},
+				{
+					"id": "parallel-transport-equation",
+					"relation": "has-part"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"parallel transport"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "core",
+					"names": [
+						"parallel transport",
+						"parallelism in curved space"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch08",
+					"depth": "revisited",
+					"names": [
+						"parallel transport"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch10",
+					"depth": "revisited",
+					"names": [
+						"parallel transport"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch11",
+					"depth": "revisited",
+					"names": [
+						"parallel transport"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "revisited",
+					"names": [
+						"parallel transport"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"parallel transport"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "lesson-carry-a-direction-without-turning-it",
+					"depth": "developed",
+					"names": [
+						"carry a direction without turning it"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-07-connection-parallel-transport",
+					"depth": "core",
+					"names": [
+						"parallel transport"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-5-five-polar-plane-experiments",
+					"depth": "revisited",
+					"names": [
+						"transport around a circle on the plane"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "scene-3d-parallel-transport-loop",
+					"depth": "developed",
+					"names": [
+						"carry an arrow home"
+					]
+				}
+			],
+			"merged_from": [
+				"parallel transport",
+				"parallelism in curved space"
+			],
+			"notes": "GA ch07 builds the idea pictorially from great circles on a sphere. Path dependence and holonomy around loops belong to curvature."
+		},
+		{
+			"id": "parallel-transport-equation",
+			"title": "Parallel transport equation",
+			"aliases": [
+				"nabla_u v = 0 in components",
+				"change of a vector under parallel transport"
+			],
+			"kind": "law",
+			"tier": "foundation",
+			"summary": "In components parallel transport reads dV^mu/dlambda + Gamma^mu_{alpha beta} u^alpha V^beta = 0, a first-order linear ordinary differential equation along the curve. It therefore has a unique solution for any starting vector, and the change in components exactly compensates the change of basis.",
+			"prerequisites": [
+				"parallel-transport",
+				"ordinary-differential-equation"
+			],
+			"related": [
+				{
+					"id": "geodesic-equation",
+					"relation": "special-case-of"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"parallel transport equation"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch44",
+					"depth": "revisited",
+					"names": [
+						"parallel transport of a vector"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-07-connection-parallel-transport",
+					"depth": "developed",
+					"names": [
+						"DV/dlambda = 0 as a linear ODE"
+					]
+				}
+			],
+			"merged_from": [
+				"parallel transport equation",
+				"parallel transport of a vector"
+			],
+			"notes": "GA ch44 writes the infinitesimal form delta v^mu = -Gamma^mu_{nu beta} v^beta dx^nu as the template for gauge transport. A note in the GA dossier warns that the book form without u^alpha holds only for fields parallel in every direction."
+		},
+		{
+			"id": "covariant-derivative-via-parallel-transport",
+			"title": "Covariant derivative via parallel transport",
+			"aliases": [
+				"transport-back-and-subtract definition",
+				"parallel vector at a neighbouring point",
+				"limit definition of the covariant derivative"
+			],
+			"kind": "technique",
+			"tier": "foundation",
+			"summary": "The covariant derivative can be defined as a limit: carry the vector at the neighbouring point back by parallel transport, subtract the vector already there, and divide by the separation. Transport puts both vectors in the same tangent space, so the difference is meaningful.",
+			"prerequisites": [
+				"parallel-transport"
+			],
+			"related": [
+				{
+					"id": "covariant-derivative",
+					"relation": "equivalent-to"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"limit definition of the covariant derivative via parallel transport"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "developed",
+					"names": [
+						"parallel vector at a neighbouring point"
+					]
+				}
+			],
+			"merged_from": [
+				"limit definition of the covariant derivative via parallel transport",
+				"parallel vector at a neighbouring point"
+			],
+			"notes": "DIV ch06 runs the logic the other way: it postulates a parallel vector at x + dx differing by -Gamma^a_{bc} X^b dx^c and derives the covariant derivative and the connection from it."
+		},
+		{
+			"id": "torsion-tensor",
+			"title": "Torsion tensor",
+			"aliases": [
+				"torsion"
+			],
+			"kind": "mathematical-object",
+			"tier": "advanced",
+			"summary": "The torsion of a connection is the (1,2) tensor T(u,v) = nabla_u v - nabla_v u - [u,v], with coordinate components Gamma^a_{bc} - Gamma^a_{cb}. It is a tensor because the inhomogeneous term in the connection transformation law is symmetric in the lower indices; general relativity sets it to zero.",
+			"prerequisites": [
+				"affine-connection",
+				"lie-bracket"
+			],
+			"related": [
+				{
+					"id": "torsion-free-connection",
+					"relation": "motivates"
+				},
+				{
+					"id": "riemann-curvature-tensor",
+					"relation": "contrasts-with"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "introduced",
+					"names": [
+						"torsion tensor"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "introduced",
+					"names": [
+						"torsion tensor"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-3-christoffel-derivation",
+					"depth": "developed",
+					"names": [
+						"torsion"
+					]
+				}
+			],
+			"merged_from": [
+				"torsion tensor"
+			],
+			"notes": "Not the same as the torsion of a space curve (Frenet-Serret), which belongs to curvature. Theories with torsion belong to quantum-gravity-and-beyond."
+		},
+		{
+			"id": "torsion-free-connection",
+			"title": "Torsion-free (symmetric) connection",
+			"aliases": [
+				"symmetric connection",
+				"symmetry of Christoffel symbols",
+				"symmetry of connection coefficients in their lower indices",
+				"zero torsion"
+			],
+			"kind": "definition",
+			"tier": "foundation",
+			"summary": "A torsion-free connection has vanishing torsion, which in any coordinate basis means Gamma^mu_{alpha beta} = Gamma^mu_{beta alpha}, and index-free means nabla_u v - nabla_v u = [u,v]. It is the connection assumed in general relativity; its symmetry can be proved by requiring second covariant derivatives of a scalar to commute.",
+			"prerequisites": [
+				"torsion-tensor"
+			],
+			"related": [
+				{
+					"id": "levi-civita-connection",
+					"relation": "part-of"
+				},
+				{
+					"id": "noncoordinate-basis",
+					"relation": "contrasts-with"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "core",
+					"names": [
+						"symmetry of Christoffel symbols"
+					]
+				},
+				{
+					"book": "schutz",
+					"unit": "ch06",
+					"depth": "introduced",
+					"names": [
+						"symmetry of Christoffel symbols"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "introduced",
+					"names": [
+						"torsion-free (symmetric) connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch09",
+					"depth": "developed",
+					"names": [
+						"symmetry of connection coefficients in their lower indices"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "developed",
+					"names": [
+						"torsion-free connection",
+						"symmetry of the covariant derivative for commuting fields"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch35",
+					"depth": "developed",
+					"names": [
+						"torsion-free connection symmetry"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch36",
+					"depth": "mention",
+					"names": [
+						"torsion-free connection"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"symmetric connection"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch11",
+					"depth": "revisited",
+					"names": [
+						"symmetric connection"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-3-christoffel-derivation",
+					"depth": "developed",
+					"names": [
+						"zero torsion",
+						"symmetric Gamma only in a coordinate basis"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch12",
+					"depth": "introduced",
+					"names": [
+						"antisymmetrized covariant derivative identity"
+					]
+				}
+			],
+			"merged_from": [
+				"torsion-free connection",
+				"torsion-free (symmetric) connection",
+				"symmetric connection",
+				"symmetry of Christoffel symbols",
+				"symmetry of connection coefficients in their lower indices",
+				"symmetry of the covariant derivative for commuting fields",
+				"torsion-free connection symmetry",
+				"antisymmetrized covariant derivative identity"
+			],
+			"notes": "SCH ch05 proves the symmetry from nabla nabla phi being symmetric in Cartesian coordinates. Consequence folded in: for commuting fields such as coordinate basis fields nabla_u v = nabla_v u (GA ch34, ch35). GA ch09 uses the symmetry for the factor-of-two rule when reading coefficients off geodesic equations. The symmetry holds only in coordinate bases."
+		},
+		{
+			"id": "metric-compatibility",
+			"title": "Metric compatibility",
+			"aliases": [
+				"covariant constancy of the metric",
+				"nabla g = 0",
+				"g_{ab;c} = 0",
+				"preservation of inner products under parallel transport",
+				"Levi-Civita condition"
+			],
+			"kind": "principle",
+			"tier": "foundation",
+			"summary": "A connection is metric compatible when the covariant derivative of the metric vanishes, nabla g = 0 (and so does that of the inverse metric). Equivalently parallel transport preserves all inner products, lengths and angles, and indices can be raised and lowered freely through covariant derivatives.",
+			"prerequisites": [
+				"covariant-derivative-of-a-tensor",
+				"metric-tensor",
+				"parallel-transport"
+			],
+			"related": [
+				{
+					"id": "levi-civita-connection",
+					"relation": "part-of"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "core",
+					"names": [
+						"metric compatibility"
+					]
+				},
+				{
+					"book": "schutz",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"metric compatibility"
+					]
+				},
+				{
+					"book": "schutz",
+					"unit": "ch08",
+					"depth": "mention",
+					"names": [
+						"metric compatibility of the connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"metric compatibility of the connection",
+						"preservation of vector length under parallel transport"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch08",
+					"depth": "mention",
+					"names": [
+						"metric compatibility of the connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch09",
+					"depth": "mention",
+					"names": [
+						"metric compatibility of the connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch12",
+					"depth": "revisited",
+					"names": [
+						"metric compatibility"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch13",
+					"depth": "mention",
+					"names": [
+						"metric compatibility of the connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch33",
+					"depth": "mention",
+					"names": [
+						"metric compatibility"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "core",
+					"names": [
+						"metric compatibility of the connection",
+						"preservation of inner products under parallel transport",
+						"raising and lowering indices inside covariant derivatives"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch36",
+					"depth": "mention",
+					"names": [
+						"metric compatibility of the connection"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"metric compatibility",
+						"derivative of the metric in terms of the connection"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-3-christoffel-derivation",
+					"depth": "core",
+					"names": [
+						"metric compatibility"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-5-five-polar-plane-experiments",
+					"depth": "developed",
+					"names": [
+						"nabla_r g_theta theta = 0"
+					]
+				}
+			],
+			"merged_from": [
+				"metric compatibility",
+				"metric compatibility of the connection",
+				"derivative of the metric in terms of the connection",
+				"preservation of inner products under parallel transport",
+				"preservation of vector length under parallel transport",
+				"raising and lowering indices inside covariant derivatives"
+			],
+			"notes": "SCH ch05 argues it from Cartesian coordinates and checks g_{theta theta;r} = 0 in polars despite d_r g_{theta theta} = 2r. GA motivates it physically: rulers must not change length when carried, and four-velocity norms must stay fixed. Folded in: d_c g_ab = Gamma_{bac} + Gamma_{abc} (DIV) and the caution not to raise indices on Gamma as though it were a tensor (GA Example 34.10). DIV ch11 Palatini derivation of compatibility belongs to action-principles-and-field-theory."
+		},
+		{
+			"id": "levi-civita-connection",
+			"title": "Levi-Civita connection",
+			"aliases": [
+				"metric connection",
+				"Christoffel connection",
+				"Riemannian connection",
+				"fundamental theorem of Riemannian geometry",
+				"fundamental theorem for the metric connection",
+				"uniqueness of the Levi-Civita connection"
+			],
+			"kind": "theorem",
+			"tier": "foundation",
+			"summary": "On a (pseudo-)Riemannian manifold there is exactly one connection that is both torsion-free and metric compatible, the Levi-Civita (metric) connection. Its coefficients are the Christoffel symbols built from first derivatives of the metric, and general relativity uses only this connection.",
+			"prerequisites": [
+				"torsion-free-connection",
+				"metric-compatibility"
+			],
+			"related": [
+				{
+					"id": "affine-connection",
+					"relation": "special-case-of"
+				},
+				{
+					"id": "christoffel-symbols-from-the-metric",
+					"relation": "has-part"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "introduced",
+					"names": [
+						"Levi-Civita connection"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch36",
+					"depth": "mention",
+					"names": [
+						"Levi-Civita connection"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"metric connection",
+						"fundamental theorem for the metric connection"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch08",
+					"depth": "revisited",
+					"names": [
+						"metric connection (metric compatibility)"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch11",
+					"depth": "revisited",
+					"names": [
+						"metric connection"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch14",
+					"depth": "introduced",
+					"names": [
+						"Levi-Civita connection uniqueness"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-3-christoffel-derivation",
+					"depth": "core",
+					"names": [
+						"fundamental theorem of Riemannian geometry",
+						"Levi-Civita connection"
+					]
+				}
+			],
+			"merged_from": [
+				"metric connection",
+				"metric connection (metric compatibility)",
+				"Levi-Civita connection",
+				"fundamental theorem for the metric connection",
+				"Levi-Civita connection uniqueness"
+			],
+			"notes": "DIV ch06 first obtains the metric connection by demanding that affine and metric geodesics agree, then proves the boxed theorem that for a symmetric connection nabla g = 0 holds exactly for it. GA ch36 uses uniqueness to justify guessing connection forms."
+		},
+		{
+			"id": "christoffel-symbols-from-the-metric",
+			"title": "Christoffel symbols from the metric",
+			"aliases": [
+				"Christoffel formula",
+				"connection coefficients from the metric",
+				"Levi-Civita connection formula",
+				"Christoffel symbols of the second kind"
+			],
+			"kind": "identity",
+			"tier": "foundation",
+			"summary": "For the Levi-Civita connection in a coordinate basis, Gamma^mu_{alpha beta} = (1/2) g^{mu nu} (g_{nu alpha,beta} + g_{nu beta,alpha} - g_{alpha beta,nu}). It follows from writing metric compatibility for three cyclic permutations of the indices, adding two, subtracting the third and using the symmetry of Gamma.",
+			"prerequisites": [
+				"levi-civita-connection",
+				"inverse-metric"
+			],
+			"related": [
+				{
+					"id": "christoffel-symbols-of-the-first-kind",
+					"relation": "has-part"
+				},
+				{
+					"id": "contracted-christoffel-symbol-identity",
+					"relation": "motivates"
+				},
+				{
+					"id": "lagrangian-method-for-christoffel-symbols",
+					"relation": "analogous-to"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "core",
+					"names": [
+						"Christoffel symbols from the metric"
+					]
+				},
+				{
+					"book": "schutz",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"Christoffel symbols from the metric"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch07",
+					"depth": "mention",
+					"names": [
+						"connection coefficients from the metric"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch09",
+					"depth": "core",
+					"names": [
+						"connection coefficients from the metric",
+						"non-diagonal metric with variable angle",
+						"shortcut formulas for diagonal metrics"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "revisited",
+					"names": [
+						"connection coefficients from the metric"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "developed",
+					"names": [
+						"Christoffel symbols of the second kind"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-3-christoffel-derivation",
+					"depth": "core",
+					"names": [
+						"Christoffel formula",
+						"three-permutation trick"
+					]
+				}
+			],
+			"merged_from": [
+				"connection coefficients from the metric",
+				"Christoffel symbols from the metric",
+				"Christoffel symbols of the second kind",
+				"non-diagonal metric with variable angle",
+				"shortcut formulas for diagonal metrics"
+			],
+			"notes": "Worked practice folded in: shortcut formulas for diagonal metrics (GA eqn 9.32: Gamma^mu_{lambda lambda} = -d_mu g_{lambda lambda}/(2 g_{mu mu}), Gamma^mu_{mu lambda} = d_lambda ln sqrt|g_{mu mu}|, off-diagonal-free cases vanish) and the non-diagonal metric du^2 + dv^2 + 2 cos theta du dv (GA Exercise 9.3). SCH notes that coordinates can make the symbols vanish at a point but not their derivatives. GA ch09 also derives the formula from the geodesic action, which geodesics-and-symmetries owns as a method."
+		},
+		{
+			"id": "christoffel-symbols-of-the-first-kind",
+			"title": "Christoffel symbols of the first kind",
+			"aliases": [
+				"lowered-index connection coefficients",
+				"Gamma_{lambda mu nu}",
+				"{ab,c}",
+				"[ab,c]"
+			],
+			"kind": "convention",
+			"tier": "foundation",
+			"summary": "The Christoffel symbols of the first kind are the all-lower-index combinations Gamma_{lambda mu nu} = (1/2)(g_{lambda mu,nu} + g_{lambda nu,mu} - g_{mu nu,lambda}), symmetric in the last two indices. Raising the free index with the inverse metric gives the usual symbols of the second kind.",
+			"prerequisites": [
+				"christoffel-symbols-from-the-metric",
+				"raising-and-lowering-indices"
+			],
+			"related": [
+				{
+					"id": "christoffel-symbols",
+					"relation": "analogous-to"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch09",
+					"depth": "developed",
+					"names": [
+						"lowered-index connection coefficients"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "developed",
+					"names": [
+						"Christoffel symbols of the first kind"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch07",
+					"depth": "mention",
+					"names": [
+						"Christoffel symbols of the first kind"
+					]
+				}
+			],
+			"merged_from": [
+				"Christoffel symbols of the first kind",
+				"lowered-index connection coefficients"
+			],
+			"notes": "Which slot carries the lowered index differs between books (GA lowers onto the first slot; DIV writes {ab,c} with the lowered index last), a common confusion when comparing formulas."
+		},
+		{
+			"id": "contracted-christoffel-symbol-identity",
+			"title": "Contracted Christoffel symbol identity",
+			"aliases": [
+				"trace of the connection",
+				"contracted connection identity",
+				"Gamma^a_{ab} = d_b ln sqrt(-g)"
+			],
+			"kind": "identity",
+			"tier": "foundation",
+			"summary": "Contracting the upper index of the Levi-Civita Christoffel symbols with a lower one gives Gamma^alpha_{mu alpha} = d_mu ln sqrt|g|, with g the metric determinant. It follows from the metric formula for Gamma and Jacobi formula for the derivative of a determinant.",
+			"prerequisites": [
+				"christoffel-symbols-from-the-metric",
+				"jacobi-formula",
+				"metric-determinant"
+			],
+			"related": [
+				{
+					"id": "covariant-divergence-formula",
+					"relation": "motivates"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch06",
+					"depth": "developed",
+					"names": [
+						"contracted Christoffel symbol"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch09",
+					"depth": "introduced",
+					"names": [
+						"contracted connection identity"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "introduced",
+					"names": [
+						"contracted connection identity and covariant divergence"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"contracted Christoffel symbol identity"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch11",
+					"depth": "introduced",
+					"names": [
+						"contracted connection as gradient of ln sqrt(-g)"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-6-5-divergence-volume-wave-operator",
+					"depth": "core",
+					"names": [
+						"Gamma^mu_mu nu = d_nu ln sqrt(-g)"
+					]
+				}
+			],
+			"merged_from": [
+				"contracted Christoffel symbol",
+				"contracted Christoffel symbol identity",
+				"contracted connection as gradient of ln sqrt(-g)",
+				"contracted connection identity",
+				"contracted connection identity and covariant divergence"
+			],
+			"notes": "Because the result is a gradient, its further partial derivative is symmetric, a fact DIV ch11 uses to recognize the Ricci tensor in the Einstein Lagrangian."
+		},
+		{
+			"id": "covariant-divergence-formula",
+			"title": "Covariant divergence formula",
+			"aliases": [
+				"divergence in curvilinear coordinates",
+				"divergence formula",
+				"V^alpha_;alpha"
+			],
+			"kind": "identity",
+			"tier": "foundation",
+			"summary": "The covariant divergence of a vector field can be computed without Christoffel symbols: V^alpha_{;alpha} = (1/sqrt|g|) d_alpha (sqrt|g| V^alpha). The sqrt|g| factors account for coordinate cells changing their physical volume, and in plane polars it reproduces (1/r) d_r(r V^r) + d_theta V^theta.",
+			"prerequisites": [
+				"contracted-christoffel-symbol-identity",
+				"covariant-derivative"
+			],
+			"related": [
+				{
+					"id": "covariant-divergence-theorem",
+					"relation": "motivates"
+				},
+				{
+					"id": "divergence",
+					"relation": "generalizes"
+				},
+				{
+					"id": "four-divergence",
+					"relation": "generalizes"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch05",
+					"depth": "developed",
+					"names": [
+						"divergence in curvilinear coordinates"
+					]
+				},
+				{
+					"book": "schutz",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"covariant divergence formula"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch34",
+					"depth": "introduced",
+					"names": [
+						"contracted connection identity and covariant divergence"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"covariant divergence formula"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-6-5-divergence-volume-wave-operator",
+					"depth": "core",
+					"names": [
+						"divergence and physical volume"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-5-five-polar-plane-experiments",
+					"depth": "developed",
+					"names": [
+						"polar Laplacian of r^2"
+					]
+				}
+			],
+			"merged_from": [
+				"covariant divergence formula",
+				"contracted connection identity and covariant divergence",
+				"divergence in curvilinear coordinates"
+			],
+			"notes": "SCH ch05 first computes the polar divergence by contracting nabla V, noting contraction is basis independent so it equals the Cartesian divergence (in coordinate-basis components). The analogous Laplacian test on r^2 (answer 4) is a legacy check."
+		},
+		{
+			"id": "second-covariant-derivative",
+			"title": "Second covariant derivative",
+			"aliases": [
+				"covariant Hessian",
+				"phi_{;mu nu}",
+				"covariant dAlembertian",
+				"second covariant derivative ordering convention"
+			],
+			"kind": "operation",
+			"tier": "foundation",
+			"summary": "Applying the covariant derivative twice gives a tensor such as the covariant Hessian phi_{;mu nu}, whose trace with the inverse metric is the curved-spacetime wave operator. For a scalar and a torsion-free connection the two derivatives commute, but on vectors and higher tensors they generally do not, and by convention indices after the semicolon are applied left to right.",
+			"prerequisites": [
+				"covariant-derivative-of-a-one-form",
+				"torsion-free-connection"
+			],
+			"related": [
+				{
+					"id": "ricci-identity",
+					"relation": "motivates"
+				},
+				{
+					"id": "dalembertian-operator",
+					"relation": "generalizes"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch35",
+					"depth": "mention",
+					"names": [
+						"second covariant derivative ordering convention"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch41",
+					"depth": "developed",
+					"names": [
+						"second covariant derivative of a scalar"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch50",
+					"depth": "developed",
+					"names": [
+						"symmetry of the second covariant derivative of a scalar"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-06-covariant-differentiation",
+					"depth": "developed",
+					"names": [
+						"covariant Hessian"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-6-5-divergence-volume-wave-operator",
+					"depth": "developed",
+					"names": [
+						"wave operator"
+					]
+				}
+			],
+			"merged_from": [
+				"second covariant derivative of a scalar",
+				"second covariant derivative ordering convention",
+				"symmetry of the second covariant derivative of a scalar"
+			],
+			"notes": "GA ch35 fixes c^alpha_{;nu mu} = (c^alpha_{;nu})_{;mu}, i.e. the components of nabla_mu nabla_nu c, which fixes the sign of the Riemann commutator identity. GA ch41 computes the wave operator for the flat Robertson-Walker metric as an example. The non-commutation on vectors itself (Ricci identity) belongs to curvature."
+		},
+		{
+			"id": "covariant-derivative-of-a-tensor-density",
+			"title": "Covariant derivative of a tensor density",
+			"aliases": [
+				"covariant constancy of g and sqrt(-g)"
+			],
+			"kind": "operation",
+			"tier": "advanced",
+			"summary": "For a tensor density of weight W the covariant derivative takes all the connection terms of a tensor with the same indices and subtracts W Gamma^d_{dc} times the density, giving a density of the same weight. With this rule the metric determinant, sqrt(-g) and the Levi-Civita symbol are covariantly constant.",
+			"prerequisites": [
+				"tensor-density",
+				"contracted-christoffel-symbol-identity",
+				"covariant-derivative-of-a-tensor"
+			],
+			"related": [
+				{
+					"id": "covariant-divergence-formula",
+					"relation": "applies"
+				}
+			],
+			"sources": [
+				{
+					"book": "dinverno",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"covariant constancy of g and sqrt(-g)",
+						"covariant derivative of a tensor density"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch11",
+					"depth": "introduced",
+					"names": [
+						"derivative of gothic inverse metric in terms of the connection"
+					]
+				}
+			],
+			"merged_from": [
+				"covariant constancy of g and sqrt(-g)",
+				"covariant derivative of a tensor density",
+				"derivative of gothic inverse metric in terms of the connection"
+			],
+			"notes": "Sign and weight conventions for densities vary; DIV says so explicitly. Folded in: the partial derivative of the weight-one density sqrt(-g) g^ab expressed purely with connection terms (DIV ch11), used in the Gamma-Gamma Lagrangian."
+		},
+		{
+			"id": "geodesic-coordinates",
+			"title": "Geodesic coordinates",
+			"aliases": [
+				"coordinates with vanishing connection at a point",
+				"normal coordinates at a point (weak form)"
+			],
+			"kind": "technique",
+			"tier": "foundation",
+			"summary": "For a symmetric connection one can always choose coordinates about a point P in which all connection coefficients vanish at P, by adding to any chart a quadratic term whose coefficients are Gamma(P). Covariant derivatives then equal partial derivatives at P, which makes tensor identities easy to prove there, though derivatives of Gamma cannot be removed in general.",
+			"prerequisites": [
+				"transformation-law-of-the-connection",
+				"torsion-free-connection"
+			],
+			"related": [
+				{
+					"id": "riemann-normal-coordinates",
+					"relation": "analogous-to"
+				},
+				{
+					"id": "local-flatness-theorem",
+					"relation": "analogous-to"
+				},
+				{
+					"id": "covariance-of-tensor-equations",
+					"relation": "applies"
+				}
+			],
+			"sources": [
+				{
+					"book": "dinverno",
+					"unit": "ch06",
+					"depth": "core",
+					"names": [
+						"geodesic coordinates"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch11",
+					"depth": "revisited",
+					"names": [
+						"geodesic coordinates"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-4-connection-transformation-law",
+					"depth": "mention",
+					"names": [
+						"coordinates with Gamma(p) = 0"
+					]
+				}
+			],
+			"merged_from": [
+				"geodesic coordinates"
+			],
+			"notes": "DIV calls them geodesic coordinates and uses an asterisk-equals sign for equations valid only there. For the metric connection they are the mathematical side of a local inertial frame; Riemann normal coordinates, which also make the metric Minkowskian, belong to manifolds-and-metrics."
+		},
+		{
+			"id": "covariant-acceleration",
+			"title": "Covariant acceleration",
+			"aliases": [
+				"coordinate acceleration versus covariant acceleration",
+				"Christoffel symbols as inertial forces",
+				"four-acceleration of a non-geodesic world line",
+				"a = nabla_u u"
+			],
+			"kind": "physical-quantity",
+			"tier": "core",
+			"summary": "The physical acceleration of a particle is the covariant derivative of its four-velocity along itself, a = nabla_u u, which an attached accelerometer measures and which vanishes in free fall. It differs from the coordinate acceleration d^2x/dt^2 by Christoffel terms, and in non-inertial coordinates on flat spacetime those terms are exactly the familiar inertial forces.",
+			"prerequisites": [
+				"covariant-derivative-along-a-curve",
+				"four-acceleration"
+			],
+			"related": [
+				{
+					"id": "inertial-force",
+					"relation": "generalizes"
+				},
+				{
+					"id": "geodesic-equation",
+					"relation": "motivates"
+				}
+			],
+			"sources": [
+				{
+					"book": "schutz",
+					"unit": "ch07",
+					"depth": "developed",
+					"names": [
+						"coordinate acceleration versus covariant acceleration"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch08",
+					"depth": "developed",
+					"names": [
+						"covariant acceleration"
+					]
+				},
+				{
+					"book": "dinverno",
+					"unit": "ch09",
+					"depth": "core",
+					"names": [
+						"Christoffel symbols as inertial forces"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-section-7-5-five-polar-plane-experiments",
+					"depth": "developed",
+					"names": [
+						"coordinate acceleration of a straight line"
+					]
+				}
+			],
+			"merged_from": [
+				"Christoffel symbols as inertial forces",
+				"coordinate acceleration versus covariant acceleration",
+				"covariant acceleration",
+				"four-acceleration of a non-geodesic world line"
+			],
+			"notes": "SCH ch07 uses the distinction to explain why no coordinates make all free particles unaccelerated in curved spacetime. Legacy check: a straight line in polar coordinates has r-ddot = r theta-dot^2 although its covariant acceleration is zero."
+		},
+		{
+			"id": "parallel-propagated-frame",
+			"title": "Parallel-propagated frame",
+			"aliases": [
+				"parallel-transported tetrad",
+				"non-rotating frame",
+				"freely falling non-rotating frame",
+				"gyroscope axes"
+			],
+			"kind": "technique",
+			"tier": "core",
+			"summary": "A parallel-propagated frame is an orthonormal tetrad carried along a geodesic by parallel transport, with its time leg equal to the four-velocity. Because transport preserves inner products the frame stays orthonormal, and physically its spatial axes are the directions of freely falling, non-rotating gyroscopes.",
+			"prerequisites": [
+				"parallel-transport",
+				"metric-compatibility",
+				"orthonormal-frame",
+				"geodesic"
+			],
+			"related": [
+				{
+					"id": "fermi-walker-transport",
+					"relation": "special-case-of"
+				}
+			],
+			"sources": [
+				{
+					"book": "dinverno",
+					"unit": "ch10",
+					"depth": "developed",
+					"names": [
+						"Parallel-propagated (non-rotating) frame"
+					]
+				},
+				{
+					"book": "legacy",
+					"unit": "manuscript-chapter-07-connection-parallel-transport",
+					"depth": "mention",
+					"names": [
+						"free gyroscope"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch10",
+					"depth": "core",
+					"names": [
+						"freely falling orthonormal frame",
+						"covariant derivative reduces to ordinary derivative in a freely falling frame"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch11",
+					"depth": "developed",
+					"names": [
+						"freely falling orthonormal frame"
+					]
+				},
+				{
+					"book": "gifted-amateur",
+					"unit": "ch22",
+					"depth": "introduced",
+					"names": [
+						"freely falling observer frame"
+					]
+				}
+			],
+			"merged_from": [
+				"Parallel-propagated (non-rotating) frame",
+				"freely falling orthonormal frame",
+				"covariant derivative reduces to ordinary derivative in a freely falling frame",
+				"freely falling observer frame"
+			],
+			"notes": "GA ch10 uses it to extend a triad along a free-fall world line; DIV ch10 to set up geodesic deviation in frame components."
+		},
+		{
+			"id": "fermi-walker-transport",
+			"title": "Fermi-Walker transport",
+			"aliases": [
+				"Fermi transport"
+			],
+			"kind": "operation",
+			"tier": "advanced",
+			"summary": "Fermi-Walker transport carries vectors along an accelerated timelike world line so that they do not rotate: it keeps the four-velocity mapped to itself, preserves all inner products and keeps spatial vectors orthogonal to u. It reduces to parallel transport when the acceleration vanishes, and it is the law obeyed by the axes of a gyroscope on an accelerated path.",
+			"prerequisites": [
+				"parallel-propagated-frame",
+				"covariant-acceleration"
+			],
+			"related": [
+				{
+					"id": "parallel-transport",
+					"relation": "generalizes"
+				},
+				{
+					"id": "thomas-wigner-rotation",
+					"relation": "applies"
+				}
+			],
+			"sources": [
+				{
+					"book": "gifted-amateur",
+					"unit": "ch32",
+					"depth": "mention",
+					"names": [
+						"Fermi transport"
+					]
+				}
+			],
+			"merged_from": [
+				"Fermi transport"
+			],
+			"notes": "Only GA treats it, in Exercise 32.2, as nabla_u a = -(A wedge u)( , a-tilde) in (-,+,+,+) signature; the standard component form is dV/dtau = (u a.V - a u.V) with signs depending on signature. Worth a demo for gyroscope experiments later."
+		}
+	],
+	"out_of_scope_candidates": [
+		{
+			"name": "Riemann normal coordinates",
+			"belongs_to": "manifolds-and-metrics",
+			"note": "Riemann normal coordinates are listed under manifolds-and-metrics with the local flatness theorem; geodesic-coordinates here links to them."
+		},
+		{
+			"name": "Cartesian-then-tensor-equation argument",
+			"belongs_to": "tensor-algebra",
+			"note": "The prove-in-Cartesian-then-generalize argument is covariance-of-tensor-equations."
+		},
+		{
+			"name": "choice of convenient coordinates",
+			"belongs_to": "einstein-field-equations",
+			"note": "Exploiting coordinate freedom to simplify field-equation work is a gauge-choice topic."
+		},
+		{
+			"name": "Christoffel symbols of the weak-field metric",
+			"belongs_to": "equivalence-principle",
+			"note": "Christoffel symbols of the weak-field metric are the working step of the Newtonian limit of geodesic motion."
+		},
+		{
+			"name": "coordinate basis one-forms dx^alpha",
+			"belongs_to": "tensor-algebra",
+			"note": "Coordinate gradients as the dual basis of a Lorentz frame; constant-basis material."
+		},
+		{
+			"name": "covariant divergence theorem",
+			"belongs_to": "manifolds-and-metrics",
+			"note": "The taxonomy lists the covariant divergence theorem with Gauss theorem on a manifold; it uses covariant-divergence-formula from here."
+		},
+		{
+			"name": "derivative along a world line",
+			"belongs_to": "tensor-algebra",
+			"note": "Directional derivative of a scalar along a world line (merged into gradient-one-form)."
+		},
+		{
+			"name": "derivative of the metric determinant",
+			"belongs_to": "action-principles-and-field-theory",
+			"note": "Variation of sqrt(-g) with respect to the metric; Jacobi formula itself is mathematical-methods."
+		},
+		{
+			"name": "directional derivative along a curve",
+			"belongs_to": "mathematical-methods",
+			"note": "Directional derivative of a scalar along a curve (directional-derivative)."
+		},
+		{
+			"name": "divergence of a tensor",
+			"belongs_to": "tensor-algebra",
+			"note": "Flat-space divergence of a tensor as gradient plus contraction (four-divergence)."
+		},
+		{
+			"name": "divergence rule",
+			"belongs_to": "matter-and-stress-energy",
+			"note": "Fluid kinematics rule relating velocity divergence to comoving volume change."
+		},
+		{
+			"name": "five-step recipe for connection coefficients",
+			"belongs_to": "geodesics-and-symmetries",
+			"note": "Reading connection coefficients off a geodesic Lagrangian is assigned to geodesics-and-symmetries (K-Lagrangian method)."
+		},
+		{
+			"name": "induced covariant derivative",
+			"belongs_to": "einstein-field-equations",
+			"note": "The induced covariant derivative on a spacelike hypersurface belongs to the 3+1 formalism."
+		},
+		{
+			"name": "integrable connection",
+			"belongs_to": "curvature",
+			"note": "Path-independent (integrable, flat) connections are the flatness criterion and holonomy material of curvature."
+		},
+		{
+			"name": "torsion",
+			"belongs_to": "curvature",
+			"note": "Torsion of a space curve (Frenet-Serret); unrelated to the torsion tensor of a connection despite the shared name."
+		}
+	]
+}

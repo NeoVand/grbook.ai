@@ -67,7 +67,7 @@ knowledge/
 | 0. Source manifests | `sources/<book>/toc.json`, reading copies and inventories in `book-sources/_chapters/` | done |
 | 1. Chapter dossiers | 94 units read and independently verified (PDF renders for export losses); book profiles | done |
 | 1b. Legacy inventory | 336 assets with reuse verdicts; `sources/legacy/overview.md` ranks what to carry forward | done |
-| 2. Concept union | canonical concept registry across books, then concept notes with adversarial review | in progress |
+| 2. Concept union | registry done (1,370 concepts in 24 domains, 0 check errors); concept notes next | in progress |
 | 3. Pedagogy catalogs | notation crosswalk, analogies, misconceptions, demos from figures, examples, history, glossary | planned |
 | 4. Curriculum | cross-book sequencing, prerequisite DAG, modules and lessons at several entry levels | planned |
 | 5. Tutor layer | generated indices, retrieval functions, learner-memory schema, completeness review | planned |
