@@ -1,0 +1,891 @@
+{
+	"id": "holonomy",
+	"title": "Holonomy of parallel transport around a loop",
+	"domain": "curvature",
+	"tier": "core",
+	"aliases": [
+		"parallel transport around a closed loop",
+		"holonomy of an infinitesimal loop",
+		"loop transport",
+		"geometric phase on the sphere"
+	],
+	"summary": "Carry a vector around a closed loop by parallel transport and compare it with the vector you started with: the change is the loop's holonomy. For a small loop the change is proportional to the vector and to the area the loop encloses, with the Riemann tensor as the coefficient, so curvature is holonomy per unit area. On a sphere of radius a the vector comes back turned by exactly the enclosed area divided by a squared.",
+	"levels": {
+		"intuition": {
+			"explanation": "Walk a closed circuit on a big ball while holding a pointer that you never twist relative to the ground. When you get back to your starting spot, compare the pointer with the direction you set off with: it has turned. Fence in twice as much ground and it turns twice as much; walk the same circuit the other way round and it turns the opposite way. The amount of turning per square metre fenced in is the curvature of the ball, and it is something a creature living on the surface can measure without ever looking outside. On a flat field, or on a sheet of paper rolled into a tube, every closed walk brings the pointer back unchanged. What this picture leaves out: it uses a two-dimensional surface, where the only possible change is a rotation; in four-dimensional spacetime a loop can also change a velocity (a boost), and different loop orientations can give different answers. The area rule is exact for surfaces but only a small-loop approximation in general, and there are special cases, like the tip of a cone, where the turning is concentrated at one point.",
+			"picture": "A fenced paddock on a globe: the walker's pointer at the gate before and after one lap, with the angle between them equal to the paddock's area over the globe's radius squared.",
+			"assumes": [
+				"path-dependence-of-parallel-transport"
+			]
+		},
+		"working": {
+			"explanation": "For a small loop that goes along a displacement $a^\\mu$, then $b^\\nu$, then back by $-a$ and $-b$, the transported vector changes by $\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$. Read it piece by piece: the change is a linear map acting on $V$ (so the loop acts like a matrix); it is linear in each edge, so doubling a side doubles the change; it is antisymmetric in the two edges, so reversing the direction of travel flips the sign; and it is second order in the loop size, so it scales with area. On a two-dimensional surface transport can only rotate, and the exact statement for any loop bounding a region $S$ is $\\Delta\\alpha = \\iint_S K\\, dA$ (modulo $2\\pi$), where $K$ is the Gaussian curvature. On a sphere of radius $a$, $K = 1/a^2$, so $\\Delta\\alpha = A/a^2$; for a geodesic triangle this equals its angular excess, and for a circle of colatitude $\\theta_0$ it is $2\\pi(1 - \\cos\\theta_0)$. As a check, on the unit sphere the course convention gives $R^\\phi{}_{\\theta\\theta\\phi} = -1$; a coordinate cell traversed $+\\delta\\theta$, $+\\delta\\phi$, back, back changes $e_\\theta$ by $\\Delta V^\\phi = +\\delta\\theta\\,\\delta\\phi$, a rotation toward $e_\\phi$ by $\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$, which is exactly the cell's area. Because transport with the metric connection preserves lengths and angles, holonomy never stretches a vector; in spacetime it is a small Lorentz transformation.",
+			"picture": "A small parallelogram with edges a and b at a point; a vector V goes around it and returns as V plus a tiny arrow Delta V; flipping the circulation flips Delta V; doubling b doubles it.",
+			"assumes": [
+				"riemann-curvature-tensor",
+				"gaussian-curvature",
+				"angular-excess"
+			]
+		},
+		"formal": {
+			"explanation": "Let $(M,\\nabla)$ have a torsion-free connection and let $\\gamma$ be a piecewise smooth loop based at $p$. Its holonomy is the parallel-transport map $\\mathrm{Hol}(\\gamma) = P_\\gamma \\in GL(T_pM)$. Writing $(\\Gamma_\\mu)^\\rho{}_\\sigma = \\Gamma^\\rho{}_{\\mu\\sigma}$, it is the path-ordered exponential $\\mathcal{P}\\exp(-\\oint_\\gamma \\Gamma_\\mu dx^\\mu)$. If $\\nabla g = 0$ it lies in the orthogonal group of $g_p$: $SO(2)$ on an oriented surface, a subgroup of the Lorentz group in spacetime. The holonomies of all loops at $p$ form the holonomy group; those of contractible loops form the restricted holonomy group. For an infinitesimal loop spanned by $\\epsilon u$ and $\\epsilon v$ (coordinate vector fields, or with the closing leg along $-[u,v]$ in general), $\\mathrm{Hol} = 1 - \\epsilon^2 \\mathcal{R}(u,v) + O(\\epsilon^3)$ with the curvature operator $\\mathcal{R}(u,v) = [\\nabla_u, \\nabla_v] - \\nabla_{[u,v]}$, whose components are $R^\\rho{}_{\\sigma\\mu\\nu}u^\\mu v^\\nu$. Thus the Riemann tensor is the holonomy per unit area element, a map from oriented tangent 2-planes (bivectors) to infinitesimal metric-preserving transformations. Consequences: the restricted holonomy is trivial iff $R = 0$; the Ambrose-Singer theorem says the Lie algebra of the holonomy group is spanned by curvature operators transported back to $p$. In two dimensions $SO(2)$ is abelian, so finite loops obey $\\Delta\\alpha = \\iint K\\,dA$ exactly (the local Gauss-Bonnet theorem), whereas in higher dimensions the ordering matters and there is no simple area law beyond leading order. Loops that cannot be shrunk can have nontrivial holonomy with $R = 0$ along them, as around the apex of a cone. The same construction for a gauge connection $D_\\mu = \\partial_\\mu + iqA_\\mu$ gives the phase $\\exp(-iq\\oint A_\\mu dx^\\mu)$ and identifies $[D_\\mu, D_\\nu] = iqF_{\\mu\\nu}$ as the field strength, the curvature of that connection.",
+			"picture": "At a point p, the unit circle of tangent directions; each small oriented loop through p acts on it as a rotation whose angle is linear in the loop's bivector, with the Riemann tensor as the linear map from bivectors to rotation generators.",
+			"assumes": [
+				"riemann-curvature-tensor",
+				"riemann-curvature-operator",
+				"lie-bracket",
+				"simply-connected-space"
+			]
+		}
+	},
+	"prerequisites": [
+		{
+			"id": "path-dependence-of-parallel-transport",
+			"why": "Holonomy is path dependence with the two routes joined into a closed loop; the learner must first accept that routes can disagree."
+		},
+		{
+			"id": "riemann-curvature-tensor",
+			"why": "The quantitative small-loop law expresses the change through the Riemann tensor, so its components and index slots must be known."
+		}
+	],
+	"leads_to": [
+		{
+			"id": "riemann-curvature-operator",
+			"why": "Loops built from non-commuting vector fields need a closing leg along the Lie bracket, which is exactly the correction term in the curvature operator."
+		},
+		{
+			"id": "flatness-criterion",
+			"why": "Trivial holonomy for every small loop is equivalent to vanishing curvature, the operational test for flatness."
+		},
+		{
+			"id": "bianchi-identity",
+			"why": "Gifted Amateur shows that summing loop holonomies over the faces of a closed cube gives zero, which is the Bianchi identity."
+		},
+		{
+			"id": "gauge-field-strength",
+			"why": "Repeating the loop calculation for a charged field yields the field strength as the curvature of the gauge connection."
+		},
+		{
+			"id": "curvature-2-form",
+			"why": "The map from oriented area elements to infinitesimal rotations is the curvature 2-form of Cartan's formalism."
+		},
+		{
+			"id": "geodesic-deviation-equation",
+			"why": "Gifted Amateur reads the deviation term as transport of the four-velocity around a loop spanned by the separation and the velocity."
+		}
+	],
+	"related": [
+		{
+			"id": "angular-excess",
+			"why": "For a geodesic triangle on a surface the holonomy angle equals the angular excess."
+		},
+		{
+			"id": "gaussian-curvature",
+			"why": "On a surface, Gaussian curvature is the holonomy angle per unit enclosed area in the small-loop limit."
+		},
+		{
+			"id": "gauge-parallel-transport",
+			"why": "Transport of a charged field's phase around a loop is the gauge-theory holonomy (Wilson loop)."
+		},
+		{
+			"id": "ricci-identity",
+			"why": "The commutator of covariant derivatives is the infinitesimal form of going around a loop in two orders."
+		},
+		{
+			"id": "intrinsic-versus-extrinsic-curvature",
+			"why": "Holonomy is an intrinsic measurement: the rolled cylinder gives none despite being bent."
+		},
+		{
+			"id": "simply-connected-space",
+			"why": "On spaces with holes (cone with apex removed), flat regions can still have nontrivial holonomy around non-contractible loops."
+		}
+	],
+	"key_equations": [
+		{
+			"name": "Small-loop holonomy",
+			"latex": "\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}\\,V^\\sigma\\,a^\\mu\\,b^\\nu \\qquad (\\text{route } +a,\\ +b,\\ -a,\\ -b)",
+			"meaning": "The change in a vector carried around a tiny loop is linear in the vector and in each edge, antisymmetric in edge order, and second order in size; the Riemann tensor is the coefficient.",
+			"convention_note": "Schutz (6.62) and Gifted Amateur (11.16) go along the nu edge first and write +R; d'Inverno compares the two routes; Gifted Amateur ch35 writes delta A = -R(u,v)A for u first. All agree with this course form.",
+			"refs": [
+				"SCH ch06 §6.5 p.157",
+				"GA ch11 Example 11.3",
+				"GA ch35 Example 35.5",
+				"DIV ch06 §6.7 p.98",
+				"legacy:manuscript-section-8-1-8-3-riemann-commutator-and-loop"
+			]
+		},
+		{
+			"name": "Curvature operator and loop closure",
+			"latex": "\\delta A = -\\mathcal{R}(u,v)A\\,\\Delta a\\,\\Delta b,\\qquad \\mathcal{R}(u,v) = [\\nabla_u,\\nabla_v] - \\nabla_{[u,v]}",
+			"meaning": "For loops built by flowing along vector fields u and v, the loop closes only after an extra leg along minus the Lie bracket; that leg contributes the bracket term, and the operator acting on A gives its change per unit parameter area.",
+			"convention_note": "Gifted Amateur writes the operator as R-hat(u,v); coordinate basis fields commute, so the bracket term vanishes there.",
+			"refs": [
+				"GA ch35 Fig. 35.3 p.368",
+				"GA ch35 Example 35.5",
+				"DIV ch06 Ex 6.11"
+			]
+		},
+		{
+			"name": "Holonomy on a surface (local Gauss-Bonnet)",
+			"latex": "\\Delta\\alpha = \\iint_S K\\,dA \\pmod{2\\pi},\\qquad \\text{sphere of radius } a:\\ \\Delta\\alpha = \\frac{A}{a^2}",
+			"meaning": "On a two-dimensional surface the holonomy of a loop bounding a region is a rotation by the integrated Gaussian curvature, exact for loops of any size; the sense of rotation matches the sense of circulation when K is positive.",
+			"convention_note": "Gifted Amateur Exercise 38.4 obtains the same magnitude with its own orthonormal-frame sign bookkeeping (an integral equal to minus the area). The course states the magnitude and the sense rule separately.",
+			"refs": [
+				"GA ch38 Ex 38.4",
+				"legacy:manuscript-section-8-3-sphere-holonomy-area-and-cone",
+				"SCH ch06 Ex 6.10"
+			]
+		},
+		{
+			"name": "Angular excess of a geodesic triangle",
+			"latex": "\\Delta\\alpha = (\\alpha_1 + \\alpha_2 + \\alpha_3) - \\pi",
+			"meaning": "For a triangle made of geodesics, the holonomy angle equals how much its interior angles exceed a straight angle; the octant triangle has three right angles, excess pi/2.",
+			"convention_note": null,
+			"refs": [
+				"SCH ch06 Ex 6.10",
+				"legacy:lesson-carry-a-direction-without-turning-it"
+			]
+		},
+		{
+			"name": "Finite loop as a path-ordered exponential",
+			"latex": "V_{\\text{final}} = \\mathcal{P}\\exp\\!\\Big(-\\oint_\\gamma \\Gamma_\\mu\\,dx^\\mu\\Big)\\,V_{\\text{initial}},\\qquad (\\Gamma_\\mu)^\\rho{}_\\sigma = \\Gamma^\\rho{}_{\\mu\\sigma}",
+			"meaning": "Integrating the transport equation around a finite loop multiplies the vector by an ordered product of connection matrices; expanding to second order for a small loop reproduces the Riemann formula.",
+			"convention_note": "Gifted Amateur's matrix mnemonic treats Gamma_mu as a matrix with row index up and column index down, matching this definition.",
+			"refs": [
+				"GA ch11 §11.3 p.125",
+				"GA ch44 Example 44.6"
+			]
+		},
+		{
+			"name": "Gauge-field holonomy (U(1))",
+			"latex": "\\psi' = e^{-iq\\oint A_\\mu dx^\\mu}\\,\\psi \\approx \\big(1 - iq\\,F_{\\mu\\nu}\\,a^\\mu b^\\nu\\big)\\psi,\\qquad [D_\\mu, D_\\nu] = iqF_{\\mu\\nu}",
+			"meaning": "A charged field carried around a loop picks up a phase set by the enclosed magnetic-type flux; the field strength plays exactly the role of the Riemann tensor.",
+			"convention_note": "Uses Gifted Amateur's D_mu = d_mu + iqA_mu; texts with D = d - iqA flip the sign of the exponent. The course conventions file does not fix a gauge sign, so state it whenever this analogy is used.",
+			"refs": [
+				"GA ch44 Example 44.6",
+				"GA ch44 §44.2 p.482"
+			]
+		}
+	],
+	"conventions": [
+		{
+			"issue": "Orientation and sign of the small-loop formula",
+			"schutz": "Eq. (6.62): steps delta a e_nu, then delta b e_mu, then back; delta V^alpha = +R^alpha_{beta mu nu} V^beta delta a delta b.",
+			"gifted_amateur": "Eq. (11.16): same step order and sign as Schutz; ch35: anticlockwise loop starting along u gives delta A = -R-hat(u,v)A Delta a Delta b.",
+			"dinverno": "Compares two routes to the far corner: (delta x first) minus (Delta x first) = -R^a_{bcd} X^b delta x^c Delta x^d.",
+			"course_choice": "Delta V^rho = -R^rho_{sigma mu nu} V^sigma a^mu b^nu for the route +a, +b, -a, -b. All three books agree with this once edge order is matched; always state the order of the edges."
+		},
+		{
+			"issue": "Name of the phenomenon",
+			"schutz": "Not named; described as a vector returning changed after transport around a closed loop.",
+			"gifted_amateur": "Not named: the loop discussions in chapters 11, 35 and 44 describe the change of a vector or field transported round a closed path without using the word holonomy.",
+			"dinverno": "'Parallel propagation around an infinitesimal loop' within the integrability lemma.",
+			"course_choice": "'Holonomy' for the loop map; 'holonomy angle' on surfaces."
+		},
+		{
+			"issue": "Sign bookkeeping for the sphere area law",
+			"schutz": "States the octant rotation (90 degrees) and asks in Exercise 6.10 for equality with the angular excess, without a signed convention.",
+			"gifted_amateur": "Exercise 38.4 in an orthonormal frame with (x^1, x^2) = (theta, phi) obtains an integral of cos(theta) dphi equal to minus the enclosed area and a rotation by that area.",
+			"dinverno": null,
+			"course_choice": "Magnitude equals integrated K dA; for K > 0 the vector rotates in the same sense as the loop is traversed (counterclockwise loop seen from outside the sphere gives counterclockwise rotation). Legacy unit check: on the unit sphere R^phi_{theta theta phi} = -1."
+		},
+		{
+			"issue": "Range of validity of the loop formula",
+			"schutz": "Valid only for loops small enough that second derivatives of Gamma are not needed; explicitly not for the octant.",
+			"gifted_amateur": "Infinitesimal parallelogram, first order in each side.",
+			"dinverno": "Second-order Taylor expansion, third-order terms dropped.",
+			"course_choice": "Leading order in loop size with O(size^3) corrections in general; exact area law only in two dimensions."
+		},
+		{
+			"issue": "Gauge covariant derivative sign in the gauge analogue",
+			"schutz": null,
+			"gifted_amateur": "D_mu = d_mu + iqA_mu, psi -> e^{i alpha} psi, [D_mu, D_nu] = iqF_mu nu; Exercise 44.1 switches to a different sign convention.",
+			"dinverno": null,
+			"course_choice": "Not fixed by the course conventions file; quote Gifted Amateur's choice and name it whenever the analogy is used."
+		}
+	],
+	"how_books_teach": [
+		{
+			"source": "schutz",
+			"route": "Section 6.4 shows a flat loop with unchanged arrows and then the sphere octant loop returning a quarter turn, as evidence of intrinsic curvature. Section 6.5 defines curvature from a tiny loop of coordinate lines x^1 = a, a + delta a, x^2 = b, b + delta b: integrate the transport law along each edge, pair opposite edges, expand to first order, eliminate derivatives of V, and read off a quantity linear in V and both edges, hence a tensor. The book warns the result is only for small loops and later links it to the commutator of covariant derivatives. Exercise 6.10 asks for the angular-excess law.",
+			"representation": "Hand drawing of the octant; coordinate cell diagram (Fig. 6.5); edge integrals and tensor-as-machine language (a one-form, the vector, two loop edges in, the change out).",
+			"strengths": "Honest about the small-loop limitation; the machine reading gives every index a job; the derivation motivates tensor character through linearity in the loop edges.",
+			"weaknesses": "The finite octant and the infinitesimal formula are never quantitatively connected in the text; the exact area law is left to an exercise; loop orientation is handled only through index order.",
+			"refs": [
+				"SCH ch06 Fig. 6.3 p.153",
+				"SCH ch06 Fig. 6.5 p.156",
+				"SCH ch06 §6.5 p.157",
+				"SCH ch06 §6.5 p.158",
+				"SCH ch06 Ex 6.10"
+			]
+		},
+		{
+			"source": "gifted-amateur",
+			"route": "Chapter 11 gives two insider tests of curvature: geodesic deviation and transport around a loop on a sphere (Fig. 11.2). It then computes the change around an infinitesimal parallelogram (Example 11.3, Fig. 11.5) and defines the Riemann tensor from it, with the ant analogy explaining why one-dimensional spaces cannot be intrinsically curved. Chapter 35 repeats the loop with covariant derivatives, adding the closing leg along the Lie bracket (Example 35.5, Fig. 35.3), and draws the no-global-grid conclusion. Exercise 38.4 derives the exact sphere result (rotation by enclosed area) with Green's theorem and mentions geometric phases in magnetism. Chapter 44 runs the same loop for a charged field, getting the field strength (Example 44.6), and uses a cube of face loops (Fig. 44.5) to reach the Bianchi identity.",
+			"representation": "Sphere sketch, parallelogram bookkeeping, matrix mnemonic, operator form with Lie bracket, second-order leg operators for gauge fields, cube of loops.",
+			"strengths": "Revisits holonomy three times with increasing machinery and connects it to gauge theory and the Bianchi identity, which few texts do. The operator derivation shows the loop and deviation routes give the same curvature.",
+			"weaknesses": "The exact area law is buried in a late exercise; the word holonomy is absent where the idea is first taught; Fig. 35.3 draws the second-order bracket leg as large as the edges; the link between deviation and loops is asserted in ch11 rather than derived.",
+			"refs": [
+				"GA ch11 Fig. 11.2 p.121",
+				"GA ch11 Example 11.3",
+				"GA ch11 §11.4 p.127",
+				"GA ch35 Example 35.5",
+				"GA ch38 Ex 38.4",
+				"GA ch44 Example 44.6",
+				"GA ch44 Fig. 44.5 p.483"
+			]
+		},
+		{
+			"source": "dinverno",
+			"route": "Inside the proof that vanishing curvature makes a connection integrable, §6.7 carries a vector from x to the opposite corner of an infinitesimal quadrilateral by both edge orders, Taylor expanding the connection to second order, and finds the two results differ by minus Riemann times the vector and the two edges (Fig. 6.9). It then deforms any curve into any other through such thin loops (Fig. 6.10) on a simply connected manifold.",
+			"representation": "Pure index calculation with a schematic quadrilateral; lemma-proof structure.",
+			"strengths": "The two-route bookkeeping avoids edge integrals and is the shortest clean derivation of the small-loop law; the role of simple connectedness is explicit.",
+			"weaknesses": "No finite-loop example, no rotation angle, no surface picture of the effect; holonomy appears only as a step in a proof.",
+			"refs": [
+				"DIV ch06 §6.7 p.97",
+				"DIV ch06 Fig. 6.9 p.97",
+				"DIV ch06 Fig. 6.10 p.98"
+			]
+		},
+		{
+			"source": "legacy",
+			"route": "Chapter 8 opens with holonomy: a vector carried home on plane, rolled sheet and sphere, with reverse, shrink and radius controls. Section 8.1 derives Riemann from the commutator, §8.3 states the small-loop law with orientation caveats and (optionally) derives the sphere area law by tiling small cells and treats the cut cone, flat everywhere yet with holonomy equal to its deficit angle. A Cartan-coframe figure computes a 30-degree return for a sphere patch against zero for the plane.",
+			"representation": "Continuous three.js transport lab with signed return angle, stepwise octant lesson, tiling argument, cone metric, matched plane/sphere figure; sign unit test R^phi_{theta theta phi} = -1.",
+			"strengths": "Exact, script-verified visuals; sign conventions pinned down by a test; the cone cleanly separates local curvature from global holonomy; radius independence at fixed angular size is shown.",
+			"weaknesses": "The quantitative area derivation is hidden in optional material; loops are fixed triangles; no shrinking-loop convergence plot; Riemannian surfaces only.",
+			"refs": [
+				"legacy:manuscript-chapter-08-curvature-holonomy",
+				"legacy:scene-3d-parallel-transport-loop",
+				"legacy:manuscript-section-8-3-sphere-holonomy-area-and-cone",
+				"legacy:manuscript-section-8-1-8-3-riemann-commutator-and-loop",
+				"legacy:figure-cartan-comparison"
+			]
+		}
+	],
+	"recommended_teaching_path": [
+		{
+			"step": "Pose the insider question",
+			"move": "Ask how a creature confined to a surface, unable to see outside, could discover that its world is curved.",
+			"why": "Frames holonomy as a measurement available from inside, which is the only kind available in spacetime.",
+			"inspired_by": [
+				"GA ch11 §11.4 p.127"
+			]
+		},
+		{
+			"step": "Show the return rotation",
+			"move": "Run the octant loop on a sphere (quarter turn) next to the same loop on a plane and on a rolled cylinder (no turn).",
+			"why": "One dramatic curved result framed by two controls prevents the learner from blaming bending or the transport rule.",
+			"inspired_by": [
+				"SCH ch06 Fig. 6.3 p.153",
+				"GA ch11 Fig. 11.2 p.121",
+				"legacy:scene-3d-parallel-transport-loop"
+			]
+		},
+		{
+			"step": "Discover the area law",
+			"move": "Let the learner shrink the loop, reverse it, change its shape and change the sphere's radius; tabulate rotation against area over radius squared, then name the angular excess and the latitude-circle result.",
+			"why": "Learners find linearity in area, sign flip with orientation and radius independence themselves before seeing a formula.",
+			"inspired_by": [
+				"SCH ch06 Ex 6.10",
+				"legacy:manuscript-section-8-3-sphere-holonomy-area-and-cone",
+				"GA ch38 Ex 38.4"
+			]
+		},
+		{
+			"step": "Derive the small-loop law",
+			"move": "On a coordinate parallelogram, transport along each edge, pair opposite edges so zeroth-order pieces cancel, and keep the second-order remainder to get Delta V = -R V a b; point out linearity and antisymmetry in the edges as the reason R is a tensor. For vector-field loops, add the Lie-bracket closing leg.",
+			"why": "Turns the discovered pattern into the Riemann tensor and shows why each index slot exists.",
+			"inspired_by": [
+				"SCH ch06 §6.5 p.157",
+				"GA ch11 Example 11.3",
+				"DIV ch06 §6.7 p.97",
+				"GA ch35 Example 35.5"
+			]
+		},
+		{
+			"step": "Check with two computations",
+			"move": "Evaluate the formula for a unit-sphere coordinate cell (rotation equals the cell's area) and for the polar-coordinate plane (zero, despite nonzero Christoffel symbols).",
+			"why": "Confirms sign and normalization against the demo and inoculates against reading Christoffel symbols as curvature.",
+			"inspired_by": [
+				"legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature",
+				"GA ch11 Example 11.7"
+			]
+		},
+		{
+			"step": "Mark the limits",
+			"move": "Show a cone: every small loop away from the tip returns unrotated, yet a loop around the tip rotates by the deficit angle. State that the area law is exact only in two dimensions and leading-order elsewhere.",
+			"why": "Prevents the over-generalizations 'zero curvature means zero holonomy for all loops' and 'the small-loop formula works for big loops'.",
+			"inspired_by": [
+				"legacy:manuscript-section-8-3-sphere-holonomy-area-and-cone",
+				"SCH ch06 §6.5 p.158"
+			]
+		},
+		{
+			"step": "Transfer to physics",
+			"move": "Repeat the loop for a charged quantum field to get a phase set by enclosed flux, and show the cube of face loops cancelling to give the Bianchi identity.",
+			"why": "Reveals holonomy as the common language of gravity and gauge fields and previews an identity needed for the field equations.",
+			"inspired_by": [
+				"GA ch44 Example 44.6",
+				"GA ch44 Fig. 44.5 p.483"
+			]
+		}
+	],
+	"analogies": [
+		{
+			"analogy": "An ant walking a closed circuit on a large ball",
+			"explanation": "The ant cannot see the ball's shape but can carry a direction around a loop and compare on return; a nonzero turn proves curvature. On a line no loops exist, which is why one-dimensional spaces have no intrinsic curvature.",
+			"limits": "Other insider tests exist (triangle angle sums, circle circumferences), and the ant's world is Riemannian and two-dimensional, where holonomy is always a pure rotation.",
+			"level": "intuition",
+			"refs": [
+				"GA ch11 §11.4 p.127"
+			]
+		},
+		{
+			"analogy": "The Foucault pendulum's slow turn",
+			"explanation": "In one sidereal day Earth's rotation carries a pendulum once around its circle of latitude, and to a good approximation the swing plane is parallel transported along that circle. Measured against the local north direction, the swing plane turns by 2 pi times the sine of the latitude, clockwise in the northern hemisphere. The holonomy angle of the latitude circle is 2 pi (1 - cos theta_0), where theta_0 is the colatitude. The two differ by exactly one full turn, because the local north direction itself rotates once relative to a parallel-transported arrow on each trip around the circle.",
+			"limits": "The pendulum dynamics only approximately enforce parallel transport (slow rotation, small swings); the curvature involved is that of Earth's two-dimensional surface, not of spacetime; the rotation is measured relative to the rotating ground.",
+			"level": "working",
+			"refs": []
+		},
+		{
+			"analogy": "Light's polarization rotating in a coiled optical fibre",
+			"explanation": "When light travels along a helically wound fibre, its propagation direction traces a loop on the sphere of directions, and its polarization is carried along by a transport rule that makes it return rotated by the solid angle that loop encloses: holonomy on the unit sphere of directions.",
+			"limits": "The sphere here is the space of directions, not physical space; the effect is a geometric (Berry-type) phase in optics, not a gravitational phenomenon.",
+			"level": "working",
+			"refs": []
+		},
+		{
+			"analogy": "A charged particle's phase around a loop (Wilson loop, Aharonov-Bohm)",
+			"explanation": "A charged field carried around a loop gains a phase proportional to the enclosed flux of the gauge field; the field strength is the curvature of the gauge connection just as Riemann is the curvature of the Levi-Civita connection.",
+			"limits": "U(1) phases commute, so ordering around the loop does not matter, whereas rotations of tangent vectors in three or more dimensions do not commute. The phase acts on an internal space, not on tangent vectors, and there is no metric or Lorentz boost involved.",
+			"level": "formal",
+			"refs": [
+				"GA ch44 Example 44.6",
+				"GA ch44 §44.2 p.481"
+			]
+		}
+	],
+	"misconceptions": [
+		{
+			"misconception": "The small-loop formula can be applied directly to a big loop such as the octant triangle.",
+			"correction": "The formula keeps only the leading order in loop size. Large loops need the full ordered integration of the transport equation, which on a surface happens to sum to the exact area law but in higher dimensions generally does not.",
+			"why_tempting": "Both describe the rotation from loop transport, and on a sphere the area law looks like the small-loop formula integrated.",
+			"diagnostic_question": "Using the value of the Riemann tensor at the north pole alone, could you predict the rotation for the octant triangle? What would you have to do instead?",
+			"refs": [
+				"SCH ch06 §6.5 p.158"
+			]
+		},
+		{
+			"misconception": "If the curvature is zero everywhere a loop goes, the loop's holonomy must be trivial.",
+			"correction": "Zero curvature forces trivial holonomy only for loops that can be shrunk to a point within the flat region. A loop around the tip of a cone passes only through flat regions yet returns vectors rotated by the deficit angle.",
+			"why_tempting": "The small-loop formula makes holonomy look like a purely local sum of curvature.",
+			"diagnostic_question": "A paper cone has a 60-degree wedge removed. An ant walks a big circle around the tip. Every patch the ant crosses is flat. Does its pointer come back unchanged?",
+			"refs": [
+				"legacy:manuscript-section-8-3-sphere-holonomy-area-and-cone"
+			]
+		},
+		{
+			"misconception": "A bigger sphere gives a bigger holonomy for the 'same' triangle.",
+			"correction": "For a triangle with the same angles (same angular size), area grows as the radius squared while curvature falls as one over radius squared, so the rotation is unchanged. For a triangle of fixed side lengths in metres, a bigger sphere gives a smaller rotation.",
+			"why_tempting": "Bigger spheres have bigger triangles, and 'more area means more rotation' is half remembered.",
+			"diagnostic_question": "An octant triangle is drawn on a tennis ball and on the Earth. Which returns the larger rotation? Now draw a triangle with 1 km sides on each: which wins?",
+			"refs": [
+				"legacy:scene-3d-parallel-transport-two-routes",
+				"legacy:scene-3d-parallel-transport-loop"
+			]
+		},
+		{
+			"misconception": "The direction of travel around the loop does not matter.",
+			"correction": "Reversing the loop reverses the holonomy (the inverse map); for small loops the change flips sign, reflected in the antisymmetry of the Riemann tensor in its last two indices.",
+			"why_tempting": "The enclosed area looks the same either way.",
+			"diagnostic_question": "You walk a small square clockwise and your pointer turns 2 degrees clockwise. What happens if you walk it counterclockwise, and which Riemann symmetry encodes this?",
+			"refs": [
+				"SCH ch06 §6.5 p.157"
+			]
+		},
+		{
+			"misconception": "Holonomy can change the length of a vector or the angle between two vectors.",
+			"correction": "Transport by the metric connection preserves inner products, so holonomy is a rotation (on a Riemannian manifold) or a Lorentz transformation (in spacetime). Lengths and relative angles are unchanged.",
+			"why_tempting": "'The vector changes' suggests any change, and Delta V is drawn as a small added arrow.",
+			"diagnostic_question": "If Delta V is always a small added arrow, how can the length stay exactly the same? What must be true of Delta V relative to V for a small loop?",
+			"refs": [
+				"GA ch35 §35.3 p.369"
+			]
+		},
+		{
+			"misconception": "The rotation can be read off partway around the loop by comparing the moving arrow with the starting arrow.",
+			"correction": "Arrows at different points have no route-independent comparison. Holonomy is defined only when the loop closes and both vectors sit in the same tangent space.",
+			"why_tempting": "Animations show the arrow's direction in the room changing continuously, inviting a running angle readout.",
+			"diagnostic_question": "Halfway around the octant loop, a readout claims the arrow has turned 45 degrees. Relative to what, and why is that number not meaningful?",
+			"refs": [
+				"legacy:scene-3d-parallel-transport-loop"
+			]
+		},
+		{
+			"misconception": "In spacetime, the holonomy of a small loop depends only on the loop's area.",
+			"correction": "It depends on the oriented plane the loop spans (the bivector a^mu b^nu), and the result can be a rotation, a boost or both; a loop in a space-time plane near a mass gives a tiny boost set by tidal components.",
+			"why_tempting": "On a sphere every plane is the same plane and the answer is just area times one number.",
+			"diagnostic_question": "Near Earth, would a small loop in a horizontal plane and a same-area loop in a vertical plane (or a plane containing the time direction) give the same holonomy? What object tells you?",
+			"refs": []
+		}
+	],
+	"thought_experiments": [
+		{
+			"name": "Tiny parallelogram circuit",
+			"setup": "Carry a vector around an infinitesimal coordinate parallelogram and compare with the original at the starting corner; then double one side, or go round the other way.",
+			"lesson": "The change doubles when a side doubles and flips sign when the circulation reverses, so it is bilinear and antisymmetric in the edges: the signature of a tensor with an antisymmetric pair of slots.",
+			"refs": [
+				"SCH ch06 §6.5 p.157",
+				"DIV ch06 §6.7 p.97"
+			]
+		},
+		{
+			"name": "Walking around the tip of a cone",
+			"setup": "Make a cone by cutting a wedge from paper; transport an arrow around a small loop away from the tip, then around a loop enclosing the tip.",
+			"lesson": "The first returns unchanged, the second rotated by the wedge angle: holonomy detects curvature concentrated where the loop cannot go.",
+			"refs": [
+				"legacy:manuscript-section-8-3-sphere-holonomy-area-and-cone"
+			]
+		},
+		{
+			"name": "A cube of loops",
+			"setup": "Traverse each face of a small cube as a loop, joining them by edges that are travelled once in each direction.",
+			"lesson": "Connecting edges cancel and the face holonomies combine to nothing, which is the geometric content of the Bianchi identity.",
+			"refs": [
+				"GA ch44 Fig. 44.5 p.483"
+			]
+		}
+	],
+	"visualizations": [
+		{
+			"title": "Draw a loop, read the turn",
+			"idea": "The learner drags the vertices of a geodesic polygon (or sketches a free loop) on a rotatable surface; a tangent arrow is transported around it and, on closing, the return angle is shown beside the enclosed area, the integral of K dA and the angular excess.",
+			"interaction": "Surface: plane, cylinder, sphere, saddle (hyperbolic patch). Drag vertices, reverse direction, change radius, scrub the transport; the angle readout appears only when the loop closes, with the start and end arrows drawn in a shared tangent-plane inset.",
+			"form": "interactive-3d",
+			"priority": "high",
+			"physics_model": "Intrinsic transport ODE integrated with RK4 in surface coordinates; great-circle edges checked against exact rotations; K from the metric; area from the metric area element; sphere check d(psi) = -cos(theta) d(phi) on latitude segments.",
+			"inspired_by": [
+				"GA ch11 Fig. 11.2 p.121",
+				"SCH ch06 Fig. 6.3 p.153"
+			],
+			"legacy_assets": [
+				"scene-3d-parallel-transport-loop",
+				"manuscript-section-8-3-sphere-holonomy-area-and-cone",
+				"scene-3d-sphere-holonomy"
+			]
+		},
+		{
+			"title": "Shrink the loop, find Riemann",
+			"idea": "A coordinate parallelogram on a chosen 2D metric is traversed; the change Delta V divided by the coordinate area is plotted as the loop shrinks and converges to the Riemann prediction, with edge contributions shown as paired bars that nearly cancel.",
+			"interaction": "Sliders for the two edge lengths and the base point; swap edge order to flip the sign; log-log plot of |Delta V| against area with slope 1; switch between sphere patch, polar-coordinate plane (limit zero) and a saddle.",
+			"form": "interactive-plot",
+			"priority": "high",
+			"physics_model": "Numerical transport along four coordinate edges (RK4); comparison value -R^rho_{sigma mu nu} V^sigma a^mu b^nu from symbolic Christoffels; residual shows O(size^3) corrections.",
+			"inspired_by": [
+				"GA ch11 Fig. 11.5 p.124",
+				"SCH ch06 Fig. 6.5 p.156",
+				"DIV ch06 Fig. 6.9 p.97"
+			],
+			"legacy_assets": [
+				"manuscript-section-8-1-8-3-riemann-commutator-and-loop"
+			]
+		},
+		{
+			"title": "Latitude circles and the Foucault turn",
+			"idea": "A vector is transported around a circle of latitude on a globe. Its return angle relative to its starting direction, 2 pi (1 - cos theta_0), is plotted against latitude. Its turn relative to local north, -2 pi sin(latitude), is overlaid with the Foucault pendulum's turn per sidereal day. The two curves differ by exactly one full turn, which is the rotation of the local north direction itself.",
+			"interaction": "Drag the latitude; play one lap; toggle between 'angle relative to start' and 'angle relative to the local north direction'.",
+			"form": "animated-3d",
+			"priority": "medium",
+			"physics_model": "Exact: along a latitude circle the transported angle relative to e_theta changes at rate -cos(theta_0) per unit phi.",
+			"inspired_by": [
+				"GA ch38 Ex 38.4"
+			],
+			"legacy_assets": [
+				"figure-cartan-comparison"
+			]
+		},
+		{
+			"title": "Flat almost everywhere: the cone",
+			"idea": "The learner cuts a wedge from a flat sheet, glues it into a cone, and transports arrows around loops that do and do not enclose the tip.",
+			"interaction": "Slider for the wedge (deficit) angle; draw loops; the unrolled sheet is shown side by side so the learner sees the arrow slide rigidly and the glued seam add the rotation.",
+			"form": "interactive-2d",
+			"priority": "medium",
+			"physics_model": "Cone metric dr^2 + alpha^2 r^2 dphi^2 with alpha = 1 - delta/(2 pi); transport is translation on the unrolled sheet; holonomy of a tip-enclosing loop equals delta.",
+			"inspired_by": [],
+			"legacy_assets": [
+				"manuscript-section-8-3-sphere-holonomy-area-and-cone"
+			]
+		}
+	],
+	"worked_examples": [
+		{
+			"title": "Octant loop on the sphere",
+			"what_it_shows": "Qualitative step-by-step transport around a three-right-angle triangle returning a quarter turn.",
+			"level": "intuition",
+			"refs": [
+				"SCH ch06 §6.4 p.153"
+			]
+		},
+		{
+			"title": "Riemann tensor from a tiny coordinate loop",
+			"what_it_shows": "Edge integrals along four coordinate lines, pairing of opposite edges and a first-order expansion leave a change linear in V and both edges, defining the Riemann components.",
+			"level": "working",
+			"refs": [
+				"SCH ch06 §6.5 p.156",
+				"GA ch11 Example 11.3"
+			]
+		},
+		{
+			"title": "Loop transport with covariant derivatives and the bracket leg",
+			"what_it_shows": "Summing covariant derivatives around a loop built from vector fields, including the closing leg along the Lie bracket, reproduces the curvature operator.",
+			"level": "formal",
+			"refs": [
+				"GA ch35 Example 35.5"
+			]
+		},
+		{
+			"title": "Two edge orders by Taylor expansion",
+			"what_it_shows": "The shortest derivation: expand the connection to second order along both routes around an infinitesimal quadrilateral and subtract.",
+			"level": "formal",
+			"refs": [
+				"DIV ch06 §6.7 p.97"
+			]
+		},
+		{
+			"title": "Sphere area law and the cut cone",
+			"what_it_shows": "Tiling small cells shows the rotation equals oriented area over radius squared; the cone shows holonomy equal to the deficit angle in a flat geometry.",
+			"level": "working",
+			"refs": [
+				"legacy:manuscript-section-8-3-sphere-holonomy-area-and-cone"
+			]
+		},
+		{
+			"title": "Loop transport of a charged field",
+			"what_it_shows": "Composing four second-order leg operators leaves only ordered cross terms, which assemble into the commutator of gauge covariant derivatives times the loop area.",
+			"level": "formal",
+			"refs": [
+				"GA ch44 Example 44.6"
+			]
+		}
+	],
+	"exercises": [
+		{
+			"summary": "Show that the rotation from transport around any great-circle triangle equals its angular excess.",
+			"skill": "Holonomy on a sphere",
+			"difficulty": "standard",
+			"refs": [
+				"SCH ch06 Ex 6.10"
+			]
+		},
+		{
+			"summary": "Fill in the intermediate steps of the small-loop derivation, including the dummy-index relabelling in the quadratic terms.",
+			"skill": "Loop derivation algebra",
+			"difficulty": "standard",
+			"refs": [
+				"SCH ch06 Ex 6.16"
+			]
+		},
+		{
+			"summary": "Write the sphere geodesic equation in an orthonormal frame, solve it by a matrix exponential, and use Green's theorem to show a closed loop rotates vectors by the enclosed area.",
+			"skill": "Exact holonomy via Green's theorem",
+			"difficulty": "challenging",
+			"refs": [
+				"GA ch38 Ex 38.4"
+			]
+		},
+		{
+			"summary": "Traverse composite face loops of a cube for a gauge field and combine them to leading order.",
+			"skill": "Loop operators and ordering",
+			"difficulty": "challenging",
+			"refs": [
+				"GA ch44 Ex 44.1"
+			]
+		},
+		{
+			"summary": "Show the covariant-derivative commutator corrected by the Lie bracket equals Riemann contracted with the three vectors.",
+			"skill": "Operator form of curvature",
+			"difficulty": "challenging",
+			"refs": [
+				"DIV ch06 Ex 6.11"
+			]
+		}
+	],
+	"checks_for_understanding": [
+		{
+			"question": "You walk a small closed loop on a sphere and your pointer comes back turned by 3 degrees. Without calculating, what happens if you (a) walk a loop of the same shape with twice the area, (b) walk the original loop in the opposite direction?",
+			"answer": "(a) About 6 degrees, since for small loops the turn is proportional to enclosed area (on a sphere it is exactly proportional). (b) 3 degrees in the opposite sense: reversing the loop reverses the holonomy.",
+			"level": "intuition",
+			"targets_misconception": "The direction of travel around the loop does not matter."
+		},
+		{
+			"question": "A geodesic triangle on a sphere of radius 1000 km has angles 100, 60 and 50 degrees. By how much does a vector rotate when transported around it, and what is the triangle's area?",
+			"answer": "The angle sum is 210 degrees, so the excess, and the holonomy angle, is 30 degrees = pi/6 rad. Area = (pi/6) times (1000 km)^2, about 5.2 times ten to the five square kilometres.",
+			"level": "working",
+			"targets_misconception": null
+		},
+		{
+			"question": "A vector is carried once around the circle of latitude 30 degrees north (colatitude 60 degrees) on a sphere. By what angle does it return rotated?",
+			"answer": "The enclosed polar cap has area 2 pi a^2 (1 - cos 60 degrees) = pi a^2, so the rotation is pi a^2 / a^2 = pi, a half turn. (Equivalently -2 pi cos 60 degrees = -pi, the same modulo 2 pi.)",
+			"level": "working",
+			"targets_misconception": null
+		},
+		{
+			"question": "On the unit sphere, with course conventions, R^phi_{theta theta phi} = -1. A tiny coordinate cell at colatitude theta is traversed +delta theta, +delta phi, -delta theta, -delta phi, starting with V = e_theta. Find Delta V and the rotation angle, and check against the cell's area.",
+			"answer": "Delta V^phi = -R^phi_{theta theta phi} V^theta delta theta delta phi = +delta theta delta phi (and Delta V^theta = -R^theta_{theta theta phi} = 0 by antisymmetry in the first pair after lowering). The basis vector e_phi has length sin theta, so e_theta (unit length) tilts toward e_phi by an angle sin theta delta theta delta phi, which is exactly the cell's area sin theta delta theta delta phi. The direction e_theta to e_phi is counterclockwise seen from outside, the same sense as the circulation.",
+			"level": "formal",
+			"targets_misconception": null
+		},
+		{
+			"question": "A paper cone is made by removing a 90-degree wedge. A student says: 'every patch of the cone away from the tip is flat, so any loop gives zero holonomy'. Evaluate the claim.",
+			"answer": "It is true only for loops that do not enclose the tip. A loop around the tip returns vectors rotated by the deficit angle, 90 degrees, because unrolling shows the glued seam imposes that rotation. Vanishing curvature along the loop guarantees trivial holonomy only for loops contractible within the flat region.",
+			"level": "formal",
+			"targets_misconception": "If the curvature is zero everywhere a loop goes, the loop's holonomy must be trivial."
+		}
+	],
+	"applications": [
+		{
+			"topic": "Foucault pendulum",
+			"details": "The swing plane of a Foucault pendulum is approximately parallel transported around its latitude circle. Its turn relative to local north, -2 pi sin(latitude) per sidereal day, equals the holonomy angle 2 pi (1 - cos theta_0) minus one full turn of the north reference.",
+			"key_numbers": "Turn per sidereal day = 2 pi sin(latitude): 360 degrees at the poles, about 255 degrees at latitude 45 degrees, zero at the equator.",
+			"refs": []
+		},
+		{
+			"topic": "Conical deficit of a (hypothetical) straight cosmic string",
+			"details": "The spacetime around an idealized straight cosmic string is locally flat but conical; vectors transported around the string rotate by the deficit angle, and images of background objects can be doubled.",
+			"key_numbers": "Deficit angle 8 pi G mu / c^2 for string tension mu.",
+			"refs": []
+		},
+		{
+			"topic": "Geometric phases",
+			"details": "Holonomy on a sphere of directions underlies geometric phases in optics (polarization in coiled fibres) and in spin systems; Gifted Amateur notes the sphere result is used for geometric phases in magnetism.",
+			"key_numbers": null,
+			"refs": [
+				"GA ch38 Ex 38.4"
+			]
+		},
+		{
+			"topic": "Measuring spacetime curvature by loops",
+			"details": "In spacetime, a loop in a plane containing the time direction near Earth returns a vector boosted by an amount set by the tidal Riemann components; the effect is minute, which is why tidal measurements use separated test masses instead.",
+			"key_numbers": "Near Earth's surface the tidal components are of order g/(c^2 R_Earth) = 1.7e-23 per square metre (the radial one is twice this); a loop 1 m by (c times 1 s) in a space-time plane gives a rapidity of order 1e-14.",
+			"refs": []
+		}
+	],
+	"history": [
+		{
+			"people": [
+				"Carl Friedrich Gauss"
+			],
+			"year": "1827",
+			"note": "Related the angle sum of geodesic triangles to the integrated curvature of the enclosed region, the local form of the result now called Gauss-Bonnet, which is the surface version of holonomy.",
+			"refs": []
+		},
+		{
+			"people": [
+				"Warren Ambrose",
+				"Isadore Singer"
+			],
+			"year": "1953",
+			"note": "Proved that the holonomy algebra of a connection is generated by its curvature transported along curves, making curvature and holonomy two views of one structure.",
+			"refs": []
+		}
+	],
+	"tutor_guidance": {
+		"opening_questions": [
+			"If you lived on a surface and could never look outside it, how might you find out whether it is curved?",
+			"Suppose you walk around a city block holding a compass needle that you never turn by hand. On a flat Earth, would it come back pointing the same way? What about on a very small planet?",
+			"What do you think should happen to the effect if you walk the same loop in the opposite direction?"
+		],
+		"common_questions": [
+			{
+				"question": "Why is the turn proportional to area rather than perimeter?",
+				"answer": "Along each edge the transport change is first order, but opposite edges nearly cancel because they are traversed in opposite directions; what survives is how the connection differs between the two edges, which is one edge length times the other: an area."
+			},
+			{
+				"question": "Is holonomy the same as the Riemann tensor?",
+				"answer": "For infinitesimal loops, the Riemann tensor is the holonomy per unit oriented area, so they carry the same local information. For finite loops holonomy is a global quantity that can also see curvature the loop cannot reach, as around a cone's tip."
+			},
+			{
+				"question": "Does this work in spacetime, where one direction is time?",
+				"answer": "Yes. A loop spanned by a spatial and a time direction returns vectors changed by a Lorentz transformation; near a mass the leading effect is a tiny boost set by the tidal components of Riemann."
+			},
+			{
+				"question": "Why does the rotation not depend on the sphere's radius for the octant?",
+				"answer": "The octant's area grows as the radius squared while the curvature falls as one over radius squared, so their product, the rotation, stays pi/2."
+			},
+			{
+				"question": "What is the 'mod 2 pi' about?",
+				"answer": "A rotation by an angle and by that angle plus a full turn are the same rotation. On a sphere a loop bounds two regions, with areas A and 4 pi a^2 - A; with orientation taken into account the two answers differ by 4 pi, a whole number of turns."
+			}
+		],
+		"explaining_pitfalls": [
+			"Do not display a running 'rotation so far' while the loop is open; compare vectors only when they share a tangent space.",
+			"Always state the edge order before quoting the sign of the small-loop formula; most sign disputes are edge-order disputes.",
+			"Do not claim the area law holds for finite loops in four dimensions; it is exact only on surfaces.",
+			"Keep the radius symbol a for spheres so R stays the curvature symbol.",
+			"Avoid saying the vector 'grows' a Delta V; for small loops Delta V is perpendicular to V to first order, so the length is preserved."
+		],
+		"demo_moments": [
+			"Ask for a prediction before shrinking the loop to half its linear size (expect a quarter of the rotation).",
+			"Ask for a prediction before reversing the loop, then before switching to the cylinder.",
+			"On the shrinking-loop plot, pause when the slope settles at 1 and ask what that says about area.",
+			"In the cone demo, let the learner find a loop through flat regions that still returns rotated."
+		],
+		"voice_notes": "Say the small-loop law as: the change in the vector equals minus the Riemann tensor, fed the vector and the two edges of the loop, taken in order. Say 'delta alpha equals the integral of K d A' as: the turning angle is the total curvature enclosed by the loop. Say the angular excess as: the angles of the triangle add up to more than a straight angle, and the excess is the turn. Avoid reading indices; say 'the component along rho of the change in V for a loop in the mu-nu plane' only when the learner is working with components."
+	},
+	"sources": [
+		{
+			"source": "gifted-amateur",
+			"unit": "ch11",
+			"depth": "core",
+			"locators": [
+				{
+					"pdf_page": 138,
+					"printed_page": 121,
+					"section": "11.1"
+				},
+				{
+					"pdf_page": 141,
+					"printed_page": 124,
+					"section": "11.3"
+				},
+				{
+					"pdf_page": 144,
+					"printed_page": 127,
+					"section": "11.4"
+				}
+			]
+		},
+		{
+			"source": "gifted-amateur",
+			"unit": "ch35",
+			"depth": "developed",
+			"locators": [
+				{
+					"pdf_page": 385,
+					"printed_page": 368,
+					"section": "35.3"
+				},
+				{
+					"pdf_page": 386,
+					"printed_page": 369,
+					"section": "35.3"
+				}
+			]
+		},
+		{
+			"source": "gifted-amateur",
+			"unit": "ch38",
+			"depth": "mention",
+			"locators": [
+				{
+					"pdf_page": 425,
+					"printed_page": 408,
+					"section": null
+				},
+				{
+					"pdf_page": 426,
+					"printed_page": 409,
+					"section": null
+				}
+			]
+		},
+		{
+			"source": "gifted-amateur",
+			"unit": "ch44",
+			"depth": "core",
+			"locators": [
+				{
+					"pdf_page": 498,
+					"printed_page": 481,
+					"section": "44.2"
+				},
+				{
+					"pdf_page": 499,
+					"printed_page": 482,
+					"section": "44.2"
+				},
+				{
+					"pdf_page": 500,
+					"printed_page": 483,
+					"section": "44.2"
+				}
+			]
+		},
+		{
+			"source": "dinverno",
+			"unit": "ch06",
+			"depth": "core",
+			"locators": [
+				{
+					"pdf_page": 112,
+					"printed_page": 97,
+					"section": "6.7"
+				},
+				{
+					"pdf_page": 113,
+					"printed_page": 98,
+					"section": "6.7"
+				}
+			]
+		},
+		{
+			"source": "schutz",
+			"unit": "ch06",
+			"depth": "developed",
+			"locators": [
+				{
+					"pdf_page": 171,
+					"printed_page": 153,
+					"section": "6.4"
+				},
+				{
+					"pdf_page": 174,
+					"printed_page": 156,
+					"section": "6.5"
+				},
+				{
+					"pdf_page": 175,
+					"printed_page": 157,
+					"section": "6.5"
+				},
+				{
+					"pdf_page": 176,
+					"printed_page": 158,
+					"section": "6.5"
+				}
+			]
+		},
+		{
+			"source": "legacy",
+			"unit": "manuscript-chapter-08-curvature-holonomy",
+			"depth": "core"
+		},
+		{
+			"source": "legacy",
+			"unit": "manuscript-section-8-1-8-3-riemann-commutator-and-loop",
+			"depth": "developed"
+		},
+		{
+			"source": "legacy",
+			"unit": "manuscript-section-8-3-sphere-holonomy-area-and-cone",
+			"depth": "developed"
+		},
+		{
+			"source": "legacy",
+			"unit": "scene-3d-parallel-transport-loop",
+			"depth": "developed"
+		}
+	],
+	"review": {
+		"verdict": "fixed",
+		"fixes": [
+			"Corrected the Foucault pendulum comparison in the analogy, the application and the visualization. The pendulum's turn relative to local north is -2 pi sin(latitude). This equals the holonomy angle 2 pi (1 - cos theta_0) minus one full turn of the north reference. The earlier text matched the two only loosely, 'modulo a full turn', without mentioning the sign.",
+			"Checked all worked answers: the unit-sphere component R^phi_{theta theta phi} = -1 and the cell rotation sin theta dtheta dphi; the 210-degree triangle (excess pi/6, area 5.2e5 km^2); the 30 degrees N cap (rotation pi); the cone deficit; and the near-Earth tidal scale g/(c^2 R_E) = 1.7e-23 m^-2. All are correct.",
+			"Confirmed the orientation conventions against the reading copies. Schutz (6.62) goes along the nu edge first and gets +R. Gifted Amateur (11.16) has the same step order. d'Inverno §6.7 compares the two routes. Gifted Amateur Exercise 38.4(c) gives the integral as minus the area. All agree with the course's small-loop law."
+		],
+		"concerns": [
+			"The Foucault, fibre-polarization, cosmic-string, spacetime-loop and history entries cite no book because none of the sources covers them; they rest on standard physics.",
+			"Registry entry does not list SCH ch06 or two of the legacy assets the note now cites; sync the registry."
+		]
+	}
+}

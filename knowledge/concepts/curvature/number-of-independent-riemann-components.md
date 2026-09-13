@@ -1,0 +1,322 @@
+---
+type: "concept"
+id: "number-of-independent-riemann-components"
+title: "Number of independent Riemann components"
+domain: "curvature"
+tier: "core"
+aliases: ["20 components of curvature", "n^2(n^2-1)/12", "component counting", "counting curvature components"]
+prerequisites: ["symmetries-of-the-riemann-tensor", "cyclic-identity"]
+leads_to: ["weyl-tensor", "equivalence-problem", "gaussian-curvature"]
+sources: ["dinverno:ch06", "gifted-amateur:ch11", "gifted-amateur:ch35", "legacy:lab-riemann-independent-components", "legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature", "schutz:ch06"]
+review: "fixed"
+---
+
+# Number of independent Riemann components
+
+> A four-index tensor in four dimensions seems to need 256 numbers, but the Riemann tensor's symmetries leave only twenty independent ones at each point of spacetime, six in three dimensions, one on a surface and none on a line. The same twenty appear from a completely different direction: they are exactly the second derivatives of the metric that no choice of coordinates can remove.
+
+## Explanations by level
+
+### Intuition
+
+How many numbers does it take to describe the curvature at one spot? Start with a line: none at all, because a line can always be stretched out straight without changing any distance along it. A surface needs exactly one number, the Gaussian curvature: how strongly a sheet refuses to lie flat there. Three-dimensional space needs six, and spacetime needs twenty. A second way to see twenty: at any event you can choose coordinates that make the geometry look perfectly flat right there and even hide how it starts to change, but you run out of freedom when you try to hide how it bends. Twenty kinds of bending are left over, and those are the curvature. What this picture leaves out: these are twenty numbers at one event, not twenty separate physical fields. They are also not twenty kinds of gravitational wave; ten of them are tied directly to the matter present.
+
+**Picture to hold:** A 16 by 16 table of 256 cells, greyed out in stages by the symmetries until twenty bright cells remain.
+
+**Assumes:** [[gaussian-curvature]], [[local-flatness-theorem]]
+
+### Working
+
+Lower all indices so the symmetries are visible. Antisymmetry in the first pair means the pair (ρσ) only matters as an unordered pair of different values: M = n(n−1)/2 choices, which is 6 in four dimensions (01, 02, 03, 12, 13, 23). The same holds for the second pair, so the tensor is a 6×6 array R_AB with A, B running over pairs: 36 entries. Pair exchange R_ρσμν = R_μνρσ makes the array symmetric, leaving M(M+1)/2 = 21. The cyclic identity is automatic unless all four indices differ, and gives one relation for each set of four distinct values, C(n,4) of them. In four dimensions there is one set, so 21 − 1 = 20. In general M(M+1)/2 − C(n,4) = n²(n²−1)/12, which gives 0, 1, 6, 20, 50 for n = 1 to 5. Cross-check by coordinate freedom in four dimensions: the metric's second derivatives at a point are 10×10 = 100 numbers, and the third derivatives of a coordinate change are 4×20 = 80 adjustable numbers, so at least 20 survive. In two dimensions the single component is R_1212 = K det g, where K is the Gaussian curvature. In three dimensions the six components match the six of the Ricci tensor, so Ricci determines all of Riemann. In four dimensions ten components sit in the Ricci tensor and ten in the Weyl tensor.
+
+**Picture to hold:** A symmetric 6×6 table labelled by index pairs 01…23, with its upper triangle bright (21 cells) and one cell dimmed by the cyclic relation among R_0123, R_0231 and R_0312.
+
+**Assumes:** [[symmetries-of-the-riemann-tensor]], [[cyclic-identity]], [[ricci-tensor]], [[weyl-tensor]]
+
+### Formal
+
+On an n-dimensional vector space V, an algebraic curvature tensor is a tensor R ∈ ⊗⁴V* with R_abcd = −R_bacd = −R_abdc = R_cdab and R_a[bcd] = 0. The first three conditions say R ∈ Sym²(Λ²V*), of dimension M(M+1)/2 with M = n(n−1)/2. The antisymmetrization map Sym²(Λ²V*) → Λ⁴V* is onto, and the cyclic identity says R lies in its kernel, so the space of algebraic curvature tensors has dimension M(M+1)/2 − C(n,4) = n²(n²−1)/12. Every such tensor is realized as the Riemann tensor of some metric at a point; in Riemann normal coordinates g_μν = η_μν − (1/3)R_μανβ x^α x^β + O(x³). Jet counting agrees: the second derivatives of g at a point number [n(n+1)/2]², the third-order Taylor coefficients of a coordinate change number n·n(n+1)(n+2)/6, and their difference is n²(n²−1)/12. For n ≥ 3 the space splits under the orthogonal or Lorentz group into the scalar curvature (1), the trace-free Ricci tensor (n(n+1)/2 − 1) and the Weyl tensor (n(n+1)(n+2)(n−3)/12); in four dimensions that is 1 + 9 + 10. The count is algebraic and pointwise. The components are frame-dependent: in four dimensions, using the six Lorentz parameters leaves at most 14 algebraically independent scalar invariants at a generic point. Across a region, the components are further tied together by the differential Bianchi identity and by their origin in ten metric functions subject to four coordinate freedoms.
+
+**Assumes:** [[symmetries-of-the-riemann-tensor]], [[cyclic-identity]], [[riemann-normal-coordinates]], [[weyl-tensor]]
+
+## Prerequisites
+
+- [[symmetries-of-the-riemann-tensor]] — The pair antisymmetries and pair exchange do most of the reduction, from n^4 to M(M+1)/2.
+- [[cyclic-identity]] — It supplies the last C(n,4) constraints, the step from 21 to 20 in four dimensions.
+
+## Leads to
+
+- [[weyl-tensor]] — Subtracting the Ricci part leaves the Weyl tensor's 10 components in four dimensions (none in three).
+- [[equivalence-problem]] — Knowing how many curvature numbers and invariants exist frames the question of when two metrics are the same geometry.
+- [[gaussian-curvature]] — In two dimensions the single component is the Gaussian curvature, which ties the count back to classical surfaces.
+
+## Related
+
+- [[local-flatness-theorem]] — Its Taylor-coefficient bookkeeping independently predicts the same 20 leftover second derivatives.
+- [[riemann-tensor-in-normal-coordinates]] — Shows the second derivatives of the metric at a point are exactly linear combinations of Riemann components.
+- [[ricci-tensor]] — Holds 10 of the 20 components in four dimensions and all 6 in three.
+- [[gravitational-wave-polarization]] — A frequent confusion: gravitational waves have 2 polarizations, not 20.
+- [[gravitational-degrees-of-freedom]] — The dynamical count of 2 per point comes from constraints and gauge, not from the algebraic count of curvature.
+- [[sectional-curvature]] — Sectional curvatures of all planes (not just the n(n-1)/2 coordinate planes) determine the 20 components.
+
+## Key equations
+
+### Independent components in n dimensions
+
+$$
+N_{\rm Riem}(n) = \frac{n^2(n^2-1)}{12} \qquad (n=1,2,3,4,5:\ 0,\,1,\,6,\,20,\,50)
+$$
+
+The number of algebraically independent components of the Riemann tensor at a point once all its symmetries are used. *(GA ch11 §11.4 p.126; DIV ch06 §6.12 p.106; SCH ch06 §6.5 p.159)*
+
+**Convention:** Counts the all-lower tensor R_ρσμν; the mixed tensor has the same number because index raising is invertible.
+
+### Pair counting minus cyclic constraints
+
+$$
+M = \frac{n(n-1)}{2}, \qquad \frac{M(M+1)}{2} - \binom{n}{4} = \frac{n^2(n^2-1)}{12}
+$$
+
+Antisymmetric index pairs act as single labels of a symmetric M×M array; each set of four distinct indices adds one cyclic relation. *(GA ch35 Example 35.6; GA ch35 §35.3 p.370)*
+
+**Convention:** Blundell-Lancaster write the binomial as n!/((n-4)! 4!); take it as zero for n < 4.
+
+### The four-dimensional chain
+
+$$
+4^4 = 256 \;\to\; 6\times 6 = 36 \;\to\; \tfrac{6\cdot 7}{2} = 21 \;\to\; 21 - 1 = 20
+$$
+
+Naive count, then antisymmetry in each pair, then pair exchange, then the single cyclic relation R_0123 + R_0231 + R_0312 = 0. *(SCH ch06 Ex 6.18 p.167; legacy:lab-riemann-independent-components; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
+
+### Counting by coordinate freedom
+
+$$
+\underbrace{\Big[\tfrac{n(n+1)}{2}\Big]^2}_{\partial\partial g\ \text{at a point}} - \underbrace{n\cdot\tfrac{n(n+1)(n+2)}{6}}_{\text{3rd-order coordinate freedom}} = \frac{n^2(n^2-1)}{12} \qquad (n=4:\ 100-80=20)
+$$
+
+Second derivatives of the metric that a coordinate change cannot remove; the same number as the symmetry count, which is why Riemann captures all of curvature at a point. *(SCH ch06 §6.2 p.149; SCH ch06 §6.5 p.159)*
+
+**Convention:** Schutz gives only the four-dimensional numbers; the general-n form is our extension of his argument.
+
+### Two dimensions: the single component
+
+$$
+R_{1212} = K\,\det(g_{ij}), \qquad R = 2K \qquad \big(\text{sphere: } R_{\theta\phi\theta\phi} = a^2\sin^2\theta,\ K = 1/a^2\big)
+$$
+
+On a surface all Riemann components are ± R_1212 or zero, and that one number is the Gaussian curvature times the metric determinant. *(GA ch30 §30.6 p.319; GA ch11 Example 11.6; SCH ch06 Ex 6.29 p.167; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
+
+**Convention:** Blundell-Lancaster write K = R_1212/g with g the determinant; d'Inverno says the one component is 'essentially R'. With the course convention the sphere has R = +2/a^2.
+
+### Ricci plus Weyl split
+
+$$
+\frac{n^2(n^2-1)}{12} = \underbrace{\frac{n(n+1)}{2}}_{\text{Ricci}} + \underbrace{\frac{n(n+1)(n+2)(n-3)}{12}}_{\text{Weyl}} \quad (n\ge 3); \qquad n=4:\ 20 = 10 + 10
+$$
+
+In three dimensions Ricci carries everything (Weyl count 0); in four dimensions half the curvature is invisible to Ricci and lives in the Weyl tensor. *(DIV ch06 §6.13 p.107; GA ch35 §35.4 p.370)*
+
+## Conventions across the books
+
+| Issue | Schutz | Gifted Amateur | d'Inverno | Course choice |
+| --- | --- | --- | --- | --- |
+| Dimension symbol and scope of the formula | Works only in four dimensions (256 → 21 → 20); the general-n formula is not written. The 2D count of one appears in the hint to Exercise 6.29. | Uses N in ch11 (formula quoted with a table for N = 1–4) and n with M = n(n−1)/2 in ch35 (proof). | Uses n; states n^4 → n²(n²−1)/12 in §6.12 and lists n = 1–4 in §6.13. | n for the dimension, M = n(n−1)/2 for the number of antisymmetric pairs, and always quote the 1, 6, 20 table. |
+| Which tensor is counted | R_αβμν with all indices lowered, noting the mixed R^α_βμν has the same number. | R_αβγδ with all indices lowered. | The lowered R_abcd with symmetries (6.82); signature (+,−,−,−), which flips the sign of lowered components but not the count. | Count R_ρσμν, all lowered, with signature (−,+,+,+); say explicitly that raising the first index changes neither the number nor the information. |
+| Naming the single two-dimensional component | R_θφθφ for the sphere (Exercise 6.29), with other components obtained from it. | R_1212, related to Gaussian curvature by K = R_1212/g with g = det g (Eq. 30.65). | Says the single component is 'essentially R', the Ricci scalar. | R_1212 = K det g and R = 2K, so all three descriptions agree; with course conventions the sphere of radius a has K = 1/a² and R = 2/a². |
+
+## How the sources teach it
+
+### schutz
+
+**Route:** Before curvature is even defined, the proof of the local-flatness theorem compares Taylor coefficients of a coordinate change (16, 40, 80) with metric data (10, 40, 100). Six Lorentz parameters are left over at zeroth order and 20 second derivatives cannot be removed. Later, after deriving the Riemann symmetries, Schutz states that they leave 20 components and points out that the match with the earlier count is no coincidence. Exercise 6.18 does the reduction with a hint to count pairs.
+
+**Representation:** Arithmetic ledgers of free coordinate numbers versus metric numbers; component symmetries; exercises.
+
+**Strengths:** Two independent routes meeting at 20 is the most convincing reason to believe Riemann is the whole of curvature, and the prediction comes before the tensor.
+
+**Weaknesses:** Four dimensions only. The general formula, the lower-dimensional cases and the Ricci/Weyl split are absent from the main text. The step 21 → 20 is left to the exercise. *(SCH ch06 §6.2 p.149; SCH ch06 §6.5 p.159; SCH ch06 Ex 6.18 p.167)*
+
+### gifted-amateur
+
+**Route:** Chapter 11 quotes N²(N²−1)/12 with a table for one to four dimensions, promises a proof, and uses Example 11.6 to interpret the low cases: a line has no intrinsic curvature and a surface has the single component R_1212. Chapter 35 delivers the proof in Example 35.6 by treating antisymmetric pairs as labels of a symmetric matrix and subtracting one cyclic constraint per choice of four distinct indices. Section 35.4 then assigns 10 components to Ricci and 10 to Weyl.
+
+**Representation:** Tables, the pairs-of-pairs matrix analogy, binomial counting, and interpretation of one- and two-dimensional cases.
+
+**Strengths:** The general-n combinatorial proof is clean and memorable, and the 1D and 2D interpretations give the numbers meaning.
+
+**Weaknesses:** The proof comes 24 chapters after the claim. The off-diagonal count of a symmetric matrix is misprinted as (M−1)/2 instead of M(M−1)/2. It does not explain why each four-index set gives exactly one independent relation. The historical n(n−1)/2 heuristic in ch30 can mislead if read as a component count. *(GA ch11 §11.4 p.126; GA ch11 Example 11.6; GA ch35 Example 35.6; GA ch35 §35.4 p.370; GA ch30 §30.6 p.318)*
+
+### dinverno
+
+**Route:** After collecting the algebraic identities (6.82) the book simply states the reduction from n^4 to n²(n²−1)/12. Section 6.13 then lists the cases n = 1 to 4 and interprets each: no curvature, one component (essentially R), six (essentially R_ab), and twenty (ten from Ricci, ten from Weyl). This motivates the definition of the Weyl tensor.
+
+**Representation:** A short case list tied to contractions of Riemann.
+
+**Strengths:** Uses the count to motivate the Weyl tensor and to explain why three dimensions behaves differently from four.
+
+**Weaknesses:** No derivation at all, and phrases like 'essentially R' are loose about what exactly determines what. *(DIV ch06 §6.12 p.106; DIV ch06 §6.13 p.107)*
+
+### legacy
+
+**Route:** Chapter 8 §8.5 counts pairs: a symmetric 6×6 gives 21, minus one cyclic relation gives 20. It notes that a surface has a single component and warns that the 20 are not wave polarizations. The three-phase component lab lets the learner pair indices, match mirror tiles and apply the cyclic relation, with large running count equations.
+
+**Representation:** Interactive tile grid with named components, a static pair-matrix figure, and manuscript prose.
+
+**Strengths:** Tactile and exhaustively verified. It carries the explicit scope caveat that this is an algebraic count, not propagating degrees of freedom.
+
+**Weaknesses:** No dimension selector for 1, 6, 20. The figure uses invented symbols not tied to R_abcd. Phase-3 numbering has gaps. There is no link from the 2D count to Gaussian curvature. *(legacy:lab-riemann-independent-components; legacy:figure-curvature-count; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
+
+## Recommended teaching path
+
+1. **Ask for a guess** — Ask how many numbers are needed to know the curvature of spacetime at one event, and let the learner say 256. *Why:* A wrong but reasonable guess makes the reduction feel like a discovery rather than a fact to memorize. *(GA ch11 §11.4 p.126)*
+2. **Predict 20 from coordinate freedom** — Run the ledger: metric values 10 vs 16 adjustable numbers (6 spare, the Lorentz group), first derivatives 40 vs 40, second derivatives 100 vs 80. Twenty cannot be hidden. *Why:* Gives the number a physical meaning (what no choice of freely falling frame can erase) before any tensor symmetry is used. *(SCH ch06 §6.2 p.149)*
+3. **Sieve with the symmetries** — Pair indices into 6 labels (36), make the table symmetric (21), then apply the one cyclic relation among R_0123, R_0231, R_0312 (20), using the tile lab. *Why:* The two independent routes agreeing is the key payoff; the tile grid makes each step concrete. *(SCH ch06 Ex 6.18 p.167; legacy:lab-riemann-independent-components)*
+4. **Generalize to n** — Derive M(M+1)/2 − C(n,4) = n²(n²−1)/12, tabulate 0, 1, 6, 20, 50, and have the learner verify that the coordinate-freedom count gives the same formula. *Why:* Removes the sense that 20 is arbitrary and exercises both arguments. *(GA ch35 Example 35.6)*
+5. **Interpret the small cases** — One dimension: a knotted string is still intrinsically a straight line. Two dimensions: the one number is Gaussian curvature, R_1212 = K det g. Three dimensions: six numbers, exactly the Ricci tensor. *Why:* Anchors the formula in geometry the learner can picture and sets up why three and four dimensions differ. *(GA ch11 Example 11.6; DIV ch06 §6.13 p.107; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
+6. **Split 20 and add caveats** — Show 20 = 10 Ricci + 10 Weyl in four dimensions and link the Ricci part to matter through the field equations. Warn that 20 is not the number of wave polarizations (2) or of free functions, and that at most 14 invariants exist. *Why:* Prevents the most common over-reading of the number and motivates the Weyl tensor. *(GA ch35 §35.4 p.370; legacy:figure-curvature-count)*
+
+## Analogies
+
+- **Pairs of pairs are the entries of a symmetric matrix** (working): Treat each antisymmetric index pair as one label running over M values; then the Riemann tensor is an M×M array, and pair exchange makes it symmetric, so only the diagonal and upper triangle are free: M(M+1)/2. *Limits:* The matrix picture overcounts: it knows nothing about the cyclic identity, which removes C(n,4) further entries (one in four dimensions). *(GA ch35 §35.3 p.369)*
+- **Coordinate choices as knobs, metric numbers as dials** (intuition): At a point you get 16 knobs to set the 10 metric values, 40 knobs for the 40 slopes, but only 80 knobs for the 100 second derivatives. Twenty dials cannot be zeroed, and those unremovable dials are the curvature. *Limits:* The ledger shows at least 20 numbers survive; showing that they are precisely the Riemann components needs the normal-coordinate expansion. Real coordinate changes are also restricted to be smooth and invertible. *(SCH ch06 §6.2 p.149)*
+- **Fitting a flat card to a curved surface** (intuition): A flat card can touch a ball at a point and tilt to match the slope there, but it cannot follow the bending. On a surface exactly one number of bending is left over (3×3 = 9 second derivatives versus 2×4 = 8 coordinate adjustments), which is the Gaussian curvature. *Limits:* The card and ball picture is extrinsic, whereas the count concerns the intrinsic metric. It also cannot suggest how 20 arises in four dimensions. *(SCH ch06 §6.2 p.145; GA ch11 Example 11.6)*
+
+## Misconceptions
+
+- **The Riemann tensor has 256 independent components in spacetime.** — Antisymmetry in each pair, pair exchange and the cyclic identity reduce 256 to 20. *Why tempting:* A four-index object in four dimensions naively has 4^4 entries. *Diagnostic:* If R_0102 = 3, what can you immediately say about R_1002, R_0120 and R_0201? *(GA ch11 §11.4 p.126; GA ch35 §35.3 p.369)*
+- **Twenty curvature components means gravitational waves come in twenty polarizations, or that gravity has twenty degrees of freedom.** — The 20 is an algebraic count of curvature numbers at a point. Ten are fixed locally by matter through the Einstein equation. The vacuum Weyl part is constrained by the differential Bianchi identities, and radiative gravity carries 2 polarizations. *Why tempting:* Both are described as 'independent pieces of the gravitational field'. *Diagnostic:* In empty space the Ricci tensor vanishes. How many curvature components can still be nonzero, and is that the same as the number of gravitational-wave polarizations? *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature; legacy:figure-curvature-count; GA ch35 §35.4 p.370)*
+- **Curvature needs one number per coordinate plane, so n(n−1)/2 components: 6 in spacetime.** — Riemann's historical function-counting heuristic is not a component count. Sectional curvatures of all planes, not just the coordinate planes, are needed, and the tensor has n²(n²−1)/12 components, 20 in four dimensions. *Why tempting:* Gaussian curvature is 'one number per surface', and there are 6 coordinate planes in four dimensions. *Diagnostic:* In two dimensions n(n−1)/2 and n²(n²−1)/12 both give 1. What do they give in three and in four dimensions, and which one matches the number of Riemann components? *(GA ch30 §30.6 p.318)*
+- **A curve drawn in a loop or knot is an intrinsically curved one-dimensional space.** — Any one-dimensional metric can be reparametrized by arc length to ds² = dx², so there is no intrinsic curvature (count zero). The bending is extrinsic, a property of how the curve sits in a bigger space. *Why tempting:* The curve is visibly bent. *Diagnostic:* An ant living inside a knotted wire can only measure distances along the wire. Could it ever discover that the wire is knotted? *(GA ch11 Example 11.6)*
+- **In four dimensions the Ricci tensor carries all of the curvature, so vacuum (Ricci = 0) means no curvature.** — Ricci has 10 of the 20 components; the other 10 form the Weyl tensor, which survives in vacuum and produces tides outside a star. Only in three dimensions (where Weyl has zero components) does Ricci determine all of Riemann. *Why tempting:* The vacuum field equation is R_μν = 0 and 'Ricci curvature' sounds like the whole curvature. *Diagnostic:* Why does Ricci = 0 imply flatness in three dimensions but not in four? *(DIV ch06 §6.13 p.107; GA ch35 §35.4 p.370)*
+- **The 20 components are coordinate-independent numbers that characterize the geometry.** — They change under rotations and boosts of the frame. Using the 6 Lorentz parameters to simplify them leaves at most 14 independent scalar invariants at a generic point, and comparing geometries requires invariants. *Why tempting:* The word 'independent' is heard as 'invariant'. *Diagnostic:* If two observers at the same event use frames related by a boost, do they list the same 20 numbers?
+
+## Visualizations
+
+### Curvature component sieve with a dimension dial · interactive-2d · high priority
+
+An n⁴ grid of named components R_ρσμν that collapses in stages (pair antisymmetry → symmetric M×M → cyclic relations) with live counts, for n = 2 to 5. At n = 4 the single cyclic relation is highlighted; at n = 2 the one surviving tile links to a Gaussian-curvature readout.
+
+**Interaction:** Dimension dial; step buttons for each symmetry; click any tile to see its mirror partners with signs; a Ricci/Weyl colouring toggle for n ≥ 3.
+
+**Model:** Exact combinatorics: canonical labels under the pair symmetries, plus one linear relation per 4-subset; counts M(M+1)/2 − C(n,4) and the Ricci/Weyl split n(n+1)/2 + n(n+1)(n+2)(n−3)/12.
+
+**Inspired by:** GA ch35 Example 35.6; SCH ch06 Ex 6.18 p.167; legacy:lab-riemann-independent-components; legacy:figure-curvature-count
+
+**Legacy assets:** lab-riemann-independent-components, figure-curvature-count
+
+### Coordinate freedom ledger · interactive-2d · high priority
+
+Three rows (metric values, first derivatives, second derivatives) each show a bar of metric numbers and a bar of coordinate-change numbers that can be spent on them; the bars balance or leave a remainder, and the remainder in the last row is the curvature count.
+
+**Interaction:** Drag coordinate 'knob' blocks onto metric 'dial' blocks; a dimension slider updates all rows (n = 2 leaves 1, n = 3 leaves 6, n = 4 leaves 20) and shows the leftover Lorentz or rotation freedom in the first row.
+
+**Model:** Counts [n(n+1)/2]·{1, n, n(n+1)/2} for metric data and n·{n, n(n+1)/2, n(n+1)(n+2)/6} for Taylor coefficients of x^α(x').
+
+**Inspired by:** SCH ch06 §6.2 p.149
+
+### Line, surface, space: how many curvature numbers? · interactive-3d · medium priority
+
+Three panels: a flexible wire that can be knotted but whose arc-length ruler never changes (0 numbers); a surface morphing sphere → cylinder → saddle with a live K and R_1212 readout (1 number); a 3D volume element with six Ricci dials (6 numbers).
+
+**Interaction:** Drag to knot the wire; slide between surfaces; in the 3D panel adjust Ricci eigenvalues and see the full curvature change with them.
+
+**Model:** Wire: arc-length parametrization; surfaces: K from the metric of each surface of revolution; 3D: Riemann built from Ricci via the three-dimensional identity with zero Weyl part.
+
+**Inspired by:** GA ch11 Example 11.6; DIV ch06 §6.13 p.107
+
+**Legacy assets:** manuscript-section-8-4-8-6-flatness-count-sphere-curvature
+
+## Worked examples
+
+- **Local-flatness theorem proved by counting** (working): Comparing coordinate freedom with metric data order by order predicts that 20 second derivatives of the metric carry the curvature. *(SCH ch06 §6.2 p.149)*
+- **Example 35.6: components in n dimensions** (working): The pairs-of-pairs symmetric matrix count minus one cyclic constraint per four distinct indices gives n²(n²−1)/12. *(GA ch35 Example 35.6)*
+- **Example 11.6: one and two dimensions** (intuition): A line has no intrinsic curvature and a surface has the single independent component R_1212. *(GA ch11 Example 11.6)*
+- **Curvature components in dimensions 1 to 4** (working): Case list interpreting the count and splitting the four-dimensional 20 into Ricci and Weyl parts. *(DIV ch06 §6.13 p.107)*
+- **Twenty components and the sphere** (working): The 21 − 1 = 20 pair count, the single two-dimensional component, the not-polarizations caveat, and the sphere's R_θφθφ = a² sin²θ. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
+
+## Exercises
+
+- (standard) Show that the pair symmetries reduce the lowered Riemann tensor from 256 to 21 components by counting choices of index pairs, and that the cyclic identity removes one more. *Skill:* Combinatorial counting under symmetries *(SCH ch06 Ex 6.18 p.167)*
+- (intro) Compute the curvature of the unit sphere using the fact that a surface has only one independent component, then obtain all others from it. *Skill:* Using the 2D count to shortcut a calculation *(SCH ch06 Ex 6.29 p.167)*
+- (challenging) For a general static spherically symmetric line element, compute the independent Riemann components and notice how few are nonzero. *Skill:* Organizing a full curvature computation by independent components *(SCH ch06 Ex 6.35 p.168)*
+- (standard) From given Schwarzschild connection coefficients, obtain the handful of Riemann components that determine the rest by symmetry. *Skill:* Component bookkeeping in a symmetric spacetime *(GA ch11 Ex 11.1 p.130)*
+
+## Checks for understanding
+
+- **Q (intuition):** How many independent curvature numbers does a two-dimensional surface have at each point, and what is that number called?
+  - **A:** One. It is the Gaussian curvature K, related to the single independent Riemann component by R_1212 = K det g (and Ricci scalar R = 2K). For a sphere of radius a, K = 1/a².
+- **Q (working):** Walk through the reduction from 256 to 20 in four dimensions, naming the property used at each step.
+  - **A:** 256 = 4⁴ naive entries. Antisymmetry in the first pair and in the second pair means each pair is one of 6 unordered distinct pairs, giving 6×6 = 36. Pair exchange makes this 6×6 array symmetric: 6 diagonal + 15 off-diagonal = 21. The cyclic identity gives one new relation for the single set of four distinct indices, R_0123 + R_0231 + R_0312 = 0, leaving 20. *(targets: The Riemann tensor has 256 independent components in spacetime.)*
+- **Q (working):** How many independent components does the Riemann tensor have in five dimensions? Compute it two ways.
+  - **A:** Formula: n²(n²−1)/12 = 25·24/12 = 50. Pair count: M = 5·4/2 = 10, M(M+1)/2 = 55, minus C(5,4) = 5 cyclic relations gives 50. (Coordinate-freedom check: [15]² = 225 second derivatives minus 5·35 = 175 coordinate coefficients = 50.)
+- **Q (working):** A student says: 'Spacetime curvature has 20 components, so gravitational waves must have up to 20 polarizations.' What is wrong?
+  - **A:** The 20 is an algebraic count of curvature numbers at a single event. In four dimensions 10 of them are the Ricci tensor, which the Einstein equation ties directly to the local matter, so it vanishes for waves in vacuum. The remaining 10 Weyl components are not free either: their evolution is constrained by the differential Bianchi identities, and after constraints and coordinate freedom the vacuum field has 2 degrees of freedom per point, the two polarizations. *(targets: Twenty curvature components means gravitational waves come in twenty polarizations, or that gravity has twenty degrees of freedom.)*
+- **Q (formal):** Show that the coordinate-freedom count gives n²(n²−1)/12 in any dimension.
+  - **A:** At a point the metric's second derivatives ∂_λ∂_κ g_μν are symmetric in (μν) and in (λκ): [n(n+1)/2]² numbers. A coordinate change x^α(x') supplies third-order Taylor coefficients ∂³x^α/∂x'∂x'∂x', symmetric in three indices: n·n(n+1)(n+2)/6 numbers. The difference is n²(n+1)[3(n+1) − 2(n+2)]/12 = n²(n+1)(n−1)/12 = n²(n²−1)/12, the same as the symmetry count.
+- **Q (working):** Why does the vacuum condition R_μν = 0 force flatness in three dimensions but not in four?
+  - **A:** In three dimensions Riemann has 6 components and Ricci has 6, and the Weyl part has zero components, so Riemann is completely determined by Ricci: Ricci = 0 implies Riemann = 0. In four dimensions Riemann has 20 components but Ricci only 10; the other 10 (Weyl) can be nonzero in vacuum, as outside any star or in a gravitational wave. *(targets: In four dimensions the Ricci tensor carries all of the curvature, so vacuum (Ricci = 0) means no curvature.)*
+
+## Applications
+
+- **Why three-dimensional gravity has no local dynamics**: In 2+1 dimensions the Riemann and Ricci tensors both have 6 components, so the vacuum Einstein equation makes spacetime locally flat. Point masses only create conical deficits, and there are no gravitational waves. Key numbers: n = 3: 6 Riemann = 6 Ricci, 0 Weyl *(DIV ch06 §6.13 p.107)*
+- **Organizing curvature calculations**: Because only 20 (or 1, or 6) components are independent, calculations in symmetric spacetimes compute a short list and generate the rest by symmetry, which is the standard strategy for Schwarzschild and cosmological metrics. Key numbers: Static spherical symmetry: six nonzero mixed components up to index symmetries *(SCH ch06 Ex 6.35 p.168; GA ch11 Ex 11.1 p.130)*
+- **Classifying vacuum curvature**: The 10 Weyl components in four dimensions are the raw material of algebraic classification (Petrov types) and of comparing spacetimes through curvature invariants. Key numbers: 20 = 10 Ricci + 10 Weyl in four dimensions *(GA ch35 §35.4 p.370; DIV ch23 §23.7 p.472)*
+
+## History
+
+- **Bernhard Riemann (1854):** In his habilitation lecture Riemann argued by counting functions that a metric has n(n−1)/2 essential degrees of freedom, and linked curvature to two-dimensional sections. This is a heuristic about functions, not the component count of the later curvature tensor. *(GA ch30 §30.6 p.318)*
+
+## Tutor guidance
+
+**Opening questions**
+
+- How many numbers would you guess it takes to describe the curvature of spacetime at one event?
+- Can a piece of string, however knotted, be curved as far as an ant living in it can tell?
+- When we made a freely falling frame, which derivatives of the metric could we make vanish, and which could we not?
+
+**Common questions**
+
+- *Why is it n²(n²−1)/12 and not something simpler?* — It is (pairs of pairs, symmetric) minus (four distinct indices): M(M+1)/2 − C(n,4) with M = n(n−1)/2. Algebra turns that into n²(n²−1)/12. The coordinate-freedom argument lands on the same expression, which is a good sign it is the right number.
+- *Are the 20 components all nonzero for a real spacetime?* — No. The count is the maximum number of independent values. Symmetric spacetimes have most of them zero or equal; Schwarzschild in a static frame has only a few distinct nonzero ones.
+- *What exactly are the 20 physically?* — In four dimensions, 10 are the Ricci tensor, which the field equations tie to the local energy and momentum and which changes the volume of a small cloud of free particles. The other 10 are the Weyl tensor, the tidal stretching and squeezing that can exist in empty space.
+- *Does the mixed tensor R^ρ_σμν have more components than R_ρσμν?* — No. Lowering or raising an index with the metric is an invertible operation, so both carry the same 20 independent pieces; the symmetries are just easier to see with all indices down.
+
+**Pitfalls when explaining**
+
+- Do not skip the cyclic identity step: '21' is a common wrong answer.
+- Never say '20 degrees of freedom of gravity'; say '20 independent curvature components at a point'.
+- When quoting the two-dimensional component, say which description (R_1212, K, or R) you mean and give R_1212 = K det g.
+- In Blundell-Lancaster ch35 the symmetric-matrix off-diagonal count is misprinted; if a learner follows that page, give the correct M(M−1)/2.
+
+**When to show a demo**
+
+- Immediately after the learner's 256 guess, open the component sieve at n = 4 and step through the stages.
+- When the learner asks why 20 matters, switch to the coordinate freedom ledger and show 100 − 80.
+- Turn the dimension dial to 2 when introducing Gaussian curvature and to 3 when discussing why Ricci suffices there.
+
+**Saying it aloud:** Say the formula as 'n squared times n squared minus one, over twelve', then immediately give the table 'one, six, twenty'. For the pair count say 'M is the number of index pairs, n times n minus one over two; the pair table is symmetric, so M times M plus one over two; then subtract n choose four'. For the ledger say 'a hundred bends, eighty knobs, twenty left over'.
+
+## Sources
+
+- schutz ch06 (developed): p.149 §6.2, p.159 §6.5, p.167 §Exercises
+- gifted-amateur ch11 (introduced): p.126 §11.4, p.127 §11.4
+- gifted-amateur ch35 (developed): p.369 §35.3, p.370 §35.3
+- dinverno ch06 (developed): p.106 §6.12, p.107 §6.13
+- legacy lab-riemann-independent-components (developed)
+- legacy manuscript-section-8-4-8-6-flatness-count-sphere-curvature (developed)
+
+## Review
+
+**Verdict:** fixed
+
+**Fixes**
+
+- Misconception on n(n−1)/2 planes: the diagnostic question claimed n(n−1)/2 and n²(n²−1)/12 agree in three dimensions (they are 3 and 6). Rewritten around the true coincidence in two dimensions (both 1).
+- Weyl classification application: dropped the 'at most 14 invariants' figure from key_numbers, because the cited GA §35.4 and DIV §23.7 do not support it. The claim stays, unreferenced, in the formal level and in a misconception, where it is standard (20 − 6 Lorentz parameters).
+
+**Concerns**
+
+- The GA Example 35.6 misprint is confirmed: the text gives (M−1)/2 off-diagonal entries instead of M(M−1)/2.
+- Checked algebraically: the general-n coordinate-freedom count [n(n+1)/2]² − n·n(n+1)(n+2)/6 = n²(n²−1)/12, the Ricci+Weyl split and the n = 2, 3, 4, 5 values. Also checked the ledger numbers against SCH §6.2 pp.148-149, the 2D relation K = R_1212/g (GA Eq. 30.65), and the DIV §6.13 case list.
+- Several application refs (DIV §6.13 for 2+1 gravity, SCH Ex 6.35 for Schwarzschild bookkeeping) support only the counting, not the physics built on it.

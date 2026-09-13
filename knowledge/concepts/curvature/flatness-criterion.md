@@ -1,0 +1,347 @@
+---
+type: "concept"
+id: "flatness-criterion"
+title: "Flatness criterion"
+domain: "curvature"
+tier: "core"
+aliases: ["vanishing Riemann tensor iff flat", "metric flatness theorem", "flatness theorem", "affine flatness", "affine flat manifold", "R = 0 test"]
+prerequisites: ["riemann-curvature-tensor", "path-dependence-of-parallel-transport", "flat-metric"]
+leads_to: ["ricci-flat-spacetime", "weyl-criterion-for-conformal-flatness", "equivalence-problem", "gravity-as-spacetime-curvature"]
+sources: ["dinverno:ch06", "dinverno:ch08", "gifted-amateur:ch30", "legacy:manuscript-section-24-2-rindler-full-check", "legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature", "schutz:ch06"]
+review: "fixed"
+---
+
+# Flatness criterion
+
+> A region of space or spacetime is flat, meaning you can lay down coordinates in which the metric is the constant Euclidean or Minkowski one, exactly when its Riemann tensor is zero at every point of the region. That is the only reliable test: curvy coordinate grids, non-zero Christoffel symbols, or clocks ticking at different rates can all occur in perfectly flat spacetime.
+
+## Explanations by level
+
+### Intuition
+
+Flat means you could cover the region with undistorted graph paper: straight, evenly spaced grid lines everywhere, with time included for spacetime. Here is a test that needs no graph paper: carry an arrow around any small loop, always keeping it pointing 'the same way' as you go. In a flat region it comes home unchanged; on a sphere it comes home turned. The Riemann tensor measures exactly that turning for tiny loops, so 'flat' and 'Riemann is zero everywhere' are the same thing. The trap is that a bad choice of grid can make flat space look curved. Polar coordinates on a tabletop make the formulas change from place to place. The grid of an accelerating rocket gives clocks at different heights different rates. Yet arrows still come home unchanged, so both are flat. The honest caveat: the test is local. A paper cone is flat everywhere except its tip, yet an arrow carried around the tip comes back turned. A paper cylinder is flat too, but its graph paper wraps round and meets itself.
+
+**Picture to hold:** Two meters beside a coordinate grid you can bend at will: a 'formula-complication' meter that jumps as the grid curves, and a 'loop-turning' meter that stays at zero on a flat sheet and only moves when the sheet itself becomes a sphere.
+
+**Assumes:** [[path-dependence-of-parallel-transport]], [[holonomy]], [[flat-metric]]
+
+### Working
+
+Statement (Levi-Civita connection): R^ρ_σμν = 0 throughout a region if and only if around every point there are coordinates with g_μν = η_μν (or δ_ij for a positive-definite metric). Necessity is one line: in such coordinates ∂g = 0, so every Γ vanishes everywhere, so their derivatives vanish, so R = 0 there. Since R is a tensor, it is then zero in every coordinate system. Sufficiency goes through parallel transport. (1) Around a small loop a vector changes by δV^ρ = −R^ρ_σμν V^σ δa^μ δb^ν, so R = 0 makes every small loop harmless. Deforming one path into another through thin loops then makes transport path independent, provided the region has no holes. (2) Transporting a basis from one point gives n fields with ∇_μ e_i = 0; their existence needs [∇_μ, ∇_ν]V^ρ = R^ρ_σμν V^σ = 0. (3) Because the connection is torsion-free, the dual one-forms of this parallel frame have zero curl, so they are gradients df^i; use f^i as coordinates, and in them Γ = 0 everywhere. (4) Metric compatibility, ∂_λ g_μν = Γ^σ_λμ g_σν + Γ^σ_λν g_μσ, then gives ∂g = 0, and a constant symmetric matrix is brought to η by a linear change. The standard check is the flat plane in polar coordinates: Γ^r_θθ = −r and Γ^θ_rθ = 1/r are nonzero, but R^r_θrθ = ∂_rΓ^r_θθ − ∂_θΓ^r_rθ + Γ^r_rλΓ^λ_θθ − Γ^r_θλΓ^λ_rθ = −1 − 0 + 0 + 1 = 0. A physics check is the metric ds² = −N(x)²dt² + dx², which has R^x_txt = N N''. It is flat whenever the lapse N is linear (Rindler, a uniformly accelerated frame), even though clock rates depend on height, and curved for N = e^{kx}, where R = −2k².
+
+**Picture to hold:** A family of paths from P to Q swept one into another through thin slivers; if no sliver turns the arrow and there are no holes to snag on, every path delivers the same arrow.
+
+**Assumes:** [[riemann-curvature-tensor]], [[ricci-identity]], [[metric-compatibility]], [[christoffel-symbols]]
+
+### Formal
+
+Let (M, g) be a pseudo-Riemannian manifold with Levi-Civita connection ∇ and let U ⊂ M be a connected open set. The following are equivalent: (a) R^ρ_σμν = 0 on U; (b) every point of U has a neighbourhood with a chart in which g_μν equals the constant canonical form diag(±1) of the same signature; (c) every point of U has a neighbourhood on which parallel transport is path independent, equivalently one carrying n linearly independent parallel vector fields. For a general affine connection the clean statement is: curvature zero ⇔ locally integrable (local path independence), and some chart with Γ = 0 exists ⇔ curvature and torsion both vanish. A teleparallel (Weitzenböck) connection has R = 0 but T ≠ 0 and admits no such chart; for the Levi-Civita connection torsion is zero automatically, so affine and metric flatness coincide. The global statements need topology. If R = 0 on U, transport along two curves agrees whenever the curves are homotopic with fixed endpoints, so on a simply connected U it is globally path independent and a global parallel frame exists. Even then a single chart covering U with constant metric may fail to exist, because the map built from the parallel frame need not be one-to-one. On non-simply-connected flat spaces the holonomy around non-contractible loops can be nontrivial, as for a cone with its apex removed, whose holonomy is rotation by the deficit angle. Complete, simply connected, flat manifolds are isometric to Euclidean or Minkowski space. The criterion is also distinct from the local flatness theorem, which holds at a single point for every metric, and from Ricci flatness, which is weaker in four dimensions.
+
+**Assumes:** [[integrability-condition-for-parallel-fields]], [[torsion-tensor]], [[simply-connected-space]], [[local-geometry-versus-global-topology]]
+
+## Prerequisites
+
+- [[riemann-curvature-tensor]] — The criterion is a statement about this tensor vanishing.
+- [[path-dependence-of-parallel-transport]] — Flatness is the absence of path dependence, and the proof runs through transport around loops.
+- [[flat-metric]] — Supplies the definition being characterized: a metric with constant ±1 components in some coordinates over a region.
+
+## Leads to
+
+- [[ricci-flat-spacetime]] — Once R_abcd = 0 is understood as flatness, the weaker condition R_ab = 0 can be seen for what it is: vacuum, not flatness.
+- [[weyl-criterion-for-conformal-flatness]] — The analogous test one level up: a vanishing Weyl tensor characterizes conformal flatness (in four or more dimensions).
+- [[equivalence-problem]] — Flatness is the simplest case of deciding whether a metric is a known geometry in disguise.
+- [[gravity-as-spacetime-curvature]] — The criterion is what separates genuine gravity (tides, R ≠ 0) from the fictitious gravity of accelerated frames (R = 0).
+
+## Related
+
+- [[integrability-condition-for-parallel-fields]] — The key lemma inside the proof: covariantly constant fields exist only if R V = 0.
+- [[nonzero-christoffel-symbols-in-flat-space]] — The main misconception the criterion corrects.
+- [[local-flatness-theorem]] — Contrast: every metric is flat to first order at one point; the criterion is about whole regions.
+- [[holonomy]] — Riemann is the holonomy per unit area of small loops, the bridge from R = 0 to path independence.
+- [[simply-connected-space]] — Needed to pass from small loops to global path independence.
+- [[rindler-coordinates]] — The standard flat spacetime that looks gravitational: redshift and acceleration with zero curvature.
+- [[cosmic-string]] — Flat everywhere outside the string yet with a deficit angle: local flatness without global triviality.
+- [[torsion-tensor]] — With torsion, zero curvature no longer guarantees coordinates with vanishing connection.
+
+## Key equations
+
+### Flatness criterion
+
+$$
+R^\rho{}_{\sigma\mu\nu} = 0 \ \text{on } U \quad\Longleftrightarrow\quad \text{near every point of } U \ \exists\, x'^{\mu}: \ g_{\mu'\nu'} = \eta_{\mu\nu}
+$$
+
+Curvature vanishing throughout a region is equivalent to the existence of locally constant (Minkowski or Euclidean) coordinates there. *(SCH ch06 §6.5 p.159; DIV ch06 §6.11 p.105; GA ch30 §30.6 p.319)*
+
+**Convention:** Levi-Civita connection. For a positive-definite metric replace η by δ. Global coordinates or trivial holonomy around every loop need extra topological conditions.
+
+### Integrability condition for parallel fields
+
+$$
+\nabla_\mu V^\rho = 0 \ \text{everywhere} \ \Longrightarrow\ [\nabla_\mu,\nabla_\nu]V^\rho = R^\rho{}_{\sigma\mu\nu}V^\sigma = 0
+$$
+
+A field that is parallel in every direction can only exist if curvature annihilates it; requiring this for a full basis forces R = 0. *(SCH ch06 Ex 6.11 p.166; DIV ch06 §6.7 p.97)*
+
+**Convention:** Course sign: [∇_μ, ∇_ν] V^ρ = R^ρ_σμν V^σ for a torsion-free connection.
+
+### Change around a small loop
+
+$$
+\delta V^\rho = -R^\rho{}_{\sigma\mu\nu}\,V^\sigma\,\delta a^\mu\,\delta b^\nu
+$$
+
+Transporting V first along δa, then δb, then back, changes it by an amount proportional to the loop area; R = 0 makes every small loop trivial. *(SCH ch06 §6.5 p.157; DIV ch06 §6.7 p.98; legacy:manuscript-chapter-08-curvature-holonomy)*
+
+**Convention:** Loop traversed first along δa^μ, then δb^ν. Schutz, Blundell-Lancaster and d'Inverno agree with this sign once their loop orientations are matched.
+
+### Metric derivative from the connection
+
+$$
+\partial_\lambda g_{\mu\nu} = \Gamma^\sigma{}_{\lambda\mu}\,g_{\sigma\nu} + \Gamma^\sigma{}_{\lambda\nu}\,g_{\mu\sigma}
+$$
+
+Metric compatibility: where the connection vanishes, the metric is constant, which is why affine flatness gives metric flatness. *(DIV ch06 §6.11 p.105)*
+
+**Convention:** Course index order puts the derivative index first on Γ; d'Inverno's (6.77) puts it last, which is the same for a symmetric connection.
+
+### Check: flat plane in polar coordinates
+
+$$
+R^r{}_{\theta r\theta} = \partial_r\Gamma^r{}_{\theta\theta} - \partial_\theta\Gamma^r{}_{r\theta} + \Gamma^r{}_{r\lambda}\Gamma^\lambda{}_{\theta\theta} - \Gamma^r{}_{\theta\lambda}\Gamma^\lambda{}_{r\theta} = -1 - 0 + 0 + 1 = 0
+$$
+
+Non-zero Christoffel symbols (Γ^r_θθ = −r, Γ^θ_rθ = 1/r) produce terms that cancel exactly, so the plane is flat as it must be. *(GA ch11 Example 11.7; SCH ch06 Ex 6.19 p.167; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
+
+**Convention:** ds² = dr² + r² dθ²; in two dimensions this single component decides flatness.
+
+### Check: gravity-like but flat (static 2D spacetime)
+
+$$
+ds^2 = -N(x)^2 dt^2 + dx^2: \quad R^x{}_{txt} = N N'', \quad R = -\frac{2N''}{N}
+$$
+
+A position-dependent clock rate N(x) is flat exactly when N is linear (uniform acceleration, Rindler); an exponential lapse N = e^{kx} is genuinely curved, with R = −2k². *(legacy:manuscript-section-24-2-rindler-full-check)*
+
+**Convention:** G = c = 1; in SI the Rindler lapse is N = 1 + a x/c². Transverse flat directions dy² + dz² can be added without changing the verdict.
+
+## Conventions across the books
+
+| Issue | Schutz | Gifted Amateur | d'Inverno | Course choice |
+| --- | --- | --- | --- | --- |
+| What 'flat' is defined to mean | A manifold with a global notion of parallelism: any vector carried around any closed curve returns unchanged; the equivalence with R = 0 is then asserted (6.71). | A space admitting coordinates in which the metric is constant and Euclidean or Minkowskian (credited to Riemann's 1861 essay). | Two notions: affine flat (a chart with Γ = 0 everywhere, §6.6–6.7) and metric flat (a chart with g = diag(±1) everywhere, §6.11), proved equivalent for the metric connection. | Flat on a region means R^ρ_σμν = 0 there, equivalently locally constant canonical coordinates. 'Locally flat at a point' is reserved for the local flatness theorem, which every metric satisfies. Statements about global parallelism or global Cartesian charts are flagged as needing topology. |
+| Hypotheses stated with the theorem | No mention of simple connectedness or torsion; the Levi-Civita connection is implicit and the converse leans on Exercise 6.11. | Mention only, with no hypotheses or proof. | Symmetric connection assumed throughout §6.7 and simple connectedness invoked inside the proof, but the boxed theorem omits both. | Always say: Levi-Civita (torsion-free, metric) connection; R = 0 on an open set gives flat coordinates near each point; global path independence also needs a simply connected region. |
+| Canonical constant form and signature | η_αβ = diag(−1, 1, 1, 1), signature +2. | diag(−1, 1, 1, 1). | η_ab = diag(1, −1, −1, −1), signature −2; η_ab denotes components in Minkowski coordinates only, g_ab the same flat metric in other coordinates. | η_μν = diag(−1, 1, 1, 1), used only for Minkowski-coordinate components. The criterion R = 0 is independent of signature and of the overall sign convention of Riemann. |
+| Riemann definition used in the test | R^α_βμν = Γ^α_βν,μ − Γ^α_βμ,ν + Γ^α_σμ Γ^σ_βν − Γ^α_σν Γ^σ_βμ (MTW). | MTW ordering and sign (Eq. 11.19). | R^a_bcd = ∂_cΓ^a_bd − ∂_dΓ^a_bc + Γ^e_bd Γ^a_ec − Γ^e_bc Γ^a_ed, same as MTW. | R^ρ_σμν = ∂_μΓ^ρ_νσ − ∂_νΓ^ρ_μσ + Γ^ρ_μλΓ^λ_νσ − Γ^ρ_νλΓ^λ_μσ. Sign conventions never change whether R vanishes, but they matter when checking an individual component such as the polar-plane cancellation. |
+
+## How the sources teach it
+
+### schutz
+
+**Route:** Schutz starts from the contrast between a flat loop (Figure 6.2), where a vector drawn parallel all the way round returns unchanged, and the sphere, where it does not. He derives Riemann from a small coordinate loop and defines flatness as global parallelism, so R = 0 ⇔ flat reads as immediate (6.71). The polar-coordinate plane is suggested as a check. Exercise 6.11 derives the integrability condition, and the text notes that it is also sufficient.
+
+**Representation:** Loop diagrams, component formulas, and short verification exercises (polar plane, cylinder).
+
+**Strengths:** Operational and visual: flatness is something you test by carrying arrows. The polar-plane and cylinder exercises give quick confidence.
+
+**Weaknesses:** The hard direction (R = 0 ⇒ coordinates with constant metric) is asserted, not proved. Simple connectedness is never mentioned. The link between global parallelism and constant-metric coordinates is left implicit. *(SCH ch06 §6.4 p.153; SCH ch06 §6.5 p.159; SCH ch06 Ex 6.11 p.166; SCH ch06 Ex 6.19 p.167; SCH ch06 Ex 6.30 p.167)*
+
+### dinverno
+
+**Route:** d'Inverno builds it rigorously. Geodesic coordinates make Γ vanish only at a point, so a chart with Γ = 0 everywhere defines affine flatness. Integrable connections (path-independent transport, Fig. 6.8) are then linked by two lemmas. First, integrable ⇔ R = 0, with necessity from the integrability condition and sufficiency from an infinitesimal loop plus deformation through thin loops (Figs 6.9, 6.10). Second, affine flat ⇔ symmetric and integrable, proved by turning a parallel frame into coordinates. Metric flatness follows in §6.11 from metric compatibility (6.77). Chapter 8 then shows Minkowski space in spherical polars with six nonzero Christoffel symbols but zero curvature.
+
+**Representation:** Lemma–proof structure in index notation; path-deformation figures; a worked flat-space example in curvilinear coordinates.
+
+**Strengths:** The only complete proof among the sources, and it shows exactly what each hypothesis contributes: integrability gives a parallel frame, symmetry makes it a coordinate frame, metric compatibility makes the metric constant.
+
+**Weaknesses:** The boxed theorems drop the symmetric-connection and simple-connectedness assumptions, and no counterexamples (cone, torsion) are given. Heavy for a first pass, and the frame-to-coordinates step is notationally dense. *(DIV ch06 §6.6 p.96; DIV ch06 §6.7 p.96; DIV ch06 §6.7 p.98; DIV ch06 §6.11 p.105; DIV ch08 §8.1 p.136)*
+
+### legacy
+
+**Route:** Chapter 8 computes the polar plane (−1 − 0 + 0 + 1 = 0) as a flat control before the sphere, and in an optional disclosure shows a cut cone that is flat everywhere yet rotates vectors carried around its tip. The capstone §24.2 works through Rindler coordinates completely: nonzero Christoffel symbols, height-dependent proper acceleration and redshift, yet the curvature component is proportional to q q'' = 0.
+
+**Representation:** Worked manuscript calculations with a callout on what the calculation distinguishes; flat-control-then-curved-case structure.
+
+**Strengths:** Supplies the two most instructive counterexamples: flat-but-gravity-looking (Rindler) and flat-but-nontrivial-holonomy (cone).
+
+**Weaknesses:** No general statement or proof of the criterion. The cone sits in an optional, un-narrated disclosure, and the Rindler section has no spacetime diagram. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature; legacy:manuscript-chapter-08-curvature-holonomy; legacy:manuscript-section-24-2-rindler-full-check)*
+
+## Recommended teaching path
+
+1. **Pose two impostors** — Show the plane in polar coordinates (Γ ≠ 0, metric depends on r) and a rocket accelerating uniformly (clocks at different heights disagree). Ask: is either space curved, and how would you decide? *Why:* Creates the need for a coordinate-proof test and exposes the tempting wrong criteria up front. *(DIV ch08 §8.1 p.136; legacy:manuscript-section-24-2-rindler-full-check)*
+2. **Picture flatness as loops that do nothing** — Carry an arrow around loops on a plane, a cylinder and a sphere; flat means every small loop returns it unchanged, and Riemann is the turning per unit area. *Why:* Gives an operational, coordinate-free meaning before any algebra. *(SCH ch06 §6.4 p.153; DIV ch06 Fig. 6.8 p.96)*
+3. **Easy direction** — If a chart has constant metric then Γ = 0 everywhere, so R = 0 there, and a tensor that vanishes in one chart vanishes in all. *Why:* Short and fully rigorous; also shows why vanishing Γ at just one point proves nothing. *(DIV ch06 §6.11 p.105)*
+4. **Hard direction as a four-step chain** — R = 0 ⇒ small loops trivial ⇒ (no holes) transport path independent ⇒ parallel frame ⇒ (no torsion) frame is a coordinate basis with Γ = 0 ⇒ (metric compatibility) constant metric ⇒ linear change to η. *Why:* Keeps d'Inverno's rigor but makes each hypothesis visible as a labelled link, so learners know exactly what fails without it. *(DIV ch06 §6.7 p.97; DIV ch06 §6.7 p.98; SCH ch06 Ex 6.11 p.166)*
+5. **Check by computation** — Have the learner compute R^r_θrθ = −1 − 0 + 0 + 1 = 0 for the polar plane, then R^θ_φθφ = sin²θ for the sphere with the same formula. *Why:* A flat control and a curved case with identical machinery build trust that the test cannot be fooled by coordinates. *(GA ch11 Example 11.7; SCH ch06 Ex 6.19 p.167; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
+6. **Apply to gravity** — Compute R^x_txt = N N'' for ds² = −N²dt² + dx²: a linear lapse (uniform acceleration) is flat despite redshift; an exponential lapse is curved. *Why:* Connects the criterion to the equivalence principle: accelerated frames mimic uniform gravity, and only tides (R ≠ 0) are real curvature. *(legacy:manuscript-section-24-2-rindler-full-check)*
+7. **Mark the limits** — Contrast with Ricci = 0 (vacuum, still curved), with local flatness at a point, with the cone (flat but nontrivial holonomy around the tip), and briefly with torsion. *Why:* Prevents over-generalizing the theorem into the slogans the legacy review flagged. *(legacy:manuscript-chapter-08-curvature-holonomy; DIV ch06 Fig. 6.10 p.98; GA ch35 §35.4 p.370)*
+
+## Analogies
+
+- **Graph paper versus a curvy grid drawn on the same sheet** (intuition): A flat sheet can carry any grid, including polar circles and rays, and the formulas for distance then look complicated. But you could always redraw straight graph paper. A sphere admits no such redraw, and the Riemann tensor detects which case you are in regardless of the grid you started with. *Limits:* For spacetime the 'graph paper' includes time with a minus sign in the metric. The redraw is only guaranteed locally; topology such as a cylinder or cone can prevent one sheet of graph paper covering everything. *(DIV ch08 §8.1 p.136; GA ch30 §30.3 p.313)*
+- **Rolling paper into a cylinder or a cone** (intuition): Paper rolled into a cylinder or cone is not stretched, so its intrinsic geometry stays flat. An ant with a ruler and protractor finds Euclid obeyed on any patch. On the cone, though, an arrow carried around the tip returns turned by the missing wedge angle. *Limits:* The tip of the cone is not a smooth point, so the theorem does not apply there. The rolled-up picture is extrinsic and can mislead learners into calling the cylinder curved. *(GA ch30 §30.5 p.317; SCH ch06 §6.4 p.152; legacy:manuscript-chapter-08-curvature-holonomy)*
+- **Sweeping one path into another through thin slivers** (working): Two routes from P to Q bound a region that can be cut into thin slivers between neighbouring routes. If going around each sliver changes nothing, the two routes must deliver the same arrow. *Limits:* Fails if the region between the routes contains a hole or a singular point, because the sweep gets stuck. It also only shows path independence, not yet that coordinates exist. *(DIV ch06 Fig. 6.10 p.98)*
+- **A tangent plane touches, a flat space coincides** (intuition): A plane touching a curved surface matches it at one point and to first order nearby; that is the local flatness every space has. A flat space is one where the match never breaks down anywhere in the region. *Limits:* The tangent plane is an extrinsic image requiring an embedding, and first-order agreement says nothing about second derivatives, which is exactly where curvature lives. *(SCH ch06 §6.2 p.145)*
+
+## Misconceptions
+
+- **If the Christoffel symbols are non-zero, or the metric components vary with position, space is curved.** — Both depend on the coordinates. Flat space in polar or spherical coordinates has several nonzero Γ and position-dependent g, but its Riemann tensor is identically zero; only a tensor built from second derivatives can decide. *Why tempting:* In Cartesian coordinates flatness and Γ = 0 coincide, and Γ appears in the geodesic equation like a gravitational force. *Diagnostic:* In ds² = dr² + r²dθ², Γ^r_θθ = −r. Does that make the plane curved? What would you compute to be sure? *(DIV ch08 §8.1 p.136; GA ch11 Example 11.7; GA ch30 §30.3 p.313)*
+- **Clocks running at different rates at different heights, or a nonzero coordinate acceleration of free particles, prove spacetime is curved.** — A uniformly accelerated frame in flat spacetime (Rindler) has both: proper time rate N = 1 + a x/c² and nonzero Γ, yet R^x_txt ∝ N N'' = 0. Curvature shows up as tides, not as a uniform pull or a redshift. *Why tempting:* Gravitational redshift is a famous prediction of GR, so it sounds like evidence of curvature. *Diagnostic:* For ds² = −(1 + a x)² dt² + dx², do clocks at different x tick at different rates? Is the spacetime curved? *(legacy:manuscript-section-24-2-rindler-full-check)*
+- **Ricci scalar zero, or even Ricci tensor zero, means spacetime is flat.** — Flatness needs the full Riemann tensor to vanish. R_abcd = 0 implies R_ab = 0 implies R = 0, with no converse in four dimensions; Schwarzschild vacuum has R_ab = 0 but strong tidal curvature. *Why tempting:* Both are called 'curvature', and the vacuum field equation reads R_μν = 0. *Diagnostic:* Outside the Sun the Ricci tensor vanishes. Why do tidal effects still exist there? *(GA ch35 §35.4 p.370; GA ch11 §11.4 p.126)*
+- **In a local inertial frame (Γ = 0 at a point), spacetime is flat in a neighbourhood.** — Coordinates can remove Γ at one point (or along a curve) for any metric, but not its derivatives; making Γ vanish on a whole open set is possible only when R = 0 there. *Why tempting:* The equivalence principle is often paraphrased as 'spacetime is locally flat'. *Diagnostic:* In Riemann normal coordinates the connection vanishes at the origin. What do the second derivatives of the metric at the origin equal? *(DIV ch06 §6.6 p.96; GA ch35 §35.2 p.368; SCH ch06 §6.3 p.150)*
+- **If R = 0 everywhere, a vector carried around any loop returns unchanged and one set of Cartesian coordinates covers the whole space.** — The criterion is local. Around a non-contractible loop, as on a cone with its apex removed, holonomy can be nontrivial. Even with trivial holonomy, as on a cylinder or torus, topology can prevent a single constant-metric chart. *Why tempting:* Textbook statements say 'flat iff R = 0' without mentioning simple connectedness. *Diagnostic:* A paper cone has a 60° wedge removed. Its surface is flat away from the tip. What happens to a vector carried once around the tip? *(DIV ch06 §6.7 p.98; legacy:manuscript-chapter-08-curvature-holonomy)*
+- **Zero curvature guarantees coordinates with vanishing connection for any connection.** — That needs zero torsion as well. A connection with torsion can have zero curvature (as in teleparallel gravity) yet no chart makes all its components vanish. *Why tempting:* The final theorem box in d'Inverno omits the standing symmetric-connection assumption. *Diagnostic:* In the step that turns a parallel frame into coordinates, which property of the connection makes the dual one-forms gradients? *(DIV ch06 §6.7 p.99)*
+- **Minkowski spacetime is not flat because its metric has a minus sign.** — Flat means zero curvature, equivalently constant canonical metric components; the signature is irrelevant. Minkowski spacetime is the flat Lorentzian geometry. *Why tempting:* 'Flat' is heard as 'Euclidean'. *Diagnostic:* Compute the Christoffel symbols of η_μν in inertial coordinates. What is the Riemann tensor? *(DIV ch08 §8.1 p.136; DIV ch06 Ex 6.22 p.110)*
+
+## Thought experiments
+
+- **Two routes to the same place**: Carry a vector from P to Q along two different curves and compare the arrivals, first on a flat sheet, then on a sphere. *Lesson:* Agreement for all route pairs (without holes in between) is the same as zero curvature; disagreement is curvature. *(DIV ch06 Fig. 6.8 p.96)*
+- **The accelerating laboratory**: In a rocket with uniform proper acceleration, compare clocks at the floor and ceiling and watch dropped objects fall, then compute the curvature of the rocket's metric. *Lesson:* Redshift and falling occur, but curvature vanishes: uniform 'gravity' of an accelerated frame is not spacetime curvature. Only a difference in falling (tides) would be. *(legacy:manuscript-section-24-2-rindler-full-check)*
+- **An ant on a cylinder**: An ant on a cylinder measures triangles and parallel lines using only the surface. *Lesson:* Euclid's rules hold everywhere, so the cylinder is intrinsically flat; walking straight around it and returning home is a fact of topology, not curvature. *(SCH ch06 §6.4 p.152; GA ch30 §30.5 p.317)*
+
+## Visualizations
+
+### Grid morpher with two meters · interactive-2d · high priority
+
+A sheet shown with a draggable coordinate grid (Cartesian → polar → arbitrary warp). A 'connection' meter displays sample Christoffel symbols; a 'curvature' meter displays the Riemann component computed from the same metric. On a flat sheet the connection meter swings wildly while curvature stays at 0; switching the sheet to a sphere or saddle moves the curvature meter.
+
+**Interaction:** Drag grid control points to warp coordinates; choose surface (plane, cylinder, sphere, saddle); expand an 'algebra' drawer showing the four Riemann terms as bars that cancel on flat surfaces.
+
+**Model:** Metric pulled back through the user's coordinate map; Γ and R^1_212 computed symbolically or by finite differences from the course formulas; K = R_1212/det g.
+
+**Inspired by:** DIV ch08 §8.1 p.136; GA ch11 Example 11.7; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature
+
+**Legacy assets:** manuscript-section-8-4-8-6-flatness-count-sphere-curvature
+
+### Loop transport on plane, cylinder, cone and sphere · interactive-3d · high priority
+
+The learner draws any closed loop on a chosen surface; an arrow is parallel transported around it and a dial shows the net rotation. Plane and cylinder always give zero. On the sphere it equals area over radius squared. On the cone it is zero unless the loop encircles the tip, in which case it equals the deficit angle.
+
+**Interaction:** Freehand loop drawing; surface selector; cone wedge-angle slider; a 'sweep' button that animates one path deforming into another and stalls at the cone tip.
+
+**Model:** Exact transport on developable surfaces by unrolling to the plane; on the sphere, integrate the transport equation in θ, φ; cone holonomy = deficit angle for loops around the apex.
+
+**Inspired by:** SCH ch06 §6.4 p.153; DIV ch06 Fig. 6.8 p.96; DIV ch06 Fig. 6.10 p.98; legacy:manuscript-chapter-08-curvature-holonomy
+
+**Legacy assets:** manuscript-chapter-08-curvature-holonomy
+
+### Is it gravity or just acceleration? · interactive-plot · medium priority
+
+A 1+1 spacetime diagram with worldlines of static observers for a user-drawn lapse profile N(x). Readouts: clock-rate ratio between two chosen heights, proper acceleration of each observer, and the curvature R = −2N''/N plotted along x. A linear lapse gives redshift and acceleration with a flat curvature trace; bending the lapse curve makes curvature appear.
+
+**Interaction:** Drag control points of N(x); drag emitter and receiver heights; toggle presets (Rindler N = 1 + a x, exponential N = e^{kx}, weak-field Schwarzschild-like).
+
+**Model:** ds² = −N(x)²dt² + dx² with G = c = 1; frequency ratio N(x_e)/N(x_r) for static observers; proper acceleration N'/N; R^x_txt = N N''.
+
+**Inspired by:** legacy:manuscript-section-24-2-rindler-full-check
+
+**Legacy assets:** manuscript-section-24-2-rindler-full-check
+
+### Cartesian coordinates from a parallel frame · animated-2d · low priority
+
+On a flat plane described in polar coordinates, a single pair of arrows at one point is transported everywhere; integrating their dual one-forms draws straight Cartesian grid lines on top of the polar grid. On a sphere the same construction produces mismatched arrows and grid lines that fail to close.
+
+**Interaction:** Pick the starting frame; play the propagation; switch plane/sphere; show the mismatch readout.
+
+**Model:** Parallel transport equations for the chosen metric; line integrals of the dual one-forms; mismatch measured around closed grid cells.
+
+**Inspired by:** DIV ch06 §6.7 p.98
+
+## Worked examples
+
+- **Integrable connection implies zero curvature** (working): A field that is parallel in every direction must satisfy commuting mixed partials, which turns into R V = 0 for arbitrary V. *(DIV ch06 §6.7 p.96)*
+- **Zero curvature implies path independence** (formal): Transport around an infinitesimal loop changes a vector by a Riemann term; with no holes, thin-loop deformation extends this to finite paths. *(DIV ch06 §6.7 p.97; DIV ch06 Fig. 6.10 p.98)*
+- **A parallel frame becomes Cartesian coordinates** (formal): Symmetry of the connection makes the dual frame curl-free, hence gradients, which serve as coordinates in which Γ vanishes. *(DIV ch06 §6.7 p.98)*
+- **Metric flatness theorem** (working): Constant metric ⇒ Γ = 0 ⇒ R = 0; conversely R = 0 ⇒ chart with Γ = 0 ⇒ ∂g = 0 by metric compatibility ⇒ diag(±1) after a linear change. *(DIV ch06 §6.11 p.105)*
+- **Minkowski spacetime in spherical polar coordinates** (working): Six independent nonzero Christoffel symbols, yet zero Riemann tensor. *(DIV ch08 §8.1 p.136)*
+- **Example 11.7: the plane in polar coordinates** (working): Derivative and quadratic Christoffel terms cancel exactly in the mixed Riemann components. *(GA ch11 Example 11.7)*
+- **Rindler: a complete flatness check** (working): Nonzero connection, height-dependent acceleration and redshift, yet a vanishing curvature component because the lapse is linear. *(legacy:manuscript-section-24-2-rindler-full-check)*
+
+## Exercises
+
+- (standard) Derive the integrability condition for a globally parallel vector field from commuting partial derivatives and rearrange it into the Riemann tensor acting on the vector. *Skill:* Deriving the necessity half of the criterion *(SCH ch06 Ex 6.11 p.166)*
+- (intro) Show that the Riemann tensor of the Euclidean plane in polar coordinates vanishes. *Skill:* Computing curvature in curvilinear coordinates *(SCH ch06 Ex 6.19 p.167)*
+- (intro) Compute the Riemann tensor of a cylinder in coordinates of your choice and confirm it vanishes. *Skill:* Separating intrinsic from extrinsic curvature *(SCH ch06 Ex 6.30 p.167)*
+- (standard) Prove that an affine flat manifold necessarily has an integrable and symmetric connection. *Skill:* Proof of the easy direction of the lemma *(DIV ch06 Ex 6.12 p.109)*
+- (intro) Given line elements for Minkowski space and for three-dimensional Euclidean space in unfamiliar coordinates, identify the coordinates and decide whether each metric is flat. *Skill:* Recognizing flat metrics in disguise *(DIV ch06 Ex 6.22 p.110; DIV ch06 Ex 6.23 p.110)*
+- (standard) Verify the Christoffel symbols of flat spacetime in spherical polar coordinates and show the Riemann tensor vanishes. *Skill:* Full curvature computation for a flat metric *(DIV ch08 Ex 8.1 p.149)*
+- (standard) Show that the spacetime described by a rotating-frame metric is flat. *Skill:* Applying the criterion to a non-inertial frame *(GA ch11 Ex 11.4 p.130)*
+
+## Checks for understanding
+
+- **Q (working):** The plane in polar coordinates has Γ^r_θθ = −r and Γ^θ_rθ = 1/r. Is it curved? Compute R^r_θrθ to decide.
+  - **A:** R^r_θrθ = ∂_rΓ^r_θθ − ∂_θΓ^r_rθ + Γ^r_rλΓ^λ_θθ − Γ^r_θλΓ^λ_rθ. The first term is ∂_r(−r) = −1. The second is 0 because Γ^r_rθ = 0. The third is 0 because Γ^r_rr = Γ^r_rθ = 0. The fourth is −Γ^r_θθΓ^θ_rθ = −(−r)(1/r) = +1. Total −1 − 0 + 0 + 1 = 0. In two dimensions this is the only independent component, so the plane is flat; the nonzero Γ come purely from the coordinates. *(targets: If the Christoffel symbols are non-zero, or the metric components vary with position, space is curved.)*
+- **Q (working):** For ds² = −N(x)²dt² + dx², clocks at rest at different x tick at different rates whenever N is not constant. For which N is the spacetime flat?
+  - **A:** The only independent curvature component is R^x_txt = N N'' (equivalently R = −2N''/N). It vanishes exactly when N'' = 0, i.e. N = A + Bx. With B ≠ 0 this is a uniformly accelerated (Rindler) frame in flat spacetime: clock rates differ and static observers accelerate, yet there is no curvature. For N = e^{kx}, R = −2k² ≠ 0 and the spacetime is genuinely curved. *(targets: Clocks running at different rates at different heights, or a nonzero coordinate acceleration of free particles, prove spacetime is curved.)*
+- **Q (intuition):** A paper cone is made by removing a 60° wedge from a flat disc and gluing the edges. Is its surface flat? What happens to a vector carried once around a loop that encircles the tip?
+  - **A:** Away from the tip the surface is intrinsically flat (unrolling gives back the flat disc), so R = 0 there. A loop around the tip is not contractible within the flat region (the tip is excluded), so the criterion does not promise trivial transport. Unrolled, the loop's start and end sides differ by the 60° wedge, and the vector returns rotated by 60°. A loop not enclosing the tip returns the vector unchanged. *(targets: If R = 0 everywhere, a vector carried around any loop returns unchanged and one set of Cartesian coordinates covers the whole space.)*
+- **Q (working):** Outside a spherical star the Ricci tensor vanishes. Is spacetime there flat?
+  - **A:** No. Flatness requires the whole Riemann tensor to vanish, and outside the star only the 10 Ricci components vanish. The Weyl part survives: in Schwarzschild the tidal components scale like M/r³, and the Kretschmann invariant R_ρσμν R^ρσμν = 48M²/r⁶ (G = c = 1) is nonzero, so no coordinates can make the metric constant. *(targets: Ricci scalar zero, or even Ricci tensor zero, means spacetime is flat.)*
+- **Q (formal):** Outline why R^ρ_σμν = 0 on a simply connected region implies coordinates with constant metric, naming the role of zero torsion and of metric compatibility.
+  - **A:** R = 0 makes transport around every small loop trivial. Because the region is simply connected, any two paths can be deformed into each other through small loops, so transport is path independent. Transporting a basis from one point gives a frame e_i with ∇e_i = 0 everywhere. Its dual one-forms θ^i satisfy dθ^i = −ω^i_j ∧ θ^j + torsion; the connection forms vanish in a parallel frame and the torsion is zero, so dθ^i = 0 and locally θ^i = df^i. Using f^i as coordinates, the coordinate basis is the parallel frame, so Γ = 0 everywhere. Metric compatibility gives ∂_λ g_μν = Γ g + Γ g = 0, so g is a constant symmetric matrix, and a linear change of coordinates brings it to η_μν. (Constancy of the metric is local; covering the whole region by one chart can still fail.) *(targets: Zero curvature guarantees coordinates with vanishing connection for any connection.)*
+
+## Applications
+
+- **Telling real gravity from accelerated frames**: Any observed effect that can be reproduced in a flat metric (uniform redshift, uniform acceleration, Coriolis effects in rotating frames) is not evidence of curvature; tidal effects that require R ≠ 0 are. Key numbers: Rindler: R = 0; lapse N = 1 + a x/c² *(legacy:manuscript-section-24-2-rindler-full-check; GA ch11 Ex 11.4 p.130)*
+- **Special relativity as the flat case of the geometric theory**: d'Inverno's axioms for special relativity demand a metric connection with zero Riemann tensor, so Minkowski spacetime in any coordinates is recognized by R = 0. *(DIV ch08 §8.1 p.136)*
+- **Flat universe versus flat spacetime**: A spatially flat FLRW model has flat constant-time slices but, with expansion, a curved spacetime (nonzero Riemann). Conversely the empty Milne universe with negatively curved slices is a patch of flat Minkowski spacetime. The criterion must be applied to the right metric. Key numbers: Milne: a(t) = t, k = −1, Riemann = 0
+- **Conical deficits**: Cosmic strings and point masses in 2+1 gravity leave spacetime flat everywhere except on the defect, with a deficit angle that produces double images and nontrivial holonomy: a physical instance of flat-but-not-globally-trivial geometry.
+
+## History
+
+- **Bernhard Riemann (1861):** In an essay submitted to the Paris Academy on a heat-conduction problem, Riemann wrote down the curvature tensor in terms of the metric and gave its vanishing as the condition for a space to be flat. *(GA ch30 §30.6 p.319)*
+
+## Tutor guidance
+
+**Opening questions**
+
+- If I give you a metric in strange coordinates, how would you decide whether it is secretly flat space?
+- Does a nonzero Christoffel symbol mean there is gravity?
+- What happens to an arrow carried around a loop on a tabletop, and on a globe?
+
+**Common questions**
+
+- *Why isn't it enough that the Ricci scalar vanishes?* — R is a single trace of the curvature; many nonzero curvature tensors have zero trace. In four dimensions even the full Ricci tensor carries only 10 of the 20 components. Flatness needs all 20 to vanish.
+- *Doesn't the equivalence principle say spacetime is always locally flat?* — It says you can make the metric Minkowskian and its first derivatives vanish at one event, so there is no uniform gravity there. Second derivatives, the curvature, remain. The flatness criterion concerns a whole region, where those second derivatives must vanish too.
+- *Is a uniform gravitational field flat?* — The spacetime of a uniformly accelerated frame (Rindler) is exactly flat. A real gravitational field from a mass always has tides, so it is curved, even if weakly over a small lab.
+- *If R = 0, why might I still not be able to use one Cartesian chart everywhere?* — Because the criterion is local. Topology can interfere: a cylinder wraps around, a cone has a missing wedge at its tip, a torus closes up in two directions. Each is flat on every small patch.
+
+**Pitfalls when explaining**
+
+- Do not say 'R = 0 means flat' when R might be heard as the Ricci scalar; say 'the full Riemann tensor vanishes'.
+- Always attach 'on a region' or 'everywhere in a neighbourhood'; vanishing at one point proves nothing.
+- Do not describe Rindler redshift as 'gravitational redshift in curved spacetime'.
+- Mention simple connectedness when claiming global path independence, and torsion-freeness when claiming a chart with vanishing connection.
+- When checking a component by hand, fix the course sign convention first; a sign error can make a flat metric look curved.
+
+**When to show a demo**
+
+- Right after the learner computes the polar-plane cancellation, open the grid morpher and warp the grid to show the curvature meter never moves.
+- When a learner claims redshift proves curvature, open the lapse-profile demo with the Rindler preset.
+- When discussing global versus local, draw a loop around the cone tip in the loop-transport demo.
+
+**Saying it aloud:** Say the criterion as 'the Riemann tensor is zero at every point of the region if and only if you can find coordinates there in which the metric is the constant Minkowski metric'. For the polar check say 'R upper r, lower theta r theta: minus one from the derivative, plus one from the product, total zero'. For the loop formula say 'the change in V is minus Riemann, acting on V, times the two sides of the little loop'. Avoid saying 'R equals zero' without naming which R.
+
+## Sources
+
+- schutz ch06 (core): p.153 §6.4, p.159 §6.5, p.166 §Exercises, p.167 §Exercises
+- gifted-amateur ch30 (mention): p.319 §30.6
+- dinverno ch06 (core): p.96 §6.7, p.97 §6.7, p.98 §6.7, p.99 §6.7, p.105 §6.11
+- dinverno ch08 (revisited): p.136 §8.1, p.149 §Exercises
+- legacy manuscript-section-24-2-rindler-full-check (developed)
+- legacy manuscript-section-8-4-8-6-flatness-count-sphere-curvature (developed)
+
+## Review
+
+**Verdict:** fixed
+
+**Fixes**
+
+- Renamed the thought experiment 'The ant on a tin can', which echoed GA's Fig. 30.8 caption, to 'An ant on a cylinder', and added the GA ch30 §30.5 p.317 ref next to Schutz.
+
+**Concerns**
+
+- The prerequisites add flat-metric, but the registry entry still lists only riemann-curvature-tensor and path-dependence-of-parallel-transport. flat-metric does not depend on this concept, so there is no cycle, but the registry should be updated once concurrent writers finish.
+- Worked by hand and found correct: the polar-plane component (−1 − 0 + 0 + 1), the static lapse metric R^x_txt = N N'' with R = −2N''/N (N = e^{kx} gives −2k², matching legacy pitfall 10), the small-loop sign δV = −R V δa δb (derived from the ordered product of transports), the cone holonomy, Kretschmann 48M²/r⁶, and Milne flatness.
+- The FLRW/Milne and cosmic-string applications have no book refs. They are standard results.
+- Ref spot-checks against the source copies all match: SCH (6.71) p.159, Ex 6.11 p.166 (which states sufficiency), Ex 6.19/6.30 p.167, DIV §6.7 pp.96-99 with Figs 6.8/6.10, §6.11 p.105 with (6.77), ch08 §8.1 p.136, GA Example 11.7 p.128, Ex 11.4 p.130, GA ch30 §30.6 p.319.

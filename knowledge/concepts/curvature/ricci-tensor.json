@@ -1,0 +1,622 @@
+{
+	"id": "ricci-tensor",
+	"title": "Ricci tensor",
+	"domain": "curvature",
+	"tier": "core",
+	"aliases": ["R_ab", "R_{mu nu}", "Ric", "Ricci curvature", "volume-changing part of curvature", "trace-free Ricci tensor"],
+	"summary": "The Ricci tensor is what remains when you trace the Riemann tensor over its upper index and its third slot: a symmetric two-index tensor that carries ten of the twenty independent curvature numbers in four dimensions. Physically it is the part of curvature that makes a small ball of freely falling particles begin to shrink or swell, and Einstein's equation ties it directly to the matter at that point. Where it vanishes, as in the empty space around a star, curvature can still stretch and squeeze things without changing their volume.",
+	"levels": {
+		"intuition": {
+			"explanation": "Imagine letting go of a small, round puff of dust inside a spacecraft that is falling freely. Gravity's unevenness, the tides, can do two different things to the puff: it can change its shape, pulling it into an egg, and it can change its volume, making it shrink or swell. The Ricci tensor is the part of curvature that keeps track of volume. Near Earth but outside it, the puff is stretched along the line to Earth's centre and squeezed in the two sideways directions, and the stretch and the squeezes cancel so the volume stays the same: there the Ricci tensor is zero even though gravity is plainly at work. Inside matter, say a puff released in a tunnel through a planet, every direction is squeezed and the volume shrinks; that shrinking is the Ricci tensor, and more matter means faster shrinking. This picture is honest only for a tiny puff that starts at rest and only for the first moments; later, a puff that is being stretched can lose volume too, and exotic ingredients such as dark energy can make a puff swell.",
+			"picture": "A small round dust puff in free fall: outside a planet it becomes an egg of the same volume; inside matter it shrinks evenly in all directions.",
+			"assumes": ["tidal-force", "curvature", "freely-falling-frame"]
+		},
+		"working": {
+			"explanation": "Start from the Riemann tensor R^rho_{sigma mu nu} and set the upper index equal to the third slot, summing: R_{mu nu} = R^rho_{mu rho nu}. The result is symmetric, R_{mu nu} = R_{nu mu}, so in four dimensions it has 10 independent components. You do not get anything new by tracing other slots: the first two indices of R_{rho sigma mu nu} are antisymmetric, so tracing them gives zero, and tracing the upper index with the fourth slot gives minus Ricci. Its meaning comes from geodesic deviation. For an observer with four-velocity u, nearby free particles separate as D^2 xi^mu/d tau^2 = -E^mu_rho xi^rho with tidal tensor E^mu_rho = R^mu_{nu rho sigma} u^nu u^sigma. Tracing the tidal tensor gives E^mu_mu = R_{nu sigma} u^nu u^sigma, and because a volume is a product of three edge lengths, a small ball released at rest has d^2(delta V)/d tau^2 = -R_{mu nu} u^mu u^nu delta V at the moment of release. In the Newtonian limit R_00 is approximately the Laplacian of the potential, nabla^2 Phi = 4 pi G rho, which is Poisson's equation in disguise. Einstein's equation can be written R_{mu nu} = 8 pi G (T_{mu nu} - (1/2) T g_{mu nu}) + Lambda g_{mu nu}, so for a perfect fluid at rest R_{mu nu} u^mu u^nu = 4 pi G (rho + 3p) - Lambda. In vacuum with Lambda = 0, R_{mu nu} = 0, but the Riemann tensor need not vanish; the leftover shape-changing curvature is the Weyl tensor. A quick check: a sphere of radius a has R_{mu nu} = g_{mu nu}/a^2.",
+			"picture": "A 3x3 tidal matrix acting on a small ball: its diagonal entries stretch or squeeze each axis, and their sum (the Ricci trace) sets how fast the volume starts to change.",
+			"assumes": ["riemann-curvature-tensor", "tensor-contraction", "symmetries-of-the-riemann-tensor", "geodesic-deviation-equation", "relativistic-tidal-tensor"]
+		},
+		"formal": {
+			"explanation": "On a manifold with a torsion-free, metric-compatible connection, the Ricci tensor is the (0,2) tensor Ric(Y, X) = tr(Z -> R(Z, X) Y), with R(X, Y)Z = nabla_X nabla_Y Z - nabla_Y nabla_X Z - nabla_[X,Y] Z; in components R_{mu nu} = R^rho_{mu rho nu} = g^{rho lambda} R_{lambda mu rho nu} (course convention, signature (-,+,+,+)). Pair symmetry R_{rho sigma mu nu} = R_{mu nu rho sigma} makes it symmetric; for a general affine connection with torsion or non-metricity it need not be. Every other single contraction of Riemann vanishes or equals plus or minus R_{mu nu}. In n dimensions Ricci has n(n+1)/2 components, Riemann n^2(n^2-1)/12. For n = 2, R_{mu nu} = (R/2) g_{mu nu} and Ricci determines Riemann; for n = 3 Riemann is fixed entirely by Ricci and the metric; for n = 4 the 20 Riemann components split into 10 Ricci and 10 Weyl components, with Riemann = Weyl + terms linear in R_{mu nu}, R and g. The trace-free part S_{mu nu} = R_{mu nu} - (1/n) R g_{mu nu} is distinct from the trace-reversed Einstein tensor G_{mu nu} = R_{mu nu} - (1/2) R g_{mu nu}. The contracted Bianchi identity gives nabla^mu R_{mu nu} = (1/2) nabla_nu R, so Ricci is not divergence-free unless R is constant. Physically, for a timelike geodesic congruence the Raychaudhuri equation d theta/d tau = -theta^2/3 - sigma_{ab} sigma^{ab} + omega_{ab} omega^{ab} - R_{mu nu} u^mu u^nu shows Ricci as the curvature source of focusing; the null version uses R_{mu nu} k^mu k^nu, for which S and R_{mu nu} agree. Via Einstein's equation, R_{mu nu} is algebraically determined by T_{mu nu} and Lambda at each event, so it carries the local, matter-sourced part of curvature, while the Weyl part is governed by differential equations and propagates. Linearized about flat space with g = eta + h, R_{mu nu} = (1/2)(d_alpha d_mu h^alpha_nu + d_alpha d_nu h^alpha_mu - Box h_{mu nu} - d_mu d_nu h). In harmonic coordinates the second-derivative part of the full Ricci tensor is -(1/2) g^{alpha beta} d_alpha d_beta g_{mu nu}, so the vacuum equations R_{mu nu} = 0 become a system of wave equations for the metric components.",
+			"picture": "Riemann as a 20-slot curvature budget split into two ledgers: a 10-entry Ricci ledger settled locally by matter, and a 10-entry Weyl ledger that can carry tides and waves through empty space.",
+			"assumes": ["riemann-curvature-operator", "symmetries-of-the-riemann-tensor", "number-of-independent-riemann-components", "contracted-bianchi-identity", "levi-civita-connection"]
+		}
+	},
+	"prerequisites": [
+		{"id": "riemann-curvature-tensor", "why": "Ricci is a contraction of Riemann; its sign and meaning are inherited from Riemann's definition."},
+		{"id": "tensor-contraction", "why": "Forming Ricci is a single trace of an upper index against a lower one."},
+		{"id": "symmetries-of-the-riemann-tensor", "why": "The symmetries show Ricci is symmetric and essentially the only non-zero contraction."}
+	],
+	"leads_to": [
+		{"id": "ricci-scalar", "why": "Tracing Ricci once more with the inverse metric gives the Ricci scalar."},
+		{"id": "einstein-tensor", "why": "Trace-reversing Ricci gives the divergence-free tensor that sits in Einstein's equation."},
+		{"id": "contracted-bianchi-identity", "why": "Contracting the Bianchi identity relates the divergence of Ricci to the gradient of R."},
+		{"id": "weyl-tensor", "why": "Removing the Ricci part from Riemann leaves the Weyl tensor."},
+		{"id": "ricci-flat-spacetime", "why": "Vacuum spacetimes have vanishing Ricci but can still be curved."},
+		{"id": "volume-preserving-tidal-deformation", "why": "Zero Ricci trace means tides change shape but not the initial volume of a ball."},
+		{"id": "raychaudhuri-equation", "why": "Ricci contracted with the flow velocity is the curvature term that focuses congruences."},
+		{"id": "ricci-focusing-versus-weyl-shear", "why": "For light bundles, Ricci acts like a converging lens and Weyl like an astigmatic one."},
+		{"id": "trace-reversed-einstein-equations", "why": "Einstein's equation can be solved for Ricci directly in terms of T and its trace."},
+		{"id": "vacuum-einstein-equations", "why": "In vacuum with Lambda = 0 the field equations reduce to R_{mu nu} = 0."},
+		{"id": "einstein-space", "why": "Spaces with Ricci proportional to the metric form an important class, including de Sitter."},
+		{"id": "curvature-sign-conventions", "why": "Which slot is traced is one of the three sign choices that differ between books."}
+	],
+	"related": [
+		{"id": "relativistic-tidal-tensor", "why": "Ricci contracted with u twice is the trace of the tidal tensor."},
+		{"id": "newtonian-tidal-tensor", "why": "Its trace is the Laplacian of the potential, the Newtonian shadow of R_00."},
+		{"id": "poisson-equation-for-gravity", "why": "R_00 approximately equals nabla^2 Phi = 4 pi G rho in the weak-field limit."},
+		{"id": "ricci-tensor-field-equation", "why": "The rejected guess R_{mu nu} proportional to T_{mu nu} fails because Ricci is not divergence-free."},
+		{"id": "tidal-derivation-of-vacuum-field-equations", "why": "d'Inverno obtains R_ab = 0 by demanding a trace-free tidal tensor in vacuum."},
+		{"id": "curvature-of-the-flrw-metric", "why": "R_tt = -3 a''/a feeds the acceleration equation of cosmology."},
+		{"id": "palatini-identity", "why": "The variation of Ricci is a total divergence, which simplifies the Einstein-Hilbert variation."},
+		{"id": "linearized-riemann-tensor", "why": "Contracting it gives the linearized Ricci tensor used in gravitational-wave theory."},
+		{"id": "kretschmann-scalar", "why": "Where Ricci vanishes, the Kretschmann scalar still detects curvature."}
+	],
+	"key_equations": [
+		{
+			"name": "Definition and symmetry",
+			"latex": "R_{\\mu\\nu} = R^\\rho{}_{\\mu\\rho\\nu} = g^{\\rho\\lambda}R_{\\lambda\\mu\\rho\\nu},\\qquad R_{\\mu\\nu} = R_{\\nu\\mu}",
+			"meaning": "Trace the upper index of Riemann with its third slot. Symmetry follows from pair symmetry of Riemann, giving 10 independent components in four dimensions.",
+			"convention_note": "Same contraction in Schutz (Eq. 6.91), Gifted Amateur (eqn 11.26) and d'Inverno (6.84). Tracing the fourth slot instead gives minus this tensor.",
+			"refs": ["SCH ch06 §6.6 Eq. 6.91 p.162", "GA ch11 §11.5 eqn 11.26 p.127", "DIV ch06 §6.12 (6.84) p.106"]
+		},
+		{
+			"name": "Ricci as the trace of the tidal tensor",
+			"latex": "\\mathcal{E}^\\mu{}_\\rho = R^\\mu{}_{\\nu\\rho\\sigma}u^\\nu u^\\sigma,\\qquad \\frac{D^2\\xi^\\mu}{d\\tau^2} = -\\mathcal{E}^\\mu{}_\\rho\\,\\xi^\\rho,\\qquad \\mathcal{E}^\\mu{}_\\mu = R_{\\nu\\sigma}u^\\nu u^\\sigma",
+			"meaning": "The tidal tensor maps separation to minus relative acceleration; summing its diagonal gives Ricci contracted twice with the observer's four-velocity.",
+			"convention_note": "d'Inverno's K^a_b equals our E; Gifted Amateur's K^mu_alpha is minus our E, so its trace is -R_{nu beta} u^nu u^beta.",
+			"refs": ["DIV ch10 §10.4 (10.22)-(10.25) p.175", "GA ch35 Example 35.8 eqn 35.40 p.371"]
+		},
+		{
+			"name": "Initial volume acceleration of a small ball",
+			"latex": "\\left.\\frac{d^2\\,\\delta V}{d\\tau^2}\\right|_{\\tau=0} = -R_{\\mu\\nu}u^\\mu u^\\nu\\,\\delta V",
+			"meaning": "A tiny ball of free particles released at rest starts to lose volume at a rate set by Ricci; the trace-free (Weyl) part changes only its shape at this order.",
+			"convention_note": "Valid for an infinitesimal ball with zero initial expansion, shear and rotation; in SI the right side carries c^2 when u.u = -c^2.",
+			"refs": ["GA ch35 Example 35.8 eqn 35.41 p.371", "legacy:manuscript-section-09-ricci-volume-weyl-shape"]
+		},
+		{
+			"name": "Newtonian limit",
+			"latex": "R_{00} \\approx \\nabla^2\\Phi = 4\\pi G\\rho",
+			"meaning": "For weak, static fields the time-time Ricci component is the Laplacian of the Newtonian potential, so the Ricci part of curvature is what Poisson's equation ties to mass density.",
+			"convention_note": "With x^0 = ct the left side is nabla^2 Phi/c^2.",
+			"refs": ["DIV ch10 §10.6 p.182", "legacy:manuscript-section-12-newtonian-limit-and-coupling"]
+		},
+		{
+			"name": "Einstein's equation solved for Ricci",
+			"latex": "R_{\\mu\\nu} = 8\\pi G\\left(T_{\\mu\\nu} - \\tfrac12 T\\,g_{\\mu\\nu}\\right) + \\Lambda g_{\\mu\\nu}",
+			"meaning": "Ricci at an event is fixed algebraically by the matter there; in vacuum with Lambda = 0 it vanishes, while the rest of the curvature need not.",
+			"convention_note": "Course form G + Lambda g = 8 pi G T traced with g^{mu nu} gives R = 4 Lambda - 8 pi G T. Restore c^4 in 8 pi G/c^4.",
+			"refs": ["GA ch13 Example 13.5 p.148", "GA ch14 Example 14.3 p.153"]
+		},
+		{
+			"name": "Focusing by ordinary matter",
+			"latex": "R_{\\mu\\nu}u^\\mu u^\\nu = 4\\pi G(\\rho + 3p) - \\Lambda",
+			"meaning": "For a perfect fluid seen by its rest-frame observer, Ricci focuses free particles when rho + 3p exceeds Lambda/(4 pi G); pressure counts as a source and positive Lambda defocuses.",
+			"convention_note": null,
+			"refs": ["legacy:practice-set-appendix-a-thirty-exercises", "GA ch50 Example 50.1 eqn 50.9 p.549"]
+		},
+		{
+			"name": "Sphere check",
+			"latex": "R_{\\theta\\theta} = 1,\\qquad R_{\\phi\\phi} = \\sin^2\\theta,\\qquad R_{\\mu\\nu} = \\frac{1}{a^2}\\,g_{\\mu\\nu}",
+			"meaning": "For ds^2 = a^2(d theta^2 + sin^2 theta d phi^2) the components do not depend on a, but proportionality to the metric does: in two dimensions Ricci is always half the scalar curvature times the metric.",
+			"convention_note": "Positive values confirm the course Riemann sign and Ricci slot.",
+			"refs": ["GA ch11 Example 11.8 eqn 11.35 p.128", "GA ch36 §36.4 eqn 36.67 p.382"]
+		},
+		{
+			"name": "Contracted Bianchi identity",
+			"latex": "\\nabla_\\mu R^\\mu{}_\\nu = \\tfrac12\\nabla_\\nu R",
+			"meaning": "Ricci is not divergence-free in general, which is why it cannot stand alone opposite a conserved T; its trace-reversed combination can.",
+			"convention_note": null,
+			"refs": ["SCH ch06 §6.6 Eq. 6.97 p.163", "GA ch13 §13.3 eqn 13.29 p.146"]
+		},
+		{
+			"name": "Linearized Ricci tensor",
+			"latex": "R_{\\mu\\nu} = \\tfrac12\\left(\\partial_\\alpha\\partial_\\mu h^\\alpha{}_\\nu + \\partial_\\alpha\\partial_\\nu h^\\alpha{}_\\mu - \\Box h_{\\mu\\nu} - \\partial_\\mu\\partial_\\nu h\\right)",
+			"meaning": "To first order in g = eta + h, Ricci is a sum of second derivatives of the perturbation, the starting point of linearized gravity and gravitational waves.",
+			"convention_note": "d'Inverno writes g = eta + epsilon h and carries epsilon explicitly (21.10); indices raised with eta.",
+			"refs": ["GA ch45 Example 45.1 eqn 45.9 p.487", "DIV ch21 §21.1 (21.10) p.402", "SCH ch08 Ex 8.8 p.198"]
+		}
+	],
+	"conventions": [
+		{
+			"issue": "Which Riemann slots are traced",
+			"schutz": "R_{alpha beta} = R^mu_{alpha mu beta}, first with third (Eq. 6.91 p.162).",
+			"gifted_amateur": "R_{nu beta} = R^mu_{nu mu beta}, upper index with third slot (eqn 11.26 p.127).",
+			"dinverno": "R_ab = R^c_{acb} = g^{cd} R_{dacb}, first with third (6.84 p.106); ch21 writes eta^{cd} R_{cadb}.",
+			"course_choice": "R_{mu nu} = R^rho_{mu rho nu}; all three books agree with the course."
+		},
+		{
+			"issue": "Effect of the metric signature on Ricci components",
+			"schutz": "(-,+,+,+).",
+			"gifted_amateur": "(-,+,+,+).",
+			"dinverno": "(+,-,-,-). Lower-index R_ab components equal the course values for the same geometry, but mixed R^a_b and the scalar R have the opposite sign.",
+			"course_choice": "(-,+,+,+). Compare lower-index components directly with d'Inverno; flip signs of mixed or fully raised traces."
+		},
+		{
+			"issue": "Sign of the tidal matrix whose trace gives Ricci",
+			"schutz": "No named tidal matrix in ch06; deviation written nabla_V nabla_V xi^alpha = R^alpha_{mu nu beta} V^mu V^nu xi^beta (Eq. 6.87 p.162).",
+			"gifted_amateur": "Its tidal matrix K is minus Riemann with the four-velocity placed in the second and fourth slots, so D^2 n = +K n and trace K equals minus R_{nu beta} contracted twice with u (ch35 eqns 35.38-35.40 p.371).",
+			"dinverno": "K^a_b = R^a_{cbd} V^c V^d with D^2 xi + K xi = 0, so trace K = +R_ab V^a V^b (ch10 (10.22)-(10.24) p.175).",
+			"course_choice": "E^mu_rho = R^mu_{nu rho sigma} u^nu u^sigma (d'Inverno's sign), D^2 xi = -E xi, trace E = R_{mu nu} u^mu u^nu. The symbol E avoids clashing with Gaussian curvature K and the Kretschmann scalar."
+		},
+		{
+			"issue": "Trace-free versus trace-reversed Ricci",
+			"schutz": "Only the trace-reversed Einstein tensor G^{alpha beta} = R^{alpha beta} - (1/2) g^{alpha beta} R appears (ch06 §6.6 p.163).",
+			"gifted_amateur": "Einstein tensor with 1/2 (ch13 eqn 13.30 p.146), but ch35 eqn 35.37 writes R_{mu nu} - (1/4) R g_{mu nu}, calls it 'trace-reversed' and labels it G (p.370).",
+			"dinverno": "Einstein tensor G_ab = R_ab - (1/2) g_ab R (6.86 p.106); trace-free Ricci not named in ch06.",
+			"course_choice": "Trace-free Ricci S_{mu nu} = R_{mu nu} - (1/4) R g_{mu nu} (trace zero); trace-reversed Ricci is the Einstein tensor G_{mu nu} = R_{mu nu} - (1/2) R g_{mu nu} (trace -R). For null k both give R_{mu nu} k^mu k^nu."
+		},
+		{
+			"issue": "Symbol and typography",
+			"schutz": "R_{alpha beta}, components only.",
+			"gifted_amateur": "Components R_{mu nu} only, deliberately not given a bold symbol because only the Einstein tensor enters the field equation; notes that other texts write Ri (ch11 §11.5 p.127).",
+			"dinverno": "R_ab with Latin abstract-style indices.",
+			"course_choice": "R_{mu nu} in components; Ric in index-free statements. Never use a bare R for Ricci (R is the scalar)."
+		},
+		{
+			"issue": "Perturbation bookkeeping in the linearized Ricci tensor",
+			"schutz": "g = eta + h, linearized Ricci left to Exercise 8.8 (ch08 p.198).",
+			"gifted_amateur": "g = eta + h with h the trace in eqn 45.9 (ch45 p.487).",
+			"dinverno": "g = eta + epsilon h with an explicit order parameter epsilon (ch21 (21.10) p.402).",
+			"course_choice": "g_{mu nu} = eta_{mu nu} + h_{mu nu} with |h| << 1, h = eta^{mu nu} h_{mu nu}."
+		}
+	],
+	"how_books_teach": [
+		{
+			"source": "schutz",
+			"route": "After deriving Riemann from loop transport and the commutator of covariant derivatives, Schutz differentiates Riemann in a locally inertial frame to get the Bianchi identities, and only then introduces the Ricci tensor as the contraction needed to process them. He argues from the antisymmetries that other contractions are zero or plus or minus Ricci, defines the scalar, contracts the Bianchi identities twice and extracts the divergence-free Einstein tensor. Chapter 8 recalls Ricci as the natural symmetric tensor built from second derivatives of the metric when building the field equations.",
+			"representation": "Components in locally inertial coordinates, index gymnastics with explicit sign bookkeeping, and a short uniqueness argument.",
+			"strengths": "Economical and logically tight: Ricci appears exactly when it is needed, and the path to a divergence-free tensor is short. The uniqueness claim is justified, with a proof set as an exercise.",
+			"weaknesses": "No physical reading of Ricci (volume change, tides, matter) is offered in ch06, no worked Ricci computation is shown, and geodesic deviation is not connected to the trace, so Ricci can feel like an algebraic convenience.",
+			"refs": ["SCH ch06 §6.6 p.162", "SCH ch06 §6.6 p.163", "SCH ch06 Ex 6.25 p.167", "SCH ch08 §8.1 p.184"]
+		},
+		{
+			"source": "gifted-amateur",
+			"route": "Spirals back to Ricci several times. Ch11 opens with Newtonian tides and a volume-conserving stretch, derives Riemann from a loop, lists its symmetries, and introduces Ricci as the simplest rank-two contraction, suggesting it be thought of as an average of Riemann that captures volume shrinkage; it computes the plane and sphere examples. Ch13 recaps Ricci, tries the guess Ricci proportional to T and rejects it with the Bianchi identity, then trace-reverses the correct equation. Ch14 explains volume-preserving tides and gravitational waves from vacuum Ricci-flatness. Ch35 gives the fullest reading: Ricci as the trace of the tidal matrix controlling volume, the Ricci/Weyl split, and Penrose's transparent Sun comparing lens-like focusing with astigmatic distortion. Ch36 computes Ricci by Cartan's method; ch50 meets it again in the convergence of geodesic congruences.",
+			"representation": "Margin notes and analogies (average, lenses), explicit component computations, a volume-from-eigen-lengths argument, and later differential forms.",
+			"strengths": "The physical meaning is stated early and reinforced from several angles; the tidal-trace and lens pictures are memorable and connect directly to observations.",
+			"weaknesses": "'Average' is loose; ch35 calls the trace-free Ricci tensor 'trace-reversed' and labels it G; the transparent-Sun figure suggests Ricci and Weyl act in separate regions; the caveats that volume focusing needs rho + 3p > 0, zero Lambda and an initially comoving ball are missing; the uniqueness of the contraction is not shown.",
+			"refs": ["GA ch11 §11.2 p.123", "GA ch11 §11.5 p.127", "GA ch11 Example 11.8 p.128", "GA ch13 §13.3 p.145", "GA ch14 Example 14.3 p.153", "GA ch35 §35.4 p.370", "GA ch35 Example 35.8 p.371", "GA ch36 Example 36.5 p.382", "GA ch50 Example 50.1 p.548"]
+		},
+		{
+			"source": "dinverno",
+			"route": "Ch06 defines Ricci formally in a list of tensors built from curvature (Ricci, scalar, Einstein), noting symmetry and a sign caution. Ch10 supplies the physics through a principle-driven derivation: the Newtonian deviation matrix is trace-free in vacuum; its relativistic analogue K^a_b = R^a_{cbd} V^c V^d is proposed to be trace-free as well; this gives R_ab V^a V^b = 0 for every timelike V, hence R_ab = 0 by symmetry; the Newtonian correspondence recovers Laplace's equation; a recap asks why Ricci is the only meaningful contraction; and the Einstein tensor is then chosen because matter needs a divergence-free partner.",
+			"representation": "Component definitions, an explicit Newtonian-to-relativistic analogy for the tidal tensor, freely falling frames, and numbered steps with 'why?' prompts.",
+			"strengths": "The clearest derivation of the vacuum field equations from tidal physics; the polarization step from R_ab V^a V^b = 0 to R_ab = 0 is made explicit (with an exercise).",
+			"weaknesses": "Ch06 offers no interpretation at all; the uniqueness of the contraction is left as '(why?)'; the volume picture of the trace is never drawn; a misprinted factor appears in the ch10 recap.",
+			"refs": ["DIV ch06 §6.12 p.106", "DIV ch10 §10.4 p.175", "DIV ch10 §10.6 p.182", "DIV ch10 §10.7 p.183", "DIV ch10 Ex 10.6"]
+		},
+		{
+			"source": "legacy",
+			"route": "The earlier course places Ricci after geodesic deviation. It opens with a hands-on contraction: six orthonormal curvature entries are summed into Ricci components, and a chosen set makes Ricci and the scalar vanish while the Kretschmann scalar does not. It then builds the volume law by multiplying three edge lengths, derives the Riemann = Weyl + Ricci decomposition, and warns which slogans fail. A 3D-style lab compares an isotropic squeeze with a trace-free tide.",
+			"representation": "A curvature table the learner contracts by hand, an edge-length product argument, and a tidal particle cloud with volume and aspect readouts.",
+			"strengths": "Makes 'a trace loses information' concrete, states the initially-comoving-ball caveat explicitly, and shows that a trace-free tide still reduces volume later (V/V0 = 1 - s^4/2).",
+			"weaknesses": "An early rough figure was superseded; conformal and Weyl-invariance material sits at too advanced a level inside the novice section.",
+			"refs": ["legacy:lesson-contract-curvature-by-hand", "legacy:manuscript-section-09-ricci-volume-weyl-shape", "legacy:lab-tidal-cloud-geodesic-deviation", "legacy:manuscript-chapter-09-ricci-weyl-einstein"]
+		}
+	],
+	"recommended_teaching_path": [
+		{
+			"step": "1. Motivating question",
+			"move": "Release a small ball of dust in free fall near Earth and ask: what can gravity's unevenness do to it? Recall the Newtonian tidal matrix, the Hessian of Phi, with eigenvalues (2q, -q, -q) outside a planet, and notice its trace is nabla^2 Phi, zero outside and 4 pi G rho inside matter.",
+			"why": "Starts from something learners can picture and already half know, and plants the idea that the trace is special before any index is contracted.",
+			"inspired_by": ["GA ch11 §11.2 p.123", "DIV ch10 §10.2 p.172", "legacy:figure-tidal-eigenvalues"]
+		},
+		{
+			"step": "2. Picture: shape versus volume",
+			"move": "Run the tidal cloud demo: an isotropic squeeze shrinks a round ball, a trace-free tide makes an egg of unchanged initial volume. Ask the learner to predict before each run.",
+			"why": "Separates the two effects visually so the later contraction has a physical target.",
+			"inspired_by": ["legacy:lab-tidal-cloud-geodesic-deviation", "GA ch35 §35.4 p.371"]
+		},
+		{
+			"step": "3. Formalism: contract the tidal tensor",
+			"move": "Write the relativistic tidal tensor E^mu_rho = R^mu_{nu rho sigma} u^nu u^sigma, take its trace, and name the resulting object R_{mu nu} = R^rho_{mu rho nu}. Show quickly that tracing the first two slots gives zero and tracing the fourth gives minus Ricci, and that pair symmetry makes Ricci symmetric.",
+			"why": "Defining Ricci as the trace of something physical makes the choice of slot feel inevitable rather than arbitrary, and answers the 'why this contraction?' question on the spot.",
+			"inspired_by": ["DIV ch10 §10.4 p.175", "GA ch35 Example 35.8 p.371", "SCH ch06 §6.6 p.162"]
+		},
+		{
+			"step": "4. The volume law with its fine print",
+			"move": "Multiply three edge lengths L_i(1 - E_i tau^2/2) to get delta V(tau)/delta V = 1 - R_{mu nu} u^mu u^nu tau^2/2, then list the conditions: tiny ball, released at rest, first instants only.",
+			"why": "A two-line argument learners can reproduce, with caveats attached before a slogan forms.",
+			"inspired_by": ["legacy:manuscript-section-09-ricci-volume-weyl-shape", "GA ch35 eqn 35.41 p.371"]
+		},
+		{
+			"step": "5. Check: compute it",
+			"move": "Compute Ricci for the polar plane (all zero) and the sphere (R_{mu nu} = g_{mu nu}/a^2). Then use the six-entry orthonormal curvature table to find a set of Riemann components with every Ricci component zero.",
+			"why": "Builds computational fluency and shows directly that a trace can vanish while the tensor does not.",
+			"inspired_by": ["GA ch11 Example 11.7 p.128", "GA ch11 Example 11.8 p.128", "legacy:lesson-contract-curvature-by-hand"]
+		},
+		{
+			"step": "6. Application: matter and vacuum",
+			"move": "Trace-reverse Einstein's equation to R_{mu nu} = 8 pi G (T - (1/2) T g) + Lambda g. Read off R_00 = 4 pi G rho in the Newtonian limit, R_{mu nu} u u = 4 pi G (rho + 3p) - Lambda for a fluid, and R_{mu nu} = 0 in vacuum; explain volume-preserving tides and gravitational waves. Show why Ricci alone cannot equal a conserved T: its divergence is (1/2) nabla R.",
+			"why": "Connects Ricci to the field equation, to Newtonian gravity and to observable tides, and pre-empts the rank-matching guess.",
+			"inspired_by": ["GA ch13 Example 13.5 p.148", "GA ch14 Example 14.3 p.153", "GA ch13 §13.3 p.145", "DIV ch10 §10.6 p.182"]
+		},
+		{
+			"step": "7. Extension: light and focusing",
+			"move": "Introduce the transparent-Sun picture: matter along a ray magnifies images like a converging lens (Ricci), tidal fields distort them into ellipses (Weyl), and both act on every ray to different degrees. Point ahead to the Raychaudhuri equation.",
+			"why": "Links Ricci to lensing observations and to the focusing theorem while correcting the book's regional oversimplification.",
+			"inspired_by": ["GA ch35 Example 35.7 p.370", "GA ch35 Fig. 35.4 p.371", "GA ch50 Example 50.1 p.548"]
+		}
+	],
+	"analogies": [
+		{
+			"analogy": "Ricci as an average of Riemann",
+			"explanation": "Summing curvature over directions lets stretches and squeezes offset each other, so the total can be zero even when the individual pieces are not, just as an average of positive and negative numbers can be zero.",
+			"limits": "It is a trace over specific slots with metric signs, not a statistical average; it discards the Weyl part entirely, which is exactly what survives in vacuum. For the tidal matrix the trace is three times the mean over directions, which is where the analogy is closest.",
+			"level": "intuition",
+			"refs": ["GA ch11 §11.5 p.127", "GA ch35 §35.4 p.370"]
+		},
+		{
+			"analogy": "Converging lens versus astigmatic lens",
+			"explanation": "A bundle of light through matter is focused evenly, enlarging a round image like a magnifying glass (Ricci); tidal curvature focuses in one plane and defocuses in the perpendicular one, turning circles into ellipses (Weyl).",
+			"limits": "Applies to null bundles; the Ricci term for light involves R_{mu nu} k^mu k^nu, not u^mu u^nu. Both effects act along every ray, so inside a real star the image is also somewhat sheared, and there is no actual refraction.",
+			"level": "working",
+			"refs": ["GA ch35 Example 35.7 p.370", "GA ch35 Fig. 35.4 p.371"]
+		},
+		{
+			"analogy": "Kneading dough versus letting it rise or collapse",
+			"explanation": "Kneading reshapes dough without changing how much there is (Weyl-like tides); rising or collapsing changes its volume (Ricci). Two bakers can knead identically while one loaf also sinks.",
+			"limits": "Dough changes volume from its own chemistry; Ricci describes the initial acceleration of relative motion of free particles caused by the matter present, and at later times shape change can feed volume change.",
+			"level": "intuition",
+			"refs": ["legacy:lab-tidal-cloud-geodesic-deviation"]
+		},
+		{
+			"analogy": "An itemised bill and its total",
+			"explanation": "Riemann is the itemised bill of stretches and squeezes along every pair of directions; Ricci contracted with u is the total that decides the net volume change. A bill of +2, -1, -1 totals zero while its items are far from zero.",
+			"limits": "The off-diagonal Ricci components (such as R_0i, tied to momentum density) are not captured by a single total, and the 'items' depend on the observer's frame.",
+			"level": "working",
+			"refs": ["legacy:lesson-contract-curvature-by-hand", "legacy:figure-tidal-eigenvalues"]
+		}
+	],
+	"misconceptions": [
+		{
+			"misconception": "If the Ricci tensor vanishes, spacetime is flat.",
+			"correction": "Ricci-flat means only that the volume-changing part of curvature cancels. The Riemann (Weyl) part can be large: the Schwarzschild exterior and gravitational waves are Ricci-flat yet curved, with Kretschmann scalar 48 M^2/r^6 outside a black hole. Riemann = 0 implies Ricci = 0, not the reverse.",
+			"why_tempting": "The vacuum equation is written R_{mu nu} = 0, and 'curvature equals zero' sounds like flatness.",
+			"diagnostic_question": "Outside Earth, nabla^2 Phi = 0. Do two apples falling side by side above the ground move toward each other?",
+			"refs": ["GA ch11 Ex 11.3 p.130", "GA ch13 §13.4 p.148", "GA ch35 §35.4 p.370", "DIV ch10 §10.4 p.176", "legacy:practice-set-misconception-checks"]
+		},
+		{
+			"misconception": "Since T_{mu nu} has two indices, the field equation should simply be R_{mu nu} proportional to T_{mu nu}.",
+			"correction": "Rank matching is not enough. T is covariantly conserved, but nabla^mu R_{mu nu} = (1/2) nabla_nu R, so the guess would force R, and hence the trace of T, to be constant everywhere. The trace-reversed Einstein tensor is divergence-free identically.",
+			"why_tempting": "It is the simplest symmetric curvature tensor of the right type, and Einstein himself tried it in 1915.",
+			"diagnostic_question": "Take the divergence of R^{mu nu} = kappa T^{mu nu} and use the contracted Bianchi identity. What does it force on the matter distribution?",
+			"refs": ["GA ch13 §13.3 p.145", "SCH ch06 §6.6 p.163", "DIV ch10 §10.8 p.184"]
+		},
+		{
+			"misconception": "Ricci always shrinks volumes, and zero Ricci means volumes never change.",
+			"correction": "The Ricci law gives only the initial second derivative of volume for a tiny ball released at rest. Shear from a trace-free tide reduces volume later (V/V0 = cosh(sqrt2 s) cos^2 s = 1 - s^4/2 + ... in the model lab), and focusing needs rho + 3p > Lambda/(4 pi G); positive Lambda makes balls grow.",
+			"why_tempting": "The slogan 'Ricci = volume change, Weyl = shape change' is taught without its conditions.",
+			"diagnostic_question": "A dust ball starts egg-shaped and already contracting in a Ricci-flat region. Does its volume stay constant?",
+			"refs": ["legacy:manuscript-section-09-ricci-volume-weyl-shape", "legacy:lab-tidal-cloud-geodesic-deviation", "GA ch35 §35.4 p.370"]
+		},
+		{
+			"misconception": "Ricci curvature acts inside matter and Weyl curvature acts outside, in separate regions.",
+			"correction": "Both parts can be present at the same event. Inside a real star, whose density falls outward, the local tidal field has a trace-free (Weyl) part as well as a trace; only an exactly uniform ball has a purely isotropic interior tide. Outside, Ricci vanishes only because T = 0 there (and Lambda = 0). A light ray also accumulates both effects along its whole path, including the stretches outside the star.",
+			"why_tempting": "The transparent-Sun illustration shows circles enlarged inside and ellipses outside.",
+			"diagnostic_question": "For a ray passing through a uniform star near its edge, would you expect its image to be magnified, sheared, or both?",
+			"refs": ["GA ch35 Fig. 35.4 p.371"]
+		},
+		{
+			"misconception": "R_{mu nu} - (1/4) R g_{mu nu} is the trace-reversed Ricci tensor, that is, the Einstein tensor.",
+			"correction": "Subtracting a quarter of the trace gives the trace-free Ricci tensor (trace zero). Trace reversal subtracts half, giving the Einstein tensor with trace -R. For null vectors both reduce to R_{mu nu} k^mu k^nu.",
+			"why_tempting": "Gifted Amateur ch35 uses the name 'trace-reversed' and the symbol G for the quarter version.",
+			"diagnostic_question": "Compute g^{mu nu} of R_{mu nu} - (1/4) R g_{mu nu} and of R_{mu nu} - (1/2) R g_{mu nu} in four dimensions.",
+			"refs": ["GA ch35 §35.4 eqn 35.37 p.370", "GA ch13 §13.3 eqn 13.30 p.146"]
+		},
+		{
+			"misconception": "Tracing a different pair of Riemann indices would give another independent curvature tensor.",
+			"correction": "Antisymmetry in each index pair and pair symmetry make every other single contraction vanish or equal plus or minus Ricci; Ricci is the only independent rank-two contraction.",
+			"why_tempting": "A four-index tensor seems to offer six ways to trace, and books often do not show why the others fail.",
+			"diagnostic_question": "What is g^{rho sigma} R_{rho sigma mu nu}, and how is R^rho_{mu nu rho} related to R_{mu nu}?",
+			"refs": ["SCH ch06 Ex 6.25 p.167", "DIV ch10 §10.7 p.183", "GA ch11 §11.5 p.127"]
+		}
+	],
+	"thought_experiments": [
+		{
+			"name": "A shell of particles around the whole Earth",
+			"setup": "Instead of a small cloud in empty space, release a huge spherical shell of free particles, at rest, that encloses the entire Earth.",
+			"lesson": "Because the shell encloses mass, its enclosed volume does start to shrink: volume change tracks the matter inside, which is exactly what the Ricci part of curvature measures, while a small cloud beside Earth only changes shape.",
+			"refs": ["GA ch11 §11.2 p.123"]
+		},
+		{
+			"name": "The transparent Sun",
+			"setup": "Imagine the Sun were transparent and non-refracting, and look at background stars through it and just beside it.",
+			"lesson": "Rays through the matter are focused evenly, enlarging round images (Ricci focusing); rays passing outside are focused astigmatically into ellipses (Weyl shear).",
+			"refs": ["GA ch35 Example 35.7 p.370", "GA ch35 Fig. 35.4 p.371"]
+		}
+	],
+	"visualizations": [
+		{
+			"title": "Ricci and Weyl tidal cloud",
+			"idea": "A few thousand particles forming a small ball in free fall, evolving under a tidal tensor made of an isotropic Ricci part (set by density, pressure and Lambda) plus a trace-free Weyl part (for example a point mass at distance r). A translucent reference sphere stays fixed for comparison.",
+			"interaction": "Learner sets rho, p and Lambda for the Ricci part and M and r (or a free trace-free matrix) for the Weyl part, then releases the cloud. Live readouts: tidal eigenvalues, their trace R_{mu nu} u^mu u^nu, initial d^2V/dtau^2 divided by V, V/V0 over time, and axis ratio. Presets: 'inside dust', 'outside a planet', 'both', 'dark energy'.",
+			"form": "interactive-3d",
+			"priority": "high",
+			"physics_model": "Geodesic deviation in the observer's local frame, xi'' = -E xi, with E = [(4 pi G/3)(rho + 3p) - Lambda/3] delta_ij + (GM/r^3) diag(-2, 1, 1) in the radial frame; constant-matrix solutions cos or cosh along each eigen-axis; V/V0 is the product of the three principal lengths; tr E = R_{mu nu} u^mu u^nu.",
+			"inspired_by": ["GA ch11 §11.2 p.123", "GA ch35 §35.4 p.371", "GA ch14 Example 14.3 p.153"],
+			"legacy_assets": ["lab-tidal-cloud-geodesic-deviation", "figure-tidal-eigenvalues", "manuscript-section-09-ricci-volume-weyl-shape"]
+		},
+		{
+			"title": "Contract-it-yourself curvature table",
+			"idea": "Six sliders for the independent orthonormal sectional curvature entries of a 4D spacetime (time-space and space-space planes). The panel shows the Ricci diagonal as signed sums, the Ricci scalar and the Kretschmann scalar, with the Weyl remainder.",
+			"interaction": "Learner drags entries A to F; each Ricci component lights up the entries that feed it with their signs. A 'find a vacuum' challenge asks for a non-flat table with every Ricci entry zero; a Schwarzschild preset loads q(-2, 1, 1, -1, -1, 2) and shows Kretschmann 48 q^2.",
+			"form": "interactive-2d",
+			"priority": "high",
+			"physics_model": "R_00 = A + B + C, R_11 = -A + D + E, R_22 = -B + D + F, R_33 = -C + E + F with A = R_0101, B = R_0202, C = R_0303, D = R_1212, E = R_1313, F = R_2323 in an orthonormal frame (diagonal case); R = -R_00 + R_11 + R_22 + R_33; Kretschmann computed from the full component set.",
+			"inspired_by": ["legacy:lesson-contract-curvature-by-hand", "DIV ch06 §6.13 p.107"],
+			"legacy_assets": ["lesson-contract-curvature-by-hand", "engine-independent-curvature-checker"]
+		},
+		{
+			"title": "Transparent-star lensing: magnify or shear",
+			"idea": "A field of background stars behind a translucent, non-refracting star. Each star's image is drawn as its true circle and its lensed outline, with a gauge for convergence (Ricci) and shear (Weyl) along the ray.",
+			"interaction": "Learner drags the star across the field and changes its mass and density profile. Images through the interior grow; images outside become ellipses; near the rim both effects appear. A toggle hides the Weyl contribution to show what the Ricci term alone would do.",
+			"form": "interactive-2d",
+			"priority": "medium",
+			"physics_model": "Weak-field thin-lens optics: convergence proportional to the projected surface density (Ricci term R_{mu nu} k^mu k^nu integrated along the ray) and shear from the tidal field of mass outside the ray; small-image magnification matrix [[1 - kappa - gamma1, -gamma2], [-gamma2, 1 - kappa + gamma1]].",
+			"inspired_by": ["GA ch35 Fig. 35.4 p.371", "GA ch35 Example 35.7 p.370"],
+			"legacy_assets": []
+		},
+		{
+			"title": "Which slots can you trace?",
+			"idea": "The Riemann components of a 2-sphere displayed as a grid of index slots; the learner picks two slots to trace and sees the result.",
+			"interaction": "Click two slots: first-second shows zero with the antisymmetry that kills it highlighted; first-third shows +Ricci; first-fourth shows -Ricci; the display ends with R_{mu nu} = g_{mu nu}/a^2 and a radius slider.",
+			"form": "interactive-2d",
+			"priority": "low",
+			"physics_model": "Exact sphere components R^theta_{phi theta phi} = sin^2 theta, R^phi_{theta phi theta} = 1 and their antisymmetric partners.",
+			"inspired_by": ["SCH ch06 §6.6 p.162", "GA ch11 Example 11.8 p.128"],
+			"legacy_assets": ["manuscript-section-8-4-8-6-flatness-count-sphere-curvature"]
+		}
+	],
+	"worked_examples": [
+		{
+			"title": "Ricci of the polar plane and of the sphere",
+			"what_it_shows": "The plane's Riemann and Ricci components vanish despite non-zero Christoffel symbols; the sphere gives R_{theta theta} = 1, R_{phi phi} = sin^2 theta, proportional to the metric.",
+			"level": "working",
+			"refs": ["GA ch11 Example 11.7 p.128", "GA ch11 Example 11.8 p.128", "legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature"]
+		},
+		{
+			"title": "Ricci controls the change of volume",
+			"what_it_shows": "Choosing separation vectors along eigenvectors of the tidal matrix, the second derivative of a small volume picks up the trace, which is Ricci contracted with the velocity.",
+			"level": "working",
+			"refs": ["GA ch35 Example 35.8 p.371", "legacy:manuscript-section-09-ricci-volume-weyl-shape"]
+		},
+		{
+			"title": "Vacuum field equations from a trace-free tidal tensor",
+			"what_it_shows": "Requiring the relativistic tidal tensor to be trace-free along every timelike geodesic gives R_ab V^a V^b = 0 for all timelike V and hence R_ab = 0; the Newtonian limit returns Laplace's equation.",
+			"level": "working",
+			"refs": ["DIV ch10 §10.4 p.175", "DIV ch10 §10.6 p.182"]
+		},
+		{
+			"title": "Why vacuum tides conserve volume",
+			"what_it_shows": "Local vanishing of T makes Ricci vanish; near a planet one stretch balances two half-size squeezes, and in a gravitational wave one stretch balances one squeeze.",
+			"level": "intuition",
+			"refs": ["GA ch14 Example 14.3 p.153"]
+		},
+		{
+			"title": "A trace that hides curvature",
+			"what_it_shows": "A six-entry orthonormal curvature table with the Schwarzschild pattern q(-2, 1, 1, -1, -1, 2) has every Ricci component and the scalar equal to zero, yet Kretschmann 48 q^2.",
+			"level": "working",
+			"refs": ["legacy:lesson-contract-curvature-by-hand"]
+		},
+		{
+			"title": "Ricci of the expanding universe",
+			"what_it_shows": "In the comoving orthonormal frame R_tt = -3 a''/a and R_ii = a''/a + 2(a'/a)^2 (+ 2k/a^2 when curved); the time-time part feeds the cosmic acceleration equation.",
+			"level": "formal",
+			"refs": ["GA ch15 Example 15.3 p.164", "GA ch36 Example 36.5 p.382", "GA ch16 §16.1 p.171"]
+		},
+		{
+			"title": "Trace-reversing the field equation",
+			"what_it_shows": "Tracing Einstein's equation gives R = -8 pi G T; substituting back isolates Ricci in terms of T and its trace, making vacuum problems transparent.",
+			"level": "working",
+			"refs": ["GA ch13 Example 13.5 p.148"]
+		},
+		{
+			"title": "Linearized Ricci tensor",
+			"what_it_shows": "Dropping Gamma-Gamma terms makes Ricci a combination of second derivatives of the metric perturbation and its trace, the seed of linearized gravity.",
+			"level": "formal",
+			"refs": ["GA ch45 Example 45.1 p.487", "DIV ch21 §21.1 p.402"]
+		},
+		{
+			"title": "Convergence of a geodesic congruence",
+			"what_it_shows": "Reordering covariant derivatives with the Ricci identity introduces exactly the Ricci term that drives convergence along the flow.",
+			"level": "formal",
+			"refs": ["GA ch50 Example 50.1 p.548"]
+		}
+	],
+	"exercises": [
+		{
+			"summary": "Prove that Ricci is the only independent contraction of Riemann and that it is symmetric.",
+			"skill": "Using Riemann symmetries in contractions.",
+			"difficulty": "standard",
+			"refs": ["SCH ch06 Ex 6.25 p.167"]
+		},
+		{
+			"summary": "Using given Schwarzschild Riemann components, show the Ricci tensor vanishes outside a star and explain why it must.",
+			"skill": "Contracting components and interpreting vacuum Ricci-flatness.",
+			"difficulty": "standard",
+			"refs": ["GA ch11 Ex 11.3 p.130"]
+		},
+		{
+			"summary": "Show that a symmetric tensor whose double contraction with every timelike vector vanishes must itself vanish.",
+			"skill": "Polarization argument behind R_ab V^a V^b = 0 implying R_ab = 0.",
+			"difficulty": "standard",
+			"refs": ["DIV ch10 Ex 10.6"]
+		},
+		{
+			"summary": "Write a flat-space vector wave equation with commas, replace commas by semicolons in two orders, and show the versions differ by a Ricci term.",
+			"skill": "Commutator of covariant derivatives and the ambiguity of minimal coupling.",
+			"difficulty": "standard",
+			"refs": ["GA ch35 Ex 35.3 p.372"]
+		},
+		{
+			"summary": "Guided derivation of the linearized Ricci and Einstein tensors, showing the latter is the trace reverse of the former.",
+			"skill": "Linearized curvature and trace reversal.",
+			"difficulty": "standard",
+			"refs": ["SCH ch08 Ex 8.8 p.198"]
+		},
+		{
+			"summary": "For a general time-dependent spherically symmetric metric, compute Christoffel symbols, Riemann, Ricci, scalar and Einstein tensor.",
+			"skill": "The full metric-to-curvature pipeline.",
+			"difficulty": "challenging",
+			"refs": ["DIV ch06 Ex 6.32"]
+		},
+		{
+			"summary": "Compute Riemann, Ricci and scalar curvature for a paraboloid-shaped surface with metric (1 + a^2 r^2) dr^2 + r^2 d theta^2.",
+			"skill": "Contraction on a surface whose curvature varies with position.",
+			"difficulty": "standard",
+			"refs": ["GA ch36 Ex 36.4 p.385"]
+		}
+	],
+	"checks_for_understanding": [
+		{
+			"question": "An astronaut in orbit, far from any matter except Earth below, releases a small round cloud of crumbs at rest relative to her. In the first moments, does the cloud's shape change? Does its volume change? What does that say about the Ricci tensor there, and is spacetime flat there?",
+			"answer": "The shape changes: the cloud stretches along the direction to Earth's centre and squeezes in the two perpendicular directions (tidal eigenvalues 2q, -q, -q with q = GM/r^3). The volume does not change at leading order because the stretch and squeezes cancel, which means R_{mu nu} u^mu u^nu = 0; in fact the full Ricci tensor vanishes in vacuum with Lambda = 0. Spacetime is not flat: the non-zero tides show the Riemann (Weyl) curvature is present.",
+			"level": "intuition",
+			"targets_misconception": "If the Ricci tensor vanishes, spacetime is flat."
+		},
+		{
+			"question": "On a sphere of radius a the only independent Riemann components give R^theta_{phi theta phi} = sin^2 theta and R^phi_{theta phi theta} = 1. Find all Ricci components and show R_{mu nu} = g_{mu nu}/a^2.",
+			"answer": "R_{theta theta} = R^theta_{theta theta theta} + R^phi_{theta phi theta} = 0 + 1 = 1. R_{phi phi} = R^theta_{phi theta phi} + R^phi_{phi phi phi} = sin^2 theta + 0. R_{theta phi} = R^theta_{theta theta phi} + R^phi_{theta phi phi} = 0 by antisymmetry in the last two slots. Since g_{theta theta} = a^2 and g_{phi phi} = a^2 sin^2 theta, R_{mu nu} = g_{mu nu}/a^2.",
+			"level": "working",
+			"targets_misconception": null
+		},
+		{
+			"question": "Inside a uniform ball of dust of density rho (no pressure, Lambda = 0), what is R_{mu nu} u^mu u^nu for an observer at rest, and how fast does a tiny ball of dust released at rest begin to lose volume? Compare with the Newtonian tidal matrix.",
+			"answer": "From the trace-reversed field equation, R_{mu nu} u^mu u^nu = 8 pi G (T_{mu nu} u u - (1/2) T g_{mu nu} u u) = 8 pi G (rho - rho/2) = 4 pi G rho. So d^2 delta V/d tau^2 = -4 pi G rho delta V at release. Newtonian check: inside uniform matter Phi = (2 pi G rho/3) r^2, so the tidal matrix d_i d_j Phi = (4 pi G rho/3) delta_ij, whose trace nabla^2 Phi = 4 pi G rho matches.",
+			"level": "working",
+			"targets_misconception": null
+		},
+		{
+			"question": "Show that g^{rho sigma} R_{rho sigma mu nu} = 0 and R^rho_{mu nu rho} = -R_{mu nu}, and explain why a physicist proposing R_{mu nu} = kappa T_{mu nu} runs into trouble.",
+			"answer": "R_{rho sigma mu nu} is antisymmetric in rho and sigma while g^{rho sigma} is symmetric, so the contraction vanishes. Antisymmetry in the last pair gives R^rho_{mu nu rho} = -R^rho_{mu rho nu} = -R_{mu nu}. For the field equation: nabla^mu T_{mu nu} = 0, but the contracted Bianchi identity gives nabla^mu R_{mu nu} = (1/2) nabla_nu R, so the guess forces nabla_nu R = 0; with R = -kappa T this makes the trace of T constant throughout spacetime, which is not true of real matter distributions.",
+			"level": "formal",
+			"targets_misconception": "Since T_{mu nu} has two indices, the field equation should simply be R_{mu nu} proportional to T_{mu nu}."
+		},
+		{
+			"question": "A cloud of dust in a Ricci-flat region has already been stretched into an elongated, contracting shape by tides. Can its volume change even though Ricci is zero?",
+			"answer": "Yes. The Ricci law fixes only the initial volume acceleration of a ball released at rest with no shear. Once shear has built up, the Raychaudhuri equation's -sigma^2 term drives convergence, so volume decreases later even with R_{mu nu} = 0 (in the constant-tide model V/V0 = 1 - s^4/2 + ...).",
+			"level": "formal",
+			"targets_misconception": "Ricci always shrinks volumes, and zero Ricci means volumes never change."
+		}
+	],
+	"applications": [
+		{
+			"topic": "Vacuum field equations and black holes",
+			"details": "Outside isolated bodies R_{mu nu} = 0 (with Lambda neglected); the Schwarzschild and Kerr metrics are solutions of these ten equations, curved purely through Weyl curvature.",
+			"key_numbers": "Schwarzschild: R_{mu nu} = 0, Kretschmann 48 G^2 M^2/(c^4 r^6)",
+			"refs": ["GA ch11 Ex 11.3 p.130", "legacy:manuscript-section-17-1-schwarzschild-derivation"]
+		},
+		{
+			"topic": "Newtonian gravity as a Ricci statement",
+			"details": "The time-time Ricci component reduces to the Laplacian of the potential, so Poisson's equation is the weak-field limit of R_00 = 4 pi G (rho + 3p) with pressure negligible.",
+			"key_numbers": "R_00 = 4 pi G rho/c^2 for dust with x^0 = ct",
+			"refs": ["DIV ch10 §10.6 p.182", "legacy:manuscript-section-12-newtonian-limit-and-coupling"]
+		},
+		{
+			"topic": "Cosmic acceleration",
+			"details": "For FLRW, R_tt = -3 a''/a and the trace-reversed equation gives a''/a = -(4 pi G/3)(rho + 3p) + Lambda/3: matter and pressure decelerate, Lambda accelerates.",
+			"key_numbers": "Acceleration requires w < -1/3 for a single fluid",
+			"refs": ["GA ch17 §17.1 p.182", "legacy:manuscript-section-19-1-friedmann-derivation"]
+		},
+		{
+			"topic": "Einstein's equation as an evolution problem",
+			"details": "Only spatial metric components appear with second time derivatives in R_{mu nu}, which exposes gauge freedom and constraints; in harmonic gauge R_{mu nu} reduces to a wave operator on g_{mu nu} plus first-derivative terms, the basis of well-posed evolution and numerical relativity.",
+			"key_numbers": null,
+			"refs": ["DIV ch13 §13.6 p.226", "DIV ch13 §13.7 (13.35) p.229"]
+		},
+		{
+			"topic": "Gravitational lensing and focusing theorems",
+			"details": "The null Ricci term R_{mu nu} k^mu k^nu focuses light bundles (convergence); with energy conditions it underpins the focusing theorem used in singularity and area theorems.",
+			"key_numbers": null,
+			"refs": ["GA ch35 Example 35.7 p.370", "DIV ch23 §23.9 (23.44) p.475"]
+		}
+	],
+	"history": [
+		{
+			"people": ["Gregorio Ricci-Curbastro", "Tullio Levi-Civita"],
+			"year": "1900",
+			"note": "Ricci's absolute differential calculus, set out with his student Levi-Civita, supplied the tensor tools and the contraction that now bears Ricci's name.",
+			"refs": ["GA ch11 §11.5 p.127"]
+		},
+		{
+			"people": ["Albert Einstein"],
+			"year": "1915",
+			"note": "In autumn 1915, in the weeks before the final field equations of 25 November, Einstein tried equating a Ricci-type tensor directly to the energy-momentum tensor before arriving at the trace-reversed form.",
+			"refs": ["GA ch13 §13.3 p.145"]
+		}
+	],
+	"tutor_guidance": {
+		"opening_questions": [
+			"If you release a small ball of dust in free fall near Earth, what two different things could tides do to it?",
+			"What is the trace of the Newtonian tidal matrix outside a planet, and what is it inside matter?",
+			"Why might physics prefer a two-index curvature object over the four-index Riemann tensor for a field equation?"
+		],
+		"common_questions": [
+			{
+				"question": "Why this particular contraction and not another one?",
+				"answer": "Because of Riemann's symmetries there is essentially no choice: tracing the first two slots gives zero, tracing the upper index with the fourth slot gives minus Ricci, and the others reduce to these. Physically, tracing the tidal tensor, which is what gives volume change, lands exactly on the first-with-third contraction."
+			},
+			{
+				"question": "If Ricci vanishes outside the Sun, why is there any gravity there?",
+				"answer": "Gravity's measurable effect in a small lab is tidal, and tides come from the full Riemann tensor. Outside the Sun the Ricci part is zero but the Weyl part is not, so tides, orbital precession and light bending all remain; only volume-changing curvature is absent."
+			},
+			{
+				"question": "Is the Ricci tensor really an average of Riemann?",
+				"answer": "Loosely. It is a trace, and for the tidal matrix a trace is three times the average stretch over directions, so positive and negative parts can cancel. But it is not a statistical average and it throws away the Weyl part completely."
+			},
+			{
+				"question": "What do the off-diagonal Ricci components mean?",
+				"answer": "In an observer's frame R_0i is tied through Einstein's equation to momentum density (energy flux) of matter, and R_ij to stresses minus an isotropic trace term. Only the double contraction with u has the simple volume meaning."
+			},
+			{
+				"question": "Why doesn't Ricci alone appear in Einstein's equation?",
+				"answer": "Matter's energy-momentum is conserved, so the geometric side must have zero divergence for every geometry. Ricci's divergence is half the gradient of R, not zero; subtracting (1/2) R g fixes that, giving the Einstein tensor. The equation can still be rewritten with Ricci alone by trace reversal."
+			}
+		],
+		"explaining_pitfalls": [
+			"Do not state 'Ricci = volume change' without the conditions: tiny ball, released at rest, initial instant, and the sign requires rho + 3p above Lambda/(4 pi G).",
+			"Do not say spacetime is flat where Ricci vanishes; always follow a vacuum statement with 'but tides remain'.",
+			"Do not describe Ricci and Weyl as acting in different regions; they superpose at each event.",
+			"Avoid the symbol K for the tidal matrix (it collides with Gaussian curvature and the Kretschmann scalar) and warn that Gifted Amateur's K has the opposite sign to d'Inverno's.",
+			"Do not call R_{mu nu} - (1/4) R g_{mu nu} the Einstein tensor."
+		],
+		"demo_moments": [
+			"Right after the motivating question, open the tidal cloud with the 'outside a planet' preset, then switch to 'inside dust' and let the learner see volume begin to fall.",
+			"When defining the contraction, use the curvature table: let the learner sum entries into Ricci components by hand, then try the 'find a vacuum' challenge.",
+			"When discussing vacuum, load the Schwarzschild preset in the curvature table so Ricci shows zero while Kretschmann does not.",
+			"Before the Raychaudhuri equation, show the transparent-star lensing demo with a ray skimming the rim to display magnification and shear together."
+		],
+		"voice_notes": "Say R_{mu nu} = R^rho_{mu rho nu} as 'R mu nu equals R upper rho, lower mu rho nu: the top index is traced against the third slot'. Say the volume law as 'the second time derivative of a small volume, divided by the volume, is minus Ricci contracted twice with the four-velocity'. Say the trace-reversed equation as 'Ricci equals eight pi G times T minus half the trace of T times the metric, plus Lambda times the metric'. Say E^mu_rho aloud as 'the tidal tensor'."
+	},
+	"sources": [
+		{"source": "schutz", "unit": "ch06", "depth": "core", "locators": [{"pdf_page": 180, "printed_page": 162, "section": "6.6"}, {"pdf_page": 181, "printed_page": 163, "section": "6.6"}]},
+		{"source": "schutz", "unit": "ch08", "depth": "revisited", "locators": [{"pdf_page": 202, "printed_page": 184, "section": "8.1"}]},
+		{"source": "gifted-amateur", "unit": "ch11", "depth": "core", "locators": [{"pdf_page": 144, "printed_page": 127, "section": "11.5"}, {"pdf_page": 145, "printed_page": 128, "section": "11.6"}]},
+		{"source": "gifted-amateur", "unit": "ch13", "depth": "revisited", "locators": [{"pdf_page": 159, "printed_page": 142, "section": "13.1"}, {"pdf_page": 162, "printed_page": 145, "section": "13.3"}, {"pdf_page": 164, "printed_page": 147, "section": "13.4"}]},
+		{"source": "gifted-amateur", "unit": "ch14", "depth": "revisited", "locators": [{"pdf_page": 170, "printed_page": 153, "section": "14.2"}]},
+		{"source": "gifted-amateur", "unit": "ch35", "depth": "core", "locators": [{"pdf_page": 387, "printed_page": 370, "section": "35.4"}, {"pdf_page": 388, "printed_page": 371, "section": "35.4"}, {"pdf_page": 389, "printed_page": 372, "section": null}]},
+		{"source": "gifted-amateur", "unit": "ch36", "depth": "revisited", "locators": [{"pdf_page": 399, "printed_page": 382, "section": "36.4"}, {"pdf_page": 400, "printed_page": 383, "section": "36.4"}]},
+		{"source": "gifted-amateur", "unit": "ch50", "depth": "revisited", "locators": [{"pdf_page": 566, "printed_page": 549, "section": "50.2"}, {"pdf_page": 567, "printed_page": 550, "section": "50.2"}]},
+		{"source": "dinverno", "unit": "ch06", "depth": "core", "locators": [{"pdf_page": 121, "printed_page": 106, "section": "6.12"}]},
+		{"source": "dinverno", "unit": "ch10", "depth": "core", "locators": [{"pdf_page": 190, "printed_page": 175, "section": "10.4"}, {"pdf_page": 198, "printed_page": 183, "section": "10.7"}]},
+		{"source": "legacy", "unit": "manuscript-section-09-ricci-volume-weyl-shape", "depth": "core"},
+		{"source": "legacy", "unit": "lesson-contract-curvature-by-hand", "depth": "developed"},
+		{"source": "legacy", "unit": "lab-tidal-cloud-geodesic-deviation", "depth": "developed"}
+	],
+	"review": {
+	 "verdict": "fixed",
+	 "fixes": [
+	  "Misconception 'Ricci inside, Weyl outside': the correction claimed the Weyl part inside a star is small at the centre and grows toward the rim, which is false for a uniform ball (its Newtonian interior tide is exactly isotropic). Rewrote it: Weyl appears inside a centrally concentrated real star, and a ray accumulates both effects along its whole path.",
+	  "Corrected the GA eqn 50.9 reference to Example 50.1 p.549 (was p.550), checked against the reading copy.",
+	  "Corrected Schutz Eq. 6.87 page to p.162.",
+	  "Added to the formal level the harmonic-gauge principal part of Ricci (wave operator on g), drawn from d'Inverno ch13 evidence that the note had not used, and a matching application entry."
+	 ],
+	 "concerns": [
+	  "Worked and verified: sphere Ricci, uniform-dust R_uu = 4 pi G rho, volume law from edge lengths, V/V0 = cosh(sqrt2 s) cos^2 s = 1 - s^4/2, the A-F orthonormal contraction table and the Schwarzschild pattern (Ricci 0, Kretschmann 48 q^2), Raychaudhuri signs, linearized Ricci in course conventions, the index-free trace definition.",
+	  "Exercise refs DIV Ex 10.6 and DIV Ex 6.32 still lack page numbers.",
+	  "The 1900 date for Ricci and Levi-Civita's memoir is general knowledge; GA ch11 only names Ricci-Curbastro in a margin note."
+	 ]
+	}
+}
