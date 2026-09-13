@@ -22,6 +22,10 @@ def state(s):
 	return ', '.join(f'{k}={json.dumps(v)}' for k, v in s.items())
 
 
+def constraint(c):
+	return '; '.join(f"{k} in {', '.join(v)}" for k, v in (c or {}).items())
+
+
 def render(d):
 	front = dict(
 		type='visual',
@@ -46,24 +50,42 @@ def render(d):
 	o += ['', '## Book figure', '', pf['description'], '', f"Labels: {', '.join(pf['labels'])}. Aspect {pf['aspect']}. Alt text: {pf['alt_text']}", '']
 	o += ['## Variants', '', *(f"- **{v['form']}** `{v['id']}`{' (fallback)' if v['fallback'] else ''}: {v['description']}" for v in d['variants']), '']
 	if d['params']:
-		o += ['## Parameters', '', '| Id | Label | Type | Options or range | Default | Effect |', '| --- | --- | --- | --- | --- | --- |']
+		o += ['## Parameters', '', '| Id | Label | Type | Options or range | Default | Available when | Effect |', '| --- | --- | --- | --- | --- | --- | --- |']
 		for p in d['params']:
-			rng = ', '.join(x['value'] for x in p['options']) if p['options'] else (f"{p['min']}–{p['max']} {p['unit'] or ''}".strip() if p['min'] is not None else '—')
-			o.append(f"| `{p['id']}` | {cell(p['label'])} | {p['type']} | {cell(rng)} | {cell(json.dumps(p['default']))} | {cell(p['effect'])} |")
+			if p['options']:
+				rng = ', '.join(x['value'] + (f" ({constraint(x['available_when'])})" if x['available_when'] else '') for x in p['options'])
+			elif p['min'] is not None:
+				rng = f"{p['min']}–{p['max']} step {p['step']} {p['unit'] or ''}".strip()
+			else:
+				rng = '—'
+			o.append(f"| `{p['id']}` | {cell(p['label'])} | {p['type']} | {cell(rng)} | {cell(json.dumps(p['default']))} | {cell(constraint(p['available_when']) or '—')} | {cell(p['effect'])} |")
 		o.append('')
 	o += ['## Presets', '', *(f"- `{p['id']}` {p['label']}: {state(p['state']) or 'defaults'}" for p in d['presets']), '']
 	if d['readouts']:
-		o += ['## Readouts', '', *(f"- `{r['id']}` {r['label']}{' (' + r['unit'] + ')' if r['unit'] else ''}, visible {r['visible_when']}: “{r['say']}”" for r in d['readouts']), '']
-	o += ['## Guided tour', '']
-	for i, b in enumerate(d['tour'], 1):
-		anim = f"; animate {b['animate']['param']} → {b['animate']['to']} over {b['animate']['seconds']} s" if b['animate'] else ''
-		o.append(f"{i}. `{b['id']}` ({b['rung']}, await {b['await']}) state: {state(b['state'])}{anim}  ")
-		o.append(f"   *{b['show']}*  ")
-		if b['predict']:
-			o.append(f"   Predict: “{b['predict']}”  ")
-		o.append(f"   Say: “{b['say']}”  ")
-		o.append(f"   Describe: {b['describe']}")
-	o += ['', '## Design rules', '', *(f"- **{r['rule']}** Because: {r['because']}" + (f" Prevents `{r['misconception']}`." if r['misconception'] else '') for r in d['design_rules']), '']
+		o += ['## Readouts', '']
+		for r in d['readouts']:
+			bits = [r['unit'] or 'no unit', f"visible {r['visible_when']}", f"{r['decimals']} decimals"]
+			if r['range']:
+				bits.append(f"range ({r['range'][0]}, {r['range'][1]}]")
+			if r['sense']:
+				bits.append(f"sense: {r['sense']}")
+			say = f"“{r['say']}”" + (f" / “{r['say_negative']}”" if r['say_negative'] else '')
+			o.append(f"- `{r['id']}` {r['label']} ({'; '.join(bits)}): {say}")
+		o.append('')
+	o += ['## Tours', '']
+	for t in d['tours']:
+		o += [f"### `{t['id']}` · for {('[[' + t['for_concept'] + ']]') if t['for_concept'] else 'any concept'} · {t['rung']}", '']
+		for i, b in enumerate(t['beats'], 1):
+			anim = f"; animate {b['animate']['param']} → {b['animate']['to']} over {b['animate']['seconds']} s" if b['animate'] else ''
+			check = f"; evidences `{b['check']}`" if b['check'] else ''
+			o.append(f"{i}. `{b['id']}` ({b['rung']}, await {b['await']}) state: {state(b['state'])}{anim}{check}  ")
+			o.append(f"   *{b['show']}*  ")
+			if b['predict']:
+				o.append(f"   Predict: “{b['predict']}”  ")
+			o.append(f"   Say: “{b['say']}”  ")
+			o.append(f"   Describe: {b['describe']}")
+		o.append('')
+	o += ['## Design rules', '', *(f"- **{r['rule']}** Because: {r['because']}" + (f" Prevents `{r['misconception']}`." if r['misconception'] else '') for r in d['design_rules']), '']
 	m = d['model']
 	o += ['## Model', '', m['summary'], '']
 	for e in m['equations']:
@@ -71,10 +93,10 @@ def render(d):
 	if m.get('method'):
 		o += [f"**Method:** {m['method']}", '']
 	if m['tests']:
-		o += ['| Test | State | Expect | Note |', '| --- | --- | --- | --- |']
+		o += ['| Test | State | Expect | Hidden | Note |', '| --- | --- | --- | --- | --- |']
 		for t in m['tests']:
 			exp = '; '.join(f"{e['readout']} = {e['value']}" + (f" ±{e['abs_tol']}" if e['abs_tol'] is not None else '') + (f" (rel {e['rel_tol']})" if e['rel_tol'] is not None else '') for e in t['expect'])
-			o.append(f"| `{t['id']}` | {cell(state(t['state']))} | {cell(exp)} | {cell(t['note'])} |")
+			o.append(f"| `{t['id']}` | {cell(state(t['state']))} | {cell(exp or '—')} | {cell(', '.join(t['expect_hidden']) or '—')} | {cell(t['note'])} |")
 		o.append('')
 	o += ['## Serves', '', *(f"- [[{s['concept']}]]: {s['uses']}" for s in d['serves']), '']
 	links = [('Builds on', d['builds_on']), ('Leads to', d['leads_to']), ('Variant of', [d['variant_of']] if d['variant_of'] else [])]
@@ -92,7 +114,7 @@ def render(d):
 			o += [s['notes'], '']
 	r = d.get('review')
 	if r:
-		o += ['## Review', '', f"**Verdict:** {r['verdict']} ({r['date']})", '', *(f"- Verified: {v['claim']}: {v['method']} → {v['result']}" for v in r['verification']), *(f'- Fixed: {x}' for x in r['fixes']), *(f'- Concern: {x}' for x in r['concerns']), '']
+		o += ['## Review', '', f"**Verdict:** {r['verdict']} ({r['date']}, revision {r['reviewed_revision']})", '', *(f"- Verified: {v['claim']}: {v['method']} → {v['result']}" for v in r['verification']), *(f'- Fixed: {x}' for x in r['fixes']), *(f'- Concern: {x}' for x in r['concerns']), '']
 	return '\n'.join(o)
 
 

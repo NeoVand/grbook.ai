@@ -1,30 +1,31 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"title": "Concept note (schema v2)",
-	"description": "One canonical GR concept written in our own voice on a depth ladder (entry, working, formal, research): objectives, distinct ways in, equations, derivations, examples, problems, observations, misconceptions, gradable checks, links to the visual network, and an executable tutor playbook. Every addressable item has a permanent id; addresses look like checks/<id> within a note or <concept>/checks/<id> across notes. Source books never appear in prose; provenance is internal. Custom keyword x-format declares text formats (md, latex, speech, plain). See knowledge/_meta/writing-guide.md.",
+	"description": "One canonical GR concept written in our own voice on a depth ladder (entry, working, formal, research): objectives, distinct ways in, equations, derivations, examples, gradable problems and checks, observations, misconceptions, links to the visual network, and an executable tutor playbook. Every addressable item has a permanent id; addresses look like checks/<id> within a note or <concept>/checks/<id> across notes. Source books never appear in prose; provenance is internal. Custom keywords: x-format declares text format (md, latex, speech, plain); x-audience declares who may see a field (reader, tutor, author, system, internal). See knowledge/_meta/writing-guide.md.",
 	"type": "object",
 	"required": [
 		"schema_version", "id", "title", "tagline", "domain", "tier", "status", "revision", "updated", "aliases", "summary",
 		"objectives", "ways_in", "glossary", "pronunciations", "prerequisites", "leads_to", "related", "key_equations",
 		"derivations", "worked_examples", "problems", "observations", "teaching_arc", "analogies", "misconceptions", "checks",
-		"notation_traps", "visuals", "tutor_moves", "history", "research_horizon", "provenance"
+		"notation_traps", "visuals", "tutor_moves", "history", "research_horizon", "retired_ids", "provenance"
 	],
 	"additionalProperties": false,
 	"properties": {
-		"schema_version": { "enum": [2] },
-		"id": { "$ref": "#/definitions/kebab" },
-		"title": { "type": "string", "minLength": 3, "maxLength": 60, "x-format": "plain", "description": "Canonical name, e.g. Holonomy" },
-		"tagline": { "type": "string", "minLength": 10, "maxLength": 90, "x-format": "plain", "description": "Plain-language phrase a novice understands" },
-		"domain": { "$ref": "#/definitions/kebab" },
-		"tier": { "enum": ["prerequisite", "foundation", "core", "advanced", "frontier"] },
-		"status": { "enum": ["draft", "novice-reviewed", "physics-reviewed", "published", "retired"] },
-		"revision": { "type": "integer", "minimum": 1, "description": "Bumped on every learner-visible change" },
-		"updated": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
-		"aliases": { "type": "array", "items": { "type": "string" }, "description": "True synonyms only; distinct objects get their own concept" },
-		"summary": { "type": "string", "minLength": 80, "maxLength": 450, "x-format": "plain", "description": "The idea in one breath, entry rung, speakable" },
+		"schema_version": { "enum": [2], "x-audience": "system" },
+		"id": { "$ref": "#/definitions/kebab", "x-audience": "system" },
+		"title": { "type": "string", "minLength": 3, "maxLength": 60, "x-format": "plain", "x-audience": "reader", "description": "Canonical name, e.g. Holonomy" },
+		"tagline": { "type": "string", "minLength": 10, "maxLength": 90, "x-format": "plain", "x-audience": "reader" },
+		"domain": { "$ref": "#/definitions/kebab", "x-audience": "system" },
+		"tier": { "enum": ["prerequisite", "foundation", "core", "advanced", "frontier"], "x-audience": "system" },
+		"status": { "enum": ["draft", "novice-reviewed", "physics-reviewed", "published", "retired"], "x-audience": "system", "description": "The runtime serves only published notes; an editor sets published after both reviews" },
+		"revision": { "type": "integer", "minimum": 1, "x-audience": "system", "description": "Bumped on every learner-visible change" },
+		"updated": { "$ref": "#/definitions/date", "x-audience": "system" },
+		"aliases": { "type": "array", "items": { "type": "string" }, "x-audience": "system", "description": "True synonyms only; distinct objects get their own concept" },
+		"summary": { "type": "string", "minLength": 80, "maxLength": 450, "x-format": "plain", "x-audience": "reader", "description": "The idea in one breath, entry rung, speakable, true for the first what-ifs" },
 		"objectives": {
 			"type": "array",
-			"minItems": 3,
+			"minItems": 2,
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "rung", "can_do", "evidenced_by"],
@@ -32,29 +33,32 @@
 				"properties": {
 					"id": { "$ref": "#/definitions/item_id" },
 					"rung": { "$ref": "#/definitions/rung" },
-					"can_do": { "type": "string", "x-format": "plain", "description": "Starts with a verb: Explain, Predict, Compute, Derive, Estimate, Distinguish, Prove, State, Use, Sketch" },
-					"evidenced_by": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/address" }, "description": "checks/, problems/, or worked_examples/ addresses" }
+					"can_do": { "type": "string", "x-format": "plain", "description": "One skill, starting with a verb: Explain, Predict, Compute, Derive, Estimate, Distinguish, Prove, State, Use, Sketch" },
+					"evidenced_by": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/evidence_address" }, "description": "checks/ or problems/ at this objective's rung; worked examples demonstrate, they do not evidence" }
 				}
 			}
 		},
-		"ways_in": { "type": "array", "minItems": 3, "maxItems": 7, "items": { "$ref": "#/definitions/way" } },
+		"ways_in": { "type": "array", "minItems": 2, "maxItems": 8, "items": { "$ref": "#/definitions/way" }, "x-audience": "reader" },
 		"glossary": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
-				"required": ["id", "term", "forms", "say_as", "plain_definition"],
+				"required": ["id", "term", "forms", "say_as", "concept", "plain_definition"],
 				"additionalProperties": false,
 				"properties": {
 					"id": { "$ref": "#/definitions/item_id" },
 					"term": { "type": "string" },
 					"forms": { "type": "array", "items": { "type": "string" }, "description": "Other surface forms: plurals, adjectives" },
 					"say_as": { "type": ["string", "null"], "x-format": "speech", "description": "Pronunciation when unfamiliar, e.g. ho-LON-uh-mee" },
+					"concept": { "anyOf": [{ "$ref": "#/definitions/kebab" }, { "type": "null" }], "description": "Registry concept that owns the term, if any" },
 					"plain_definition": { "type": "string", "minLength": 15, "x-format": "plain" }
 				}
 			}
 		},
 		"pronunciations": {
 			"type": "array",
+			"x-audience": "tutor",
 			"items": {
 				"type": "object",
 				"required": ["written", "spoken"],
@@ -64,6 +68,7 @@
 		},
 		"prerequisites": {
 			"type": "array",
+			"x-audience": "system",
 			"items": {
 				"type": "object",
 				"required": ["id", "why", "needed_for"],
@@ -77,6 +82,7 @@
 		},
 		"leads_to": {
 			"type": "array",
+			"x-audience": "system",
 			"items": {
 				"type": "object",
 				"required": ["id", "why"],
@@ -86,6 +92,7 @@
 		},
 		"related": {
 			"type": "array",
+			"x-audience": "system",
 			"items": {
 				"type": "object",
 				"required": ["id", "relation"],
@@ -93,9 +100,10 @@
 				"properties": { "id": { "$ref": "#/definitions/kebab" }, "relation": { "type": "string", "minLength": 5, "x-format": "md" } }
 			}
 		},
-		"key_equations": { "type": "array", "items": { "$ref": "#/definitions/equation" } },
+		"key_equations": { "type": "array", "items": { "$ref": "#/definitions/equation" }, "x-audience": "reader" },
 		"derivations": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "title", "rung", "goal", "steps", "result"],
@@ -112,6 +120,7 @@
 		},
 		"worked_examples": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "title", "rung", "problem", "steps", "answer", "takeaway"],
@@ -129,9 +138,10 @@
 		},
 		"problems": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
-				"required": ["id", "rung", "difficulty", "type", "statement", "hints", "answer", "solution"],
+				"required": ["id", "rung", "difficulty", "type", "statement", "statement_spoken", "hints", "answer", "key_points", "numeric", "solution", "targets"],
 				"additionalProperties": false,
 				"properties": {
 					"id": { "$ref": "#/definitions/item_id" },
@@ -139,14 +149,19 @@
 					"difficulty": { "enum": [1, 2, 3] },
 					"type": { "enum": ["conceptual", "estimate", "calculation", "derivation", "proof", "computational", "open-ended"] },
 					"statement": { "type": "string", "minLength": 20, "x-format": "md" },
-					"hints": { "type": "array", "items": { "type": "string", "x-format": "md" }, "description": "At most 3, gentlest first" },
+					"statement_spoken": { "type": ["string", "null"], "x-format": "speech", "description": "Required when the statement contains math" },
+					"hints": { "type": "array", "maxItems": 3, "items": { "type": "string", "x-format": "md" }, "description": "Gentlest first" },
 					"answer": { "type": "string", "x-format": "md" },
-					"solution": { "type": "array", "minItems": 1, "items": { "type": "string", "x-format": "md" } }
+					"key_points": { "type": "array", "minItems": 1, "items": { "type": "string", "x-format": "plain" } },
+					"numeric": { "type": ["array", "null"], "items": { "$ref": "#/definitions/numeric_answer" } },
+					"solution": { "type": "array", "minItems": 1, "items": { "type": "string", "x-format": "md" } },
+					"targets": { "type": "array", "items": { "$ref": "#/definitions/item_id" }, "description": "ids of misconceptions this problem exposes" }
 				}
 			}
 		},
 		"observations": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "rung", "phenomenon", "connection", "numbers", "status", "reference"],
@@ -165,6 +180,8 @@
 		"teaching_arc": {
 			"type": "array",
 			"minItems": 3,
+			"maxItems": 8,
+			"x-audience": "tutor",
 			"items": {
 				"type": "object",
 				"required": ["id", "rung", "step", "move", "why", "uses", "visual", "predict"],
@@ -173,16 +190,17 @@
 					"id": { "$ref": "#/definitions/item_id" },
 					"rung": { "$ref": "#/definitions/rung" },
 					"step": { "type": "string", "x-format": "plain" },
-					"move": { "type": "string", "x-format": "md" },
+					"move": { "type": "string", "x-format": "md", "description": "The move in one or two sentences; point at content through uses instead of restating it" },
 					"why": { "type": "string", "x-format": "md" },
 					"uses": { "type": "array", "items": { "$ref": "#/definitions/address" } },
 					"visual": { "anyOf": [{ "$ref": "#/definitions/visual_ref" }, { "type": "null" }] },
-					"predict": { "type": ["string", "null"], "x-format": "speech", "description": "What the learner is asked to predict before the reveal" }
+					"predict": { "type": ["string", "null"], "x-format": "speech", "description": "What the learner predicts before the reveal" }
 				}
 			}
 		},
 		"analogies": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "analogy", "rung", "explanation", "mapping", "limits"],
@@ -209,6 +227,7 @@
 		"misconceptions": {
 			"type": "array",
 			"maxItems": 8,
+			"x-audience": "tutor",
 			"items": {
 				"type": "object",
 				"required": ["id", "rung", "belief", "why_tempting", "correction", "diagnosed_by"],
@@ -217,15 +236,16 @@
 					"id": { "$ref": "#/definitions/item_id" },
 					"rung": { "$ref": "#/definitions/rung" },
 					"belief": { "type": "string", "x-format": "plain", "description": "In the learner's own words" },
-					"why_tempting": { "type": "string", "x-format": "md" },
-					"correction": { "type": "string", "x-format": "md" },
+					"why_tempting": { "type": "string", "x-format": "plain" },
+					"correction": { "type": "string", "x-format": "plain", "description": "At most two sentences naming why the belief fails; the full reasoning lives in the diagnosing check's answer or a way" },
 					"diagnosed_by": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/item_id" }, "description": "ids of checks that expose it" }
 				}
 			}
 		},
 		"checks": {
 			"type": "array",
-			"minItems": 3,
+			"minItems": 2,
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "rung", "format", "question", "question_spoken", "answer", "key_points", "numeric", "hints", "targets", "visual"],
@@ -238,21 +258,8 @@
 					"question_spoken": { "type": ["string", "null"], "x-format": "speech", "description": "Required when the question contains math" },
 					"answer": { "type": "string", "x-format": "md", "description": "Fully worked, as a chain of because-steps" },
 					"key_points": { "type": "array", "minItems": 1, "items": { "type": "string", "x-format": "plain" }, "description": "What a correct answer must contain" },
-					"numeric": {
-						"type": ["array", "null"],
-						"items": {
-							"type": "object",
-							"required": ["quantity", "value", "unit", "rel_tol"],
-							"additionalProperties": false,
-							"properties": {
-								"quantity": { "type": "string" },
-								"value": { "type": "number" },
-								"unit": { "type": "string", "description": "SI or accepted unit symbol, e.g. rad, deg, km^2" },
-								"rel_tol": { "type": "number", "minimum": 0 }
-							}
-						}
-					},
-					"hints": { "type": "array", "items": { "type": "string", "x-format": "md" } },
+					"numeric": { "type": ["array", "null"], "items": { "$ref": "#/definitions/numeric_answer" } },
+					"hints": { "type": "array", "maxItems": 3, "items": { "type": "string", "x-format": "md" } },
 					"targets": { "type": "array", "items": { "$ref": "#/definitions/item_id" }, "description": "ids of misconceptions this check exposes" },
 					"visual": { "anyOf": [{ "$ref": "#/definitions/visual_ref" }, { "type": "null" }] }
 				}
@@ -260,6 +267,7 @@
 		},
 		"notation_traps": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "issue", "course_choice", "variants"],
@@ -274,6 +282,7 @@
 		},
 		"visuals": {
 			"type": "array",
+			"x-audience": "system",
 			"items": {
 				"type": "object",
 				"required": ["id", "role", "priority", "sketch"],
@@ -282,12 +291,13 @@
 					"id": { "$ref": "#/definitions/kebab" },
 					"role": { "type": "string", "x-format": "md" },
 					"priority": { "enum": ["flagship", "core", "supporting"], "description": "Importance for this concept" },
-					"sketch": { "type": ["string", "null"], "x-format": "md", "description": "Required when the visual is not in the catalog yet" }
+					"sketch": { "type": ["string", "null"], "x-format": "md", "x-audience": "author", "description": "Required when the visual is not in the catalog yet" }
 				}
 			}
 		},
 		"tutor_moves": {
 			"type": "object",
+			"x-audience": "tutor",
 			"required": ["opening_questions", "if_stuck", "common_questions", "voice_notes", "level_switching"],
 			"additionalProperties": false,
 			"properties": {
@@ -310,13 +320,14 @@
 					"minItems": 1,
 					"items": {
 						"type": "object",
-						"required": ["id", "symptom", "move", "misconception"],
+						"required": ["id", "symptom", "move", "misconception", "uses"],
 						"additionalProperties": false,
 						"properties": {
 							"id": { "$ref": "#/definitions/item_id" },
 							"symptom": { "type": "string", "x-format": "plain" },
 							"move": { "type": "string", "x-format": "md" },
-							"misconception": { "anyOf": [{ "$ref": "#/definitions/item_id" }, { "type": "null" }] }
+							"misconception": { "anyOf": [{ "$ref": "#/definitions/item_id" }, { "type": "null" }] },
+							"uses": { "type": "array", "items": { "$ref": "#/definitions/address" } }
 						}
 					}
 				},
@@ -325,13 +336,14 @@
 					"minItems": 1,
 					"items": {
 						"type": "object",
-						"required": ["id", "rung", "question", "answer"],
+						"required": ["id", "rung", "question", "answer", "uses"],
 						"additionalProperties": false,
 						"properties": {
 							"id": { "$ref": "#/definitions/item_id" },
 							"rung": { "$ref": "#/definitions/rung" },
 							"question": { "type": "string", "x-format": "plain" },
-							"answer": { "type": "string", "x-format": "md" }
+							"answer": { "type": "string", "x-format": "md", "description": "Entry-rung answers are spoken: no math" },
+							"uses": { "type": "array", "items": { "$ref": "#/definitions/address" } }
 						}
 					}
 				},
@@ -341,12 +353,13 @@
 					"minItems": 1,
 					"items": {
 						"type": "object",
-						"required": ["to_rung", "signals", "move"],
+						"required": ["to_rung", "signals", "move", "uses"],
 						"additionalProperties": false,
 						"properties": {
 							"to_rung": { "$ref": "#/definitions/rung" },
 							"signals": { "type": "array", "minItems": 1, "items": { "type": "string", "x-format": "plain" } },
-							"move": { "type": "string", "x-format": "md" }
+							"move": { "type": "string", "x-format": "md" },
+							"uses": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/address" } }
 						}
 					}
 				}
@@ -354,6 +367,7 @@
 		},
 		"history": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "people", "year", "work", "contribution"],
@@ -369,6 +383,7 @@
 		},
 		"research_horizon": {
 			"type": "array",
+			"x-audience": "reader",
 			"items": {
 				"type": "object",
 				"required": ["id", "topic", "connection", "references"],
@@ -381,8 +396,24 @@
 				}
 			}
 		},
+		"retired_ids": {
+			"type": "array",
+			"x-audience": "system",
+			"description": "Ids removed after publication, kept so stored learner evidence still resolves; never reuse them",
+			"items": {
+				"type": "object",
+				"required": ["collection", "id", "replaced_by"],
+				"additionalProperties": false,
+				"properties": {
+					"collection": { "type": "string" },
+					"id": { "$ref": "#/definitions/item_id" },
+					"replaced_by": { "anyOf": [{ "$ref": "#/definitions/item_id" }, { "type": "null" }] }
+				}
+			}
+		},
 		"provenance": {
 			"type": "object",
+			"x-audience": "internal",
 			"required": ["source_units", "legacy_assets"],
 			"additionalProperties": false,
 			"description": "Internal only; stripped from every runtime artifact",
@@ -393,6 +424,7 @@
 		},
 		"review": {
 			"type": "object",
+			"x-audience": "internal",
 			"additionalProperties": false,
 			"properties": { "novice": { "$ref": "#/definitions/novice_stage" }, "physics": { "$ref": "#/definitions/physics_stage" } }
 		}
@@ -400,51 +432,71 @@
 	"definitions": {
 		"rung": { "enum": ["entry", "working", "formal", "research"] },
 		"kebab": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+		"date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
 		"item_id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 60, "description": "Permanent once published: change the text, never the id" },
 		"address": {
 			"type": "string",
 			"pattern": "^([a-z0-9]+(-[a-z0-9]+)*/)?(ways_in|objectives|key_equations|derivations|worked_examples|problems|observations|checks|misconceptions|analogies|glossary|teaching_arc|notation_traps|opening_questions|if_stuck|common_questions|history|research_horizon)/[a-z0-9]+(-[a-z0-9]+)*$",
 			"description": "<collection>/<item-id> within this note, or <concept-id>/<collection>/<item-id>"
 		},
+		"evidence_address": { "type": "string", "pattern": "^(checks|problems)/[a-z0-9]+(-[a-z0-9]+)*$" },
 		"visual_ref": {
 			"type": "object",
-			"required": ["id", "preset"],
+			"required": ["id", "preset", "tour"],
 			"additionalProperties": false,
-			"properties": { "id": { "$ref": "#/definitions/kebab" }, "preset": { "anyOf": [{ "$ref": "#/definitions/item_id" }, { "type": "null" }] } }
+			"properties": {
+				"id": { "$ref": "#/definitions/kebab" },
+				"preset": { "anyOf": [{ "$ref": "#/definitions/item_id" }, { "type": "null" }] },
+				"tour": { "anyOf": [{ "$ref": "#/definitions/item_id" }, { "type": "null" }] }
+			}
+		},
+		"numeric_answer": {
+			"type": "object",
+			"required": ["quantity", "value", "unit", "sign", "abs_tol", "rel_tol", "modulo"],
+			"additionalProperties": false,
+			"properties": {
+				"quantity": { "type": "string", "x-format": "plain" },
+				"value": { "type": "number" },
+				"unit": { "type": "string", "description": "A unit from the validator's unit table, e.g. rad, deg, turn, km, km^2, m, s, yr, kg, M_sun, Hz, eV, mas/yr, 1" },
+				"sign": { "enum": ["signed", "magnitude"], "description": "signed: positive in the note's stated sense" },
+				"abs_tol": { "type": ["number", "null"], "minimum": 0 },
+				"rel_tol": { "type": ["number", "null"], "minimum": 0 },
+				"modulo": { "type": ["number", "null"], "description": "Period for angles or phases, in the answer's unit (e.g. 360 for deg)" }
+			}
 		},
 		"reference": {
 			"type": "object",
-			"required": ["authors", "year", "title", "venue", "doi", "arxiv", "kind", "verified"],
+			"required": ["authors", "more_authors", "year", "title", "venue", "doi", "arxiv", "kind", "verified"],
 			"additionalProperties": false,
 			"properties": {
-				"authors": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+				"authors": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "Real names only, never 'et al.'" },
+				"more_authors": { "type": "boolean", "description": "true when authors lists only the first few" },
 				"year": { "type": "integer", "minimum": -600, "maximum": 2100 },
 				"title": { "type": ["string", "null"] },
 				"venue": { "type": ["string", "null"], "description": "Journal with volume and pages, publisher, or institution" },
 				"doi": { "type": ["string", "null"] },
 				"arxiv": { "type": ["string", "null"] },
 				"kind": { "enum": ["paper", "review", "book", "lecture-notes", "thesis", "talk"] },
-				"verified": { "type": "boolean", "description": "true only after the physics reviewer confirmed authors, year, and title against a reliable record" }
+				"verified": { "type": "boolean", "description": "true only after the physics reviewer confirmed authors, year, title, and venue against a reliable record" }
 			}
 		},
 		"way": {
 			"type": "object",
-			"required": ["id", "title", "kind", "rung", "question", "continues", "gist", "recap", "explanation", "try_it", "takeaway", "retell", "picture", "simplifies", "assumes", "visuals", "refs"],
+			"required": ["id", "title", "kind", "rung", "question", "continues", "gist", "recap", "explanation", "try_it", "takeaway", "picture", "simplifies", "assumes", "visuals", "refs"],
 			"additionalProperties": false,
 			"properties": {
 				"id": { "$ref": "#/definitions/item_id" },
 				"title": { "type": "string", "x-format": "plain" },
-				"kind": { "enum": ["picture", "operational", "calculation", "historical-puzzle", "bridge", "contrast"] },
+				"kind": { "enum": ["picture", "operational", "calculation", "structure", "historical-puzzle", "bridge", "contrast"] },
 				"rung": { "$ref": "#/definitions/rung" },
 				"question": { "type": "string", "minLength": 15, "x-format": "plain", "description": "The question this way answers; different for every way" },
-				"continues": { "anyOf": [{ "$ref": "#/definitions/item_id" }, { "type": "null" }], "description": "id of the earlier way this one climbs from; null only for entry ways" },
-				"gist": { "type": "string", "maxLength": 300, "x-format": "speech", "description": "What the tutor says first" },
-				"recap": { "type": ["string", "null"], "maxLength": 700, "x-format": "md", "description": "Re-statement of prerequisite ideas; hidden when the reader arrives in sequence" },
+				"continues": { "type": "array", "items": { "$ref": "#/definitions/item_id" }, "description": "ids of earlier ways this one climbs from; empty only for entry ways" },
+				"gist": { "type": ["string", "null"], "maxLength": 300, "x-format": "speech", "x-audience": "tutor", "description": "Only when the tutor's spoken opener must differ from the takeaway, e.g. posing the question as a prediction; otherwise null and the tutor speaks the takeaway" },
+				"recap": { "type": ["string", "null"], "maxLength": 700, "x-format": "md", "description": "Restates any test, rule, or name from another way or prerequisite; hidden when the reader arrives in sequence" },
 				"explanation": { "type": "string", "minLength": 300, "x-format": "md" },
-				"try_it": { "type": ["string", "null"], "x-format": "md", "description": "A hands-on test with everyday objects or a demo preset" },
-				"takeaway": { "type": "string", "maxLength": 220, "x-format": "plain" },
-				"retell": { "type": ["string", "null"], "x-format": "plain", "description": "Required for entry ways: what a beginner should be able to say back" },
-				"picture": { "type": ["string", "null"], "x-format": "md" },
+				"try_it": { "type": ["string", "null"], "x-format": "md", "description": "A hands-on test the reader can actually do, with what they should see" },
+				"takeaway": { "type": "string", "maxLength": 240, "x-format": "plain", "description": "The sentence the reader should be able to say back; for entry ways, in a beginner's words" },
+				"picture": { "type": ["string", "null"], "x-format": "md", "description": "Only when the way cites no visual; otherwise null" },
 				"simplifies": { "type": ["string", "null"], "x-format": "md", "description": "Reader-facing at this way's rung" },
 				"assumes": { "type": "array", "items": { "$ref": "#/definitions/kebab" } },
 				"visuals": { "type": "array", "items": { "$ref": "#/definitions/visual_ref" } },
@@ -482,11 +534,12 @@
 		},
 		"novice_stage": {
 			"type": "object",
-			"required": ["verdict", "date", "retell_attempt", "stumbles", "fixes", "concerns"],
+			"required": ["verdict", "date", "reviewed_revision", "retell_attempt", "stumbles", "fixes", "concerns"],
 			"additionalProperties": false,
 			"properties": {
 				"verdict": { "enum": ["accurate", "fixed", "needs-attention"] },
-				"date": { "type": "string" },
+				"date": { "$ref": "#/definitions/date" },
+				"reviewed_revision": { "type": "integer", "minimum": 1 },
 				"retell_attempt": { "type": "string", "description": "The persona's retelling after one reading, before fixes" },
 				"stumbles": {
 					"type": "array",
@@ -503,11 +556,12 @@
 		},
 		"physics_stage": {
 			"type": "object",
-			"required": ["verdict", "date", "verification", "counterexamples", "fixes", "concerns"],
+			"required": ["verdict", "date", "reviewed_revision", "verification", "counterexamples", "fixes", "concerns"],
 			"additionalProperties": false,
 			"properties": {
 				"verdict": { "enum": ["accurate", "fixed", "needs-attention"] },
-				"date": { "type": "string" },
+				"date": { "$ref": "#/definitions/date" },
+				"reviewed_revision": { "type": "integer", "minimum": 1 },
 				"verification": {
 					"type": "array",
 					"items": {

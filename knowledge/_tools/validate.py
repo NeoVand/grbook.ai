@@ -5,18 +5,20 @@ Usage:
   python3 knowledge/_tools/validate.py dossier <sources/<book>/chapters/<unit>.json> [...]
   python3 knowledge/_tools/validate.py concept <concepts/<domain>/<id>.json> [...]
   python3 knowledge/_tools/validate.py visual <visuals/<id>.json> [...]
+  python3 knowledge/_tools/validate.py all          (every v2 concept note and visual, plus cross-checks)
   python3 knowledge/_tools/validate.py schema <schema.json> <file.json> [...]
 
 Exit status: 0 clean, 1 schema errors, 2 warnings only. Lines starting "note:" are information and never change it.
 
 Dossiers: coverage against the source manifest, and copied source wording.
-Concept notes and visuals (knowledge/_meta/writing-guide.md): ids and addresses that resolve, rung and tier
-requirements, the novice contract on entry-rung reading, text formats (x-format), graph consistency, length budgets,
-component-contract consistency for visuals, mentions of the source books, and copied source wording.
+Concept notes and visuals (knowledge/_meta/writing-guide.md): ids and addresses that resolve, tier and rung
+requirements, the novice contract and wording traps on entry reading, text formats (x-format), graph consistency,
+length budgets per tier, gradable numeric answers, lifecycle, component-contract consistency for visuals, mentions of
+textbooks, and copied source wording.
 
 Supports the JSON Schema subset used in knowledge/_schemas: type, enum, required, properties, additionalProperties,
 items, minItems, maxItems, minLength, maxLength, pattern, minimum, maximum, anyOf, local $ref, and the custom
-x-format keyword.
+x-format and x-audience keywords.
 """
 import json
 import re
@@ -45,13 +47,12 @@ def check(v, s, root, path, errs):
 	if '$ref' in s:
 		return check(v, root['definitions'][s['$ref'].split('/')[-1]], root, path, errs)
 	if 'anyOf' in s:
-		if not any(not _errors(v, sub, root, path) for sub in s['anyOf']):
-			errs.append(f'{path}: does not match any allowed shape')
+		for sub in s['anyOf']:
+			if not _errors(v, sub, root, path):
+				check(v, sub, root, path, [])
+				break
 		else:
-			for sub in s['anyOf']:
-				if not _errors(v, sub, root, path):
-					check(v, sub, root, path, [])
-					break
+			errs.append(f'{path}: does not match any allowed shape')
 		return
 	if 'enum' in s and v not in s['enum']:
 		errs.append(f'{path}: {v!r} is not one of {s["enum"]}')
@@ -88,7 +89,7 @@ def check(v, s, root, path, errs):
 			errs.append(f'{path}: longer than {s["maxLength"]} characters ({len(v)})')
 		if 'pattern' in s and not re.search(s['pattern'], v):
 			errs.append(f'{path}: {v!r} does not match {s["pattern"]}')
-		if 'x-format' in s and errs is not None:
+		if 'x-format' in s:
 			FORMATTED.append((path, s['x-format'], v))
 	if is_type(v, 'number'):
 		if 'minimum' in s and v < s['minimum']:
@@ -194,7 +195,8 @@ def dossier_warnings(d, path):
 BOOKS = ('schutz', 'gifted-amateur', 'dinverno')
 RUNG = {'entry': 0, 'working': 1, 'formal': 2, 'research': 3}
 KEBAB = re.compile(r'^[a-z0-9]+(-[a-z0-9]+)*$')
-NOTE_SKIP = {'latex', 'symbol', 'provenance', 'review', 'id', 'assumes', 'schema_version', 'refs', 'uses', 'evidenced_by', 'targets', 'diagnosed_by', 'state', 'expect'}
+NOTE_SKIP = {'latex', 'symbol', 'provenance', 'review', 'id', 'assumes', 'schema_version', 'refs', 'uses', 'evidenced_by', 'targets', 'diagnosed_by', 'state', 'expect', 'continues', 'retired_ids', 'starting_material'}
+COUNT_SKIP = NOTE_SKIP | {'authors', 'venue', 'doi', 'arxiv', 'kind', 'forms', 'say_as', 'pronunciations', 'title', 'name', 'label', 'unit', 'quantity', 'status', 'updated', 'domain', 'tier', 'rung', 'format', 'priority', 'needed_for', 'invites', 'to_rung', 'sign', 'concept', 'visual', 'visuals'}
 COLLECTIONS = [
 	'ways_in', 'objectives', 'key_equations', 'derivations', 'worked_examples', 'problems', 'observations', 'checks',
 	'misconceptions', 'analogies', 'glossary', 'teaching_arc', 'notation_traps', 'history', 'research_horizon',
@@ -202,7 +204,8 @@ COLLECTIONS = [
 TUTOR_COLLECTIONS = ['opening_questions', 'if_stuck', 'common_questions']
 ADDRESS = re.compile(r'^(?:([a-z0-9]+(?:-[a-z0-9]+)*)/)?([a-z_]+)/([a-z0-9]+(?:-[a-z0-9]+)*)$')
 BOOKISH = [
-	re.compile(r"\b(Schutz|Blundell|Lancaster|d['’]\s?Inverno|Vickers|Gifted Amateur)\b", re.I),
+	re.compile(r"\b(Schutz|Blundell|Lancaster|d['’]\s?Inverno|Vickers|Gifted Amateur|Misner|Wald|Carroll)\b", re.I),
+	re.compile(r'\bMTW\b'),
 	re.compile(r'\b(SCH|GA|DIV)\s+(ch\d|app[A-E]|§|Ex|Fig|Box|p\.)'),
 	re.compile(r'\blegacy:[a-z0-9-]+'),
 	re.compile(r'§\s?\d'),
@@ -215,7 +218,15 @@ HEDGE = re.compile(
 	r'\b(clearly|obviously|trivially|evidently|it is easy to see|of course|needless to say|as is well known|recall that|it follows immediately)\b',
 	re.I,
 )
-POSITIONAL = re.compile(r'\b(given|shown|derived|discussed|described|see|as)\s+(above|below|earlier)\b|\b(above|below)\s+(derivation|example|equation|section|way)\b', re.I)
+POSITIONAL = re.compile(
+	r"\b(return to (this|it)|come back to (this|it)|more on (this|that)) later\b"
+	r"|\b(saw|showed|found|noted|mentioned|seen|derived|discussed|described) (earlier|above|below|previously)\b"
+	r"|\bsee (above|below)\b"
+	r"|\b(formula|equation|derivation|example|section|figure|table|result|argument|way|paragraph|step)s? (above|below)\b"
+	r"|\b(above|below|earlier|previous) (formula|equation|derivation|example|section|figure|table|result|argument|way|paragraph|step)s?\b"
+	r"|\baforementioned\b",
+	re.I,
+)
 SPEECH_BAD = re.compile(r'[$\\^_`#]|[⁰¹²³⁴⁵⁶⁷⁸⁹⁻₀₁₂₃₄₅₆₇₈₉×]')
 MD_PSEUDO_MATH = re.compile(r'[A-Za-zΑ-Ωα-ω][\^_][{A-Za-zΑ-Ωα-ω0-9]|[₀₁₂₃₄₅₆₇₈₉⁰¹⁴⁵⁶⁷⁸⁹⁻]|[α-ωΓΔΘΛΞΠΣΦΨΩ∂∇∮∫]')
 # Technical words the entry rung must define in its glossary if it uses them (writing guide section 4, rule 4).
@@ -225,8 +236,45 @@ TECHNICAL = [
 	'basis', 'covariant', 'contravariant', 'indices', 'integral', 'gradient', 'divergence', 'flux', 'topology',
 	'singularity', 'redshift', 'stress-energy', 'energy-momentum', 'gauge', 'intrinsic', 'extrinsic', 'tidal',
 	'Christoffel', 'Riemann', 'Ricci', 'Lorentz', 'Gaussian', 'eigenvalue', 'four-vector', 'reference frame', 'radian',
-	'geodetic', 'precession', 'quadrupole', 'entropy', 'horizon',
+	'geodetic', 'precession', 'quadrupole', 'entropy', 'horizon', 'gyroscope', 'orbit', 'observer', 'light-year',
+	'time dilation', 'simultaneity', 'free fall', 'equivalence principle', 'mass-energy', 'wavelength', 'frequency',
 ]
+# Wording traps on entry reading (writing guide section 4). Each is (pattern, condition on the sentence, message).
+WORDING_TRAPS = [
+	(re.compile(r'\bstill points\b', re.I), None, '"still points" can hide a change; compare against a named reference'),
+	(re.compile(r'\b(north|south|east|west)(ward|wards)?\b'), re.compile(r'\bpoles?\b', re.I), 'compass direction near a pole; use directions relative to the path'),
+	(re.compile(r'\binside the loop\b', re.I), None, '"inside the loop" is ambiguous on a closed surface; name the region'),
+	(re.compile(r'\bfrom (the )?inside\b', re.I), None, '"from the inside" is ambiguous; say "without leaving the surface" or name the place'),
+	(re.compile(r'\b(counter-?)?clockwise\b', re.I), re.compile(r'^(?!.*\b(seen|viewed|looking) (from|down)\b)', re.I | re.S), '"clockwise" needs a viewpoint ("seen from above the North Pole")'),
+	(re.compile(r"\b(never|not|didn'?t|doesn'?t|won'?t)\s+(\w+\s+)?turn(s|ed|ing)?\b", re.I), re.compile(r'\barrow\b', re.I), 'the arrow should "swing", not "turn": the walker turns at corners, the arrow never swings, and the arrow comes back turned'),
+	(re.compile(r'\btime (runs|passes|goes|ticks) (slow|fast)(er|ly)?\b|\btime slows\b', re.I), re.compile(r'^(?!.*\b(compared|than|relative|according|clock)\b)', re.I | re.S), 'a time comparison needs its measurer: compared with whose clock?'),
+	(re.compile(r'\bat the same time\b', re.I), re.compile(r'^(?!.*\b(according|clocks?|measured|frame)\b)', re.I | re.S), '"at the same time" needs its measurer: by whose clocks?'),
+]
+UNITS = {
+	'1', 'percent', 'rad', 'deg', 'turn', 'arcsec', 'mas', 'arcsec/yr', 'mas/yr', 'deg/h', 'deg/day', 'm', 'cm', 'mm', 'km',
+	'au', 'ly', 'pc', 'kpc', 'Mpc', 'Gpc', 'm^2', 'km^2', 'm^3', 's', 'ms', 'min', 'h', 'day', 'yr', 'Gyr', 'kg', 'g',
+	'M_sun', 'M_earth', 'J', 'eV', 'keV', 'MeV', 'GeV', 'W', 'K', 'Hz', 'kHz', 'm/s', 'km/s', 'm/s^2', 'N', 'T', 'V', 'C',
+	'A', 'kg/m^3', 'J/m^3', 'Pa', 'm^-2', 's^-1', 'km/s/Mpc',
+}
+ANGLE_UNITS = {'rad', 'deg', 'turn', 'arcsec', 'mas'}
+STOP = set('the a an and or of to in on at by for with is are was be it its this that these those as from your you we our so but not no if then than into out one two each every any all can will does do did has have had there their them they he she his her who which what when where how why also only even just more most much very same other'.split())
+
+# Required rungs (ways, objectives, checks) and word budgets per tier (writing guide sections 3 and 9).
+TIER_RUNGS = {
+	'prerequisite': ('entry', 'working'),
+	'foundation': ('entry', 'working', 'formal'),
+	'core': ('entry', 'working', 'formal'),
+	'advanced': ('entry', 'working', 'formal', 'research'),
+	'frontier': ('entry', 'formal', 'research'),
+}
+TIER_BUDGETS = {
+	'prerequisite': dict(entry=(400, 1000), working=(300, 900), formal=(0, 300), research=(0, 0), extras=450, support=900, tutoring=1200, links=200, total=5000),
+	'foundation': dict(entry=(400, 1000), working=(300, 900), formal=(250, 600), research=(0, 0), extras=650, support=1500, tutoring=2200, links=300, total=7000),
+	'core': dict(entry=(400, 1000), working=(300, 1000), formal=(250, 900), research=(0, 400), extras=800, support=2300, tutoring=3300, links=900, total=9500),
+	'advanced': dict(entry=(150, 400), working=(300, 1000), formal=(250, 1100), research=(250, 900), extras=800, support=2500, tutoring=3500, links=1000, total=10500),
+	'frontier': dict(entry=(150, 300), working=(0, 1000), formal=(250, 1100), research=(250, 900), extras=800, support=2500, tutoring=3500, links=1000, total=10500),
+}
+MIN_PROBLEMS = {'prerequisite': 1, 'foundation': 2, 'core': 3, 'advanced': 3, 'frontier': 3}
 
 
 @lru_cache(maxsize=None)
@@ -289,16 +337,20 @@ def plain(s):
 	return MATH.sub(' X ', s)
 
 
-COUNT_SKIP = NOTE_SKIP | {'authors', 'venue', 'doi', 'arxiv', 'kind', 'forms', 'say_as', 'pronunciations', 'title', 'name', 'label', 'symbol', 'unit', 'quantity', 'status', 'updated', 'domain', 'tier', 'rung', 'format', 'priority', 'needed_for', 'invites', 'to_rung'}
-
-
 def wc(obj):
 	return sum(len(words(plain(s))) for _, s in strings(obj, COUNT_SKIP))
 
 
+def content_words(s):
+	return {w for w in words(plain(s)) if w not in STOP and len(w) > 2}
+
+
+def sentences(s):
+	return [p for p in re.split(r'(?<=[.!?])\s+|\n+', plain(s).strip()) if p.strip()]
+
+
 def sentence_lengths(s):
-	parts = re.split(r'(?<=[.!?])\s+|\n+', plain(s).strip())
-	return [n for n in (len(re.findall(r"[A-Za-z0-9][A-Za-z0-9'’-]*", p)) for p in parts) if n]
+	return [n for n in (len(re.findall(r"[A-Za-z0-9][A-Za-z0-9'’-]*", p)) for p in sentences(s)) if n]
 
 
 def novice_warnings(label, text, max_math=3):
@@ -315,6 +367,11 @@ def novice_warnings(label, text, max_math=3):
 	n = len(MATH.findall(text))
 	if n > max_math:
 		warns.append(f'{label}: {n} math expressions; the entry rung allows {max_math} here, each read out in words')
+	for sentence in sentences(text):
+		for rx, condition, message in WORDING_TRAPS:
+			m = rx.search(sentence)
+			if m and (condition is None or condition.search(sentence)):
+				warns.append(f'{label}: wording trap "{m.group(0)}": {message}')
 	return warns
 
 
@@ -332,11 +389,12 @@ def format_warnings():
 			m = MD_PSEUDO_MATH.search(plain(t))
 			if m:
 				warns.append(f'{path}: "{m.group(0)}" outside $...$; put symbols, indices, and Greek letters inside math')
-			m = POSITIONAL.search(s)
-			if m:
-				warns.append(f'{path}: "{m.group(0)}" points by position; name the thing or use refs')
 		elif fmt == 'latex' and '$' in s:
 			warns.append(f'{path}: latex fields take bare LaTeX without $ delimiters')
+		if fmt in ('md', 'plain') and '.steps[' not in path and '.solution[' not in path:
+			m = POSITIONAL.search(plain(s))
+			if m:
+				warns.append(f'{path}: "{m.group(0)}" points by position; name the thing or use refs')
 	return warns
 
 
@@ -346,7 +404,7 @@ def common_lints(d):
 		for rx in BOOKISH:
 			m = rx.search(s)
 			if m:
-				warns.append(f'{path}: mentions a source book or locator ("{m.group(0)}"); write in our own voice, sources go in provenance only')
+				warns.append(f'{path}: mentions a textbook or locator ("{m.group(0)}"); write in our own voice, sources go in provenance only')
 				break
 	return warns
 
@@ -422,6 +480,21 @@ def references(d):
 			yield f'observations/{o["id"]}', o['reference']
 
 
+def numeric_warnings(where, items):
+	warns = []
+	for n in items or []:
+		label = f'{where} numeric "{n["quantity"]}"'
+		if n['unit'] not in UNITS:
+			warns.append(f'{label}: unit "{n["unit"]}" is not in the unit table ({", ".join(sorted(UNITS)[:12])}, ...)')
+		if n['abs_tol'] is None and n['rel_tol'] is None:
+			warns.append(f'{label}: give abs_tol or rel_tol')
+		if n['value'] == 0 and n['abs_tol'] is None:
+			warns.append(f'{label}: a zero answer needs abs_tol')
+		if n['unit'] in ANGLE_UNITS and n['sign'] == 'signed' and n['modulo'] is None:
+			warns.append(f'{label}: a signed angle needs modulo')
+	return warns
+
+
 # ---- Concept notes ------------------------------------------------------------------------------------------------
 
 
@@ -429,7 +502,7 @@ def entry_texts(d):
 	t = [('summary', d['summary'], 1), ('tagline', d['tagline'], 0)]
 	for w in d['ways_in']:
 		if w['rung'] == 'entry':
-			for k in ('gist', 'recap', 'explanation', 'try_it', 'takeaway', 'retell', 'picture', 'simplifies'):
+			for k in ('gist', 'recap', 'explanation', 'try_it', 'takeaway', 'picture', 'simplifies'):
 				if w.get(k):
 					t.append((f'ways_in/{w["id"]}.{k}', w[k], 3 if k == 'explanation' else 1))
 	t += [(f'glossary/{g["id"]}', g['plain_definition'], 1) for g in d['glossary']]
@@ -440,7 +513,7 @@ def entry_texts(d):
 			t += [(f'checks/{c["id"]}.hints', h, 1) for h in c['hints']]
 	for m in d['misconceptions']:
 		if m['rung'] == 'entry':
-			t += [(f'misconceptions/{m["id"]}.{k}', m[k], 1) for k in ('belief', 'why_tempting', 'correction')]
+			t += [(f'misconceptions/{m["id"]}.{k}', m[k], 0) for k in ('belief', 'why_tempting', 'correction')]
 	for a in d['analogies']:
 		if a['rung'] == 'entry':
 			t += [(f'analogies/{a["id"]}.{k}', a[k], 1) for k in ('explanation', 'limits')]
@@ -454,7 +527,7 @@ def entry_texts(d):
 	t += [(f'opening_questions/{q["id"]}', q['question'], 0) for q in d['tutor_moves']['opening_questions']]
 	for q in d['tutor_moves']['common_questions']:
 		if q['rung'] == 'entry':
-			t += [(f'common_questions/{q["id"]}.question', q['question'], 0), (f'common_questions/{q["id"]}.answer', q['answer'], 1)]
+			t += [(f'common_questions/{q["id"]}.question', q['question'], 0), (f'common_questions/{q["id"]}.answer', q['answer'], 0)]
 	return t
 
 
@@ -468,6 +541,22 @@ def ancestors(ids):
 		if n in reg:
 			stack.extend(reg[n][1]['prerequisites'])
 	return seen
+
+
+def part_counts(d):
+	ways = d['ways_in']
+	by_rung = {r: sum(wc(w['explanation']) for w in ways if w['rung'] == r) for r in RUNG}
+	return dict(
+		entry=by_rung['entry'],
+		working=by_rung['working'],
+		formal=by_rung['formal'],
+		research=by_rung['research'],
+		extras=wc([{k: w[k] for k in ('question', 'gist', 'recap', 'try_it', 'takeaway', 'picture', 'simplifies')} for w in ways]),
+		support=wc([d[k] for k in ('key_equations', 'derivations', 'worked_examples', 'problems', 'observations')]),
+		tutoring=wc([d[k] for k in ('objectives', 'misconceptions', 'checks', 'teaching_arc', 'tutor_moves', 'analogies', 'glossary', 'notation_traps')]),
+		links=wc([d[k] for k in ('prerequisites', 'leads_to', 'related', 'visuals', 'history', 'research_horizon')]),
+		total=wc(d),
+	)
 
 
 def concept_warnings(d, path):
@@ -490,6 +579,9 @@ def concept_warnings(d, path):
 		dups = sorted({i for i in ids if ids.count(i) > 1})
 		if dups:
 			warns.append(f'{coll}: duplicate ids {dups}')
+	for r in d['retired_ids']:
+		if r['id'] in cols.get(r['collection'], {}):
+			warns.append(f'retired id "{r["collection"]}/{r["id"]}" is in use again; ids are never reused')
 
 	# Graph: registry ids, prerequisites, assumes, leads_to.
 	def known(where, i):
@@ -504,6 +596,9 @@ def concept_warnings(d, path):
 		known('leads_to', i)
 	for x in d['related']:
 		known('related', x['id'])
+	for g in d['glossary']:
+		if g['concept']:
+			known(f'glossary/{g["id"]}.concept', g['concept'])
 	if cid in pre:
 		warns.append('a concept cannot be its own prerequisite')
 	if set(pre) & leads:
@@ -517,25 +612,39 @@ def concept_warnings(d, path):
 	# Ways in.
 	ways = d['ways_in']
 	order = {w['id']: i for i, w in enumerate(ways)}
+	required = TIER_RUNGS[tier]
 	rungs = {w['rung'] for w in ways}
-	for r in ('entry', 'working', 'formal'):
+	for r in required:
 		if r not in rungs:
-			warns.append(f'ways_in needs at least one "{r}" way')
-	if tier in ('advanced', 'frontier') and 'research' not in rungs:
-		warns.append('advanced and frontier notes need a research way')
-	if len({w['kind'] for w in ways}) < 2:
+			warns.append(f'{tier} notes need at least one "{r}" way')
+	kinds = [w['kind'] for w in ways]
+	if len(set(kinds)) < 2:
 		warns.append('ways_in must use at least two different kinds')
+	for k in set(kinds):
+		if kinds.count(k) > len(ways) / 2:
+			warns.append(f'kind "{k}" is used by more than half of the ways')
+	if tier in ('foundation', 'core') and d['observations'] and 'operational' not in kinds:
+		warns.append('foundation and core notes with observations need an operational way')
 	if len({w['question'] for w in ways}) < len(ways):
 		warns.append('each way must answer a different question')
-	for w in ways:
+	for i, w in enumerate(ways):
 		where = f'ways_in/{w["id"]}'
-		if w['rung'] == 'entry' and not w['retell']:
-			warns.append(f'{where}: entry ways need a retell')
-		if w['rung'] != 'entry':
-			if not w['continues']:
-				warns.append(f'{where}: non-entry ways name the earlier way they climb from in continues')
-			elif w['continues'] not in order or order[w['continues']] >= order[w['id']]:
-				warns.append(f'{where}: continues "{w["continues"]}" must be an earlier way in this note')
+		if i > 0 and not w['continues']:
+			warns.append(f'{where}: every way after the first names the earlier ways it climbs from in continues')
+		for c in w['continues']:
+			if c not in order or order[c] >= i:
+				warns.append(f'{where}: continues "{c}" must be an earlier way in this note')
+		if w['continues'] and w['rung'] != 'entry':
+			first = set(list(content_words(' '.join(words(plain(w['explanation']))[:40]))))
+			link = set().union(*(content_words(ways[order[c]]['title'] + ' ' + ways[order[c]]['takeaway']) for c in w['continues'] if c in order))
+			if link and not first & link:
+				warns.append(f'{where}: the first sentences should refer back to the way it continues by its picture or result')
+		if w['gist']:
+			a, b = content_words(w['gist']), content_words(w['takeaway'])
+			if a and len(a & b) / len(a) > 0.6:
+				warns.append(f'{where}: gist repeats the takeaway; set gist to null unless the spoken opener must differ')
+		if w['picture'] and w['visuals']:
+			warns.append(f'{where}: picture should be null when the way cites a visual')
 		for a in w['assumes']:
 			known(f'{where}.assumes', a)
 			if a in leads:
@@ -547,27 +656,23 @@ def concept_warnings(d, path):
 				warns.append(f'{where}: assumes "{a}", which is not a prerequisite (direct, or of a prerequisite)')
 		for r in w['refs']:
 			resolve(r, d, cols, f'{where}.refs', warns, notes)
-		if w['rung'] == 'entry':
-			n = len(words(plain(w['explanation'])))
-			if n < 150:
-				warns.append(f'{where}: entry explanation has {n} words; be explicit enough that a beginner cannot get lost')
 
-	# Objectives, checks, misconceptions, problems.
-	for coll, need in (('objectives', ('entry', 'working', 'formal')), ('checks', ('entry', 'working', 'formal'))):
+	# Objectives, checks, problems, misconceptions.
+	for coll in ('objectives', 'checks'):
 		have = {x['rung'] for x in d[coll]}
-		for r in need:
+		for r in required:
 			if r not in have:
-				warns.append(f'{coll} need at least one "{r}" item')
-	if tier in ('advanced', 'frontier') and 'research' not in {o['rung'] for o in d['objectives']}:
-		warns.append('advanced and frontier notes need a research objective')
+				warns.append(f'{tier} notes need at least one "{r}" item in {coll}')
 	evidenced = set()
 	for o in d['objectives']:
+		own = False
 		for a in o['evidenced_by']:
 			r = resolve(a, d, cols, f'objectives/{o["id"]}.evidenced_by', warns, notes)
 			if r:
-				if r[0] not in ('checks', 'problems', 'worked_examples') or not r[2]:
-					warns.append(f'objectives/{o["id"]}: evidenced_by must point to checks, problems, or worked_examples in this note')
 				evidenced.add((r[0], r[1]['id']))
+				own |= r[1]['rung'] == o['rung']
+		if not own:
+			warns.append(f'objectives/{o["id"]}: needs a check or problem at its own rung ({o["rung"]})')
 	unassessed = [f'checks/{c}' for c in cols['checks'] if ('checks', c) not in evidenced] + [f'problems/{x}' for x in cols['problems'] if ('problems', x) not in evidenced]
 	if unassessed:
 		warns.append(f'these items evidence no objective: {unassessed}')
@@ -578,6 +683,8 @@ def concept_warnings(d, path):
 				warns.append(f'misconceptions/{m["id"]}: diagnosed_by "{c}" is not a check id')
 			elif m['id'] not in chk[c]['targets']:
 				warns.append(f'misconceptions/{m["id"]}: check "{c}" must list it in targets')
+		if len(sentences(m['correction'])) > 2:
+			warns.append(f'misconceptions/{m["id"]}: correction has more than two sentences; cite the check instead of re-walking the argument')
 	for c in chk.values():
 		for t in c['targets']:
 			if t not in mis:
@@ -587,19 +694,36 @@ def concept_warnings(d, path):
 		if '$' in c['question'] and not c['question_spoken']:
 			warns.append(f'checks/{c["id"]}: the question contains math, so give question_spoken')
 		if c['format'] == 'numeric' and not c['numeric']:
-			warns.append(f'checks/{c["id"]}: numeric checks need numeric answers with units and tolerance')
-	for s in d['tutor_moves']['if_stuck']:
+			warns.append(f'checks/{c["id"]}: numeric checks need numeric answers')
+		warns += numeric_warnings(f'checks/{c["id"]}', c['numeric'])
+	for x in cols['problems'].values():
+		for t in x['targets']:
+			if t not in mis:
+				warns.append(f'problems/{x["id"]}: target "{t}" is not a misconception id')
+		if '$' in x['statement'] and not x['statement_spoken']:
+			warns.append(f'problems/{x["id"]}: the statement contains math, so give statement_spoken')
+		warns += numeric_warnings(f'problems/{x["id"]}', x['numeric'])
+	tm = d['tutor_moves']
+	for s in tm['if_stuck']:
 		if s['misconception'] and s['misconception'] not in mis:
 			warns.append(f'if_stuck/{s["id"]}: misconception "{s["misconception"]}" is not a misconception id')
-	min_problems = {'prerequisite': 1, 'foundation': 2}.get(tier, 3)
-	if len(d['problems']) < min_problems:
-		warns.append(f'{tier} notes need at least {min_problems} problems')
-	if min_problems > 1 and len({x['rung'] for x in d['problems']}) < 2:
+	for coll, items in (('if_stuck', tm['if_stuck']), ('common_questions', tm['common_questions']), ('level_switching', tm['level_switching'])):
+		for i, s in enumerate(items):
+			for u in s['uses']:
+				resolve(u, d, cols, f'{coll}/{s.get("id", i)}.uses', warns, notes)
+	for q in tm['common_questions']:
+		if q['rung'] == 'entry' and '$' in q['answer']:
+			warns.append(f'common_questions/{q["id"]}: entry answers are spoken; no math')
+	if len(d['problems']) < MIN_PROBLEMS[tier]:
+		warns.append(f'{tier} notes need at least {MIN_PROBLEMS[tier]} problems')
+	if len(d['problems']) > 1 and len({x['rung'] for x in d['problems']}) < 2:
 		warns.append('problems must span at least two rungs')
 	if tier in ('foundation', 'core') and not d['worked_examples']:
 		warns.append('foundation and core notes need at least one worked example')
 	if tier in ('core', 'advanced', 'frontier') and not 2 <= len(d['research_horizon']) <= 5:
-		warns.append('core, advanced, and frontier notes need 2 to 5 research_horizon topics')
+		warns.append(f'{tier} notes need 2 to 5 research_horizon topics')
+	if tier in ('advanced', 'frontier') and not any(ref['kind'] == 'review' for r in d['research_horizon'] for ref in r['references']):
+		warns.append(f'{tier} notes need at least one review among the research references')
 
 	# Equations, teaching arc, visuals.
 	for e in d['key_equations']:
@@ -615,8 +739,6 @@ def concept_warnings(d, path):
 				warns.append(f'{where}: concept "{j}" is not a prerequisite')
 		else:
 			warns.append(f'{where}: must be derivations/<id>, a prerequisite concept id, or "stated"')
-	if not 3 <= len(d['teaching_arc']) <= 8:
-		warns.append('teaching_arc needs 3 to 8 steps')
 	for s in d['teaching_arc']:
 		for u in s['uses']:
 			resolve(u, d, cols, f'teaching_arc/{s["id"]}.uses', warns, notes)
@@ -634,18 +756,33 @@ def concept_warnings(d, path):
 		if x['id'] not in listed:
 			warns.append(f'{where}: visual "{x["id"]}" is not listed in visuals[]')
 		cat = catalog_visual(x['id'])
-		if cat and x['preset'] and x['preset'] not in {pr['id'] for pr in cat['presets']}:
-			warns.append(f'{where}: preset "{x["preset"]}" is not declared by visual "{x["id"]}"')
+		if cat:
+			if x['preset'] and x['preset'] not in {pr['id'] for pr in cat['presets']}:
+				warns.append(f'{where}: preset "{x["preset"]}" is not declared by visual "{x["id"]}"')
+			if x['tour'] and x['tour'] not in {t['id'] for t in cat['tours']}:
+				warns.append(f'{where}: tour "{x["tour"]}" is not declared by visual "{x["id"]}"')
+			if cid not in {s['concept'] for s in cat['serves']}:
+				warns.append(f'{where}: visual "{x["id"]}" does not list this concept in serves')
 
 	# Status, review, references.
 	review = d.get('review') or {}
-	if d['status'] in ('novice-reviewed', 'physics-reviewed', 'published') and 'novice' not in review:
-		warns.append(f'status "{d["status"]}" requires review.novice')
-	if d['status'] in ('physics-reviewed', 'published') and 'physics' not in review:
-		warns.append(f'status "{d["status"]}" requires review.physics')
+	status = d['status']
+	if status in ('novice-reviewed', 'physics-reviewed', 'published') and 'novice' not in review:
+		warns.append(f'status "{status}" requires review.novice')
+	if status in ('physics-reviewed', 'published'):
+		if 'physics' not in review:
+			warns.append(f'status "{status}" requires review.physics')
+		elif review['physics']['verdict'] == 'needs-attention':
+			warns.append(f'status "{status}" is not allowed with a physics verdict of needs-attention')
+	for stage, r in review.items():
+		if r['reviewed_revision'] != d['revision'] and status != 'draft':
+			warns.append(f'review.{stage} covers revision {r["reviewed_revision"]}, but the note is at revision {d["revision"]}; review again')
 	if 'physics' in review and not review['physics']['verification']:
 		warns.append('review.physics.verification must record what was checked and how')
-	if d['status'] in ('physics-reviewed', 'published'):
+	for where, ref in references(d):
+		if any('et al' in a.lower() for a in ref['authors']):
+			warns.append(f'{where}: list real author names and set more_authors instead of "et al."')
+	if status in ('physics-reviewed', 'published'):
 		unverified = sorted({w for w, ref in references(d) if not ref['verified']})
 		if unverified:
 			warns.append(f'unverified references after physics review: {unverified}')
@@ -661,25 +798,17 @@ def concept_warnings(d, path):
 		warns.append(f'entry reading uses technical words the glossary does not define: {undefined}')
 	warns += format_warnings()
 
-	by_rung = {r: sum(wc(w['explanation']) for w in ways if w['rung'] == r) for r in RUNG}
-	way_extras = wc([{k: w[k] for k in ('question', 'gist', 'recap', 'try_it', 'takeaway', 'retell', 'picture', 'simplifies')} for w in ways])
-	parts = {
-		'entry way explanations': (by_rung['entry'], 1000),
-		'working way explanations': (by_rung['working'], 1100),
-		'formal way explanations': (by_rung['formal'], 1000),
-		'research way explanations': (by_rung['research'], 700),
-		'other way fields (question, gist, recap, try_it, takeaway, retell, picture, simplifies)': (way_extras, 1300),
-		'equations, derivations, examples, problems, observations': (wc([d[k] for k in ('key_equations', 'derivations', 'worked_examples', 'problems', 'observations')]), 2200),
-		'objectives, misconceptions, checks, arc, tutor moves, analogies, glossary, traps': (wc([d[k] for k in ('objectives', 'misconceptions', 'checks', 'teaching_arc', 'tutor_moves', 'analogies', 'glossary', 'notation_traps')]), 3300),
-		'links, visuals, history, horizon': (wc([d[k] for k in ('prerequisites', 'leads_to', 'related', 'visuals', 'history', 'research_horizon')]), 1000),
-	}
-	for name, (n, cap) in parts.items():
-		if n > cap * 1.1:
-			warns.append(f'{name}: {n} words, over the budget of {cap}; cut support fields and repetition, never the entry rung')
-	total = wc(d)
-	cap = 7000 if tier in ('prerequisite', 'foundation') else 10000
-	if total > cap:
-		warns.append(f'note has {total} words, over {cap} for a {tier} note')
+	counts, budget = part_counts(d), TIER_BUDGETS[tier]
+	for part in ('entry', 'working', 'formal', 'research'):
+		lo, hi = budget[part]
+		n = counts[part]
+		if n > hi:
+			warns.append(f'{part} way explanations: {n} words, over the {tier} cap of {hi}')
+		elif part in required and n < lo:
+			warns.append(f'{part} way explanations: {n} words, under the {tier} minimum of {lo}')
+	for part in ('extras', 'support', 'tutoring', 'links', 'total'):
+		if counts[part] > budget[part]:
+			warns.append(f'{part}: {counts[part]} words, over the {tier} cap of {budget[part]}; cut repetition first, never the entry rung')
 
 	units = provenance_units(d['provenance'], warns)
 	for a in d['provenance']['legacy_assets']:
@@ -689,8 +818,11 @@ def concept_warnings(d, path):
 		units |= {(s['book'], s['unit']) for s in reg[cid][1]['sources'] if s['book'] in BOOKS}
 	warns += common_lints(d)
 	warns += copy_warnings(d, units)
-	notes.append(f'{total} words (entry {by_rung["entry"]}, working {by_rung["working"]}, formal {by_rung["formal"]}, research {by_rung["research"]}); '
-		f'{len(ways)} ways, {len(d["checks"])} checks, {len(d["problems"])} problems, {len(listed)} visuals; status {d["status"]}')
+	notes.append(
+		f'{counts["total"]} words (entry {counts["entry"]}, working {counts["working"]}, formal {counts["formal"]}, research {counts["research"]}, '
+		f'extras {counts["extras"]}, support {counts["support"]}, tutoring {counts["tutoring"]}, links {counts["links"]}); '
+		f'{len(ways)} ways, {len(d["checks"])} checks, {len(d["problems"])} problems, {len(listed)} visuals; status {status}'
+	)
 	return warns, notes
 
 
@@ -704,28 +836,65 @@ def visual_warnings(d, path):
 		warns.append(f'file name should be {d["id"]}.json')
 	params = {x['id']: x for x in d['params']}
 	presets = {x['id']: x for x in d['presets']}
-	readouts = {x['id'] for x in d['readouts']}
-	for coll in ('variants', 'params', 'presets', 'readouts', 'tour', 'design_rules'):
-		ids = [x['id'] for x in d[coll]]
+	readouts = {x['id']: x for x in d['readouts']}
+	progress_params = [p['id'] for p in d['params'] if p['type'] == 'progress']
+	beats = [(t, b) for t in d['tours'] for b in t['beats']]
+	for coll, ids in (
+		('variants', [x['id'] for x in d['variants']]),
+		('params', list(params) if len(params) == len(d['params']) else [x['id'] for x in d['params']]),
+		('presets', [x['id'] for x in d['presets']]),
+		('readouts', [x['id'] for x in d['readouts']]),
+		('tours', [t['id'] for t in d['tours']]),
+		('design_rules', [x['id'] for x in d['design_rules']]),
+		('model.tests', [x['id'] for x in d['model']['tests']]),
+		('accessibility.keyboard', [k['key'] for k in d['accessibility']['keyboard']]),
+	):
+		dups = sorted({i for i in ids if ids.count(i) > 1})
+		if dups:
+			warns.append(f'{coll}: duplicate ids or keys {dups}')
+	for t in d['tours']:
+		ids = [b['id'] for b in t['beats']]
 		if len(set(ids)) != len(ids):
-			warns.append(f'{coll}: duplicate ids')
+			warns.append(f'tours/{t["id"]}: duplicate beat ids')
 
 	def value_ok(where, pid, value):
 		p = params[pid]
-		if p['type'] == 'enum' and value not in {o['value'] for o in (p['options'] or [])}:
-			warns.append(f'{where}: "{value}" is not an option of param "{pid}"')
+		if p['type'] == 'enum':
+			if value not in {o['value'] for o in (p['options'] or [])}:
+				warns.append(f'{where}: "{value}" is not an option of param "{pid}"')
 		elif p['type'] in ('number', 'integer', 'progress'):
 			if not isinstance(value, (int, float)) or isinstance(value, bool):
-				warns.append(f'{where}: param "{pid}" needs a number')
-			elif (p['min'] is not None and value < p['min']) or (p['max'] is not None and value > p['max']):
+				warns.append(f'{where}: param "{pid}" needs a number, got {value!r}')
+				return
+			if p['type'] == 'integer' and not float(value).is_integer():
+				warns.append(f'{where}: param "{pid}" needs a whole number, got {value}')
+			if (p['min'] is not None and value < p['min']) or (p['max'] is not None and value > p['max']):
 				warns.append(f'{where}: {value} is outside the range of param "{pid}"')
+			if p['step'] and p['min'] is not None and p['type'] != 'progress':
+				k = (value - p['min']) / p['step']
+				if abs(k - round(k)) > 1e-9:
+					warns.append(f'{where}: {value} is not on the step grid of param "{pid}"')
 		elif p['type'] == 'boolean' and not isinstance(value, bool):
 			warns.append(f'{where}: param "{pid}" needs true or false')
 
+	def full_state(state):
+		s = {p['id']: p['default'] for p in d['params']}
+		explicit = set()
+		if state.get('preset') in presets:
+			s.update(presets[state['preset']]['state'])
+			explicit |= set(presets[state['preset']]['state'])
+		s.update({k: v for k, v in state.items() if k != 'preset'})
+		explicit |= {k for k in state if k != 'preset'}
+		return s, explicit
+
+	def available(s, constraint):
+		return not constraint or all(s.get(k) in vals for k, vals in constraint.items())
+
 	def state_ok(where, state, need_preset):
-		if need_preset:
-			if state.get('preset') not in presets:
-				warns.append(f'{where}: state.preset must name a declared preset')
+		if need_preset and state.get('preset') not in presets:
+			warns.append(f'{where}: state.preset must name a declared preset')
+		if not need_preset and 'preset' in state:
+			warns.append(f'{where}: a preset state must not contain a preset key')
 		for k, v in state.items():
 			if k == 'preset':
 				continue
@@ -733,56 +902,112 @@ def visual_warnings(d, path):
 				warns.append(f'{where}: "{k}" is not a declared param')
 			else:
 				value_ok(where, k, v)
+		s, explicit = full_state(state if need_preset else {**state})
+		if not need_preset:
+			s = {p['id']: p['default'] for p in d['params']} | state
+			explicit = set(state)
+		for pid in explicit:
+			if pid not in params:
+				continue
+			p = params[pid]
+			if not available(s, p['available_when']):
+				warns.append(f'{where}: param "{pid}" is not available in this combination')
+			if p['type'] == 'enum':
+				opt = next((o for o in p['options'] or [] if o['value'] == s.get(pid)), None)
+				if opt and not available(s, opt['available_when']):
+					warns.append(f'{where}: option "{opt["value"]}" of "{pid}" is not available in this combination')
+		return s
 
 	for p in d['params']:
 		if p['type'] == 'enum' and not p['options']:
 			warns.append(f'params/{p["id"]}: enum params need options')
 		if p['type'] != 'path':
 			value_ok(f'params/{p["id"]}.default', p['id'], p['default'])
+		for c in [p['available_when']] + [o['available_when'] for o in p['options'] or []]:
+			for k, vals in (c or {}).items():
+				if k not in params:
+					warns.append(f'params/{p["id"]}: available_when names unknown param "{k}"')
+				elif not isinstance(vals, list):
+					warns.append(f'params/{p["id"]}: available_when values must be a list')
 	for pr in d['presets']:
 		state_ok(f'presets/{pr["id"]}', pr['state'], False)
-	for b in d['tour']:
-		state_ok(f'tour/{b["id"]}', b['state'], True)
-		if b['animate'] and b['animate']['param'] not in params:
-			warns.append(f'tour/{b["id"]}: animate.param "{b["animate"]["param"]}" is not a declared param')
+	for r in d['readouts']:
+		if '{value}' not in r['say'] and '{abs}' not in r['say']:
+			warns.append(f'readouts/{r["id"]}: say needs a {{value}} or {{abs}} placeholder')
+		if r['range'] and r['range'][0] < 0 and not r['say_negative']:
+			warns.append(f'readouts/{r["id"]}: a signed readout needs say_negative')
+		if r['range'] and r['range'][0] < 0 and not r['sense']:
+			warns.append(f'readouts/{r["id"]}: a signed readout needs sense')
+		if r['unit'] in ANGLE_UNITS and not r['range']:
+			warns.append(f'readouts/{r["id"]}: an angle readout needs a range (branch)')
+	concept_refs = []
+	for t, b in beats:
+		where = f'tours/{t["id"]}/beats/{b["id"]}'
+		s = state_ok(where, b['state'], True)
+		if b['animate']:
+			if b['animate']['param'] not in params:
+				warns.append(f'{where}: animate.param "{b["animate"]["param"]}" is not a declared param')
+			else:
+				value_ok(f'{where}.animate.to', b['animate']['param'], b['animate']['to'])
 		if b['await'] == 'prediction' and not b['predict']:
-			warns.append(f'tour/{b["id"]}: a prediction beat needs predict')
+			warns.append(f'{where}: a prediction beat needs predict')
+		if b['check']:
+			concept_refs.append((where, b['check']))
 		if b['rung'] == 'entry':
 			for k in ('say', 'describe', 'predict'):
 				if b.get(k):
-					warns += novice_warnings(f'tour/{b["id"]}.{k}', b[k], 0)
+					warns += novice_warnings(f'{where}.{k}', b[k], 0)
+	for t in d['tours']:
+		if t['for_concept'] and t['for_concept'] not in {x['concept'] for x in d['serves']}:
+			warns.append(f'tours/{t["id"]}: for_concept "{t["for_concept"]}" is not in serves')
 	for t in d['model']['tests']:
-		state_ok(f'model.tests/{t["id"]}', t['state'], True)
+		where = f'model.tests/{t["id"]}'
+		s = state_ok(where, t['state'], True)
 		for e in t['expect']:
-			if e['readout'] not in readouts:
-				warns.append(f'model.tests/{t["id"]}: readout "{e["readout"]}" is not declared')
+			r = readouts.get(e['readout'])
+			if not r:
+				warns.append(f'{where}: readout "{e["readout"]}" is not declared')
+				continue
 			if e['abs_tol'] is None and e['rel_tol'] is None:
-				warns.append(f'model.tests/{t["id"]}: give abs_tol or rel_tol')
+				warns.append(f'{where}: give abs_tol or rel_tol')
+			if e['value'] == 0 and e['abs_tol'] is None:
+				warns.append(f'{where}: a zero expectation needs abs_tol')
+			if r['range'] and not (r['range'][0] < e['value'] <= r['range'][1]):
+				warns.append(f'{where}: expected {e["value"]} is outside the readout range {r["range"]}')
+			if r['visible_when'] == 'on-complete' and progress_params and any(s.get(pp, 0) < 1 for pp in progress_params):
+				warns.append(f'{where}: readout "{r["id"]}" appears only on completion; set progress to 1')
+		for h in t['expect_hidden']:
+			if h not in readouts:
+				warns.append(f'{where}: expect_hidden readout "{h}" is not declared')
+		if not t['expect'] and not t['expect_hidden']:
+			warns.append(f'{where}: a test needs expect or expect_hidden')
 	if d['kind'] != 'static' and not d['model']['tests']:
 		warns.append('interactive, animated, and plotted visuals need model tests')
 	if d['kind'] != 'static' and not any(v['fallback'] for v in d['variants']):
 		warns.append('declare a fallback variant for when the richer variant cannot run')
+	if d['status'] in ('built', 'published') and not d['component']:
+		warns.append(f'status "{d["status"]}" requires component')
 	if 'entry' in d['rungs']:
 		warns += novice_warnings('picture.caption', d['picture']['caption'], 0)
 	for r in d['design_rules']:
-		m = r['misconception']
-		if m:
-			mm = ADDRESS.match(m)
-			if not mm or not mm.group(1) or mm.group(2) != 'misconceptions':
-				warns.append(f'design_rules/{r["id"]}: misconception must be <concept>/misconceptions/<id>')
-			else:
-				other = v2_note(mm.group(1))
-				if mm.group(1) not in reg:
-					warns.append(f'design_rules/{r["id"]}: unknown concept "{mm.group(1)}"')
-				elif other and mm.group(3) not in {x['id'] for x in other['misconceptions']}:
-					warns.append(f'design_rules/{r["id"]}: "{m}" does not resolve')
+		if r['misconception']:
+			concept_refs.append((f'design_rules/{r["id"]}', r['misconception']))
+	for where, addr in concept_refs:
+		m = ADDRESS.match(addr)
+		cid, coll, item = m.groups() if m else (None, None, None)
+		if not cid or cid not in reg:
+			warns.append(f'{where}: "{addr}" names an unknown concept')
+			continue
+		other = v2_note(cid)
+		if other and item not in item_maps(other).get(coll, {}):
+			warns.append(f'{where}: "{addr}" does not resolve')
 	for s in d['serves']:
 		if s['concept'] not in reg:
 			warns.append(f'serves: "{s["concept"]}" is not a registry concept id')
 		else:
 			other = v2_note(s['concept'])
 			if other and d['id'] not in {v['id'] for v in other['visuals']}:
-				notes.append(f'serves "{s["concept"]}", whose note does not list this visual')
+				warns.append(f'serves "{s["concept"]}", whose note does not list this visual')
 	links = [('builds_on', v) for v in d['builds_on']] + [('leads_to', v) for v in d['leads_to']]
 	if d['variant_of']:
 		links.append(('variant_of', d['variant_of']))
@@ -796,8 +1021,11 @@ def visual_warnings(d, path):
 	for img in d['provenance']['figure_images']:
 		if not (SRC / img).exists():
 			warns.append(f'provenance figure image "{img}" does not exist under book-sources/')
-	if d['status'] in ('specified', 'prototype', 'built', 'published') and not d.get('review'):
-		warns.append(f'status "{d["status"]}" requires a review')
+	if d['status'] in ('specified', 'prototype', 'built', 'published'):
+		if not d.get('review'):
+			warns.append(f'status "{d["status"]}" requires a review')
+		elif d['review']['reviewed_revision'] != d['revision']:
+			warns.append(f'review covers revision {d["review"]["reviewed_revision"]}, but the visual is at revision {d["revision"]}')
 	warns += format_warnings()
 	warns += common_lints(d)
 	warns += copy_warnings(d, units)
@@ -811,16 +1039,9 @@ MODES = {
 }
 
 
-def main(argv):
-	if len(argv) < 3 or argv[1] not in (*MODES, 'schema'):
-		print(__doc__)
-		return 1
-	if argv[1] == 'schema':
-		schema_path, files, extra = Path(argv[2]), argv[3:], None
-	else:
-		name, extra = MODES[argv[1]]
-		schema_path, files = KB / '_schemas' / name, argv[2:]
-	schema = json.loads(Path(schema_path).read_text())
+def run(mode, files, schema_path=None):
+	name, extra = MODES.get(mode, (None, None))
+	schema = json.loads(Path(schema_path or KB / '_schemas' / name).read_text())
 	status = 0
 	for f in files:
 		FORMATTED.clear()
@@ -844,6 +1065,19 @@ def main(argv):
 			print('  note:', n)
 		status = 1 if errs or status == 1 else max(status, 2 if warns else 0)
 	return status
+
+
+def main(argv):
+	if len(argv) >= 2 and argv[1] == 'all':
+		notes = [str(f) for f in sorted((KB / 'concepts').glob('*/*.json')) if not f.name.startswith('_') and (load_json(str(f)) or {}).get('schema_version') == 2]
+		visuals = [str(f) for f in sorted((KB / 'visuals').glob('*.json'))]
+		return max(run('concept', notes), run('visual', visuals))
+	if len(argv) < 3 or argv[1] not in (*MODES, 'schema'):
+		print(__doc__)
+		return 1
+	if argv[1] == 'schema':
+		return run(None, argv[3:], argv[2])
+	return run(argv[1], argv[2:])
 
 
 if __name__ == '__main__':

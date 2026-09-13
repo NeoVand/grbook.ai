@@ -5,6 +5,7 @@ Usage:
   python3 knowledge/_tools/render_concept.py <concepts/<domain>/<id>.json> [...]
   python3 knowledge/_tools/render_concept.py --indexes
 The JSON is the source of truth; never edit generated .md files by hand. Provenance is internal and is not rendered.
+The rendered markdown is an authoring view: it includes tutor and review material that the runtime never ships.
 """
 import json
 import sys
@@ -19,20 +20,35 @@ def cell(s):
 	return str(s if s is not None else '—').replace('|', '\\|').replace('\n', ' ')
 
 
-def numbered(items, indent=''):
-	return '\n'.join(f'{indent}{i}. {x}' for i, x in enumerate(items, 1))
+def numbered(items):
+	return '\n'.join(f'{i}. {x}' for i, x in enumerate(items, 1))
 
 
 def vis(v):
-	return f"[[{v['id']}]]" + (f" (preset `{v['preset']}`)" if v.get('preset') else '')
+	extra = [f"preset `{v['preset']}`" for _ in [0] if v.get('preset')] + [f"tour `{v['tour']}`" for _ in [0] if v.get('tour')]
+	return f"[[{v['id']}]]" + (f" ({', '.join(extra)})" if extra else '')
 
 
 def ref(r):
+	authors = ', '.join(r['authors']) + (' and others' if r['more_authors'] else '')
 	title = f", *{r['title']}*" if r.get('title') else ''
 	venue = f", {r['venue']}" if r.get('venue') else ''
 	ident = f", doi:{r['doi']}" if r.get('doi') else (f", arXiv:{r['arxiv']}" if r.get('arxiv') else '')
 	flag = '' if r['verified'] else ' _(unverified)_'
-	return f"{', '.join(r['authors'])} ({r['year']}){title}{venue}{ident}{flag}"
+	return f"{authors} ({r['year']}){title}{venue}{ident}{flag}"
+
+
+def numeric(items):
+	out = []
+	for n in items or []:
+		tol = []
+		if n['abs_tol'] is not None:
+			tol.append(f"±{n['abs_tol']:g}")
+		if n['rel_tol'] is not None:
+			tol.append(f"±{n['rel_tol'] * 100:g}%")
+		mod = f", mod {n['modulo']:g}" if n['modulo'] is not None else ''
+		out.append(f"{n['quantity']} = {n['value']:g} {n['unit']} ({n['sign']}, {' '.join(tol)}{mod})")
+	return '; '.join(out)
 
 
 def render(d):
@@ -68,7 +84,7 @@ def render(d):
 		items = [x for x in d['objectives'] if x['rung'] == r]
 		if items:
 			o.append(f'**{r.capitalize()}**')
-			o += [f"- {x['can_do']} `objectives/{x['id']}`" for x in items]
+			o += [f"- {x['can_do']} `objectives/{x['id']}` ← " + ', '.join(f'`{a}`' for a in x['evidenced_by']) for x in items]
 			o.append('')
 
 	o += ['## Ways in', '']
@@ -84,22 +100,23 @@ def render(d):
 			o += [f"*Picture:* {w['picture']}", '']
 		if w.get('simplifies'):
 			o += [f"*What this leaves out:* {w['simplifies']}", '']
-		meta = [f"*Gist:* {w['gist']}"]
-		if w.get('retell'):
-			meta.append(f"*Retell:* {w['retell']}")
-		if w.get('continues'):
-			meta.append(f"*Continues:* `ways_in/{w['continues']}`")
+		meta = []
+		if w.get('gist'):
+			meta.append(f"*Tutor opener:* {w['gist']}")
+		if w['continues']:
+			meta.append('*Continues:* ' + ', '.join(f"`ways_in/{c}`" for c in w['continues']))
 		if w['assumes']:
 			meta.append('*Builds on:* ' + ', '.join(f'[[{a}]]' for a in w['assumes']))
 		if w['visuals']:
 			meta.append('*Visuals:* ' + ', '.join(vis(v) for v in w['visuals']))
 		if w['refs']:
 			meta.append('*See:* ' + ', '.join(f'`{r}`' for r in w['refs']))
-		o += ['<br>'.join(meta), '']
+		if meta:
+			o += ['<br>'.join(meta), '']
 
 	if d['glossary']:
-		o += ['## Glossary', '', '| Term | Say | In plain words |', '| --- | --- | --- |']
-		o += [f"| {cell(g['term'])} | {cell(g['say_as'])} | {cell(g['plain_definition'])} |" for g in d['glossary']]
+		o += ['## Glossary', '', '| Term | Say | In plain words | Concept |', '| --- | --- | --- | --- |']
+		o += [f"| {cell(g['term'])} | {cell(g['say_as'])} | {cell(g['plain_definition'])} | {('[[' + g['concept'] + ']]') if g['concept'] else '—'} |" for g in d['glossary']]
 		o.append('')
 
 	if d['key_equations']:
@@ -130,7 +147,12 @@ def render(d):
 			o += [f"### `{x['id']}` · {x['rung']} · difficulty {x['difficulty']} · {x['type']}", '', x['statement'], '']
 			if x['hints']:
 				o += ['**Hints**', '', numbered(x['hints']), '']
-			o += [f"**Answer:** {x['answer']}", '', '**Solution**', '', numbered(x['solution']), '']
+			o += [f"**Answer:** {x['answer']}", '', '**Must contain:** ' + '; '.join(x['key_points']), '']
+			if x['numeric']:
+				o += [f"**Numeric:** {numeric(x['numeric'])}", '']
+			o += ['**Solution**', '', numbered(x['solution']), '']
+			if x['targets']:
+				o += ['**Targets:** ' + ', '.join(f'`{t}`' for t in x['targets']), '']
 
 	if d['observations']:
 		o += ['## Observations', '']
@@ -141,7 +163,8 @@ def render(d):
 	o += ['## Teaching arc', '']
 	for i, s in enumerate(d['teaching_arc'], 1):
 		extra = (f" *Predict:* {s['predict']}" if s.get('predict') else '') + (f" *Visual:* {vis(s['visual'])}" if s.get('visual') else '')
-		o.append(f"{i}. **{s['step']}** ({s['rung']}). {s['move']} *Why:* {s['why']}{extra}")
+		uses = (' *Uses:* ' + ', '.join(f'`{u}`' for u in s['uses'])) if s['uses'] else ''
+		o.append(f"{i}. **{s['step']}** ({s['rung']}). {s['move']} *Why:* {s['why']}{extra}{uses}")
 	o.append('')
 
 	if d['analogies']:
@@ -155,7 +178,7 @@ def render(d):
 		o += ['## Misconceptions', '']
 		for m in d['misconceptions']:
 			o += [f"### “{m['belief']}” · {m['rung']} · `{m['id']}`", '']
-			o += [f"- **Why it is tempting:** {m['why_tempting']}", f"- **What is true:** {m['correction']}", f"- **Exposed by:** " + ', '.join(f'`checks/{c}`' for c in m['diagnosed_by']), '']
+			o += [f"- **Why it is tempting:** {m['why_tempting']}", f"- **What is true:** {m['correction']}", '- **Exposed by:** ' + ', '.join(f'`checks/{c}`' for c in m['diagnosed_by']), '']
 
 	o += ['## Checks', '']
 	for i, c in enumerate(d['checks'], 1):
@@ -165,9 +188,11 @@ def render(d):
 		o.append(f"   - **Answer:** {c['answer']}")
 		o.append('   - **Must contain:** ' + '; '.join(c['key_points']))
 		if c['numeric']:
-			o.append('   - **Numeric:** ' + '; '.join(f"{n['quantity']} = {n['value']} {n['unit']} (±{n['rel_tol'] * 100:g}%)" for n in c['numeric']))
+			o.append(f"   - **Numeric:** {numeric(c['numeric'])}")
 		if c['targets']:
 			o.append('   - **Targets:** ' + ', '.join(f'`{t}`' for t in c['targets']))
+		if c['visual']:
+			o.append(f"   - **Visual:** {vis(c['visual'])}")
 	o.append('')
 
 	if d['notation_traps']:
@@ -183,10 +208,14 @@ def render(d):
 		o.append('')
 
 	t = d['tutor_moves']
+
+	def uses(items):
+		return (' *Uses:* ' + ', '.join(f'`{u}`' for u in items)) if items else ''
+
 	o += ['## Tutor moves', '', '**Open with**', '', *(f"- {q['question']} *({q['invites']})*" for q in t['opening_questions']), '']
-	o += ['**If the learner is stuck**', '', *(f"- *{s['symptom']}* → {s['move']}" for s in t['if_stuck']), '']
-	o += ['**Common questions**', '', *(f"- *{q['question']}* ({q['rung']}) {q['answer']}" for q in t['common_questions']), '']
-	o += ['**Switching levels**', '', *(f"- To {s['to_rung']} when: {'; '.join(s['signals'])}. {s['move']}" for s in t['level_switching']), '']
+	o += ['**If the learner is stuck**', '', *(f"- *{s['symptom']}* → {s['move']}{uses(s['uses'])}" for s in t['if_stuck']), '']
+	o += ['**Common questions**', '', *(f"- *{q['question']}* ({q['rung']}) {q['answer']}{uses(q['uses'])}" for q in t['common_questions']), '']
+	o += ['**Switching levels**', '', *(f"- To {s['to_rung']} when: {'; '.join(s['signals'])}. {s['move']}{uses(s['uses'])}" for s in t['level_switching']), '']
 	if d['pronunciations']:
 		o += ['**Pronunciations:** ' + '; '.join(f"{p['written']} → {p['spoken']}" for p in d['pronunciations']), '']
 	if t.get('voice_notes'):
@@ -204,11 +233,11 @@ def render(d):
 
 	nov, phy = review.get('novice'), review.get('physics')
 	if nov:
-		o += ['## Review: novice', '', f"**Verdict:** {nov['verdict']} ({nov['date']})", '', f"**Retell attempt:** {nov['retell_attempt']}", '']
+		o += ['## Review: novice', '', f"**Verdict:** {nov['verdict']} ({nov['date']}, revision {nov['reviewed_revision']})", '', f"**Retell attempt:** {nov['retell_attempt']}", '']
 		o += [f"**Stumbles ({len(nov['stumbles'])})**", '', *(f"- “{s['quote']}”: {s['problem']}" for s in nov['stumbles']), '']
 		o += ['**Fixes**', '', *(f'- {x}' for x in nov['fixes'] or ['none']), '', '**Concerns**', '', *(f'- {x}' for x in nov['concerns'] or ['none']), '']
 	if phy:
-		o += ['## Review: physics', '', f"**Verdict:** {phy['verdict']} ({phy['date']})", '']
+		o += ['## Review: physics', '', f"**Verdict:** {phy['verdict']} ({phy['date']}, revision {phy['reviewed_revision']})", '']
 		o += ['**Verification**', '', *(f"- {v['claim']}: {v['method']} → {v['result']}" for v in phy['verification']), '']
 		o += ['**Counterexamples tried**', '', *(f'- {x}' for x in phy['counterexamples'] or ['none']), '']
 		o += ['**Fixes**', '', *(f'- {x}' for x in phy['fixes'] or ['none']), '', '**Concerns**', '', *(f'- {x}' for x in phy['concerns'] or ['none']), '']

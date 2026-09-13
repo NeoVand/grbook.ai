@@ -6,18 +6,93 @@
 	"domain": "curvature",
 	"tier": "core",
 	"status": "draft",
-	"revision": 1,
+	"revision": 2,
 	"updated": "2026-09-13",
-	"aliases": ["holonomy of parallel transport", "loop holonomy"],
+	"aliases": [
+		"holonomy of parallel transport",
+		"loop holonomy"
+	],
 	"summary": "Carry an arrow around a loop without ever letting it swing left or right, then compare it with the way it pointed at the start. On a flat table it always comes back pointing the same way. On a ball, most loops bring it back pointing a new way. That turn is the loop's holonomy, and it lets someone who lives on a surface discover that the surface is curved without ever leaving it.",
 	"objectives": [
-		{ "id": "explain-the-arrow-test", "rung": "entry", "can_do": "Explain how carrying an arrow around a loop, never letting it swing, shows that a ball is curved while a flat table and a paper tube are not.", "evidenced_by": ["checks/octant-walk-prediction", "checks/square-on-a-floor", "checks/loop-around-a-tube", "problems/equator-walk"] },
-		{ "id": "predict-reversal", "rung": "entry", "can_do": "Predict how the returned turn changes when the same loop is walked the other way.", "evidenced_by": ["checks/reverse-the-loop"] },
-		{ "id": "compute-turn-from-area", "rung": "working", "can_do": "Compute the turn for loops on a sphere or a saddle from the enclosed area, the angle excess of a triangle, or the latitude of a circle.", "evidenced_by": ["checks/triangle-on-a-big-sphere", "checks/latitude-30-north", "problems/earth-loop-size", "problems/saddle-sign", "worked_examples/forty-fifth-parallel"] },
-		{ "id": "explain-when-turn-is-defined", "rung": "working", "can_do": "Explain why the turn is defined only when the loop closes, and not partway around.", "evidenced_by": ["checks/halfway-readout"] },
-		{ "id": "use-small-loop-law", "rung": "working", "can_do": "Use the small-loop law to find the change of a vector around a small cell, with the correct sign.", "evidenced_by": ["worked_examples/unit-sphere-cell"] },
-		{ "id": "distinguish-curvature-and-holonomy", "rung": "formal", "can_do": "Distinguish holonomy from curvature: state when zero curvature guarantees trivial holonomy, and give counterexamples.", "evidenced_by": ["checks/cone-with-a-missing-wedge", "checks/polar-coordinates-plane"] },
-		{ "id": "prove-holonomy-preserves-the-metric", "rung": "formal", "can_do": "Prove that small-loop holonomy is an infinitesimal rotation or boost, and compute a finite holonomy as a matrix exponential.", "evidenced_by": ["problems/small-loop-change-is-a-rotation", "worked_examples/latitude-circle-as-matrix-exponential"] }
+		{
+			"id": "explain-the-arrow-test",
+			"rung": "entry",
+			"can_do": "Explain how carrying an arrow around a loop, never letting it swing, shows that a ball is curved while a flat table and a paper tube are not.",
+			"evidenced_by": [
+				"checks/octant-walk-prediction",
+				"checks/square-on-a-floor",
+				"checks/loop-around-a-tube",
+				"problems/equator-walk"
+			]
+		},
+		{
+			"id": "predict-reversal",
+			"rung": "entry",
+			"can_do": "Predict how the returned turn changes when the same loop is walked the other way.",
+			"evidenced_by": [
+				"checks/reverse-the-loop"
+			]
+		},
+		{
+			"id": "compute-turn-from-area",
+			"rung": "working",
+			"can_do": "Compute the turn for loops on a sphere or a saddle from the enclosed area, the angle excess, or the latitude.",
+			"evidenced_by": [
+				"checks/triangle-on-a-big-sphere",
+				"checks/latitude-30-north",
+				"problems/earth-loop-size",
+				"problems/saddle-sign"
+			]
+		},
+		{
+			"id": "explain-when-turn-is-defined",
+			"rung": "working",
+			"can_do": "Explain why the turn is defined only when the loop closes.",
+			"evidenced_by": [
+				"checks/halfway-readout"
+			]
+		},
+		{
+			"id": "use-small-loop-law",
+			"rung": "working",
+			"can_do": "Use the small-loop law to find how a vector changes around a small cell, with the correct sign.",
+			"evidenced_by": [
+				"problems/small-loop-cell-other-vector",
+				"checks/polar-coordinates-plane"
+			]
+		},
+		{
+			"id": "distinguish-curvature-and-holonomy",
+			"rung": "formal",
+			"can_do": "Distinguish restricted from full holonomy, and state when zero curvature guarantees trivial holonomy.",
+			"evidenced_by": [
+				"checks/cone-holonomy-group"
+			]
+		},
+		{
+			"id": "explain-path-ordering",
+			"rung": "formal",
+			"can_do": "Explain when the path ordering in the holonomy can be dropped.",
+			"evidenced_by": [
+				"checks/why-ordering-matters"
+			]
+		},
+		{
+			"id": "prove-small-loop-generator-antisymmetric",
+			"rung": "formal",
+			"can_do": "Prove that the holonomy of a small loop is an infinitesimal rotation or boost.",
+			"evidenced_by": [
+				"problems/small-loop-change-is-a-rotation"
+			]
+		},
+		{
+			"id": "compute-holonomy-by-path-ordering",
+			"rung": "formal",
+			"can_do": "Compute a finite holonomy from the transport equation as a matrix exponential.",
+			"evidenced_by": [
+				"problems/latitude-holonomy-from-path-ordering"
+			]
+		}
 	],
 	"ways_in": [
 		{
@@ -26,17 +101,24 @@
 			"kind": "picture",
 			"rung": "entry",
 			"question": "How can someone who never leaves a ball find out that it is curved?",
-			"continues": null,
-			"gist": "Walk a big triangle on a ball, keeping an arrow flat and never letting it swing. Back at the start, the arrow points a quarter turn away from where it began. On a flat table, that never happens.",
-			"recap": "Carrying an arrow without letting it swing can bring it to the same spot pointing in different directions, depending on the route. A loop is two routes joined end to end.",
-			"explanation": "Imagine a huge, smooth ball with no hills, and imagine you live on its surface. You can never leave the surface or look at the ball from above. Can you still find out that your world is curved?\n\nHere is a test. Take a flat arrow, like a cardboard pointer, and lay it on the ground. Then walk along a path that ends exactly where it began. Such a path is called a loop.\n\nAs you walk, follow one rule about the arrow. Keep it lying flat on the ground, and never let it swing to the left or to the right. On a straight stretch, this means the arrow keeps the same angle to your path the whole way. At a corner, you turn your body, but you leave the arrow as it was. So after a corner, the arrow makes a new angle with your new path.\n\nFirst, try it on a flat table. Walk a triangle, a square, or any loop you like. Because the arrow never swings, it keeps pointing at the same wall of the room the whole time. So it comes back pointing exactly the way it started.\n\nNow try it on the ball. Mark one point on top and call it the North Pole, as on a globe. The equator is the circle around the middle, halfway between the North Pole and the bottom point. Walking straight on a ball means never steering left or right. On a globe, a straight walk from the North Pole follows one of the lines drawn from top to bottom.\n\nStart at the North Pole with the arrow pointing straight ahead of you. Walk straight until you reach the equator, which you meet at a right angle. The arrow still points straight ahead. Turn left by a quarter turn, so that you walk along the equator. The arrow did not swing, so now it points to your right. Walk a quarter of the way around the equator, with the arrow pointing to your right the whole way. Then turn left by a quarter turn again, and walk straight back to the North Pole. The arrow did not swing at this corner either, so now it points straight behind you.\n\nBack at the North Pole, compare. When you set off, the arrow pointed along your first path. Now it points back along your last path. How far apart are those two directions? Your last path starts a quarter of the way around the equator from your first path. A quarter of a full circle is a right angle. Seen from above the North Pole, the two paths meet like the corner of a book. So the arrow has come back turned by a quarter turn, even though it never swung. It turned the same way you turned at the corners: to the left.\n\nThis turn is called the holonomy of the loop. A flat table never produces one. So the patch of ground your loop fenced off, the smaller piece on your left as you walked, cannot be flat like a table. You learned that without ever leaving the surface.\n\nTwo more facts are worth knowing. Walk the same loop the other way, turning right at each corner, and the arrow comes back turned the other way, to the right. That has to happen, because the backwards trip undoes the forwards trip. Also, for loops that fence off less than half of the ball, a bigger patch gives a bigger turn. On Earth, a loop around an area of 10,000 square kilometres, about the size of a small country, turns the arrow by only about one seventieth of a degree. That is why nobody notices it in daily life.",
-			"try_it": "Draw the three-stretch walk on an orange with a pen. Lay a matchstick at the top, along your first stretch, and mark that direction. Move the matchstick along the path in small steps, never letting it swing. Back at the top, compare it with your mark.",
-			"takeaway": "An arrow carried around a loop without swinging comes back turned on a ball but never on a flat table, so the turn reveals curving.",
-			"retell": "If you walk a loop on a ball holding an arrow that never swings, the arrow comes back turned. On a flat table it never does. So the turn tells you the ball is curved.",
-			"picture": "A globe with a three-stretch loop: from the North Pole straight to the equator, a quarter of the way along the equator, and straight back up. The arrow is drawn at the start, pointing along the first path, and at the finish, pointing back along the last path, a right angle apart.",
-			"simplifies": "We used a smooth ball. A loop that fences off exactly half the ball, like the equator itself, turns the arrow by a full circle, so it looks unturned. On a surface with a sharp tip or a hole, a loop around the tip or the hole can turn the arrow. That can happen even where the ground is flat, as the paper cone shows. In the space and time we live in, a loop can change an arrow in more ways than a turn.",
-			"assumes": ["path-dependence-of-parallel-transport"],
-			"visuals": [{ "id": "carry-an-arrow-around-a-loop", "preset": "octant" }],
+			"continues": [],
+			"gist": null,
+			"recap": "A loop is like going out to a place by one route and coming home by another. Carrying an arrow without letting it swing can bring it to the same place pointing different ways, depending on the route.",
+			"explanation": "Imagine a huge, smooth ball with no hills, and imagine you live on its surface. You can never leave the surface or look at the ball from above. Can you still find out that your world is curved?\n\nHere is a test. Take a cardboard arrow and press it against the ground. Then walk along a path that ends exactly where it began. Such a path is called a loop.\n\nAs you walk, follow one rule. Keep the arrow pressed against the ground, and never let it swing to the left or to the right. Walking straight means never steering left or right. On a straight stretch, the rule means the arrow keeps the same angle to your path the whole way. At a corner, you turn your body, but you leave the arrow alone. So after a corner, the arrow makes a new angle with your new path.\n\nFirst, try it on a flat table. Walk a triangle, a square, or any loop you like. Because the arrow never swings, it keeps pointing at the same wall of the room the whole time. So it comes back pointing exactly the way it started.\n\nNow try it on the ball. Seen from outside, as on a globe, mark the top point and call it the North Pole. The equator is the circle around the middle, halfway between the North Pole and the bottom point. On a globe, the lines from top to bottom are straight walks, and so is the equator. A small circle around the North Pole is not, because you would have to keep steering to stay on it.\n\nStart at the North Pole with the arrow pointing straight ahead of you. Walk straight until you reach the equator, which you meet at a right angle. The arrow is pointing straight ahead when you arrive. Turn left by a quarter turn, so that you walk along the equator. The arrow did not swing, so now it points to your right. Walk a quarter of the way around the equator, with the arrow pointing to your right the whole way. Then turn left by a quarter turn again, and walk straight back to the North Pole. The arrow did not swing at this corner either, so now it points straight behind you.\n\nBack at the North Pole, compare. When you set off, the arrow pointed along your first path. Now it points back along your last path. How far apart are those two directions? Your first path met the equator at one point. Your last path left the equator a quarter of the way around from that point. A quarter of a full circle is a right angle, so the two paths leave the North Pole at a right angle. Seen from above the North Pole, they meet like the corner of a book. So, seen from above, the arrow's new direction is a quarter turn counterclockwise from its old one, even though it never swung. That is the same way you went around the loop.\n\nThis turn is called the holonomy of the loop. A flat table never produces one. So the ball cannot be flat like a table, and you learned that without ever leaving the surface.\n\nA few more facts are worth knowing. On a surface like this, one trip around a loop turns every arrow by the same amount, whichever way it pointed at the start. Walk the same loop the other way, turning right at each corner, and the arrow comes back turned the other way. That has to happen, because the backwards trip undoes the forwards trip. For loops that fence off less than a quarter of the ball, a bigger patch gives a bigger turn, up to a half turn. So the turn is set by the patch your loop fences off. On Earth, a loop around an area of 10,000 square kilometres, about the size of a small country, gives a turn of only about one seventieth of a degree. That is why nobody notices it in daily life.",
+			"try_it": "Stretch two rubber bands around an orange so that they cross at the top at a right angle, and a third band around its middle. All three are straight walks. Lay a matchstick at the top along one band and mark its direction. Slide the matchstick along the loop, keeping the same angle to the band you are on, and leave it alone at each corner. Back at the top, it lies along the other band, a quarter turn from your mark.",
+			"takeaway": "An arrow carried around a loop without swinging never comes back turned on a flat table, but on a ball most loops bring it back turned.",
+			"picture": null,
+			"simplifies": "We used a smooth ball. A loop that splits the ball into two equal halves, like the equator, brings the arrow back matching its start. That does not make the ball flat, because the North Pole walk still gives a turn. A surface with a sharp tip is different: a paper cone is flat everywhere except at its tip, yet a loop around the tip brings the arrow back turned.",
+			"assumes": [
+				"path-dependence-of-parallel-transport"
+			],
+			"visuals": [
+				{
+					"id": "carry-an-arrow-around-a-loop",
+					"preset": "octant",
+					"tour": "holonomy-first-walk"
+				}
+			],
 			"refs": []
 		},
 		{
@@ -45,17 +127,24 @@
 			"kind": "contrast",
 			"rung": "entry",
 			"question": "Does a rolled-up paper tube count as curved for the arrow test?",
-			"continues": null,
-			"gist": "A rolled-up paper tube looks curved, but an arrow carried around any loop on it comes back unturned, because the tube unrolls into flat paper without stretching.",
-			"recap": null,
-			"explanation": "Roll a sheet of paper into a tube. From outside, the tube looks curved. Now do the arrow test on the tube.\n\nWalk any loop on the tube, keeping the arrow flat and never letting it swing. The arrow comes back pointing exactly the way it started. Even a loop that wraps once around the tube, like a bracelet around a wrist, brings the arrow back unchanged.\n\nWhy? Unroll the tube. It becomes a flat sheet again, and nothing was stretched or squashed. Rolling and unrolling do not change any angle drawn on the paper. On the flat sheet, the arrow slides without swinging, so it points the same way everywhere. A loop drawn on the tube becomes a path on the flat sheet. The bracelet loop becomes a straight line from one edge of the sheet to the opposite edge, and those two edges were glued together in the tube. The arrow points the same way at both ends of that line. So when you roll the paper up again, the arrow comes back matching its start.\n\nA ball is different. You cannot flatten a piece of orange peel without tearing or stretching it. Curving that cannot be flattened away is built into the surface itself. Someone living on the surface can detect it without looking from outside. This is called intrinsic curvature. Rolling a flat sheet into a tube does not create any.",
-			"try_it": "Draw a small loop with an arrow on a sheet of paper, then roll the sheet into a tube. The drawing keeps every angle it had, because the paper did not stretch.",
+			"continues": [
+				"walk-a-loop-on-a-ball"
+			],
+			"gist": null,
+			"recap": "The arrow test: press a cardboard arrow against the ground and walk a loop, a path that ends where it began, never letting the arrow swing left or right. Back at the start, compare its direction with its starting direction. On a flat table it always matches; on a ball, most loops bring it back turned.",
+			"explanation": "Roll a sheet of paper into a tube. From outside, the tube looks curved. Now do the arrow test on the tube.\n\nWalk any loop on the tube, never letting the arrow swing. The arrow comes back pointing exactly the way it started. Even a loop that wraps once around the tube, like a bracelet around a wrist, brings the arrow back unchanged.\n\nWhy? Unroll the tube. It becomes a flat sheet again, and nothing was stretched or squashed. So every angle drawn on the paper is the same on the tube and on the sheet. The arrow rule is a rule about angles along the ground, so an arrow that never swings on the tube also never swings on the sheet. On a flat sheet, such an arrow points the same way everywhere. The bracelet loop becomes a straight line from one edge of the sheet to the opposite edge, and those two edges were glued together in the tube. The arrow points the same way at both ends of that line. So when you roll the paper up again, the arrow comes back matching its start.\n\nA ball is different. You cannot flatten a piece of orange peel without tearing or stretching it. Curving that cannot be flattened away is built into the surface itself. Someone living on the surface can detect it without looking from outside. This is called intrinsic curvature. Rolling a flat sheet into a tube does not create any.",
+			"try_it": "Draw a small loop and an arrow on a sheet of paper, then roll the sheet into a tube. Look closely: every angle in the drawing is unchanged, because the paper did not stretch.",
 			"takeaway": "The arrow test cannot tell a flat sheet from a rolled-up one; it only notices curving that cannot be unrolled flat, like a ball's.",
-			"retell": "A tube is rolled-up flat paper, so the arrow comes back unturned on it. Only curving you cannot flatten out, like a ball's, turns the arrow.",
-			"picture": "A paper tube beside its unrolled sheet. A bracelet loop on the tube becomes a straight line across the sheet, with the arrow pointing the same way at both ends.",
-			"simplifies": "This contrast is about surfaces. The universe as a whole has no outside view, so its own curving is the built-in kind. Surfaces drawn inside it can still bend, and that other kind of bending matters in later topics.",
+			"picture": null,
+			"simplifies": "This contrast is about surfaces. Nobody can step outside the universe to look at it. So the curving of space and time we can find is the built-in kind, which the arrow test detects. A surface inside space, like the surface of a star, can also be bent, and that other kind of bending comes up in other topics.",
 			"assumes": [],
-			"visuals": [{ "id": "carry-an-arrow-around-a-loop", "preset": "tube-unrolled" }],
+			"visuals": [
+				{
+					"id": "carry-an-arrow-around-a-loop",
+					"preset": "tube-unrolled",
+					"tour": null
+				}
+			],
 			"refs": []
 		},
 		{
@@ -64,18 +153,35 @@
 			"kind": "calculation",
 			"rung": "working",
 			"question": "How big is the turn, and what decides it?",
-			"continues": "walk-a-loop-on-a-ball",
-			"gist": "On a sphere the turn, in radians, is the fenced-off area divided by the radius squared. On any surface it is the Gaussian curvature added up over the fenced-off region.",
+			"continues": [
+				"walk-a-loop-on-a-ball"
+			],
+			"gist": null,
 			"recap": null,
-			"explanation": "In the walk from the North Pole, the loop fenced off one eighth of the ball's surface, and the arrow came back turned by a quarter turn, $\\pi/2$ radians. The two numbers are linked. For a loop on a sphere of radius $a$, the turn in radians equals the fenced-off area divided by $a^2$:\n\n$$\\Delta\\alpha = \\frac{A}{a^2} \\pmod{2\\pi}.$$\n\nCheck it: the whole sphere has area $4\\pi a^2$, one eighth of it is $\\pi a^2/2$, and dividing by $a^2$ gives $\\pi/2$. The sign rule is to take the region on the walker's left; the arrow then turns in the same sense as the walk. The equator fences off $2\\pi a^2$, so its turn is $2\\pi$, a full turn, which is why the arrow looks unturned there.\n\nOn a general surface the curving varies from place to place. Its strength at each point is the Gaussian curvature $K$: it is $1/a^2$ everywhere on a sphere, $0$ on a plane or a cylinder, and negative on a saddle. For a simple loop, one that does not cross itself, fencing off a smooth region $S$ on the walker's left, the turn is the curvature added up over $S$:\n\n$$\\Delta\\alpha = \\iint_S K\\,dA \\pmod{2\\pi}.$$\n\nThis is the local Gauss–Bonnet theorem. It holds for loops of any size, and the sides need not be straight. Where $K<0$, the arrow turns against the sense of the walk.\n\nTwo special cases are worth owning. For a triangle whose sides are geodesics, the straight walks of a surface, the turn equals the angular excess: the amount by which the three angles add up to more than $\\pi$. The North Pole walk has three right angles, so its excess is $3\\pi/2 - \\pi = \\pi/2$. For a circle at colatitude $\\theta_0$, the angle measured down from the North Pole, walked eastward, the polar cap on the walker's left has area $2\\pi a^2(1-\\cos\\theta_0)$, so the turn is $2\\pi(1-\\cos\\theta_0)$.",
-			"try_it": "In the demo, halve the fenced-off area on the ball and watch the turn halve; then switch to the saddle and watch it reverse.",
-			"takeaway": "The turn is the total curvature fenced off by the loop, so on a sphere it is the enclosed area divided by the radius squared.",
-			"retell": null,
-			"picture": "A sphere with a shaded patch and its boundary loop; beside it, a dial showing the returned arrow turned by the patch's area divided by the radius squared.",
-			"simplifies": "In more than two dimensions, turns about different axes do not commute, so this simple area rule holds only for small loops.",
-			"assumes": ["gaussian-curvature", "angular-excess"],
-			"visuals": [{ "id": "carry-an-arrow-around-a-loop", "preset": "octant-half-area" }, { "id": "arrow-around-a-circle-of-latitude", "preset": null }],
-			"refs": ["worked_examples/forty-fifth-parallel"]
+			"explanation": "In the walk from the North Pole, the loop fenced off one eighth of the ball's surface, and the arrow came back turned by a quarter turn, $\\pi/2$ radians. The two numbers are linked. For a simple loop on a sphere of radius $a$, the turn in radians equals the area of the region on the walker's left divided by $a^2$:\n\n$$\\Delta\\alpha = \\frac{A}{a^2} \\pmod{2\\pi}.$$\n\nCheck it: the whole sphere has area $4\\pi a^2$, one eighth of it is $\\pi a^2/2$, and dividing by $a^2$ gives $\\pi/2$. A positive turn rotates the arrow toward the walker's left, which is counterclockwise seen from outside the sphere. Walk the same triangle the other way and the region on your left is the other seven eighths, $7\\pi a^2/2$. That gives $7\\pi/2 \\equiv -\\pi/2$: a quarter turn to the right, as it should be. The equator fences off $2\\pi a^2$, so its turn is $2\\pi$, which is why the arrow comes back matching.\n\nOn a general surface the curving varies from place to place. Its strength at each point is the Gaussian curvature $K$: $1/a^2$ everywhere on a sphere, $0$ on a plane or a cylinder, and negative on a saddle. For a simple loop bounding a smooth region $S$ on the walker's left,\n\n$$\\Delta\\alpha = \\iint_S K\\,dA \\pmod{2\\pi}.$$\n\nThis is the local Gauss–Bonnet theorem. It holds for loops of any size, and the sides need not be geodesics. Around a small loop where $K<0$, the arrow comes back rotated toward the walker's right.\n\nTwo special cases are worth owning. For a triangle whose sides are geodesics, the straight walks of a surface, the turn equals the angular excess: the amount by which the three angles add up to more than $\\pi$. The North Pole triangle has three right angles, so its excess is $3\\pi/2 - \\pi = \\pi/2$. For a circle at colatitude $\\theta_0$ walked eastward, which is not a geodesic, the polar cap on the walker's left has area $2\\pi a^2(1-\\cos\\theta_0)$, so the turn is $2\\pi(1-\\cos\\theta_0)$.",
+			"try_it": null,
+			"takeaway": "The turn is the total curvature on the walker's left, so on a sphere it is the enclosed area divided by the radius squared.",
+			"picture": null,
+			"simplifies": "In more than two dimensions, rotations about different axes do not commute, so this simple area rule holds only for small loops.",
+			"assumes": [
+				"gaussian-curvature",
+				"angular-excess"
+			],
+			"visuals": [
+				{
+					"id": "carry-an-arrow-around-a-loop",
+					"preset": "octant-half-area",
+					"tour": null
+				},
+				{
+					"id": "arrow-around-a-circle-of-latitude",
+					"preset": null,
+					"tour": null
+				}
+			],
+			"refs": [
+				"checks/latitude-30-north"
+			]
 		},
 		{
 			"id": "shrink-the-loop-to-find-riemann",
@@ -83,94 +189,286 @@
 			"kind": "calculation",
 			"rung": "working",
 			"question": "What replaces the area rule when a small loop can lie in many different planes?",
-			"continues": "turn-equals-enclosed-curving",
-			"gist": "Shrink the loop to a tiny parallelogram. The change in the carried vector is minus the Riemann tensor acting on the vector and the two edges, so the Riemann tensor turns a small patch of area into a small rotation.",
+			"continues": [
+				"turn-equals-enclosed-curving"
+			],
+			"gist": null,
 			"recap": null,
-			"explanation": "On a surface, one number $K$ at each point was enough, because every small loop lies in the same plane. In four-dimensional spacetime a small loop can lie in many different planes, and each plane can give a different turn. So shrink the loop to a tiny parallelogram with edge vectors $a^\\mu$ and $b^\\nu$. Walk $+a$, then $+b$, then $-a$, then $-b$, and ask how a carried vector $V$ changes. To second order in the size of the loop, and with the course sign conventions,\n\n$$\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}\\,V^\\sigma a^\\mu b^\\nu,$$\n\nwhere $R^\\rho{}_{\\sigma\\mu\\nu}$ is the Riemann curvature tensor. The derivation \"The small-loop law from the transport equation\" builds this one move at a time.\n\nRead the formula one feature at a time.\n\n- It is linear in $V$: the loop acts on vectors like a matrix.\n- It is linear in each edge: doubling one side doubles the change.\n- It is antisymmetric in the edges: swapping $a$ and $b$ walks the same parallelogram the other way round, and the change flips sign.\n- It is proportional to the product of the edges: the change scales with the loop's area, as $A/a^2$ did on the sphere.\n\nSo the Riemann tensor is a machine. Feed it a small oriented patch, the two edges in order, and it returns a small change of vectors. Because carrying a vector this way preserves lengths and angles, $V_\\rho\\,\\Delta V^\\rho = 0$ to this order. The change is a small rotation on a surface, or a small Lorentz transformation, a rotation or a boost, in spacetime. On a two-dimensional surface the machine holds a single number: for a small cell of area $\\delta A$ the turn is $K\\,\\delta A$.",
+			"explanation": "On a surface, the turn around a small loop was set by one number, the curvature $K$, because every small loop lies in the same plane. In four-dimensional spacetime a small loop can lie in many different planes, and each plane can give a different result. So shrink the loop to a tiny parallelogram with edge vectors $a^\\mu$ and $b^\\nu$. Walk $+a$, then $+b$, then $-a$, then $-b$, and ask how a carried vector $V$ changes. To second order in the size of the loop, and with the course sign conventions,\n\n$$\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}\\,V^\\sigma a^\\mu b^\\nu,$$\n\nwhere $R^\\rho{}_{\\sigma\\mu\\nu}$ is the Riemann curvature tensor. The derivation \"The small-loop law from the transport equation\" builds this one move at a time.\n\nRead the formula one feature at a time.\n\n- It is linear in $V$: the loop acts on vectors like a matrix.\n- It is linear in each edge: doubling one side doubles the change.\n- It is antisymmetric in the edges: swapping $a$ and $b$ walks the same parallelogram the other way round, and the change flips sign.\n- It is proportional to the product of the edges: the change scales with the loop's area, as $A/a^2$ did on the sphere.\n\nSo the Riemann tensor is a machine. Feed it a small oriented patch, the two edges in order, and it returns a small change of vectors. Because carrying a vector this way preserves lengths and angles, $V_\\rho\\,\\Delta V^\\rho = 0$ to this order. The change is a small rotation on a surface, or a small Lorentz transformation, a rotation or a boost, in spacetime. On a two-dimensional surface the machine holds a single number: for a small cell of area $\\delta A$ the turn is $K\\,\\delta A$.",
 			"try_it": null,
 			"takeaway": "The Riemann tensor turns a small oriented patch into a small rotation of vectors; that is what curvature measures.",
-			"retell": null,
-			"picture": "A tiny parallelogram with edges a and b. A vector V goes around it and returns as V plus a small extra arrow at right angles to V. Reversing the walk flips the extra arrow; doubling b doubles it.",
+			"picture": null,
 			"simplifies": "Keeps only the leading order in the loop's size, for the torsion-free, metric-compatible connection of general relativity.",
-			"assumes": ["riemann-curvature-tensor"],
-			"visuals": [{ "id": "shrink-the-loop-to-find-riemann", "preset": null }],
-			"refs": ["derivations/small-loop-law-from-transport", "worked_examples/unit-sphere-cell"]
+			"assumes": [
+				"riemann-curvature-tensor"
+			],
+			"visuals": [
+				{
+					"id": "shrink-the-loop-to-find-riemann",
+					"preset": null,
+					"tour": null
+				}
+			],
+			"refs": [
+				"derivations/small-loop-law-from-transport",
+				"worked_examples/unit-sphere-cell"
+			]
+		},
+		{
+			"id": "a-gyroscope-measures-it",
+			"title": "A gyroscope measures it in orbit",
+			"kind": "operational",
+			"rung": "working",
+			"question": "How could you measure this kind of turn in the space around Earth?",
+			"continues": [
+				"turn-equals-enclosed-curving"
+			],
+			"gist": null,
+			"recap": null,
+			"explanation": "The area rule for a curved surface has a counterpart in the curved space around Earth. To use it you need an arrow that never swings. A spinning gyroscope in free fall is one: nothing twists it, so its spin axis is carried along its path without swinging, which is the spacetime version of the arrow rule. Its direction is compared with distant stars, which serve as the fixed reference.\n\nPut the gyroscope in a circular orbit around a spherical mass $M$, on a circle of circumference $2\\pi r$. After each orbit its spin axis comes back turned, within the orbital plane and in the same sense as the orbit, by the standard result, stated here without derivation,\n\n$$\\Delta\\phi_{\\text{orbit}} = 2\\pi\\left[1 - \\sqrt{1 - \\frac{3GM}{rc^2}}\\right] \\approx \\frac{3\\pi GM}{rc^2}.$$\n\nPart of this is exactly the area-rule turn. Describe the space around a static mass at one moment. That space is curved, and carrying an arrow once around the circle within it gives $2\\pi\\big[1 - \\sqrt{1 - 2GM/rc^2}\\big] \\approx 2\\pi GM/rc^2$, which is two thirds of the total. The remaining third comes from the gyroscope's motion through Earth's gravitational field. The split into two parts depends on describing spacetime as space at successive moments around a static Earth; the total turn does not.\n\nFor Gravity Probe B, orbiting about 642 km above Earth, $r \\approx 7013$ km. The total is about $1.2$ milliarcseconds per orbit, adding up to about $6.6$ arcseconds per year.",
+			"try_it": null,
+			"takeaway": "A freely falling gyroscope carries its spin axis like the arrow; in orbit, two thirds of its turn is the area-rule turn of the curved space around Earth.",
+			"picture": null,
+			"simplifies": "Treats Earth as static and spherical and the orbit as circular; Earth's rotation adds a much smaller frame-dragging turn.",
+			"assumes": [],
+			"visuals": [],
+			"refs": [
+				"observations/gravity-probe-b-geodetic"
+			]
 		},
 		{
 			"id": "whole-loops-as-transformations",
 			"title": "Whole loops as transformations",
-			"kind": "calculation",
+			"kind": "structure",
 			"rung": "formal",
 			"question": "What is the holonomy of a finite loop, and what kind of transformation can it be?",
-			"continues": "shrink-the-loop-to-find-riemann",
-			"gist": "The holonomy of a finite loop is the ordered product of all the small transport steps around it, a path-ordered exponential of the connection. Because lengths and angles are preserved, it is a rotation, or a Lorentz transformation in spacetime.",
+			"continues": [
+				"shrink-the-loop-to-find-riemann"
+			],
+			"gist": null,
 			"recap": null,
-			"explanation": "The parallelogram derivation multiplies four step matrices. Chop a finite loop $\\gamma$ into many short steps and multiply all their matrices in order. The limit is the holonomy of $\\gamma$, a linear map $\\mathrm{Hol}(\\gamma): T_pM \\to T_pM$ of the tangent space at the base point $p$. With connection matrices $(\\Gamma_\\mu)^\\rho{}_\\sigma = \\Gamma^\\rho{}_{\\mu\\sigma}$ it is the path-ordered exponential\n\n$$\\mathrm{Hol}(\\gamma) = \\mathcal{P}\\exp\\Big(-\\oint_\\gamma \\Gamma_\\mu\\,dx^\\mu\\Big),$$\n\nwhere later points of the loop act after earlier ones, for a loop inside one coordinate chart. Changing the basis at $p$, or moving the base point along the loop, conjugates this matrix and leaves its invariants, such as a rotation angle, unchanged.\n\nThe Levi-Civita connection satisfies $\\nabla g = 0$, so transport preserves inner products and $\\mathrm{Hol}(\\gamma)$ lies in the orthogonal group of $g_p$. On an oriented surface that group is $SO(2)$: every holonomy is a rotation by an angle defined modulo $2\\pi$. On an oriented, time-oriented spacetime it is a proper orthochronous Lorentz transformation in $SO^+(1,3)$.\n\nIn two dimensions all rotations commute, so the ordering in $\\mathcal{P}$ drops out, and the holonomy of a simple loop bounding a smooth region is exactly the rotation by $\\iint K\\,dA$. In three or more dimensions the ordering matters. The exact finite-loop statement, the non-abelian Stokes theorem, is a surface-ordered exponential of curvature transported back to $p$; the plain exponential of the integrated curvature is only its leading-order approximation.\n\nFor a small loop that flows a parameter distance $\\epsilon$ along vector fields $u$ and then $v$ and back, $\\mathrm{Hol} = 1 - \\epsilon^2\\,\\mathcal{R}(u,v) + O(\\epsilon^3)$. Here $\\mathcal{R}(u,v) = [\\nabla_u,\\nabla_v] - \\nabla_{[u,v]}$ has components $R^\\rho{}_{\\sigma\\mu\\nu}u^\\mu v^\\nu$. When $[u,v] \\neq 0$ the loop needs a short extra closing leg, whose effect is the $\\nabla_{[u,v]}$ term. The Riemann tensor is thus a linear map from oriented 2-planes to generators of metric-preserving transformations.",
+			"explanation": "The small-loop law came from multiplying four step matrices around a tiny loop. Chop a finite loop $\\gamma$ into many short steps and multiply all their matrices in order. The limit is the holonomy of $\\gamma$, a linear map $\\mathrm{Hol}(\\gamma): T_pM \\to T_pM$ of the tangent space at the base point $p$. With coordinate connection matrices $(\\Gamma_\\mu)^\\rho{}_\\sigma = \\Gamma^\\rho{}_{\\mu\\sigma}$, for a loop inside one chart,\n\n$$\\mathrm{Hol}(\\gamma) = \\mathcal{P}\\exp\\Big(-\\oint_\\gamma \\Gamma_\\mu\\,dx^\\mu\\Big),$$\n\nwhere later points of the loop act after earlier ones. Changing the basis at $p$, or moving the base point along the loop, conjugates this matrix and leaves its invariants unchanged.\n\nThe Levi-Civita connection satisfies $\\nabla g = 0$, so transport preserves inner products and $\\mathrm{Hol}(\\gamma)$ lies in the orthogonal group $O(g_p)$. On an oriented surface it lies in $SO(2)$ and is a rotation by an angle defined modulo $2\\pi$. On an oriented, time-oriented spacetime it lies in $SO^+(1,3)$.\n\nIn two dimensions, work in an orthonormal frame defined on all of a region $S$ bounded by the loop. The connection is then a single $\\mathfrak{so}(2)$-valued one-form $\\omega$ whose values commute, so the ordering drops out: the holonomy is a rotation by an angle given by $\\oint_\\gamma \\omega$, with its sign fixed by the frame's orientation, and Stokes' theorem turns that integral into $\\iint_S K\\,dA$. In a coordinate basis the matrices $\\Gamma_\\mu$ do not commute, and the ordering still matters. In three or more dimensions the ordering matters in every frame; the exact finite-loop statement, the non-abelian Stokes theorem, is a surface-ordered exponential of curvature transported back to $p$.\n\nFor a small loop that flows a parameter distance $\\epsilon$ along vector fields $u$ and then $v$ and back, $\\mathrm{Hol} = 1 - \\epsilon^2\\,\\mathcal{R}(u,v) + O(\\epsilon^3)$, where $\\mathcal{R}(u,v) = [\\nabla_u,\\nabla_v] - \\nabla_{[u,v]}$ has components $R^\\rho{}_{\\sigma\\mu\\nu}u^\\mu v^\\nu$. When $[u,v] \\neq 0$ the loop needs a short extra closing leg, whose effect is the $\\nabla_{[u,v]}$ term. The Riemann tensor is thus a linear map from oriented 2-planes to generators of metric-preserving transformations.",
 			"try_it": null,
 			"takeaway": "Holonomy is the path-ordered product of transport steps; for the Levi-Civita connection it is a rotation or Lorentz transformation, and curvature is its infinitesimal form.",
-			"retell": null,
 			"picture": "At a point p, the circle of unit tangent directions; each loop through p acts on it as a rotation, and small loops give rotations linear in the loop's oriented area element.",
-			"simplifies": "Restricted to the Levi-Civita connection; holonomy is defined for any connection on any vector bundle, where it need not preserve a metric.",
-			"assumes": ["levi-civita-connection", "lie-bracket"],
+			"simplifies": "Restricted to the Levi-Civita connection; holonomy is defined for any connection on any vector bundle.",
+			"assumes": [
+				"levi-civita-connection",
+				"lie-bracket"
+			],
 			"visuals": [],
-			"refs": ["worked_examples/latitude-circle-as-matrix-exponential", "problems/small-loop-change-is-a-rotation"]
+			"refs": [
+				"problems/latitude-holonomy-from-path-ordering",
+				"problems/small-loop-change-is-a-rotation",
+				"checks/why-ordering-matters"
+			]
 		},
 		{
 			"id": "loops-around-tips-and-holes",
 			"title": "Loops around tips and holes",
 			"kind": "contrast",
 			"rung": "formal",
-			"question": "Can a loop return a vector turned where there is no curvature at all?",
-			"continues": "whole-loops-as-transformations",
-			"gist": "Yes, when the loop cannot be shrunk to a point without crossing a tip or a hole. On a paper cone, a loop winding once around the tip returns vectors turned by the missing wedge's angle, although the paper is flat.",
+			"question": "Can a loop return a vector rotated where there is no curvature at all?",
+			"continues": [
+				"bent-is-not-curved",
+				"turn-equals-enclosed-curving"
+			],
+			"gist": null,
 			"recap": null,
-			"explanation": "Make a cone by cutting a wedge of angle $\\delta$ out of a flat sheet and gluing the cut edges together. Away from the tip the cone is flat: its Gaussian curvature is zero, and a small loop there returns vectors unchanged. Now carry a vector once around the tip. Unroll the cone. The loop becomes a path from one cut edge to the other, the vector slides rigidly along it, and gluing the edges back rotates it by $\\delta$, in the same sense as the circulation. A loop that winds $n$ times around the tip returns a rotation by $n\\delta$.\n\nThis separates two ideas that the small-loop law ties together. The restricted holonomy group $\\mathrm{Hol}^0_p$, built from loops that can be shrunk to a point, is trivial on a connected region exactly when $R = 0$ there. The full holonomy group $\\mathrm{Hol}_p$ also contains loops that cannot be shrunk, and those can transform vectors in a flat region: around the cone's missing tip, or along a flat Möbius band, where a loop along the band returns a reflection. The cone's tip carries a concentrated curvature: a disk around it contributes $\\delta$ to the local Gauss–Bonnet sum, in the limit of rounding off the tip.\n\nThe same structure appears in gravity. Outside an idealized, infinitely thin, straight cosmic string of mass per unit length $\\mu$, spacetime is locally flat, yet vectors carried around the string return rotated, in the plane perpendicular to it, by the deficit angle $8\\pi G\\mu/c^2$. Regge calculus builds curved spacetimes from flat pieces on the same principle, with all curvature carried by deficit angles.",
-			"try_it": "Make a cone from paper with a quarter-circle wedge removed, draw a loop around the tip, and slide a matchstick along it; then unroll the paper to see where the turn comes from.",
-			"takeaway": "Zero curvature guarantees an unturned return only for loops that can be shrunk to a point; loops around tips or holes can still turn vectors.",
-			"retell": null,
-			"picture": "A paper cone beside its unrolled sheet with the wedge missing. A loop around the tip becomes a path between the two cut edges; the vector slides unchanged, and the glued seam adds the wedge angle.",
+			"explanation": "The paper tube in \"Bent is not the same as curved\" returned every arrow unturned because it unrolls flat. A paper cone also unrolls flat, yet one kind of loop on it behaves differently. Make the cone by cutting a wedge of angle $\\delta$ out of a flat sheet and gluing the cut edges together. Away from the tip the cone is flat: its Gaussian curvature is zero, and a small loop there returns vectors unchanged. Now carry a vector once around the tip. Unroll the cone. The loop becomes a path from one cut edge to the other, the vector slides rigidly along it, and gluing the edges back rotates it by $\\delta$ toward the walker's left. A loop that winds $n$ times around the tip returns a rotation by $n\\delta$ modulo $2\\pi$.\n\nThis separates two ideas that the small-loop law ties together. The restricted holonomy group $\\mathrm{Hol}^0_p$ consists of the transformations produced by loops that can be shrunk to a point; on a connected region it is trivial exactly when $R = 0$ there. The full holonomy group $\\mathrm{Hol}_p$ also contains the transformations produced by loops that cannot be shrunk, and those can be nontrivial in a flat region: around the cone's missing tip, or along a flat Möbius band, where a loop along the band returns a reflection. In the local Gauss–Bonnet sum, a disk around the tip contributes $\\delta$, in the limit of rounding off the tip.\n\nThe same structure appears in gravity. Outside an idealized, infinitely thin, straight cosmic string whose tension equals its mass per unit length $\\mu$ times $c^2$, spacetime is locally flat. Yet vectors carried around the string return rotated, in the plane perpendicular to it, by the deficit angle $8\\pi G\\mu/c^2$. Regge calculus builds curved spacetimes from flat pieces on the same principle.",
+			"try_it": null,
+			"takeaway": "Zero curvature guarantees an unrotated return only for loops that can be shrunk to a point; loops around tips or holes can still rotate vectors.",
+			"picture": null,
 			"simplifies": "Idealizes the tip as a point and the string as infinitely thin.",
 			"assumes": [],
-			"visuals": [{ "id": "paper-cone-with-a-missing-wedge", "preset": null }],
-			"refs": ["checks/cone-with-a-missing-wedge"]
+			"visuals": [
+				{
+					"id": "paper-cone-with-a-missing-wedge",
+					"preset": null,
+					"tour": null
+				}
+			],
+			"refs": [
+				"checks/cone-holonomy-group"
+			]
 		}
 	],
 	"glossary": [
-		{ "id": "loop", "term": "loop", "forms": ["loops"], "say_as": null, "plain_definition": "A path that ends exactly where it began." },
-		{ "id": "swing", "term": "swing", "forms": ["swings", "swinging"], "say_as": null, "plain_definition": "To turn the arrow to the left or right along the ground. The rule of the arrow test is that the arrow never swings." },
-		{ "id": "walk-straight", "term": "walk straight", "forms": ["straight walk", "walking straight"], "say_as": null, "plain_definition": "On a ball, walking without ever steering left or right, like following a line drawn from top to bottom on a globe." },
-		{ "id": "holonomy", "term": "holonomy", "forms": [], "say_as": "ho-LON-uh-mee", "plain_definition": "The turn between an arrow's starting direction and its direction after being carried once around a loop, never swinging." },
-		{ "id": "intrinsic-curvature", "term": "intrinsic curvature", "forms": ["intrinsically curved"], "say_as": "in-TRIN-zik", "plain_definition": "Curving built into a surface, which someone living on it can detect without looking from outside. A ball has it. A rolled-up paper tube does not." }
+		{
+			"id": "loop",
+			"term": "loop",
+			"forms": [
+				"loops"
+			],
+			"say_as": null,
+			"concept": null,
+			"plain_definition": "A path that ends exactly where it began."
+		},
+		{
+			"id": "swing",
+			"term": "swing",
+			"forms": [
+				"swings",
+				"swinging",
+				"swung"
+			],
+			"say_as": null,
+			"concept": null,
+			"plain_definition": "To move the arrow's direction to the left or right along the ground. The rule of the arrow test is that the arrow never swings."
+		},
+		{
+			"id": "walk-straight",
+			"term": "walk straight",
+			"forms": [
+				"straight walk",
+				"straight walks",
+				"walking straight"
+			],
+			"say_as": null,
+			"concept": "geodesic",
+			"plain_definition": "On a ball, walking without ever steering left or right. On a globe, the lines from top to bottom and the equator are straight walks. A small circle around the North Pole is not: to stay on it you must keep steering."
+		},
+		{
+			"id": "holonomy",
+			"term": "holonomy",
+			"forms": [],
+			"say_as": "ho-LON-uh-mee",
+			"concept": "holonomy",
+			"plain_definition": "The turn between an arrow's starting direction and its direction after being carried once around a loop, never swinging."
+		},
+		{
+			"id": "intrinsic-curvature",
+			"term": "intrinsic curvature",
+			"forms": [
+				"intrinsically curved"
+			],
+			"say_as": "in-TRIN-zik",
+			"concept": "intrinsic-versus-extrinsic-curvature",
+			"plain_definition": "Curving built into a surface, which someone living on it can detect without looking from outside. A ball has it. A rolled-up paper tube does not."
+		},
+		{
+			"id": "gyroscope",
+			"term": "gyroscope",
+			"forms": [
+				"gyroscopes"
+			],
+			"say_as": "JY-ruh-scope",
+			"concept": null,
+			"plain_definition": "A fast-spinning wheel whose spin axis keeps pointing the same way unless something twists it."
+		},
+		{
+			"id": "orbit",
+			"term": "orbit",
+			"forms": [
+				"orbits",
+				"orbiting"
+			],
+			"say_as": null,
+			"concept": null,
+			"plain_definition": "The path of something that keeps falling around a planet without hitting it, as the Moon does around Earth."
+		}
 	],
 	"pronunciations": [
-		{ "written": "Levi-Civita", "spoken": "LEH-vee CHEE-vee-tah" },
-		{ "written": "Gauss–Bonnet", "spoken": "GOWSS bon-AY" },
-		{ "written": "Riemann", "spoken": "REE-mahn" },
-		{ "written": "Aharonov–Bohm", "spoken": "ah-HAR-uh-nov BOHM" },
-		{ "written": "Regge", "spoken": "REJ-eh" }
+		{
+			"written": "Levi-Civita",
+			"spoken": "LEH-vee CHEE-vee-tah"
+		},
+		{
+			"written": "Gauss–Bonnet",
+			"spoken": "GOWSS bon-AY"
+		},
+		{
+			"written": "Riemann",
+			"spoken": "REE-mahn"
+		},
+		{
+			"written": "Aharonov–Bohm",
+			"spoken": "ah-HAR-uh-nov BOHM"
+		},
+		{
+			"written": "Regge",
+			"spoken": "REJ-eh"
+		}
 	],
 	"prerequisites": [
-		{ "id": "path-dependence-of-parallel-transport", "why": "A loop is two routes between the same points joined end to end; holonomy is the difference between them.", "needed_for": "entry" },
-		{ "id": "gaussian-curvature", "why": "The turn around a loop on a surface is the Gaussian curvature added up over the enclosed region.", "needed_for": "working" },
-		{ "id": "angular-excess", "why": "For geodesic triangles the turn equals the angular excess, the easiest quantity to measure.", "needed_for": "working" },
-		{ "id": "riemann-curvature-tensor", "why": "The small-loop law expresses the holonomy of any small loop through the Riemann tensor.", "needed_for": "working" },
-		{ "id": "levi-civita-connection", "why": "Holonomy lies in the orthogonal or Lorentz group because the Levi-Civita connection preserves the metric.", "needed_for": "formal" },
-		{ "id": "lie-bracket", "why": "Small loops built from non-commuting vector fields close only with a leg along the Lie bracket.", "needed_for": "formal" }
+		{
+			"id": "path-dependence-of-parallel-transport",
+			"why": "A loop is an outward route and a return route; holonomy is the difference between them.",
+			"needed_for": "entry"
+		},
+		{
+			"id": "gaussian-curvature",
+			"why": "The turn around a loop on a surface is the Gaussian curvature added up over the enclosed region.",
+			"needed_for": "working"
+		},
+		{
+			"id": "angular-excess",
+			"why": "For geodesic triangles the turn equals the angular excess, the easiest quantity to measure.",
+			"needed_for": "working"
+		},
+		{
+			"id": "riemann-curvature-tensor",
+			"why": "The small-loop law expresses the holonomy of any small loop through the Riemann tensor.",
+			"needed_for": "working"
+		},
+		{
+			"id": "levi-civita-connection",
+			"why": "Holonomy lies in the orthogonal or Lorentz group because the Levi-Civita connection preserves the metric.",
+			"needed_for": "formal"
+		},
+		{
+			"id": "lie-bracket",
+			"why": "Small loops built from non-commuting vector fields close only with a leg along the Lie bracket.",
+			"needed_for": "formal"
+		}
 	],
 	"leads_to": [
-		{ "id": "flatness-criterion", "why": "Every contractible small loop returns vectors unchanged exactly when the Riemann tensor vanishes." },
-		{ "id": "riemann-curvature-operator", "why": "The curvature operator is small-loop holonomy per unit area, written without coordinates." },
-		{ "id": "bianchi-identity", "why": "Transporting the rotations of a small cube's six faces to a common corner and adding them cancels at third order in the cube's size; that cancellation is the geometric content of the second (differential) Bianchi identity." },
-		{ "id": "gauge-field-strength", "why": "The same loop construction for a charged field's phase identifies the field strength as the curvature of a gauge connection." },
-		{ "id": "cosmic-string", "why": "Spacetime around a straight cosmic string is locally flat, yet loops around it return vectors rotated: holonomy without local curvature." },
-		{ "id": "geodetic-precession", "why": "An orbiting gyroscope's spin returns turned after each orbit, partly because of the holonomy of curved space." }
+		{
+			"id": "flatness-criterion",
+			"why": "Every contractible small loop returns vectors unchanged exactly when the Riemann tensor vanishes."
+		},
+		{
+			"id": "riemann-curvature-operator",
+			"why": "The curvature operator is small-loop holonomy per unit area, written without coordinates."
+		},
+		{
+			"id": "bianchi-identity",
+			"why": "Carrying the rotations of a small cube's six faces to a common corner and adding them cancels at third order in the cube's size, the geometric content of the second Bianchi identity."
+		},
+		{
+			"id": "gauge-field-strength",
+			"why": "The same loop construction for a charged field's phase identifies the field strength as the curvature of a gauge connection."
+		},
+		{
+			"id": "cosmic-string",
+			"why": "Spacetime around a straight cosmic string is locally flat, yet loops around it return vectors rotated."
+		},
+		{
+			"id": "geodetic-precession",
+			"why": "An orbiting gyroscope's spin returns turned after each orbit, two thirds of it by the holonomy of curved space."
+		}
 	],
 	"related": [
-		{ "id": "parallel-transport", "relation": "the rule applied at every step around the loop" },
-		{ "id": "intrinsic-versus-extrinsic-curvature", "relation": "holonomy detects only intrinsic curvature, which is why a rolled tube returns no turn" },
-		{ "id": "curvature-of-the-two-sphere", "relation": "the sphere is where the area rule is easiest to verify" },
-		{ "id": "gauge-parallel-transport", "relation": "holonomy of a gauge connection is a phase or an internal rotation" },
-		{ "id": "loop-quantum-gravity", "relation": "uses holonomies of a connection along curves as basic variables" }
+		{
+			"id": "parallel-transport",
+			"relation": "the rule applied at every step around the loop"
+		},
+		{
+			"id": "intrinsic-versus-extrinsic-curvature",
+			"relation": "holonomy detects only intrinsic curvature"
+		},
+		{
+			"id": "curvature-of-the-two-sphere",
+			"relation": "the sphere is where the area rule is easiest to verify"
+		},
+		{
+			"id": "gauge-parallel-transport",
+			"relation": "holonomy of a gauge connection is a phase or an internal rotation"
+		},
+		{
+			"id": "loop-quantum-gravity",
+			"relation": "uses holonomies of a connection along curves as basic variables"
+		}
 	],
 	"key_equations": [
 		{
@@ -178,13 +476,25 @@
 			"name": "Area rule on a sphere",
 			"rung": "working",
 			"latex": "\\Delta\\alpha = \\frac{A}{a^2} \\pmod{2\\pi}",
-			"meaning": "On a sphere, the turn of an arrow carried around a loop is the enclosed area measured in units of the radius squared.",
+			"meaning": "On a sphere, the turn of an arrow carried around a loop is the area on the walker's left in units of the radius squared.",
 			"symbols": [
-				{ "symbol": "\\Delta\\alpha", "meaning": "turn of the returned arrow, in radians, positive in the sense of the walk", "say": "the turn" },
-				{ "symbol": "A", "meaning": "area of the region on the walker's left", "say": "the fenced-off area" },
-				{ "symbol": "a", "meaning": "radius of the sphere", "say": "the radius" }
+				{
+					"symbol": "\\Delta\\alpha",
+					"meaning": "turn of the returned arrow in radians, positive toward the walker's left",
+					"say": "the turn"
+				},
+				{
+					"symbol": "A",
+					"meaning": "area of the region on the walker's left",
+					"say": "the fenced-off area"
+				},
+				{
+					"symbol": "a",
+					"meaning": "radius of the sphere",
+					"say": "the radius"
+				}
 			],
-			"conditions": "Simple loop on a sphere of radius $a$; region on the walker's left; the turn is defined modulo $2\\pi$.",
+			"conditions": "Simple loop on a sphere of radius $a$; sense and branch as in the course conventions.",
 			"say_aloud": "The turn, in radians, is the fenced-off area divided by the radius squared.",
 			"justified_by": "stated"
 		},
@@ -193,13 +503,25 @@
 			"name": "Area rule on any surface (local Gauss–Bonnet)",
 			"rung": "working",
 			"latex": "\\Delta\\alpha = \\iint_S K\\,dA \\pmod{2\\pi}",
-			"meaning": "On any two-dimensional surface, the turn around a loop equals the total Gaussian curvature it encloses.",
+			"meaning": "On any two-dimensional surface, the turn around a loop equals the total Gaussian curvature of the region on the walker's left.",
 			"symbols": [
-				{ "symbol": "S", "meaning": "the region on the walker's left", "say": "the fenced-off region" },
-				{ "symbol": "K", "meaning": "Gaussian curvature at each point of $S$", "say": "the Gaussian curvature" },
-				{ "symbol": "dA", "meaning": "an element of area", "say": "a small piece of area" }
+				{
+					"symbol": "S",
+					"meaning": "the region on the walker's left",
+					"say": "the fenced-off region"
+				},
+				{
+					"symbol": "K",
+					"meaning": "Gaussian curvature at each point of $S$",
+					"say": "the Gaussian curvature"
+				},
+				{
+					"symbol": "dA",
+					"meaning": "an element of area",
+					"say": "a small piece of area"
+				}
 			],
-			"conditions": "Oriented smooth surface with its Levi-Civita connection; a simple, piecewise-smooth loop bounding a region $S$ that contains no cone points or holes; positive turn in the sense of the walk; exact for any size; modulo $2\\pi$.",
+			"conditions": "Oriented smooth surface with its Levi-Civita connection; simple, piecewise-smooth loop bounding a region $S$ with no cone points or holes; positive toward the walker's left; exact for any size; modulo $2\\pi$.",
 			"say_aloud": "The turn equals the Gaussian curvature added up over the fenced-off region.",
 			"justified_by": "stated"
 		},
@@ -210,7 +532,11 @@
 			"latex": "\\Delta\\alpha = \\alpha_1 + \\alpha_2 + \\alpha_3 - \\pi",
 			"meaning": "For a triangle made of geodesics, the turn equals how much its interior angles overshoot a straight angle.",
 			"symbols": [
-				{ "symbol": "\\alpha_1, \\alpha_2, \\alpha_3", "meaning": "the interior angles of the triangle", "say": "the three angles" }
+				{
+					"symbol": "\\alpha_1, \\alpha_2, \\alpha_3",
+					"meaning": "the interior angles of the triangle",
+					"say": "the three angles"
+				}
 			],
 			"conditions": "Sides are geodesics; the triangle bounds a smooth region on the walker's left.",
 			"say_aloud": "The turn is how far the three angles add up to more than a straight angle.",
@@ -223,10 +549,26 @@
 			"latex": "\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}\\,V^\\sigma\\,a^\\mu\\,b^\\nu",
 			"meaning": "The change in a vector carried around a tiny parallelogram is minus the Riemann tensor acting on the vector and on the two edges.",
 			"symbols": [
-				{ "symbol": "\\Delta V^\\rho", "meaning": "change of the carried vector after one trip", "say": "the change in the vector" },
-				{ "symbol": "V^\\sigma", "meaning": "the carried vector", "say": "the vector" },
-				{ "symbol": "a^\\mu,\\ b^\\nu", "meaning": "edge vectors of the parallelogram, walked $+a, +b, -a, -b$", "say": "the two edges" },
-				{ "symbol": "R^\\rho{}_{\\sigma\\mu\\nu}", "meaning": "Riemann tensor in the course sign convention", "say": "the Riemann tensor" }
+				{
+					"symbol": "\\Delta V^\\rho",
+					"meaning": "change of the carried vector after one trip",
+					"say": "the change in the vector"
+				},
+				{
+					"symbol": "V^\\sigma",
+					"meaning": "the carried vector",
+					"say": "the vector"
+				},
+				{
+					"symbol": "a^\\mu,\\ b^\\nu",
+					"meaning": "edge vectors of the parallelogram, walked $+a, +b, -a, -b$",
+					"say": "the two edges"
+				},
+				{
+					"symbol": "R^\\rho{}_{\\sigma\\mu\\nu}",
+					"meaning": "Riemann tensor in the course sign convention",
+					"say": "the Riemann tensor"
+				}
 			],
 			"conditions": "Torsion-free connection; coordinate parallelogram walked $+a, +b, -a, -b$; valid to second order in the loop size.",
 			"say_aloud": "The change in the vector is minus the Riemann tensor acting on the vector and on the two edges of the loop.",
@@ -239,11 +581,23 @@
 			"latex": "\\mathrm{Hol}(\\gamma) = \\mathcal{P}\\exp\\Big(-\\oint_\\gamma \\Gamma_\\mu\\,dx^\\mu\\Big),\\qquad (\\Gamma_\\mu)^\\rho{}_\\sigma = \\Gamma^\\rho{}_{\\mu\\sigma}",
 			"meaning": "Carrying a vector around a finite loop multiplies it by the ordered product of the connection's small steps.",
 			"symbols": [
-				{ "symbol": "\\mathrm{Hol}(\\gamma)", "meaning": "the holonomy of the loop, a linear map of the tangent space at the base point", "say": "the holonomy of the loop" },
-				{ "symbol": "\\mathcal{P}", "meaning": "path ordering: later points of the loop act after earlier ones", "say": "path ordering" },
-				{ "symbol": "\\Gamma_\\mu", "meaning": "connection matrices built from the Christoffel symbols", "say": "the connection matrices" }
+				{
+					"symbol": "\\mathrm{Hol}(\\gamma)",
+					"meaning": "the holonomy of the loop, a linear map of the tangent space at the base point",
+					"say": "the holonomy of the loop"
+				},
+				{
+					"symbol": "\\mathcal{P}",
+					"meaning": "path ordering: later points of the loop act after earlier ones",
+					"say": "path ordering"
+				},
+				{
+					"symbol": "\\Gamma_\\mu",
+					"meaning": "coordinate connection matrices built from the Christoffel symbols",
+					"say": "the connection matrices"
+				}
 			],
-			"conditions": "Piecewise-smooth loop inside one coordinate chart (otherwise include transition matrices); the matrix depends on the basis at the base point, and on the base point along the loop, only by conjugation.",
+			"conditions": "Piecewise-smooth loop inside one coordinate chart (otherwise include transition matrices); the ordering cannot be dropped in a coordinate basis; basis and base-point changes conjugate the matrix.",
 			"say_aloud": "The holonomy is the path-ordered exponential of minus the connection, taken around the loop.",
 			"justified_by": "stated"
 		}
@@ -256,14 +610,14 @@
 			"goal": "Show that walking a coordinate parallelogram $+a, +b, -a, -b$ changes a vector by $-R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$.",
 			"steps": [
 				"Carrying a vector without swinging it obeys $\\frac{dV^\\rho}{ds} = -\\Gamma^\\rho{}_{\\mu\\sigma}\\frac{dx^\\mu}{ds}V^\\sigma$. In matrix form, $\\frac{dV}{ds} = -\\Gamma_{\\dot x}V$, with $(\\Gamma_e)^\\rho{}_\\sigma \\equiv \\Gamma^\\rho{}_{\\mu\\sigma}e^\\mu$.",
-				"For one short straight step $e$ from a point $x$, with $s$ running from 0 to 1, expand to first order along the step: $\\Gamma_e(x + se) = \\Gamma_e + s\\,\\partial_e\\Gamma_e$, where $\\partial_e\\Gamma_e \\equiv e^\\nu\\partial_\\nu\\Gamma_e$ and everything on the right is evaluated at $x$.",
+				"For one short straight step $e$ from a point $x$, with $s$ from 0 to 1, expand to first order along the step: $\\Gamma_e(x + se) = \\Gamma_e + s\\,\\partial_e\\Gamma_e$, where $\\partial_e\\Gamma_e \\equiv e^\\nu\\partial_\\nu\\Gamma_e$ and the right side is evaluated at $x$.",
 				"Integrate the matrix equation, keeping terms of second order in $e$. The step multiplies $V$ by $P_e(x) = 1 - \\Gamma_e - \\tfrac12\\partial_e\\Gamma_e + \\tfrac12\\Gamma_e\\Gamma_e$.",
 				"The four steps start at $x$, $x+a$, $x+a+b$ and $x+b$. Expand each connection matrix about $x$: $\\Gamma_b(x+a) = \\Gamma_b + \\partial_a\\Gamma_b$, $\\Gamma_{-a}(x+a+b) = -(\\Gamma_a + \\partial_a\\Gamma_a + \\partial_b\\Gamma_a)$, and $\\Gamma_{-b}(x+b) = -(\\Gamma_b + \\partial_b\\Gamma_b)$.",
-				"Write the four step matrices to second order: $P_1 = 1 - \\Gamma_a - \\tfrac12\\partial_a\\Gamma_a + \\tfrac12\\Gamma_a^2$, $P_2 = 1 - \\Gamma_b - \\partial_a\\Gamma_b - \\tfrac12\\partial_b\\Gamma_b + \\tfrac12\\Gamma_b^2$, $P_3 = 1 + \\Gamma_a + \\tfrac12\\partial_a\\Gamma_a + \\partial_b\\Gamma_a + \\tfrac12\\Gamma_a^2$, and $P_4 = 1 + \\Gamma_b + \\tfrac12\\partial_b\\Gamma_b + \\tfrac12\\Gamma_b^2$.",
+				"The four step matrices to second order are $P_1 = 1 - \\Gamma_a - \\tfrac12\\partial_a\\Gamma_a + \\tfrac12\\Gamma_a^2$, $P_2 = 1 - \\Gamma_b - \\partial_a\\Gamma_b - \\tfrac12\\partial_b\\Gamma_b + \\tfrac12\\Gamma_b^2$, $P_3 = 1 + \\Gamma_a + \\tfrac12\\partial_a\\Gamma_a + \\partial_b\\Gamma_a + \\tfrac12\\Gamma_a^2$, and $P_4 = 1 + \\Gamma_b + \\tfrac12\\partial_b\\Gamma_b + \\tfrac12\\Gamma_b^2$.",
 				"Multiply $P_4P_3P_2P_1$. The first-order terms cancel: $-\\Gamma_a - \\Gamma_b + \\Gamma_a + \\Gamma_b = 0$.",
-				"Collect the derivative terms. $\\partial_a\\Gamma_a$ appears as $-\\tfrac12 + \\tfrac12$ and $\\partial_b\\Gamma_b$ as $-\\tfrac12 + \\tfrac12$, so both cancel. What survives is $\\partial_b\\Gamma_a - \\partial_a\\Gamma_b$.",
+				"Collect the derivative terms. $\\partial_a\\Gamma_a$ appears as $-\\tfrac12 + \\tfrac12$ and $\\partial_b\\Gamma_b$ as $-\\tfrac12 + \\tfrac12$, so both cancel, leaving $\\partial_b\\Gamma_a - \\partial_a\\Gamma_b$.",
 				"Collect the products of first-order terms, with each later factor on the left: $\\Gamma_b\\Gamma_a - \\Gamma_a^2 - \\Gamma_a\\Gamma_b - \\Gamma_b\\Gamma_a - \\Gamma_b^2 + \\Gamma_b\\Gamma_a$. Adding the four $\\tfrac12\\Gamma^2$ terms, which total $\\Gamma_a^2 + \\Gamma_b^2$, leaves $\\Gamma_b\\Gamma_a - \\Gamma_a\\Gamma_b$.",
-				"Second derivatives of $\\Gamma$ and triple products enter only at third order. So to second order, $\\Delta V^\\rho = a^\\mu b^\\nu\\big(\\partial_\\nu\\Gamma^\\rho{}_{\\mu\\sigma} - \\partial_\\mu\\Gamma^\\rho{}_{\\nu\\sigma} + \\Gamma^\\rho{}_{\\nu\\lambda}\\Gamma^\\lambda{}_{\\mu\\sigma} - \\Gamma^\\rho{}_{\\mu\\lambda}\\Gamma^\\lambda{}_{\\nu\\sigma}\\big)V^\\sigma$.",
+				"Second derivatives of $\\Gamma$ and triple products enter only at third order. So $\\Delta V^\\rho = a^\\mu b^\\nu\\big(\\partial_\\nu\\Gamma^\\rho{}_{\\mu\\sigma} - \\partial_\\mu\\Gamma^\\rho{}_{\\nu\\sigma} + \\Gamma^\\rho{}_{\\nu\\lambda}\\Gamma^\\lambda{}_{\\mu\\sigma} - \\Gamma^\\rho{}_{\\mu\\lambda}\\Gamma^\\lambda{}_{\\nu\\sigma}\\big)V^\\sigma$.",
 				"The course definition is $R^\\rho{}_{\\sigma\\mu\\nu} = \\partial_\\mu\\Gamma^\\rho{}_{\\nu\\sigma} - \\partial_\\nu\\Gamma^\\rho{}_{\\mu\\sigma} + \\Gamma^\\rho{}_{\\mu\\lambda}\\Gamma^\\lambda{}_{\\nu\\sigma} - \\Gamma^\\rho{}_{\\nu\\lambda}\\Gamma^\\lambda{}_{\\mu\\sigma}$. The bracket in the previous step is exactly its negative."
 			],
 			"result": "$\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$, with corrections of third order in the loop size."
@@ -271,50 +625,19 @@
 	],
 	"worked_examples": [
 		{
-			"id": "forty-fifth-parallel",
-			"title": "Around the 45th parallel",
-			"rung": "working",
-			"problem": "An arrow is carried once eastward around the circle of latitude 45° north on a sphere. By what angle does it return turned?",
-			"steps": [
-				"Latitude 45° north means colatitude $\\theta_0 = 45^\\circ$, measured down from the North Pole.",
-				"Walking east, the polar cap is on the walker's left. Its area is $2\\pi a^2(1-\\cos 45^\\circ) = 2\\pi a^2 \\times 0.2929$.",
-				"Divide by $a^2$: the turn is $2\\pi \\times 0.2929 = 1.840$ rad.",
-				"In degrees, $1.840 \\times 57.30 = 105.4^\\circ$, in the same sense as the walk."
-			],
-			"answer": "$1.840$ rad, about $105^\\circ$.",
-			"takeaway": "A circle of latitude is not a geodesic, yet the area rule still gives its turn exactly."
-		},
-		{
 			"id": "unit-sphere-cell",
 			"title": "A small cell on the unit sphere",
 			"rung": "working",
 			"problem": "On the unit sphere, $ds^2 = d\\theta^2 + \\sin^2\\theta\\,d\\phi^2$, carry $V = e_\\theta$ around a small cell walked $+\\delta\\theta$, $+\\delta\\phi$, $-\\delta\\theta$, $-\\delta\\phi$. Find the change and compare it with the cell's area.",
 			"steps": [
 				"The nonzero Christoffel symbols are $\\Gamma^\\theta{}_{\\phi\\phi} = -\\sin\\theta\\cos\\theta$ and $\\Gamma^\\phi{}_{\\theta\\phi} = \\Gamma^\\phi{}_{\\phi\\theta} = \\cot\\theta$.",
-				"With the course definition, $R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$, so $R_{\\theta\\phi\\theta\\phi} = \\sin^2\\theta$.",
-				"Antisymmetry in the first pair gives $R_{\\phi\\theta\\theta\\phi} = -\\sin^2\\theta$. Raising with $g^{\\phi\\phi} = 1/\\sin^2\\theta$ gives $R^\\phi{}_{\\theta\\theta\\phi} = -1$.",
-				"Apply the small-loop law with $a^\\theta = \\delta\\theta$, $b^\\phi = \\delta\\phi$ and $V^\\theta = 1$: $\\Delta V^\\phi = -R^\\phi{}_{\\theta\\theta\\phi}\\,\\delta\\theta\\,\\delta\\phi = +\\delta\\theta\\,\\delta\\phi$. $\\Delta V^\\theta = 0$, because $R_{\\theta\\theta\\theta\\phi} = 0$.",
+				"The course definition gives $R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$, so $R_{\\theta\\phi\\theta\\phi} = \\sin^2\\theta$. Antisymmetry in the first pair gives $R_{\\phi\\theta\\theta\\phi} = -\\sin^2\\theta$, and raising with $g^{\\phi\\phi} = 1/\\sin^2\\theta$ gives $R^\\phi{}_{\\theta\\theta\\phi} = -1$.",
+				"The small-loop law with $a^\\theta = \\delta\\theta$, $b^\\phi = \\delta\\phi$ and $V^\\theta = 1$ gives $\\Delta V^\\phi = -R^\\phi{}_{\\theta\\theta\\phi}\\,\\delta\\theta\\,\\delta\\phi = +\\delta\\theta\\,\\delta\\phi$, and $\\Delta V^\\theta = 0$.",
 				"The basis vector $e_\\phi$ has length $\\sin\\theta$, so the unit vector $e_\\theta$ tilts toward $e_\\phi$ by the angle $\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$.",
-				"The cell's area is $\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$, and $K = 1$, so the area rule predicts the same angle. Seen from outside the sphere, the rotation from $e_\\theta$ toward $e_\\phi$ has the same sense as the walk around the cell."
+				"The cell's area is $\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$ and $K = 1$, so the area rule predicts the same angle. Seen from outside, turning from $e_\\theta$ toward $e_\\phi$ is counterclockwise, the positive sense for this walk."
 			],
-			"answer": "$\\Delta V = \\delta\\theta\\,\\delta\\phi\\;e_\\phi$: a rotation by $\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$, equal to the enclosed area, in the sense of the walk.",
-			"takeaway": "The index formula and the area picture agree in size and in sense, which checks the sign convention."
-		},
-		{
-			"id": "latitude-circle-as-matrix-exponential",
-			"title": "A latitude circle as a matrix exponential",
-			"rung": "formal",
-			"problem": "Compute the holonomy of the circle at colatitude $\\theta_0$ on the unit sphere, walked eastward, directly from the path-ordered exponential.",
-			"steps": [
-				"Parametrize the circle by $\\phi \\in [0, 2\\pi]$. Only $dx^\\phi/d\\phi = 1$ is nonzero.",
-				"The transport equation gives $\\frac{dV^\\theta}{d\\phi} = -\\Gamma^\\theta{}_{\\phi\\phi}V^\\phi = \\sin\\theta_0\\cos\\theta_0\\,V^\\phi$ and $\\frac{dV^\\phi}{d\\phi} = -\\Gamma^\\phi{}_{\\phi\\theta}V^\\theta = -\\cot\\theta_0\\,V^\\theta$.",
-				"Use orthonormal components $x = V^{\\hat\\theta} = V^\\theta$ and $y = V^{\\hat\\phi} = \\sin\\theta_0\\,V^\\phi$. Then $\\frac{dx}{d\\phi} = \\cos\\theta_0\\,y$ and $\\frac{dy}{d\\phi} = -\\cos\\theta_0\\,x$, so the connection matrix is constant along the loop.",
-				"A constant matrix commutes with itself, so path ordering is irrelevant and the holonomy is an ordinary matrix exponential. Starting from $(x, y) = (1, 0)$, the solution is $(\\cos(\\phi\\cos\\theta_0), -\\sin(\\phi\\cos\\theta_0))$. After one lap this is a rotation by $-2\\pi\\cos\\theta_0$ in the $(\\hat\\theta, \\hat\\phi)$ basis.",
-				"Seen from outside the sphere, turning from $\\hat\\theta$ (south) toward $\\hat\\phi$ (east) is counterclockwise. So the holonomy is a clockwise rotation by $2\\pi\\cos\\theta_0$.",
-				"Modulo $2\\pi$, a clockwise rotation by $2\\pi\\cos\\theta_0$ is the same rotation as a counterclockwise one by $2\\pi(1 - \\cos\\theta_0)$. That is the area rule for the polar cap on the walker's left, with the counterclockwise sense matching the walk."
-			],
-			"answer": "A clockwise rotation by $2\\pi\\cos\\theta_0$, the same rotation as a counterclockwise turn by $2\\pi(1-\\cos\\theta_0)$. At $\\theta_0 = 45^\\circ$ that is $254.6^\\circ$ clockwise, or $105.4^\\circ$ counterclockwise.",
-			"takeaway": "Both forms describe one rotation. The clockwise form, $2\\pi\\sin(\\text{latitude})$, is exactly the Foucault pendulum's daily turn against local north."
+			"answer": "$\\Delta V = \\delta\\theta\\,\\delta\\phi\\;e_\\phi$: a positive rotation by $\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$, the enclosed area.",
+			"takeaway": "The index formula and the area rule agree in size and in sense, which checks the sign convention."
 		}
 	],
 	"problems": [
@@ -323,15 +646,35 @@
 			"rung": "entry",
 			"difficulty": 1,
 			"type": "conceptual",
-			"statement": "You walk once all the way around the equator of a smooth ball, keeping an arrow flat and pointing straight ahead the whole time, never letting it swing. When you are back at the start, does the arrow point the way it did when you set off? Does this mean the ball is not curved after all?",
-			"hints": ["Where does the arrow point at every moment of this walk?", "Does the walk from the North Pole still bring its arrow back turned?"],
-			"answer": "The arrow comes back pointing the same way. This does not mean the ball is flat: some loops happen to bring the arrow back matching, but the walk from the North Pole still returns it a quarter turn away.",
+			"statement": "You walk once all the way around the equator of a smooth ball, carrying a cardboard arrow that points straight ahead at the start and never swings. Back at the start, does the arrow point the way it did when you set off? Does this mean the ball is not curved after all?",
+			"statement_spoken": null,
+			"hints": [
+				"Where does the arrow point at every moment of this walk?",
+				"Does the walk from the North Pole still bring its arrow back turned?"
+			],
+			"answer": "It comes back pointing the same way, but the ball is still curved: the walk from the North Pole brings its arrow back a quarter turn away.",
+			"key_points": [
+				"The arrow comes back pointing the same way",
+				"The equator is a straight walk with no corners",
+				"One matching loop does not make the ball flat"
+			],
+			"numeric": [
+				{
+					"quantity": "turn",
+					"value": 0,
+					"unit": "deg",
+					"sign": "magnitude",
+					"abs_tol": 1,
+					"rel_tol": null,
+					"modulo": null
+				}
+			],
 			"solution": [
-				"On the equator you walk straight the whole time, with no corners.",
-				"The arrow points straight ahead at the start, and because it never swings on a straight walk, it points straight ahead the whole way.",
-				"Back at the start you are walking the same way as when you set off, so the arrow points the same way too.",
-				"One matching loop does not make the ball flat. The walk from the North Pole to the equator and back still brings its arrow back turned by a quarter turn, which never happens on a flat table."
-			]
+				"The equator is a straight walk with no corners, so the arrow keeps the same angle to your path, pointing straight ahead the whole way.",
+				"Back at the start you face the way you set off, so the arrow matches its start.",
+				"One matching loop does not make a surface flat; the North Pole walk still gives a turn, which never happens on a flat table."
+			],
+			"targets": []
 		},
 		{
 			"id": "earth-loop-size",
@@ -339,28 +682,85 @@
 			"difficulty": 1,
 			"type": "estimate",
 			"statement": "Treat Earth as a sphere of radius 6371 km. A loop on its surface returns a carried arrow turned by 1°. How large an area does the loop enclose, and how does that compare with France, about 550,000 km²?",
-			"hints": ["Convert 1° to radians.", "Use the area rule on a sphere and solve for the area."],
+			"statement_spoken": null,
+			"hints": [
+				"Convert 1° to radians.",
+				"Solve the area rule on a sphere for the area."
+			],
 			"answer": "About $7.1\\times10^{5}$ km², roughly 1.3 times the area of France.",
+			"key_points": [
+				"Turn of 1 degree is 0.01745 radians",
+				"Area equals the turn in radians times the radius squared",
+				"About 1.3 times the area of France"
+			],
+			"numeric": [
+				{
+					"quantity": "area",
+					"value": 708423,
+					"unit": "km^2",
+					"sign": "magnitude",
+					"abs_tol": null,
+					"rel_tol": 0.03,
+					"modulo": null
+				}
+			],
 			"solution": [
 				"$1^\\circ = \\pi/180 = 0.017453$ rad.",
 				"The area rule $\\Delta\\alpha = A/a^2$ gives $A = \\Delta\\alpha\\,a^2$.",
 				"$a^2 = (6371\\ \\text{km})^2 = 4.0590\\times10^{7}$ km².",
 				"$A = 0.017453 \\times 4.0590\\times10^{7} = 7.08\\times10^{5}$ km², and $7.08\\times10^{5}/5.5\\times10^{5} \\approx 1.3$."
-			]
+			],
+			"targets": []
 		},
 		{
 			"id": "saddle-sign",
 			"rung": "working",
 			"difficulty": 2,
 			"type": "calculation",
-			"statement": "Near its centre, a saddle-shaped surface has Gaussian curvature $K \\approx -1/R^2$. A small simple loop there encloses area $A \\ll R^2$ and is walked counterclockwise as seen from above, with the region on the walker's left. Find the turn and its sense.",
-			"hints": ["Use the local Gauss–Bonnet rule with a nearly constant $K$."],
-			"answer": "$\\Delta\\alpha \\approx -A/R^2$: a turn of size $A/R^2$, clockwise, against the sense of the walk.",
+			"statement": "Near its centre, a saddle-shaped surface has Gaussian curvature $K \\approx -1/R^2$. A small simple loop there encloses area $A \\ll R^2$ on the walker's left. Find the turn and its sense.",
+			"statement_spoken": "Near its centre, a saddle-shaped surface has Gaussian curvature of about minus one over R squared. A small simple loop there encloses an area A, much smaller than R squared, on the walker's left. Find the turn and its sense.",
+			"hints": [
+				"Use the local Gauss–Bonnet rule with a nearly constant $K$."
+			],
+			"answer": "$\\Delta\\alpha \\approx -A/R^2$: a rotation of size $A/R^2$ toward the walker's right.",
+			"key_points": [
+				"The enclosed curvature is about K times A",
+				"The turn is about minus A over R squared",
+				"Negative means toward the walker's right"
+			],
+			"numeric": null,
 			"solution": [
-				"For a small region, $K$ is nearly constant, so $\\iint_S K\\,dA \\approx K A$.",
+				"For a small region $K$ is nearly constant, so $\\iint_S K\\,dA \\approx K A$.",
 				"With $K \\approx -1/R^2$, $\\Delta\\alpha \\approx -A/R^2$.",
-				"A negative turn means opposite to the sense of the walk, so the arrow turns clockwise as seen from above."
-			]
+				"A negative turn rotates the arrow toward the walker's right, against the positive sense."
+			],
+			"targets": []
+		},
+		{
+			"id": "small-loop-cell-other-vector",
+			"rung": "working",
+			"difficulty": 2,
+			"type": "calculation",
+			"statement": "On the unit sphere, carry the unit vector $V = e_\\phi/\\sin\\theta$ around a small cell walked $+\\delta\\theta$, $+\\delta\\phi$, $-\\delta\\theta$, $-\\delta\\phi$. Use the small-loop law to find $\\Delta V^\\theta$, and check the size and sense of the rotation against the area rule.",
+			"statement_spoken": "On the unit sphere, carry the unit vector pointing along phi around a small cell, walking first along theta, then phi, then back. Use the small-loop law to find the theta component of the change, and check the size and sense of the rotation against the area rule.",
+			"hints": [
+				"Use $R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$ and $V^\\phi = 1/\\sin\\theta$.",
+				"Which way does turning $\\hat\\phi$ toward $-\\hat\\theta$ go, seen from outside?"
+			],
+			"answer": "$\\Delta V^\\theta = -\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$: a positive rotation by $\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$, the same as for $e_\\theta$ and equal to the cell's area.",
+			"key_points": [
+				"Delta V theta equals minus sine theta times the cell's coordinate size",
+				"The rotation angle equals the cell's area",
+				"Every vector is rotated by the same angle in the same sense"
+			],
+			"numeric": null,
+			"solution": [
+				"$\\Delta V^\\theta = -R^\\theta{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$ with $V^\\phi = 1/\\sin\\theta$, $a^\\theta = \\delta\\theta$, $b^\\phi = \\delta\\phi$.",
+				"Only $\\sigma = \\phi$ contributes: $\\Delta V^\\theta = -R^\\theta{}_{\\phi\\theta\\phi}\\,(1/\\sin\\theta)\\,\\delta\\theta\\,\\delta\\phi = -\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$.",
+				"$e_\\theta$ has unit length, so the unit vector $\\hat\\phi$ tilts toward $-\\hat\\theta$ by $\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$.",
+				"A counterclockwise rotation seen from outside takes $\\hat\\theta$ to $\\hat\\phi$ and $\\hat\\phi$ to $-\\hat\\theta$, so this is the same positive rotation found for $e_\\theta$, equal to the cell's area."
+			],
+			"targets": []
 		},
 		{
 			"id": "small-loop-change-is-a-rotation",
@@ -368,14 +768,53 @@
 			"difficulty": 2,
 			"type": "proof",
 			"statement": "Using the small-loop law for the Levi-Civita connection, show that $V_\\rho\\,\\Delta V^\\rho = 0$ for every vector $V$. Explain why this makes the holonomy of a small loop an infinitesimal rotation or boost.",
-			"hints": ["Lower the first index of the Riemann tensor.", "Which symmetry does $R_{\\rho\\sigma\\mu\\nu}$ have in its first two indices?"],
-			"answer": "$V_\\rho\\,\\Delta V^\\rho = -R_{\\rho\\sigma\\mu\\nu}V^\\rho V^\\sigma a^\\mu b^\\nu = 0$, because $R_{\\rho\\sigma\\mu\\nu}$ is antisymmetric in $\\rho\\sigma$. The generator $-R_{\\rho\\sigma\\mu\\nu}a^\\mu b^\\nu$ is therefore an antisymmetric bilinear form, an element of the Lie algebra of the metric's orthogonal or Lorentz group.",
+			"statement_spoken": "Using the small-loop law for the Levi-Civita connection, show that the change in any vector is orthogonal to the vector itself. Explain why this makes the holonomy of a small loop an infinitesimal rotation or boost.",
+			"hints": [
+				"Lower the first index of the Riemann tensor.",
+				"Which symmetry does $R_{\\rho\\sigma\\mu\\nu}$ have in its first two indices?"
+			],
+			"answer": "$V_\\rho\\,\\Delta V^\\rho = -R_{\\rho\\sigma\\mu\\nu}V^\\rho V^\\sigma a^\\mu b^\\nu = 0$, because $R_{\\rho\\sigma\\mu\\nu}$ is antisymmetric in $\\rho\\sigma$. The generator $\\Omega_{\\rho\\sigma} = -R_{\\rho\\sigma\\mu\\nu}a^\\mu b^\\nu$ is antisymmetric, so it lies in the Lie algebra of the metric's orthogonal or Lorentz group.",
+			"key_points": [
+				"Antisymmetry of the Riemann tensor in its first pair for a metric connection",
+				"A symmetric product contracted with an antisymmetric tensor vanishes",
+				"An antisymmetric generator preserves the metric to first order"
+			],
+			"numeric": null,
 			"solution": [
 				"Contract the small-loop law with $V_\\rho$: $V_\\rho\\,\\Delta V^\\rho = -R_{\\rho\\sigma\\mu\\nu}V^\\rho V^\\sigma a^\\mu b^\\nu$.",
-				"For a metric-compatible connection, $R_{\\rho\\sigma\\mu\\nu} = -R_{\\sigma\\rho\\mu\\nu}$, while $V^\\rho V^\\sigma$ is symmetric, so the contraction vanishes.",
-				"Write the holonomy as $1 + \\Omega$ with $\\Omega^\\rho{}_\\sigma = -R^\\rho{}_{\\sigma\\mu\\nu}a^\\mu b^\\nu$. The lowered form $\\Omega_{\\rho\\sigma}$ is antisymmetric.",
-				"A linear map $1 + \\Omega$ preserves $g$ to first order exactly when $\\Omega_{\\rho\\sigma} + \\Omega_{\\sigma\\rho} = 0$. So $\\Omega$ lies in the Lie algebra of $SO(n)$ on a Riemannian manifold or $SO(1,3)$ in spacetime: an infinitesimal rotation or boost."
-			]
+				"For a metric-compatible connection $R_{\\rho\\sigma\\mu\\nu} = -R_{\\sigma\\rho\\mu\\nu}$, while $V^\\rho V^\\sigma$ is symmetric, so the contraction vanishes.",
+				"Write the holonomy as $1 + \\Omega$ with $\\Omega^\\rho{}_\\sigma = -R^\\rho{}_{\\sigma\\mu\\nu}a^\\mu b^\\nu$; the lowered form $\\Omega_{\\rho\\sigma}$ is antisymmetric.",
+				"$1 + \\Omega$ preserves $g$ to first order exactly when $\\Omega_{\\rho\\sigma} + \\Omega_{\\sigma\\rho} = 0$, so $\\Omega$ lies in the Lie algebra of $SO(n)$ or $SO(1,3)$: an infinitesimal rotation or boost."
+			],
+			"targets": []
+		},
+		{
+			"id": "latitude-holonomy-from-path-ordering",
+			"rung": "formal",
+			"difficulty": 3,
+			"type": "derivation",
+			"statement": "On a sphere of radius $a$, compute the holonomy of the circle at colatitude $\\theta_0$, walked eastward, directly from the transport equation in the orthonormal frame $(\\hat\\theta, \\hat\\phi)$. Show that the result does not depend on $a$, and relate it to the area rule.",
+			"statement_spoken": "On a sphere of radius a, compute the holonomy of the circle at colatitude theta zero, walked eastward, directly from the transport equation in the orthonormal frame. Show that the result does not depend on a, and relate it to the area rule.",
+			"hints": [
+				"The Christoffel symbols of $a^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)$ do not depend on $a$.",
+				"Show that the connection matrix along the circle is constant."
+			],
+			"answer": "A clockwise rotation, seen from outside, by $2\\pi\\cos\\theta_0$ for every $a$. Modulo $2\\pi$ this is the counterclockwise rotation by $2\\pi(1-\\cos\\theta_0)$ that the area rule gives for the polar cap on the walker's left.",
+			"key_points": [
+				"The connection matrix along the circle is constant, so ordering is irrelevant",
+				"Rotation by minus two pi cos theta zero, independent of a",
+				"Equal modulo two pi to the area-rule turn two pi times one minus cos theta zero"
+			],
+			"numeric": null,
+			"solution": [
+				"Parametrize the circle by $\\phi \\in [0, 2\\pi]$; only $dx^\\phi/d\\phi = 1$ is nonzero. The Christoffel symbols are $\\Gamma^\\theta{}_{\\phi\\phi} = -\\sin\\theta\\cos\\theta$ and $\\Gamma^\\phi{}_{\\phi\\theta} = \\cot\\theta$, independent of $a$.",
+				"The transport equation gives $dV^\\theta/d\\phi = \\sin\\theta_0\\cos\\theta_0\\,V^\\phi$ and $dV^\\phi/d\\phi = -\\cot\\theta_0\\,V^\\theta$.",
+				"In orthonormal components $x = aV^\\theta$ and $y = a\\sin\\theta_0\\,V^\\phi$ these become $dx/d\\phi = \\cos\\theta_0\\,y$ and $dy/d\\phi = -\\cos\\theta_0\\,x$. The matrix is constant, so path ordering is irrelevant and $a$ has dropped out.",
+				"Starting from $(1, 0)$ the solution is $(\\cos(\\phi\\cos\\theta_0), -\\sin(\\phi\\cos\\theta_0))$: after one lap, a rotation by $-2\\pi\\cos\\theta_0$ in the $(\\hat\\theta, \\hat\\phi)$ basis.",
+				"Seen from outside, $\\hat\\theta$ to $\\hat\\phi$ is counterclockwise, so this is a clockwise rotation by $2\\pi\\cos\\theta_0$.",
+				"Modulo $2\\pi$ it equals a counterclockwise rotation by $2\\pi(1-\\cos\\theta_0)$, the area rule for the cap on the walker's left. At $\\theta_0 = 45^\\circ$ that is $254.6^\\circ$ clockwise, or $105.4^\\circ$ counterclockwise."
+			],
+			"targets": []
 		}
 	],
 	"observations": [
@@ -383,40 +822,164 @@
 			"id": "gravity-probe-b-geodetic",
 			"rung": "working",
 			"phenomenon": "Geodetic precession of gyroscopes orbiting Earth, measured by Gravity Probe B",
-			"connection": "A gyroscope in free fall carries its spin axis without swinging it: the spacetime version of the arrow rule. After each polar orbit, about 642 km above Earth, the spin axis comes back turned by a tiny angle. In the standard post-Newtonian description, two thirds of that turn is the holonomy of curved space around the orbit, and one third comes from the gyroscope's motion through Earth's gravitational field.",
-			"numbers": "Predicted $6606.1$ milliarcseconds per year; measured $6601.8 \\pm 18.3$ milliarcseconds per year.",
+			"connection": "Each gyroscope's spin axis came back turned after every polar orbit about 642 km above Earth, within the orbital plane and in the same sense as the orbit, by about 1.2 milliarcseconds. Describing space around a static Earth at successive moments, two thirds of that turn is the holonomy of the curved space around the orbit; the rest comes from the gyroscope's motion through Earth's field.",
+			"numbers": "Magnitudes: predicted $6606.1$ milliarcseconds per year, measured $6601.8 \\pm 18.3$ milliarcseconds per year (the paper reports them as negative drift rates).",
 			"status": "measured",
-			"reference": { "authors": ["C. W. F. Everitt", "et al."], "year": 2011, "title": "Gravity Probe B: Final Results of a Space Experiment to Test General Relativity", "venue": "Physical Review Letters 106, 221101", "doi": "10.1103/PhysRevLett.106.221101", "arxiv": "1105.3456", "kind": "paper", "verified": false }
+			"reference": {
+				"authors": [
+					"C. W. F. Everitt",
+					"D. B. DeBra",
+					"B. W. Parkinson",
+					"J. P. Turneaure"
+				],
+				"more_authors": true,
+				"year": 2011,
+				"title": "Gravity Probe B: Final Results of a Space Experiment to Test General Relativity",
+				"venue": "Physical Review Letters 106, 221101",
+				"doi": "10.1103/PhysRevLett.106.221101",
+				"arxiv": "1105.3456",
+				"kind": "paper",
+				"verified": false
+			}
 		},
 		{
 			"id": "foucault-pendulum",
 			"rung": "working",
 			"phenomenon": "The slow turning of a Foucault pendulum's swing plane",
-			"connection": "Earth turns eastward, so seen from above the North Pole the pendulum is carried counterclockwise around its circle of latitude once per sidereal day. For slow rotation and small swings, the swing plane obeys the arrow rule on Earth's surface. The holonomy of that circle is a counterclockwise turn by $2\\pi(1-\\cos\\theta_0) = 2\\pi(1-\\sin\\lambda)$, where $\\lambda$ is the latitude. Modulo $2\\pi$ this is the same rotation as a clockwise turn by $2\\pi\\sin\\lambda$, which is exactly the pendulum's observed turn against local north per sidereal day. The physical cause is Earth's rotation; the sphere enters as the set of directions the local vertical takes around the lap, and spacetime curvature plays no role.",
-			"numbers": "At latitude $48.85^\\circ$ north (Paris), $360^\\circ\\sin\\lambda = 271^\\circ$ per sidereal day, about $11.3^\\circ$ per hour.",
-			"status": "analogue",
-			"reference": null
+			"connection": "Earth turns eastward, so seen from above the North Pole a pendulum at latitude $\\lambda$ is carried counterclockwise around its circle of latitude once per sidereal day. For slow rotation and small swings, the swing plane obeys the arrow rule on Earth's surface. The holonomy of that circle is a counterclockwise rotation by $2\\pi(1-\\sin\\lambda)$, which modulo $2\\pi$ is a clockwise rotation by $2\\pi\\sin\\lambda$: exactly the observed turn against local north per sidereal day. The cause is Earth's rotation; the sphere enters as the set of directions the local vertical takes around the lap.",
+			"numbers": "At Paris, latitude $48.85^\\circ$ north: $360^\\circ\\sin\\lambda = 271^\\circ$ per sidereal day, about $11.3^\\circ$ per hour.",
+			"status": "measured",
+			"reference": {
+				"authors": [
+					"Léon Foucault"
+				],
+				"more_authors": false,
+				"year": 1851,
+				"title": "Démonstration physique du mouvement de rotation de la Terre au moyen du pendule",
+				"venue": "Comptes rendus hebdomadaires des séances de l'Académie des sciences 32",
+				"doi": null,
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			}
 		}
 	],
 	"teaching_arc": [
-		{ "id": "insider-question", "rung": "entry", "step": "Ask the insider question", "move": "Ask how someone who can never leave a ball, or look at it from above, could find out that it is curved.", "why": "It frames holonomy as a measurement made from inside, the only kind available for the universe.", "uses": ["ways_in/walk-a-loop-on-a-ball"], "visual": null, "predict": null },
-		{ "id": "walk-with-controls", "rung": "entry", "step": "Show one surprise and two controls", "move": "Run the North Pole walk after the learner predicts, then a square walk on a flat floor, then a bracelet loop on a tube that unrolls.", "why": "The controls rule out the corners and mere bending as explanations.", "uses": ["checks/octant-walk-prediction", "checks/square-on-a-floor", "ways_in/bent-is-not-curved"], "visual": { "id": "carry-an-arrow-around-a-loop", "preset": "octant" }, "predict": "When the arrow gets back to the North Pole, will it point the way it did when you set off?" },
-		{ "id": "discover-area-rule", "rung": "working", "step": "Discover the area rule", "move": "Resize and reverse the loop and change the ball's radius; tabulate the turn against area over radius squared before naming angular excess.", "why": "Learners find proportionality, the sign flip, and the role of the radius themselves.", "uses": ["ways_in/turn-equals-enclosed-curving", "checks/triangle-on-a-big-sphere"], "visual": { "id": "carry-an-arrow-around-a-loop", "preset": "octant-half-area" }, "predict": "If the loop fences off half as much of the ball, what happens to the turn?" },
-		{ "id": "shrink-to-riemann", "rung": "working", "step": "Shrink the loop to reach the Riemann tensor", "move": "Derive the small-loop law and read off linearity, antisymmetry, and area scaling.", "why": "Each feature of the formula explains a slot of the Riemann tensor.", "uses": ["ways_in/shrink-the-loop-to-find-riemann", "derivations/small-loop-law-from-transport"], "visual": { "id": "shrink-the-loop-to-find-riemann", "preset": null }, "predict": "If you swap the order of the two edges, what happens to the change in the vector?" },
-		{ "id": "check-sign-two-ways", "rung": "working", "step": "Check the sign two ways", "move": "Work the unit-sphere cell, then ask about polar coordinates on a flat plane.", "why": "It fixes the sign convention and separates curved coordinates from curved space.", "uses": ["worked_examples/unit-sphere-cell", "checks/polar-coordinates-plane"], "visual": null, "predict": null },
-		{ "id": "mark-the-limits", "rung": "formal", "step": "Mark the limits", "move": "Carry a vector around the tip of a paper cone, then state what zero curvature does and does not guarantee.", "why": "It prevents the belief that flatness along a loop always means no turn.", "uses": ["ways_in/loops-around-tips-and-holes", "checks/cone-with-a-missing-wedge"], "visual": { "id": "paper-cone-with-a-missing-wedge", "preset": null }, "predict": "Every patch of this cone away from the tip is flat. Will a loop around the tip bring the arrow back unturned?" },
-		{ "id": "transfer-to-physics", "rung": "formal", "step": "Transfer to physics", "move": "Connect to the orbiting gyroscope and to the charged-particle phase around a loop.", "why": "Holonomy becomes the shared language of gravity and gauge fields.", "uses": ["observations/gravity-probe-b-geodetic", "analogies/aharonov-bohm-phase"], "visual": null, "predict": null }
+		{
+			"id": "insider-question",
+			"rung": "entry",
+			"step": "Ask the insider question",
+			"move": "Ask how someone who can never leave a ball, or look at it from above, could find out that it is curved.",
+			"why": "It frames holonomy as a test made without leaving, the only kind available for the universe.",
+			"uses": [
+				"ways_in/walk-a-loop-on-a-ball"
+			],
+			"visual": null,
+			"predict": null
+		},
+		{
+			"id": "walk-with-controls",
+			"rung": "entry",
+			"step": "Show one surprise and two controls",
+			"move": "Run the North Pole walk after a prediction, then the square on a flat floor and the loop around a tube.",
+			"why": "The controls rule out the corners and mere bending as explanations.",
+			"uses": [
+				"checks/octant-walk-prediction",
+				"checks/square-on-a-floor",
+				"ways_in/bent-is-not-curved"
+			],
+			"visual": {
+				"id": "carry-an-arrow-around-a-loop",
+				"preset": "octant",
+				"tour": "holonomy-first-walk"
+			},
+			"predict": "When the arrow gets back to the North Pole, will it point the way it did when you set off?"
+		},
+		{
+			"id": "discover-area-rule",
+			"rung": "working",
+			"step": "Discover the area rule",
+			"move": "Resize and reverse the loop, and tabulate the turn against area over radius squared.",
+			"why": "Learners find proportionality, the sign flip, and the role of the radius themselves.",
+			"uses": [
+				"ways_in/turn-equals-enclosed-curving",
+				"checks/triangle-on-a-big-sphere"
+			],
+			"visual": {
+				"id": "carry-an-arrow-around-a-loop",
+				"preset": "octant-half-area",
+				"tour": null
+			},
+			"predict": "If the loop fences off half as much of the ball, what happens to the turn?"
+		},
+		{
+			"id": "shrink-to-riemann",
+			"rung": "working",
+			"step": "Shrink the loop to reach the Riemann tensor",
+			"move": "Derive the small-loop law and read off each feature.",
+			"why": "Each feature of the formula explains a slot of the Riemann tensor.",
+			"uses": [
+				"ways_in/shrink-the-loop-to-find-riemann",
+				"derivations/small-loop-law-from-transport",
+				"problems/small-loop-cell-other-vector"
+			],
+			"visual": {
+				"id": "shrink-the-loop-to-find-riemann",
+				"preset": null,
+				"tour": null
+			},
+			"predict": "If you swap the order of the two edges, what happens to the change in the vector?"
+		},
+		{
+			"id": "measure-it-in-orbit",
+			"rung": "working",
+			"step": "Measure it in orbit",
+			"move": "Connect the arrow rule to a freely falling gyroscope and Gravity Probe B.",
+			"why": "It turns a geometric picture into a measurement of the space around Earth.",
+			"uses": [
+				"ways_in/a-gyroscope-measures-it",
+				"observations/gravity-probe-b-geodetic"
+			],
+			"visual": null,
+			"predict": null
+		},
+		{
+			"id": "mark-the-limits",
+			"rung": "formal",
+			"step": "Mark the limits",
+			"move": "Carry a vector around a paper cone's tip, then separate restricted from full holonomy.",
+			"why": "It prevents the belief that flatness along a loop always means no rotation.",
+			"uses": [
+				"ways_in/loops-around-tips-and-holes",
+				"checks/cone-holonomy-group"
+			],
+			"visual": {
+				"id": "paper-cone-with-a-missing-wedge",
+				"preset": null,
+				"tour": null
+			},
+			"predict": "Every patch of this cone away from the tip is flat. Will a loop around the tip bring the arrow back unturned?"
+		}
 	],
 	"analogies": [
 		{
 			"id": "coiled-fibre-polarization",
 			"analogy": "Polarization in a coiled optical fibre",
 			"rung": "working",
-			"explanation": "Light guided through a gently coiled single-mode fibre, whose exit direction matches its entry direction, has a direction of travel that traces a closed loop on the sphere of directions. Its polarization is carried along without swinging and comes back rotated by the solid angle that loop encloses, defined modulo $2\\pi$. This holds when stress-induced birefringence in the fibre is negligible.",
+			"explanation": "Light guided through a gently coiled single-mode fibre, whose exit direction matches its entry direction, has a direction of travel that traces a closed loop on the sphere of directions. Its polarization is carried along without swinging and comes back rotated by an angle equal to the solid angle that loop encloses, modulo $2\\pi$. The sense of the rotation reverses when the loop on the sphere of directions is traced the other way. This holds when stress-induced birefringence in the fibre is negligible.",
 			"mapping": [
-				{ "this": "the sphere of propagation directions", "stands_for": "the curved surface" },
-				{ "this": "the polarization direction", "stands_for": "the carried arrow" },
-				{ "this": "the enclosed solid angle", "stands_for": "the enclosed curvature, $\\iint K\\,dA$ on the unit sphere" }
+				{
+					"this": "the sphere of propagation directions",
+					"stands_for": "the curved surface"
+				},
+				{
+					"this": "the polarization direction",
+					"stands_for": "the carried arrow"
+				},
+				{
+					"this": "the enclosed solid angle",
+					"stands_for": "the enclosed curvature, $\\iint K\\,dA$ on the unit sphere"
+				}
 			],
 			"limits": "The sphere is a space of directions, not physical space; the effect is a geometric phase in optics, and gravity plays no role."
 		},
@@ -424,11 +987,20 @@
 			"id": "aharonov-bohm-phase",
 			"analogy": "A charged particle's phase around a loop",
 			"rung": "formal",
-			"explanation": "A charged quantum field carried around a loop is multiplied by $\\exp\\big(+i(q/\\hbar)\\oint A_\\mu dx^\\mu\\big)$ in the course convention, a phase set by the enclosed magnetic flux $\\Phi$: $q\\Phi/\\hbar$. For a small loop the phase is governed by the field strength $F_{\\mu\\nu}$, which plays the role the Riemann tensor plays for vectors. The Aharonov–Bohm setup, with no field on the path itself, is the gauge-field twin of the cone: holonomy without local field strength.",
+			"explanation": "In the course convention a charged quantum field carried around a loop is multiplied by $\\exp\\big(+i(q/\\hbar)\\oint A_\\mu dx^\\mu\\big)$, a phase $q\\Phi/\\hbar$ set by the magnetic flux $\\Phi$ through the loop, oriented by the right-hand rule. For a small loop the phase is governed by the field strength $F_{\\mu\\nu}$, which plays the role the Riemann tensor plays for vectors. The Aharonov–Bohm setup, with no field on the path itself, is the gauge-field twin of the cone: holonomy without local field strength.",
 			"mapping": [
-				{ "this": "the phase of the wavefunction", "stands_for": "the direction of the carried arrow" },
-				{ "this": "the electromagnetic potential $A_\\mu$", "stands_for": "the connection" },
-				{ "this": "the field strength $F_{\\mu\\nu}$", "stands_for": "the Riemann tensor" }
+				{
+					"this": "the phase of the wavefunction",
+					"stands_for": "the direction of the carried arrow"
+				},
+				{
+					"this": "the electromagnetic potential $A_\\mu$",
+					"stands_for": "the connection"
+				},
+				{
+					"this": "the field strength $F_{\\mu\\nu}$",
+					"stands_for": "the Riemann tensor"
+				}
 			],
 			"limits": "Phases commute, so their ordering around the loop never matters; rotations of vectors in three or more dimensions do not commute. The phase lives in an internal space, with no metric and no boosts."
 		}
@@ -439,48 +1011,60 @@
 			"rung": "entry",
 			"belief": "If I never let the arrow swing, it cannot come back turned.",
 			"why_tempting": "On a flat floor, an arrow that never swings keeps pointing at the same wall forever.",
-			"correction": "The rule tells you what to do at each small step. It does not promise where the arrow points after a long trip. On the North Pole walk, follow every step: straight ahead, then to your right, then behind you. Back at the pole, behind you along the last path is a quarter turn away from ahead along the first path.",
-			"diagnosed_by": ["octant-walk-prediction"]
+			"correction": "The rule says what to do at each small step, not where the arrow ends up after a long trip. On a ball those small steps add up to a turn.",
+			"diagnosed_by": [
+				"octant-walk-prediction"
+			]
 		},
 		{
 			"id": "corners-caused-the-turn",
 			"rung": "entry",
 			"belief": "The arrow turned because I turned at the corners.",
 			"why_tempting": "The walker makes visible turns, and the arrow ends up pointing a new way.",
-			"correction": "Your body turned at the corners, but the arrow never did. A square walk on a flat floor also has four corners, and there the arrow comes back unchanged. So the corners alone cannot turn the arrow.",
-			"diagnosed_by": ["square-on-a-floor"]
+			"correction": "Corners turn the walker, not the arrow. A square on a flat floor has four corners and brings the arrow back unchanged.",
+			"diagnosed_by": [
+				"square-on-a-floor"
+			]
 		},
 		{
 			"id": "tube-must-turn",
 			"rung": "entry",
 			"belief": "A tube looks curved, so an arrow carried around a loop on it must come back turned.",
 			"why_tempting": "From outside, the tube looks bent.",
-			"correction": "A tube unrolls into a flat sheet without stretching, and unrolling changes no angle drawn on it. So every loop on the tube brings the arrow back unchanged. The arrow test only notices curving that cannot be unrolled flat, like a ball's.",
-			"diagnosed_by": ["loop-around-a-tube"]
+			"correction": "A tube unrolls into a flat sheet without stretching, so the arrow test treats it as flat. Only curving that cannot be unrolled flat, like a ball's, changes the arrow.",
+			"diagnosed_by": [
+				"loop-around-a-tube"
+			]
 		},
 		{
 			"id": "direction-does-not-matter",
 			"rung": "entry",
 			"belief": "It does not matter which way I walk around the loop.",
-			"why_tempting": "The patch fenced off is the same either way.",
-			"correction": "Walking the loop the other way is the first trip played backwards. The forwards trip followed by the backwards trip must bring the arrow back exactly to its start. So if one direction turns the arrow to the left, the other direction turns it to the right by the same amount.",
-			"diagnosed_by": ["reverse-the-loop"]
+			"why_tempting": "The patch fenced off looks the same either way.",
+			"correction": "Walking the loop the other way plays the first trip backwards. So the arrow comes back turned by the same amount the other way.",
+			"diagnosed_by": [
+				"reverse-the-loop"
+			]
 		},
 		{
 			"id": "flat-along-loop-means-no-turn",
 			"rung": "working",
-			"belief": "If the surface is flat everywhere along my loop, the arrow cannot come back turned.",
+			"belief": "If the surface is flat everywhere along my loop, the arrow cannot come back rotated.",
 			"why_tempting": "The small-loop law makes holonomy look like a local sum of curvature along the path.",
-			"correction": "Flatness guarantees no turn only for loops that can be shrunk to a point without leaving the flat region. A loop around the tip of a paper cone crosses only flat paper, yet it returns turned by the missing wedge's angle.",
-			"diagnosed_by": ["cone-with-a-missing-wedge"]
+			"correction": "Flatness guarantees no rotation only for loops that can be shrunk to a point within the flat region. A loop around the tip of a paper cone crosses only flat paper, yet it returns rotated.",
+			"diagnosed_by": [
+				"cone-holonomy-group"
+			]
 		},
 		{
 			"id": "running-angle-halfway",
 			"rung": "working",
 			"belief": "Halfway around, I can see how much the arrow has turned so far.",
-			"why_tempting": "Animations show the arrow's direction in the room changing continuously, which invites a running angle.",
-			"correction": "Arrows at different places on a curved surface can be compared only by carrying one to the other, and different routes give different answers. The turn is defined only when the loop closes and both arrows sit at the same point.",
-			"diagnosed_by": ["halfway-readout"]
+			"why_tempting": "Animations show the arrow's direction in the room changing continuously.",
+			"correction": "Arrows at different places on a curved surface can be compared only by carrying one to the other, and different routes give different answers. The turn is defined only when the loop closes.",
+			"diagnosed_by": [
+				"halfway-readout"
+			]
 		}
 	],
 	"checks": [
@@ -488,53 +1072,138 @@
 			"id": "octant-walk-prediction",
 			"rung": "entry",
 			"format": "predict",
-			"question": "Picture a giant smooth ball. Start at the North Pole and walk straight to the equator. Turn left and walk a quarter of the way around the equator. Then turn left and walk straight back to the North Pole. You carry a flat arrow that points straight ahead at the start and never swings. Back at the North Pole, does the arrow point the same way it did when you set off? If not, how far apart are the two directions?",
+			"question": "Picture a giant smooth ball. Start at the North Pole and walk straight to the equator. Turn left and walk a quarter of the way around the equator. Then turn left and walk straight back to the North Pole. You carry a cardboard arrow that points straight ahead at the start and never swings. Back at the North Pole, does the arrow point the same way it did when you set off? If not, how far apart are the two directions?",
 			"question_spoken": null,
-			"answer": "No. On the first stretch the arrow points ahead. At the equator you turn left but the arrow does not swing, so it points to your right. At the next corner you turn left again, so it points behind you. Behind you along the last path is a right angle away from ahead along the first path. That is because the two paths start a quarter of the way around the equator from each other. So the arrow comes back a quarter turn away from its start.",
-			"key_points": ["The arrow does not come back pointing the same way", "It points ahead, then right, then behind", "The first and last paths meet at the North Pole at a right angle", "The difference is a quarter turn"],
-			"numeric": [{ "quantity": "turn", "value": 90, "unit": "deg", "rel_tol": 0.05 }],
-			"hints": ["Where does the arrow point just after the first left turn?", "Where does it point after the second left turn?"],
-			"targets": ["never-swung-so-never-turned"],
-			"visual": { "id": "carry-an-arrow-around-a-loop", "preset": "octant" }
+			"answer": "No. The arrow points ahead on the first stretch, to your right after the first left turn, and behind you after the second. Behind you along the last path is a right angle away from ahead along the first path, because the two paths leave the North Pole at a right angle. So the arrow comes back a quarter turn away from its start.",
+			"key_points": [
+				"The arrow does not come back pointing the same way",
+				"It points ahead, then right, then behind",
+				"The difference is a quarter turn"
+			],
+			"numeric": [
+				{
+					"quantity": "turn",
+					"value": 90,
+					"unit": "deg",
+					"sign": "magnitude",
+					"abs_tol": 5,
+					"rel_tol": null,
+					"modulo": null
+				}
+			],
+			"hints": [
+				"Where does the arrow point just after the first left turn?",
+				"Where does it point after the second left turn?"
+			],
+			"targets": [
+				"never-swung-so-never-turned"
+			],
+			"visual": {
+				"id": "carry-an-arrow-around-a-loop",
+				"preset": "octant",
+				"tour": "holonomy-first-walk"
+			}
 		},
 		{
 			"id": "square-on-a-floor",
 			"rung": "entry",
 			"format": "predict",
-			"question": "On a flat floor, you walk a square, turning left by a quarter turn at each of its four corners. You carry a flat arrow that points straight ahead at the start and never swings. Back at the start, which way does the arrow point?",
+			"question": "On a flat floor, you walk a square, turning left by a quarter turn at each of its four corners. You carry a cardboard arrow that points straight ahead at the start and never swings. Back at the start, which way does the arrow point?",
 			"question_spoken": null,
-			"answer": "The same way it pointed at the start. Because the arrow never swings, it keeps pointing at the same wall of the room the whole time. Your body turned four times, but the arrow did not. So turning at corners cannot by itself turn the arrow.",
-			"key_points": ["It points the same way as at the start", "The arrow keeps pointing at the same wall", "Corners turn the walker, not the arrow"],
-			"numeric": null,
-			"hints": ["Pick the wall the arrow points at when you start."],
-			"targets": ["corners-caused-the-turn"],
-			"visual": { "id": "carry-an-arrow-around-a-loop", "preset": "flat-square" }
+			"answer": "The same way it pointed at the start. The arrow never swings, so it keeps pointing at the same wall of the room while your body turns at the corners.",
+			"key_points": [
+				"It points the same way as at the start",
+				"The arrow keeps pointing at the same wall",
+				"Corners turn the walker, not the arrow"
+			],
+			"numeric": [
+				{
+					"quantity": "turn",
+					"value": 0,
+					"unit": "deg",
+					"sign": "magnitude",
+					"abs_tol": 1,
+					"rel_tol": null,
+					"modulo": null
+				}
+			],
+			"hints": [
+				"Pick the wall the arrow points at when you start."
+			],
+			"targets": [
+				"corners-caused-the-turn"
+			],
+			"visual": {
+				"id": "carry-an-arrow-around-a-loop",
+				"preset": "flat-square",
+				"tour": null
+			}
 		},
 		{
 			"id": "loop-around-a-tube",
 			"rung": "entry",
 			"format": "explain",
-			"question": "Roll a sheet of paper into a tube. You walk once around the tube, like a bracelet around a wrist, carrying a flat arrow that never swings. Back at the start, does the arrow point the same way it did when you set off? Why?",
+			"question": "Roll a sheet of paper into a tube. You walk once around the tube, like a bracelet around a wrist, carrying a cardboard arrow that never swings. Back at the start, does the arrow point the same way it did when you set off? Why?",
 			"question_spoken": null,
 			"answer": "Yes. Unroll the tube and it becomes a flat sheet with nothing stretched. Your loop becomes a straight line across the sheet, and on flat paper the arrow never changes direction. The two ends of that line were glued together in the tube, so the arrow comes back matching its start.",
-			"key_points": ["Yes, it points the same way", "The tube unrolls flat without stretching", "On the flat sheet the arrow never changes direction"],
-			"numeric": null,
-			"hints": ["What does the tube become when you unroll it?"],
-			"targets": ["tube-must-turn"],
-			"visual": { "id": "carry-an-arrow-around-a-loop", "preset": "tube-unrolled" }
+			"key_points": [
+				"Yes, it points the same way",
+				"The tube unrolls flat without stretching",
+				"On the flat sheet the arrow never changes direction"
+			],
+			"numeric": [
+				{
+					"quantity": "turn",
+					"value": 0,
+					"unit": "deg",
+					"sign": "magnitude",
+					"abs_tol": 1,
+					"rel_tol": null,
+					"modulo": null
+				}
+			],
+			"hints": [
+				"What does the tube become when you unroll it?"
+			],
+			"targets": [
+				"tube-must-turn"
+			],
+			"visual": {
+				"id": "carry-an-arrow-around-a-loop",
+				"preset": "tube-unrolled",
+				"tour": null
+			}
 		},
 		{
 			"id": "reverse-the-loop",
 			"rung": "entry",
 			"format": "predict",
-			"question": "On a ball, you walk a small loop, turning left at each corner, with an arrow that never swings. The arrow comes back turned 5 degrees to the left. You set the arrow back to its starting direction, then walk the same loop the other way, turning right at each corner. How does the arrow come back?",
+			"question": "On a ball, you walk a small loop, turning left at each corner, with a cardboard arrow that never swings. The arrow comes back turned 5 degrees to the left. You set the arrow back to its starting direction, then walk the same loop the other way, turning right at each corner. How does the arrow come back?",
 			"question_spoken": null,
-			"answer": "Turned 5 degrees to the right. The second trip is the first trip played backwards. Doing the first trip and then the backwards trip would bring the arrow exactly back to its start. The first trip turned it 5 degrees left, so the backwards trip must turn it 5 degrees right.",
-			"key_points": ["Turned by the same amount", "In the opposite direction, to the right", "The backwards trip undoes the forwards trip"],
-			"numeric": [{ "quantity": "turn to the right", "value": 5, "unit": "deg", "rel_tol": 0.05 }],
-			"hints": ["What happens if you do the first trip and then the second trip, one after the other?"],
-			"targets": ["direction-does-not-matter"],
-			"visual": { "id": "carry-an-arrow-around-a-loop", "preset": "octant-reversed" }
+			"answer": "Turned 5 degrees to the right. One trip around a loop changes every arrow by the same amount, whichever way it pointed at the start. The second trip is the first trip played backwards, so doing both would bring an arrow exactly back to its start. The first trip moved the arrow 5 degrees left, so the backwards trip must move it 5 degrees right.",
+			"key_points": [
+				"Same amount, opposite direction",
+				"The backwards trip undoes the forwards trip",
+				"A trip changes every arrow by the same amount"
+			],
+			"numeric": [
+				{
+					"quantity": "turn toward the walker's left",
+					"value": -5,
+					"unit": "deg",
+					"sign": "signed",
+					"abs_tol": 0.5,
+					"rel_tol": null,
+					"modulo": 360
+				}
+			],
+			"hints": [
+				"What happens if you do the first trip and then the second trip, one after the other?"
+			],
+			"targets": [
+				"direction-does-not-matter"
+			],
+			"visual": null
 		},
 		{
 			"id": "triangle-on-a-big-sphere",
@@ -542,10 +1211,36 @@
 			"format": "numeric",
 			"question": "A triangle of great-circle arcs on a sphere of radius 1000 km has angles of 100°, 60° and 50°. By how much does an arrow carried around it turn, and what is the triangle's area?",
 			"question_spoken": null,
-			"answer": "The angles sum to 210°, so the angular excess is 30°, or $\\pi/6$ rad, and that is the turn. By the area rule, the area is $(\\pi/6)(1000\\ \\text{km})^2 \\approx 5.24\\times10^{5}$ km².",
-			"key_points": ["Angle sum 210 degrees", "Turn equals the excess, 30 degrees", "Area equals the turn in radians times the radius squared"],
-			"numeric": [{ "quantity": "turn", "value": 0.5236, "unit": "rad", "rel_tol": 0.01 }, { "quantity": "area", "value": 523600, "unit": "km^2", "rel_tol": 0.01 }],
-			"hints": ["Compare the angle sum with 180°.", "Convert the excess to radians before using the area rule."],
+			"answer": "The angles sum to 210°, so the angular excess is 30°, or $\\pi/6$ rad, and that is the turn. By the area rule the area is $(\\pi/6)(1000\\ \\text{km})^2 \\approx 5.24\\times10^{5}$ km².",
+			"key_points": [
+				"Angle sum 210 degrees",
+				"Turn equals the excess, 30 degrees",
+				"Area equals the turn in radians times the radius squared"
+			],
+			"numeric": [
+				{
+					"quantity": "turn",
+					"value": 0.5236,
+					"unit": "rad",
+					"sign": "magnitude",
+					"abs_tol": null,
+					"rel_tol": 0.01,
+					"modulo": null
+				},
+				{
+					"quantity": "area",
+					"value": 523599,
+					"unit": "km^2",
+					"sign": "magnitude",
+					"abs_tol": null,
+					"rel_tol": 0.01,
+					"modulo": null
+				}
+			],
+			"hints": [
+				"Compare the angle sum with 180°.",
+				"Convert the excess to radians before using the area rule."
+			],
 			"targets": [],
 			"visual": null
 		},
@@ -555,12 +1250,32 @@
 			"format": "numeric",
 			"question": "An arrow is carried once eastward around the circle of latitude 30° north on a sphere. By what angle does it return turned?",
 			"question_spoken": null,
-			"answer": "The colatitude is 60°. The polar cap on the walker's left has area $2\\pi a^2(1-\\cos 60^\\circ) = \\pi a^2$, so the turn is $\\pi a^2/a^2 = \\pi$: a half turn.",
-			"key_points": ["Colatitude 60 degrees", "Cap area is pi times the radius squared", "The turn is a half turn"],
-			"numeric": [{ "quantity": "turn", "value": 3.1416, "unit": "rad", "rel_tol": 0.01 }],
-			"hints": ["Measure the angle down from the North Pole."],
+			"answer": "The colatitude is 60°. The polar cap on the walker's left has area $2\\pi a^2(1-\\cos 60^\\circ) = \\pi a^2$, so the turn is $\\pi$: a half turn. The circle is not a geodesic, yet the area rule still gives its turn exactly.",
+			"key_points": [
+				"Colatitude 60 degrees",
+				"Cap area is pi times the radius squared",
+				"The turn is a half turn"
+			],
+			"numeric": [
+				{
+					"quantity": "turn",
+					"value": 3.1416,
+					"unit": "rad",
+					"sign": "magnitude",
+					"abs_tol": 0.03,
+					"rel_tol": null,
+					"modulo": null
+				}
+			],
+			"hints": [
+				"Measure the angle down from the North Pole."
+			],
 			"targets": [],
-			"visual": { "id": "arrow-around-a-circle-of-latitude", "preset": null }
+			"visual": {
+				"id": "arrow-around-a-circle-of-latitude",
+				"preset": null,
+				"tour": null
+			}
 		},
 		{
 			"id": "halfway-readout",
@@ -568,122 +1283,486 @@
 			"format": "evaluate-claim",
 			"question": "A demo shows the arrow halfway around the North Pole loop, with a readout saying 'turned 45° so far'. Evaluate the readout.",
 			"question_spoken": null,
-			"answer": "The readout has no meaning as a holonomy. On a curved surface, arrows at different points can be compared only by carrying one to the other, and different routes give different answers. The turn is defined when the loop closes, where the starting arrow and the returned arrow sit at the same point. An angle measured against a local reference, such as the path or a compass direction, is a different, reference-dependent quantity.",
-			"key_points": ["Arrows at different points have no route-independent comparison", "The turn is defined only when the loop closes", "A running angle depends on an arbitrary local reference"],
+			"answer": "The readout has no meaning as a holonomy. On a curved surface, arrows at different points can be compared only by carrying one to the other, and different routes give different answers. The turn is defined when the loop closes, where the starting arrow and the returned arrow sit at the same point.",
+			"key_points": [
+				"Arrows at different points have no route-independent comparison",
+				"The turn is defined only when the loop closes",
+				"A running angle depends on an arbitrary local reference"
+			],
 			"numeric": null,
-			"hints": ["Relative to what would the 45° be measured?"],
-			"targets": ["running-angle-halfway"],
+			"hints": [
+				"Relative to what would the 45° be measured?"
+			],
+			"targets": [
+				"running-angle-halfway"
+			],
 			"visual": null
 		},
 		{
 			"id": "polar-coordinates-plane",
-			"rung": "formal",
+			"rung": "working",
 			"format": "explain",
-			"question": "In polar coordinates on a flat plane, $\\Gamma^r{}_{\\phi\\phi} = -r$ is not zero. Does a small loop there return vectors turned?",
-			"question_spoken": "In polar coordinates on a flat plane, the Christoffel symbol gamma r phi phi equals minus r, which is not zero. Does a small loop there return vectors turned?",
+			"question": "In polar coordinates on a flat plane, $\\Gamma^r{}_{\\phi\\phi} = -r$ is not zero. Does a small loop there return vectors rotated?",
+			"question_spoken": "In polar coordinates on a flat plane, the Christoffel symbol gamma r phi phi equals minus r, which is not zero. Does a small loop there return vectors rotated?",
 			"answer": "No. The small-loop law sets the change by the Riemann tensor, which vanishes for the flat metric $dr^2 + r^2 d\\phi^2$. Nonzero Christoffel symbols describe curved coordinate lines, not curved space.",
-			"key_points": ["No turn", "Holonomy is governed by the Riemann tensor, not the Christoffel symbols", "The plane's Riemann tensor is zero"],
+			"key_points": [
+				"No rotation",
+				"Holonomy of small loops is governed by the Riemann tensor, not the Christoffel symbols",
+				"The plane's Riemann tensor is zero"
+			],
 			"numeric": null,
-			"hints": ["Which object appears in the small-loop law?"],
+			"hints": [
+				"Which object appears in the small-loop law?"
+			],
 			"targets": [],
 			"visual": null
 		},
 		{
-			"id": "cone-with-a-missing-wedge",
+			"id": "cone-holonomy-group",
 			"rung": "formal",
-			"format": "evaluate-claim",
-			"question": "A cone is made by removing a 90° wedge from paper. A student says: 'every patch of the cone away from the tip is flat, so every loop gives zero holonomy.' Evaluate the claim.",
-			"question_spoken": null,
-			"answer": "It is true only for loops that do not go around the tip. A loop winding once around the tip returns vectors turned by 90°, in the sense of the circulation. Unrolling shows why: the vector slides unchanged on the flat sheet, and gluing the wedge's edges imposes the rotation. Vanishing curvature along a loop guarantees trivial holonomy only for loops that can be shrunk to a point within the flat region.",
-			"key_points": ["The claim fails for loops around the tip", "The turn equals the wedge angle, 90 degrees", "Only contractible loops in a flat region are guaranteed trivial holonomy"],
-			"numeric": [{ "quantity": "turn", "value": 90, "unit": "deg", "rel_tol": 0.01 }],
-			"hints": ["Unroll the cone and follow the loop across the seam."],
-			"targets": ["flat-along-loop-means-no-turn"],
-			"visual": { "id": "paper-cone-with-a-missing-wedge", "preset": null }
+			"format": "explain",
+			"question": "A flat cone is made by removing a wedge of angle $\\delta$, and its tip is removed. What are its restricted and full holonomy groups at a point? When does vanishing curvature along a loop guarantee trivial holonomy?",
+			"question_spoken": "A flat cone is made by removing a wedge of angle delta, and its tip is removed. What are its restricted and full holonomy groups at a point? When does vanishing curvature along a loop guarantee trivial holonomy?",
+			"answer": "The punctured cone is flat, so every contractible loop has trivial holonomy: the restricted group is trivial. A loop winding $n$ times around the missing tip gives a rotation by $n\\delta$, so the full group is the subgroup of $SO(2)$ generated by the rotation by $\\delta$, finite and cyclic when $\\delta/2\\pi$ is rational and dense otherwise. So vanishing curvature guarantees trivial holonomy only for contractible loops within the flat region.",
+			"key_points": [
+				"Restricted holonomy is trivial because the cone is flat",
+				"Full holonomy is generated by the rotation by delta",
+				"Only contractible loops in a flat region are guaranteed trivial holonomy"
+			],
+			"numeric": null,
+			"hints": [
+				"Which loops cannot be shrunk to a point on the punctured cone?"
+			],
+			"targets": [
+				"flat-along-loop-means-no-turn"
+			],
+			"visual": {
+				"id": "paper-cone-with-a-missing-wedge",
+				"preset": null,
+				"tour": null
+			}
+		},
+		{
+			"id": "why-ordering-matters",
+			"rung": "formal",
+			"format": "explain",
+			"question": "On the unit sphere, why can you not drop the path ordering $\\mathcal{P}$ when computing the holonomy of a coordinate rectangle from the coordinate Christoffel matrices? What makes dropping it legitimate in two dimensions?",
+			"question_spoken": "On the unit sphere, why can you not drop the path ordering when computing the holonomy of a coordinate rectangle from the coordinate Christoffel matrices? What makes dropping it legitimate in two dimensions?",
+			"answer": "The coordinate matrices $\\Gamma_\\theta = \\mathrm{diag}(0, \\cot\\theta)$ and $\\Gamma_\\phi$, with off-diagonal entries $-\\sin\\theta\\cos\\theta$ and $\\cot\\theta$, do not commute. So for the rectangle $\\theta \\in [0.5, 1.2]$, $\\phi \\in [0, 1]$ the ordered product gives the enclosed area, $29.52^\\circ$, while the plain exponential gives neither that angle nor a length-preserving map. In an orthonormal frame on the whole region the connection is one $\\mathfrak{so}(2)$-valued form whose values commute, so the ordering drops out and Stokes' theorem gives the area rule.",
+			"key_points": [
+				"Coordinate connection matrices do not commute",
+				"The ordered product gives the enclosed area, the unordered exponential does not",
+				"In an orthonormal frame in two dimensions the connection values commute"
+			],
+			"numeric": [
+				{
+					"quantity": "rotation for the rectangle",
+					"value": 29.52,
+					"unit": "deg",
+					"sign": "magnitude",
+					"abs_tol": 0.05,
+					"rel_tol": null,
+					"modulo": null
+				}
+			],
+			"hints": [
+				"Write out $\\Gamma_\\theta$ and $\\Gamma_\\phi$ as 2 by 2 matrices and compute their commutator."
+			],
+			"targets": [],
+			"visual": null
 		}
 	],
 	"notation_traps": [
-		{ "id": "small-loop-sign", "issue": "Sign of the small-loop law", "course_choice": "Walking $+a, +b, -a, -b$ gives $\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$ with the course Riemann tensor.", "variants": "Some texts walk the edges in the other order, or define the Riemann tensor with the opposite overall sign, and write $+R$. State the route and the Riemann convention together." },
-		{ "id": "holonomy-angle-branch", "issue": "Sense and branch of the holonomy angle", "course_choice": "Positive in the sense of circulation, with the enclosed region on the walker's left, modulo $2\\pi$.", "variants": "A clockwise rotation by $2\\pi\\cos\\theta_0$ and a counterclockwise rotation by $2\\pi(1-\\cos\\theta_0)$ are the same rotation, and the literature quotes either form." },
-		{ "id": "gauge-phase-sign", "issue": "Sign of a gauge phase", "course_choice": "$D_\\mu = \\partial_\\mu - i(q/\\hbar)A_\\mu$, so transport multiplies a charged field by $\\exp\\big(+i(q/\\hbar)\\oint A_\\mu dx^\\mu\\big)$.", "variants": "Texts that write $D_\\mu = \\partial_\\mu + iqA_\\mu$ flip the sign of the phase; some set $\\hbar = 1$ or use Gaussian units." }
+		{
+			"id": "small-loop-sign",
+			"issue": "Sign of the small-loop law",
+			"course_choice": "Walking $+a, +b, -a, -b$ gives $\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$ with the course Riemann tensor.",
+			"variants": "Some texts walk the edges in the other order, or define the Riemann tensor with the opposite overall sign, and write $+R$. State the route and the Riemann convention together."
+		},
+		{
+			"id": "holonomy-angle-branch",
+			"issue": "Sense and branch of the holonomy angle",
+			"course_choice": "Positive toward the walker's left (counterclockwise seen from the side the normal points to), for the region on the walker's left, modulo $2\\pi$.",
+			"variants": "A clockwise rotation by $2\\pi\\cos\\theta_0$ and a counterclockwise rotation by $2\\pi(1-\\cos\\theta_0)$ are the same rotation, and the literature quotes either form; published drift rates may carry the opposite sign."
+		}
 	],
 	"visuals": [
-		{ "id": "carry-an-arrow-around-a-loop", "role": "The central experience: the North Pole walk with flat-floor and tube controls, loops to resize and reverse, and a turn readout that appears only when the loop closes.", "priority": "flagship", "sketch": null },
-		{ "id": "shrink-the-loop-to-find-riemann", "role": "Connects the area picture to the Riemann tensor.", "priority": "core", "sketch": "A coordinate parallelogram on a chosen 2D metric: a sphere patch, a saddle, or a polar-coordinate plane. The learner shrinks it with sliders and swaps the edge order. A log-log plot of the vector's change against the area shows slope one and converges to the small-loop law; the polar-coordinate plane stays at zero." },
-		{ "id": "paper-cone-with-a-missing-wedge", "role": "Shows holonomy without local curvature.", "priority": "core", "sketch": "Cut a wedge of adjustable angle from a flat sheet and glue it into a cone. Loops that avoid the tip return the arrow unchanged; loops winding n times around the tip return it turned by n times the wedge angle. The unrolled sheet sits beside the cone, so the learner sees the arrow slide rigidly and the seam add the turn." },
-		{ "id": "arrow-around-a-circle-of-latitude", "role": "The area rule for a curve that is not a geodesic, and the link to the Foucault pendulum.", "priority": "supporting", "sketch": "Drag the latitude and play one lap. Plot the returned turn against latitude in two equivalent forms, counterclockwise $2\\pi(1-\\sin\\lambda)$ and clockwise $2\\pi\\sin\\lambda$, and show that they are the same rotation. Overlay the Foucault pendulum's daily clockwise turn on the second form." },
-		{ "id": "cube-of-small-loops", "role": "Geometric picture of the second Bianchi identity.", "priority": "supporting", "sketch": "A small cube whose six faces are walked as loops. Each face's rotation is carried to a common corner along the cube's edges. The sum cancels at third order in the cube's size, shown as a readout that shrinks faster than the cube." }
+		{
+			"id": "carry-an-arrow-around-a-loop",
+			"role": "The central experience: the North Pole walk with flat-floor and tube controls, loops to resize and reverse, and a turn readout that appears only when the loop closes.",
+			"priority": "flagship",
+			"sketch": null
+		},
+		{
+			"id": "shrink-the-loop-to-find-riemann",
+			"role": "Connects the area rule to the Riemann tensor.",
+			"priority": "core",
+			"sketch": "A coordinate parallelogram on a sphere patch, a saddle, or a polar-coordinate plane. The learner shrinks it and swaps the edge order; a log-log plot shows the vector's change against area with slope one, converging to the small-loop law, while the polar-coordinate plane stays at zero."
+		},
+		{
+			"id": "paper-cone-with-a-missing-wedge",
+			"role": "Shows holonomy without local curvature.",
+			"priority": "core",
+			"sketch": "Cut a wedge of adjustable angle from a flat sheet and glue it into a cone, with the unrolled sheet beside it. Loops that avoid the tip return the arrow unchanged; loops winding n times around it return it rotated by n times the wedge angle."
+		},
+		{
+			"id": "arrow-around-a-circle-of-latitude",
+			"role": "The area rule for a curve that is not a geodesic, and the link to the Foucault pendulum.",
+			"priority": "supporting",
+			"sketch": "Drag the latitude and play one lap. Plot the returned rotation against latitude in its two equivalent forms, counterclockwise $2\\pi(1-\\sin\\lambda)$ and clockwise $2\\pi\\sin\\lambda$, showing they are one rotation, with the Foucault pendulum's turn per sidereal day on the second."
+		},
+		{
+			"id": "cube-of-small-loops",
+			"role": "Geometric picture of the second Bianchi identity.",
+			"priority": "supporting",
+			"sketch": "A small cube whose six faces are walked as loops, each face's rotation carried to a common corner along the edges; the sum shrinks faster than the cube, cancelling at third order in its size."
+		}
 	],
 	"tutor_moves": {
 		"opening_questions": [
-			{ "id": "arrow-on-a-giant-ball", "question": "Picture a giant smooth ball. You walk a big triangle on it, holding an arrow flat on the ground and never letting it swing left or right. When you get back to where you started, will the arrow point the same way it did at the start?", "invites": "prediction" },
-			{ "id": "find-curving-from-inside", "question": "If you could never leave the surface of a ball, or look at it from above, how could you find out that it is curved?", "invites": "reflection" }
+			{
+				"id": "arrow-on-a-giant-ball",
+				"question": "Picture a giant smooth ball. You walk a big triangle on it, holding a cardboard arrow against the ground and never letting it swing left or right. When you get back to where you started, will the arrow point the same way it did at the start?",
+				"invites": "prediction"
+			},
+			{
+				"id": "find-curving-without-leaving",
+				"question": "If you could never leave the surface of a ball, or look at it from above, how could you find out that it is curved?",
+				"invites": "reflection"
+			}
 		],
 		"if_stuck": [
-			{ "id": "lost-in-directions", "symptom": "The learner loses track of where the arrow points during the walk.", "move": "Replay the walk one stretch at a time, and have the learner say the arrow's direction relative to the path: ahead, right, behind.", "misconception": null },
-			{ "id": "area-on-a-sphere", "symptom": "The learner cannot find the area of a patch on a sphere.", "move": "Use fractions of the whole sphere first: the North Pole triangle is one eighth of $4\\pi a^2$. Postpone the cap formula.", "misconception": null },
-			{ "id": "lost-in-indices", "symptom": "The learner is lost in the index formula.", "move": "Go to the unit-sphere cell, compute only $\\Delta V^\\phi$, and show that the angle equals the cell's area.", "misconception": null },
-			{ "id": "wants-a-running-angle", "symptom": "The learner asks for the angle partway around.", "move": "Ask what the moving arrow would be compared with, then show that two routes to the halfway point give different answers.", "misconception": "running-angle-halfway" }
+			{
+				"id": "lost-in-directions",
+				"symptom": "The learner loses track of where the arrow points during the walk.",
+				"move": "Replay the walk one stretch at a time, and have the learner say the arrow's direction relative to the path: ahead, right, behind.",
+				"misconception": null,
+				"uses": [
+					"ways_in/walk-a-loop-on-a-ball"
+				]
+			},
+			{
+				"id": "area-on-a-sphere",
+				"symptom": "The learner cannot find the area of a patch on a sphere.",
+				"move": "Use fractions of the whole sphere first: the North Pole triangle is one eighth of $4\\pi a^2$.",
+				"misconception": null,
+				"uses": [
+					"ways_in/turn-equals-enclosed-curving"
+				]
+			},
+			{
+				"id": "lost-in-indices",
+				"symptom": "The learner is lost in the index formula.",
+				"move": "Work the unit-sphere cell, computing one component, and show that the angle equals the cell's area.",
+				"misconception": null,
+				"uses": [
+					"worked_examples/unit-sphere-cell"
+				]
+			},
+			{
+				"id": "wants-a-running-angle",
+				"symptom": "The learner asks for the angle partway around.",
+				"move": "Ask what the moving arrow would be compared with, then show that two routes to the halfway point give different answers.",
+				"misconception": "running-angle-halfway",
+				"uses": [
+					"checks/halfway-readout"
+				]
+			}
 		],
 		"common_questions": [
-			{ "id": "where-does-the-turn-come-from", "rung": "entry", "question": "If I never let the arrow swing, where does the turn come from?", "answer": "Follow the walk step by step: ahead, then to your right after the first corner, then behind you after the second. Each step obeys the rule. But on a ball, the three straight stretches meet at right angles at all three corners. On a flat table, a triangle's three corners always add up to half a turn, never three quarters. That extra quarter turn at the corners is where the arrow's turn comes from." },
-			{ "id": "why-it-matters-for-gravity", "rung": "entry", "question": "Why does this matter for gravity?", "answer": "We live inside space and time, and nobody can look at them from outside. Tests from inside are how curving shows up. A spinning gyroscope carried around Earth in orbit comes back turned by a tiny angle, about five millionths of a full turn each year. A space experiment called Gravity Probe B measured it." },
-			{ "id": "bigger-ball-bigger-turn", "rung": "entry", "question": "Does a bigger ball give a bigger turn?", "answer": "It depends on what you keep the same. For a triangle with the same corner angles, no: on a bigger ball the triangle is bigger, and the turn stays the same. For a loop of the same size in kilometres, a bigger ball gives a smaller turn, because a bigger ball curves more gently." }
+			{
+				"id": "where-does-the-turn-come-from",
+				"rung": "entry",
+				"question": "If I never let the arrow swing, where does the turn come from?",
+				"answer": "Each step obeys the rule; what is different is the ground. A triangle on a flat table has inside angles adding up to half a turn, but the North Pole triangle has three right angles, three quarters of a turn. That extra quarter turn is the ball's curving, and it matches the arrow's change exactly.",
+				"uses": [
+					"ways_in/walk-a-loop-on-a-ball",
+					"checks/square-on-a-floor"
+				]
+			},
+			{
+				"id": "why-it-matters-for-gravity",
+				"rung": "entry",
+				"question": "Why does this matter for gravity?",
+				"answer": "We live inside space and time, and nobody can look at them from outside. So tests made without leaving are the only way to find their curving. A gyroscope keeps pointing the same way unless something twists it, so it acts like the arrow that never swings. Carried around Earth in orbit, a gyroscope's direction slowly drifts, adding up to about five millionths of a full turn each year. Most of that drift comes from the curving of space around Earth, and a space experiment called Gravity Probe B measured it.",
+				"uses": [
+					"ways_in/a-gyroscope-measures-it",
+					"observations/gravity-probe-b-geodetic"
+				]
+			},
+			{
+				"id": "bigger-ball-bigger-turn",
+				"rung": "entry",
+				"question": "Does a bigger ball give a bigger turn?",
+				"answer": "It depends on what you keep the same. For a triangle with the same corner angles, no: on a bigger ball the triangle is bigger, and the turn stays the same. For a loop of the same size in kilometres, a bigger ball gives a smaller turn, because a bigger ball curves more gently.",
+				"uses": [
+					"checks/triangle-on-a-big-sphere"
+				]
+			}
 		],
-		"voice_notes": "Use degrees and fractions of a turn with beginners; switch to radians only once the area rule is on the table.",
+		"voice_notes": "Use degrees and fractions of a turn with beginners; switch to radians once the area rule is on the table.",
 		"level_switching": [
-			{ "to_rung": "working", "signals": ["asks how big the turn is", "starts using areas or angles as numbers"], "move": "Go to the area rule and the North Pole triangle check." },
-			{ "to_rung": "formal", "signals": ["is comfortable with index notation", "asks whether the turn is always a rotation"], "move": "Derive the small-loop law, then the path-ordered exponential and the cone." },
-			{ "to_rung": "research", "signals": ["asks about groups of loops, discrete gravity, or quantum gravity"], "move": "Open the research horizon: special holonomy, Regge calculus, and loop quantum gravity." }
+			{
+				"to_rung": "working",
+				"signals": [
+					"asks how big the turn is",
+					"starts using areas or angles as numbers"
+				],
+				"move": "Go to the area rule and the triangle check.",
+				"uses": [
+					"ways_in/turn-equals-enclosed-curving",
+					"checks/triangle-on-a-big-sphere"
+				]
+			},
+			{
+				"to_rung": "formal",
+				"signals": [
+					"is comfortable with index notation",
+					"asks whether the turn is always a rotation"
+				],
+				"move": "Derive the small-loop law, then the path-ordered exponential and the cone.",
+				"uses": [
+					"derivations/small-loop-law-from-transport",
+					"ways_in/whole-loops-as-transformations"
+				]
+			},
+			{
+				"to_rung": "research",
+				"signals": [
+					"asks about groups of loops, discrete gravity, or quantum gravity"
+				],
+				"move": "Open the research horizon.",
+				"uses": [
+					"research_horizon/special-holonomy",
+					"research_horizon/discrete-gravity"
+				]
+			}
 		]
 	},
 	"history": [
-		{ "id": "gauss-1827", "people": ["Carl Friedrich Gauss"], "year": 1827, "work": { "authors": ["Carl Friedrich Gauss"], "year": 1828, "title": "Disquisitiones generales circa superficies curvas", "venue": null, "doi": null, "arxiv": null, "kind": "paper", "verified": false }, "contribution": "Showed that a surface's curvature can be measured from inside it, and related the angle sum of a geodesic triangle to the curvature it encloses. Presented in 1827 and published in 1828." },
-		{ "id": "bonnet-1848", "people": ["Pierre Ossian Bonnet"], "year": 1848, "work": null, "contribution": "Extended Gauss's angle-sum result to regions bounded by arbitrary curves, giving the local Gauss–Bonnet theorem." },
-		{ "id": "levi-civita-1917", "people": ["Tullio Levi-Civita"], "year": 1917, "work": { "authors": ["Tullio Levi-Civita"], "year": 1917, "title": "Nozione di parallelismo in una varietà qualunque e conseguente specificazione geometrica della curvatura riemanniana", "venue": "Rendiconti del Circolo Matematico di Palermo 42, 173–205", "doi": null, "arxiv": null, "kind": "paper", "verified": false }, "contribution": "Defined parallel transport on Riemannian manifolds, first through an embedding in flat space, and used it to give Riemann's curvature a geometric meaning. Weyl and Schouten soon gave intrinsic formulations." },
-		{ "id": "cartan-1926", "people": ["Élie Cartan"], "year": 1926, "work": { "authors": ["Élie Cartan"], "year": 1926, "title": "Les groupes d'holonomie des espaces généralisés", "venue": "Acta Mathematica 48, 1–42", "doi": null, "arxiv": null, "kind": "paper", "verified": false }, "contribution": "Introduced holonomy groups and made them a central tool of differential geometry." },
-		{ "id": "ambrose-singer-1953", "people": ["Warren Ambrose", "Isadore Singer"], "year": 1953, "work": { "authors": ["Warren Ambrose", "Isadore M. Singer"], "year": 1953, "title": "A theorem on holonomy", "venue": "Transactions of the American Mathematical Society 75, 428–443", "doi": null, "arxiv": null, "kind": "paper", "verified": false }, "contribution": "Proved that the Lie algebra of the holonomy group is spanned by curvature operators transported back to the base point." }
+		{
+			"id": "gauss-1827",
+			"people": [
+				"Carl Friedrich Gauss"
+			],
+			"year": 1827,
+			"work": {
+				"authors": [
+					"Carl Friedrich Gauss"
+				],
+				"more_authors": false,
+				"year": 1828,
+				"title": "Disquisitiones generales circa superficies curvas",
+				"venue": null,
+				"doi": null,
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			},
+			"contribution": "Showed that a surface's curvature can be measured from within the surface, and related the angle sum of a geodesic triangle to the curvature it encloses. Presented in 1827 and published in 1828."
+		},
+		{
+			"id": "bonnet-1848",
+			"people": [
+				"Pierre Ossian Bonnet"
+			],
+			"year": 1848,
+			"work": null,
+			"contribution": "Extended Gauss's angle-sum result to regions bounded by arbitrary curves, giving the local Gauss–Bonnet theorem."
+		},
+		{
+			"id": "levi-civita-1917",
+			"people": [
+				"Tullio Levi-Civita"
+			],
+			"year": 1917,
+			"work": {
+				"authors": [
+					"Tullio Levi-Civita"
+				],
+				"more_authors": false,
+				"year": 1917,
+				"title": "Nozione di parallelismo in una varietà qualunque e conseguente specificazione geometrica della curvatura riemanniana",
+				"venue": "Rendiconti del Circolo Matematico di Palermo 42, 173–205",
+				"doi": null,
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			},
+			"contribution": "Defined parallel transport on Riemannian manifolds, first through an embedding in flat space, and used it to give Riemann's curvature a geometric meaning. Weyl and Schouten soon gave intrinsic formulations."
+		},
+		{
+			"id": "cartan-1926",
+			"people": [
+				"Élie Cartan"
+			],
+			"year": 1926,
+			"work": {
+				"authors": [
+					"Élie Cartan"
+				],
+				"more_authors": false,
+				"year": 1926,
+				"title": "Les groupes d'holonomie des espaces généralisés",
+				"venue": "Acta Mathematica 48, 1–42",
+				"doi": null,
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			},
+			"contribution": "Introduced holonomy groups and made them a central tool of differential geometry."
+		},
+		{
+			"id": "ambrose-singer-1953",
+			"people": [
+				"Warren Ambrose",
+				"Isadore Singer"
+			],
+			"year": 1953,
+			"work": {
+				"authors": [
+					"Warren Ambrose",
+					"Isadore M. Singer"
+				],
+				"more_authors": false,
+				"year": 1953,
+				"title": "A theorem on holonomy",
+				"venue": "Transactions of the American Mathematical Society 75, 428–443",
+				"doi": null,
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			},
+			"contribution": "Proved that the Lie algebra of the holonomy group is spanned by curvature operators transported back to the base point."
+		}
 	],
 	"research_horizon": [
 		{
 			"id": "special-holonomy",
 			"topic": "Special holonomy",
-			"connection": "Berger classified the possible holonomy groups of irreducible Riemannian manifolds that are not locally symmetric. Manifolds whose holonomy is a proper subgroup of $SO(n)$, such as Calabi–Yau threefolds with holonomy $SU(3)$ and $G_2$ manifolds, supply the extra dimensions of string and M-theory compactifications, because reduced holonomy is what leaves some supersymmetry unbroken.",
+			"connection": "Berger classified the possible holonomy groups of irreducible Riemannian manifolds that are not locally symmetric. Manifolds whose holonomy lies in $SU(3)$, the Calabi–Yau threefolds, or in $G_2$ admit covariantly constant spinors, which is why they serve as the extra dimensions of string and M-theory compactifications that preserve some supersymmetry.",
 			"references": [
-				{ "authors": ["Marcel Berger"], "year": 1955, "title": "Sur les groupes d'holonomie homogène des variétés à connexion affine et des variétés riemanniennes", "venue": "Bulletin de la Société Mathématique de France 83, 279–330", "doi": null, "arxiv": null, "kind": "paper", "verified": false },
-				{ "authors": ["Philip Candelas", "Gary T. Horowitz", "Andrew Strominger", "Edward Witten"], "year": 1985, "title": "Vacuum configurations for superstrings", "venue": "Nuclear Physics B 258, 46–74", "doi": null, "arxiv": null, "kind": "paper", "verified": false }
+				{
+					"authors": [
+						"Marcel Berger"
+					],
+					"more_authors": false,
+					"year": 1955,
+					"title": "Sur les groupes d'holonomie homogènes de variétés à connexion affine et des variétés riemanniennes",
+					"venue": "Bulletin de la Société Mathématique de France 83, 279–330",
+					"doi": "10.24033/bsmf.1464",
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				},
+				{
+					"authors": [
+						"Philip Candelas",
+						"Gary T. Horowitz",
+						"Andrew Strominger",
+						"Edward Witten"
+					],
+					"more_authors": false,
+					"year": 1985,
+					"title": "Vacuum configurations for superstrings",
+					"venue": "Nuclear Physics B 258, 46–74",
+					"doi": null,
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				}
 			]
 		},
 		{
 			"id": "discrete-gravity",
 			"topic": "Discrete gravity",
-			"connection": "Regge calculus builds spacetime from flat simplices glued together. All curvature sits on codimension-two hinges and is measured by deficit angles, which are the holonomies of small loops around the hinges. Causal dynamical triangulations use this construction to define a path integral for quantum gravity.",
+			"connection": "Regge calculus builds spacetime from flat simplices glued together. All curvature sits on codimension-two hinges and is measured by deficit angles, the holonomies of small loops around the hinges. Causal dynamical triangulations use this construction to define a path integral for quantum gravity.",
 			"references": [
-				{ "authors": ["Tullio Regge"], "year": 1961, "title": "General relativity without coordinates", "venue": "Il Nuovo Cimento 19, 558–571", "doi": null, "arxiv": null, "kind": "paper", "verified": false },
-				{ "authors": ["Jan Ambjørn", "Jerzy Jurkiewicz", "Renate Loll"], "year": 2004, "title": "Emergence of a 4D world from causal quantum gravity", "venue": "Physical Review Letters 93, 131301", "doi": null, "arxiv": "hep-th/0404156", "kind": "paper", "verified": false }
+				{
+					"authors": [
+						"Tullio Regge"
+					],
+					"more_authors": false,
+					"year": 1961,
+					"title": "General relativity without coordinates",
+					"venue": "Il Nuovo Cimento 19, 558–571",
+					"doi": null,
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				},
+				{
+					"authors": [
+						"Jan Ambjørn",
+						"Jerzy Jurkiewicz",
+						"Renate Loll"
+					],
+					"more_authors": false,
+					"year": 2004,
+					"title": "Emergence of a 4D world from causal quantum gravity",
+					"venue": "Physical Review Letters 93, 131301",
+					"doi": null,
+					"arxiv": "hep-th/0404156",
+					"kind": "paper",
+					"verified": false
+				}
 			]
 		},
 		{
 			"id": "loop-quantum-gravity",
 			"topic": "Loop quantum gravity",
-			"connection": "Loop quantum gravity takes the holonomies of a connection along curves, rather than the metric, as its basic variables. Spin networks, graphs labelled by representations, give a basis of its quantum states.",
+			"connection": "Loop quantum gravity takes the holonomies of a connection along curves, rather than the metric, as its basic variables. Spin networks, graphs labelled by group representations, give a basis of its quantum states.",
 			"references": [
-				{ "authors": ["Abhay Ashtekar"], "year": 1986, "title": "New variables for classical and quantum gravity", "venue": "Physical Review Letters 57, 2244", "doi": null, "arxiv": null, "kind": "paper", "verified": false },
-				{ "authors": ["Carlo Rovelli", "Lee Smolin"], "year": 1990, "title": "Loop space representation of quantum general relativity", "venue": "Nuclear Physics B 331, 80–152", "doi": null, "arxiv": null, "kind": "paper", "verified": false },
-				{ "authors": ["Carlo Rovelli"], "year": 1998, "title": "Loop quantum gravity", "venue": "Living Reviews in Relativity 1, 1", "doi": null, "arxiv": "gr-qc/9710008", "kind": "review", "verified": false }
-			]
-		},
-		{
-			"id": "wilson-loops",
-			"topic": "Wilson loops",
-			"connection": "In a non-abelian gauge theory, the holonomy of the gauge field around a loop changes by conjugation under gauge transformations, so its trace in a chosen representation, the Wilson loop, is gauge invariant. Wilson loops are basic observables of gauge theories, and an area-law fall-off of their expectation values diagnoses confinement.",
-			"references": [
-				{ "authors": ["Kenneth G. Wilson"], "year": 1974, "title": "Confinement of quarks", "venue": "Physical Review D 10, 2445", "doi": null, "arxiv": null, "kind": "paper", "verified": false }
+				{
+					"authors": [
+						"Abhay Ashtekar"
+					],
+					"more_authors": false,
+					"year": 1986,
+					"title": "New variables for classical and quantum gravity",
+					"venue": "Physical Review Letters 57, 2244",
+					"doi": null,
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				},
+				{
+					"authors": [
+						"Carlo Rovelli"
+					],
+					"more_authors": false,
+					"year": 1998,
+					"title": "Loop quantum gravity",
+					"venue": "Living Reviews in Relativity 1, 1",
+					"doi": null,
+					"arxiv": "gr-qc/9710008",
+					"kind": "review",
+					"verified": false
+				}
 			]
 		}
 	],
+	"retired_ids": [
+		{
+			"collection": "worked_examples",
+			"id": "forty-fifth-parallel",
+			"replaced_by": null
+		},
+		{
+			"collection": "worked_examples",
+			"id": "latitude-circle-as-matrix-exponential",
+			"replaced_by": "latitude-holonomy-from-path-ordering"
+		}
+	],
 	"provenance": {
-		"source_units": ["schutz/ch06", "gifted-amateur/ch11", "gifted-amateur/ch35", "gifted-amateur/ch38", "gifted-amateur/ch44", "dinverno/ch06"],
+		"source_units": [
+			"schutz/ch06",
+			"gifted-amateur/ch11",
+			"gifted-amateur/ch35",
+			"gifted-amateur/ch38",
+			"gifted-amateur/ch44",
+			"dinverno/ch06"
+		],
 		"legacy_assets": [
 			"manuscript-chapter-08-curvature-holonomy",
 			"manuscript-section-8-1-8-3-riemann-commutator-and-loop",

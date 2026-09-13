@@ -1,36 +1,38 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"title": "Visual (schema v2): a component contract for a diagram, widget, animation, or 3D demo",
-	"description": "One reusable picture in the visual network. Typed params, presets, and readouts define its state; tour beats and tests refer to that state, so the tutor can drive it and tests compile to unit tests. Written in our own voice; sources appear only in provenance. See knowledge/_meta/writing-guide.md section 7.",
+	"description": "One reusable picture in the visual network. Typed params (with availability constraints), presets, and readouts (with sense, range, and precision) define its state; tours, beats, and tests refer to that state, so the tutor can drive it and tests compile to unit tests. Addresses: visual:<id>, visual:<id>/presets/<id>, visual:<id>/tours/<id>/beats/<id>. Written in our own voice; sources appear only in provenance. See knowledge/_meta/writing-guide.md section 10.",
 	"type": "object",
 	"required": [
 		"schema_version", "id", "title", "kind", "priority", "status", "revision", "updated", "component", "rungs", "makes_visible",
-		"picture", "print_figure", "variants", "params", "presets", "readouts", "tour", "design_rules", "model", "serves",
+		"picture", "print_figure", "variants", "params", "presets", "readouts", "tours", "design_rules", "model", "serves",
 		"builds_on", "leads_to", "variant_of", "accessibility", "starting_material", "provenance"
 	],
 	"additionalProperties": false,
 	"properties": {
-		"schema_version": { "enum": [2] },
-		"id": { "$ref": "#/definitions/kebab", "description": "Names the picture, not the concept" },
-		"title": { "type": "string", "minLength": 3, "maxLength": 70, "x-format": "plain" },
-		"kind": { "$ref": "#/definitions/form" },
-		"priority": { "enum": ["flagship", "core", "supporting"], "description": "Catalog-wide build priority" },
-		"status": { "enum": ["proposed", "specified", "prototype", "built", "published", "retired"] },
-		"revision": { "type": "integer", "minimum": 1 },
-		"updated": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
-		"component": { "type": ["string", "null"], "description": "Svelte module path once built" },
-		"rungs": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/rung" } },
-		"makes_visible": { "type": "string", "minLength": 60, "x-format": "md" },
+		"schema_version": { "enum": [2], "x-audience": "system" },
+		"id": { "$ref": "#/definitions/kebab", "x-audience": "system", "description": "Names the picture, not the concept" },
+		"title": { "type": "string", "minLength": 3, "maxLength": 70, "x-format": "plain", "x-audience": "reader" },
+		"kind": { "$ref": "#/definitions/form", "x-audience": "system" },
+		"priority": { "enum": ["flagship", "core", "supporting"], "x-audience": "author", "description": "Catalog-wide build priority" },
+		"status": { "enum": ["proposed", "specified", "prototype", "built", "published", "retired"], "x-audience": "system" },
+		"revision": { "type": "integer", "minimum": 1, "x-audience": "system" },
+		"updated": { "$ref": "#/definitions/date", "x-audience": "system" },
+		"component": { "type": ["string", "null"], "x-audience": "system", "description": "Svelte module path; required once built" },
+		"rungs": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/rung" }, "x-audience": "system" },
+		"makes_visible": { "type": "string", "minLength": 60, "x-format": "md", "x-audience": "author" },
 		"picture": {
 			"type": "object",
+			"x-audience": "reader",
 			"required": ["caption", "composition", "elements"],
 			"additionalProperties": false,
 			"properties": {
 				"caption": { "type": "string", "minLength": 20, "x-format": "plain", "description": "One sentence a novice understands" },
-				"composition": { "type": "string", "minLength": 60, "x-format": "md" },
+				"composition": { "type": "string", "minLength": 60, "x-format": "md", "x-audience": "author" },
 				"elements": {
 					"type": "array",
 					"minItems": 2,
+					"x-audience": "author",
 					"items": {
 						"type": "object",
 						"required": ["element", "depicts"],
@@ -42,18 +44,20 @@
 		},
 		"print_figure": {
 			"type": "object",
+			"x-audience": "author",
 			"required": ["description", "labels", "aspect", "alt_text"],
 			"additionalProperties": false,
 			"properties": {
 				"description": { "type": "string", "x-format": "md" },
 				"labels": { "type": "array", "items": { "type": "string" } },
 				"aspect": { "type": "string", "pattern": "^\\d+:\\d+$" },
-				"alt_text": { "type": "string", "x-format": "plain" }
+				"alt_text": { "type": "string", "x-format": "plain", "x-audience": "reader" }
 			}
 		},
 		"variants": {
 			"type": "array",
 			"minItems": 1,
+			"x-audience": "system",
 			"items": {
 				"type": "object",
 				"required": ["id", "form", "description", "fallback"],
@@ -68,9 +72,10 @@
 		},
 		"params": {
 			"type": "array",
+			"x-audience": "system",
 			"items": {
 				"type": "object",
-				"required": ["id", "label", "type", "options", "min", "max", "step", "unit", "default", "effect"],
+				"required": ["id", "label", "type", "options", "min", "max", "step", "unit", "default", "available_when", "effect"],
 				"additionalProperties": false,
 				"properties": {
 					"id": { "$ref": "#/definitions/item_id" },
@@ -80,9 +85,13 @@
 						"type": ["array", "null"],
 						"items": {
 							"type": "object",
-							"required": ["value", "label"],
+							"required": ["value", "label", "available_when"],
 							"additionalProperties": false,
-							"properties": { "value": { "type": "string" }, "label": { "type": "string" } }
+							"properties": {
+								"value": { "type": "string" },
+								"label": { "type": "string" },
+								"available_when": { "$ref": "#/definitions/constraint" }
+							}
 						}
 					},
 					"min": { "type": ["number", "null"] },
@@ -90,6 +99,7 @@
 					"step": { "type": ["number", "null"] },
 					"unit": { "type": ["string", "null"] },
 					"default": {},
+					"available_when": { "$ref": "#/definitions/constraint" },
 					"effect": { "type": "string", "x-format": "md" }
 				}
 			}
@@ -97,6 +107,7 @@
 		"presets": {
 			"type": "array",
 			"minItems": 1,
+			"x-audience": "system",
 			"items": {
 				"type": "object",
 				"required": ["id", "label", "state"],
@@ -104,58 +115,50 @@
 				"properties": {
 					"id": { "$ref": "#/definitions/item_id" },
 					"label": { "type": "string", "x-format": "plain" },
-					"state": { "type": "object", "description": "param id -> value; unspecified params take defaults" }
+					"state": { "type": "object", "description": "param id -> value; unspecified params take defaults; no preset key" }
 				}
 			}
 		},
 		"readouts": {
 			"type": "array",
+			"x-audience": "system",
 			"items": {
 				"type": "object",
-				"required": ["id", "label", "unit", "visible_when", "say"],
+				"required": ["id", "label", "unit", "sense", "range", "decimals", "visible_when", "say", "say_negative"],
 				"additionalProperties": false,
 				"properties": {
 					"id": { "$ref": "#/definitions/item_id" },
 					"label": { "type": "string", "x-format": "plain" },
 					"unit": { "type": ["string", "null"] },
+					"sense": { "type": ["string", "null"], "x-format": "plain", "description": "What positive means, for signed quantities" },
+					"range": { "type": ["array", "null"], "minItems": 2, "maxItems": 2, "items": { "type": "number" }, "description": "Branch or range of reported values, lower bound exclusive for angles, e.g. [-180, 180]" },
+					"decimals": { "type": "integer", "minimum": 0, "maximum": 12 },
 					"visible_when": { "enum": ["always", "on-complete", "on-demand"] },
-					"say": { "type": "string", "x-format": "speech", "description": "Template for announcing it, e.g. 'the arrow came back turned by {value} degrees'" }
+					"say": { "type": "string", "x-format": "speech", "description": "Template with {value} or {abs}" },
+					"say_negative": { "type": ["string", "null"], "x-format": "speech", "description": "Template for negative values, with {abs}; required for signed readouts" }
 				}
 			}
 		},
-		"tour": {
+		"tours": {
 			"type": "array",
-			"minItems": 3,
+			"minItems": 1,
+			"x-audience": "tutor",
 			"items": {
 				"type": "object",
-				"required": ["id", "rung", "state", "animate", "await", "predict", "show", "say", "describe"],
+				"required": ["id", "for_concept", "rung", "beats"],
 				"additionalProperties": false,
 				"properties": {
 					"id": { "$ref": "#/definitions/item_id" },
+					"for_concept": { "anyOf": [{ "$ref": "#/definitions/kebab" }, { "type": "null" }] },
 					"rung": { "$ref": "#/definitions/rung" },
-					"state": { "type": "object", "description": "Must contain preset (a preset id); other keys override params" },
-					"animate": {
-						"anyOf": [
-							{
-								"type": "object",
-								"required": ["param", "to", "seconds"],
-								"additionalProperties": false,
-								"properties": { "param": { "type": "string" }, "to": {}, "seconds": { "type": "number", "minimum": 0 } }
-							},
-							{ "type": "null" }
-						]
-					},
-					"await": { "enum": ["none", "prediction", "learner-action"] },
-					"predict": { "type": ["string", "null"], "x-format": "speech" },
-					"show": { "type": "string", "x-format": "plain", "description": "What is on screen, for authors" },
-					"say": { "type": "string", "x-format": "speech", "description": "Names what is on screen (colour and line style), says where objects point relative to the path, skips no step" },
-					"describe": { "type": "string", "x-format": "speech", "description": "Non-visual description of the state" }
+					"beats": { "type": "array", "minItems": 3, "items": { "$ref": "#/definitions/beat" } }
 				}
 			}
 		},
 		"design_rules": {
 			"type": "array",
 			"minItems": 1,
+			"x-audience": "author",
 			"items": {
 				"type": "object",
 				"required": ["id", "rule", "because", "misconception"],
@@ -164,12 +167,13 @@
 					"id": { "$ref": "#/definitions/item_id" },
 					"rule": { "type": "string", "x-format": "md" },
 					"because": { "type": "string", "x-format": "md" },
-					"misconception": { "type": ["string", "null"], "description": "<concept>/misconceptions/<id> it prevents" }
+					"misconception": { "anyOf": [{ "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*/misconceptions/[a-z0-9]+(-[a-z0-9]+)*$" }, { "type": "null" }] }
 				}
 			}
 		},
 		"model": {
 			"type": "object",
+			"x-audience": "author",
 			"required": ["summary", "equations", "method", "tests"],
 			"additionalProperties": false,
 			"properties": {
@@ -194,14 +198,13 @@
 					"type": "array",
 					"items": {
 						"type": "object",
-						"required": ["id", "state", "expect", "note"],
+						"required": ["id", "state", "expect", "expect_hidden", "note"],
 						"additionalProperties": false,
 						"properties": {
 							"id": { "$ref": "#/definitions/item_id" },
-							"state": { "type": "object", "description": "Must contain preset; other keys override params" },
+							"state": { "type": "object", "description": "Must contain preset; other keys override params; set progress to 1 when expecting on-complete readouts" },
 							"expect": {
 								"type": "array",
-								"minItems": 1,
 								"items": {
 									"type": "object",
 									"required": ["readout", "value", "abs_tol", "rel_tol"],
@@ -214,6 +217,7 @@
 									}
 								}
 							},
+							"expect_hidden": { "type": "array", "items": { "type": "string" }, "description": "Readouts that must not be visible in this state" },
 							"note": { "type": "string", "x-format": "md" }
 						}
 					}
@@ -223,6 +227,7 @@
 		"serves": {
 			"type": "array",
 			"minItems": 1,
+			"x-audience": "system",
 			"items": {
 				"type": "object",
 				"required": ["concept", "uses"],
@@ -230,11 +235,12 @@
 				"properties": { "concept": { "$ref": "#/definitions/kebab" }, "uses": { "type": "string", "x-format": "md" } }
 			}
 		},
-		"builds_on": { "type": "array", "items": { "$ref": "#/definitions/kebab" } },
-		"leads_to": { "type": "array", "items": { "$ref": "#/definitions/kebab" } },
-		"variant_of": { "anyOf": [{ "$ref": "#/definitions/kebab" }, { "type": "null" }] },
+		"builds_on": { "type": "array", "items": { "$ref": "#/definitions/kebab" }, "x-audience": "system" },
+		"leads_to": { "type": "array", "items": { "$ref": "#/definitions/kebab" }, "x-audience": "system" },
+		"variant_of": { "anyOf": [{ "$ref": "#/definitions/kebab" }, { "type": "null" }], "x-audience": "system" },
 		"accessibility": {
 			"type": "object",
+			"x-audience": "reader",
 			"required": ["summary", "static_alt", "keyboard"],
 			"additionalProperties": false,
 			"properties": {
@@ -253,6 +259,7 @@
 		},
 		"starting_material": {
 			"type": "object",
+			"x-audience": "internal",
 			"required": ["legacy_assets", "notes"],
 			"additionalProperties": false,
 			"properties": {
@@ -262,6 +269,7 @@
 		},
 		"provenance": {
 			"type": "object",
+			"x-audience": "internal",
 			"required": ["source_units", "figure_images"],
 			"additionalProperties": false,
 			"description": "Internal only; stripped from every runtime artifact",
@@ -272,11 +280,13 @@
 		},
 		"review": {
 			"type": "object",
-			"required": ["verdict", "date", "verification", "fixes", "concerns"],
+			"x-audience": "internal",
+			"required": ["verdict", "date", "reviewed_revision", "verification", "fixes", "concerns"],
 			"additionalProperties": false,
 			"properties": {
 				"verdict": { "enum": ["accurate", "fixed", "needs-attention"] },
-				"date": { "type": "string" },
+				"date": { "$ref": "#/definitions/date" },
+				"reviewed_revision": { "type": "integer", "minimum": 1 },
 				"verification": {
 					"type": "array",
 					"items": {
@@ -295,6 +305,38 @@
 		"rung": { "enum": ["entry", "working", "formal", "research"] },
 		"form": { "enum": ["static", "interactive-2d", "interactive-3d", "animation", "plot", "simulation"] },
 		"kebab": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
-		"item_id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 60 }
+		"date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+		"item_id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 60 },
+		"constraint": {
+			"type": ["object", "null"],
+			"description": "Available only when every listed param has one of the listed values, e.g. {\"surface\": [\"tube\", \"cone\"]}"
+		},
+		"beat": {
+			"type": "object",
+			"required": ["id", "rung", "state", "animate", "await", "predict", "check", "show", "say", "describe"],
+			"additionalProperties": false,
+			"properties": {
+				"id": { "$ref": "#/definitions/item_id" },
+				"rung": { "$ref": "#/definitions/rung" },
+				"state": { "type": "object", "description": "Must contain preset (a preset id); other keys override params" },
+				"animate": {
+					"anyOf": [
+						{
+							"type": "object",
+							"required": ["param", "to", "seconds"],
+							"additionalProperties": false,
+							"properties": { "param": { "type": "string" }, "to": {}, "seconds": { "type": "number", "minimum": 0 } }
+						},
+						{ "type": "null" }
+					]
+				},
+				"await": { "enum": ["none", "prediction", "learner-action"] },
+				"predict": { "type": ["string", "null"], "x-format": "speech" },
+				"check": { "anyOf": [{ "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*/(checks|problems)/[a-z0-9]+(-[a-z0-9]+)*$" }, { "type": "null" }], "description": "Concept check or problem this beat's prediction or action evidences" },
+				"show": { "type": "string", "x-format": "plain", "x-audience": "author", "description": "What is on screen, for authors" },
+				"say": { "type": "string", "x-format": "speech", "description": "First person, names what is on screen (colour and line style), gives directions relative to the path, skips no step" },
+				"describe": { "type": "string", "x-format": "speech", "description": "Non-visual description of the state" }
+			}
+		}
 	}
 }
