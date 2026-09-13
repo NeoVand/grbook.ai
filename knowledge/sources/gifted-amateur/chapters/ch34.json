@@ -1,0 +1,4034 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch34",
+ "title": "Geometry of the connection",
+ "part": "V: Geometry",
+ "printed_pages": [
+  351,
+  362
+ ],
+ "pdf_pages": [
+  368,
+  379
+ ],
+ "one_line_summary": "Rebuilds the connection and covariant derivative from the coordinate-free machinery of Part V: axioms for nabla, torsion and the loop-closure picture, the connection coefficients as the components of nabla acting on basis vectors, the non-tensorial transformation of Gamma, the +Gamma/-Gamma rule for arbitrary tensors, and finally metric compatibility (nabla g = 0) as the link that makes parallel transport preserve lengths and single out affinely parametrized geodesics.",
+ "role_in_book": "Part V revisits, with forms and slot machines, the geometry that Part II used on trust. Chapter 33 supplied the exterior and Lie derivatives; this chapter adds the third, physically essential derivative and proves results quoted earlier (eqns 7.11, 7.34, 7.40 and 12.37). It closes the loop between the abstract manifold and the metric field of GR by showing that the connection must be tied to g, and it prepares the ground for Riemann curvature revisited (Chapter 35), Cartan's connection 1-forms (Chapter 36), the Palatini remark in Chapter 40 and the forms identity used for the Bianchi identity in Chapter 43. The authors flag it as skippable on a first reading.",
+ "assumed_background": [
+  {
+   "topic": "Exterior derivative, wedge product and p-forms",
+   "source": "earlier-in-this-book",
+   "where": "GA ch32-ch33"
+  },
+  {
+   "topic": "Lie derivative and the commutator of vector fields, including the failure-to-close picture",
+   "source": "earlier-in-this-book",
+   "where": "GA ch33 §33.2-33.3"
+  },
+  {
+   "topic": "Tensors as linear slot machines, basis vectors e_mu and dual basis 1-forms omega^mu",
+   "source": "earlier-in-this-book",
+   "where": "GA ch31"
+  },
+  {
+   "topic": "Component form of the covariant derivative, Christoffel symbols, comma/semicolon notation",
+   "source": "earlier-in-this-book",
+   "where": "GA ch7, ch9"
+  },
+  {
+   "topic": "Geodesic equation and affine parameters",
+   "source": "earlier-in-this-book",
+   "where": "GA ch9"
+  },
+  {
+   "topic": "Metric tensor, raising and lowering indices, four-velocity normalization u.u = -1",
+   "source": "earlier-in-this-book",
+   "where": "GA Parts I-II"
+  },
+  {
+   "topic": "Killing vectors from coordinate independence of the metric",
+   "source": "earlier-in-this-book",
+   "where": "GA ch33 §33.5"
+  },
+  {
+   "topic": "Transformation matrices Lambda between frames",
+   "source": "earlier-in-this-book",
+   "where": "GA ch31"
+  },
+  {
+   "topic": "Multivariable chain rule and product rule",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Determinants, traces and matrix inverses (for the ln det identity in the exercises)",
+   "source": "linear-algebra",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "Reader can state the three defining rules of a connection (linear in the direction slot, linear in the operand, Leibniz on tensor products) and explain why linearity in the direction makes nabla_u depend only on u at a point.",
+  "Reader can define the torsion tensor tau(u,v) and explain why torsion-free connections have Gamma symmetric in its lower indices in a coordinate basis.",
+  "Reader can relate the Lie bracket to covariant derivatives for a torsion-free connection and interpret the result as the gap in a transported quadrilateral.",
+  "Reader can expand nabla v = dv^mu (x) e_mu + v^mu nabla e_mu and identify the connection coefficients as the components of nabla acting on basis vectors, Gamma^sigma_{beta mu} = <omega^sigma, nabla_beta e_mu>.",
+  "Reader can derive the inhomogeneous transformation law of the connection coefficients and point to the second-derivative term that stops Gamma being a tensor.",
+  "Reader can derive the minus sign in the covariant derivative of a 1-form by differentiating the duality relation <omega^nu, e_mu> = delta^nu_mu.",
+  "Reader can write the covariant derivative of any (m,n) tensor using one +Gamma term per upper index and one -Gamma term per lower index.",
+  "Reader can show that for a torsion-free connection the antisymmetrized covariant derivative of a 1-form equals the exterior derivative, with all Gammas cancelling.",
+  "Reader can state the mathematical definition of spacetime as a manifold with a Lorentz metric obeying the Einstein equation, and place connection and curvature in the hierarchy built on the metric.",
+  "Reader can distinguish geodesics with nabla_u u proportional to u from affinely parametrized ones with nabla_u u = 0, and show that metric compatibility plus fixed normalization forces the latter.",
+  "Reader can prove that parallel transport preserves all inner products if and only if nabla g = 0.",
+  "Reader can raise and lower indices inside covariant derivatives correctly, without treating Gamma as a tensor."
+ ],
+ "teaching_approach": {
+  "summary": "A formal, derivation-led spiral revisit. The authors motivate a third derivative by the shortcomings of d and the Lie derivative, lay down axioms in a margin box, then keep translating between three languages (index-free nabla_u, slot-machine objects, and components with semicolons). Almost every result is packaged as a short numbered Example that ends by pointing back to an earlier chapter where the formula was used without proof. Pictures are sparse but strategic: a failing quadrilateral for torsion, a four-level stack for the logical structure of GR, and tick marks along curves for affine versus non-affine parametrization. The chapter ends by welding the connection to the metric.",
+  "style_tags": [
+   "spiral-revisit",
+   "derivation-heavy",
+   "index-free-abstract",
+   "example-driven",
+   "conversational-informal"
+  ],
+  "narrative_arc": [
+   "Motivating problem: d only acts on forms and the Lie derivative needs a neighbourhood of the flow field, so neither is the derivative physics needs; parallelism must be added.",
+   "Axioms of the connection (linearity in direction and operand, Leibniz rule) plus the notion of torsion.",
+   "Picture: torsion-free transport makes the u-v quadrilateral close up to the Lie bracket, linking nabla to the Lie derivative of Chapter 33.",
+   "Formalism: nabla acting on scalars equals d; on vectors it produces a vector-valued 1-form whose basis-vector part defines Gamma.",
+   "Components: extract Gamma with dual basis 1-forms, build nabla v and nabla_u v, and interpret numbers from slot filling.",
+   "Check against Part II: derive the non-tensorial transformation law of Gamma (proof of eqn 7.11).",
+   "Extension: explain why d and nabla part company on p-forms, derive the -Gamma rule for 1-forms from the duality relation, relate dA to antisymmetrized semicolon derivatives.",
+   "Generalization: the +Gamma per upper index, -Gamma per lower index recipe for arbitrary tensors (proof of eqns 7.34, 7.40, 12.37).",
+   "Payoff: the metric as foundation (M, g), affine versus non-affine parallelism, and nabla g = 0 as the condition that preserves lengths and inner products.",
+   "Practical coda: raising and lowering indices through semicolon derivatives."
+  ],
+  "signature_moves": [
+   "Rules of the game placed in a shaded margin box before the main text so the body can proceed to pictures immediately.",
+   "Grey signpost boxes next to Example 34.6, Example 34.7 and eqn 34.45 name the Part II equations (7.11, 7.34/7.40, 12.37) that were used on trust and are now proved.",
+   "Reading valency (1,0) as 'vector-valued 0-form' so that d can be stretched to act on vectors once a connection exists.",
+   "Obtaining the 1-form rule by differentiating the constant contraction <omega^nu, e_mu> = delta^nu_mu, so the minus sign is forced rather than memorized.",
+   "Counting basis elements to build the general tensor rule: each basis vector contributes +Gamma, each basis 1-form -Gamma.",
+   "Tick-mark cartoon on a patch of manifold to distinguish evenly and unevenly parametrized geodesics.",
+   "Stating a one-sentence mathematical definition of general relativity as the destination of the geometry part."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Chapter opening: why a third derivative",
+   "printed_page": 351,
+   "pdf_page": 368,
+   "summary": "Recalls the two derivatives of Part V so far and why neither suits gravitation; introduces parallelism, the connection nabla as a non-tensorial operator that agrees with d on scalars, and the directional covariant derivative nabla_u = u.nabla. A margin box on the next page lists the linearity and Leibniz rules; margin notes credit Koszul and Nomizu and say the chapter may be skipped on first reading.",
+   "concepts": [
+    "affine connection",
+    "covariant derivative",
+    "parallel transport",
+    "defining properties of a connection",
+    "exterior derivative",
+    "Lie derivative"
+   ],
+   "key_moves": [
+    "Shortcomings of d (forms only) and the Lie derivative (not pointwise in the flow field)",
+    "Parallelism as the extra structure that connects bases at different points",
+    "nabla agrees with d on scalars and on (n,0) tensors but not on forms",
+    "Axioms 34.1-34.3 in the margin"
+   ]
+  },
+  {
+   "number": "34.1",
+   "title": "Covariant derivative in pictures",
+   "printed_page": 352,
+   "pdf_page": 369,
+   "summary": "Defines torsion as the part of nabla_u v - nabla_v u not accounted for by the Lie bracket, notes that GR assumes zero torsion (so Gamma is symmetric in a coordinate basis) while alternative theories use it, and then shows via the transported quadrilateral of Fig. 34.1 that the closing vector is the difference of covariant derivatives, giving L_u v in semicolon form. For commuting fields the covariant derivative becomes symmetric.",
+   "concepts": [
+    "torsion tensor",
+    "torsion-free connection",
+    "Lie bracket as loop-closure failure",
+    "Lie derivative in terms of covariant derivatives",
+    "symmetry of the covariant derivative for commuting fields",
+    "Riemann curvature tensor",
+    "torsion-based theories of gravity"
+   ],
+   "key_moves": [
+    "tau(u,v) = nabla_u v - nabla_v u - [u,v]",
+    "tau = 0 gives Gamma^mu_{alpha beta} = Gamma^mu_{beta alpha} in coordinates",
+    "Lie derivative components rewritten using semicolon derivatives (eqn 34.6)",
+    "Changes of v along u and of u along v are the edges' mismatches; their difference is the bracket",
+    "[u,v] = 0 implies nabla_u v = nabla_v u"
+   ]
+  },
+  {
+   "number": "34.2",
+   "title": "Connection and exterior derivative",
+   "printed_page": 353,
+   "pdf_page": 370,
+   "summary": "Gives meaning to nabla with no direction attached. On a function it is df; on a vector v = v^mu e_mu it yields a vector-valued 1-form whose second piece depends on how the basis vectors change, and that change defines Gamma. Examples extract Gamma as a component, assemble nabla v and its semicolon components, interpret nabla v as a two-slot gradient, give nabla_u v and the number <sigma, nabla_u v>, and derive the inhomogeneous transformation law for Gamma in general frames and in coordinates.",
+   "concepts": [
+    "covariant derivative of a scalar",
+    "gradient of a vector field",
+    "vector-valued 1-form",
+    "connection coefficients as components of the connection",
+    "component extraction with dual basis 1-forms",
+    "directional covariant derivative",
+    "non-tensorial transformation of connection coefficients",
+    "linear slot machine picture of tensors"
+   ],
+   "key_moves": [
+    "nabla f = df and u.nabla f = u^mu partial_mu f = u[f]",
+    "Product rule on v^mu e_mu isolates nabla e_mu",
+    "Definition nabla e_mu = Gamma^alpha_{nu mu} omega^nu (x) e_alpha",
+    "<omega^sigma, nabla_beta e_mu> = Gamma^sigma_{beta mu}",
+    "nabla v = v^mu_{;beta} omega^beta (x) e_mu",
+    "Leibniz rule applied to Lambda^gamma_{gamma'} e_gamma produces the extra e_beta'[Lambda] term",
+    "Coordinate frame version shows the second-derivative term"
+   ]
+  },
+  {
+   "number": "34.3",
+   "title": "Covariant derivative of tensors",
+   "printed_page": 355,
+   "pdf_page": 372,
+   "summary": "Extends d = nabla to all (n,0) tensors but explains why the identification fails on p-forms: d builds antisymmetric wedge products, while nabla of a tensor is an ordinary tensor product with one extra lower slot. The 1-form rule follows from differentiating the duality contraction, giving -Gamma. A worked example shows that the components of dA are antisymmetrized semicolon derivatives because the torsion-free Gammas cancel. Counting basis elements then yields +Gamma for every upper index and -Gamma for every lower index, boxed as the general recipe.",
+   "concepts": [
+    "exterior versus covariant derivative on forms",
+    "covariant derivative of basis 1-forms",
+    "covariant derivative of a 1-form",
+    "exterior derivative of a 1-form from covariant derivatives",
+    "covariant derivative of tensors",
+    "antisymmetrization bracket notation",
+    "comma and semicolon notation"
+   ],
+   "key_moves": [
+    "dS = nabla S only for (n,0) tensors",
+    "0 = nabla<omega^nu, e_mu> gives nabla omega^nu(e_mu, ) = -Gamma^nu_{beta mu} omega^beta",
+    "1-form rule carries a minus-Gamma term (eqn 34.35)",
+    "Filling one slot of dA and comparing with A_{gamma;beta} - A_{beta;gamma}",
+    "(dA)_{beta gamma} = -2 A_{[beta;gamma]}",
+    "(2,0) rule by adding a Gamma for the second basis vector; (0,2) rule by subtracting for each basis 1-form",
+    "General boxed recipe 34.47"
+   ]
+  },
+  {
+   "number": "34.4",
+   "title": "The metric revisited",
+   "printed_page": 358,
+   "pdf_page": 375,
+   "summary": "Places the metric at the base of the structure (manifold, then metric, then connection and curvature, then GR) and states a compact definition of GR. Contrasts a weak notion of parallelism in which the tangent to a geodesic stays proportional to itself (non-affine) with the strict one in which nabla_u u = 0 and the tangent keeps its length (affine). Metric compatibility nabla g = 0 is introduced as what ties the connection to the metric; Example 34.9 shows that preserving inner products under parallel transport is equivalent to g_{beta gamma;alpha} = 0, and that with u.u fixed it forces affine geodesics. Example 34.10 raises and lowers indices through semicolon derivatives.",
+   "concepts": [
+    "spacetime as a Lorentzian manifold",
+    "hierarchy of geometric structure",
+    "metric tensor",
+    "line element tensor",
+    "non-affine parametrization of a geodesic",
+    "affine parameter",
+    "geodesic equation (coordinate-free)",
+    "metric compatibility of the connection",
+    "preservation of inner products under parallel transport",
+    "Levi-Civita connection",
+    "raising and lowering indices inside covariant derivatives",
+    "Palatini formulation"
+   ],
+   "key_moves": [
+    "GR stated as (M, g) with Lorentz g related to matter by the Einstein equation",
+    "nabla_u u proportional to u versus nabla_u u = 0",
+    "Physical requirement u.u = -1 selects constant-length tangents",
+    "nabla g = 0 as the link between connection and metric",
+    "Leibniz expansion of u^alpha (g_{beta gamma} v^beta w^gamma)_{;alpha} with the transport conditions",
+    "g_{beta gamma;alpha} = 0 plus zero torsion fixes nabla",
+    "Lowering an index through a semicolon derivative (eqn 34.59)"
+   ]
+  },
+  {
+   "number": null,
+   "title": "Chapter summary",
+   "printed_page": 360,
+   "pdf_page": 377,
+   "summary": "Three bullet points: nabla gives a derivative adequate for tensor fields in curved spacetime, its components are the connection coefficients, and nabla g = 0 guarantees the book's affine connection.",
+   "concepts": [
+    "affine connection",
+    "connection coefficients as components of the connection",
+    "metric compatibility of the connection"
+   ],
+   "key_moves": [
+    "Compresses the chapter to its three take-aways"
+   ]
+  },
+  {
+   "number": null,
+   "title": "Exercises",
+   "printed_page": 361,
+   "pdf_page": 378,
+   "summary": "Eight problems: linearity of the direction slot, the Christoffel formula from nabla of e_alpha.e_beta, the ln det identity and the sqrt|g| divergence formula, the 1-form rule via a contraction, conserved u_1 for metrics independent of x^1, three routes to dA(u,v), linear reparametrizations of geodesics, and orthogonality of four-velocity and acceleration from compatibility.",
+   "concepts": [
+    "connection coefficients from the metric",
+    "contracted connection identity and covariant divergence",
+    "conserved momentum component from metric symmetry",
+    "exterior derivative of a 1-form from covariant derivatives",
+    "affine parameter",
+    "orthogonality of four-velocity and four-acceleration"
+   ],
+   "key_moves": [
+    "Metric-compatibility route to Gamma_{alpha beta sigma}",
+    "Jacobi-type ln det identity feeding the divergence formula",
+    "Invariant formula dA(u,v) = u[A(v)] - v[A(u)] - A([u,v])"
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "affine connection",
+   "aliases": [
+    "connection",
+    "connection operator",
+    "nabla",
+    "linear connection"
+   ],
+   "kind": "mathematical-object",
+   "definition": "An operator nabla that assigns to tensor fields a covariant derivative: it is linear over functions in the direction it is pointed, additive in its operand and obeys the Leibniz rule; it is not itself a tensor and is equivalent to a choice of how basis vectors at neighbouring points are related (parallelism).",
+   "how_introduced": "Motivated as the missing structure that lets vectors at different points be compared; defined abstractly with symbol nabla, described as an upgrade of d, and characterized through its axioms and its action on basis vectors.",
+   "depth": "core",
+   "prerequisites": [
+    "tangent vector",
+    "exterior derivative",
+    "parallel transport"
+   ],
+   "locators": [
+    {
+     "pdf_page": 368,
+     "printed_page": 351,
+     "section": null
+    },
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": null
+    },
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}=\\boldsymbol u\\cdot\\nabla",
+    "\\nabla\\boldsymbol e_\\mu=\\Gamma^\\alpha{}_{\\nu\\mu}\\,\\boldsymbol\\omega^\\nu\\otimes\\boldsymbol e_\\alpha"
+   ],
+   "notes": "The book uses 'affine connection' in a non-standard, narrower sense tied to affine parametrization and to nabla g = 0; in standard usage any linear connection on the tangent bundle is affine."
+  },
+  {
+   "name": "covariant derivative",
+   "aliases": [
+    "nabla_u",
+    "directional covariant derivative"
+   ],
+   "kind": "operation",
+   "definition": "The derivative of a tensor field along a vector u that compares the field at a displaced point with its parallel-transported value, producing a tensor of the same type; in components it adds connection-coefficient terms to partial derivatives.",
+   "how_introduced": "Introduced in the opening as the derivative that compares a vector with its transported counterpart, then written as nabla_u = u.nabla and computed in components through the chapter.",
+   "depth": "core",
+   "prerequisites": [
+    "affine connection",
+    "parallel transport"
+   ],
+   "locators": [
+    {
+     "pdf_page": 368,
+     "printed_page": 351,
+     "section": null
+    },
+    {
+     "pdf_page": 372,
+     "printed_page": 355,
+     "section": "34.2"
+    }
+   ],
+   "formulas": [
+    "(\\nabla_{\\boldsymbol u}\\boldsymbol v)^\\mu=u^\\alpha\\left(\\partial_\\alpha v^\\mu+\\Gamma^\\mu{}_{\\alpha\\lambda}v^\\lambda\\right)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "defining properties of a connection",
+   "aliases": [
+    "axioms of the connection",
+    "linearity and Leibniz rules"
+   ],
+   "kind": "definition",
+   "definition": "A connection must satisfy nabla_{au+bv} w = a nabla_u w + b nabla_v w (with a, b allowed to be functions), nabla_u(alpha c + beta d) = alpha nabla_u c + beta nabla_u d for constants, and nabla(S (x) T) = nabla S (x) T + S (x) nabla T.",
+   "how_introduced": "Listed in a shaded margin box; linearity in the direction slot is justified as what makes the operator use information at one point only.",
+   "depth": "developed",
+   "prerequisites": [
+    "tensor product"
+   ],
+   "locators": [
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\nabla_{a\\boldsymbol u+b\\boldsymbol v}\\boldsymbol w=a\\nabla_{\\boldsymbol u}\\boldsymbol w+b\\nabla_{\\boldsymbol v}\\boldsymbol w",
+    "\\nabla(\\boldsymbol S\\otimes\\boldsymbol T)=\\nabla\\boldsymbol S\\otimes\\boldsymbol T+\\boldsymbol S\\otimes\\nabla\\boldsymbol T"
+   ],
+   "notes": "The book does not state explicitly that a and b may be functions, which is the property that makes nabla_u pointwise in u."
+  },
+  {
+   "name": "parallel transport",
+   "aliases": [
+    "parallelism"
+   ],
+   "kind": "operation",
+   "definition": "Moving a vector (or tensor) along a curve so that its covariant derivative along the tangent vanishes; this is how vectors at different points are compared.",
+   "how_introduced": "Named in the opening as the extra structure to add to manifolds, used implicitly in the quadrilateral picture, and made precise in §34.4 via nabla_u v = 0 and the length-preservation question.",
+   "depth": "revisited",
+   "prerequisites": [
+    "covariant derivative",
+    "tangent vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 368,
+     "printed_page": 351,
+     "section": null
+    },
+    {
+     "pdf_page": 376,
+     "printed_page": 359,
+     "section": "34.4"
+    },
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}\\boldsymbol v=0,\\quad u^\\alpha v^\\beta{}_{;\\alpha}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "torsion tensor",
+   "aliases": [
+    "torsion",
+    "tau"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The (1,2) tensor tau(u,v) = nabla_u v - nabla_v u - [u,v], measuring how much the covariant derivatives of two fields fail to reproduce their Lie bracket; in coordinates its components are Gamma^mu_{alpha beta} - Gamma^mu_{beta alpha}.",
+   "how_introduced": "Introduced at the start of §34.1 as the geometric quantity GR sidelines in favour of curvature; a margin note pairs it with the Riemann tensor as the two independent invariants of a connection.",
+   "depth": "introduced",
+   "prerequisites": [
+    "affine connection",
+    "Lie bracket of vector fields"
+   ],
+   "locators": [
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": "34.1"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol\\tau(\\boldsymbol u,\\boldsymbol v)=\\nabla_{\\boldsymbol u}\\boldsymbol v-\\nabla_{\\boldsymbol v}\\boldsymbol u-[\\boldsymbol u,\\boldsymbol v]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "torsion-free connection",
+   "aliases": [
+    "symmetric connection",
+    "symmetry of connection coefficients"
+   ],
+   "kind": "definition",
+   "definition": "A connection with tau = 0, equivalently nabla_u v - nabla_v u = [u,v] for all fields, equivalently Gamma^mu_{alpha beta} = Gamma^mu_{beta alpha} in any coordinate basis.",
+   "how_introduced": "Stated as the assumption made in conventional GR immediately after defining torsion; the coordinate symmetry of Gamma appears in margin note 4.",
+   "depth": "developed",
+   "prerequisites": [
+    "torsion tensor",
+    "coordinate basis"
+   ],
+   "locators": [
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": "34.1"
+    },
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}\\boldsymbol v-\\nabla_{\\boldsymbol v}\\boldsymbol u=[\\boldsymbol u,\\boldsymbol v]",
+    "\\Gamma^\\mu{}_{\\alpha\\beta}=\\Gamma^\\mu{}_{\\beta\\alpha}"
+   ],
+   "notes": "In a non-coordinate basis the Gammas need not be symmetric even when torsion vanishes, because the basis vectors have non-zero brackets."
+  },
+  {
+   "name": "Lie bracket as loop-closure failure",
+   "aliases": [
+    "commutator of vector fields",
+    "failure of the quadrilateral to close"
+   ],
+   "kind": "identity",
+   "definition": "Following u then v versus v then u from a point generally ends at different places; to leading order the gap is the commutator [u,v]. With a torsion-free connection that gap equals the difference of the two covariant derivatives.",
+   "how_introduced": "Recalled from Chapter 33 and redrawn in Fig. 34.1 with the edge mismatches labelled by covariant derivatives.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Lie derivative",
+    "integral curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": "34.1"
+    }
+   ],
+   "formulas": [
+    "[\\boldsymbol u,\\boldsymbol v]=\\nabla_{\\boldsymbol u}\\boldsymbol v-\\nabla_{\\boldsymbol v}\\boldsymbol u"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Lie derivative in terms of covariant derivatives",
+   "aliases": [
+    "comma-to-semicolon rule for the Lie derivative"
+   ],
+   "kind": "identity",
+   "definition": "For a torsion-free connection the Lie derivative of a vector field can be written with covariant derivatives in place of partial derivatives because the Gamma terms cancel in the antisymmetric combination (see the formula field).",
+   "how_introduced": "Example 34.1, obtained directly from the vanishing torsion condition.",
+   "depth": "developed",
+   "prerequisites": [
+    "torsion-free connection",
+    "Lie derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": "34.1"
+    }
+   ],
+   "formulas": [
+    "(\\mathcal L_{\\boldsymbol u}\\boldsymbol v)^\\alpha=v^\\alpha{}_{;\\beta}u^\\beta-u^\\alpha{}_{;\\beta}v^\\beta"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Lie derivative",
+   "aliases": [
+    "Lie dragging derivative"
+   ],
+   "kind": "operation",
+   "definition": "The derivative of a tensor field along the flow of a vector field u, defined by dragging with the flow; it needs no connection but depends on derivatives of u, not only on u at a point.",
+   "how_introduced": "Recalled in the opening as one of two derivatives already available and judged unsuitable as the derivative of physics; reconnected to nabla in Example 34.1.",
+   "depth": "mention",
+   "prerequisites": [
+    "integral curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 368,
+     "printed_page": 351,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\mathcal L_{\\boldsymbol u}\\boldsymbol v=[\\boldsymbol u,\\boldsymbol v]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "symmetry of the covariant derivative for commuting fields",
+   "aliases": [
+    "symmetry of the covariant derivative"
+   ],
+   "kind": "identity",
+   "definition": "If two vector fields commute, [u,v] = 0 (for example two coordinate basis fields), a torsion-free connection gives nabla_u v = nabla_v u.",
+   "how_introduced": "Read off from the closed quadrilateral: when the bracket vanishes the figure closes and the two covariant derivatives agree.",
+   "depth": "introduced",
+   "prerequisites": [
+    "torsion-free connection",
+    "Lie bracket as loop-closure failure"
+   ],
+   "locators": [
+    {
+     "pdf_page": 370,
+     "printed_page": 353,
+     "section": "34.1"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}\\boldsymbol v=\\nabla_{\\boldsymbol v}\\boldsymbol u\\quad([\\boldsymbol u,\\boldsymbol v]=0)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "exterior derivative",
+   "aliases": [
+    "d"
+   ],
+   "kind": "operation",
+   "definition": "The operator d taking p-forms to (p+1)-forms by antisymmetrized differentiation; on functions it gives the gradient 1-form df with <df,u> = u[f].",
+   "how_introduced": "Recalled from Chapter 33 as the first derivative of Part V and used as the template for nabla; the chapter stretches the symbol d to act on vectors when a connection exists.",
+   "depth": "revisited",
+   "prerequisites": [
+    "p-form",
+    "wedge product"
+   ],
+   "locators": [
+    {
+     "pdf_page": 368,
+     "printed_page": 351,
+     "section": null
+    },
+    {
+     "pdf_page": 370,
+     "printed_page": 353,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 374,
+     "printed_page": 357,
+     "section": "34.3"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol d\\tilde{\\boldsymbol A}=\\partial_\\alpha A_\\mu\\,\\boldsymbol dx^\\alpha\\wedge\\boldsymbol dx^\\mu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant derivative of a scalar",
+   "aliases": [
+    "nabla f = df"
+   ],
+   "kind": "identity",
+   "definition": "On a scalar function the connection adds nothing: nabla f = df, and in the direction u it is the ordinary directional derivative u^mu partial_mu f.",
+   "how_introduced": "Opening statement of §34.2, with a margin note listing equivalent notations <df,u> and u[f].",
+   "depth": "developed",
+   "prerequisites": [
+    "exterior derivative",
+    "tangent vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 370,
+     "printed_page": 353,
+     "section": "34.2"
+    }
+   ],
+   "formulas": [
+    "\\nabla f=\\boldsymbol df",
+    "\\nabla_{\\boldsymbol u}f=u^\\mu\\frac{\\partial f}{\\partial x^\\mu}=\\langle\\boldsymbol df,\\boldsymbol u\\rangle=\\boldsymbol u[f]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "gradient of a vector field",
+   "aliases": [
+    "nabla v",
+    "dv"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The (1,1) object nabla v = v^mu_{;beta} omega^beta (x) e_mu obtained by applying the connection to a vector field without choosing a direction; inserting a direction u gives the vector nabla_u v, and further inserting a 1-form gives a number.",
+   "how_introduced": "Built in Examples 34.4-34.5 by the product rule on v^mu e_mu, then described as a two-slot machine.",
+   "depth": "developed",
+   "prerequisites": [
+    "affine connection",
+    "linear slot machine picture of tensors",
+    "connection coefficients as components of the connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 370,
+     "printed_page": 353,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 371,
+     "printed_page": 354,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 372,
+     "printed_page": 355,
+     "section": "34.2"
+    }
+   ],
+   "formulas": [
+    "\\nabla\\boldsymbol v=\\left(\\partial_\\beta v^\\mu+v^\\alpha\\Gamma^\\mu{}_{\\beta\\alpha}\\right)\\boldsymbol\\omega^\\beta\\otimes\\boldsymbol e_\\mu",
+    "\\nabla\\boldsymbol v(\\boldsymbol u,\\tilde{\\boldsymbol\\sigma})=\\langle\\tilde{\\boldsymbol\\sigma},\\nabla_{\\boldsymbol u}\\boldsymbol v\\rangle"
+   ],
+   "notes": null
+  },
+  {
+   "name": "vector-valued 1-form",
+   "aliases": [
+    "tensor-valued form"
+   ],
+   "kind": "mathematical-object",
+   "definition": "An object that eats a vector (like a 1-form) and returns a vector rather than a number; nabla v and nabla e_mu are examples, and their values depend on the connection.",
+   "how_introduced": "Named when nabla v is expanded; a margin note contrasts it with a general (1,1) tensor, stressing that its construction needs the connection.",
+   "depth": "developed",
+   "prerequisites": [
+    "gradient of a vector field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 370,
+     "printed_page": 353,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 371,
+     "printed_page": 354,
+     "section": "34.2"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol d\\boldsymbol v=\\boldsymbol dv^\\mu\\otimes\\boldsymbol e_\\mu+v^\\mu\\boldsymbol d\\boldsymbol e_\\mu"
+   ],
+   "notes": "The valency reading of a (1,0) vector as a 'vector-valued 0-form' is the book's device for extending d to vectors."
+  },
+  {
+   "name": "connection coefficients as components of the connection",
+   "aliases": [
+    "Christoffel symbols",
+    "Gamma",
+    "connection coefficients"
+   ],
+   "kind": "definition",
+   "definition": "Numbers Gamma^alpha_{nu mu} defined by expanding the covariant derivative of each basis vector in the basis: nabla e_mu = Gamma^alpha_{nu mu} omega^nu (x) e_alpha, so Gamma^sigma_{beta mu} = <omega^sigma, nabla_{e_beta} e_mu>; the first lower index is the direction, the second labels the differentiated basis vector.",
+   "how_introduced": "Defined geometrically in §34.2 as the content of d e_mu (how basis vectors change), then matched to the component notion of eqn 7.6 in Example 34.3 and to nabla e_gamma in Example 34.5.",
+   "depth": "core",
+   "prerequisites": [
+    "affine connection",
+    "component extraction with dual basis 1-forms"
+   ],
+   "locators": [
+    {
+     "pdf_page": 370,
+     "printed_page": 353,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 371,
+     "printed_page": 354,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 372,
+     "printed_page": 355,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\langle\\boldsymbol\\omega^\\sigma,\\nabla_\\beta\\boldsymbol e_\\mu\\rangle=\\Gamma^\\sigma{}_{\\beta\\mu}",
+    "(\\nabla\\boldsymbol e_\\gamma)^\\mu{}_\\alpha=\\Gamma^\\mu{}_{\\alpha\\gamma}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "component extraction with dual basis 1-forms",
+   "aliases": [
+    "contracting with omega^sigma"
+   ],
+   "kind": "technique",
+   "definition": "Any component of a tensor-valued expression is obtained by feeding basis vectors and dual basis 1-forms into its slots, using omega^nu(e_beta) = delta^nu_beta.",
+   "how_introduced": "Used repeatedly in Examples 34.3, 34.5 and 34.8 to turn index-free expressions into Gammas and semicolon components.",
+   "depth": "developed",
+   "prerequisites": [
+    "dual basis",
+    "linear slot machine picture of tensors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 371,
+     "printed_page": 354,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 374,
+     "printed_page": 357,
+     "section": "34.3"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol\\omega^\\nu(\\boldsymbol e_\\beta)=\\delta^\\nu{}_\\beta"
+   ],
+   "notes": null
+  },
+  {
+   "name": "directional covariant derivative",
+   "aliases": [
+    "nabla_u v as a vector"
+   ],
+   "kind": "operation",
+   "definition": "Filling the direction slot of nabla v with u gives the vector nabla_u v whose components are u^alpha v^mu_{;alpha}; pairing with a 1-form gives the count of how many sheets of the 1-form that vector pierces.",
+   "how_introduced": "Stated after Example 34.5 as the payoff of the gradient construction.",
+   "depth": "developed",
+   "prerequisites": [
+    "gradient of a vector field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 372,
+     "printed_page": 355,
+     "section": "34.2"
+    }
+   ],
+   "formulas": [
+    "(\\nabla_{\\boldsymbol u}\\boldsymbol v)^\\mu=u^\\alpha\\left(\\partial_\\alpha v^\\mu+v^\\lambda\\Gamma^\\mu{}_{\\alpha\\lambda}\\right)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "linear slot machine picture of tensors",
+   "aliases": [
+    "slot machine"
+   ],
+   "kind": "convention",
+   "definition": "A tensor is a multilinear machine with slots for vectors and 1-forms that outputs a number once every slot is filled; partial filling yields lower-rank objects.",
+   "how_introduced": "Recalled from Chapter 31 to read nabla v( , ) as a two-slot object and ds^2( , ) as the metric.",
+   "depth": "revisited",
+   "prerequisites": [
+    "tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 371,
+     "printed_page": 354,
+     "section": "34.2"
+    },
+    {
+     "pdf_page": 375,
+     "printed_page": 358,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla\\boldsymbol v(\\,,\\,)=v^\\mu{}_{;\\nu}\\,\\boldsymbol\\omega^\\nu(\\,)\\otimes\\boldsymbol e_\\mu(\\,)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "1-form as a stack of surfaces",
+   "aliases": [
+    "piercing picture of a 1-form"
+   ],
+   "kind": "convention",
+   "definition": "A 1-form can be visualized as a family of level surfaces; its value on a vector counts the surfaces the vector crosses.",
+   "how_introduced": "Invoked in one sentence to interpret the number <sigma, nabla_u v>.",
+   "depth": "mention",
+   "prerequisites": [
+    "dual basis"
+   ],
+   "locators": [
+    {
+     "pdf_page": 372,
+     "printed_page": 355,
+     "section": "34.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "non-tensorial transformation of connection coefficients",
+   "aliases": [
+    "transformation law of Gamma",
+    "Gamma is not a tensor"
+   ],
+   "kind": "theorem",
+   "definition": "Under a change of frame the connection coefficients pick up, besides the homogeneous tensor term, an inhomogeneous term built from derivatives of the transformation matrix; in coordinates this is a second derivative of the old coordinates with respect to the new ones, so Gamma is not a tensor.",
+   "how_introduced": "Example 34.6 derives it index-free using linearity in the direction slot and the Leibniz rule on the transformed basis vectors, giving the proof of eqn 7.11.",
+   "depth": "developed",
+   "prerequisites": [
+    "connection coefficients as components of the connection",
+    "defining properties of a connection",
+    "tensor transformation law"
+   ],
+   "locators": [
+    {
+     "pdf_page": 372,
+     "printed_page": 355,
+     "section": "34.2"
+    }
+   ],
+   "formulas": [
+    "\\Gamma^{\\alpha'}{}_{\\beta'\\gamma'}=\\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\frac{\\partial^2x^\\alpha}{\\partial x^{\\beta'}\\partial x^{\\gamma'}}+\\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\frac{\\partial x^\\beta}{\\partial x^{\\beta'}}\\frac{\\partial x^\\gamma}{\\partial x^{\\gamma'}}\\Gamma^\\alpha{}_{\\beta\\gamma}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "tensor transformation law",
+   "aliases": [
+    "homogeneous transformation"
+   ],
+   "kind": "definition",
+   "definition": "Components of a genuine tensor transform with one transformation matrix per index and no additional terms.",
+   "how_introduced": "Used as the benchmark that the Gamma transformation violates.",
+   "depth": "mention",
+   "prerequisites": [
+    "tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 372,
+     "printed_page": 355,
+     "section": "34.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "exterior versus covariant derivative on forms",
+   "aliases": [
+    "why d is not nabla on p-forms"
+   ],
+   "kind": "principle",
+   "definition": "d and nabla coincide on (n,0) tensors, but on a p-form with p >= 1 d produces an antisymmetric (p+1)-form using wedge products, whereas nabla produces a general tensor with one extra lower slot using ordinary tensor products; they are different objects.",
+   "how_introduced": "Opens §34.3: after extending dS = nabla S to all (n,0) tensors the authors warn that the identification cannot go further and define nabla S for a general (n,m) tensor.",
+   "depth": "introduced",
+   "prerequisites": [
+    "exterior derivative",
+    "wedge product",
+    "covariant derivative of tensors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 372,
+     "printed_page": 355,
+     "section": "34.3"
+    },
+    {
+     "pdf_page": 373,
+     "printed_page": 356,
+     "section": "34.3"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol d\\boldsymbol S=\\nabla\\boldsymbol S\\quad(\\boldsymbol S\\ \\text{of type}\\ (n,0))"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant derivative of basis 1-forms",
+   "aliases": [
+    "nabla omega^nu"
+   ],
+   "kind": "identity",
+   "definition": "Because <omega^nu, e_mu> is constant, the covariant derivative of a basis 1-form carries minus the connection coefficients: nabla omega^nu = -Gamma^nu_{beta mu} omega^beta (x) omega^mu (with the derivative slot first).",
+   "how_introduced": "Derived in Example 34.7 by applying the Leibniz rule to the duality contraction.",
+   "depth": "developed",
+   "prerequisites": [
+    "defining properties of a connection",
+    "dual basis",
+    "connection coefficients as components of the connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 373,
+     "printed_page": 356,
+     "section": "34.3"
+    }
+   ],
+   "formulas": [
+    "\\nabla\\boldsymbol\\omega^\\nu(\\boldsymbol e_\\mu,\\,)=-\\Gamma^\\nu{}_{\\beta\\mu}\\boldsymbol\\omega^\\beta"
+   ],
+   "notes": "Printed margin eqn 34.30 repeats omega^nu where omega^mu is meant."
+  },
+  {
+   "name": "covariant derivative of a 1-form",
+   "aliases": [
+    "semicolon derivative of covectors"
+   ],
+   "kind": "identity",
+   "definition": "For a 1-form sigma, sigma_{nu;mu} = partial_mu sigma_nu - Gamma^lambda_{mu nu} sigma_lambda; the sign of the Gamma term is opposite to that for vectors.",
+   "how_introduced": "Assembled from the basis 1-form result by the product rule on sigma_nu omega^nu, then given in operator, semicolon and directional forms (proof of eqns 7.34 and 7.40).",
+   "depth": "developed",
+   "prerequisites": [
+    "covariant derivative of basis 1-forms"
+   ],
+   "locators": [
+    {
+     "pdf_page": 373,
+     "printed_page": 356,
+     "section": "34.3"
+    }
+   ],
+   "formulas": [
+    "\\sigma_{\\nu;\\mu}=\\sigma_{\\nu,\\mu}-\\sigma_\\lambda\\Gamma^\\lambda{}_{\\mu\\nu}",
+    "(\\nabla_{\\boldsymbol u}\\tilde{\\boldsymbol\\sigma})_\\alpha=u^\\mu\\left(\\partial_\\mu\\sigma_\\alpha-\\sigma_\\lambda\\Gamma^\\lambda{}_{\\mu\\alpha}\\right)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "exterior derivative of a 1-form from covariant derivatives",
+   "aliases": [
+    "dA from antisymmetrized semicolon derivatives"
+   ],
+   "kind": "identity",
+   "definition": "For a torsion-free connection, the components of the 2-form dA equal A_{gamma;beta} - A_{beta;gamma}, since the symmetric Gamma terms cancel; index-free, dA(u,v) = (nabla_u A)(v) - (nabla_v A)(u) = u[A(v)] - v[A(u)] - A([u,v]).",
+   "how_introduced": "Example 34.8 fills one slot of dA, then the other, and compares with the coordinate semicolon expression; a margin note and Exercise 34.6 give index-free versions used in Chapter 43.",
+   "depth": "developed",
+   "prerequisites": [
+    "exterior derivative",
+    "covariant derivative of a 1-form",
+    "torsion-free connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 374,
+     "printed_page": 357,
+     "section": "34.3"
+    },
+    {
+     "pdf_page": 378,
+     "printed_page": 361,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "(\\boldsymbol d\\tilde{\\boldsymbol A})_{\\beta\\gamma}=A_{\\gamma;\\beta}-A_{\\beta;\\gamma}=-2A_{[\\beta;\\gamma]}",
+    "\\boldsymbol d\\tilde{\\boldsymbol A}(\\boldsymbol u,\\boldsymbol v)=\\nabla_{\\boldsymbol u}\\langle\\tilde{\\boldsymbol A},\\boldsymbol v\\rangle-\\nabla_{\\boldsymbol v}\\langle\\tilde{\\boldsymbol A},\\boldsymbol u\\rangle-\\tilde{\\boldsymbol A}([\\boldsymbol u,\\boldsymbol v])"
+   ],
+   "notes": "This is why the Faraday tensor F = dA can be computed with partial derivatives in curved spacetime."
+  },
+  {
+   "name": "antisymmetrization bracket notation",
+   "aliases": [
+    "square brackets on indices"
+   ],
+   "kind": "convention",
+   "definition": "T_{[ab]} = (T_{ab} - T_{ba})/2; vertical bars inside brackets exclude indices from the antisymmetrization.",
+   "how_introduced": "Used without fuss in eqn 34.41 and margin eqn 34.43.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 374,
+     "printed_page": 357,
+     "section": "34.3"
+    }
+   ],
+   "formulas": [
+    "A_{[\\beta;\\gamma]}=\\tfrac12\\left(A_{\\beta;\\gamma}-A_{\\gamma;\\beta}\\right)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant derivative of tensors",
+   "aliases": [
+    "general +Gamma/-Gamma rule"
+   ],
+   "kind": "identity",
+   "definition": "The covariant derivative of an (m,n) tensor is the partial derivative of its components plus one Gamma term contracted into each upper index and minus one Gamma term contracted into each lower index, with the derivative index always in the first lower slot of Gamma.",
+   "how_introduced": "Built by analogy: a (2,0) tensor has two basis vectors so gets two +Gamma terms; a (0,2) tensor has two basis 1-forms so gets two -Gamma terms; then boxed in general (proof of eqn 12.37). A margin note says the reader may skip straight to the box.",
+   "depth": "core",
+   "prerequisites": [
+    "covariant derivative of a 1-form",
+    "gradient of a vector field",
+    "defining properties of a connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 374,
+     "printed_page": 357,
+     "section": "34.3"
+    },
+    {
+     "pdf_page": 375,
+     "printed_page": 358,
+     "section": "34.3"
+    }
+   ],
+   "formulas": [
+    "(\\nabla_\\alpha\\boldsymbol T)^{\\mu\\nu}=\\partial_\\alpha T^{\\mu\\nu}+\\Gamma^\\mu{}_{\\alpha\\beta}T^{\\beta\\nu}+\\Gamma^\\nu{}_{\\alpha\\beta}T^{\\mu\\beta}",
+    "(\\nabla_\\alpha\\boldsymbol\\xi)_{\\mu\\nu}=\\partial_\\alpha\\xi_{\\mu\\nu}-\\Gamma^\\lambda{}_{\\alpha\\mu}\\xi_{\\lambda\\nu}-\\Gamma^\\lambda{}_{\\alpha\\nu}\\xi_{\\mu\\lambda}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "comma and semicolon notation",
+   "aliases": [
+    "partial and covariant derivative subscripts"
+   ],
+   "kind": "convention",
+   "definition": "A comma before an index denotes a partial derivative with respect to that coordinate; a semicolon denotes the covariant derivative component.",
+   "how_introduced": "Used throughout; Example 34.10 shows how semicolon derivatives commute with index lowering.",
+   "depth": "revisited",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": "34.1"
+    },
+    {
+     "pdf_page": 373,
+     "printed_page": 356,
+     "section": "34.3"
+    },
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "v^\\mu{}_{;\\beta}=v^\\mu{}_{,\\beta}+\\Gamma^\\mu{}_{\\beta\\alpha}v^\\alpha"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Riemann curvature tensor",
+   "aliases": [
+    "curvature tensor",
+    "R"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The (1,3) tensor that measures the failure of parallel transport around small loops (or of second covariant derivatives to commute); together with torsion it characterizes a connection.",
+   "how_introduced": "Mentioned as a structure derived from the metric and connection and as torsion's partner; its full treatment is deferred to Chapter 35.",
+   "depth": "mention",
+   "prerequisites": [
+    "affine connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": "34.1"
+    },
+    {
+     "pdf_page": 375,
+     "printed_page": 358,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "torsion-based theories of gravity",
+   "aliases": [
+    "teleparallel gravity",
+    "Einstein-Cartan theory"
+   ],
+   "kind": "historical-idea",
+   "definition": "Alternative formulations in which torsion, rather than or alongside curvature, carries gravitational effects.",
+   "how_introduced": "A single remark that such theories exist and may offer richer phenomenology than curvature-only GR.",
+   "depth": "mention",
+   "prerequisites": [
+    "torsion tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 369,
+     "printed_page": 352,
+     "section": "34.1"
+    }
+   ],
+   "formulas": [],
+   "notes": "The book names no specific theory; the aliases are standard examples added here."
+  },
+  {
+   "name": "metric tensor",
+   "aliases": [
+    "g",
+    "metric field"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A non-singular symmetric (0,2) tensor g with g(e_mu, e_nu) = g_{mu nu}, written g = g_{mu nu} omega^mu (x) omega^nu; in GR it has Lorentz signature and is the fundamental field.",
+   "how_introduced": "Recalled at the start of §34.4 as the central pillar of the theory, in slot-machine form and as the line element tensor.",
+   "depth": "revisited",
+   "prerequisites": [
+    "linear slot machine picture of tensors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 375,
+     "printed_page": 358,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol g=g_{\\mu\\nu}\\,\\boldsymbol\\omega^\\mu\\otimes\\boldsymbol\\omega^\\nu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "line element tensor",
+   "aliases": [
+    "ds^2 as a tensor"
+   ],
+   "kind": "convention",
+   "definition": "The metric written as ds^2 = g_{mu nu} dx^mu (x) dx^nu, a two-slot machine identical to g.",
+   "how_introduced": "Given as alternative notation for the metric in eqn 34.48.",
+   "depth": "mention",
+   "prerequisites": [
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 375,
+     "printed_page": 358,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol{ds}^2(\\,,\\,)\\equiv\\boldsymbol g(\\,,\\,)=g_{\\mu\\nu}\\boldsymbol dx^\\mu(\\,)\\otimes\\boldsymbol dx^\\nu(\\,)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "spacetime as a Lorentzian manifold",
+   "aliases": [
+    "(M, g)",
+    "mathematical statement of general relativity"
+   ],
+   "kind": "principle",
+   "definition": "Spacetime is a manifold M equipped with a Lorentz-signature metric g; its curvature, derived from g, is tied to the matter distribution by the Einstein equation.",
+   "how_introduced": "Stated in a shaded box in §34.4 as the definitive mathematical statement toward which Part V has been building.",
+   "depth": "introduced",
+   "prerequisites": [
+    "manifold",
+    "metric tensor",
+    "Riemann curvature tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 375,
+     "printed_page": 358,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "(\\mathcal M,\\boldsymbol g)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "hierarchy of geometric structure",
+   "aliases": [
+    "manifold-metric-connection-GR stack"
+   ],
+   "kind": "principle",
+   "definition": "A bare manifold supports forms and Lie derivatives; adding a metric determines a connection and curvature; with those one can build the Einstein tensor and hence GR.",
+   "how_introduced": "Drawn as a four-level stack in Fig. 34.2.",
+   "depth": "introduced",
+   "prerequisites": [
+    "manifold",
+    "metric tensor",
+    "affine connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 375,
+     "printed_page": 358,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "non-affine parametrization of a geodesic",
+   "aliases": [
+    "non-affine connection (book's term)",
+    "pregeodesic"
+   ],
+   "kind": "definition",
+   "definition": "A curve whose tangent satisfies nabla_u u = f(lambda) u with f not identically zero: the tangent stays parallel to itself but its length changes because the parameter does not advance uniformly.",
+   "how_introduced": "Presented in §34.4 as the most general notion of parallelism and illustrated with unevenly spaced tick marks in Fig. 34.3 (bottom).",
+   "depth": "introduced",
+   "prerequisites": [
+    "geodesic equation (coordinate-free)",
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 376,
+     "printed_page": 359,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}\\boldsymbol u\\equiv\\frac{\\mathrm D\\boldsymbol u}{\\mathrm d\\lambda}\\propto\\boldsymbol u"
+   ],
+   "notes": "The book calls the connection itself 'non-affine'; standard usage attributes the property to the parametrization of the curve."
+  },
+  {
+   "name": "affine parameter",
+   "aliases": [
+    "affine parametrization"
+   ],
+   "kind": "definition",
+   "definition": "A parameter along a geodesic for which nabla_u u = 0 exactly; any other affine parameter is related to it by s = a lambda + b.",
+   "how_introduced": "Contrasted with the non-affine case using evenly spaced ticks in Fig. 34.3 (top); margin note 17 and Exercise 34.7 prove the linear-reparametrization freedom.",
+   "depth": "developed",
+   "prerequisites": [
+    "geodesic equation (coordinate-free)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 376,
+     "printed_page": 359,
+     "section": "34.4"
+    },
+    {
+     "pdf_page": 378,
+     "printed_page": 361,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "s=a\\lambda+b"
+   ],
+   "notes": null
+  },
+  {
+   "name": "geodesic equation (coordinate-free)",
+   "aliases": [
+    "nabla_u u = 0",
+    "autoparallel condition"
+   ],
+   "kind": "law",
+   "definition": "A geodesic is a curve whose tangent u is parallel transported along itself: nabla_u u = Du/dlambda = 0 for affine lambda.",
+   "how_introduced": "Recognized as the strict notion of parallelism in §34.4 and linked to constant-length four-velocities.",
+   "depth": "revisited",
+   "prerequisites": [
+    "covariant derivative",
+    "affine parameter"
+   ],
+   "locators": [
+    {
+     "pdf_page": 376,
+     "printed_page": 359,
+     "section": "34.4"
+    },
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}\\boldsymbol u=\\frac{\\mathrm D\\boldsymbol u}{\\mathrm d\\lambda}=0",
+    "u^\\nu u^\\mu{}_{;\\nu}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "metric compatibility of the connection",
+   "aliases": [
+    "nabla g = 0",
+    "compatibility condition"
+   ],
+   "kind": "principle",
+   "definition": "The requirement that the covariant derivative of the metric vanishes, g_{beta gamma;alpha} = 0; equivalently parallel transport preserves all inner products (lengths and angles).",
+   "how_introduced": "Introduced as the condition that permanently couples connection to metric, motivated by the physical need for a constant-norm four-velocity, then proved equivalent to inner-product preservation in Example 34.9.",
+   "depth": "core",
+   "prerequisites": [
+    "covariant derivative of tensors",
+    "metric tensor",
+    "parallel transport"
+   ],
+   "locators": [
+    {
+     "pdf_page": 376,
+     "printed_page": 359,
+     "section": "34.4"
+    },
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla\\boldsymbol g=0",
+    "g_{\\beta\\gamma;\\alpha}=0"
+   ],
+   "notes": "The chapter summary phrases it as guaranteeing an 'affine connection'; in standard language nabla g = 0 defines a metric connection."
+  },
+  {
+   "name": "preservation of inner products under parallel transport",
+   "aliases": [
+    "length preservation"
+   ],
+   "kind": "theorem",
+   "definition": "If v and w are parallel transported along any curve then g(v,w) is constant for all such v, w, u exactly when g_{beta gamma;alpha} = 0.",
+   "how_introduced": "Example 34.9 expands u^alpha(g_{beta gamma} v^beta w^gamma)_{;alpha} with the Leibniz rule and kills the transported terms.",
+   "depth": "developed",
+   "prerequisites": [
+    "metric compatibility of the connection",
+    "defining properties of a connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 376,
+     "printed_page": 359,
+     "section": "34.4"
+    },
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "u^\\alpha v^\\beta w^\\gamma g_{\\beta\\gamma;\\alpha}=0\\iff g_{\\beta\\gamma;\\alpha}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Levi-Civita connection",
+   "aliases": [
+    "metric connection",
+    "Christoffel connection"
+   ],
+   "kind": "theorem",
+   "definition": "The unique connection that is both torsion-free and metric compatible; in a coordinate basis its coefficients are half a signed sum of three first derivatives of the metric (the Christoffel formula).",
+   "how_introduced": "Not named; the text asserts that nabla g = 0 together with zero torsion fixes nabla, and Exercise 34.2 derives the Christoffel formula from compatibility.",
+   "depth": "introduced",
+   "prerequisites": [
+    "metric compatibility of the connection",
+    "torsion-free connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    },
+    {
+     "pdf_page": 378,
+     "printed_page": 361,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\Gamma_{\\alpha\\beta\\sigma}=\\tfrac12\\left(g_{\\alpha\\beta,\\sigma}+g_{\\alpha\\sigma,\\beta}-g_{\\beta\\sigma,\\alpha}\\right)"
+   ],
+   "notes": "Named here with its standard label for retrieval; the book never uses the term in this chapter."
+  },
+  {
+   "name": "connection coefficients from the metric",
+   "aliases": [
+    "Christoffel symbol formula"
+   ],
+   "kind": "identity",
+   "definition": "In a coordinate basis with a torsion-free compatible connection, Gamma^mu_{alpha beta} is fixed by first derivatives of the metric; compatibility expresses each metric derivative as a sum of two lowered Gammas, and cycling the three indices solves for Gamma.",
+   "how_introduced": "Exercise 34.2, closing the loop with Chapter 9 where Gamma was first obtained from the metric.",
+   "depth": "revisited",
+   "prerequisites": [
+    "metric compatibility of the connection",
+    "torsion-free connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 378,
+     "printed_page": 361,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "g_{\\alpha\\beta,\\sigma}=\\Gamma^\\mu{}_{\\sigma\\alpha}g_{\\mu\\beta}+\\Gamma^\\mu{}_{\\sigma\\beta}g_{\\mu\\alpha}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "four-velocity normalization",
+   "aliases": [
+    "u.u = -1"
+   ],
+   "kind": "convention",
+   "definition": "The tangent to a massive particle's world line, parametrized by proper time, has constant norm u.u = -1.",
+   "how_introduced": "Cited as the physical reason we want parallel transport to preserve tangent-vector length.",
+   "depth": "mention",
+   "prerequisites": [
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 376,
+     "printed_page": 359,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol u\\cdot\\boldsymbol u=-1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "orthogonality of four-velocity and four-acceleration",
+   "aliases": [
+    "u . a = 0"
+   ],
+   "kind": "theorem",
+   "definition": "With a compatible connection, a curve whose tangent has constant norm has acceleration a = nabla_u u orthogonal to u, even if the curve is not a geodesic.",
+   "how_introduced": "Margin note 19 and Exercise 34.8, with a pointer to Needham (2021).",
+   "depth": "introduced",
+   "prerequisites": [
+    "metric compatibility of the connection",
+    "four-velocity normalization"
+   ],
+   "locators": [
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    },
+    {
+     "pdf_page": 379,
+     "printed_page": 362,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol u\\cdot(\\nabla_{\\boldsymbol u}\\boldsymbol u)=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "raising and lowering indices inside covariant derivatives",
+   "aliases": [
+    "index gymnastics with semicolons"
+   ],
+   "kind": "technique",
+   "definition": "Because nabla g = 0, the metric passes through covariant derivatives, so lowering the free index of the vector derivative simply gives the 1-form rule applied to the lowered components; one must not instead raise indices on Gamma as though it were a tensor.",
+   "how_introduced": "Example 34.10, which first attempts a naive manipulation and then resolves it by appeal to the 1-form rule.",
+   "depth": "developed",
+   "prerequisites": [
+    "metric compatibility of the connection",
+    "covariant derivative of a 1-form"
+   ],
+   "locators": [
+    {
+     "pdf_page": 377,
+     "printed_page": 360,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [
+    "g_{\\mu\\nu}v^\\mu{}_{;\\alpha}=v_{\\nu;\\alpha}=v_{\\nu,\\alpha}-\\Gamma^\\gamma{}_{\\alpha\\nu}v_\\gamma"
+   ],
+   "notes": "The printed intermediate lines contain errors; see gaps_and_pitfalls."
+  },
+  {
+   "name": "contracted connection identity and covariant divergence",
+   "aliases": [
+    "Gamma^mu_{lambda mu} = partial_lambda ln sqrt|g|",
+    "divergence formula"
+   ],
+   "kind": "identity",
+   "definition": "The trace of the connection coefficients equals the derivative of ln sqrt|g|, so the covariant divergence of a vector is (1/sqrt|g|) partial_mu (sqrt|g| v^mu).",
+   "how_introduced": "Exercise 34.3 via the matrix identity d ln det M = Tr(M^{-1} dM).",
+   "depth": "introduced",
+   "prerequisites": [
+    "connection coefficients from the metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 378,
+     "printed_page": 361,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\Gamma^\\mu{}_{\\lambda\\mu}=\\frac1{\\sqrt{|g|}}\\partial_\\lambda\\sqrt{|g|}",
+    "v^\\mu{}_{;\\mu}=\\frac1{\\sqrt{|g|}}\\partial_\\mu\\left(\\sqrt{|g|}v^\\mu\\right)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "conserved momentum component from metric symmetry",
+   "aliases": [
+    "Killing vector from ignorable coordinate"
+   ],
+   "kind": "theorem",
+   "definition": "If all metric components are independent of a coordinate x^1, the lowered component u_1 of the tangent to an affinely parametrized geodesic is constant.",
+   "how_introduced": "Exercise 34.5 obtains it from the lowered geodesic equation, linking back to the Killing-vector rule of Chapter 33.",
+   "depth": "mention",
+   "prerequisites": [
+    "geodesic equation (coordinate-free)",
+    "Levi-Civita connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 378,
+     "printed_page": 361,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "(\\nabla_{\\boldsymbol u}\\boldsymbol u)\\cdot\\boldsymbol e_1=\\frac{\\mathrm du_1}{\\mathrm d\\lambda}-u^\\alpha u_\\sigma\\Gamma^\\sigma{}_{\\alpha1}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Palatini formulation",
+   "aliases": [
+    "Palatini gravity",
+    "first-order formalism"
+   ],
+   "kind": "historical-idea",
+   "definition": "An approach in which the metric and the connection are varied independently in the Einstein-Hilbert action; for the standard action it reproduces GR with a compatible connection.",
+   "how_introduced": "Margin note 18 pointing to Chapter 40.",
+   "depth": "mention",
+   "prerequisites": [
+    "metric compatibility of the connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 376,
+     "printed_page": 359,
+     "section": "34.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(34.1)",
+   "name": "Linearity in the direction",
+   "latex": "\\nabla_{a\\boldsymbol u+b\\boldsymbol v}\\boldsymbol w=a\\nabla_{\\boldsymbol u}\\boldsymbol w+b\\nabla_{\\boldsymbol v}\\boldsymbol w",
+   "meaning": "The derivative along a combination of directions is the same combination of derivatives; this is what makes nabla local in the direction field.",
+   "symbols": "a, b scalars (functions); u, v directions; w operand",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.2)",
+   "name": "Linearity in the operand",
+   "latex": "\\nabla_{\\boldsymbol u}(\\alpha\\boldsymbol c+\\beta\\boldsymbol d)=\\alpha\\nabla_{\\boldsymbol u}\\boldsymbol c+\\beta\\nabla_{\\boldsymbol u}\\boldsymbol d",
+   "meaning": "Additivity of the connection in the object being differentiated.",
+   "symbols": "alpha, beta constants",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.3)",
+   "name": "Leibniz rule",
+   "latex": "\\nabla(\\boldsymbol S\\otimes\\boldsymbol T)=(\\nabla\\boldsymbol S\\otimes\\boldsymbol T)+(\\boldsymbol S\\otimes\\nabla\\boldsymbol T)",
+   "meaning": "Product rule for tensor products; together with 34.1-34.2 it defines a connection and later yields the 1-form and tensor rules.",
+   "symbols": "S, T arbitrary tensors",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "Torsion-free symmetry of Gamma",
+   "latex": "\\Gamma^\\mu{}_{\\alpha\\beta}=\\Gamma^\\mu{}_{\\beta\\alpha}",
+   "meaning": "In a coordinate basis, vanishing torsion means the connection coefficients are symmetric in their lower indices (margin note 4).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "label": "(34.4)",
+   "name": "Torsion tensor",
+   "latex": "\\boldsymbol\\tau(\\boldsymbol u,\\boldsymbol v)=\\nabla_{\\boldsymbol u}\\boldsymbol v-\\nabla_{\\boldsymbol v}\\boldsymbol u-[\\boldsymbol u,\\boldsymbol v]",
+   "meaning": "Defines torsion as the mismatch between antisymmetrized covariant derivatives and the Lie bracket.",
+   "symbols": "tau (1,2) torsion tensor; [u,v] Lie bracket",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "label": "(34.5)",
+   "name": "Torsion-free condition",
+   "latex": "\\nabla_{\\boldsymbol u}\\boldsymbol v-\\nabla_{\\boldsymbol v}\\boldsymbol u=[\\boldsymbol u,\\boldsymbol v]",
+   "meaning": "The assumption of GR: antisymmetrized covariant derivatives reproduce the commutator.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "label": "(34.6)",
+   "name": "Lie derivative via semicolons",
+   "latex": "(\\mathcal L_{\\boldsymbol u}\\boldsymbol v)^\\alpha=v^\\alpha{}_{;\\beta}u^\\beta-u^\\alpha{}_{;\\beta}v^\\beta",
+   "meaning": "For zero torsion the Lie derivative can use covariant instead of partial derivatives.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "label": "(34.7)",
+   "name": "Edge mismatches of the quadrilateral",
+   "latex": "\\boldsymbol v(\\lambda_0+1)-\\boldsymbol v(\\lambda_0)\\approx\\nabla_{\\boldsymbol u}\\boldsymbol v,\\qquad \\boldsymbol u(\\sigma_0+1)-\\boldsymbol u(\\sigma_0)\\approx\\nabla_{\\boldsymbol v}\\boldsymbol u",
+   "meaning": "Differences of each field across the figure, compared after transport, approximate the covariant derivatives; the unit step stands for a small displacement.",
+   "symbols": "lambda, sigma parameters labelling the field evaluations",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "label": "(34.8)",
+   "name": "Symmetry of the covariant derivative",
+   "latex": "\\nabla_{\\boldsymbol u}\\boldsymbol v=\\nabla_{\\boldsymbol v}\\boldsymbol u\\quad\\text{when }[\\boldsymbol u,\\boldsymbol v]=0",
+   "meaning": "For commuting fields and zero torsion, the order of differentiation does not matter.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.1"
+   }
+  },
+  {
+   "label": "(34.9)",
+   "name": "Connection on a scalar",
+   "latex": "\\nabla f=\\boldsymbol df",
+   "meaning": "On functions the connection is the exterior derivative, producing a 1-form.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.10)",
+   "name": "Directional derivative of a scalar",
+   "latex": "\\boldsymbol u\\cdot\\nabla f=\\nabla_{\\boldsymbol u}f\\equiv u^\\mu\\frac{\\partial f}{\\partial x^\\mu}\\equiv\\partial_{\\boldsymbol u}f",
+   "meaning": "Pointing nabla f along u gives the familiar directional derivative.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.11)",
+   "name": "Further notations",
+   "latex": "\\nabla_{\\boldsymbol u}f\\equiv\\langle\\boldsymbol df,\\boldsymbol u\\rangle\\equiv\\boldsymbol u[f]",
+   "meaning": "Equivalent geometric notations (margin note 6).",
+   "symbols": "u[f] vector acting as derivation",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.12)",
+   "name": "Covariant derivative of a vector as vector-valued 1-form",
+   "latex": "\\nabla\\boldsymbol v\\equiv\\boldsymbol d\\boldsymbol v=\\boldsymbol dv^\\mu\\otimes\\boldsymbol e_\\mu+v^\\mu\\,\\boldsymbol d\\boldsymbol e_\\mu",
+   "meaning": "Product rule splits the change of a vector into the change of its components and the change of the basis vectors.",
+   "symbols": "d here is the book's extension of d to vector-valued 0-forms (standard name: exterior covariant derivative)",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.13)",
+   "name": "General (1,1) tensor",
+   "latex": "\\boldsymbol S=S^\\mu{}_\\nu\\,\\boldsymbol\\omega^\\nu\\otimes\\boldsymbol e_\\mu",
+   "meaning": "Reference form of a (1,1) tensor contrasted with the vector-valued 1-form (margin note 7).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.14)",
+   "name": "Definition of connection coefficients",
+   "latex": "\\nabla\\boldsymbol e_\\mu\\equiv\\boldsymbol d\\boldsymbol e_\\mu=\\Gamma^\\alpha{}_{\\nu\\mu}\\left(\\boldsymbol\\omega^\\nu\\otimes\\boldsymbol e_\\alpha\\right)",
+   "meaning": "The whole content of the connection is how each basis vector changes; its expansion coefficients are Gamma.",
+   "symbols": "Gamma^alpha_{nu mu}: nu = direction, mu = differentiated basis vector, alpha = output component",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.15)",
+   "name": "Extracting Gamma",
+   "latex": "\\langle\\boldsymbol\\omega^\\sigma,\\nabla_\\beta\\boldsymbol e_\\mu\\rangle=\\Gamma^\\sigma{}_{\\beta\\mu}",
+   "meaning": "Components of the derivative of a basis vector along e_beta, obtained by contracting with the dual basis.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.16)",
+   "name": null,
+   "latex": "\\nabla\\boldsymbol v=\\boldsymbol dv^\\mu\\otimes\\boldsymbol e_\\mu+v^\\alpha\\Gamma^\\mu{}_{\\beta\\alpha}(\\boldsymbol\\omega^\\beta\\otimes\\boldsymbol e_\\mu)=\\frac{\\partial v^\\mu}{\\partial x^\\beta}(\\boldsymbol dx^\\beta\\otimes\\boldsymbol e_\\mu)+v^\\alpha\\Gamma^\\mu{}_{\\beta\\alpha}(\\boldsymbol\\omega^\\beta\\otimes\\boldsymbol e_\\mu)",
+   "meaning": "Chain rule plus the definition of Gamma, before collecting terms.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.17)",
+   "name": "Gradient of a vector",
+   "latex": "\\nabla\\boldsymbol v=\\left(\\frac{\\partial v^\\mu}{\\partial x^\\beta}+v^\\alpha\\Gamma^\\mu{}_{\\beta\\alpha}\\right)(\\boldsymbol\\omega^\\beta\\otimes\\boldsymbol e_\\mu)",
+   "meaning": "The components of nabla v are exactly the semicolon derivatives v^mu_{;beta}.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.18)",
+   "name": "Gradient as a two-slot machine",
+   "latex": "\\nabla\\boldsymbol v(\\,,\\,)=v^\\mu{}_{;\\nu}\\,\\boldsymbol\\omega^\\nu(\\,)\\otimes\\boldsymbol e_\\mu(\\,)",
+   "meaning": "Slot-machine reading: one slot for a direction vector, one for a 1-form.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.19)",
+   "name": "Components of the gradient",
+   "latex": "\\nabla\\boldsymbol v(\\boldsymbol e_\\alpha,\\boldsymbol\\omega^\\mu)=(\\nabla\\boldsymbol v)^\\mu{}_\\alpha=\\frac{\\partial v^\\mu}{\\partial x^\\alpha}+v^\\lambda\\Gamma^\\mu{}_{\\alpha\\lambda}",
+   "meaning": "Filling both slots with basis elements yields the covariant derivative components.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.20)",
+   "name": null,
+   "latex": "(\\nabla\\boldsymbol e_\\gamma)^\\mu{}_\\alpha=\\delta^\\lambda{}_\\gamma\\Gamma^\\mu{}_{\\alpha\\lambda}=\\Gamma^\\mu{}_{\\alpha\\gamma}",
+   "meaning": "Inserting a basis vector as v shows that the components of nabla are the connection coefficients.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.21)",
+   "name": "Directional covariant derivative of a vector",
+   "latex": "\\langle\\boldsymbol\\omega^\\mu,\\nabla_{\\boldsymbol u}\\boldsymbol v\\rangle=(\\nabla_{\\boldsymbol u}\\boldsymbol v)^\\mu=u^\\alpha\\left(\\frac{\\partial v^\\mu}{\\partial x^\\alpha}+v^\\lambda\\Gamma^\\mu{}_{\\alpha\\lambda}\\right)",
+   "meaning": "Components of the vector nabla_u v.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.22)",
+   "name": null,
+   "latex": "\\nabla\\boldsymbol v(\\boldsymbol u,\\tilde{\\boldsymbol\\sigma})=\\langle\\tilde{\\boldsymbol\\sigma},\\nabla_{\\boldsymbol u}\\boldsymbol v\\rangle",
+   "meaning": "Filling both slots produces a number: how many sheets of sigma the vector nabla_u v crosses.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.25)",
+   "name": "Frame transformation of Gamma",
+   "latex": "\\Gamma^{\\alpha'}{}_{\\beta'\\gamma'}=\\Lambda^{\\alpha'}{}_\\alpha\\,\\boldsymbol e_{\\beta'}\\!\\left[\\Lambda^\\alpha{}_{\\gamma'}\\right]+\\Lambda^{\\alpha'}{}_\\alpha\\Lambda^\\beta{}_{\\beta'}\\Lambda^\\gamma{}_{\\gamma'}\\Gamma^\\alpha{}_{\\beta\\gamma}",
+   "meaning": "General-frame law: a homogeneous tensor term plus an inhomogeneous term from the derivative of the transformation matrix along the new basis vector.",
+   "symbols": "Lambda transformation matrices; e[f] derivative of f along e",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.26)",
+   "name": "Coordinate transformation of Gamma",
+   "latex": "\\Gamma^{\\alpha'}{}_{\\beta'\\gamma'}=\\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\frac{\\partial^2x^\\alpha}{\\partial x^{\\beta'}\\partial x^{\\gamma'}}+\\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\frac{\\partial x^\\beta}{\\partial x^{\\beta'}}\\frac{\\partial x^\\gamma}{\\partial x^{\\gamma'}}\\Gamma^\\alpha{}_{\\beta\\gamma}",
+   "meaning": "The second-derivative term shows Gamma is not a tensor; this proves eqn 7.11.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   }
+  },
+  {
+   "label": "(34.27)",
+   "name": null,
+   "latex": "\\boldsymbol d\\boldsymbol S=\\nabla\\boldsymbol S\\quad(\\boldsymbol S\\text{ an }(n,0)\\text{ tensor})",
+   "meaning": "d and nabla agree on tensor-valued 0-forms only.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.28)",
+   "name": "Covariant derivative of a general tensor",
+   "latex": "\\nabla\\boldsymbol S=S^{i_1\\dots i_n}{}_{j_1\\dots j_m;k}\\left(\\boldsymbol e_{i_1}\\otimes\\dots\\otimes\\boldsymbol e_{i_n}\\otimes\\boldsymbol\\omega^{j_1}\\otimes\\dots\\otimes\\boldsymbol\\omega^{j_m}\\otimes\\boldsymbol\\omega^k\\right)",
+   "meaning": "nabla adds one ordinary (non-antisymmetrized) lower slot; here placed last, unlike 34.14 and 34.18 where the derivative 1-form comes first.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.29)",
+   "name": null,
+   "latex": "0=\\nabla\\langle\\boldsymbol\\omega^\\nu,\\boldsymbol e_\\mu\\rangle=\\langle\\nabla\\boldsymbol\\omega^\\nu,\\boldsymbol e_\\mu\\rangle+\\langle\\boldsymbol\\omega^\\nu,\\nabla\\boldsymbol e_\\mu\\rangle=\\nabla\\boldsymbol\\omega^\\nu(\\boldsymbol e_\\mu,\\,)+\\Gamma^\\alpha{}_{\\beta\\mu}\\boldsymbol\\omega^\\beta(\\,)\\,\\delta^\\nu{}_\\alpha",
+   "meaning": "Leibniz rule on the constant duality contraction.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.30)",
+   "name": "Covariant derivative of a basis 1-form",
+   "latex": "\\nabla\\boldsymbol\\omega^\\nu=-\\Gamma^\\nu{}_{\\beta\\mu}\\,\\boldsymbol\\omega^\\mu\\otimes\\boldsymbol\\omega^\\beta",
+   "meaning": "Basis 1-forms change with minus the connection coefficients. The printed margin equation writes omega^nu in place of omega^mu; corrected here. Slot order in this margin formula differs from the derivative-first convention of 34.14.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.31)",
+   "name": "Exterior derivative of a basis 1-form (forward pointer)",
+   "latex": "\\boldsymbol d\\boldsymbol\\omega^\\nu=\\Gamma^\\nu{}_{\\beta\\mu}\\,\\boldsymbol\\omega^\\mu\\wedge\\boldsymbol\\omega^\\beta",
+   "meaning": "Result established in Chapter 36 (torsion-free Cartan structure equation); contrasts antisymmetric d with nabla. Printed with omega^nu in place of omega^mu; corrected here. In a coordinate basis both sides vanish.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.32)",
+   "name": null,
+   "latex": "\\nabla\\boldsymbol\\omega^\\nu(\\boldsymbol e_\\mu,\\,)=-\\Gamma^\\nu{}_{\\beta\\mu}\\boldsymbol\\omega^\\beta",
+   "meaning": "Conclusion of Example 34.7.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.33)",
+   "name": null,
+   "latex": "\\nabla_\\beta\\tilde{\\boldsymbol\\sigma}=(\\nabla_\\beta\\sigma_\\nu)\\boldsymbol\\omega^\\nu+\\sigma_\\nu\\nabla_\\beta\\boldsymbol\\omega^\\nu=\\frac{\\partial\\sigma_\\nu}{\\partial x^\\beta}\\boldsymbol\\omega^\\nu-\\sigma_\\nu\\Gamma^\\nu{}_{\\beta\\mu}\\boldsymbol\\omega^\\mu",
+   "meaning": "Product rule on a general 1-form.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.34)",
+   "name": "Covariant derivative of a 1-form",
+   "latex": "\\nabla_\\mu\\tilde{\\boldsymbol\\sigma}=\\left(\\frac{\\partial\\sigma_\\nu}{\\partial x^\\mu}-\\sigma_\\lambda\\Gamma^\\lambda{}_{\\mu\\nu}\\right)\\boldsymbol\\omega^\\nu",
+   "meaning": "Minus sign relative to vectors; proves eqns 7.34 and 7.40.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.35)",
+   "name": null,
+   "latex": "\\sigma_{\\nu;\\mu}=\\sigma_{\\nu,\\mu}-\\sigma_\\lambda\\Gamma^\\lambda{}_{\\mu\\nu}",
+   "meaning": "Semicolon form of the 1-form rule.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.36)",
+   "name": null,
+   "latex": "(\\nabla_{\\boldsymbol u}\\tilde{\\boldsymbol\\sigma})_\\alpha=u^\\mu\\left(\\frac{\\partial\\sigma_\\alpha}{\\partial x^\\mu}-\\sigma_\\lambda\\Gamma^\\lambda{}_{\\mu\\alpha}\\right)",
+   "meaning": "1-form rule along a direction u.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.37)",
+   "name": null,
+   "latex": "\\boldsymbol d\\tilde{\\boldsymbol A}=\\frac{\\partial A_\\mu}{\\partial x^\\alpha}\\boldsymbol dx^\\alpha\\wedge\\boldsymbol dx^\\mu",
+   "meaning": "Exterior derivative of a 1-form in coordinates.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.38)",
+   "name": null,
+   "latex": "\\boldsymbol d\\tilde{\\boldsymbol A}(\\boldsymbol e_\\beta,\\,)=\\left(\\frac{\\partial A_\\mu}{\\partial x^\\beta}-\\frac{\\partial A_\\beta}{\\partial x^\\mu}\\right)\\boldsymbol dx^\\mu",
+   "meaning": "Filling the first slot, using dx^alpha wedge dx^mu = dx^alpha (x) dx^mu - dx^mu (x) dx^alpha.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.39)",
+   "name": null,
+   "latex": "\\boldsymbol d\\tilde{\\boldsymbol A}(\\boldsymbol e_\\beta,\\boldsymbol e_\\gamma)=\\frac{\\partial A_\\gamma}{\\partial x^\\beta}-\\frac{\\partial A_\\beta}{\\partial x^\\gamma}",
+   "meaning": "Component of the 2-form.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.40)",
+   "name": "Gamma cancellation",
+   "latex": "A_{\\gamma;\\beta}-A_{\\beta;\\gamma}=\\left(\\frac{\\partial A_\\gamma}{\\partial x^\\beta}-\\Gamma^\\sigma{}_{\\beta\\gamma}A_\\sigma\\right)-\\left(\\frac{\\partial A_\\beta}{\\partial x^\\gamma}-\\Gamma^\\sigma{}_{\\gamma\\beta}A_\\sigma\\right)=\\frac{\\partial A_\\gamma}{\\partial x^\\beta}-\\frac{\\partial A_\\beta}{\\partial x^\\gamma}",
+   "meaning": "With symmetric Gamma, antisymmetrized covariant derivatives equal antisymmetrized partial derivatives.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.41)",
+   "name": "Components of dA",
+   "latex": "(\\boldsymbol d\\tilde{\\boldsymbol A})_{\\beta\\gamma}=A_{\\gamma;\\beta}-A_{\\beta;\\gamma}=-2A_{[\\beta;\\gamma]}",
+   "meaning": "With dA = (1/2)(dA)_{beta gamma} dx^beta wedge dx^gamma.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.42)",
+   "name": "Index-free dA identity",
+   "latex": "\\langle\\boldsymbol d\\tilde{\\boldsymbol\\alpha},\\boldsymbol u\\wedge\\boldsymbol v\\rangle=\\langle\\nabla_{\\boldsymbol u}\\tilde{\\boldsymbol\\alpha},\\boldsymbol v\\rangle-\\langle\\nabla_{\\boldsymbol v}\\tilde{\\boldsymbol\\alpha},\\boldsymbol u\\rangle",
+   "meaning": "Margin note 13; used in Chapter 43. The pairing with u wedge v should be read as d alpha(u,v); other normalizations of the wedge would introduce a factor 2.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.43)",
+   "name": null,
+   "latex": "\\left(\\alpha_{|\\gamma;\\beta|}-\\alpha_{|\\beta;\\gamma|}\\right)\\left(u^\\beta v^\\gamma-u^\\gamma v^\\beta\\right)",
+   "meaning": "Component expression suggested for proving 34.42 (left as an exercise).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.44)",
+   "name": "A (2,0) tensor in a basis",
+   "latex": "\\boldsymbol T=T^{\\mu\\nu}\\,\\boldsymbol e_\\mu\\otimes\\boldsymbol e_\\nu",
+   "meaning": "Starting point for the counting argument: two basis vectors, so two +Gamma terms appear when nabla acts.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.45)",
+   "name": "Covariant derivative of a (2,0) tensor",
+   "latex": "(\\nabla_\\alpha\\boldsymbol T)^{\\mu\\nu}=\\frac{\\partial T^{\\mu\\nu}}{\\partial x^\\alpha}+\\Gamma^\\mu{}_{\\alpha\\beta}T^{\\beta\\nu}+\\Gamma^\\nu{}_{\\alpha\\beta}T^{\\mu\\beta}",
+   "meaning": "One +Gamma per basis vector, for T = T^{mu nu} e_mu (x) e_nu (eqn 34.44); proves eqn 12.37.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.46)",
+   "name": "Covariant derivative of a (0,2) tensor",
+   "latex": "(\\nabla_\\alpha\\boldsymbol\\xi)_{\\mu\\nu}=\\frac{\\partial\\xi_{\\mu\\nu}}{\\partial x^\\alpha}-\\Gamma^\\lambda{}_{\\alpha\\mu}\\xi_{\\lambda\\nu}-\\Gamma^\\lambda{}_{\\alpha\\nu}\\xi_{\\mu\\lambda}",
+   "meaning": "One -Gamma per basis 1-form.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.47)",
+   "name": "General tensor rule",
+   "latex": "(\\nabla_\\alpha\\boldsymbol A)^{\\mu\\nu\\dots}{}_{\\beta\\gamma\\dots}=\\frac{\\partial A^{\\mu\\nu\\dots}{}_{\\beta\\gamma\\dots}}{\\partial x^\\alpha}+\\Gamma^\\mu{}_{\\alpha\\lambda}A^{\\lambda\\nu\\dots}{}_{\\beta\\gamma\\dots}+\\Gamma^\\nu{}_{\\alpha\\lambda}A^{\\mu\\lambda\\dots}{}_{\\beta\\gamma\\dots}+\\dots-\\Gamma^\\lambda{}_{\\alpha\\beta}A^{\\mu\\nu\\dots}{}_{\\lambda\\gamma\\dots}-\\Gamma^\\lambda{}_{\\alpha\\gamma}A^{\\mu\\nu\\dots}{}_{\\beta\\lambda\\dots}-\\dots",
+   "meaning": "Boxed recipe: add a Gamma for each upper index, subtract one for each lower index.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.3"
+   }
+  },
+  {
+   "label": "(34.48)",
+   "name": "Metric as line element tensor",
+   "latex": "\\boldsymbol{ds}^2(\\,,\\,)\\equiv\\boldsymbol g(\\,,\\,)=g_{\\mu\\nu}\\,\\boldsymbol dx^\\mu(\\,)\\otimes\\boldsymbol dx^\\nu(\\,)",
+   "meaning": "Slot-machine form of the metric.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.49)",
+   "name": "Weak parallelism (non-affine)",
+   "latex": "\\nabla_{\\boldsymbol u}\\boldsymbol u\\equiv\\frac{\\mathrm D\\boldsymbol u}{\\mathrm d\\lambda}\\propto\\boldsymbol u",
+   "meaning": "Tangent stays parallel to itself but may stretch; corresponds to a geodesic with a non-uniform parameter.",
+   "symbols": "D/dlambda covariant derivative along the curve",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.50)",
+   "name": "Geodesic equation",
+   "latex": "\\nabla_{\\boldsymbol u}\\boldsymbol u=\\frac{\\mathrm D\\boldsymbol u}{\\mathrm d\\lambda}=0",
+   "meaning": "Strict parallelism with affine parameter: the tangent keeps its direction and length.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.51)",
+   "name": "Metric compatibility",
+   "latex": "\\nabla\\boldsymbol g=0",
+   "meaning": "Links connection to metric; guarantees preservation of inner products under parallel transport.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.52)",
+   "name": "Parallel transport conditions",
+   "latex": "\\nabla_{\\boldsymbol u}\\boldsymbol v=0,\\quad\\nabla_{\\boldsymbol u}\\boldsymbol w=0;\\qquad u^\\alpha v^\\beta{}_{;\\alpha}=0,\\quad u^\\alpha w^\\gamma{}_{;\\alpha}=0",
+   "meaning": "Two vectors transported along the same curve.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.53)",
+   "name": null,
+   "latex": "\\nabla_{\\boldsymbol u}\\,\\boldsymbol g(\\boldsymbol v,\\boldsymbol w)=0",
+   "meaning": "Requirement that the inner product of transported vectors is constant.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.54)",
+   "name": null,
+   "latex": "u^\\alpha\\left(g_{\\beta\\gamma}v^\\beta w^\\gamma\\right)_{;\\alpha}=0",
+   "meaning": "Component version of the demand that the inner product of two transported vectors stay constant.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.55)",
+   "name": null,
+   "latex": "u^\\alpha g_{\\beta\\gamma;\\alpha}v^\\beta w^\\gamma+u^\\alpha g_{\\beta\\gamma}v^\\beta{}_{;\\alpha}w^\\gamma+u^\\alpha g_{\\beta\\gamma}v^\\beta w^\\gamma{}_{;\\alpha}=0",
+   "meaning": "Leibniz expansion of u^alpha (g_{beta gamma} v^beta w^gamma)_{;alpha} = 0 (eqn 34.54).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.56)",
+   "name": null,
+   "latex": "u^\\alpha v^\\beta w^\\gamma g_{\\beta\\gamma;\\alpha}=0",
+   "meaning": "After the transport conditions remove two terms. Printed with t^alpha instead of u^alpha; corrected here.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.57)",
+   "name": "Compatibility in components",
+   "latex": "g_{\\beta\\gamma;\\alpha}=0",
+   "meaning": "Since u, v, w are arbitrary, every component of nabla g vanishes.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.58)",
+   "name": "Attempted index lowering (as printed)",
+   "latex": "g_{\\mu\\nu}v^\\mu{}_{;\\alpha}=g_{\\mu\\nu}\\left(v^\\mu{}_{,\\alpha}+\\Gamma^\\mu{}_{\\alpha\\lambda}v^\\lambda\\right)=v_{\\nu,\\alpha}+\\Gamma_{\\nu\\alpha\\lambda}v^\\lambda=v_{\\nu,\\alpha}+g^{\\lambda\\gamma}\\Gamma_{\\nu\\alpha\\lambda}v_\\gamma",
+   "meaning": "As printed (the rendered page has a comma inside the bracket; the reading copy's semicolon is an OCR slip). The step from the first to the second line is where it goes wrong: g_{mu nu} v^mu_{,alpha} is not v_{nu,alpha} but v_{nu,alpha} - g_{mu nu,alpha} v^mu, so a metric-derivative term has been dropped. Restoring it and using compatibility turns the last line into 34.59.",
+   "symbols": "Gamma_{nu alpha lambda} = g_{nu mu} Gamma^mu_{alpha lambda}",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.59)",
+   "name": "Lowering through a semicolon",
+   "latex": "g_{\\mu\\nu}v^\\mu{}_{;\\alpha}=v_{\\nu;\\alpha}=v_{\\nu,\\alpha}-\\Gamma^\\gamma{}_{\\alpha\\nu}v_\\gamma",
+   "meaning": "Metric compatibility lets the metric pass through covariant derivatives.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.60)",
+   "name": "Additivity in the direction slot (Exercise 34.1)",
+   "latex": "\\nabla_{\\boldsymbol u+\\boldsymbol n}\\boldsymbol v=\\nabla_{\\boldsymbol u}\\boldsymbol v+\\nabla_{\\boldsymbol n}\\boldsymbol v",
+   "meaning": "Exercise 34.1 target; it restates axiom 34.1 with a = b = 1.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "Corrected intermediate for Example 34.10",
+   "latex": "g_{\\mu\\nu}v^\\mu{}_{;\\alpha}=v_{\\nu,\\alpha}-g_{\\mu\\nu,\\alpha}v^\\mu+\\Gamma_{\\nu\\alpha\\lambda}v^\\lambda=v_{\\nu,\\alpha}-\\Gamma_{\\lambda\\nu\\alpha}v^\\lambda",
+   "meaning": "Own correction (not in book): with g_{mu nu,alpha} = Gamma_{mu nu alpha} + Gamma_{nu mu alpha} (first index lowered, torsion-free), the terms combine to v_{nu,alpha} - Gamma^gamma_{alpha nu} v_gamma.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "label": "(34.61)",
+   "name": "Compatibility in terms of Gamma",
+   "latex": "g_{\\alpha\\beta,\\sigma}=\\Gamma^\\mu{}_{\\sigma\\alpha}g_{\\mu\\beta}+\\Gamma^\\mu{}_{\\sigma\\beta}g_{\\mu\\alpha}",
+   "meaning": "Exercise 34.2(a): derivative of e_alpha . e_beta.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.62)",
+   "name": "Christoffel formula",
+   "latex": "\\Gamma_{\\alpha\\beta\\sigma}=\\tfrac12\\left(g_{\\alpha\\beta,\\sigma}+g_{\\alpha\\sigma,\\beta}-g_{\\beta\\sigma,\\alpha}\\right)",
+   "meaning": "Exercise 34.2(b): Levi-Civita coefficients from the metric.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.63)",
+   "name": "ln det identity",
+   "latex": "\\frac{\\partial}{\\partial x^\\lambda}\\ln\\det\\underline M(x)=\\mathrm{Tr}\\left\\{\\underline M^{-1}(x)\\frac{\\partial}{\\partial x^\\lambda}\\underline M(x)\\right\\}",
+   "meaning": "Exercise 34.3(a).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.65)",
+   "name": "Contracted Christoffel symbol",
+   "latex": "\\Gamma^\\mu{}_{\\lambda\\mu}=\\tfrac12 g^{\\mu\\rho}\\frac{\\partial g_{\\rho\\mu}}{\\partial x^\\lambda}",
+   "meaning": "Exercise 34.3(b) input: the trace of Gamma needs only the metric and its inverse; combined with 34.63 it gives 34.66.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.66)",
+   "name": "Contracted Gamma",
+   "latex": "\\Gamma^\\mu{}_{\\lambda\\mu}=\\frac1{\\sqrt{|g|}}\\frac{\\partial}{\\partial x^\\lambda}\\sqrt{|g|}",
+   "meaning": "Exercise 34.3(b), using Gamma^mu_{lambda mu} = (1/2) g^{mu rho} partial_lambda g_{rho mu} (eqn 34.65).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.67)",
+   "name": "Covariant divergence",
+   "latex": "v^\\mu{}_{;\\mu}=\\frac1{\\sqrt{|g|}}\\frac{\\partial}{\\partial x^\\mu}\\left(\\sqrt{|g|}\\,v^\\mu\\right)",
+   "meaning": "Exercise 34.3(c): divergence without computing individual Gammas.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.68)",
+   "name": null,
+   "latex": "(\\nabla_{\\boldsymbol u}\\boldsymbol u)\\cdot\\boldsymbol e_1=\\frac{\\mathrm du_1}{\\mathrm d\\lambda}-u^\\alpha u_\\sigma\\Gamma^\\sigma{}_{\\alpha1}",
+   "meaning": "Exercise 34.5: lowered geodesic equation; the Gamma term vanishes if g is independent of x^1.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.69)",
+   "name": null,
+   "latex": "\\boldsymbol d\\tilde{\\boldsymbol A}(\\boldsymbol u,\\boldsymbol v)=\\nabla_{\\boldsymbol u}\\tilde{\\boldsymbol A}(\\boldsymbol v)-\\nabla_{\\boldsymbol v}\\tilde{\\boldsymbol A}(\\boldsymbol u)",
+   "meaning": "Exercise 34.6(a).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.70)",
+   "name": "Invariant formula for dA",
+   "latex": "\\boldsymbol d\\tilde{\\boldsymbol A}(\\boldsymbol u,\\boldsymbol v)=\\nabla_{\\boldsymbol u}\\langle\\tilde{\\boldsymbol A},\\boldsymbol v\\rangle-\\nabla_{\\boldsymbol v}\\langle\\tilde{\\boldsymbol A},\\boldsymbol u\\rangle-\\tilde{\\boldsymbol A}([\\boldsymbol u,\\boldsymbol v])",
+   "meaning": "Exercise 34.6(b): connection-independent expression.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "label": "(34.72)",
+   "name": null,
+   "latex": "\\boldsymbol d\\tilde{\\boldsymbol A}=\\partial_\\mu A_\\nu\\,(\\boldsymbol dx^\\mu\\wedge\\boldsymbol dx^\\nu)",
+   "meaning": "Exercise 34.6(c).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 34.1",
+   "image_path": "gifted-amateur/pages/page-369/img-269.jpeg",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   },
+   "caption_paraphrase": "Once u and v have been carried along each other, the four-sided figure does not close.",
+   "visual_description": "Line drawing of a pentagon-like figure built on a dotted square. Bottom edge: a horizontal arrow u(sigma_0) pointing right. Left edge: a vertical arrow v(lambda_0) pointing up. From the top of v(lambda_0) a dotted horizontal line and, from the tip of u(sigma_0), a dotted vertical line mark where a square would close. The real top edge, u(sigma_0+1), tilts upward from the top-left corner; a short vertical arrow labelled nabla_v u runs from the dotted corner up to its tip. The real right edge, v(lambda_0+1), leans rightward from the bottom-right corner; a short horizontal arrow labelled nabla_u v runs from the dotted corner out to its tip. A diagonal arrow labelled [u,v] joins the tip of u(sigma_0+1) to the tip of v(lambda_0+1), closing the figure.",
+   "what_it_teaches": "For a torsion-free connection the gap vector of a transported quadrilateral equals nabla_u v - nabla_v u, which is also the Lie bracket; so the covariant derivative inherits the loop-closure interpretation of the commutator.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "Lie bracket as loop-closure failure",
+    "torsion-free connection",
+    "torsion tensor",
+    "covariant derivative"
+   ],
+   "redesign": {
+    "idea": "Live quadrilateral builder on a 2D plane (and optionally on a sphere) with two editable vector fields; the app draws both paths u-then-v and v-then-u with a small step epsilon, shows the covariant-derivative edge corrections as coloured arrows and the closing vector, and plots |gap|/epsilon^2 against the computed [u,v].",
+    "interaction": "Choose or sketch fields u and v (presets: coordinate fields, rotation plus radial, shear); drag the base point; shrink epsilon; toggle a torsion slider that adds an antisymmetric part to Gamma so the learner sees the gap stop matching the bracket.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 34.2",
+   "image_path": "gifted-amateur/pages/page-375/img-270.jpeg",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   },
+   "caption_paraphrase": "Structure builds upward: a manifold, then a metric, then the connection and curvature, and from them general relativity.",
+   "visual_description": "Four stacked rectangular boxes forming a stepped pyramid, widest at the bottom. From bottom to top the boxes read 'Manifold M', 'Metric g', 'nabla and R' (bold nabla and R) and, on top in the narrowest box, 'GR'.",
+   "what_it_teaches": "The logical dependency of GR's ingredients: without a metric there is no preferred connection or curvature, and without those no field equation.",
+   "figure_type": "schematic",
+   "concepts": [
+    "hierarchy of geometric structure",
+    "spacetime as a Lorentzian manifold",
+    "metric tensor",
+    "affine connection",
+    "Riemann curvature tensor"
+   ],
+   "redesign": {
+    "idea": "Clickable structure ladder used as a course map: each rung lists what becomes definable once it is added (manifold: vectors, forms, d, Lie derivative; metric: lengths, index raising; connection: parallel transport, geodesics; curvature: Riemann, Ricci, Einstein tensor; GR: field equation), with links to the corresponding demos.",
+    "interaction": "Remove a rung and the tools above it grey out with a one-line reason; hover to see the chapter where each tool appears.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 34.3",
+   "image_path": "gifted-amateur/pages/page-376/img-271.jpeg",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "caption_paraphrase": "Geodesics with affine and with non-affine parametrization.",
+   "visual_description": "A hand-drawn curled sheet of paper representing a patch of manifold. On it two nearly horizontal wavy curves with arrowheads at the right. The upper curve carries evenly spaced cross-ticks and is labelled 'nabla_t t = 0' above and 'affine' below. The lower curve has ticks that start sparse and crowd together toward the right, labelled 'nabla_t t proportional to t' above and 'non-affine' below.",
+   "what_it_teaches": "The same geometric path can be parametrized uniformly (tangent of constant length, nabla_t t = 0) or non-uniformly (tangent parallel but stretching, nabla_t t proportional to t); the tick spacing encodes the parameter.",
+   "figure_type": "curve-or-surface",
+   "concepts": [
+    "affine parameter",
+    "non-affine parametrization of a geodesic",
+    "geodesic equation (coordinate-free)",
+    "metric compatibility of the connection"
+   ],
+   "redesign": {
+    "idea": "A great circle on a 3D sphere with a bead moving along it and tangent arrows drawn at equal parameter steps; a reparametrization function s = f(lambda) editable as a curve controls tick spacing, while a live readout shows |u|, the coefficient f in nabla_u u = f u, and whether the four-velocity normalization could be maintained.",
+    "interaction": "Drag control points of f(lambda) (linear gives affine); watch ticks bunch and arrows stretch; toggle to a small-circle path to see nabla_u u gain a component perpendicular to u.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Example 34.1",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   },
+   "problem": "Express the Lie derivative of a vector field using covariant derivatives when torsion vanishes.",
+   "method": "Rewrite the torsion-free condition as the bracket and take components with semicolon notation.",
+   "key_insight": "Zero torsion lets partial derivatives in the Lie derivative be upgraded to covariant ones at no cost.",
+   "result": "(\\mathcal L_u v)^\\alpha = v^\\alpha_{;\\beta}u^\\beta - u^\\alpha_{;\\beta}v^\\beta",
+   "concepts": [
+    "Lie derivative in terms of covariant derivatives",
+    "torsion-free connection"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 34.2",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   },
+   "problem": "Interpret nabla_u v - nabla_v u geometrically by building a quadrilateral from two vector fields evaluated at shifted points.",
+   "method": "Evaluate v at two points separated along u and u at two points separated along v; identify each edge difference with a covariant derivative; the leftover closing vector is their difference, which must be the commutator.",
+   "key_insight": "The covariant derivative inherits the failure-to-close picture of the Lie bracket once torsion is zero.",
+   "result": "\\nabla_u v - \\nabla_v u = [u,v]",
+   "concepts": [
+    "Lie bracket as loop-closure failure",
+    "torsion-free connection",
+    "covariant derivative"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 34.3",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   },
+   "problem": "Relate the geometric definition nabla e_mu = Gamma^alpha_{nu mu} omega^nu (x) e_alpha to the component definition of Gamma from Chapter 7.",
+   "method": "Insert e_beta in the direction slot, use omega^nu(e_beta) = delta^nu_beta, then contract the resulting vector with omega^sigma.",
+   "key_insight": "The first lower index of Gamma is the direction of differentiation; the second labels the basis vector being differentiated.",
+   "result": "\\langle\\omega^\\sigma, \\nabla_\\beta e_\\mu\\rangle = \\Gamma^\\sigma_{\\beta\\mu}",
+   "concepts": [
+    "connection coefficients as components of the connection",
+    "component extraction with dual basis 1-forms"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 34.4",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   },
+   "problem": "Compute nabla v for v = v^mu e_mu without specifying a direction.",
+   "method": "Product rule on components times basis vectors; d acting on the component functions gives partial derivatives times dx^beta; nabla e_mu supplies Gamma; relabel dummy indices and collect.",
+   "key_insight": "Covariant derivative components are the derivative of the components plus the derivative of the basis, which is why Gamma appears.",
+   "result": "\\nabla v = (\\partial_\\beta v^\\mu + v^\\alpha\\Gamma^\\mu_{\\beta\\alpha})\\,\\omega^\\beta\\otimes e_\\mu = v^\\mu_{;\\beta}\\,\\omega^\\beta\\otimes e_\\mu",
+   "concepts": [
+    "gradient of a vector field",
+    "vector-valued 1-form",
+    "comma and semicolon notation"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 34.5",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   },
+   "problem": "Summarize what kind of object the gradient nabla v is and extract its components, including the case v = e_gamma.",
+   "method": "Treat nabla v as a two-slot machine and fill with e_alpha and omega^mu; substitute a basis vector for v.",
+   "key_insight": "The components of nabla itself, acting on basis vectors, are just the connection coefficients.",
+   "result": "(\\nabla e_\\gamma)^\\mu{}_\\alpha = \\Gamma^\\mu_{\\alpha\\gamma}",
+   "concepts": [
+    "gradient of a vector field",
+    "vector-valued 1-form",
+    "directional covariant derivative"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 34.6",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   },
+   "problem": "Derive how connection coefficients transform between frames.",
+   "method": "Write primed Gamma as <omega^alpha', nabla_{e_beta'} e_gamma'>, expand primed basis elements with Lambda matrices, pull Lambda^beta_beta' out of the direction slot by linearity, then use the Leibniz rule on Lambda^gamma_gamma' e_gamma so that a derivative of Lambda appears; specialize to a coordinate frame.",
+   "key_insight": "Linearity in the direction slot gives tensorial behaviour in that index, but the Leibniz rule in the operand slot generates an inhomogeneous derivative-of-Lambda term; that term is the obstruction to Gamma being a tensor.",
+   "result": "\\Gamma^{\\alpha'}_{\\beta'\\gamma'} = \\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\frac{\\partial^2 x^\\alpha}{\\partial x^{\\beta'}\\partial x^{\\gamma'}} + \\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\frac{\\partial x^\\beta}{\\partial x^{\\beta'}}\\frac{\\partial x^\\gamma}{\\partial x^{\\gamma'}}\\Gamma^\\alpha_{\\beta\\gamma}",
+   "concepts": [
+    "non-tensorial transformation of connection coefficients",
+    "defining properties of a connection"
+   ],
+   "difficulty": "challenging"
+  },
+  {
+   "label": "Example 34.7",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   },
+   "problem": "Find the covariant derivative of the basis 1-forms, and hence of any 1-form.",
+   "method": "Differentiate the constant contraction <omega^nu, e_mu> = delta^nu_mu with the Leibniz rule (treating the contraction as a tensor product followed by a contraction), substitute nabla e_mu, and solve; then apply the product rule to sigma_nu omega^nu.",
+   "key_insight": "Because the pairing of dual bases never changes, whatever Gamma does to basis vectors must be undone on basis 1-forms, forcing the minus sign.",
+   "result": "\\sigma_{\\nu;\\mu} = \\sigma_{\\nu,\\mu} - \\sigma_\\lambda\\Gamma^\\lambda_{\\mu\\nu}",
+   "concepts": [
+    "covariant derivative of basis 1-forms",
+    "covariant derivative of a 1-form"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 34.8",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   },
+   "problem": "Express the exterior derivative of a 1-form A in a coordinate frame using covariant derivatives.",
+   "method": "Write dA with wedge products, fill the first slot with e_beta by expanding the wedge into two tensor products, fill the second slot with e_gamma, and compare with A_{gamma;beta} - A_{beta;gamma} where the symmetric Gammas cancel.",
+   "key_insight": "Antisymmetrization kills the connection terms, so the exterior derivative is secretly an antisymmetrized covariant derivative and needs no connection.",
+   "result": "(dA)_{\\beta\\gamma} = A_{\\gamma;\\beta} - A_{\\beta;\\gamma} = -2A_{[\\beta;\\gamma]}",
+   "concepts": [
+    "exterior derivative of a 1-form from covariant derivatives",
+    "torsion-free connection",
+    "antisymmetrization bracket notation"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 34.9",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "problem": "Show that metric compatibility is exactly the condition for parallel transport to preserve inner products, and deduce the affine geodesic condition for unit-normalized tangents.",
+   "method": "Transport v and w along u, demand that the covariant derivative of g(v,w) along u vanish, expand with the Leibniz rule, drop terms using the transport conditions, and use the arbitrariness of u, v, w; then combine nabla_u u proportional to u with g(u,u) = -1.",
+   "key_insight": "Constant inner products for all transported pairs is equivalent to g_{beta gamma;alpha} = 0; given that, a fixed-length tangent cannot have a component of nabla_u u along u, so a geodesic of the weak kind is automatically affinely parametrized.",
+   "result": "g_{\\beta\\gamma;\\alpha} = 0",
+   "concepts": [
+    "metric compatibility of the connection",
+    "preservation of inner products under parallel transport",
+    "affine parameter",
+    "non-affine parametrization of a geodesic"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 34.10",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   },
+   "problem": "Lower the free index of a covariant derivative v^mu_{;alpha} with the metric.",
+   "method": "First attempt: multiply the component expansion by g_{mu nu} and try to raise an index on Gamma; the authors pause because Gamma is not a tensor and instead use the 1-form rule directly.",
+   "key_insight": "Since nabla g = 0 the metric commutes with the semicolon, so lowering then differentiating equals differentiating then lowering; the price is that the Gamma term changes sign and index positions.",
+   "result": "g_{\\mu\\nu}v^\\mu_{;\\alpha} = v_{\\nu;\\alpha} = v_{\\nu,\\alpha} - \\Gamma^\\gamma_{\\alpha\\nu}v_\\gamma",
+   "concepts": [
+    "raising and lowering indices inside covariant derivatives",
+    "metric compatibility of the connection"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   },
+   "problem": "Extend the covariant derivative from vectors and 1-forms to (2,0), (0,2) and general tensors.",
+   "method": "Write T = T^{mu nu} e_mu (x) e_nu; the product rule differentiates components and each basis vector, each giving a +Gamma; for xi_{mu nu} omega^mu (x) omega^nu each basis 1-form gives -Gamma; generalize by counting.",
+   "key_insight": "The recipe is not a new axiom but a bookkeeping consequence of the Leibniz rule applied to a basis expansion.",
+   "result": "(\\nabla_\\alpha T)^{\\mu\\nu} = \\partial_\\alpha T^{\\mu\\nu} + \\Gamma^\\mu_{\\alpha\\beta}T^{\\beta\\nu} + \\Gamma^\\nu_{\\alpha\\beta}T^{\\mu\\beta}",
+   "concepts": [
+    "covariant derivative of tensors",
+    "defining properties of a connection"
+   ],
+   "difficulty": "intro"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Walking around a block: go along u then v, or v then u, and see whether you end up at the same corner.",
+   "target_concept": "torsion-free connection",
+   "how_used": "Fig. 34.1 redraws the Lie-bracket quadrilateral with edges corrected by covariant derivatives; the unclosed corner is the bracket, so zero torsion means the connection accounts for nothing extra.",
+   "limits": "It is a leading-order sketch drawn on a flat page with unit parameter steps. For a step epsilon the gap is epsilon^2 [u,v]. Curvature does not change that gap at order epsilon^2, but at the same order it does rotate a vector carried around the loop, and the picture cannot show that. The book also uses the figure to equate the two expressions, which quietly assumes zero torsion.",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Step-size slider showing the gap scaling as epsilon^2 and matching [u,v]."
+  },
+  {
+   "analogy": "nabla as an upgraded d: same symbol-level behaviour on functions, but able to act on vectors and tensors once parallelism is supplied.",
+   "target_concept": "affine connection",
+   "how_used": "Positions the new operator as a natural extension of a tool the reader already has, and explains where the two diverge (on forms).",
+   "limits": "Can mislead readers into writing d v for nabla v in standard texts, where d on a vector is undefined without calling it an exterior covariant derivative.",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Tensors as slot machines: nabla v has a slot for a direction and a slot for a 1-form, and pays out a number when both are filled.",
+   "target_concept": "gradient of a vector field",
+   "how_used": "Clarifies what nabla v is before a direction is chosen and why nabla_u v is a vector.",
+   "limits": "Slot order conventions differ between texts and even between equations in the chapter.",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Drag a vector into one slot and a 1-form into the other; the output number and the intermediate vector nabla_u v appear."
+  },
+  {
+   "analogy": "A 1-form as stacked sheets: the number <sigma, nabla_u v> counts how many sheets the arrow nabla_u v pierces.",
+   "target_concept": "directional covariant derivative",
+   "how_used": "Gives a picture for the fully contracted gradient.",
+   "limits": "Only a local, linearized picture; sheets are not globally level sets unless the form is exact.",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Change of a vector = change of its components + change of its basis arrows (like describing a moving arrow in rotating polar axes).",
+   "target_concept": "connection coefficients as components of the connection",
+   "how_used": "The product rule on v^mu e_mu isolates d e_mu as the content of the connection.",
+   "limits": "In genuinely curved space there is no global set of fixed arrows to compare with; the basis change is defined only through the connection.",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Polar-coordinate plane where a constant Cartesian vector field is shown with components v^r, v^theta changing and basis arrows rotating so that the Gamma terms cancel the component changes."
+  },
+  {
+   "analogy": "Building a pyramid: each layer (manifold, metric, connection and curvature, GR) rests on the one below.",
+   "target_concept": "hierarchy of geometric structure",
+   "how_used": "Fig. 34.2 orients the reader at the start of §34.4.",
+   "limits": "Suggests a connection cannot exist without a metric, which is false; the metric picks out one special connection.",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Tick marks along a road: evenly spaced marks versus marks that bunch up describe the same road with different speedometers.",
+   "target_concept": "affine parameter",
+   "how_used": "Fig. 34.3 separates the path from its parametrization, explaining why nabla_u u can be proportional to u on a geodesic.",
+   "limits": "The book attaches the label to the connection rather than to the parametrization.",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Draggable tick spacing on a geodesic with a live |u| readout."
+  },
+  {
+   "analogy": "Each index of a tensor is like a basis element that turns with the connection: vectors turn one way (+Gamma), 1-forms must turn the opposite way (-Gamma) to keep their mutual pairing fixed.",
+   "target_concept": "covariant derivative of tensors",
+   "how_used": "Justifies the sign rule by the constancy of the duality contraction.",
+   "limits": "Gamma is not literally a rotation unless the connection is compatible and the basis orthonormal.",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   },
+   "effectiveness": "strong",
+   "app_idea": null
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "The connection nabla (or its coefficients Gamma) is a tensor.",
+   "correction": "nabla is an operator, and Gamma transforms with an extra second-derivative term; only the difference of two connections, or torsion, is tensorial.",
+   "why_tempting": "Gamma carries indices in tensor positions and appears inside tensor equations.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   },
+   "concepts": [
+    "non-tensorial transformation of connection coefficients",
+    "affine connection"
+   ]
+  },
+  {
+   "misconception": "Since d and nabla agree on scalars and vectors, they can be used interchangeably on every object.",
+   "correction": "On p-forms d yields an antisymmetric (p+1)-form, whereas nabla yields a general tensor with an extra slot; they differ, though for torsion-free connections antisymmetrizing nabla reproduces d.",
+   "why_tempting": "The book itself writes dv = nabla v, inviting over-generalization.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.3"
+   },
+   "concepts": [
+    "exterior versus covariant derivative on forms"
+   ]
+  },
+  {
+   "misconception": "The covariant derivative of a 1-form has the same +Gamma term as that of a vector.",
+   "correction": "It carries -Gamma, forced by the constancy of <omega^nu, e_mu>.",
+   "why_tempting": "Memorizing one formula and lowering indices seems enough.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   },
+   "concepts": [
+    "covariant derivative of a 1-form"
+   ]
+  },
+  {
+   "misconception": "You can freely raise or lower indices on Gamma like on a tensor to move the metric through a covariant derivative.",
+   "correction": "Moving the metric through a semicolon works because nabla g = 0; the resulting formula is the 1-form rule, not an index manipulation on Gamma.",
+   "why_tempting": "Index gymnastics usually commute with everything.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   },
+   "concepts": [
+    "raising and lowering indices inside covariant derivatives"
+   ]
+  },
+  {
+   "misconception": "Parallel transport automatically keeps a vector's length fixed.",
+   "correction": "Only a metric-compatible connection guarantees this; a general connection may stretch vectors while keeping them parallel.",
+   "why_tempting": "In flat Euclidean space transported arrows obviously keep their length.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "concepts": [
+    "metric compatibility of the connection",
+    "preservation of inner products under parallel transport"
+   ]
+  },
+  {
+   "misconception": "Zero torsion means nabla_u v = nabla_v u for any two vector fields.",
+   "correction": "Zero torsion gives nabla_u v - nabla_v u = [u,v]; the symmetry holds only when the fields commute.",
+   "why_tempting": "Torsion-free is often summarized as 'Gamma is symmetric'.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.1"
+   },
+   "concepts": [
+    "torsion-free connection",
+    "symmetry of the covariant derivative for commuting fields"
+   ]
+  },
+  {
+   "misconception": "A curve with nabla_u u proportional to u is not a geodesic.",
+   "correction": "It is the same geodesic path traced with a non-affine parameter; reparametrizing makes nabla_u u = 0.",
+   "why_tempting": "The geodesic equation is usually quoted only in the affine form.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "concepts": [
+    "non-affine parametrization of a geodesic",
+    "affine parameter"
+   ]
+  },
+  {
+   "misconception": "'Affine' versus 'non-affine' is a property of the connection.",
+   "correction": "In standard usage every linear connection is affine; affinity refers to the parametrization of the curve. The book's wording conflates the two.",
+   "why_tempting": "The chapter explicitly names 'affine connection' and 'non-affine connection' this way.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "concepts": [
+    "affine parameter",
+    "affine connection"
+   ]
+  },
+  {
+   "misconception": "A connection cannot exist without a metric.",
+   "correction": "Connections can be defined on any smooth manifold; a metric singles out the unique torsion-free compatible (Levi-Civita) connection used in GR.",
+   "why_tempting": "Margin notes say that parallelism relies on a metric, and Fig. 34.2 stacks nabla above g.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   },
+   "concepts": [
+    "affine connection",
+    "Levi-Civita connection"
+   ]
+  },
+  {
+   "misconception": "Metric compatibility forces every constant-speed curve to satisfy nabla_u u = 0.",
+   "correction": "It only forces the acceleration to be orthogonal to the velocity; the curve can still accelerate sideways.",
+   "why_tempting": "The chapter shows compatibility plus normalization gives affine geodesics, which is easy to over-read.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   },
+   "concepts": [
+    "orthogonality of four-velocity and four-acceleration"
+   ]
+  },
+  {
+   "misconception": "The covariant derivative nabla_u v uses only information at one point about both u and v.",
+   "correction": "It is pointwise in the direction u, but needs v along a curve through the point (a derivative of v).",
+   "why_tempting": "The text says the connection, like an ordinary derivative, uses the properties of space at a single point.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   },
+   "concepts": [
+    "covariant derivative",
+    "defining properties of a connection"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Two-field quadrilateral",
+   "setup": "Starting at a point, follow field v a small step then u, and separately u then v, using parallel transport to compare the edge vectors.",
+   "lesson": "The mismatch is the Lie bracket; for zero torsion it equals nabla_u v - nabla_v u, giving the covariant derivative a closure interpretation.",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   },
+   "concepts": [
+    "Lie bracket as loop-closure failure",
+    "torsion-free connection"
+   ],
+   "visualizable": true,
+   "app_idea": "Animated two-path race on a grid with the gap vector highlighted."
+  },
+  {
+   "name": "Stretching arrow along a geodesic",
+   "setup": "Carry the tangent to a geodesic along itself while allowing the parameter to speed up or slow down.",
+   "lesson": "The tangent stays parallel but changes length unless the parameter is affine; the physical four-velocity with fixed norm demands the affine choice, and a compatible metric enforces it.",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "concepts": [
+    "non-affine parametrization of a geodesic",
+    "affine parameter",
+    "metric compatibility of the connection"
+   ],
+   "visualizable": true,
+   "app_idea": "Great-circle bead with adjustable speed profile and a length meter for u."
+  },
+  {
+   "name": "Transporting a pair of vectors",
+   "setup": "Parallel transport two vectors v and w along the same curve and watch their dot product.",
+   "lesson": "Their inner product stays constant for every choice exactly when nabla g = 0.",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "concepts": [
+    "preservation of inner products under parallel transport",
+    "metric compatibility of the connection"
+   ],
+   "visualizable": true,
+   "app_idea": "On a sphere, transport two arrows around a latitude loop; show that angle and lengths stay fixed while both rotate relative to the starting pair; then switch to a deliberately non-compatible connection and see the angle drift."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Jean-Louis Koszul"
+   ],
+   "year": null,
+   "event": "Developed the abstract, coordinate-free treatment of the covariant derivative nabla_u.",
+   "significance": "Origin of the axiomatic (Koszul) connection used throughout modern differential geometry and this chapter.",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "Katsumi Nomizu"
+   ],
+   "year": "1954",
+   "event": "Paper in which the operator now written nabla was first put to real use, though denoted by a different letter.",
+   "significance": "Marks when the modern operator notation for connections entered practice.",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "Jean le Rond d'Alembert",
+    "Joseph-Louis Lagrange",
+    "E. T. Bell",
+    "R. G. Van Oss"
+   ],
+   "year": "18th century",
+   "event": "d'Alembert was probably first to treat time as a fourth dimension; Bell credited Lagrange, a claim Van Oss (1983) found poorly supported.",
+   "significance": "Footnote to the book's one-sentence mathematical definition of spacetime.",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   }
+  },
+  {
+   "people": [
+    "Attilio Palatini"
+   ],
+   "year": null,
+   "event": "Formulation of gravity, named after Palatini (the book gives the name but no biography), in which metric and connection are independent variables in the action.",
+   "significance": "Shows that metric compatibility can emerge from a variational principle rather than be imposed; treated in Chapter 40.",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Conserved quantities on geodesics from ignorable coordinates",
+   "kind": "astrophysical-system",
+   "details": "Exercise 34.5 shows that if the metric does not depend on a coordinate, the matching lowered component of the four-velocity is conserved along geodesics. Own illustration: in Schwarzschild spacetime independence of t and phi gives conserved energy per unit mass u_t and angular momentum per unit mass u_phi, the basis of orbit calculations in Part IV.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "topic": "Divergence in curvilinear coordinates via sqrt|g|",
+   "kind": "numerical-estimate",
+   "details": "Exercise 34.3 derives a divergence formula needing only the metric determinant. Own illustration: in flat spherical polars sqrt|g| = r^2 sin(theta), which reproduces the familiar vector-calculus divergence; the same formula is used for conservation laws in curved spacetime.",
+   "key_numbers": "sqrt|g| = r^2 sin(theta) for flat spherical polars (own example)",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "topic": "Electromagnetism in curved spacetime",
+   "kind": "data-analysis",
+   "details": "Example 34.8 shows that antisymmetrized covariant derivatives of a 1-form reduce to partial derivatives. Own illustration: the Faraday tensor F = dA can be computed from the four-potential with ordinary partial derivatives in any coordinates; the identity is used again in Chapter 43 for charge conservation.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Connection and covariant derivative symbols",
+   "convention": "Bold nabla for the connection; nabla_u = u . nabla for the derivative along u; nabla_beta for the derivative along e_beta; D/dlambda for the derivative along a parametrized curve (as in Part II).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "item": "Index order of connection coefficients",
+   "convention": "nabla e_mu = Gamma^alpha_{nu mu} omega^nu (x) e_alpha, so Gamma^sigma_{beta mu} = <omega^sigma, nabla_beta e_mu>: first lower index is the derivative direction, second is the differentiated basis vector.",
+   "notes": "Only immaterial in a coordinate basis with zero torsion; matters in non-coordinate frames (Chapter 36).",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "item": "Slot order of derivative tensors",
+   "convention": "In 34.14, 34.18 and 34.19 the derivative (1-form) slot comes first, e.g. nabla v(u, sigma) = <sigma, nabla_u v>; in 34.28 the extra omega^k is appended last.",
+   "notes": "Internal inconsistency; state a convention explicitly when teaching.",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "item": "d applied to vectors",
+   "convention": "The book writes dv = nabla v and d e_mu = nabla e_mu, treating a vector as a vector-valued 0-form; this requires a connection.",
+   "notes": "Standard texts would call this the exterior covariant derivative, often written D.",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "item": "Derivative notations for scalars",
+   "convention": "nabla_u f = u^mu partial f / partial x^mu = partial_u f = <df, u> = u[f]; square brackets denote a vector acting on a function.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "item": "Comma and semicolon",
+   "convention": "Comma: partial derivative; semicolon: covariant derivative component, e.g. v^mu_{;beta}, sigma_{nu;mu}.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "item": "1-forms and basis",
+   "convention": "1-forms carry a tilde (sigma-tilde, A-tilde); basis vectors e_mu and dual basis 1-forms omega^mu, with dx^mu identified with omega^mu in a coordinate basis.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   }
+  },
+  {
+   "item": "Wedge product and 2-form components",
+   "convention": "dx^alpha wedge dx^mu = dx^alpha (x) dx^mu - dx^mu (x) dx^alpha, and a 2-form is written (1/2) F_{beta gamma} dx^beta wedge dx^gamma; antisymmetrization brackets include a factor 1/2 and vertical bars exclude indices.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "item": "Metric signature and four-velocity",
+   "convention": "Timelike four-velocity normalized to u.u = -1, consistent with a mostly-plus signature; metric written g = g_{mu nu} omega^mu (x) omega^nu or ds^2 = g_{mu nu} dx^mu (x) dx^nu.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "item": "Lowered connection coefficients",
+   "convention": "Gamma_{nu alpha lambda} = g_{nu mu} Gamma^mu_{alpha lambda}, lowering onto the first (upper) index.",
+   "notes": "Used in Example 34.10 and Exercise 34.2.",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "item": "Transformation matrices",
+   "convention": "Lambda^{alpha'}_alpha and Lambda^beta_{beta'} relate primed and unprimed frames; in coordinates Lambda^alpha_beta' = partial x^alpha / partial x^beta'.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   }
+  },
+  {
+   "item": "Torsion symbol",
+   "convention": "tau denotes the (1,2) torsion tensor; R the (1,3) Riemann tensor.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Epigraph: a Samuel Johnson quip about a piece of music being hard, hinting at the chapter's difficulty.",
+   "type": "humor-or-aside",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "summary": "Box: the chapter develops nabla and proves results used earlier, but may be skipped on first reading.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "summary": "Parallelism depends on the metric, which is why the covariant derivative dominates the mathematics of a theory of the metric field.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "summary": "Koszul created the abstract covariant derivative; Nomizu's 1954 paper first used the operator seriously, under another letter.",
+   "type": "historical",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "summary": "With a connection, d and nabla act identically on vectors and all (n,0) tensors, but not on forms.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "summary": "Shaded box of rules: linearity in direction, linearity in operand, Leibniz rule (eqns 34.1-34.3).",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": null
+   }
+  },
+  {
+   "summary": "Torsion and Riemann curvature are two independent features of a connection; torsion-free connections have lower-symmetric Gamma in coordinate bases.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "summary": "nabla_u v means transporting v along u and measuring its change; swapping roles gives nabla_v u.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "summary": "Box: this section's formal ideas feed Cartan's efficient curvature method in Chapter 36.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "summary": "Why nabla v is called a vector-valued 1-form rather than just a (1,1) tensor: it involves d e_mu and hence the connection.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "summary": "Gamma was previously found from metric derivatives (Chapter 9); the chapter will show why parallelism needs a metric.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "summary": "Square brackets e_beta[f] denote the derivative of f along e_beta, a number.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   }
+  },
+  {
+   "summary": "Boxes: Example 34.6 proves eqn 7.11; §34.3 can be skipped up to the final boxed recipe.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 372,
+    "printed_page": 355,
+    "section": "34.2"
+   }
+  },
+  {
+   "summary": "Margin note 10: the component symbols S^{i...}_{j...;k} in eqn 34.28 are only defined later in the section, once the vector, 1-form and general rules are derived.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "summary": "Margin note 11: nabla of a basis 1-form (built with an ordinary tensor product) contrasted with d of a basis 1-form (built with a wedge, derived in Chapter 36); both printed formulas repeat omega^nu where omega^mu belongs.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "summary": "Note the minus sign in the 1-form rule compared with vectors; box says this proves eqns 7.34 and 7.40.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "summary": "Index-free identity <d alpha, u wedge v> = <nabla_u alpha, v> - <nabla_v alpha, u>, left as an exercise and used in Chapter 43.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "summary": "Box: eqn 34.45 was first claimed as eqn 12.37.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "summary": "Riemann tensor revisited in Chapter 35.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   }
+  },
+  {
+   "summary": "History of spacetime as four-dimensional: d'Alembert rather than Lagrange, citing Van Oss in Historia Mathematica (1983).",
+   "type": "historical",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   }
+  },
+  {
+   "summary": "D/dlambda notation from Part II is reused for derivatives along curves.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "summary": "Exercise 34.7 shows affine parameters are unique up to s = a lambda + b.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "summary": "Palatini gravity treats metric and connection as independent; with the Chapter 40 action it is equivalent to GR.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "summary": "Exercise 34.8: compatibility plus u.u = -1 on a non-geodesic curve makes acceleration orthogonal to velocity.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 8,
+  "pdf_pages": [
+   378,
+   379
+  ],
+  "skills_practiced": [
+   "using the connection axioms",
+   "deriving the Christoffel formula from metric compatibility",
+   "matrix calculus for ln det and the sqrt|g| divergence",
+   "deriving the 1-form rule from a scalar contraction",
+   "lowering the geodesic equation and spotting conserved quantities",
+   "translating dA between wedge, covariant and bracket forms",
+   "reparametrization of geodesics",
+   "orthogonality of velocity and acceleration from compatibility"
+  ],
+  "notable": [
+   {
+    "number": "34.2",
+    "summary": "Differentiate the basis-vector dot product that defines g_{alpha beta} with nabla to express metric derivatives through Gamma, then solve for the lowered Gamma by cyclic permutation.",
+    "skills": [
+     "metric compatibility",
+     "index permutation trick"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Closes the loop with Chapter 9: the Christoffel formula is a theorem of compatibility plus zero torsion.",
+    "pdf_page": 378
+   },
+   {
+    "number": "34.3",
+    "summary": "Prove the derivative of ln det M is a trace, use it to show the contracted connection is the gradient of ln sqrt|g|, and deduce a compact covariant divergence.",
+    "skills": [
+     "matrix identities",
+     "contracted Christoffel symbols"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Delivers a practical shortcut used for conservation laws and wave operators in curved spacetime.",
+    "pdf_page": 378
+   },
+   {
+    "number": "34.4",
+    "summary": "Covariantly differentiate the scalar formed by a 1-form acting on a vector to recover the component rule for 1-forms.",
+    "skills": [
+     "Leibniz rule",
+     "component manipulation"
+    ],
+    "difficulty": "intro",
+    "why_notable": "A component-level rerun of Example 34.7 that cements the minus sign.",
+    "pdf_page": 378
+   },
+   {
+    "number": "34.5",
+    "summary": "Write the lowered component of the geodesic equation along e_1 and show that metric independence of x^1 makes u_1 constant.",
+    "skills": [
+     "lowered geodesic equation",
+     "symmetry of Gamma_{sigma alpha 1} contraction"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Links connection formalism to conserved energy and angular momentum and to Killing vectors of Chapter 33.",
+    "pdf_page": 378
+   },
+   {
+    "number": "34.6",
+    "summary": "Express the 2-form dA evaluated on two vectors in terms of covariant derivatives, then in a connection-independent form with a bracket term, and finally recover the coordinate expression by taking constant vectors.",
+    "skills": [
+     "index-free manipulation",
+     "Lie bracket",
+     "wedge expansion"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Shows how one can guess the invariant formula for d by antisymmetrizing and removing bracket dependence.",
+    "pdf_page": 378
+   },
+   {
+    "number": "34.7",
+    "summary": "Show that a reparametrization of an affinely parametrized geodesic preserves the geodesic equation only if the new parameter is a linear function of the old.",
+    "skills": [
+     "chain rule along curves"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Makes precise the affine versus non-affine distinction of Fig. 34.3.",
+    "pdf_page": 378
+   },
+   {
+    "number": "34.8",
+    "summary": "For a non-geodesic curve with compatible connection, show a constant-magnitude tangent is orthogonal to its covariant acceleration; the authors connect this to special relativity and cite Needham.",
+    "skills": [
+     "Leibniz rule with nabla g = 0"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Generalizes the flat-space fact u.a = 0 to curved spacetime.",
+    "pdf_page": 379
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 4,
+  "conceptual_level": 4,
+  "novice_friendliness": 2,
+  "notes": "Dense index-free manipulation mixed with components, several printed slips (wrong free index in 34.30 and 34.31, t for u in 34.56, a dropped metric-derivative term in 34.58), inconsistent slot ordering and non-standard vocabulary (affine versus non-affine connection, d acting on vectors). The physical payoff (nabla g = 0 preserves lengths; torsion-free picture) is clear, but the route relies on comfort with Chapters 31-33. The authors themselves mark it skippable."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch7",
+   "reason": "Component covariant derivative, eqn 7.6 definition of Gamma, and eqns 7.11, 7.34, 7.40 which this chapter proves.",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch9",
+   "reason": "Connection coefficients from metric derivatives and geodesic equation; Exercise 34.2 re-derives the Christoffel formula.",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch12",
+   "reason": "Eqn 12.37, the covariant derivative of a (2,0) tensor, is proved as eqn 34.45.",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch31",
+   "reason": "Linear slot machines, dual bases and transformation matrices used throughout.",
+   "locator": {
+    "pdf_page": 371,
+    "printed_page": 354,
+    "section": "34.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch32",
+   "reason": "p-forms and wedge products needed to contrast d with nabla.",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch33 §33.2",
+   "reason": "Commutator as failure of a quadrilateral to close, redrawn with covariant derivatives in Fig. 34.1.",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch33 §33.5",
+   "reason": "Killing vectors from metric independence of a coordinate, revisited in Exercise 34.5.",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch35",
+   "reason": "Riemann curvature tensor revisited with the connection developed here.",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch36 §36.1",
+   "reason": "Cartan's connection 1-forms and the exterior derivative of basis 1-forms (eqn 34.31) for efficient curvature computation.",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch40",
+   "reason": "Palatini variation with independent metric and connection (eqn 40.36).",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch43",
+   "reason": "Index-free dA identity (eqn 34.42) used for charge conservation and Bianchi identity arguments.",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "T. Needham, Visual Differential Geometry and Forms (2021)",
+   "reason": "Cited for the orthogonality of velocity and acceleration under compatible transport (Exercise 34.8).",
+   "locator": {
+    "pdf_page": 379,
+    "printed_page": 362,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "R. G. Van Oss, Historia Mathematica 10, 455 (1983)",
+   "reason": "Discussion of who first treated time as a fourth dimension.",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "K. Nomizu (1954) paper on affine connections",
+   "reason": "First serious use of the operator now written nabla.",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Get the whole connection from one question: how do the basis vectors change? Product rule on v^mu e_mu separates component changes from basis changes, and the basis part defines Gamma.",
+   "why_effective": "Demystifies Gamma as bookkeeping for moving frames, and makes the semicolon formula something one can rebuild rather than memorize.",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   },
+   "app_idea": "Polar-grid demo: a constant arrow field on the plane with sliders for position; bars show partial derivatives of components, arrows show d e_r and d e_theta, and the Gamma terms visibly cancel the component change to give zero covariant derivative."
+  },
+  {
+   "gem": "Derive the 1-form sign by differentiating the constant pairing <omega^nu, e_mu> = delta: whatever the basis vectors do, the dual basis must do the opposite.",
+   "why_effective": "Turns an arbitrary-looking minus sign into a two-line consequence of the Leibniz rule.",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   },
+   "app_idea": "Side-by-side basis arrows and dual level-line stacks; as the learner rotates or stretches e_mu, the dual stack automatically counter-transforms to keep the piercing count at 1."
+  },
+  {
+   "gem": "Torsion as the leftover gap of the transported quadrilateral, identical to the Lie bracket when torsion vanishes.",
+   "why_effective": "Connects a new abstract tensor to an already visualized picture from the previous chapter.",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   },
+   "app_idea": "Fig. 34.1 redesign with a torsion dial: at zero the gap equals the bracket; turning it on adds an extra mismatch labelled tau(u,v)."
+  },
+  {
+   "gem": "Antisymmetrizing covariant derivatives of a 1-form kills all Gammas, so dA needs no connection.",
+   "why_effective": "Explains in one line why Maxwell's F = dA and the exterior calculus are metric- and connection-free while stress-energy conservation is not.",
+   "locator": {
+    "pdf_page": 374,
+    "printed_page": 357,
+    "section": "34.3"
+   },
+   "app_idea": "Symbolic index sandbox: learner picks a 1-form in polar or spherical coordinates, the app lists A_{gamma;beta} and A_{beta;gamma} with Gamma terms highlighted, and the antisymmetric combination shows them cancelling."
+  },
+  {
+   "gem": "One +Gamma per upper index, one -Gamma per lower index, derivative index always in the first lower slot of Gamma.",
+   "why_effective": "A single mnemonic covers every tensor type and is justified by the basis-counting argument rather than by fiat.",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.3"
+   },
+   "app_idea": "Drag-and-drop tensor builder: choose the number of up and down indices, and the app assembles the covariant derivative term by term, colour-coding each Gamma to its index."
+  },
+  {
+   "gem": "Affine versus non-affine parametrization by tick spacing, plus the norm argument: with nabla g = 0, nabla_u u = f u changes u.u at rate 2f u.u, so fixing u.u = -1 forces f = 0.",
+   "why_effective": "Connects the geometric notion of geodesic, the parameter choice, and the physical requirement of proper time in one picture and one line of algebra.",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "app_idea": "Fig. 34.3 redesign on a sphere with an editable parameter map and a live plot of u.u versus parameter."
+  },
+  {
+   "gem": "Metric compatibility as 'transport never changes dot products': expand nabla_u of g(v,w) with the Leibniz rule and the only surviving term is nabla g.",
+   "why_effective": "Gives nabla g = 0 a direct operational meaning (rulers and protractors survive transport) instead of presenting it as an axiom.",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   },
+   "app_idea": "Transport a pair of arrows around a loop on a surface; a protractor and ruler overlay stay constant, and a toggle to a non-metric connection makes them drift."
+  },
+  {
+   "gem": "The one-sentence definition of GR as (M, g) with a Lorentz metric whose curvature is sourced by matter, displayed as a four-level stack.",
+   "why_effective": "Gives learners a destination and a dependency map for all the geometric machinery.",
+   "locator": {
+    "pdf_page": 375,
+    "printed_page": 358,
+    "section": "34.4"
+   },
+   "app_idea": "Course navigation widget built on the manifold-metric-connection-GR ladder."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "The book calls a connection 'affine' or 'non-affine' according to whether geodesics satisfy nabla_u u = 0 or nabla_u u proportional to u, and says the metric guarantees affinity. Standard usage: every linear connection on the tangent bundle is affine; affinity is a property of the curve's parameter, and nabla g = 0 makes the connection metric.",
+   "impact_on_learner": "Learners moving to Carroll, Wald or MTW will find the vocabulary clashing and may think reparametrization changes the connection.",
+   "suggestion": "Teach 'affine parameter' and 'metric (Levi-Civita) connection' as the standard terms and mention the book's wording as a local idiosyncrasy.",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "issue": "Margin notes and Fig. 34.2 suggest parallelism requires a metric.",
+   "impact_on_learner": "Hides that connections are independent structure (relevant to Palatini, torsion theories and gauge theory in Chapter 44).",
+   "suggestion": "State that any manifold admits connections; a metric plus zero torsion selects a unique one.",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  },
+  {
+   "issue": "Example 34.2 labels v by lambda and u by sigma although v is compared across a step along u; eqn 34.7 uses 'approximately equal' with a unit step; it also switches between [v,u] and [u,v] and effectively assumes the result it proves.",
+   "impact_on_learner": "Sign and labelling confusion; the picture seems to prove torsion vanishes rather than illustrate what zero torsion means.",
+   "suggestion": "Redraw with an explicit small step epsilon, state that the closing gap is epsilon^2 [u,v] and that equating it to epsilon^2 (nabla_u v - nabla_v u) is the torsion-free assumption.",
+   "locator": {
+    "pdf_page": 369,
+    "printed_page": 352,
+    "section": "34.1"
+   }
+  },
+  {
+   "issue": "Margin eqns 34.30 and 34.31 repeat omega^nu where omega^mu should appear, leaving an index both free and summed.",
+   "impact_on_learner": "Index-checking fails; learners may doubt the derivation.",
+   "suggestion": "Use nabla omega^nu = -Gamma^nu_{beta mu} omega^beta (x) omega^mu (derivative slot first) and d omega^nu = -Gamma^nu_{beta mu} omega^beta wedge omega^mu.",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "issue": "Eqn 34.56 prints t^alpha instead of u^alpha.",
+   "impact_on_learner": "Minor confusion over a mysterious new vector.",
+   "suggestion": "Read t as u (the Fig. 34.3 labels also use t for the tangent).",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "issue": "In Example 34.10, eqn 34.58 pulls g_{mu nu} inside a partial derivative as if it were constant, silently dropping the -g_{mu nu,alpha} v^mu term. The authors then pause over raising an index on Gamma, which is not actually the problem: contracting Gamma with the metric is harmless algebra.",
+   "impact_on_learner": "Learners may conclude index lowering commutes with partial derivatives, or that Gamma is partially tensorial.",
+   "suggestion": "Show the full calculation: include the metric-derivative term, rewrite it with the compatibility relation 34.61, and watch it combine into -Gamma^gamma_{alpha nu} v_gamma.",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "issue": "Slot ordering for nabla S is inconsistent: derivative slot first in 34.14/34.18/34.19 but appended last in 34.28 and the 34.30 margin formula.",
+   "impact_on_learner": "Errors when contracting nabla T with vectors, especially for non-symmetric tensors.",
+   "suggestion": "Fix one convention (for example derivative index last, T^mu_{nu;alpha}) and apply it everywhere in the app.",
+   "locator": {
+    "pdf_page": 373,
+    "printed_page": 356,
+    "section": "34.3"
+   }
+  },
+  {
+   "issue": "Writing dv = nabla v and calling nabla v a vector-valued 1-form that is 'more than' a (1,1) tensor.",
+   "impact_on_learner": "Once the connection is chosen, nabla v is an ordinary (1,1) tensor field; the extra structure lies in the operation, not in the object's type.",
+   "suggestion": "Say: nabla v is a (1,1) tensor, but you need a connection to build it from v; reserve d for forms.",
+   "locator": {
+    "pdf_page": 370,
+    "printed_page": 353,
+    "section": "34.2"
+   }
+  },
+  {
+   "issue": "Example 34.9 is announced as showing that nabla g = 0 preserves lengths, but the derivation assumes preserved inner products and derives nabla g = 0.",
+   "impact_on_learner": "The logical direction is blurred.",
+   "suggestion": "Present both directions: the same Leibniz expansion shows equivalence for arbitrary u, v, w.",
+   "locator": {
+    "pdf_page": 376,
+    "printed_page": 359,
+    "section": "34.4"
+   }
+  },
+  {
+   "issue": "Exercise 34.1 asks to prove additivity in the direction slot 'using symmetry', but additivity is already axiom 34.1.",
+   "impact_on_learner": "Puzzlement about what is being proved.",
+   "suggestion": "Reframe as checking that the torsion-free symmetry is consistent with linearity, or skip.",
+   "locator": {
+    "pdf_page": 378,
+    "printed_page": 361,
+    "section": null
+   }
+  },
+  {
+   "issue": "The Levi-Civita connection and the fundamental theorem (unique torsion-free metric connection) are never named; uniqueness is asserted and left to an exercise.",
+   "impact_on_learner": "Learners lack the standard name to connect with other texts.",
+   "suggestion": "Name the theorem and walk through the cyclic-permutation proof explicitly.",
+   "locator": {
+    "pdf_page": 377,
+    "printed_page": 360,
+    "section": "34.4"
+   }
+  },
+  {
+   "issue": "The opening contrasts the Lie derivative (two points) with nabla (single point) without explaining that nabla_u is pointwise in u but not in the differentiated field.",
+   "impact_on_learner": "Learners may think a covariant derivative needs no neighbourhood information.",
+   "suggestion": "Show that nabla_{fu} v = f nabla_u v while L_{fu} v involves derivatives of f.",
+   "locator": {
+    "pdf_page": 368,
+    "printed_page": 351,
+    "section": null
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Opening question: 'You have two arrows at two different points on a sphere. What would it even mean to say they are the same?' Let the learner discover that a rule for transport is needed before naming the connection.",
+  "Check readiness: can the learner compute a Lie bracket and state what d does to a 1-form? If not, briefly review Chapter 33 before §34.1.",
+  "Recommended order: axioms -> scalar case (nabla f = df) -> product rule on v^mu e_mu defines Gamma -> semicolon formula -> 1-form sign from the duality pairing -> general tensor rule -> torsion and the quadrilateral -> metric compatibility -> affine parameters.",
+  "Placing torsion after the component formulas often works better for component-minded learners; for geometric learners keep the book's order with the quadrilateral first.",
+  "Check for understanding: ask the learner to write nabla_alpha of T^mu_nu without looking, then ask why the lower index gets a minus sign.",
+  "Check: 'Is Gamma a tensor? What breaks?' Expect the second-derivative term from eqn 34.26; follow up with 'Give a flat-space coordinate system where Gamma is non-zero' (polar coordinates).",
+  "Check: 'Why can F_{mu nu} = partial_mu A_nu - partial_nu A_mu be used in curved spacetime?' Target answer: Gamma symmetric, cancels in the antisymmetric combination.",
+  "When discussing Fig. 34.3, immediately translate the book's 'affine/non-affine connection' into 'affine/non-affine parameter' to avoid vocabulary clashes with other sources.",
+  "Give the one-line norm argument: d(u.u)/dlambda = 2 u.nabla_u u when nabla g = 0; if nabla_u u = f u and u.u = -1 then f = 0.",
+  "Common learner question: 'Why do we need a torsion-free connection?' Answer: GR's equivalence principle and the Levi-Civita uniqueness theorem; mention torsion theories and Palatini as optional extensions.",
+  "Common learner question: 'Why does the metric pass through the semicolon?' Point to nabla g = 0, and warn about the printed slip in eqn 34.58.",
+  "Flag the printed typos (34.30, 34.31, 34.56, 34.58) proactively so a learner checking indices does not lose confidence.",
+  "For advanced learners, preview Chapter 36: in an orthonormal frame, compatibility makes the connection 1-forms antisymmetric, which is the engine of Cartan's method."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Eqn 34.58: the dossier transcribed the inner bracket with a semicolon and called that a printed typo; the page render shows a comma. Corrected the LaTeX and restated the real slip (a dropped -g_{mu nu,alpha} v^mu term).",
+   "Fig. 34.1 visual description: nabla_v u was described as horizontal. In the image it is the vertical tilt of the top edge, nabla_u v is the horizontal lean of the right edge, and [u,v] joins the two tips. Rewritten from the image.",
+   "Margin note 11 summary called the tensor product 'symmetric'; it is not. Fixed, and the note now also flags the printed index slip.",
+   "Added missing margin note 10 (components of nabla S are explained later in the section).",
+   "Concept 'exterior versus covariant derivative on forms': locator on pdf 372 had section 34.2, but the text comes after the 34.3 heading. Set to 34.3.",
+   "teaching_approach overclaimed that every Example ends with a pointer to an earlier chapter; only three results carry such signposts. Made specific.",
+   "Analogy 1 limits muddled curvature's effect on the closure gap with its effect on a transported vector; rewrote it with the correct orders.",
+   "Removed the unverified section number from the ch12 cross-reference to eqn 12.37.",
+   "Added key equations 34.44, 34.54, 34.60 and 34.65, which were missing."
+  ],
+  "residual_concerns": [
+   "Eqns 34.23-34.24 (intermediate steps of the Gamma transformation), 34.64 and 34.71 are intentionally not listed as key equations.",
+   "Fig. 34.3 is hand-drawn. The non-affine curve's tick spacing (sparse at left, crowding at right) is read from a low-resolution image.",
+   "The book's non-standard terms ('affine/non-affine connection', d acting on vectors) are flagged in gaps_and_pitfalls. Learners using other texts need the standard terms."
+  ],
+  "coverage": {
+   "toc_sections": 4,
+   "sections": 7,
+   "inventory_figures": 3,
+   "figures": 3,
+   "inventory_examples": 10,
+   "worked_examples": 11,
+   "concepts": 47,
+   "key_equations": 70,
+   "locators_checked": 22,
+   "locators_wrong": 1,
+   "pages_rendered": 5
+  }
+ }
+}

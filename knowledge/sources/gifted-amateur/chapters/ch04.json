@@ -1,0 +1,4542 @@
+{
+  "book": "gifted-amateur",
+  "unit_id": "ch04",
+  "title": "Linear slot machines",
+  "part": "I: Geometry and mechanics in flat spacetime",
+  "printed_pages": [
+    43,
+    55
+  ],
+  "pdf_pages": [
+    60,
+    72
+  ],
+  "one_line_summary": "Introduces 1-forms as the dual partners of vectors (down-index objects pictured as stacks of surfaces), defines tensors as linear machines that eat vectors and 1-forms and return numbers, works out how components and bases transform so that contractions stay invariant, and cashes the formalism in by building the energy-momentum tensor of dust and reading its meaning by feeding an observer's 4-velocity into its slots.",
+  "role_in_book": "Chapter 4 closes the flat-spacetime toolkit of Part I. Chapter 2 gave 4-vectors, the Minkowski dot product and observer-measured components; Chapter 3 gave coordinate transformations of basis vectors. This chapter adds the second kind of first-rank object (the 1-form), the general tensor with valence (m,n), index raising and lowering, and the tensor transformation law, so that Chapter 5 can generalize the metric and Part II can talk about covariant derivatives, Riemann curvature and the field equations. It also plants the energy-momentum tensor early as the future right-hand side of Einstein's equation, to be revisited in Chapter 12, and deliberately leans on the metric even though 1-forms do not need one; the metric-free, rigorous treatment of forms is postponed to Part V (Chapters 31-32).",
+  "assumed_background": [
+    {
+      "topic": "4-vectors, basis vectors and the summation convention",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2 §2.1"
+    },
+    {
+      "topic": "Minkowski metric components diag(-1,1,1,1) and the dot product (eqn 2.15)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2"
+    },
+    {
+      "topic": "Component of a vector measured by an observer, X_0^obs = -X·u (eqn 2.38)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2 §2.3"
+    },
+    {
+      "topic": "4-velocity, 4-momentum and the particle current 4-vector",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2 §2.3"
+    },
+    {
+      "topic": "Transformation of basis vectors under a change of coordinates, with Lambda as a matrix of partial derivatives",
+      "source": "earlier-in-this-book",
+      "where": "GA ch3"
+    },
+    {
+      "topic": "Lorentz factor, length contraction and Lorentz transformations",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1"
+    },
+    {
+      "topic": "Lagrangian mechanics and canonical momentum p = dL/d(qdot)",
+      "source": "undergrad-mechanics",
+      "where": "GA ch2 §2.4"
+    },
+    {
+      "topic": "Matrix inverse, linear maps and dual spaces at an intuitive level",
+      "source": "linear-algebra",
+      "where": null
+    },
+    {
+      "topic": "Chain rule for partial derivatives",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Dirac bra-ket notation and de Broglie matter waves",
+      "source": "quantum-mechanics",
+      "where": null
+    },
+    {
+      "topic": "Pressure and shear stress in a continuous medium",
+      "source": "undergrad-mechanics",
+      "where": null
+    },
+    {
+      "topic": "Vector notation in electromagnetism as an example of efficient index-free notation",
+      "source": "electromagnetism",
+      "where": null
+    }
+  ],
+  "learning_objectives": [
+    "Reader can explain why a vector at a point on a curved space lives in the tangent space at that point rather than in the space itself, using the Oxford-to-Durham example.",
+    "Reader can lower and raise indices with the Minkowski metric and its inverse, and state that X_0 = -X^0 while spatial components are unchanged.",
+    "Reader can describe up and down components geometrically in a non-orthogonal basis: up components from the parallelogram rule, down components from dot products with the basis vectors.",
+    "Reader can define a 1-form as a linear map from vectors to real numbers, expand it in basis 1-forms, and picture it as a stack of evenly spaced surfaces whose density measures its size.",
+    "Reader can use the duality relation <omega^nu, e_mu> = delta^nu_mu to evaluate a contraction as sigma_mu X^mu and to extract components by inserting basis objects into slots.",
+    "Reader can interpret physical quantities as 1-forms: wave phase difference as surfaces of constant phase pierced, E = -p(u) and n = -J(u) for an observer with 4-velocity u.",
+    "Reader can show that partially filling the metric, eta(v, ·), produces the 1-form with components v_mu, and connect this to index lowering.",
+    "Reader can write and justify the transformation laws for vector components, 1-form components, basis vectors and basis 1-forms, and prove that X_mu Y^mu is invariant.",
+    "Reader can define a tensor of valence (m,n) as a multilinear slot machine, build tensors with the outer product, extract components, and apply the tensor transformation law one factor per index.",
+    "Reader can argue that energy density picks up two Lorentz factors under a boost and hence belongs to a second-rank tensor.",
+    "Reader can construct T = J ⊗ p for dust, read off T^00, T^0i and T^ij as energy density, momentum density and stress, write the rest-frame matrices for dust and a perfect fluid, and interpret T(u,u), T(u,a) and T(u, ·) for an observer.",
+    "Reader can state why a tensor equation true in one frame is true in all, and why a scalar can be evaluated in whichever frame is most convenient."
+  ],
+  "teaching_approach": {
+    "summary": "An informal, picture-rich chapter that motivates a second first-rank object by asking what vectors must be paired with so that combining them yields a coordinate-invariant number. The authors first reach 1-forms through components (the metric absorbed into a vector gives down components), then recast everything in a single governing metaphor: tensors as slot machines with vector and 1-form slots and a crank that outputs a number. Geometry (tangent planes, stacks of surfaces pierced by arrows, parallel versus perpendicular projections) is paired with explicit index calculations in boxed examples, and physics examples (de Broglie phase, observer-measured energy and number density) keep the abstractions grounded. The chapter closes with a payoff: the energy-momentum tensor of dust, interrogated by inserting an observer's velocity into its slots.",
+    "style_tags": [
+      "analogy-driven",
+      "geometric-first",
+      "example-driven",
+      "conversational-informal",
+      "physical-motivation-first",
+      "spiral-revisit"
+    ],
+    "narrative_arc": [
+      "Motivating puzzle: following a straight arrow due North from Oxford leaves you above Durham, so vectors on a curved space must live in a flat tangent space at a point.",
+      "Motivating question: to form invariant numbers from vectors we need partner objects whose components transform oppositely; the bra-ket pairing of quantum mechanics is offered as a familiar precedent, and 1-forms are pictured as stacks of planes.",
+      "Component route (§4.1): absorb the metric into one vector of the dot product to define down components, then define the inverse metric and raising, and show geometrically what up and down components are in an oblique basis.",
+      "Reframe (§4.2): the metric becomes a two-slot machine eta( , ); valence (m,n) is introduced; vectors and 1-forms become one-slot machines whose mutual filling is the contraction <sigma, X>.",
+      "Core rule: the duality relation <omega^nu, e_mu> = delta^nu_mu turns contractions into sigma_mu X^mu and lets basis objects extract components.",
+      "Geometric and physical interpretation: contraction counts surfaces pierced, illustrated by wave phase; momentum and current 1-forms fed an observer's 4-velocity give minus energy and minus number density.",
+      "Bridge back to the metric: filling one slot of eta maps a vector to its 1-form, the geometric version of index lowering.",
+      "Consistency check (§4.3): require invariance of X_mu Y^mu to derive how down components transform, then show basis 1-forms transform like vector components; summarize all four laws.",
+      "Generalization (§4.4): arbitrary (m,n) tensors as slot machines, the outer product as slot-order bookkeeping, component extraction, the tensor transformation law, raising and lowering on tensors, and two corollaries on frame independence.",
+      "Payoff (§4.5): a gamma-squared argument shows energy density is part of a second-rank tensor; the energy-momentum tensor is built as J ⊗ p, its components interpreted as fluxes of 4-momentum, specialized to dust and a perfect fluid, and finally probed slot by slot with an observer's velocity."
+    ],
+    "signature_moves": [
+      "The single overarching 'linear slot machine' metaphor, with cartoon machines that have labelled slots, a crank and a spout that emits a number.",
+      "Valence bookkeeping as an accounting rule: add the (m,n) of everything inserted and the machine, and a scalar results only when the totals match.",
+      "Introducing a new object twice: first as a component trick (absorbing eta into Y), then as a coordinate-free geometric object, with a margin warning that the first route is not the fundamental one.",
+      "Physical quantities defined by what an observer measures when their 4-velocity is inserted into a slot, with explicit minus signs from the metric signature.",
+      "Deriving a transformation law by demanding that a scalar stays a scalar, rather than postulating it.",
+      "Using index position itself as a mnemonic for transformation behaviour (down-index components move with down-index basis vectors).",
+      "Spoiler margin notes that point forward to where each object will matter (Ricci scalar, Einstein equation, Chapter 12).",
+      "Explicit preference for the slot-machine definition of a tensor over the coordinate-transformation definition, justified by the 'death by indices' remark."
+    ]
+  },
+  "sections": [
+    {
+      "number": null,
+      "title": "Chapter opening: vectors in tangent spaces and the need for 1-forms",
+      "printed_page": 43,
+      "pdf_page": 60,
+      "summary": "Opens with the Oxford-Durham picture: an arrow tangent to the Earth at one city ends in the air above the other, showing that vectors belong to a flat tangent space attached at a point and that journeys on curved spaces are paths, not vectors. Recalls that vectors are coordinate-free objects expanded as X = X^mu e_mu. Introduces 1-forms (from Cartan's differential forms) with basis 1-forms omega^mu and down-index components, notated with a tilde. Explains the need: pairing two objects into an invariant number requires one whose components transform oppositely, just as bras pair with kets. Pictures a 1-form as evenly spaced planes whose density gives its magnitude, and announces the umbrella idea that tensors are linear slot machines producing scalars.",
+      "concepts": [
+        "tangent space",
+        "manifold",
+        "4-vector",
+        "1-form",
+        "basis 1-forms",
+        "p-form (differential form)",
+        "dual space",
+        "stacked-surfaces picture of a 1-form",
+        "tensor"
+      ],
+      "key_moves": [
+        "A tangent arrow from Oxford overshoots the curved Earth, so vectors must be local objects living in the tangent space at a point.",
+        "Distinguish a path through a space from a vector between endpoints.",
+        "Motivate 1-forms by invariance: combining with vectors must give a scalar, so components must transform contragrediently.",
+        "Offer the bra-ket pairing as a precedent for objects living in a dual space.",
+        "Give the geometric picture of a 1-form as a family of parallel planes, with spatial frequency as magnitude."
+      ]
+    },
+    {
+      "number": "4.1",
+      "title": "Dot products and down vectors",
+      "printed_page": 44,
+      "pdf_page": 61,
+      "summary": "Starts from the Minkowski dot product eta_{mu nu} X^mu Y^nu and defines down components Y_mu = eta_{mu nu} Y^nu, so the dot product becomes a single up-down sum. Example 4.1 shows X·e_lambda equals X_lambda and, for diagonal Minkowski components, only the time component flips sign. The inverse metric eta^{mu nu} is defined and used to raise indices. Example 4.2 uses a non-orthogonal 2D basis to show that up components come from the parallelogram decomposition while down components come from dot products with the basis vectors, related by the inverse of a non-diagonal metric. The section ends by announcing that down components belong to a new object, the 1-form X̃ = X_mu omega^mu, while a margin note cautions that 1-forms do not actually require a metric.",
+      "concepts": [
+        "scalar product",
+        "Minkowski metric",
+        "index lowering",
+        "inverse metric",
+        "index raising",
+        "contravariant and covariant components",
+        "Kronecker delta",
+        "1-form",
+        "Einstein summation convention"
+      ],
+      "key_moves": [
+        "Absorb eta_{mu nu} Y^nu into a new object Y_mu so that X·Y = X^mu Y_mu.",
+        "Show X·e_lambda = X_lambda: a down component is a dot product with a basis vector.",
+        "Evaluate the lambda = 2 case explicitly to see that in Minkowski components X_i = X^i and X_0 = -X^0.",
+        "Define eta^{mu nu} by eta_{mu nu} eta^{nu lambda} = delta and write the dot product with two down components.",
+        "In an oblique basis contrast parallelogram (up) and projection (down) components and connect them via eta^{ij}.",
+        "Announce the 1-form X̃ = X_mu omega^mu as the home of down components."
+      ]
+    },
+    {
+      "number": "4.2",
+      "title": "Vectors and 1-forms",
+      "printed_page": 46,
+      "pdf_page": 63,
+      "summary": "Recasts the metric as a two-slot linear machine eta( , ) that outputs the dot product, calls it a (0,2) tensor and introduces valence (m,n). Vectors become (1,0) and 1-forms (0,1) tensors; a scalar results when the valences of machine plus inputs balance. The contraction <sigma, X> = sigma(X) = X(sigma) is defined, and with the duality rule <omega^nu, e_mu> = delta^nu_mu it reduces to sigma_mu X^mu. Example 4.3 extracts components by inserting basis objects. Example 4.4 uses de Broglie waves: the phase difference between two points is the contraction of the wave's 1-form (its surfaces of constant phase) with the separation vector, i.e. the number of surfaces pierced. Example 4.5 identifies the momentum 1-form (components from the Lagrangian) and the particle-current 1-form, which give -E and -n when fed an observer's 4-velocity, checked in the rest frame. The section closes by showing that filling one slot of the metric turns a vector into its 1-form.",
+      "concepts": [
+        "metric tensor",
+        "tensor",
+        "valence of a tensor",
+        "multilinearity",
+        "contraction of a 1-form with a vector",
+        "dual basis relation",
+        "component extraction by inserting basis objects",
+        "stacked-surfaces picture of a 1-form",
+        "wavevector 1-form",
+        "de Broglie relation",
+        "momentum 1-form",
+        "canonical momentum",
+        "observer-measured energy",
+        "particle current 4-vector",
+        "metric as a map from vectors to 1-forms",
+        "dual space"
+      ],
+      "key_moves": [
+        "Write eta(X,Y) = eta_{mu nu} X^mu Y^nu and state bilinearity (4.17).",
+        "Define valence and the balancing rule for producing a scalar.",
+        "Treat vector and 1-form symmetrically: X(sigma) = sigma(X) = <sigma, X>, with a margin caution that this symmetry fails for complex bra-kets.",
+        "Expand both objects in bases, use linearity, and apply <omega^nu, e_mu> = delta^nu_mu to get sigma_mu X^mu.",
+        "Extract X^mu = X(omega^mu) and sigma_mu = sigma(e_mu).",
+        "Interpret the contraction as counting planes pierced, via the phase of a matter wave.",
+        "Define physical 1-forms by the observer measurement they encode: p(u) = -E, J(u) = -n; verify in the rest frame where u = e_0.",
+        "Identify sigma·X = eta(sigma, X) = <sigmã, X> and conclude eta(sigma, ·) = sigmã."
+      ]
+    },
+    {
+      "number": "4.3",
+      "title": "Transformations",
+      "printed_page": 49,
+      "pdf_page": 66,
+      "summary": "Demands that the contraction X_{alpha'} Y^{alpha'} be invariant. Given that up components transform with Lambda^{alpha'}_mu = ∂x^{alpha'}/∂x^mu, the down components must transform with the inverse matrix ∂x^nu/∂x^{beta'}, and the product of the two matrices collapses to a Kronecker delta. Down components therefore transform like basis vectors. Example 4.6 multiplies the duality relation by transformation matrices to show that basis 1-forms transform like vector components. A margin note writes eqn 4.30 in components and gives the wave 1-form components k_mu = (-omega, k). The four transformation rules are collected in eqn 4.37.",
+      "concepts": [
+        "coordinate transformation matrix",
+        "transformation law for vector components",
+        "transformation law for 1-form components",
+        "transformation of basis vectors and basis 1-forms",
+        "scalar invariant",
+        "Kronecker delta",
+        "dual basis relation"
+      ],
+      "key_moves": [
+        "Posit X^{alpha'} = (∂x^{alpha'}/∂x^mu) X^mu and require X_{alpha'} Y^{alpha'} = X_mu Y^mu.",
+        "Use Lambda^nu_{alpha'} Lambda^{alpha'}_mu = delta^nu_mu to infer X_{beta'} = (∂x^nu/∂x^{beta'}) X_nu.",
+        "Observe that index position tracks transformation type: lower-index components and basis vectors transform alike, upper-index components and basis 1-forms transform alike.",
+        "Derive omega^{sigma'} = Lambda^{sigma'}_beta omega^beta by transforming both sides of the duality relation."
+      ]
+    },
+    {
+      "number": "4.4",
+      "title": "Tensors",
+      "printed_page": 50,
+      "pdf_page": 67,
+      "summary": "Defines a general tensor T as a linear machine with m 1-form slots and n vector slots, valence (m,n), and introduces the outer product ⊗ as a device that keeps track of slot order. Example 4.7 evaluates e_1 ⊗ e_2 on two 1-forms and the mixed tensor omega^2 ⊗ e_3 on a vector and a 1-form. Example 4.8 extracts components of a (3,1) tensor by inserting basis objects, expands the tensor in outer products of basis objects, and evaluates it on arbitrary inputs. The tensor transformation law is stated as one Jacobian factor per index, with the authors preferring the slot-machine definition. Example 4.9 writes the metric as eta_{mu nu} omega^mu ⊗ omega^nu, shows eta(v, ·) = v_nu omega^nu, and defines the (2,0) inverse metric. Indices on tensor components can be raised and lowered one at a time. Two corollaries close the section: tensor equality in one frame implies equality in all, and scalars have the same value in every frame. Margin notes introduce abstract index notation and warn against 'death by indices'.",
+      "concepts": [
+        "tensor",
+        "valence of a tensor",
+        "outer product",
+        "mixed tensor",
+        "component extraction by inserting basis objects",
+        "tensor transformation law",
+        "metric tensor",
+        "inverse metric",
+        "index lowering",
+        "index raising",
+        "frame independence of tensor equations",
+        "scalar invariant",
+        "index-free notation",
+        "abstract index notation"
+      ],
+      "key_moves": [
+        "Generalize from one-slot and two-slot machines to an (m,n) slot machine.",
+        "Use ⊗ so that each factor acts on its own slot, and evaluate products of basis objects on inputs via the duality rule.",
+        "Components of a tensor are its values on basis 1-forms and basis vectors; the tensor is components times outer products of basis objects.",
+        "Transform components with one ∂x'/∂x factor per up index and one ∂x/∂x' factor per down index.",
+        "Partially filling the (0,2) metric maps vectors to 1-forms; the (2,0) version maps 1-forms to vectors.",
+        "Argue frame independence by considering the difference tensor C = A - B, which vanishes identically."
+      ]
+    },
+    {
+      "number": "4.5",
+      "title": "Energy-momentum tensor",
+      "printed_page": 52,
+      "pdf_page": 69,
+      "summary": "Payoff section. For dust at rest the energy density is n_0 m; boosted, each particle's energy gains a gamma and length contraction raises the number density by another gamma, so energy density scales as gamma squared, the signature of a second-rank tensor. Recalling that the particle current J = n_0 u carries number density and particle flux, the authors argue that the flux of the 4-vector momentum must be a rank-two object and define (for now) T = J̃ ⊗ p̃ with components T_{mu nu} = J_mu p_nu, symmetric and convertible to T^{mu nu}. Example 4.10 evaluates T^{mu nu} = n_0 m u^mu u^nu, identifies T^00 as energy density, T^0i as momentum density or energy flux, T^ij as stresses, interprets T^{mu nu} as flux of p^mu across surfaces of constant x^nu, and gives rest-frame matrices for dust and an isotropic fluid with pressure. Finally Example 4.11 feeds an observer's velocity u and a direction a into the slots of T = rho_0 ṽ ⊗ ṽ to read off energy density (T(u,u) = nE), momentum density along a, energy flux along a, and the momentum-density 1-form T(u, ·). Margin notes preview the Einstein equation and the sign changes when time indices are raised.",
+      "concepts": [
+        "dust",
+        "Lorentz factor",
+        "length contraction",
+        "second-rank tensor",
+        "particle current 4-vector",
+        "energy-momentum tensor",
+        "symmetric tensor",
+        "flux interpretation of the energy-momentum tensor",
+        "stress tensor",
+        "perfect fluid",
+        "observer-measured energy",
+        "Einstein field equations",
+        "index lowering"
+      ],
+      "key_moves": [
+        "Count gammas: one from relativistic energy per particle, one from contraction of the volume, so energy density transforms with gamma squared.",
+        "Since particle number is a scalar its flux is a vector; momentum is a vector so its flux must be rank two.",
+        "Define T = J̃ ⊗ p̃ and write T^{mu nu} = n_0 m u^mu u^nu.",
+        "Interpret each block of the matrix physically and via flux of p^mu across constant-x^nu surfaces.",
+        "Specialize to dust at rest (only rho) and an isotropic fluid (diag(rho,p,p,p)).",
+        "Use raising with eta to show T^{0i} = -T_{0i} while diagonal entries keep sign.",
+        "Probe T with the observer's 4-velocity: T(u,u) = nE, T(u,a) = -n p(a), T(a,u) = -E J(a), T(u, ·) = -n p̃."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Chapter summary and exercises",
+      "printed_page": 55,
+      "pdf_page": 72,
+      "summary": "A three-point summary restates 1-forms as plane stacks paired with vectors, tensors as linear slot machines, and the energy-momentum tensor as a symmetric rank-two object describing 4-momentum flux with T^00 the energy density. Eight exercises follow on proving tensor character, the Kronecker delta, invariant traces, basis vectors and 1-forms in curvilinear coordinates, derivatives of the invariant norm, and the relativistic Doppler effect from the wavevector.",
+      "concepts": [
+        "1-form",
+        "tensor",
+        "energy-momentum tensor",
+        "tensor transformation law",
+        "trace of a mixed tensor",
+        "Doppler effect"
+      ],
+      "key_moves": [
+        "Condense the chapter into three take-home ideas.",
+        "Practice the transformation law on outer products, Kronecker deltas and traces.",
+        "Compute non-Cartesian basis vectors and basis 1-forms from coordinate relations."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "tangent space",
+      "aliases": [
+        "T_pM",
+        "tangent plane at a point"
+      ],
+      "kind": "definition",
+      "definition": "The flat vector space attached to a single point p of a manifold, containing all vectors (directions and rates of change) at that point; vectors at p belong to it rather than to the manifold itself.",
+      "how_introduced": "Through the Oxford-Durham picture: an arrow tangent to the Earth at Oxford points off the surface, so the natural home of that arrow is a flat plane touching the sphere at Oxford (R^2 touching S^2). Fig. 4.2 sketches a flat sheet T_pM touching a curved manifold at p.",
+      "depth": "introduced",
+      "prerequisites": [
+        "manifold",
+        "4-vector"
+      ],
+      "locators": [
+        {
+          "pdf_page": 60,
+          "printed_page": 43,
+          "section": null
+        },
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Only an intuitive picture here; the formal construction is in GA appC and Part V. The chapter itself then works in flat Minkowski spacetime, where the distinction is invisible."
+    },
+    {
+      "name": "manifold",
+      "aliases": [
+        "M",
+        "space of events"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A space that looks locally like R^n and whose points (events, for spacetime) can be labelled by coordinates, but which may be curved globally.",
+      "how_introduced": "Named in the caption of Fig. 4.2 as the curved space whose points spacetime events occupy, with the caveat that the book usually avoids this vocabulary.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "4-vector",
+      "aliases": [
+        "vector",
+        "(1,0) tensor",
+        "contravariant vector",
+        "up vector"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A coordinate-independent geometric object with magnitude and direction, expanded in a basis as X = X^mu e_mu with upper-index components; in this chapter it is recast as a linear machine with one slot that accepts a 1-form.",
+      "how_introduced": "Recalled from Chapter 2 as an arrow, then reinterpreted as a (1,0) tensor X( ) whose slot is filled by a 1-form.",
+      "depth": "revisited",
+      "prerequisites": [
+        "basis vectors",
+        "Einstein summation convention"
+      ],
+      "locators": [
+        {
+          "pdf_page": 60,
+          "printed_page": 43,
+          "section": null
+        },
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "X = X^\\mu e_\\mu",
+        "X(\\tilde\\sigma) = \\langle \\tilde\\sigma, X \\rangle"
+      ],
+      "notes": "Footnote 1 recalls that the squared length X^2 is agreed by all observers."
+    },
+    {
+      "name": "basis vectors",
+      "aliases": [
+        "e_mu",
+        "coordinate basis vectors"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A set of vectors e_mu, one per coordinate direction, in terms of which any vector is written as X^mu e_mu; their mutual dot products give the metric components.",
+      "how_introduced": "Recalled from Chapters 2-3; used with dot products to produce down components (X·e_lambda = X_lambda) and later paired with basis 1-forms through the duality relation.",
+      "depth": "revisited",
+      "prerequisites": [
+        "4-vector"
+      ],
+      "locators": [
+        {
+          "pdf_page": 62,
+          "printed_page": 45,
+          "section": "4.1"
+        },
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        }
+      ],
+      "formulas": [
+        "e_\\mu \\cdot e_\\nu = \\eta_{\\mu\\nu}",
+        "e_{\\beta'} = \\Lambda^{\\alpha}{}_{\\beta'} e_\\alpha"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Einstein summation convention",
+      "aliases": [
+        "summation over repeated indices"
+      ],
+      "kind": "convention",
+      "definition": "An index appearing once up and once down in a term is summed over all its values (0 to 3 in spacetime) without writing the sum sign.",
+      "how_introduced": "Used throughout from eqn 4.1; the chapter emphasizes that invariant sums pair one upper and one lower index.",
+      "depth": "revisited",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": "4.1"
+        },
+        {
+          "pdf_page": 72,
+          "printed_page": 55,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "X^\\mu Y_\\mu = \\sum_{\\mu=0}^{3} X^\\mu Y_\\mu"
+      ],
+      "notes": "Exercise 4.3 prints the upper limit of the sum as 4; for four spacetime dimensions it should be 3."
+    },
+    {
+      "name": "Minkowski metric",
+      "aliases": [
+        "eta_{mu nu}",
+        "flat spacetime metric"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The metric of flat spacetime, with components diag(-1, 1, 1, 1) in inertial coordinates, used to form the invariant dot product of vectors.",
+      "how_introduced": "Recalled from eqn 2.15 in a margin note, then used as the tool that lowers indices and as the prototype (0,2) tensor.",
+      "depth": "revisited",
+      "prerequisites": [
+        "scalar product"
+      ],
+      "locators": [
+        {
+          "pdf_page": 62,
+          "printed_page": 45,
+          "section": "4.1"
+        }
+      ],
+      "formulas": [
+        "\\eta_{\\mu\\nu} = \\mathrm{diag}(-1,1,1,1)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "scalar product",
+      "aliases": [
+        "dot product",
+        "inner product of two vectors"
+      ],
+      "kind": "operation",
+      "definition": "The bilinear, coordinate-invariant number formed from two vectors with the metric, X·Y = eta_{mu nu} X^mu Y^nu.",
+      "how_introduced": "The chapter's starting point: a familiar way of making a scalar from two vectors, which is then rewritten with down components and finally as the output of the metric slot machine.",
+      "depth": "revisited",
+      "prerequisites": [
+        "Minkowski metric",
+        "4-vector"
+      ],
+      "locators": [
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": "4.1"
+        },
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "X\\cdot Y = \\eta_{\\mu\\nu} X^\\mu Y^\\nu = X^\\mu Y_\\mu = \\eta^{\\mu\\nu} X_\\mu Y_\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "scalar invariant",
+      "aliases": [
+        "Lorentz scalar",
+        "(0,0) tensor",
+        "invariant"
+      ],
+      "kind": "principle",
+      "definition": "A number built from tensors with all slots filled (all indices contracted); it takes the same value in every coordinate system, so it may be computed in whichever frame is easiest.",
+      "how_introduced": "Invoked at the outset as the reason 1-forms are needed, used as the constraint that derives the 1-form transformation law, and restated as a corollary at the end of §4.4 with the Ricci scalar as a forward example.",
+      "depth": "developed",
+      "prerequisites": [
+        "contraction of a 1-form with a vector"
+      ],
+      "locators": [
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": null
+        },
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        },
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "X_{\\alpha'} Y^{\\alpha'} = X_\\mu Y^\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "index lowering",
+      "aliases": [
+        "lowering an index",
+        "flat map"
+      ],
+      "kind": "operation",
+      "definition": "Contracting an upper index with the metric to produce a lower-index component, Y_mu = g_{mu nu} Y^nu (here eta); with Minkowski components this flips the sign of the time component only.",
+      "how_introduced": "By absorbing eta_{mu nu} Y^nu in the dot product into a single down-index object; later reinterpreted as filling one slot of the metric tensor, and applied index by index to higher-rank tensors.",
+      "depth": "core",
+      "prerequisites": [
+        "Minkowski metric",
+        "Einstein summation convention"
+      ],
+      "locators": [
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": "4.1"
+        },
+        {
+          "pdf_page": 62,
+          "printed_page": 45,
+          "section": "4.1"
+        },
+        {
+          "pdf_page": 68,
+          "printed_page": 51,
+          "section": "4.4"
+        },
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "Y_\\mu = \\eta_{\\mu\\nu} Y^\\nu",
+        "X_0 = -X^0,\\; X_i = X^i",
+        "S^{\\mu\\nu}\\eta_{\\nu\\beta} = S^{\\mu}{}_{\\beta}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "inverse metric",
+      "aliases": [
+        "eta^{mu nu}",
+        "(2,0) metric"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The matrix inverse of the metric components, eta^{mu nu} with eta_{mu nu} eta^{nu lambda} = delta_mu^lambda; as a (2,0) tensor it takes two 1-forms and maps a 1-form to a vector.",
+      "how_introduced": "Defined right after lowering so that the process can be reversed; for Minkowski components it is numerically the same matrix, a coincidence the margin note warns will not hold for most rank-two tensors.",
+      "depth": "developed",
+      "prerequisites": [
+        "Minkowski metric",
+        "Kronecker delta"
+      ],
+      "locators": [
+        {
+          "pdf_page": 62,
+          "printed_page": 45,
+          "section": "4.1"
+        },
+        {
+          "pdf_page": 68,
+          "printed_page": 51,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "\\eta_{\\mu\\nu}\\eta^{\\nu\\lambda} = \\delta_\\mu{}^\\lambda",
+        "\\eta(\\,,\\,) = \\eta^{\\mu\\nu} e_\\mu \\otimes e_\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "index raising",
+      "aliases": [
+        "raising an index",
+        "sharp map"
+      ],
+      "kind": "operation",
+      "definition": "Contracting a lower index with the inverse metric to obtain the upper-index component, X^nu = eta^{mu nu} X_mu.",
+      "how_introduced": "As the mirror image of lowering once eta^{mu nu} is defined; used in Example 4.2 with a non-diagonal metric and in footnote 22 to relate T^{mu nu} and T_{mu nu}.",
+      "depth": "developed",
+      "prerequisites": [
+        "inverse metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 62,
+          "printed_page": 45,
+          "section": "4.1"
+        },
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "X^\\nu = \\eta^{\\mu\\nu} X_\\mu",
+        "T^{\\mu\\nu} = \\eta^{\\alpha\\mu}\\eta^{\\beta\\nu} T_{\\alpha\\beta}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "contravariant and covariant components",
+      "aliases": [
+        "up and down components",
+        "upper and lower components"
+      ],
+      "kind": "definition",
+      "definition": "For a vector in a given basis, the up components X^i are the coefficients in X = X^i e_i (parallelogram decomposition), while the down components X_i = X·e_i are dot products with the basis vectors (perpendicular projections when the basis vectors have unit length); they coincide only for an orthonormal Euclidean basis.",
+      "how_introduced": "Example 4.2 and Fig. 4.4 use a skewed 2D basis, drawing dashed lines parallel to the axes for X^1, X^2 and dotted perpendicular drops for X_1, X_2, then linking them with the non-diagonal inverse metric.",
+      "depth": "core",
+      "prerequisites": [
+        "basis vectors",
+        "scalar product",
+        "index raising"
+      ],
+      "locators": [
+        {
+          "pdf_page": 62,
+          "printed_page": 45,
+          "section": "4.1"
+        }
+      ],
+      "formulas": [
+        "X_j = X\\cdot e_j",
+        "X^i = \\eta^{ij}(X\\cdot e_j)"
+      ],
+      "notes": "In Minkowski spacetime with an orthonormal basis the only difference is the sign of the time component."
+    },
+    {
+      "name": "1-form",
+      "aliases": [
+        "one-form",
+        "covector",
+        "dual vector",
+        "covariant vector",
+        "linear functional",
+        "down vector",
+        "(0,1) tensor"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A coordinate-independent linear map that takes a vector and returns a real number; it is expanded as sigmã = sigma_mu omega^mu with lower-index components and can be pictured as a stack of evenly spaced parallel surfaces.",
+      "how_introduced": "Motivated as the partner needed to build invariants with vectors, first reached through down components of the dot product, then defined as a one-slot machine, visualized as planes, and interpreted physically through wave phase, momentum and particle current.",
+      "depth": "core",
+      "prerequisites": [
+        "4-vector",
+        "dual space",
+        "index lowering"
+      ],
+      "locators": [
+        {
+          "pdf_page": 60,
+          "printed_page": 43,
+          "section": null
+        },
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": null
+        },
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.1"
+        },
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "\\tilde\\sigma = \\sigma_\\mu \\omega^\\mu",
+        "\\tilde X = X_\\mu \\omega^\\mu"
+      ],
+      "notes": "Footnote 5 stresses that 1-forms exist without any metric; the metric only provides a correspondence with vectors."
+    },
+    {
+      "name": "basis 1-forms",
+      "aliases": [
+        "omega^mu",
+        "dual basis"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The set of 1-forms omega^mu dual to the basis vectors, defined by <omega^nu, e_mu> = delta^nu_mu; geometrically, stacks of surfaces of constant coordinate.",
+      "how_introduced": "Named alongside the 1-form expansion at the chapter opening, described geometrically as planes perpendicular to the coordinate axes, and fixed by the duality rule; their transformation law is derived in Example 4.6.",
+      "depth": "core",
+      "prerequisites": [
+        "1-form",
+        "basis vectors",
+        "Kronecker delta"
+      ],
+      "locators": [
+        {
+          "pdf_page": 60,
+          "printed_page": 43,
+          "section": null
+        },
+        {
+          "pdf_page": 64,
+          "printed_page": 47,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        }
+      ],
+      "formulas": [
+        "\\langle \\omega^\\nu, e_\\mu\\rangle = \\delta^\\nu{}_\\mu",
+        "\\omega^{\\sigma'} = \\Lambda^{\\sigma'}{}_{\\beta}\\omega^\\beta"
+      ],
+      "notes": "The book writes basis 1-forms as bold omega without a tilde."
+    },
+    {
+      "name": "p-form (differential form)",
+      "aliases": [
+        "differential form",
+        "p-form"
+      ],
+      "kind": "mathematical-object",
+      "definition": "An antisymmetric tensor with p vector slots used in Cartan's differential geometry; a 1-form is the p = 1 case.",
+      "how_introduced": "Mentioned to explain the odd name '1-form', crediting Élie Cartan.",
+      "depth": "mention",
+      "prerequisites": [
+        "1-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 60,
+          "printed_page": 43,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Developed properly in GA ch32."
+    },
+    {
+      "name": "dual space",
+      "aliases": [
+        "space of 1-forms",
+        "cotangent space"
+      ],
+      "kind": "definition",
+      "definition": "The vector space of all linear maps from a given vector space to the real numbers; 1-forms at a point live in the dual of the tangent space there.",
+      "how_introduced": "Compared to the bra space of quantum mechanics, which is dual to the ket space; later tied to the tangent space by the duality relation and bridged by the metric.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tangent space",
+        "1-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": null
+        },
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [],
+      "notes": "The term cotangent space is not used in the chapter."
+    },
+    {
+      "name": "Kronecker delta",
+      "aliases": [
+        "delta^mu_nu"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The symbol equal to 1 when its two indices are equal and 0 otherwise; the mixed form delta^mu_nu is a genuine (1,1) tensor with the same components in every frame.",
+      "how_introduced": "Appears as the result of pairing basis 1-forms with basis vectors and as the product of a transformation matrix with its inverse; Exercise 4.2 asks whether the all-up and all-down versions are tensors.",
+      "depth": "developed",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 64,
+          "printed_page": 47,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        },
+        {
+          "pdf_page": 72,
+          "printed_page": 55,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\Lambda^{\\nu}{}_{\\alpha'}\\Lambda^{\\alpha'}{}_{\\mu} = \\delta^\\nu{}_\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "dual basis relation",
+      "aliases": [
+        "duality rule",
+        "<omega^nu, e_mu> = delta^nu_mu"
+      ],
+      "kind": "identity",
+      "definition": "The defining relation between basis 1-forms and basis vectors: the 1-form omega^nu returns 1 on e_nu and 0 on every other basis vector.",
+      "how_introduced": "Presented, and highlighted in a shaded box, as the single most important rule for manipulating tensors, needed to evaluate a contraction once both objects are expanded in bases.",
+      "depth": "core",
+      "prerequisites": [
+        "basis vectors",
+        "basis 1-forms",
+        "Kronecker delta"
+      ],
+      "locators": [
+        {
+          "pdf_page": 64,
+          "printed_page": 47,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "\\langle \\omega^\\nu, e_\\mu\\rangle = \\delta^\\nu{}_\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "contraction of a 1-form with a vector",
+      "aliases": [
+        "inner product <sigma, X>",
+        "natural pairing",
+        "contraction",
+        "sigma(X)"
+      ],
+      "kind": "operation",
+      "definition": "The number obtained by inserting a vector into a 1-form's slot (equivalently the 1-form into the vector's slot), equal to sigma_mu X^mu in any basis; it requires no metric.",
+      "how_introduced": "Defined with angle brackets to put vector and 1-form on an equal footing, computed via linearity and the duality rule, and pictured as the count of 1-form surfaces an arrow pierces.",
+      "depth": "core",
+      "prerequisites": [
+        "1-form",
+        "4-vector",
+        "dual basis relation",
+        "multilinearity"
+      ],
+      "locators": [
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 64,
+          "printed_page": 47,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "\\langle\\tilde\\sigma, X\\rangle = X(\\tilde\\sigma) = \\tilde\\sigma(X) = \\sigma_\\mu X^\\mu"
+      ],
+      "notes": "Footnote 7: the symmetry X(sigma) = sigma(X) is a choice valid for real quantities; bra-kets differ by complex conjugation."
+    },
+    {
+      "name": "multilinearity",
+      "aliases": [
+        "linearity of tensors",
+        "bilinearity"
+      ],
+      "kind": "definition",
+      "definition": "A tensor is linear in each slot separately: scaling an input scales the output, and the output for a sum of inputs is the sum of outputs.",
+      "how_introduced": "Stated for the metric machine (4.17) and, in a shaded margin box, for the contraction; it is what allows expansion of inputs in bases.",
+      "depth": "developed",
+      "prerequisites": [
+        "tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "\\eta(aX, bY) = ab\\,\\eta(X,Y)",
+        "\\eta(X+Y, Z) = \\eta(X,Z) + \\eta(Y,Z)"
+      ],
+      "notes": "The chapter opening points to Section 4.3 for linearity, but it is actually stated in §4.2."
+    },
+    {
+      "name": "component extraction by inserting basis objects",
+      "aliases": [
+        "reading off components"
+      ],
+      "kind": "technique",
+      "definition": "The components of any tensor are its outputs when each slot is filled with the corresponding basis vector or basis 1-form: a vector fed the basis 1-form omega^mu returns X^mu, a 1-form fed e_mu returns sigma_mu, and a (3,1) tensor fed three basis 1-forms and one basis vector returns the corresponding component.",
+      "how_introduced": "Example 4.3 for vectors and 1-forms, extended in Example 4.8 to a (3,1) tensor and in Example 4.9 to the metric.",
+      "depth": "developed",
+      "prerequisites": [
+        "dual basis relation",
+        "tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 64,
+          "printed_page": 47,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 67,
+          "printed_page": 50,
+          "section": "4.4"
+        },
+        {
+          "pdf_page": 68,
+          "printed_page": 51,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "X(\\omega^\\mu) = X^\\mu",
+        "\\tilde\\sigma(e_\\mu) = \\sigma_\\mu",
+        "\\eta(e_\\alpha, e_\\beta) = \\eta_{\\alpha\\beta}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "stacked-surfaces picture of a 1-form",
+      "aliases": [
+        "1-form as planes",
+        "bongs of a bell (MTW image, not used here)"
+      ],
+      "kind": "technique",
+      "definition": "A visualization of a 1-form as a family of parallel, evenly spaced surfaces: closer spacing means a larger 1-form, the surfaces' orientation encodes its direction, and its value on a vector is the number of surfaces the arrow crosses.",
+      "how_introduced": "Offered as the answer to 'if a vector is an arrow, what does a 1-form look like?' with Fig. 4.3, then made physical with surfaces of constant phase of a matter wave.",
+      "depth": "core",
+      "prerequisites": [
+        "1-form",
+        "contraction of a 1-form with a vector"
+      ],
+      "locators": [
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": null
+        },
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "\\langle\\tilde\\sigma, X\\rangle = \\text{number of surfaces of } \\tilde\\sigma \\text{ pierced by } X"
+      ],
+      "notes": "The count must be signed (surfaces need an orientation) and can be fractional; the book does not say this."
+    },
+    {
+      "name": "wavevector 1-form",
+      "aliases": [
+        "k-tilde",
+        "phase 1-form"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The 1-form k̃ whose surfaces are the wave's surfaces of constant phase, so that its contraction with a displacement vector gives the phase difference; its components are k_mu = (-omega, k).",
+      "how_introduced": "Example 4.4 first computes phase difference with the 4-vector k and a dot product, then offers the alternative of counting constant-phase surfaces; a margin note in §4.3 lowers the index to get the components.",
+      "depth": "developed",
+      "prerequisites": [
+        "de Broglie relation",
+        "stacked-surfaces picture of a 1-form",
+        "index lowering"
+      ],
+      "locators": [
+        {
+          "pdf_page": 64,
+          "printed_page": 47,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        }
+      ],
+      "formulas": [
+        "\\Delta\\phi = \\langle\\tilde k, x\\rangle = \\vec k\\cdot\\vec x - \\omega t",
+        "k_\\mu = (-\\omega, \\vec k)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "de Broglie relation",
+      "aliases": [
+        "p = hbar k",
+        "matter waves"
+      ],
+      "kind": "law",
+      "definition": "Every particle has an associated wave, with momentum proportional to wavevector, p = hbar k, and |k| = 2 pi / lambda; relativistically p^mu = hbar k^mu with k^mu = (omega, k).",
+      "how_introduced": "As the physical setting of Example 4.4, with a margin biography of de Broglie.",
+      "depth": "mention",
+      "prerequisites": [
+        "4-momentum"
+      ],
+      "locators": [
+        {
+          "pdf_page": 64,
+          "printed_page": 47,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "p = \\hbar k",
+        "\\psi = A e^{i p\\cdot x/\\hbar}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "4-momentum",
+      "aliases": [
+        "momentum 4-vector",
+        "p^mu"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The 4-vector p^mu = (E, p) = m u^mu of a particle; lowering gives p_mu = (-E, p).",
+      "how_introduced": "Recalled in footnote 8 and used to build the momentum 1-form and the energy-momentum tensor.",
+      "depth": "revisited",
+      "prerequisites": [
+        "4-velocity",
+        "index lowering"
+      ],
+      "locators": [
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "p^\\mu = (E, p^x, p^y, p^z)",
+        "p_\\mu = (-E, p^x, p^y, p^z)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "4-velocity",
+      "aliases": [
+        "velocity 4-vector",
+        "u^mu"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The unit timelike tangent to a world line, u^mu = gamma(1, v); in the rest frame u = e_0, and its lowered form is u_mu = gamma(-1, v).",
+      "how_introduced": "Recalled in footnotes 8, 10 and 23 and used as the observer's probe inserted into slots of 1-forms and of T.",
+      "depth": "revisited",
+      "prerequisites": [
+        "Lorentz factor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 71,
+          "printed_page": 54,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "u^\\mu = \\gamma(1, v^1, v^2, v^3)",
+        "u_\\mu = \\gamma(-1, v^1, v^2, v^3)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "momentum 1-form",
+      "aliases": [
+        "p-tilde"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The 1-form p̃ = p_mu omega^mu of a particle, with components naturally given by the Lagrangian as p_mu = ∂L/∂(dx^mu/dτ); fed an observer's 4-velocity it returns minus the energy that observer measures.",
+      "how_introduced": "Example 4.5, as the answer to 'which physical quantities are naturally 1-forms?', checked in the particle rest frame.",
+      "depth": "developed",
+      "prerequisites": [
+        "1-form",
+        "canonical momentum",
+        "4-momentum",
+        "observer-measured energy"
+      ],
+      "locators": [
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 71,
+          "printed_page": 54,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "\\tilde p(u) = -E",
+        "p_\\mu = \\partial L/\\partial \\dot x^\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "canonical momentum",
+      "aliases": [
+        "conjugate momentum",
+        "partial L over partial x-dot"
+      ],
+      "kind": "definition",
+      "definition": "The derivative of the Lagrangian with respect to a generalized velocity; because it differentiates with respect to up-index velocities it naturally carries a down index.",
+      "how_introduced": "Cited briefly in Example 4.5 as the source of the momentum 1-form components.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        }
+      ],
+      "formulas": [
+        "p_\\mu = \\frac{\\partial L}{\\partial \\dot x^\\mu}"
+      ],
+      "notes": "The book does not explain why a derivative with respect to an up-index quantity yields a down-index object; Exercise 4.6 hints at the same pattern."
+    },
+    {
+      "name": "observer-measured energy",
+      "aliases": [
+        "E = -p·u",
+        "energy measured by O_u"
+      ],
+      "kind": "principle",
+      "definition": "The energy of a particle measured by an observer with 4-velocity u is E = -p̃(u) = -p_mu u^mu, the minus sign coming from the (-,+,+,+) signature.",
+      "how_introduced": "Example 4.5, linked back to eqn 2.38 for observer components, tested in the particle rest frame where u = e_0 gives E = -p_0 = p^0; reused in §4.5 when probing T.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-momentum",
+        "4-velocity",
+        "momentum 1-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 71,
+          "printed_page": 54,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "E = -\\tilde p(u) = -p_\\mu u^\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "particle current 4-vector",
+      "aliases": [
+        "number-flux 4-vector",
+        "J",
+        "particle current 1-form J-tilde"
+      ],
+      "kind": "physical-quantity",
+      "definition": "J = n_0 u for a swarm with rest-frame number density n_0; its time component is the number density n = gamma n_0 and its spatial components are particle fluxes. As a 1-form, J̃(u) = -n gives the density an observer with 4-velocity u measures.",
+      "how_introduced": "Example 4.5 via an observer carrying a small permeable box through a dust cloud and counting particles; recalled in §4.5 as the model for thinking about fluxes.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-velocity",
+        "1-form",
+        "Lorentz factor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.5"
+        },
+        {
+          "pdf_page": 71,
+          "printed_page": 54,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "J = n_0 u",
+        "J^\\mu = (n, n v^i)",
+        "n = -\\tilde J(u)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "metric as a map from vectors to 1-forms",
+      "aliases": [
+        "musical isomorphism",
+        "partial evaluation of the metric",
+        "eta(v, ·)"
+      ],
+      "kind": "operation",
+      "definition": "Inserting a vector v into one slot of the (0,2) metric leaves a machine with one empty vector slot, i.e. a 1-form, whose components are v_mu = eta_{mu nu} v^nu; the (2,0) inverse metric does the reverse.",
+      "how_introduced": "At the end of §4.2 by noticing that <sigma, X> equals the dot product of X with the vector obtained by raising sigma's index, then confirmed component by component in Example 4.9.",
+      "depth": "core",
+      "prerequisites": [
+        "metric tensor",
+        "index lowering",
+        "1-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 65,
+          "printed_page": 48,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 68,
+          "printed_page": 51,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "\\eta(\\sigma, \\cdot) = \\tilde\\sigma",
+        "\\eta(v, \\cdot) = v_\\nu \\omega^\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "tensor",
+      "aliases": [
+        "linear slot machine",
+        "multilinear map",
+        "(m,n) tensor"
+      ],
+      "kind": "definition",
+      "definition": "A coordinate-independent object that takes m 1-forms and n vectors as inputs and returns a real number, linearly in each input; its components in a basis are its values on basis 1-forms and basis vectors.",
+      "how_introduced": "Announced at the opening as the umbrella for all ways of making numbers, exemplified by the metric machine in §4.2, then generalized with the cartoon of Fig. 4.6 in §4.4; the authors prefer this definition to the transformation-law one.",
+      "depth": "core",
+      "prerequisites": [
+        "4-vector",
+        "1-form",
+        "multilinearity"
+      ],
+      "locators": [
+        {
+          "pdf_page": 61,
+          "printed_page": 44,
+          "section": null
+        },
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 67,
+          "printed_page": 50,
+          "section": "4.4"
+        },
+        {
+          "pdf_page": 68,
+          "printed_page": 51,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "S(\\,,\\,,\\,,\\,) = S^{\\mu\\nu\\lambda}{}_{\\sigma}\\, e_\\mu\\otimes e_\\nu\\otimes e_\\lambda\\otimes\\omega^\\sigma"
+      ],
+      "notes": null
+    },
+    {
+      "name": "valence of a tensor",
+      "aliases": [
+        "type (m,n)",
+        "rank"
+      ],
+      "kind": "definition",
+      "definition": "The pair (m,n) counting a tensor's upper-index components (1-form slots) m and lower-index components (vector slots) n; a scalar results when the total up and down counts of a tensor and its inputs balance.",
+      "how_introduced": "Introduced with the metric as a (0,2) tensor, then vectors as (1,0) and 1-forms as (0,1), with the balancing rule illustrated by (1,0)+(1,0)+(0,2) = (2,2).",
+      "depth": "core",
+      "prerequisites": [
+        "tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 67,
+          "printed_page": 50,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "(1,0)+(1,0)+(0,2) = (2,2)"
+      ],
+      "notes": "The book's (m,n) counts up then down indices; some texts reverse this or use 'rank' for m+n."
+    },
+    {
+      "name": "metric tensor",
+      "aliases": [
+        "eta( , )",
+        "metric slot machine",
+        "(0,2) metric"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The symmetric (0,2) tensor that takes two vectors and returns their scalar product; in a basis eta = eta_{mu nu} omega^mu ⊗ omega^nu.",
+      "how_introduced": "The first slot machine of the chapter, drawn as a cartoon in Fig. 4.5, later expanded in basis 1-forms in Example 4.9.",
+      "depth": "core",
+      "prerequisites": [
+        "Minkowski metric",
+        "tensor",
+        "outer product"
+      ],
+      "locators": [
+        {
+          "pdf_page": 63,
+          "printed_page": 46,
+          "section": "4.2"
+        },
+        {
+          "pdf_page": 68,
+          "printed_page": 51,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "\\eta(X,Y) = \\eta_{\\mu\\nu}X^\\mu Y^\\nu",
+        "\\eta = \\eta_{\\mu\\nu}\\,\\omega^\\mu\\otimes\\omega^\\nu"
+      ],
+      "notes": "Printed eqn 4.46 repeats the index mu in the second basis 1-form; it should be omega^nu."
+    },
+    {
+      "name": "coordinate transformation matrix",
+      "aliases": [
+        "Lambda^{alpha'}_mu",
+        "Jacobian matrix"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The matrix of partial derivatives Lambda^{alpha'}_mu = ∂x^{alpha'}/∂x^mu relating two coordinate systems; its inverse is Lambda^mu_{alpha'} = ∂x^mu/∂x^{alpha'}, and their product is the Kronecker delta.",
+      "how_introduced": "Recalled from Chapter 3 at the start of §4.3; the placement of primed indices tells which matrix is meant.",
+      "depth": "revisited",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        }
+      ],
+      "formulas": [
+        "\\Lambda^{\\alpha'}{}_{\\mu} = \\frac{\\partial x^{\\alpha'}}{\\partial x^\\mu}",
+        "\\Lambda^{\\nu}{}_{\\alpha'}\\Lambda^{\\alpha'}{}_{\\mu} = \\delta^\\nu{}_\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "transformation law for vector components",
+      "aliases": [
+        "contravariant transformation"
+      ],
+      "kind": "law",
+      "definition": "Upper-index components transform with the forward Jacobian: X^{alpha'} = (∂x^{alpha'}/∂x^mu) X^mu.",
+      "how_introduced": "Recalled as the given from which the other laws follow.",
+      "depth": "revisited",
+      "prerequisites": [
+        "coordinate transformation matrix"
+      ],
+      "locators": [
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        }
+      ],
+      "formulas": [
+        "X^{\\alpha'} = \\Lambda^{\\alpha'}{}_{\\mu} X^\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "transformation law for 1-form components",
+      "aliases": [
+        "covariant transformation",
+        "down-component transformation"
+      ],
+      "kind": "law",
+      "definition": "Lower-index components transform with the inverse Jacobian, X_{beta'} = (∂x^nu/∂x^{beta'}) X_nu, exactly as basis vectors do, which guarantees that contractions are invariant.",
+      "how_introduced": "Derived by demanding invariance of X_{alpha'} Y^{alpha'} given the vector law.",
+      "depth": "core",
+      "prerequisites": [
+        "transformation law for vector components",
+        "scalar invariant",
+        "Kronecker delta"
+      ],
+      "locators": [
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        }
+      ],
+      "formulas": [
+        "X_{\\beta'} = \\Lambda^{\\nu}{}_{\\beta'} X_\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "transformation of basis vectors and basis 1-forms",
+      "aliases": [
+        "basis transformation rules"
+      ],
+      "kind": "law",
+      "definition": "Basis vectors transform like 1-form components, e_{beta'} = Lambda^alpha_{beta'} e_alpha, and basis 1-forms like vector components, omega^{beta'} = Lambda^{beta'}_alpha omega^alpha, so that X^mu e_mu and sigma_mu omega^mu are unchanged.",
+      "how_introduced": "Basis-vector rule recalled from Chapter 3; basis-1-form rule derived in Example 4.6 by transforming the duality relation; all four rules summarized in eqn 4.37.",
+      "depth": "developed",
+      "prerequisites": [
+        "dual basis relation",
+        "coordinate transformation matrix"
+      ],
+      "locators": [
+        {
+          "pdf_page": 66,
+          "printed_page": 49,
+          "section": "4.3"
+        },
+        {
+          "pdf_page": 67,
+          "printed_page": 50,
+          "section": "4.3"
+        }
+      ],
+      "formulas": [
+        "e_{\\beta'} = \\Lambda^{\\alpha}{}_{\\beta'} e_\\alpha",
+        "\\omega^{\\beta'} = \\Lambda^{\\beta'}{}_{\\alpha}\\omega^\\alpha"
+      ],
+      "notes": "Footnote 14: index position (down for 1-form components and basis vectors) signals shared transformation behaviour."
+    },
+    {
+      "name": "outer product",
+      "aliases": [
+        "tensor product",
+        "⊗"
+      ],
+      "kind": "operation",
+      "definition": "The product A ⊗ B of tensors that forms a new tensor whose slots are A's slots followed by B's, with (A ⊗ B)(inputs) = A(its inputs) B(its inputs); slot order matters.",
+      "how_introduced": "Introduced as notation that records slot order, demonstrated in Example 4.7 on e_1 ⊗ e_2 and omega^2 ⊗ e_3, then used to expand general tensors and to build T = J̃ ⊗ p̃.",
+      "depth": "developed",
+      "prerequisites": [
+        "tensor",
+        "dual basis relation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 67,
+          "printed_page": 50,
+          "section": "4.4"
+        },
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "e_1\\otimes e_2(\\tilde\\alpha,\\tilde\\beta) = \\alpha_1\\beta_2",
+        "\\omega^2\\otimes e_3(v,\\tilde\\alpha) = v^2\\alpha_3"
+      ],
+      "notes": "In eqns 4.58-4.60 the book keeps writing ⊗ between numbers after the slots are filled; there it is ordinary multiplication."
+    },
+    {
+      "name": "mixed tensor",
+      "aliases": [
+        "mixed object"
+      ],
+      "kind": "definition",
+      "definition": "A tensor of valence (m,n) with both m and n nonzero, so its components have both upper and lower indices.",
+      "how_introduced": "Footnote 16, illustrated by omega^2 ⊗ e_3 in Example 4.7.",
+      "depth": "introduced",
+      "prerequisites": [
+        "valence of a tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 67,
+          "printed_page": 50,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "tensor transformation law",
+      "aliases": [
+        "transformation of tensor components"
+      ],
+      "kind": "law",
+      "definition": "Tensor components transform with one forward Jacobian factor ∂x'/∂x for each upper index and one inverse factor ∂x/∂x' for each lower index; in coordinate-based treatments this is taken as the definition of a tensor.",
+      "how_introduced": "Stated after component extraction for the (3,1) example, with the authors expressing their preference for the slot-machine definition; practised in Exercises 4.1-4.3.",
+      "depth": "core",
+      "prerequisites": [
+        "transformation law for vector components",
+        "transformation law for 1-form components",
+        "tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 68,
+          "printed_page": 51,
+          "section": "4.4"
+        },
+        {
+          "pdf_page": 72,
+          "printed_page": 55,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "S^{\\mu'\\nu'\\lambda'}{}_{\\sigma'} = \\frac{\\partial x^{\\mu'}}{\\partial x^{\\mu}}\\frac{\\partial x^{\\nu'}}{\\partial x^{\\nu}}\\frac{\\partial x^{\\lambda'}}{\\partial x^{\\lambda}}\\frac{\\partial x^{\\sigma}}{\\partial x^{\\sigma'}} S^{\\mu\\nu\\lambda}{}_{\\sigma}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "index-free notation",
+      "aliases": [
+        "coordinate-free notation",
+        "bold-symbol slot notation"
+      ],
+      "kind": "convention",
+      "definition": "Writing tensors as whole objects with empty slots, such as S( , , , ), rather than as arrays of components, to reduce index clutter and expose geometric meaning.",
+      "how_introduced": "Footnote 17 argues for it with the 'death by indices' remark and the comparison with learning electromagnetism without vector notation.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 68,
+          "printed_page": 51,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "abstract index notation",
+      "aliases": [
+        "Penrose abstract indices"
+      ],
+      "kind": "convention",
+      "definition": "A notation in which indices label slots rather than components (for example T^{ab}_c for a (2,1) tensor), with a separate alphabet such as Greek letters reserved for actual components.",
+      "how_introduced": "Footnote 15 as a remedy for the fact that bold-symbol notation hides valence; the book does not adopt it.",
+      "depth": "mention",
+      "prerequisites": [
+        "valence of a tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 67,
+          "printed_page": 50,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "T^{ab}{}_c \\tilde Z_a \\tilde Z_b A^c"
+      ],
+      "notes": null
+    },
+    {
+      "name": "frame independence of tensor equations",
+      "aliases": [
+        "covariance of tensor equations"
+      ],
+      "kind": "principle",
+      "definition": "If two tensors are equal in one coordinate system they are equal in all, because their difference is a tensor whose components all vanish and stay zero under any transformation.",
+      "how_introduced": "One of two corollaries closing §4.4, justified both geometrically and via the difference tensor C = A - B.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tensor transformation law"
+      ],
+      "locators": [
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.4"
+        }
+      ],
+      "formulas": [
+        "C = A - B = 0 \\Rightarrow C^{\\mu'\\ldots}{}_{\\nu'\\ldots} = 0"
+      ],
+      "notes": "This is the reason laws of physics are written as tensor equations."
+    },
+    {
+      "name": "second-rank tensor",
+      "aliases": [
+        "rank-two tensor"
+      ],
+      "kind": "definition",
+      "definition": "A tensor with two slots in total, of valence (2,0), (1,1) or (0,2); its components form a 4x4 array and transform with two Jacobian factors.",
+      "how_introduced": "In §4.5 as the kind of object whose components pick up two Lorentz factors, as energy density does; footnote 20 lists (2,0) and (0,2).",
+      "depth": "introduced",
+      "prerequisites": [
+        "valence of a tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.5"
+        },
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [],
+      "notes": "Footnote 20 omits the mixed (1,1) case."
+    },
+    {
+      "name": "symmetric tensor",
+      "aliases": [
+        "T(a,b) = T(b,a)"
+      ],
+      "kind": "definition",
+      "definition": "A two-slot tensor whose output does not change when its two inputs are swapped, so its components satisfy T_{mu nu} = T_{nu mu}.",
+      "how_introduced": "Asserted for the energy-momentum tensor and used in footnote 27 to show that momentum density along a equals energy flux along a.",
+      "depth": "introduced",
+      "prerequisites": [
+        "second-rank tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        },
+        {
+          "pdf_page": 71,
+          "printed_page": 54,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "T(u,a) = T(a,u)"
+      ],
+      "notes": "J̃ ⊗ p̃ is symmetric only because for dust J and p are both proportional to the same 4-velocity; the book does not say so."
+    },
+    {
+      "name": "trace of a mixed tensor",
+      "aliases": [
+        "contraction of a (1,1) tensor",
+        "S^mu_mu"
+      ],
+      "kind": "operation",
+      "definition": "Summing the upper and lower index of a (1,1) tensor gives a scalar, S^mu_mu, invariant under coordinate transformations.",
+      "how_introduced": "Only in Exercise 4.3.",
+      "depth": "mention",
+      "prerequisites": [
+        "mixed tensor",
+        "tensor transformation law"
+      ],
+      "locators": [
+        {
+          "pdf_page": 72,
+          "printed_page": 55,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "S^{\\mu'}{}_{\\mu'} = S^\\mu{}_\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "dust",
+      "aliases": [
+        "pressureless matter",
+        "non-interacting particle cloud"
+      ],
+      "kind": "solution-or-model",
+      "definition": "A continuum model of matter made of particles that do not interact and share a common velocity at each point, so it has energy density and momentum density but no pressure or other stresses in its rest frame.",
+      "how_introduced": "Opening model of §4.5, with a margin note that astrophysicists meet a lot of it, and reused in Examples 4.10-4.11.",
+      "depth": "developed",
+      "prerequisites": [
+        "particle current 4-vector"
+      ],
+      "locators": [
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.5"
+        },
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "T^{\\mu\\nu} = \\rho_0 u^\\mu u^\\nu",
+        "T^{\\mu\\nu}_{\\text{rest}} = \\mathrm{diag}(\\rho,0,0,0)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Lorentz factor",
+      "aliases": [
+        "gamma"
+      ],
+      "kind": "definition",
+      "definition": "gamma = (1 - v^2)^{-1/2} in units with c = 1, the factor by which energies and time intervals grow and lengths along the motion contract in a boosted frame.",
+      "how_introduced": "Used in the gamma-counting argument for energy density.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "\\gamma = (1-v^2)^{-1/2}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "length contraction",
+      "aliases": [
+        "Lorentz contraction"
+      ],
+      "kind": "phenomenon",
+      "definition": "A region at rest in one frame is shortened by a factor gamma along the direction of relative motion when measured in a frame where it moves.",
+      "how_introduced": "Supplies the second gamma in the transformation of dust energy density: the same particles occupy a smaller volume.",
+      "depth": "mention",
+      "prerequisites": [
+        "Lorentz factor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "n = \\gamma n_0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "energy-momentum tensor",
+      "aliases": [
+        "stress-energy tensor",
+        "T( , )",
+        "T^{mu nu}",
+        "T_{mu nu}"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The symmetric second-rank tensor describing the density and flux of 4-momentum of matter; T^{mu nu} is the flux of p^mu across a surface of constant x^nu, so T^00 is energy density, T^0i momentum density (equivalently energy flux) and T^ij stresses. For dust it is J̃ ⊗ p̃ = rho_0 ũ ⊗ ũ.",
+      "how_introduced": "Presented as the payoff of the formalism and the future source term of Einstein's equation: gamma-counting shows energy density needs a rank-two object, the flux of a 4-vector is argued to be rank two, T = J̃ ⊗ p̃ is defined for dust, its components interpreted, and it is interrogated with observer velocities.",
+      "depth": "core",
+      "prerequisites": [
+        "second-rank tensor",
+        "particle current 4-vector",
+        "4-momentum",
+        "outer product",
+        "observer-measured energy"
+      ],
+      "locators": [
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.5"
+        },
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        },
+        {
+          "pdf_page": 71,
+          "printed_page": 54,
+          "section": "4.5"
+        },
+        {
+          "pdf_page": 72,
+          "printed_page": 55,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "T = \\tilde J\\otimes\\tilde p",
+        "T^{\\mu\\nu} = n_0 m\\, u^\\mu u^\\nu",
+        "T(u,u) = nE"
+      ],
+      "notes": "Defined 'for now' only for dust; general matter and conservation are in GA ch12. Printed component formula after 4.51 reads J_mu rho_nu, which should be J_mu p_nu."
+    },
+    {
+      "name": "flux interpretation of the energy-momentum tensor",
+      "aliases": [
+        "T^{mu nu} as 4-momentum flux"
+      ],
+      "kind": "principle",
+      "definition": "Component T^{mu nu} gives the amount of the mu-th component of 4-momentum crossing a unit surface of constant x^nu; a surface of constant time is all of space, so crossing it measures density.",
+      "how_introduced": "Example 4.10, as a second reading of the dust components after the direct evaluation, organized into bullet points for the time-time, time-space and space-space blocks.",
+      "depth": "developed",
+      "prerequisites": [
+        "energy-momentum tensor",
+        "particle current 4-vector"
+      ],
+      "locators": [
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "T^{00} = \\gamma n m",
+        "T^{0i} = T^{i0} = n\\gamma m v^i",
+        "T^{ij} = n\\gamma m v^i v^j"
+      ],
+      "notes": null
+    },
+    {
+      "name": "stress tensor",
+      "aliases": [
+        "Cauchy stress",
+        "T^{ij}"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The spatial block of the energy-momentum tensor: momentum flux, whose diagonal entries are pressures (normal stresses) and off-diagonal entries are shear stresses.",
+      "how_introduced": "Identified in Example 4.10 as the space-space components.",
+      "depth": "introduced",
+      "prerequisites": [
+        "energy-momentum tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "perfect fluid",
+      "aliases": [
+        "isotropic fluid in equilibrium",
+        "ideal fluid"
+      ],
+      "kind": "solution-or-model",
+      "definition": "Matter with energy density rho and isotropic pressure p and no shear or heat flow in its rest frame, where T = diag(rho, p, p, p).",
+      "how_introduced": "Second simple example in Example 4.10, deduced from isotropy (no momentum density, no off-diagonal stress); detailed treatment deferred to Chapter 12.",
+      "depth": "introduced",
+      "prerequisites": [
+        "energy-momentum tensor",
+        "stress tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 70,
+          "printed_page": 53,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "T^{\\mu\\nu}_{\\text{rest}} = \\mathrm{diag}(\\rho, p, p, p)"
+      ],
+      "notes": "Footnote 24 warns that p here is pressure, not momentum."
+    },
+    {
+      "name": "Einstein field equations",
+      "aliases": [
+        "Einstein equation"
+      ],
+      "kind": "law",
+      "definition": "The field equations of general relativity, relating a curvature tensor of spacetime to the energy-momentum tensor of its contents.",
+      "how_introduced": "Only as a schematic 'curvature equals mass-energy density' spoiler in footnote 18 to motivate the energy-momentum tensor.",
+      "depth": "mention",
+      "prerequisites": [
+        "energy-momentum tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 69,
+          "printed_page": 52,
+          "section": "4.5"
+        }
+      ],
+      "formulas": [
+        "(\\text{curvature}) = (\\text{mass-energy density})"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Doppler effect",
+      "aliases": [
+        "relativistic Doppler shift"
+      ],
+      "kind": "phenomenon",
+      "definition": "The change in a wave's measured frequency between observers in relative motion, obtainable by Lorentz-transforming the wavevector 4-vector k^mu = (omega, k).",
+      "how_introduced": "Exercise 4.8 only: boost the wavevector 4-vector (omega, k) and read off the transformed frequency; Appendix E gives the boosted frequency as omega' = gamma(omega - beta k^x).",
+      "depth": "mention",
+      "prerequisites": [
+        "wavevector 1-form",
+        "transformation law for vector components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 72,
+          "printed_page": 55,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\omega' = \\gamma(\\omega - \\beta k^x)"
+      ],
+      "notes": null
+    }
+  ],
+  "key_equations": [
+    {
+      "label": "(4.1)",
+      "name": "Dot product with the metric",
+      "latex": "X\\cdot Y = \\eta_{\\mu\\nu} X^{\\mu} Y^{\\nu}",
+      "meaning": "Starting point: the invariant product of two vectors uses the metric components.",
+      "symbols": "eta_{mu nu} Minkowski metric components; X^mu, Y^nu vector components",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.2)",
+      "name": "Lowering an index",
+      "latex": "Y_{\\mu} = \\eta_{\\mu\\nu} Y^{\\nu}",
+      "meaning": "Definition of down components by absorbing the metric into one vector.",
+      "symbols": "Y_mu down (1-form) components",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.3)",
+      "name": null,
+      "latex": "X\\cdot Y = X^{\\mu} Y_{\\mu}",
+      "meaning": "The dot product becomes one sum over an upper and a lower index.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.4)",
+      "name": "Down component as a dot product with a basis vector",
+      "latex": "X\\cdot e_{\\lambda} = X^{\\mu} e_{\\mu}\\cdot e_{\\lambda} = X^{\\mu}\\eta_{\\mu\\lambda} = X_{\\lambda}",
+      "meaning": "Projecting onto a basis vector yields the lowered component.",
+      "symbols": "e_lambda basis vector",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.5)",
+      "name": "Explicit sum for one lowered component",
+      "latex": "X_2 = X^{\\mu}\\eta_{\\mu 2} = X^0\\eta_{02} + X^1\\eta_{12} + X^2\\eta_{22} + X^3\\eta_{32}",
+      "meaning": "Writing out the implied sum for lambda = 2 shows which metric entries survive; with diagonal eta only eta_22 remains.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.6)",
+      "name": null,
+      "latex": "X_2 = X^2\\eta_{22} = X^2,\\qquad X_0 = -X^0",
+      "meaning": "With diagonal Minkowski components only the time component changes sign on lowering.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.7)",
+      "name": "Inverse metric",
+      "latex": "\\eta_{\\mu\\nu}\\eta^{\\nu\\lambda} = \\delta_{\\mu}{}^{\\lambda}",
+      "meaning": "Defines eta^{mu nu} as the matrix inverse of eta_{mu nu}.",
+      "symbols": "delta Kronecker delta",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.8)",
+      "name": "Raising an index",
+      "latex": "X^{\\nu} = \\eta^{\\mu\\nu} X_{\\mu}",
+      "meaning": "The inverse metric restores up components from down components.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.9)",
+      "name": null,
+      "latex": "X\\cdot Y = \\eta^{\\mu\\nu} X_{\\mu} Y_{\\nu}",
+      "meaning": "Dot product written purely with down components and the inverse metric.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.10)",
+      "name": "Vector in a skewed basis",
+      "latex": "X = X^1 e_1 + X^2 e_2",
+      "meaning": "Up components are the coefficients of the parallelogram decomposition along non-orthogonal basis vectors (Fig. 4.4).",
+      "symbols": "e_1, e_2 non-orthogonal 2D basis vectors",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.11)-(4.13)",
+      "name": "Up and down components in an oblique basis",
+      "latex": "X_j = X\\cdot e_j,\\qquad X^i = \\eta^{ij}(X\\cdot e_j),\\qquad X^1 = \\eta^{11}X_1 + \\eta^{12}X_2",
+      "meaning": "In a non-orthogonal basis down components are projections and up components are recovered with the non-diagonal inverse metric.",
+      "symbols": "eta_{ij} = e_i·e_j here not diagonal",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.14)",
+      "name": "1-form expansion",
+      "latex": "\\tilde X = X_{\\mu}\\,\\omega^{\\mu}",
+      "meaning": "Down components are the components of a 1-form in the basis of basis 1-forms.",
+      "symbols": "omega^mu basis 1-forms; tilde marks a 1-form",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.1"
+      }
+    },
+    {
+      "label": "(4.16)",
+      "name": "Metric slot machine",
+      "latex": "\\eta(X,Y) = \\eta_{\\mu\\nu}X^{\\mu}Y^{\\nu} = \\eta_{00}X^0Y^0 + \\eta_{11}X^1Y^1 + \\eta_{22}X^2Y^2 + \\eta_{33}X^3Y^3",
+      "meaning": "The metric as a two-slot machine returning the dot product (expanded for diagonal components).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.17)",
+      "name": "Linearity of the metric",
+      "latex": "\\eta(aX, bY) = ab\\,\\eta(X,Y),\\qquad \\eta(X+Y, Z) = \\eta(X,Z) + \\eta(Y,Z)",
+      "meaning": "The machine is linear in each slot.",
+      "symbols": "a, b scalars",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": null,
+      "name": "Linearity of the contraction (margin box)",
+      "latex": "\\langle a\\tilde\\sigma, bX\\rangle = ab\\langle\\tilde\\sigma, X\\rangle,\\quad \\langle\\tilde\\sigma, X+Y\\rangle = \\langle\\tilde\\sigma, X\\rangle + \\langle\\tilde\\sigma, Y\\rangle,\\quad \\langle\\tilde\\sigma+\\tilde\\zeta, X\\rangle = \\langle\\tilde\\sigma, X\\rangle + \\langle\\tilde\\zeta, X\\rangle",
+      "meaning": "Bilinearity of the pairing, used to expand both arguments in bases.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.18)",
+      "name": "Contraction notation",
+      "latex": "\\langle\\tilde\\sigma, X\\rangle = X(\\tilde\\sigma) = \\tilde\\sigma(X)",
+      "meaning": "Inserting a vector into a 1-form or a 1-form into a vector gives the same number.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.19)",
+      "name": null,
+      "latex": "\\langle\\tilde\\sigma, X\\rangle = \\langle\\sigma_\\nu\\omega^\\nu, X^\\mu e_\\mu\\rangle = \\sigma_\\nu X^\\mu \\langle\\omega^\\nu, e_\\mu\\rangle",
+      "meaning": "Linearity pulls components out, leaving pairings of basis objects.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.20)",
+      "name": "Duality relation",
+      "latex": "\\langle\\omega^{\\nu}, e_{\\mu}\\rangle = \\delta^{\\nu}{}_{\\mu}",
+      "meaning": "Basis 1-forms and basis vectors are dual; the most important rule for tensor manipulation.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.21)",
+      "name": "Contraction in components",
+      "latex": "\\langle\\tilde\\sigma, X\\rangle = \\sigma_\\nu X^\\mu\\delta^\\nu{}_\\mu = \\sigma_\\mu X^\\mu",
+      "meaning": "A 1-form on a vector is the up-down sum of components: no metric needed.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.22)-(4.23)",
+      "name": "Extracting components",
+      "latex": "X(\\omega^\\mu) = X^\\mu,\\qquad \\tilde\\sigma(e_\\mu) = \\sigma_\\mu",
+      "meaning": "Feed basis 1-forms to vectors and basis vectors to 1-forms to read off components.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.24)",
+      "name": "Plane-wave amplitude",
+      "latex": "\\psi(x) = A e^{i\\phi} = A e^{i k\\cdot x} = A e^{i p\\cdot x/\\hbar}",
+      "meaning": "Phase of a matter wave; the phase difference between two events is k·x.",
+      "symbols": "k wavevector, p = hbar k momentum",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": null,
+      "name": "4-dimensional phase difference",
+      "latex": "\\Delta\\phi = k\\cdot x = \\vec k\\cdot\\vec x - \\omega t",
+      "meaning": "In Minkowski space the phase difference includes the time part with a minus sign.",
+      "symbols": "k = (omega, vec k)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.25)",
+      "name": "Phase as surfaces pierced",
+      "latex": "\\Delta\\phi = \\langle\\tilde k, x\\rangle = (\\text{number of surfaces pierced})",
+      "meaning": "The wave 1-form's constant-phase surfaces counted along the separation vector give the phase difference.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.26)",
+      "name": "Geometric meaning of contraction",
+      "latex": "\\langle\\tilde\\sigma, X\\rangle = (\\text{number of planes of } \\tilde\\sigma \\text{ pierced by } X)",
+      "meaning": "General geometric reading of the pairing.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.27)",
+      "name": "Energy from the momentum 1-form",
+      "latex": "\\tilde p(u) = -E",
+      "meaning": "Inserting an observer's 4-velocity into the momentum 1-form gives minus the energy that observer measures; component form p_mu u^mu = -E.",
+      "symbols": "u observer 4-velocity; E measured energy",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.28)",
+      "name": "Number density from the current 1-form",
+      "latex": "\\tilde J(u) = -n",
+      "meaning": "Inserting an observer's 4-velocity into the particle current 1-form gives minus the measured number density; J_mu u^mu = -n.",
+      "symbols": "n number density measured by O_u",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.29)",
+      "name": null,
+      "latex": "\\sigma\\cdot X = \\eta(\\sigma, X) \\equiv \\langle\\tilde\\sigma, X\\rangle",
+      "meaning": "Contracting a 1-form with a vector equals the dot product of the vector with the raised-index version of the 1-form.",
+      "symbols": "sigma = sigma^nu e_nu vector with raised components",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.30)",
+      "name": "Metric maps vectors to 1-forms",
+      "latex": "\\eta(\\sigma, \\cdot\\,) = \\tilde\\sigma, \\qquad \\eta_{\\mu\\nu}X^\\mu = X_\\nu",
+      "meaning": "Filling one slot of the metric yields the corresponding 1-form (index lowering, geometrically). The component version is in the margin.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.2"
+      }
+    },
+    {
+      "label": "(4.31)",
+      "name": "Vector component transformation",
+      "latex": "X^{\\alpha'} = \\Lambda^{\\alpha'}{}_{\\mu} X^{\\mu} = \\frac{\\partial x^{\\alpha'}}{\\partial x^{\\mu}} X^{\\mu}",
+      "meaning": "Up components transform with the forward Jacobian.",
+      "symbols": "primed indices refer to the new coordinates",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "label": "(4.32)",
+      "name": "1-form component transformation",
+      "latex": "X_{\\beta'} = \\Lambda^{\\nu}{}_{\\beta'} X_{\\nu} = \\frac{\\partial x^{\\nu}}{\\partial x^{\\beta'}} X_{\\nu}",
+      "meaning": "Down components must transform with the inverse Jacobian.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "label": "(4.33)",
+      "name": "Invariance of the contraction",
+      "latex": "X_{\\alpha'}Y^{\\alpha'} = X_{\\mu}\\Lambda^{\\mu}{}_{\\alpha'}\\Lambda^{\\alpha'}{}_{\\nu}Y^{\\nu} = X_\\mu\\delta^\\mu{}_\\nu Y^\\nu = X_\\mu Y^\\mu",
+      "meaning": "The two Jacobians cancel, so the up-down sum is a scalar.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "label": "(4.34)-(4.35)",
+      "name": null,
+      "latex": "\\langle\\omega^\\beta, \\Lambda^\\alpha{}_{\\gamma'}e_\\alpha\\rangle = \\Lambda^\\beta{}_{\\gamma'},\\qquad \\langle\\Lambda^{\\sigma'}{}_\\beta\\omega^\\beta, \\Lambda^\\alpha{}_{\\gamma'}e_\\alpha\\rangle = \\Lambda^{\\sigma'}{}_\\beta\\Lambda^\\beta{}_{\\gamma'} = \\delta^{\\sigma'}{}_{\\gamma'}",
+      "meaning": "Multiplying the duality relation by the transformation matrices in turn.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "label": "(4.36)",
+      "name": "Basis 1-form transformation",
+      "latex": "\\omega^{\\sigma'} = \\Lambda^{\\sigma'}{}_{\\beta}\\,\\omega^{\\beta}",
+      "meaning": "Basis 1-forms transform like vector components.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "label": "(4.37)",
+      "name": "Summary of transformation rules",
+      "latex": "X^{\\beta'} = \\Lambda^{\\beta'}{}_{\\alpha}X^{\\alpha},\\quad \\sigma_{\\beta'} = \\Lambda^{\\alpha}{}_{\\beta'}\\sigma_{\\alpha},\\quad e_{\\beta'} = \\Lambda^{\\alpha}{}_{\\beta'}e_{\\alpha},\\quad \\omega^{\\beta'} = \\Lambda^{\\beta'}{}_{\\alpha}\\omega^{\\alpha}",
+      "meaning": "The four rules: index position determines which Jacobian is used.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.3"
+      }
+    },
+    {
+      "label": "(4.38)",
+      "name": "Abstract index contraction (margin)",
+      "latex": "T^{ab}{}_{c}\\,\\tilde Z_a \\tilde Z_b A^c",
+      "meaning": "Roman indices label slots, not components, and do not imply summation.",
+      "symbols": "a, b, c abstract slot labels",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.39)",
+      "name": "Outer product of basis vectors on 1-forms",
+      "latex": "e_1\\otimes e_2(\\tilde\\alpha,\\tilde\\beta) = e_1(\\tilde\\alpha)\\,e_2(\\tilde\\beta) = \\alpha_\\lambda\\delta^\\lambda{}_1\\,\\beta_\\rho\\delta^\\rho{}_2 = \\alpha_1\\beta_2",
+      "meaning": "Each factor of an outer product acts on its own slot.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.40)",
+      "name": "Mixed outer product",
+      "latex": "\\omega^2\\otimes e_3(v,\\tilde\\alpha) = \\omega^2(v)\\,e_3(\\tilde\\alpha) = v^2\\alpha_3",
+      "meaning": "A mixed tensor takes a vector in one slot and a 1-form in the other.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.42)",
+      "name": "Components of a (3,1) tensor",
+      "latex": "S^{\\mu\\nu\\lambda}{}_{\\sigma} = S(\\omega^\\mu, \\omega^\\nu, \\omega^\\lambda, e_\\sigma)",
+      "meaning": "Components are outputs on basis objects.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.43)",
+      "name": "Tensor expanded in a basis",
+      "latex": "S(\\,,\\,,\\,,\\,) = S^{\\mu\\nu\\lambda}{}_{\\sigma}\\,e_\\mu(\\,)\\otimes e_\\nu(\\,)\\otimes e_\\lambda(\\,)\\otimes\\omega^\\sigma(\\,)",
+      "meaning": "A tensor equals its components times outer products of basis vectors and basis 1-forms.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.44)",
+      "name": "Evaluating a tensor on inputs",
+      "latex": "S(\\tilde\\zeta, \\tilde\\eta, \\tilde\\chi, u) = S^{\\mu\\nu\\lambda}{}_{\\sigma}\\,\\zeta_\\mu\\eta_\\nu\\chi_\\lambda u^\\sigma",
+      "meaning": "Output is the full contraction of components with input components.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.45)",
+      "name": "Tensor transformation law",
+      "latex": "S^{\\mu'\\nu'\\lambda'}{}_{\\sigma'} = \\frac{\\partial x^{\\mu'}}{\\partial x^{\\mu}}\\frac{\\partial x^{\\nu'}}{\\partial x^{\\nu}}\\frac{\\partial x^{\\lambda'}}{\\partial x^{\\lambda}}\\frac{\\partial x^{\\sigma}}{\\partial x^{\\sigma'}}\\,S^{\\mu\\nu\\lambda}{}_{\\sigma}",
+      "meaning": "One Jacobian factor per index, forward for up and inverse for down.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.46)",
+      "name": "Metric in basis 1-forms",
+      "latex": "\\eta(\\,,\\,) = \\eta_{\\mu\\nu}\\,\\omega^{\\mu}(\\,)\\otimes\\omega^{\\nu}(\\,)",
+      "meaning": "The metric as a (0,2) tensor; eta(e_alpha, e_beta) = eta_{alpha beta}.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.47)",
+      "name": "Partially filled metric",
+      "latex": "\\eta(v, \\,) = \\eta_{\\mu\\nu}\\,\\omega^\\mu(v)\\,\\omega^\\nu(\\,) = \\eta_{\\mu\\nu}v^\\mu\\omega^\\nu(\\,) = v_\\nu\\,\\omega^\\nu(\\,)",
+      "meaning": "Explicit check that one filled slot of the metric produces the 1-form with lowered components.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.48)",
+      "name": "(2,0) metric",
+      "latex": "\\eta(\\,,\\,) = \\eta^{\\mu\\nu}\\,e_\\mu\\otimes e_\\nu",
+      "meaning": "Inverse metric as a tensor taking two 1-forms; maps 1-forms to vectors.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": "(4.49)",
+      "name": "Raising and lowering tensor indices",
+      "latex": "S^{\\mu\\nu}\\eta_{\\nu\\beta} = S^{\\mu}{}_{\\beta},\\qquad T_{\\mu\\nu}\\eta^{\\mu\\alpha} = T^{\\alpha}{}_{\\nu}",
+      "meaning": "The metric moves indices one at a time on any tensor.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "label": null,
+      "name": "Energy density of moving dust",
+      "latex": "\\varepsilon_{S} = n_0 m \\;\\to\\; \\varepsilon_{S'} = \\gamma^2 n_0 m",
+      "meaning": "One gamma from energy per particle, one from length contraction of the volume: energy density needs a rank-two tensor.",
+      "symbols": "n_0 rest-frame number density; m particle mass; gamma Lorentz factor",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": null,
+      "name": "Particle current",
+      "latex": "J = n_0 u,\\qquad J^\\mu = \\gamma n_0(1, \\vec v) = (n, n v^i)",
+      "meaning": "Time component is number density, spatial components are particle fluxes.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.50)",
+      "name": "Schematic Einstein equation (margin)",
+      "latex": "(\\text{curvature of spacetime}) = (\\text{mass-energy density at this point})",
+      "meaning": "Spoiler that motivates T as the source of gravity.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.51)",
+      "name": "Energy-momentum tensor of dust",
+      "latex": "T(\\,,\\,) = \\tilde J(\\,)\\otimes\\tilde p(\\,),\\qquad T_{\\mu\\nu} = T(e_\\mu, e_\\nu) = J_\\mu p_\\nu",
+      "meaning": "Provisional definition of T as the outer product of current and momentum 1-forms.",
+      "symbols": "J̃ particle current 1-form; p̃ momentum 1-form",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.52)",
+      "name": "Raising both indices of T",
+      "latex": "T^{\\mu\\nu} = \\eta^{\\alpha\\mu}\\eta^{\\beta\\nu}T_{\\alpha\\beta}",
+      "meaning": "Mixed time-space components flip sign; diagonal ones do not.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": null,
+      "name": "Dust energy-momentum components",
+      "latex": "T^{\\mu\\nu} = (n_0u^\\mu)(mu^\\nu):\\quad T^{00} = \\gamma n m,\\;\\; T^{0i} = T^{i0} = n\\gamma m v^i,\\;\\; T^{ij} = n\\gamma m v^i v^j",
+      "meaning": "Energy density, momentum density and momentum flux of a moving dust cloud.",
+      "symbols": "n = gamma n_0",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.53)",
+      "name": "Dust at rest",
+      "latex": "T^{\\mu\\nu} = T_{\\mu\\nu} = \\mathrm{diag}(\\rho, 0, 0, 0)",
+      "meaning": "Only energy density is nonzero in the rest frame.",
+      "symbols": "rho rest-frame energy density",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.54)",
+      "name": "Perfect fluid at rest",
+      "latex": "T^{\\mu\\nu} = T_{\\mu\\nu} = \\mathrm{diag}(\\rho, p, p, p)",
+      "meaning": "Isotropic pressure fills the spatial diagonal; no momentum density or shear.",
+      "symbols": "p pressure (not momentum)",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.55)-(4.56)",
+      "name": null,
+      "latex": "E = -\\tilde p(u),\\qquad n = -\\tilde J(u)",
+      "meaning": "Restatement of observer-measured energy and number density for use with T.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.57)",
+      "name": "T for a swarm of particles",
+      "latex": "T(\\,,\\,) = \\tilde J(\\,)\\otimes\\tilde p(\\,) = \\rho_0\\,\\tilde v(\\,)\\otimes\\tilde v(\\,),\\qquad T_{\\mu\\nu} = \\rho_0 v_\\mu v_\\nu",
+      "meaning": "Dust T is rest density times the outer product of the velocity 1-form with itself.",
+      "symbols": "rho_0 = m n_0; v swarm 4-velocity",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.58)",
+      "name": "Energy density seen by an observer",
+      "latex": "T(u,u) = \\tilde J(u)\\,\\tilde p(u) = nE,\\qquad T_{\\mu\\nu}u^\\mu u^\\nu = nE",
+      "meaning": "Both slots filled with the observer's 4-velocity give the energy density that observer measures.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.59)",
+      "name": "Momentum density along a direction",
+      "latex": "T(u,a) = \\tilde J(u)\\,\\tilde p(a) = -n\\,\\tilde p(a)",
+      "meaning": "Minus the momentum density along a, measured by the observer.",
+      "symbols": "a dimensionless direction vector",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.60)",
+      "name": "Energy flux along a direction",
+      "latex": "T(a,u) = \\tilde J(a)\\,\\tilde p(u) = -E\\,\\tilde J(a)",
+      "meaning": "Minus the energy transported along a; equal to (4.59) by symmetry of T.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.61)",
+      "name": "4-momentum density 1-form",
+      "latex": "T(u, \\,) = -n\\,\\tilde p(\\,),\\qquad T_{\\mu\\nu}u^\\mu = -n p_\\nu",
+      "meaning": "One filled slot leaves the observer's 4-momentum density as a 1-form.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "label": "(4.62)",
+      "name": "Nonlinear coordinates of Exercise 4.5",
+      "latex": "x = u - v,\\quad y = u + v,\\quad z = -2uv + w",
+      "meaning": "Coordinate map whose Jacobian gives position-dependent, non-orthogonal basis vectors and basis 1-forms.",
+      "symbols": "(u, v, w) new coordinates",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 72,
+        "printed_page": 55,
+        "section": null
+      }
+    },
+    {
+      "label": "(4.64)-(4.66)",
+      "name": "Derivatives of the invariant norm (exercises)",
+      "latex": "\\frac{\\partial M}{\\partial a^\\mu} = 2\\eta_{\\mu\\nu}a^\\nu,\\quad a^\\mu\\frac{\\partial M}{\\partial a^\\mu} = 2M,\\quad \\frac{d}{d\\tau}(A\\cdot A) = 2\\eta_{\\mu\\nu}A^\\mu\\frac{dA^\\nu}{d\\tau}",
+      "meaning": "Results to be shown in Exercises 4.6-4.7; differentiating with respect to up components gives down components.",
+      "symbols": "M = eta_{mu nu} a^mu a^nu",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 72,
+        "printed_page": 55,
+        "section": null
+      }
+    }
+  ],
+  "figures": [
+    {
+      "label": "Fig. 4.1",
+      "image_path": "gifted-amateur/pages/page-60/img-37.jpeg",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      },
+      "caption_paraphrase": "Durham lies 337 km due North of Oxford; a straight line heading North from Oxford ends roughly 9 km above Durham because the Earth curves away (curvature exaggerated). The caption jokes that the same holds going South from Durham.",
+      "visual_description": "A thick black arc, stippled on its underside, sweeps from the lower left up to the upper right to represent a greatly exaggerated slice of the Earth's surface; the words 'Planet EARTH' are written along the inside of the arc. The label OXFORD marks a point on the arc about half way up. A straight bold arrow starts at Oxford, tangent to the arc, and runs to the upper right, ending with its head above the surface. A short dotted vertical line drops from the arrowhead down to the arc at the label DURHAM, showing the gap between the tip of the tangent arrow and the destination on the ground.",
+      "what_it_teaches": "A vector at a point is tangent to a curved space and does not lie in it; displacements between distant points on a curved space are paths, not vectors.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "tangent space",
+        "4-vector",
+        "manifold"
+      ],
+      "redesign": {
+        "idea": "A 3D globe with a flat tangent plane attached at a chosen city. The learner draws a straight tangent arrow of adjustable length and heading and sees it lift off the sphere, while a great-circle path of the same length stays on the surface. A readout shows the height of the arrow tip above the ground, approximately d^2/(2R).",
+        "interaction": "Drag the base point, rotate the heading, slide the length (Oxford-Durham preset 337 km) and a radius slider to shrink or grow the planet; the height gap and tangent plane update live, and the gap shrinks to zero as the length becomes small compared with R.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 4.2",
+      "image_path": "gifted-amateur/pages/page-61/img-38.jpeg",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": null
+      },
+      "caption_paraphrase": "Vectors live in the tangent space T_pM at a point p of a (generally curved) manifold M, not in M itself.",
+      "visual_description": "Hand-drawn sketch of a curved, dotted surface like the side of a hill, labelled 'Manifold M' at the lower right. Resting on the surface and touching it at one point is a flat quadrilateral sheet drawn in perspective and labelled T_pM. On the sheet a point p is marked and a short arrow labelled X runs from p across the sheet. Shading under the sheet suggests it sits just above the curved surface except at p.",
+      "what_it_teaches": "Each point of a manifold has its own flat vector space of possible directions; vector operations happen there.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "tangent space",
+        "manifold",
+        "4-vector"
+      ],
+      "redesign": {
+        "idea": "A bumpy 3D surface with a tangent plane that follows the cursor. Vectors drawn at a point stay in that point's plane, and moving the point shows that tangent planes at different points are different spaces.",
+        "interaction": "Click to place p; drag within the plane to draw X; move p and watch the plane re-orient, with a toggle to show two tangent planes at once to stress they cannot be added naively.",
+        "form": "interactive-3d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 4.3",
+      "image_path": "gifted-amateur/pages/page-61/img-39.jpeg",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": null
+      },
+      "caption_paraphrase": "A 1-form pictured as a family of planes; its value on a vector X is the number of planes the arrow pierces.",
+      "visual_description": "Three identical hand-drawn rectangular sheets stacked in perspective, parallel and evenly spaced, each with hatched shading on its edge. A bold arrow labelled X enters from below the lowest sheet at the lower left, passes up through all three sheets (drawn dotted where hidden) and emerges above the top sheet, its head at the upper right.",
+      "what_it_teaches": "A 1-form has a geometric picture of its own, complementary to an arrow; contraction is counting crossings, so denser sheets mean a bigger 1-form and a longer or better-aligned arrow gives a bigger number.",
+      "figure_type": "vector-or-tensor-field",
+      "concepts": [
+        "1-form",
+        "stacked-surfaces picture of a 1-form",
+        "contraction of a 1-form with a vector"
+      ],
+      "redesign": {
+        "idea": "A 2D or 3D stack of oriented surfaces with numbered levels, and a draggable arrow. A live counter shows the signed, fractional number of surfaces crossed, which matches sigma_mu X^mu computed from components shown alongside.",
+        "interaction": "Adjust the 1-form's components (spacing and tilt of the planes) and drag the arrow's tip; the crossing count, component sum and a 'positive/negative/zero' indicator update, including the case of an arrow lying within a plane (zero).",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 4.4",
+      "image_path": "gifted-amateur/pages/page-62/img-40.jpeg",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      },
+      "caption_paraphrase": "Geometry of up (contravariant) and down (covariant) components in a skewed basis.",
+      "visual_description": "Two basis directions from a common origin: e_1 pointing horizontally to the right and e_2 slanting steeply up and to the right. A solid arrow X runs from the origin to a point between them. Dashed lines from the tip of X drawn parallel to each axis meet e_1 at a tick labelled X^1 and e_2 at a tick labelled X^2, completing a parallelogram. Dotted lines from the tip dropped perpendicular to each axis meet e_1 at X_1, further right than X^1, and e_2 at X_2, further along than X^2.",
+      "what_it_teaches": "Up components come from decomposing X along the axes (parallelogram rule) while down components come from orthogonal projections (dot products with basis vectors); they differ whenever the basis is not orthonormal.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "contravariant and covariant components",
+        "index lowering",
+        "index raising",
+        "basis vectors"
+      ],
+      "redesign": {
+        "idea": "An interactive oblique-basis plane where both constructions are drawn simultaneously, with a live metric matrix g_ij = e_i·e_j and its inverse, and numeric up and down components that satisfy X_i = g_ij X^j.",
+        "interaction": "Drag the tips of e_1, e_2 (angle and length) and of X; the parallelogram and perpendicular feet move, the matrices update, and when the basis becomes orthonormal the two sets of ticks merge.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 4.5",
+      "image_path": "gifted-amateur/pages/page-63/img-41.jpeg",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      },
+      "caption_paraphrase": "The metric as a slot machine eta( , ): insert two vectors, turn the handle, and a number (their dot product) comes out.",
+      "visual_description": "Cartoon of a boxy machine held together with corner bolts. On its front face sit two tall dark slot openings side by side, each with the small word 'vector' printed above it, and the word INSERT lettered underneath the pair. A crank handle projects from the left side with a curved arrow showing it being turned. A horn-shaped spout rises from the upper right and an arrow labelled 'number' comes out of it. Faint maker's-plate lettering decorates the top and bottom edges.",
+      "what_it_teaches": "A (0,2) tensor is a machine with two vector slots whose output is a scalar, linear in each slot.",
+      "figure_type": "cartoon-or-analogy",
+      "concepts": [
+        "metric tensor",
+        "tensor",
+        "valence of a tensor"
+      ],
+      "redesign": {
+        "idea": "An animated slot machine for the metric: learners drop vector cards into the two slots and the machine shows the component sum eta_{mu nu} X^mu Y^nu term by term before emitting the number; a signature toggle shows timelike, spacelike and null outputs.",
+        "interaction": "Drag vector cards (editable components) into slots, pull the lever, watch the terms light up; try scaling a card by 2 to see the output double (linearity).",
+        "form": "animated-2d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 4.6",
+      "image_path": "gifted-amateur/pages/page-67/img-42.jpeg",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      },
+      "caption_paraphrase": "A general tensor as a slot machine with m slots for 1-forms and n slots for vectors, outputting a number once all are filled.",
+      "visual_description": "A wider, lower version of the same cartoon machine. Its front face carries two labelled groups of slots: under the heading 'INSERT 1-forms' on the left are three slots, and under 'INSERT vectors' on the right are two slots (standing in for m and n in general). A crank on the left has a turning arrow, and a horn-shaped spout on the right emits an arrow labelled 'number'.",
+      "what_it_teaches": "Valence (m,n) as a count of 1-form and vector slots; a fully filled tensor is a scalar.",
+      "figure_type": "cartoon-or-analogy",
+      "concepts": [
+        "tensor",
+        "valence of a tensor",
+        "mixed tensor"
+      ],
+      "redesign": {
+        "idea": "A tensor builder: choose m and n to generate a machine; fill some slots and see the leftover machine's valence and component array shape (e.g. filling one slot of a (0,2) gives a (0,1) 1-form); fill all to get a number.",
+        "interaction": "Sliders for m, n; drag basis objects or general vectors and 1-forms into slots; a panel shows the index expression S^{..}_{..} with contracted indices highlighted and the resulting valence.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    }
+  ],
+  "worked_examples": [
+    {
+      "label": "Example 4.1",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      },
+      "problem": "Compute the dot product of a vector with a basis vector and evaluate a specific component in 3+1 Minkowski spacetime.",
+      "method": "Expand X in its basis, use e_mu·e_lambda = eta_{mu lambda}, recognize index lowering, then write out the lambda = 2 sum explicitly with diagonal eta.",
+      "key_insight": "A down component is a projection onto a basis vector; with diagonal Minkowski components only the time component changes sign.",
+      "result": "X·e_lambda = X_lambda; X_i = X^i for spatial i and X_0 = -X^0.",
+      "concepts": [
+        "index lowering",
+        "Minkowski metric",
+        "basis vectors"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 4.2",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      },
+      "problem": "Understand geometrically what up and down components of a 2D vector are in a basis whose vectors are not orthogonal.",
+      "method": "Decompose X by the parallelogram rule to get X^1, X^2; take dot products with e_1, e_2 to get X_1, X_2; relate them with the non-diagonal inverse metric.",
+      "key_insight": "Up and down components are genuinely different numbers unless the basis is orthonormal; the metric converts one set into the other.",
+      "result": "X_j = X·e_j and X^1 = eta^{11}X_1 + eta^{12}X_2.",
+      "concepts": [
+        "contravariant and covariant components",
+        "index raising",
+        "inverse metric"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 4.3",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      },
+      "problem": "Extract the components of a vector and of a 1-form using the basis objects.",
+      "method": "Insert a basis 1-form into the vector's slot and a basis vector into the 1-form's slot; apply linearity and the duality relation.",
+      "key_insight": "Components are just outputs of the machine on basis inputs.",
+      "result": "X(omega^mu) = X^mu and sigma(e_mu) = sigma_mu.",
+      "concepts": [
+        "component extraction by inserting basis objects",
+        "dual basis relation"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 4.4",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      },
+      "problem": "Find the phase difference of a de Broglie wave between two events.",
+      "method": "First use the dot product of the wave 4-vector k = (omega, k) with the separation, then reinterpret using the wave's 1-form whose surfaces are constant-phase surfaces, counting how many the separation vector crosses.",
+      "key_insight": "A wave is naturally a 1-form: its wavefronts are the stack of surfaces, and phase difference is a contraction requiring no metric.",
+      "result": "Delta phi = <k̃, x> = k_mu x^mu = (spatial k)·(spatial x) - omega t, read as the number of constant-phase surfaces pierced.",
+      "concepts": [
+        "wavevector 1-form",
+        "stacked-surfaces picture of a 1-form",
+        "de Broglie relation",
+        "contraction of a 1-form with a vector"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 4.5",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      },
+      "problem": "Identify physical quantities that are naturally 1-forms and what they output when an observer's 4-velocity is inserted.",
+      "method": "Take the momentum 1-form (components from the Lagrangian) and insert u; check in the rest frame where u = e_0 using the duality rule and a lowered time component. Repeat for a particle current 1-form with an observer counting particles in a moving permeable box.",
+      "key_insight": "Feeding an observer's 4-velocity into a slot is the coordinate-free way to ask 'what does this observer measure?'; the minus signs come from the signature.",
+      "result": "p̃(u) = -E and J̃(u) = -n; component forms p_mu u^mu = -E, J_mu u^mu = -n.",
+      "concepts": [
+        "momentum 1-form",
+        "observer-measured energy",
+        "particle current 4-vector",
+        "4-velocity"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 4.6",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      },
+      "problem": "Derive how basis 1-forms transform under a change of coordinates.",
+      "method": "Start from the duality relation, multiply by the matrix transforming basis vectors, then by the forward matrix on the 1-form side, and compare with the duality relation written in primed coordinates.",
+      "key_insight": "Keeping the duality relation valid in every coordinate system forces basis 1-forms to transform like vector components.",
+      "result": "omega^{sigma'} = Lambda^{sigma'}_beta omega^beta.",
+      "concepts": [
+        "transformation of basis vectors and basis 1-forms",
+        "dual basis relation",
+        "coordinate transformation matrix"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 4.7",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      },
+      "problem": "Evaluate the outer products e_1 ⊗ e_2 on two 1-forms and omega^2 ⊗ e_3 on a vector and a 1-form.",
+      "method": "Split the outer product so each factor acts on its own slot, expand inputs in bases, and apply the duality relation.",
+      "key_insight": "⊗ is slot-order bookkeeping; each factor picks out one component of its own input.",
+      "result": "e_1 ⊗ e_2(alpha, beta) = alpha_1 beta_2; omega^2 ⊗ e_3(v, alpha) = v^2 alpha_3.",
+      "concepts": [
+        "outer product",
+        "mixed tensor",
+        "dual basis relation"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 4.8",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      },
+      "problem": "Find components of a (3,1) tensor, write it in a basis, and evaluate it on three 1-forms and a vector.",
+      "method": "Fill slots with basis objects to define components; expand the tensor as components times outer products of basis objects; insert general inputs and collapse Kronecker deltas.",
+      "key_insight": "The full evaluation is simply a complete contraction of the tensor's components with its inputs' components.",
+      "result": "S(zeta, eta, chi, u) = S^{mu nu lambda}_sigma zeta_mu eta_nu chi_lambda u^sigma.",
+      "concepts": [
+        "tensor",
+        "component extraction by inserting basis objects",
+        "outer product"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 4.9",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      },
+      "problem": "Write the metric as a (0,2) tensor and show what happens when a vector fills one slot; define the (2,0) version.",
+      "method": "Expand eta in basis 1-forms, insert v into the first factor, use duality to get eta_{mu nu} v^mu, and lower the index.",
+      "key_insight": "Index lowering is partial evaluation of the metric: the output is a 1-form.",
+      "result": "eta(v, ) = v_nu omega^nu; the (2,0) metric eta^{mu nu} e_mu ⊗ e_nu maps 1-forms to vectors.",
+      "concepts": [
+        "metric tensor",
+        "metric as a map from vectors to 1-forms",
+        "inverse metric"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 4.10",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      },
+      "problem": "Work out and interpret the components of the energy-momentum tensor of a moving dust cloud, then give rest-frame forms for dust and a perfect fluid.",
+      "method": "Write the upper-index tensor as current components times momentum components, each proportional to the cloud 4-velocity gamma(1, v); read off each block; reinterpret as flux of p^mu across constant-x^nu surfaces; impose rest and isotropy.",
+      "key_insight": "The time-time, time-space and space-space blocks are energy density, momentum density/energy flux and stress, and each has a flux reading.",
+      "result": "T^00 = gamma n m, T^0i = n gamma m v^i, T^ij = n gamma m v^i v^j; dust at rest diag(rho,0,0,0); perfect fluid diag(rho,p,p,p).",
+      "concepts": [
+        "energy-momentum tensor",
+        "flux interpretation of the energy-momentum tensor",
+        "dust",
+        "perfect fluid",
+        "stress tensor"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 4.11",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      },
+      "problem": "Use the slot-machine form T = rho_0 ṽ ⊗ ṽ of a particle swarm to extract what an observer with 4-velocity u measures.",
+      "method": "Insert u into both slots, then u and a unit direction a in each order, then u into one slot only, using p̃(u) = -E and J̃(u) = -n.",
+      "key_insight": "Every physical reading of T is a choice of what to put in its slots; symmetry makes momentum density equal energy flux.",
+      "result": "T(u,u) = nE (energy density); T(u,a) = -n p̃(a); T(a,u) = -E J̃(a); T(u, ) = -n p̃ (4-momentum density 1-form).",
+      "concepts": [
+        "energy-momentum tensor",
+        "observer-measured energy",
+        "symmetric tensor",
+        "particle current 4-vector"
+      ],
+      "difficulty": "challenging"
+    },
+    {
+      "label": "Embedded: invariance of the contraction (eqns 4.31-4.33)",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      },
+      "problem": "Determine how down components must transform so that X_mu Y^mu is a scalar.",
+      "method": "Insert the vector transformation law, require the result to equal the unprimed contraction, and use the fact that a Jacobian times its inverse is the identity.",
+      "key_insight": "The 1-form transformation law is forced by invariance, not assumed.",
+      "result": "X_{beta'} = (∂x^nu/∂x^{beta'}) X_nu.",
+      "concepts": [
+        "transformation law for 1-form components",
+        "scalar invariant"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Embedded: gamma-squared transformation of dust energy density",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      },
+      "problem": "How does the energy density of a cloud of dust change when viewed from a frame in which it moves?",
+      "method": "Energy per particle grows from m to gamma m; volume along the motion contracts by gamma so number density grows by gamma.",
+      "key_insight": "Two factors of gamma signal two tensor indices, pointing to a rank-two energy-momentum tensor.",
+      "result": "Energy density n_0 m becomes gamma^2 n_0 m.",
+      "concepts": [
+        "dust",
+        "Lorentz factor",
+        "length contraction",
+        "second-rank tensor"
+      ],
+      "difficulty": "intro"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "Tensors as slot machines: a box with labelled slots for vectors and 1-forms, a crank, and a spout that delivers a number",
+      "target_concept": "tensor",
+      "how_used": "The organizing metaphor of the whole chapter (and its title). The metric is a two-vector-slot machine, vectors and 1-forms are one-slot machines, a general tensor has m 1-form slots and n vector slots, and partially filled machines are new, smaller machines.",
+      "limits": "The picture hides multilinearity (linearity must be stated separately), does not show slot order or symmetry, and suggests the tensor is a device acting on inputs rather than a geometric object with its own existence; it also says nothing about how the machine varies from point to point.",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Drag-and-drop tensor machines whose leftover slots after partial filling reassemble into the correct smaller machine, with a running valence counter."
+    },
+    {
+      "analogy": "Bras and kets in quantum mechanics",
+      "target_concept": "dual space",
+      "how_used": "Vectors are compared to kets and 1-forms to bras: they live in different spaces and combine to give a number, so learners with quantum mechanics recognize the dual pairing.",
+      "limits": "Bra-ket pairings are complex and conjugate-symmetric (footnote 7), and the Hilbert-space inner product also serves to identify bras with kets, which blurs the fact that a 1-form needs no metric.",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    },
+    {
+      "analogy": "A 1-form as a stack of parallel sheets that an arrow skewers",
+      "target_concept": "stacked-surfaces picture of a 1-form",
+      "how_used": "Gives 1-forms a visual identity distinct from arrows; magnitude is sheet density and the contraction is the count of sheets crossed.",
+      "limits": "Only local and flat: general 1-form fields have curved, unevenly spaced surfaces (and non-exact ones do not come from surfaces at all); crossings must be counted with sign and can be fractional; Minkowski 1-forms with null or timelike character are hard to picture this way.",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": null
+      },
+      "effectiveness": "strong",
+      "app_idea": "Adjustable plane stack with a draggable arrow and a signed crossing counter."
+    },
+    {
+      "analogy": "Wavefronts of a matter wave as the sheets of a 1-form",
+      "target_concept": "wavevector 1-form",
+      "how_used": "The surfaces of constant phase make the stacked-sheet picture concrete: counting wavefronts crossed between two events gives the phase difference.",
+      "limits": "Works for plane waves; for general waves the surfaces curve and the 1-form is the gradient of the phase, which the chapter does not mention.",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Animated spacetime plane wave in (t, x): drag two events and count constant-phase lines crossed, compared with k·x - omega t."
+    },
+    {
+      "analogy": "Observer carrying a small permeable box through a dust cloud and counting particles",
+      "target_concept": "particle current 4-vector",
+      "how_used": "Grounds the statement that J̃(u) = -n is the density that particular observer measures.",
+      "limits": "Informal; it does not explain why the answer depends on the observer beyond implicit length contraction.",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Boost slider for an observer moving through a lattice of dust; the box's particle count per volume rises as gamma."
+    },
+    {
+      "analogy": "Learning electromagnetism only in components without vector notation",
+      "target_concept": "index-free notation",
+      "how_used": "Footnote 17 justifies preferring coordinate-free tensor notation by comparison with how vector notation declutters Maxwell's equations.",
+      "limits": "Explicit component work is still unavoidable for calculation, as the chapter's own examples show.",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    },
+    {
+      "analogy": "Parallelogram versus perpendicular-projection components on a skewed grid",
+      "target_concept": "contravariant and covariant components",
+      "how_used": "Fig. 4.4 makes the abstract distinction between up and down components visible in two dimensions.",
+      "limits": "Assumes a Euclidean dot product in the picture and unit-length basis vectors for the perpendicular-foot reading; in Minkowski space the difference is instead a sign.",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Draggable oblique basis showing both constructions and the metric matrix."
+    },
+    {
+      "analogy": "Travelling on a tangent line from Oxford ends in mid-air above Durham",
+      "target_concept": "tangent space",
+      "how_used": "Motivates why vectors live in tangent spaces and why finite displacements on curved spaces are paths.",
+      "limits": "Relies on an embedding of the sphere in 3D, whereas spacetime's tangent spaces must be understood without any embedding.",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      },
+      "effectiveness": "strong",
+      "app_idea": "Globe with tangent arrow and height-gap readout."
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "A vector can join two distant points of a curved space, like an arrow from one city to another on the Earth.",
+      "correction": "Vectors belong to the tangent space at a single point; a route between distant points on a curved surface is a path, and a tangent arrow leaves the surface.",
+      "why_tempting": "In flat Euclidean space position vectors do join points, and school geometry trains that habit.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      },
+      "concepts": [
+        "tangent space",
+        "4-vector"
+      ]
+    },
+    {
+      "misconception": "1-forms exist only because of the metric; they are just vectors with lowered indices.",
+      "correction": "1-forms are independent linear maps on vectors and exist without any metric; the metric merely provides a one-to-one correspondence between vectors and 1-forms.",
+      "why_tempting": "The chapter itself first reaches down components by absorbing the metric into a vector, and in Minkowski components the two differ only by a sign.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.1"
+      },
+      "concepts": [
+        "1-form",
+        "metric as a map from vectors to 1-forms"
+      ]
+    },
+    {
+      "misconception": "Raising or lowering indices never changes the numbers, since eta^{mu nu} and eta_{mu nu} are the same matrix.",
+      "correction": "That equality is special to Minkowski components in inertial coordinates; for a general tensor, raising a time index flips the sign of mixed components (T^{0i} = -T_{0i}), and in a non-orthogonal basis up and down components differ substantially.",
+      "why_tempting": "The metric and inverse metric look identical in the most common example.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      },
+      "concepts": [
+        "index raising",
+        "inverse metric",
+        "energy-momentum tensor"
+      ]
+    },
+    {
+      "misconception": "Up and down components of a vector are the same thing written differently.",
+      "correction": "They are different numbers with different geometric meanings (coefficients along axes versus projections onto basis vectors), related by the metric.",
+      "why_tempting": "In Cartesian Euclidean coordinates they coincide exactly.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      },
+      "concepts": [
+        "contravariant and covariant components"
+      ]
+    },
+    {
+      "misconception": "sigma(X) and X(sigma) must be different, as <phi|psi> and <psi|phi> are in quantum mechanics.",
+      "correction": "In GR all quantities are real, so the book defines the vector acting on a 1-form to equal the 1-form acting on the vector.",
+      "why_tempting": "Prior experience with complex bra-kets, where order matters by complex conjugation.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      },
+      "concepts": [
+        "contraction of a 1-form with a vector"
+      ]
+    },
+    {
+      "misconception": "A tensor is an array of numbers that transforms in a certain way.",
+      "correction": "A tensor is a coordinate-independent multilinear machine; its components depend on the basis and the transformation law follows from that, which is why the authors prefer the slot definition.",
+      "why_tempting": "Many physics courses define tensors by their transformation law and work only with component arrays.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      },
+      "concepts": [
+        "tensor",
+        "tensor transformation law"
+      ]
+    },
+    {
+      "misconception": "The p in the perfect-fluid matrix is momentum.",
+      "correction": "There p is pressure; the clash of symbols is unfortunate and context decides.",
+      "why_tempting": "The same chapter uses p for momentum and p̃ for the momentum 1-form.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      },
+      "concepts": [
+        "perfect fluid",
+        "4-momentum"
+      ]
+    },
+    {
+      "misconception": "Energy density transforms like energy, with a single factor of gamma.",
+      "correction": "Energy per particle gives one gamma and the contracted volume gives another, so energy density scales as gamma squared and is a component of a rank-two tensor, not a 4-vector.",
+      "why_tempting": "Energy is the time component of a 4-vector, so a density of it seems to be one too.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      },
+      "concepts": [
+        "energy-momentum tensor",
+        "length contraction",
+        "second-rank tensor"
+      ]
+    },
+    {
+      "misconception": "Letters in abstract index notation are summation indices.",
+      "correction": "Abstract indices name slots; component indices use a different alphabet.",
+      "why_tempting": "They look exactly like component indices.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      },
+      "concepts": [
+        "abstract index notation"
+      ]
+    },
+    {
+      "misconception": "A larger 1-form has more widely spaced surfaces, like a longer arrow.",
+      "correction": "Magnitude goes with spatial frequency: the more tightly packed the surfaces, the larger the 1-form and the more surfaces a given vector crosses.",
+      "why_tempting": "Size of an arrow is its length, so learners map 'size' onto spacing rather than density.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": null
+      },
+      "concepts": [
+        "stacked-surfaces picture of a 1-form"
+      ]
+    },
+    {
+      "misconception": "The Kronecker delta with both indices down (or both up) is a tensor with identity components in every frame.",
+      "correction": "Only the mixed delta^alpha_beta keeps identity components under all transformations; converting indices with the metric turns the all-down version into the metric itself.",
+      "why_tempting": "In Euclidean Cartesian work delta_{ij} is used freely as an identity tensor.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 72,
+        "printed_page": 55,
+        "section": null
+      },
+      "concepts": [
+        "Kronecker delta",
+        "tensor transformation law"
+      ]
+    },
+    {
+      "misconception": "The number of surfaces pierced must be a whole, positive number.",
+      "correction": "The contraction is a real number: partial crossings count fractionally, and crossing in the direction of decreasing surface labels counts negatively; an arrow lying within a surface gives zero.",
+      "why_tempting": "The word 'number of planes' and the three-sheet cartoon suggest discrete counting.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      },
+      "concepts": [
+        "stacked-surfaces picture of a 1-form",
+        "contraction of a 1-form with a vector"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Due North from Oxford on a straight line",
+      "setup": "Start at Oxford, point a straight arrow due North tangent to the ground and follow it for the 337 km to Durham.",
+      "lesson": "The arrow ends about 9 km above Durham: vectors are tangent objects at a point, and on a curved space finite journeys are paths.",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      },
+      "concepts": [
+        "tangent space"
+      ],
+      "visualizable": true,
+      "app_idea": "Globe with a tangent-arrow length slider and height readout."
+    },
+    {
+      "name": "Observer counting dust in a moving box",
+      "setup": "An observer with 4-velocity u carries a small permeable box of known volume through a cloud of dust and counts the particles inside.",
+      "lesson": "The measured density depends on the observer and is obtained by feeding u into the particle current 1-form, J̃(u) = -n.",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      },
+      "concepts": [
+        "particle current 4-vector",
+        "4-velocity"
+      ],
+      "visualizable": true,
+      "app_idea": "Boosted-box animation with a contracted lattice of dust and a live count."
+    },
+    {
+      "name": "The same dust seen from two frames",
+      "setup": "Dust particles of mass m are at rest with density n_0 in frame S; view them from a frame S' moving at speed v.",
+      "lesson": "Per-particle energy and number density each gain a gamma, so energy density needs a rank-two tensor.",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      },
+      "concepts": [
+        "dust",
+        "Lorentz factor",
+        "length contraction",
+        "energy-momentum tensor"
+      ],
+      "visualizable": true,
+      "app_idea": "Split screen of the dust box in S and S' with a velocity slider and bars for energy per particle, density and energy density."
+    },
+    {
+      "name": "Counting wavefronts between two events",
+      "setup": "A plane matter wave fills spacetime; pick two events and ask how much the phase differs.",
+      "lesson": "The answer is the number of constant-phase surfaces crossed by the separation vector: a contraction of the wave's 1-form.",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      },
+      "concepts": [
+        "wavevector 1-form",
+        "stacked-surfaces picture of a 1-form"
+      ],
+      "visualizable": true,
+      "app_idea": "(t,x) diagram with moving phase lines and two draggable events."
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "Élie Cartan"
+      ],
+      "year": null,
+      "event": "Pioneered differential geometry based on differential forms, from which the term 1-form comes.",
+      "significance": "Explains the name and foreshadows the forms machinery of Part V (Cartan's method, GA ch36).",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "Louis de Broglie"
+      ],
+      "year": "1924",
+      "event": "Proposed that all particles have wave properties, with p = hbar k.",
+      "significance": "Provides the physical wave whose constant-phase surfaces illustrate a 1-form.",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "people": [
+        "Roger Penrose"
+      ],
+      "year": null,
+      "event": "Invented abstract index notation, in which indices name tensor slots rather than components.",
+      "significance": "An alternative notation used by advanced texts such as Wald; the book mentions but does not adopt it.",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "people": [
+        "John Keats"
+      ],
+      "year": "1820",
+      "event": "Epigraph from 'Ode on a Grecian Urn' about a silent form that teases us out of thought.",
+      "significance": "A pun on '1-form'; sets the playful tone.",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Oxford-Durham tangent-line gap",
+      "kind": "numerical-estimate",
+      "details": "Following a straight tangent line due North from Oxford for the Oxford-Durham distance leaves you about 9 km above the ground. Our check: the height of a tangent line after distance d is about d^2/(2R).",
+      "key_numbers": "d = 337 km; book quotes about 9 km; own estimate with R = 6371 km: 337^2/(2 x 6371) ≈ 8.9 km.",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      }
+    },
+    {
+      "topic": "Phase of de Broglie matter waves",
+      "kind": "observation",
+      "details": "Matter waves of wavevector k = p/hbar; phase difference between events is k·x - omega t, which is the contraction of the wave 1-form with the separation.",
+      "key_numbers": "|k| = 2 pi / lambda; p = hbar k.",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "topic": "Astrophysical dust",
+      "kind": "astrophysical-system",
+      "details": "Dust in the Universe (grains from a few molecules to macroscopic size) at densities low enough for particles not to interact is the physical model behind the simplest energy-momentum tensor.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "topic": "Perfect fluid energy-momentum tensor",
+      "kind": "numerical-estimate",
+      "details": "Isotropic fluid in equilibrium with density rho and pressure p has rest-frame T = diag(rho, p, p, p); later used for stars and cosmology (our note, GA ch12 and Part III).",
+      "key_numbers": "Dust: diag(rho,0,0,0). Fluid: diag(rho,p,p,p).",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "topic": "Relativistic Doppler effect",
+      "kind": "observation",
+      "details": "Exercise 4.8 derives the Doppler shift by Lorentz-transforming k^mu = (omega, k); Appendix E gives omega' = gamma(omega - beta k^x).",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 72,
+        "printed_page": 55,
+        "section": null
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Metric signature",
+      "convention": "(-,+,+,+): eta_{mu nu} = diag(-1,1,1,1), so lowering the time index flips its sign (X_0 = -X^0, p_0 = -E).",
+      "notes": "Origin of the minus signs in p̃(u) = -E and J̃(u) = -n.",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "item": "Units",
+      "convention": "c = 1 throughout; rest energy per particle written m (mc^2 when c is restored); gamma = (1 - v^2)^{-1/2}.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "item": "Vectors versus 1-forms",
+      "convention": "Bold letters (X) for vectors; bold with a tilde (sigmã) for 1-forms; basis 1-forms are bold omega^mu without a tilde; basis vectors bold e_mu.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      }
+    },
+    {
+      "item": "Index placement",
+      "convention": "Vector components and basis 1-forms carry upper indices; 1-form components and basis vectors carry lower indices; index position signals transformation behaviour.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "item": "Valence (m,n)",
+      "convention": "m counts upper indices (1-form slots), n counts lower indices (vector slots); vectors (1,0), 1-forms (0,1), metric (0,2).",
+      "notes": "Some texts reverse the order or use 'type' or 'rank'.",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "item": "Empty slots and angle brackets",
+      "convention": "Tensors written with empty slots, e.g. eta( , ), T( , ), p̃( ); the contraction of a 1-form and vector written <sigmã, X> with the 1-form first.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "item": "Transformation matrices",
+      "convention": "Primed indices denote the new coordinates; Lambda^{alpha'}_mu = ∂x^{alpha'}/∂x^mu and Lambda^mu_{alpha'} = ∂x^mu/∂x^{alpha'}, distinguished only by where the prime sits.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "item": "Outer product",
+      "convention": "⊗ between tensors records slot order; each factor acts on its own slot.",
+      "notes": "Also (loosely) written between numbers once slots are filled in eqns 4.58-4.60.",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "item": "Abstract indices",
+      "convention": "Not used in the book; if used, Roman letters label slots and Greek letters label components.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "item": "Observer notation and densities",
+      "convention": "O_u is the observer whose 4-velocity is u; n_0 is rest-frame number density, n = gamma n_0 the density in the measurement frame; rho_0 = m n_0.",
+      "notes": "u denotes the dust velocity in Example 4.10 but the observer's velocity in Example 4.11, where the dust velocity is v.",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "item": "Energy-momentum tensor names",
+      "convention": "T( , ) with components T_{mu nu} or T^{mu nu}; also called the stress-energy tensor; p in the fluid matrix is pressure.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "Footnote 1: the squared length X^2 of a vector is agreed by all observers and is an invariant.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      }
+    },
+    {
+      "summary": "Footnote 2: down components were already seen in the 1-form expansion at the chapter opening; the connection is spelled out shortly.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": "4.1"
+      }
+    },
+    {
+      "summary": "Footnote 3: displays the Minkowski metric matrix diag(-1,1,1,1) from eqn 2.15.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "summary": "Footnote 4: the inverse Minkowski metric has the same matrix, but this coincidence fails for most two-index tensors.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "summary": "Footnote 5: although reached here via the metric, 1-forms do not depend on a metric or on vectors; the metric is kept until later in the book.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.1"
+      }
+    },
+    {
+      "summary": "Footnote 6: balancing valences corresponds to summing each up index against a down index in expressions such as eta_{mu nu} X^mu u^nu.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Shaded margin box: the contraction is linear in each argument (scaling and additivity for both the 1-form and the vector).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Footnote 7: setting X(sigma) = sigma(X) is a choice; in quantum mechanics swapping bra and ket conjugates the result, but GR quantities are real.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Biographical tag for Louis de Broglie (1892-1987).",
+      "type": "biography",
+      "locator": {
+        "pdf_page": 64,
+        "printed_page": 47,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Footnote 8: recap of p^mu = (E, p) and u^mu = gamma(1, v) and their lowered forms with a sign-flipped time component.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Footnote 9: links p̃(u) = -E to eqn 2.38 for observer-measured time components, rewritten as a 1-form evaluated on u.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Footnote 10: in the rest frame u has components (1,0,0,0), so u = e_0.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Margin aside: roles can be swapped, treating u as the 1-form and J as the vector, giving ũ(J) = -n; component forms p_mu u^mu = -E and J_mu u^mu = -n.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Footnote 12: mapping vectors to 1-forms with the metric was already done in components (eqn 4.2); here it is done geometrically.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Footnote 11: the number-density result follows from the same observer-component formula (eqn 2.38), now applied with the particle current J as the 4-vector.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "summary": "Margin aside: component form of eqn 4.30 and the wave 1-form components k_mu = (-omega, k), which yield the phase from Example 4.4.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "summary": "Footnote 14: down-index 1-form components and basis vectors transform alike for the same reason, keeping both the expanded vector and contractions coordinate-independent; this is what the index notation encodes.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "summary": "Footnote 13: primed indices label one coordinate system and unprimed indices the other.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "summary": "Footnote 15: abstract index notation (Penrose) labels slots with Roman letters and components with Greek letters; used by advanced texts such as Wald but not by this book.",
+      "type": "reference",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "summary": "Footnote 16: definition of a mixed tensor as one with both up and down indices.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "summary": "Footnote 17: warns of 'death by indices' and argues for index-free notation by analogy with vector notation in electromagnetism.",
+      "type": "humor-or-aside",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "summary": "Footnote 18: spoiler of the Einstein equation as curvature equals mass-energy density, to be reached at the end of Part II.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 19: what astrophysicists mean by dust and the idealization of non-interacting mass elements.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 22: raising both indices of T with eta flips the sign of time-space components but not diagonal ones, unlike the metric itself.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 23: reminder of component forms of u, J and p for a moving cloud.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 24: pressure p must not be confused with momentum p.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 20: a second-rank tensor is described as having valence (2,0) or (0,2) (the mixed (1,1) case is not listed).",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 21: gives 'stress-energy tensor' as an alternative name for the energy-momentum tensor.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 27: T(u,a) = T(a,u) by symmetry; in components the momentum-density and energy-flux expressions agree because J is proportional to p.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 28: component form T_{mu nu} u^mu = -n p_nu of the 4-momentum density 1-form.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 25: reminds the reader that probing T relies on the earlier results p̃(u) = -E and J̃(u) = -n for an observer with 4-velocity u.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "summary": "Footnote 26: component version of eqn 4.58, T_{mu nu} u^mu u^nu = nE.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 8,
+    "pdf_pages": [
+      72
+    ],
+    "skills_practiced": [
+      "verifying tensor character with the transformation law",
+      "recognizing which index placements of the Kronecker delta are tensors",
+      "forming invariant traces",
+      "computing basis vectors and basis 1-forms from coordinate relations via Jacobians",
+      "checking the duality relation in curvilinear coordinates",
+      "differentiating invariants with respect to components",
+      "Lorentz-transforming a wavevector to get the Doppler shift"
+    ],
+    "notable": [
+      {
+        "number": "4.1",
+        "summary": "Show that the product of the components of two 4-vectors forms the components of a genuine rank-two tensor.",
+        "skills": [
+          "tensor transformation law",
+          "outer product"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Links the outer product to the transformation-law view of tensors.",
+        "pdf_page": 72
+      },
+      {
+        "number": "4.2",
+        "summary": "Check whether the mixed Kronecker delta transforms as a tensor, and ask the same of the versions with both indices down or both up.",
+        "skills": [
+          "tensor transformation law",
+          "index raising and lowering"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Exposes that only the mixed delta is an invariant identity; the others turn into the metric.",
+        "pdf_page": 72
+      },
+      {
+        "number": "4.3",
+        "summary": "Show that the trace of a mixed rank-two tensor is a Lorentz scalar.",
+        "skills": [
+          "contraction",
+          "Jacobian times inverse equals identity"
+        ],
+        "difficulty": "intro",
+        "why_notable": "First example of making an invariant by contracting a tensor with itself; the printed sum limit 4 should be 3.",
+        "pdf_page": 72
+      },
+      {
+        "number": "4.4",
+        "summary": "In flat space with spherical polar coordinates, express the basis 1-forms and basis vectors in Cartesian terms and verify their mutual duality off the diagonal.",
+        "skills": [
+          "Jacobian of curvilinear coordinates",
+          "basis 1-forms as gradients",
+          "duality relation"
+        ],
+        "difficulty": "standard",
+        "why_notable": "First concrete non-Cartesian basis; shows coordinate basis vectors are not unit vectors.",
+        "pdf_page": 72
+      },
+      {
+        "number": "4.5",
+        "summary": "For a sheared, nonlinear coordinate system (u, v, w) defined from x, y, z, compute basis vectors and basis 1-forms in terms of Cartesian ones.",
+        "skills": [
+          "partial derivatives",
+          "position-dependent bases"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Basis vectors vary from point to point, previewing why derivatives of bases (connections) are needed.",
+        "pdf_page": 72
+      },
+      {
+        "number": "4.6",
+        "summary": "For the invariant M = a·a, find its derivative with respect to the up components and show the Euler-type identity a^mu ∂M/∂a^mu = 2M.",
+        "skills": [
+          "differentiating index expressions",
+          "symmetry of the metric"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Shows that differentiating with respect to up components produces down components.",
+        "pdf_page": 72
+      },
+      {
+        "number": "4.7",
+        "summary": "Prove the formula for the proper-time derivative of A·A in terms of the metric and dA/dtau.",
+        "skills": [
+          "product rule with indices",
+          "constant metric"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Used later for 4-velocity and 4-acceleration orthogonality.",
+        "pdf_page": 72
+      },
+      {
+        "number": "4.8",
+        "summary": "Derive the relativistic Doppler effect by applying a Lorentz boost to the wavevector 4-vector (omega, k).",
+        "skills": [
+          "Lorentz transformation of 4-vectors",
+          "physical interpretation of components"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Ties Example 4.4's wave picture to a measurable effect and practises Lorentz-transforming a 4-vector other than position or momentum.",
+        "pdf_page": 72
+      }
+    ],
+    "solutions": "Appendix E (GA appE) gives answers for 4.1, 4.2, 4.3, 4.4, 4.5 and 4.8."
+  },
+  "difficulty": {
+    "math_level": 3,
+    "conceptual_level": 3,
+    "novice_friendliness": 3,
+    "notes": "Algebra is simple (sums, matrix inverses, chain rule) but index bookkeeping is dense, especially the primed-index Jacobians in §4.3 and the outer-product evaluations in §4.4. Conceptually the hardest idea is that 1-forms are objects in their own right, not lowered vectors, which the component-first route partly obscures. The slot-machine and plane-stack pictures help a lot. §4.5 moves quickly from gamma-counting to flux interpretation and slot probing with shifting symbols (u, v, p as pressure), and there are several printed index slips (eqns 4.46, 4.51 components, the line before 4.29, Exercise 4.3)."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "GA ch2 §2.1",
+      "reason": "Dot product with metric components (eqn 2.15), basis vectors and summation convention.",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": "4.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch2 §2.3",
+      "reason": "Observer-measured components X_0^obs = -X·u (eqn 2.38), 4-velocity, 4-momentum and particle current.",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch2 §2.4",
+      "reason": "Lagrangian mechanics, the source of momentum components p_mu = ∂L/∂ẋ^mu.",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch3",
+      "reason": "Transformation of basis vectors with Jacobian matrices, extended here to 1-forms.",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch1",
+      "reason": "Lorentz factor and length contraction used in the energy-density argument.",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch5",
+      "reason": "Generalizes the metric beyond eta to arbitrary metrics g, where raising and lowering become non-trivial.",
+      "locator": null
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch11",
+      "reason": "Ricci scalar cited as an example of a scalar evaluated in a convenient frame.",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch12",
+      "reason": "Energy-momentum tensor revisited in detail: general matter, perfect fluids, conservation laws.",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch13",
+      "reason": "Field equations at the end of Part II, with T as the source (spoiler in footnote 18).",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch31",
+      "reason": "Part V reintroduction to geometry: tangent spaces and 1-forms without leaning on a metric.",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.1"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch32",
+      "reason": "Differential p-forms properly defined (Cartan's forms mentioned at the chapter opening).",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA appC",
+      "reason": "Manifolds and tangent spaces treated formally.",
+      "locator": null
+    },
+    {
+      "direction": "forward",
+      "target": "GA appE",
+      "reason": "Answers to selected Chapter 4 exercises.",
+      "locator": null
+    },
+    {
+      "direction": "external",
+      "target": "Wald, General Relativity",
+      "reason": "Advanced text that uses abstract index notation.",
+      "locator": {
+        "pdf_page": 67,
+        "printed_page": 50,
+        "section": "4.4"
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Dirac bra-ket notation (quantum mechanics)",
+      "reason": "Kets and bras as an analogue of vectors and 1-forms in a dual space.",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": null
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "Point a straight arrow North from Oxford and watch it end up above Durham: vectors live in tangent spaces.",
+      "why_effective": "One concrete, slightly comic image makes the abstract tangent-space idea unforgettable and explains why displacements are not vectors on curved spaces.",
+      "locator": {
+        "pdf_page": 60,
+        "printed_page": 43,
+        "section": null
+      },
+      "app_idea": "Globe demo with a tangent-arrow length slider and a live height gap d^2/(2R)."
+    },
+    {
+      "gem": "Tensors as slot machines with an accounting rule: add up the valences of the machine and its inputs; a number comes out when up and down counts balance.",
+      "why_effective": "Turns index contraction into a visual, countable rule that learners can apply before mastering index gymnastics.",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.2"
+      },
+      "app_idea": "Tensor-machine builder that shows the leftover valence after each insertion and generates the matching index expression."
+    },
+    {
+      "gem": "A 1-form is a stack of sheets; its value on a vector counts sheets crossed, and wavefronts of a matter wave are exactly such sheets.",
+      "why_effective": "Gives 1-forms their own geometric identity and ties them to phase, something physically meaningful that needs no metric.",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      },
+      "app_idea": "Plane-wave (t,x) diagram where dragging two events counts phase lines crossed and matches k_mu x^mu."
+    },
+    {
+      "gem": "Up components by parallelogram, down components by perpendicular projection, drawn on the same skewed basis.",
+      "why_effective": "Makes the difference between index positions visible and shows why the metric is needed to convert between them.",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      },
+      "app_idea": "Draggable oblique basis with both constructions and live metric/inverse metric matrices."
+    },
+    {
+      "gem": "Ask an observer's question by inserting their 4-velocity into a slot: p̃(u) = -E, J̃(u) = -n, T(u,u) = energy density.",
+      "why_effective": "Replaces 'which frame am I in?' component juggling with a single coordinate-free operation that recurs throughout GR measurement theory.",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      },
+      "app_idea": "Observer-velocity slider feeding u into p̃, J̃ and T, with readouts of E, n, energy density and momentum density against boost speed."
+    },
+    {
+      "gem": "Count the gammas: energy per particle and number density each contribute one, so energy density needs two indices.",
+      "why_effective": "A quick physical argument that makes the rank of the energy-momentum tensor feel inevitable rather than defined.",
+      "locator": {
+        "pdf_page": 69,
+        "printed_page": 52,
+        "section": "4.5"
+      },
+      "app_idea": "Boosted dust box with bars for energy per particle, density and energy density scaling as gamma, gamma, gamma^2."
+    },
+    {
+      "gem": "Derive the 1-form transformation law by insisting that a contraction remain a scalar.",
+      "why_effective": "Shows transformation rules are consequences of invariance, and explains why index position predicts transformation behaviour.",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.3"
+      },
+      "app_idea": "2D coordinate change (stretch/shear) where vector components and 1-form components change in opposite ways while the displayed contraction stays fixed."
+    },
+    {
+      "gem": "Filling one slot of the metric produces a 1-form: index lowering is partial evaluation.",
+      "why_effective": "Unifies the component trick of §4.1 with the geometric machine picture.",
+      "locator": {
+        "pdf_page": 66,
+        "printed_page": 49,
+        "section": "4.2"
+      },
+      "app_idea": "Insert a vector into one slot of the metric machine and watch it morph into a one-slot 1-form machine whose planes are displayed."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "The gradient of a scalar field, the most natural example of a 1-form (contour surfaces of a function), is never mentioned; the plane-stack picture is presented only for constant 1-forms.",
+      "impact_on_learner": "Learners may think 1-forms are exotic and miss that df is the prototype, making Part V and the chain-rule origin of transformation laws feel unmotivated.",
+      "suggestion": "Introduce df with contour maps: level sets of a function are the sheets, and df(v) is the directional derivative; the Jacobian transformation law then follows from the chain rule.",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": null
+      }
+    },
+    {
+      "issue": "Crossing counts need orientation and can be fractional, but the text speaks only of 'number of planes pierced'.",
+      "impact_on_learner": "Sign and non-integer contractions (including zero for arrows within a sheet) become confusing.",
+      "suggestion": "Label the sheets with increasing values and define the contraction as the change in label along the arrow.",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    },
+    {
+      "issue": "Printed index slips: the text before eqn 4.29 writes the contraction as sigma_mu X^nu; eqn 4.46 repeats mu in omega^mu ⊗ omega^mu; the component formula after 4.51 reads J_mu rho_nu instead of J_mu p_nu; Exercise 4.3 sums mu from 0 to 4.",
+      "impact_on_learner": "Careful readers checking index balance will be confused or lose trust in the rules just taught.",
+      "suggestion": "Use the corrected forms sigma_mu X^mu, eta_{mu nu} omega^mu ⊗ omega^nu, T_{mu nu} = J_mu p_nu, and a sum from 0 to 3; turn the slips into 'spot the error' index-balance checks.",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "issue": "Eqn 4.48 states that eta_{mu nu} = eta^{mu nu} follows from the inverse relation, and §4.3 uses general Jacobians ∂x'/∂x while still calling the metric eta.",
+      "impact_on_learner": "Conflicts with Example 4.2's non-diagonal metric and with Exercise 4.4's curvilinear coordinates, where metric components are not diag(-1,1,1,1) and inverse metric components differ.",
+      "suggestion": "State that the equality is special to orthonormal inertial bases; in general coordinates the metric is g_{mu nu} with a genuinely different inverse (bridge to GA ch5).",
+      "locator": {
+        "pdf_page": 68,
+        "printed_page": 51,
+        "section": "4.4"
+      }
+    },
+    {
+      "issue": "In Example 4.2 the claim that X_1 is the projection along e_1 is only a perpendicular foot when e_1 has unit length.",
+      "impact_on_learner": "Learners may misread down components as lengths in a basis with non-unit vectors.",
+      "suggestion": "Show both unit and non-unit basis cases, displaying X_j = |X||e_j| cos theta.",
+      "locator": {
+        "pdf_page": 62,
+        "printed_page": 45,
+        "section": "4.1"
+      }
+    },
+    {
+      "issue": "The energy-momentum tensor is defined as J̃ ⊗ p̃ only for dust with a single velocity; symmetry is asserted without saying it relies on J and p being parallel.",
+      "impact_on_learner": "Learners may think T is always an outer product of two 1-forms and miss where pressure terms come from.",
+      "suggestion": "Flag the definition as dust-specific, show how symmetry follows from J ∝ p, and preview T = (rho + p)u ⊗ u + p g from GA ch12.",
+      "locator": {
+        "pdf_page": 70,
+        "printed_page": 53,
+        "section": "4.5"
+      }
+    },
+    {
+      "issue": "Symbols shift within §4.5: u is the cloud velocity in Example 4.10 but the observer velocity in Example 4.11 (dust velocity v), ⊗ is written between numbers in eqns 4.58-4.60, p means both momentum and pressure, and T^{0i} is called mass flux.",
+      "impact_on_learner": "Easy to conflate observer and matter velocities, which is exactly the distinction the slot probing is meant to teach.",
+      "suggestion": "Use distinct colours or symbols (U for matter, u_obs for observer), write plain products after filling slots, and say 'energy flux (= momentum density with c = 1)'.",
+      "locator": {
+        "pdf_page": 71,
+        "printed_page": 54,
+        "section": "4.5"
+      }
+    },
+    {
+      "issue": "The chapter's opening sends readers to Section 4.3 for linearity, but linearity is stated in §4.2 (eqn 4.17 and the margin box).",
+      "impact_on_learner": "Minor navigation confusion.",
+      "suggestion": "Point to §4.2 and restate multilinearity when defining a general tensor in §4.4.",
+      "locator": {
+        "pdf_page": 61,
+        "printed_page": 44,
+        "section": null
+      }
+    },
+    {
+      "issue": "The component-first route (absorbing eta) comes before the metric-free definition, and the tangent-space picture is dropped immediately in favour of flat Minkowski space.",
+      "impact_on_learner": "Learners can form the misconception that 1-forms are merely lowered vectors and not see where tangent and dual spaces matter.",
+      "suggestion": "In an app, lead with the linear-map definition and the plane picture, then add the metric as an optional bridge; revisit dual spaces at a point when curvature arrives.",
+      "locator": {
+        "pdf_page": 63,
+        "printed_page": 46,
+        "section": "4.1"
+      }
+    },
+    {
+      "issue": "Why canonical momentum p_mu = ∂L/∂ẋ^mu naturally has a lower index is asserted without argument.",
+      "impact_on_learner": "Seems arbitrary; learners miss a nice consistency check.",
+      "suggestion": "Show that differentiating a scalar with respect to up components gives an object that transforms with the inverse Jacobian (connect to Exercise 4.6).",
+      "locator": {
+        "pdf_page": 65,
+        "printed_page": 48,
+        "section": "4.2"
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Open with: 'If you walk a straight line due North from one city, do you arrive at a city 300 km away?' Let the learner discover the gap before naming tangent spaces.",
+    "Then ask: 'What kind of object, combined with a vector, always gives the same number for every observer?' Guide toward the need for a partner that transforms oppositely, and use bras and kets only if the learner knows quantum mechanics.",
+    "Recommended order: linear-map definition of a 1-form and the sheet picture; duality relation and sigma_mu X^mu; the metric as a bridge (lowering/raising); transformation laws from invariance; general tensors as slot machines; energy-momentum tensor.",
+    "Check understanding of the sheet picture with: 'Doubling a 1-form does what to its sheets?' (halves the spacing) and 'What contraction does an arrow lying inside a sheet give?' (zero).",
+    "For Minkowski lowering, have the learner compute p_mu for p^mu = (E, p) and then p_mu u^mu in the rest frame to recover -E; this exposes the sign convention quickly.",
+    "Use an oblique 2D basis (as in Fig. 4.4) to break the belief that up and down components differ only by signs; a quick numeric case with a 60-degree angle between unit basis vectors works well.",
+    "When learners struggle with valence, have them count slots aloud: a (0,2) machine with one vector inserted is a (0,1) machine, i.e. a 1-form.",
+    "Common question: 'Is a 1-form just a row vector?' Answer: in components it can be displayed that way, but it is a geometric object independent of basis, and it exists without a metric; row/column is a representation choice.",
+    "Common question: 'Why the minus sign in E = -p̃(u)?' Answer: the signature (-,+,+,+) makes the lowered time component negative; with the opposite signature the sign flips.",
+    "Before §4.5, rehearse length contraction; ask the learner to predict how the number density and energy density of a moving box of dust change before revealing gamma and gamma^2.",
+    "When interpreting T, keep two velocities distinct: the matter's 4-velocity builds T, and the observer's 4-velocity goes into the slots. Ask 'Whose velocity is this?' at every step.",
+    "Point out the printed slips (4.46, the component formula after 4.51, Exercise 4.3) as practice in checking that indices balance; this reinforces the chapter's main rule.",
+    "Forward link for motivated learners: the energy-momentum tensor is the right-hand side of Einstein's equation; the metric generalizes to g_{mu nu} in the next chapter."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Fig. 4.5 visual description corrected: the INSERT label sits below the two 'vector' slots, not above them; spout position clarified.",
+      "Fig. 4.6 visual description corrected: image shows three 1-form slots and two vector slots; removed invented 'dots between slots'.",
+      "Example 4.4 result rewritten: the ambiguous 'k·x - omega t' now distinguishes the 4D contraction from the spatial dot product.",
+      "Doppler-effect concept and Exercise 4.8 entry no longer falsely claim the exercise was missing from the reading copy; the Appendix E answer omega' = gamma(omega - beta k^x) was verified in appE.md.",
+      "Added six missing margin notes (footnotes 11, 13, 20, 21, 25, 26) and re-sorted margin notes by page.",
+      "Added key equations (4.5), (4.10) and (4.62) that were not covered."
+    ],
+    "residual_concerns": [
+      "The book's own printed slips (sigma_mu X^nu before 4.29, omega^mu ⊗ omega^mu in 4.46, J_mu rho_nu after 4.51, sum to 4 in Exercise 4.3) are recorded as gaps; equations in the dossier use corrected forms.",
+      "Inventory listed no suspect pages or missing figures; five pages (62, 66, 68, 70, 71) were rendered and matched the reading copy with no lost content.",
+      "Chapter numbers for forward cross-references (ch5, ch11, ch12, ch13, ch31, ch32, ch36, appC, appE) were checked against toc.json titles, but not against those chapters' contents."
+    ],
+    "coverage": {
+      "toc_sections": 5,
+      "sections": 7,
+      "inventory_figures": 6,
+      "figures": 6,
+      "inventory_examples": 11,
+      "worked_examples": 13,
+      "concepts": 56,
+      "key_equations": 61,
+      "locators_checked": 92,
+      "locators_wrong": 0,
+      "pages_rendered": 5
+    }
+  }
+}

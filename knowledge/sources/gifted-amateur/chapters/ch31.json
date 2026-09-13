@@ -1,0 +1,3650 @@
+{
+  "book": "gifted-amateur",
+  "unit_id": "ch31",
+  "title": "A reintroduction to geometry",
+  "part": "V: Geometry",
+  "printed_pages": [
+    322,
+    333
+  ],
+  "pdf_pages": [
+    339,
+    350
+  ],
+  "one_line_summary": "Rebuilds vectors, 1-forms and tensors on a bare smooth manifold without a metric: a vector becomes the derivative d/dlambda along a curve, basis vectors become partial derivatives, basis 1-forms become coordinate differentials dx^alpha, and tensors become multilinear slot machines with a toolkit of operations (gradient, contraction, divergence, transpose, symmetrization, antisymmetrization, wedge product).",
+  "role_in_book": "Second chapter of Part V, the book's rigorous second pass through geometry. Part I (ch2-ch5) had introduced vectors as arrows, 1-forms as stacks of surfaces and tensors as slot machines on flat spacetime with a metric; Part II used connections and curvature. Having reviewed classical extrinsic and intrinsic curvature in ch30, the authors now strip the arena down to a smooth manifold and re-derive the objects in a coordinate-free, derivative-based language. This supplies the vocabulary (tangent space, dual space, vectors as operators, dx^alpha as dual basis, antisymmetrized tensor products) that ch32 needs for p-forms, ch33 for exterior and Lie derivatives, ch34-ch36 for the connection and Cartan's method, and ch37-ch38 for Hodge duality and Stokes' theorem.",
+  "assumed_background": [
+    {
+      "topic": "Vectors, 1-forms as stacks of surfaces, and tensors as linear slot machines in flat spacetime",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2, ch4"
+    },
+    {
+      "topic": "Components, basis vectors, Einstein summation and index placement",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2-ch4"
+    },
+    {
+      "topic": "The metric tensor g_{mu nu} and its use to form scalar products",
+      "source": "earlier-in-this-book",
+      "where": "GA ch5"
+    },
+    {
+      "topic": "Connection coefficients, parallel transport and the covariant derivative",
+      "source": "earlier-in-this-book",
+      "where": "GA ch7, ch9"
+    },
+    {
+      "topic": "Gradient, dot product and directional derivative of a scalar function in 3D",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Chain rule for functions of several variables; total differential df",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Parametrized curves and their tangent (velocity) vectors",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Abstract vector spaces, linear combinations, bases, dual spaces and linear maps",
+      "source": "linear-algebra",
+      "where": null
+    },
+    {
+      "topic": "Permutations and their parity (for symmetrization and antisymmetrization)",
+      "source": "school-math",
+      "where": null
+    },
+    {
+      "topic": "Notion of a smooth manifold (optional, fuller treatment given later)",
+      "source": "advanced-math",
+      "where": "GA appC"
+    },
+    {
+      "topic": "Maxwell's equations in tensor form (needed only for Exercise 31.7)",
+      "source": "electromagnetism",
+      "where": null
+    }
+  ],
+  "learning_objectives": [
+    "Reader can say what makes a space a manifold (locally resembling R^n at every point) and classify examples such as the circle, sphere and torus versus a kinked line, a self-crossing curve, a double cone or a line piercing a plane.",
+    "Reader can explain why the school picture of a vector as an arrow between two points and of the gradient as a vector normal to a surface is inadequate on a general manifold, including the index-placement mismatch in the components of grad h.",
+    "Reader can obtain a tangent vector as the derivative of a parametrized curve and, using the chain rule, write it as v = (dx^alpha/dlambda) partial/partial x^alpha.",
+    "Reader can identify components v^alpha = dx^alpha/dlambda and coordinate basis vectors e_alpha = partial/partial x^alpha, and apply a vector to a function to get its directional derivative v[f].",
+    "Reader can show that the tangent vectors at a point form a vector space by combining the derivative operators of two curves into the tangent of a third curve.",
+    "Reader can define a congruence of curves and explain how it generates a vector field, and why vectors at different points cannot be compared without extra structure (a connection or the Lie derivative).",
+    "Reader can state the duality between vectors and 1-forms, use linearity of the pairing <sigma, v>, and interpret it as the number of 1-form surfaces a vector pierces.",
+    "Reader can identify the coordinate basis 1-forms with differentials dx^alpha, verify <dx^mu, partial/partial x^nu> = delta^mu_nu, and show that <df, u> reproduces u[f].",
+    "Reader can define an (n, m) tensor as a multilinear machine, build tensors with the tensor product, and extract components by feeding in basis 1-forms and basis vectors, then reconstruct the tensor from components.",
+    "Reader can write the metric as the (0,2) tensor g = g_{mu nu} dx^mu tensor dx^nu.",
+    "Reader can carry out and interpret gradient, contraction, divergence, transpose, symmetrization T^{(mu nu)}, antisymmetrization T^{[mu nu]} and the wedge product u wedge v, in slot and component language."
+  ],
+  "teaching_approach": {
+    "summary": "A deliberate second pass (spiral revisit) over objects the reader already uses, now stripped of the metric so that only smoothness remains. The chapter pivots on one slogan, that every vector is a derivative, reached by gradually removing the point from the expression dP/dlambda until only the operator d/dlambda is left. Everything else is built on that pivot: components and basis vectors fall out of the chain rule, 1-forms become differentials by duality, and the two 'slots' of a vector (square brackets for functions, round brackets for 1-forms) are reconciled. The tensor material is then a brisk, MTW-style catalogue of slot operations delivered inside one long example. Voice is informal, with a Samuel Johnson epigraph and heavy reliance on the slot-machine metaphor from ch4; proofs are light and several notational slips survive in print.",
+    "style_tags": [
+      "spiral-revisit",
+      "index-free-abstract",
+      "geometric-first",
+      "conversational-informal",
+      "example-driven",
+      "analogy-driven",
+      "diagram-driven"
+    ],
+    "narrative_arc": [
+      "Declare the arena: a smooth manifold with no metric, no connection, no curvature; illustrate with manifold and non-manifold sketches.",
+      "Review the old technology (arrow between two points, components on a basis, gradient as a normal vector, directional derivative v.grad h) and flag that it will not survive, notably because grad h has mismatched index placement.",
+      "Parametrize the straight segment between two points and note that its lambda-derivative returns the arrow, so the vector can be recovered from a derivative.",
+      "Generalize to a curved path: the tangent vector is dP/dlambda; bring in coordinates and the chain rule.",
+      "Strip the point off to obtain the operator d/dlambda = (dx^alpha/dlambda) partial_alpha; read off components and coordinate basis vectors; box the result.",
+      "Feed functions rather than points into the operator to recover the directional derivative; state the slogan linking geometry and analysis.",
+      "Show closure: a linear combination of tangent operators of two curves through P is the tangent operator of a third curve, so tangent vectors at P form a vector space.",
+      "Extend from one point to all points via a congruence of non-intersecting curves, giving a vector field; warn that comparing vectors at different points needs a connection (or, later, the Lie derivative).",
+      "Reintroduce 1-forms as the dual partner of vectors (tangent space, dual space, real line), with linearity and the piercing-surfaces picture.",
+      "Identify basis 1-forms with coordinate differentials dx^alpha, check the duality delta, and show <df, u> = u[f], retiring the separate function slot.",
+      "Generalize to (n, m) tensors as slot machines built from tensor products; extract components by inserting basis objects; write the metric as a (0,2) tensor.",
+      "Catalogue tensor operations on a sample (0,3) tensor: gradient, contraction, divergence, transpose, symmetry types, (anti)symmetrization, wedge product and bivectors.",
+      "Summarize and point forward to differential forms in ch32."
+    ],
+    "signature_moves": [
+      "Removing the point: dP/dlambda is turned into the bare operator d/dlambda[ ], so the vector stops being a displacement and becomes a machine waiting for input.",
+      "Two kinds of vector slot, marked by bracket shape: square brackets eat functions (directional derivative), round brackets eat 1-forms (dual pairing); the chapter then shows they are the same thing via <df, u> = u[f].",
+      "Reading components and basis vectors directly off the chain rule: dx^alpha/dlambda are components, partial/partial x^alpha are basis vectors.",
+      "Manifold versus non-manifold pictures judged by the 'zoom in until it looks flat' test.",
+      "Tip-minus-base intuition reused for directional derivatives and even for the gradient of a tensor (eqn 31.36).",
+      "Three-level space diagram (tangent space, real line, dual space) making the vector/1-form duality a pair of maps onto numbers.",
+      "Tensor operations presented as manipulations of slots (insert, swap, contract, add a slot) with component translations alongside, following MTW.",
+      "Penrose diagrammatic notation offered as an exercise to visualize index contractions and (anti)symmetrizations."
+    ]
+  },
+  "sections": [
+    {
+      "number": null,
+      "title": "Chapter opening: the smooth manifold as a stripped-down arena",
+      "printed_page": 322,
+      "pdf_page": 339,
+      "summary": "States the chapter's aim of a coordinate-free geometry resting on the idea that each vector is a derivative. Introduces the manifold as a space that is locally like R^n and has only smoothness, with metric, vector-space and topological structure deliberately set aside. Points, coordinate patches, monotonically parametrized curves and differentiation along curves are declared well defined. Example 31.1 sorts spaces into manifolds (R^n, circle, sphere, torus) and non-manifolds (line jutting from a plane, double cone, kinked line, self-crossing line). Vectors are said to live in a tangent space and 1-forms in a dual space rather than in the manifold, and the reader is asked to forget the metric, covariant derivative and curvature for now.",
+      "concepts": [
+        "smooth manifold",
+        "tangent space",
+        "dual space"
+      ],
+      "key_moves": [
+        "Strip R^n of everything except smoothness to define the arena.",
+        "Use the zoom-until-flat criterion on pictures to separate manifolds from non-manifolds.",
+        "Announce that vectors and 1-forms live in spaces attached to a point, not in the manifold itself.",
+        "Explicitly suspend the metric, connection and curvature."
+      ]
+    },
+    {
+      "number": "31.1",
+      "title": "Old notions of vectors and gradients",
+      "printed_page": 323,
+      "pdf_page": 340,
+      "summary": "Example 31.2 recalls the elementary kit: a vector as a directed segment from A to B expanded on a basis, an orthonormal basis with e.e = delta, a surface z = f(x,y) recast as h(x,y,z) = 0 whose gradient is a vector normal to the tangent plane, and the directional derivative v.grad h = v^alpha partial h/partial x^alpha giving the change in h from base to tip of v. The authors then declare this toolkit unfit for their purposes, noting in a footnote that grad h written as h_{,alpha} e_alpha breaks the up-down summation rule, and promise that 1-forms will remove the forced, non-covariant idea of a gradient as a normal vector.",
+      "concepts": [
+        "gradient as a normal vector",
+        "directional derivative",
+        "basis vectors and components"
+      ],
+      "key_moves": [
+        "Write grad h = (partial h/partial x^alpha) e_alpha and point out the two lower indices.",
+        "Define the directional derivative as a number: the change of h from base to tip of v.",
+        "Signal that the gradient really wants to be a 1-form, not a vector."
+      ]
+    },
+    {
+      "number": "31.2",
+      "title": "Vectors and vector fields",
+      "printed_page": 324,
+      "pdf_page": 341,
+      "summary": "Replaces two-point vectors with a vector at one point. Parametrizing the segment P(lambda) = A + lambda(B - A) shows its derivative is B - A; for a general curve the tangent vector is dP/dlambda (Cartan's reading: the motion of the point). Introducing coordinates x^alpha(lambda) and the chain rule gives v = (dx^alpha/dlambda) partial P/partial x^alpha; stripping off P leaves the operator d/dlambda = (dx^alpha/dlambda) partial/partial x^alpha, from which components v^alpha = dx^alpha/dlambda and basis vectors e_alpha = partial/partial x^alpha are read off (boxed eqn 31.11). Feeding functions into the operator gives v[f] = partial_v f, the directional derivative, and the slogan that every vector is a derivative ties geometry to analysis. Example 31.3 shows a linear combination av + bu of tangent operators of two curves through P is the tangent operator d/dphi of a third curve, so tangent vectors at P form a vector space. Finally a congruence of non-crossing space-filling curves defines a vector field, with the caution that vectors at different points cannot be compared without a connection; the Lie derivative is flagged for later.",
+      "concepts": [
+        "tangent vector as derivative operator",
+        "coordinate basis vectors",
+        "directional derivative",
+        "tangent space",
+        "vector space",
+        "congruence of curves",
+        "vector field",
+        "parallel transport and connection"
+      ],
+      "key_moves": [
+        "d/dlambda of A + lambda(B - A) returns B - A, so a derivative can reproduce the arrow.",
+        "Chain rule: dP/dlambda = (dx^alpha/dlambda)(partial P/partial x^alpha).",
+        "Delete the point P to obtain a pure operator acting on whatever is supplied.",
+        "Match v = v^alpha e_alpha against the operator to identify v^alpha = dx^alpha/dlambda and e_alpha = partial_alpha.",
+        "Insert a function f: v[f] = v^alpha partial_alpha f is the directional derivative.",
+        "Closure: a d/dlambda + b d/dmu = d/dphi for some third curve through P.",
+        "Congruence gives a unique tangent at every point, hence a vector field; comparison across points requires parallel transport."
+      ]
+    },
+    {
+      "number": "31.3",
+      "title": "Linear slot machines again",
+      "printed_page": 327,
+      "pdf_page": 344,
+      "summary": "Brings back 1-forms, the first members of the family of differential forms that occupies the rest of Part V, and argues that forms deserve the same undergraduate status as vectors. Besides its function slot, a vector has a round-bracket slot that accepts a 1-form and returns a number, written symmetrically as v(sigma) = sigma(v) = <sigma, v>. Vectors, 1-forms and numbers are pictured in a tangent space, a dual space and the real line, with the pairing mapping between them; linearity in each argument is stated. The ch4 picture of a 1-form as evenly spaced surfaces returns, with the pairing counting surfaces pierced; Example 31.4 notes that the surface spacing along x is 1/A_1 and scaling the form scales the density. Basis 1-forms are defined by <omega^beta, e_alpha> = delta^beta_alpha and, in a coordinate basis, identified with differentials dx^alpha, checked via partial x^mu/partial x^nu = delta. The differential df = (partial_alpha f) dx^alpha is the simplest 1-form, and <df, u> = u^alpha partial_alpha f shows that acting on a function and pairing with its differential are the same, letting the function slot be retired. 1-form fields and the resulting scalar fields close the section.",
+      "concepts": [
+        "1-form",
+        "dual space",
+        "duality pairing of vectors and 1-forms",
+        "basis 1-forms as coordinate differentials",
+        "differential of a function as a 1-form",
+        "1-form field",
+        "directional derivative"
+      ],
+      "key_moves": [
+        "Give the vector a second slot, for 1-forms, and make the pairing symmetric.",
+        "Picture three spaces (tangent, dual, real line) linked by the pairing.",
+        "Count pierced surfaces to interpret <A, X>; spacing is the reciprocal of the component.",
+        "Define dual basis by <omega^beta, e_alpha> = delta^beta_alpha.",
+        "Identify omega^alpha = dx^alpha because <dx^mu, partial_nu> = partial x^mu/partial x^nu.",
+        "Compute <df, u> in components and find it equals u[f], unifying the two vector slots."
+      ]
+    },
+    {
+      "number": "31.4",
+      "title": "Tensors again",
+      "printed_page": 329,
+      "pdf_page": 346,
+      "summary": "Generalizes to tensors as slot machines: an (n, m) tensor takes n 1-forms and m vectors multilinearly to a number. The tensor product of two vectors, u tensor v, is a (2,0) tensor whose slots take 1-forms; Example 31.5 extracts its components T^{alpha beta} = u^alpha v^beta by inserting basis 1-forms and rebuilds T = u^alpha v^beta e_alpha tensor e_beta. Example 31.6 writes the metric as the (0,2) tensor g = g_{mu nu} dx^mu tensor dx^nu (also called ds^2) that eats two vectors. General (n, m) tensors are tensor products of n vectors and m 1-forms; components come from inserting n basis 1-forms and m basis vectors, and the tensor is rebuilt from components on the tensor-product basis. Order within the vector factors and within the 1-form factors matters, but the two groups may be listed in either order. Tensor fields assign such a tensor to every point. A footnote sketches the history of tensor calculus through Ricci-Curbastro and Levi-Civita.",
+      "concepts": [
+        "tensor as multilinear map",
+        "tensor valence (n, m)",
+        "tensor product",
+        "tensor components by slot insertion",
+        "metric tensor as a (0,2) tensor",
+        "tensor field"
+      ],
+      "key_moves": [
+        "Define an (n, m) tensor by what it eats and what it returns.",
+        "Build a (2,0) tensor from two vectors with the tensor product.",
+        "Feed basis 1-forms to extract T^{alpha beta} = u^alpha v^beta and reconstruct the tensor on e_alpha tensor e_beta.",
+        "Recast the metric line element as a tensor product of basis 1-forms.",
+        "General component extraction and reconstruction formulas for (n, m) tensors.",
+        "Order rule: keep order among vector factors and among 1-form factors separately."
+      ]
+    },
+    {
+      "number": "31.5",
+      "title": "Examples of tensor operations",
+      "printed_page": 330,
+      "pdf_page": 347,
+      "summary": "Example 31.7, modelled on MTW, runs a catalogue of operations on a (0,3) tensor P and a (1,3) tensor S. The gradient adds one vector slot and is read as the change of P from base to tip of the new vector, with components P_{alpha beta gamma, mu} in flat space. Contraction inserts a basis 1-form and matching basis vector into two slots and sums, lowering the rank by two (S^mu_{alpha mu gamma}). Divergence contracts the new gradient slot with an existing upper slot. Transpose swaps two slots and defines symmetric, totally symmetric, antisymmetric and totally antisymmetric tensors. Symmetrization and antisymmetrization average over permutations of indices with 1/n! and with or without sign, extracting the symmetric or antisymmetric part. The wedge product u wedge v = u tensor v - v tensor u builds a bivector with components u^mu v^nu - v^mu u^nu. The section closes with a summary that geometry can be done with coordinate-free objects or their components, and a pointer to differential forms and curvature in ch32.",
+      "concepts": [
+        "gradient of a tensor",
+        "tensor contraction",
+        "divergence of a tensor",
+        "transpose of tensor slots",
+        "symmetric and antisymmetric tensors",
+        "symmetrization",
+        "antisymmetrization",
+        "wedge product",
+        "bivector",
+        "comma notation for partial derivatives"
+      ],
+      "key_moves": [
+        "Filling all three slots of P with vectors gives P_{alpha beta gamma} u^alpha v^beta w^gamma.",
+        "Gradient: an extra vector slot measuring tip-minus-base change, P_{alpha beta gamma, mu} in flat space.",
+        "Contraction as inserting omega^mu and e_mu in two slots and summing.",
+        "Divergence as contraction of the gradient slot with an upper slot.",
+        "Symmetry types defined by behaviour under slot swaps.",
+        "Symmetrizer and antisymmetrizer with 1/n! normalization.",
+        "Wedge product as the antisymmetrized tensor product; bivector components."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "smooth manifold",
+      "aliases": [
+        "manifold M"
+      ],
+      "kind": "definition",
+      "definition": "A space in which a neighbourhood of every point can be smoothly matched to a region of flat R^n, so that coordinates can be laid on patches and curves and differentiation are well defined, without assuming any metric, connection or global vector-space structure.",
+      "how_introduced": "Set up as the minimal arena for the chapter by removing metric, vector-space and topological structure from R^n and keeping only smoothness; made concrete by Example 31.1 and Fig. 31.1 contrasting shapes that look flat under magnification with shapes that have a defective point.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Euclidean space R^n",
+        "coordinates"
+      ],
+      "locators": [
+        {
+          "pdf_page": 339,
+          "printed_page": 322,
+          "section": null
+        },
+        {
+          "pdf_page": 340,
+          "printed_page": 323,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "The book defers the full definition (charts, atlases) to Appendix C; the tutor should not over-formalize here."
+    },
+    {
+      "name": "non-manifold (singular point) examples",
+      "aliases": [
+        "spaces not smooth enough to be manifolds"
+      ],
+      "kind": "definition",
+      "definition": "Spaces containing at least one point whose neighbourhood never resembles R^n however closely it is examined, such as a kinked line, a self-crossing curve, the apex of a double cone, or a line sticking out of a plane.",
+      "how_introduced": "Example 31.1 lists them as the more illuminating half of the classification and Fig. 31.1 draws them next to good manifolds.",
+      "depth": "introduced",
+      "prerequisites": [
+        "smooth manifold"
+      ],
+      "locators": [
+        {
+          "pdf_page": 339,
+          "printed_page": 322,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Strictly a kinked line is topologically a manifold but not a smooth embedded one; the book's criterion is the informal smooth-look test."
+    },
+    {
+      "name": "gradient as a normal vector",
+      "aliases": [
+        "gradient vector of a surface",
+        "old gradient"
+      ],
+      "kind": "definition",
+      "definition": "The elementary construction grad h = (partial h/partial x^alpha) e_alpha, a vector perpendicular to the level surface h = 0; it relies on a metric (to turn derivatives into a vector) and its components carry a lower index despite being attached to vector basis elements.",
+      "how_introduced": "Recalled in Example 31.2 as part of the old technology, then criticized as forced and non-covariant, with a footnote pointing to the index mismatch.",
+      "depth": "revisited",
+      "prerequisites": [
+        "partial derivative",
+        "basis vectors and components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 340,
+          "printed_page": 323,
+          "section": "31.1"
+        }
+      ],
+      "formulas": [
+        "\\nabla h = \\frac{\\partial h}{\\partial x^{\\alpha}}\\boldsymbol{e}_{\\alpha}"
+      ],
+      "notes": "Motivates the replacement of the gradient vector by the 1-form dh."
+    },
+    {
+      "name": "basis vectors and components",
+      "aliases": [
+        "vector expansion u = u^alpha e_alpha"
+      ],
+      "kind": "convention",
+      "definition": "Any vector can be written as a sum of basis vectors e_alpha weighted by component numbers u^alpha, with the index on the components written up and summed against the lower index on the basis.",
+      "how_introduced": "Recalled from earlier chapters in Example 31.2 with an orthonormal basis e_alpha . e_beta = delta_{alpha beta}; later re-derived from the chain rule.",
+      "depth": "revisited",
+      "prerequisites": [
+        "vector space"
+      ],
+      "locators": [
+        {
+          "pdf_page": 340,
+          "printed_page": 323,
+          "section": "31.1"
+        },
+        {
+          "pdf_page": 341,
+          "printed_page": 324,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{u} = u^{\\alpha}\\boldsymbol{e}_{\\alpha}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "directional derivative",
+      "aliases": [
+        "partial_v f",
+        "v[f]",
+        "derivative of f along v"
+      ],
+      "kind": "operation",
+      "definition": "The rate of change of a scalar function f along a vector v, given in components by v^alpha partial f/partial x^alpha; heuristically the value of f at the tip of v minus its value at the base.",
+      "how_introduced": "First as v . grad h in the old toolkit, then reinterpreted as the action of the vector operator on a function, and finally as the pairing of the vector with the 1-form df.",
+      "depth": "core",
+      "prerequisites": [
+        "partial derivative",
+        "tangent vector as derivative operator"
+      ],
+      "locators": [
+        {
+          "pdf_page": 340,
+          "printed_page": 323,
+          "section": "31.1"
+        },
+        {
+          "pdf_page": 342,
+          "printed_page": 325,
+          "section": "31.2"
+        },
+        {
+          "pdf_page": 345,
+          "printed_page": 328,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [
+        "\\partial_{\\boldsymbol{v}} h = \\boldsymbol{v}\\cdot\\nabla h = v^{\\alpha}\\frac{\\partial h}{\\partial x^{\\alpha}}",
+        "\\boldsymbol{u}[f] = \\partial_{\\boldsymbol{u}} f = \\langle \\boldsymbol{d}f, \\boldsymbol{u}\\rangle"
+      ],
+      "notes": "Appears three times in three guises; the unifying thread of the chapter."
+    },
+    {
+      "name": "tangent vector to a parametrized curve",
+      "aliases": [
+        "velocity vector dP/dlambda",
+        "tangent vector"
+      ],
+      "kind": "definition",
+      "definition": "For a curve P(lambda) through a manifold, the tangent vector at a point is the derivative of the curve with respect to its parameter at that point; for a straight segment A + lambda(B - A) it reproduces B - A.",
+      "how_introduced": "Obtained by parametrizing the straight line between two points and differentiating, then generalized to a curved path (Fig. 31.3), with Cartan's reading as the motion of the point.",
+      "depth": "core",
+      "prerequisites": [
+        "parametrized curve",
+        "derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 341,
+          "printed_page": 324,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [
+        "\\frac{d\\mathcal{P}(\\lambda)}{d\\lambda} = \\mathcal{B} - \\mathcal{A}",
+        "\\boldsymbol{v} = \\frac{d\\mathcal{P}(\\lambda)}{d\\lambda}"
+      ],
+      "notes": "On a genuine manifold 'P(lambda) = A + lambda(B - A)' only makes sense in a coordinate patch or flat space; the book uses it as a stepping stone."
+    },
+    {
+      "name": "tangent vector as derivative operator",
+      "aliases": [
+        "every vector is a derivative",
+        "v = d/dlambda",
+        "vector operator v[ ]"
+      ],
+      "kind": "principle",
+      "definition": "A tangent vector at a point is identified with the first-order differential operator d/dlambda along a curve through that point; acting on any function it returns the function's rate of change along the curve, and in coordinates it equals (dx^alpha/dlambda) partial/partial x^alpha.",
+      "how_introduced": "The chain rule is applied to dP/dlambda in coordinates and the point P is then removed, leaving an operator with an empty slot; the result is boxed and sloganized, and Fig. 31.5 links vector with derivative and geometry with analysis.",
+      "depth": "core",
+      "prerequisites": [
+        "tangent vector to a parametrized curve",
+        "chain rule",
+        "directional derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 341,
+          "printed_page": 324,
+          "section": "31.2"
+        },
+        {
+          "pdf_page": 342,
+          "printed_page": 325,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{v}[\\ ] = \\frac{d}{d\\lambda} = \\frac{dx^{\\alpha}}{d\\lambda}\\frac{\\partial}{\\partial x^{\\alpha}} = v^{\\alpha}\\boldsymbol{e}_{\\alpha}",
+        "\\boldsymbol{v}[f] = v^{\\alpha}\\frac{\\partial f}{\\partial x^{\\alpha}}"
+      ],
+      "notes": "The key idea of the chapter; it makes vectors intrinsic to the manifold without needing displacements between points."
+    },
+    {
+      "name": "coordinate basis vectors",
+      "aliases": [
+        "e_alpha = partial/partial x^alpha",
+        "holonomic basis",
+        "partial_alpha"
+      ],
+      "kind": "definition",
+      "definition": "In a coordinate system x^alpha the basis vectors at a point are the partial derivative operators partial/partial x^alpha, i.e. the tangent vectors to the coordinate lines, and the components of a curve's tangent are dx^alpha/dlambda.",
+      "how_introduced": "Read off by comparing the operator form of a tangent vector with v = v^alpha e_alpha (eqn 31.9); a footnote explains components as how coordinates change with the parameter and basis vectors as rates of change with respect to coordinates.",
+      "depth": "core",
+      "prerequisites": [
+        "tangent vector as derivative operator",
+        "coordinates"
+      ],
+      "locators": [
+        {
+          "pdf_page": 341,
+          "printed_page": 324,
+          "section": "31.2"
+        },
+        {
+          "pdf_page": 342,
+          "printed_page": 325,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [
+        "v^{\\alpha} = \\frac{dx^{\\alpha}}{d\\lambda}",
+        "\\boldsymbol{e}_{\\alpha} = \\frac{\\partial}{\\partial x^{\\alpha}}"
+      ],
+      "notes": "Non-coordinate (e.g. orthonormal) frames are not discussed here."
+    },
+    {
+      "name": "tangent space",
+      "aliases": [
+        "T_P M",
+        "space of vectors at P"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The vector space of all tangent vectors (directional derivative operators) at a single point P of a manifold; it has the same dimension as the manifold and is distinct from the manifold itself.",
+      "how_introduced": "Named in the opening as the home of vectors, then justified in Example 31.3 by showing linear combinations of tangents to curves through P are tangents to other curves through P; drawn as a plane in Fig. 31.8.",
+      "depth": "developed",
+      "prerequisites": [
+        "tangent vector as derivative operator",
+        "vector space"
+      ],
+      "locators": [
+        {
+          "pdf_page": 339,
+          "printed_page": 322,
+          "section": null
+        },
+        {
+          "pdf_page": 342,
+          "printed_page": 325,
+          "section": "31.2"
+        },
+        {
+          "pdf_page": 343,
+          "printed_page": 326,
+          "section": "31.2"
+        },
+        {
+          "pdf_page": 344,
+          "printed_page": 327,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [
+        "\\frac{d}{d\\phi} = a\\frac{d}{d\\lambda} + b\\frac{d}{d\\mu}"
+      ],
+      "notes": "Appendix C gives the formal treatment."
+    },
+    {
+      "name": "vector space",
+      "aliases": [
+        "linear space"
+      ],
+      "kind": "definition",
+      "definition": "A set closed under addition and scalar multiplication obeying the usual axioms (zero element, inverses, associativity, commutativity, distributivity), possessing a basis of linearly independent elements whose number is the dimension.",
+      "how_introduced": "Summarized in a margin note when showing that tangent operators at P are closed under linear combination.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 343,
+          "printed_page": 326,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "congruence of curves",
+      "aliases": [
+        "congruence",
+        "space-filling family of non-intersecting curves"
+      ],
+      "kind": "definition",
+      "definition": "A family of curves such that exactly one curve passes through each point of a region, so that the curves fill the region and never cross; the parameter values on different curves need not correspond to equal distances.",
+      "how_introduced": "Introduced via Fig. 31.7 as the device that turns single tangent vectors into a field; a margin note previews its use as fluid streamlines in ch39.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tangent vector as derivative operator"
+      ],
+      "locators": [
+        {
+          "pdf_page": 343,
+          "printed_page": 326,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [],
+      "notes": "Mathematically these are the integral curves of the vector field."
+    },
+    {
+      "name": "vector field",
+      "aliases": [
+        "field of tangent vectors"
+      ],
+      "kind": "mathematical-object",
+      "definition": "An assignment of one tangent vector to every point of a region of the manifold; equivalently the tangents d/dlambda|_Q to the curves of a congruence at each point Q.",
+      "how_introduced": "Built from a congruence: each point lies on one curve whose tangent is the vector there, described as a machine that takes a point and returns a vector.",
+      "depth": "developed",
+      "prerequisites": [
+        "congruence of curves",
+        "tangent space"
+      ],
+      "locators": [
+        {
+          "pdf_page": 343,
+          "printed_page": 326,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{v} = \\left.\\frac{d}{d\\lambda}\\right|_{\\mathcal{Q}}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "comparing vectors at different points requires a connection",
+      "aliases": [
+        "no natural comparison across tangent spaces"
+      ],
+      "kind": "principle",
+      "definition": "Because vectors at different points belong to different tangent spaces, a bare manifold gives no way to say whether they are equal or to subtract them; extra structure such as a connection (parallel transport) or a flow (Lie derivative) is needed.",
+      "how_introduced": "Stated after the congruence discussion as a caution, recalling the connection and covariant derivative of earlier chapters and previewing the Lie derivative.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tangent space",
+        "vector field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 343,
+          "printed_page": 326,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "parallel transport and connection",
+      "aliases": [
+        "connection",
+        "covariant derivative"
+      ],
+      "kind": "definition",
+      "definition": "The extra structure that specifies how to carry a vector from one point to another so that it counts as unchanged, giving a notion of parallelism and a derivative of vector fields between points.",
+      "how_introduced": "Recalled briefly from earlier chapters as what would be needed to compare vectors at different points; otherwise explicitly set aside.",
+      "depth": "mention",
+      "prerequisites": [
+        "vector field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 343,
+          "printed_page": 326,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [],
+      "notes": "Treated geometrically in ch34."
+    },
+    {
+      "name": "Lie derivative",
+      "aliases": [],
+      "kind": "operation",
+      "definition": "A derivative that compares tensor fields at neighbouring points by dragging them along the flow of a vector field, requiring no connection or metric.",
+      "how_introduced": "Only named in a margin note as an alternative way to compare vector fields at different points.",
+      "depth": "mention",
+      "prerequisites": [
+        "vector field",
+        "congruence of curves"
+      ],
+      "locators": [
+        {
+          "pdf_page": 343,
+          "printed_page": 326,
+          "section": "31.2"
+        }
+      ],
+      "formulas": [],
+      "notes": "Developed in ch33."
+    },
+    {
+      "name": "1-form",
+      "aliases": [
+        "covector",
+        "one-form",
+        "linear slot machine for vectors",
+        "differential form of degree 1"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A linear map from vectors at a point to real numbers; pictured as a stack of evenly spaced surfaces whose value on a vector is the number of surfaces the vector crosses.",
+      "how_introduced": "Returned to from ch4 as the first member of the family of differential forms; motivated by giving vectors a slot that accepts a 1-form, with the three-space picture of Fig. 31.8 and the stacked-sheet picture of Fig. 31.9.",
+      "depth": "core",
+      "prerequisites": [
+        "tangent space",
+        "linear map"
+      ],
+      "locators": [
+        {
+          "pdf_page": 344,
+          "printed_page": 327,
+          "section": "31.3"
+        },
+        {
+          "pdf_page": 345,
+          "printed_page": 328,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [
+        "\\tilde{\\boldsymbol{\\sigma}} = \\sigma_{\\alpha}\\boldsymbol{\\omega}^{\\alpha}"
+      ],
+      "notes": "The authors argue forms are no harder than vectors and deserve equal standing in undergraduate teaching."
+    },
+    {
+      "name": "dual space",
+      "aliases": [
+        "cotangent space",
+        "T*_P M"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The vector space of all linear maps from the tangent space at a point to the real numbers, i.e. the space where 1-forms at that point live; it has the same dimension as the tangent space.",
+      "how_introduced": "Named in the opening and drawn in Fig. 31.8 as a second plane, mirrored across the real line from the tangent space.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tangent space",
+        "1-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 340,
+          "printed_page": 323,
+          "section": null
+        },
+        {
+          "pdf_page": 344,
+          "printed_page": 327,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "duality pairing of vectors and 1-forms",
+      "aliases": [
+        "inner product <sigma, v>",
+        "contraction of a 1-form with a vector",
+        "sigma . v"
+      ],
+      "kind": "operation",
+      "definition": "The bilinear rule that combines a 1-form and a vector at the same point into a number, written <sigma, v> = sigma(v) = v(sigma); it is linear in each argument and requires no metric.",
+      "how_introduced": "Presented as a two-way mapping: a 1-form eats a vector and a vector eats a 1-form, both landing on the real line; linearity is stated and the surface-piercing count gives the picture.",
+      "depth": "core",
+      "prerequisites": [
+        "1-form",
+        "tangent space"
+      ],
+      "locators": [
+        {
+          "pdf_page": 344,
+          "printed_page": 327,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [
+        "\\tilde{\\boldsymbol{\\sigma}}\\cdot\\boldsymbol{v} \\equiv \\langle\\tilde{\\boldsymbol{\\sigma}},\\boldsymbol{v}\\rangle = \\boldsymbol{v}(\\tilde{\\boldsymbol{\\sigma}}) = \\tilde{\\boldsymbol{\\sigma}}(\\boldsymbol{v})",
+        "\\langle a\\tilde{\\boldsymbol{\\sigma}} + b\\tilde{\\boldsymbol{\\rho}}, \\boldsymbol{v}\\rangle = a\\langle\\tilde{\\boldsymbol{\\sigma}},\\boldsymbol{v}\\rangle + b\\langle\\tilde{\\boldsymbol{\\rho}},\\boldsymbol{v}\\rangle"
+      ],
+      "notes": "The book calls this an inner product; it is not a metric scalar product."
+    },
+    {
+      "name": "dual basis",
+      "aliases": [
+        "basis 1-forms omega^alpha"
+      ],
+      "kind": "definition",
+      "definition": "Given basis vectors e_alpha, the basis 1-forms omega^beta are defined so that each returns 1 on its own partner and 0 on the others: <omega^beta, e_alpha> = delta^beta_alpha.",
+      "how_introduced": "Imposed as the rule that lets components be mapped to numbers, right after expanding a 1-form on basis 1-forms.",
+      "depth": "developed",
+      "prerequisites": [
+        "1-form",
+        "basis vectors and components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 345,
+          "printed_page": 328,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [
+        "\\langle\\boldsymbol{\\omega}^{\\beta},\\boldsymbol{e}_{\\alpha}\\rangle = \\delta^{\\beta}_{\\alpha}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "basis 1-forms as coordinate differentials",
+      "aliases": [
+        "omega^alpha = dx^alpha",
+        "coordinate dual basis"
+      ],
+      "kind": "identity",
+      "definition": "In a coordinate basis the dual basis 1-forms are the differentials of the coordinate functions, dx^alpha, because applying partial/partial x^nu to x^mu gives delta^mu_nu.",
+      "how_introduced": "Asked as a question (if vectors are derivatives, what operation is a 1-form?) and answered with the dual operation, the differential; verified in one line (eqn 31.22).",
+      "depth": "core",
+      "prerequisites": [
+        "dual basis",
+        "coordinate basis vectors",
+        "total differential"
+      ],
+      "locators": [
+        {
+          "pdf_page": 345,
+          "printed_page": 328,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{\\omega}^{\\alpha} = \\boldsymbol{d}x^{\\alpha}",
+        "\\left\\langle \\boldsymbol{d}x^{\\mu}, \\frac{\\partial}{\\partial x^{\\nu}}\\right\\rangle = \\frac{\\partial x^{\\mu}}{\\partial x^{\\nu}} = \\delta^{\\mu}_{\\nu}"
+      ],
+      "notes": "Bold d marks the exterior derivative, explained in ch33."
+    },
+    {
+      "name": "differential of a function as a 1-form",
+      "aliases": [
+        "df",
+        "gradient 1-form"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The 1-form df = (partial f/partial x^alpha) dx^alpha associated with a scalar function; its value on any vector u is the directional derivative u[f].",
+      "how_introduced": "Offered as the simplest 1-form, recalling the calculus total differential in a margin note, and then used to reconcile the function slot and the 1-form slot of a vector (eqn 31.23).",
+      "depth": "core",
+      "prerequisites": [
+        "basis 1-forms as coordinate differentials",
+        "directional derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 345,
+          "printed_page": 328,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{d}f = \\frac{\\partial f}{\\partial x^{\\alpha}}\\boldsymbol{d}x^{\\alpha}",
+        "\\boldsymbol{u}[f] \\equiv \\langle\\boldsymbol{d}f,\\boldsymbol{u}\\rangle = u^{\\alpha}\\frac{\\partial f}{\\partial x^{\\alpha}}"
+      ],
+      "notes": "This is the covariant replacement of the old gradient vector criticized in 31.1, though the book does not make the link explicit at this point."
+    },
+    {
+      "name": "two slots of a vector",
+      "aliases": [
+        "square-bracket slot and round-bracket slot",
+        "v[f] versus v(sigma)"
+      ],
+      "kind": "convention",
+      "definition": "Book-specific notation in which a vector acting on a function is written with square brackets, v[f], and a vector acting on a 1-form with round brackets, v(sigma); the identity v[f] = <df, v> shows both are the same operation.",
+      "how_introduced": "Introduced in a margin note when functions are first fed to vectors, then resolved in 31.3 where the function slot is said to be retired.",
+      "depth": "developed",
+      "prerequisites": [
+        "tangent vector as derivative operator",
+        "differential of a function as a 1-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 342,
+          "printed_page": 325,
+          "section": "31.2"
+        },
+        {
+          "pdf_page": 345,
+          "printed_page": 328,
+          "section": "31.3"
+        }
+      ],
+      "formulas": [],
+      "notes": "The book itself slips from this convention in eqn 31.50."
+    },
+    {
+      "name": "1-form field",
+      "aliases": [
+        "covector field"
+      ],
+      "kind": "mathematical-object",
+      "definition": "An assignment of a 1-form to every point; pairing it with a vector field point by point produces a scalar field. Pairings only make sense between a vector and a 1-form attached to the same point.",
+      "how_introduced": "Stated in parallel with vector fields at the end of 31.3.",
+      "depth": "introduced",
+      "prerequisites": [
+        "1-form",
+        "vector field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 345,
+          "printed_page": 328,
+          "section": "31.3"
+        },
+        {
+          "pdf_page": 349,
+          "printed_page": 332,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "The chapter summary stresses the same-point restriction, echoing the earlier warning that vectors at different points cannot be compared without extra structure."
+    },
+    {
+      "name": "tensor as multilinear map",
+      "aliases": [
+        "slot machine",
+        "generalized slot machine"
+      ],
+      "kind": "definition",
+      "definition": "A tensor at a point is a machine that is linear in each of its inputs and turns a fixed ordered list of 1-forms and vectors into a number.",
+      "how_introduced": "Revived from ch4's slot-machine metaphor as the natural generalization of vectors and 1-forms; defining rule written as T(sigma^1..sigma^n, v^1..v^m) = number.",
+      "depth": "core",
+      "prerequisites": [
+        "1-form",
+        "tangent space",
+        "duality pairing of vectors and 1-forms"
+      ],
+      "locators": [
+        {
+          "pdf_page": 346,
+          "printed_page": 329,
+          "section": "31.4"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{T}(\\tilde{\\boldsymbol{\\sigma}}^1,\\ldots,\\tilde{\\boldsymbol{\\sigma}}^n,\\boldsymbol{v}^1,\\ldots,\\boldsymbol{v}^m) = \\text{(number)}"
+      ],
+      "notes": "Multilinearity is implicit in the text rather than stated."
+    },
+    {
+      "name": "tensor valence (n, m)",
+      "aliases": [
+        "rank (n, m)",
+        "type (n, m)"
+      ],
+      "kind": "convention",
+      "definition": "An (n, m) tensor has n slots for 1-forms (n upper indices on its components) and m slots for vectors (m lower indices).",
+      "how_introduced": "Stated with the defining rule of a tensor and used throughout the examples.",
+      "depth": "developed",
+      "prerequisites": [
+        "tensor as multilinear map"
+      ],
+      "locators": [
+        {
+          "pdf_page": 346,
+          "printed_page": 329,
+          "section": "31.4"
+        }
+      ],
+      "formulas": [],
+      "notes": "The book uses 'rank' and 'valence' interchangeably, and 'rank' also for the total n + m when saying contraction reduces rank by two."
+    },
+    {
+      "name": "tensor product",
+      "aliases": [
+        "outer product",
+        "otimes"
+      ],
+      "kind": "operation",
+      "definition": "The operation combining tensors into a higher-valence tensor whose value on a list of inputs is the product of the factors' values on their respective inputs, keeping the order of slots.",
+      "how_introduced": "Used to build a (2,0) tensor from two vectors, then the metric from two basis 1-forms, then an arbitrary (n, m) tensor; a margin note says the symbol just preserves slot order.",
+      "depth": "developed",
+      "prerequisites": [
+        "tensor as multilinear map"
+      ],
+      "locators": [
+        {
+          "pdf_page": 346,
+          "printed_page": 329,
+          "section": "31.4"
+        },
+        {
+          "pdf_page": 347,
+          "printed_page": 330,
+          "section": "31.4"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{T}(\\ ,\\ ) = \\boldsymbol{u}\\otimes\\boldsymbol{v} = \\boldsymbol{u}(\\ )\\otimes\\boldsymbol{v}(\\ )",
+        "\\boldsymbol{T} = \\boldsymbol{u}^1\\otimes\\ldots\\otimes\\boldsymbol{u}^n\\otimes\\tilde{\\boldsymbol{\\sigma}}^1\\otimes\\ldots\\otimes\\tilde{\\boldsymbol{\\sigma}}^m"
+      ],
+      "notes": "Not every tensor is a single product of vectors and 1-forms; general tensors are sums of such products (the book's 'arbitrary tensor can be built' needs this qualification)."
+    },
+    {
+      "name": "tensor components by slot insertion",
+      "aliases": [
+        "extracting components with basis objects"
+      ],
+      "kind": "technique",
+      "definition": "The components of a tensor are the numbers obtained by feeding basis 1-forms into its upper slots and basis vectors into its lower slots; the tensor is recovered by multiplying components with the tensor product of the corresponding basis elements and summing.",
+      "how_introduced": "Worked for u tensor v in Example 31.5, then written for a general (n, m) tensor in eqns 31.32-31.33.",
+      "depth": "core",
+      "prerequisites": [
+        "dual basis",
+        "tensor product"
+      ],
+      "locators": [
+        {
+          "pdf_page": 346,
+          "printed_page": 329,
+          "section": "31.4"
+        },
+        {
+          "pdf_page": 347,
+          "printed_page": 330,
+          "section": "31.4"
+        }
+      ],
+      "formulas": [
+        "T^{\\alpha\\beta} = \\boldsymbol{T}(\\boldsymbol{\\omega}^{\\alpha},\\boldsymbol{\\omega}^{\\beta}) = u^{\\alpha}v^{\\beta}",
+        "\\boldsymbol{T} = T^{\\mu_1\\ldots\\mu_n}{}_{\\nu_1\\ldots\\nu_m}\\,\\boldsymbol{e}_{\\mu_1}\\otimes\\ldots\\otimes\\boldsymbol{e}_{\\mu_n}\\otimes\\boldsymbol{\\omega}^{\\nu_1}\\otimes\\ldots\\otimes\\boldsymbol{\\omega}^{\\nu_m}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "metric tensor as a (0,2) tensor",
+      "aliases": [
+        "g",
+        "ds^2",
+        "line element as a tensor"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The metric is the symmetric (0,2) tensor g = g_{mu nu} dx^mu tensor dx^nu, a two-slot machine that takes two vectors and returns their scalar product.",
+      "how_introduced": "Example 31.6 uses the tensor product of basis 1-forms to rewrite the familiar line element as a tensor, even though the metric is otherwise being kept out of the chapter.",
+      "depth": "revisited",
+      "prerequisites": [
+        "tensor product",
+        "basis 1-forms as coordinate differentials"
+      ],
+      "locators": [
+        {
+          "pdf_page": 346,
+          "printed_page": 329,
+          "section": "31.4"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{g} = g_{\\mu\\nu}\\,\\boldsymbol{d}x^{\\mu}\\otimes\\boldsymbol{d}x^{\\nu} = g_{\\mu\\nu}\\,\\boldsymbol{\\omega}^{\\mu}\\otimes\\boldsymbol{\\omega}^{\\nu}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "tensor field",
+      "aliases": [],
+      "kind": "mathematical-object",
+      "definition": "An assignment of a tensor of fixed valence to each point, which combines with vectors and 1-forms at the same point to give numbers.",
+      "how_introduced": "Stated by analogy with vector and 1-form fields at the end of 31.4.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tensor as multilinear map",
+        "vector field",
+        "1-form field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 347,
+          "printed_page": 330,
+          "section": "31.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "gradient of a tensor",
+      "aliases": [
+        "nabla P",
+        "covariant derivative of a tensor (flat-space version)"
+      ],
+      "kind": "operation",
+      "definition": "An operation that turns an (n, m) tensor field into an (n, m+1) tensor by adding one vector slot; filled with a vector z, it gives the change of the original tensor's output from the base to the tip of z. In flat Cartesian coordinates its components are the partial derivatives of the components.",
+      "how_introduced": "First item in Example 31.7's list, with the tip-minus-base heuristic of eqn 31.36 and comma notation in 31.37.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tensor field",
+        "directional derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 347,
+          "printed_page": 330,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "\\nabla\\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w},\\boldsymbol{z}) = P_{\\alpha\\beta\\gamma,\\mu}u^{\\alpha}v^{\\beta}w^{\\gamma}z^{\\mu}"
+      ],
+      "notes": "On a curved manifold the partial derivative must become a covariant derivative; the book states the flat-space restriction but does not revisit it here."
+    },
+    {
+      "name": "comma notation for partial derivatives",
+      "aliases": [
+        "P_{alpha beta gamma, mu}",
+        "h_{,alpha}"
+      ],
+      "kind": "convention",
+      "definition": "A comma before an index denotes partial differentiation with respect to that coordinate.",
+      "how_introduced": "Used without comment in a margin note of 31.1 and in the gradient and divergence formulas of 31.5.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 340,
+          "printed_page": 323,
+          "section": "31.1"
+        },
+        {
+          "pdf_page": 347,
+          "printed_page": 330,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "P_{\\alpha\\beta\\gamma,\\mu} = \\frac{\\partial P_{\\alpha\\beta\\gamma}}{\\partial x^{\\mu}}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "tensor contraction",
+      "aliases": [
+        "contracting an index",
+        "trace over a slot pair"
+      ],
+      "kind": "operation",
+      "definition": "Inserting a basis 1-form into one upper slot and the matching basis vector into one lower slot and summing over the basis index; it produces a tensor with one fewer upper and one fewer lower slot, in components by setting an upper and a lower index equal and summing.",
+      "how_introduced": "Demonstrated on a (1,3) tensor S to make a (0,2) tensor Q in Example 31.7.",
+      "depth": "developed",
+      "prerequisites": [
+        "tensor components by slot insertion",
+        "dual basis"
+      ],
+      "locators": [
+        {
+          "pdf_page": 347,
+          "printed_page": 330,
+          "section": "31.5"
+        },
+        {
+          "pdf_page": 348,
+          "printed_page": 331,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{Q}(\\boldsymbol{u},\\boldsymbol{v}) = \\boldsymbol{S}(\\boldsymbol{\\omega}^{\\mu},\\boldsymbol{u},\\boldsymbol{e}_{\\mu},\\boldsymbol{v})",
+        "Q_{\\alpha\\gamma} = S^{\\mu}{}_{\\alpha\\mu\\gamma}"
+      ],
+      "notes": "Result is basis-independent because omega^mu and e_mu are dual; worth pointing out, the book does not."
+    },
+    {
+      "name": "divergence of a tensor",
+      "aliases": [
+        "nabla . S"
+      ],
+      "kind": "operation",
+      "definition": "The contraction of the extra slot added by the gradient with one of the tensor's upper (1-form) slots; for a (1,3) tensor in flat space its components are S^mu_{alpha beta gamma, mu}.",
+      "how_introduced": "Defined in Example 31.7 as gradient followed by contraction.",
+      "depth": "introduced",
+      "prerequisites": [
+        "gradient of a tensor",
+        "tensor contraction"
+      ],
+      "locators": [
+        {
+          "pdf_page": 348,
+          "printed_page": 331,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "\\nabla\\cdot\\boldsymbol{S}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w}) = \\nabla\\boldsymbol{S}(\\boldsymbol{\\omega}^{\\mu},\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w},\\boldsymbol{e}_{\\mu}) = S^{\\mu}{}_{\\alpha\\beta\\gamma,\\mu}u^{\\alpha}v^{\\beta}w^{\\gamma}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "transpose of tensor slots",
+      "aliases": [
+        "slot swap"
+      ],
+      "kind": "operation",
+      "definition": "Exchanging the inputs of two slots of the same kind to produce a new tensor of the same valence.",
+      "how_introduced": "Listed in Example 31.7 as the operation used to define symmetry types.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tensor as multilinear map"
+      ],
+      "locators": [
+        {
+          "pdf_page": 348,
+          "printed_page": 331,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w})\\rightarrow\\boldsymbol{P}(\\boldsymbol{v},\\boldsymbol{u},\\boldsymbol{w})"
+      ],
+      "notes": null
+    },
+    {
+      "name": "symmetric and antisymmetric tensors",
+      "aliases": [
+        "totally symmetric",
+        "totally antisymmetric",
+        "alternating tensor"
+      ],
+      "kind": "definition",
+      "definition": "A tensor is symmetric in two slots if swapping them leaves its output unchanged and antisymmetric if the swap flips the sign; it is totally (anti)symmetric if this holds for every pair of slots, so that any odd permutation of inputs flips the sign in the antisymmetric case.",
+      "how_introduced": "Defined through transposition in Example 31.7, with (2,0) component versions T^{mu nu} = T^{nu mu} and A^{mu nu} = -A^{nu mu} in margin notes.",
+      "depth": "developed",
+      "prerequisites": [
+        "transpose of tensor slots"
+      ],
+      "locators": [
+        {
+          "pdf_page": 348,
+          "printed_page": 331,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w}) = -\\boldsymbol{P}(\\boldsymbol{v},\\boldsymbol{u},\\boldsymbol{w}) = +\\boldsymbol{P}(\\boldsymbol{w},\\boldsymbol{u},\\boldsymbol{v})"
+      ],
+      "notes": "Totally antisymmetric tensors of 1-form type are the p-forms of ch32."
+    },
+    {
+      "name": "symmetrization",
+      "aliases": [
+        "T^{(mu nu)}",
+        "round-bracket index notation"
+      ],
+      "kind": "operation",
+      "definition": "The projection that averages a tensor's components over all permutations of a chosen set of n indices, with weight 1/n!, yielding the symmetric part; it leaves symmetric tensors unchanged and kills antisymmetric ones.",
+      "how_introduced": "Given for a (2,0) tensor and then as a general verbal rule in Example 31.7.",
+      "depth": "developed",
+      "prerequisites": [
+        "symmetric and antisymmetric tensors",
+        "permutations"
+      ],
+      "locators": [
+        {
+          "pdf_page": 348,
+          "printed_page": 331,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "T^{(\\mu\\nu)} = \\frac{1}{2!}(T^{\\mu\\nu} + T^{\\nu\\mu})"
+      ],
+      "notes": null
+    },
+    {
+      "name": "antisymmetrization",
+      "aliases": [
+        "T^{[mu nu]}",
+        "square-bracket index notation",
+        "alternating sum"
+      ],
+      "kind": "operation",
+      "definition": "The projection that forms the signed average of a tensor's components over all permutations of n chosen indices (even permutations with +, odd with -), weighted by 1/n!, extracting the antisymmetric part.",
+      "how_introduced": "Presented alongside symmetrization in Example 31.7, both for (2,0) tensors and as a general rule.",
+      "depth": "developed",
+      "prerequisites": [
+        "symmetric and antisymmetric tensors",
+        "permutations"
+      ],
+      "locators": [
+        {
+          "pdf_page": 348,
+          "printed_page": 331,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "T^{[\\mu\\nu]} = \\frac{1}{2!}(T^{\\mu\\nu} - T^{\\nu\\mu})"
+      ],
+      "notes": "Any rank-2 tensor splits as T = T^{(mu nu)} + T^{[mu nu]}; exploited in Exercise 31.4."
+    },
+    {
+      "name": "wedge product",
+      "aliases": [
+        "exterior product",
+        "u wedge v"
+      ],
+      "kind": "operation",
+      "definition": "The antisymmetrized tensor product; for two vectors u wedge v = u tensor v - v tensor u, a totally antisymmetric (2,0) tensor.",
+      "how_introduced": "Final item of Example 31.7, as preparation for the differential forms of the next chapter.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tensor product",
+        "antisymmetrization"
+      ],
+      "locators": [
+        {
+          "pdf_page": 348,
+          "printed_page": 331,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol{u}\\wedge\\boldsymbol{v} = \\boldsymbol{u}\\otimes\\boldsymbol{v} - \\boldsymbol{v}\\otimes\\boldsymbol{u}"
+      ],
+      "notes": "Normalization conventions differ between books (with or without 1/2); this book uses no 1/2 factor here."
+    },
+    {
+      "name": "bivector",
+      "aliases": [
+        "2-vector"
+      ],
+      "kind": "mathematical-object",
+      "definition": "An antisymmetric (2,0) tensor such as u wedge v, with components b^{mu nu} = u^mu v^nu - v^mu u^nu; geometrically an oriented plane element spanned by two vectors.",
+      "how_introduced": "Built as the example of the wedge product in Example 31.7.",
+      "depth": "introduced",
+      "prerequisites": [
+        "wedge product"
+      ],
+      "locators": [
+        {
+          "pdf_page": 348,
+          "printed_page": 331,
+          "section": "31.5"
+        }
+      ],
+      "formulas": [
+        "b^{\\mu\\nu} = u^{\\mu}v^{\\nu} - v^{\\mu}u^{\\nu}"
+      ],
+      "notes": "p-vectors are developed in ch32 (32.3)."
+    },
+    {
+      "name": "Penrose graphical tensor notation",
+      "aliases": [
+        "tensor diagrams",
+        "birdtracks"
+      ],
+      "kind": "convention",
+      "definition": "A diagrammatic notation in which a tensor is a shape with one line per index (upper indices on top, lower on the bottom), joined lines are contracted indices, bars across lines denote symmetrization or antisymmetrization, and a circle around a shape denotes covariant differentiation.",
+      "how_introduced": "Only in Exercise 31.7 and Fig. 31.10, as an entertaining way to visualize contractions and symmetry operations.",
+      "depth": "mention",
+      "prerequisites": [
+        "tensor contraction",
+        "antisymmetrization",
+        "symmetrization"
+      ],
+      "locators": [
+        {
+          "pdf_page": 350,
+          "printed_page": 333,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Left-to-right position of line ends records index order; the exercise notes that the numerical 1/n! factors of (anti)symmetrization are conventionally left off the bars and must be supplied by hand (thick bar = antisymmetrize, wiggly bar = symmetrize). Excellent basis for an interactive index-bookkeeping tool."
+    }
+  ],
+  "key_equations": [
+    {
+      "label": "(31.1)",
+      "name": "Vector on a basis",
+      "latex": "\\boldsymbol{u} = u^{\\alpha}\\boldsymbol{e}_{\\alpha} = u^{0}\\boldsymbol{e}_{0} + u^{1}\\boldsymbol{e}_{1} + u^{2}\\boldsymbol{e}_{2} + u^{3}\\boldsymbol{e}_{3} + \\dots",
+      "meaning": "Elementary expansion of a vector as components times basis vectors, recalled as the old picture.",
+      "symbols": "u^alpha components; e_alpha basis vectors",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": "31.1"
+      }
+    },
+    {
+      "label": "(31.2)",
+      "name": "Gradient vector in Cartesian 3D",
+      "latex": "\\nabla h(x,y,z) = \\frac{\\partial h}{\\partial x}\\boldsymbol{e}_{x} + \\frac{\\partial h}{\\partial y}\\boldsymbol{e}_{y} + \\frac{\\partial h}{\\partial z}\\boldsymbol{e}_{z}",
+      "meaning": "Gradient of the function h whose zero set is a surface; points normal to the tangent plane.",
+      "symbols": "h(x,y,z) = 0 defines the surface z = f(x,y)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": "31.1"
+      }
+    },
+    {
+      "label": "(31.3)",
+      "name": "Gradient vector, index form",
+      "latex": "\\nabla h = \\frac{\\partial h}{\\partial x^{\\alpha}}\\boldsymbol{e}_{\\alpha}",
+      "meaning": "General-coordinate version of the gradient vector; the footnote notes both indices are down, violating the summation convention, which foreshadows that the gradient is really a 1-form.",
+      "symbols": "h_{,alpha} = partial h/partial x^alpha",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": "31.1"
+      }
+    },
+    {
+      "label": "(31.4)",
+      "name": "Directional derivative (old form)",
+      "latex": "\\partial_{\\boldsymbol{v}}h = \\boldsymbol{v}\\cdot\\nabla h = v^{\\alpha}\\frac{\\partial h}{\\partial x^{\\alpha}}",
+      "meaning": "Rate of change of h along v, a number: roughly h at the tip of v minus h at its base.",
+      "symbols": "v^alpha components of v",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": "31.1"
+      }
+    },
+    {
+      "label": "(31.5)",
+      "name": "Straight-line vector as a derivative",
+      "latex": "\\frac{d\\mathcal{P}(\\lambda)}{d\\lambda} = \\mathcal{B} - \\mathcal{A}",
+      "meaning": "Differentiating the parametrized segment P(lambda) = A + lambda(B - A) returns the arrow from A to B, the first hint that vectors are derivatives.",
+      "symbols": "A, B points; lambda parameter",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.6)",
+      "name": "Tangent vector to a curve",
+      "latex": "\\boldsymbol{v} = \\frac{d\\mathcal{P}(\\lambda)}{d\\lambda}",
+      "meaning": "Defines the tangent vector at a point of a general parametrized curve.",
+      "symbols": "P(lambda) curve",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.7)",
+      "name": "Tangent vector via the chain rule",
+      "latex": "\\boldsymbol{v} = \\frac{d\\mathcal{P}}{d\\lambda} = \\frac{dx^{\\alpha}}{d\\lambda}\\frac{\\partial\\mathcal{P}}{\\partial x^{\\alpha}}",
+      "meaning": "Expresses the tangent through the coordinates of the curve x^alpha(lambda).",
+      "symbols": "x^alpha coordinates",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.8)",
+      "name": "Vector operator with the point removed",
+      "latex": "\\boldsymbol{v}[\\ ] = \\frac{d}{d\\lambda} = \\frac{dx^{\\alpha}}{d\\lambda}\\frac{\\partial}{\\partial x^{\\alpha}}",
+      "meaning": "Stripping P from 31.7 leaves a differential operator with an empty slot: the vector is identified with d/dlambda.",
+      "symbols": "[ ] empty input slot",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.9)",
+      "name": "Components and coordinate basis vectors identified",
+      "latex": "\\frac{dx^{\\alpha}}{d\\lambda} = v^{\\alpha}, \\quad \\frac{\\partial}{\\partial x^{\\alpha}} = \\boldsymbol{e}_{\\alpha}",
+      "meaning": "Comparing 31.8 with v = v^alpha e_alpha: components are coordinate rates along the curve and basis vectors are partial derivative operators.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.10)",
+      "name": "Vector as directional-derivative operator",
+      "latex": "\\boldsymbol{v}[\\ ] \\equiv \\frac{d}{d\\lambda} = v^{\\alpha}\\frac{\\partial}{\\partial x^{\\alpha}} = \\partial_{\\boldsymbol{v}}",
+      "meaning": "The vector is the directional derivative operator partial_v.",
+      "symbols": "partial_v directional derivative operator",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.11)",
+      "name": "Boxed definition: vector as derivative",
+      "latex": "\\boldsymbol{v}[\\ ] = \\frac{d}{d\\lambda} = \\frac{dx^{\\alpha}}{d\\lambda}\\frac{\\partial}{\\partial x^{\\alpha}} = v^{\\alpha}\\boldsymbol{e}_{\\alpha}",
+      "meaning": "Summary box: a tangent vector to a curve is the derivative along it, with components dx^alpha/dlambda and basis vectors partial/partial x^alpha.",
+      "symbols": "lambda curve parameter",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.12)",
+      "name": "Vector acting on a function",
+      "latex": "\\boldsymbol{v}[f(x)] = \\frac{df(x)}{d\\lambda} = \\frac{dx^{\\alpha}}{d\\lambda}\\frac{\\partial f(x)}{\\partial x^{\\alpha}} = v^{\\alpha}\\frac{\\partial f(x)}{\\partial x^{\\alpha}} = \\partial_{\\boldsymbol{v}}f(x)",
+      "meaning": "Feeding a function into the vector operator yields its directional derivative along v.",
+      "symbols": "f scalar function",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.13)",
+      "name": "Second tangent vector",
+      "latex": "\\boldsymbol{u} = \\frac{d}{d\\mu} = \\frac{dx^{\\alpha}}{d\\mu}\\frac{\\partial}{\\partial x^{\\alpha}}",
+      "meaning": "Tangent operator of another curve through the same point, parametrized by mu.",
+      "symbols": "mu second curve's parameter",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.14)",
+      "name": "Linear combination of tangent operators",
+      "latex": "a\\boldsymbol{v} + b\\boldsymbol{u} = a\\frac{d}{d\\lambda} + b\\frac{d}{d\\mu} = \\left(a\\frac{dx^{\\alpha}}{d\\lambda} + b\\frac{dx^{\\alpha}}{d\\mu}\\right)\\frac{\\partial}{\\partial x^{\\alpha}}",
+      "meaning": "Referring both vectors to the same coordinate basis, the combination has components that are the combined coordinate rates.",
+      "symbols": "a, b constants",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.15)",
+      "name": "Combination is tangent to a third curve",
+      "latex": "\\boldsymbol{w} = \\frac{d}{d\\phi} = \\left(a\\frac{dx^{\\alpha}}{d\\lambda} + b\\frac{dx^{\\alpha}}{d\\mu}\\right)\\frac{\\partial}{\\partial x^{\\alpha}} = w^{\\alpha}\\boldsymbol{e}_{\\alpha}",
+      "meaning": "The new operator is the derivative along some other curve through P with parameter phi.",
+      "symbols": "phi parameter of the third curve",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.16)",
+      "name": "Closure of tangent vectors at a point",
+      "latex": "\\frac{d}{d\\phi} = a\\frac{d}{d\\lambda} + b\\frac{d}{d\\mu}",
+      "meaning": "Directional derivatives at P are closed under linear combination, so they form a vector space (the tangent space).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "label": "(31.17)",
+      "name": "Symmetric vector/1-form pairing",
+      "latex": "\\tilde{\\boldsymbol{\\sigma}}\\cdot\\boldsymbol{v} \\equiv \\langle\\tilde{\\boldsymbol{\\sigma}},\\boldsymbol{v}\\rangle = \\boldsymbol{v}(\\tilde{\\boldsymbol{\\sigma}}) = \\tilde{\\boldsymbol{\\sigma}}(\\boldsymbol{v}) = (\\text{number})",
+      "meaning": "A vector eats a 1-form and a 1-form eats a vector, with the same numerical result; angle brackets avoid confusion with the metric dot product.",
+      "symbols": "sigma-tilde 1-form; v vector",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": "(31.18)",
+      "name": "Linearity of the pairing",
+      "latex": "\\langle(a\\tilde{\\boldsymbol{\\sigma}} + b\\tilde{\\boldsymbol{\\rho}}),\\boldsymbol{v}\\rangle = a\\langle\\tilde{\\boldsymbol{\\sigma}},\\boldsymbol{v}\\rangle + b\\langle\\tilde{\\boldsymbol{\\rho}},\\boldsymbol{v}\\rangle, \\quad \\langle\\tilde{\\boldsymbol{\\sigma}},(n\\boldsymbol{v} + m\\boldsymbol{u})\\rangle = n\\langle\\tilde{\\boldsymbol{\\sigma}},\\boldsymbol{v}\\rangle + m\\langle\\tilde{\\boldsymbol{\\sigma}},\\boldsymbol{u}\\rangle",
+      "meaning": "The pairing is linear in the 1-form and in the vector (the second identity is stated untagged in the text).",
+      "symbols": "a, b, n, m numbers",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": "(31.19)",
+      "name": "Dual basis condition",
+      "latex": "\\langle\\boldsymbol{\\omega}^{\\beta},\\boldsymbol{e}_{\\alpha}\\rangle = \\delta^{\\beta}_{\\alpha}",
+      "meaning": "Defines basis 1-forms as dual to basis vectors.",
+      "symbols": "omega^beta basis 1-forms; delta Kronecker delta",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": "(31.20)",
+      "name": "Total differential (margin note)",
+      "latex": "df = \\left(\\frac{\\partial f}{\\partial x}\\right)_{y}dx + \\left(\\frac{\\partial f}{\\partial y}\\right)_{x}dy",
+      "meaning": "Calculus reminder motivating the identification of 1-forms with differentials.",
+      "symbols": "f(x,y)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": "(31.21)",
+      "name": "Basis 1-forms are coordinate differentials",
+      "latex": "\\boldsymbol{\\omega}^{\\alpha} = \\boldsymbol{d}x^{\\alpha}",
+      "meaning": "The operation dual to taking a derivative is taking a differential; bold d is the exterior derivative.",
+      "symbols": "bold d differential (exterior derivative)",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": "(31.22)",
+      "name": "Check of coordinate duality",
+      "latex": "\\langle\\boldsymbol{\\omega}^{\\mu},\\boldsymbol{e}_{\\nu}\\rangle = \\left\\langle\\boldsymbol{d}x^{\\mu},\\frac{\\partial}{\\partial x^{\\nu}}\\right\\rangle = \\frac{\\partial x^{\\mu}}{\\partial x^{\\nu}} = \\delta^{\\mu}_{\\nu}",
+      "meaning": "Applying the basis vector (a derivative) to the coordinate function gives the Kronecker delta, confirming 31.19 for dx and partial.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": null,
+      "name": "Differential of a function as a 1-form",
+      "latex": "\\tilde{\\boldsymbol{\\sigma}} = \\boldsymbol{d}f = \\frac{\\partial f}{\\partial x^{\\alpha}}\\boldsymbol{d}x^{\\alpha} = \\frac{\\partial f}{\\partial x^{\\alpha}}\\boldsymbol{\\omega}^{\\alpha}",
+      "meaning": "The simplest 1-form; its components are the partial derivatives of f with lower indices, correctly matched with upper-index basis 1-forms.",
+      "symbols": "f scalar function",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": "(31.23)",
+      "name": "Pairing df with a vector",
+      "latex": "\\boldsymbol{u}[f] \\equiv \\langle\\boldsymbol{d}f,\\boldsymbol{u}\\rangle = \\left\\langle\\frac{\\partial f}{\\partial x^{\\alpha}}\\boldsymbol{\\omega}^{\\alpha},u^{\\beta}\\boldsymbol{e}_{\\beta}\\right\\rangle = u^{\\beta}\\frac{\\partial f}{\\partial x^{\\alpha}}\\langle\\boldsymbol{\\omega}^{\\alpha},\\boldsymbol{e}_{\\beta}\\rangle = u^{\\beta}\\frac{\\partial f}{\\partial x^{\\alpha}}\\delta^{\\alpha}_{\\beta} = u^{\\alpha}\\frac{\\partial f}{\\partial x^{\\alpha}}",
+      "meaning": "Expanding both objects and using linearity and duality shows the pairing reproduces the directional derivative.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": "(31.24)",
+      "name": "Function slot equals 1-form slot",
+      "latex": "\\boldsymbol{u}[f] = \\partial_{\\boldsymbol{u}}f = \\langle\\boldsymbol{d}f,\\boldsymbol{u}\\rangle",
+      "meaning": "Boxed: acting with a vector on a function equals pairing the vector with the function's differential.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "label": "(31.25)",
+      "name": "Defining rule of an (n, m) tensor",
+      "latex": "\\boldsymbol{T}(\\tilde{\\boldsymbol{\\sigma}}^{1},\\ldots,\\tilde{\\boldsymbol{\\sigma}}^{n},\\boldsymbol{v}^{1},\\ldots,\\boldsymbol{v}^{m}) = (\\text{number})",
+      "meaning": "A tensor takes n 1-forms and m vectors to a number (linearly in each slot).",
+      "symbols": "n 1-form slots, m vector slots",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.26)",
+      "name": "Tensor product of two vectors",
+      "latex": "\\boldsymbol{T}(\\ ,\\ ) = \\boldsymbol{u}\\otimes\\boldsymbol{v} = \\boldsymbol{u}(\\ )\\otimes\\boldsymbol{v}(\\ )",
+      "meaning": "A (2,0) tensor with two empty 1-form slots, the first fed to u and the second to v.",
+      "symbols": "otimes tensor product",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.27)",
+      "name": "Components of u tensor v",
+      "latex": "T^{\\alpha\\beta} = \\boldsymbol{T}(\\boldsymbol{\\omega}^{\\alpha},\\boldsymbol{\\omega}^{\\beta}) = \\boldsymbol{u}(\\boldsymbol{\\omega}^{\\alpha})\\,\\boldsymbol{v}(\\boldsymbol{\\omega}^{\\beta}) = \\langle\\boldsymbol{\\omega}^{\\alpha},\\boldsymbol{u}\\rangle\\langle\\boldsymbol{\\omega}^{\\beta},\\boldsymbol{v}\\rangle = u^{\\alpha}v^{\\beta}",
+      "meaning": "Insert basis 1-forms to extract components.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.28)",
+      "name": "Reconstruction of u tensor v",
+      "latex": "\\boldsymbol{T} = u^{\\alpha}v^{\\beta}\\,\\boldsymbol{e}_{\\alpha}\\otimes\\boldsymbol{e}_{\\beta}",
+      "meaning": "Components times tensor products of basis vectors rebuild the tensor.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.29)",
+      "name": "Reconstruction with slots shown",
+      "latex": "\\boldsymbol{T}(\\ ,\\ ) = u^{\\alpha}v^{\\beta}\\,\\boldsymbol{e}_{\\alpha}(\\ )\\otimes\\boldsymbol{e}_{\\beta}(\\ )",
+      "meaning": "Same as 31.28 with the empty 1-form slots made explicit.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.30)",
+      "name": "Metric as a (0,2) tensor",
+      "latex": "\\boldsymbol{g} = g_{\\mu\\nu}\\,\\boldsymbol{d}x^{\\mu}\\otimes\\boldsymbol{d}x^{\\nu} = g_{\\mu\\nu}\\,\\boldsymbol{\\omega}^{\\mu}\\otimes\\boldsymbol{\\omega}^{\\nu}",
+      "meaning": "The line element ds^2 recast as a tensor product of basis 1-forms; a two-slot machine for vectors.",
+      "symbols": "g_{mu nu} metric components",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.31)",
+      "name": "Building an (n, m) tensor",
+      "latex": "\\boldsymbol{T} = \\boldsymbol{u}^{1}\\otimes\\ldots\\otimes\\boldsymbol{u}^{n}\\otimes\\tilde{\\boldsymbol{\\sigma}}^{1}\\otimes\\ldots\\otimes\\tilde{\\boldsymbol{\\sigma}}^{m}",
+      "meaning": "Tensor product of n vectors and m 1-forms gives an (n, m) tensor; general tensors are sums of such products.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.32)",
+      "name": "Components of an (n, m) tensor",
+      "latex": "T^{\\mu_1\\ldots\\mu_n}{}_{\\nu_1\\ldots\\nu_m} = \\boldsymbol{u}^{1}(\\boldsymbol{\\omega}^{\\mu_1})\\ldots\\boldsymbol{u}^{n}(\\boldsymbol{\\omega}^{\\mu_n})\\,\\tilde{\\boldsymbol{\\sigma}}^{1}(\\boldsymbol{e}_{\\nu_1})\\ldots\\tilde{\\boldsymbol{\\sigma}}^{m}(\\boldsymbol{e}_{\\nu_m})",
+      "meaning": "Insert n basis 1-forms and m basis vectors to read off components.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.33)",
+      "name": "Expansion of an (n, m) tensor on the basis",
+      "latex": "\\boldsymbol{T} = T^{\\mu_1\\ldots\\mu_n}{}_{\\nu_1\\ldots\\nu_m}\\left(\\boldsymbol{e}_{\\mu_1}\\otimes\\ldots\\otimes\\boldsymbol{e}_{\\mu_n}\\otimes\\boldsymbol{\\omega}^{\\nu_1}\\otimes\\ldots\\otimes\\boldsymbol{\\omega}^{\\nu_m}\\right)",
+      "meaning": "Components times tensor-product basis rebuild the tensor.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.4"
+      }
+    },
+    {
+      "label": "(31.34)",
+      "name": "A (0,3) tensor",
+      "latex": "\\boldsymbol{P}(\\ ,\\ ,\\ ) = P_{\\alpha\\beta\\gamma}\\,\\boldsymbol{\\omega}^{\\alpha}\\otimes\\boldsymbol{\\omega}^{\\beta}\\otimes\\boldsymbol{\\omega}^{\\gamma}",
+      "meaning": "Sample tensor with three vector slots used for the operations catalogue.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.35)",
+      "name": "Filling all slots",
+      "latex": "\\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w}) = P_{\\alpha\\beta\\gamma}\\,\\boldsymbol{\\omega}^{\\alpha}(\\boldsymbol{u})\\boldsymbol{\\omega}^{\\beta}(\\boldsymbol{v})\\boldsymbol{\\omega}^{\\gamma}(\\boldsymbol{w}) = P_{\\alpha\\beta\\gamma}u^{\\alpha}v^{\\beta}w^{\\gamma}",
+      "meaning": "A fully fed tensor is a scalar obtained by contracting components with input components.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.36)",
+      "name": "Gradient of a tensor, tip-minus-base picture",
+      "latex": "\\nabla\\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w},\\boldsymbol{z}) \\approx \\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w})\\big|_{\\text{tip of }\\boldsymbol{z}} - \\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w})\\big|_{\\text{base of }\\boldsymbol{z}}",
+      "meaning": "The extra slot of the gradient measures the change of the tensor's output across the vector z (valid for small z).",
+      "symbols": "z vector in the new slot",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.37)",
+      "name": "Gradient components in flat space",
+      "latex": "\\frac{\\partial P_{\\alpha\\beta\\gamma}}{\\partial x^{\\mu}}u^{\\alpha}v^{\\beta}w^{\\gamma}z^{\\mu} = P_{\\alpha\\beta\\gamma,\\mu}u^{\\alpha}v^{\\beta}w^{\\gamma}z^{\\mu}",
+      "meaning": "In flat space (Cartesian-like coordinates) the gradient's components are ordinary partial derivatives.",
+      "symbols": "comma denotes partial derivative",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.38)",
+      "name": "A (1,3) tensor",
+      "latex": "\\boldsymbol{S} = S^{\\mu}{}_{\\alpha\\beta\\gamma}\\,\\boldsymbol{e}_{\\mu}\\otimes\\boldsymbol{\\omega}^{\\alpha}\\otimes\\boldsymbol{\\omega}^{\\beta}\\otimes\\boldsymbol{\\omega}^{\\gamma}",
+      "meaning": "Sample tensor with the index structure of the Riemann tensor, used to illustrate contraction and divergence.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.39)",
+      "name": "Contraction in slot language",
+      "latex": "\\boldsymbol{Q}(\\boldsymbol{u},\\boldsymbol{v}) = \\boldsymbol{S}(\\boldsymbol{\\omega}^{\\mu},\\boldsymbol{u},\\boldsymbol{e}_{\\mu},\\boldsymbol{v})",
+      "meaning": "Contracting the first and third slots by inserting a dual pair and summing gives a (0,2) tensor.",
+      "symbols": "sum over mu implied",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.40)",
+      "name": "Contraction in components",
+      "latex": "\\boldsymbol{Q}(\\boldsymbol{u},\\boldsymbol{v}) = Q_{\\alpha\\gamma}u^{\\alpha}v^{\\gamma} = S^{\\mu}{}_{\\alpha\\mu\\gamma}u^{\\alpha}v^{\\gamma}",
+      "meaning": "Setting an upper and a lower index equal and summing: Q_{alpha gamma} = S^mu_{alpha mu gamma}. The printed equation writes Q_{alpha beta} u^alpha v^gamma, an index typo corrected here.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.41)",
+      "name": "Divergence of a (1,3) tensor",
+      "latex": "\\nabla\\cdot\\boldsymbol{S}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w}) = \\nabla\\boldsymbol{S}(\\boldsymbol{\\omega}^{\\mu},\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w},\\boldsymbol{e}_{\\mu}) = \\frac{\\partial S^{\\mu}{}_{\\alpha\\beta\\gamma}}{\\partial x^{\\mu}}u^{\\alpha}v^{\\beta}w^{\\gamma} = S^{\\mu}{}_{\\alpha\\beta\\gamma,\\mu}u^{\\alpha}v^{\\beta}w^{\\gamma}",
+      "meaning": "Contract the gradient slot with the upper slot; component form valid in flat space.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.42)",
+      "name": "Transpose",
+      "latex": "\\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w}) \\rightarrow \\boldsymbol{P}(\\boldsymbol{v},\\boldsymbol{u},\\boldsymbol{w})",
+      "meaning": "Swap the contents of two slots.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.43)",
+      "name": "Totally symmetric tensor",
+      "latex": "\\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w}) = \\boldsymbol{P}(\\boldsymbol{v},\\boldsymbol{u},\\boldsymbol{w}) = \\boldsymbol{P}(\\boldsymbol{w},\\boldsymbol{u},\\boldsymbol{v}) = \\ldots",
+      "meaning": "Output unchanged by any permutation of inputs.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.44)",
+      "name": "Totally antisymmetric tensor",
+      "latex": "\\boldsymbol{P}(\\boldsymbol{u},\\boldsymbol{v},\\boldsymbol{w}) = -\\boldsymbol{P}(\\boldsymbol{v},\\boldsymbol{u},\\boldsymbol{w}) = +\\boldsymbol{P}(\\boldsymbol{w},\\boldsymbol{u},\\boldsymbol{v}) = \\ldots",
+      "meaning": "Each swap of two inputs flips the sign, so cyclic (even) permutations keep it.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.45)",
+      "name": "Symmetrization of a (2,0) tensor",
+      "latex": "T^{(\\mu\\nu)} = \\frac{1}{2!}\\left(T^{\\mu\\nu} + T^{\\nu\\mu}\\right)",
+      "meaning": "Extracts the symmetric part; equals T for symmetric tensors and vanishes for antisymmetric ones.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.46)",
+      "name": "General symmetrization rule",
+      "latex": "T^{(\\alpha\\ldots\\kappa)}{}_{\\mu\\ldots\\sigma} = \\frac{1}{n!}\\sum_{\\pi\\in S_n} T^{\\pi(\\alpha\\ldots\\kappa)}{}_{\\mu\\ldots\\sigma}",
+      "meaning": "Average over all permutations of the n bracketed indices (the book states the sum in words).",
+      "symbols": "pi permutation of the bracketed indices",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.47)",
+      "name": "Antisymmetrization of a (2,0) tensor",
+      "latex": "T^{[\\mu\\nu]} = \\frac{1}{2!}\\left(T^{\\mu\\nu} - T^{\\nu\\mu}\\right)",
+      "meaning": "Extracts the antisymmetric part; vanishes for symmetric tensors and equals A for antisymmetric ones.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.48)",
+      "name": "General antisymmetrization rule",
+      "latex": "T^{[\\alpha\\ldots\\kappa]}{}_{\\mu\\ldots\\sigma} = \\frac{1}{n!}\\sum_{\\pi\\in S_n}\\operatorname{sgn}(\\pi)\\,T^{\\pi(\\alpha\\ldots\\kappa)}{}_{\\mu\\ldots\\sigma}",
+      "meaning": "Signed average over permutations of the n bracketed indices (stated in words in the book).",
+      "symbols": "sgn(pi) = +1 for even, -1 for odd permutations",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.49)",
+      "name": "Wedge product of two vectors",
+      "latex": "\\boldsymbol{b} = \\boldsymbol{u}\\wedge\\boldsymbol{v} = \\boldsymbol{u}\\otimes\\boldsymbol{v} - \\boldsymbol{v}\\otimes\\boldsymbol{u}",
+      "meaning": "The antisymmetrized tensor product builds a bivector.",
+      "symbols": "wedge exterior product",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.50)",
+      "name": "Bivector components",
+      "latex": "b^{\\mu\\nu} = \\boldsymbol{b}(\\boldsymbol{\\omega}^{\\mu},\\boldsymbol{\\omega}^{\\nu}) = \\boldsymbol{u}(\\boldsymbol{\\omega}^{\\mu})\\,\\boldsymbol{v}(\\boldsymbol{\\omega}^{\\nu}) - \\boldsymbol{v}(\\boldsymbol{\\omega}^{\\mu})\\,\\boldsymbol{u}(\\boldsymbol{\\omega}^{\\nu}) = u^{\\mu}v^{\\nu} - v^{\\mu}u^{\\nu}",
+      "meaning": "Components of u wedge v are antisymmetric in mu, nu. The printed version uses square brackets for the 1-form slots, contrary to the book's own bracket convention; round brackets used here.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "label": "(31.51)",
+      "name": "Exercise 31.5(b) identity",
+      "latex": "F^{\\mu\\nu}\\eta_{\\mu\\alpha}\\eta_{\\nu\\beta}u^{\\alpha}u^{\\beta} = 0",
+      "meaning": "Contracting an antisymmetric tensor with the symmetric product of a vector with itself gives zero.",
+      "symbols": "F^{mu nu} antisymmetric; eta Minkowski metric",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 349,
+        "printed_page": 332,
+        "section": null
+      }
+    },
+    {
+      "label": "(31.52)",
+      "name": "Exercise 31.6 starting expression",
+      "latex": "\\frac{\\partial^{2}\\xi^{\\mu}}{\\partial x^{\\lambda}\\partial x^{\\sigma}} = \\Gamma^{\\nu}{}_{\\lambda\\sigma}\\frac{\\partial\\xi^{\\mu}}{\\partial x^{\\nu}}",
+      "meaning": "Relation between second derivatives of local inertial coordinates and connection coefficients (from Part II).",
+      "symbols": "xi^mu locally inertial coordinates; Gamma connection coefficients",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 349,
+        "printed_page": 332,
+        "section": null
+      }
+    },
+    {
+      "label": "(31.53)",
+      "name": "Derivative of basis vectors (Exercise 31.6 target)",
+      "latex": "\\frac{\\partial\\boldsymbol{e}_{\\sigma}}{\\partial x^{\\lambda}} = \\Gamma^{\\nu}{}_{\\lambda\\sigma}\\boldsymbol{e}_{\\nu}",
+      "meaning": "Removing the 'point' xi from 31.52, as basis vectors were obtained from partial P/partial x, gives the familiar statement that connection coefficients measure how basis vectors change.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      }
+    }
+  ],
+  "figures": [
+    {
+      "label": "Fig. 31.1",
+      "image_path": "gifted-amateur/pages/page-339/img-238.jpeg",
+      "locator": {
+        "pdf_page": 339,
+        "printed_page": 322,
+        "section": null
+      },
+      "caption_paraphrase": "Shapes that pass the local-flatness test (left column) beside shapes that fail it at some point (right column).",
+      "visual_description": "Hand-drawn black line sketches in two columns. Left column, top to bottom: a short horizontal line segment, a flat parallelogram (a patch of plane), an open circle, a shaded ball (sphere), and a doughnut-shaped torus. Right column, top to bottom: a vertical plane seen edge-on with a straight line passing through it and sticking out on both sides, a double cone (two cones meeting at their tips like an hourglass), a curve shaped like a V with a sharp kink at the bottom, and a curve that loops and crosses itself.",
+      "what_it_teaches": "A manifold must look like R^n near every point; a single bad point (junction, cone apex, kink, self-crossing) disqualifies a space.",
+      "figure_type": "cartoon-or-analogy",
+      "concepts": [
+        "smooth manifold",
+        "non-manifold (singular point) examples"
+      ],
+      "redesign": {
+        "idea": "Zoom-to-flat microscope: a gallery of curves and surfaces with a magnifier the learner drags over any point; the lens view magnifies progressively and either flattens into a line or plane or keeps showing a kink, junction or apex.",
+        "interaction": "Drag the lens to a point and scroll to magnify; a verdict badge reports whether the neighbourhood approaches R^1 or R^2 and highlights offending points in red.",
+        "form": "interactive-3d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 31.2",
+      "image_path": "gifted-amateur/pages/page-340/img-239.jpeg",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": "31.1"
+      },
+      "caption_paraphrase": "The elementary vector: an arrow joining two points A and B.",
+      "visual_description": "A straight diagonal line rising from lower left to upper right. The segment between two black dots, labelled A (lower) and B (upper), is solid with a small arrowhead midway pointing toward B; the line continues beyond both dots as dashed extensions.",
+      "what_it_teaches": "The two-point arrow picture that the chapter is about to replace; the dashed extension hints at the parametrized line A + lambda(B - A).",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "tangent vector to a parametrized curve",
+        "basis vectors and components"
+      ],
+      "redesign": {
+        "idea": "Combine with Fig. 31.3: a line through A and B with a slider for lambda moving a point P(lambda) and a readout of dP/dlambda showing it equals B - A for every lambda.",
+        "interaction": "Drag A and B; slide lambda; the derivative arrow stays constant and equals the A-to-B arrow.",
+        "form": "interactive-2d",
+        "priority": "low"
+      }
+    },
+    {
+      "label": "Fig. 31.3",
+      "image_path": "gifted-amateur/pages/page-341/img-240.jpeg",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      },
+      "caption_paraphrase": "A tangent vector obtained by differentiating a curve with respect to its parameter.",
+      "visual_description": "A smooth S-shaped curve climbing from lower left to upper right, with tick marks labelled lambda = 1 up to lambda = 11 written obliquely along it at roughly regular intervals. A dot marks the point P, lying between the lambda = 3 and lambda = 4 ticks; from P a straight arrow leaves along the local tangent direction and runs up and to the right, well clear of the curve, which bends away beneath it.",
+      "what_it_teaches": "A vector can be attached to a single point as the rate at which position changes with the curve parameter; the arrow is fixed by the local direction of the curve at P, not by any second point on it.",
+      "figure_type": "curve-or-surface",
+      "concepts": [
+        "tangent vector to a parametrized curve",
+        "tangent vector as derivative operator"
+      ],
+      "redesign": {
+        "idea": "Reparametrization playground: a curve with draggable tick labels; the learner changes the parametrization (e.g. lambda to 2 lambda or lambda^3) and watches the tangent arrow at P rescale while keeping its direction.",
+        "interaction": "Choose or sketch a reparametrization function; drag P along the curve; arrow length and direction update from finite-difference derivative.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 31.4",
+      "image_path": "gifted-amateur/pages/page-341/img-241.jpeg",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      },
+      "caption_paraphrase": "The same tangent vector described through a coordinate grid, with the chain rule linking parameter, coordinates and point.",
+      "visual_description": "The same S-curve with its lambda = 1 to 11 tick marks and the point P, now laid over a fine square graph-paper grid standing for a coordinate system x^alpha; the tangent arrow from P is drawn with a thinner line than in Fig. 31.3.",
+      "what_it_teaches": "Once coordinates are laid down, the tangent's components are the rates dx^alpha/dlambda, and the grid directions supply the basis partial/partial x^alpha.",
+      "figure_type": "curve-or-surface",
+      "concepts": [
+        "coordinate basis vectors",
+        "tangent vector as derivative operator"
+      ],
+      "redesign": {
+        "idea": "Chain-rule decomposer: the curve on a switchable grid (Cartesian, polar, skewed); the tangent arrow at P splits into component arrows along the local coordinate-line tangents, with live values of dx^alpha/dlambda.",
+        "interaction": "Toggle coordinate systems and drag P; component bars and basis arrows update while the tangent arrow itself stays the same.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 31.5",
+      "image_path": "gifted-amateur/pages/page-342/img-242.jpeg",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      },
+      "caption_paraphrase": "A correspondence chart pairing vector with derivative and geometry with analysis.",
+      "visual_description": "Four rectangular boxes in two rows. Top row: a box reading 'Vector' joined by a horizontal line to a box reading 'Derivative'. Bottom row: a box reading 'Geometry' joined by a horizontal line to a box reading 'Analysis'.",
+      "what_it_teaches": "The slogan of the chapter: identifying vectors with derivatives is what lets geometric statements be turned into calculus.",
+      "figure_type": "schematic",
+      "concepts": [
+        "tangent vector as derivative operator"
+      ],
+      "redesign": {
+        "idea": "Fold into a dictionary card that the tutor can pop up: geometric object on the left, analytic operation on the right (vector / d/dlambda, 1-form / differential, pairing / directional derivative).",
+        "interaction": "Hover a row to highlight the corresponding equation in the lesson.",
+        "form": "static-2d",
+        "priority": "low"
+      }
+    },
+    {
+      "label": "Fig. 31.6",
+      "image_path": "gifted-amateur/pages/page-342/img-243.jpeg",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      },
+      "caption_paraphrase": "Two curves crossing at P, one parametrized by lambda and one by mu, with their tangent arrows at P.",
+      "visual_description": "Two smooth curves intersect at a point labelled P. One curve rises steeply to the upper right and is labelled mu at its end; the other runs roughly horizontally to the right, dipping slightly, and is labelled lambda. From P two short arrows point along the curves: u along the mu curve (up-right) and v along the lambda curve (down-right).",
+      "what_it_teaches": "Many curves pass through a point; their tangent operators at that point can be added and scaled, forming the tangent space.",
+      "figure_type": "vector-or-tensor-field",
+      "concepts": [
+        "tangent space",
+        "vector space"
+      ],
+      "redesign": {
+        "idea": "Build-a-curve from a linear combination: two curves through P with tangents u and v; sliders a and b produce w = av + bu, and the app draws a third curve through P (e.g. x(phi) = P + phi w plus a user-chosen curvature term) whose tangent matches w.",
+        "interaction": "Move sliders a, b and bend the third curve; the operator identity d/dphi = a d/dlambda + b d/dmu is checked numerically on a test function.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 31.7",
+      "image_path": "gifted-amateur/pages/page-343/img-244.jpeg",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      },
+      "caption_paraphrase": "A space-filling family of non-crossing curves whose tangents define a vector field.",
+      "visual_description": "About ten roughly parallel wavy black curves stacked from top to bottom across a rectangle. Each has a broad wave shape, dipping to a trough on the left-centre and rising to a crest toward the right; the curves stay separate everywhere, with spacing that tightens and widens gently. No arrows or labels.",
+      "what_it_teaches": "A congruence gives exactly one curve through each point, so taking tangents yields a vector field; conversely a vector field's integral curves form a congruence.",
+      "figure_type": "vector-or-tensor-field",
+      "concepts": [
+        "congruence of curves",
+        "vector field"
+      ],
+      "redesign": {
+        "idea": "Flow-line explorer: the learner types or picks a 2D vector field; streamlines are traced as a congruence, and clicking any point shows the unique tangent there; a toggle shows the same field as arrows.",
+        "interaction": "Choose field presets (uniform, shear, rotation, saddle), seed curves by clicking, and toggle arrows versus curves; parameter ticks show that lambda = 2 lands at different distances on different curves.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 31.8",
+      "image_path": "gifted-amateur/pages/page-344/img-245.jpeg",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      },
+      "caption_paraphrase": "Three spaces: vectors in a tangent space, 1-forms in a dual space, numbers on the real line, linked by the pairing.",
+      "visual_description": "Three horizontal levels in perspective. Top: a tilted parallelogram labelled 'tangent space' containing a dot and the word 'vectors'. Middle: a straight horizontal line labelled 'numbers' at its left end and R at its right. Bottom: another parallelogram labelled 'dual space' with a dot and the word '1-forms'. A curved arrow labelled '1-form( )' runs from the dot in the tangent space down to the number line; a second curved arrow labelled 'vector( )' runs from the dot in the dual space up to the number line.",
+      "what_it_teaches": "Duality as a pair of maps into R: a 1-form turns a vector into a number and a vector turns a 1-form into a number.",
+      "figure_type": "schematic",
+      "concepts": [
+        "tangent space",
+        "dual space",
+        "duality pairing of vectors and 1-forms"
+      ],
+      "redesign": {
+        "idea": "Two linked planes and a number line: pick a vector in the tangent-space plane and a 1-form (drawn as level lines) in the dual plane; the pairing value slides along the number line.",
+        "interaction": "Drag the vector tip or rotate and rescale the 1-form's level lines; the number marker moves and linearity is shown by adding a second vector.",
+        "form": "interactive-3d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 31.9",
+      "image_path": "gifted-amateur/pages/page-344/img-246.jpeg",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      },
+      "caption_paraphrase": "A 1-form drawn as a stack of parallel sheets, with its value on a vector equal to the number of sheets crossed.",
+      "visual_description": "Sketch of three identical flat rectangular sheets stacked with even spacing, drawn in perspective with hatching on their edges. A bold arrow labelled X enters from below left, passes through all three sheets (dashed where hidden) and exits at upper right with its arrowhead above the top sheet.",
+      "what_it_teaches": "The geometric meaning of <A, X>: count of surfaces pierced; denser sheets mean larger components and a longer vector pierces more.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "1-form",
+        "duality pairing of vectors and 1-forms"
+      ],
+      "redesign": {
+        "idea": "Sheet counter: a 3D stack of planes whose normal direction and spacing the learner controls, with a draggable vector; the app counts crossings (including fractional) and compares with the component sum A_alpha X^alpha.",
+        "interaction": "Drag the vector tip, scale the 1-form by F to see sheet spacing shrink to 1/(F A_1), and rotate the stack; a live readout shows the count and the formula.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 31.10 (i)",
+      "image_path": "gifted-amateur/pages/page-350/img-247.jpeg",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      },
+      "caption_paraphrase": "Penrose diagram for Exercise 31.7(a): a tensor with two upper and three lower lines, plus twice a copy with its lower lines permuted.",
+      "visual_description": "Hand-drawn: a circle with two curved lines rising from its top like horns and three lines hanging from its bottom, then '+ 2', then a second identical circle whose three lower lines cross one another before reaching the bottom, indicating a reordering of the lower indices.",
+      "what_it_teaches": "Index order is encoded by the left-to-right position of line ends, and crossing lines permutes indices; so the second picture is the same tensor with its three lower indices cyclically reordered, added with weight two to the unpermuted tensor.",
+      "figure_type": "schematic",
+      "concepts": [
+        "Penrose graphical tensor notation",
+        "tensor valence (n, m)"
+      ],
+      "redesign": {
+        "idea": "Penrose-diagram editor: shapes with index legs that the learner drags to reorder, connect (contract) or bar (symmetrize/antisymmetrize), with the equivalent index expression written live and vice versa.",
+        "interaction": "Drag leg endpoints to permute; typing an index expression redraws the diagram.",
+        "form": "interactive-2d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 31.10 (ii)",
+      "image_path": "gifted-amateur/pages/page-350/img-249.jpeg",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      },
+      "caption_paraphrase": "Penrose diagram for Exercise 31.7(b): a triangle tensor with one leg joined to a small square.",
+      "visual_description": "A triangle with a single line leaving its apex upward. From its base two lines descend: the left one bends down to the top of a small square, the right one continues straight down past the square.",
+      "what_it_teaches": "A line joining two shapes is a contracted index; here a vector-like square is fed into one lower slot of a (1,2) triangle tensor, leaving a (1,1) object. This is our reading, since the book leaves the expression to the exercise.",
+      "figure_type": "schematic",
+      "concepts": [
+        "Penrose graphical tensor notation",
+        "tensor contraction"
+      ],
+      "redesign": {
+        "idea": "Same Penrose editor as Fig. 31.10 (i), preloaded with this contraction and a quiz asking for the index expression.",
+        "interaction": "Learner types the expression; wrong index placements are highlighted on the corresponding legs.",
+        "form": "interactive-2d",
+        "priority": "low"
+      }
+    },
+    {
+      "label": "Fig. 31.10 (iii)",
+      "image_path": "gifted-amateur/pages/page-350/img-250.jpeg",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      },
+      "caption_paraphrase": "Penrose diagram for Exercise 31.7(b): a triangle tensor linked to a circle tensor with an antisymmetrization bar across several lines.",
+      "visual_description": "A triangle with a line up from its apex and a lower line that curves across to the right, looping over to connect with a small circle that has its own upper line; several lines from the triangle and circle run down through a thick hatched horizontal bar at the lower right.",
+      "what_it_teaches": "Combines contraction between two tensors with antisymmetrization over the indices passing through the thick bar.",
+      "figure_type": "schematic",
+      "concepts": [
+        "Penrose graphical tensor notation",
+        "antisymmetrization",
+        "tensor contraction"
+      ],
+      "redesign": {
+        "idea": "Penrose editor preset with a toggle that expands the bar into its explicit signed sum of permuted diagrams.",
+        "interaction": "Click the bar to expand into 1/n! times the alternating sum, each term drawn with crossed legs.",
+        "form": "interactive-2d",
+        "priority": "low"
+      }
+    },
+    {
+      "label": "Fig. 31.10 (iv)",
+      "image_path": "gifted-amateur/pages/page-350/img-252.jpeg",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      },
+      "caption_paraphrase": "Penrose diagram for Exercise 31.7(c): a derivative circle around a tensor, with the derivative index contracted into the tensor, set equal to a square with one upper line.",
+      "visual_description": "A downward-pointing triangle with a line going up from it, enclosed by a partly dashed circle marking a covariant derivative; a solid curve loops from the triangle around the left side to a dot on the bottom of the dashed circle, joining the derivative index to one of the tensor's indices. To the right: '=' followed by a small square with one line rising from its top.",
+      "what_it_teaches": "A divergence drawn diagrammatically; read with electromagnetism it most plausibly depicts the inhomogeneous Maxwell equation, derivative of the field tensor contracted on one index equals a current (our reading).",
+      "figure_type": "schematic",
+      "concepts": [
+        "Penrose graphical tensor notation",
+        "divergence of a tensor"
+      ],
+      "redesign": {
+        "idea": "Side-by-side diagram and equation for Maxwell's equations, with the derivative circle animating onto the field-tensor shape and the contraction loop closing.",
+        "interaction": "Step through: tensor, add derivative, contract, equate to source; each step updates the index expression.",
+        "form": "animated-2d",
+        "priority": "low"
+      }
+    },
+    {
+      "label": "Fig. 31.10 (v)",
+      "image_path": "gifted-amateur/pages/page-350/img-248.jpeg",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      },
+      "caption_paraphrase": "Penrose diagram for Exercise 31.7(c): derivative of a tensor with all lower lines antisymmetrized, equal to zero.",
+      "visual_description": "An upward-pointing triangle with two lines descending from its base, enclosed in a dashed circle; a short line from a dot on the circle (the derivative index) curls down to join the triangle's lines, and all three lower lines pass through a thick hatched bar below. To the right: '= 0'.",
+      "what_it_teaches": "Antisymmetrized derivative of an antisymmetric 2-index tensor vanishing, most plausibly the homogeneous Maxwell equation (our reading).",
+      "figure_type": "schematic",
+      "concepts": [
+        "Penrose graphical tensor notation",
+        "antisymmetrization",
+        "gradient of a tensor"
+      ],
+      "redesign": {
+        "idea": "Penrose editor preset linked to a component checker that expands the bar and verifies the identity for a user-supplied potential A_mu.",
+        "interaction": "Enter A_mu(x); the app computes F and shows the antisymmetrized derivative vanishes term by term.",
+        "form": "interactive-2d",
+        "priority": "low"
+      }
+    },
+    {
+      "label": "Fig. 31.10 (vi)",
+      "image_path": "gifted-amateur/pages/page-350/img-251.jpeg",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      },
+      "caption_paraphrase": "Penrose diagram for Exercise 31.7(d): two nested derivative circles around a vector, antisymmetrized, equal to a large box contracted with the vector.",
+      "visual_description": "Left: a small square with one line upward, surrounded by two concentric dashed circles (two derivatives); from dots on the circles two short lines descend and pass through a thick hatched bar. Right of '=': a large square with one line up and three lines down, the leftmost lower line connecting to a small square with a line on top.",
+      "what_it_teaches": "The commutator of covariant derivatives acting on a vector expressed through the Riemann tensor contracted with that vector (the Ricci identity), in diagram form (our reading).",
+      "figure_type": "schematic",
+      "concepts": [
+        "Penrose graphical tensor notation",
+        "antisymmetrization"
+      ],
+      "redesign": {
+        "idea": "Link to a curvature demo: on a sphere, transport a vector around a small loop and show the diagram lighting up as the loop closes, connecting the Ricci identity to holonomy.",
+        "interaction": "Shrink or enlarge the loop; the rotation angle and the Riemann-box contraction value update together.",
+        "form": "interactive-3d",
+        "priority": "low"
+      }
+    }
+  ],
+  "worked_examples": [
+    {
+      "label": "Example 31.1",
+      "locator": {
+        "pdf_page": 339,
+        "printed_page": 322,
+        "section": null
+      },
+      "problem": "Decide which of a list of spaces qualify as manifolds.",
+      "method": "Apply the informal test that every point must have a neighbourhood that looks like flat R^n under enough magnification; check lines, planes, circle, sphere, torus, then a line through a plane, a double cone, a kinked line and a self-intersecting line.",
+      "key_insight": "Failure is local: one point where branches meet, a cone tip, a corner or a crossing is enough to spoil the manifold property.",
+      "result": "R^n, S^1, S^2 and the torus are manifolds; the four defective shapes are not.",
+      "concepts": [
+        "smooth manifold",
+        "non-manifold (singular point) examples"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 31.2",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": "31.1"
+      },
+      "problem": "Review the elementary tools: vectors as arrows on a basis, gradient of a surface function, and directional derivative.",
+      "method": "Expand u on a basis, rewrite z = f(x,y) as h = 0, compute grad h in Cartesian and index form, and dot it with v.",
+      "key_insight": "The directional derivative is a number computed from derivatives of h and components of v, which is exactly what a 1-form acting on a vector will later deliver; the gradient-as-vector step is the unnatural part.",
+      "result": "partial_v h = v^alpha partial h/partial x^alpha.",
+      "concepts": [
+        "gradient as a normal vector",
+        "directional derivative",
+        "basis vectors and components"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 31.3",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      },
+      "problem": "Show that tangent vectors at a point, defined as derivative operators along curves, form a vector space.",
+      "method": "Write u = d/dmu and v = d/dlambda in the common coordinate basis partial_alpha, form av + bu, collect components, and argue that the resulting operator is d/dphi along some other curve through P.",
+      "key_insight": "Linearity of the chain rule: coordinate rates add, so the sum of two directional derivatives is itself a directional derivative.",
+      "result": "d/dphi = a d/dlambda + b d/dmu, i.e. w = av + bu with w^alpha = a dx^alpha/dlambda + b dx^alpha/dmu.",
+      "concepts": [
+        "tangent space",
+        "vector space",
+        "coordinate basis vectors"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 31.4",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      },
+      "problem": "Interpret a component of a 1-form in the stacked-surface picture.",
+      "method": "Pair the 1-form A with the unit x-direction basis vector to get A_1, read that as the number of surfaces crossed per unit length, and invert to get the spacing.",
+      "key_insight": "Large components mean closely packed surfaces; scaling the form by F packs the surfaces F times more densely.",
+      "result": "Surface spacing along x is 1/A_1; multiplying the form by F multiplies surface density by F.",
+      "concepts": [
+        "1-form",
+        "duality pairing of vectors and 1-forms"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      },
+      "problem": "Show that pairing the differential df with a vector u gives the directional derivative u[f] (eqn 31.23).",
+      "method": "Expand df on basis 1-forms and u on basis vectors, pull out components by linearity, apply the duality delta, and relabel.",
+      "key_insight": "The function slot of a vector is redundant: once 1-forms are differentials, acting on f is the same as eating df.",
+      "result": "<df, u> = u^alpha partial_alpha f = u[f].",
+      "concepts": [
+        "differential of a function as a 1-form",
+        "dual basis",
+        "directional derivative"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 31.5",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      },
+      "problem": "Extract the components of the (2,0) tensor u tensor v and reconstruct it.",
+      "method": "Insert basis 1-forms into both slots, factor into two pairings, use duality to get components, then multiply by e_alpha tensor e_beta and sum.",
+      "key_insight": "Components are just the tensor's outputs on basis inputs; the same recipe works for any valence.",
+      "result": "T^{alpha beta} = u^alpha v^beta and T = u^alpha v^beta e_alpha tensor e_beta.",
+      "concepts": [
+        "tensor product",
+        "tensor components by slot insertion"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 31.6",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      },
+      "problem": "Express the metric as a tensor built from basis 1-forms.",
+      "method": "Take the tensor product of coordinate differentials and weight by g_{mu nu}.",
+      "key_insight": "The familiar line element ds^2 is a (0,2) machine eating two vectors.",
+      "result": "g = g_{mu nu} dx^mu tensor dx^nu.",
+      "concepts": [
+        "metric tensor as a (0,2) tensor",
+        "tensor product"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 31.7",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      },
+      "problem": "Survey the standard operations on tensors using a (0,3) tensor P and a (1,3) tensor S.",
+      "method": "Fill slots of P to get a scalar; add a gradient slot and read it as tip-minus-base change; contract S by inserting omega^mu and e_mu; define divergence as gradient plus contraction; swap slots to define symmetry classes; write symmetrizers and antisymmetrizers with 1/n!; build a bivector via the wedge product and compute its components.",
+      "key_insight": "Every operation is a statement about slots: add one, pair two, swap two, or average over permutations, each with an immediate component translation.",
+      "result": "P_{alpha beta gamma, mu}; Q_{alpha gamma} = S^mu_{alpha mu gamma}; divergence S^mu_{alpha beta gamma, mu}; T^{(mu nu)}, T^{[mu nu]}; b^{mu nu} = u^mu v^nu - v^mu u^nu.",
+      "concepts": [
+        "gradient of a tensor",
+        "tensor contraction",
+        "divergence of a tensor",
+        "transpose of tensor slots",
+        "symmetric and antisymmetric tensors",
+        "symmetrization",
+        "antisymmetrization",
+        "wedge product",
+        "bivector"
+      ],
+      "difficulty": "standard"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "Zooming in until the space looks flat",
+      "target_concept": "smooth manifold",
+      "how_used": "A space counts as a manifold if magnifying around any point eventually shows ordinary flat space; the non-manifolds in Fig. 31.1 keep showing a corner, junction or tip at every magnification.",
+      "limits": "Visual smoothness is not the formal definition (charts and differentiable transition maps); a kinked curve is still a topological manifold.",
+      "locator": {
+        "pdf_page": 339,
+        "printed_page": 322,
+        "section": null
+      },
+      "effectiveness": "strong",
+      "app_idea": "Magnifier lens over curves and surfaces with a flatness verdict."
+    },
+    {
+      "analogy": "Removing the point from dP/dlambda leaves an empty machine",
+      "target_concept": "tangent vector as derivative operator",
+      "how_used": "The vector is first the velocity of a moving point; deleting the point leaves d/dlambda with a blank slot that can accept points, functions or later 1-forms.",
+      "limits": "On a manifold points cannot be subtracted, so dP/dlambda is itself only heuristic; the rigorous route defines the operator on functions directly.",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Animated equation where the symbol P fades out of dP/dlambda leaving a glowing empty bracket that the learner fills with f(x) = x^2 + y^2 to get a number."
+    },
+    {
+      "analogy": "Tip minus base",
+      "target_concept": "directional derivative",
+      "how_used": "The value of a function at the arrowhead of a vector minus its value at the tail approximates the directional derivative; reused for the gradient of a tensor (eqn 31.36).",
+      "limits": "Only a first-order approximation for small vectors; on a manifold the tip of a tangent vector is not a point of the manifold.",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Heat-map function with a draggable short arrow; readouts of f(tip) - f(base) and v^alpha partial_alpha f converge as the arrow shrinks."
+    },
+    {
+      "analogy": "Slot machines",
+      "target_concept": "tensor as multilinear map",
+      "how_used": "Vectors, 1-forms and tensors are machines with labelled slots; feeding in the right objects makes a number, and operations are described as adding, pairing or swapping slots.",
+      "limits": "Hides multilinearity unless stressed; a slot machine metaphor may suggest randomness or single use.",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Drag-and-drop tensor machine with typed slots (1-form or vector) that rejects wrong inputs and shows the component sum as it computes."
+    },
+    {
+      "analogy": "1-form as a stack of surfaces pierced by an arrow",
+      "target_concept": "duality pairing of vectors and 1-forms",
+      "how_used": "The pairing counts how many sheets a vector crosses; spacing is the reciprocal of the component, and scaling the form packs the sheets.",
+      "limits": "Only literally works for constant 1-forms in flat space; non-integer counts and non-exact 1-forms (whose sheets cannot close up) need more care.",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      },
+      "effectiveness": "strong",
+      "app_idea": "3D sheet counter with adjustable spacing and orientation."
+    },
+    {
+      "analogy": "Three floors: tangent space, number line, dual space",
+      "target_concept": "dual space",
+      "how_used": "Fig. 31.8 places vectors and 1-forms on separate planes with the real line between, making each a map onto numbers for the other.",
+      "limits": "Suggests the dual space is a separate place with no link to the manifold; also invites confusing it with a metric-based identification of vectors and 1-forms.",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Linked-planes visual in which choosing objects on two planes drops a marker onto the number line."
+    },
+    {
+      "analogy": "Congruence as fluid streamlines",
+      "target_concept": "congruence of curves",
+      "how_used": "A margin note previews that the space-filling non-crossing curves will represent the flow lines of a fluid in ch39.",
+      "limits": "Fluid streamlines carry a natural parameter (time) and density information that a bare congruence lacks.",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Dye-in-water animation where particles trace the congruence and arrows show the vector field."
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "A vector is fundamentally an arrow stretching from one point of space to another.",
+      "correction": "On a general manifold a vector lives at a single point, in that point's tangent space, and is best defined as a directional derivative d/dlambda along a curve.",
+      "why_tempting": "School vectors are displacements in flat space where arrows between points make sense.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      },
+      "concepts": [
+        "tangent vector as derivative operator",
+        "tangent space"
+      ]
+    },
+    {
+      "misconception": "The gradient of a function is naturally a vector normal to its level surfaces.",
+      "correction": "The natural object is the 1-form df with lower-index components; turning it into a normal vector requires a metric, and in index notation h_{,alpha} e_alpha is visibly inconsistent.",
+      "why_tempting": "Vector calculus in Euclidean space with an orthonormal basis hides the distinction.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": "31.1"
+      },
+      "concepts": [
+        "gradient as a normal vector",
+        "differential of a function as a 1-form"
+      ]
+    },
+    {
+      "misconception": "Vectors and 1-forms belong to the manifold itself.",
+      "correction": "They live in the tangent and dual spaces attached to each point, not in the manifold M.",
+      "why_tempting": "In R^n the manifold, its tangent spaces and their duals can all be identified with R^n.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 339,
+        "printed_page": 322,
+        "section": null
+      },
+      "concepts": [
+        "tangent space",
+        "dual space",
+        "smooth manifold"
+      ]
+    },
+    {
+      "misconception": "Vectors at different points can be directly compared or subtracted.",
+      "correction": "Different points have different tangent spaces; comparison needs a connection (parallel transport) or a flow (Lie derivative).",
+      "why_tempting": "Sliding arrows around is harmless in flat space with Cartesian coordinates.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      },
+      "concepts": [
+        "comparing vectors at different points requires a connection",
+        "parallel transport and connection"
+      ]
+    },
+    {
+      "misconception": "Equal parameter values on different curves of a congruence mark equal distances.",
+      "correction": "Each curve's parameter is independent; lambda = 2 may sit at different arc lengths on different curves.",
+      "why_tempting": "Parameters are often thought of as distance or time.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      },
+      "concepts": [
+        "congruence of curves"
+      ]
+    },
+    {
+      "misconception": "Pairing a 1-form with a vector requires a metric (it is the dot product).",
+      "correction": "The pairing <sigma, v> is defined without any metric; the dot product of two vectors does need one. The book prefers angle brackets precisely to avoid the confusion.",
+      "why_tempting": "Both are called inner products and both are written with a dot at times.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      },
+      "concepts": [
+        "duality pairing of vectors and 1-forms",
+        "metric tensor as a (0,2) tensor"
+      ]
+    },
+    {
+      "misconception": "The order of factors in a tensor product never matters.",
+      "correction": "Order among the vector factors and among the 1-form factors matters (u tensor v is not v tensor u); only the relative listing of the vector group versus the 1-form group is a matter of bookkeeping.",
+      "why_tempting": "Components u^alpha v^beta are ordinary numbers that commute.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.4"
+      },
+      "concepts": [
+        "tensor product"
+      ]
+    },
+    {
+      "misconception": "Every tensor is a single tensor product of vectors and 1-forms.",
+      "correction": "A general tensor is a sum of such products (e.g. a generic (2,0) tensor in 4D needs up to four product terms); only the basis products span the space.",
+      "why_tempting": "The chapter says any tensor can be built from n vectors and m 1-forms.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      },
+      "concepts": [
+        "tensor product",
+        "tensor components by slot insertion"
+      ]
+    },
+    {
+      "misconception": "The component-wise partial derivative P_{alpha beta gamma, mu} is the gradient of a tensor on any manifold.",
+      "correction": "Only in flat space with suitable coordinates; in general the gradient must use the covariant derivative with connection terms.",
+      "why_tempting": "The coordinate-free notation nabla P looks the same everywhere.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      },
+      "concepts": [
+        "gradient of a tensor",
+        "parallel transport and connection"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Magnifying a point on a shape",
+      "setup": "Pick any point on a candidate space and keep enlarging a small neighbourhood of it.",
+      "lesson": "If the enlargement eventually looks like a flat line, plane or R^n at every point, the space is a manifold; persistent corners, crossings or apexes rule it out.",
+      "locator": {
+        "pdf_page": 339,
+        "printed_page": 322,
+        "section": null
+      },
+      "concepts": [
+        "smooth manifold"
+      ],
+      "visualizable": true,
+      "app_idea": "Magnifier over Fig. 31.1 style shapes."
+    },
+    {
+      "name": "Many curves through one point",
+      "setup": "Imagine all possible smooth curves passing through P and the tangent operator of each at P.",
+      "lesson": "Their tangent operators can be scaled and added and still correspond to some curve through P, so they fill out a vector space whose dimension equals the manifold's.",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      },
+      "concepts": [
+        "tangent space"
+      ],
+      "visualizable": true,
+      "app_idea": "Spray of curves through P whose tangent arrows fill a plane."
+    },
+    {
+      "name": "Trying to compare arrows at two points",
+      "setup": "Given a vector at P and one at Q on a bare manifold, ask whether they are the same.",
+      "lesson": "Without a rule for carrying vectors between points the question is meaningless; this motivates connections and Lie derivatives.",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      },
+      "concepts": [
+        "comparing vectors at different points requires a connection"
+      ],
+      "visualizable": true,
+      "app_idea": "On a sphere, carry a vector from P to Q along two different paths and show the arrivals disagree."
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "Elie Cartan"
+      ],
+      "year": "c. 1900",
+      "event": "Proposed (or, as the authors put it, discovered) differential forms around 1900.",
+      "significance": "Source of the forms language used throughout the rest of Part V; the authors argue that forms are no harder than vectors and deserve a comparable place in undergraduate physics.",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      }
+    },
+    {
+      "people": [
+        "Elie Cartan"
+      ],
+      "year": null,
+      "event": "Credited with reading the tangent vector dP/dlambda as the displacement of the point P itself, the derivative measuring the difference between the point at the arrow's tip and at its base.",
+      "significance": "This is the interpretation the chapter then abandons by deleting P, leaving the bare operator d/dlambda.",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "people": [
+        "Gregorio Ricci-Curbastro",
+        "Tullio Levi-Civita"
+      ],
+      "year": "1901",
+      "event": "Published the joint memoir on absolute differential calculus that systematized tensor calculus; Ricci signed it with the shortened name Ricci, unlike his other works.",
+      "significance": "Streamlined Riemannian geometry into the form Einstein used for general relativity.",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "people": [
+        "Roger Penrose"
+      ],
+      "year": "2004",
+      "event": "Diagrammatic tensor notation described in his book cited for Exercise 31.7.",
+      "significance": "Offers a visual way to track contractions and symmetries of indices.",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Work done by a force as a 1-form",
+      "kind": "numerical-estimate",
+      "details": "Exercise 31.2 asks for the 1-form that returns work when fed a displacement, making force naturally a covector (W = f_i dx^i in Euclidean space).",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 349,
+        "printed_page": 332,
+        "section": null
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Square versus round brackets on vectors",
+      "convention": "v[f] denotes a vector acting on a function (directional derivative); v(sigma) denotes a vector eating a 1-form. v[ ] with an empty bracket denotes the operator awaiting input.",
+      "notes": "The book itself uses square brackets for 1-form slots in eqn 31.50.",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "item": "Pairing notation",
+      "convention": "<sigma, v> = sigma(v) = v(sigma), sometimes sigma . v; angle brackets preferred to avoid confusion with the metric dot product.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      }
+    },
+    {
+      "item": "1-forms",
+      "convention": "Written with a tilde (sigma-tilde, A-tilde); basis 1-forms omega^alpha with upper indices; vectors bold with basis e_alpha.",
+      "notes": "Some displayed equations print a hat instead of a tilde in the export; the PDF shows tildes.",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      }
+    },
+    {
+      "item": "Bold d for differentials",
+      "convention": "A bold d (dx^alpha, df) marks the differential or exterior derivative, distinct from the ordinary d in d/dlambda.",
+      "notes": "Explanation deferred to the exterior derivative chapter (ch33).",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "item": "Tensor valence",
+      "convention": "(n, m) = n 1-form slots (upper indices) and m vector slots (lower indices); 'rank' is used interchangeably.",
+      "notes": "Contraction is said to lower the rank by two, meaning total index count.",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "item": "Symmetrization brackets",
+      "convention": "Round brackets around indices, T^{(mu nu)}, denote symmetrization with 1/n!; square brackets, T^{[mu nu]}, antisymmetrization with 1/n!.",
+      "notes": "The wedge product u wedge v = u tensor v - v tensor u carries no 1/2, so u wedge v has components 2 u^{[mu} v^{nu]}.",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "item": "Comma derivative",
+      "convention": "A comma before an index denotes a partial derivative with respect to that coordinate; semicolon (Exercise 31.5) a covariant derivative.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "item": "Curly letters for points",
+      "convention": "Points on the manifold are calligraphic P, Q, A, B; a curve is P(lambda).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "The manifold is R^n with its metric, vector-space and topological structure dropped; these are restored gradually in later chapters.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 339,
+        "printed_page": 322,
+        "section": null
+      }
+    },
+    {
+      "summary": "Pointer box: Appendix C gives a fuller account of manifolds.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": null
+      }
+    },
+    {
+      "summary": "Reading grad h as a vector clashes with the up-down summation rule, since its components h_{,alpha} carry a lower index.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": "31.1"
+      }
+    },
+    {
+      "summary": "A parametrized path is a rule taking a parameter value to a point on the curve.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "The tangent vector literally is the derivative d/dlambda, not merely represented by it.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "Components record how coordinates change along the curve; basis vectors are rates of change with respect to the coordinates.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "Bracket convention: square for functions, round for the 1-form slot.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "The directional derivative can still be pictured as function value at the tip minus value at the base.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 342,
+        "printed_page": 325,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "Summary of vector-space axioms: closure, zero, inverses, associativity, distributivity, commutativity, and a basis whose size equals the dimension.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "Evaluation point is marked with a vertical bar, d/dlambda|_P; the point is no longer fed into the derivative, which normally acts on functions.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "Congruences reappear as fluid streamlines in ch39.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "The Lie derivative, coming later, is another way to compare vector fields at different points.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "summary": "The pairing is kept symmetric, v(sigma) = sigma(v), and written with angle brackets when a dot would suggest the metric scalar product.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      }
+    },
+    {
+      "summary": "Reminder of the calculus total differential; bold d will be explained a few chapters on.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "summary": "Once df is available the vector's function slot can be retired in favour of pairings.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "summary": "Biography of tensor calculus: Ricci-Curbastro with Levi-Civita, 1901 memoir signed 'Gregorio Ricci', the basis for Einstein's geometry.",
+      "type": "biography",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "summary": "The tensor product symbol just preserves slot order.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "summary": "Order matters within the vector factors and within the 1-form factors, but which group is listed first is immaterial.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.4"
+      }
+    },
+    {
+      "summary": "The operations list follows Misner, Thorne and Wheeler.",
+      "type": "reference",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "summary": "Component conditions for symmetric (T^{mu nu} = T^{nu mu}) and antisymmetric (A^{mu nu} = -A^{nu mu}) (2,0) tensors.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "summary": "Epigraph from Samuel Johnson suggesting the order of teaching matters as little as which trouser leg goes on first, a wink at the book's spiral structure.",
+      "type": "humor-or-aside",
+      "locator": {
+        "pdf_page": 339,
+        "printed_page": 322,
+        "section": null
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 7,
+    "pdf_pages": [
+      349,
+      350
+    ],
+    "skills_practiced": [
+      "evaluating pairings of coordinate basis 1-forms and vectors",
+      "recognizing when a metric is needed (dot products of two vectors or two 1-forms)",
+      "modelling a physical quantity (work) as a 1-form",
+      "expanding symmetrized and antisymmetrized index expressions",
+      "splitting tensors into symmetric and antisymmetric parts inside contractions",
+      "antisymmetrized covariant derivatives of antisymmetric tensors",
+      "translating a point-based relation into a statement about basis vectors",
+      "reading and writing Penrose diagrammatic tensor notation"
+    ],
+    "notable": [
+      {
+        "number": "31.1",
+        "summary": "Compute pairings of coordinate differentials with partial-derivative basis vectors, then the dot products of two basis vectors and of two basis 1-forms.",
+        "skills": [
+          "duality delta",
+          "metric and inverse metric as dot products"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Parts (c) and (d) cannot be answered from duality alone; they force the learner to bring in g_{alpha beta} and g^{alpha beta}, sharpening the pairing-versus-dot-product distinction.",
+        "pdf_page": 349
+      },
+      {
+        "number": "31.2",
+        "summary": "Construct the 1-form that turns a displacement into the work done by a given force in Euclidean space.",
+        "skills": [
+          "physical interpretation of 1-forms"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Shows force is most naturally a covector, a physical anchor for the abstract definition.",
+        "pdf_page": 349
+      },
+      {
+        "number": "31.3",
+        "summary": "Write out in full the symmetrization over three upper indices and the antisymmetrization over three lower indices of a (3,3) tensor.",
+        "skills": [
+          "permutations and their signs",
+          "1/3! normalization"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Six-term expansions build fluency needed for p-forms and the Bianchi identity.",
+        "pdf_page": 349
+      },
+      {
+        "number": "31.4",
+        "summary": "Show that contracting a symmetric (or antisymmetric) A^{mu nu} with a general T_{mu nu} sees only the symmetric (or antisymmetric) part of T.",
+        "skills": [
+          "symmetric/antisymmetric decomposition",
+          "relabelling dummy indices"
+        ],
+        "difficulty": "standard",
+        "why_notable": "A workhorse trick in GR (e.g. only the symmetric part of a tensor couples to the metric or stress tensor). The printed 'asymmetric' means antisymmetric.",
+        "pdf_page": 349
+      },
+      {
+        "number": "31.5",
+        "summary": "Expand the antisymmetrized covariant derivative of an antisymmetric tensor, and show that an antisymmetric tensor contracted twice with the same 4-velocity gives zero.",
+        "skills": [
+          "antisymmetrization with derivatives",
+          "symmetric-antisymmetric contraction vanishing"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Part (a) is the structure of the homogeneous Maxwell equations; part (b) underlies why the Lorentz force does no work on rest mass.",
+        "pdf_page": 349
+      },
+      {
+        "number": "31.6",
+        "summary": "Starting from a relation between second derivatives of locally inertial coordinates and connection coefficients, strip out the point to recover how basis vectors change with position.",
+        "skills": [
+          "removing the point as in the vector-as-derivative argument",
+          "connection coefficients"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Links the chapter's key manoeuvre to the Part II definition of Christoffel symbols.",
+        "pdf_page": 349
+      },
+      {
+        "number": "31.7",
+        "summary": "Interpret Penrose tensor diagrams: justify a sum of permuted-index terms, write expressions for two diagrams, identify two electromagnetism equations drawn with derivative circles, and identify a Riemann-tensor identity.",
+        "skills": [
+          "diagrammatic index bookkeeping",
+          "Maxwell equations in tensor form",
+          "commutator of covariant derivatives"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "A rare visual approach to index gymnastics and a strong seed for an interactive tool.",
+        "pdf_page": 350
+      }
+    ],
+    "solutions": "Some answers may appear in GA appE (Answers to selected problems); not checked for this chapter."
+  },
+  "difficulty": {
+    "math_level": 3,
+    "conceptual_level": 4,
+    "novice_friendliness": 3,
+    "notes": "The algebra is light (chain rule, duality delta, permutations), but the conceptual shift from arrows to derivative operators on a metric-free manifold is abstract and moves fast. The heuristic 'remove the point' step and the tip-minus-base pictures help but are not rigorous, and the tensor-operations catalogue is dense, list-like and contains index and bracket slips (31.27 index labels, 31.40 Q_{alpha beta} for Q_{alpha gamma}, square brackets in 31.50). Exercises 31.6 and 31.7 assume Part II connections and Maxwell's equations."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "GA ch04 §4.2",
+      "reason": "Original introduction of 1-forms as stacks of surfaces and the slot-machine metaphor, recalled for Fig. 31.9.",
+      "locator": {
+        "pdf_page": 344,
+        "printed_page": 327,
+        "section": "31.3"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch04 §4.4",
+      "reason": "First treatment of tensors as slot machines, now generalized.",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch05",
+      "reason": "Metric components g_{mu nu} and the line element rewritten as a (0,2) tensor in Example 31.6.",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch07",
+      "reason": "Parallelism, connection and covariant derivative invoked as what would be needed to compare vectors at different points.",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch09",
+      "reason": "Connection coefficients and locally inertial coordinates used in Exercise 31.6.",
+      "locator": {
+        "pdf_page": 349,
+        "printed_page": 332,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch30",
+      "reason": "Preceding Part V chapter on classical curvature, whose metric-laden treatment this chapter deliberately sets aside.",
+      "locator": null
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch32",
+      "reason": "Differential forms (2-forms, p-forms, p-vectors) built from the wedge product and antisymmetrization introduced here.",
+      "locator": {
+        "pdf_page": 349,
+        "printed_page": 332,
+        "section": "31.5"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch33",
+      "reason": "Lie derivative (33.3-33.4) as the connection-free way to compare vector fields at different points, and exterior calculus (33.1), where the bold d promised in the margin note is explained.",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch34",
+      "reason": "Geometry of the connection revisits the covariant derivative of tensors that the flat-space gradient here stands in for.",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch39",
+      "reason": "Congruences as fluid streamlines.",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA appC §C.10",
+      "reason": "Formal definitions of manifolds and tangent spaces.",
+      "locator": {
+        "pdf_page": 340,
+        "printed_page": 323,
+        "section": null
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch42 §42.2",
+      "reason": "Faraday tensor and Maxwell equations behind Exercises 31.5 and 31.7(c).",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Misner, Thorne and Wheeler, Gravitation (1973)",
+      "reason": "Source of the presentation of tensor operations in 31.5.",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Penrose, The Road to Reality (2004)",
+      "reason": "Details of the diagrammatic tensor notation in Exercise 31.7.",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Ricci and Levi-Civita, Methodes de calcul differentiel absolu et leurs applications (1901)",
+      "reason": "Historical founding text of tensor calculus mentioned in a margin note.",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "Derive 'vector = derivative' in three strokes: the derivative of a parametrized segment is the arrow, the chain rule expresses a curve's tangent in coordinates, and deleting the point leaves the operator (dx^alpha/dlambda) partial_alpha.",
+      "why_effective": "Each step is familiar calculus, so the abstract identification arrives as an inevitable consequence rather than a definition imposed from above.",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      },
+      "app_idea": "Three-panel stepper: segment with lambda slider, curved path on a coordinate grid, then the operator applied to a user-chosen test function, with the symbolic expression morphing between panels."
+    },
+    {
+      "gem": "Read components and basis vectors straight off the chain rule: dx^alpha/dlambda are the components and partial/partial x^alpha are the basis vectors.",
+      "why_effective": "Demystifies the odd-looking notation e_alpha = partial_alpha by showing it is forced by matching two expressions for the same object.",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      },
+      "app_idea": "Coordinate switcher (Cartesian, polar) showing the basis operators as arrows along coordinate lines and components recomputed live for a fixed tangent vector."
+    },
+    {
+      "gem": "Reconcile the two ways a vector eats things: u[f] computed as a derivative equals <df, u> computed as a pairing.",
+      "why_effective": "Unifies analysis and linear algebra and quietly repairs the 'gradient as normal vector' problem raised at the start.",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      },
+      "app_idea": "Contour map of f with df drawn as local level-line stacks; drag a vector and see the directional derivative and the sheet count agree."
+    },
+    {
+      "gem": "Dual basis check in one line: <dx^mu, partial_nu> = partial x^mu/partial x^nu = delta^mu_nu.",
+      "why_effective": "Turns the abstract duality condition into the obvious fact that a coordinate changes only along its own direction.",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      },
+      "app_idea": "Grid with coordinate lines; clicking a basis arrow shows it crossing exactly one level set of its own coordinate and none of the others."
+    },
+    {
+      "gem": "Closure of tangent vectors shown by combining the tangent operators of two curves into the tangent of a third curve.",
+      "why_effective": "Gives the tangent space a concrete construction from curves rather than an axiom.",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      },
+      "app_idea": "Sliders a, b generate a third curve through P whose tangent is av + bu."
+    },
+    {
+      "gem": "Congruence to vector field: non-crossing space-filling curves give one tangent per point.",
+      "why_effective": "Makes vector fields visual and prepares integral curves, flows and Lie dragging.",
+      "locator": {
+        "pdf_page": 343,
+        "printed_page": 326,
+        "section": "31.2"
+      },
+      "app_idea": "Streamline explorer toggling between curves and arrows, with uneven parameter ticks."
+    },
+    {
+      "gem": "Every tensor operation described as slot surgery: add a slot (gradient), pair two slots (contraction), swap slots (transpose), average over slot permutations ((anti)symmetrization).",
+      "why_effective": "Gives learners a small set of verbs to organize a long list of index manipulations.",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      },
+      "app_idea": "Tensor workbench: a tensor shown as a box with typed slots; operations are buttons that visibly add, link or swap slots while the component expression updates."
+    },
+    {
+      "gem": "Penrose diagrams as an exercise for index bookkeeping.",
+      "why_effective": "Converts error-prone index juggling into visual topology: lines are indices, joins are contractions, bars are (anti)symmetrizations.",
+      "locator": {
+        "pdf_page": 350,
+        "printed_page": 333,
+        "section": null
+      },
+      "app_idea": "Bidirectional Penrose-diagram editor linked to index notation."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "The derivation starts from dP/dlambda and B - A, which presuppose subtracting points, exactly what a bare manifold does not allow.",
+      "impact_on_learner": "Careful readers may feel the argument is circular or wonder what B - A means on a sphere.",
+      "suggestion": "Present the point-based step as flat-space motivation, then define the tangent vector directly as the operator f -> d(f(P(lambda)))/dlambda, which needs no subtraction.",
+      "locator": {
+        "pdf_page": 341,
+        "printed_page": 324,
+        "section": "31.2"
+      }
+    },
+    {
+      "issue": "Printed eqn 31.27 labels the components T^{mu nu} on the left but uses alpha, beta on the right, and also places a tensor-product sign between u(omega^alpha) and v(omega^beta), which are plain numbers.",
+      "impact_on_learner": "Index-matching confusion in the very first component extraction.",
+      "suggestion": "Use one consistent pair of indices throughout (T^{alpha beta} = u^alpha v^beta) and write the product of the two pairings as ordinary multiplication; the same product-of-numbers slip recurs in eqn 31.50.",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "issue": "Printed eqn 31.40 writes Q_{alpha beta} u^alpha v^gamma; the free indices do not match (should be Q_{alpha gamma}).",
+      "impact_on_learner": "Undermines the lesson that contraction leaves exactly the unpaired indices free.",
+      "suggestion": "Correct to Q_{alpha gamma} = S^mu_{alpha mu gamma} and highlight which slots were paired.",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "issue": "Eqn 31.50 uses square brackets for the 1-form slots, contradicting the chapter's convention that square brackets take functions.",
+      "impact_on_learner": "Blurs the distinction the chapter worked to set up.",
+      "suggestion": "Write u(omega^mu) v(omega^nu) - v(omega^mu) u(omega^nu).",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    },
+    {
+      "issue": "Exercise 31.4(b) says 'asymmetric part' where antisymmetric part is meant.",
+      "impact_on_learner": "Asymmetric (merely not symmetric) and antisymmetric are different concepts.",
+      "suggestion": "Read as antisymmetric part T_{[mu nu]}.",
+      "locator": {
+        "pdf_page": 349,
+        "printed_page": 332,
+        "section": null
+      }
+    },
+    {
+      "issue": "The claim that an arbitrary (n, m) tensor can be built as one tensor product of n vectors and m 1-forms omits that general tensors are sums of such products.",
+      "impact_on_learner": "Learners may think every rank-2 tensor has components of the form u^alpha v^beta (rank-one matrices).",
+      "suggestion": "Show a 2x2 example such as the identity matrix, which is not a single outer product, and write it as a sum.",
+      "locator": {
+        "pdf_page": 346,
+        "printed_page": 329,
+        "section": "31.4"
+      }
+    },
+    {
+      "issue": "The gradient and divergence are given only in flat-space component form, even though the chapter's arena is a general manifold with no connection.",
+      "impact_on_learner": "Confusion about whether nabla is defined at this stage and why partial derivatives suffice.",
+      "suggestion": "State plainly that nabla requires a connection; with one, commas become semicolons; point ahead to ch34.",
+      "locator": {
+        "pdf_page": 347,
+        "printed_page": 330,
+        "section": "31.5"
+      }
+    },
+    {
+      "issue": "The manifold is described informally; 'smoothness' is conflated with 'locally flat', which could be misread as zero curvature.",
+      "impact_on_learner": "Learners may think a sphere is locally flat in the curvature sense, clashing with ch11 and ch30.",
+      "suggestion": "Distinguish 'locally like R^n as a smooth space (charts)' from 'locally flat metric to first order'; the sphere is the former everywhere but has curvature.",
+      "locator": {
+        "pdf_page": 339,
+        "printed_page": 322,
+        "section": null
+      }
+    },
+    {
+      "issue": "The link between the rejected 'gradient as normal vector' of 31.1 and the 1-form df of 31.3 is promised but never explicitly closed.",
+      "impact_on_learner": "The motivating complaint seems to be forgotten.",
+      "suggestion": "After eqn 31.24, show that df has lower-index components naturally and that raising the index with g^{alpha beta} recovers the old normal vector.",
+      "locator": {
+        "pdf_page": 345,
+        "printed_page": 328,
+        "section": "31.3"
+      }
+    },
+    {
+      "issue": "Wedge-product normalization (no 1/2) differs from the antisymmetrization bracket (with 1/2!), and from some other texts.",
+      "impact_on_learner": "Factor-of-two errors when converting between u wedge v and u^{[mu} v^{nu]}.",
+      "suggestion": "State explicitly (u wedge v)^{mu nu} = 2 u^{[mu} v^{nu]} and flag convention differences when comparing books.",
+      "locator": {
+        "pdf_page": 348,
+        "printed_page": 331,
+        "section": "31.5"
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Open with: 'If you lived on a sphere and could not leave it, what could a vector at a point possibly be, since you cannot draw an arrow to another point?' Let the learner struggle before offering 'a way of moving through the point', i.e. a derivative along a curve.",
+    "Check the prerequisites quickly: can the learner differentiate f(x(lambda), y(lambda)) with the chain rule, and do they know that a 1-form eats a vector to give a number (GA ch4)? If not, repair these first.",
+    "Order of explanation that works: arrow from A to B, derivative of the segment, tangent to a curve, chain rule in coordinates, remove the point, apply to a function, read off components and basis, then closure and vector fields. Delay 1-forms until the learner can say 'v[f] is the directional derivative'.",
+    "Use a concrete test function and curve, for instance f = x^2 + y^2 on the circle x = cos lambda, y = sin lambda: v[f] = 0, so the vector is tangent to level sets. This anchors the operator view numerically.",
+    "Check for understanding: ask what partial/partial theta is as a vector in polar coordinates and how long it is at radius r (it grows with r, needing a metric to measure). This probes the difference between basis operators and unit vectors.",
+    "Check for understanding: ask the learner to verify <dr, partial_theta> = 0 and <dtheta, partial_theta> = 1 in polar coordinates without using any metric.",
+    "When 1-forms appear, stress that the pairing needs no metric, and that the dot product of two vectors (Exercise 31.1c) does. Many learners conflate them.",
+    "Anticipated question: 'Why call it a vector if it is a derivative?' Answer: because these operators add and scale exactly like vectors and have the right number of independent directions; the arrow picture is one representation of the same vector space.",
+    "Anticipated question: 'Isn't the gradient a vector?' Answer: df is a 1-form; its components are partial_alpha f with lower indices. A metric converts it to the normal vector of school calculus.",
+    "For the tensor operations, have the learner say for each operation what happens to the slot count and valence before writing any components, then verify with indices. Fix the printed index typos in 31.27 and 31.40 as you go.",
+    "Probe symmetry fluency: ask why A^{mu nu} T_{mu nu} = 0 when A is symmetric and T antisymmetric (relabel dummy indices), a trick used constantly later.",
+    "If the learner is advanced, connect forward: the wedge product and antisymmetrization lead to p-forms (ch32), bold d to the exterior derivative (ch33), and the 'cannot compare at different points' remark to the Lie and covariant derivatives (ch33, ch34)."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Fig. 31.3: corrected visual description (P sits between the lambda = 3 and 4 ticks; ticks are roughly evenly spaced, not markedly uneven) and removed an unsupported claim about uneven parameter spacing from what_it_teaches.",
+      "Historical notes: Cartan's point-displacement reading of dP/dlambda was located on p.327 together with the forms remark; split into its own note located at pdf 341 / printed 324.",
+      "Cross-reference to ch33 pointed at 33.3 while also claiming it explains bold d (that is 33.1); retargeted to the chapter with both sections named.",
+      "Added the chapter summary's same-point rule for pairing vectors and 1-forms to the 1-form field concept (with a p.332 locator).",
+      "Penrose notation concept: added the page-position index-order rule and the omitted 1/n! factor convention from Exercise 31.7.",
+      "Gap on eqn 31.27 extended: the printed tensor-product sign between two numbers (also in 31.50) is flagged.",
+      "Removed a mis-typed 'data-analysis' application entry (Penrose diagrams of Maxwell equations) that duplicated the Exercise 31.7 and Fig. 31.10 entries."
+    ],
+    "residual_concerns": [
+      "Readings of Fig. 31.10 (ii)-(vi) (which Maxwell equation, Ricci identity) are the dossier's interpretation; the book leaves them as exercise answers and appE was not checked.",
+      "Applications entry for Exercise 31.2 uses kind 'numerical-estimate' because no schema enum fits a conceptual modelling exercise.",
+      "Eqns 31.46 and 31.48 are rendered with an explicit permutation sum; the book states the sums only in words."
+    ],
+    "coverage": {
+      "toc_sections": 5,
+      "sections": 6,
+      "inventory_figures": 15,
+      "figures": 15,
+      "inventory_examples": 7,
+      "worked_examples": 8,
+      "concepts": 40,
+      "key_equations": 54,
+      "locators_checked": 32,
+      "locators_wrong": 1,
+      "pages_rendered": 7
+    }
+  }
+}

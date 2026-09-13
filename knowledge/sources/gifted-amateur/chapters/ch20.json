@@ -1,0 +1,3522 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch20",
+ "title": "Newtonian orbits",
+ "part": "IV: Orbits, stars, and black holes",
+ "printed_pages": [
+  217,
+  228
+ ],
+ "pdf_pages": [
+  234,
+  245
+ ],
+ "one_line_summary": "A self-contained refresher on the Kepler problem that builds the toolkit later reused for Schwarzschild orbits: angular momentum conservation from a central force, Kepler's three laws derived from the polar equations of motion, ellipse vocabulary and the energy E = -GMm/2a, the effective potential with its angular-momentum barrier, the u = 1/r orbit equation whose solutions are the conic sections classified by the sign of E, and finally the question of why bound orbits close at all (turning-angle integral, power-law stability, Laplace-Runge-Lenz vector).",
+ "role_in_book": "Opening chapter of Part IV (orbits, stars and black holes). The Part IV preface on the preceding page lays out the plan: Newtonian motion first, then the Schwarzschild metric (ch21) and motion in it (ch22-24), then black holes (ch25-29). The chapter is explicitly optional for readers who know classical mechanics, but it deliberately rehearses exactly the methods the relativistic chapters will recycle: conserved E and L, an effective potential read graphically, the substitution u = 1/r, and the closure/precession criterion. By establishing that Newtonian bound orbits never precess, it sets up the perihelion shift in ch23 as a clean signature of general relativity; its closing exercises also show that grafting a scalar potential onto Minkowski spacetime fails to bend light, re-motivating the metric theory.",
+ "assumed_background": [
+  {
+   "topic": "Newton's law of gravitation and gravitational potential energy -GMm/r",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Torque, angular momentum and their relation dL/dt = torque",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Lagrangian mechanics and the Euler-Lagrange equations",
+   "source": "undergrad-mechanics",
+   "where": "also used for geodesics in GA ch8-9"
+  },
+  {
+   "topic": "Plane polar coordinates with orthonormal (hatted) basis vectors that rotate with angle",
+   "source": "earlier-in-this-book",
+   "where": "GA ch10 Example 10.4 (Kepler problem in a non-coordinate basis); GA ch3 polar coordinates"
+  },
+  {
+   "topic": "Solving linear second-order ODEs, especially simple harmonic motion",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Taylor expansion about a minimum and small oscillations",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Vector cross products and the triple-product (BAC-CAB) identity",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Geometry of the ellipse and conic sections",
+   "source": "school-math",
+   "where": null
+  },
+  {
+   "topic": "Planetary astronomy vocabulary (Solar System, planets, the Sun at a focus)",
+   "source": "astronomy",
+   "where": null
+  },
+  {
+   "topic": "4-velocity, 4-acceleration and the orthogonality a.u = 0 (exercises only)",
+   "source": "earlier-in-this-book",
+   "where": "GA ch1-2"
+  }
+ ],
+ "learning_objectives": [
+  "Reader can explain why a central force exerts no torque, so that angular momentum is conserved and motion is confined to a plane.",
+  "Reader can write the Kepler-problem Lagrangian in polar coordinates and obtain the radial and transverse equations of motion, identifying r-double-dot minus r theta-dot squared as radial acceleration.",
+  "Reader can derive Kepler's second law from r^2 theta-dot = const and interpret it as an area vector changing at rate L/2m, valid for any central force.",
+  "Reader can show that an elliptical path with the attracting body at a focus requires an inverse-square force, and derive Kepler's third law T^2 = 4 pi^2 a^3/GM.",
+  "Reader can use the vocabulary of orbits: semi-major and semi-minor axes, eccentricity, focus, perihelion/aphelion and the general periapsis/apoapsis family.",
+  "Reader can compute the total energy of an elliptical orbit, E = -GMm/2a, and the angular momentum L^2 = GMm^2 a(1 - epsilon^2).",
+  "Reader can construct the Newtonian effective potential energy, explain the roles of the angular-momentum barrier and the -1/r well, locate the circular orbit at its minimum and read turning points off a horizontal energy line.",
+  "Reader can transform the radial equation with u = 1/r into d^2u/dtheta^2 + u = GMm^2/L^2, solve it, and classify the resulting conics (ellipse, parabola, hyperbola) by the sign of E or by eccentricity.",
+  "Reader can write the turning-angle integral for a general central potential, state the condition for a closed orbit, and define precession per orbit as Delta theta - 2 pi.",
+  "Reader can analyse near-circular orbits in a power-law force F = -A r^n: stability requires n > -3, and the ratio of radial to orbital periods is 1/sqrt(n+3), so only special n give closed rosettes.",
+  "Reader can prove that the Laplace-Runge-Lenz vector is conserved for an inverse-square force and use it to argue that Newtonian orbits cannot precess.",
+  "Reader can explain, via the closing exercises, why a scalar Newtonian potential inserted into special relativity is inconsistent or fails the light-bending test."
+ ],
+ "teaching_approach": {
+  "summary": "A brisk classical-mechanics review written with the relativistic chapters in view. Each result is presented as a short boxed Example that proves one of Kepler's empirical laws or one property of the orbit, so the chapter reads as a chain of small verifications rather than one long derivation. Two complementary pictures are built side by side: the graphical effective-potential diagram, which classifies motion qualitatively, and the analytic u = 1/r orbit equation, which gives the exact conic. The final section changes register and asks a deeper question (why orbits close) answered three ways: an explicit turning-angle integral, a small-oscillation argument for power-law forces, and a conserved vector. Margin notes carry the vector-calculus details, a lively Kepler biography, and a symmetry-counting aside on superintegrability.",
+  "style_tags": [
+   "derivation-heavy",
+   "example-driven",
+   "diagram-driven",
+   "conversational-informal",
+   "physical-motivation-first",
+   "computational-recipe"
+  ],
+  "narrative_arc": [
+   "Frame: GR corrects Newton, so first master the methods for the -1/r potential; readers who know them may skip.",
+   "Central force gives zero torque, so L is conserved, fixed in direction, and motion is planar in (r, theta).",
+   "Write the polar Lagrangian and obtain radial and transverse equations of motion (acceleration components in a margin note).",
+   "State Kepler's three laws as empirical targets to be proved.",
+   "Second law: integrate the transverse equation to r^2 theta-dot = C, interpret C geometrically as twice the areal rate, and upgrade to an area vector dA/dt = L/2m.",
+   "Anatomy of an orbit: conic sections, polar equation of an ellipse, and a check that the ellipse forces an inverse-square law.",
+   "Third law from the area of the ellipse and the radial acceleration; apsis vocabulary; energy at aphelion gives E = -GMm/2a.",
+   "Effective potentials: fold the angular kinetic term into U_eff, dissect it into barrier plus well, read off circular, bound, unbound and plunge motions from a horizontal energy line.",
+   "Allowed trajectories: u = 1/r turns the radial equation into a shifted harmonic oscillator in theta; the general solution is a conic.",
+   "Classify conics by the sign of E through perihelion values (parabola E = 0, hyperbola E > 0, ellipse E < 0, circle B = 0), then rederive via the energy first integral.",
+   "Why do orbits close? Turning angle integral for a generic U(r), closure condition Delta theta = 2 pi q/n, precession per orbit.",
+   "Three answers: Newtonian integral gives exactly 2 pi; near-circular power-law orbits oscillate radially with period T/sqrt(n+3); the Laplace-Runge-Lenz vector is conserved and pins the perihelion.",
+   "Hand-off: the Schwarzschild metric is the relativistic counterpart of the 1/r potential; exercises show naive SR scalar gravity cannot bend light."
+  ],
+  "signature_moves": [
+   "Treat Kepler's laws as empirical claims and prove each in its own boxed Example, so the reader sees theory reproduce data.",
+   "Run the logic backwards in Example 20.2: start from the ellipse and deduce that the force must be inverse-square.",
+   "Promote swept area to a vector parallel to L so the second law becomes literally a conservation law, true for every central force.",
+   "Pair a graphical tool (energy line against U_eff) with the analytic orbit equation, flagging explicitly that both will be reused for Schwarzschild motion.",
+   "Recast the orbit equation as a harmonic oscillator for u - u0, making the conic solution immediate.",
+   "Pose the unusual question of why orbits close at all, and answer it three independent ways (integral, commensurability of periods, conserved vector).",
+   "Use a counting-of-constants footnote (2d - 1) to explain why the Kepler problem is special (maximally superintegrable).",
+   "End with exercises that break a naive relativistic scalar gravity, foreshadowing why a metric theory is needed."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Part IV preface and chapter opening: setting up the Kepler problem",
+   "printed_page": 217,
+   "pdf_page": 234,
+   "summary": "The Part IV preface maps the coming chapters: Newtonian orbits, the Schwarzschild metric and motion in it, then static, charged and rotating black holes with their singularities and thermodynamics. The chapter opening (with a Newton epigraph about the Moon being pulled off a straight line and a Sherlock Holmes jibe about the Solar System) marks the chapter as optional background, restores G, fixes the mass M at the origin, shows that a radial force gives no torque so L is conserved and the motion lies in a plane, and writes the polar Lagrangian and its two equations of motion.",
+   "concepts": [
+    "central force",
+    "conservation of angular momentum",
+    "plane polar orthonormal basis",
+    "Kepler problem",
+    "Lagrangian of the Kepler problem",
+    "Newtonian gravitational potential energy"
+   ],
+   "key_moves": [
+    "Torque r x F vanishes for F parallel to r, so L = r x p is constant.",
+    "Constant L fixes the orbital plane; choose L along z and use (r, theta).",
+    "Margin notes derive velocity and acceleration components from the rotation of the unit vectors e_r-hat and e_theta-hat.",
+    "Lagrangian (20.1) with +GMm/r, fed into Euler-Lagrange equations, gives the pair (20.5): radial r-double-dot - r theta-dot^2 = -GM/r^2 and transverse r theta-double-dot + 2 r-dot theta-dot = 0."
+   ]
+  },
+  {
+   "number": "20.1",
+   "title": "Kepler's laws",
+   "printed_page": 219,
+   "pdf_page": 236,
+   "summary": "Defines an orbit as a closed periodic path, credits Kepler's analysis of Tycho Brahe's data, and states the three laws (ellipse with Sun at a focus; equal areas in equal times; period squared scaling as semi-major axis cubed). Example 20.1 integrates the transverse equation to r^2 theta-dot = C, identifies C with twice the areal velocity using a thin-triangle figure, writes L = m r^2 theta-dot, and packages area as a vector whose rate of change is L/2m, so the second law is angular momentum conservation and holds for any central force.",
+   "concepts": [
+    "Kepler's first law",
+    "Kepler's second law",
+    "Kepler's third law",
+    "areal velocity",
+    "conservation of angular momentum"
+   ],
+   "key_moves": [
+    "No theta-component of force means r theta-double-dot + 2 r-dot theta-dot = 0, i.e. d(r^2 theta-dot)/dt = 0.",
+    "Thin triangle of sides r and r delta-theta has area r^2 delta-theta/2, so dA/dt = C/2.",
+    "Area vector along e_z: dA/dt = L/(2m), constant because L is."
+   ]
+  },
+  {
+   "number": "20.2",
+   "title": "Anatomy of an orbit",
+   "printed_page": 220,
+   "pdf_page": 237,
+   "summary": "Introduces conic sections via a slanted cut through a cone and the polar form of the ellipse measured from a focus, 1/r = (a/b^2)(1 + epsilon cos theta). Example 20.2 differentiates this along the motion and uses constant r^2 theta-dot to show radial acceleration is proportional to -1/r^2, so an ellipse is consistent with an inverse-square force (a margin note extracts a/b^2 = GMm^2/L^2, later named u0). Example 20.3 uses the ellipse area pi ab to get T^2 = 4 pi^2 a^3/GM. The apsis vocabulary is then sorted out (perihelion/aphelion for the Sun, perigee/apogee for Earth, periastron/apastron for stars, periapsis/apoapsis in general), and Example 20.4 evaluates kinetic and potential energy at aphelion to find E = -GMm/2a, with a margin derivation of L^2 = GMm^2 a(1 - epsilon^2).",
+   "concepts": [
+    "conic sections",
+    "ellipse geometry",
+    "eccentricity",
+    "apsides",
+    "Kepler's third law",
+    "energy of an elliptical orbit",
+    "angular momentum of an elliptical orbit"
+   ],
+   "key_moves": [
+    "Differentiate the ellipse equation in time, replace theta-dot using C = r^2 theta-dot, differentiate again.",
+    "Insert into a_r = r-double-dot - r theta-dot^2; the bracket collapses to -a/b^2 by the ellipse equation, leaving a_r proportional to -1/r^2.",
+    "Period = total area / areal rate = pi ab/(C/2); equate the resulting a_r with -GM/r^2 to get the third law.",
+    "At aphelion r = a(1+epsilon), radial velocity is zero, so K = mC^2/2r^2; with C^2 = GMa(1-epsilon^2) the sum K + U simplifies to -GMm/2a."
+   ]
+  },
+  {
+   "number": "20.3",
+   "title": "Effective potentials",
+   "printed_page": 222,
+   "pdf_page": 239,
+   "summary": "Writes the conserved energy, eliminates theta-dot using |L| = m r^2 theta-dot, and packages the angular kinetic energy with -GMm/r into U_eff(r) = L^2/2mr^2 - GMm/r, so that radial motion looks one-dimensional. The two pieces are dissected graphically: a repulsive 1/r^2 barrier set by L and an attractive 1/r well; their different powers and signs create a minimum. At large r gravity dominates and fades as 1/r; at small r the barrier blows up, so any particle with L != 0 is turned back and only L = 0 permits a radial plunge. Turning points satisfy E = U_eff (r-dot = 0 but the body is still moving sideways); a circular orbit sits at the minimum with L^2/(m r0) = GMm and E = -GMm/2r0; bound ellipses rattle between two turning points for E < 0; unbound paths with E > 0 have one closest approach. The same graphical method is flagged for reuse in ch23.",
+   "concepts": [
+    "effective potential energy",
+    "angular momentum barrier",
+    "turning points",
+    "circular orbit",
+    "bound and unbound trajectories",
+    "radial plunge"
+   ],
+   "key_moves": [
+    "Substitute theta-dot = L/(m r^2) into E so E = (1/2) m r-dot^2 + U_eff(r).",
+    "Decompose U_eff into barrier and well and examine small-r and large-r limits.",
+    "Set dU_eff/dr = 0 to find the circular-orbit radius; stability follows from the minimum (margin note).",
+    "Draw horizontal lines of constant E: two intersections for E < 0 (bound), one for E > 0 (unbound)."
+   ]
+  },
+  {
+   "number": "20.4",
+   "title": "Allowed trajectories",
+   "printed_page": 223,
+   "pdf_page": 240,
+   "summary": "Solves the Kepler problem completely. Example 20.5 uses u = 1/r and the chain rule with d/dt = (L u^2/m) d/dtheta to turn the radial force equation into d^2u/dtheta^2 + u = GMm^2/L^2. With u0 = GMm^2/L^2 this is a harmonic oscillator for u - u0, solved by u - u0 = B cos theta. Evaluating energies at perihelion expresses E in terms of B - u0 and yields the classification: B = u0 gives a parabola (E = 0), B > u0 a hyperbola escaping at cos theta = -u0/B (E > 0), and B < u0 an ellipse with epsilon = B/u0 and radii 1/(u0 +/- B) (E < 0), the circle being B = 0. Example 20.6 reaches the same conics from the energy equation written as a first-order equation in u'.",
+   "concepts": [
+    "Binet orbit equation",
+    "conic-section solutions of the Kepler problem",
+    "classification of orbits by energy",
+    "parabolic trajectory",
+    "hyperbolic trajectory",
+    "eccentricity"
+   ],
+   "key_moves": [
+    "dr/dt = -(L/m) du/dtheta and d^2r/dt^2 = -(L^2/m^2) u^2 d^2u/dtheta^2.",
+    "Radial Newton law collapses to u'' + u = u0, a shifted simple harmonic oscillator in the angle.",
+    "Perihelion bookkeeping (theta = 0, r-dot = 0) links B, u0 and E so the sign of B - u0 fixes the sign of E.",
+    "Energy route: divide E by L^2/2m to get (u')^2 + (u - u0)^2 = u0^2 epsilon^2 with u0^2(1 - epsilon^2) = -2Em/L^2; trial u = c + d cos theta."
+   ]
+  },
+  {
+   "number": "20.5",
+   "title": "The why? of orbits",
+   "printed_page": 225,
+   "pdf_page": 242,
+   "summary": "Asks why bound trajectories should close. For a general central U(r), the energy equation gives dr/dt, time and angle as integrals over r, and the angle swept during one radial cycle, Delta theta. Closure needs Delta theta = 2 pi q/n (rational); otherwise the orbit precesses by Delta theta - 2 pi per cycle, drawing a rosette. Example 20.7 rewrites Delta theta as a derivative with respect to L of a simpler integral and quotes the result 2 pi for U = -alpha/r: no Newtonian precession. Example 20.8 treats forces -A r^n: stable circular orbits need n > -3, and small radial oscillations about r0 have period tau = T/sqrt(n+3), equal to T only for the inverse-square law (n = -2) and T/2 for the harmonic case (n = 1); other powers give precession, so small departures from inverse-square gravity would be observable. Example 20.9 proves the Laplace-Runge-Lenz vector is constant and points to perihelion, so the perihelion cannot move. The summary and a hand-off to the Schwarzschild metric close the chapter; margin notes give the vector's tangled history, Pauli's hydrogen spectrum, and the counting that makes the Kepler problem maximally superintegrable.",
+   "concepts": [
+    "turning angle (apsidal angle)",
+    "closed orbit condition",
+    "orbital precession",
+    "stability of circular orbits in power-law forces",
+    "radial oscillation frequency near a circular orbit",
+    "Bertrand's theorem",
+    "Laplace-Runge-Lenz vector",
+    "constants of the motion and superintegrability"
+   ],
+   "key_moves": [
+    "Invert the energy equation for dr/dt; use d theta = L dt/(m r^2) to get an angle integral between turning points.",
+    "Closure criterion: n radial periods must coincide with q full turns; precession per cycle = Delta theta - 2 pi.",
+    "Differentiate under the integral with respect to L to write Delta theta for the 1/r potential; the integral evaluates to 2 pi.",
+    "Taylor expand V_eff about r0; second derivative (n+3)L^2/(m r0^4) sets a radial SHM period and compares it with the orbital period.",
+    "Differentiate the LRL vector using F x (r x p) = r(F.p) - p(F.r) and F = -GMm r/r^3; terms cancel pairwise.",
+    "At perihelion p is perpendicular to r, so p x L points radially outward: the conserved vector marks a fixed perihelion direction."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Exercises",
+   "printed_page": 227,
+   "pdf_page": 244,
+   "summary": "Five problems: fill in the energy-equation algebra; a two-body gravitational fly-by with impact parameter; potential of a ring and a uniform disc on the axis; and a two-part investigation of a scalar gravity theory on Minkowski spacetime that first repairs 4-acceleration orthogonality with a projection operator and then shows photons are undeflected, contradicting experiment.",
+   "concepts": [
+    "classification of orbits by energy",
+    "angular momentum barrier",
+    "projection operator orthogonal to 4-velocity",
+    "scalar gravity in Minkowski spacetime"
+   ],
+   "key_moves": [
+    "Use conserved L and E between infinity and closest approach to obtain a quadratic for the minimum distance.",
+    "Superpose ring potentials to build a disc potential.",
+    "Check a.u = 0 for a candidate covariant force law and take the massless limit with tau/m fixed."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "central force",
+   "aliases": [
+    "radial force"
+   ],
+   "kind": "definition",
+   "definition": "A force on a particle that always points along the line joining it to a fixed centre, with magnitude depending only on the distance r; Newtonian gravity from a fixed mass M, F = -GMm r/r^3, is the prime example.",
+   "how_introduced": "Stated at the outset for Newtonian gravity and used immediately to kill the torque; later generalized in section 20.5 to arbitrary U(r) and to power laws F = -A r^n.",
+   "depth": "developed",
+   "prerequisites": [
+    "Newtonian gravitational potential energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 235,
+     "printed_page": 218,
+     "section": null
+    },
+    {
+     "pdf_page": 242,
+     "printed_page": 225,
+     "section": "20.5"
+    },
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "\\vec F(r) = -\\frac{GMm\\,\\vec r}{r^3}",
+    "F = -A r^n"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Newtonian gravitational potential energy",
+   "aliases": [
+    "-1/r potential",
+    "Kepler potential"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The interaction energy U(r) = -GMm/r of masses M and m separated by r; its negative gradient gives the inverse-square attractive force.",
+   "how_introduced": "Quoted as the starting point, with G temporarily restored (the book otherwise sets G = c = 1) to match familiar formulas.",
+   "depth": "revisited",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 235,
+     "printed_page": 218,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "U(r) = -\\frac{GMm}{r}"
+   ],
+   "notes": "Written generically as U(r) = -alpha/r in Example 20.7 and as Phi(r) proportional to -1/r in the chapter opening."
+  },
+  {
+   "name": "conservation of angular momentum",
+   "aliases": [
+    "constancy of L for central forces"
+   ],
+   "kind": "principle",
+   "definition": "Because a central force is parallel to r, its torque r x F vanishes, so L = r x p is constant in magnitude and direction; the motion is therefore confined to the plane perpendicular to L.",
+   "how_introduced": "Derived in two lines at the chapter opening from tau = dL/dt; then shown equivalent to Kepler's second law via the area vector.",
+   "depth": "core",
+   "prerequisites": [
+    "central force"
+   ],
+   "locators": [
+    {
+     "pdf_page": 235,
+     "printed_page": 218,
+     "section": null
+    },
+    {
+     "pdf_page": 236,
+     "printed_page": 219,
+     "section": "20.1"
+    },
+    {
+     "pdf_page": 237,
+     "printed_page": 220,
+     "section": "20.1"
+    }
+   ],
+   "formulas": [
+    "\\vec\\tau = \\vec r\\times\\vec F = 0 \\Rightarrow \\dot{\\vec L} = 0",
+    "|\\vec L| = m r^2\\dot\\theta"
+   ],
+   "notes": null
+  },
+  {
+   "name": "plane polar orthonormal basis",
+   "aliases": [
+    "hatted basis e_r-hat, e_theta-hat",
+    "cylindrical coordinates (r, theta)"
+   ],
+   "kind": "mathematical-object",
+   "definition": "Unit vectors e_r-hat and e_theta-hat attached to each point of the plane; they rotate as theta changes (d e_r-hat/d theta = e_theta-hat, d e_theta-hat/d theta = -e_r-hat), which generates the extra terms in polar velocity and acceleration.",
+   "how_introduced": "Margin notes 3 and 4 differentiate r = r e_r-hat twice, pointing back to the non-coordinate basis example of ch10.",
+   "depth": "revisited",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 235,
+     "printed_page": 218,
+     "section": null
+    },
+    {
+     "pdf_page": 236,
+     "printed_page": 219,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\vec v = \\dot r\\,\\vec e_{\\hat r} + r\\dot\\theta\\,\\vec e_{\\hat\\theta}",
+    "a_{\\hat r} = \\ddot r - r\\dot\\theta^2,\\quad a_{\\hat\\theta} = r\\ddot\\theta + 2\\dot r\\dot\\theta"
+   ],
+   "notes": "The -r theta-dot^2 term is the centripetal piece; 2 r-dot theta-dot is the Coriolis-like piece."
+  },
+  {
+   "name": "Lagrangian of the Kepler problem",
+   "aliases": [
+    "polar Lagrangian"
+   ],
+   "kind": "technique",
+   "definition": "L = (1/2) m (r-dot^2 + r^2 theta-dot^2) + GMm/r, kinetic minus potential energy in polar coordinates; its Euler-Lagrange equations give the radial and transverse equations of motion, and the cyclic coordinate theta yields conserved angular momentum.",
+   "how_introduced": "Written directly after the planar reduction, with the equations of motion stated and the vector derivation of the acceleration relegated to a margin note.",
+   "depth": "introduced",
+   "prerequisites": [
+    "plane polar orthonormal basis",
+    "Newtonian gravitational potential energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 236,
+     "printed_page": 219,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "L = \\tfrac12 m(\\dot r^2 + r^2\\dot\\theta^2) + \\frac{GMm}{r}"
+   ],
+   "notes": "The letter L is also used for angular momentum and (script) for the LRL vector."
+  },
+  {
+   "name": "Kepler problem",
+   "aliases": [
+    "one-body problem in an inverse-square field"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The problem of finding all trajectories of a particle moving under an attractive inverse-square central force from a fixed centre; its solutions are conic sections with the centre at a focus.",
+   "how_introduced": "Named in Kepler's biographical margin note (note 5); the chapter as a whole solves it, and margin note 15 returns to it when counting its constants of motion.",
+   "depth": "core",
+   "prerequisites": [
+    "central force",
+    "conservation of angular momentum"
+   ],
+   "locators": [
+    {
+     "pdf_page": 236,
+     "printed_page": 219,
+     "section": "20.1"
+    },
+    {
+     "pdf_page": 244,
+     "printed_page": 227,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [],
+   "notes": "The chapter keeps M fixed at the origin and never introduces the reduced mass for the genuine two-body problem."
+  },
+  {
+   "name": "Kepler's first law",
+   "aliases": [
+    "law of ellipses"
+   ],
+   "kind": "law",
+   "definition": "Bound planetary orbits are ellipses with the Sun located at one focus.",
+   "how_introduced": "Stated as an empirical law, shown consistent with an inverse-square force in Example 20.2, and fully derived in section 20.4 as the E < 0 solution of the orbit equation.",
+   "depth": "core",
+   "prerequisites": [
+    "ellipse geometry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 236,
+     "printed_page": 219,
+     "section": "20.1"
+    },
+    {
+     "pdf_page": 237,
+     "printed_page": 220,
+     "section": "20.2"
+    },
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [
+    "\\frac1r = \\frac{a}{b^2}(1+\\epsilon\\cos\\theta)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Kepler's second law",
+   "aliases": [
+    "law of equal areas",
+    "constant areal velocity"
+   ],
+   "kind": "law",
+   "definition": "The line from the Sun to a planet sweeps equal areas in equal times; dA/dt = r^2 theta-dot/2 = L/2m is constant for any central force.",
+   "how_introduced": "Example 20.1 integrates the transverse equation, interprets the constant via a thin triangle (Fig. 20.1), and upgrades area to a vector parallel to L.",
+   "depth": "core",
+   "prerequisites": [
+    "conservation of angular momentum",
+    "areal velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 236,
+     "printed_page": 219,
+     "section": "20.1"
+    },
+    {
+     "pdf_page": 237,
+     "printed_page": 220,
+     "section": "20.1"
+    }
+   ],
+   "formulas": [
+    "r^2\\dot\\theta = C",
+    "\\frac{d\\vec A}{dt} = \\frac{\\vec L}{2m}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "areal velocity",
+   "aliases": [
+    "rate of sweeping area",
+    "area vector"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The rate dA/dt at which the radius vector sweeps area; for a small turn delta-theta the swept triangle has area r^2 delta-theta/2, so dA/dt = r^2 theta-dot/2 = C/2.",
+   "how_introduced": "Geometric construction in Fig. 20.1, then treated as a vector along e_z.",
+   "depth": "developed",
+   "prerequisites": [
+    "plane polar orthonormal basis"
+   ],
+   "locators": [
+    {
+     "pdf_page": 236,
+     "printed_page": 219,
+     "section": "20.1"
+    },
+    {
+     "pdf_page": 237,
+     "printed_page": 220,
+     "section": "20.1"
+    }
+   ],
+   "formulas": [
+    "\\dot A = \\tfrac12 r^2\\dot\\theta = C/2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Kepler's third law",
+   "aliases": [
+    "harmonic law",
+    "period-semi-major-axis relation"
+   ],
+   "kind": "law",
+   "definition": "The orbital period squared is proportional to the semi-major axis cubed; for a fixed central mass T^2 = 4 pi^2 a^3/(GM).",
+   "how_introduced": "Example 20.3: divide the ellipse area pi ab by the areal rate C/2 to get T, substitute into the radial acceleration from Example 20.2, and compare with -GM/r^2.",
+   "depth": "core",
+   "prerequisites": [
+    "Kepler's second law",
+    "ellipse geometry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 236,
+     "printed_page": 219,
+     "section": "20.1"
+    },
+    {
+     "pdf_page": 238,
+     "printed_page": 221,
+     "section": "20.2"
+    }
+   ],
+   "formulas": [
+    "T^2 = \\frac{4\\pi^2 a^3}{GM}"
+   ],
+   "notes": "With a finite-mass companion the true result has G(M+m); the chapter's fixed-centre model hides this."
+  },
+  {
+   "name": "conic sections",
+   "aliases": [
+    "conics"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The planar curves obtained by slicing a cone with a plane: circle (cut parallel to the base), ellipse (tilted cut closing on itself), parabola and hyperbola (steeper cuts that run off to infinity); in focal polar form u = u0(1 + epsilon cos theta) with epsilon = 0, <1, =1, >1.",
+   "how_introduced": "Pictured with a cone sliced by a sheet (Fig. 20.2) and later recovered as the complete solution set of the orbit equation.",
+   "depth": "developed",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 237,
+     "printed_page": 220,
+     "section": "20.2"
+    },
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [
+    "u = u_0(1+\\epsilon\\cos\\theta)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "ellipse geometry",
+   "aliases": [
+    "anatomy of an ellipse",
+    "semi-major axis a",
+    "semi-minor axis b",
+    "focus"
+   ],
+   "kind": "mathematical-object",
+   "definition": "An ellipse with semi-major axis a, semi-minor axis b and eccentricity epsilon has foci a distance epsilon a from the centre, b^2 = a^2(1 - epsilon^2), area pi ab, and in polar coordinates centred on a focus 1/r = (a/b^2)(1 + epsilon cos theta) with theta measured from the nearest vertex.",
+   "how_introduced": "Labelled diagram Fig. 20.3 plus the polar equation (20.11); b^2 = a^2(1 - epsilon^2) extracted in Example 20.4 from the aphelion distance.",
+   "depth": "developed",
+   "prerequisites": [
+    "conic sections"
+   ],
+   "locators": [
+    {
+     "pdf_page": 237,
+     "printed_page": 220,
+     "section": "20.2"
+    },
+    {
+     "pdf_page": 238,
+     "printed_page": 221,
+     "section": "20.2"
+    }
+   ],
+   "formulas": [
+    "\\frac1r = \\frac{a}{b^2}(1+\\epsilon\\cos\\theta),\\ 0\\le\\epsilon<1",
+    "b^2 = a^2(1-\\epsilon^2)",
+    "A = \\pi a b"
+   ],
+   "notes": "r_min = a(1 - epsilon), r_max = a(1 + epsilon)."
+  },
+  {
+   "name": "eccentricity",
+   "aliases": [
+    "epsilon"
+   ],
+   "kind": "physical-quantity",
+   "definition": "Dimensionless shape parameter of a conic, epsilon = B/u0 in the orbit solution: 0 for a circle, between 0 and 1 for an ellipse, 1 for a parabola, greater than 1 for a hyperbola; related to energy by u0^2(1 - epsilon^2) = -2Em/L^2.",
+   "how_introduced": "Defined with the ellipse in section 20.2, reidentified as B/u0 in section 20.4, and tied to E in Example 20.6.",
+   "depth": "developed",
+   "prerequisites": [
+    "ellipse geometry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 237,
+     "printed_page": 220,
+     "section": "20.2"
+    },
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    },
+    {
+     "pdf_page": 242,
+     "printed_page": 225,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [
+    "\\epsilon = B/u_0",
+    "u_0^2(1-\\epsilon^2) = -\\frac{2Em}{L^2}"
+   ],
+   "notes": "The book writes epsilon, not e, avoiding a clash with Euler's number and basis vectors."
+  },
+  {
+   "name": "apsides",
+   "aliases": [
+    "perihelion and aphelion",
+    "perigee and apogee",
+    "periastron and apastron",
+    "periapsis and apoapsis",
+    "pericentre and apocentre"
+   ],
+   "kind": "definition",
+   "definition": "The points of closest and farthest approach of an orbit to the attracting centre; the prefix names the central body (-helion for the Sun, -gee for Earth, -astron for a star), with periapsis/apoapsis as the general terms. At an apsis r-dot = 0 and velocity is perpendicular to r.",
+   "how_introduced": "Vocabulary paragraph with Fig. 20.4 in section 20.2, including a caution that 'perihelion' is often misused for non-solar orbits.",
+   "depth": "introduced",
+   "prerequisites": [
+    "ellipse geometry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 238,
+     "printed_page": 221,
+     "section": "20.2"
+    },
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [
+    "r_{\\rm peri} = a(1-\\epsilon),\\quad r_{\\rm apo} = a(1+\\epsilon)"
+   ],
+   "notes": "Despite its own caution the chapter keeps saying 'perihelion' for generic central forces."
+  },
+  {
+   "name": "energy of an elliptical orbit",
+   "aliases": [
+    "E = -GMm/2a",
+    "binding energy of a Kepler orbit"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The total mechanical energy of a bound Kepler orbit depends only on the semi-major axis: E = -GMm/(2a), independent of eccentricity; a circular orbit of radius r0 has E = -GMm/(2 r0).",
+   "how_introduced": "Example 20.4 adds kinetic and potential energy at aphelion, using L^2 from Kepler's third law (margin note 7).",
+   "depth": "developed",
+   "prerequisites": [
+    "Kepler's third law",
+    "apsides"
+   ],
+   "locators": [
+    {
+     "pdf_page": 238,
+     "printed_page": 221,
+     "section": "20.2"
+    },
+    {
+     "pdf_page": 239,
+     "printed_page": 222,
+     "section": "20.3"
+    }
+   ],
+   "formulas": [
+    "E = -\\frac{GMm}{2a}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "angular momentum of an elliptical orbit",
+   "aliases": [
+    "L^2 = GMm^2 a(1 - epsilon^2)",
+    "semi-latus rectum relation"
+   ],
+   "kind": "identity",
+   "definition": "For a Kepler ellipse L^2 = GMm^2 a(1 - epsilon^2); equivalently u0 = a/b^2 = GMm^2/L^2, so the semi-latus rectum b^2/a equals L^2/(GMm^2).",
+   "how_introduced": "Margin notes 6 and 7 combine C = 2 pi ab/T with Kepler's third law.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Kepler's third law",
+    "ellipse geometry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 237,
+     "printed_page": 220,
+     "section": "20.2"
+    },
+    {
+     "pdf_page": 238,
+     "printed_page": 221,
+     "section": "20.2"
+    }
+   ],
+   "formulas": [
+    "L^2 = GMm^2 a(1-\\epsilon^2)",
+    "\\frac{a}{b^2} = \\frac{GMm^2}{L^2}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "effective potential energy",
+   "aliases": [
+    "U_eff",
+    "V_eff",
+    "effective potential"
+   ],
+   "kind": "technique",
+   "definition": "For motion in a central potential with conserved L, the angular kinetic energy L^2/(2 m r^2) is added to U(r) to give U_eff(r), so that E = (1/2) m r-dot^2 + U_eff(r) describes the radial motion as a one-dimensional problem; for Newtonian gravity U_eff = L^2/(2mr^2) - GMm/r.",
+   "how_introduced": "Section 20.3 eliminates theta-dot from the energy, then reads the resulting curve graphically (Figs 20.5-20.6) with horizontal energy lines; reused in Example 20.8 for power-law forces and announced as the tool for Schwarzschild orbits.",
+   "depth": "core",
+   "prerequisites": [
+    "conservation of angular momentum",
+    "Newtonian gravitational potential energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 239,
+     "printed_page": 222,
+     "section": "20.3"
+    },
+    {
+     "pdf_page": 240,
+     "printed_page": 223,
+     "section": "20.3"
+    },
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "E = \\tfrac12 m\\dot r^2 + U_{\\rm eff}(r)",
+    "U_{\\rm eff}(r) = \\frac{L^2}{2mr^2} - \\frac{GMm}{r}"
+   ],
+   "notes": "Different L gives a different curve, so each diagram is for one fixed L. Example 20.8 switches to V_eff for the same quantity."
+  },
+  {
+   "name": "angular momentum barrier",
+   "aliases": [
+    "centrifugal barrier"
+   ],
+   "kind": "phenomenon",
+   "definition": "The positive L^2/(2 m r^2) term in the effective potential; it grows faster than any -1/r attraction as r goes to 0, so a particle with non-zero angular momentum is always turned back before reaching the centre in Newtonian gravity.",
+   "how_introduced": "Dotted repulsive curve in Fig. 20.5 and the small-r limit discussion; named in margin note 8.",
+   "depth": "developed",
+   "prerequisites": [
+    "effective potential energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 239,
+     "printed_page": 222,
+     "section": "20.3"
+    }
+   ],
+   "formulas": [
+    "\\frac{L^2}{2mr^2}"
+   ],
+   "notes": "This is exactly what fails in Schwarzschild, where an extra -1/r^3 term lets particles fall in (ch22-23)."
+  },
+  {
+   "name": "turning points",
+   "aliases": [
+    "classical turning points",
+    "apsidal radii"
+   ],
+   "kind": "definition",
+   "definition": "Radii where E = U_eff(r), so r-dot = 0; the particle is not at rest (theta-dot can be non-zero) but its radial motion reverses. A bound orbit has two (r_min and r_max), an unbound one has a single closest approach.",
+   "how_introduced": "Read off Fig. 20.6 as intersections of a horizontal energy line with U_eff, with an explicit warning that r-dot = 0 does not mean stopped.",
+   "depth": "developed",
+   "prerequisites": [
+    "effective potential energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 239,
+     "printed_page": 222,
+     "section": "20.3"
+    },
+    {
+     "pdf_page": 240,
+     "printed_page": 223,
+     "section": "20.3"
+    },
+    {
+     "pdf_page": 242,
+     "printed_page": 225,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "E = U_{\\rm eff}(r_{\\min}) = U_{\\rm eff}(r_{\\max})"
+   ],
+   "notes": null
+  },
+  {
+   "name": "circular orbit",
+   "aliases": [
+    "stable circular orbit"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The orbit with r-dot = 0 at all times, located at the minimum of U_eff where L^2/(m r0) = GMm; it has E = -GMm/(2 r0) and is stable because it sits at a minimum.",
+   "how_introduced": "Setting dU_eff/dr = 0 in section 20.3; recovered as B = 0 in section 20.4; generalized to power-law forces in Example 20.8.",
+   "depth": "developed",
+   "prerequisites": [
+    "effective potential energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 239,
+     "printed_page": 222,
+     "section": "20.3"
+    },
+    {
+     "pdf_page": 240,
+     "printed_page": 223,
+     "section": "20.3"
+    },
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    },
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "\\frac{L^2}{m r_0} = GMm",
+    "E = -\\frac{GMm}{2r_0}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "bound and unbound trajectories",
+   "aliases": [
+    "bound state vs scattering orbit"
+   ],
+   "kind": "definition",
+   "definition": "A trajectory with E < 0 is confined between two turning points (bound, an orbit); one with E >= 0 reaches infinity after at most one closest approach (unbound). In the Kepler problem E < 0 gives ellipses, E = 0 parabolas, E > 0 hyperbolas.",
+   "how_introduced": "Graphically in section 20.3, analytically in section 20.4.",
+   "depth": "core",
+   "prerequisites": [
+    "effective potential energy",
+    "turning points"
+   ],
+   "locators": [
+    {
+     "pdf_page": 239,
+     "printed_page": 222,
+     "section": "20.3"
+    },
+    {
+     "pdf_page": 240,
+     "printed_page": 223,
+     "section": "20.3"
+    },
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "radial plunge",
+   "aliases": [
+    "radial infall",
+    "L = 0 trajectory"
+   ],
+   "kind": "solution-or-model",
+   "definition": "Motion straight toward or away from the centre with zero angular momentum; in Newtonian gravity it is the only path that reaches r = 0 because there is no barrier.",
+   "how_introduced": "Mentioned as the lone exception when discussing the small-r behaviour of U_eff.",
+   "depth": "mention",
+   "prerequisites": [
+    "angular momentum barrier"
+   ],
+   "locators": [
+    {
+     "pdf_page": 239,
+     "printed_page": 222,
+     "section": "20.3"
+    }
+   ],
+   "formulas": [],
+   "notes": "Studied relativistically in GA ch22 section 22.4."
+  },
+  {
+   "name": "Binet orbit equation",
+   "aliases": [
+    "u = 1/r substitution",
+    "orbit equation",
+    "shifted harmonic oscillator in theta"
+   ],
+   "kind": "technique",
+   "definition": "Using u = 1/r as the dependent variable and theta as the independent variable (with d/dt = (L u^2/m) d/dtheta) turns the radial equation for an inverse-square force into the linear equation d^2u/dtheta^2 + u = GMm^2/L^2, whose general solution u = u0 + B cos theta gives the orbit shape.",
+   "how_introduced": "Example 20.5, advertised as the method that will also solve the relativistic problem; then rewritten as a harmonic oscillator for u - u0.",
+   "depth": "core",
+   "prerequisites": [
+    "conservation of angular momentum",
+    "plane polar orthonormal basis"
+   ],
+   "locators": [
+    {
+     "pdf_page": 240,
+     "printed_page": 223,
+     "section": "20.4"
+    },
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [
+    "\\frac{d^2u}{d\\theta^2} + u = \\frac{GMm^2}{L^2}",
+    "u - u_0 = B\\cos\\theta"
+   ],
+   "notes": "The book does not use the name Binet."
+  },
+  {
+   "name": "conic-section solutions of the Kepler problem",
+   "aliases": [
+    "u = u0(1 + epsilon cos theta)"
+   ],
+   "kind": "theorem",
+   "definition": "Every trajectory in an attractive inverse-square field is a conic with the centre at a focus, u = u0(1 + epsilon cos theta) with u0 = GMm^2/L^2 and epsilon^2 = 1 + 2EL^2/(G^2 M^2 m^3).",
+   "how_introduced": "Two derivations: the second-order orbit equation (Example 20.5 and following text) and the energy first integral with a trial cosine solution (Example 20.6).",
+   "depth": "core",
+   "prerequisites": [
+    "Binet orbit equation",
+    "conic sections"
+   ],
+   "locators": [
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    },
+    {
+     "pdf_page": 242,
+     "printed_page": 225,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [
+    "u = u_0(1\\pm\\epsilon\\cos\\theta)",
+    "(u')^2 + (u-u_0)^2 = u_0^2\\epsilon^2"
+   ],
+   "notes": "The explicit epsilon-E formula follows from u0^2(1 - epsilon^2) = -2Em/L^2 but is not written out in the book."
+  },
+  {
+   "name": "classification of orbits by energy",
+   "aliases": [
+    "sign of E classification"
+   ],
+   "kind": "technique",
+   "definition": "Comparing the oscillation amplitude B with u0, equivalently the sign of E: B < u0 (E < 0) ellipse, B = u0 (E = 0) parabola, B > u0 (E > 0) hyperbola, B = 0 circle.",
+   "how_introduced": "Evaluate K and U at perihelion to express E through B - u0, then run through the three cases.",
+   "depth": "core",
+   "prerequisites": [
+    "Binet orbit equation",
+    "bound and unbound trajectories"
+   ],
+   "locators": [
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [
+    "E = \\frac{K_1}{u_1}(B-u_0)"
+   ],
+   "notes": "The book prints the prefactor inverted as u1/K1; the sign argument is unaffected."
+  },
+  {
+   "name": "parabolic trajectory",
+   "aliases": [
+    "marginally unbound orbit",
+    "escape trajectory"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The E = 0 Kepler trajectory u = u0(1 + cos theta) with eccentricity 1; r goes to infinity as theta approaches pi, so it is just barely unbound.",
+   "how_introduced": "Case B = u0 in the classification; margin note 11 links it to epsilon = 1.",
+   "depth": "introduced",
+   "prerequisites": [
+    "classification of orbits by energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    }
+   ],
+   "formulas": [
+    "u = u_0(1+\\cos\\theta)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "hyperbolic trajectory",
+   "aliases": [
+    "scattering orbit",
+    "fly-by"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The E > 0 Kepler trajectory with B > u0 (eccentricity above 1); r diverges at the asymptotic angles cos theta = -u0/B, so the body approaches once and escapes.",
+   "how_introduced": "Case B > u0 in the classification; also the setting of Exercise 20.2.",
+   "depth": "introduced",
+   "prerequisites": [
+    "classification of orbits by energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 241,
+     "printed_page": 224,
+     "section": "20.4"
+    },
+    {
+     "pdf_page": 244,
+     "printed_page": 227,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\cos\\theta_\\infty = -u_0/B"
+   ],
+   "notes": null
+  },
+  {
+   "name": "turning angle (apsidal angle)",
+   "aliases": [
+    "Delta theta per radial cycle"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The angle swept by the radius vector while r goes from r_min to r_max and back, Delta theta = 2 times the integral of (L/r^2) dr / sqrt(2m[E - U] - L^2/r^2) between the turning points.",
+   "how_introduced": "Obtained in section 20.5 by solving the energy equation for dr/dt and converting time to angle with d theta = L dt/(m r^2).",
+   "depth": "developed",
+   "prerequisites": [
+    "effective potential energy",
+    "turning points"
+   ],
+   "locators": [
+    {
+     "pdf_page": 242,
+     "printed_page": 225,
+     "section": "20.5"
+    },
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "\\Delta\\theta = 2\\int_{r_{\\min}}^{r_{\\max}}\\frac{(L/r^2)\\,dr}{\\{2m[E-U(r)] - L^2/r^2\\}^{1/2}}"
+   ],
+   "notes": "Many texts call half of this the apsidal angle; the book's Delta theta is pericentre to pericentre."
+  },
+  {
+   "name": "closed orbit condition",
+   "aliases": [
+    "commensurability condition",
+    "closure"
+   ],
+   "kind": "principle",
+   "definition": "A bound orbit retraces itself only if the turning angle is a rational multiple of 2 pi, Delta theta = 2 pi q/n, so that after n radial cycles the radius vector has made exactly q full turns.",
+   "how_introduced": "Stated after the turning-angle integral with the rosette of Fig. 20.7.",
+   "depth": "developed",
+   "prerequisites": [
+    "turning angle (apsidal angle)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "\\Delta\\theta = \\frac{2\\pi q}{n}"
+   ],
+   "notes": "Fig. 20.7's caption uses m instead of q for the number of revolutions."
+  },
+  {
+   "name": "orbital precession",
+   "aliases": [
+    "apsidal precession",
+    "perihelion shift",
+    "precession of the perihelion"
+   ],
+   "kind": "phenomenon",
+   "definition": "Rotation of the orbit's axis from one radial cycle to the next, by delta theta = Delta theta - 2 pi per orbit; it traces a rosette and is absent for the exact Newtonian inverse-square force.",
+   "how_introduced": "Introduced in section 20.5 as the generic outcome when Delta theta is not 2 pi; ruled out for Newtonian gravity three ways.",
+   "depth": "core",
+   "prerequisites": [
+    "turning angle (apsidal angle)",
+    "closed orbit condition"
+   ],
+   "locators": [
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    },
+    {
+     "pdf_page": 244,
+     "printed_page": 227,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "\\delta\\theta = \\Delta\\theta - 2\\pi"
+   ],
+   "notes": "Sets up the GR perihelion advance of GA ch23 section 23.3 (and the ch14 preview of Mercury)."
+  },
+  {
+   "name": "stability of circular orbits in power-law forces",
+   "aliases": [
+    "n > -3 criterion"
+   ],
+   "kind": "theorem",
+   "definition": "For an attractive force F = -A r^n (A > 0), the effective potential A r^(n+1)/(n+1) + L^2/(2mr^2) has a minimum, hence a stable circular orbit, only if n > -3; for n < -3 the attraction beats the barrier at small r and the circular orbit sits at a maximum.",
+   "how_introduced": "Example 20.8 with three sketched effective potentials (Fig. 20.8) and the second derivative (n+3)L^2/(m r0^4).",
+   "depth": "introduced",
+   "prerequisites": [
+    "effective potential energy",
+    "circular orbit"
+   ],
+   "locators": [
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "V_{\\rm eff} = \\frac{A r^{n+1}}{n+1} + \\frac{L^2}{2mr^2}",
+    "V_{\\rm eff}''(r_0) = \\frac{(n+3)L^2}{m r_0^4}"
+   ],
+   "notes": "The n = -1 case needs a logarithmic potential. The unstable-orbit picture previews the Schwarzschild inner circular orbit."
+  },
+  {
+   "name": "radial oscillation frequency near a circular orbit",
+   "aliases": [
+    "epicyclic frequency",
+    "small radial oscillations"
+   ],
+   "kind": "technique",
+   "definition": "Expanding V_eff to second order about r0 gives simple harmonic radial motion with period tau = 2 pi m r0^2/((n+3)^(1/2) L) = T/sqrt(n+3); the orbit closes when tau and the orbital period T are commensurate, and the angle swept per radial cycle is 2 pi/sqrt(n+3), so the apsides shift by 2 pi (1/sqrt(n+3) - 1) each radial cycle for near-circular orbits (for n = 1 this is -pi: the apsides of a centred ellipse recur twice per turn).",
+   "how_introduced": "Example 20.8 compares tau with T = 2 pi m r0^2/L: equal for n = -2, half for n = 1, generically incommensurate.",
+   "depth": "introduced",
+   "prerequisites": [
+    "stability of circular orbits in power-law forces"
+   ],
+   "locators": [
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "\\tau = \\frac{T}{(n+3)^{1/2}}"
+   ],
+   "notes": "The per-cycle apsidal shift is our explicit statement; the book stops at the period ratio."
+  },
+  {
+   "name": "Bertrand's theorem",
+   "aliases": [
+    "only inverse-square and harmonic forces give closed orbits"
+   ],
+   "kind": "theorem",
+   "definition": "Among central power-law forces, only the inverse-square law (n = -2) and the isotropic harmonic force (n = 1) make every bounded orbit close.",
+   "how_introduced": "Not named; its near-circular content is exactly the bullet list at the end of Example 20.8.",
+   "depth": "mention",
+   "prerequisites": [
+    "radial oscillation frequency near a circular orbit",
+    "closed orbit condition"
+   ],
+   "locators": [
+    {
+     "pdf_page": 243,
+     "printed_page": 226,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [],
+   "notes": "Name supplied by us; useful retrieval handle for the tutor."
+  },
+  {
+   "name": "Laplace-Runge-Lenz vector",
+   "aliases": [
+    "Runge-Lenz vector",
+    "Laplace vector",
+    "Lenz vector",
+    "eccentricity vector (rescaled)"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The vector p x L - GMm^2 r/r, conserved for the inverse-square force; it lies in the orbital plane pointing from the focus to perihelion, with magnitude GMm^2 epsilon, so its constancy means the perihelion cannot move.",
+   "how_introduced": "Example 20.9 defines it, differentiates it using zero torque and the BAC-CAB identity, and reads off its direction at perihelion.",
+   "depth": "developed",
+   "prerequisites": [
+    "conservation of angular momentum",
+    "apsides"
+   ],
+   "locators": [
+    {
+     "pdf_page": 244,
+     "printed_page": 227,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "\\vec{\\mathcal L} = \\vec p\\times\\vec L - GMm^2\\frac{\\vec r}{r}",
+    "\\dot{\\vec{\\mathcal L}} = 0"
+   ],
+   "notes": "Magnitude GMm^2 epsilon is our addition; the book uses only the direction."
+  },
+  {
+   "name": "constants of the motion and superintegrability",
+   "aliases": [
+    "maximally superintegrable system",
+    "2d - 1 bound"
+   ],
+   "kind": "principle",
+   "definition": "A system with d degrees of freedom can have at most 2d - 1 independent time-independent constants of motion (2d initial data minus the unrecoverable start time); the Kepler problem attains 5 for d = 3 (E, three components of L, and one extra from the LRL vector after its two constraints), so it is maximally superintegrable.",
+   "how_introduced": "Margin note 15 counts 7 quantities and subtracts the fixed length of the LRL vector and its orthogonality to L.",
+   "depth": "mention",
+   "prerequisites": [
+    "Laplace-Runge-Lenz vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 244,
+     "printed_page": 227,
+     "section": "20.5"
+    }
+   ],
+   "formulas": [
+    "N_{\\max} = 2d - 1"
+   ],
+   "notes": "The LRL length is fixed by E and L; that is why only one new constant is gained. Maximal superintegrability is why bound orbits close."
+  },
+  {
+   "name": "projection operator orthogonal to 4-velocity",
+   "aliases": [
+    "eta + u tensor u"
+   ],
+   "kind": "operation",
+   "definition": "With u.u = -1, the tensor P^{alpha beta} = eta^{alpha beta} + u^alpha u^beta removes the component of any 4-vector along u, leaving the part orthogonal to the world line.",
+   "how_introduced": "Exercise 20.4 uses it to repair a naive covariant version of Newton's law so that 4-acceleration stays orthogonal to 4-velocity.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 245,
+     "printed_page": 228,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "P^{\\alpha\\beta} = \\eta^{\\alpha\\beta} + u^\\alpha u^\\beta"
+   ],
+   "notes": "Relies on the book's (-,+,+,+) signature."
+  },
+  {
+   "name": "scalar gravity in Minkowski spacetime",
+   "aliases": [
+    "special-relativistic scalar theory of gravity"
+   ],
+   "kind": "historical-idea",
+   "definition": "A candidate theory in which the Newtonian potential Phi is a field on flat spacetime driving particles through dp^alpha/dtau = -m (eta^{alpha beta} + u^alpha u^beta) partial_beta Phi; its massless limit conserves p^alpha e^Phi, so light is not deflected, contradicting observation.",
+   "how_introduced": "Exercises 20.4-20.5, following Thorne and Blandford, as a cautionary alternative to curved spacetime.",
+   "depth": "mention",
+   "prerequisites": [
+    "projection operator orthogonal to 4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 245,
+     "printed_page": 228,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\frac{dp^\\alpha}{d\\tau} = -m(\\eta^{\\alpha\\beta} + u^\\alpha u^\\beta)\\frac{\\partial\\Phi}{\\partial x^\\beta}"
+   ],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": null,
+   "name": "Unit-vector derivatives in polar coordinates",
+   "latex": "\\frac{\\partial\\vec e_{\\hat r}}{\\partial r}=0,\\ \\frac{\\partial\\vec e_{\\hat r}}{\\partial\\theta}=\\vec e_{\\hat\\theta},\\ \\frac{\\partial\\vec e_{\\hat\\theta}}{\\partial r}=0,\\ \\frac{\\partial\\vec e_{\\hat\\theta}}{\\partial\\theta}=-\\vec e_{\\hat r};\\quad \\vec v=\\dot r\\,\\vec e_{\\hat r}+r\\dot\\theta\\,\\vec e_{\\hat\\theta}",
+   "meaning": "The orthonormal polar basis rotates with theta, which produces the r theta-dot transverse velocity.",
+   "symbols": "hats denote orthonormal components",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "label": "(20.1)",
+   "name": "Kepler-problem Lagrangian",
+   "latex": "L=\\frac12 m(\\dot r^2+r^2\\dot\\theta^2)+\\frac{GMm}{r}",
+   "meaning": "Kinetic minus potential energy for planar motion about a fixed mass M.",
+   "symbols": "m orbiting mass; M fixed central mass; dots are d/dt",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": null
+   }
+  },
+  {
+   "label": "(20.2)",
+   "name": "Acceleration in polar basis",
+   "latex": "\\vec a=\\dot{\\vec v}=\\ddot r\\,\\vec e_{\\hat r}+\\dot r\\,\\dot{\\vec e}_{\\hat r}+\\dot r\\dot\\theta\\,\\vec e_{\\hat\\theta}+r\\ddot\\theta\\,\\vec e_{\\hat\\theta}+r\\dot\\theta\\,\\dot{\\vec e}_{\\hat\\theta}=a_{\\hat r}\\vec e_{\\hat r}+a_{\\hat\\theta}\\vec e_{\\hat\\theta}",
+   "meaning": "Differentiating the polar velocity including rotating unit vectors.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": null
+   }
+  },
+  {
+   "label": "(20.3)-(20.4)",
+   "name": "Radial and transverse acceleration",
+   "latex": "a_{\\hat r}=\\ddot r-r\\dot\\theta^2,\\qquad a_{\\hat\\theta}=r\\ddot\\theta+2\\dot r\\dot\\theta",
+   "meaning": "Centripetal correction in the radial component and the Coriolis-like 2 r-dot theta-dot term in the transverse one.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": null
+   }
+  },
+  {
+   "label": "(20.5)",
+   "name": "Equations of motion",
+   "latex": "\\ddot r-r\\dot\\theta^2=-\\frac{GM}{r^2},\\qquad r\\ddot\\theta+2\\dot r\\dot\\theta=0",
+   "meaning": "Newton's second law per unit mass for the inverse-square central force: radial attraction, no transverse force.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": null
+   }
+  },
+  {
+   "label": "(20.7)",
+   "name": "Conserved specific angular momentum",
+   "latex": "r^2\\dot\\theta=C",
+   "meaning": "First integral of the transverse equation; C = |L|/m.",
+   "symbols": "C constant",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   }
+  },
+  {
+   "label": "(20.8)",
+   "name": "Kepler's second law",
+   "latex": "\\frac{dA}{dt}=\\frac12 r^2\\frac{d\\theta}{dt}=\\text{const}",
+   "meaning": "Equal areas swept in equal times.",
+   "symbols": "A swept area",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   }
+  },
+  {
+   "label": "(20.9)",
+   "name": "Angular momentum in polar form",
+   "latex": "\\vec L=r m v_{\\hat\\theta}\\,\\vec e_{\\hat z}=m r^2\\dot\\theta\\,\\vec e_{\\hat z}",
+   "meaning": "Only the transverse velocity contributes to L.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   }
+  },
+  {
+   "label": "(20.10)",
+   "name": "Area vector",
+   "latex": "\\frac{d\\vec A}{dt}=\\frac12 r^2\\frac{d\\theta}{dt}\\vec e_{\\hat z}=\\frac{\\vec L}{2m}",
+   "meaning": "Areal velocity is literally angular momentum per 2m, so Kepler II holds for any central force.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.1"
+   }
+  },
+  {
+   "label": "(20.11)",
+   "name": "Focal polar equation of an ellipse",
+   "latex": "\\frac1r=\\frac{a}{b^2}(1+\\epsilon\\cos\\theta),\\quad 0\\le\\epsilon<1",
+   "meaning": "Ellipse with a focus at the origin and theta measured from the pericentre direction.",
+   "symbols": "a semi-major axis; b semi-minor axis; epsilon eccentricity",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.12)-(20.14)",
+   "name": "Differentiating the ellipse along the motion",
+   "latex": "\\frac{\\dot r}{r^2}=\\frac{\\epsilon a}{b^2}\\sin\\theta\\,\\dot\\theta,\\quad \\dot r=\\frac{C\\epsilon a}{b^2}\\sin\\theta,\\quad \\ddot r=\\frac{C\\epsilon a}{b^2}\\cos\\theta\\,\\dot\\theta",
+   "meaning": "Kinematics of a body on an ellipse using r^2 theta-dot = C.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.15)",
+   "name": null,
+   "latex": "a_{\\hat r}=\\frac{C^2}{r^2}\\left(\\frac{\\epsilon a\\cos\\theta}{b^2}-\\frac1r\\right)",
+   "meaning": "Radial acceleration on an ellipse before using the ellipse equation.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.16)",
+   "name": "Ellipse implies inverse-square force",
+   "latex": "a_{\\hat r}=-\\frac{C^2 a}{b^2}\\frac1{r^2}",
+   "meaning": "The bracket equals -a/b^2, so an elliptical path with centre at a focus requires an inverse-square attraction.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Margin note 6: u0 identified",
+   "latex": "\\frac{a}{b^2}=\\frac{GMm^2}{L^2}\\;(\\equiv u_0)",
+   "meaning": "Matching (20.16) to -GM/r^2 with C = L/m fixes the ellipse's semi-latus rectum by L.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.17)",
+   "name": null,
+   "latex": "a_{\\hat r}=-\\frac{4\\pi^2a^3}{T^2}\\frac1{r^2}",
+   "meaning": "Radial acceleration rewritten with T = pi ab/(C/2).",
+   "symbols": "T period",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.18)",
+   "name": "Kepler's third law",
+   "latex": "T^2=\\frac{4\\pi^2a^3}{GM}",
+   "meaning": "Period squared scales as semi-major axis cubed with a constant set by the central mass.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.19)-(20.21)",
+   "name": "Energies at aphelion",
+   "latex": "U=-\\frac{GMm}{a(1+\\epsilon)},\\quad K=\\frac12 m v_{\\hat\\theta}^2=\\frac{mC^2}{2r^2}=\\frac{mC^2}{2a^2(1+\\epsilon)^2}",
+   "meaning": "At aphelion the velocity is purely transverse.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.22)",
+   "name": "Angular momentum of an ellipse",
+   "latex": "L^2=GMm^2a(1-\\epsilon^2)",
+   "meaning": "Follows from C^2 = 4 pi^2 a^4 (1 - epsilon^2)/T^2 and Kepler III (margin note 7).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.23)-(20.24)",
+   "name": null,
+   "latex": "K=\\frac{GMm(1-\\epsilon)}{2a(1+\\epsilon)},\\quad E=K+U=\\frac{GMm(1-\\epsilon)}{2a(1+\\epsilon)}-\\frac{GMm}{a(1+\\epsilon)}",
+   "meaning": "Aphelion kinetic energy and total energy before simplification.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.25)",
+   "name": "Orbital energy",
+   "latex": "E=-\\frac{GMm}{2a}",
+   "meaning": "Total energy of a bound Kepler orbit depends only on the semi-major axis.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "label": "(20.26)",
+   "name": "Energy in polar form",
+   "latex": "E=\\frac12 m(\\dot r^2+r^2\\dot\\theta^2)-\\frac{GMm}{r}",
+   "meaning": "Conserved total energy of the orbiting particle.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   }
+  },
+  {
+   "label": "(20.27)",
+   "name": "Radial energy equation",
+   "latex": "E=\\frac12 m\\dot r^2+U_{\\rm eff}(r)",
+   "meaning": "Radial motion behaves like 1D motion in U_eff.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   }
+  },
+  {
+   "label": "(20.28)",
+   "name": "Newtonian effective potential energy",
+   "latex": "U_{\\rm eff}(r)=\\frac{L^2}{2mr^2}-\\frac{GMm}{r}",
+   "meaning": "Repulsive angular-momentum barrier plus attractive gravitational well.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   }
+  },
+  {
+   "label": "(20.29)",
+   "name": "Circular-orbit condition",
+   "latex": "\\frac{L^2}{m r_0}=GMm,\\qquad E=-\\frac{GMm}{2r_0}",
+   "meaning": "Minimum of U_eff; the circular orbit is bound with half the potential energy as total energy.",
+   "symbols": "r0 circular radius",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   }
+  },
+  {
+   "label": "(20.30)-(20.31)",
+   "name": "Chain rule with u = 1/r",
+   "latex": "\\frac{dr}{dt}=-\\frac1{u^2}\\frac{du}{dt}=-\\frac Lm\\frac{du}{d\\theta},\\qquad \\frac{d^2r}{dt^2}=-\\frac{L^2}{m^2}u^2\\frac{d^2u}{d\\theta^2}",
+   "meaning": "Time derivatives of r become angle derivatives of u using theta-dot = L u^2/m.",
+   "symbols": "u = 1/r",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.32)",
+   "name": null,
+   "latex": "F_{\\hat r}=-GMmu^2=m\\left[\\frac{d^2r}{dt^2}-r\\left(\\frac{d\\theta}{dt}\\right)^2\\right]=-\\frac{L^2}{m}u^2\\left(\\frac{d^2u}{d\\theta^2}+u\\right)",
+   "meaning": "Radial Newton law expressed in u and theta.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.33)",
+   "name": "Orbit equation",
+   "latex": "\\frac{d^2u}{d\\theta^2}+u=\\frac{GMm^2}{L^2}",
+   "meaning": "Linear ODE for the orbit shape; the u^2 factors cancel only for an inverse-square force.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.34)",
+   "name": "Shifted harmonic oscillator",
+   "latex": "\\frac{d^2}{d\\theta^2}(u-u_0)=-(u-u_0),\\qquad u_0=\\frac{GMm^2}{L^2}",
+   "meaning": "u - u0 oscillates in theta with unit angular frequency, i.e. period exactly 2 pi.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.35)",
+   "name": "General orbit",
+   "latex": "u-u_0=B\\cos\\theta",
+   "meaning": "All Kepler trajectories, with theta measured from perihelion.",
+   "symbols": "B constant amplitude",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.36)",
+   "name": "u0 from perihelion data",
+   "latex": "u_0=\\frac{GMm^2}{L^2}=-\\frac{U_1}{2K_1}u_1,\\qquad K_1=\\frac{L^2u_1^2}{2m}",
+   "meaning": "Relates u0 to kinetic and potential energy at perihelion.",
+   "symbols": "subscript 1: perihelion values",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.37)",
+   "name": "Energy in terms of B",
+   "latex": "E=\\frac{K_1}{u_1}(B-u_0)",
+   "meaning": "Sign of E equals sign of B - u0, giving the ellipse/parabola/hyperbola classification.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.38)-(20.39)",
+   "name": "Energy equation in u",
+   "latex": "E=\\frac12m\\dot r^2+\\frac12mr^2\\dot\\theta^2-\\frac{GMm}{r}\\;\\Rightarrow\\;(u')^2+u^2-\\frac{2GMm^2}{L^2}u-\\frac{2Em}{L^2}=0",
+   "meaning": "First-order orbit equation after dividing by L^2/2m.",
+   "symbols": "u' = du/dtheta",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.40)-(20.41)",
+   "name": "Completed square and conic solution",
+   "latex": "(u')^2+(u-u_0)^2-u_0^2\\epsilon^2=0,\\quad u_0^2(1-\\epsilon^2)=-\\frac{2Em}{L^2},\\quad u=u_0(1\\pm\\epsilon\\cos\\theta)",
+   "meaning": "Links eccentricity to energy and angular momentum; plus sign with theta from perihelion.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.4"
+   }
+  },
+  {
+   "label": "(20.42)",
+   "name": null,
+   "latex": "\\frac{dr}{dt}=\\left\\{\\frac2m[E-U(r)]-\\frac{L^2}{m^2r^2}\\right\\}^{1/2}",
+   "meaning": "Radial speed for a general central potential.",
+   "symbols": "U(r) arbitrary central potential energy",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.43)-(20.44)",
+   "name": "Time and angle as integrals",
+   "latex": "t=\\int_{r_1}^{r_2}\\frac{dr}{\\{\\frac2m[E-U(r)]-\\frac{L^2}{m^2r^2}\\}^{1/2}},\\qquad \\theta=\\int_{r_1}^{r_2}\\frac{dr\\,L/r^2}{\\{2m[E-U(r)]-\\frac{L^2}{r^2}\\}^{1/2}}",
+   "meaning": "Quadratures for the motion between two radii.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.45)",
+   "name": "Turning angle per radial cycle",
+   "latex": "\\Delta\\theta=2\\int_{r_{\\min}}^{r_{\\max}}\\frac{dr\\,L/r^2}{\\{2m[E-U(r)]-\\frac{L^2}{r^2}\\}^{1/2}}",
+   "meaning": "Angle swept from pericentre to pericentre.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": null,
+   "name": "Closure condition",
+   "latex": "\\Delta\\theta=\\frac{2\\pi q}{n},\\quad q,n\\in\\mathbb Z",
+   "meaning": "The orbit closes after n radial cycles and q revolutions.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.46)",
+   "name": "Precession per orbit",
+   "latex": "\\delta\\theta=\\Delta\\theta-2\\pi",
+   "meaning": "Net rotation of the apsides each cycle.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.47)",
+   "name": "Turning angle as an L-derivative",
+   "latex": "\\Delta\\theta=-2\\frac{\\partial}{\\partial L}\\int_{r_{\\min}}^{r_{\\max}}dr\\left\\{2mE+\\frac{2m\\alpha}{r}-\\frac{L^2}{r^2}\\right\\}^{1/2}",
+   "meaning": "For U = -alpha/r the integral evaluates so that Delta theta = 2 pi exactly: no Newtonian precession.",
+   "symbols": "alpha = GMm",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.48)",
+   "name": "Power-law effective potential",
+   "latex": "V_{\\rm eff}=\\frac{Ar^{n+1}}{n+1}+\\frac{L^2}{2mr^2}",
+   "meaning": "Effective potential energy for F = -A r^n.",
+   "symbols": "A > 0 force constant; n exponent (n != -1)",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.49)",
+   "name": null,
+   "latex": "V_{\\rm eff}=V(r_0)+\\frac12(r-r_0)^2\\left(\\frac{d^2V_{\\rm eff}}{dr^2}\\right)_{r=r_0}+\\cdots,\\quad \\left(\\frac{d^2V_{\\rm eff}}{dr^2}\\right)_{r_0}=\\frac{(n+3)L^2}{mr_0^4}",
+   "meaning": "Quadratic expansion about a circular orbit; curvature positive only for n > -3.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.50)-(20.51)",
+   "name": "Radial small oscillations",
+   "latex": "m\\ddot r+\\frac{(n+3)L^2}{mr_0^4}(r-r_0)=0,\\qquad \\tau=\\frac{2\\pi mr_0^2}{(n+3)^{1/2}L}",
+   "meaning": "Radial SHM about the circular orbit with period tau.",
+   "symbols": "tau radial period",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.52)",
+   "name": "Radial versus orbital period",
+   "latex": "\\tau=\\frac{T}{(n+3)^{1/2}},\\qquad T=\\frac{2\\pi mr_0^2}{L}",
+   "meaning": "Commensurate (closed near-circular orbits) for n = -2 (tau = T) and n = 1 (tau = T/2); otherwise precession.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.53)",
+   "name": "Laplace-Runge-Lenz vector",
+   "latex": "\\vec{\\mathcal L}=(\\vec p\\times\\vec L)-GMm^2\\frac{\\vec r}{r}",
+   "meaning": "Conserved vector of the Kepler problem pointing to perihelion.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": null,
+   "name": "Conservation of the LRL vector",
+   "latex": "\\dot{\\vec{\\mathcal L}}=\\vec F\\times\\vec L-GMm^2\\left(\\frac{\\dot{\\vec r}}{r}-\\frac{\\vec r\\,\\dot r}{r^2}\\right)=\\vec r(\\vec F\\cdot\\vec p)-\\vec p(\\vec F\\cdot\\vec r)-GMm^2\\frac{\\dot{\\vec r}}{r}+GMm^2\\frac{\\vec r\\,\\dot r}{r^2}=0",
+   "meaning": "With F = -GMm r/r^3, r.p = m r r-dot and F.r = -GMm/r, the four terms cancel in pairs.",
+   "symbols": "vector r versus scalar r distinguished by arrows",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "label": "(20.54)",
+   "name": "Axial potential of a ring (Exercise 20.3)",
+   "latex": "U=-\\frac{GMm}{(a^2+x^2)^{1/2}}",
+   "meaning": "Every ring element is equidistant from an on-axis point.",
+   "symbols": "a ring radius; x axial distance",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   }
+  },
+  {
+   "label": "(20.55)-(20.56)",
+   "name": "Naive and projected scalar-gravity force laws (Exercise 20.4)",
+   "latex": "\\frac{dp_\\alpha}{d\\tau}=-m\\frac{\\partial\\Phi}{\\partial x^\\alpha}\\quad\\text{vs}\\quad \\frac{dp^\\alpha}{d\\tau}=-m(\\eta^{\\alpha\\beta}+u^\\alpha u^\\beta)\\frac{\\partial\\Phi}{\\partial x^\\beta}",
+   "meaning": "The first violates a.u = 0; projecting orthogonal to u repairs it but yields no light bending (Exercise 20.5).",
+   "symbols": "Phi time-independent Newtonian potential",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 20.1",
+   "image_path": "gifted-amateur/pages/page-236/img-161.jpeg",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   },
+   "caption_paraphrase": "A tiny rotation delta-theta of the radius vector moves its tip by about r delta-theta, so the thin triangle swept has area r^2 delta-theta/2 and area accumulates at the rate r^2 theta-dot/2 = C/2.",
+   "visual_description": "A narrow triangle with its apex at the left (the focus). The lower side is the horizontal arrow r(t); the upper side is the arrow r(t + delta t), tilted slightly upward; the small angle between them at the apex is marked delta-theta. A short arrow labelled delta-r joins the tip of r(t) to the tip of r(t + delta t), and a dotted circular arc through the two tips curves away above and below.",
+   "what_it_teaches": "The geometric meaning of r^2 theta-dot as twice the areal velocity, the key step turning angular momentum conservation into Kepler's second law.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "areal velocity",
+    "Kepler's second law",
+    "conservation of angular momentum"
+   ],
+   "redesign": {
+    "idea": "Equal-areas stopwatch: a planet runs along an ellipse and every fixed time interval paints a coloured wedge from the focus; the wedges look different (long and thin near aphelion, short and fat near perihelion) but a live readout shows equal areas. A toggle adds a small non-central push (a tangential thrust) so the areas visibly stop matching.",
+    "interaction": "Sliders for eccentricity and time-slice length; play/pause; toggle 'non-central force' with a strength slider; hover a wedge to see its area and the current value of r^2 theta-dot.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 20.2",
+   "image_path": "gifted-amateur/pages/page-237/img-162.jpeg",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   },
+   "caption_paraphrase": "Cutting a cone with a tilted plane gives an ellipse; a cut parallel to the base would give a circle.",
+   "visual_description": "Line drawing of an upright cone with a dashed elliptical base labelled 'cone'. A hatched, torn-edged strip, like a sheet of paper, passes obliquely through the upper part of the cone; the closed curve where the strip meets the cone is outlined and labelled 'ellipse'.",
+   "what_it_teaches": "Ellipses (and the other orbit shapes) belong to one family of curves generated by plane sections of a cone.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "conic sections"
+   ],
+   "redesign": {
+    "idea": "A 3D double cone with a rotatable cutting plane: as the tilt increases the section morphs from circle to ellipse to parabola to hyperbola, while a linked 2D panel shows the same curve as a Kepler orbit around a focus with its eccentricity and the matching sign of orbital energy.",
+    "interaction": "Drag to orbit the camera; tilt and height sliders for the plane; readout of eccentricity and conic name; button to jump to the corresponding orbit animation.",
+    "form": "interactive-3d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 20.3",
+   "image_path": "gifted-amateur/pages/page-237/img-163.jpeg",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   },
+   "caption_paraphrase": "Labelled ellipse: foci F and F', semi-axes a and b, eccentricity epsilon, and a point P at distance r from F; the circle is the case a = b, epsilon = 0 with the foci merged.",
+   "visual_description": "An ellipse centred on crossed x and y axes. Two dots on the x-axis mark the foci, F left of centre and F' right of centre. A point P on the upper right of the ellipse is joined to F by a line labelled r; at F a small arc labelled theta opens from the leftward direction (toward the nearer vertex) round to the line FP. A vertical double arrow at the right marks b; horizontal double arrows below mark a (left vertex to centre) and epsilon a (centre to the right focus position).",
+   "what_it_teaches": "Vocabulary and geometry needed for the focal polar equation, especially that theta is measured at the focus from the pericentre direction and that the focus sits epsilon a from the centre.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "ellipse geometry",
+    "eccentricity"
+   ],
+   "redesign": {
+    "idea": "Ellipse anatomy explorer: sliders for a and epsilon redraw the ellipse, foci and b = a sqrt(1 - epsilon^2); dragging P shows r, theta and the string property r + r' = 2a, with the polar equation value 1/r = (a/b^2)(1 + epsilon cos theta) updating beside it.",
+    "interaction": "Sliders a and epsilon; drag P around the curve; toggles to show the second focus string, the semi-latus rectum and pericentre/apocentre distances a(1 -/+ epsilon).",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 20.4",
+   "image_path": "gifted-amateur/pages/page-238/img-164.jpeg",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   },
+   "caption_paraphrase": "An orbit about the Sun at one focus, with the nearest point (perihelion p) and farthest point (aphelion a) marked.",
+   "visual_description": "An ellipse with a horizontal line along its major axis. A dot at the left end is labelled p and a dot at the right end is labelled a. A small open circle labelled S sits on the axis close to the left end, at the left focus.",
+   "what_it_teaches": "The apsides lie at the ends of the major axis, with the central body off-centre at a focus.",
+   "figure_type": "orbit-or-trajectory",
+   "concepts": [
+    "apsides",
+    "Kepler's first law"
+   ],
+   "redesign": {
+    "idea": "Apsis name-tag widget: pick the central body (Sun, Earth, a star, generic) and the labels switch between perihelion/aphelion, perigee/apogee, periastron/apastron and periapsis/apoapsis; velocity arrows at the two apsides scale in the ratio (1 + epsilon)/(1 - epsilon) as eccentricity changes.",
+    "interaction": "Dropdown for central body; eccentricity slider; hover an apsis to see its distance and speed.",
+    "form": "interactive-2d",
+    "priority": "low"
+   }
+  },
+  {
+   "label": "Fig. 20.5",
+   "image_path": "gifted-amateur/pages/page-239/img-165.jpeg",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   },
+   "caption_paraphrase": "The effective potential energy (solid) is the sum of a repulsive angular-momentum term and an attractive -1/r term (both dotted).",
+   "visual_description": "Axes U_eff(r) vertical and |r| horizontal, with the zero level marked. An upper dotted curve comes down steeply from large positive values near the vertical axis and flattens toward zero (the 1/r^2 barrier). A lower dotted curve rises from large negative values near the axis toward zero from below (the -1/r well). The solid sum drops steeply from above, crosses zero, reaches a sharp minimum below the axis at small r, then climbs slowly back toward zero from below at large r.",
+   "what_it_teaches": "Why the Newtonian effective potential has a single minimum: different powers and opposite signs of the two terms, with the barrier dominating at small r and gravity at large r.",
+   "figure_type": "potential-plot",
+   "concepts": [
+    "effective potential energy",
+    "angular momentum barrier",
+    "circular orbit"
+   ],
+   "redesign": {
+    "idea": "Build-your-own effective potential: two component curves and their sum drawn live; the learner changes L and watches the barrier grow and the minimum slide outward as r0 = L^2/(GMm^2) with depth -G^2M^2m^3/(2L^2). A third toggle adds the Schwarzschild -1/r^3 term to preview ch22.",
+    "interaction": "Slider for L (and M); checkboxes to show each component; draggable cursor reading off U_eff and its slope; 'GR correction' toggle.",
+    "form": "interactive-plot",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 20.6",
+   "image_path": "gifted-amateur/pages/page-239/img-166.jpeg",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   },
+   "caption_paraphrase": "Horizontal energy levels on the effective-potential curve: a negative E1 trapped in the well (an ellipse) and a positive E2 that escapes (unbound).",
+   "visual_description": "The same solid U_eff curve on axes U_eff(r) versus |r|, with levels E2 (above zero) and E1 (below zero) marked on the vertical axis. At E1 a short dotted double-headed arrow spans the inside of the well, from the steep left wall to the gently rising right-hand branch. At E2 a longer dotted double-headed arrow starts at the steep left wall and extends to the right beyond the end of the drawn curve, so no outer wall is ever met.",
+   "what_it_teaches": "Reading turning points and boundedness directly from where a constant-energy line meets U_eff.",
+   "figure_type": "potential-plot",
+   "concepts": [
+    "turning points",
+    "bound and unbound trajectories",
+    "effective potential energy"
+   ],
+   "redesign": {
+    "idea": "Linked energy-diagram and orbit view: a bead slides back and forth along a draggable horizontal energy line in the U_eff plot while, next to it, the real planar trajectory is drawn in sync, so a trapped bead becomes an ellipse, a bead at the bottom a circle, and an escaping bead a hyperbola or parabola.",
+    "interaction": "Drag the energy line; slider for L; play/pause; the orbit panel marks r_min and r_max circles matching the intersection points; readouts of eccentricity and a.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 20.7",
+   "image_path": "gifted-amateur/pages/page-243/img-167.jpeg",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   },
+   "caption_paraphrase": "A precessing orbit: the path only closes if a whole number of radial cycles coincides with a whole number of revolutions.",
+   "visual_description": "A single continuous curve drawing a rosette: about eight overlapping elongated loops, each like an ellipse rotated a little relative to the previous one, all passing close to a small central region that forms a tight inner ring. The curve starts as a loose end at the left and finishes at an arrowhead near the top, showing the path has not closed.",
+   "what_it_teaches": "What precession looks like: the apsides rotate each cycle, and a generic central force gives a non-closing rosette.",
+   "figure_type": "orbit-or-trajectory",
+   "concepts": [
+    "orbital precession",
+    "closed orbit condition",
+    "turning angle (apsidal angle)"
+   ],
+   "redesign": {
+    "idea": "Rosette lab: numerically integrate an orbit under U = -k/r plus a tunable perturbation (a power-law exponent n near -2, or a GR-like -1/r^3 term); the trajectory traces live with pericentre markers, and a readout gives Delta theta, the precession per orbit and the best rational approximation q/n.",
+    "interaction": "Sliders for exponent or perturbation strength, energy and L; 'snap to rational' button that tunes the parameter until the orbit closes; trail-length control.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 20.8",
+   "image_path": "gifted-amateur/pages/page-243/img-168.jpeg",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   },
+   "caption_paraphrase": "Effective potentials for a power-law force in three exponent ranges; a stable circular orbit at r0 needs a minimum, which is absent in the steepest-force case. (The printed caption gives panel (c) as n > -3, but the drawn always-positive well is the n > -1 case; see gaps_and_pitfalls.)",
+   "visual_description": "Three small side-by-side panels (a), (b), (c), each with V_eff vertical, r horizontal and a tick marking r0. (a): the curve comes up from below near the vertical axis, crosses zero, forms a low hump above the axis around r0 and then decays back toward zero, so r0 sits at a maximum. (b): a tall spike hugging the vertical axis plunges through zero into a shallow dip just past r0, then creeps back toward zero from below. (c): a U-shaped well floating entirely above the axis, its bottom above r0 and its right arm climbing steadily.",
+   "what_it_teaches": "How the exponent n changes the competition between the force and the angular-momentum barrier: unstable circular orbit for n < -3, bound well for -3 < n < -1, and an always-positive confining well for n > -1 (e.g. the harmonic case).",
+   "figure_type": "potential-plot",
+   "concepts": [
+    "stability of circular orbits in power-law forces",
+    "effective potential energy",
+    "circular orbit"
+   ],
+   "redesign": {
+    "idea": "Exponent dial: one continuous slider for n redraws V_eff and marks the circular orbit as a green (stable) or red (unstable) dot; nudging the particle off r0 starts either small radial oscillations, whose period tau is compared live with the orbital period T, or a runaway.",
+    "interaction": "Slider for n from -4 to 2 and for L; 'kick' button with size control; side panel plotting tau/T = 1/sqrt(n+3) with the special points n = -2 and n = 1 highlighted.",
+    "form": "interactive-plot",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Example 20.1",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   },
+   "problem": "Show that Kepler's second law follows from the equations of motion.",
+   "method": "Note the transverse equation has zero right-hand side, recognize it as the time derivative of r^2 theta-dot divided by r, integrate to r^2 theta-dot = C, interpret C through the thin swept triangle, and write area as a vector along e_z.",
+   "key_insight": "Equal areas is a restatement of constant angular momentum and needs only a central force, not the inverse-square law.",
+   "result": "dA/dt = r^2 theta-dot/2 = L/(2m) = constant; L = m r^2 theta-dot e_z.",
+   "concepts": [
+    "Kepler's second law",
+    "areal velocity",
+    "conservation of angular momentum"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 20.2",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   },
+   "problem": "Determine what force law is compatible with motion on an ellipse with the centre at a focus.",
+   "method": "Differentiate the focal polar equation of the ellipse twice in time, eliminating theta-dot with C = r^2 theta-dot, substitute into a_r = r-double-dot - r theta-dot^2, and simplify using the ellipse equation again.",
+   "key_insight": "Working backwards from the observed orbit shape pins down the inverse-square law, echoing Newton's historical reasoning.",
+   "result": "a_r = -(C^2 a/b^2)/r^2; comparing with -GM/r^2 gives a/b^2 = GMm^2/L^2 (= u0).",
+   "concepts": [
+    "Kepler's first law",
+    "ellipse geometry",
+    "central force"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 20.3",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   },
+   "problem": "Derive Kepler's third law.",
+   "method": "Period equals ellipse area pi ab divided by the areal rate C/2; eliminate C in the radial acceleration from Example 20.2 and equate to -GM/r^2.",
+   "key_insight": "The b dependence cancels, leaving a relation between T and a alone.",
+   "result": "T^2 = 4 pi^2 a^3/(GM).",
+   "concepts": [
+    "Kepler's third law",
+    "Kepler's second law"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 20.4",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   },
+   "problem": "Express the total energy of an elliptical orbit in terms of the ellipse's dimensions.",
+   "method": "Evaluate at aphelion, r = a(1 + epsilon), where radial velocity vanishes: U from the distance, K = mC^2/(2r^2); find C^2 = GMa(1 - epsilon^2) from C = 2 pi ab/T and Kepler III (margin note 7), then add.",
+   "key_insight": "Choosing a point where the velocity is purely transverse makes the energy calculation trivial, and eccentricity drops out of the final answer.",
+   "result": "E = -GMm/(2a); along the way L^2 = GMm^2 a(1 - epsilon^2) and b^2 = a^2(1 - epsilon^2).",
+   "concepts": [
+    "energy of an elliptical orbit",
+    "apsides",
+    "angular momentum of an elliptical orbit"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   },
+   "problem": "Find the radius and energy of the circular orbit from the effective potential (worked in the prose of section 20.3).",
+   "method": "Set dU_eff/dr = 0 with U_eff = L^2/(2mr^2) - GMm/r, then evaluate the total energy at that radius.",
+   "key_insight": "A circular orbit is a particle sitting at the bottom of the effective well, which also makes it stable.",
+   "result": "L^2/(m r0) = GMm, i.e. r0 = L^2/(GMm^2) = 1/u0; E = -GMm/(2 r0).",
+   "concepts": [
+    "circular orbit",
+    "effective potential energy"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 20.5",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.4"
+   },
+   "problem": "Obtain a differential equation for the shape of the trajectory.",
+   "method": "Substitute u = 1/r and trade time derivatives for angle derivatives using theta-dot = L u^2/m; insert into the radial Newton law with F = -GMm u^2.",
+   "key_insight": "For the inverse-square force the u^2 factors cancel and the nonlinear time equation becomes a linear, constant-coefficient equation in theta.",
+   "result": "d^2u/dtheta^2 + u = GMm^2/L^2.",
+   "concepts": [
+    "Binet orbit equation"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   },
+   "problem": "Solve the orbit equation and classify the trajectories by their energy (worked in the prose after Example 20.5).",
+   "method": "Rewrite as a harmonic oscillator for u - u0 and solve with u - u0 = B cos theta; at perihelion (theta = 0) write K1 and U1 in terms of L and u1 to express u0 and then E through B - u0; compare with the ellipse equation.",
+   "key_insight": "The amplitude B relative to the offset u0 is the eccentricity, and its size relative to 1 fixes the sign of the energy and hence the conic type.",
+   "result": "B = u0: parabola (E = 0); B > u0: hyperbola escaping at cos theta = -u0/B (E > 0); B < u0: ellipse with epsilon = B/u0 and radii 1/(u0 +/- B) (E < 0); B = 0: circle.",
+   "concepts": [
+    "classification of orbits by energy",
+    "conic-section solutions of the Kepler problem",
+    "parabolic trajectory",
+    "hyperbolic trajectory"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 20.6",
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.4"
+   },
+   "problem": "Find the trajectories starting from the energy equation instead of the force equation.",
+   "method": "Divide the energy by L^2/(2m), use r-dot = -(L/m)u', complete the square around u0, define epsilon through u0^2(1 - epsilon^2) = -2Em/L^2, and test u = c + d cos theta.",
+   "key_insight": "A first integral gives the orbit with one fewer differentiation and delivers the eccentricity-energy link directly.",
+   "result": "u = u0(1 +/- epsilon cos theta), with the plus sign for theta measured from perihelion.",
+   "concepts": [
+    "conic-section solutions of the Kepler problem",
+    "eccentricity"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 20.7",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   },
+   "problem": "Show that an orbit in the potential U = -alpha/r closes.",
+   "method": "Write the turning-angle integrand as -2 times the L-derivative of the integral of sqrt(2mE + 2m alpha/r - L^2/r^2) between turning points, and evaluate. The book only quotes the value, calling it an elliptic integral and pointing to Zee; in fact it is elementary.",
+   "key_insight": "For U = -alpha/r the inner integral works out to pi(alpha sqrt(m/(2|E|)) - L), which is linear in L with slope -pi whatever the energy; minus twice that slope is exactly 2 pi, so every bound orbit closes.",
+   "result": "Delta theta = 2 pi, so q = n and there is no precession.",
+   "concepts": [
+    "turning angle (apsidal angle)",
+    "closed orbit condition",
+    "orbital precession"
+   ],
+   "difficulty": "challenging"
+  },
+  {
+   "label": "Example 20.8",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   },
+   "problem": "For a central force F = -A r^n, find when circular orbits are stable and whether nearby orbits close.",
+   "method": "Build V_eff, expand to second order about the circular radius using A r0^n = L^2/(m r0^3) to get V'' = (n+3)L^2/(m r0^4), solve the resulting radial SHM, and compare its period with the orbital period.",
+   "key_insight": "Closure of near-circular orbits is a commensurability question between a radial clock and an orbital clock; tau/T = 1/sqrt(n+3) is 1 only for the inverse-square law and 1/2 for the harmonic force.",
+   "result": "Stable only for n > -3; tau = T/(n+3)^(1/2); closed near-circular orbits for n = -2 and n = 1; otherwise precession, so any small deviation from n = -2 would be detectable.",
+   "concepts": [
+    "stability of circular orbits in power-law forces",
+    "radial oscillation frequency near a circular orbit",
+    "Bertrand's theorem",
+    "orbital precession"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 20.9",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   },
+   "problem": "Use the Laplace-Runge-Lenz vector to prove that Newtonian orbits do not precess.",
+   "method": "Differentiate p x L - GMm^2 r/r; use dL/dt = 0, expand F x (r x p) with the BAC-CAB identity, substitute F = -GMm r/r^3 and r.p = m r r-dot; the terms cancel pairwise. Then evaluate the direction at perihelion, where p is perpendicular to r.",
+   "key_insight": "A conserved vector that points at perihelion freezes the orientation of the ellipse; the extra conserved quantity is what makes Kepler orbits special.",
+   "result": "d(LRL)/dt = 0; the vector points from focus to perihelion forever, so the orbit closes.",
+   "concepts": [
+    "Laplace-Runge-Lenz vector",
+    "orbital precession",
+    "constants of the motion and superintegrability"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Radial motion as a bead sliding in a one-dimensional valley: a horizontal line at height E is the bead's energy, and it turns around wherever the line meets the U_eff curve.",
+   "target_concept": "effective potential energy",
+   "how_used": "Section 20.3 asks the reader to picture the particle moving sideways along the energy line and bouncing off the curve, trapped for E < 0 and escaping for E > 0; this graphical reading is promised again for Schwarzschild orbits.",
+   "limits": "The picture shows only r(t); the angular motion is hidden, and each curve is valid for one value of L. A bead at a turning point is not at rest in space.",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.3"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Split screen with a bead on the energy line and the corresponding orbit drawn in the plane, both driven by the same simulation."
+  },
+  {
+   "analogy": "The angular-momentum term as a repulsive wall or barrier that keeps orbiting bodies from reaching the centre.",
+   "target_concept": "angular momentum barrier",
+   "how_used": "The 1/r^2 term is drawn as a repulsive dotted curve and named a barrier; it explains why only zero-L trajectories reach r = 0.",
+   "limits": "There is no actual repulsive force; the barrier is kinetic energy of sideways motion that must grow as r shrinks at fixed L. In GR the wall has a finite height and can be overcome.",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Show the barrier as a wall whose height grows with an L slider, then switch on GR and watch the wall develop a top that a high-energy particle can climb over."
+  },
+  {
+   "analogy": "The orbit equation is a harmonic oscillator whose 'time' is the angle theta and whose equilibrium displacement is u0.",
+   "target_concept": "Binet orbit equation",
+   "how_used": "Equation (20.34) is written explicitly as d^2(u - u0)/dtheta^2 = -(u - u0), making the cosine solution and the angle-period of exactly 2 pi immediate.",
+   "limits": "Only the inverse-square law makes the equation exactly linear with unit frequency; other forces give nonlinear or different-frequency oscillators, which is the root of precession.",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Plot u(theta) as a spring oscillation beside the orbit; changing the force law changes the spring's frequency and the orbit starts to precess."
+  },
+  {
+   "analogy": "Swept area as a vector pointing along the angular momentum.",
+   "target_concept": "Kepler's second law",
+   "how_used": "Equation (20.10) sets dA/dt = L/(2m), turning an empirical area rule into a conservation statement.",
+   "limits": "The area vector is a bookkeeping device; its constancy needs the plane to be fixed, which again comes from L conservation.",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Draw the wedge swept per time step with a normal arrow of length proportional to its area; the arrow stays fixed for central forces and wobbles when a non-central force is added."
+  },
+  {
+   "analogy": "Orbit shapes as slices through a cone.",
+   "target_concept": "conic sections",
+   "how_used": "Fig. 20.2 shows the ellipse as a slanted cut; the same family later reappears as parabolic and hyperbolic trajectories.",
+   "limits": "The cone angle and cutting plane have no direct physical meaning in the orbit problem; the unifying parameter physically is eccentricity (set by E and L).",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Cone slicer linked to an orbit panel (see Fig. 20.2 redesign)."
+  },
+  {
+   "analogy": "Two clocks: a radial oscillation clock and an orbital revolution clock. The orbit closes only if their ticks line up in a whole-number ratio.",
+   "target_concept": "radial oscillation frequency near a circular orbit",
+   "how_used": "Example 20.8 compares tau and T; the commensurability language (and 'incommensurate' for general n) comes from this comparison.",
+   "limits": "The small-oscillation argument covers only nearly circular orbits; closure of all orbits for n = -2 and n = 1 needs the full theory (Bertrand).",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Two dials, one per period, rotating side by side with the rosette; a chime sounds when both return to start together."
+  },
+  {
+   "analogy": "The Laplace-Runge-Lenz vector as a fixed pointer nailed to the perihelion.",
+   "target_concept": "Laplace-Runge-Lenz vector",
+   "how_used": "Example 20.9 argues that a constant vector aimed at the perihelion means the perihelion cannot move.",
+   "limits": "The vector is a derived quantity, not a physical arrow in space, and it is conserved only for an exact inverse-square force; for perturbed forces it slowly rotates at the precession rate.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Draw the LRL arrow from the focus during an orbit simulation; add a small 1/r^3 perturbation and watch the arrow rotate in step with the perihelion."
+  },
+  {
+   "analogy": "The Moon as an object continually falling toward the Earth while being deflected from straight-line motion.",
+   "target_concept": "central force",
+   "how_used": "Newton's epigraph frames orbiting as perpetual falling, a picture the rest of the chapter makes quantitative.",
+   "limits": "It is an opening image rather than an argument; it does not address why the path closes.",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   },
+   "effectiveness": "weak",
+   "app_idea": "Newton's cannon: fire a projectile horizontally from a mountain at increasing speed and watch its fall become an orbit."
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "When r-dot = 0 the orbiting body has come to a stop.",
+   "correction": "Only the radial velocity vanishes; theta-dot is non-zero, so the body is moving perpendicular to the radius at a turning point.",
+   "why_tempting": "In the one-dimensional effective-potential picture the bead does momentarily stop at the wall.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   },
+   "concepts": [
+    "turning points",
+    "effective potential energy"
+   ]
+  },
+  {
+   "misconception": "Perihelion and aphelion are the general words for closest and farthest points of any orbit.",
+   "correction": "Those words refer to the Sun; Earth orbits use perigee/apogee, stellar orbits periastron/apastron, and the general terms are periapsis/apoapsis.",
+   "why_tempting": "Perihelion is the most familiar term, and GR discussions talk about 'perihelion precession' generically.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   },
+   "concepts": [
+    "apsides"
+   ]
+  },
+  {
+   "misconception": "A body with angular momentum can gradually spiral into the attracting centre in Newtonian gravity.",
+   "correction": "The angular-momentum barrier diverges faster than the attraction as r goes to 0, so any L != 0 particle is turned back; only a purely radial (L = 0) trajectory reaches the centre.",
+   "why_tempting": "Popular images of things 'spiralling in' (from drag, radiation or black holes) are imported into ideal Newtonian mechanics.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   },
+   "concepts": [
+    "angular momentum barrier",
+    "radial plunge"
+   ]
+  },
+  {
+   "misconception": "Bound orbits naturally close on themselves; closure needs no explanation.",
+   "correction": "Generic central forces produce precessing rosettes; closure requires the turning angle to be a rational multiple of 2 pi, and for all bound orbits that happens only for special force laws such as the inverse-square law.",
+   "why_tempting": "Planetary orbits look like closed ellipses, and the ellipse is taught first.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.5"
+   },
+   "concepts": [
+    "closed orbit condition",
+    "orbital precession"
+   ]
+  },
+  {
+   "misconception": "Kepler's equal-areas law is a special property of inverse-square gravity.",
+   "correction": "It follows from angular momentum conservation and holds for any central force.",
+   "why_tempting": "It is always taught alongside the other two Kepler laws, which do depend on the inverse-square law.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.1"
+   },
+   "concepts": [
+    "Kepler's second law",
+    "conservation of angular momentum"
+   ]
+  },
+  {
+   "misconception": "The angular-momentum term in U_eff is a real repulsive force pushing the body outward.",
+   "correction": "It is the kinetic energy of transverse motion re-expressed as a function of r at fixed L; in an inertial frame the only force is the attraction.",
+   "why_tempting": "It is called a potential and drawn next to the real potential, and it resembles the centrifugal force of rotating frames.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   },
+   "concepts": [
+    "effective potential energy",
+    "angular momentum barrier"
+   ]
+  },
+  {
+   "misconception": "The Sun sits at the centre of a planet's elliptical orbit.",
+   "correction": "It sits at a focus, a distance epsilon a from the centre; the empty second focus has no physical role.",
+   "why_tempting": "Circles have a single centre, and diagrams of nearly circular planetary orbits hide the offset.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   },
+   "concepts": [
+    "ellipse geometry",
+    "Kepler's first law"
+   ]
+  },
+  {
+   "misconception": "A negative total energy is unphysical or signals an error.",
+   "correction": "With the zero of potential energy at infinity, negative E simply means the body is bound and energy must be supplied for escape; E = -GMm/2a for an ellipse.",
+   "why_tempting": "Kinetic energy is never negative, and learners conflate total energy with kinetic energy.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.3"
+   },
+   "concepts": [
+    "bound and unbound trajectories",
+    "energy of an elliptical orbit"
+   ]
+  },
+  {
+   "misconception": "Gravity can be made relativistic simply by writing Newton's potential as a field in Minkowski spacetime.",
+   "correction": "A naive covariant force law violates a.u = 0; projecting it fixes that but then light is not deflected by the Sun, contradicting observation. A curved-spacetime theory is needed.",
+   "why_tempting": "Electromagnetism fits into special relativity as a field on flat spacetime, so gravity seems like it should too.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   },
+   "concepts": [
+    "scalar gravity in Minkowski spacetime",
+    "projection operator orthogonal to 4-velocity"
+   ]
+  },
+  {
+   "misconception": "All of Mercury's observed perihelion advance is a general-relativistic effect.",
+   "correction": "Newtonian perturbations from the other planets produce most of the advance; general relativity accounts for the leftover of about 43 arcseconds per century that an isolated inverse-square orbit cannot give.",
+   "why_tempting": "The chapter's clean result that isolated Newtonian orbits never precess can be over-read as 'Newtonian gravity predicts zero precession for real planets'.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   },
+   "concepts": [
+    "orbital precession"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Slightly wrong inverse-square law",
+   "setup": "Imagine gravity differs very slightly from 1/r^2, say F proportional to r^n with n just away from -2, and follow a nearly circular planetary orbit.",
+   "lesson": "The radial period becomes T/sqrt(n+3), no longer equal to T, so the ellipse slowly rotates; precession is therefore a sensitive probe of the force law (and later of GR).",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   },
+   "concepts": [
+    "radial oscillation frequency near a circular orbit",
+    "orbital precession"
+   ],
+   "visualizable": true,
+   "app_idea": "Slider for n in the range -2.1 to -1.9 with an exaggeration factor; accumulate pericentre markers over many orbits and report the implied arcseconds per century."
+  },
+  {
+   "name": "Riding the energy line",
+   "setup": "Fix L, draw U_eff, and let a particle move along a horizontal line of constant E, reversing wherever the line hits the curve.",
+   "lesson": "Every Newtonian trajectory type (circle, ellipse, escape, plunge) can be read from one picture without solving any equation.",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.3"
+   },
+   "concepts": [
+    "effective potential energy",
+    "turning points",
+    "bound and unbound trajectories"
+   ],
+   "visualizable": true,
+   "app_idea": "Draggable energy line with the orbit drawn alongside (Fig. 20.6 redesign)."
+  },
+  {
+   "name": "Starlight past the Sun in flat-spacetime scalar gravity",
+   "setup": "Adopt a theory in which the Newtonian potential is a field on Minkowski spacetime with a force projected orthogonal to the 4-velocity, and send a photon past the Sun by taking the massless limit.",
+   "lesson": "The photon's momentum rescales but its direction does not change, so no deflection is predicted; since light is observed to bend, gravity cannot be just another field in special relativity.",
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   },
+   "concepts": [
+    "scalar gravity in Minkowski spacetime"
+   ],
+   "visualizable": true,
+   "app_idea": "Side-by-side ray tracing of a light ray grazing the Sun in the scalar theory (straight) and in GR (bent by 1.75 arcseconds, exaggerated)."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Johannes Kepler",
+    "Tycho Brahe"
+   ],
+   "year": "1571-1630 (Kepler's lifetime)",
+   "event": "Kepler extracted three empirical laws of planetary motion from Tycho Brahe's naked-eye observations, originally while trying to fit planetary orbits to the Platonic solids.",
+   "significance": "The laws became the targets that Newton's inverse-square gravity had to reproduce, and they are proved one by one in this chapter; the one-particle inverse-square orbit problem still carries Kepler's name.",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   }
+  },
+  {
+   "people": [
+    "Johannes Kepler"
+   ],
+   "year": null,
+   "event": "Biographical margin note: Kepler endured a long list of ailments (including a delusion that he was a dog) and had to defend his mother against a witchcraft charge.",
+   "significance": "Humanizes the founder of orbital astronomy in the book's characteristic margin-note style.",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   }
+  },
+  {
+   "people": [
+    "Isaac Newton"
+   ],
+   "year": null,
+   "event": "Newton explained orbits as bodies continually pulled away from straight-line motion by gravity (chapter epigraph), providing the first dynamical solution of the orbit problem.",
+   "significance": "Frames the chapter's programme of deriving Kepler's laws from a force law.",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "Jakob Hermann",
+    "Johann Bernoulli",
+    "Pierre-Simon Laplace",
+    "Carl Runge",
+    "Wilhelm Lenz",
+    "Herbert Goldstein"
+   ],
+   "year": "early 18th century to 1920s; Goldstein's historical notes 1975-1976",
+   "event": "The conserved vector named after Laplace, Runge and Lenz was apparently first found by Hermann and Bernoulli, as documented in two short American Journal of Physics articles by Goldstein.",
+   "significance": "A reminder that naming in physics often misattributes priority; the vector underlies the non-precession of Kepler orbits.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "people": [
+    "Wolfgang Pauli"
+   ],
+   "year": "1926",
+   "event": "Pauli used the quantum version of the Laplace-Runge-Lenz vector to obtain the exact energy spectrum of the hydrogen atom.",
+   "significance": "Shows that the hidden symmetry responsible for closed Kepler orbits also explains the degeneracy of hydrogen levels.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Planetary orbits of the Solar System",
+   "kind": "astrophysical-system",
+   "details": "Planets follow very nearly closed ellipses with the Sun at a focus, the observational content of Kepler's three laws that the chapter derives.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   }
+  },
+  {
+   "topic": "Orbits around Earth, stars and general centres of mass",
+   "kind": "observation",
+   "details": "The apsis vocabulary is applied to Earth satellites (perigee/apogee), binary and exoplanet systems (periastron/apastron) and any orbit (periapsis/apoapsis).",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "topic": "The length of Earth's year from Kepler's third law (our estimate)",
+   "kind": "numerical-estimate",
+   "details": "Plugging the Sun's GM and Earth's semi-major axis into T^2 = 4 pi^2 a^3/GM reproduces one year; the same numbers give the specific orbital energy -GM/2a. These are our illustrative numbers, not from the book.",
+   "key_numbers": "GM_sun = 1.327e20 m^3 s^-2, a = 1.496e11 m -> T = 3.156e7 s = 1.00 yr; E/m = -4.4e8 J/kg (our estimate)",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "topic": "Precession as a test of the inverse-square law (our estimate)",
+   "kind": "numerical-estimate",
+   "details": "Example 20.8 notes that any small departure from n = -2 would show up as precession. For a near-circular orbit the apsides advance by about -pi times delta per revolution if n = -2 + delta. Mercury's unexplained 43 arcseconds per century (quoted in GA ch14) corresponds to delta of roughly -1.6e-7, the sort of tweak once proposed before GR explained the effect. Our calculation, not the book's.",
+   "key_numbers": "Mercury: a = 0.387 AU, epsilon = 0.206, about 415 orbits per century, 43 arcsec/century ~ 5e-7 rad per orbit -> delta ~ -1.6e-7 (our estimate)",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "topic": "Hydrogen atom spectrum from the Laplace-Runge-Lenz vector",
+   "kind": "observation",
+   "details": "Margin note 14: Pauli (1926) used the conserved vector in quantum mechanics to derive the hydrogen energy levels exactly, the quantum counterpart of Kepler orbits not precessing.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "topic": "Gravitational fly-by of two equal masses",
+   "kind": "numerical-estimate",
+   "details": "Exercise 20.2: two masses approaching on parallel lines offset by b with speeds v reach a minimum separation fixed by conservation of E and L.",
+   "key_numbers": "d = -Gm/(2v^2) + sqrt((Gm/2v^2)^2 + b^2)",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": null
+   }
+  },
+  {
+   "topic": "Deflection of starlight by the Sun as a discriminator between theories",
+   "kind": "observation",
+   "details": "Exercise 20.5 shows a scalar field theory in flat spacetime predicts no light bending, which the observed deflection rules out.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Units",
+   "convention": "Newton's constant G is written explicitly in this chapter (elsewhere the book uses G = c = 1).",
+   "notes": "Margin note 1.",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "item": "Dots",
+   "convention": "An overdot means d/dt with Newtonian time t in this chapter (not proper time).",
+   "notes": "Margin note 2; in ch22-23 derivatives are with respect to proper time.",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "item": "Hatted indices",
+   "convention": "Hats (e_r-hat, a_theta-hat, v_theta-hat) denote components in the orthonormal polar basis, following ch10.",
+   "notes": "In the OCR copy hats sometimes appear as dots.",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "item": "Angle origin",
+   "convention": "theta is measured at the focus from the direction of closest approach, so perihelion is theta = 0 and aphelion theta = pi.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   }
+  },
+  {
+   "item": "Orbit parameters",
+   "convention": "a semi-major axis, b semi-minor axis, epsilon eccentricity; C = r^2 theta-dot = |L|/m; u = 1/r; u0 = GMm^2/L^2 = a/b^2 = 1/r0; B amplitude of u - u0; subscript 1 for perihelion values (r1, u1, K1, U1).",
+   "notes": "u0 is called 1/r0 in Example 20.6, where r0 is the semi-latus rectum rather than a circular radius unless epsilon = 0.",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   }
+  },
+  {
+   "item": "Letter clashes",
+   "convention": "L is used for the Lagrangian (20.1), for angular momentum, and (script) for the Laplace-Runge-Lenz vector; in Exercise 20.3 L is a disc radius. a is the semi-major axis, the aphelion label in Fig. 20.4, and acceleration a_r-hat. m is the orbiting mass and, in the Fig. 20.7 caption, a number of revolutions.",
+   "notes": "Point these out to learners explicitly.",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "item": "Potential symbols",
+   "convention": "U(r) potential energy and U_eff effective potential energy in sections 20.3-20.5; V_eff for the same object in Example 20.8; Phi for the potential per unit mass in the exercises.",
+   "notes": "ch22 later distinguishes U_eff (energy) from V_eff (per unit mass).",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "item": "Closure integers",
+   "convention": "Closed orbits satisfy Delta theta = 2 pi q/n, with n radial periods and q revolutions; delta theta = Delta theta - 2 pi is the precession per orbit.",
+   "notes": "n here is unrelated to the power-law exponent n of Example 20.8.",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "item": "Metric signature (exercises)",
+   "convention": "Signature (-,+,+,+) so that u.u = -1 and eta + u tensor u projects orthogonally to the world line.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Boxed pointer: the chapter is background on Newtonian gravity, and readers who want relativistic orbits straight away can go to the next chapter.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "summary": "G is temporarily restored so formulas look familiar.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "summary": "Overdots mean derivatives with respect to t throughout the chapter.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "summary": "Derivatives of the orthonormal polar basis vectors with respect to r and theta, giving the polar velocity; refers back to Example 10.4.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "summary": "Differentiating the velocity gives the acceleration components (20.2)-(20.4), so the equations of motion (20.5) are F = ma divided by m.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": null
+   }
+  },
+  {
+   "summary": "Kepler biography: chronic ailments, defending his mother against witchcraft charges, the Platonic-solids motivation and reliance on Tycho's data; the single-particle orbit problem is called the Kepler problem.",
+   "type": "biography",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": "20.1"
+   }
+  },
+  {
+   "summary": "Comparing (20.16) with -GM/r^2 gives a/b^2 = GMm^2/L^2, later named u0.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   }
+  },
+  {
+   "summary": "Derivation of L^2 = GMm^2 a(1 - epsilon^2) from C = 2 pi ab/T and Kepler's third law.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 238,
+    "printed_page": 221,
+    "section": "20.2"
+   }
+  },
+  {
+   "summary": "The 1/r^2 term is also called the angular momentum barrier.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   }
+  },
+  {
+   "summary": "The circular orbit sits at the minimum of U_eff because that is where the energy is purely effective-potential energy (no radial kinetic energy).",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   }
+  },
+  {
+   "summary": "Because the effective potential has a minimum, bound motion in it is stable.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.3"
+   }
+  },
+  {
+   "summary": "Boxed pointer: the graphical effective-potential method returns for general relativity in Chapter 23.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.3"
+   }
+  },
+  {
+   "summary": "The parabola is the epsilon = 1 member of the conic family in (20.11).",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   }
+  },
+  {
+   "summary": "Precession per orbit is defined as delta theta = Delta theta - 2 pi (20.46).",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "summary": "The turning-angle integral for the 1/r potential is worked out on p.30 of Zee's book.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "summary": "History of the Laplace-Runge-Lenz vector: alternative names, likely priority of Hermann and Bernoulli per Goldstein's articles, and Pauli's 1926 hydrogen spectrum (discussed by Gutzwiller).",
+   "type": "historical",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "summary": "Counting constants: E, L and the LRL vector give seven numbers, reduced to five independent ones by the fixed LRL length and its orthogonality to L; at most 2d - 1 are possible, so the Kepler problem is maximally superintegrable.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 5,
+  "pdf_pages": [
+   244,
+   245
+  ],
+  "skills_practiced": [
+   "manipulating the energy equation into a first-order orbit equation in u",
+   "using conservation of energy and angular momentum between infinity and closest approach",
+   "handling two-body problems (implicitly via relative coordinates)",
+   "computing gravitational potentials of extended bodies by superposition",
+   "checking covariance and the orthogonality of 4-acceleration and 4-velocity",
+   "taking the massless limit of a relativistic equation of motion",
+   "judging a candidate theory against the light-bending observation"
+  ],
+  "notable": [
+   {
+    "number": "20.1",
+    "summary": "Supply the omitted algebra that turns the energy equation into the quadratic relation (20.39) for u and u'.",
+    "skills": [
+     "chain rule with u = 1/r",
+     "algebraic manipulation"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Consolidates the energy route that the relativistic chapters reuse almost verbatim.",
+    "pdf_page": 244
+   },
+   {
+    "number": "20.2",
+    "summary": "Two equal masses start far apart moving in opposite directions along parallel lines separated by b; find the system's angular momentum and energy and deduce their minimum separation.",
+    "skills": [
+     "conservation laws",
+     "impact parameter",
+     "solving a quadratic for closest approach"
+    ],
+    "difficulty": "standard",
+    "why_notable": "A scattering (hyperbolic) problem that quietly requires reduced mass or centre-of-mass reasoning, which the chapter never introduces.",
+    "pdf_page": 244
+   },
+   {
+    "number": "20.3",
+    "summary": "Find the on-axis gravitational potential energy and force for a particle near a thin uniform ring, check the far-field limit, then integrate rings to get the result for a uniform disc.",
+    "skills": [
+     "superposition of potentials",
+     "limits",
+     "integration over rings"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Practises building potentials of extended sources and recovering the point-mass limit; note the letter L is reused for the disc radius.",
+    "pdf_page": 245
+   },
+   {
+    "number": "20.4",
+    "summary": "Show that a naive covariant Newtonian force law is inconsistent with the 4-acceleration being orthogonal to the 4-velocity, and that inserting the projector eta + u tensor u cures this.",
+    "skills": [
+     "4-vector algebra",
+     "projection operators",
+     "consistency checks"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Bridges Newtonian orbits back to relativity and shows why gravity is not simply a force in special relativity.",
+    "pdf_page": 245
+   },
+   {
+    "number": "20.5",
+    "summary": "Take the massless limit of the projected force law from 20.4(b), holding lambda = tau/m fixed, and show that p^alpha e^Phi(r) stays constant along a photon's world line, so such a theory cannot bend light. The printed page has Phi(r); the reading-copy export garbles it as Phi(tau).",
+    "skills": [
+     "massless limit via affine parameter",
+     "conserved quantities along world lines",
+     "confronting theory with observation"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "A compact proof (after Thorne and Blandford) that flat-spacetime scalar gravity fails the classic light-deflection test, motivating curved spacetime; the printed index range 0-4 should read 0-3.",
+    "pdf_page": 245
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 2,
+  "conceptual_level": 2,
+  "novice_friendliness": 4,
+  "notes": "Standard second-year classical mechanics: polar kinematics, a linear ODE, energy methods and a small-oscillation expansion. Section 20.5 is the most demanding (turning-angle integral quoted rather than evaluated, power-law stability, vector identity for the LRL vector). Several printed slips (K1 missing a factor 1/r1^2, the inverted prefactor in (20.37), the Fig. 20.8 caption range, and garbled typesetting of the LRL derivative) can trip careful readers. Exercises 20.4-20.5 require 4-vector fluency from Part I."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch10 §10.2",
+   "reason": "Example 10.4 treats the Kepler problem in an orthonormal non-coordinate polar basis; margin note 3 points back to it for the hatted components.",
+   "locator": {
+    "pdf_page": 235,
+    "printed_page": 218,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch08",
+   "reason": "Lagrangian and Euler-Lagrange machinery, previously used for geodesics, is applied to the polar Kepler Lagrangian.",
+   "locator": {
+    "pdf_page": 236,
+    "printed_page": 219,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch14",
+   "reason": "The earlier survey previewed effective potentials, precessing orbits and Mercury's 43 arcseconds per century; this chapter supplies the Newtonian baseline of zero precession.",
+   "locator": null
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch02",
+   "reason": "4-velocity and 4-acceleration orthogonality used in Exercises 20.4-20.5.",
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch21",
+   "reason": "The Schwarzschild metric is introduced as the relativistic counterpart of the spherically symmetric 1/r potential.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch22 §22.3",
+   "reason": "Relativistic effective potential built from conserved energy and angular momentum and compared with the Newtonian one.",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch22 §22.4",
+   "reason": "The radial plunge revisited in Schwarzschild spacetime.",
+   "locator": {
+    "pdf_page": 239,
+    "printed_page": 222,
+    "section": "20.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch23",
+   "reason": "Boxed margin pointer: the graphical effective-potential method is used for massive-particle orbits, stable circular orbits (§23.2) and perihelion precession (§23.3), including the u = 1/r technique.",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch24 §24.1",
+   "reason": "Photon trajectories analysed with an effective potential; complements Exercise 20.5 on light bending.",
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "A. Zee, Einstein Gravity in a Nutshell (Princeton, 2013), p.30",
+   "reason": "Evaluation of the turning-angle integral for the 1/r potential quoted in Example 20.7.",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "H. Goldstein, Am. J. Phys. 43, 737 (1975) and 44, 1123 (1976)",
+   "reason": "History and priority of the Laplace-Runge-Lenz vector.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "M. C. Gutzwiller, Chaos in Classical and Quantum Mechanics (Springer, 1990)",
+   "reason": "Pauli's use of the LRL vector for hydrogen; recommended in the further-reading appendix as an advanced take on Newtonian orbits.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "K. S. Thorne and R. D. Blandford, Modern Classical Physics (Princeton, 2017)",
+   "reason": "Source of the flat-spacetime scalar-gravity argument in Exercises 20.4-20.5.",
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "French and Ebison, introductory classical mechanics (GA Appendix A further reading)",
+   "reason": "Appendix A names French and Ebison (printed there as 'Ebbison') for a fuller treatment of Newtonian orbits, and Gutzwiller for an advanced one.",
+   "locator": null
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "One effective-potential picture classifies every trajectory: draw U_eff for fixed L, slide a horizontal energy line, and read off circle (at the minimum), ellipse (two crossings), escape (one crossing) and plunge (L = 0).",
+   "why_effective": "Converts a 2D dynamics problem into a 1D picture learners already understand from balls in valleys, and the identical method carries straight over to Schwarzschild orbits where the curve grows a peak.",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.3"
+   },
+   "app_idea": "A shared 'effective potential workbench' component used in both the Newtonian and GR lessons, with a toggle that morphs the Newtonian curve into the Schwarzschild one while the linked orbit updates."
+  },
+  {
+   "gem": "Kepler's second law as angular momentum conservation, made geometric by the thin swept triangle and made vectorial by dA/dt = L/2m.",
+   "why_effective": "Shows learners that an empirical rule is a symmetry statement and that it survives for any central force, which separates it cleanly from the inverse-square-specific laws.",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.1"
+   },
+   "app_idea": "Equal-areas stopwatch with a non-central-force toggle (Fig. 20.1 redesign)."
+  },
+  {
+   "gem": "Reasoning backwards from the observed ellipse to the force law (Example 20.2).",
+   "why_effective": "Mirrors how physics works historically and trains the habit of asking what a shape implies about dynamics rather than only solving forward.",
+   "locator": {
+    "pdf_page": 237,
+    "printed_page": 220,
+    "section": "20.2"
+   },
+   "app_idea": "Learner draws or selects a closed curve around a centre; the app computes the required central force profile from constant r^2 theta-dot and displays its power law."
+  },
+  {
+   "gem": "With u = 1/r the orbit equation becomes a harmonic oscillator in the angle, so the conic solution is just a cosine.",
+   "why_effective": "Leverages the most familiar ODE in physics and makes the 2 pi angular period (hence closure) almost self-evident; the same substitution is the gateway to the GR precession calculation.",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   },
+   "app_idea": "Plot u(theta) as an oscillating spring next to the orbit; adding a small u^2 term (the GR correction) visibly shifts the spring's frequency and the orbit starts to precess."
+  },
+  {
+   "gem": "Asking the unusual question 'why do orbits close at all?' and answering it with the turning angle Delta theta and the precession delta theta = Delta theta - 2 pi.",
+   "why_effective": "Makes non-precession a remarkable fact rather than a default, so the later GR perihelion shift lands as a genuine surprise with a precise definition ready.",
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.5"
+   },
+   "app_idea": "Rosette lab (Fig. 20.7 redesign) where the learner first guesses whether an orbit under a tweaked force will close, then runs it."
+  },
+  {
+   "gem": "Near-circular orbits as two competing clocks: radial oscillation period tau = T/sqrt(n+3) versus orbital period T.",
+   "why_effective": "Reduces precession to a comparison of frequencies with a one-line formula, and shows at a glance why n = -2 and n = 1 are special.",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   },
+   "app_idea": "Exponent dial with a live tau/T plot and synchronized dials that show when the two clocks realign."
+  },
+  {
+   "gem": "A conserved vector pinned to perihelion (Laplace-Runge-Lenz) explains non-precession, and a counting-of-constants footnote explains why the Kepler problem is maximally superintegrable.",
+   "why_effective": "Connects a mechanics curiosity to symmetry, to closed orbits, and even to the hydrogen spectrum, giving advanced learners a deeper 'why'.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   },
+   "app_idea": "Overlay the LRL arrow on an orbit simulation; switching on a perturbation makes it rotate at exactly the precession rate, with a counter of conserved quantities that drops from 5 to 4."
+  },
+  {
+   "gem": "Closing exercises that sabotage a flat-spacetime scalar theory of gravity: it can be made consistent with a.u = 0 but predicts no bending of light.",
+   "why_effective": "A short, concrete no-go argument that motivates why Part IV needs the Schwarzschild metric rather than a Newtonian potential dressed up in special relativity.",
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   },
+   "app_idea": "Theory-comparison panel: choose scalar-in-flat-spacetime or GR, fire light rays past the Sun, and compare predicted deflections with the measured value."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "At perihelion the text sets K1 = L^2/2m, missing a factor 1/r1^2; the correct value is K1 = L^2/(2 m r1^2) = L^2 u1^2/(2m), which is what (20.36) actually needs.",
+   "impact_on_learner": "A reader checking (20.36) with the printed K1 gets the wrong dimensions and may lose confidence in the classification argument.",
+   "suggestion": "Present K1 = L^2 u1^2/(2m) and U1 = -GMm u1 explicitly before (20.36).",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   }
+  },
+  {
+   "issue": "Equation (20.37) is printed as E = (u1/K1)(B - u0); from E = K1 + U1 with U1 = -2K1 u0/u1 the correct form is E = (K1/u1)(B - u0).",
+   "impact_on_learner": "Dimensional inconsistency confuses careful readers, though the sign-based classification still works because K1 and u1 are positive.",
+   "suggestion": "Use the corrected prefactor, or bypass it with E = -(L^2 u0^2/2m)(1 - epsilon^2) from Example 20.6, which gives the classification directly.",
+   "locator": {
+    "pdf_page": 241,
+    "printed_page": 224,
+    "section": "20.4"
+   }
+  },
+  {
+   "issue": "Fig. 20.8's caption labels panel (c) as n > -3, but the pictured always-positive well (and the formula A r^(n+1)/(n+1) > 0) corresponds to n > -1; panel (b) is the -3 < n < -1 case.",
+   "impact_on_learner": "The three ranges appear to overlap, obscuring the fact that the character of the potential changes at n = -1 as well as at n = -3.",
+   "suggestion": "Relabel (c) as n > -1 and note that the n = -1 case needs a logarithmic potential.",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "issue": "Section 20.3 says the two intersections of a negative energy line with U_eff give the semi-major and semi-minor axes; they actually give the perihelion and aphelion distances a(1 - epsilon) and a(1 + epsilon).",
+   "impact_on_learner": "Learners may try to read b directly off the energy diagram.",
+   "suggestion": "State that a = (r_min + r_max)/2 and b = sqrt(r_min r_max) follow from the two turning points.",
+   "locator": {
+    "pdf_page": 240,
+    "printed_page": 223,
+    "section": "20.3"
+   }
+  },
+  {
+   "issue": "Example 20.7 calls the turning-angle integral elliptic and only quotes its value; for the 1/r potential it is elementary (and the harmonic-oscillator form of the orbit equation already shows Delta theta = 2 pi).",
+   "impact_on_learner": "The central 'no precession' claim is taken on trust, and 'elliptic integral' suggests unnecessary difficulty.",
+   "suggestion": "Evaluate it with the substitution u = 1/r, or simply point out that u - u0 has angular period exactly 2 pi from (20.34).",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "issue": "Example 20.8's conclusions are phrased loosely ('the precession tau is incommensurate', 'precession leads to elliptical orbits'), the actual apsidal shift per radial cycle, 2 pi(1/sqrt(n+3) - 1), is never written, the result applies only to near-circular orbits, and Bertrand's theorem is not named.",
+   "impact_on_learner": "Learners may conflate the radial period with the precession itself and overgeneralize the small-oscillation result to all orbits.",
+   "suggestion": "Write the per-cycle apsidal shift explicitly, separate 'radial period' from 'precession rate', and name Bertrand's theorem for the all-orbits statement.",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "issue": "The typeset derivation of the Laplace-Runge-Lenz vector's constancy omits brackets in F x r x p and blurs vector r with scalar r-dot; the vector's magnitude GMm^2 epsilon and its relation to eccentricity are not stated.",
+   "impact_on_learner": "The cancellation is hard to follow, and the link between the vector and the orbit's shape is missed.",
+   "suggestion": "Write F x (r x p) = r(F.p) - p(F.r) with r.p = m r r-dot shown, and add |LRL| = GMm^2 epsilon.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": "20.5"
+   }
+  },
+  {
+   "issue": "The central mass is held fixed throughout; reduced mass and the G(M + m) correction to Kepler's third law never appear, yet Exercise 20.2 is a genuine two-body problem.",
+   "impact_on_learner": "Learners may stall on Exercise 20.2 or misapply the fixed-centre formulas to comparable masses.",
+   "suggestion": "Add a short reduced-mass aside (mu = mM/(m + M), relative coordinate) before the exercises.",
+   "locator": {
+    "pdf_page": 244,
+    "printed_page": 227,
+    "section": null
+   }
+  },
+  {
+   "issue": "Letter overloading: L for Lagrangian, angular momentum, LRL vector and a disc radius; a for semi-major axis, aphelion label and acceleration; m for mass and a revolution count in the Fig. 20.7 caption (text uses q); n both closure integer and power-law exponent.",
+   "impact_on_learner": "Easy to misread formulas, particularly when moving between section 20.5 and Example 20.8.",
+   "suggestion": "In the app, colour-code or rename (e.g. script-L for Lagrangian, A_LRL for the vector, q/n for closure, p for power-law exponent).",
+   "locator": {
+    "pdf_page": 243,
+    "printed_page": 226,
+    "section": "20.5"
+   }
+  },
+  {
+   "issue": "Example 20.6 writes u' as a partial derivative and reuses r0 = 1/u0, which is a circular radius only when epsilon = 0 (otherwise it is the semi-latus rectum).",
+   "impact_on_learner": "Minor confusion about what r0 means for an eccentric orbit.",
+   "suggestion": "Call 1/u0 the semi-latus rectum and use an ordinary derivative.",
+   "locator": {
+    "pdf_page": 242,
+    "printed_page": 225,
+    "section": "20.4"
+   }
+  },
+  {
+   "issue": "Exercise 20.5 states the conserved quantity for alpha = 0-4; spacetime indices run 0-3. The chapter also presents parabola and hyperbola eccentricities only implicitly (epsilon = 1 in a footnote, B/u0 > 1 never named as epsilon > 1).",
+   "impact_on_learner": "Small but distracting inconsistencies for readers trying to connect the conic family.",
+   "suggestion": "Correct the index range and tabulate epsilon, E and conic type together.",
+   "locator": {
+    "pdf_page": 245,
+    "printed_page": 228,
+    "section": null
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with a question: 'If gravity only pulls inward, why doesn't a planet fall into the Sun?' Use it to motivate angular momentum conservation and later the angular-momentum barrier.",
+  "Check prerequisites quickly: can the learner write velocity in polar coordinates including r theta-dot, and do they know the Lagrangian or F = ma route? If not, spend two minutes on rotating unit vectors (ch10 Example 10.4).",
+  "Recommended order: central force and conserved L -> equal areas -> ellipse vocabulary -> effective potential (graphical) -> u = 1/r solution and conic classification -> why orbits close. Learners bound for GR can skim the Kepler-law examples but should not skip the effective potential or the u = 1/r method.",
+  "When introducing U_eff, immediately ask 'what does r-dot = 0 mean physically?' to catch the 'the planet stops' misconception.",
+  "Use the energy-line picture interactively: have the learner predict the orbit type for an energy line below the minimum (impossible), at the minimum (circle), in the well (ellipse), at zero (parabola) and above zero (hyperbola) before revealing the orbit.",
+  "Check understanding with: 'Which Kepler law would survive if gravity went as 1/r^3?' (Only the second.) And: 'Two orbits have the same semi-major axis but different eccentricity; which has more energy?' (Same energy.)",
+  "Be aware of the printed slips (K1 missing 1/r1^2, the inverted prefactor in (20.37), the Fig. 20.8 caption range, and the '0-4' index range in Exercise 20.5); if a learner reports a dimensional mismatch, confirm it is a typo rather than their error.",
+  "For section 20.5, emphasize the definitions: Delta theta is pericentre-to-pericentre angle; precession is Delta theta - 2 pi; closure needs a rational ratio. Then state the punchline: Newtonian 1/r gives exactly 2 pi, which is why any measured advance (beyond perturbations) points to new physics.",
+  "Advanced learners: connect the LRL vector to symmetry (hidden SO(4) in hydrogen) and to Bertrand's theorem; mention that the extra conserved quantity is why bound Kepler orbits close.",
+  "Common learner questions: 'Is the effective potential a real force?' (No, bookkeeping of transverse kinetic energy.) 'Why u = 1/r?' (It linearizes the inverse-square orbit equation.) 'Does the Sun really sit still?' (Approximately; reduced mass handles the general case.)",
+  "Bridge to GR explicitly: the Schwarzschild effective potential adds a -1/r^3 term that gives the barrier a finite top, allows plunging orbits for L != 0, creates an innermost stable circular orbit, and makes orbits precess.",
+  "Use Exercises 20.4-20.5 as a discussion rather than a calculation for most learners: gravity as a field in flat spacetime cannot bend light, so curvature is needed."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Kepler problem concept: replaced a wrong locator (pdf 241, section 20.4) with the pages that actually use the name (pdf 236 margin note 5 and pdf 244 margin note 15).",
+   "Radial-oscillation concept and the Example 20.8 gap entry: the apsidal shift 2 pi(1/sqrt(n+3) - 1) is per radial cycle, not per revolution; restated it and added the n = 1 check.",
+   "Example 20.7: replaced a vague key insight ('independent of E in just the right way') with the actual reason. The inner integral is pi(alpha sqrt(m/2|E|) - L), whose L-slope is -pi, so Delta theta = 2 pi. Also noted that the integral is elementary.",
+   "Fig. 20.6: corrected the visual description after checking the image; both energy levels are drawn as double-headed dotted arrows, and E1 ends on the rising right branch.",
+   "Fig. 20.8: tightened the panel descriptions against the image and flagged in the caption paraphrase that the printed range for panel (c) should be n > -1.",
+   "Exercise 20.5: the rendered page prints p^alpha e^Phi(r); the reading copy garbles this as Phi(tau). Recorded this export loss in the exercise summary.",
+   "Cross-reference to French and Ebison: checked against Appendix A (which spells it 'Ebbison') and added that Gutzwiller is recommended there too."
+  ],
+  "residual_concerns": [
+   "The book's own slips are recorded in gaps_and_pitfalls but left as printed in the equations the dossier quotes: K1 = L^2/2m lacks 1/r1^2, (20.37) has its prefactor inverted (the dossier gives the corrected K1/u1), the Fig. 20.8 caption range is wrong, and Exercise 20.5 says alpha = 0-4.",
+   "Forward cross-references to ch22-24 subsections were checked only against the TOC section titles, not against those chapters' content.",
+   "The Zee and Thorne-Blandford citation details (titles, years) come from general knowledge; the book gives only author names."
+  ],
+  "coverage": {
+   "toc_sections": 5,
+   "sections": 7,
+   "inventory_figures": 8,
+   "figures": 8,
+   "inventory_examples": 9,
+   "worked_examples": 11,
+   "concepts": 37,
+   "key_equations": 47,
+   "locators_checked": 42,
+   "locators_wrong": 1,
+   "pages_rendered": 8
+  }
+ }
+}

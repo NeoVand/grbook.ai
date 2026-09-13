@@ -1,0 +1,4283 @@
+{
+ "book": "dinverno",
+ "unit_id": "ch08",
+ "title": "Special relativity revisited",
+ "part": "C: General Relativity",
+ "printed_pages": [
+  133,
+  152
+ ],
+ "pdf_pages": [
+  148,
+  167
+ ],
+ "one_line_summary": "Rebuilds special relativity in the tensor language of Part B: Minkowski space-time as a flat manifold with a signature -2 metric, the null-cone classification of vectors and events, Lorentz and Poincare groups as the isometries of that metric, proper time as the unit-speed affine parameter of timelike curves, a two-axiom (geometry + physics) statement of the whole theory, and a variational derivation of relativistic particle mechanics that ends with 4-velocity, 4-momentum, 4-force and the angular momentum tensor.",
+ "role_in_book": "First chapter of Part C and the hinge between the physical special relativity of Part A (k-calculus, ch2-4) and the abstract tensor machinery of Part B (ch5-7). Nothing physically new is added; instead every familiar result is re-derived with manifolds, metrics, connections, geodesics, isometries and action principles so that general relativity can later be defined by a minimal edit. The payoff is explicit later in the book: ch10 §10.8 defines GR as the axioms of §8.5 with the flatness clause I(iii) swapped for the field equations, ch10 §10.3 invokes the geodesic axiom for test particles, and ch13 §13.4 argues that the geodesic axioms follow from the field equations. The free-particle action anticipates the variational derivation of the field equations in ch11, the 4-velocity of Exercise 8.10 is used directly for dust in ch12 §12.2, and the curvilinear-coordinate Christoffel symbols of flat space become the 'inertial forces' that the equivalence principle reinterprets in ch9 §9.4.",
+ "assumed_background": [
+  {
+   "topic": "Minkowski line element (2.13), Lorentz transformations, frames in general position (Fig. 2.20)",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch02 §2.13-2.14"
+  },
+  {
+   "topic": "Invariant interval with c restored (3.12), time dilation, proper time integral (3.16) and the clock hypothesis",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch03 §3.2, §3.4"
+  },
+  {
+   "topic": "Relativistic mass, energy, momentum, the energy-momentum invariant and its Lorentz transformation (4.11), (4.17), (4.19)-(4.21)",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch04 §4.3-4.4"
+  },
+  {
+   "topic": "Manifolds, coordinate transformations, contravariant/covariant tensors, raising and lowering indices",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch05"
+  },
+  {
+   "topic": "Affine connection, metric connection (Christoffel symbols), Riemann tensor, affine geodesics",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch06 §6.3-6.10"
+  },
+  {
+   "topic": "Theorem that a metric is flat if and only if its Riemann tensor vanishes",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch06 §6.11"
+  },
+  {
+   "topic": "Metric transformation law (7.5), variational method for geodesics with K = (1/2) g x'x' (7.46), affine parameters (7.42)-(7.43)",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch07 §7.3, §7.6"
+  },
+  {
+   "topic": "Isometries (7.52), Lie derivative of the metric and Killing's equation (Exercises 7.10, 7.14)",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch07 §7.7"
+  },
+  {
+   "topic": "Lagrangian and Hamiltonian mechanics: generalized coordinates, Euler-Lagrange equations, conjugate momenta, Legendre transform",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Euler angles for describing the orientation of a rigid frame",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Matrices, determinants, determinant of a product",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Spherical polar coordinates and their relation to Cartesian ones",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Elementary group theory: identity, inverse, subgroup, normal subgroup, continuous (Lie) groups and parameter counting",
+   "source": "advanced-math",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "State the definition of Minkowski space-time as a four-dimensional manifold with a flat metric of signature -2, and write eta_ab = diag(1,-1,-1,-1) in Minkowski coordinates.",
+  "Explain why non-zero Christoffel symbols in spherical polar coordinates do not signal curvature, and verify that the Riemann tensor still vanishes.",
+  "Classify a vector as timelike, spacelike or null from the sign of its squared norm, decide whether a causal vector is future- or past-pointing, and show that a non-zero null vector is orthogonal to itself.",
+  "Derive from the invariance condition L^a_c L^b_d eta_ab = eta_cd that det L = +-1 and |L^0_0| >= 1, and use these two signs to sort Lorentz transformations into four classes, identifying which class forms a subgroup.",
+  "Account for the six parameters of the proper orthochronous Lorentz group (rotation, boost, rotation) and the ten of the Poincare group.",
+  "Describe the invariant future/past/elsewhere partition of events relative to a point and explain which Lorentz transformations preserve it.",
+  "Show that rescaling the affine parameter of a timelike geodesic to give a unit tangent produces proper time, and recover the moving-clock formula tau = integral of sqrt(1 - v^2/c^2) dt.",
+  "State the two axioms of special relativity (geometric and physical), and give the causality argument for timelike geodesics and the unit-speed argument for null geodesics.",
+  "Write the Lagrangian formulation of a conservative mechanical system, recognise force-free motion as geodesic motion in a configuration space with kinetic-energy metric, and compute conjugate momenta and the Hamiltonian.",
+  "Start from S = -alpha * integral ds for a free relativistic particle, fix alpha = m_0 from the low-speed limit, and derive the relativistic 3-momentum and energy E = m_0 (1-u^2)^(-1/2).",
+  "Define 4-velocity, 4-acceleration, 4-momentum, 4-force and the angular momentum tensor, state conservation of total 4-momentum, and obtain E^2 - p^2 = m_0^2 from the invariant p_a p^a."
+ ],
+ "teaching_approach": {
+  "summary": "A deliberate second pass through special relativity in which every earlier physical result is re-derived as a theorem about a flat Lorentzian manifold. The chapter is terse and definition-led: objects are defined by invariance conditions, properties are extracted by short algebraic manipulations (determinants, the 00 component), and each result is closed off by pointing back to the Part A equation it reproduces. Its structural centre is the pair of numbered axioms in §8.5, split cleanly into a geometry axiom and a physics axiom so that the general theory can later be obtained by replacing one clause. The mechanics half follows the same logic: postulate the simplest reparametrization-invariant action, fix its constant by matching Newton, and let the canonical formalism generate momentum and energy.",
+  "style_tags": [
+   "spiral-revisit",
+   "axiomatic-mathematical",
+   "derivation-heavy",
+   "components-first"
+  ],
+  "narrative_arc": [
+   "Recall the four-dimensional picture of Chapter 2 and announce that it will now be stated in Part B language.",
+   "Define Minkowski space-time as a flat signature -2 manifold, fix coordinates and sign conventions, then use spherical polar coordinates to show that connection components can be non-zero while curvature vanishes.",
+   "Classify vectors by the sign of their norm, build the null cone in the tangent space, justify drawing it in the manifold only because space-time is flat, and fix a time orientation with a reference vector T.",
+   "Define Lorentz transformations as linear maps preserving eta; extract det L = +-1 and |L^0_0| >= 1; sort transformations into four classes with parity and time reversal as examples; single out the restricted group and count its parameters physically; extend to the ten-parameter Poincare group.",
+   "Move from vectors to curves: timelike world-lines keep their tangents inside the local cone, and the cone splits space-time into future, past and elsewhere in a way all orthochronous observers share.",
+   "Solve the geodesic equation in Minkowski coordinates, rescale the affine parameter to unit tangent length to define proper time, and recover the time-dilation integral of Chapter 3.",
+   "Assemble the whole theory into Axiom I (manifold, metric connection, zero curvature) and Axiom II (clocks, free particles, light), then ask whether the choice of curves is forced: causality for timelike geodesics, speed 1 for null geodesics.",
+   "Change topic to mechanics: summarise classical Lagrangian/Hamiltonian mechanics, notice force-free motion is geodesic motion in configuration space, and reduce the free action to an arc-length integral.",
+   "Postulate S = -alpha * integral ds for a relativistic free particle, confirm straight-line motion, switch to coordinate time, expand at low speed to identify alpha with rest mass, and derive momentum, relativistic mass and energy from the Hamiltonian.",
+   "Rewrite the action in arbitrary coordinates, define the 4-vectors of particle mechanics and the angular momentum tensor, state 4-momentum conservation, note that Lorentz-transforming these objects regains the energy-momentum transformation of Chapter 4, and turn toward general relativity."
+  ],
+  "signature_moves": [
+   "The theory is written as two boxed, numbered axioms separating geometric structure from physical interpretation, designed so that later chapters can swap exactly one clause (R^a_bcd = 0) for the field equations.",
+   "Each tensor-language derivation ends by citing the Part A formula it reproduces ((3.16), (4.19), (4.21)), turning the chapter into a consistency check of the new formalism.",
+   "A deliberate counter-example (flat space in spherical polar coordinates) separates 'connection components vanish' from 'curvature vanishes' before the reader ever meets a curved space-time.",
+   "Structural facts about the Lorentz group are squeezed out of one matrix identity by two cheap operations: taking determinants and reading off the 00 component.",
+   "Group parameters are given physical meaning by viewing a transformation actively, as carrying one inertial frame into another in general position (two rotations to align, one boost, three rotations to orient).",
+   "Postulates are defended by posing the counterfactual ('why not spacelike geodesics?') and answering with causality rather than by appeal to experiment.",
+   "The unknown coefficient in the relativistic action is fixed by Taylor-expanding the Lagrangian at low speed and matching the Newtonian kinetic energy, with the additive constant dismissed via an exercise.",
+   "Small parenthetical prompts '(exercise)', '(check)', '(why?)' hand short steps to the reader instead of printing them."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Part C title page",
+   "printed_page": 133,
+   "pdf_page": 148,
+   "summary": "Part-title page for Part C, General Relativity (pdf 148); the facing page (pdf 149) is blank. Both suspect short pages were rendered and contain nothing beyond the part title.",
+   "concepts": [],
+   "key_moves": [
+    "Marks the transition from the tensor formalism of Part B to the physics of general relativity, beginning with a formal re-statement of special relativity."
+   ]
+  },
+  {
+   "number": "8.1",
+   "title": "Minkowski space-time",
+   "printed_page": 135,
+   "pdf_page": 150,
+   "summary": "Recasts the four-dimensional world view of Chapter 2 as a manifold carrying a flat metric of signature -2. Flatness guarantees a global coordinate system with constant diagonal metric entries +-1, the Minkowski coordinates, in which the line element is dt^2 - dx^2 - dy^2 - dz^2. Spherical polar coordinates illustrate that a general coordinate system gives a non-constant g_ab and non-zero Christoffel symbols, yet the Riemann tensor still vanishes, consistent with the flatness theorem of §6.11.",
+   "concepts": [
+    "Minkowski space-time",
+    "Minkowski coordinates",
+    "Minkowski metric",
+    "metric signature -2 convention",
+    "line element in curvilinear coordinates",
+    "flatness criterion (vanishing Riemann tensor)",
+    "coordinate dependence of connection components"
+   ],
+   "key_moves": [
+    "Definition by structure: a 4-manifold plus a flat metric of signature -2; existence of Minkowski coordinates follows from flatness.",
+    "Fixes conventions: latin indices 0..3, x^0 = t, eta_ab = diag(1,-1,-1,-1), g_ab reserved for arbitrary coordinates.",
+    "Transforms to (t, r, theta, phi) to obtain g_ab = diag(1,-1,-r^2,-r^2 sin^2 theta).",
+    "Lists the six independent non-zero Christoffel symbols (8.5) and asserts the Riemann tensor still vanishes (checked in Exercise 8.1)."
+   ]
+  },
+  {
+   "number": "8.2",
+   "title": "The null cone",
+   "printed_page": 137,
+   "pdf_page": 152,
+   "summary": "Introduces the squared norm X_a X^a and classifies vectors as timelike (positive), spacelike (negative) or null (zero); orthogonality means vanishing inner product, so null vectors are self-orthogonal. The null vectors at a point form a double cone in the tangent space, which in flat space can be pictured inside the manifold itself. A reference timelike vector T^a = (1,0,0,0) defines future- and past-pointing causal vectors, occupying the two sheets of the cone (Fig. 8.1).",
+   "concepts": [
+    "squared norm of a vector",
+    "causal character of vectors (timelike, spacelike, null)",
+    "inner product and orthogonality",
+    "null cone",
+    "identification of tangent space with Minkowski space-time",
+    "time orientation (future- and past-pointing vectors)"
+   ],
+   "key_moves": [
+    "Classification (8.7) by sign of g_ab X^a X^b, which is coordinate-independent because it is a scalar.",
+    "Observation that a null vector is orthogonal to itself, something impossible in Euclidean geometry.",
+    "Equation (8.8) of the double cone in Minkowski components.",
+    "Warning that picturing the cone in the manifold relies on flatness and will fail for curved space-times.",
+    "Time orientation via the sign of eta_ab X^a T^b."
+   ]
+  },
+  {
+   "number": "8.3",
+   "title": "The Lorentz group",
+   "printed_page": 138,
+   "pdf_page": 153,
+   "summary": "Defines Lorentz transformations as linear homogeneous coordinate changes leaving eta_ab invariant, giving the matrix condition (8.10) and identifying them as isometries that preserve norms and inner products. Determinants give det L = +-1 (so every L is invertible, supplying group inverses) and the 00 component gives (L^0_0)^2 >= 1. The signs of det L and L^0_0 sort transformations into four classes; parity x -> -x is improper, time reversal t -> -t is non-orthochronous, and only the proper orthochronous class L^up_+ is a subgroup. That subgroup has six parameters, read physically as rotate-boost-rotate. Adding translations gives the ten-parameter Poincare group, whose continuous elements are all the isometries of Minkowski space-time.",
+   "concepts": [
+    "Lorentz transformation",
+    "Lorentz group",
+    "isometry",
+    "proper and improper Lorentz transformations",
+    "orthochronous Lorentz transformations",
+    "proper orthochronous (restricted) Lorentz group",
+    "parity and time reversal",
+    "rotation-boost-rotation decomposition",
+    "Poincare group"
+   ],
+   "key_moves": [
+    "Substitutes dx'^a/dx^b = L^a_b into the metric transformation law (7.5) to reach (8.10).",
+    "Takes determinants of (8.10) to show (det L)^2 = 1, establishing invertibility.",
+    "Sets c = d = 0 in (8.10) to get (L^0_0)^2 = 1 + sum of squares of L^i_0, hence L^0_0 >= 1 or <= -1.",
+    "Uses the two discrete signs to form four classes and argues only the class containing the identity is closed as a subgroup.",
+    "Counts six parameters by an active picture: two Euler rotations align the x-axis with the relative velocity, one boost speed, three Euler rotations fix final orientation.",
+    "Poincare = Lorentz plus four translations (8.11); translations form a normal subgroup; ten parameters in all."
+   ]
+  },
+  {
+   "number": "8.4",
+   "title": "Proper time",
+   "printed_page": 140,
+   "pdf_page": 155,
+   "summary": "Defines timelike, spacelike and null curves by the character of their tangent vectors; a material particle's world-line keeps its tangent inside the local null cone (Fig. 8.2), expressing sub-light speed. The null cone at P, now viewed as the union of null geodesics through P, divides space-time into future, past and elsewhere (Fig. 8.3), a partition preserved by orthochronous Lorentz transformations. In Minkowski coordinates geodesics are straight lines with constant tangent norm k; rescaling the affine parameter so the tangent has unit length defines proper time, with d tau^2 = ds^2. Restoring c gives d tau = dt sqrt(1 - v^2/c^2) and the proper-time integral (8.16), matching Chapter 3.",
+   "concepts": [
+    "timelike curve (world-line)",
+    "timelike, spacelike and null geodesics",
+    "causal structure: future, past and elsewhere",
+    "affine parameter",
+    "proper time",
+    "proper time along an arbitrary world-line"
+   ],
+   "key_moves": [
+    "Links the geometric condition 'tangent inside the cone' to the kinematic statement 'slower than light'.",
+    "Argues invariance of the future/past/elsewhere split from invariance of eta (cones map to cones) and orthochronicity (future stays future).",
+    "Geodesic equation (7.43) collapses to d^2x^a/dmu^2 = 0 because Gamma vanishes in Minkowski coordinates.",
+    "Affine reparametrization mu -> mu-bar with (d mu-bar/d mu)^2 = k normalizes the tangent; the new parameter is proper time.",
+    "Expands ds^2 with c restored and factors out dt^2 to get the 1 - v^2/c^2 factor.",
+    "Finds the constant norm k of an affinely parametrized straight geodesic and notes its sign decides timelike (k > 0) versus spacelike (k < 0) before normalizing."
+   ]
+  },
+  {
+   "number": "8.5",
+   "title": "An axiomatic formulation of special relativity",
+   "printed_page": 142,
+   "pdf_page": 157,
+   "summary": "States special relativity as two axioms. Axiom I (geometry): a 4-manifold with a symmetric connection and a metric that is non-singular with signature -2, covariantly constant, and has zero Riemann tensor. Axiom II (physics): ideal clocks follow timelike curves and read proper time; free particles follow timelike geodesics; light follows null geodesics. The authors then ask whether these curve choices are forced. Geodesics are the natural analogue of Newton's straight lines; timelike ones respect causality because orthochronous Poincare maps preserve the order of successive events on them; null geodesics have a coordinate 3-velocity of magnitude exactly 1 that survives Poincare transformations, encoding the constancy of the speed of light.",
+   "concepts": [
+    "axiomatic formulation of special relativity",
+    "metric connection (metric compatibility)",
+    "clock hypothesis",
+    "geodesic postulate for free particles",
+    "null geodesics as light rays",
+    "causality argument for timelike geodesics"
+   ],
+   "key_moves": [
+    "Axiom I(ii) forces the connection to be the metric (Levi-Civita) connection; I(iii) forces flatness.",
+    "Axiom II(i) is what physically distinguishes time from space: it assigns clock readings to the formal parameter tau.",
+    "Counterfactual: could particles follow spacelike geodesics? Rejected because time order along them is not invariant.",
+    "Integrates the null geodesic equation to constant null k^a, defines u^i = k^i/k^0 (with k^0 non-zero left as a 'why?'), and finds |u| = 1."
+   ]
+  },
+  {
+   "number": "8.6",
+   "title": "A variational principle approach to classical mechanics",
+   "printed_page": 144,
+   "pdf_page": 159,
+   "summary": "Motivates variational formulations as compact and easy to generalize, then summarises classical mechanics for a conservative system: generalized coordinates, kinetic energy T = (1/2) g_ab xdot^a xdot^b, potential V, Lagrangian T - V, stationary action and Euler-Lagrange equations, which take the geodesic-like form (8.22) with the metric connection of g_ab. Without forces the motion is geodesic in configuration space. Conjugate momenta and the Hamiltonian are defined; for a free particle in Cartesian coordinates the machinery gives g_ab = m delta_ab, p = m u, Newton's second law and H = T = E. Using §7.6, the force-free Lagrangian is equivalent to the arc-length Lagrangian, so the free action may be taken as the integral of ds.",
+   "concepts": [
+    "principle of stationary action",
+    "Euler-Lagrange equations",
+    "generalized coordinates, velocities and forces",
+    "configuration space with kinetic-energy metric",
+    "generalized (conjugate) momentum",
+    "Hamiltonian as total energy",
+    "equivalence of the K-Lagrangian and the arc-length Lagrangian"
+   ],
+   "key_moves": [
+    "Writes kinetic energy as a quadratic form so the mass matrix plays the role of a metric.",
+    "Recasts Euler-Lagrange equations as xddot + Gamma xdot xdot = F, making force-free dynamics geodesic.",
+    "Checks the formalism on the free particle: momenta, equations of motion, Hamiltonian equals energy.",
+    "Imports the §7.6 result that (1/2) g xdot xdot and (g xdot xdot)^(1/2) yield the same equations for affine parameters, justifying S = integral ds (8.26)."
+   ]
+  },
+  {
+   "number": "8.7",
+   "title": "A variational principle approach to relativistic mechanics",
+   "printed_page": 146,
+   "pdf_page": 161,
+   "summary": "Postulates S = -alpha * integral ds for a free relativistic particle and shows, in Minkowski coordinates with an arbitrary parameter, that the Euler-Lagrange equations reduce to d^2x/dtau^2 = 0, i.e. straight world-lines. Rewriting with coordinate time gives the Lagrangian -alpha sqrt(1 - u^2), whose low-speed expansion -alpha + (1/2) alpha u^2 identifies alpha with the rest mass (the constant term being irrelevant). The conjugate momentum is m_0 u / sqrt(1-u^2), suggesting the relativistic mass, and the Hamiltonian gives E = m_0 / sqrt(1-u^2) = m, recovering (4.19) in c = 1 units.",
+   "concepts": [
+    "relativistic free-particle action",
+    "reparametrization invariance of the action",
+    "rest mass fixed by the Newtonian limit",
+    "relativistic 3-momentum",
+    "relativistic mass",
+    "relativistic energy from the Hamiltonian",
+    "Lagrangian ambiguity (equivalent Lagrangians)"
+   ],
+   "key_moves": [
+    "Introduces an arbitrary parameter mu so the Lagrangian is (eta dx/dmu dx/dmu)^(1/2), then uses ds = d tau to simplify the Euler-Lagrange result (8.28).",
+    "Switches parameter to coordinate time t, turning ds into dt sqrt(1-u^2).",
+    "Binomial expansion at small u and comparison with (8.25) fixes alpha = m_0. (The book does not comment on the overall minus sign; it is what makes the matched kinetic term positive for alpha > 0.)",
+    "Derives p (8.30) by differentiating L with respect to u, then E via the Legendre transform (8.31)."
+   ]
+  },
+  {
+   "number": "8.8",
+   "title": "Covariant formulation of relativistic mechanics",
+   "printed_page": 148,
+   "pdf_page": 163,
+   "summary": "Writes the free-particle action in arbitrary coordinates with a flat metric g_ab, defines 4-velocity u^a = dx^a/dtau and 4-acceleration, and obtains the covariant 4-momentum as the canonical momentum dL/dxdot^a, whose spatial Minkowski components are m_0 times the spatial 4-velocity components. Newton's second law becomes f^a = dp^a/dtau; with no force p^a is constant, and for an isolated system the total 4-momentum is conserved. The angular momentum tensor x^a p^b - x^b p^a is defined. With m_0 a scalar all these objects are tensors, so Lorentz-transforming them reproduces the energy-momentum transformation (4.21). The chapter then turns to general relativity.",
+   "concepts": [
+    "4-velocity",
+    "4-acceleration",
+    "4-momentum",
+    "4-force and four-dimensional Newton's second law",
+    "conservation of 4-momentum",
+    "angular momentum tensor",
+    "tensor character of particle quantities (rest mass as scalar)"
+   ],
+   "key_moves": [
+    "Promotes (8.27) to a coordinate-free action using g_ab and proper time.",
+    "Defines momentum canonically rather than as mass times velocity.",
+    "Generalizes conservation from one particle to a sum over an isolated system.",
+    "Assigns the physical content of Lorentz transformations of 3-quantities (velocity, energy, momentum, force) to exercises 8.10-8.11."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Exercises and further reading",
+   "printed_page": 149,
+   "pdf_page": 164,
+   "summary": "Eleven exercises keyed to sections: checking the polar Christoffel symbols, orthogonality results for timelike and null vectors, constructing a complex null tetrad, group properties, Killing vectors of flat space, affine character of proper time in general space-times, deriving (8.22), an Atwood-machine Lagrangian, equivalent Lagrangians, 4-velocity/4-momentum/4-force components, and Lorentz transformations of velocity, energy, momentum and force. Further reading credits the axiomatic scheme to Trautmann, Pirani and Bondi (1964) and points to Carmeli and Malin (1976) on the Lorentz group.",
+   "concepts": [
+    "null tetrad",
+    "Killing vectors of Minkowski space-time",
+    "energy-momentum invariant",
+    "Lagrangian ambiguity (equivalent Lagrangians)"
+   ],
+   "key_moves": [
+    "Exercise 8.5 closes the gap in §8.3 by showing flat space has exactly ten independent Killing vectors.",
+    "Exercises 8.10-8.11 derive the 3-vector transformation laws from the tensor law applied to 4-vectors."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "Minkowski space-time",
+   "aliases": [
+    "flat space",
+    "flat space-time",
+    "Minkowski manifold"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A four-dimensional manifold equipped with a flat (zero Riemann tensor) metric of Lorentzian signature, here signature -2. It is the arena of special relativity; flatness implies a global coordinate system in which the metric components are constant and equal to diag(1,-1,-1,-1).",
+   "how_introduced": "Opens the chapter by translating the Chapter 2 picture of a space-time continuum with invariant interval into Part B vocabulary: manifold + metric + flatness.",
+   "depth": "core",
+   "prerequisites": [
+    "manifold",
+    "metric tensor",
+    "Riemann tensor",
+    "metric signature -2 convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 135,
+     "section": "8.1"
+    },
+    {
+     "pdf_page": 151,
+     "printed_page": 136,
+     "section": "8.1"
+    }
+   ],
+   "formulas": [
+    "ds^2 = \\eta_{ab}\\,dx^a dx^b"
+   ],
+   "notes": "Flatness here is defined through the metric; Axiom I in §8.5 restates it as R^a_bcd = 0 together with metric compatibility."
+  },
+  {
+   "name": "Minkowski coordinates",
+   "aliases": [
+    "canonical coordinates",
+    "inertial coordinates",
+    "Cartesian space-time coordinates"
+   ],
+   "kind": "definition",
+   "definition": "A global chart on Minkowski space-time, with time coordinate x^0 = t and the three spatial Cartesian coordinates as x^1..x^3, in which the metric components are exactly eta_ab = diag(1,-1,-1,-1), so all Christoffel symbols vanish and geodesics are straight lines in coordinates. Any two such charts are related by a Poincare transformation.",
+   "how_introduced": "Asserted to exist as a consequence of flatness; afterwards used as the default frame for all calculations, and later called 'canonical' in the axiom discussion.",
+   "depth": "developed",
+   "prerequisites": [
+    "Minkowski space-time",
+    "coordinate transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 135,
+     "section": "8.1"
+    },
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [
+    "(x^a) = (t,x,y,z)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Minkowski metric",
+   "aliases": [
+    "eta_ab",
+    "flat metric in Minkowski coordinates"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The constant symmetric tensor components eta_ab = diag(1,-1,-1,-1) giving the invariant interval ds^2 = dt^2 - dx^2 - dy^2 - dz^2 in Minkowski coordinates (units with c = 1). The symbol eta_ab is reserved for these components; g_ab denotes the same metric in other coordinates.",
+   "how_introduced": "Introduced as the tensorial rewriting of the Chapter 2 line element; displayed as a 4x4 matrix.",
+   "depth": "core",
+   "prerequisites": [
+    "metric tensor",
+    "Minkowski coordinates"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 135,
+     "section": "8.1"
+    },
+    {
+     "pdf_page": 151,
+     "printed_page": 136,
+     "section": "8.1"
+    }
+   ],
+   "formulas": [
+    "\\eta_{ab} = \\mathrm{diag}(1,-1,-1,-1)",
+    "ds^2 = dt^2 - dx^2 - dy^2 - dz^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "metric signature -2 convention",
+   "aliases": [
+    "(+,-,-,-) signature",
+    "timelike-positive convention",
+    "mostly-minus signature"
+   ],
+   "kind": "convention",
+   "definition": "The choice that the metric has one positive and three negative eigenvalues, so the signature (number of plus signs minus number of minus signs) is -2. Timelike vectors then have positive squared norm and proper time is d tau^2 = ds^2 directly.",
+   "how_introduced": "Stated in the definition of Minkowski space-time and reinforced by the explicit sign choice of the line element; recurs in Axiom I(i).",
+   "depth": "developed",
+   "prerequisites": [
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 135,
+     "section": "8.1"
+    },
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [
+    "\\eta_{ab}=\\mathrm{diag}(1,-1,-1,-1)"
+   ],
+   "notes": "Opposite to the (-,+,+,+) convention of many modern texts (e.g. MTW, Schutz); signs of norms, 4-momentum lowering and Lagrangians flip accordingly."
+  },
+  {
+   "name": "line element in curvilinear coordinates",
+   "aliases": [
+    "metric in spherical polar coordinates",
+    "general-coordinate form of the metric"
+   ],
+   "kind": "technique",
+   "definition": "The same flat metric expressed in non-Cartesian coordinates acquires position-dependent components; in spherical polars (t, r, theta, phi) it reads ds^2 = dt^2 - dr^2 - r^2 dtheta^2 - r^2 sin^2 theta dphi^2.",
+   "how_introduced": "Worked as an illustration immediately after defining eta_ab, to set up the point that coordinates, not geometry, make the components non-constant.",
+   "depth": "developed",
+   "prerequisites": [
+    "Minkowski metric",
+    "coordinate transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 151,
+     "printed_page": 136,
+     "section": "8.1"
+    }
+   ],
+   "formulas": [
+    "ds^2 = dt^2 - dr^2 - r^2 d\\theta^2 - r^2\\sin^2\\theta\\, d\\phi^2",
+    "g_{ab} = \\mathrm{diag}(1,-1,-r^2,-r^2\\sin^2\\theta)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "flatness criterion (vanishing Riemann tensor)",
+   "aliases": [
+    "metric flatness theorem",
+    "theorem of §6.11"
+   ],
+   "kind": "theorem",
+   "definition": "A metric is flat, meaning coordinates exist in which its components are constant with diagonal entries +-1, if and only if its Riemann curvature tensor vanishes identically.",
+   "how_introduced": "Recalled from Part B as the justification that Minkowski space-time, however it is coordinatized, has R^a_bcd = 0; then built into Axiom I(iii).",
+   "depth": "revisited",
+   "prerequisites": [
+    "Riemann tensor",
+    "metric connection (metric compatibility)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 151,
+     "printed_page": 136,
+     "section": "8.1"
+    },
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [
+    "R^a{}_{bcd} = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "coordinate dependence of connection components",
+   "aliases": [
+    "non-zero Christoffel symbols in flat space",
+    "Gamma is not a tensor"
+   ],
+   "kind": "phenomenon",
+   "definition": "Christoffel symbols are not tensor components: they vanish in Minkowski coordinates but are non-zero in curvilinear coordinates on the same flat space-time, whereas the Riemann tensor, being a tensor, vanishes in every chart if it vanishes in one.",
+   "how_introduced": "Demonstrated by listing the non-zero Gamma^a_bc of flat space in spherical polar coordinates and noting the curvature still vanishes.",
+   "depth": "developed",
+   "prerequisites": [
+    "affine connection",
+    "Riemann tensor",
+    "line element in curvilinear coordinates"
+   ],
+   "locators": [
+    {
+     "pdf_page": 151,
+     "printed_page": 136,
+     "section": "8.1"
+    }
+   ],
+   "formulas": [
+    "\\Gamma^1_{22}=-r,\\ \\Gamma^1_{33}=-r\\sin^2\\theta,\\ \\Gamma^2_{12}=r^{-1},\\ \\Gamma^2_{33}=-\\sin\\theta\\cos\\theta,\\ \\Gamma^3_{13}=r^{-1},\\ \\Gamma^3_{23}=\\cot\\theta"
+   ],
+   "notes": "In ch9 §9.4 these same kinds of terms are identified as inertial forces, which the equivalence principle then extends to gravity."
+  },
+  {
+   "name": "squared norm of a vector",
+   "aliases": [
+    "length squared",
+    "X^2",
+    "magnitude of a 4-vector"
+   ],
+   "kind": "definition",
+   "definition": "For a vector X^a, the scalar obtained by contracting the vector with itself through the metric (equivalently, pairing X^a with its lowered form X_a). With a Lorentzian metric it can be positive, negative or zero for non-zero vectors.",
+   "how_introduced": "Defined 'as usual' at the start of §8.2 as the basis for the causal classification.",
+   "depth": "introduced",
+   "prerequisites": [
+    "metric tensor",
+    "raising and lowering indices"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 137,
+     "section": "8.2"
+    }
+   ],
+   "formulas": [
+    "X^2 = g_{ab}X^aX^b = X_aX^a"
+   ],
+   "notes": null
+  },
+  {
+   "name": "causal character of vectors (timelike, spacelike, null)",
+   "aliases": [
+    "timelike vector",
+    "spacelike vector",
+    "null vector",
+    "lightlike vector"
+   ],
+   "kind": "definition",
+   "definition": "A vector is timelike if g_ab X^a X^b > 0, spacelike if < 0, and null (lightlike) if = 0 in the signature -2 convention. Because the norm is a scalar, the classification is the same in every coordinate system and every inertial frame.",
+   "how_introduced": "Given as a three-line display (8.7) immediately after the norm; illustrated in Fig. 8.1 with arrows of each type.",
+   "depth": "core",
+   "prerequisites": [
+    "squared norm of a vector",
+    "metric signature -2 convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 137,
+     "section": "8.2"
+    },
+    {
+     "pdf_page": 153,
+     "printed_page": 138,
+     "section": "8.2"
+    }
+   ],
+   "formulas": [
+    "g_{ab}X^aX^b \\gtrless 0"
+   ],
+   "notes": "Exercise 8.2 adds that no timelike vector is orthogonal to a null or timelike vector, and two null vectors are orthogonal only if parallel."
+  },
+  {
+   "name": "inner product and orthogonality",
+   "aliases": [
+    "Lorentzian inner product",
+    "orthogonal vectors"
+   ],
+   "kind": "definition",
+   "definition": "The inner product of X^a and Y^a is g_ab X^a Y^b; the vectors are orthogonal when it is zero. In Lorentzian geometry a non-zero null vector is orthogonal to itself.",
+   "how_introduced": "Stated after the classification, with the self-orthogonality of null vectors drawn as an immediate and surprising corollary.",
+   "depth": "developed",
+   "prerequisites": [
+    "squared norm of a vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 137,
+     "section": "8.2"
+    }
+   ],
+   "formulas": [
+    "g_{ab}X^aY^b = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "null cone",
+   "aliases": [
+    "light cone",
+    "double cone of null vectors"
+   ],
+   "kind": "mathematical-object",
+   "definition": "At a point P, the set of all null vectors (equivalently, in flat space, all null geodesics through P). In Minkowski components it is the double cone on which the square of the time component equals the sum of the squares of the three spatial components, with a future sheet and a past sheet meeting at the vertex.",
+   "how_introduced": "First defined in the tangent space from (8.8) and drawn with the z-direction suppressed (Fig. 8.1); in §8.4 re-defined as the union of null geodesics through P and used to split space-time into regions (Fig. 8.3).",
+   "depth": "core",
+   "prerequisites": [
+    "causal character of vectors (timelike, spacelike, null)",
+    "tangent space"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 137,
+     "section": "8.2"
+    },
+    {
+     "pdf_page": 153,
+     "printed_page": 138,
+     "section": "8.2"
+    },
+    {
+     "pdf_page": 155,
+     "printed_page": 140,
+     "section": "8.4"
+    }
+   ],
+   "formulas": [
+    "(X^0)^2-(X^1)^2-(X^2)^2-(X^3)^2=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "identification of tangent space with Minkowski space-time",
+   "aliases": [
+    "drawing the cone in the manifold",
+    "flat-space identification of vectors and points"
+   ],
+   "kind": "technique",
+   "definition": "Because the tangent space at any point, with the metric restricted to it, is itself a copy of Minkowski space, in flat space-time one may draw vectors and their null cones directly in the manifold. This identification has no invariant meaning in a curved space-time, where cones live only in each tangent space.",
+   "how_introduced": "A brief remark justifying why the null cone of vectors can be pictured as a cone of events; flagged as something that will not survive the move to curved manifolds.",
+   "depth": "introduced",
+   "prerequisites": [
+    "tangent space",
+    "null cone"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 137,
+     "section": "8.2"
+    }
+   ],
+   "formulas": [],
+   "notes": "The book says the identification is 'easy to show'; the key point is that in Minkowski coordinates the map X^a -> event with coordinates x_P^a + X^a is an isometry."
+  },
+  {
+   "name": "time orientation (future- and past-pointing vectors)",
+   "aliases": [
+    "future-pointing",
+    "past-pointing",
+    "future sheet",
+    "past sheet"
+   ],
+   "kind": "definition",
+   "definition": "Choosing a reference timelike vector T^a (in Minkowski coordinates (1,0,0,0)), a timelike or null vector X^a is future-pointing if eta_ab X^a T^b > 0 and past-pointing if it is < 0. Future-pointing vectors fill the interior and surface of one sheet of the cone, past-pointing the other.",
+   "how_introduced": "Introduced after the cone equation, to split the double cone into two sheets; the arrows in Fig. 8.1 illustrate both.",
+   "depth": "developed",
+   "prerequisites": [
+    "null cone",
+    "inner product and orthogonality"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 137,
+     "section": "8.2"
+    },
+    {
+     "pdf_page": 153,
+     "printed_page": 138,
+     "section": "8.2"
+    }
+   ],
+   "formulas": [
+    "\\eta_{ab}X^aT^b > 0\\ \\text{(future)},\\quad <0\\ \\text{(past)}"
+   ],
+   "notes": "Consistency of the definition relies on Exercise 8.2: no causal vector is orthogonal to T, so the sign never passes through zero within one sheet."
+  },
+  {
+   "name": "Lorentz transformation",
+   "aliases": [
+    "homogeneous Lorentz transformation",
+    "L^a_b"
+   ],
+   "kind": "definition",
+   "definition": "A linear homogeneous change of Minkowski coordinates x'^a = L^a_b x^b that leaves the metric components eta_ab unchanged, equivalently L^a_c L^b_d eta_ab = eta_cd. Such maps preserve norms and inner products and are therefore isometries.",
+   "how_introduced": "Defined abstractly by invariance of eta, rather than by the boost formulae of Chapters 2-3; the matrix condition comes from inserting dx'/dx = L into the metric transformation law (7.5).",
+   "depth": "core",
+   "prerequisites": [
+    "Minkowski metric",
+    "metric transformation law",
+    "isometry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 138,
+     "section": "8.3"
+    },
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    }
+   ],
+   "formulas": [
+    "x'^a = L^a{}_b x^b",
+    "L^a{}_c L^b{}_d\\,\\eta_{ab} = \\eta_{cd}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Lorentz group",
+   "aliases": [
+    "L",
+    "homogeneous Lorentz group",
+    "O(1,3)"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The set of all Lorentz transformations under composition. It is a group: the identity is delta^a_b, inverses exist because det L = +-1, and composition preserves eta. It contains the ordinary spatial rotation group as a subgroup.",
+   "how_introduced": "The identity (delta^a_b) and inverse matrix are named in the text, invertibility is justified by taking determinants of (8.10), and the full check of the group axioms is set as Exercise 8.4(ii).",
+   "depth": "core",
+   "prerequisites": [
+    "Lorentz transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 138,
+     "section": "8.3"
+    },
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    }
+   ],
+   "formulas": [
+    "(\\det L^a{}_b)^2 = 1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "proper and improper Lorentz transformations",
+   "aliases": [
+    "orientation-preserving Lorentz transformation",
+    "det L = +1"
+   ],
+   "kind": "definition",
+   "definition": "A Lorentz transformation is proper (orientation preserving) if det L^a_b = +1 and improper if det L = -1. The spatial reflection t'=t, x'=-x, y'=y, z'=z is improper.",
+   "how_introduced": "One of two binary labels extracted from (8.10) by taking determinants.",
+   "depth": "developed",
+   "prerequisites": [
+    "Lorentz group"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    }
+   ],
+   "formulas": [
+    "\\det L^a{}_b = \\pm 1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "orthochronous Lorentz transformations",
+   "aliases": [
+    "time-orientation preserving",
+    "L^0_0 >= 1"
+   ],
+   "kind": "definition",
+   "definition": "A Lorentz transformation is orthochronous if L^0_0 >= 1, meaning it maps future-pointing vectors to future-pointing vectors; otherwise L^0_0 <= -1 and it swaps future and past. Time reversal t'=-t is non-orthochronous.",
+   "how_introduced": "The second binary label, obtained from the 00 component of (8.10): (L^0_0)^2 minus the sum of (L^i_0)^2 equals 1.",
+   "depth": "developed",
+   "prerequisites": [
+    "Lorentz group",
+    "time orientation (future- and past-pointing vectors)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 138,
+     "section": "8.3"
+    },
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    },
+    {
+     "pdf_page": 155,
+     "printed_page": 140,
+     "section": "8.4"
+    }
+   ],
+   "formulas": [
+    "(L^0{}_0)^2 - \\sum_i (L^i{}_0)^2 = 1 \\Rightarrow |L^0{}_0|\\ge 1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "proper orthochronous (restricted) Lorentz group",
+   "aliases": [
+    "L^up_+",
+    "L arrow plus",
+    "SO^+(1,3)",
+    "restricted Lorentz group"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The subset of Lorentz transformations with det L = +1 and L^0_0 >= 1. It is the only one of the four classes that contains the identity and hence the only one that is a subgroup; it is a six-parameter continuous group.",
+   "how_introduced": "Singled out after the four-way split; its parameter count is interpreted physically through frames in general position.",
+   "depth": "developed",
+   "prerequisites": [
+    "proper and improper Lorentz transformations",
+    "orthochronous Lorentz transformations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "parity and time reversal",
+   "aliases": [
+    "spatial reflection",
+    "discrete Lorentz transformations"
+   ],
+   "kind": "definition",
+   "definition": "The discrete Lorentz transformations x -> -x (reflection of one spatial axis: det L = -1, orthochronous) and t -> -t (time reversal: det L = -1, non-orthochronous). They represent two of the three classes not connected to the identity; their product represents the third (det +1, non-orthochronous).",
+   "how_introduced": "Used as the simplest concrete examples of an improper and a non-orthochronous transformation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Lorentz transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    }
+   ],
+   "formulas": [
+    "t'=t,\\ x'=-x,\\ y'=y,\\ z'=z",
+    "t'=-t,\\ x'=x,\\ y'=y,\\ z'=z"
+   ],
+   "notes": "Both examples as written have det L = -1; the product of the two is proper but non-orthochronous, which the reader must supply to populate the fourth class."
+  },
+  {
+   "name": "rotation-boost-rotation decomposition",
+   "aliases": [
+    "six parameters of the Lorentz group",
+    "boost plus rotations"
+   ],
+   "kind": "theorem",
+   "definition": "Any proper orthochronous Lorentz transformation relating inertial frames S and S' in general position can be built from a spatial rotation aligning the x-axis with the relative velocity (2 parameters: direction), a boost along it (1 parameter: speed), and a final rotation to the orientation of S' (3 parameters), giving six parameters.",
+   "how_introduced": "Presented as the physical reading of the parameter count, referring back to Fig. 2.20.",
+   "depth": "introduced",
+   "prerequisites": [
+    "proper orthochronous (restricted) Lorentz group",
+    "Lorentz boost"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    }
+   ],
+   "formulas": [],
+   "notes": "Only two Euler angles are needed in the first step because only the direction of the x-axis matters, not a roll about it."
+  },
+  {
+   "name": "Poincare group",
+   "aliases": [
+    "inhomogeneous Lorentz group",
+    "P"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The group of inhomogeneous linear maps x'^a = L^a_b x^b + t^a preserving eta_ab: a Lorentz transformation plus a space-time translation. It has ten parameters (six Lorentz, four translations), contains the Lorentz group as a subgroup and the translations as a normal subgroup, and its continuous elements are exactly the continuous isometries of Minkowski space-time.",
+   "how_introduced": "Introduced as the physically natural group mapping one inertial frame to another in general position, including shifts of origin.",
+   "depth": "developed",
+   "prerequisites": [
+    "Lorentz group",
+    "isometry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    },
+    {
+     "pdf_page": 158,
+     "printed_page": 143,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [
+    "x'^a = L^a{}_b x^b + t^a"
+   ],
+   "notes": "The claim that these are all the continuous isometries is supported by Exercise 8.5, which finds exactly ten Killing vectors."
+  },
+  {
+   "name": "isometry",
+   "aliases": [
+    "metric-preserving map",
+    "symmetry of the metric"
+   ],
+   "kind": "definition",
+   "definition": "A map of a manifold to itself under which the metric components transform into themselves, g_ab(x) = (dx~^c/dx^a)(dx~^d/dx^b) g_cd(x~). Lorentz and Poincare transformations are the isometries of Minkowski space-time.",
+   "how_introduced": "Recalled from §7.7 (7.52) to classify Lorentz transformations as symmetries of flat space.",
+   "depth": "revisited",
+   "prerequisites": [
+    "metric tensor",
+    "coordinate transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 138,
+     "section": "8.3"
+    },
+    {
+     "pdf_page": 154,
+     "printed_page": 139,
+     "section": "8.3"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "timelike curve (world-line)",
+   "aliases": [
+    "timelike world-line",
+    "world-line of a material particle"
+   ],
+   "kind": "definition",
+   "definition": "A curve all of whose tangent vectors are timelike. Such curves are the possible histories of massive particles and observers; at each event the tangent points into the interior of that event's null cone, which is the geometric statement that the particle moves slower than light. Spacelike and null curves are defined in the same way.",
+   "how_introduced": "Opening definition of §8.4, visualised by Fig. 8.2 with cones drawn at points along a world-line.",
+   "depth": "core",
+   "prerequisites": [
+    "causal character of vectors (timelike, spacelike, null)",
+    "null cone"
+   ],
+   "locators": [
+    {
+     "pdf_page": 155,
+     "printed_page": 140,
+     "section": "8.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "timelike, spacelike and null geodesics",
+   "aliases": [
+    "timelike geodesic",
+    "null geodesic",
+    "spacelike geodesic"
+   ],
+   "kind": "definition",
+   "definition": "Geodesics whose tangent vectors are timelike, spacelike or null respectively. Since the metric connection preserves the norm of the tangent along an affinely parametrized geodesic, the character is constant along the curve. In Minkowski coordinates they are straight lines d^2x^a/dmu^2 = 0.",
+   "how_introduced": "Defined as special cases of timelike (etc.) curves; their straightness in Minkowski coordinates follows from Gamma = 0.",
+   "depth": "core",
+   "prerequisites": [
+    "timelike curve (world-line)",
+    "affine parameter",
+    "geodesic equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 155,
+     "printed_page": 140,
+     "section": "8.4"
+    },
+    {
+     "pdf_page": 156,
+     "printed_page": 141,
+     "section": "8.4"
+    },
+    {
+     "pdf_page": 158,
+     "printed_page": 143,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [
+    "\\frac{d^2x^a}{d\\mu^2}=0",
+    "\\eta_{ab}\\frac{dx^a}{d\\mu}\\frac{dx^b}{d\\mu}=k"
+   ],
+   "notes": null
+  },
+  {
+   "name": "causal structure: future, past and elsewhere",
+   "aliases": [
+    "absolute future",
+    "absolute past",
+    "elsewhere",
+    "invariant classification of events"
+   ],
+   "kind": "definition",
+   "definition": "Relative to an event P, the null cone divides space-time into the future (events reachable from P by a future-directed timelike geodesic), the past (reachable by a past-directed one) and elsewhere (outside the cone, reachable only by spacelike geodesics). Every observer related by an orthochronous Lorentz transformation agrees on the partition; non-orthochronous maps swap future and past.",
+   "how_introduced": "Stated after redefining the cone via null geodesics, drawn in Fig. 8.3 with the word ELSEWHERE wrapped around the vertex.",
+   "depth": "core",
+   "prerequisites": [
+    "null cone",
+    "timelike, spacelike and null geodesics",
+    "orthochronous Lorentz transformations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 155,
+     "printed_page": 140,
+     "section": "8.4"
+    }
+   ],
+   "formulas": [],
+   "notes": "Echoes the causality discussion of ch2 §2.11 in invariant form."
+  },
+  {
+   "name": "affine parameter",
+   "aliases": [
+    "affine parametrization"
+   ],
+   "kind": "definition",
+   "definition": "A parameter along a geodesic for which the geodesic equation takes the form xddot^a + Gamma^a_bc xdot^b xdot^c = 0 with no term proportional to the tangent; any two affine parameters are related by a linear map mu-bar = a mu + b.",
+   "how_introduced": "Recalled from §7.6; the rescaling (d mu-bar/d mu)^2 = k is an allowed affine change that normalizes the tangent.",
+   "depth": "revisited",
+   "prerequisites": [
+    "geodesic equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 156,
+     "printed_page": 141,
+     "section": "8.4"
+    },
+    {
+     "pdf_page": 161,
+     "printed_page": 146,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "\\bar\\mu = a\\mu + b"
+   ],
+   "notes": null
+  },
+  {
+   "name": "proper time",
+   "aliases": [
+    "tau",
+    "clock time along a world-line"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The parameter tau along a timelike curve defined by d tau^2 = g_ab dx^a dx^b (c = 1), i.e. the arc length of the curve in the Lorentzian metric. It is what an ideal clock carried along the curve reads, and along a timelike geodesic it is the affine parameter that makes the tangent a unit vector.",
+   "how_introduced": "Constructed from geodesics: after finding d^2x/dmu^2 = 0 with tangent norm k > 0, the affine parameter is rescaled so the tangent has unit norm; that parameter is named proper time. It is then elevated to the physical clock reading in Axiom II(i).",
+   "depth": "core",
+   "prerequisites": [
+    "affine parameter",
+    "timelike curve (world-line)",
+    "Minkowski metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 156,
+     "printed_page": 141,
+     "section": "8.4"
+    },
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    },
+    {
+     "pdf_page": 161,
+     "printed_page": 146,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "d\\tau^2 = ds^2",
+    "d\\tau^2 = \\frac{1}{c^2}ds^2"
+   ],
+   "notes": "Exercise 8.6 extends the affine-parameter property to arbitrary (curved) space-times."
+  },
+  {
+   "name": "proper time along an arbitrary world-line",
+   "aliases": [
+    "time dilation integral",
+    "moving clock formula"
+   ],
+   "kind": "law",
+   "definition": "For an observer with coordinate 3-velocity v(t) in an inertial frame, the proper time elapsed between coordinate times t_0 and t_1 is the integral of sqrt(1 - v^2/c^2) dt, always less than or equal to t_1 - t_0.",
+   "how_introduced": "Derived by expanding ds^2 with c restored and factoring dt^2, then shown to agree with (3.16) from Chapter 3.",
+   "depth": "revisited",
+   "prerequisites": [
+    "proper time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 156,
+     "printed_page": 141,
+     "section": "8.4"
+    },
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.4"
+    }
+   ],
+   "formulas": [
+    "\\tau = \\int_{t_0}^{t_1}\\left(1-\\frac{v^2}{c^2}\\right)^{1/2}dt"
+   ],
+   "notes": null
+  },
+  {
+   "name": "clock hypothesis",
+   "aliases": [
+    "ideal clock postulate"
+   ],
+   "kind": "principle",
+   "definition": "The assumption that an ideal clock, whatever its acceleration, measures the Lorentzian arc length (proper time) along its world-line, so its rate depends only on its instantaneous velocity and not on its acceleration.",
+   "how_introduced": "Named in the discussion of Axiom II(i) as the physical content that turns the formal parameter tau into a measured time.",
+   "depth": "mention",
+   "prerequisites": [
+    "proper time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [
+    "d\\tau^2 = g_{ab}dx^adx^b"
+   ],
+   "notes": "Introduced originally in ch3 §3.4."
+  },
+  {
+   "name": "axiomatic formulation of special relativity",
+   "aliases": [
+    "Axioms I and II",
+    "Trautmann-Pirani-Bondi axioms"
+   ],
+   "kind": "principle",
+   "definition": "Special relativity is the theory in which (I) space-time is a 4-manifold with a symmetric connection and a metric that is non-singular of signature -2, covariantly constant, and flat (zero Riemann tensor); and (II) ideal clocks move on timelike curves measuring proper time, free particles move on timelike geodesics, and light rays move on null geodesics. Axiom I is the geometry; Axiom II supplies the physical interpretation.",
+   "how_introduced": "Presented in two shaded boxes once all ingredients (metric connection, curvature, proper time, geodesic classes) are in place, followed by a justification of the physical choices. Designed to be reused: ch10 replaces I(iii) with the field equations.",
+   "depth": "core",
+   "prerequisites": [
+    "metric connection (metric compatibility)",
+    "flatness criterion (vanishing Riemann tensor)",
+    "proper time",
+    "geodesic postulate for free particles",
+    "null geodesics as light rays"
+   ],
+   "locators": [
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    },
+    {
+     "pdf_page": 158,
+     "printed_page": 143,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [
+    "\\nabla_c g_{ab}=0,\\quad R^a{}_{bcd}=0,\\quad d\\tau^2=g_{ab}dx^adx^b"
+   ],
+   "notes": "Credited in Further reading to Trautmann, Pirani and Bondi (1964)."
+  },
+  {
+   "name": "metric connection (metric compatibility)",
+   "aliases": [
+    "Levi-Civita connection",
+    "Christoffel connection",
+    "nabla_c g_ab = 0"
+   ],
+   "kind": "definition",
+   "definition": "A symmetric affine connection for which the covariant derivative of the metric vanishes; it is then uniquely given by the Christoffel symbols of g_ab. Axiom I(ii) imposes this condition so that parallel transport preserves inner products.",
+   "how_introduced": "Recalled from Part B and written into Axiom I; also invoked in (8.22) where Gamma is the metric connection of the kinetic-energy metric.",
+   "depth": "revisited",
+   "prerequisites": [
+    "affine connection",
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    },
+    {
+     "pdf_page": 159,
+     "printed_page": 144,
+     "section": "8.6"
+    }
+   ],
+   "formulas": [
+    "\\nabla_c g_{ab} = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "geodesic postulate for free particles",
+   "aliases": [
+    "law of inertia in geometric form",
+    "free particles follow timelike geodesics"
+   ],
+   "kind": "principle",
+   "definition": "A material particle subject to no forces moves along a timelike geodesic of space-time. It generalizes Newton's first law: geodesics play the role of straight lines, and the timelike restriction is what makes the order of events along the path observer-independent.",
+   "how_introduced": "Axiom II(ii), justified afterwards by analogy with Newton's first law and by a causality argument.",
+   "depth": "core",
+   "prerequisites": [
+    "timelike, spacelike and null geodesics",
+    "causality argument for timelike geodesics"
+   ],
+   "locators": [
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    },
+    {
+     "pdf_page": 158,
+     "printed_page": 143,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [],
+   "notes": "In ch13 the authors argue that in GR this postulate follows from the field equations."
+  },
+  {
+   "name": "null geodesics as light rays",
+   "aliases": [
+    "light rays follow null geodesics",
+    "characteristic velocity of null geodesics"
+   ],
+   "kind": "principle",
+   "definition": "Light rays propagate along null geodesics. In Minkowski coordinates a null geodesic has constant null tangent k^a, so its coordinate 3-velocity u^i = k^i/k^0 has magnitude exactly 1, a property preserved by Poincare transformations; this encodes the frame-independence of the speed of light.",
+   "how_introduced": "Axiom II(iii), justified by explicitly integrating the null geodesic equation and computing u^2.",
+   "depth": "core",
+   "prerequisites": [
+    "timelike, spacelike and null geodesics",
+    "Poincare group"
+   ],
+   "locators": [
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    },
+    {
+     "pdf_page": 158,
+     "printed_page": 143,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [
+    "\\frac{dx^a}{d\\mu}=k^a,\\quad \\eta_{ab}k^ak^b=0",
+    "\\boldsymbol u = (k^1/k^0,k^2/k^0,k^3/k^0),\\ \\ \\boldsymbol u^2=1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "causality argument for timelike geodesics",
+   "aliases": [
+    "why not spacelike geodesics"
+   ],
+   "kind": "technique",
+   "definition": "If two nearby events on a free particle's path are separated along a timelike curve, every orthochronous Poincare transformation preserves which comes first, so one can consistently say the earlier event causes the later. For spacelike separations the time order is frame-dependent, so spacelike paths could not carry cause and effect.",
+   "how_introduced": "Raised as an a priori question about whether the choice in Axiom II is forced, answered with the invariance of time ordering.",
+   "depth": "developed",
+   "prerequisites": [
+    "causal structure: future, past and elsewhere",
+    "orthochronous Lorentz transformations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 157,
+     "printed_page": 142,
+     "section": "8.5"
+    },
+    {
+     "pdf_page": 158,
+     "printed_page": 143,
+     "section": "8.5"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "principle of stationary action",
+   "aliases": [
+    "Hamilton's principle",
+    "variational principle",
+    "delta S = 0"
+   ],
+   "kind": "principle",
+   "definition": "The actual motion of a system between fixed end configurations makes the action S = integral L dt stationary with respect to small variations of the path.",
+   "how_introduced": "Motivated as elegant and easily generalizable, and as the starting point of most modern theories; then summarised for conservative classical systems.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Lagrangian"
+   ],
+   "locators": [
+    {
+     "pdf_page": 159,
+     "printed_page": 144,
+     "section": "8.6"
+    }
+   ],
+   "formulas": [
+    "\\delta S = \\delta\\int_{t_1}^{t_2}L\\,dt = 0",
+    "L := T - V"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Euler-Lagrange equations",
+   "aliases": [
+    "Lagrange's equations",
+    "field equations (book's usage for particle Lagrangians)"
+   ],
+   "kind": "law",
+   "definition": "The necessary conditions for stationary action: dL/dx^a - d/dt (dL/dxdot^a) = 0 for each generalized coordinate.",
+   "how_introduced": "Quoted for classical mechanics and then applied to the relativistic particle action with an arbitrary parameter.",
+   "depth": "revisited",
+   "prerequisites": [
+    "principle of stationary action"
+   ],
+   "locators": [
+    {
+     "pdf_page": 159,
+     "printed_page": 144,
+     "section": "8.6"
+    },
+    {
+     "pdf_page": 161,
+     "printed_page": 146,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\partial L}{\\partial x^a}-\\frac{d}{dt}\\left(\\frac{\\partial L}{\\partial\\dot x^a}\\right)=0"
+   ],
+   "notes": "The book twice calls the particle Euler-Lagrange equations 'field equations' (p.146 and Exercise 8.9)."
+  },
+  {
+   "name": "generalized coordinates, velocities and forces",
+   "aliases": [
+    "x^a (a = 1..n)",
+    "generalized forces F_a"
+   ],
+   "kind": "definition",
+   "definition": "The n independent variables x^a describing a mechanical system's configuration, their time derivatives xdot^a, and the forces F_a = -dV/dx^a derived from a potential energy V(x).",
+   "how_introduced": "Set out as the vocabulary of the classical summary in §8.6.",
+   "depth": "introduced",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 159,
+     "printed_page": 144,
+     "section": "8.6"
+    }
+   ],
+   "formulas": [
+    "F_a = -\\partial V/\\partial x^a"
+   ],
+   "notes": null
+  },
+  {
+   "name": "configuration space with kinetic-energy metric",
+   "aliases": [
+    "configuration space",
+    "mass metric",
+    "Jacobi-type geometrization"
+   ],
+   "kind": "technique",
+   "definition": "Writing the kinetic energy as T = (1/2) g_ab xdot^a xdot^b turns g_ab into a Riemannian metric on the n-dimensional configuration space; the Euler-Lagrange equations become xddot^a + Gamma^a_bc xdot^b xdot^c = F^a with Gamma the metric connection, so force-free motion is geodesic motion.",
+   "how_introduced": "Emerges from the 'straightforward calculation' leading to (8.22), and is checked on a free particle where g_ab = m delta_ab.",
+   "depth": "developed",
+   "prerequisites": [
+    "metric connection (metric compatibility)",
+    "Euler-Lagrange equations",
+    "geodesic equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 159,
+     "printed_page": 144,
+     "section": "8.6"
+    },
+    {
+     "pdf_page": 160,
+     "printed_page": 145,
+     "section": "8.6"
+    }
+   ],
+   "formulas": [
+    "T=\\tfrac12 g_{ab}\\dot x^a\\dot x^b",
+    "\\ddot x^a + \\Gamma^a_{bc}\\dot x^b\\dot x^c = F^a"
+   ],
+   "notes": null
+  },
+  {
+   "name": "generalized (conjugate) momentum",
+   "aliases": [
+    "canonical momentum",
+    "p_a = dL/dxdot^a"
+   ],
+   "kind": "definition",
+   "definition": "The quantity p_a = dL/dxdot^a associated with each generalized coordinate; for a free Newtonian particle it is m times the velocity component.",
+   "how_introduced": "Defined in §8.6, then reused to define relativistic 3-momentum (8.30) and the covariant 4-momentum in §8.8.",
+   "depth": "developed",
+   "prerequisites": [
+    "Euler-Lagrange equations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 159,
+     "printed_page": 144,
+     "section": "8.6"
+    },
+    {
+     "pdf_page": 160,
+     "printed_page": 145,
+     "section": "8.6"
+    },
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    },
+    {
+     "pdf_page": 163,
+     "printed_page": 148,
+     "section": "8.8"
+    }
+   ],
+   "formulas": [
+    "p_a := \\partial L/\\partial \\dot x^a"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Hamiltonian as total energy",
+   "aliases": [
+    "Hamiltonian",
+    "Legendre transform",
+    "energy function"
+   ],
+   "kind": "definition",
+   "definition": "H = p_a xdot^a - L. When H has no explicit time dependence it is conserved and equals the total energy of the system.",
+   "how_introduced": "Defined in §8.6 and checked on the free particle (H = T); used in §8.7 to define relativistic energy.",
+   "depth": "developed",
+   "prerequisites": [
+    "generalized (conjugate) momentum"
+   ],
+   "locators": [
+    {
+     "pdf_page": 159,
+     "printed_page": 144,
+     "section": "8.6"
+    },
+    {
+     "pdf_page": 160,
+     "printed_page": 145,
+     "section": "8.6"
+    },
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "H := p_a\\dot x^a - L"
+   ],
+   "notes": null
+  },
+  {
+   "name": "equivalence of the K-Lagrangian and the arc-length Lagrangian",
+   "aliases": [
+    "K = (1/2) g xdot xdot versus sqrt(g xdot xdot)"
+   ],
+   "kind": "theorem",
+   "definition": "With an affine parameter, the Lagrangian (1/2) g_ab xdot^a xdot^b and the arc-length Lagrangian (g_ab xdot^a xdot^b)^(1/2) produce the same Euler-Lagrange (geodesic) equations, so the force-free action may be taken as the integral of ds.",
+   "how_introduced": "Imported from §7.6 to connect classical free motion (kinetic energy Lagrangian) with the geometric action (8.26).",
+   "depth": "revisited",
+   "prerequisites": [
+    "affine parameter",
+    "Euler-Lagrange equations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 160,
+     "printed_page": 145,
+     "section": "8.6"
+    }
+   ],
+   "formulas": [
+    "S = \\int_{t_1}^{t_2}\\frac{ds}{dt}dt = \\int_{t_1}^{t_2}ds"
+   ],
+   "notes": null
+  },
+  {
+   "name": "relativistic free-particle action",
+   "aliases": [
+    "S = -m_0 integral ds",
+    "point-particle action"
+   ],
+   "kind": "principle",
+   "definition": "The action of a free massive particle is minus its rest mass times the proper time (Lorentzian arc length) along its world-line, S = -m_0 * integral ds; its stationary paths are timelike geodesics.",
+   "how_introduced": "Postulated by analogy with the classical force-free action (8.26) with an undetermined constant -alpha, then fixed by the Newtonian limit; finally written in general coordinates in §8.8.",
+   "depth": "core",
+   "prerequisites": [
+    "equivalence of the K-Lagrangian and the arc-length Lagrangian",
+    "proper time",
+    "Euler-Lagrange equations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 161,
+     "printed_page": 146,
+     "section": "8.7"
+    },
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    },
+    {
+     "pdf_page": 163,
+     "printed_page": 148,
+     "section": "8.8"
+    }
+   ],
+   "formulas": [
+    "S = -\\alpha\\int_{\\tau_1}^{\\tau_2} ds",
+    "S = -m_0\\int_{\\tau_1}^{\\tau_2}(g_{ab}\\dot x^a\\dot x^b)^{1/2}d\\tau"
+   ],
+   "notes": "Because free timelike geodesics maximize proper time, the minus sign makes the physical path a minimum-type stationary point in the Newtonian limit and gives positive kinetic energy."
+  },
+  {
+   "name": "reparametrization invariance of the action",
+   "aliases": [
+    "parameter-independence of the arc-length action"
+   ],
+   "kind": "phenomenon",
+   "definition": "The arc-length action integral (eta_ab dx^a/dmu dx^b/dmu)^(1/2) dmu has the same value for any monotonic choice of parameter mu, so one may vary with a general parameter and specialise to proper time or coordinate time afterwards.",
+   "how_introduced": "Used implicitly: the action is first written with a new parameter mu = mu(tau), later with coordinate time t, without changing its value.",
+   "depth": "introduced",
+   "prerequisites": [
+    "relativistic free-particle action"
+   ],
+   "locators": [
+    {
+     "pdf_page": 161,
+     "printed_page": 146,
+     "section": "8.7"
+    },
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "S=-\\alpha\\int_{\\mu_1}^{\\mu_2}\\left(\\eta_{ab}\\frac{dx^a}{d\\mu}\\frac{dx^b}{d\\mu}\\right)^{1/2}d\\mu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "rest mass fixed by the Newtonian limit",
+   "aliases": [
+    "identification alpha = m_0",
+    "low-velocity expansion of the relativistic Lagrangian"
+   ],
+   "kind": "technique",
+   "definition": "Expanding L = -alpha (1-u^2)^(1/2) for small u gives -alpha + (1/2) alpha u^2 + ..., and matching the kinetic term with (1/2) m u^2 identifies alpha as the particle's rest mass m_0; the additive constant has no effect on the equations of motion.",
+   "how_introduced": "The central trick of §8.7 that turns a postulated form into a physical theory.",
+   "depth": "developed",
+   "prerequisites": [
+    "relativistic free-particle action",
+    "Lagrangian ambiguity (equivalent Lagrangians)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "L = -\\alpha(1-u^2)^{1/2} = -\\alpha + \\tfrac12\\alpha u^2 + \\cdots",
+    "L = -m_0(1-u^2)^{1/2}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "relativistic 3-momentum",
+   "aliases": [
+    "p = gamma m_0 u"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The canonical momentum of the relativistic free-particle Lagrangian with respect to the 3-velocity: p = m_0 u / sqrt(1-u^2).",
+   "how_introduced": "Obtained by differentiating (8.29) with respect to the velocity components, with a '(check)' invitation.",
+   "depth": "developed",
+   "prerequisites": [
+    "generalized (conjugate) momentum",
+    "rest mass fixed by the Newtonian limit"
+   ],
+   "locators": [
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol p = m_0(1-u^2)^{-1/2}\\boldsymbol u"
+   ],
+   "notes": null
+  },
+  {
+   "name": "relativistic mass",
+   "aliases": [
+    "m = gamma m_0",
+    "velocity-dependent mass"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The quantity m = m_0 / sqrt(1-u^2) defined so that p = m u keeps its Newtonian form; in c = 1 units it coincides with the energy.",
+   "how_introduced": "Defined by comparing (8.30) with p = m u and pointing back to (4.11).",
+   "depth": "revisited",
+   "prerequisites": [
+    "relativistic 3-momentum"
+   ],
+   "locators": [
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "m = m_0(1-u^2)^{-1/2}"
+   ],
+   "notes": "Printed with exponent +1/2 on p.147, a misprint: consistency with (8.30) and (8.31) requires -1/2. Modern usage mostly avoids relativistic mass in favour of invariant mass and energy."
+  },
+  {
+   "name": "relativistic energy from the Hamiltonian",
+   "aliases": [
+    "E = H = gamma m_0",
+    "mass-energy equivalence (c = 1)"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The Hamiltonian of the free relativistic Lagrangian, E = p.u - L = m_0 / sqrt(1-u^2), equals the relativistic mass in c = 1 units, reproducing E = mc^2.",
+   "how_introduced": "Computed by Legendre transform 'after some simple algebra' and matched to (4.19).",
+   "depth": "developed",
+   "prerequisites": [
+    "Hamiltonian as total energy",
+    "relativistic 3-momentum"
+   ],
+   "locators": [
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    }
+   ],
+   "formulas": [
+    "E = H = \\boldsymbol p\\cdot\\boldsymbol u - L = m_0(1-u^2)^{-1/2} = m"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Lagrangian ambiguity (equivalent Lagrangians)",
+   "aliases": [
+    "additive constant in the Lagrangian",
+    "L and lambda L + mu give the same equations"
+   ],
+   "kind": "theorem",
+   "definition": "Multiplying a Lagrangian by a non-zero constant or adding a constant leaves the Euler-Lagrange equations unchanged. For geodesic-type Lagrangians that are constant along affinely parametrized solutions, L^2 and L^(1/2) also give equivalent equations.",
+   "how_introduced": "Cited to dismiss the constant -alpha in the expanded Lagrangian; developed in Exercise 8.9.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Euler-Lagrange equations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 162,
+     "printed_page": 147,
+     "section": "8.7"
+    },
+    {
+     "pdf_page": 165,
+     "printed_page": 150,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": "Exercise 8.9 as printed says L^2 and L^(1/2) always give the same equations if L is non-zero; that is only true when L is constant along the solutions (e.g. affine parametrization), as in §7.6."
+  },
+  {
+   "name": "4-velocity",
+   "aliases": [
+    "u^a",
+    "world-line tangent normalized by proper time"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The tangent vector u^a = dx^a/dtau to a timelike world-line parametrized by proper time; it is a future-pointing unit timelike vector, with Minkowski components (gamma, gamma u) where u is the ordinary 3-velocity.",
+   "how_introduced": "Defined in §8.8 as the first of the covariant quantities; its components in terms of 3-velocity are left to Exercise 8.10.",
+   "depth": "core",
+   "prerequisites": [
+    "proper time",
+    "timelike curve (world-line)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 163,
+     "printed_page": 148,
+     "section": "8.8"
+    },
+    {
+     "pdf_page": 165,
+     "printed_page": 150,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "u^a := \\frac{dx^a}{d\\tau} = \\dot x^a",
+    "u^a = (\\gamma,\\gamma\\boldsymbol u),\\ \\gamma=(1-u^2)^{-1/2}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "4-acceleration",
+   "aliases": [
+    "a^b"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The proper-time derivative of the 4-velocity, a^b = du^b/dtau = d^2x^b/dtau^2; in Minkowski coordinates it vanishes exactly for free particles.",
+   "how_introduced": "Defined alongside the 4-velocity without further development.",
+   "depth": "introduced",
+   "prerequisites": [
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 163,
+     "printed_page": 148,
+     "section": "8.8"
+    }
+   ],
+   "formulas": [
+    "a^b := \\frac{du^b}{d\\tau} = \\ddot x^b"
+   ],
+   "notes": "Orthogonality u_a a^a = 0 (from the unit norm of u) is not mentioned but is a natural check."
+  },
+  {
+   "name": "4-momentum",
+   "aliases": [
+    "p_a",
+    "energy-momentum 4-vector",
+    "covariant 4-momentum"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The 4-vector combining energy and 3-momentum of a particle, proportional to its 4-velocity with the rest mass as factor (p^a = m_0 u^a, Minkowski components (E, p)). In §8.8 it is obtained as the canonical momentum dL/dxdot^a of the covariant free-particle Lagrangian.",
+   "how_introduced": "Defined canonically from the action; spatial components compared with m_0 times the spatial 4-velocity; the invariant p_a p^a gives E^2 - p^2 = m_0^2 in Exercise 8.10.",
+   "depth": "core",
+   "prerequisites": [
+    "4-velocity",
+    "generalized (conjugate) momentum",
+    "relativistic free-particle action"
+   ],
+   "locators": [
+    {
+     "pdf_page": 163,
+     "printed_page": 148,
+     "section": "8.8"
+    },
+    {
+     "pdf_page": 165,
+     "printed_page": 150,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "p_a := \\frac{\\partial L}{\\partial\\dot x^a} = -m_0 g_{ab}u^b(g_{cd}u^cu^d)^{-1/2}",
+    "E^2 - \\boldsymbol p^2 = m_0^2"
+   ],
+   "notes": "With L = -m_0 (g xdot xdot)^(1/2) the canonical p_a equals -m_0 u_a, so its time component is -E; the physical 4-momentum is conventionally p^a = +m_0 u^a. The book's prefactor exponent is misprinted as +1/2."
+  },
+  {
+   "name": "4-force and four-dimensional Newton's second law",
+   "aliases": [
+    "f^a = dp^a/dtau",
+    "Minkowski force"
+   ],
+   "kind": "law",
+   "definition": "The relativistic generalization of Newton's second law equates the 4-force f^a to the proper-time rate of change of 4-momentum. In Minkowski coordinates its components are (gamma u.F, gamma F), and its time component expresses the rate of work done on the particle.",
+   "how_introduced": "Stated in §8.8; components and physical meaning of the time component are left to Exercise 8.10.",
+   "depth": "developed",
+   "prerequisites": [
+    "4-momentum",
+    "proper time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 163,
+     "printed_page": 148,
+     "section": "8.8"
+    },
+    {
+     "pdf_page": 166,
+     "printed_page": 151,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "f^a = \\frac{dp^a}{d\\tau}",
+    "f^a = (\\gamma\\,\\boldsymbol u\\cdot\\boldsymbol F,\\ \\gamma\\boldsymbol F)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "conservation of 4-momentum",
+   "aliases": [
+    "energy-momentum conservation"
+   ],
+   "kind": "law",
+   "definition": "With no external force a particle's 4-momentum is constant; for an isolated system of particles the sum of their 4-momenta is a constant 4-vector, combining energy and momentum conservation in one covariant statement.",
+   "how_introduced": "Read off from the 4-force law with f = 0, then generalized to n particles.",
+   "depth": "developed",
+   "prerequisites": [
+    "4-force and four-dimensional Newton's second law"
+   ],
+   "locators": [
+    {
+     "pdf_page": 163,
+     "printed_page": 148,
+     "section": "8.8"
+    },
+    {
+     "pdf_page": 164,
+     "printed_page": 149,
+     "section": "8.8"
+    }
+   ],
+   "formulas": [
+    "\\frac{dp^a}{d\\tau}=0\\Rightarrow p^a=k^a",
+    "\\sum_{i=1}^n p_i^a = k^a"
+   ],
+   "notes": null
+  },
+  {
+   "name": "angular momentum tensor",
+   "aliases": [
+    "ell^ab",
+    "relativistic angular momentum"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The antisymmetric tensor ell^ab = x^a p^b - x^b p^a built from position (in Minkowski coordinates) and 4-momentum; its space-space components give ordinary angular momentum and its time-space components relate to the motion of the centre of energy.",
+   "how_introduced": "Defined in one line at the end of the mechanics discussion without interpretation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "4-momentum",
+    "Minkowski coordinates"
+   ],
+   "locators": [
+    {
+     "pdf_page": 164,
+     "printed_page": 149,
+     "section": "8.8"
+    }
+   ],
+   "formulas": [
+    "\\ell^{ab} = x^ap^b - x^bp^a"
+   ],
+   "notes": "Only tensorial under Lorentz transformations about the origin; under translations it shifts, which the book does not discuss."
+  },
+  {
+   "name": "tensor character of particle quantities (rest mass as scalar)",
+   "aliases": [
+    "covariance of relativistic mechanics"
+   ],
+   "kind": "principle",
+   "definition": "If the rest mass is a scalar, then 4-velocity, 4-acceleration, 4-momentum, 4-force and the angular momentum tensor transform as tensors of the indicated type, so their Lorentz transformations determine how 3-velocity, energy, momentum and force change between frames.",
+   "how_introduced": "Closing remark of §8.8 linking back to the transformation law (4.21) and forward to Exercise 8.11.",
+   "depth": "introduced",
+   "prerequisites": [
+    "4-momentum",
+    "Lorentz transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 164,
+     "printed_page": 149,
+     "section": "8.8"
+    },
+    {
+     "pdf_page": 166,
+     "printed_page": 151,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\frac{\\gamma'}{\\gamma} = \\beta(1-u_xv)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "null tetrad",
+   "aliases": [
+    "complex null tetrad",
+    "Newman-Penrose tetrad (L, N, M, Mbar)"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A basis of four null vectors, two real (L, N) and two complex conjugates (M, Mbar), built from an orthonormal frame, whose only non-zero inner products are L.N = 1 and M.Mbar = -1 in the signature -2 convention.",
+   "how_introduced": "Appears only in Exercise 8.3 as a construction from the unit vectors T, X, Y, Z; developed later in ch20 §20.1.",
+   "depth": "mention",
+   "prerequisites": [
+    "causal character of vectors (timelike, spacelike, null)",
+    "inner product and orthogonality"
+   ],
+   "locators": [
+    {
+     "pdf_page": 164,
+     "printed_page": 149,
+     "section": null
+    },
+    {
+     "pdf_page": 165,
+     "printed_page": 150,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "L^a=\\tfrac{1}{\\sqrt2}(T^a+Z^a),\\ N^a=\\tfrac{1}{\\sqrt2}(T^a-Z^a),\\ M^a=\\tfrac{1}{\\sqrt2}(X^a+iY^a)",
+    "L^aN_a = -M^a\\bar M_a = 1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Killing vectors of Minkowski space-time",
+   "aliases": [
+    "generators of the Poincare group"
+   ],
+   "kind": "theorem",
+   "definition": "In Minkowski coordinates every Killing vector has vanishing second derivatives and so takes the form X_a = omega_ab x^b + t_a with omega_ab antisymmetric; in n dimensions there are n(n+1)/2 independent ones, ten in space-time, corresponding to six Lorentz generators and four translations.",
+   "how_introduced": "Exercise 8.5, tying the Poincare parameter count of §8.3 to the Killing equation of §7.7.",
+   "depth": "mention",
+   "prerequisites": [
+    "isometry",
+    "Poincare group",
+    "Killing's equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 165,
+     "printed_page": 150,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\partial_b\\partial_c X_a = 0",
+    "X_a = \\omega_{ab}x^b + t_a,\\ \\omega_{ab}=-\\omega_{ba}"
+   ],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(8.1)",
+   "name": "Minkowski coordinates",
+   "latex": "(x^a) = (x^0,x^1,x^2,x^3) = (t,x,y,z)",
+   "meaning": "Labels the special global chart of flat space-time, with the time coordinate carrying index 0.",
+   "symbols": "latin indices run 0..3",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 135,
+    "section": "8.1"
+   }
+  },
+  {
+   "label": "(8.2)",
+   "name": "Minkowski line element",
+   "latex": "ds^2 = dt^2 - dx^2 - dy^2 - dz^2",
+   "meaning": "Invariant interval between neighbouring events in relativistic units with the timelike-positive sign choice.",
+   "symbols": "c = 1",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 135,
+    "section": "8.1"
+   }
+  },
+  {
+   "label": "(8.3)",
+   "name": "Line element in index form",
+   "latex": "ds^2 = \\eta_{ab}\\,dx^a dx^b",
+   "meaning": "Same interval written with the Minkowski metric and summation convention.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 135,
+    "section": "8.1"
+   }
+  },
+  {
+   "label": "(8.4)",
+   "name": "Minkowski metric",
+   "latex": "\\eta_{ab} := \\mathrm{diag}(1,-1,-1,-1)",
+   "meaning": "Defines eta_ab as the constant diagonal metric of signature -2.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Flat metric in spherical polar coordinates",
+   "latex": "ds^2 = dt^2 - dr^2 - r^2d\\theta^2 - r^2\\sin^2\\theta\\,d\\phi^2,\\qquad g_{ab}=\\mathrm{diag}(1,-1,-r^2,-r^2\\sin^2\\theta)",
+   "meaning": "The same flat geometry in curvilinear coordinates has position-dependent components.",
+   "symbols": "x = r sin theta cos phi, y = r sin theta sin phi, z = r cos theta (the book misprints the y relation as x)",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   }
+  },
+  {
+   "label": "(8.5)",
+   "name": "Christoffel symbols of flat space in spherical polars",
+   "latex": "\\Gamma^1_{22}=-r,\\ \\ \\Gamma^1_{33}=-r\\sin^2\\theta,\\ \\ \\Gamma^2_{12}=r^{-1},\\ \\ \\Gamma^2_{33}=-\\sin\\theta\\cos\\theta,\\ \\ \\Gamma^3_{13}=r^{-1},\\ \\ \\Gamma^3_{23}=\\cot\\theta",
+   "meaning": "Non-vanishing connection components (up to symmetry in the lower indices) in coordinates (t, r, theta, phi) = (x^0..x^3); they arise purely from the coordinates.",
+   "symbols": "indices 1,2,3 = r, theta, phi",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Flatness",
+   "latex": "R^a{}_{bcd} = 0",
+   "meaning": "Riemann tensor vanishes in every coordinate system on Minkowski space-time, despite non-zero Gamma in curvilinear charts.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   }
+  },
+  {
+   "label": "(8.6)",
+   "name": "Squared norm",
+   "latex": "X^2 = g_{ab}X^aX^b = X_aX^a",
+   "meaning": "Scalar 'length squared' of a vector, which can have either sign.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   }
+  },
+  {
+   "label": "(8.7)",
+   "name": "Causal classification of vectors",
+   "latex": "g_{ab}X^aX^b > 0\\ \\text{(timelike)},\\quad <0\\ \\text{(spacelike)},\\quad =0\\ \\text{(null)}",
+   "meaning": "Sorts vectors by the sign of their norm, invariantly.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Orthogonality",
+   "latex": "g_{ab}X^aY^b = 0",
+   "meaning": "Two vectors are orthogonal when their inner product vanishes; null vectors satisfy this with themselves.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   }
+  },
+  {
+   "label": "(8.8)",
+   "name": "Null cone",
+   "latex": "(X^0)^2-(X^1)^2-(X^2)^2-(X^3)^2 = 0",
+   "meaning": "Equation of the double cone of null vectors at a point in Minkowski components.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Time orientation",
+   "latex": "\\eta_{ab}X^aT^b > 0\\ \\text{(future-pointing)},\\qquad \\eta_{ab}X^aT^b<0\\ \\text{(past-pointing)},\\qquad T^a=(1,0,0,0)",
+   "meaning": "Distinguishes the two sheets of the null cone for causal vectors.",
+   "symbols": "T^a reference timelike vector",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   }
+  },
+  {
+   "label": "(8.9)",
+   "name": "Lorentz transformation",
+   "latex": "x^a \\to x'^a = L^a{}_b\\,x^b",
+   "meaning": "Linear homogeneous change of Minkowski coordinates.",
+   "symbols": "L^a_b constant matrix",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   }
+  },
+  {
+   "label": "(8.10)",
+   "name": "Invariance of the Minkowski metric",
+   "latex": "L^a{}_c\\,L^b{}_d\\,\\eta_{ab} = \\eta_{cd}",
+   "meaning": "Defining condition for L to preserve eta; equivalent to preserving all inner products.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Determinant of a Lorentz matrix",
+   "latex": "(\\det L^a{}_b)^2 = 1\\ \\Rightarrow\\ \\det L^a{}_b = \\pm1",
+   "meaning": "Follows by taking determinants of (8.10) using det eta = -1; guarantees invertibility.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "00 component of the invariance condition",
+   "latex": "(L^0{}_0)^2 - \\left[(L^1{}_0)^2+(L^2{}_0)^2+(L^3{}_0)^2\\right] = 1\\ \\Rightarrow\\ L^0{}_0\\ge1\\ \\text{or}\\ L^0{}_0\\le-1",
+   "meaning": "Shows the time-time component can never lie between -1 and 1, giving the orthochronous split.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Discrete examples: parity and time reversal",
+   "latex": "(t',x',y',z')=(t,-x,y,z),\\qquad (t',x',y',z')=(-t,x,y,z)",
+   "meaning": "Representative improper and non-orthochronous Lorentz transformations.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   }
+  },
+  {
+   "label": "(8.11)",
+   "name": "Poincare transformation",
+   "latex": "x^a \\to x'^a = L^a{}_b\\,x^b + t^a",
+   "meaning": "Lorentz transformation plus arbitrary space-time translation; ten parameters in total.",
+   "symbols": "t^a constant translation 4-vector",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   }
+  },
+  {
+   "label": "(8.12)",
+   "name": "Geodesic equation in Minkowski coordinates",
+   "latex": "\\frac{d^2x^a}{d\\mu^2} = 0",
+   "meaning": "With vanishing connection, non-null geodesics are straight lines in affine parameter mu.",
+   "symbols": "mu affine parameter",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 140,
+    "section": "8.4"
+   }
+  },
+  {
+   "label": "(8.13)",
+   "name": "Constant tangent norm",
+   "latex": "\\eta_{ab}\\frac{dx^a}{d\\mu}\\frac{dx^b}{d\\mu} = k",
+   "meaning": "Norm of the geodesic tangent is constant; k > 0 timelike, k < 0 spacelike.",
+   "symbols": "k constant",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Normalizing reparametrization",
+   "latex": "\\left(\\frac{d\\bar\\mu}{d\\mu}\\right)^2 = k",
+   "meaning": "Choice of new affine parameter giving the tangent unit length; that parameter is proper time.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   }
+  },
+  {
+   "label": "(8.14)",
+   "name": "Proper time (relativistic units)",
+   "latex": "d\\tau^2 = ds^2",
+   "meaning": "Proper time is the Lorentzian arc length along a timelike curve.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   }
+  },
+  {
+   "label": "(8.15)",
+   "name": "Proper time with c restored",
+   "latex": "d\\tau^2 = \\frac{1}{c^2}ds^2",
+   "meaning": "Dimensionally consistent form when s is measured as a length.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Proper time versus coordinate time",
+   "latex": "d\\tau^2 = \\frac{1}{c^2}\\left(c^2dt^2-dx^2-dy^2-dz^2\\right) = dt^2\\left(1-\\frac{v^2}{c^2}\\right)",
+   "meaning": "Factoring dt^2 exposes the time-dilation factor for a moving clock.",
+   "symbols": "v 3-velocity dx/dt",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   }
+  },
+  {
+   "label": "(8.16)",
+   "name": "Elapsed proper time",
+   "latex": "\\tau = \\int_{t_0}^{t_1}\\left(1-\\frac{v^2}{c^2}\\right)^{1/2}dt",
+   "meaning": "Reading of an ideal clock moving with arbitrary velocity v(t); matches (3.16).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Axiom I (geometry)",
+   "latex": "(M^4,\\Gamma^a_{bc},g_{ab}):\\ \\ g_{ab}\\ \\text{non-singular, signature}\\ -2;\\ \\ \\nabla_cg_{ab}=0;\\ \\ R^a{}_{bcd}=0",
+   "meaning": "Space-time is a flat 4-manifold whose symmetric connection is the metric connection.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.5"
+   }
+  },
+  {
+   "label": null,
+   "name": "Axiom II(i) (clocks)",
+   "latex": "d\\tau^2 = g_{ab}\\,dx^a dx^b\\ \\ \\text{along timelike curves}",
+   "meaning": "Ideal clocks measure proper time; free particles follow timelike geodesics (II(ii)) and light follows null geodesics (II(iii)).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.5"
+   }
+  },
+  {
+   "label": "(8.17)",
+   "name": "Null geodesic equation",
+   "latex": "\\frac{d^2x^a}{d\\mu^2}=0",
+   "meaning": "Null geodesics are straight in Minkowski coordinates.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   }
+  },
+  {
+   "label": "(8.18)",
+   "name": "Null condition",
+   "latex": "\\eta_{ab}\\frac{dx^a}{d\\mu}\\frac{dx^b}{d\\mu}=0",
+   "meaning": "Tangent has zero norm.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   }
+  },
+  {
+   "label": "(8.19)",
+   "name": "Integrated null geodesic",
+   "latex": "\\frac{dx^a}{d\\mu}=k^a",
+   "meaning": "Tangent is a constant vector.",
+   "symbols": "k^a constants of integration",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   }
+  },
+  {
+   "label": "(8.20)",
+   "name": "Constant null tangent",
+   "latex": "\\eta_{ab}k^ak^b=0",
+   "meaning": "The constant tangent is a null vector.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   }
+  },
+  {
+   "label": "(8.21)",
+   "name": "Coordinate velocity of a null geodesic",
+   "latex": "\\boldsymbol u = \\left(\\frac{dx^1}{dx^0},\\frac{dx^2}{dx^0},\\frac{dx^3}{dx^0}\\right)=\\left(\\frac{k^1}{k^0},\\frac{k^2}{k^0},\\frac{k^3}{k^0}\\right),\\qquad \\boldsymbol u^2 = 1",
+   "meaning": "Null geodesics move at unit speed in every inertial frame, encoding the constancy of the speed of light.",
+   "symbols": "k^0 must be non-zero or the whole tangent would vanish",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   }
+  },
+  {
+   "label": null,
+   "name": "Classical Lagrangian and stationary action",
+   "latex": "L := T - V,\\qquad \\delta S = \\delta\\int_{t_1}^{t_2}L\\,dt = 0",
+   "meaning": "Starting point of the variational summary of classical mechanics.",
+   "symbols": "T kinetic energy, V potential",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   }
+  },
+  {
+   "label": null,
+   "name": "Euler-Lagrange equations",
+   "latex": "\\frac{\\partial L}{\\partial x^a}-\\frac{d}{dt}\\left(\\frac{\\partial L}{\\partial\\dot x^a}\\right)=0",
+   "meaning": "Condition for stationary action.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   }
+  },
+  {
+   "label": "(8.22)",
+   "name": "Equations of motion in configuration space",
+   "latex": "\\ddot x^a + \\Gamma^a_{bc}\\dot x^b\\dot x^c = F^a",
+   "meaning": "For T = (1/2) g xdot xdot, Lagrange's equations are geodesic equations of the kinetic metric driven by generalized forces.",
+   "symbols": "Gamma metric connection of g_ab, F^a = g^ab F_b",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   }
+  },
+  {
+   "label": "(8.23)",
+   "name": "Generalized momenta",
+   "latex": "p_a := \\frac{\\partial L}{\\partial\\dot x^a}",
+   "meaning": "Canonical momentum conjugate to x^a.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   }
+  },
+  {
+   "label": "(8.24)",
+   "name": "Hamiltonian",
+   "latex": "H := p_a\\dot x^a - L",
+   "meaning": "Legendre transform of L; equals total energy when time-independent.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   }
+  },
+  {
+   "label": "(8.25)",
+   "name": "Free Newtonian particle Lagrangian",
+   "latex": "L = T = \\tfrac12 m u^2,\\qquad g_{ab}=m\\,\\delta_{ab}",
+   "meaning": "Kinetic energy of a free particle; its metric is m times the identity.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 160,
+    "printed_page": 145,
+    "section": "8.6"
+   }
+  },
+  {
+   "label": null,
+   "name": "Free-particle momenta and energy",
+   "latex": "p_x = \\frac{\\partial L}{\\partial\\dot x}=m\\dot x,\\ \\ldots,\\qquad H = \\boldsymbol p\\cdot\\boldsymbol u - L = \\tfrac12 mu^2 = T = E",
+   "meaning": "Canonical formalism reproduces Newtonian momentum and energy (the book misprints the derivatives and the dot product; corrected here).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 160,
+    "printed_page": 145,
+    "section": "8.6"
+   }
+  },
+  {
+   "label": "(8.26)",
+   "name": "Arc-length action",
+   "latex": "S = \\int_{t_1}^{t_2}\\frac{ds}{dt}\\,dt = \\int_{t_1}^{t_2}ds",
+   "meaning": "Force-free action may be taken as the length of the path, by the equivalence with the kinetic Lagrangian.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 160,
+    "printed_page": 145,
+    "section": "8.6"
+   }
+  },
+  {
+   "label": "(8.27)",
+   "name": "Relativistic free-particle action (ansatz)",
+   "latex": "S = -\\alpha\\int_{\\tau_1}^{\\tau_2}ds",
+   "meaning": "Postulated action proportional to proper time with unknown constant alpha.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Action with arbitrary parameter",
+   "latex": "S = -\\alpha\\int_{\\mu_1}^{\\mu_2}\\left(\\eta_{ab}\\frac{dx^a}{d\\mu}\\frac{dx^b}{d\\mu}\\right)^{1/2}d\\mu",
+   "meaning": "Reparametrization-invariant form used for varying.",
+   "symbols": "book prints the limits as u_1, u_2",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": "(8.28)",
+   "name": "Euler-Lagrange result",
+   "latex": "\\frac{d}{d\\mu}\\left[\\alpha\\left(\\eta_{cd}\\frac{dx^c}{d\\mu}\\frac{dx^d}{d\\mu}\\right)^{-1/2}\\eta_{ab}\\frac{dx^b}{d\\mu}\\right]=0",
+   "meaning": "Conservation of the canonical momentum for the arc-length Lagrangian.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Reduction to straight lines",
+   "latex": "0=\\frac{d}{d\\mu}\\left[\\alpha\\eta_{ab}\\frac{d\\mu}{d\\tau}\\frac{dx^b}{d\\mu}\\right]=\\alpha\\eta_{ab}\\frac{d^2x^b}{d\\tau^2}\\frac{d\\tau}{d\\mu}\\ \\Rightarrow\\ \\ddot x^b=0",
+   "meaning": "Using ds = dtau, the equations become the Minkowski-coordinate geodesic equations.",
+   "symbols": "dot = d/dtau",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Lagrangian in coordinate time and its low-speed expansion",
+   "latex": "S=-\\alpha\\int_{t_1}^{t_2}(1-u^2)^{1/2}dt,\\qquad L=-\\alpha(1-u^2)^{1/2}=-\\alpha+\\tfrac12\\alpha u^2+\\cdots",
+   "meaning": "Comparison with (8.25) fixes alpha as the rest mass.",
+   "symbols": "u 3-velocity",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": "(8.29)",
+   "name": "Relativistic free-particle Lagrangian",
+   "latex": "L = -m_0(1-u^2)^{1/2}",
+   "meaning": "Lagrangian in coordinate time for a free particle of rest mass m_0.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": "(8.30)",
+   "name": "Relativistic 3-momentum",
+   "latex": "\\boldsymbol p = \\left(\\frac{\\partial L}{\\partial u^1},\\frac{\\partial L}{\\partial u^2},\\frac{\\partial L}{\\partial u^3}\\right) = m_0(1-u^2)^{-1/2}\\boldsymbol u",
+   "meaning": "Canonical momentum equals gamma m_0 u.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Relativistic mass (corrected)",
+   "latex": "m = m_0(1-u^2)^{-1/2}",
+   "meaning": "Defined so that p = m u; the printed exponent +1/2 is a misprint.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": "(8.31)",
+   "name": "Relativistic energy",
+   "latex": "E = H = \\boldsymbol p\\cdot\\boldsymbol u - L = m_0(1-u^2)^{-1/2} = m",
+   "meaning": "Hamiltonian of the free particle equals relativistic mass, i.e. E = mc^2 with c = 1.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Covariant free-particle action",
+   "latex": "S=-m_0\\int_{\\tau_1}^{\\tau_2}\\left(g_{ab}\\dot x^a\\dot x^b\\right)^{1/2}d\\tau",
+   "meaning": "Action valid in any coordinates on flat space-time.",
+   "symbols": "g_ab flat metric",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": "(8.32)",
+   "name": "4-velocity",
+   "latex": "u^a := \\frac{dx^a}{d\\tau} = \\dot x^a",
+   "meaning": "Unit tangent to a world-line.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": "(8.33)",
+   "name": "4-acceleration",
+   "latex": "a^b := \\frac{du^b}{d\\tau} = \\frac{d^2x^b}{d\\tau^2} = \\ddot x^b",
+   "meaning": "Proper-time rate of change of 4-velocity.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": null,
+   "name": "Canonical covariant 4-momentum (corrected exponent)",
+   "latex": "p_a := \\frac{\\partial L}{\\partial\\dot x^a} = -m_0\\,g_{ab}u^b\\left(g_{cd}u^cu^d\\right)^{-1/2}",
+   "meaning": "Momentum conjugate to x^a; since g_cd u^c u^d = 1 it equals -m_0 u_a. The book prints exponent +1/2.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": "(8.34)",
+   "name": "Spatial momentum components",
+   "latex": "(p_1,p_2,p_3) = m_0(u^1,u^2,u^3)",
+   "meaning": "Spatial covariant momentum components are m_0 times the spatial 4-velocity components (which are gamma times the 3-velocity).",
+   "symbols": "u^i here are 4-velocity components",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": "(8.35)",
+   "name": "Four-dimensional Newton's second law",
+   "latex": "f^a = \\frac{dp^a}{d\\tau}",
+   "meaning": "4-force equals proper-time derivative of 4-momentum.",
+   "symbols": "f^a 4-force",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": "(8.36)",
+   "name": "Free-particle momentum conservation",
+   "latex": "\\frac{dp^a}{d\\tau}=0\\ \\Rightarrow\\ p^a=k^a",
+   "meaning": "With no force the 4-momentum is a constant vector.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": null,
+   "name": "Total 4-momentum of an isolated system",
+   "latex": "\\sum_{i=1}^{n}p_i^a = k^a",
+   "meaning": "Conservation of total energy-momentum for n particles (book omits the index i in print).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 164,
+    "printed_page": 149,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": "(8.37)",
+   "name": "Angular momentum tensor",
+   "latex": "\\ell^{ab} = x^ap^b - x^bp^a",
+   "meaning": "Antisymmetric tensor generalizing r x p.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 164,
+    "printed_page": 149,
+    "section": "8.8"
+   }
+  },
+  {
+   "label": null,
+   "name": "Null tetrad normalization (Exercise 8.3)",
+   "latex": "L^aN_a = -M^a\\bar M_a = 1",
+   "meaning": "Only non-zero inner products of the complex null tetrad built from T, X, Y, Z.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 165,
+    "printed_page": 150,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "Killing vectors of flat space (Exercise 8.5)",
+   "latex": "X_a = \\omega_{ab}x^b + t_a,\\qquad \\omega_{ab}=-\\omega_{ba}",
+   "meaning": "General solution of Killing's equation in Minkowski coordinates: 6 + 4 = 10 parameters.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 165,
+    "printed_page": 150,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "4-velocity and energy-momentum invariant (Exercise 8.10)",
+   "latex": "u^a=(\\gamma,\\gamma\\boldsymbol u),\\quad \\gamma=(1-u^2)^{-1/2};\\qquad E^2-\\boldsymbol p^2=m_0^2",
+   "meaning": "Components of 4-velocity and the mass-shell relation from p_a p^a.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 165,
+    "printed_page": 150,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "4-force components (Exercise 8.10)",
+   "latex": "f^a = (\\gamma\\,\\boldsymbol u\\cdot\\boldsymbol F,\\ \\gamma\\boldsymbol F),\\qquad \\frac{dp^a}{d\\tau}=\\left(\\gamma\\frac{dE}{dt},\\ \\gamma\\frac{d\\boldsymbol p}{dt}\\right)",
+   "meaning": "Time component is gamma times the power delivered by the 3-force. The book writes these with lower indices; they are the contravariant components.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 166,
+    "printed_page": 151,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "Transformation of gamma (Exercise 8.11)",
+   "latex": "\\frac{\\gamma'}{\\gamma} = \\beta(1-u_xv),\\qquad \\beta=(1-v^2)^{-1/2}",
+   "meaning": "How a particle's Lorentz factor changes under a boost of speed v along x; follows from the time component of u^a.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 166,
+    "printed_page": 151,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 8.1",
+   "image_path": "dinverno/pages/page-153/img-60.jpeg",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.2"
+   },
+   "caption_paraphrase": "The null cone at a point drawn in three dimensions, with z omitted.",
+   "visual_description": "Perspective 3D axes: t vertical, y to the right, x receding toward the lower left. A double cone with its vertex at the origin opens upward and downward, each sheet ending in an elliptical rim; a leader line on the left labels the surface 'Null cone'. Four arrows start at the vertex: a steep arrow inside the upper sheet (future-pointing timelike vector), an arrow lying along the upper sheet's surface (future-pointing null vector), a shallow arrow pointing right and slightly up, outside the cone (spacelike vector), and a downward arrow inside the lower sheet (past-pointing timelike vector). Labels sit to the right with leader lines.",
+   "what_it_teaches": "Gives the causal classification of vectors a picture: inside the cone is timelike, on it null, outside spacelike, and the two sheets separate future from past orientation.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "null cone",
+    "causal character of vectors (timelike, spacelike, null)",
+    "time orientation (future- and past-pointing vectors)"
+   ],
+   "redesign": {
+    "idea": "A rotatable 2+1 light cone at an event where the learner drags the tip of a vector; the vector's colour, label and live readouts (eta(X,X) and eta(X,T)) update continuously, and a boost slider applies a Lorentz transformation to all drawn vectors so the learner sees components change while each vector stays in its class. A 'parity' and 'time reversal' toggle reflect the scene and show that only time reversal swaps the future and past sheets.",
+    "interaction": "Drag vector tip in 3D; slider for boost rapidity and direction angle; toggles for P and T; readout panel of components, norm and orientation sign.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": null,
+   "image_path": "dinverno/pages/page-153/img-61.jpeg",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   },
+   "caption_paraphrase": "No caption: a decorative page-margin strip captured by the image export.",
+   "visual_description": "A tall, very narrow strip of empty rectangular cells arranged in two thin columns, like a ruled ladder or grid, with no labels, axes or content. On the rendered page it sits in the outer margin beside §8.3, and the same strip appears in the margins of several other pages of the chapter (pdf 154, 159-164); it is a layout artifact, not a figure referenced by the text.",
+   "what_it_teaches": "Nothing; it carries no physics or mathematics.",
+   "figure_type": "other",
+   "concepts": [],
+   "redesign": {
+    "idea": "Omit.",
+    "interaction": "None.",
+    "form": "not-worth-redesigning",
+    "priority": "low"
+   }
+  },
+  {
+   "label": "Fig. 8.2",
+   "image_path": "dinverno/pages/page-155/img-62.jpeg",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 140,
+    "section": "8.4"
+   },
+   "caption_paraphrase": "A massive particle's world-line with the local light cone drawn at points along it.",
+   "visual_description": "3D axes with t vertical, y to the right and x toward the lower left. A long, slightly tilted, nearly straight curve rises from lower left to upper right. At two points on it small double cones are drawn with their vertices on the curve. At the upper point, labelled P, a short arrow along the curve points into the interior of the upper sheet; leader lines label it 'Velocity tangent vector at P' and the small cone 'Null cone at P'.",
+   "what_it_teaches": "A timelike world-line is one whose tangent always lies inside the null cone of the point it passes through, the geometric form of moving slower than light.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "timelike curve (world-line)",
+    "null cone",
+    "4-velocity"
+   ],
+   "redesign": {
+    "idea": "A 1+1 (with optional 2+1) space-time canvas where the learner steers a particle by applying thrust pulses; the world-line is drawn live with a light cone and unit 4-velocity arrow at the current event, a proper-time odometer ticks along the curve beside coordinate time, and if the learner tries to exceed light speed the tangent is clamped against the cone edge with gamma shown diverging.",
+    "interaction": "Keyboard or slider thrust; scrub along the finished world-line to place cones anywhere; toggle to show the 4-velocity components (gamma, gamma u).",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 8.3",
+   "image_path": "dinverno/pages/page-155/img-63.jpeg",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 140,
+    "section": "8.4"
+   },
+   "caption_paraphrase": "How the null cone at P partitions all events into three observer-independent regions.",
+   "visual_description": "3D axes (t up, y right, x lower left) with a double cone whose vertex is a solid dot labelled P. The interior of the upper sheet carries the word FUTURE, the interior of the lower sheet PAST, and the letters of ELSEWHERE are spaced along an arc that wraps around the vertex outside the cone. Leader lines on the right label the upper surface 'Null cone (future sheet)' and the lower 'Null cone (past sheet)'.",
+   "what_it_teaches": "Relative to any event, the future, past and elsewhere regions are fixed by the cone and so shared by all observers related by orthochronous Lorentz transformations.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "causal structure: future, past and elsewhere",
+    "null cone",
+    "orthochronous Lorentz transformations"
+   ],
+   "redesign": {
+    "idea": "A 1+1 Minkowski diagram with event P at the origin and several draggable events Q; each Q is tinted by region and shows its coordinates in the current frame. A rapidity slider re-draws the diagram in a boosted frame (events slide along hyperbolae): time-ordering of future and past events relative to P never flips, while elsewhere events can switch between 'before P' and 'after P'. A connecting geodesic from P to Q is drawn and labelled timelike, null or spacelike.",
+    "interaction": "Drag events; rapidity slider; toggle hyperbolae of constant interval; toggle time reversal to show future and past swapping.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   },
+   "problem": "Express flat space-time in spherical polar coordinates and find its connection and curvature.",
+   "method": "Substitute the polar relations into dx^2 + dy^2 + dz^2 to read off g_ab; compute the Christoffel symbols of the diagonal metric; state (and leave for Exercise 8.1) that the Riemann tensor vanishes.",
+   "key_insight": "Non-zero Christoffel symbols are a property of the coordinates; only the Riemann tensor diagnoses curvature.",
+   "result": "g_ab = diag(1,-1,-r^2,-r^2 sin^2 theta); six independent non-zero Gamma (8.5); R^a_bcd = 0.",
+   "concepts": [
+    "line element in curvilinear coordinates",
+    "coordinate dependence of connection components",
+    "flatness criterion (vanishing Riemann tensor)"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   },
+   "problem": "Extract structural properties of Lorentz matrices from the invariance condition (8.10).",
+   "method": "Take the determinant of both sides (det eta = -1 appears on both) to get (det L)^2 = 1; set c = d = 0 to obtain (L^0_0)^2 = 1 + sum of (L^i_0)^2.",
+   "key_insight": "Two scalar consequences of one matrix identity split the group into four disconnected classes.",
+   "result": "det L = +-1 (invertible, so a group) and L^0_0 >= 1 or <= -1.",
+   "concepts": [
+    "Lorentz group",
+    "proper and improper Lorentz transformations",
+    "orthochronous Lorentz transformations"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   },
+   "problem": "Identify which classes of Lorentz transformation form subgroups and exhibit representatives.",
+   "method": "Give x -> -x (det -1) and t -> -t (L^0_0 = -1) as examples; observe that only the class with det +1 and L^0_0 >= 1 contains the identity.",
+   "key_insight": "A subset not containing the identity cannot be a subgroup, so a single check settles three of the four cases.",
+   "result": "Only the proper orthochronous transformations form a subgroup.",
+   "concepts": [
+    "parity and time reversal",
+    "proper orthochronous (restricted) Lorentz group"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   },
+   "problem": "Count and interpret the parameters of the restricted Lorentz group and the Poincare group.",
+   "method": "View a transformation actively as carrying frame S to frame S' in general position: two angles align S's x-axis with the relative velocity, one speed specifies the boost, three Euler angles fix the final orientation; add four translation components for Poincare.",
+   "key_insight": "Parameter counts become physically meaningful when each parameter is tied to an operation on a frame.",
+   "result": "6 Lorentz parameters; 10 Poincare parameters.",
+   "concepts": [
+    "rotation-boost-rotation decomposition",
+    "Poincare group"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   },
+   "problem": "Show that proper time is an affine parameter along timelike geodesics in Minkowski space-time.",
+   "method": "Straight-line geodesics have constant tangent norm k; an affine rescaling with (d mu-bar/d mu)^2 = k makes the tangent unit; comparing with (8.3) gives d tau^2 = ds^2.",
+   "key_insight": "Proper time is simply the affine parameter normalized so that the tangent has unit length.",
+   "result": "d tau^2 = ds^2 (or ds^2/c^2).",
+   "concepts": [
+    "proper time",
+    "affine parameter"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   },
+   "problem": "Relate proper time along a moving observer's world-line to coordinate time.",
+   "method": "Write ds^2 = c^2 dt^2 - dx^2 - dy^2 - dz^2, factor out dt^2, identify the squared 3-velocity, and integrate the square root.",
+   "key_insight": "The time-dilation law is just the Lorentzian arc-length formula expressed in inertial coordinates.",
+   "result": "tau = integral from t_0 to t_1 of (1 - v^2/c^2)^(1/2) dt, agreeing with (3.16).",
+   "concepts": [
+    "proper time along an arbitrary world-line"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   },
+   "problem": "Show that null geodesics have speed 1 in every inertial frame.",
+   "method": "Integrate d^2x/dmu^2 = 0 to a constant null tangent k^a; argue k^0 cannot vanish; define u^i = k^i/k^0 and divide the null condition by (k^0)^2.",
+   "key_insight": "Speed of light constancy is a geometric property of null lines, preserved by the Poincare group.",
+   "result": "|u| = 1.",
+   "concepts": [
+    "null geodesics as light rays"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   },
+   "problem": "Apply Lagrangian and Hamiltonian mechanics to a free Newtonian particle in Cartesian coordinates.",
+   "method": "Write T = (1/2) m (xdot^2 + ydot^2 + zdot^2), read off g_ab = m delta_ab, differentiate for momenta, write Euler-Lagrange equations, compute H.",
+   "key_insight": "The formalism reduces to Newton's laws and identifies H with energy; the kinetic metric is just m times the Euclidean metric.",
+   "result": "p = m u; d(m xdot)/dt = 0 etc.; H = (1/2) m u^2 = E.",
+   "concepts": [
+    "generalized (conjugate) momentum",
+    "Hamiltonian as total energy",
+    "configuration space with kinetic-energy metric"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   },
+   "problem": "Derive the equations of motion from the relativistic action S = -alpha * integral ds.",
+   "method": "Parametrize by arbitrary mu, apply Euler-Lagrange to (eta dx/dmu dx/dmu)^(1/2), use the fact that the square root equals dtau/dmu, and convert the derivative to proper time.",
+   "key_insight": "Varying with a general parameter and specialising afterwards avoids the constraint that tau is itself defined by the path.",
+   "result": "d^2x^b/dtau^2 = 0: straight world-lines, the Minkowski-coordinate geodesics.",
+   "concepts": [
+    "relativistic free-particle action",
+    "reparametrization invariance of the action"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   },
+   "problem": "Determine alpha and derive relativistic momentum, mass and energy from the Lagrangian.",
+   "method": "Rewrite the action with coordinate time, expand L = -alpha (1-u^2)^(1/2) to second order in u, match to (1/2) m u^2, then compute p = dL/du and H = p.u - L.",
+   "key_insight": "The Newtonian limit calibrates the relativistic theory; the canonical machinery then generates the correct relativistic formulae without further assumptions.",
+   "result": "alpha = m_0; L = -m_0 (1-u^2)^(1/2); p = m_0 gamma u; E = m_0 gamma.",
+   "concepts": [
+    "rest mass fixed by the Newtonian limit",
+    "relativistic 3-momentum",
+    "relativistic energy from the Hamiltonian"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   },
+   "problem": "Obtain the covariant 4-momentum from the general-coordinate action and compare with 3-momentum.",
+   "method": "Differentiate L = -m_0 (g_ab xdot^a xdot^b)^(1/2) with respect to xdot^a, use g_cd u^c u^d = 1, specialise to Minkowski coordinates and read off spatial components.",
+   "key_insight": "Momentum is defined canonically; lowering an index with a signature -2 metric introduces signs that must be tracked.",
+   "result": "(p_1, p_2, p_3) = m_0 (u^1, u^2, u^3).",
+   "concepts": [
+    "4-momentum",
+    "4-velocity"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Geodesics are the space-time counterpart of the straight lines of Newton's first law.",
+   "target_concept": "geodesic postulate for free particles",
+   "how_used": "Offered as the natural reason for choosing geodesics at all in Axiom II before the causality argument selects the timelike ones.",
+   "limits": "Straightness alone does not select timelike over spacelike geodesics, and in curved space-time geodesics are no longer straight in any global coordinates.",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.5"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Side-by-side panes: a puck gliding on ice (3D space) and its world-line in a 1+1 diagram, both straight; then switch on a curved-surface mode to preview GR."
+  },
+  {
+   "analogy": "A mechanical system's kinetic energy acts as a metric on configuration space, so force-free motion is geodesic motion there.",
+   "target_concept": "configuration space with kinetic-energy metric",
+   "how_used": "Shows that the geodesic equation already appears in classical Lagrangian mechanics, making the relativistic geodesic postulate feel familiar.",
+   "limits": "The configuration-space metric is positive definite and describes a system's coordinates, not physical space-time; time remains an external parameter.",
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Double pendulum or two-mass system whose configuration point is drawn on a curved 2D surface built from the mass matrix; with forces off the point traces geodesics."
+  },
+  {
+   "analogy": "Lorentz transformations are the 'rotations' of Minkowski space: they preserve lengths and inner products, just with an indefinite metric.",
+   "target_concept": "Lorentz transformation",
+   "how_used": "Implicit in defining Lorentz maps by metric invariance and noting that the ordinary rotation group sits inside the Lorentz group.",
+   "limits": "Boosts are hyperbolic, not circular; they are unbounded in rapidity and do not preserve Euclidean appearance on a diagram.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Toggle between a Euclidean rotation of a circle and a Lorentz boost of a hyperbola, both driven by the same slider."
+  },
+  {
+   "analogy": "Separating a theory into a 'geometry' axiom and a 'physics' axiom, like specifying a board and then the rules for how pieces move on it.",
+   "target_concept": "axiomatic formulation of special relativity",
+   "how_used": "The authors explicitly label Axiom I as geometry and Axiom II as physics; the board-and-rules phrasing is our framing.",
+   "limits": "In general relativity the board is itself dynamical and determined by matter, so the separation becomes interactive.",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.5"
+   },
+   "effectiveness": "useful",
+   "app_idea": "An axiom editor card deck: swap the card R = 0 for G = 8 pi T and watch which consequences in a dependency graph change."
+  },
+  {
+   "analogy": "A world-line with tangents inside the cones is like a path confined to a moving cone of permitted directions at every step.",
+   "target_concept": "timelike curve (world-line)",
+   "how_used": "Fig. 8.2 draws cones along a world-line to show the local speed limit.",
+   "limits": "In flat space all cones are parallel; the picture only becomes rich when cones tilt in curved space-time.",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 140,
+    "section": "8.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Steer-the-particle game where the steering wheel's range is the local cone."
+  },
+  {
+   "analogy": "Proper time is the odometer reading of a world-line measured with the Lorentzian metric.",
+   "target_concept": "proper time",
+   "how_used": "Implicit in defining tau via unit tangent length and d tau^2 = ds^2.",
+   "limits": "Unlike a Euclidean odometer, the straight path between two timelike-separated events gives the longest, not shortest, reading.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Two draggable world-lines between the same events with running odometers; the straight one always wins."
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "If the Christoffel symbols are non-zero, space-time must be curved.",
+   "correction": "Connection components depend on coordinates; flat space in spherical polar coordinates has several non-zero Gamma, but its Riemann tensor is identically zero.",
+   "why_tempting": "In Minkowski coordinates Gamma = 0 and flatness coincide, and Gamma looks like a 'gravitational field'.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   },
+   "concepts": [
+    "coordinate dependence of connection components",
+    "flatness criterion (vanishing Riemann tensor)"
+   ]
+  },
+  {
+   "misconception": "A vector of zero length must be the zero vector.",
+   "correction": "With a Lorentzian metric, non-zero null vectors have zero norm and are even orthogonal to themselves.",
+   "why_tempting": "Euclidean intuition that length zero means no vector.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   },
+   "concepts": [
+    "causal character of vectors (timelike, spacelike, null)",
+    "inner product and orthogonality"
+   ]
+  },
+  {
+   "misconception": "The light cone can always be drawn as a set of events in the manifold.",
+   "correction": "The cone is fundamentally a set of vectors in each tangent space; it can be drawn in the manifold only because Minkowski space is flat, which will fail in curved space-times.",
+   "why_tempting": "Every picture of the cone in special relativity draws it among events.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   },
+   "concepts": [
+    "identification of tangent space with Minkowski space-time",
+    "null cone"
+   ]
+  },
+  {
+   "misconception": "All Lorentz transformations preserve the distinction between future and past.",
+   "correction": "Only orthochronous ones (L^0_0 >= 1) do; non-orthochronous ones such as t -> -t swap the two sheets of the cone.",
+   "why_tempting": "Physically realised boosts and rotations are orthochronous, so the discrete ones are easy to forget.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 140,
+    "section": "8.4"
+   },
+   "concepts": [
+    "orthochronous Lorentz transformations",
+    "causal structure: future, past and elsewhere"
+   ]
+  },
+  {
+   "misconception": "Each of the four classes of Lorentz transformations is a group in its own right.",
+   "correction": "Only the proper orthochronous class contains the identity; the other three are not subgroups.",
+   "why_tempting": "Each class is defined by a condition that sounds closed, like 'det = -1'.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   },
+   "concepts": [
+    "proper orthochronous (restricted) Lorentz group"
+   ]
+  },
+  {
+   "misconception": "Free particles could just as well be assigned spacelike geodesics; the choice of timelike ones is a convention.",
+   "correction": "Only along timelike (and null) curves is the order of events preserved by all orthochronous Poincare maps, which is required for a cause-effect history.",
+   "why_tempting": "Axiomatically, all geodesics look equally 'straight'.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   },
+   "concepts": [
+    "causality argument for timelike geodesics"
+   ]
+  },
+  {
+   "misconception": "Events in the elsewhere region are unrelated to P by any geodesic.",
+   "correction": "They are joined to P by spacelike geodesics; what is missing is any causal (timelike or null) connection.",
+   "why_tempting": "'Elsewhere' sounds like 'unreachable'.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 140,
+    "section": "8.4"
+   },
+   "concepts": [
+    "causal structure: future, past and elsewhere"
+   ]
+  },
+  {
+   "misconception": "The relativistic Lagrangian of a free particle is its kinetic energy, as in Newtonian mechanics.",
+   "correction": "It is -m_0 sqrt(1-u^2); only its low-speed expansion, up to an irrelevant constant -m_0, reproduces (1/2) m_0 u^2.",
+   "why_tempting": "L = T - V with V = 0 is the reflex from classical mechanics.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   },
+   "concepts": [
+    "rest mass fixed by the Newtonian limit"
+   ]
+  },
+  {
+   "misconception": "The canonical momentum dL/dxdot^a is automatically the 4-momentum with the usual signs.",
+   "correction": "With L = -m_0 sqrt(g xdot xdot) and signature -2, dL/dxdot^a = -m_0 u_a, whose time component is -E; the physical 4-momentum is p^a = m_0 u^a = (E, p), with p_a = (E, -p).",
+   "why_tempting": "In Newtonian mechanics canonical and kinetic momentum agree, and the book's (8.34) and Exercise 8.10 blur the index positions.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   },
+   "concepts": [
+    "4-momentum",
+    "metric signature -2 convention"
+   ]
+  },
+  {
+   "misconception": "Relativistic mass is a fundamental property that grows with speed and explains why nothing reaches c.",
+   "correction": "It is a bookkeeping name for energy (c = 1); the invariant is the rest mass m_0, and 4-momentum with E^2 - p^2 = m_0^2 carries the physics.",
+   "why_tempting": "The book defines relativistic mass to keep p = m u, following Chapter 4.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   },
+   "concepts": [
+    "relativistic mass",
+    "4-momentum"
+   ]
+  },
+  {
+   "misconception": "Proper time is just another name for the coordinate time t.",
+   "correction": "Proper time is the invariant arc length along a particular world-line; it equals coordinate time only for a clock at rest in that frame and is otherwise smaller by the integrated factor sqrt(1 - v^2).",
+   "why_tempting": "Both are called 'time' and both label points on a world-line.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   },
+   "concepts": [
+    "proper time",
+    "proper time along an arbitrary world-line"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Particles on spacelike geodesics",
+   "setup": "Imagine a rival axiom in which free particles follow spacelike geodesics, and consider two neighbouring events on such a path as seen from different inertial frames.",
+   "lesson": "Different orthochronous frames would disagree about which event came first, so the path could not represent a causal history; timelike geodesics avoid this.",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   },
+   "concepts": [
+    "causality argument for timelike geodesics",
+    "causal structure: future, past and elsewhere"
+   ],
+   "visualizable": true,
+   "app_idea": "Draw a spacelike and a timelike segment through P; a boost slider reorders the endpoints of the spacelike one (with a 'cause/effect' arrow flipping) while the timelike one keeps its order."
+  },
+  {
+   "name": "Active Lorentz transformation of a frame in general position",
+   "setup": "Start with frame S and a second frame S' moving with arbitrary velocity and arbitrary orientation; build S' from S step by step.",
+   "lesson": "Rotate to align with the velocity, boost, rotate again: the six parameters of the restricted Lorentz group are the physical data distinguishing two inertial frames with the same origin.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   },
+   "concepts": [
+    "rotation-boost-rotation decomposition"
+   ],
+   "visualizable": true,
+   "app_idea": "3D animation of a triad of axes undergoing the three steps with parameter sliders and a running count of degrees of freedom."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Andrzej Trautman",
+    "Felix Pirani",
+    "Hermann Bondi"
+   ],
+   "year": "1964",
+   "event": "Lectures on General Relativity at the Brandeis Summer Institute contain the axiomatic description of special relativity (geometry plus privileged curves) that the chapter adopts.",
+   "significance": "Gives the lineage of the chapter's two-axiom structure, which later chapters modify to define general relativity. (The book's reference list spells the first author 'Trautmann'; the physicist's name is Andrzej Trautman.)",
+   "locator": {
+    "pdf_page": 166,
+    "printed_page": 151,
+    "section": null
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Satellite clocks and the proper-time integral",
+   "kind": "numerical-estimate",
+   "details": "Our own illustration, not from the book: (8.16) applied to a GPS satellite moving at orbital speed gives the special-relativistic (velocity) part of its clock offset relative to a ground clock, ignoring the larger gravitational effect treated later.",
+   "key_numbers": "Own estimate: v ~ 3.9 km/s gives v^2/(2c^2) ~ 8.4e-11, i.e. about 7 microseconds per day lost.",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.4"
+   }
+  },
+  {
+   "topic": "Accuracy of the low-speed expansion of the relativistic Lagrangian",
+   "kind": "numerical-estimate",
+   "details": "Our own check of the step fixing alpha = m_0: the next term in the expansion of -(1-u^2)^(1/2) is +u^4/8, which sets how quickly relativistic corrections appear.",
+   "key_numbers": "Own estimate: at u = 0.1 the quartic correction is 1.25e-5 of m_0, compared with the kinetic term 5e-3 of m_0 (a 0.25% relative correction).",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "topic": "4-momentum conservation in a two-body decay",
+   "kind": "numerical-estimate",
+   "details": "Our own illustration of the n-particle conservation law: for a charged pion decaying at rest into a muon and a neutrino, conservation of total 4-momentum with p_a p^a = m^2 for each product fixes the muon momentum uniquely.",
+   "key_numbers": "Own estimate: m_pi = 139.6 MeV, m_mu = 105.7 MeV, massless neutrino gives p_mu = (m_pi^2 - m_mu^2)/(2 m_pi) ~ 29.8 MeV/c.",
+   "locator": {
+    "pdf_page": 164,
+    "printed_page": 149,
+    "section": "8.8"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Metric signature",
+   "convention": "Signature -2: eta_ab = diag(1,-1,-1,-1); timelike vectors have positive norm.",
+   "notes": "Opposite to the (-,+,+,+) convention of MTW and Schutz.",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 135,
+    "section": "8.1"
+   }
+  },
+  {
+   "item": "Index ranges",
+   "convention": "Lower-case latin indices run 0..3 for space-time; x^0 = t. In §8.6 the same letters run 1..n over generalized coordinates.",
+   "notes": "The index range silently changes between §8.5 and §8.6.",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 135,
+    "section": "8.1"
+   }
+  },
+  {
+   "item": "eta_ab versus g_ab",
+   "convention": "eta_ab always denotes the metric components in Minkowski coordinates; g_ab denotes the (flat) metric in any other coordinates.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   }
+  },
+  {
+   "item": "Relativistic units",
+   "convention": "c = 1 throughout, with c restored occasionally, e.g. d tau^2 = ds^2/c^2 (8.15) and the proper time integral (8.16).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   }
+  },
+  {
+   "item": "Future/past orientation",
+   "convention": "Defined relative to T^a = (1,0,0,0) in Minkowski coordinates by the sign of eta_ab X^a T^b.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   }
+  },
+  {
+   "item": "Lorentz group symbols",
+   "convention": "L is the Lorentz group, L with superscript up-arrow and subscript + the proper orthochronous subgroup, P the Poincare group.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   }
+  },
+  {
+   "item": "Curvature tensor index layout",
+   "convention": "Riemann tensor written R^a_bcd; flatness is R^a_bcd = 0.",
+   "notes": "Sign conventions for Riemann were fixed in ch06 and do not affect R = 0.",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   }
+  },
+  {
+   "item": "Dot notation",
+   "convention": "In §8.6 a dot means d/dt; in §8.7-8.8 it means d/dtau (stated explicitly on p.146).",
+   "notes": "Same symbol, different parameter; worth flagging to learners.",
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   }
+  },
+  {
+   "item": "Bold u",
+   "convention": "Bold u is the 3-velocity (dx/dt, dy/dt, dz/dt) of a particle or of a null geodesic; u^a with an index is the 4-velocity dx^a/dtau. In §8.4 the observer velocity is written bold v.",
+   "notes": "In (8.34) u^1, u^2, u^3 are 4-velocity components, not the bold u of §8.7, which creates ambiguity.",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "item": "Lorentz factors",
+   "convention": "gamma = (1-u^2)^(-1/2) for a particle's speed; beta = (1-v^2)^(-1/2) for the relative speed of two frames (as in Chapters 2-4).",
+   "notes": "beta here is NOT v/c as in many other texts.",
+   "locator": {
+    "pdf_page": 166,
+    "printed_page": 151,
+    "section": null
+   }
+  },
+  {
+   "item": "Reuse of k",
+   "convention": "k is the constant tangent norm in (8.13); k^a is the constant null tangent in (8.19) and also the constant 4-momentum in (8.36).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   }
+  },
+  {
+   "item": "Angular momentum tensor",
+   "convention": "Script ell with two upper indices, ell^ab = x^a p^b - x^b p^a.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 164,
+    "printed_page": 149,
+    "section": "8.8"
+   }
+  },
+  {
+   "item": "Rest mass",
+   "convention": "m_0 denotes rest mass, m relativistic mass (= E when c = 1).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "item": "Terminology 'field equations'",
+   "convention": "The book calls the Euler-Lagrange equations of a particle Lagrangian 'field equations' (p.146 and Exercise 8.9).",
+   "notes": "Can mislead: no field is involved.",
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   }
+  },
+  {
+   "item": "Axiom labels",
+   "convention": "Axiom I(i)-(iii) and Axiom II(i)-(iii) are referred to by these labels in later chapters (e.g. replacing I(iii)).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.5"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Inline parenthetical in the running text (the chapter has no printed margin notes): derivation of (8.10) from the metric transformation law is marked as an exercise (completed in Exercise 8.4(i)).",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   }
+  },
+  {
+   "summary": "Inline parenthetical in the running text (the chapter has no printed margin notes): reader is asked why the time component k^0 of a null tangent cannot vanish: if it did, the null condition would force all components to vanish.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   }
+  },
+  {
+   "summary": "Inline parenthetical in the running text (the chapter has no printed margin notes): axiom II(i) is linked to the clock hypothesis introduced in Chapter 3.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.5"
+   }
+  },
+  {
+   "summary": "Inline parenthetical in the running text (the chapter has no printed margin notes): reader invited to check the momentum formula (8.30) by differentiating the Lagrangian.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "summary": "Inline parenthetical in the running text (the chapter has no printed margin notes): dismissal of the constant -alpha in the Lagrangian is referred to Exercise 8.9 on equivalent Lagrangians.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "summary": "Inline parenthetical in the running text (the chapter has no printed margin notes): transformation laws of 3-quantities under Lorentz transformations are left as an exercise, expected to reproduce (4.21).",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 164,
+    "printed_page": 149,
+    "section": "8.8"
+   }
+  },
+  {
+   "summary": "Inline parenthetical in the running text (the chapter has no printed margin notes): authors state they will not develop special-relativistic mechanics further and move on to building the general theory.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 164,
+    "printed_page": 149,
+    "section": "8.8"
+   }
+  },
+  {
+   "summary": "Inline parenthetical in the running text (the chapter has no printed margin notes): further reading: axiomatic scheme from Trautmann, Pirani and Bondi (1964); Lorentz group representations in Carmeli and Malin (1976).",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 166,
+    "printed_page": 151,
+    "section": null
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 11,
+  "pdf_pages": [
+   164,
+   165,
+   166
+  ],
+  "skills_practiced": [
+   "computing Christoffel symbols and Riemann tensor for a flat metric in curvilinear coordinates",
+   "inner-product arguments with timelike, spacelike and null vectors",
+   "building and checking a complex null tetrad",
+   "verifying group axioms for Lorentz and Poincare transformations",
+   "solving Killing's equation in flat space and counting symmetry parameters",
+   "affine parametrization arguments in general space-times",
+   "deriving Lagrange's equations in geometric form",
+   "setting up Lagrangians, momenta and Hamiltonians for simple mechanical systems",
+   "recognising equivalent Lagrangians",
+   "component forms of 4-velocity, 4-momentum and 4-force",
+   "Lorentz-transforming velocity, energy, momentum and force"
+  ],
+  "notable": [
+   {
+    "number": "8.2",
+    "summary": "Orthogonality facts for causal vectors: a timelike vector has non-zero inner product with every null vector and every other timelike vector, while a pair of null vectors has zero inner product only when one is a multiple of the other.",
+    "skills": [
+     "Cauchy-Schwarz-type inequalities in Lorentzian signature",
+     "choice of adapted frame"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Underpins the consistency of time orientation and explains why null tetrads need complex vectors to get extra orthogonality.",
+    "pdf_page": 164
+   },
+   {
+    "number": "8.3",
+    "summary": "From the unit vectors T, X, Y, Z of a Minkowski frame, form two real null vectors from T +- Z and two complex null vectors from X +- iY, show all four are null, and find that the only non-zero products are L.N = 1 and M.Mbar = -1.",
+    "skills": [
+     "null tetrad construction",
+     "complex vectors with a real metric"
+    ],
+    "difficulty": "intro",
+    "why_notable": "A quiet preview of the Newman-Penrose null tetrad used for the Kerr solution in ch20.",
+    "pdf_page": 164
+   },
+   {
+    "number": "8.5",
+    "summary": "Use the Killing equation and the curvature identity for Killing vectors to show second derivatives of Killing vectors vanish in flat space, integrate to a linear form with antisymmetric coefficients, count the parameters in n dimensions and in space-time, and interpret them.",
+    "skills": [
+     "Killing's equation",
+     "integrating PDEs",
+     "counting symmetry generators"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Supplies the proof behind the chapter's claim that the ten-parameter Poincare group exhausts the continuous isometries.",
+    "pdf_page": 165
+   },
+   {
+    "number": "8.8",
+    "summary": "Atwood machine: two hanging masses joined over a frictionless pulley are described by one coordinate; set up the Lagrangian (kinetic term with total mass, gravitational terms for each mass), obtain the equation of motion, the conjugate momentum and the Hamiltonian.",
+    "skills": [
+     "Lagrangian with constraints",
+     "Hamiltonian construction"
+    ],
+    "difficulty": "intro",
+    "why_notable": "The only concrete classical system in the chapter; good warm-up for the variational method before the relativistic action.",
+    "pdf_page": 165
+   },
+   {
+    "number": "8.9",
+    "summary": "Equivalent-Lagrangian exercise: multiplying L by a constant or adding a constant leaves the Euler-Lagrange equations untouched; the reader is also asked to show the same for the square and the square root of a non-vanishing L.",
+    "skills": [
+     "Euler-Lagrange manipulation",
+     "equivalent Lagrangians"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Justifies dropping -m_0 from the Lagrangian and relates the arc-length and K Lagrangians; the squaring/square-root claim needs the extra condition that L is constant along solutions.",
+    "pdf_page": 165
+   },
+   {
+    "number": "8.10",
+    "summary": "Express the 4-velocity and 4-momentum in terms of gamma, energy and 3-momentum, derive the mass-shell relation from the invariant p.p, identify the components of the 4-force, relate dp/dtau to dE/dt and dp/dt, and interpret the time component.",
+    "skills": [
+     "component forms of 4-vectors",
+     "invariants",
+     "power and work in relativity"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Core computational skills reused immediately in ch12 for dust; watch the index placement (the book writes lower indices where contravariant components are meant).",
+    "pdf_page": 165
+   },
+   {
+    "number": "8.11",
+    "summary": "Apply the tensor law to the 4-velocity under a standard boost to obtain the velocity transformation and the ratio of Lorentz factors, then transform energy, momentum and force, decide whether force is frame-independent, and find the force in the particle's instantaneous rest frame for motion along the force.",
+    "skills": [
+     "Lorentz transformation of 4-vectors",
+     "velocity addition",
+     "force transformation"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Shows the payoff of covariance: all 3-vector transformation laws follow mechanically from the 4-vector law, and the result that longitudinal force is frame-invariant is a nice surprise.",
+    "pdf_page": 166
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 3,
+  "conceptual_level": 3,
+  "novice_friendliness": 2,
+  "notes": "Mathematically light compared with Part B (index gymnastics, a determinant, a binomial expansion, a Legendre transform), but it presupposes fluency with the connection, Riemann tensor, affine parameters and variational geodesics from ch6-7, plus Lagrangian mechanics. Conceptually it is a reorganization rather than new physics, and the axiomatic framing is elegant. Novice friendliness suffers from terseness ('easy to show', '(why?)', 'straightforward calculation'), several misprints in §8.6-8.8 (y relation, p_x derivative, H, relativistic mass exponent, p_a exponent, missing index i), sign and index-placement ambiguity in the 4-momentum, and heavy symbol reuse (k, u, dot)."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "DIV ch02 §2.14",
+   "reason": "Minkowski line element (2.13) and the four-dimensional world view that this chapter formalizes.",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 135,
+    "section": "8.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch02 §2.14",
+   "reason": "Fig. 2.20 frames in general position, used to interpret the six Lorentz parameters.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch03 §3.2",
+   "reason": "Interval with c restored (3.12), used to expand d tau^2.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch03 §3.4",
+   "reason": "Proper-time integral (3.16) and the clock hypothesis, recovered in (8.16) and Axiom II(i).",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.4"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch04 §4.3-4.4",
+   "reason": "Relativistic mass (4.11), energy (4.17), (4.19), invariant (4.20) and transformation (4.21) of energy-momentum, all re-derived variationally.",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch06 §6.11",
+   "reason": "Theorem that a metric is flat iff its Riemann tensor vanishes.",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch06 §6.10",
+   "reason": "Metric connection used in Axiom I(ii) and in (8.22).",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.5"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch07 §7.3",
+   "reason": "Metric transformation law (7.5) substituted to derive (8.10).",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch07 §7.6",
+   "reason": "Affinely parametrized geodesic equation (7.43), general-parameter form (7.42), K-Lagrangian (7.46) and arc-length Lagrangian (7.38).",
+   "locator": {
+    "pdf_page": 160,
+    "printed_page": 145,
+    "section": "8.6"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch07 §7.7",
+   "reason": "Isometry condition (7.52) identifies Lorentz maps as isometries; Exercises 7.10 and 7.14 used in Exercise 8.5.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 138,
+    "section": "8.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch09 §9.4",
+   "reason": "Flat-space Christoffel symbols in non-inertial coordinates reinterpreted as inertial forces, motivating a curved metric for gravity.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch09 §9.6",
+   "reason": "Minimal gravitational coupling: special-relativistic equations written here are generalized by adding no explicit curvature terms.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch10 §10.3",
+   "reason": "Geodesic deviation derivation assumes free test particles follow timelike geodesics per the axioms of §8.5.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch10 §10.8",
+   "reason": "General relativity defined as the axioms of §8.5 with I(iii) replaced by the full field equations.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch11",
+   "reason": "Variational approach extended from particle actions to the Einstein Lagrangian.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch12 §12.2",
+   "reason": "Dust energy-momentum tensor uses the 4-velocity components from Exercise 8.10.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch13 §13.4",
+   "reason": "Argument that the geodesic Axioms II(ii)-(iii) follow from the field equations via the Bianchi identities.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch15 §15.4",
+   "reason": "The Killing-vector result of Exercise 8.5 is cited when adapting coordinates to the rotational Killing vectors of a spherically symmetric space-time (stationarity via Killing vectors is defined in §15.1).",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch18 §18.4",
+   "reason": "Causal structure of Minkowski space-time revisited through its Penrose diagram.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch20 §20.1",
+   "reason": "Null tetrads previewed in Exercise 8.3 become the basis of the Newman-Penrose formalism.",
+   "locator": null
+  },
+  {
+   "direction": "external",
+   "target": "Trautman, Pirani and Bondi (1964), Lectures on General Relativity, Brandeis Summer Institute vol. 1, Prentice-Hall",
+   "reason": "Source of the axiomatic description of special relativity.",
+   "locator": {
+    "pdf_page": 166,
+    "printed_page": 151,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Carmeli and Malin (1976), Representation of the Rotation and Lorentz Groups: An Introduction, Dekker",
+   "reason": "Further study of the Lorentz group and its representations.",
+   "locator": {
+    "pdf_page": 166,
+    "printed_page": 151,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Flat space in spherical polar coordinates has non-zero Christoffel symbols but zero curvature.",
+   "why_effective": "It separates two ideas novices conflate (connection components versus curvature) using a space everyone already believes is flat, right before GR makes the distinction essential.",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   },
+   "app_idea": "Coordinate-grid morpher: slide between Cartesian and polar grids on a flat plane; a Gamma meter lights up in polar mode while a curvature meter, computed from parallel transport around a loop, stays at zero."
+  },
+  {
+   "gem": "Two signs, four classes: det L = +-1 and L^0_0 >= 1 or <= -1 fall out of one matrix identity and sort all Lorentz transformations.",
+   "why_effective": "Cheap algebra yields global structure, and the discrete examples (parity, time reversal) make the abstract classes concrete.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   },
+   "app_idea": "A 2x2 grid of panels showing a light cone with a marked arrow and a handed triad; each panel applies a representative transformation, with the identity panel highlighted as the only subgroup."
+  },
+  {
+   "gem": "Special relativity as two short axioms, geometry then physics, written so general relativity can later be made by changing one clause.",
+   "why_effective": "Learners see the logical skeleton of both theories at once and know exactly what GR changes and what it keeps.",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 142,
+    "section": "8.5"
+   },
+   "app_idea": "Interactive axiom sheet with toggles: swap 'R = 0' for 'G_ab = 8 pi T_ab' and highlight which downstream results (Minkowski coordinates, global cones, straight geodesics) are lost."
+  },
+  {
+   "gem": "Asking 'why not spacelike geodesics for particles?' and answering with causality.",
+   "why_effective": "Turns a postulate into a reasoned choice and exercises the future/past/elsewhere invariance just established.",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   },
+   "app_idea": "Boost-slider demo where a timelike segment keeps its arrow direction and a spacelike segment's 'before/after' labels flip."
+  },
+  {
+   "gem": "Integrating the null geodesic equation shows light moves at speed exactly 1 in every inertial frame.",
+   "why_effective": "The second postulate of special relativity appears as a two-line geometric computation rather than an assumption.",
+   "locator": {
+    "pdf_page": 158,
+    "printed_page": 143,
+    "section": "8.5"
+   },
+   "app_idea": "Drag the direction of a null vector on the cone; a live readout of k^i/k^0 magnitude stays pinned at 1 under any boost."
+  },
+  {
+   "gem": "Proper time is the affine parameter rescaled to give the tangent unit length.",
+   "why_effective": "Connects an abstract notion (affine parameter) with a physical one (clock reading) and naturally yields the 4-velocity normalization.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 141,
+    "section": "8.4"
+   },
+   "app_idea": "Beads spaced by an arbitrary affine parameter along a world-line; a 'normalize' button re-spaces them to proper-time ticks and shows tangent norm going to 1."
+  },
+  {
+   "gem": "Free Lagrangian mechanics is geodesic motion in configuration space with the kinetic energy as metric.",
+   "why_effective": "Makes the geodesic postulate of relativity a natural continuation of classical mechanics rather than a leap.",
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   },
+   "app_idea": "Two-coordinate mechanical system (e.g. a bead on a rotating wire or two coupled masses) with its configuration point drawn on the mass-metric surface, geodesics overlaid."
+  },
+  {
+   "gem": "Fix the unknown constant in S = -alpha * integral ds by expanding at low speed and matching (1/2) m u^2.",
+   "why_effective": "Shows how a correspondence limit calibrates a new theory, the same logic used later to fix 8 pi G in the field equations.",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   },
+   "app_idea": "Plot -sqrt(1-u^2) and its quadratic approximation against u with a slider for alpha; the curves agree near u = 0 only when alpha matches the mass."
+  },
+  {
+   "gem": "The Legendre transform of the relativistic Lagrangian gives E = gamma m_0 with no extra assumptions.",
+   "why_effective": "Mass-energy equivalence emerges from standard canonical machinery, reinforcing trust in the variational approach.",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   },
+   "app_idea": "Step-by-step symbolic reveal where the learner clicks each algebraic step of H = p.u - L and sees terms combine to m_0 gamma, with a graph of E(u)."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Misprint in the spherical polar relations: the second relation is printed x = r sin theta sin phi instead of y = r sin theta sin phi.",
+   "impact_on_learner": "A careful reader substituting the formulas gets a wrong metric or is confused.",
+   "suggestion": "Correct silently in app materials and have the learner derive g_ab themselves.",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 136,
+    "section": "8.1"
+   }
+  },
+  {
+   "issue": "Misprints in the free-particle example: momenta written as dL/dx rather than dL/dxdot, and the Hamiltonian written u.u - L rather than p.u - L.",
+   "impact_on_learner": "Undermines the example meant to demonstrate the definitions; a novice may think momentum is a derivative with respect to position.",
+   "suggestion": "Present the corrected forms and ask the learner to spot the difference with the definitions (8.23)-(8.24).",
+   "locator": {
+    "pdf_page": 160,
+    "printed_page": 145,
+    "section": "8.6"
+   }
+  },
+  {
+   "issue": "Relativistic mass printed as m = m_0 (1-u^2)^(+1/2), contradicting (8.30) and (8.31) which require exponent -1/2.",
+   "impact_on_learner": "Would imply mass decreasing with speed; confusing right where the result should reconnect to Chapter 4.",
+   "suggestion": "Use the corrected exponent and emphasise the check m = E from (8.31).",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "issue": "The canonical 4-momentum formula has exponent +1/2 on (g_cd u^c u^d) where -1/2 is correct, and its overall sign gives p_a = -m_0 u_a, which makes p_0 = -E. The text then writes (8.34) and Exercise 8.10 (p_a = (E, p), f_a = (gamma u.F, gamma F)) with index positions that do not match signature -2.",
+   "impact_on_learner": "Sign and index errors multiply in later work with energy-momentum tensors; learners cannot reconcile p_a with p^a.",
+   "suggestion": "State clearly: p^a = m_0 u^a = (E, p), p_a = (E, -p); the canonical momentum of L = -m_0 ds/dtau is -p_a, and overall sign of an action does not change equations of motion.",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "issue": "Sum over particles printed without its index (sum from '=1' of p^a) instead of sum over i of p_i^a.",
+   "impact_on_learner": "Minor, but the equation as printed is meaningless.",
+   "suggestion": "Write the corrected form with the particle label.",
+   "locator": {
+    "pdf_page": 164,
+    "printed_page": 149,
+    "section": "8.8"
+   }
+  },
+  {
+   "issue": "The Euler-Lagrange equations of a particle are called 'field equations', and the integration limits in the mu-parametrized action are printed u_1, u_2.",
+   "impact_on_learner": "Terminology suggests a field theory where none is present; u is also the velocity symbol.",
+   "suggestion": "Say 'equations of motion' and use mu_1, mu_2.",
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   }
+  },
+  {
+   "issue": "(8.34) is followed by 'p = m_0 u as expected', but there u^i are 4-velocity components (gamma times 3-velocity), whereas bold u elsewhere is the 3-velocity.",
+   "impact_on_learner": "Appears to contradict (8.30), p = gamma m_0 u.",
+   "suggestion": "Write (p^1,p^2,p^3) = m_0 gamma u explicitly and reserve different symbols for 3- and 4-velocity.",
+   "locator": {
+    "pdf_page": 163,
+    "printed_page": 148,
+    "section": "8.8"
+   }
+  },
+  {
+   "issue": "Exercise 8.9 asserts that L^2 and L^(1/2) give the same equations as L whenever L is non-zero; in general this holds only if L is constant along solutions (as for affinely parametrized geodesic Lagrangians).",
+   "impact_on_learner": "A learner may apply the trick to arbitrary Lagrangians and get wrong dynamics.",
+   "suggestion": "Add the condition dL/dt = 0 on solutions and show a counter-example (e.g. a harmonic oscillator Lagrangian squared).",
+   "locator": {
+    "pdf_page": 165,
+    "printed_page": 150,
+    "section": null
+   }
+  },
+  {
+   "issue": "The identification of the tangent space with the manifold is said to be 'easy to show' and the reason k^0 is non-zero is left as '(why?)'.",
+   "impact_on_learner": "Readers without strong geometric intuition may miss why cones can be drawn among events only in flat space.",
+   "suggestion": "Give the one-line reason in each case, and show a curved-space picture where the identification visibly fails.",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 137,
+    "section": "8.2"
+   }
+  },
+  {
+   "issue": "The claim that continuous Poincare transformations are all the isometries of Minkowski space is asserted without proof in §8.3; the supporting Killing-vector count is only in Exercise 8.5, and discrete isometries are not mentioned.",
+   "impact_on_learner": "Learners may accept the statement without seeing why there are no further symmetries.",
+   "suggestion": "Pair the section with a guided version of Exercise 8.5 and note that parity and time reversal are discrete isometries outside the continuous family.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   }
+  },
+  {
+   "issue": "Both discrete examples in §8.3 have det L = -1; the fourth class (proper but non-orthochronous, e.g. full space-time inversion) is never exhibited.",
+   "impact_on_learner": "The four-class picture is incomplete; students may think t -> -t alone is proper.",
+   "suggestion": "List one representative per class, including PT: (t,x,y,z) -> (-t,-x,-y,-z).",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 139,
+    "section": "8.3"
+   }
+  },
+  {
+   "issue": "The mechanics treatment covers only massive particles; the action -m_0 * integral ds is undefined for light (m_0 = 0 and ds = 0), and the chapter does not say how photons fit.",
+   "impact_on_learner": "Leaves a gap between Axiom II(iii) and the variational picture.",
+   "suggestion": "Mention the K-Lagrangian (1/2) g xdot xdot with an affine parameter, which handles null geodesics, as in §7.6.",
+   "locator": {
+    "pdf_page": 161,
+    "printed_page": 146,
+    "section": "8.7"
+   }
+  },
+  {
+   "issue": "Relativistic mass is used without caveat; contemporary physics treats invariant mass as fundamental.",
+   "impact_on_learner": "Reinforces a dated picture of mass increasing with speed.",
+   "suggestion": "Present m as a synonym for E (c = 1) and foreground 4-momentum and E^2 - p^2 = m_0^2.",
+   "locator": {
+    "pdf_page": 162,
+    "printed_page": 147,
+    "section": "8.7"
+   }
+  },
+  {
+   "issue": "The angular momentum tensor is defined but never interpreted, and its dependence on the choice of origin is not discussed.",
+   "impact_on_learner": "An object is introduced with no use or intuition.",
+   "suggestion": "Show its space-space components reduce to r x p and its time-space components give the centre-of-energy motion; note it is conserved for free particles.",
+   "locator": {
+    "pdf_page": 164,
+    "printed_page": 149,
+    "section": "8.8"
+   }
+  },
+  {
+   "issue": "The derivation of (8.22) from the Euler-Lagrange equations is only called 'straightforward' (deferred to Exercise 8.7).",
+   "impact_on_learner": "The key geometric insight (force-free mechanics is geodesic) rests on a step the reader must supply.",
+   "suggestion": "Walk through the computation: expand d/dt(g_ab xdot^b), symmetrise the derivative of g, and recognise the Christoffel symbols.",
+   "locator": {
+    "pdf_page": 159,
+    "printed_page": 144,
+    "section": "8.6"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open by asking what the learner already knows as 'special relativity' (postulates, time dilation, E = mc^2) and announce the goal: restate all of it as geometry so that general relativity becomes a one-line change.",
+  "Before §8.1, check fluency with Christoffel symbols and the Riemann tensor; if weak, use the polar-coordinates example as the diagnostic rather than as new content.",
+  "Probe: 'If I show you a metric with non-zero Christoffel symbols, is space-time curved?' A 'yes' identifies the most important misconception for this chapter.",
+  "Teach the causal classification with the learner dragging vectors on a cone before showing (8.7); ask them to predict the sign of the norm first. Emphasize that null does not mean zero.",
+  "For the Lorentz group, have the learner derive det L = +-1 themselves from (8.10); then ask which of the four classes contains the identity, and ask them to produce a member of the class the book omits (PT).",
+  "Check understanding of invariance of future/past/elsewhere with the question: 'Can two observers disagree about whether event Q happened before P? Under what condition?'",
+  "When defining proper time, ask the learner to explain in words why rescaling the affine parameter to unit tangent gives the reading of a clock; tie to the clock hypothesis.",
+  "Present the two axioms side by side with the forthcoming GR version; ask which single clause changes, and which clauses the book will later argue need not be postulated separately (ch13).",
+  "Before §8.7, confirm the learner can write a Lagrangian, momenta and Hamiltonian for a simple system (Exercise 8.8 is a good warm-up).",
+  "In the relativistic action, pause at the low-speed expansion and ask why the minus sign is needed; follow with 'what happens to E(u) as u -> 1?'.",
+  "Explicitly correct the book's misprints (y polar relation, p_x derivative, H, relativistic mass exponent, p_a exponent, missing sum index) rather than letting the learner discover them mid-derivation.",
+  "Common learner question: 'Why is p_a = -m_0 u_a negative?' Answer: the overall sign of an action is conventional and does not affect equations of motion; with signature -2, define the physical 4-momentum as p^a = m_0 u^a and lower it with eta.",
+  "Common learner question: 'Is relativistic mass real?' Answer: it equals energy in c = 1 units; prefer invariant mass and 4-momentum.",
+  "Close by computing E^2 - p^2 = m_0^2 from p_a p^a and one quick Lorentz transformation of 4-momentum, then preview how minimal coupling (ch9) will turn these flat-space equations into curved-space ones."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Section labels corrected to 8.4 for the proper-time integral (8.16) material on pdf 157, which precedes the §8.5 heading (key equation, concept locator, GPS application, ch03 cross-reference); the 00-component equation relocated to pdf 153 where it is printed.",
+   "Cross-references corrected: Fig. 2.20 is in ch02 §2.14 (not §2.13); Exercise 8.5 is invoked in ch15 §15.4 (not §15.1).",
+   "§8.3 summary no longer implies that det L = +-1 by itself makes the set a group (the book uses it only for invertibility); §8.7 key move now marks the rationale for the minus sign in the action as our gloss, since the book is silent on it.",
+   "Margin-note entries relabelled as inline parentheticals: the rendered pages show the outer-margin strip is an empty ruled grid and the chapter prints no margin notes; the entries record the '(exercise)', '(why?)', '(check)' prompts and pointers in the text.",
+   "explicit_in_book set to false for the proper-time-vs-coordinate-time and 'elsewhere is unreachable' misconceptions: the book states the correct facts but never names these errors.",
+   "Historical note records that the book misspells Trautman as 'Trautmann'.",
+   "Exercise summaries for 8.2, 8.8 and 8.9 rewritten because they tracked the printed exercise wording too closely.",
+   "Lorentz-group how_introduced made specific (identity, inverse, determinant argument, Exercise 8.4(ii)); timelike-curve definition reworded away from the source phrasing."
+  ],
+  "residual_concerns": [
+   "Several book misprints were confirmed on the rendered pages, not introduced by the export: the y relation of spherical polars (p.136), p_x = dL/dx and H = u.u - L (p.145), relativistic mass exponent +1/2 (p.147), the +1/2 exponent in the canonical p_a (p.148), the missing particle index in the momentum sum (p.149), and lower indices on f_a and dp_a/dtau in Exercise 8.10 (p.151). The dossier transcribes corrected forms and flags each in gaps_and_pitfalls.",
+   "The reading copy has OCR slips that the dossier already avoids: 'xdot^b = 0' on p.146 is printed as xddot^b = 0, and T^u on p.137 is T^a.",
+   "The book's sign convention makes the canonical momentum -m_0 u_a while Exercise 8.10 asserts p_a = (E, p); the dossier explains the discrepancy but a learner-facing version should pick one consistent convention.",
+   "All three applications_and_observations entries are our own numerical illustrations (clearly labelled); the chapter itself contains no observational material.",
+   "img-61 (pdf 153) is a decorative empty margin grid kept only because the inventory lists it; it is not a book figure."
+  ],
+  "coverage": {
+   "toc_sections": 8,
+   "sections": 10,
+   "inventory_figures": 4,
+   "figures": 4,
+   "inventory_examples": 0,
+   "worked_examples": 11,
+   "concepts": 57,
+   "key_equations": 63,
+   "locators_checked": 260,
+   "locators_wrong": 6,
+   "pages_rendered": 12
+  }
+ }
+}

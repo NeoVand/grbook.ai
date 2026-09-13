@@ -1,0 +1,4090 @@
+{
+  "book": "gifted-amateur",
+  "unit_id": "ch08",
+  "title": "Free fall and geodesics",
+  "part": "II: Curvature and general relativity",
+  "printed_pages": [
+    91,
+    100
+  ],
+  "pdf_pages": [
+    108,
+    117
+  ],
+  "one_line_summary": "Defines geodesics as the stationary-interval paths that free particles follow, explains when such paths are minima, saddles or maxima (conjugate points, and the Lorentzian maximum of proper time), finds them by variational calculus with length parametrization, recasts them as curves that parallel transport their own tangent to get the component geodesic equation, reinterprets the connection term as an inertial force (gravity included), and treats light with the null condition, ending in the Shapiro time delay.",
+  "role_in_book": "Second chapter of Part II. Chapter 6 argued that free fall is the natural state and gravity is locally removable, and Chapter 7 built parallel transport, connection coefficients and the covariant derivative. This chapter joins the two: the free-fall world line is a geodesic, and the geodesic equation is the relativistic replacement for Newton's second law with no force. It deliberately stops short of a systematic way to compute connection coefficients (that is Chapter 9, which also rederives the geodesic equation from an action) and of curvature proper (Chapter 11, where geodesic deviation becomes the test for true curvature). Its conjugate-point remark seeds the singularity theorem of Chapter 50, its null-geodesic and weak-field material is reused in Chapters 14, 23 and 24, and the geodesic equation with a force term becomes the workhorse of the orbit chapters in Part IV.",
+  "assumed_background": [
+    {
+      "topic": "Hamilton's principle of stationary action and the Euler-Lagrange equations",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2 §2.4"
+    },
+    {
+      "topic": "Calculus of variations and the chain rule for reparametrized integrals",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Line element ds^2 = g_{mu nu} dx^mu dx^nu, metric signature and the sign of timelike, null and spacelike intervals",
+      "source": "earlier-in-this-book",
+      "where": "GA ch5 §5.1-5.3"
+    },
+    {
+      "topic": "Light cones and the coordinate speed of light read off from ds^2 = 0",
+      "source": "earlier-in-this-book",
+      "where": "GA ch5 §5.3"
+    },
+    {
+      "topic": "Parallel transport, connection coefficients and the covariant derivative along a curve (nabla_u v)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch7 §7.2-7.4"
+    },
+    {
+      "topic": "Connection coefficients of plane polar coordinates (Gamma^r_{theta theta} = -r, Gamma^theta_{r theta} = 1/r)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch7"
+    },
+    {
+      "topic": "Equivalence principle, local flatness and local inertial frames",
+      "source": "earlier-in-this-book",
+      "where": "GA ch6 §6.1, §6.4"
+    },
+    {
+      "topic": "Weak-field line element with g_tt = -(1 + 2 Phi)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch6 §6.5"
+    },
+    {
+      "topic": "4-velocity, 4-momentum, proper time and the normalization u.u = -1",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1-ch2"
+    },
+    {
+      "topic": "Newtonian gravitational potential Phi = -GM/r and force = -m grad Phi",
+      "source": "undergrad-mechanics",
+      "where": null
+    },
+    {
+      "topic": "Circular motion, centripetal force, and centrifugal and Coriolis forces in rotating frames",
+      "source": "undergrad-mechanics",
+      "where": null
+    },
+    {
+      "topic": "Principle of general covariance: a tensor equation true in one frame holds in all",
+      "source": "earlier-in-this-book",
+      "where": "GA ch6"
+    }
+  ],
+  "learning_objectives": [
+    "Reader can state the geodesic principle (free massive particles follow timelike geodesics, light follows null geodesics) and explain why a particle acted on by other interactions does not.",
+    "Reader can explain why a stationary path need not be a minimum, using the sphere example of the short arc versus the long arc through the antipode, and define a conjugate point as a focus of neighbouring geodesics.",
+    "Reader can argue with the null zigzag construction that proper time along timelike curves has no positive lower bound, so a timelike geodesic is (locally) a curve of maximum proper time.",
+    "Reader can set up the length functional s = integral of L d lambda for a given metric and write the Euler-Lagrange equations for its coordinates.",
+    "Reader can show that the length functional is unchanged by reparametrization and use length parametrization (L = 1) after taking the first derivatives, keeping L = 1 as an extra first integral.",
+    "Reader can derive geodesic equations for the plane (Cartesian and polar) and the unit sphere, and check which trial curves (meridians, the equator, a latitude circle) satisfy them.",
+    "Reader can define a geodesic geometrically as a curve that parallel transports its own tangent vector and expand nabla_u u = 0 into the component geodesic equation.",
+    "Reader can prove that u.u is constant along an affinely parametrized geodesic, so the causal character of a geodesic never changes.",
+    "Reader can justify nabla_p p = 0 by writing momentum conservation in a local inertial frame and promoting it with general covariance.",
+    "Reader can identify -m Gamma^mu_{alpha beta} xdot^alpha xdot^beta as an inertial force, reproduce centrifugal and Coriolis-type terms from plane-polar connection coefficients, and add an external 4-force to the geodesic equation.",
+    "Reader can extract Newtonian gravity from the weak-field metric via Gamma^i_tt = partial_i Phi and explain in what sense gravity is an inertial force.",
+    "Reader can use the null condition ds^2 = 0 with the weak-field metric including the spatial correction to compute the Shapiro time delay 2GM ln(4 d_p d_e / b^2) and estimate its size for a solar-conjunction radar signal."
+  ],
+  "teaching_approach": {
+    "summary": "A compact, variational-first chapter. It opens by asserting the physical claim (free fall is geodesic motion) and justifying it in a margin note via the point-particle action, then spends most of its length on what 'extremal' really means and on the mechanics of finding geodesics by the Euler-Lagrange route, before switching to the geometric definition (self-parallel tangent) to get the general component equation. Nearly every idea is carried by an Example block: straight lines in the plane, great circles on the sphere, swingball, the weak-field Newtonian limit, polar-coordinate mechanics, and the Shapiro delay. The sphere is the recurring model space, and inertial forces from everyday rotating frames are the bridge to the claim that gravity is a connection effect. Several subtle points (conjugate points, the second variation, affine parameters, the weak-field spatial metric) are deliberately flagged and deferred to Chapters 9, 14, 45 and 50.",
+    "style_tags": [
+      "example-driven",
+      "physical-motivation-first",
+      "derivation-heavy",
+      "conversational-informal",
+      "spiral-revisit",
+      "diagram-driven",
+      "computational-recipe"
+    ],
+    "narrative_arc": [
+      "Claim up front: geodesics are straightest paths and extremize the interval; freely falling particles follow them (margin justification from the action S = -m integral dtau).",
+      "Anchor in flat spacetime: zero acceleration gives straight world lines x^mu = b^mu tau + c^mu.",
+      "Question the word 'extremal': Hamilton's principle only needs a stationary action, and minima, saddles and maxima all occur.",
+      "Sphere model: two geodesics on one great circle between q1 and q2; the one passing the antipode is a saddle, diagnosed by launching a swarm of particles and watching it refocus at the conjugate point.",
+      "Signature decides the character: Riemannian lengths have a floor (minimum), Lorentzian proper times have no floor, shown by approximating any timelike curve by null zigzags, so timelike geodesics maximize proper time.",
+      "Formalism: write the interval as an action with L = |(ds/dlambda)^2|^(1/2) and apply Euler-Lagrange.",
+      "Detour on parametrization: prove the length is reparametrization invariant, then take derivatives first and only afterwards fix lambda = s so that L = 1, which is both a simplification and a constraint.",
+      "Check on the plane: second derivatives of x and y vanish, reproducing straight lines.",
+      "Model space: derive the two sphere equations, verify meridians and the equator as solutions and reject a latitude circle.",
+      "Geometric reformulation: free fall means zero covariant acceleration, a geodesic parallel transports its own tangent, and expanding nabla_u u = 0 gives the component geodesic equation.",
+      "Consequences: u.u is conserved so causal type is fixed; affine parameters defined as those that keep the equation in this form; photons have no proper time.",
+      "Momentum version nabla_p p = 0 via local inertial frame plus general covariance.",
+      "Reinterpretation: the connection term acts like an inertial force; swingball two-frame free-body diagram as the familiar case; equivalence principle turns gravity into such a force.",
+      "Check against Newton: weak-field metric gives Gamma^i_tt = partial_i Phi, the Newtonian gravitational acceleration.",
+      "Add real forces: geodesic equation with a 4-force on the right; application to polar-coordinate mechanics showing centrifugal and Coriolis-like terms, and that circular motion needs a centripetal force.",
+      "Light: null geodesics with tangent light cones; shortcut ds^2 = 0 applied to the improved weak-field metric gives the coordinate speed of light.",
+      "Application: integrate the delay along a straight path past the Sun to get the logarithmic Shapiro delay, framed as the fourth classical test.",
+      "Summary equation m(xddot + Gamma xdot xdot) = f unifies geometry, inertial forces and external forces; exercises revisit polar straight lines and derive the geodesic equation from a freely falling frame."
+    ],
+    "signature_moves": [
+      "Diagnosing minimum versus saddle by a physical thought experiment (a spray of particles on a sphere refocusing at the antipode) instead of computing the second variation.",
+      "The null zigzag picture: a timelike curve is arbitrarily close to a chain of zero-length light-like segments, which instantly shows proper time has no positive minimum.",
+      "Two-stage use of the parametrization freedom: differentiate the Lagrangian with lambda unspecified, then set lambda = s so the square root disappears, with an explicit warning that this is not 'varying the number 1'.",
+      "Testing candidate curves on the sphere against the derived equations, including a deliberate non-solution (a latitude circle) so learners see the equation discriminating.",
+      "Deriving the component geodesic equation not from the action but from 'zero covariant acceleration', making the geodesic the curved-space analogue of xddot = 0.",
+      "Treating the connection term uniformly as an inertial force, then using a playground game (swingball/tetherball) and polar-coordinate Newtonian mechanics to make that reading concrete before applying it to gravity.",
+      "Reading connection coefficients off an equation of motion (Example 8.10) rather than computing them from the formula, previewing the Chapter 9 method.",
+      "Avoiding the full null geodesic equation for light: impose ds^2 = 0 directly and integrate, reaching a real observable (Shapiro delay) in a few lines.",
+      "Short proofs by the local-inertial-frame-plus-covariance argument (momentum conservation) and by metric compatibility (constancy of u.u)."
+    ]
+  },
+  "sections": [
+    {
+      "number": null,
+      "title": "Chapter opening: geodesics and the flat-spacetime baseline",
+      "printed_page": 91,
+      "pdf_page": 108,
+      "summary": "States the chapter's thesis that geodesics are the straightest paths of a curved spacetime, extremize the interval, and are the world lines of freely falling bodies, with the geodesic equation playing the role of a force-free equation of motion. A margin note justifies free fall along geodesics from the point-particle action proportional to proper time, stresses that only free particles do this, and introduces spacelike and null geodesics. Example 8.1 recovers straight world lines in Minkowski spacetime.",
+      "concepts": [
+        "geodesic",
+        "geodesic principle",
+        "action for a free relativistic particle",
+        "spacelike geodesic",
+        "affine parameter"
+      ],
+      "key_moves": [
+        "Assert the geometric (straightest path) and variational (extremal interval) characterizations of a geodesic together.",
+        "Justify geodesic motion from S = -m integral (-ds^2)^(1/2): since m is a constant, extremizing S extremizes proper time.",
+        "Warn that interactions add terms to the Lagrangian, so charged or pushed particles do not follow geodesics.",
+        "In flat spacetime set d^2x^mu/dtau^2 = 0 and integrate to straight lines x^mu = b^mu tau + c^mu."
+      ]
+    },
+    {
+      "number": "8.1",
+      "title": "Extremal intervals",
+      "printed_page": 91,
+      "pdf_page": 108,
+      "summary": "Points out that Hamilton's principle only requires a stationary action, and uses non-relativistic motion on a sphere to show that of two great-circle routes between points the one through the antipode is a saddle, detected by the refocusing of a swarm of nearby trajectories at a conjugate point (with a pointer to the singularity theorems). Then compares metrics: in a positive-definite metric path length is bounded below, so geodesics are locally shortest; in a Lorentzian metric proper time along timelike curves can be made arbitrarily small by null zigzags, so a timelike geodesic, if extremal, maximizes proper time.",
+      "concepts": [
+        "stationary action",
+        "conjugate point",
+        "Riemannian metric",
+        "Lorentzian metric",
+        "maximal proper time of timelike geodesics",
+        "null zigzag approximation of a timelike curve"
+      ],
+      "key_moves": [
+        "Distinguish stationary from minimal action and say saddles and maxima matter in relativity.",
+        "Sphere example: short arc (i) is a minimum of the action; long arc (ii) through the antipode is a saddle.",
+        "Launch a fan of particles with slightly different momenta; linear response delta q^i = N_ij delta p^j; on the sphere all refocus at the antipode q1*, the conjugate point.",
+        "Rule from the margin: a geodesic that passes a conjugate point is not a minimum.",
+        "Signature ++++: lengths bounded below, geodesic locally shortest (but a given geodesic need not be the shortest route).",
+        "Signature -+++: timelike curves approximated by chains of null segments have arbitrarily small proper time, so the extremum is a maximum."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Length parametrization and first geodesic calculations (plane and sphere, continuing §8.1)",
+      "printed_page": 93,
+      "pdf_page": 110,
+      "summary": "Writes the interval as an action with Lagrangian L = |(ds/dlambda)^2|^(1/2), applies it to the Euclidean plane, and pauses to show that the length is invariant under any reparametrization. The recipe is to take the partial derivatives of L with the parameter unspecified and only then choose lambda equal to arc length (proper time or proper length), which sets L = 1 and supplies a redundant but useful constraint. The plane then yields vanishing second derivatives (straight lines), and the unit sphere yields a theta equation with a sin theta cos theta phidot^2 term and a conserved sin^2 theta phidot, solved by meridians and the equator but not by a latitude circle at theta = pi/4.",
+      "concepts": [
+        "Euler-Lagrange equations for the length functional",
+        "reparametrization invariance of the length functional",
+        "length parametrization",
+        "straight lines as geodesics of flat space",
+        "great circles as geodesics of the sphere"
+      ],
+      "key_moves": [
+        "Identify L(x, xdot) = |(ds/dlambda)^2|^(1/2) so that s = integral L d lambda.",
+        "Chain-rule proof that s has the same form in any parameter eta (margin eqns 8.7-8.8).",
+        "Differentiate L first (partial L / partial xdot = xdot / L), then choose d lambda = ds so L = 1; the parameter then physically measures proper time or proper length.",
+        "Plane: d^2x/dlambda^2 = d^2y/dlambda^2 = 0; verify with x = lambda, y = m lambda + c.",
+        "Sphere: derive (8.19) and (8.20); the latter expands to (8.18) with a 2 cot theta thetadot phidot term.",
+        "Test trial curves: theta = lambda, phi = 0 works; theta = pi/2, phi = lambda works; theta = pi/4, phi = lambda fails because sin theta cos theta is not zero there."
+      ]
+    },
+    {
+      "number": "8.2",
+      "title": "A geodesic equation",
+      "printed_page": 95,
+      "pdf_page": 112,
+      "summary": "Defines the covariant acceleration a = Du/dtau = nabla_u u and argues that a freely falling particle, feeling no force, has a = 0, so a geodesic is a curve that parallel transports its own tangent vector, a definition that works for any causal type and any affine parameter. Expanding with connection coefficients gives the component geodesic equation. Margin notes define affine parameters as those related to proper time linearly and preserving this form, and note photons have no proper time. Example 8.7 shows u.u is conserved along a geodesic, and Example 8.8 establishes nabla_p p = 0 by a local-inertial-frame argument.",
+      "concepts": [
+        "covariant acceleration",
+        "geodesic as autoparallel curve",
+        "geodesic equation",
+        "affine parameter",
+        "conservation of u.u along a geodesic",
+        "geometric momentum conservation",
+        "local inertial frame",
+        "principle of general covariance"
+      ],
+      "key_moves": [
+        "Free fall means no force, hence zero covariant acceleration Du/dtau = 0.",
+        "Recognize nabla_u u = 0 as parallel transport of the tangent along itself.",
+        "Components: u^alpha(partial_alpha u^mu + Gamma^mu_{alpha beta} u^beta) = 0.",
+        "Use u^alpha partial_alpha u^mu = du^mu/dlambda = d^2x^mu/dlambda^2 to reach (8.24).",
+        "Affine parameters: lambda = a tau + b; null curves use an affine parameter sigma with g_{mu nu} x'^mu x'^nu = 0.",
+        "Leibniz rule: nabla_u(u.u) = 2 u.nabla_u u = 0, so timelike stays timelike, null stays null.",
+        "In a LIF Gamma = 0 so dp/dtau = 0 reads nabla_p p = 0, a tensor equation that therefore holds everywhere."
+      ]
+    },
+    {
+      "number": "8.3",
+      "title": "Inertial forces",
+      "printed_page": 96,
+      "pdf_page": 113,
+      "summary": "Reads the connection term of the geodesic equation as an inertial force, which can arise from genuine curvature or merely from the coordinates. The swingball (tetherball) example shows how a centripetal tension in the players' frame becomes a balance against a centrifugal force in the ball's frame. Via the equivalence principle gravity is itself such an inertial force; the weak-field metric gives Gamma^i_tt = partial_i Phi, reproducing Newtonian gravity. An external 4-force is added on the right-hand side, and the result is applied to Newtonian motion in plane polar coordinates, where the connection yields centrifugal and Coriolis-like terms.",
+      "concepts": [
+        "inertial force",
+        "centrifugal force",
+        "equivalence principle",
+        "Newtonian limit of the geodesic equation",
+        "geodesic equation with an external 4-force",
+        "connection coefficients in plane polar coordinates"
+      ],
+      "key_moves": [
+        "f_inertial^mu = -m Gamma^mu_{alpha beta} xdot^alpha xdot^beta.",
+        "Non-zero Gamma can come from curvature or from coordinates alone.",
+        "Swingball: T cos theta = mg, T sin theta = mv^2/r in the lab; in the ball's frame an outward force F balances T sin theta.",
+        "Equivalence principle: gravitational acceleration of one particle is indistinguishable from a coordinate effect.",
+        "Weak field: compare the equation of motion with the geodesic equation and read off Gamma^i_tt = partial_i Phi = GM x^i / r^3.",
+        "Add f^mu: m(xddot^mu + Gamma xdot xdot) = f^mu.",
+        "Polar coordinates: f^r/m = rddot - r thetadot^2 and f^theta/m = thetaddot + 2 rdot thetadot / r; uniform circular motion needs an inward f^r."
+      ]
+    },
+    {
+      "number": "8.4",
+      "title": "Geodesics for photons",
+      "printed_page": 98,
+      "pdf_page": 115,
+      "summary": "Light follows null geodesics, with the light cone tangent to the world line at every point. Rather than solve the null geodesic equation, the authors impose ds^2 = 0 on the weak-field metric that includes the spatial factor (1 - 2 Phi), obtain the coordinate speed of light, and integrate along a straight path grazing the Sun to derive the Shapiro time delay, logarithmic in the impact parameter. A margin note places Shapiro's proposal as the fourth solar-system test after perihelion precession, light bending and gravitational redshift.",
+      "concepts": [
+        "null geodesic",
+        "null condition method for light rays",
+        "weak-field metric with spatial curvature term",
+        "coordinate speed of light",
+        "Shapiro time delay",
+        "classical solar-system tests of general relativity"
+      ],
+      "key_moves": [
+        "Photons are massless and free, so they follow null geodesics; free massive particles follow timelike ones.",
+        "Use ds^2 = 0 directly instead of the geodesic equation.",
+        "Quote the improved weak-field metric (8.37) with both g_tt and g_ij perturbed (derivation deferred to §14.1 and Chapter 45).",
+        "Obtain dt/dx ≈ 1 + 2GM/r to first order in GM/r.",
+        "Integrate 2GM/sqrt(x^2 + b^2) using the arcsinh-type integral to get 2GM ln(2|x0|/b) for each leg.",
+        "Add the two legs to get Delta t = 2GM ln(4 d_p d_e / b^2)."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Chapter summary",
+      "printed_page": 99,
+      "pdf_page": 116,
+      "summary": "Recaps three points: geodesics are free-fall paths found by extremizing the interval with length parametrization easing the work, with massive particles on timelike geodesics; the equation of motion with connection and force terms ties acceleration to geometry and to applied forces, the connection part giving inertial forces; and light travels on null geodesics, handled most easily through ds^2 = 0.",
+      "concepts": [
+        "geodesic principle",
+        "geodesic equation with an external 4-force",
+        "inertial force",
+        "null geodesic"
+      ],
+      "key_moves": [
+        "State the master equation (8.42) and note f^mu = 0 recovers the geodesic equation."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "geodesic",
+      "aliases": [
+        "straightest possible path",
+        "extremal curve"
+      ],
+      "kind": "definition",
+      "definition": "A curve in a space or spacetime that is as straight as the geometry allows: equivalently, an affinely parametrized curve whose tangent is parallel transported along itself, and (locally) a curve that makes the interval between its endpoints stationary.",
+      "how_introduced": "Announced in the opening paragraph with both the straightness and the extremal-interval descriptions, then made computable first by the variational route (§8.1) and later by the parallel-transport route (§8.2).",
+      "depth": "core",
+      "prerequisites": [
+        "line element",
+        "parallel transport",
+        "stationary action"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        },
+        {
+          "pdf_page": 112,
+          "printed_page": 95,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\nabla_{\\mathbf u}\\mathbf u = 0",
+        "\\delta \\int \\sqrt{|g_{\\mu\\nu}\\dot x^\\mu \\dot x^\\nu|}\\,\\mathrm d\\lambda = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "geodesic principle",
+      "aliases": [
+        "free particles follow geodesics",
+        "free fall along geodesics"
+      ],
+      "kind": "principle",
+      "definition": "The physical postulate that a massive particle subject to no non-gravitational interaction moves on a timelike geodesic of spacetime, while light moves on a null geodesic.",
+      "how_introduced": "Stated as a physical fact in the opening and supported in a margin note: the free-particle action is minus mass times proper time, so its stationary paths are timelike geodesics. Named explicitly in a later margin note that contrasts massive particles with photons.",
+      "depth": "core",
+      "prerequisites": [
+        "geodesic",
+        "action for a free relativistic particle",
+        "equivalence principle"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        },
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.4"
+        },
+        {
+          "pdf_page": 116,
+          "printed_page": 99,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "The book stresses that only free particles obey it; extra interactions add Lagrangian terms and spoil geodesic motion. Strictly, margin note 13 attaches the name 'geodesic principle' to the massive-particle statement only; the null-geodesic rule for light is stated alongside it."
+    },
+    {
+      "name": "action for a free relativistic particle",
+      "aliases": [
+        "point-particle action",
+        "S = -m times proper time"
+      ],
+      "kind": "definition",
+      "definition": "For a free particle of mass m the action is S = -m times the integral of (-ds^2)^(1/2) along the world line, i.e. -m times the elapsed proper time (units with c = 1); stationary S means stationary proper time.",
+      "how_introduced": "Recalled from mechanics in the first margin note as the justification for the geodesic principle.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Hamilton's principle",
+        "proper time"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "S = -m\\int (-\\mathrm ds^2)^{1/2}",
+        "\\Delta\\tau = \\int(-\\mathrm ds^2)^{1/2}"
+      ],
+      "notes": "Chapter 9 §9.2 returns to deriving the geodesic equation from an action."
+    },
+    {
+      "name": "stationary action",
+      "aliases": [
+        "Hamilton's principle",
+        "extremal action (minimum, saddle or maximum)"
+      ],
+      "kind": "principle",
+      "definition": "The trajectory a system actually follows is one for which the first-order variation of the action vanishes; this can be a minimum, a saddle point or a maximum of the action, not necessarily a minimum.",
+      "how_introduced": "Opens §8.1 as a correction to the habit of saying 'least action', motivating why relativity needs maxima (proper time) and saddles (paths through conjugate points).",
+      "depth": "developed",
+      "prerequisites": [
+        "Lagrangian mechanics and the Euler-Lagrange equations (GA ch2)"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\delta S = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "conjugate point",
+      "aliases": [
+        "focal point",
+        "focus of a geodesic congruence"
+      ],
+      "kind": "definition",
+      "definition": "A point Q on a geodesic from P at which geodesics leaving P in infinitesimally different directions reconverge; there the map from initial momentum (direction) perturbations to final position perturbations is singular. A geodesic segment containing a point conjugate to its start is no longer a local minimum of length (for Riemannian metrics) or a local maximum of proper time (for timelike curves).",
+      "how_introduced": "Example 8.2: particles launched from q1 on a sphere with slightly different directions spread out and then all meet at the antipode q1*. A margin note gives the general criterion via the matrix N_ij in delta q^i = N_ij delta p^j and flags its use in singularity theorems.",
+      "depth": "introduced",
+      "prerequisites": [
+        "geodesic",
+        "stationary action",
+        "great circles as geodesics of the sphere"
+      ],
+      "locators": [
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\delta q^i = N_{ij}\\,\\delta p^j"
+      ],
+      "notes": "The margin note says N^{-1} is singular; strictly N becomes singular (has a zero eigenvalue) and N^{-1} fails to exist. Developed properly in Chapter 50."
+    },
+    {
+      "name": "Riemannian metric",
+      "aliases": [
+        "positive-definite metric",
+        "signature ++++ metric"
+      ],
+      "kind": "definition",
+      "definition": "A metric for which every non-zero displacement has positive squared length; lengths of curves between two points are then bounded below, so geodesics are locally length-minimizing.",
+      "how_introduced": "Example 8.3 contrasts it with the Lorentzian case to show the signature determines whether geodesics minimize or maximize.",
+      "depth": "introduced",
+      "prerequisites": [
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\mathrm ds^2 = g_{\\mu\\nu}\\mathrm dx^\\mu \\mathrm dx^\\nu > 0"
+      ],
+      "notes": "The reading copy garbles the signatures in Example 8.3; the printed page shows ++++ for Riemannian and -+++ for Lorentzian."
+    },
+    {
+      "name": "Lorentzian metric",
+      "aliases": [
+        "signature -+++ metric",
+        "Lorentz metric"
+      ],
+      "kind": "definition",
+      "definition": "A metric with one negative and three positive eigenvalues (signature -+++ in this book), so intervals are negative for timelike, zero for null and positive for spacelike separations.",
+      "how_introduced": "Example 8.3, as the counterpart of the Riemannian case, leading to the maximum-proper-time property.",
+      "depth": "revisited",
+      "prerequisites": [
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "maximal proper time of timelike geodesics",
+      "aliases": [
+        "twin-paradox property of geodesics",
+        "timelike geodesics maximize proper time"
+      ],
+      "kind": "theorem",
+      "definition": "Among timelike curves joining two timelike-separated events (and close to the geodesic, absent conjugate points), the timelike geodesic has the greatest proper time; there is no lower bound, since timelike curves can have proper time arbitrarily close to zero.",
+      "how_introduced": "Example 8.3: stated as the 'wrong way round' result caused by the minus sign in the metric, and supported by the null zigzag construction of Fig. 8.2.",
+      "depth": "developed",
+      "prerequisites": [
+        "Lorentzian metric",
+        "null zigzag approximation of a timelike curve",
+        "proper time"
+      ],
+      "locators": [
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 110,
+          "printed_page": 93,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\Delta\\tau = \\int \\mathrm d\\tau = \\int(-\\mathrm ds^2)^{1/2}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "null zigzag approximation of a timelike curve",
+      "aliases": [
+        "sawtooth of light-like segments",
+        "piecewise null approximation"
+      ],
+      "kind": "technique",
+      "definition": "Any smooth timelike curve can be approximated arbitrarily well, as a set of points, by a chain of null segments; each segment has zero interval, so the total proper time of such nearby paths tends to zero, showing proper time is not bounded below.",
+      "how_introduced": "Fig. 8.2 and the end of Example 8.3, used as a graphical sanity check that timelike geodesics cannot be minima.",
+      "depth": "introduced",
+      "prerequisites": [
+        "null interval",
+        "proper time"
+      ],
+      "locators": [
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 110,
+          "printed_page": 93,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\mathrm ds = 0 \\text{ on each null segment}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Euler-Lagrange equations for the length functional",
+      "aliases": [
+        "EL equations for geodesics",
+        "variational geodesic equations"
+      ],
+      "kind": "technique",
+      "definition": "Treat L(x, xdot) = |g_{mu nu} xdot^mu xdot^nu|^(1/2), with dot = d/dlambda, as a Lagrangian and impose d/dlambda (partial L / partial xdot^mu) = partial L / partial x^mu for each coordinate; the solutions are the geodesics.",
+      "how_introduced": "Eqn 8.3 splits the interval into small pieces to read off L, and the Chapter 2 Euler-Lagrange machinery is applied first to the plane (Example 8.4) and then to the sphere (Example 8.6).",
+      "depth": "core",
+      "prerequisites": [
+        "stationary action",
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 110,
+          "printed_page": 93,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 111,
+          "printed_page": 94,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "s = \\int \\mathrm d\\lambda\\, L(x^\\mu,\\dot x^\\mu),\\quad L = \\left|\\left(\\tfrac{\\mathrm ds}{\\mathrm d\\lambda}\\right)^2\\right|^{1/2}",
+        "\\frac{\\mathrm d}{\\mathrm d\\lambda}\\frac{\\partial L}{\\partial \\dot x^\\mu} = \\frac{\\partial L}{\\partial x^\\mu}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "reparametrization invariance of the length functional",
+      "aliases": [
+        "parameter independence of the interval"
+      ],
+      "kind": "identity",
+      "definition": "The integral of |ds/dlambda| d lambda has the same form and value in any monotonic parameter eta = eta(lambda), because the factor d lambda/d eta from the measure cancels the factor d eta/d lambda from each velocity inside the square root.",
+      "how_introduced": "Margin note 3 on p.93 carries out the chain rule explicitly for the 2D Cartesian length after the text observes that lambda -> a lambda + b changes nothing.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Euler-Lagrange equations for the length functional"
+      ],
+      "locators": [
+        {
+          "pdf_page": 110,
+          "printed_page": 93,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm dx}{\\mathrm d\\lambda} = \\frac{\\mathrm dx}{\\mathrm d\\eta}\\frac{\\mathrm d\\eta}{\\mathrm d\\lambda},\\quad \\mathrm d\\lambda = \\frac{\\mathrm d\\lambda}{\\mathrm d\\eta}\\mathrm d\\eta"
+      ],
+      "notes": "This invariance is why the square-root Lagrangian leaves the parameter undetermined and a gauge choice (length parametrization) is needed."
+    },
+    {
+      "name": "length parametrization",
+      "aliases": [
+        "arc-length parametrization",
+        "proper-time parametrization",
+        "affine parametrization by the interval"
+      ],
+      "kind": "technique",
+      "definition": "Choosing the curve parameter equal to the accumulated interval, d lambda = ds (proper time for timelike curves, proper length for spacelike ones), so that the Lagrangian L equals 1 along the solution; this is done only after the derivatives of L have been taken, and L = 1 then serves as an additional first integral.",
+      "how_introduced": "Introduced as the labour-saving choice exploiting the freedom just demonstrated; the text insists it is also needed to interpret the parameter physically and warns that setting L = 1 before varying would be wrong.",
+      "depth": "core",
+      "prerequisites": [
+        "reparametrization invariance of the length functional",
+        "Euler-Lagrange equations for the length functional",
+        "proper time"
+      ],
+      "locators": [
+        {
+          "pdf_page": 110,
+          "printed_page": 93,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 111,
+          "printed_page": 94,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\mathrm d\\lambda = \\mathrm ds \\;\\Rightarrow\\; L = 1"
+      ],
+      "notes": "Not available for null curves (ds = 0); there one uses an affine parameter directly (margin note 8)."
+    },
+    {
+      "name": "straight lines as geodesics of flat space",
+      "aliases": [
+        "geodesics of the Euclidean plane",
+        "polar-coordinate straight line"
+      ],
+      "kind": "solution-or-model",
+      "definition": "In flat space, geodesics are straight lines: in Cartesian coordinates every coordinate is linear in the arc-length parameter, and in plane polar coordinates the same line appears as r = a / cos(theta - theta0), with a the perpendicular distance from the origin.",
+      "how_introduced": "Example 8.1 (Minkowski world lines), Examples 8.4-8.5 (Euclidean plane) as the 'we know the answer' check, and Exercises 8.1-8.2 for polar coordinates with Fig. 8.7.",
+      "depth": "developed",
+      "prerequisites": [
+        "Euler-Lagrange equations for the length functional",
+        "length parametrization"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        },
+        {
+          "pdf_page": 110,
+          "printed_page": 93,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 111,
+          "printed_page": 94,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 117,
+          "printed_page": 100,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "x^\\mu(\\tau) = b^\\mu\\tau + c^\\mu",
+        "\\frac{\\mathrm d^2x}{\\mathrm d\\lambda^2} = \\frac{\\mathrm d^2y}{\\mathrm d\\lambda^2} = 0",
+        "r = \\frac{a}{\\cos(\\theta-\\theta_0)}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "great circles as geodesics of the sphere",
+      "aliases": [
+        "geodesics on the 2-sphere",
+        "sphere geodesic equations"
+      ],
+      "kind": "solution-or-model",
+      "definition": "On a sphere of unit radius with metric d theta^2 + sin^2 theta d phi^2, the geodesic equations are thetaddot = sin theta cos theta phidot^2 and d/dlambda(sin^2 theta phidot) = 0; their solutions are arcs of great circles such as meridians and the equator, while circles of latitude other than the equator are not geodesics.",
+      "how_introduced": "Example 8.6 derives the equations with length parametrization; a margin note tests explicit trial curves; Fig. 8.3 shows meridian A and equator B as solutions and latitude circle C as a non-solution. The sphere also serves as the model space for conjugate points in Example 8.2.",
+      "depth": "core",
+      "prerequisites": [
+        "Euler-Lagrange equations for the length functional",
+        "length parametrization"
+      ],
+      "locators": [
+        {
+          "pdf_page": 111,
+          "printed_page": 94,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 112,
+          "printed_page": 95,
+          "section": "8.1"
+        },
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\ddot\\theta - \\sin\\theta\\cos\\theta\\,\\dot\\phi^2 = 0",
+        "\\frac{\\mathrm d}{\\mathrm d\\lambda}(\\sin^2\\theta\\,\\dot\\phi) = 0"
+      ],
+      "notes": "The conserved sin^2 theta phidot is the angular momentum about the polar axis, a point the book does not make here."
+    },
+    {
+      "name": "covariant acceleration",
+      "aliases": [
+        "4-acceleration",
+        "a = Du/dtau"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The rate of change of the 4-velocity along the world line measured with the covariant derivative, a = Du/dtau = nabla_u u; it is the acceleration an attached accelerometer would register, and it vanishes for free fall.",
+      "how_introduced": "Opening line of §8.2: defined and immediately set to zero for a particle that feels no force.",
+      "depth": "developed",
+      "prerequisites": [
+        "covariant derivative along a curve",
+        "4-velocity"
+      ],
+      "locators": [
+        {
+          "pdf_page": 112,
+          "printed_page": 95,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\mathbf a = \\frac{\\mathrm D\\mathbf u}{\\mathrm d\\tau} = \\nabla_{\\mathbf u}\\mathbf u"
+      ],
+      "notes": null
+    },
+    {
+      "name": "geodesic as autoparallel curve",
+      "aliases": [
+        "self-parallel curve",
+        "curve that parallel transports its own tangent"
+      ],
+      "kind": "definition",
+      "definition": "Geometric definition of a geodesic: a curve whose tangent vector u satisfies nabla_u u = 0, i.e. the tangent is parallel transported along the curve; it applies to timelike, null and spacelike curves with any affine parameter.",
+      "how_introduced": "Reached in §8.2 by combining 'free fall = zero covariant acceleration' with the Chapter 7 definition of parallel transport (nabla_u v = 0).",
+      "depth": "core",
+      "prerequisites": [
+        "parallel transport",
+        "covariant acceleration"
+      ],
+      "locators": [
+        {
+          "pdf_page": 112,
+          "printed_page": 95,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm D\\mathbf u}{\\mathrm d\\lambda} = \\nabla_{\\mathbf u}\\mathbf u = 0"
+      ],
+      "notes": "Equivalence of this definition with the extremal-interval definition assumes the Levi-Civita (metric-compatible, symmetric) connection; Chapter 9 closes that loop."
+    },
+    {
+      "name": "geodesic equation",
+      "aliases": [
+        "equation of geodesic motion",
+        "free-fall equation of motion"
+      ],
+      "kind": "law",
+      "definition": "The second-order ODE d^2x^mu/dlambda^2 + Gamma^mu_{alpha beta} (dx^alpha/dlambda)(dx^beta/dlambda) = 0 satisfied by the coordinates of an affinely parametrized geodesic; with lambda = tau it is the equation of motion of a force-free massive particle.",
+      "how_introduced": "Derived by writing nabla_u u = 0 in components with the Chapter 7 expression for the covariant derivative and replacing u^alpha partial_alpha u^mu by the ordinary derivative along the path.",
+      "depth": "core",
+      "prerequisites": [
+        "geodesic as autoparallel curve",
+        "connection coefficients",
+        "affine parameter"
+      ],
+      "locators": [
+        {
+          "pdf_page": 112,
+          "printed_page": 95,
+          "section": "8.2"
+        },
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        },
+        {
+          "pdf_page": 116,
+          "printed_page": 99,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm d^2x^\\mu}{\\mathrm d\\lambda^2} + \\Gamma^\\mu_{\\alpha\\beta}\\frac{\\mathrm dx^\\alpha}{\\mathrm d\\lambda}\\frac{\\mathrm dx^\\beta}{\\mathrm d\\lambda} = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "affine parameter",
+      "aliases": [
+        "affine parametrization"
+      ],
+      "kind": "definition",
+      "definition": "A parameter along a geodesic in terms of which the geodesic equation takes its standard form with zero right-hand side; any two are related by lambda -> a lambda + b with constants a, b, and for timelike curves proper time is one of them.",
+      "how_introduced": "Used from Example 8.1 onwards; margin note 8 gives the linear relation to tau and the characterization by the form of the geodesic equation, and notes that null curves need one because they have no proper time.",
+      "depth": "developed",
+      "prerequisites": [
+        "proper time",
+        "geodesic equation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        },
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\lambda = a\\tau + b"
+      ],
+      "notes": "Characterizing affine parameters by the form of the equation is circular unless one shows what a non-affine parameter adds (a term proportional to the tangent); the book does not show it."
+    },
+    {
+      "name": "conservation of u.u along a geodesic",
+      "aliases": [
+        "causal character of a geodesic is preserved",
+        "constancy of the tangent norm"
+      ],
+      "kind": "theorem",
+      "definition": "Along an affinely parametrized geodesic the squared norm u.u of the tangent is constant, because its derivative is 2u.nabla_u u = 0; hence a geodesic that starts timelike (u.u = -1), null (0) or spacelike (+1 with proper-length parameter) stays so.",
+      "how_introduced": "Example 8.7, a one-line application of the Leibniz rule to the geometric geodesic equation.",
+      "depth": "introduced",
+      "prerequisites": [
+        "geodesic as autoparallel curve",
+        "metric compatibility of the connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\nabla_{\\mathbf u}(\\mathbf u\\cdot\\mathbf u) = 2\\,\\mathbf u\\cdot(\\nabla_{\\mathbf u}\\mathbf u) = 0"
+      ],
+      "notes": "Silently uses nabla g = 0 so the covariant derivative obeys the product rule through the dot product."
+    },
+    {
+      "name": "metric compatibility of the connection",
+      "aliases": [
+        "nabla g = 0"
+      ],
+      "kind": "identity",
+      "definition": "The property that the covariant derivative of the metric vanishes, so parallel transport preserves dot products and the Leibniz rule holds for u.v.",
+      "how_introduced": "Not named in this chapter; it is relied on implicitly in Example 8.7. It comes from Chapter 7 §7.5 ('Enter the metric').",
+      "depth": "mention",
+      "prerequisites": [
+        "covariant derivative along a curve"
+      ],
+      "locators": [
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\nabla_{\\mathbf w}(\\mathbf u\\cdot\\mathbf v) = (\\nabla_{\\mathbf w}\\mathbf u)\\cdot\\mathbf v + \\mathbf u\\cdot\\nabla_{\\mathbf w}\\mathbf v"
+      ],
+      "notes": null
+    },
+    {
+      "name": "geometric momentum conservation",
+      "aliases": [
+        "nabla_p p = 0",
+        "covariant momentum conservation"
+      ],
+      "kind": "law",
+      "definition": "For a free particle the 4-momentum is parallel transported along itself, nabla_p p = 0; for massive particles this is m times the geodesic equation, and for photons, whose momentum is tangent to the null world line, it is the null geodesic equation.",
+      "how_introduced": "Motivated from nabla_u u = 0 and proved in Example 8.8: in a local inertial frame the connection vanishes so the flat-space law dp/dtau = 0 is nabla_p p = 0, and as a tensor equation it holds in every frame.",
+      "depth": "introduced",
+      "prerequisites": [
+        "geodesic as autoparallel curve",
+        "local inertial frame",
+        "principle of general covariance",
+        "4-momentum"
+      ],
+      "locators": [
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\nabla_{\\mathbf p}\\mathbf p = 0",
+        "(\\nabla_{\\mathbf p}\\mathbf p)^\\beta = m\\left(\\frac{\\mathrm dp^\\beta}{\\mathrm d\\tau} + u^\\alpha p^\\sigma\\Gamma^\\beta_{\\alpha\\sigma}\\right)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "local inertial frame",
+      "aliases": [
+        "LIF",
+        "locally flat coordinates"
+      ],
+      "kind": "definition",
+      "definition": "Coordinates about a point in which the metric takes the Minkowski form and all connection coefficients vanish at that point, so special-relativistic laws hold there.",
+      "how_introduced": "Invoked in Example 8.8 as the frame in which momentum conservation takes its flat-space form.",
+      "depth": "revisited",
+      "prerequisites": [
+        "equivalence principle"
+      ],
+      "locators": [
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\Gamma^\\mu_{\\alpha\\beta}(\\mathcal P) = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "principle of general covariance",
+      "aliases": [
+        "general covariance argument"
+      ],
+      "kind": "principle",
+      "definition": "A physical law written as a tensor equation that holds in one coordinate system (for instance a local inertial frame) holds in all coordinate systems.",
+      "how_introduced": "Used in Example 8.8 to lift dp/dtau = 0 from a LIF to nabla_p p = 0 everywhere.",
+      "depth": "revisited",
+      "prerequisites": [
+        "local inertial frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "inertial force",
+      "aliases": [
+        "fictitious force",
+        "pseudo-force",
+        "connection force"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The apparent force m xddot^mu = -m Gamma^mu_{alpha beta} xdot^alpha xdot^beta that a coordinate description attributes to a free particle because the connection coefficients are non-zero; it arises from curvilinear or accelerating coordinates, from genuine curvature, or both.",
+      "how_introduced": "Opening of §8.3: moving the connection term of the geodesic equation to the other side and calling it a force; illustrated by the rotating Earth and swingball, and by the centrifugal and Coriolis-like terms in polar coordinates.",
+      "depth": "core",
+      "prerequisites": [
+        "geodesic equation",
+        "connection coefficients"
+      ],
+      "locators": [
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.3"
+        },
+        {
+          "pdf_page": 114,
+          "printed_page": 97,
+          "section": "8.3"
+        },
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.3"
+        }
+      ],
+      "formulas": [
+        "f^\\mu_{\\text{inertial}} = m\\ddot x^\\mu = -m\\Gamma^\\mu_{\\alpha\\beta}\\dot x^\\alpha \\dot x^\\beta"
+      ],
+      "notes": null
+    },
+    {
+      "name": "centrifugal force",
+      "aliases": [
+        "outward inertial force in a rotating frame"
+      ],
+      "kind": "phenomenon",
+      "definition": "The outward inertial force of magnitude mv^2/r that appears in a frame co-rotating with a body in circular motion, balancing the inward real force in that frame.",
+      "how_introduced": "Example 8.9 with swingball: horizontal tension provides the centripetal force in the players' frame; in the ball's frame the same tension is balanced by an outward F.",
+      "depth": "introduced",
+      "prerequisites": [
+        "inertial force"
+      ],
+      "locators": [
+        {
+          "pdf_page": 114,
+          "printed_page": 97,
+          "section": "8.3"
+        }
+      ],
+      "formulas": [
+        "T\\cos\\theta = mg,\\quad T\\sin\\theta = \\frac{mv^2}{r}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "equivalence principle",
+      "aliases": [
+        "gravity as an inertial force",
+        "principle of equivalence"
+      ],
+      "kind": "principle",
+      "definition": "For a single particle, the effects of a gravitational field cannot be distinguished locally from those of an accelerated or curvilinear choice of coordinates; hence gravitational acceleration can be encoded in connection coefficients.",
+      "how_introduced": "Recalled at the end of Example 8.9 to conclude that gravity enters the geodesic equation as an inertial force.",
+      "depth": "revisited",
+      "prerequisites": [
+        "inertial force",
+        "local inertial frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 114,
+          "printed_page": 97,
+          "section": "8.3"
+        }
+      ],
+      "formulas": [
+        "\\ddot x^\\mu = -\\Gamma^\\mu_{\\alpha\\lambda}\\dot x^\\alpha \\dot x^\\lambda"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Newtonian limit of the geodesic equation",
+      "aliases": [
+        "weak-field connection",
+        "Gamma^i_tt = grad Phi"
+      ],
+      "kind": "solution-or-model",
+      "definition": "For the static weak-field metric ds^2 = -(1 + 2 Phi) dt^2 + dx^2 + dy^2 + dz^2 and slow motion (tau ≈ t), the spatial geodesic equations reduce to xddot^i = -partial_i Phi because Gamma^i_tt = partial_i Phi; for Phi = -GM/r this is Newton's inverse-square attraction.",
+      "how_introduced": "Example 8.10: the equation of motion is quoted (method deferred to Chapter 9) and the connection coefficients are read off by comparison with the geodesic equation.",
+      "depth": "developed",
+      "prerequisites": [
+        "geodesic equation",
+        "equivalence principle",
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 114,
+          "printed_page": 97,
+          "section": "8.3"
+        }
+      ],
+      "formulas": [
+        "\\mathrm ds^2 = -[1+2\\Phi]\\mathrm dt^2 + \\mathrm dx^2+\\mathrm dy^2+\\mathrm dz^2",
+        "\\Gamma^i_{tt} = \\frac{\\partial\\Phi}{\\partial x^i} = GM\\frac{x^i}{r^3}"
+      ],
+      "notes": "The book calls these the only non-zero coefficients; Gamma^t_{ti} = partial_i Phi/(1 + 2 Phi) is also non-zero but does not enter the spatial equations."
+    },
+    {
+      "name": "geodesic equation with an external 4-force",
+      "aliases": [
+        "forced geodesic equation",
+        "relativistic Newton's second law in curved spacetime"
+      ],
+      "kind": "law",
+      "definition": "When a 4-force f acts, m(d^2x^mu/dtau^2 + Gamma^mu_{alpha beta} dx^alpha/dtau dx^beta/dtau) = f^mu; the left side is m times the covariant acceleration, and f^mu = 0 recovers the geodesic equation. Consistency with u.u = -1 requires f.u = 0.",
+      "how_introduced": "Stated after Example 8.10 by putting the applied force on the right-hand side, used for polar-coordinate mechanics in Example 8.11, boxed as the chapter summary equation, and the orthogonality f.u = 0 is left to Exercise 8.4.",
+      "depth": "core",
+      "prerequisites": [
+        "geodesic equation",
+        "covariant acceleration",
+        "inertial force"
+      ],
+      "locators": [
+        {
+          "pdf_page": 114,
+          "printed_page": 97,
+          "section": "8.3"
+        },
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.3"
+        },
+        {
+          "pdf_page": 116,
+          "printed_page": 99,
+          "section": null
+        },
+        {
+          "pdf_page": 117,
+          "printed_page": 100,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "m\\left(\\frac{\\mathrm d^2x^\\mu}{\\mathrm d\\tau^2} + \\Gamma^\\mu_{\\alpha\\beta}\\frac{\\mathrm dx^\\alpha}{\\mathrm d\\tau}\\frac{\\mathrm dx^\\beta}{\\mathrm d\\tau}\\right) = f^\\mu",
+        "\\mathbf f\\cdot\\mathbf u = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "connection coefficients in plane polar coordinates",
+      "aliases": [
+        "cylindrical-coordinate Christoffel symbols"
+      ],
+      "kind": "mathematical-object",
+      "definition": "In flat 2D polar coordinates (r, theta) the only non-zero connection coefficients are Gamma^r_{theta theta} = -r and Gamma^theta_{r theta} = Gamma^theta_{theta r} = 1/r; in the geodesic equation they produce the centrifugal term -r thetadot^2 and the Coriolis-like term 2 rdot thetadot / r.",
+      "how_introduced": "Recalled from Chapter 7 in a margin note and used in Example 8.11 to show that uniform circular motion needs an inward force, and in Exercise 8.1 to find straight lines in polar form.",
+      "depth": "developed",
+      "prerequisites": [
+        "connection coefficients",
+        "geodesic equation with an external 4-force"
+      ],
+      "locators": [
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.3"
+        },
+        {
+          "pdf_page": 117,
+          "printed_page": 100,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\Gamma^\\theta_{r\\theta} = \\frac1r,\\quad \\Gamma^r_{\\theta\\theta} = -r",
+        "\\frac{f^r}{m} = \\ddot r - r\\dot\\theta^2,\\quad \\frac{f^\\theta}{m} = \\ddot\\theta + \\frac{2\\dot r\\dot\\theta}{r}"
+      ],
+      "notes": "The theta equation is a coordinate-basis component (units of angular acceleration); multiply by r for the physical tangential component."
+    },
+    {
+      "name": "connection coefficients",
+      "aliases": [
+        "Christoffel symbols",
+        "Gamma^mu_{alpha beta}"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The coefficients that tell how coordinate basis vectors change from point to point, entering the covariant derivative as (nabla_u v)^mu = u^alpha(partial_alpha v^mu + Gamma^mu_{alpha beta} v^beta).",
+      "how_introduced": "Taken from Chapter 7; this chapter uses them and reads them off equations of motion, while computing them from the metric is deferred to Chapter 9.",
+      "depth": "revisited",
+      "prerequisites": [
+        "covariant derivative along a curve"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        },
+        {
+          "pdf_page": 112,
+          "printed_page": 95,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "(\\nabla_{\\mathbf u}\\mathbf u)^\\mu = u^\\alpha\\left(\\frac{\\partial u^\\mu}{\\partial x^\\alpha} + u^\\beta\\Gamma^\\mu_{\\alpha\\beta}\\right)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "null geodesic",
+      "aliases": [
+        "light-like geodesic",
+        "photon world line"
+      ],
+      "kind": "definition",
+      "definition": "A geodesic whose tangent has zero norm; light rays and other massless free particles move on them. It has no proper time, is parametrized by an affine parameter sigma with g_{mu nu} dx^mu/dsigma dx^nu/dsigma = 0, and at every point it runs along the surface of the local light cone.",
+      "how_introduced": "Mentioned in margin notes 1 and 8, then made the topic of §8.4 with Fig. 8.5 showing light cones tangent to a curved null world line.",
+      "depth": "core",
+      "prerequisites": [
+        "geodesic",
+        "light cone",
+        "affine parameter"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        },
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        },
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.4"
+        }
+      ],
+      "formulas": [
+        "g_{\\mu\\nu}\\frac{\\mathrm dx^\\mu}{\\mathrm d\\sigma}\\frac{\\mathrm dx^\\nu}{\\mathrm d\\sigma} = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "spacelike geodesic",
+      "aliases": [
+        "proper-length geodesic"
+      ],
+      "kind": "definition",
+      "definition": "A geodesic with spacelike tangent, found by making the proper length integral of (+ds^2)^(1/2) stationary; no physical particle travels along one (tachyons aside), but such curves are useful geometric tools.",
+      "how_introduced": "Margin note 1, as a counterpart to timelike geodesics; the plane and sphere examples are Riemannian analogues.",
+      "depth": "mention",
+      "prerequisites": [
+        "geodesic"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        },
+        {
+          "pdf_page": 113,
+          "printed_page": 96,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\Delta l = \\int(+\\mathrm ds^2)^{1/2}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "null condition method for light rays",
+      "aliases": [
+        "ds^2 = 0 shortcut"
+      ],
+      "kind": "technique",
+      "definition": "Instead of solving the null geodesic equation, impose ds^2 = 0 on the line element along an assumed path to obtain the coordinate velocity dx/dt of light and integrate; adequate when the path shape is known or a small bending can be ignored.",
+      "how_introduced": "Recommended at the start of §8.4 as the simple way to analyse light and demonstrated in Example 8.12.",
+      "depth": "developed",
+      "prerequisites": [
+        "null geodesic",
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.4"
+        },
+        {
+          "pdf_page": 116,
+          "printed_page": 99,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm ds^2 = 0"
+      ],
+      "notes": "It fixes the speed along the path but not the path itself; the straight-line assumption in the Shapiro calculation is justified only to first order in GM."
+    },
+    {
+      "name": "weak-field metric with spatial curvature term",
+      "aliases": [
+        "isotropic weak-field metric",
+        "linearized Schwarzschild metric"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The first-order metric outside a weak static source, ds^2 = -(1 + 2 Phi) dt^2 + (1 - 2 Phi)(dx^2 + dy^2 + dz^2) with Phi = -GM/r; the time part alone gives Newtonian motion of slow particles, but both parts contribute equally to the propagation of light.",
+      "how_introduced": "Quoted in Example 8.12 as the more accurate version of eqn 8.30, with derivation deferred to §14.1 and Chapter 45.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Newtonian limit of the geodesic equation",
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 114,
+          "printed_page": 97,
+          "section": "8.3"
+        },
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm ds^2 = -[1+2\\Phi]\\mathrm dt^2 + [1-2\\Phi](\\mathrm dx^2+\\mathrm dy^2+\\mathrm dz^2)"
+      ],
+      "notes": "Without the spatial factor the Shapiro delay would come out half as large; the book does not point this out."
+    },
+    {
+      "name": "coordinate speed of light",
+      "aliases": [
+        "dx/dt of light in a gravitational field"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The rate at which a light signal's coordinate position changes with coordinate time; in the weak field it is (1 + 2 Phi)^(1/2)(1 - 2 Phi)^(-1/2) ≈ 1 - 2GM/r, slower near a mass, even though every local observer measures c.",
+      "how_introduced": "Obtained in Example 8.12 from ds^2 = 0; the book links it back to the Chapter 5 light-cone discussion.",
+      "depth": "developed",
+      "prerequisites": [
+        "null condition method for light rays",
+        "weak-field metric with spatial curvature term"
+      ],
+      "locators": [
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.4"
+        },
+        {
+          "pdf_page": 116,
+          "printed_page": 99,
+          "section": "8.4"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm dt}{\\mathrm dx} \\approx 1 + \\frac{2GM}{r}"
+      ],
+      "notes": "Printed eqn 8.38 has the ratio inverted and GM where 2GM is needed; see gaps_and_pitfalls."
+    },
+    {
+      "name": "Shapiro time delay",
+      "aliases": [
+        "gravitational time delay",
+        "fourth test of general relativity"
+      ],
+      "kind": "phenomenon",
+      "definition": "The extra coordinate travel time of a light or radar signal passing a mass, which for a path with closest approach b between distances d_p and d_e is 2GM ln(4 d_p d_e / b^2) (divide by c^3 in SI), arising because light's coordinate speed is reduced near the mass.",
+      "how_introduced": "Example 8.12: integrate dt = (1 + 2GM/r) dx along a straight line with closest approach b, leg by leg, using the standard integral of 1/sqrt(x^2 + a^2).",
+      "depth": "developed",
+      "prerequisites": [
+        "coordinate speed of light",
+        "null condition method for light rays"
+      ],
+      "locators": [
+        {
+          "pdf_page": 116,
+          "printed_page": 99,
+          "section": "8.4"
+        }
+      ],
+      "formulas": [
+        "t \\approx x_0 + 2GM\\ln\\frac{2|x_0|}{b}",
+        "\\Delta t = 2GM\\ln\\frac{4d_{\\mathrm p}d_{\\mathrm e}}{b^2}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "classical solar-system tests of general relativity",
+      "aliases": [
+        "classical tests"
+      ],
+      "kind": "experiment-or-observation",
+      "definition": "The historic tests perihelion precession of Mercury, deflection of starlight by the Sun, and gravitational redshift, joined later by the radar time-delay test proposed by Irwin Shapiro.",
+      "how_introduced": "Unnumbered margin note beside the Shapiro delay, pointing forward to Chapters 23 and 13.",
+      "depth": "mention",
+      "prerequisites": [
+        "Shapiro time delay"
+      ],
+      "locators": [
+        {
+          "pdf_page": 116,
+          "printed_page": 99,
+          "section": "8.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "proper time",
+      "aliases": [
+        "tau"
+      ],
+      "kind": "physical-quantity",
+      "definition": "Time measured by a clock carried along a timelike world line, d tau = (-ds^2)^(1/2); it is the natural affine parameter for massive free particles.",
+      "how_introduced": "Assumed from earlier chapters; here it is the functional extremized by timelike geodesics and the physical meaning of length parametrization.",
+      "depth": "revisited",
+      "prerequisites": [
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        },
+        {
+          "pdf_page": 110,
+          "printed_page": 93,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\mathrm d\\tau = (-\\mathrm ds^2)^{1/2}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "line element",
+      "aliases": [
+        "metric interval",
+        "ds^2"
+      ],
+      "kind": "definition",
+      "definition": "The squared infinitesimal interval ds^2 = g_{mu nu} dx^mu dx^nu between neighbouring points, whose integrated square root gives lengths or proper times along curves.",
+      "how_introduced": "Recalled at the start of the geometric part of §8.1 as the input from which the length functional is built.",
+      "depth": "revisited",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [
+        "\\mathrm ds^2 = g_{\\mu\\nu}\\mathrm dx^\\mu\\mathrm dx^\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "parallel transport",
+      "aliases": [
+        "transporting a vector without turning it"
+      ],
+      "kind": "operation",
+      "definition": "Moving a vector v along a curve with tangent u so that its covariant derivative vanishes, nabla_u v = 0.",
+      "how_introduced": "Recalled from Chapter 7 in §8.2 to give the self-parallel definition of a geodesic.",
+      "depth": "revisited",
+      "prerequisites": [
+        "covariant derivative along a curve"
+      ],
+      "locators": [
+        {
+          "pdf_page": 112,
+          "printed_page": 95,
+          "section": "8.2"
+        }
+      ],
+      "formulas": [
+        "\\nabla_{\\mathbf u}\\mathbf v = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "covariant derivative along a curve",
+      "aliases": [
+        "directional covariant derivative",
+        "D/dlambda"
+      ],
+      "kind": "operation",
+      "definition": "The derivative of a vector field along a curve corrected by connection terms so that the result is a vector: (nabla_u v)^mu = u^alpha(partial_alpha v^mu + Gamma^mu_{alpha beta} v^beta) = dv^mu/dlambda + Gamma^mu_{alpha beta} u^alpha v^beta.",
+      "how_introduced": "Imported from Chapter 7 for the component expansion in §8.2; Exercise 8.4 adds the version for 1-forms with the opposite-sign connection term.",
+      "depth": "revisited",
+      "prerequisites": [
+        "connection coefficients"
+      ],
+      "locators": [
+        {
+          "pdf_page": 112,
+          "printed_page": 95,
+          "section": "8.2"
+        },
+        {
+          "pdf_page": 117,
+          "printed_page": 100,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\sigma_{\\nu;\\mu} = \\sigma_{\\nu,\\mu} - \\Gamma^\\lambda_{\\mu\\nu}\\sigma_\\lambda"
+      ],
+      "notes": null
+    },
+    {
+      "name": "light cone",
+      "aliases": [
+        "null cone"
+      ],
+      "kind": "definition",
+      "definition": "The set of null directions at a point, bounding the directions available to massive particles; a null geodesic is everywhere tangent to it.",
+      "how_introduced": "Fig. 8.5 draws small cones along a curved null world line; Example 8.12 refers back to Chapter 5 for light-cone structure from the null condition.",
+      "depth": "revisited",
+      "prerequisites": [
+        "Lorentzian metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 115,
+          "printed_page": 98,
+          "section": "8.4"
+        },
+        {
+          "pdf_page": 116,
+          "printed_page": 99,
+          "section": "8.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "singularity theorems",
+      "aliases": [
+        "geodesic focusing and singularities"
+      ],
+      "kind": "theorem",
+      "definition": "Results showing that, under energy conditions, families of geodesics must focus (develop conjugate points), which implies geodesic incompleteness such as a Big-Bang singularity.",
+      "how_introduced": "Only a forward pointer in margin note 2, as the important application of conjugate points.",
+      "depth": "mention",
+      "prerequisites": [
+        "conjugate point"
+      ],
+      "locators": [
+        {
+          "pdf_page": 109,
+          "printed_page": 92,
+          "section": "8.1"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "tachyon",
+      "aliases": [
+        "hypothetical faster-than-light particle"
+      ],
+      "kind": "historical-idea",
+      "definition": "A speculative particle that would move faster than light and hence along spacelike world lines; no such particle is known.",
+      "how_introduced": "Parenthetical aside in margin note 1 on spacelike geodesics.",
+      "depth": "mention",
+      "prerequisites": [
+        "spacelike geodesic"
+      ],
+      "locators": [
+        {
+          "pdf_page": 108,
+          "printed_page": 91,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "geodesic equation from a freely falling frame",
+      "aliases": [
+        "equivalence-principle derivation of the geodesic equation"
+      ],
+      "kind": "technique",
+      "definition": "Starting from xi^mu with d^2 xi^mu/dtau^2 = 0 in the particle's comoving freely falling coordinates and transforming to arbitrary coordinates x^nu by the chain rule, the second-derivative terms of the transformation assemble into a connection term, reproducing the geodesic equation without any prior geometry.",
+      "how_introduced": "Exercise 8.3 frames it as what one would be forced to write even without knowing about curvature.",
+      "depth": "introduced",
+      "prerequisites": [
+        "local inertial frame",
+        "equivalence principle",
+        "geodesic equation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 117,
+          "printed_page": 100,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm d^2x^\\nu}{\\mathrm d\\tau^2} + \\frac{\\partial x^\\nu}{\\partial\\xi^\\mu}\\frac{\\partial^2\\xi^\\mu}{\\partial x^\\lambda\\partial x^\\sigma}\\frac{\\mathrm dx^\\lambda}{\\mathrm d\\tau}\\frac{\\mathrm dx^\\sigma}{\\mathrm d\\tau} = 0"
+      ],
+      "notes": null
+    }
+  ],
+  "key_equations": [
+    {
+      "label": null,
+      "name": "Free-particle action",
+      "latex": "S = -m\\int(-\\mathrm ds^2)^{1/2}, \\qquad \\Delta\\tau = \\int(-\\mathrm ds^2)^{1/2}",
+      "meaning": "Action of a free massive particle is minus its mass times proper time, so its stationary paths are stationary-proper-time curves, i.e. timelike geodesics.",
+      "symbols": "m mass; ds^2 line element; tau proper time; c = 1",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Proper length for spacelike curves",
+      "latex": "\\Delta l = \\int(+\\mathrm ds^2)^{1/2}",
+      "meaning": "Functional whose stationary curves are spacelike geodesics.",
+      "symbols": "l proper length",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.1)",
+      "name": "Free motion in flat spacetime",
+      "latex": "\\frac{\\mathrm d^2x^\\mu}{\\mathrm d\\tau^2} = 0",
+      "meaning": "With no forces and no curvature, 4-coordinates in inertial coordinates have zero second derivative with respect to proper time.",
+      "symbols": "x^mu inertial coordinates; tau proper time",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.2)",
+      "name": "Straight world lines",
+      "latex": "x^\\mu(\\tau) = b^\\mu\\tau + c^\\mu",
+      "meaning": "General solution of (8.1): straight world lines, the geodesics of Minkowski spacetime.",
+      "symbols": "b^mu, c^mu constants",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Linear response of a swarm of trajectories",
+      "latex": "\\delta q^i = N_{ij}\\,\\delta p^j",
+      "meaning": "Small changes of initial momenta map linearly to changes of final position; a conjugate point is where this map becomes singular (non-zero delta p gives zero delta q).",
+      "symbols": "q^i positions; p^j initial momenta; N_ij response matrix",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": null,
+      "name": "Line element and total interval",
+      "latex": "\\mathrm ds^2 = g_{\\mu\\nu}\\mathrm dx^\\mu\\mathrm dx^\\nu, \\qquad s = \\int\\sqrt{|\\mathrm ds^2|}",
+      "meaning": "The metric builds the interval whose stationary value defines geodesics; whether it is a minimum or maximum depends on the signature.",
+      "symbols": "g_{mu nu} metric components",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.3)",
+      "name": "Interval as an action",
+      "latex": "s = \\int\\sqrt{|\\mathrm ds^2|} = \\int\\mathrm d\\lambda\\left|\\left(\\frac{\\mathrm ds}{\\mathrm d\\lambda}\\right)^2\\right|^{1/2} = \\int\\mathrm d\\lambda\\,L(x^\\mu,\\dot x^\\mu)",
+      "meaning": "Rewrites the interval as a parameter integral whose integrand serves as the Lagrangian for the Euler-Lagrange equations.",
+      "symbols": "lambda curve parameter; L Lagrangian; dot = d/dlambda",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.4)",
+      "name": "Euclidean plane line element",
+      "latex": "\\mathrm ds^2 = \\mathrm dx^2 + \\mathrm dy^2",
+      "meaning": "Flat 2D metric in Cartesian coordinates.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.5)",
+      "name": "Plane Lagrangian",
+      "latex": "L = \\frac{\\mathrm ds}{\\mathrm d\\lambda} = \\left[\\left(\\frac{\\mathrm dx}{\\mathrm d\\lambda}\\right)^2 + \\left(\\frac{\\mathrm dy}{\\mathrm d\\lambda}\\right)^2\\right]^{1/2}",
+      "meaning": "Length Lagrangian for the plane.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.6)",
+      "name": "Plane Euler-Lagrange ingredients",
+      "latex": "\\frac{\\partial L}{\\partial(\\mathrm dx/\\mathrm d\\lambda)} = \\frac1L\\frac{\\mathrm dx}{\\mathrm d\\lambda}, \\qquad \\frac{\\partial L}{\\partial x} = 0",
+      "meaning": "First derivatives taken before any choice of parameter; the 1/L factor is what length parametrization later removes.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.7)",
+      "name": "Chain rule for velocity under reparametrization",
+      "latex": "\\frac{\\mathrm dx}{\\mathrm d\\lambda} = \\frac{\\mathrm dx}{\\mathrm d\\eta}\\frac{\\mathrm d\\eta}{\\mathrm d\\lambda}",
+      "meaning": "How velocities transform under lambda = lambda(eta); used to show the length is parameter independent.",
+      "symbols": "eta alternative parameter",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.8)",
+      "name": "Measure under reparametrization",
+      "latex": "\\mathrm d\\lambda = \\frac{\\mathrm d\\lambda}{\\mathrm d\\eta}\\mathrm d\\eta",
+      "meaning": "Change of measure that cancels the factors from (8.7) inside the square root.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": null,
+      "name": "Reparametrization invariance of length",
+      "latex": "s = \\int\\mathrm d\\lambda\\left[\\left(\\frac{\\mathrm dx}{\\mathrm d\\lambda}\\right)^2+\\left(\\frac{\\mathrm dy}{\\mathrm d\\lambda}\\right)^2\\right]^{1/2} = \\int\\mathrm d\\eta\\left[\\left(\\frac{\\mathrm dx}{\\mathrm d\\eta}\\right)^2+\\left(\\frac{\\mathrm dy}{\\mathrm d\\eta}\\right)^2\\right]^{1/2}",
+      "meaning": "The length integral keeps its form in any parameter, so the parameter is a free choice.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.9)",
+      "name": "Euler-Lagrange equation for x",
+      "latex": "\\frac{\\mathrm d}{\\mathrm d\\lambda}\\frac{\\partial L}{\\partial(\\mathrm dx/\\mathrm d\\lambda)} = \\frac{\\partial L}{\\partial x}",
+      "meaning": "Margin reminder that the parameter appears on both sides and effectively cancels, which is why it may be chosen after differentiation.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.10)",
+      "name": "Length parametrization in the plane",
+      "latex": "L = \\left[\\left(\\frac{\\mathrm dx}{\\mathrm d\\lambda}\\right)^2+\\left(\\frac{\\mathrm dy}{\\mathrm d\\lambda}\\right)^2\\right]^{1/2} = 1",
+      "meaning": "Choosing d lambda = ds sets the Lagrangian to one on the solution, simplifying the equations and supplying a constraint.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.11)",
+      "name": "Plane geodesic equation",
+      "latex": "\\frac{\\mathrm d}{\\mathrm d\\lambda}\\left(\\frac1L\\frac{\\mathrm dx}{\\mathrm d\\lambda}\\right) = \\frac{\\mathrm d^2x}{\\mathrm d\\lambda^2} = 0",
+      "meaning": "With L = 1 the Euler-Lagrange equation reduces to zero second derivative; likewise for y.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.12)",
+      "name": "Straight line",
+      "latex": "y(\\lambda) = m\\,x(\\lambda) + c",
+      "meaning": "Candidate solution checked against (8.11).",
+      "symbols": "m slope; c intercept",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.13)",
+      "name": "Straight-line velocities",
+      "latex": "\\frac{\\mathrm dx}{\\mathrm d\\lambda} = 1, \\qquad \\frac{\\mathrm dy}{\\mathrm d\\lambda} = m",
+      "meaning": "With x = lambda the velocities are constant, so second derivatives vanish. Note that this trial parametrization gives L = (1 + m^2)^(1/2) rather than 1, so it is not arc length; the check still works because the equations only need constant velocities.",
+      "symbols": "m slope of the line",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.14)",
+      "name": "Unit-sphere metric",
+      "latex": "\\mathrm ds^2 = \\mathrm d\\theta^2 + \\sin^2\\theta\\,\\mathrm d\\phi^2",
+      "meaning": "Line element on a sphere of radius 1.",
+      "symbols": "theta colatitude; phi longitude",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.15)",
+      "name": "Sphere length functional",
+      "latex": "s = \\int\\mathrm d\\lambda\\left[\\left(\\frac{\\mathrm d\\theta}{\\mathrm d\\lambda}\\right)^2 + \\sin^2\\theta\\left(\\frac{\\mathrm d\\phi}{\\mathrm d\\lambda}\\right)^2\\right]^{1/2}",
+      "meaning": "Parametrized interval on the sphere, the action for geodesics.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.16)",
+      "name": "Sphere Euler-Lagrange ingredients",
+      "latex": "\\frac{\\partial L}{\\partial\\dot\\theta} = \\frac{\\dot\\theta}{L},\\quad \\frac{\\partial L}{\\partial\\dot\\phi} = \\sin^2\\theta\\,\\frac{\\dot\\phi}{L},\\quad \\frac{\\partial L}{\\partial\\theta} = \\sin\\theta\\cos\\theta\\,\\frac{\\dot\\phi^2}{L},\\quad \\frac{\\partial L}{\\partial\\phi} = 0",
+      "meaning": "First-stage partial derivatives before setting L = 1; the vanishing phi derivative signals a conserved quantity.",
+      "symbols": "Dots are d/dlambda. The derivatives in the first row are with respect to thetadot and phidot; the overdots on the denominators are easy to miss in print and are lost in the text export.",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.17)",
+      "name": "Sphere: lambda-derivatives with L = 1",
+      "latex": "\\frac{\\mathrm d}{\\mathrm d\\lambda}\\frac{\\partial L}{\\partial\\dot\\theta} = \\ddot\\theta, \\qquad \\frac{\\mathrm d}{\\mathrm d\\lambda}\\frac{\\partial L}{\\partial\\dot\\phi} = 2\\sin\\theta\\cos\\theta\\,\\dot\\theta\\dot\\phi + \\sin^2\\theta\\,\\ddot\\phi",
+      "meaning": "Left-hand sides of the Euler-Lagrange equations after length parametrization.",
+      "symbols": "The book prints the second right-hand side as 2 sin theta thetadot phidot + sin^2 theta phiddot, omitting cos theta; the correct derivative of sin^2 theta phidot contains 2 sin theta cos theta thetadot phidot, as confirmed by (8.18).",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.18)",
+      "name": "Expanded phi equation",
+      "latex": "\\frac{\\mathrm d^2\\phi}{\\mathrm d\\lambda^2} + 2\\frac{\\cos\\theta}{\\sin\\theta}\\frac{\\mathrm d\\theta}{\\mathrm d\\lambda}\\frac{\\mathrm d\\phi}{\\mathrm d\\lambda} = 0",
+      "meaning": "Expanded form of (8.20); its coefficient 2 cot theta is twice the connection coefficient Gamma^phi_{theta phi} of the sphere.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.19)",
+      "name": "Sphere geodesic equation (theta)",
+      "latex": "\\frac{\\mathrm d^2\\theta}{\\mathrm d\\lambda^2} - \\sin\\theta\\cos\\theta\\left(\\frac{\\mathrm d\\phi}{\\mathrm d\\lambda}\\right)^2 = 0",
+      "meaning": "Motion in phi pushes the curve away from a latitude circle unless theta = pi/2; latitude circles other than the equator are not geodesics.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": "(8.20)",
+      "name": "Sphere geodesic equation (phi)",
+      "latex": "\\frac{\\mathrm d}{\\mathrm d\\lambda}\\left(\\sin^2\\theta\\,\\frac{\\mathrm d\\phi}{\\mathrm d\\lambda}\\right) = 0",
+      "meaning": "Conservation of angular momentum about the polar axis along a geodesic.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.1"
+      }
+    },
+    {
+      "label": null,
+      "name": "Covariant acceleration",
+      "latex": "\\mathbf a = \\frac{\\mathrm D\\mathbf u}{\\mathrm d\\tau} = \\nabla_{\\mathbf u}\\mathbf u",
+      "meaning": "The coordinate-independent 4-acceleration; zero for free fall.",
+      "symbols": "u 4-velocity",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.21)",
+      "name": "Geometric geodesic equation",
+      "latex": "\\frac{\\mathrm D\\mathbf u}{\\mathrm d\\lambda} = \\nabla_{\\mathbf u}\\mathbf u = 0",
+      "meaning": "A geodesic parallel transports its own tangent vector; valid for any causal type and affine parameter.",
+      "symbols": "u tangent vector; lambda affine parameter",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.22)",
+      "name": "Components of nabla_u u",
+      "latex": "(\\nabla_{\\mathbf u}\\mathbf u)^\\mu = u^\\alpha\\left(\\frac{\\partial u^\\mu}{\\partial x^\\alpha} + u^\\beta\\Gamma^\\mu_{\\alpha\\beta}\\right) = 0",
+      "meaning": "Component expansion using the Chapter 7 covariant derivative.",
+      "symbols": "Gamma connection coefficients",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.23)",
+      "name": "Substituting u = dx/dlambda",
+      "latex": "\\frac{\\mathrm dx^\\alpha}{\\mathrm d\\lambda}\\frac{\\partial u^\\mu}{\\partial x^\\alpha} + \\frac{\\mathrm dx^\\alpha}{\\mathrm d\\lambda}\\frac{\\mathrm dx^\\beta}{\\mathrm d\\lambda}\\Gamma^\\mu_{\\alpha\\beta} = 0",
+      "meaning": "The first term is the chain-rule derivative of u^mu along the curve.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.24)",
+      "name": "Geodesic equation",
+      "latex": "\\frac{\\mathrm d^2x^\\mu}{\\mathrm d\\lambda^2} + \\Gamma^\\mu_{\\alpha\\beta}\\frac{\\mathrm dx^\\alpha}{\\mathrm d\\lambda}\\frac{\\mathrm dx^\\beta}{\\mathrm d\\lambda} = 0",
+      "meaning": "Ordinary acceleration plus a connection term vanishes along a geodesic; with lambda = tau it is the force-free equation of motion in curved spacetime.",
+      "symbols": "x^mu coordinates; Gamma^mu_{alpha beta} connection coefficients; lambda affine parameter",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": null,
+      "name": "Affine reparametrization",
+      "latex": "\\lambda = a\\tau + b",
+      "meaning": "The allowed relabelings of proper time that preserve the form of the geodesic equation.",
+      "symbols": "a, b constants",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.25)",
+      "name": "Null condition with an affine parameter",
+      "latex": "g_{\\mu\\nu}\\frac{\\mathrm dx^\\mu}{\\mathrm d\\sigma}\\frac{\\mathrm dx^\\nu}{\\mathrm d\\sigma} = 0",
+      "meaning": "Photon world lines have zero interval, so they are parametrized by an affine parameter sigma rather than proper time.",
+      "symbols": "sigma affine parameter. The margin text afterwards refers to dx^sigma where dx^mu is meant.",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.26)",
+      "name": "Conservation of the tangent norm",
+      "latex": "\\nabla_{\\mathbf u}(\\mathbf u\\cdot\\mathbf u) = 2\\,\\mathbf u\\cdot(\\nabla_{\\mathbf u}\\mathbf u) = 0",
+      "meaning": "u.u is constant along a geodesic, so its timelike, null or spacelike character never changes.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.27)",
+      "name": "Geometric momentum conservation",
+      "latex": "\\nabla_{\\mathbf p}\\mathbf p = 0",
+      "meaning": "Free-particle 4-momentum is parallel transported along itself; for photons this is the null geodesic equation.",
+      "symbols": "p 4-momentum",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.28)",
+      "name": "Components of nabla_p p",
+      "latex": "(\\nabla_{\\mathbf p}\\mathbf p)^\\beta = m u^\\alpha\\left(p^\\beta{}_{,\\alpha} + \\Gamma^\\beta_{\\alpha\\sigma}p^\\sigma\\right) = m\\left(\\frac{\\mathrm dp^\\beta}{\\mathrm d\\tau} + u^\\alpha p^\\sigma\\Gamma^\\beta_{\\alpha\\sigma}\\right)",
+      "meaning": "Shows nabla_p p reduces to m dp/dtau where the connection vanishes (a LIF).",
+      "symbols": "comma = partial derivative",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "label": "(8.29)",
+      "name": "Inertial force",
+      "latex": "f^\\mu_{\\text{inertial}} = m\\ddot x^\\mu = -m\\Gamma^\\mu_{\\alpha\\lambda}\\dot x^\\alpha\\dot x^\\lambda",
+      "meaning": "The connection term of the geodesic equation viewed as a force; it may come from coordinates or from curvature.",
+      "symbols": "dot = d/dtau; lambda here is a dummy index, not the parameter",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": null,
+      "name": "Swingball force balance (players' frame)",
+      "latex": "T\\cos\\theta = mg, \\qquad T\\sin\\theta = \\frac{mv^2}{r}",
+      "meaning": "Vertical tension balances weight; horizontal tension supplies the centripetal force. In the ball's frame an outward centrifugal F balances T sin theta.",
+      "symbols": "T tension; theta string angle from the pole; v speed; r orbit radius",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": "(8.30)",
+      "name": "Weak-field metric (time part only)",
+      "latex": "\\mathrm ds^2 = -[1 + 2\\Phi(x,y,z)]\\mathrm dt^2 + (\\mathrm dx^2 + \\mathrm dy^2 + \\mathrm dz^2), \\qquad \\Phi = -\\frac{GM}{r}",
+      "meaning": "Minimal metric that reproduces Newtonian gravity for slow particles.",
+      "symbols": "Phi Newtonian potential; G = c = 1 units with GM a length",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": "(8.31)",
+      "name": "Weak-field equation of motion",
+      "latex": "\\frac{\\mathrm d^2x^i}{\\mathrm d\\tau^2} + \\frac{\\partial\\Phi}{\\partial x^i}\\left(\\frac{\\mathrm dt}{\\mathrm d\\tau}\\right)^2 = 0",
+      "meaning": "Spatial geodesic equations for metric (8.30); reduces to Newton's law when tau ≈ t.",
+      "symbols": "x^i = (x, y, z)",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": "(8.32)",
+      "name": "Gravitational connection coefficients",
+      "latex": "\\Gamma^i_{tt} = \\frac{\\partial\\Phi}{\\partial x^i} = GM\\frac{x^i}{r^3}",
+      "meaning": "The connection coefficient carries the Newtonian gravitational field; -Gamma^i_tt is the gravitational acceleration.",
+      "symbols": "r^2 = x^2 + y^2 + z^2",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": "(8.33)",
+      "name": "Geodesic equation with external force",
+      "latex": "m\\left(\\frac{\\mathrm d^2x^\\mu}{\\mathrm d\\tau^2} + \\frac{\\mathrm dx^\\alpha}{\\mathrm d\\tau}\\frac{\\mathrm dx^\\lambda}{\\mathrm d\\tau}\\Gamma^\\mu_{\\alpha\\lambda}\\right) = f^\\mu",
+      "meaning": "An applied 4-force produces a covariant acceleration; zero force gives geodesic motion.",
+      "symbols": "f^mu 4-force components",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": "(8.34)",
+      "name": "Non-relativistic forced geodesic equation",
+      "latex": "\\frac{\\mathrm d^2x^\\mu}{\\mathrm dt^2} + \\Gamma^\\mu_{\\alpha\\beta}\\frac{\\mathrm dx^\\alpha}{\\mathrm dt}\\frac{\\mathrm dx^\\beta}{\\mathrm dt} = \\frac{f^\\mu}{m}",
+      "meaning": "Version with tau ≈ t used for Newtonian mechanics in curvilinear coordinates.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": "(8.35)",
+      "name": "Radial equation in polar coordinates",
+      "latex": "\\frac{f^r}{m} = \\frac{\\mathrm d^2r}{\\mathrm dt^2} + \\Gamma^r_{\\alpha\\beta}u^\\alpha u^\\beta = a^r + \\Gamma^r_{\\theta\\theta}u^\\theta u^\\theta = a^r - r(u^\\theta)^2",
+      "meaning": "Radial applied force equals radial coordinate acceleration minus the centrifugal term; uniform circular motion (a^r = 0) needs an inward force m r thetadot^2.",
+      "symbols": "u^theta = thetadot (printed as u_theta)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": "(8.36)",
+      "name": "Angular equation in polar coordinates",
+      "latex": "\\frac{f^\\theta}{m} = \\frac{\\mathrm d^2\\theta}{\\mathrm dt^2} + \\Gamma^\\theta_{\\alpha\\beta}u^\\alpha u^\\beta = a^\\theta + 2\\Gamma^\\theta_{r\\theta}u^r u^\\theta = a^\\theta + \\frac{2u^r u^\\theta}{r}",
+      "meaning": "The Coriolis-like term 2 rdot thetadot / r appears from the connection; with u^r = 0 no tangential force is needed for uniform rotation.",
+      "symbols": "factor 2 from the symmetric pair Gamma^theta_{r theta} = Gamma^theta_{theta r}",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      }
+    },
+    {
+      "label": "(8.37)",
+      "name": "Weak-field metric with spatial correction",
+      "latex": "\\mathrm ds^2 = -[1 + 2\\Phi]\\mathrm dt^2 + [1 - 2\\Phi](\\mathrm dx^2 + \\mathrm dy^2 + \\mathrm dz^2)",
+      "meaning": "More accurate weak-field metric needed for light, whose motion is affected by the spatial part as much as by the time part.",
+      "symbols": "Phi = -GM/r; derivation in §14.1 and Chapter 45",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      }
+    },
+    {
+      "label": "(8.38)",
+      "name": "Coordinate speed of light (as printed)",
+      "latex": "\\frac{\\mathrm dr}{\\mathrm dt} = \\left(\\frac{r + GM}{r - GM}\\right)^{1/2}",
+      "meaning": "Intended as the coordinate velocity of light from ds^2 = 0. As printed it is inconsistent with (8.37) and (8.39): imposing ds^2 = 0 on (8.37) along a line gives dr/dt = [(1 + 2 Phi)/(1 - 2 Phi)]^(1/2) = [(r - 2GM)/(r + 2GM)]^(1/2), i.e. dt/dr = [(r + 2GM)/(r - 2GM)]^(1/2) ≈ 1 + 2GM/r, which is what (8.39) uses.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      }
+    },
+    {
+      "label": "(8.39)",
+      "name": "Coordinate travel time",
+      "latex": "t = \\int\\mathrm dx\\left(1 + \\frac{2GM}{r}\\right) = \\int\\mathrm dx\\left[1 + \\frac{2GM}{(x^2 + y^2 + z^2)^{1/2}}\\right]",
+      "meaning": "First-order travel time along a straight coordinate path; the 2GM/r part is the delay integrand.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "label": null,
+      "name": "Standard integral",
+      "latex": "\\int\\frac{\\mathrm dx}{\\sqrt{x^2 + a^2}} = \\ln\\left(x + \\sqrt{x^2 + a^2}\\right)",
+      "meaning": "Integral used to evaluate the delay along each leg.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "label": "(8.40)",
+      "name": "One-leg delay",
+      "latex": "t \\approx x_0 + 2GM\\ln\\frac{2|x_0|}{b}",
+      "meaning": "For a leg from closest approach to distance x0 with b << x0, the delay grows logarithmically with distance.",
+      "symbols": "b closest approach distance; c = 1",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "label": "(8.41)",
+      "name": "Shapiro time delay",
+      "latex": "\\Delta t = 2GM\\ln\\frac{4d_{\\mathrm p}d_{\\mathrm e}}{b^2}",
+      "meaning": "Total one-way excess coordinate time for a signal from planet to Earth grazing the Sun; in SI multiply GM by 1/c^3. Radar echo experiments measure twice this.",
+      "symbols": "d_p, d_e distances of planet and Earth from the point of closest approach; b impact parameter",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "label": "(8.42)",
+      "name": "Master equation of motion (summary)",
+      "latex": "m\\left(\\frac{\\mathrm d^2x^\\mu}{\\mathrm d\\tau^2} + \\Gamma^\\mu_{\\alpha\\beta}\\frac{\\mathrm dx^\\alpha}{\\mathrm d\\tau}\\frac{\\mathrm dx^\\beta}{\\mathrm d\\tau}\\right) = f^\\mu",
+      "meaning": "Relates acceleration to geometry (connection, giving inertial forces) and to external forces; f = 0 is the geodesic equation.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.43)",
+      "name": "Flat length in polar coordinates",
+      "latex": "s = \\int(\\mathrm dr^2 + r^2\\mathrm d\\theta^2)^{1/2}",
+      "meaning": "Starting functional for Exercise 8.1.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.44)",
+      "name": "Polar geodesic equations",
+      "latex": "\\frac{\\mathrm d^2r}{\\mathrm d\\lambda^2} = r\\left(\\frac{\\mathrm d\\theta}{\\mathrm d\\lambda}\\right)^2, \\qquad \\frac{\\mathrm d}{\\mathrm d\\lambda}\\left(r^2\\frac{\\mathrm d\\theta}{\\mathrm d\\lambda}\\right) = 0",
+      "meaning": "Geodesics of the plane in polar coordinates: centrifugal-like radial equation and conserved angular momentum.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.45)",
+      "name": "Radial profile of a line",
+      "latex": "r^2 = \\lambda^2 + a^2",
+      "meaning": "With lambda arc length from closest approach, distance from the origin grows hyperbolically.",
+      "symbols": "a closest distance to origin",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.46)",
+      "name": "Angular rate along a line",
+      "latex": "\\frac{\\mathrm d\\theta}{\\mathrm d\\lambda} = \\frac{a}{\\lambda^2 + a^2}",
+      "meaning": "From r^2 thetadot = a.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.47)",
+      "name": "Parametric polar line",
+      "latex": "a\\tan(\\theta - \\theta_0) = \\lambda",
+      "meaning": "Integrated angular equation.",
+      "symbols": "theta0 direction of closest approach",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.48)",
+      "name": "Polar equation of a straight line",
+      "latex": "r = \\frac{a}{\\cos(\\theta - \\theta_0)}",
+      "meaning": "Straight line in polar form, interpreted with Fig. 8.7.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Cartesian-to-polar line parameters",
+      "latex": "a = \\frac{\\gamma}{(\\alpha^2+\\beta^2)^{1/2}},\\quad \\cos\\theta_0 = \\frac{\\alpha}{(\\alpha^2+\\beta^2)^{1/2}},\\quad \\sin\\theta_0 = \\frac{\\beta}{(\\alpha^2+\\beta^2)^{1/2}}",
+      "meaning": "Substitutions linking alpha x + beta y = gamma to (8.48) in Exercise 8.2(b).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.49)",
+      "name": "Geodesic equation from a comoving frame",
+      "latex": "\\frac{\\mathrm d^2x^\\nu}{\\mathrm d\\tau^2} + \\frac{\\partial x^\\nu}{\\partial\\xi^\\mu}\\frac{\\partial^2\\xi^\\mu}{\\partial x^\\lambda\\partial x^\\sigma}\\frac{\\mathrm dx^\\lambda}{\\mathrm d\\tau}\\frac{\\mathrm dx^\\sigma}{\\mathrm d\\tau} = 0",
+      "meaning": "Transforming xi-ddot = 0 from the particle's freely falling frame yields the geodesic equation with Gamma^nu_{lambda sigma} = (partial x^nu / partial xi^mu)(partial^2 xi^mu / partial x^lambda partial x^sigma).",
+      "symbols": "xi^mu freely falling coordinates",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.50)",
+      "name": "Covariant derivative of a 1-form",
+      "latex": "\\nabla_\\mu\\tilde{\\boldsymbol\\sigma} = \\sigma_{\\nu;\\mu}\\,\\boldsymbol\\omega^\\nu",
+      "meaning": "Expansion in basis 1-forms, previewing Part V.",
+      "symbols": "omega^nu basis 1-forms",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "label": "(8.51)",
+      "name": "1-form covariant derivative components",
+      "latex": "\\sigma_{\\nu;\\mu} = \\sigma_{\\nu,\\mu} - \\Gamma^\\lambda_{\\mu\\nu}\\sigma_\\lambda",
+      "meaning": "Lower-index version with a minus-sign connection term.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    }
+  ],
+  "figures": [
+    {
+      "label": "Fig. 8.1(a)",
+      "image_path": "gifted-amateur/pages/page-109/img-68.jpeg",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "caption_paraphrase": "Two points on a sphere joined by both arcs of one great circle; the antipode of the starting point is marked as its conjugate point.",
+      "visual_description": "Line drawing of a sphere as a circle outline. A great circle is drawn as a tilted ellipse. An open circle labelled q1 sits near the bottom, a filled dot q2 on the left front, and a filled dot q1* at the upper right near the rim. The front half of the great circle is solid: a short arc runs from q1 up to q2 with an arrowhead pointing up, and a longer arc comes down from q1* to q2 with an arrowhead pointing toward q2. The back half is dashed and carries an arrowhead running from q1 up and to the right toward q1*. Short dash-dot fragments near the lower rim suggest the hidden side.",
+      "what_it_teaches": "Between two non-antipodal points there are two geodesics on the same great circle: the short direct one (i) and the long one (ii) that passes through the antipode q1*, which is a saddle of the action rather than a minimum.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "conjugate point",
+        "great circles as geodesics of the sphere",
+        "stationary action"
+      ],
+      "redesign": {
+        "idea": "Globe with two draggable points and both great-circle routes, each tagged with its length and with a live 'minimum or saddle' verdict.",
+        "interaction": "Drag q1 and q2 on a rotatable 3D sphere; toggle between route (i) and route (ii); a wiggle slider perturbs the chosen route sideways and a small plot shows length versus wiggle amplitude for sideways and along-path perturbations, rising in all directions for (i) and dropping in one direction for (ii) once it passes the antipode.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 8.1(b)",
+      "image_path": "gifted-amateur/pages/page-109/img-69.jpeg",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "caption_paraphrase": "A spray of free particles launched from one point on a sphere spreads out and then reconverges at the antipodal conjugate point.",
+      "visual_description": "Sphere outline with a web of curves resembling meridians. Near the lower left a point labelled q1 (with a curved pointer) has many short arrows radiating outward in a starburst, some drawn dotted as if on the far side. The curves fan out from q1 across the sphere and all converge at a single point near the top right, labelled q1* with another curved pointer, where several arrowheads crowd together.",
+      "what_it_teaches": "Geodesic focusing: neighbouring geodesics from one point meet again at the conjugate point, which is the physical test for whether a path through it is a minimum.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "conjugate point",
+        "singularity theorems"
+      ],
+      "redesign": {
+        "idea": "Launch a fan of geodesics from any point on a sphere, plane or saddle and watch whether they refocus.",
+        "interaction": "Click to set the launch point, drag to set the fan width and number of rays; press play to animate particles moving at equal speed; a readout marks the first focus and its distance (pi on a unit sphere). Switching the surface to a plane or saddle shows no refocusing, setting up geodesic deviation and Raychaudhuri focusing later.",
+        "form": "animated-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 8.2",
+      "image_path": "gifted-amateur/pages/page-110/img-70.jpeg",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      },
+      "caption_paraphrase": "A timelike curve can be shadowed ever more closely by a chain of light-like segments, each of zero interval.",
+      "visual_description": "Small hand-drawn sketch of a smooth, gently wavy curve running roughly vertically, with 'TIMELIKE CURVE' hand-lettered along its middle. About eight small open circles sit on or beside the curve, and short straight segments join successive circles into a chain that winds back and forth across the curve, hugging it closely from bottom to top. The drawing is schematic: the segments are not shown at 45 degrees and no axes or light cones are drawn.",
+      "what_it_teaches": "Proper time along timelike paths has no positive lower bound, since paths made of null pieces have zero total interval yet lie arbitrarily close to any timelike curve; timelike geodesics therefore maximize rather than minimize proper time.",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "null zigzag approximation of a timelike curve",
+        "maximal proper time of timelike geodesics"
+      ],
+      "redesign": {
+        "idea": "Spacetime diagram where the learner replaces a timelike world line by a zigzag of near-light-speed segments and watches the clock reading collapse.",
+        "interaction": "Slider for the number of zigzag segments N and a second for how close each segment's speed is to c; the page draws the zigzag at 45 degrees around the smooth world line and shows proper times of the straight geodesic, the smooth curve and the zigzag, with the zigzag's value tending to zero while its shape converges to the curve.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 8.3",
+      "image_path": "gifted-amateur/pages/page-112/img-71.jpeg",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.1"
+      },
+      "caption_paraphrase": "Three curves on a sphere: a meridian from the pole and the equator are geodesics, a circle of latitude is not.",
+      "visual_description": "Sphere outline with a hand-lettered 'north pole' label and a short dashed tick above a dot at the top. A solid curve A runs down the front from the pole to the equator, meeting it with a small right-angle mark. The equator B is a solid arc across the front. A dashed ellipse C near the top is a circle of latitude. Some hatching marks the lower left edge of the equator region.",
+      "what_it_teaches": "The derived equations select meridians and the equator (great circles) and reject latitude circles, making concrete that 'constant coordinate' is not the same as 'straight'.",
+      "figure_type": "curve-or-surface",
+      "concepts": [
+        "great circles as geodesics of the sphere"
+      ],
+      "redesign": {
+        "idea": "Geodesic tester on a globe: draw or pick a curve and see the residuals of the two geodesic equations along it, plus a car-steering view.",
+        "interaction": "Choose a latitude slider for a circle of constant theta or tilt a great circle; the page evaluates thetaddot - sin theta cos theta phidot^2 along the curve and colours it green when zero; a first-person 'drive along the curve' view shows the steering-wheel angle needed, zero only for great circles.",
+        "form": "interactive-3d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 8.4",
+      "image_path": "gifted-amateur/pages/page-114/img-72.jpeg",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      },
+      "caption_paraphrase": "Swingball seen from the players (tension supplies the centripetal force) and from the ball (a centrifugal force appears).",
+      "visual_description": "Panel (a): a vertical pole with a string running from its top down and to the right to a filled ball; the angle theta is marked between pole and string; an arrow labelled T points along the string toward the pole; a dotted horizontal ellipse shows the ball's circular path; a horizontal arrow from the ball points inward toward the pole axis, and an arrow labelled mg points down. Panel (b): a free-body diagram of the ball as a dot with four arrows: up |T| cos theta, down mg, left |T| sin theta, and right F.",
+      "what_it_teaches": "The same physical situation needs an unbalanced centripetal force in one frame and a balancing outward inertial force in the other; inertial forces are frame-dependent bookkeeping that nonetheless have measurable effects in that frame.",
+      "figure_type": "cartoon-or-analogy",
+      "concepts": [
+        "inertial force",
+        "centrifugal force",
+        "equivalence principle"
+      ],
+      "redesign": {
+        "idea": "Split-screen tetherball: lab frame and co-rotating frame side by side with live free-body diagrams.",
+        "interaction": "Sliders for rotation speed and string length; theta adjusts so T cos theta = mg; left panel shows the ball circling with the net inward force; right panel rotates with the ball and shows the centrifugal arrow F equal to mv^2/r; a toggle 'cut the string' shows a straight line in the lab frame and a curving path with centrifugal and Coriolis deflection in the rotating frame.",
+        "form": "animated-2d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 8.5",
+      "image_path": "gifted-amateur/pages/page-115/img-73.jpeg",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      },
+      "caption_paraphrase": "A light ray's world line is null: at every point it lies along the local light cone.",
+      "visual_description": "A smooth S-shaped curve rising from lower left to upper right. At about five points along it small cones with dotted inner outlines are drawn with their apex on the curve, tilted so that the curve runs along one edge of each cone; the cone at the top right is drawn larger. The cones point in different directions following the bending of the curve.",
+      "what_it_teaches": "A null geodesic in curved spacetime need not look straight in coordinates, but locally it always moves at light speed, tangent to the light cone.",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "null geodesic",
+        "light cone"
+      ],
+      "redesign": {
+        "idea": "Light-cone field on a 2D spacetime diagram of a weak or strong gravitational field, with a light ray traced through it.",
+        "interaction": "Drag a mass parameter to tilt and narrow the local cones (coordinate speed of light 1 - 2GM/r); click to launch a light ray that is integrated so its tangent always sits on a cone edge; compare with a massive particle launched from the same event staying inside the cones.",
+        "form": "interactive-2d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 8.6",
+      "image_path": "gifted-amateur/pages/page-116/img-74.jpeg",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      },
+      "caption_paraphrase": "Geometry of the time-delay calculation: a signal travels from a planet past the Sun to Earth.",
+      "visual_description": "A vertical straight line with a filled dot labelled e at the top and an open dot labelled p at the bottom. To its left, a circle labelled S represents the Sun, joined to the line by a horizontal double-headed arrow labelled b. Distances d_e (from the foot of b up to e) and d_p (from the foot down to p) are marked with arrows meeting at the foot point. A separate upward arrow on the right labelled x shows the direction of the coordinate axis.",
+      "what_it_teaches": "The delay integral is set up along a straight coordinate line with impact parameter b, split into two legs at the point of closest approach.",
+      "figure_type": "schematic",
+      "concepts": [
+        "Shapiro time delay"
+      ],
+      "redesign": {
+        "idea": "Solar-conjunction radar simulator that turns the logarithm into microseconds.",
+        "interaction": "Drag the planet around its orbit relative to Earth; b updates as the line of sight approaches the Sun's limb; a plot of round-trip delay versus days from conjunction shows the sharp logarithmic spike (about 250 microseconds for Mars when grazing the limb); toggles to drop the spatial metric term (halving the delay) and to switch planets.",
+        "form": "interactive-plot",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 8.7",
+      "image_path": "gifted-amateur/pages/page-117/img-75.jpeg",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      },
+      "caption_paraphrase": "Polar description of a straight line: its perpendicular distance from the origin and the direction of that perpendicular.",
+      "visual_description": "An origin at lower left with a horizontal reference ray to the right. A straight line slants up to the right above the origin. A segment labelled a drops from the origin perpendicular to the line, with a right-angle box at its foot. A second segment labelled r runs from the origin to a general point on the line. Arcs at the origin mark theta0 (from the reference ray to the perpendicular) and theta (from the reference ray to r).",
+      "what_it_teaches": "The complicated-looking polar solution r = a / cos(theta - theta0) is simply a straight line: right-triangle trigonometry with a and theta0 as the line's parameters.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "straight lines as geodesics of flat space",
+        "connection coefficients in plane polar coordinates"
+      ],
+      "redesign": {
+        "idea": "Straight line in polar dress: the same geodesic displayed as a Cartesian line and as polar equations solved step by step.",
+        "interaction": "Drag the line; a and theta0 update; a point slides along the line with arc length lambda from the foot while side plots show r(lambda) = sqrt(lambda^2 + a^2) and theta(lambda), and a vector readout shows r thetadot^2 (the centrifugal term) being exactly what keeps rddot non-zero for a straight line.",
+        "form": "interactive-2d",
+        "priority": "low"
+      }
+    }
+  ],
+  "worked_examples": [
+    {
+      "label": "Example 8.1",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      },
+      "problem": "Find the force-free paths in Minkowski spacetime.",
+      "method": "Replace the Newtonian zero-acceleration law by zero second derivative of each coordinate with respect to proper time, then integrate twice.",
+      "key_insight": "In flat spacetime and inertial coordinates the geodesic equation has no connection term, so geodesics are straight world lines; this is the baseline that curvature or curvilinear coordinates modify.",
+      "result": "x^mu(tau) = b^mu tau + c^mu.",
+      "concepts": [
+        "geodesic",
+        "straight lines as geodesics of flat space",
+        "affine parameter"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 8.2",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "problem": "For free motion on a sphere between two non-antipodal points, decide which of the two great-circle routes is a minimum of the action.",
+      "method": "Compare the direct arc (i) with the long arc (ii) through the antipode. Launch a family of particles from q1 with slightly different momenta, describe the final spread by a linear map delta q = N delta p, and observe that on the sphere they all reconverge at the antipode q1*.",
+      "key_insight": "A trajectory that passes through a conjugate point (where nearby trajectories refocus, making N singular) is a saddle of the action, not a minimum; stationary does not mean least.",
+      "result": "Route (i) minimizes the action; route (ii) is a saddle point.",
+      "concepts": [
+        "conjugate point",
+        "stationary action",
+        "great circles as geodesics of the sphere"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 8.3",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "problem": "Determine whether geodesics minimize or maximize the interval for Riemannian versus Lorentzian metrics.",
+      "method": "For positive-definite metrics note that lengths are bounded below but not above. For Lorentzian metrics construct timelike curves that approximate a given one by chains of null segments (Fig. 8.2), whose interval is zero.",
+      "key_insight": "Signature flips the character of the extremum: shortest paths in space, longest proper time in spacetime (if an extremum exists), and even a Riemannian geodesic need not be globally shortest.",
+      "result": "Riemannian geodesics are locally length-minimizing; timelike geodesics are curves of maximal proper time.",
+      "concepts": [
+        "Riemannian metric",
+        "Lorentzian metric",
+        "maximal proper time of timelike geodesics",
+        "null zigzag approximation of a timelike curve"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      },
+      "problem": "Show that the length of a curve does not depend on how it is parametrized.",
+      "method": "Write lambda = lambda(eta), transform each velocity with the chain rule and the measure d lambda with its Jacobian, and simplify inside the square root (margin note 3).",
+      "key_insight": "The Jacobian factors cancel exactly because L is homogeneous of degree one in the velocities, leaving the parameter as a free gauge choice.",
+      "result": "s = integral d eta [(dx/d eta)^2 + (dy/d eta)^2]^(1/2), same form as before.",
+      "concepts": [
+        "reparametrization invariance of the length functional"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 8.4",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      },
+      "problem": "Set up the Euler-Lagrange equations for the shortest path between two points in the Euclidean plane.",
+      "method": "Write L = [(dx/dlambda)^2 + (dy/dlambda)^2]^(1/2) and compute partial L / partial xdot = xdot / L and partial L / partial x = 0, similarly for y.",
+      "key_insight": "Even the simplest geodesic problem produces a 1/L factor that makes the equations awkward until a parametrization is chosen.",
+      "result": "Euler-Lagrange ingredients (8.6).",
+      "concepts": [
+        "Euler-Lagrange equations for the length functional"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 8.5",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      },
+      "problem": "Complete the plane calculation using length parametrization.",
+      "method": "Set L = 1 after differentiation so that the Euler-Lagrange equations reduce to second derivatives of x and y vanishing; verify with x = lambda, y = m lambda + c.",
+      "key_insight": "Length parametrization turns geodesic equations into 'acceleration = 0' in Cartesian coordinates, making contact with Newton's first law.",
+      "result": "d^2x/dlambda^2 = d^2y/dlambda^2 = 0: straight lines.",
+      "concepts": [
+        "length parametrization",
+        "straight lines as geodesics of flat space"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 8.6",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      },
+      "problem": "Find the geodesic equations on the unit sphere and identify simple solutions.",
+      "method": "Build L from ds^2 = d theta^2 + sin^2 theta d phi^2, take partial derivatives with respect to theta, phi and their rates, set L = 1, and assemble the two Euler-Lagrange equations; test meridians, the equator and a latitude circle (margin note 7, Fig. 8.3).",
+      "key_insight": "The theta equation contains a sin theta cos theta phidot^2 term that vanishes only on the equator, so latitude circles fail; the phi equation is a conservation law because phi does not appear in L.",
+      "result": "thetaddot - sin theta cos theta phidot^2 = 0 and d/dlambda(sin^2 theta phidot) = 0; solved by theta = lambda, phi = 0 and by theta = pi/2, phi = lambda, not by theta = pi/4, phi = lambda.",
+      "concepts": [
+        "great circles as geodesics of the sphere",
+        "length parametrization",
+        "Euler-Lagrange equations for the length functional"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      },
+      "problem": "Derive the component geodesic equation from the geometric condition that a free particle has zero covariant acceleration.",
+      "method": "Write a = nabla_u u = 0, expand with the covariant derivative u^alpha(partial_alpha u^mu + Gamma^mu_{alpha beta} u^beta), substitute u^alpha = dx^alpha/dlambda and recognize the first term as d^2x^mu/dlambda^2.",
+      "key_insight": "The geodesic equation is just 'ordinary acceleration plus a connection correction equals zero', the curved-coordinates version of xddot = 0.",
+      "result": "d^2x^mu/dlambda^2 + Gamma^mu_{alpha beta} (dx^alpha/dlambda)(dx^beta/dlambda) = 0.",
+      "concepts": [
+        "geodesic as autoparallel curve",
+        "geodesic equation",
+        "covariant acceleration"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 8.7",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      },
+      "problem": "Show that a geodesic cannot change from timelike to null or spacelike.",
+      "method": "Differentiate u.u along the geodesic with the Leibniz rule and use nabla_u u = 0.",
+      "key_insight": "Norm conservation is automatic for geodesics, which is why u.u = -1 can be imposed once as a constraint.",
+      "result": "nabla_u(u.u) = 2u.nabla_u u = 0.",
+      "concepts": [
+        "conservation of u.u along a geodesic",
+        "metric compatibility of the connection"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 8.8",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      },
+      "problem": "Justify the geometric momentum conservation law nabla_p p = 0.",
+      "method": "Expand (nabla_p p)^beta = m(dp^beta/dtau + u^alpha p^sigma Gamma^beta_{alpha sigma}); pass to a local inertial frame where Gamma vanishes so it becomes flat-space dp/dtau = 0; invoke general covariance to extend the tensor equation to all frames; note in a margin that photon momentum is tangent to its null world line.",
+      "key_insight": "A standard two-step GR proof pattern: verify a tensor law where the connection vanishes, then promote it covariantly.",
+      "result": "nabla_p p = 0 in every frame, for massive particles and photons.",
+      "concepts": [
+        "geometric momentum conservation",
+        "local inertial frame",
+        "principle of general covariance"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 8.9",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      },
+      "problem": "Analyse swingball (tetherball) forces in the players' frame and in the ball's frame.",
+      "method": "In the lab: resolve tension into vertical T cos theta = mg and horizontal T sin theta = mv^2/r as centripetal force. In the ball's frame: no horizontal acceleration, so an outward centrifugal force F must balance T sin theta.",
+      "key_insight": "Inertial forces are what a non-inertial frame must add to make Newton's law hold; they are the everyday model for how connection terms act like forces.",
+      "result": "F = T sin theta = mv^2/r, directed outward in the ball's frame.",
+      "concepts": [
+        "inertial force",
+        "centrifugal force"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 8.10",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      },
+      "problem": "Recover Newtonian gravity from the geodesic equation for a weak static field.",
+      "method": "Take ds^2 = -(1 + 2 Phi) dt^2 + dx^2 + dy^2 + dz^2, quote the resulting spatial equation of motion (method in Chapter 9), and identify Gamma^i_tt by comparison with the geodesic equation; use tau ≈ t for slow motion.",
+      "key_insight": "Gravity appears through a single connection component built from the gradient of g_tt; the 'force' is an inertial force in the sense of §8.3.",
+      "result": "Gamma^i_tt = partial_i Phi = GM x^i / r^3, giving xddot^i = -GM x^i / r^3.",
+      "concepts": [
+        "Newtonian limit of the geodesic equation",
+        "equivalence principle",
+        "inertial force"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 8.11",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      },
+      "problem": "Write Newton's second law in plane polar coordinates using the forced geodesic equation.",
+      "method": "Insert the polar connection coefficients Gamma^r_{theta theta} = -r and Gamma^theta_{r theta} = 1/r into (8.34) with tau ≈ t and separate radial and angular components.",
+      "key_insight": "The familiar centrifugal (-r thetadot^2) and Coriolis-like (2 rdot thetadot / r) terms are nothing but connection coefficients, so uniform circular motion is not a geodesic and needs a centripetal force.",
+      "result": "f^r/m = rddot - r thetadot^2; f^theta/m = thetaddot + 2 rdot thetadot / r.",
+      "concepts": [
+        "connection coefficients in plane polar coordinates",
+        "inertial force",
+        "geodesic equation with an external 4-force"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 8.12",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      },
+      "problem": "Compute the extra travel time of a light signal from a planet to Earth passing close to the Sun.",
+      "method": "Impose ds^2 = 0 on the weak-field metric with both time and space perturbations; expand to first order in GM/r to get dt = (1 + 2GM/r) dx along a straight line at impact parameter b; integrate each leg using the integral of 1/sqrt(x^2 + b^2) and take b much smaller than the distances; add the legs.",
+      "key_insight": "Light's coordinate speed is reduced near a mass, and the resulting delay depends only logarithmically on the geometry, giving a clean observable test.",
+      "result": "Delta t = 2GM ln(4 d_p d_e / b^2) (times 1/c^3 in SI), about 120 microseconds one-way for a signal grazing the Sun from Mars (own estimate).",
+      "concepts": [
+        "Shapiro time delay",
+        "null condition method for light rays",
+        "weak-field metric with spatial curvature term",
+        "coordinate speed of light"
+      ],
+      "difficulty": "challenging"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "Geodesic as the straightest line a local observer could draw",
+      "target_concept": "geodesic",
+      "how_used": "The opening and the end of §8.2 describe geodesics as straightest possible paths, which a freely falling observer would perceive as straight lines in their locally flat neighbourhood.",
+      "limits": "'Straight' is local; globally geodesics can reconverge (sphere) and need not be shortest or longest.",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": "Ant-on-a-surface view: the learner walks forward without turning on a sphere and sees the resulting track drawn from outside as a great circle."
+    },
+    {
+      "analogy": "Travelling on the Earth's surface along great circles",
+      "target_concept": "conjugate point",
+      "how_used": "Two routes along one great circle, and a fan of trajectories refocusing at the antipode, make the abstract second-variation question visible.",
+      "limits": "The sphere has uniform positive curvature so all geodesics refocus at one point; in spacetime focusing depends on matter content and need not be so tidy.",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Flight-route globe showing the short and long great-circle routes between two cities and how neighbouring routes from one city all meet at its antipode."
+    },
+    {
+      "analogy": "Staircase of light-speed dashes shadowing a smooth path",
+      "target_concept": "maximal proper time of timelike geodesics",
+      "how_used": "Fig. 8.2 shows a zigzag of null segments hugging a timelike curve, proving that proper time can be made as small as desired so no minimum exists.",
+      "limits": "The zigzag has corners (infinite accelerations) and is only close in position, not in velocity; it bounds proper time but does not by itself prove the geodesic is a maximum.",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Clock race: a traveller who repeatedly dashes back and forth at near light speed around a stay-at-home path, with both clocks displayed."
+    },
+    {
+      "analogy": "Swingball (tetherball) forces in two frames",
+      "target_concept": "inertial force",
+      "how_used": "A familiar playground game shows that the same motion needs a centripetal force in one frame and gains an outward centrifugal force in the other, so inertial forces are frame artefacts that feel real.",
+      "limits": "The ball is not in free fall (tension acts), and its accelerometer registers tension, not centrifugal force; in GR a freely falling observer feels no gravitational force at all, so the analogy for gravity is about coordinate bookkeeping rather than sensation.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Toggle between lab and co-rotating camera for a tetherball with live force arrows, then cut the string."
+    },
+    {
+      "analogy": "Rotating Earth fictitious forces",
+      "target_concept": "inertial force",
+      "how_used": "Mentioned at the start of Example 8.9 as the everyday case of an accelerated frame producing forces that are not 'fictional' to those experiencing them.",
+      "limits": "Only a passing remark; Coriolis effects are not developed.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      },
+      "effectiveness": "weak",
+      "app_idea": null
+    },
+    {
+      "analogy": "Newtonian mechanics in polar coordinates as a toy model of gravity-as-connection",
+      "target_concept": "connection coefficients in plane polar coordinates",
+      "how_used": "Example 8.11 shows that flat-space polar coordinates already generate centrifugal and Coriolis-like terms through Gamma, so learners see connection 'forces' in a setting with no curvature.",
+      "limits": "Here all Gammas can be removed globally by going to Cartesian coordinates; gravity's Gammas can be removed only at a point.",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Same free particle plotted in Cartesian and polar coordinates with the polar 'forces' r thetadot^2 and 2 rdot thetadot / r drawn as arrows that appear from nowhere."
+    },
+    {
+      "analogy": "Light cones as little funnels the ray must skim",
+      "target_concept": "null geodesic",
+      "how_used": "Fig. 8.5 draws cones tangent to a curving null world line to show that light always moves along the cone surface locally.",
+      "limits": "The cones in the drawing are schematic; in a real spacetime diagram their tilt and opening encode the metric, which the figure does not quantify.",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Light-cone field that tilts with a mass slider and a ray tracer that keeps the ray on the cone edges."
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "A geodesic is always the shortest path, and the principle of least action always picks a minimum.",
+      "correction": "Only stationarity is required. On a sphere the long great-circle route through the antipode is a geodesic but a saddle of the action, and in spacetime timelike geodesics maximize proper time.",
+      "why_tempting": "The phrases 'least action' and 'shortest distance' are how geodesics and Hamilton's principle are usually first taught.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": "8.1"
+      },
+      "concepts": [
+        "stationary action",
+        "conjugate point",
+        "geodesic"
+      ]
+    },
+    {
+      "misconception": "In spacetime, the free-fall world line takes the least proper time between two events.",
+      "correction": "It takes the most: any wiggle toward null directions reduces proper time, down to zero for a chain of null segments.",
+      "why_tempting": "Carrying over 'straight line = shortest' from Euclidean intuition; the sign flip from the minus in the metric is counterintuitive.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "concepts": [
+        "maximal proper time of timelike geodesics",
+        "null zigzag approximation of a timelike curve"
+      ]
+    },
+    {
+      "misconception": "If a curve is a geodesic between two points, it must be the shortest route between them.",
+      "correction": "It is only locally extremal; beyond a conjugate point, or when several geodesics join the points, a given geodesic can be longer than another.",
+      "why_tempting": "Plane geometry has a unique geodesic between two points.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "concepts": [
+        "conjugate point",
+        "Riemannian metric"
+      ]
+    },
+    {
+      "misconception": "Every particle in a gravitational field moves along a geodesic.",
+      "correction": "Only free particles do; a charged particle in an electromagnetic field or a rocket under thrust has extra terms in its Lagrangian or a force on the right-hand side of the geodesic equation.",
+      "why_tempting": "Gravity is described as geometry, so one may assume geometry dictates all motion.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      },
+      "concepts": [
+        "geodesic principle",
+        "geodesic equation with an external 4-force"
+      ]
+    },
+    {
+      "misconception": "Setting L = 1 before varying is legitimate, so the Euler-Lagrange equations become trivial.",
+      "correction": "The parameter must be fixed only after the partial derivatives of L have been taken; setting L = 1 first would make everything vanish. Afterwards L = 1 is a constraint and first integral.",
+      "why_tempting": "Length parametrization looks like a simple substitution that could be made at any stage.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      },
+      "concepts": [
+        "length parametrization"
+      ]
+    },
+    {
+      "misconception": "A circle of constant latitude is a straight path on the sphere because one coordinate stays fixed.",
+      "correction": "Only the equator among latitude circles is a geodesic; elsewhere the theta equation requires sin theta cos theta phidot^2 = 0, which fails.",
+      "why_tempting": "Constant-coordinate curves are straight lines in Cartesian coordinates, so learners equate 'coordinate line' with 'straight'.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.1"
+      },
+      "concepts": [
+        "great circles as geodesics of the sphere"
+      ]
+    },
+    {
+      "misconception": "Non-zero connection coefficients mean spacetime is curved.",
+      "correction": "Connection coefficients can be non-zero in flat space in curvilinear or accelerated coordinates (polar coordinates in Example 8.11); only curvature (Riemann tensor, Chapter 11) is coordinate-independent evidence.",
+      "why_tempting": "Gravity is introduced through Gammas, so any Gamma looks like gravity.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.3"
+      },
+      "concepts": [
+        "inertial force",
+        "connection coefficients in plane polar coordinates"
+      ]
+    },
+    {
+      "misconception": "Fictitious forces are not real, so they cannot be felt or have effects.",
+      "correction": "Within the frame that uses them they have measurable consequences and must be included for Newton's laws to balance; the book's Example 8.9 makes the point that someone riding in such a frame experiences nothing illusory about them.",
+      "why_tempting": "The label 'fictitious' suggests they are illusions.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      },
+      "concepts": [
+        "inertial force",
+        "centrifugal force"
+      ]
+    },
+    {
+      "misconception": "Uniform circular motion in flat spacetime is force-free 'coasting' because the speed is constant.",
+      "correction": "It is not a geodesic: in polar coordinates a^r = 0 requires an inward applied force balancing the r thetadot^2 term.",
+      "why_tempting": "Constant speed is confused with constant velocity.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      },
+      "concepts": [
+        "connection coefficients in plane polar coordinates",
+        "geodesic equation with an external 4-force"
+      ]
+    },
+    {
+      "misconception": "Photons can be tracked by their proper time like massive particles.",
+      "correction": "The interval along a null world line is zero, so proper time is unavailable; an affine parameter must be used instead.",
+      "why_tempting": "The same geodesic equation is written with tau for massive particles.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      },
+      "concepts": [
+        "null geodesic",
+        "affine parameter"
+      ]
+    },
+    {
+      "misconception": "The geodesic equation is only valid with proper time as the parameter.",
+      "correction": "Any affine parameter lambda = a tau + b works; non-affine parameters add a term proportional to the tangent.",
+      "why_tempting": "Most examples use tau.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      },
+      "concepts": [
+        "affine parameter",
+        "geodesic equation"
+      ]
+    },
+    {
+      "misconception": "Spacelike geodesics are physically meaningless because nothing travels along them.",
+      "correction": "They are useful geometric tools (for instance spatial distances and constructions), even though no known particle moves on them.",
+      "why_tempting": "Physical relevance is equated with being a particle trajectory.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      },
+      "concepts": [
+        "spacelike geodesic"
+      ]
+    },
+    {
+      "misconception": "The Shapiro delay means light actually slows below c near the Sun.",
+      "correction": "Only the coordinate speed decreases; any local observer along the path measures c. The delay is a statement about coordinate time and the extra effective path, and is observable as a comparison of round-trip times with and without the Sun near the line of sight.",
+      "why_tempting": "The calculation literally finds dx/dt < 1.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      },
+      "concepts": [
+        "coordinate speed of light",
+        "Shapiro time delay"
+      ]
+    },
+    {
+      "misconception": "Newtonian gravity comes entirely from g_tt, so the spatial part of the metric is irrelevant for light too.",
+      "correction": "For slow particles only g_tt matters, but light is equally affected by g_ij; dropping the (1 - 2 Phi) factor would halve the Shapiro delay (and light bending).",
+      "why_tempting": "Example 8.10 successfully uses a metric with flat spatial part.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      },
+      "concepts": [
+        "weak-field metric with spatial curvature term",
+        "Shapiro time delay"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Swarm of particles launched from one point on a sphere",
+      "setup": "Free particles leave q1 on a sphere with almost the same direction and speed, spreading out along neighbouring great circles.",
+      "lesson": "They all meet again at the antipode, the conjugate point; a path that passes such a point is a saddle rather than a minimum of the action.",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "concepts": [
+        "conjugate point",
+        "stationary action"
+      ],
+      "visualizable": true,
+      "app_idea": "Animated fan of geodesics on a sphere with a marker that lights up at the first focus."
+    },
+    {
+      "name": "Two travellers on one great circle",
+      "setup": "Particles leave q1 with equal momentum in opposite directions along a great circle, one reaching q2 directly and one going the long way past the antipode.",
+      "lesson": "Both follow geodesics, but only the short one minimizes; the other is a saddle.",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "concepts": [
+        "great circles as geodesics of the sphere",
+        "conjugate point"
+      ],
+      "visualizable": true,
+      "app_idea": "Race two dots in opposite directions around a great circle, with a length-versus-perturbation plot for each."
+    },
+    {
+      "name": "Null zigzag traveller",
+      "setup": "Replace a smooth timelike trip between two events by a sequence of near-light-speed dashes that stay close to it.",
+      "lesson": "The zigzag traveller's clock reads almost zero, so proper time has no minimum and a timelike geodesic must be a maximum.",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      },
+      "concepts": [
+        "null zigzag approximation of a timelike curve",
+        "maximal proper time of timelike geodesics"
+      ],
+      "visualizable": true,
+      "app_idea": "Spacetime-diagram slider that increases the number of dashes and shows the proper-time readout collapsing."
+    },
+    {
+      "name": "Swingball from the ball's point of view",
+      "setup": "Ride with a tethered ball circling a pole and ask what forces balance in that frame.",
+      "lesson": "An outward centrifugal force appears that is absent in the players' frame; inertial forces depend on the frame, as does gravity per the equivalence principle.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      },
+      "concepts": [
+        "centrifugal force",
+        "inertial force",
+        "equivalence principle"
+      ],
+      "visualizable": true,
+      "app_idea": "Co-rotating camera toggle with force arrows."
+    },
+    {
+      "name": "Radar signal grazing the Sun",
+      "setup": "Send a light pulse from a distant planet to Earth along a line passing the Sun at closest distance b.",
+      "lesson": "The signal arrives later than flat-space timing predicts by an amount logarithmic in d_p d_e / b^2, a measurable fourth test of GR.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      },
+      "concepts": [
+        "Shapiro time delay"
+      ],
+      "visualizable": true,
+      "app_idea": "Planet-Earth-Sun configuration slider with a delay-versus-date plot."
+    },
+    {
+      "name": "The particle that cannot feel its own weight",
+      "setup": "Exercise 8.3: describe a particle in coordinates falling with it, where it has no acceleration, then re-express its motion in other coordinates.",
+      "lesson": "The chain rule alone forces a connection-like term into the equation of motion, so the geodesic equation follows from the equivalence principle without any knowledge of curvature.",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      },
+      "concepts": [
+        "geodesic equation from a freely falling frame",
+        "equivalence principle"
+      ],
+      "visualizable": false,
+      "app_idea": null
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "Irwin Shapiro"
+      ],
+      "year": "1964",
+      "event": "Proposed the radar time delay of signals passing near the Sun as a new test of general relativity.",
+      "significance": "Added a fourth solar-system test to perihelion precession, light deflection and gravitational redshift; the book lists these as the classical tests. (The year is added from general knowledge; the margin note gives only his birth year, 1929.)",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "people": [
+        "Joe Walcott",
+        "Bob Fitzsimmons"
+      ],
+      "year": null,
+      "event": "Chapter epigraph: a boxing saying about big opponents falling hard, credited to two boxers of around 1900.",
+      "significance": "A playful hook linking 'falling' to free fall; no physics content.",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Shapiro radar time delay",
+      "kind": "observation",
+      "details": "Signals between Earth and another planet (or spacecraft) passing close to the Sun arrive late by 2GM/c^3 ln(4 d_p d_e / b^2) each way. Radar echo measurements (round trip) double this. The book derives the formula and frames it as the fourth classical test.",
+      "key_numbers": "2GM_sun/c^3 ≈ 9.85 microseconds. Own estimate for a Mars signal grazing the solar limb (b ≈ 6.96e8 m, d_e ≈ 1.50e11 m, d_p ≈ 2.28e11 m): logarithm ≈ 12.5, one-way ≈ 124 microseconds, round trip ≈ 250 microseconds; for Venus ≈ 116 and 233 microseconds.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "topic": "Newtonian gravity from the connection",
+      "kind": "numerical-estimate",
+      "details": "Gamma^i_tt = partial_i Phi reproduces the gravitational acceleration GM/r^2 for slow particles in a weak field.",
+      "key_numbers": "Own estimate: at Earth's surface Gamma^r_tt = g/c^2 ≈ 1.1e-16 per metre; for the Sun's surface GM/(c^2 R) ≈ 2.1e-6, showing the weak-field expansion parameter is tiny in the solar system.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "topic": "Classical solar-system tests of general relativity",
+      "kind": "observation",
+      "details": "Perihelion precession of Mercury and deflection of light by the Sun (Chapter 23) and gravitational redshift (Chapter 13), with Shapiro delay as the fourth.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "topic": "Swingball (tetherball) force balance",
+      "kind": "numerical-estimate",
+      "details": "Tension components satisfy T cos theta = mg and T sin theta = mv^2/r, so tan theta = v^2/(rg); in the ball's frame the centrifugal force equals mv^2/r.",
+      "key_numbers": "Own illustration: v = 3 m/s on r = 1 m gives tan theta ≈ 0.92, theta ≈ 43 degrees.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Metric signature",
+      "convention": "Lorentzian metrics use -+++: ds^2 < 0 timelike, 0 null, > 0 spacelike; positive-definite (Riemannian) metrics are ++++.",
+      "notes": "The exported text garbles the signatures in Example 8.3; the page shows ++++ and -+++.",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      }
+    },
+    {
+      "item": "Units",
+      "convention": "Geometrized units with c = 1 (and GM carrying dimensions of length) in the weak-field and Shapiro formulas; margin note 15 says the small parameter is GM/(c^2 r) when c is restored.",
+      "notes": "The text still writes 'the usual time x0/c' next to formulas with c = 1.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "item": "Proper time and length",
+      "convention": "d tau = (-ds^2)^(1/2) for timelike curves, dl = (+ds^2)^(1/2) for spacelike ones; the extremized interval is s = integral of sqrt|ds^2|.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    },
+    {
+      "item": "Dot notation",
+      "convention": "An overdot means d/dlambda in the variational examples (margin note 5) and d/dtau in the inertial-force and polar examples (eqn 8.29, Example 8.11 with tau ≈ t).",
+      "notes": "Check the parameter each time; the meaning shifts within the chapter.",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "item": "Connection coefficients",
+      "convention": "Gamma^mu_{alpha beta} with the upper index first and the two symmetric lower indices contracted with velocities; (nabla_u v)^mu = u^alpha(partial_alpha v^mu + Gamma^mu_{alpha beta} v^beta).",
+      "notes": "In eqns 8.29 and 8.33 the dummy index lambda collides with the name of the affine parameter.",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      }
+    },
+    {
+      "item": "Covariant derivative notations",
+      "convention": "Du/dlambda and nabla_u u are used interchangeably for the derivative along a curve; comma denotes a partial derivative (p^beta_{,alpha}) and semicolon a covariant component derivative (sigma_{nu;mu}).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "item": "Vectors and 1-forms",
+      "convention": "Bold upright letters (u, p, f) for vectors, u.v for the metric inner product; a tilde marks a 1-form and omega^nu denotes basis 1-forms.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "item": "Affine parameters",
+      "convention": "lambda (or sigma for photons) denotes an affine parameter, related to proper time by lambda = a tau + b for massive particles.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "item": "Local inertial frame",
+      "convention": "Abbreviated LIF: coordinates where the Gammas vanish at a point.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "item": "Sphere and polar coordinates",
+      "convention": "theta is colatitude measured from the north pole and phi longitude on the unit sphere; 'two-dimensional cylindrical coordinates' means plane polar (r, theta).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      }
+    },
+    {
+      "item": "Weak-field potential",
+      "convention": "Phi(x, y, z) = -GM/r enters as g_tt = -(1 + 2 Phi) and, in the improved metric, g_ij = (1 - 2 Phi) delta_ij.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "item": "Shapiro geometry symbols",
+      "convention": "b closest approach to the Sun; d_p and d_e distances of planet and Earth along the x-axis from the point of closest approach; the signal runs from (-d_p, y0, z0) to (d_e, y0, z0).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "Epigraph: a boxing proverb about big fighters falling hard, attributed to two boxers of around 1900, as a pun on free fall.",
+      "type": "humor-or-aside",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    },
+    {
+      "summary": "Justifies geodesic motion: the free-particle action is minus mass times proper time, so stationary action means stationary proper time. Only free particles qualify, since other interactions add Lagrangian terms. Spacelike geodesics extremize proper length and are useful although nothing (except hypothetical tachyons) moves on them; photons use null geodesics.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    },
+    {
+      "summary": "General definition of a conjugate point as where the response matrix from initial-momentum to final-position variations fails to be invertible; a trajectory is a minimum if and only if it avoids conjugate points; two geodesics from P crossing again at Q make Q conjugate to P; points ahead to the singularity theorem of Chapter 50.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      }
+    },
+    {
+      "summary": "Chain-rule computation showing that the Cartesian length integral has identical form in any new parameter eta.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "summary": "Remarks that the parameter effectively cancels from the Euler-Lagrange equation, which is why it can be chosen after taking derivatives.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "summary": "Overdot means derivative with respect to the parameter lambda.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "summary": "Gives the expanded form of the phi geodesic equation on the sphere, with the 2 cot theta thetadot phidot term.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.1"
+      }
+    },
+    {
+      "summary": "Explicit tests: theta = lambda with phi = 0, and theta = pi/2 with phi = lambda, solve the sphere equations; theta = pi/4 with phi = lambda does not.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.1"
+      }
+    },
+    {
+      "summary": "Any affine parameter linear in tau may replace tau, and affine parameters can be characterized as those keeping the geodesic equation in its standard form; photons have no proper time and obey the null condition with an affine parameter sigma.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "summary": "For photons the momentum is tangent to the null world line, so nabla_p p = 0 also expresses momentum conservation for light.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "summary": "Swingball is the British name for the game called tetherball elsewhere.",
+      "type": "humor-or-aside",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "summary": "The method for obtaining the weak-field equation of motion is postponed to the next chapter.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "summary": "Recalls the non-zero plane polar connection coefficients Gamma^theta_{r theta} = 1/r and Gamma^r_{theta theta} = -r.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      }
+    },
+    {
+      "summary": "Boxed contrast: free massive particles follow timelike geodesics while photons follow null geodesics; the former statement is called the geodesic principle.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      }
+    },
+    {
+      "summary": "The improved weak-field metric is derived in Section 14.1, with a fuller treatment in Chapter 45.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      }
+    },
+    {
+      "summary": "Irwin Shapiro proposed the time delay as a fourth test; the three classical solar-system tests are Mercury's perihelion precession and light deflection (Chapter 23) and gravitational redshift (Chapter 13).",
+      "type": "historical",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "summary": "With c restored the expansion parameter is GM/(c^2 r).",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "summary": "Supplies the standard integral of 1/sqrt(x^2 + a^2) needed for the delay.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 4,
+    "pdf_pages": [
+      116,
+      117
+    ],
+    "skills_practiced": [
+      "deriving geodesic equations from a length functional in curvilinear coordinates",
+      "using conserved quantities and the L = 1 constraint to integrate geodesic equations",
+      "recognizing a straight line in polar form and relating it to Cartesian parameters",
+      "chain-rule transformation of an equation of motion between coordinate systems",
+      "identifying connection coefficients from coordinate transformations",
+      "covariant derivatives of 1-forms and index lowering in the geodesic equation",
+      "proving orthogonality of 4-force and 4-velocity"
+    ],
+    "notable": [
+      {
+        "number": "8.1",
+        "summary": "Starting from the flat-space length written in polar coordinates, obtain the two geodesic equations and integrate them with length parametrization to get r^2 = lambda^2 + a^2, the angular rate a/(lambda^2 + a^2), and finally a tan(theta - theta0) = lambda.",
+        "skills": [
+          "Euler-Lagrange for geodesics",
+          "length parametrization",
+          "conserved angular momentum"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Shows that a geodesic in curvilinear coordinates can look complicated even though it is a straight line, and practises the full solve-with-constraint workflow.",
+        "pdf_page": 116
+      },
+      {
+        "number": "8.2",
+        "summary": "Eliminate the parameter from the previous solution to get r = a / cos(theta - theta0), then use Fig. 8.7 and given substitutions to confirm it is the Cartesian line alpha x + beta y = gamma.",
+        "skills": [
+          "geometric interpretation",
+          "coordinate conversion"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Closes the loop between formalism and picture: the perpendicular distance a and direction theta0 are the natural line parameters.",
+        "pdf_page": 117
+      },
+      {
+        "number": "8.3",
+        "summary": "Assume only that a particle has zero acceleration in coordinates moving with it, transform to arbitrary coordinates with the chain rule, derive an equation with a term built from second derivatives of the coordinate map, and interpret it.",
+        "skills": [
+          "chain rule",
+          "equivalence principle reasoning",
+          "identifying connection coefficients"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Gives an independent, physics-first derivation of the geodesic equation and an explicit formula for Gamma in terms of the transformation to a freely falling frame, as in Weinberg's approach.",
+        "pdf_page": 117
+      },
+      {
+        "number": "8.4",
+        "summary": "Given the covariant derivative of a 1-form, write the geodesic equation for the velocity 1-form (lower-index acceleration) and use it to show that the 4-force in the forced geodesic equation must be orthogonal to the 4-velocity.",
+        "skills": [
+          "1-form covariant derivative",
+          "index gymnastics",
+          "normalization constraint u.u = -1"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Previews Part V machinery and establishes the physical constraint f.u = 0, which the chapter's force equation otherwise leaves implicit.",
+        "pdf_page": 117
+      }
+    ],
+    "solutions": "GA appE (Answers to selected problems, pdf p. 607, printed p. 590) sketches all four: 8.1 via the conserved r^2 thetadot = a combined with L = 1; 8.2(b) by substituting x = r cos theta, y = r sin theta; 8.3 by the chain rule, identifying Gamma^nu_{lambda sigma} = (partial x^nu / partial xi^mu)(partial^2 xi^mu / partial x^lambda partial x^sigma); 8.4 via the lower-index geodesic equation and differentiating u.u = -1."
+  },
+  "difficulty": {
+    "math_level": 3,
+    "conceptual_level": 3,
+    "novice_friendliness": 3,
+    "notes": "The calculus of variations and index manipulations are standard for a second-year physics student, and every step of the plane and sphere calculations is shown. Harder are the conceptual points presented briefly: conjugate points and the second variation (only sketched with an unexplained response matrix), why the parameter may be fixed after differentiating, and the equivalence of the variational and parallel-transport definitions (not proven here). Several results are quoted rather than derived (the weak-field equation of motion, the improved metric 8.37), and there are printed or transcription slips (eqn 8.38, the cos theta in 8.17, index clashes) that can trip a careful reader. The Shapiro calculation is short but hides approximations (straight path, coordinate versus measured time)."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "GA ch2 §2.4",
+      "reason": "Principle of least action and Euler-Lagrange equations reused to extremize the interval.",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch5 §5.3",
+      "reason": "Light cones and reading the speed of light from ds^2 = 0, invoked after eqn 8.38.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch6 §6.1",
+      "reason": "Equivalence principle: gravity for one particle is indistinguishable from a choice of coordinates, used to call gravity an inertial force.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch6 §6.4",
+      "reason": "Local flatness and local inertial frames used in the nabla_p p = 0 argument.",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch6 §6.5",
+      "reason": "Weak-field metric with g_tt = -(1 + 2 Phi) reused in Examples 8.10 and 8.12.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch7",
+      "reason": "Parallel transport, covariant derivative component formula, and plane polar connection coefficients.",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch9",
+      "reason": "Systematic extraction of connection coefficients and the geodesic equation from an action; method behind eqn 8.31.",
+      "locator": {
+        "pdf_page": 108,
+        "printed_page": 91,
+        "section": null
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch11",
+      "reason": "Geodesic deviation and the Riemann tensor distinguish genuine curvature from coordinate-induced connection coefficients.",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.3"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch13",
+      "reason": "Gravitational redshift as one of the classical tests.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch14 §14.1",
+      "reason": "Derivation of the improved weak-field metric 8.37 from the Newtonian limit.",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch23",
+      "reason": "Perihelion precession and light deflection, the other classical tests, computed from Schwarzschild geodesics.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch24",
+      "reason": "Photon (null) geodesics in the Schwarzschild geometry develop §8.4 beyond the weak field.",
+      "locator": null
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch34",
+      "reason": "Part V treatment of the connection, including covariant derivatives of 1-forms used in Exercise 8.4.",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch45 §45.1",
+      "reason": "Fuller derivation of the weak-field metric used for light propagation.",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch50",
+      "reason": "Conjugate points and focusing of geodesics in the Big-Bang singularity theorem.",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "Diagnose 'minimum or saddle?' by firing a spray of particles and seeing whether they refocus, instead of computing a second variation.",
+      "why_effective": "Turns an abstract Hessian condition into a visual event (a focus) and plants the conjugate-point idea that later drives singularity theorems.",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      },
+      "app_idea": "Geodesic fan launcher on switchable surfaces (sphere, plane, saddle, and a 1+1 spacetime) with automatic focus detection and a length-versus-perturbation plot for a chosen geodesic."
+    },
+    {
+      "gem": "Shadow a timelike curve with a chain of light-like segments to show proper time has no minimum.",
+      "why_effective": "One picture explains the counterintuitive 'geodesics maximize proper time' and connects directly to the twin paradox.",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      },
+      "app_idea": "Zigzag slider on a spacetime diagram with live clocks for the geodesic, a wavy path and its zigzag shadow."
+    },
+    {
+      "gem": "Take the Euler-Lagrange derivatives with the parameter unspecified, then choose arc length so L = 1, keeping L = 1 as a bonus constraint.",
+      "why_effective": "Removes the square root that makes geodesic Lagrangians messy while explaining why the shortcut is legitimate and physically meaningful (parameter = proper time).",
+      "locator": {
+        "pdf_page": 110,
+        "printed_page": 93,
+        "section": "8.1"
+      },
+      "app_idea": "Step-through derivation widget: the learner clicks 'differentiate' then 'set L = 1'; trying the steps in the wrong order shows every term collapsing to zero."
+    },
+    {
+      "gem": "Check candidate curves against the sphere geodesic equations, including a deliberately failing latitude circle.",
+      "why_effective": "Learners see the equations act as a test that rejects intuitive but wrong answers, reinforcing that coordinate-constant curves need not be straight.",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.1"
+      },
+      "app_idea": "Globe with a latitude slider; the residual sin theta cos theta phidot^2 is plotted and only the equator gives zero."
+    },
+    {
+      "gem": "Define a geodesic as a curve that parallel transports its own tangent: free fall means zero covariant acceleration.",
+      "why_effective": "Links Newton's first law, parallel transport and the component equation in three short steps, and extends immediately to null and spacelike curves.",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      },
+      "app_idea": "Walk a tangent arrow along curves on a sphere; parallel transport it and show it stays tangent only on great circles."
+    },
+    {
+      "gem": "Read the connection term as an inertial force and demonstrate it with plane polar coordinates, where the centrifugal and Coriolis terms are Gamma terms in flat space.",
+      "why_effective": "Learners already know these terms from mechanics, so connection coefficients inherit a physical meaning before being applied to gravity.",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.3"
+      },
+      "app_idea": "Dual view of one free particle in Cartesian and polar coordinates, with the polar 'forces' drawn from Gamma^r_{theta theta} and Gamma^theta_{r theta}."
+    },
+    {
+      "gem": "Read Newtonian gravity off a metric: Gamma^i_tt = partial_i Phi from g_tt = -(1 + 2 Phi).",
+      "why_effective": "Makes 'gravity is geometry' quantitative in one line and shows why the time-time part of the metric governs everyday falling.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      },
+      "app_idea": "Potential landscape where the learner edits Phi; arrows for -Gamma^i_tt appear and a slow test particle integrated with the geodesic equation matches Newtonian motion."
+    },
+    {
+      "gem": "Treat light with the null condition ds^2 = 0 and integrate along a straight path to get the Shapiro delay.",
+      "why_effective": "Reaches a real, measured effect with minimal machinery, and the logarithm teaches how weak-field corrections accumulate along a long path.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      },
+      "app_idea": "Conjunction simulator plotting round-trip radar delay versus date, with a toggle to drop the spatial metric term and see the delay halve."
+    },
+    {
+      "gem": "Derive the geodesic equation purely from 'the particle cannot feel its weight in its own frame' plus the chain rule (Exercise 8.3).",
+      "why_effective": "Shows the geodesic equation is forced by the equivalence principle, independent of the variational or geometric definitions.",
+      "locator": {
+        "pdf_page": 117,
+        "printed_page": 100,
+        "section": null
+      },
+      "app_idea": "Coordinate-transformation playground: pick a map xi(x) (rotating, accelerating, polar) and see the induced Gamma terms and the apparent forces on a free particle."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "Printed eqn 8.38 gives dr/dt = [(r + GM)/(r - GM)]^(1/2), which is inverted and lacks factors of 2 relative to the metric 8.37; the next equation 8.39 correctly uses dt/dx ≈ 1 + 2GM/r.",
+      "impact_on_learner": "A learner checking the step from 8.37 finds an inconsistency, or propagates a light speed greater than 1 near the Sun and a delay of the wrong size and sign.",
+      "suggestion": "Present dt/dr = [(1 - 2 Phi)/(1 + 2 Phi)]^(1/2) = [(r + 2GM)/(r - 2GM)]^(1/2) ≈ 1 + 2GM/r and have the learner derive it from ds^2 = 0.",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      }
+    },
+    {
+      "issue": "The Shapiro derivation replaces dr by dx and uses 'r' for distance along the path without explaining that the isotropic spatial metric makes the coordinate light speed direction-independent, and that the straight-line path is a first-order approximation.",
+      "impact_on_learner": "Readers may think the radial formula is misapplied to a non-radial path.",
+      "suggestion": "State that for the isotropic metric ds^2 = 0 gives |dx/dt| = [(1 + 2 Phi)/(1 - 2 Phi)]^(1/2) in any direction, and that bending changes the time only at second order.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    },
+    {
+      "issue": "The book omits that dropping the spatial (1 - 2 Phi) term would halve the delay, and does not explain why eqn 8.30 suffices for slow particles but not for light.",
+      "impact_on_learner": "Learners miss the key lesson that light probes g_ij as much as g_tt, the same reason light bending is twice the Newtonian value.",
+      "suggestion": "Compute the delay both ways and compare; link to the factor of 2 in light deflection (Chapter 23).",
+      "locator": {
+        "pdf_page": 115,
+        "printed_page": 98,
+        "section": "8.4"
+      }
+    },
+    {
+      "issue": "Example 8.10 says Gamma^i_tt are the only non-zero connection coefficients, but Gamma^t_{ti} = partial_i Phi/(1 + 2 Phi) is also non-zero for metric 8.30.",
+      "impact_on_learner": "Learners who compute the full set (Chapter 9) find a contradiction, or miss the time equation that gives gravitational time dilation.",
+      "suggestion": "Say that the spatial equations involve only Gamma^i_tt, and show the t equation separately.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "issue": "Margin note 2 says the matrix N^{-1} is singular at a conjugate point; it is N that becomes singular (non-invertible), so N^{-1} does not exist. The response matrix itself is introduced without derivation.",
+      "impact_on_learner": "Confusion about which object degenerates and what 'singular' means.",
+      "suggestion": "Define N as the Jacobian of final position with respect to initial momentum and say a conjugate point is where det N = 0.",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      }
+    },
+    {
+      "issue": "Printed eqn 8.17 gives the derivative of sin^2 theta phidot without the cos theta factor in the first term (2 sin theta thetadot phidot), although 8.18 is correct.",
+      "impact_on_learner": "A learner reproducing the step gets a different coefficient and doubts the result.",
+      "suggestion": "Show d/dlambda(sin^2 theta phidot) = 2 sin theta cos theta thetadot phidot + sin^2 theta phiddot explicitly.",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "issue": "In eqn 8.16 the derivatives with respect to thetadot and phidot are easy to misread as derivatives with respect to theta and phi (the overdots on the denominators are small, and they are lost entirely in the text export).",
+      "impact_on_learner": "Readers may think partial L / partial theta has two different values.",
+      "suggestion": "Always write partial L / partial thetadot and partial L / partial theta on separate lines with labels.",
+      "locator": {
+        "pdf_page": 111,
+        "printed_page": 94,
+        "section": "8.1"
+      }
+    },
+    {
+      "issue": "Example 8.7 uses the Leibniz rule through the dot product without saying this requires the connection to be metric compatible.",
+      "impact_on_learner": "The dependence of 'causal type is preserved' on nabla g = 0 is invisible.",
+      "suggestion": "Add a one-line reminder of nabla g = 0 from Chapter 7 §7.5.",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "issue": "In §8.2 the term u^alpha partial_alpha u^mu treats the velocity as a field, although u is only defined along the curve; the identification with du^mu/dlambda is a chain-rule step on the curve.",
+      "impact_on_learner": "Careful readers may worry about differentiating u off the curve.",
+      "suggestion": "Write the covariant derivative along the curve directly as Du^mu/dlambda = du^mu/dlambda + Gamma^mu_{alpha beta} u^alpha u^beta.",
+      "locator": {
+        "pdf_page": 112,
+        "printed_page": 95,
+        "section": "8.2"
+      }
+    },
+    {
+      "issue": "Affine parameters are characterized as those that keep the geodesic equation in standard form, but the non-affine form (with a term proportional to the tangent) is never shown, and the equivalence of the variational and parallel-transport definitions is asserted, not proved here.",
+      "impact_on_learner": "Learners do not see why arbitrary parameters are fine for the length functional but not for the geodesic equation.",
+      "suggestion": "Show that reparametrizing lambda -> f(lambda) adds (f''/f'^2) dx^mu/d lambda-type terms, and flag Chapter 9 for the action derivation.",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.2"
+      }
+    },
+    {
+      "issue": "Index lambda is used as a dummy summation index in eqns 8.29 and 8.33 while lambda also denotes the affine parameter; the dot is d/dlambda in some examples and d/dtau in others; the text after 8.25 writes dx^sigma for dx^mu; Example 8.11 writes u_theta for u^theta.",
+      "impact_on_learner": "Notation clashes slow reading and invite algebra errors.",
+      "suggestion": "Use beta for the dummy index and state the parameter with every overdot.",
+      "locator": {
+        "pdf_page": 113,
+        "printed_page": 96,
+        "section": "8.3"
+      }
+    },
+    {
+      "issue": "Example 8.3 discusses the Lorentzian maximum without repeating the conjugate-point caveat from the sphere example: a timelike geodesic maximizes proper time only locally and only until a conjugate point.",
+      "impact_on_learner": "Learners may take 'geodesics maximize proper time' as a global law and be puzzled by, for example, orbits that meet again.",
+      "suggestion": "Mention that two geodesics joining the same events can have different proper times (e.g. a circular orbit versus radial up-and-down motion).",
+      "locator": {
+        "pdf_page": 109,
+        "printed_page": 92,
+        "section": "8.1"
+      }
+    },
+    {
+      "issue": "The swingball discussion says the ball feels the centrifugal force as a real force, which blurs the GR distinction between what an accelerometer measures (tension) and coordinate-dependent inertial forces; freely falling bodies feel nothing.",
+      "impact_on_learner": "Learners may conclude that an observer in free fall should feel gravity as an inertial force.",
+      "suggestion": "Contrast the tethered ball (accelerometer reads tension) with a freely falling observer (accelerometer reads zero) and say that inertial forces are terms in a coordinate description.",
+      "locator": {
+        "pdf_page": 114,
+        "printed_page": 97,
+        "section": "8.3"
+      }
+    },
+    {
+      "issue": "The Shapiro result is given as a coordinate one-way delay; the text does not say that experiments measure radar round trips in observer proper time, nor give any numbers.",
+      "impact_on_learner": "No sense of scale or of how the test is actually done.",
+      "suggestion": "Add the estimate that 2GM_sun/c^3 is about 10 microseconds and the round-trip delay near conjunction is a few hundred microseconds.",
+      "locator": {
+        "pdf_page": 116,
+        "printed_page": 99,
+        "section": "8.4"
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Open with: 'On a globe, is a great-circle route always the shortest way between two cities? And in spacetime, does the freely falling path take the least or the most time on your watch?' Let the learner commit before revealing both answers.",
+    "Order of explanation that works: flat-space straight lines, then 'stationary not least' with the sphere, then the signature flip via null zigzags, then the variational recipe with length parametrization, then the parallel-transport definition, then inertial forces and gravity, then light.",
+    "Check understanding of length parametrization by asking why one cannot set L = 1 before differentiating; a correct answer mentions that the Lagrangian's dependence on velocities must first be captured.",
+    "When deriving the sphere equations, have the learner predict whether a latitude circle is a geodesic (most say yes), then plug it in; use the car-steering intuition to explain the failure.",
+    "Connect 'geodesic = self-parallel tangent' to Newton's first law in words: no force means the velocity does not change, and in curved space 'does not change' means 'parallel transported'.",
+    "For inertial forces, start with Newton's law in polar coordinates, which learners know, and point out that r thetadot^2 and 2 rdot thetadot are connection terms; only then say gravity is also such a term.",
+    "Stress the distinction between non-zero Gammas (coordinate artefacts possible) and curvature (Chapter 11); a good check is 'Is flat space in polar coordinates curved?'",
+    "Common learner question: 'If gravity is not a force, why do I feel my weight?' Answer: you feel the floor pushing you off your geodesic; your accelerometer measures the non-gravitational force f, not Gamma terms.",
+    "Common question: 'Does light slow down near the Sun?' Answer: its coordinate speed does, but every local measurement gives c; the delay is observed by comparing arrival times with the flat-space expectation.",
+    "When covering eqn 8.38, warn that the printed version is garbled and ask the learner to derive the coordinate speed of light from eqn 8.37 as an exercise.",
+    "Give the Shapiro delay a scale: 2GM_sun/c^3 is about 10 microseconds and the logarithm is about 12 near conjunction, so the round trip is a few hundred microseconds, measurable with radar ranging.",
+    "Learner-level adaptation: novices can stop at the sphere pictures, zigzag argument, tetherball and Shapiro plot; advanced learners should do Exercise 8.3 (equivalence-principle derivation) and Exercise 8.4 (f.u = 0)."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Section 8.1 title restored to the TOC title 'Extremal intervals' (the dossier had appended a subtitle).",
+      "Clarified that the book's margin note names only the massive-particle statement the 'geodesic principle'.",
+      "Removed the circular prerequisite of 'stationary action' (it pointed to the length-functional technique that depends on it).",
+      "Concept 'Newtonian limit of the geodesic equation' listed the spatially corrected weak-field metric (eqn 8.37) as a prerequisite; Example 8.10 uses eqn 8.30 with a flat spatial part, so the prerequisite was replaced.",
+      "Fig. 8.2 visual description corrected after opening the image: the straight segments join marked points along the curve into a hugging chain, with no axes, cones or 45-degree slopes drawn.",
+      "Key equation 8.13: moved an explanatory note out of the 'symbols' field into 'meaning'.",
+      "Reworded a misconception correction that echoed the book's phrasing about 'fictional' forces.",
+      "Exercise-solution locator in appE tightened to pdf p. 607 (printed p. 590) after checking the reading copy."
+    ],
+    "residual_concerns": [
+      "Printed eqn 8.38 (dr/dt = [(r+GM)/(r-GM)]^(1/2)) is confirmed on the rendered page 115 as a book error, not an export artefact; the dossier transcribes it as printed and flags the correct form in key_equations, concepts and gaps_and_pitfalls.",
+      "Printed eqn 8.17 omits the cos theta factor (confirmed on rendered page 111); recorded as a book slip.",
+      "The Shapiro numbers (about 124 microseconds one-way for Mars), the Earth/Sun weak-field estimates, the swingball angle and Shapiro's 1964 proposal date are the dossier's own additions, not from the book; each is labelled as such.",
+      "Cross-references to later chapters (ch11 geodesic deviation, ch34 1-form covariant derivatives, ch24 photon orbits) were checked only against TOC section titles, not read in full."
+    ],
+    "coverage": {
+      "toc_sections": 4,
+      "sections": 7,
+      "inventory_figures": 8,
+      "figures": 8,
+      "inventory_examples": 12,
+      "worked_examples": 14,
+      "concepts": 45,
+      "key_equations": 61,
+      "locators_checked": 34,
+      "locators_wrong": 0,
+      "pages_rendered": 9
+    }
+  }
+}

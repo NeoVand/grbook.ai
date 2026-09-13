@@ -1,0 +1,1686 @@
+{
+  "group": "manuscript-part1",
+  "summary": "Chapters 0-8 of book.md (lines 141-2911, roughly 22,800 words of prose plus about 240 display equations) take a reader from a cart on a track to the Riemann tensor of a sphere. The order is: measurement-led calculus and mechanics (Ch 0), free fall/scale/accelerometer/two-ball tides and clock comparison with no equations of GR (Ch 1), vectors/covectors/Jacobians/tensors through a doubled basis vector (Ch 2), special relativity derived from light signals with interval, proper time, twin, four-momentum and observer energy E=-p.U (Ch 3), charts/atlas/tangent vectors/metric/inverse metric/volume element (Ch 4), proper acceleration, equivalence principle, Rindler clocks, and the geodesic equation derived from the worldline action with null/affine subtleties and the Newtonian limit (Ch 5), covariant derivative from a fixed arrow in a rotating basis plus divergence, wave operator and Lie bracket (Ch 6), parallel transport, Levi-Civita uniqueness, Christoffel transformation law and five flat polar-plane checks (Ch 7), and curvature as commutator/holonomy with polar flatness, the 20-component count and the sphere (Ch 8). The science is careful and conventions are explicit and consistent: signature (-,+,+,+), x^0=ct, and a Riemann sign that gives R=2/a^2 on a sphere. I re-derived about 30 worked numbers and component results (cart 1.23 m, map dot product 14, covector pairing 11, Lorentz 4 s and -16 ls^2, simultaneity -0.75 s, twin 8 yr, oblique metric inverse and 13, spherical g=-r^4 sin^2 theta, Rindler alpha(z)=a/(1+az/c^2), all five polar-plane experiments, R^r_theta r theta=0, sphere R^theta_phi theta phi=sin^2 theta, stereographic transition check, flow-order gap h^2) and found no errors. The teaching method is consistent and strong. It separates object from components from measurement, returns again and again to flat-space counterexamples (the polar plane, Rindler, the cone), and pairs every derivation with a numerical check. The main weaknesses are pedagogical, not scientific. Chapter 0 is a thin refresher, not a physics on-ramp. Chapters 2-8 have almost no in-text exercises: assessment lives in guides.json checks and 15 external bridge lessons. A few key steps are asserted rather than shown (the holonomy formula in 8.3, the cancellation of first-derivative terms in 8.1, locally inertial coordinates in 4.8). Seven 'Further calculation/example' disclosures reuse the history-note class and data-no-narration, so optional-looking blocks (the sphere area-rotation derivation, the cut cone, rapidity) are both collapsed and skipped by narration. Several passages also narrate demo outcomes ('The animation below' in 1.10, 'the plane and rolled sheet returned the arrow unchanged' at the Ch 8 opening), so the prose cannot be ported without its demos or a rewrite of those sentences. The text is also coupled to the old build through six data-*-insert placeholders and five build-specific links (course-map.html, #polar-coordinates, chapter-6.html#flow-order, chapter-6.html#6-6-..., chapter-7.html#parallel-transport-lab). The §8.3 small-loop sign was checked by hand in review: it agrees with the optional area derivation and with the octant example. Novice readiness was repaired in a documented audit but never tested with learners. Overall verdict: the prose is the most valuable reusable asset in this range. Adapt it into grbook.ai lessons section by section, keeping derivations and worked checks nearly verbatim while adding practice, stable concept IDs and live demos.",
+  "lessons_learned": [
+    "First-use discipline failed silently before it was enforced. docs/novice-sequencing-audit-2026-09-09.md records premature 'metric', 'connection coefficients', 'Ricci/Weyl' and 'proper time' in Chapters 0-3 and a Chapter 0 opener that used polar metrics. The fix was a rewrite plus a narrow keyword guard (scripts/check-learning-sequence.mjs line 35). grbook.ai needs a concept registry in which each section declares introduced and required concepts and a build check rejects use before introduction. A keyword blacklist is not enough.",
+    "Placement matters as much as prose. The old publisher put every one of the 36 worked lessons directly after its section heading, which was before the exposition they used. An editorial classification then found that 26 of them belong after their section's exposition and 10 are genuine preparation (docs/novice-sequencing-audit-2026-09-09.md line 11). The audit explicitly says this is a placement count, not a count of incomprehensible lessons. Separately, 8 labs were inserted above chapter prose (reading-quality-pass 'Interface and sequencing'). Of the 37 placements now listed in content/lesson-sequence.mjs, 15 belong to Ch 0-8 and 14 of those are 'section-end'; the exception is flows-that-do-not-commute at the start of 7.2. Anchor every demo or practice unit to a section and a side (before/after), each with a written reason, as lesson-sequence.mjs does, and check it against declared 'provides'/'requires' concepts.",
+    "A single recurring flat-space counterexample thread is the pedagogical backbone of Ch 4-8 and should become an explicit spine in the new course: polar plane in 4.2 (grid lab), metric 4.5, frame 4.8, rotating basis 6.1, five checks 7.5, zero curvature 8.4. Alongside it run Rindler (5.3) and the cut cone (8.3). Each shows nonzero Christoffels, coordinate acceleration or clock-rate differences with zero curvature.",
+    "Optional-looking disclosures carry load-bearing content, and the markup hides it twice. In Ch 0-8 there are 8 <details class=\"history-note\" data-no-narration> blocks. Only the one in 1.9 is history. The other seven are 'Further calculation/example' blocks: 2.6 oriented area, 3.3 rapidity, 4.1 topology, 5.7 einbein, 6.6 polar-frame bracket, 8.3 sphere area-rotation, and 8.3 cut cone. They are collapsed by default and skipped by narration, so a listener to the narrated book never hears the only quantitative holonomy derivation. The sinh/cosh case is softer than it first looks. §5.3 says the functions were 'introduced in §3.3', a pointer into the optional block, but it then restates both definitions and their derivatives inline. The old course also supplied them through the core lesson hyperbolas-and-rapidity (content/foundation-lessons.mjs, provides 'hyperbolic-functions'). grbook.ai needs a real depth model (core / worked detail / further) with a narration policy per depth and a rule that core text may not point into further-depth material.",
+    "The manuscript has almost no active practice. Only Chapters 0 and 1 contain in-text checkpoints: five in 0.9 and prediction reveals in 1.1 and 1.8. Chapters 2-8 contain none, and 2.6 only advises the reader to 'practice expanding'. Assessment lives in the nine open reveal-answer checks in content/guides.json plus 15 external lessons attached to Ch 0-8. The review's F03 finding (all 13 multiple-choice checks put the correct answer at index 0) applies to those lesson files (geometry-lessons.mjs, bridge-lessons.mjs), not to guides.json. grbook.ai should generate predict / complete-a-step / calculate / diagnose items from worked examples that already exist, for example the five 7.5 experiments, the 8.6 sphere and the 4.6 oblique metric. The AI tutor should grade the method as well as the number, and any multiple-choice ordering should be shuffled reproducibly.",
+    "Worked numbers can be checked cheaply, and the legacy repo only partly did so (check-learning-sequence.mjs asserts the cart 1.23 m and the Lorentz 4 s / -16 results). Every numeric and component claim in Ch 0-8 is short enough to encode as a unit test. Do this when porting so the AI tutor and narration can cite verified values.",
+    "Build coupling in the source must be stripped, and anchor stability must be kept rather than thrown away. Ch 0-8 of book.md contain 1 data-mechanics-insert (0.5) and 5 data-foundation-insert placeholders: polar 4.2, vector-field 6.1, flow-order 6.6, transport 7.1, transport-routes at the Ch 8 opening. They also contain five build-specific links: course-map.html, #polar-coordinates, chapter-6.html#flow-order, chapter-6.html#6-6-..., and chapter-7.html#parallel-transport-lab. content/section-ids.json is not stale by accident. It is a deliberate map from section number to frozen anchor that keeps saved links and prerequisite destinations working after heading edits (reading-quality-pass 'Section IDs are preserved'; check-site.mjs validates it; check-learning-sequence.mjs even looks up '3-3-the-interval-the-quantity-that-refuses-to-change'). grbook.ai should keep the idea with opaque stable section and concept IDs, and never derive anchors from heading text.",
+    "Conventions stated once and used consistently prevent sign drift. The reading-guide conventions block (book.md 35-100) fixes signature, x^0=ct, the Riemann convention and the Einstein-Hilbert normalization, and §8.6 ties the sign to R=2/a^2. Carry this block and its operational sphere check into the knowledge vault as the canonical convention sheet.",
+    "Honest status labels are a strength worth keeping as house style: 'this is a preview, not a derivation' (5.8), 'counting components is not counting propagating modes' (4.4, 8.5), 'the equivalence principle does not uniquely imply Einstein's equation' (5.2), 'analogies are scaffolding' (book.md 29). The AI tutor's system prompt should require the same qualification habits.",
+    "Expert review and automated checks overstated novice readiness until a reader complaint exposed it (comprehensive-course-review follow-up note). Chapters 2 and 4-8 have had only targeted, not complete, first-use audits (novice audit 'Remaining teaching review'). Budget a learner-observation pass before calling the ported Ch 0-8 novice-ready.",
+    "The prose narrates demo outcomes, so text and demo must be ported together. §1.10 opens 'The animation below draws lines between imagined small laboratories' and spends four paragraphs on how to read that river-model grid. §4.5 begins 'Return to the angular-step view in the polar-coordinate experiment'. §6.6 says 'First watch the two routes'. The Ch 8 opening asserts what the Ch 7 transport lab showed. When a grbook.ai demo changes what it shows, these sentences must be rewritten; a concept-ID link alone will not fix them. Track demo-dependent sentences explicitly in the port.",
+    "Sign conventions are checkable by hand, and this one checks out. Using the book's convention, R^phi_theta theta phi = -1 on the unit-radius sphere chart. The loop order +theta, +phi, -theta, -phi then gives a unit-arrow rotation Delta psi = +sin theta Delta theta Delta phi, the same as the optional tiling derivation. The octant route in §8.3 (equator to pole, down a meridian 90 degrees east, back along the equator) traverses the opposite orientation, so Delta psi = -pi/2. That turns a north-pointing arrow (psi = pi, since north = -e_theta) into an east-pointing one (psi = pi/2), as the text says. Encode this as a regression test: an orientation slip here would silently flip geodesic deviation later."
+  ],
+  "assets": [
+    {
+      "id": "manuscript-chapter-00-measurements-and-motion",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 0. Measurements and motion",
+      "paths": [
+        "book.md:141-402",
+        "content/guides.json#0"
+      ],
+      "topics": [
+        "derivative",
+        "Taylor expansion",
+        "units and dimensional analysis",
+        "partial derivatives",
+        "chain rule",
+        "integration",
+        "initial value problem",
+        "Newton's second law",
+        "work-energy theorem",
+        "kinetic energy",
+        "gravitational potential energy",
+        "Hooke's law",
+        "Newtonian gravitational potential",
+        "gradient",
+        "pressure",
+        "bilinear form",
+        "matrix inverse",
+        "flux",
+        "divergence",
+        "continuity equation",
+        "divergence theorem",
+        "first-order approximation"
+      ],
+      "teaches": "Entry refresher for a reader with basic calculus and linear algebra. Velocity as a local prediction with a numeric acceleration correction (1.2 m vs exact 1.23 m). Partial derivatives and the two-input chain rule. Integral as summed local measurements (tank volume, mass from density). Why a second-order ODE needs two initial data. Force, work, kinetic and potential energy, a spring energy exchange, and the Newtonian potential with a = -grad Phi. Pressure. A calibrated map turned into a bilinear form v^T M w (a proto-metric). Box-face flux leading to divergence and mass conservation. First-order estimates with a small parameter. Five checks with answers.",
+      "pedagogy": "Measurement-led sequence: position/time, velocity/acceleration, units, partials, integrals, ODE data, force/energy, matrix measurement, flux, approximation (novice audit 'What now comes first'). Every concept gets a concrete number before the general formula. Deliberately free of relativity vocabulary (enforced by a keyword check). The spring subsection hands off to an embedded mechanics energy lab (data-mechanics-insert=energy). Three bridge lessons attach at 0.1, 0.4 and 0.5. Section 0.9 offers five reveal-answer checks and an explicit skip route for experienced readers.",
+      "interaction": null,
+      "physics_model": "Newtonian mechanics, SI units, constant mass. Spring example: 1 kg, k=1 N/m, 1 m stretch, 0.5 J, peak speed 1 m/s. Near-Earth fall g=9.8 m/s^2, no drag. Outside a sphere Phi=-G_N M/r. Numeric claims re-derived during this inventory. The cart correction is also asserted in scripts/check-learning-sequence.mjs.",
+      "screenshots": [
+        "qa/chapter-0-1440.png",
+        "qa/chapter-0-390.png",
+        "qa/reading-cart-after-390.png",
+        "qa/novice-opening-1440.png",
+        "qa/mechanics-0-1440-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Rewritten specifically for novices after a documented failure; every example is numeric and unit-checked",
+          "Quietly prepares later GR ideas without naming them: a bilinear form from map scale factors (metric), box-face cancellation (divergence theorem and later conservation), initial data (well-posedness), U=m Phi (weak-field metric)",
+          "Clean, readable rendering on desktop and phone (chapter-0-1440, reading-cart-after-390 screenshots); the local-prediction figure matches the text's cart law"
+        ],
+        "issues": [
+          "Too short to be the physics and differential-equations on-ramp the entry promise implies (comprehensive review §5 and chapter table row 0): no harmonic-oscillator solution in the main text, no angular momentum, no fields or waves, no hyperbolic functions",
+          "0.6 introduces bilinear forms and the matrix inverse abruptly, with no link to why they will matter; 0.8 is a grab-bag",
+          "Only five recognition-level checks; no unaided exit task (review: 'model a falling particle... without following an adjacent example')",
+          "Pressure is defined in one paragraph that points to a bridge lesson not in book.md"
+        ],
+        "evidence": "docs/novice-sequencing-audit-2026-09-09.md (Chapter 0 rows); docs/comprehensive-course-review-2026-09-09.md §5 and §7 row 0; docs/learning-experience-audit.md row 'Entry from basic mathematics'; scripts/check-learning-sequence.mjs lines 35 and 53-55; qa/chapter-0-1440.png and qa/reading-cart-after-390.png viewed"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 0.1-0.5 and 0.7 nearly verbatim as the core of a Foundations module: cart, chain-rule check, tank integral, ball initial data, work to kinetic energy, spring exchange, box flux. Turn 0.9 into an adaptive diagnostic that routes to micro-bridges. Split 0.6 so the matrix-as-measurement idea sits directly before Ch 2/4 use. Add missing foundations as separate short units (oscillator solution, hyperbolic functions, vector fields, waves) instead of lengthening the chapter. Replace the insert placeholder with the new mechanics demo.",
+        "effort": "medium"
+      },
+      "size": "~2,560 words, 20 display equations, 9 sections, 5 checkpoints"
+    },
+    {
+      "id": "manuscript-section-0-1-derivative-as-local-prediction",
+      "kind": "manuscript-section",
+      "title": "§0.1 A derivative is a local prediction (cart on a track)",
+      "paths": [
+        "book.md:147-183"
+      ],
+      "topics": [
+        "derivative",
+        "velocity",
+        "acceleration",
+        "Taylor expansion",
+        "units and dimensional analysis"
+      ],
+      "teaches": "Starting from a four-row position table, fit x=At^2 with A in m/s^2. Distinguish unit from dimension. Compute v and a at t=2 s. Show that the velocity prediction over 0.1 s (1.2 m) misses the exact 1.23 m by the acceleration term, and conclude that a derivative predicts a small change, not a whole future.",
+      "pedagogy": "Data before formula, a model explicitly labelled as a model, and a numerical gap that motivates the Taylor correction. Bolded one-sentence takeaway. The figure 'local-prediction' is placed after the section.",
+      "interaction": null,
+      "physics_model": "x=At^2, A=3 m/s^2; Taylor expansion exact for a quadratic. Checked in scripts/check-learning-sequence.mjs (3*(2.1^2-2^2)=1.23).",
+      "screenshots": [
+        "qa/reading-cart-after-390.png",
+        "qa/derivative-opening-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "An ideal novice opener: concrete, numeric, units attached, no forward jargon",
+          "Tangent-line figure matches the text exactly (verified in screenshot)"
+        ],
+        "issues": [
+          "No learner task inside the section; the reader only watches the prediction succeed"
+        ],
+        "evidence": "novice-sequencing-audit §0.1 row; reading-quality-pass 'Chapters 0 and 1'; screenshot viewed"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Use as the course's first page. Add a predict-before-reveal input ('how far in the next 0.1 s?') and pair it with a live tangent-line demo that shares the same A and t.",
+        "effort": "small"
+      },
+      "size": "~450 words"
+    },
+    {
+      "id": "manuscript-section-0-9-entry-checks",
+      "kind": "manuscript-section",
+      "title": "§0.9 Check your understanding (five entry checks)",
+      "paths": [
+        "book.md:364-397"
+      ],
+      "topics": [
+        "derivative",
+        "chain rule",
+        "integration",
+        "initial value problem",
+        "first-order approximation"
+      ],
+      "teaches": "Five short reveal-answer questions: derivatives of Bt^3, the chain rule along a path, a constant-rate integral, why d^2x/dt^2=-g needs two constants, and a first-order estimate of sqrt(1.04).",
+      "pedagogy": "Checkpoint details with worked answers. The chapter intro and the reading guide advertise them as a skip test.",
+      "interaction": null,
+      "physics_model": null,
+      "screenshots": [],
+      "quality": {
+        "status": "partial",
+        "strengths": [
+          "Answers include a dimension check and an error estimate (-q^2/8)",
+          "Directly mirrors the section operations"
+        ],
+        "issues": [
+          "Too easy and too close to the worked examples to serve as a diagnostic (review: 'make the entry diagnostic test interpretation as well as differentiation')",
+          "Nothing checks force/energy, matrices or flux, even though these are advertised as entry skills",
+          "Recognition only; no captured answers"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §7 row 0; docs/learning-experience-audit.md 'This is a useful bridge, not a full diagnostic'"
+      },
+      "reuse": {
+        "verdict": "reimagine",
+        "notes": "Replace with an AI-administered adaptive placement check covering all Ch 0 skills and interpretation tasks. Keep these five items as seed items with their answers.",
+        "effort": "medium"
+      },
+      "size": "5 items"
+    },
+    {
+      "id": "manuscript-chapter-01-gravity-free-fall-clocks",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 1. Gravity, free fall, and clocks",
+      "paths": [
+        "book.md:403-555",
+        "content/guides.json#1"
+      ],
+      "topics": [
+        "free fall",
+        "weightlessness",
+        "proper acceleration",
+        "accelerometer",
+        "tidal forces",
+        "equivalence principle",
+        "clock comparison",
+        "gravitational time dilation",
+        "events and spacetime",
+        "test particle",
+        "rubber-sheet analogy",
+        "history of general relativity",
+        "Newtonian escape velocity",
+        "river model of black holes"
+      ],
+      "teaches": "The experimental questions GR must answer, with no GR mathematics. A scale measures support force, not mass. An accelerometer reads proper acceleration. Free fall hides local gravity but not relative acceleration of two test balls (tides). Clocks on different journeys or heights can disagree. The jobs of Einstein's equation (matter and geometry, initial/boundary data). Test objects versus self-gravitating systems. Why the rubber sheet is circular and leaves out clocks. A three-cabin thought experiment. Illustrated history 1687-1916 and after. Reading the falling-laboratory (rain) grid, with Newtonian speed sqrt(2GM/r) derived from energy.",
+      "pedagogy": "Motivation through thought experiments with predict-then-compare checkpoints (1.1, 1.8). Keeps three 'starting experiments' (falling cabin, two test balls, two clocks) as touchstones for later chapters. Explicitly separates learning order from historical order. The Earth rain-frame 3D scene is placed after 1.10's speed law, and a bridge lesson ('Release two pebbles, not just one') follows.",
+      "interaction": null,
+      "physics_model": "Qualitative apart from 1.10: Newtonian energy from rest at infinity gives v=sqrt(2 G_N M/r). The animation's relativistic river-model coordinates are flagged as later material (Hamilton and Lisle).",
+      "screenshots": [
+        "qa/history-people.png",
+        "qa/history-documents.png",
+        "qa/reading-before-chapter-1-1440.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Conceptually precise: distinguishes weightlessness from absence of tides, and two test bodies from two observers",
+          "Rubber-sheet critique (1.5) names exactly why the analogy fails: it presupposes gravity and omits clocks",
+          "History note is sourced, avoids race myths, and uses verified public-domain images with provenance captions (history-people screenshot viewed)",
+          "Comprehensive review rates it 'strong motivation and careful separation of free fall from support'"
+        ],
+        "issues": [
+          "1.6 and 1.7 are thin connective paragraphs with some repetition of 1.1-1.4",
+          "1.10 (lines 531-553) is written as a caption for the Earth river-model animation ('The animation below...'). Its model (observers falling from rest at infinity, relativistic coordinates deferred to Chapters 16-17) cannot be justified yet; the text hedges well but spends about 450 words on a picture whose connecting lines 'alone do not establish curvature'",
+          "No calculation the learner does; review suggests a two-laboratory experiment to revisit across the course",
+          "Links to course-map.html and a YouTube video are build- and third-party-specific"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §7 row 1; novice-sequencing-audit rows §1.1, §§1.2-1.4, §1.10; reading-quality-pass 'Chapters 0 and 1'; scripts/check-learning-sequence.mjs gravity-copy vocabulary guard"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 1.1, 1.2, 1.5 and 1.8 nearly verbatim as the course's motivating hook; they suit voice narration. Merge 1.3, 1.4, 1.6 and 1.7 into one short 'what a theory must predict' page. Keep the 1.9 history as an optional illustrated aside. Rebuild 1.10 around a new Earth-tides demo where learners release two pebbles (radial versus side-by-side) and watch separation; keep the rain grid as an optional preview.",
+        "effort": "medium"
+      },
+      "size": "~2,610 words (incl. ~900-word history note), 1 display equation, 10 sections"
+    },
+    {
+      "id": "manuscript-section-1-1-falling-scale-and-two-ball-tides",
+      "kind": "manuscript-section",
+      "title": "§1.1 and §1.8 Falling scale, accelerometer, two-ball tides, three cabins",
+      "paths": [
+        "book.md:405-428",
+        "book.md:484-495"
+      ],
+      "topics": [
+        "free fall",
+        "weightlessness",
+        "proper acceleration",
+        "accelerometer",
+        "tidal forces",
+        "equivalence principle"
+      ],
+      "teaches": "What a scale and an accelerometer measure. Why zero reading does not mean no gravity. How two freely released balls converge side by side and separate vertically. Comparison of resting, falling and rocket-accelerated cabins.",
+      "pedagogy": "Operational definitions, then a prediction prompt ('could a zero scale reading establish that gravity is absent?') with a hidden comparison, then a three-cabin check.",
+      "interaction": null,
+      "physics_model": null,
+      "screenshots": [
+        "qa/reading-opening-after-1440.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "The clearest statement of the local-versus-tidal distinction in the book, at novice level",
+          "Prediction prompts already in place"
+        ],
+        "issues": [
+          "No quantitative estimate of the tidal effect in a cabin (Ch 5.9 later supplies 2GM/r^3)"
+        ],
+        "evidence": "novice-sequencing-audit §1.1 row; comprehensive review §3 strength 1 (operational foundations)"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Use as the script for the first interactive demo and first voice-tutor dialogue. Add an optional numeric tidal estimate for a 2 m cabin to link forward to 5.9.",
+        "effort": "small"
+      },
+      "size": "~700 words"
+    },
+    {
+      "id": "manuscript-section-1-9-history-note",
+      "kind": "manuscript-section",
+      "title": "§1.9 How the theory developed (illustrated history note)",
+      "paths": [
+        "book.md:496-530",
+        "assets/history/"
+      ],
+      "topics": [
+        "history of general relativity",
+        "Principia",
+        "special relativity",
+        "Minkowski spacetime",
+        "Entwurf theory",
+        "Einstein field equations",
+        "Hilbert action"
+      ],
+      "teaches": "Newton 1687, SR 1905-08, the equivalence principle 1907, Grossmann and the Entwurf wrong turn 1912-13, the November 1915 communications (Mercury on 18 Nov, final equations on 25 Nov), Hilbert's parallel action approach, and later interpretive history. Cites Norton and Janssen-Renn.",
+      "pedagogy": "Collapsed optional disclosure excluded from narration; explicitly separates the pedagogical route from the historical route; four captioned public-domain images.",
+      "interaction": null,
+      "physics_model": null,
+      "screenshots": [
+        "qa/history-people.png",
+        "qa/history-documents.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Historically careful (submission versus printed-version evidence, no priority myth)",
+          "Images carry provenance links and accurate captions (for example, the 1916 separate edition is not the 1915 paper)"
+        ],
+        "issues": [
+          "Optional and disconnected from any learner activity"
+        ],
+        "evidence": "docs/reference-comparison.md row '1. History' (avoided the reference's unsupported 1914-expedition claim); screenshot viewed"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port as an optional history card or timeline and keep the image provenance. Could feed a narrated 'story mode'.",
+        "effort": "small"
+      },
+      "size": "~800 words, 4 images"
+    },
+    {
+      "id": "manuscript-section-1-10-watching-neighboring-objects-fall",
+      "kind": "manuscript-section",
+      "title": "§1.10 Watching neighboring objects fall (caption text for the Earth river-model grid)",
+      "paths": [
+        "book.md:531-553"
+      ],
+      "topics": [
+        "tidal forces",
+        "free fall",
+        "Newtonian escape velocity",
+        "river model of black holes",
+        "initial conditions"
+      ],
+      "teaches": "How to read a moving grid of falling laboratories: along a radial line the gap grows, side by side it shrinks. Why the animated family starts from rest at infinity, so it already moves inward on entering the scene. Newtonian v = sqrt(2 G_N M/r) from zero total energy, with the test mass cancelling. The warning that connecting lines are a drawing aid and do not establish curvature.",
+      "pedagogy": "Caption-style guidance for a 3D scene (scene-earth is placed after this section by the check-learning-sequence.mjs placement list). It ties back to §0.5 energy and to the initial-data lesson of Chapter 0. Model limits are flagged, and Hamilton-Lisle and a ScienceClic video are offered as further reading.",
+      "interaction": null,
+      "physics_model": "Newtonian energy conservation from rest at infinity: (1/2)mv^2 - G_N M m/r = 0, dr/dt = -v. The animation itself uses the relativistic river model, which this section explicitly defers.",
+      "screenshots": [
+        "qa/reading-before-chapter-1-1440.png"
+      ],
+      "quality": {
+        "status": "partial",
+        "strengths": [
+          "Honest about what the picture does not show (release from rest at the edge, curvature from bent lines)",
+          "Links the visual to the Ch 0 idea that starting conditions matter"
+        ],
+        "issues": [
+          "Cannot stand without the animation: four paragraphs describe it",
+          "The rest-at-infinity family is an odd first tidal picture; a two-pebble release from rest is what §1.1 actually set up",
+          "Depends on a third-party video and a research paper for motivation"
+        ],
+        "evidence": "Read in review (lines 531-553); reading-quality-pass 'Chapters 0 and 1' (grid moved after its speed law, premature metric removed); scripts/check-learning-sequence.mjs placement tuple [1,'scene-earth','1.10']"
+      },
+      "reuse": {
+        "verdict": "reimagine",
+        "notes": "Keep the two reading rules (radial gap grows, side-by-side gap shrinks) and the 'lines are a drawing aid' warning as captions for a new two-pebble tidal demo released from rest. Move the rest-at-infinity river grid and its v = sqrt(2GM/r) paragraph to the Schwarzschild/river-model unit, where the model can be justified.",
+        "effort": "small"
+      },
+      "size": "~450 words, 1 display equation"
+    },
+    {
+      "id": "manuscript-chapter-02-vectors-covectors-tensors",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 2. Vectors, covectors, and tensors",
+      "paths": [
+        "book.md:556-854",
+        "content/guides.json#2"
+      ],
+      "topics": [
+        "vectors",
+        "basis vectors",
+        "vector components",
+        "Einstein summation convention",
+        "contravariant transformation",
+        "passive and active transformations",
+        "linear maps",
+        "Kronecker delta",
+        "covectors",
+        "dual basis",
+        "differential of a function",
+        "Jacobian matrix",
+        "covariant transformation",
+        "tensors",
+        "tensor type (r,s)",
+        "tensor product",
+        "contraction",
+        "trace",
+        "symmetrization and antisymmetrization",
+        "index notation",
+        "multivariable Taylor expansion",
+        "big-O notation",
+        "wedge product",
+        "differential forms"
+      ],
+      "teaches": "A drone displacement V=3e1+4e2. Doubling a basis vector halves the component while a covector coefficient doubles, and the pairing (11) is unchanged. Linear maps as matrices with free and dummy indices. Covectors as linear measuring rules and the dual basis. Tangent components through the chain rule, Jacobian J and inverse K, covectors transforming with K, and df. The bilinear-form transformation law and the (r,s) tensor definition. Tensor rank versus matrix rank. A numeric tensor product with order dependence. Trace invariance. An index-sanity table. Symmetric and antisymmetric split. Multivariable Taylor expansion. 'Small function, large derivative'. Optional wedge-product area.",
+      "pedagogy": "One running example (drone, basis doubling, covector (1,2)) carried from 2.1 through 2.4, so every generalization has a number to check against. Index grammar taught through a 'how to read it' table of right and wrong expressions. The covector level-set 3D scene is placed after 2.4, followed by a bridge lesson 'Change the coordinates. Keep the measurement.'",
+      "interaction": null,
+      "physics_model": null,
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Rated 'one of the strongest foundations' by the comprehensive review; the Jacobian and pairing bridge addresses a central misconception",
+          "All numerics check (pairing 11 in both bases, tensor product -11 versus 14, trace 5, Taylor 7+4dx+3dy+dx^2)",
+          "Distinguishes differential from gradient before any metric exists, a subtlety most introductions blur"
+        ],
+        "issues": [
+          "Examples are all diagonal or axis-aligned; no nonorthogonal-basis calculation and no negative pairing (review §7 row 2 and covector-lab refinement)",
+          "2.6 is a miscellany (Taylor, O-notation, a small-but-steep function, oriented area) without a unifying question",
+          "No in-chapter exercises; 'practice expanding' is only advised",
+          "Visual-development plan notes the first visual arrives after much of the component machinery"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §3 item 2 and §7 row 2; reading-quality-pass 'Chapters 2 and 3'; docs/visual-development-plan-2026-09-09.md table row 2; numbers re-derived during inventory"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 2.1-2.5 text and running example essentially verbatim. Add one nonorthogonal basis and one negative pairing, and move the covector demo earlier as a manipulable twin of the drone example (drag basis vectors, watch components and pairing). Split 2.6: Taylor/O-notation to a small math-tools card, oriented area to the forms trail. Add generated index-grammar drills from the 2.5 table.",
+        "effort": "medium"
+      },
+      "size": "~2,080 words, 32 display equations, 6 sections"
+    },
+    {
+      "id": "manuscript-section-2-1-2-4-basis-change-and-covector-pairing",
+      "kind": "manuscript-section",
+      "title": "§2.1-2.4 One displacement, a doubled basis, and the invariant pairing",
+      "paths": [
+        "book.md:558-747"
+      ],
+      "topics": [
+        "basis vectors",
+        "contravariant transformation",
+        "covectors",
+        "dual basis",
+        "Jacobian matrix",
+        "covariant transformation",
+        "differential of a function"
+      ],
+      "teaches": "Why vector components and covector coefficients transform oppositely, first with a factor of 2 and then with general J and K through the chain rule. The invariant omega_mu V^mu is the thread throughout.",
+      "pedagogy": "Concrete-to-general with the same numbers (3,4), (1,2) -> 11 at every stage; the passive/active distinction made explicit.",
+      "interaction": null,
+      "physics_model": "Linear algebra; checks: V'=(3/2,4), omega'=(2,2), pairing 11; J=diag(1/2,1), K=diag(2,1).",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Exceptionally clear derivation of the covector law from invariance of the pairing",
+          "No metric smuggled in"
+        ],
+        "issues": [
+          "Uses only a diagonal scaling; a rotation or shear example would test understanding better"
+        ],
+        "evidence": "comprehensive review §3 item 2; novice-sequencing-audit follow-up (covector example repaired to give a numeric pairing without a metric)"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim as the core vectors/covectors lesson. Add one shear-basis worked example and a transfer item.",
+        "effort": "small"
+      },
+      "size": "~1,300 words"
+    },
+    {
+      "id": "manuscript-section-2-5-2-6-tensors-index-grammar-approximations",
+      "kind": "manuscript-section",
+      "title": "§2.5-2.6 Tensor transformation law, index-grammar table, Taylor and O-notation, oriented area",
+      "paths": [
+        "book.md:748-854"
+      ],
+      "topics": [
+        "tensors",
+        "tensor type (r,s)",
+        "tensor product",
+        "contraction",
+        "trace",
+        "index notation",
+        "symmetrization and antisymmetrization",
+        "multivariable Taylor expansion",
+        "big-O notation",
+        "wedge product",
+        "differential forms"
+      ],
+      "teaches": "B'_ab = K K B from bilinearity, and a (1,1) map transforming with J and K. Tensor rank versus matrix rank. A tensor product with order dependence (-11 versus 14). Trace invariance (trace 5). A five-row table of legal and illegal index expressions. Symmetric/antisymmetric split (5,1 gives 3 and 2). Multivariable Taylor expansion exact for x^2+3y at (2,1). A function smaller than 0.001 whose slope reaches 10. Optional wedge-product area 5 and -5.",
+      "pedagogy": "Each definition gets a two-digit numeric instance. The index table teaches grammar through wrong examples ('free labels differ', 'two upper indices do not form an Einstein contraction'). 2.6 closes by telling the reader to practise expanding sums, without supplying any items.",
+      "interaction": null,
+      "physics_model": "Linear algebra only. Numbers re-checked in review: (1,2)(3,4) = 11 and (2,-1)(1,3) = -1 give -11; swapped inputs give 7 x 2 = 14; 2(3) - 1(1) = 5.",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "The index-grammar table is directly convertible into auto-generated drills",
+          "'Small function, large derivative' pre-empts a real error in later weak-field approximations"
+        ],
+        "issues": [
+          "2.6 is a miscellany with no driving question",
+          "Advises practice but provides none",
+          "The wedge-product block is optional, collapsed and unnarrated although Chapter 21 builds on it"
+        ],
+        "evidence": "Read and numbers re-derived in review; reading-quality-pass 'Chapters 2 and 3' (numerical tensor-product, symmetrization and Taylor examples added)"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Port 2.5 verbatim and turn the index table into a generated 'is this expression legal?' drill with AI-tutor explanations. Move the Taylor/O-notation and small-but-steep material to a math-tools card linked from the weak-field chapters, and the wedge product to the forms trail.",
+        "effort": "small"
+      },
+      "size": "~1,000 words, 12 display equations"
+    },
+    {
+      "id": "manuscript-chapter-03-special-relativity",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 3. Special relativity: learning what a clock is actually measuring",
+      "paths": [
+        "book.md:855-1209",
+        "content/guides.json#3"
+      ],
+      "topics": [
+        "events and worldlines",
+        "inertial frames",
+        "Einstein synchronization",
+        "postulates of special relativity",
+        "Lorentz transformation",
+        "Lorentz factor",
+        "relativity of simultaneity",
+        "Galilean limit",
+        "spacetime interval",
+        "timelike, null and spacelike separation",
+        "light cone",
+        "Minkowski metric",
+        "rapidity",
+        "hyperbolic functions",
+        "relativistic velocity addition",
+        "proper time",
+        "clock hypothesis",
+        "twin paradox",
+        "four-velocity",
+        "four-momentum",
+        "lowering indices",
+        "energy-momentum relation",
+        "mass-energy equivalence",
+        "photon",
+        "invariant mass",
+        "observer-measured energy",
+        "instantaneous rest space",
+        "relativistic Doppler effect",
+        "four-acceleration",
+        "proper acceleration"
+      ],
+      "teaches": "Events, worldlines, clock networks and reflected-light synchronization. The Lorentz boost derived from rightward and leftward light plus reciprocity. Simultaneity (-0.75 s example). Interval invariance verified algebraically and numerically (5 s, 3 ls, boost 0.6c gives 4 s and -16 ls^2). Causal classification and the light cone. Optional rapidity with sinh/cosh defined from exponentials and velocity addition (0.8c+0.8c=0.976c). Proper time as a path functional, the clock hypothesis, inertial paths maximizing proper time, the twin 10 vs 8 years. u.u=-c^2, p^mu, E^2=p^2c^2+m^2c^4, low-speed expansion, photons and invariant mass of two photons. E_(U)=-p.U with rest-space decomposition and a chased photon (half energy at 0.6c, with E=h nu flagged as quantum input). Four-acceleration orthogonal to four-velocity.",
+      "pedagogy": "Operational first: every coordinate is tied to a clock or light procedure. Derivations avoid guessing ('the two light directions forced it'). A finite numeric example precedes the differential form. The same 0.6c / factor 0.8 numbers recur across 3.2-3.5, tying simultaneity, interval, proper time and twin together. The light-cone 3D scene is placed after 3.3, with bridge lessons on rapidity (3.3) and Doppler (3.7).",
+      "interaction": null,
+      "physics_model": "Minkowski spacetime, signature (-,+,+,+), x^0=ct, SI units. All numeric claims re-derived; the Lorentz example is also asserted in scripts/check-learning-sequence.mjs.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Clean derivation of the Lorentz transformation using only light in two directions, homogeneity, reciprocity and isotropy",
+          "Observer-dependent energy as an invariant contraction (3.7) prepares Ch 11 and 16 exceptionally well",
+          "Careful status notes: the clock hypothesis is an assumption; photons have no rest frame; E=h nu is extra quantum input",
+          "Earlier review gaps (operational synchronization, simultaneity, rapidity foundations, Doppler) have since been filled in the text"
+        ],
+        "issues": [
+          "No collision or four-momentum conservation problem (review §7 row 3)",
+          "3.8 proper acceleration is terse and does not compute a single example (the Rindler case waits until 5.3)",
+          "Lowering an index with eta arrives in 3.6 before the general metric discussion; acceptable but dense",
+          "No in-chapter exercises; the twin lab in the old build was a hard-coded HTML block (build-site.mjs line 145)",
+          "3.8 (lines 1184-1208) defines four-acceleration and proper acceleration in about 170 words with no numbers; the only worked constant-acceleration case is Rindler in 5.3"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §7 row 3 (pre-repair); novice-sequencing-audit rows §3.1, §3.3, rapidity; reading-quality-pass 'Chapters 2 and 3'; scripts/check-learning-sequence.mjs numeric asserts"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 3.1-3.7 prose and derivations nearly verbatim. Surround them with a clock-and-radar demo (the review's top-priority lab) sharing the 0.6c numbers. Add a relativistic collision problem, a worked constant-proper-acceleration hyperbola in 3.8, and generated practice. Move rapidity from the collapsed, unnarrated 'history-note' disclosure into the worked-detail layer and fold in the legacy hyperbolas-and-rapidity lesson. 5.3 restates sinh/cosh inline, so this is about fluency and a correct cross-reference, not a hard block.",
+        "effort": "medium"
+      },
+      "size": "~2,920 words, 34 display equations, 8 sections"
+    },
+    {
+      "id": "manuscript-section-3-2-lorentz-transformation-derivation",
+      "kind": "manuscript-section",
+      "title": "§3.2 Deriving the Lorentz transformation from two light rays",
+      "paths": [
+        "book.md:877-945"
+      ],
+      "topics": [
+        "Lorentz transformation",
+        "Lorentz factor",
+        "relativity of simultaneity",
+        "Galilean limit",
+        "postulates of special relativity"
+      ],
+      "teaches": "x'=A(x-vt), t'=Bt+Cx. Right- and left-moving light give B=A and C=-Av/c^2. Reciprocity gives A=gamma. Numeric simultaneity shift and the Galilean limit.",
+      "pedagogy": "Minimal-assumption derivation with each assumption named at the point of use; short algebra steps a novice can reproduce.",
+      "interaction": null,
+      "physics_model": "Standard boost along x; linearity justified by homogeneity; positive root by continuity to v=0.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Short, complete and reproducible",
+          "Relativity of simultaneity stated as synchronized-clock assignment, not appearance"
+        ],
+        "issues": [
+          "Linearity is asserted from homogeneity rather than shown; fine for this level"
+        ],
+        "evidence": "Read and re-derived during inventory; reading-quality-pass notes inverse-boost assumptions made explicit"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim. Make it a 'complete the missing step' exercise (hide the add/subtract step) and pair it with a Minkowski-diagram demo.",
+        "effort": "small"
+      },
+      "size": "~600 words"
+    },
+    {
+      "id": "manuscript-section-3-3-3-5-interval-proper-time-twin",
+      "kind": "manuscript-section",
+      "title": "§3.3-3.5 Interval, proper time, and the reunited clocks",
+      "paths": [
+        "book.md:946-1083"
+      ],
+      "topics": [
+        "spacetime interval",
+        "light cone",
+        "Minkowski metric",
+        "proper time",
+        "clock hypothesis",
+        "twin paradox",
+        "rapidity"
+      ],
+      "teaches": "Interval invariance under a boost with a finite numeric example; causal classes; the differential Minkowski metric. Proper time from a momentarily comoving frame. The path functional and why the inertial path maximizes elapsed time in flat spacetime. The twin calculation with an explicit statement that the asymmetry is the journey, not a local slow mechanism.",
+      "pedagogy": "Finite example before differentials (explicitly reordered after the novice audit); one shared 0.6c example across interval, clock and twin; the light-cone scene follows 3.3.",
+      "interaction": null,
+      "physics_model": "Delta s^2=-c^2 Delta t^2+Delta x^2; d tau=dt sqrt(1-v^2/c^2); twin 2x5x0.8=8 yr. Numbers checked.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Maximal-proper-time result derived from the clock formula and later reused for the action in 5.4",
+          "Addresses turnaround misconceptions precisely"
+        ],
+        "issues": [
+          "Rapidity and the sinh/cosh definitions sit in a collapsed data-no-narration disclosure in 3.3 (lines 997-1027) that §5.3 cites as 'introduced in §3.3'. §5.3 restates both definitions, so the harm is a misleading pointer and no practice with the functions, not a missing definition.",
+          "3.4's maximal-proper-time claim is argued in words only ('square-root factor no greater than one'); there is no numeric comparison of two worldlines"
+        ],
+        "evidence": "novice-sequencing-audit rows §3.3 and 'What now comes first'; scripts/check-learning-sequence.mjs asserts ordering 'Choose two events' before 'spacetime interval'"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim as the proper-time lesson spine. Place rapidity as a worked-detail layer, not a 'further' layer, and fix the §5.3 back-reference. Add a two-worldline numeric proper-time comparison as a predict-then-compute item.",
+        "effort": "small"
+      },
+      "size": "~1,250 words"
+    },
+    {
+      "id": "manuscript-section-3-7-observer-measured-energy",
+      "kind": "manuscript-section",
+      "title": "§3.6-3.8 Four-momentum, energy measured by an observer, proper acceleration",
+      "paths": [
+        "book.md:1084-1207"
+      ],
+      "topics": [
+        "four-velocity",
+        "four-momentum",
+        "energy-momentum relation",
+        "invariant mass",
+        "observer-measured energy",
+        "instantaneous rest space",
+        "relativistic Doppler effect",
+        "four-acceleration",
+        "proper acceleration"
+      ],
+      "teaches": "p^mu=mu^mu and E^2=p^2c^2+m^2c^4. Invariant mass of two opposite photons. E_(U)=-p_mu U^mu checked in the rest frame. gamma_rel. Orthogonal decomposition into rest space. A chased photon at 0.6c measures half the energy. Four-acceleration is orthogonal to u and its norm is the accelerometer reading.",
+      "pedagogy": "Rest-frame check plus invariance argument; separates changing coordinates from changing observer; flags quantum input explicitly.",
+      "interaction": null,
+      "physics_model": "E_(U)=gamma E(1-v/c)=E sqrt((1-v/c)/(1+v/c)); verified.",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "The observer-energy contraction is the conceptual key to redshift, Killing energy and stress-energy later",
+          "The two-photon invariant mass box is a crisp misconception fix"
+        ],
+        "issues": [
+          "3.8 has no worked example and leaves the magnitude formula abstract",
+          "No conservation or collision exercise"
+        ],
+        "evidence": "comprehensive review §10.2 misconception table (coordinate scalar vs observer dependence) and §7 row 3; reading-quality-pass 'Chapters 2 and 3'"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 3.6-3.7 verbatim. Add a worked hyperbolic-motion example to 3.8 (or pull it forward from 5.3) and a collision practice item.",
+        "effort": "small"
+      },
+      "size": "~1,000 words"
+    },
+    {
+      "id": "manuscript-chapter-04-manifolds-metrics",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 4. Spacetime as a manifold: maps, rulers, and the geometry beneath them",
+      "paths": [
+        "book.md:1210-1590",
+        "content/guides.json#4"
+      ],
+      "topics": [
+        "manifold",
+        "coordinate chart",
+        "atlas",
+        "transition map",
+        "smooth manifold",
+        "stereographic projection",
+        "Hausdorff space",
+        "second countability",
+        "polar coordinates",
+        "coordinate singularity",
+        "tangent vector",
+        "tangent space",
+        "directional derivative",
+        "coordinate basis",
+        "metric tensor",
+        "line element",
+        "nondegenerate bilinear form",
+        "Lorentzian signature",
+        "null vector",
+        "inverse metric",
+        "raising and lowering indices",
+        "gradient",
+        "metric determinant",
+        "invariant volume element",
+        "spherical coordinates",
+        "intrinsic curvature",
+        "extrinsic curvature",
+        "orthonormal frame",
+        "locally inertial coordinates"
+      ],
+      "teaches": "Charts and atlases starting from latitude/longitude, with a full two-chart stereographic atlas of the sphere including inverse, transition map, Jacobian determinant and a numeric point check. Optional topology conditions. Polar coordinates and their failure at r=0. Point labels versus displacement components. Tangent vectors as derivations and T_pM. Why comparing vectors at different points needs a connection. The metric as a symmetric nondegenerate bilinear form (polarization identity, a null vector pairing nontrivially). The line element and what finite distance does and does not mean. The polar metric derived, the units of g_theta theta, an oblique metric with an off-diagonal term. Inverse metric, lowering (1,2) to (3,5) with norm 13 checked in Cartesian form, gradient versus differential. sqrt(-g) d^4x from the transformation law, with the spherical example g=-r^4 sin^2 theta. Intrinsic versus extrinsic curvature, orthonormal polar frame, frame versus coordinate flatness, and locally inertial coordinates.",
+      "pedagogy": "Geography first, then a fully computed example that does not rely on the picture ('To see this without trusting a picture'). The polar grid lab (data-foundation-insert=polar) precedes the polar calculations. Every formal claim gets a numeric verification. Bridge lessons: two-maps-one-sphere (4.1, with the manifold 3D experience), metric converts labels into lengths and units belong to coordinates (4.5).",
+      "interaction": null,
+      "physics_model": "Riemannian 2D examples and Lorentzian signature (-,+,+,+); checks: stereographic (u,v)=(2,1) -> (2/3,1/3,2/3) -> (p,q)=(2/5,1/5), det=-1/s^2; oblique inverse [[2,-1],[-1,1]]; det g spherical=-r^4 sin^2 theta. All re-derived.",
+      "screenshots": [
+        "qa/polar-coordinates-1440-light.png",
+        "qa/polar-step-1440-light.png",
+        "qa/charts-opening-1440.png",
+        "qa/figure-polar-metric-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Two-chart sphere atlas is complete and checkable, rarer and better than most GR intros (learning-experience-audit had flagged its absence; now present)",
+          "Metric section explains why a squared-length rule determines a pairing, and that nondegenerate does not mean no null vectors",
+          "Keeps units honest (g_theta theta has length^2) and keeps component counts from being read as degrees of freedom"
+        ],
+        "issues": [
+          "Heavy for a novice: 4.1 plus the topology disclosure is a lot of formal machinery before any payoff",
+          "4.8 crams intrinsic/extrinsic curvature, orthonormal frames, frame-versus-coordinate flatness and locally inertial coordinates into about 450 words, asserting the last without construction (construction appears only partially in 8.5)",
+          "4.4 phrase 'one negative and three positive eigenvalue directions' is loose (component eigenvalues are basis-dependent; Sylvester's signature is what is invariant)",
+          "No non-diagonal Lorentzian metric exercise or chart-overlap exercise with a transformed metric (review §7 row 4)"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §7 row 4; docs/learning-experience-audit.md 'Manifolds' row; reading-quality-pass 'Chapters 4 and 5' and 'Follow-up: Chapter 4 chart experiment'; novice audit §4.1 row"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Reorder to lead with polar coordinates and the polar metric (4.2, 4.5) as the concrete core. Keep the two-chart sphere as a worked 'go deeper' layer, not the chapter's first wall. Keep 4.4-4.7 nearly verbatim. Split 4.8 into (a) intrinsic versus extrinsic with the cylinder, (b) orthonormal frames on the polar plane, (c) locally inertial coordinates, deferred to sit next to the 8.5 construction and the equivalence principle. Fix the eigenvalue wording.",
+        "effort": "medium"
+      },
+      "size": "~3,100 words, 39 display equations, 8 sections"
+    },
+    {
+      "id": "manuscript-section-4-1-two-chart-sphere-atlas",
+      "kind": "manuscript-section",
+      "title": "§4.1 Complete two-chart stereographic atlas of the sphere",
+      "paths": [
+        "book.md:1212-1292"
+      ],
+      "topics": [
+        "coordinate chart",
+        "atlas",
+        "transition map",
+        "stereographic projection",
+        "smooth manifold",
+        "Jacobian determinant",
+        "Hausdorff space",
+        "second countability"
+      ],
+      "teaches": "Chart and atlas definitions. North- and south-removed stereographic charts with explicit inverses. Transition (p,q)=(u,v)/(u^2+v^2) on the overlap, with a nonzero Jacobian (orientation reversal). A numeric point in both charts. Charts locate points; a metric measures. Optional open sets, continuity, Hausdorff and second countability.",
+      "pedagogy": "Algebraic verification instead of picture trust; optional rigor behind a disclosure; the 3D manifold experience and bridge lesson follow.",
+      "interaction": null,
+      "physics_model": "Unit sphere X^2+Y^2+Z^2=1; verified inverse and transition numerically.",
+      "screenshots": [
+        "qa/charts-opening-1440.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Mathematically complete and correct",
+          "Makes 'no embedding required' concrete"
+        ],
+        "issues": [
+          "Front-loads formalism in a novice route; the payoff (why two charts matter for horizons) is only promised"
+        ],
+        "evidence": "learning-experience-audit 'Functions, sets, and coordinate domains' recommendation implemented; reading-quality-pass Chapter 4 follow-up (chart lab clipping fixed)"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep the math verbatim but move it to a depth layer after polar coordinates. Pair it with an interactive two-chart globe where dragging a point shows both addresses.",
+        "effort": "small"
+      },
+      "size": "~900 words"
+    },
+    {
+      "id": "manuscript-section-4-4-4-7-metric-inverse-volume",
+      "kind": "manuscript-section",
+      "title": "§4.4-4.7 Metric as measuring rule, polar and oblique metrics, index gymnastics, volume element",
+      "paths": [
+        "book.md:1354-1552"
+      ],
+      "topics": [
+        "metric tensor",
+        "line element",
+        "polarization identity",
+        "null vector",
+        "Lorentzian signature",
+        "polar coordinates",
+        "inverse metric",
+        "raising and lowering indices",
+        "gradient",
+        "metric determinant",
+        "invariant volume element",
+        "spherical coordinates"
+      ],
+      "teaches": "g(V,W) and nondegeneracy with a null example; ds^2 for clocks, lengths and light cones; 10 components are not 10 modes. The polar metric derived from dx, dy and interpreted; an oblique metric and the factor 2 in cross terms. Inverse metric, lowered components with a Cartesian cross-check. Differential versus gradient. sqrt(-g)d^4x from g'=K^T g K, and the spherical example with its chart-failure caveat.",
+      "pedagogy": "Prediction from geometry (legs dr and r d theta) confirmed by calculus; every index operation has a numeric check.",
+      "interaction": null,
+      "physics_model": "Checks: V^i=(1,2) -> V_i=(3,5), g(V,V)=13=|3x+2y|^2; dA=r dr d theta; dV4=c dt r^2 sin theta dr d theta d phi.",
+      "screenshots": [
+        "qa/figure-polar-metric-light.png",
+        "qa/polar-step-1440-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Among the clearest metric introductions in the manuscript",
+          "Cartesian cross-check of index lowering is an excellent misconception buster"
+        ],
+        "issues": [
+          "Loose eigenvalue wording in 4.4",
+          "Determinant transformation proof is compressed for a novice",
+          "4.5 opens with 'Return to the angular-step view in the [polar-coordinate experiment](#polar-coordinates)', a sentence that depends on the legacy polar lab"
+        ],
+        "evidence": "novice-sequencing-audit follow-up on §4.4; comprehensive review §3 item 2 (inverse metrics praised)"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim with the eigenvalue wording fixed. Drive a polar-grid demo with the same point and basis, and generate oblique-metric practice variants.",
+        "effort": "small"
+      },
+      "size": "~1,600 words"
+    },
+    {
+      "id": "manuscript-section-4-8-curvature-bending-local-frames",
+      "kind": "manuscript-section",
+      "title": "§4.8 Curvature, bending, and local frames",
+      "paths": [
+        "book.md:1553-1588"
+      ],
+      "topics": [
+        "intrinsic curvature",
+        "extrinsic curvature",
+        "submanifold",
+        "orthonormal frame",
+        "tetrad",
+        "locally inertial coordinates",
+        "equivalence principle"
+      ],
+      "teaches": "Cylinder versus sphere; intrinsic versus extrinsic curvature; orthonormal frame e_hat with e_0=U/c; the polar unit frame; frames can be orthonormal everywhere while coordinates cannot be flat; locally inertial coordinates with g=eta and dg=0 at a point.",
+      "pedagogy": "Short survey paragraph sequence with one worked frame example.",
+      "interaction": null,
+      "physics_model": null,
+      "screenshots": [],
+      "quality": {
+        "status": "partial",
+        "strengths": [
+          "Correct distinctions, with a useful polar orthonormal-frame example reused in 6.1 and 7.5"
+        ],
+        "issues": [
+          "Four big ideas in about 450 words",
+          "Existence of locally inertial coordinates asserted without construction here; the doorway to the equivalence principle deserves a worked Taylor-coefficient argument",
+          "Intrinsic curvature is named before any measure of it exists (8.6 circumference test comes much later)"
+        ],
+        "evidence": "Read during inventory; comprehensive review §7 row 4 asks for the exponential-map construction at the appropriate depth; learning-experience-audit notes the local-to-global Gauss-Bonnet story is absent"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Split it up. Put the cylinder/sphere intrinsic test next to the 8.6 circumference measurement, orthonormal frames into the polar-plane thread before 6.1, and locally inertial coordinates into the equivalence-principle lesson using the 8.5 construction x'=x+Gamma x x/2.",
+        "effort": "small"
+      },
+      "size": "~450 words"
+    },
+    {
+      "id": "manuscript-chapter-05-free-fall-worldline-action",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 5. Free fall, the equivalence principle, and the worldline action",
+      "paths": [
+        "book.md:1591-1957",
+        "content/guides.json#5"
+      ],
+      "topics": [
+        "proper acceleration",
+        "coordinate acceleration",
+        "inertial and gravitational mass",
+        "weak equivalence principle",
+        "Einstein equivalence principle",
+        "strong equivalence principle",
+        "Rindler coordinates",
+        "uniformly accelerated observer",
+        "Born rigidity",
+        "action principle",
+        "Lagrangian",
+        "point-particle action",
+        "calculus of variations",
+        "Euler-Lagrange equations",
+        "integration by parts",
+        "geodesic equation",
+        "Christoffel symbols",
+        "affine parameter",
+        "null geodesics",
+        "geometric optics",
+        "einbein",
+        "Newtonian limit",
+        "weak-field metric",
+        "geodesic deviation",
+        "tidal tensor",
+        "Hessian of the potential"
+      ],
+      "teaches": "Free fall as zero proper acceleration. m_I versus m_G and three levels of equivalence principle, with limits (local, test body, not unique field equations). Rindler chart from Minkowski with differentials computed, clock rate (1+az/c^2) and proper acceleration a/(1+az/c^2): clock-rate differences without curvature, and non-uniform acceleration of a rigid array. S=-mc^2 int d tau and its low-speed Lagrangian. The full variation to Euler-Lagrange to the timelike geodesic equation with Christoffel symbols emerging, and mass dropping out. Affine parameters with a flat e^lambda example. Null geodesics, geometric optics, why m->0 fails and the quadratic action, optional einbein. The Newtonian limit from the weak-field preview metric (L=K-U). Newtonian tides from the Hessian (radial 2GM/r^3), and a table mapping accelerometer / connection / curvature to experiments.",
+      "pedagogy": "Every derivation is 'one operation at a time', with integration by parts recalled at point of use. Flat-space counterexamples (Rindler, e^lambda relabelling) inoculate against slogans ('objects fall toward slower time'). Honest labels: the weak-field metric is a preview; stationary does not mean global maximum. Rindler figure after 5.3; bridge lesson 'A straight path can have an accelerating label' after 5.6.",
+      "interaction": null,
+      "physics_model": "Signature (-,+,+,+); Rindler cT=(c^2/a+z)sinh(at/c), Z=(c^2/a+z)cosh(at/c)-c^2/a; S=-mc^2 int d tau; weak field g_00=-(1+2 Phi/c^2). Rindler clock rate and alpha(z) re-derived; geodesic derivation followed line by line.",
+      "screenshots": [
+        "qa/rindler-reading-390.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Review: 'The action calculation is genuinely taught, including affine/null subtleties. Rindler is an excellent counterexample to careless gravity slogans.'",
+          "The null-geodesic caveat (do not restrict the varied family to zero integrand) is a subtle point handled correctly",
+          "5.9's instrument/quantity table is a durable conceptual map for the rest of the course"
+        ],
+        "issues": [
+          "Back-references hyperbolic functions as 'introduced in §3.3', where they sit in an optional disclosure; 5.3 does restate the definitions",
+          "Christoffel symbols named 'of the Levi-Civita connection' in 5.5 before connections exist (forward reference, flagged as such)",
+          "No numeric comparison of several paths between endpoints to show stationarity versus local and global maximum (review §7 row 5)",
+          "Gyroscope appeal later (7.1) lacks an operational introduction here (review)",
+          "Long: about 2,900 words and 35 display equations, with no learner exercise inside"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §7 row 5 and §5 hyperbolic-functions row; reading-quality-pass 'Chapters 4 and 5'; novice audit follow-up on §§5.4-5.5"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 5.3, 5.5, 5.7 and 5.9 derivations verbatim (they are the chapter's value). Split into three lessons: proper acceleration and equivalence principle (5.1-5.2), accelerated clocks (5.3 with a Rindler demo), and the action route to geodesics (5.4-5.8). Put 5.9 tides next to the Ch 1 two-pebble demo as the quantitative payoff. Add a path-comparison demo (proper time along three worldlines between fixed events) and completion exercises on the variation.",
+        "effort": "medium"
+      },
+      "size": "~2,890 words, 35 display equations, 9 sections"
+    },
+    {
+      "id": "manuscript-section-5-3-rindler-accelerating-laboratory",
+      "kind": "manuscript-section",
+      "title": "§5.3 An accelerating laboratory in flat spacetime (Rindler clocks)",
+      "paths": [
+        "book.md:1623-1679"
+      ],
+      "topics": [
+        "Rindler coordinates",
+        "uniformly accelerated observer",
+        "gravitational time dilation",
+        "proper acceleration",
+        "Born rigidity",
+        "hyperbolic functions"
+      ],
+      "teaches": "Constructs the Rindler chart and derives ds^2=-(1+az/c^2)^2c^2dt^2+dz^2+..., clock rate d tau=(1+az/c^2)dt, four-velocity and four-acceleration, alpha(z)=a/(1+az/c^2). Conclusion: clock-rate differences alone do not establish curvature, and rigid elevators need height-dependent accelerations.",
+      "pedagogy": "Full differential computation shown (L and chi abbreviations), then physical interpretation, then a slogan correction.",
+      "interaction": null,
+      "physics_model": "Exact Minkowski spacetime in accelerated coordinates, z>-c^2/a; verified four-acceleration norm c^2/L. Hand check in review: with L = c^2/a + z, the four-acceleration components are (c^2/L)(sinh chi, cosh chi), the norm is c^2/L, and alpha(z) = a/(1 + az/c^2).",
+      "screenshots": [
+        "qa/rindler-reading-390.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Exact, fully worked, and pedagogically pivotal (reused in Ch 24 capstone and in the review's suggested lapse-function transfer task)"
+        ],
+        "issues": [
+          "Opens by pointing to sinh/cosh 'introduced in §3.3' (an optional, unnarrated block). It restates the definitions and derivatives itself, but a reader with no hyperbolic-function practice meets them for real here.",
+          "No figure or numbers inside the text (for example alpha at z = c^2/a is a/2); the Rindler figure was placed after the section by the build"
+        ],
+        "evidence": "comprehensive review §7 row 5 and §10.3 (proposed N(z) transfer task builds on this); reading-quality-pass Chapter 5 (differentials computed rather than displayed)"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim. Pair with an interactive Rindler worldline and clock-array demo. Add the review's N(z)=1+az/c^2 versus e^{kz} transfer task (flat versus R=-2k^2) once curvature is available.",
+        "effort": "small"
+      },
+      "size": "~650 words"
+    },
+    {
+      "id": "manuscript-section-5-4-5-5-geodesic-equation-from-action",
+      "kind": "manuscript-section",
+      "title": "§5.4-5.5 Worldline action and the geodesic equation, one operation at a time",
+      "paths": [
+        "book.md:1680-1807"
+      ],
+      "topics": [
+        "action principle",
+        "point-particle action",
+        "Lagrangian",
+        "calculus of variations",
+        "integration by parts",
+        "Euler-Lagrange equations",
+        "geodesic equation",
+        "Christoffel symbols",
+        "universality of free fall"
+      ],
+      "teaches": "What an action is; why -mc^2 int d tau; the low-speed Lagrangian; what stationary means. Varying I=int ell d lambda: metric sampled at shifted points, tangent variation, integration by parts, boundary term, Euler-Lagrange. Symmetrization produces Gamma, and lambda=tau gives the boxed geodesic equation. Mass drops out.",
+      "pedagogy": "Each operation justified in a sentence; the general Euler-Lagrange rule extracted from the special case; explicit note that the particle does not 'explore' paths.",
+      "interaction": null,
+      "physics_model": "Timelike curves, arbitrary parameter with nonaffine term (d ln ell/d lambda) x-dot shown explicitly; derivation checked line by line.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Complete derivation including the nonaffine term, which most texts skip",
+          "Honest about local versus global maximization (forward pointer to Ch 22)"
+        ],
+        "issues": [
+          "Dense index manipulation for a first variational encounter; no scaffolded exercise"
+        ],
+        "evidence": "comprehensive review §3 item 5 (worldline variation among supplied hidden derivations) and §5 (Euler-Lagrange derived here, need not wait); novice audit follow-up"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim as a stepwise derivation component (reveal one operation at a time, ask the learner to supply the next). Suits AI-tutor 'complete the step' interactions.",
+        "effort": "small"
+      },
+      "size": "~1,100 words, 13 display equations"
+    },
+    {
+      "id": "manuscript-section-5-6-5-7-affine-parameters-null-geodesics",
+      "kind": "manuscript-section",
+      "title": "§5.6-5.7 Affine parameters and null geodesics (quadratic action and optional einbein)",
+      "paths": [
+        "book.md:1808-1881"
+      ],
+      "topics": [
+        "affine parameter",
+        "null geodesics",
+        "geometric optics",
+        "photon energy",
+        "einbein",
+        "calculus of variations"
+      ],
+      "teaches": "Affine reparameterizations lambda = A tau + B, and a flat 1D example (x = e^lambda gives d^2x/dlambda^2 = dx/dlambda without any curvature). Null tangent k^mu and the geodesic equation; the geometric-optics validity condition. Why the affine scale does not fix photon energy without an observer. Why m -> 0 in -mc^2 int dtau gives nothing, and the quadratic functional I_2 = (1/2) int g xdot xdot dlambda. Why one must not restrict the varied family to a zero integrand. Nullness is preserved by the motion. Optional: an auxiliary e(lambda) imposes nullness and is absorbed by reparameterizing.",
+      "pedagogy": "Flat counterexample first, then the null case, with an explicitly bolded wrong move. The einbein is kept optional. A bridge lesson (affine-is-a-parameter-choice) attaches at section end.",
+      "interaction": null,
+      "physics_model": "Affine geodesic equation with Levi-Civita Gamma; the Euler-Lagrange equation of I_2 reproduces §5.5. The einbein equation gives xdot^mu terms proportional to (edot/e), removed by dsigma/dlambda = e/e_0. Checked in review.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Handles the massless limit correctly; most introductions either skip it or restrict the variation wrongly",
+          "The e^lambda example makes 'coordinate acceleration without curvature' concrete before Christoffels exist",
+          "Separates route (geometry) from energy (observer data)"
+        ],
+        "issues": [
+          "No numeric null-ray example (for example a radial ray in Rindler or polar coordinates)",
+          "The einbein block is collapsed and unnarrated and uses 'auxiliary field' vocabulary with no prior use"
+        ],
+        "evidence": "Read in review; comprehensive review §7 row 5 ('affine/null subtleties' praised); lesson-sequence.mjs entry affine-is-a-parameter-choice"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim. Add a null-ray worked example in Rindler coordinates (reusing §5.3) and a 'spot the wrong variation' diagnostic item built from the bolded warning. Keep the einbein as a further-depth card.",
+        "effort": "small"
+      },
+      "size": "~800 words, 7 display equations"
+    },
+    {
+      "id": "manuscript-section-5-8-5-9-newtonian-limit-and-tides",
+      "kind": "manuscript-section",
+      "title": "§5.8-5.9 Recovering Newton and relative acceleration (tides)",
+      "paths": [
+        "book.md:1882-1955"
+      ],
+      "topics": [
+        "Newtonian limit",
+        "weak-field metric",
+        "Lagrangian mechanics",
+        "geodesic deviation",
+        "tidal tensor",
+        "Hessian of the potential",
+        "tidal forces"
+      ],
+      "teaches": "Given the weak-field metric as a preview, expand d tau/dt and get L=mv^2/2-m Phi and Newton's law. Critique of the 'fall toward slower time' slogan. Newtonian relative acceleration from the Hessian of Phi, radial 2GM/r^3 stretching and transverse squeezing. A three-row table: accelerometer = proper acceleration, component comparison = connection, neighbouring falls = curvature.",
+      "pedagogy": "Consistency check honestly labelled as not a derivation; tides computed where the Ch 1 two-ball experiment set them up; the table orients the next three chapters.",
+      "interaction": null,
+      "physics_model": "|Phi|/c^2<<1, v^2/c^2<<1, Phi=-G_N M/r; d^2 xi/dt^2 = -partial_i partial_j Phi xi^j.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Ties Ch 1 motivation to quantitative tides and to the upcoming geometry",
+          "Scope statements prevent slogan misconceptions"
+        ],
+        "issues": [
+          "Transverse tidal value (-GM/r^3) stated only qualitatively"
+        ],
+        "evidence": "Read and checked during inventory; comprehensive review §3 item 1"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim. Add the transverse -GM/r^3 component and link to a tidal-cloud demo. Use the table as a course-wide navigation device.",
+        "effort": "small"
+      },
+      "size": "~750 words"
+    },
+    {
+      "id": "manuscript-chapter-06-covariant-differentiation",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 6. Differentiation in a changing basis",
+      "paths": [
+        "book.md:1958-2278",
+        "content/guides.json#6"
+      ],
+      "topics": [
+        "vector field",
+        "polar unit basis",
+        "covariant derivative",
+        "connection coefficients",
+        "tangent space",
+        "tensor transformation law",
+        "covariant derivative of a covector",
+        "covariant derivative of a tensor",
+        "covariant Hessian",
+        "gradient",
+        "divergence",
+        "metric determinant",
+        "Jacobi's formula",
+        "d'Alembertian",
+        "wave equation",
+        "Laplacian",
+        "Lie bracket",
+        "flow of a vector field",
+        "commutator",
+        "non-coordinate basis"
+      ],
+      "teaches": "A fixed eastward arrow has changing polar components, and the product rule with rotating unit vectors cancels to zero. Chain-rule analysis shows partial V is not a tensor because of derivatives of the Jacobian. T_pM versus T_qM and a connection defined by nabla_mu e_nu=Gamma e_rho, giving nabla_mu V. Covectors get a minus sign from the product rule and scalar pairing; the general upper-plus/lower-minus rule; contraction compatibility versus metric compatibility. Covariant Hessian, symmetric for zero torsion, intrinsic at critical points. Divergence via Gamma^mu_mu nu = d ln sqrt(-g) with the determinant-trace identity derived. Box operator, and a traveling-wave check. Divergence of T^mu nu. Lie bracket from two flows on the plane, (0,h^2) gap and [X,Y]=partial_y; the operator commutator; an optional polar unit-frame bracket.",
+      "pedagogy": "Picture, then unit-vector computation, then general coordinate problem, then definition. Two interactive inserts (vector-field comparison at 6.1, flow-order at 6.6) placed after their verbal setup. Bridge lesson 'An unchanged arrow can have changing components' after 6.2.",
+      "interaction": null,
+      "physics_model": "Levi-Civita coefficients imported from 5.5; identities det(A+eps B)=det A(1+eps tr(A^-1 B)); flow-order endpoints A=(1+h,h+h^2), B=(1+h,h). All re-derived.",
+      "screenshots": [
+        "qa/flow-order-1440-light.png",
+        "qa/flow-order-390-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Review: 'The changing-basis derivation, covector minus sign, scalar Hessian, and divergence are well chosen.'",
+          "6.6 fills the earlier P1 prerequisite gap (Lie bracket named before taught) with a concrete finite-step computation (commit c3d5533)",
+          "Explains why the determinant appears physically (measuring boxes expand), not just algebraically"
+        ],
+        "issues": [
+          "No learner-completed derivative of a mixed tensor, and no coordinate-basis versus orthonormal-frame comparison exercise (review §7 row 6)",
+          "6.5 bundles divergence, Jacobi's formula, the wave operator, a wave solution and divergence of T^{mu nu}: long for one section",
+          "Relies on the Christoffel formula from 5.5 before its geometric derivation in 7.3 (flagged in text)"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §7 row 6 and §5 Lie-bracket row (now addressed); reading-quality-pass 'Chapters 6 and 7'; git log b321fda, c3d5533, 230ab25; docs/visual-development-plan-2026-09-09.md Experience B spec"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 6.1, 6.3, 6.4 and 6.6 verbatim. Split 6.5 into divergence/volume and wave operator. Rebind the vector-field and flow-order inserts to the new demos. Add learner-completed mixed-tensor derivative and polar-frame versus coordinate-basis practice. Consider moving 6.6 to the start of Ch 7 so torsion follows immediately.",
+        "effort": "medium"
+      },
+      "size": "~2,310 words, 29 display equations, 6 sections"
+    },
+    {
+      "id": "manuscript-section-6-1-fixed-arrow-changing-components",
+      "kind": "manuscript-section",
+      "title": "§6.1 A fixed arrow with changing components",
+      "paths": [
+        "book.md:1960-2029"
+      ],
+      "topics": [
+        "vector field",
+        "polar unit basis",
+        "product rule",
+        "covariant derivative",
+        "tensor transformation law"
+      ],
+      "teaches": "V=cos theta e_r - sin theta e_theta; the coefficient derivatives are nonzero but basis derivatives cancel them exactly. Then the general chain rule shows the non-tensorial K(dJ)V term and why constant-Jacobian transformations (rotations, Lorentz) do not need a correction.",
+      "pedagogy": "Surprise-first: 'a fixed physical arrow can have changing components; a turning arrow can have constant components'. Interactive P/Q comparison placed right after the prompt.",
+      "interaction": null,
+      "physics_model": "Flat plane, unit polar frame; cancellation verified.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Best motivation for the covariant derivative in the manuscript; replaced an earlier unrelated currency analogy"
+        ],
+        "issues": [
+          "Switch from unit basis to coordinate basis (partial_theta=r e_theta) is brief and easy to miss"
+        ],
+        "evidence": "reading-quality-pass 'Chapters 6 and 7'; comprehensive review §3 item 3"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim as the covariant-derivative hook. The new demo should toggle unit versus coordinate basis explicitly (visual-development-plan Experience B requirement).",
+        "effort": "small"
+      },
+      "size": "~700 words"
+    },
+    {
+      "id": "manuscript-section-6-5-divergence-volume-wave-operator",
+      "kind": "manuscript-section",
+      "title": "§6.5 Divergence and physical volume, Jacobi's identity, and the wave operator",
+      "paths": [
+        "book.md:2141-2222"
+      ],
+      "topics": [
+        "divergence",
+        "metric determinant",
+        "Jacobi's formula",
+        "d'Alembertian",
+        "wave equation",
+        "covariant derivative of a tensor",
+        "stress-energy conservation"
+      ],
+      "teaches": "Gamma^mu_mu nu = d_nu ln sqrt(-g) from the trace of the Christoffel formula. det(A + eps B) = det A [1 + eps tr(A^-1 B)], with a one-paragraph reason the trace appears. Divergence = (1/sqrt(-g)) d_mu(sqrt(-g) V^mu), interpreted as net outflow per physical volume because coordinate boxes change size. The Box operator and its Minkowski form with the c^-2 sign traced to x^0 = ct. A traveling-wave check F(x-ct). Divergence of T^{mu nu} with the leftover Gamma term, flagged for Chapter 11.",
+      "pedagogy": "Extends the Chapter 0 box-flux idea. The identity is derived with an intuitive counting argument rather than quoted, and every formula gets a physical reading ('measuring boxes expand').",
+      "interaction": null,
+      "physics_model": "Levi-Civita connection; sqrt(|g|) for Riemannian signature. Verified in review: in F(x-ct), -c^-2 c^2 F'' + F'' = 0. The Laplacian version is tested in §7.5 experiment 5 (r^2 gives 4).",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "The physical meaning of sqrt(-g) in the divergence is explained, not just derived",
+          "Jacobi's formula made accessible without cofactor expansions",
+          "Anticipates the T^{mu nu} extra term, a common error"
+        ],
+        "issues": [
+          "Five ideas in one section (trace identity, divergence, wave operator, a wave solution, tensor divergence)",
+          "Uses the §5.5 Christoffel formula before its geometric derivation in §7.3 (acknowledged in the text)",
+          "No learner computation; the polar Laplacian check is deferred to §7.5"
+        ],
+        "evidence": "Read in review; comprehensive review §7 row 6 ('divergence ... well chosen')"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Split it into (a) divergence and volume with Jacobi's identity, paired with the Chapter 0 box-flux demo, and (b) the wave operator and traveling-wave check. Move the T^{mu nu} paragraph to the stress-energy conservation lesson. Pull §7.5 experiment 5 forward as immediate practice for (a).",
+        "effort": "small"
+      },
+      "size": "~900 words, 9 display equations"
+    },
+    {
+      "id": "manuscript-section-6-6-lie-bracket-flow-order",
+      "kind": "manuscript-section",
+      "title": "§6.6 When the order of two flows matters (Lie bracket)",
+      "paths": [
+        "book.md:2223-2276"
+      ],
+      "topics": [
+        "Lie bracket",
+        "flow of a vector field",
+        "commutator",
+        "directional derivative",
+        "non-coordinate basis",
+        "orthonormal frame"
+      ],
+      "teaches": "X=(1,0), Y=(0,x) from (1,0): the two orders end at (1+h,h+h^2) and (1+h,h), gap h^2(0,1). A derivation of [X,Y]^i=X^j d_j Y^i - Y^j d_j X^i, the operator form X[Y f]-Y[X f], and an optional polar unit-frame bracket -e_theta/r. The plane stays flat throughout.",
+      "pedagogy": "Watch-then-compute with the flow-order lab; explicit scaling argument for why h^2 appears; prepares torsion in 7.2 and the bracket term in 8.2.",
+      "interaction": null,
+      "physics_model": "Dimensionless plane fields; finite-step endpoints and bracket verified.",
+      "screenshots": [
+        "qa/flow-order-1440-light.png",
+        "qa/flow-order-390-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Directly repairs the comprehensive review's P1 prerequisite gap with the exact example it prescribed ([d_x, x d_y]=d_y)",
+          "Keeps flat-plane caveat front and centre"
+        ],
+        "issues": [
+          "Sign convention for the flow commutator (which order is subtracted) is stated implicitly by the example, not flagged as convention-dependent"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §5 Lie-bracket row; docs/flow-order-review.md; scripts/check-flow-order.mjs; git c3d5533"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim with the flow-order demo. Add one sentence flagging that books differ on the sign of flow-commutator pictures.",
+        "effort": "small"
+      },
+      "size": "~700 words"
+    },
+    {
+      "id": "manuscript-chapter-07-connection-parallel-transport",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 7. The connection: how neighboring laboratories compare directions",
+      "paths": [
+        "book.md:2279-2583",
+        "content/guides.json#7"
+      ],
+      "topics": [
+        "parallel transport",
+        "covariant derivative along a curve",
+        "geodesic",
+        "gyroscope precession",
+        "Levi-Civita connection",
+        "metric compatibility",
+        "torsion",
+        "Lie bracket",
+        "Christoffel symbols",
+        "fundamental theorem of Riemannian geometry",
+        "connection transformation law",
+        "difference of connections",
+        "polar coordinates",
+        "coordinate acceleration",
+        "Laplacian"
+      ],
+      "teaches": "Transport on plane, cylinder and sphere (interactive), DV/d lambda=0 as a linear ODE, geodesics as self-transport, a free gyroscope. Metric compatibility preserves inner products and causal type. Torsion defined with the bracket and checked on [d_x, x d_y]. Christoffel formula from the three-permutation trick, with uniqueness and existence. The inhomogeneous transformation law derived by the product rule, why Gamma is not a tensor, and why a difference of connections is. Five polar-plane experiments: constant d_x has zero covariant derivative; nabla g=0 despite d_r g_theta theta=2r; a straight line has r-double-dot=r theta-dot^2; transport around a circle returns unchanged; the Laplacian checked on r^2 giving 4 (not 2).",
+      "pedagogy": "Experience first (the continuous transport lab at 7.1 is placed after its framing), then axioms, then derivation, then an exhaustive flat-space test bench where each result has an independent Cartesian answer. Bridge lesson 'Do the two moves in the other order' at section start of 7.2; connection-cancellation figure after 7.5.",
+      "interaction": null,
+      "physics_model": "Levi-Civita connection; polar plane Gamma^r_theta theta=-r, Gamma^theta_r theta=1/r; all five experiments re-derived.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Review: 'Christoffel derivation and polar examples are effective'; §7.5 is the manuscript's best worked bridge (five independent checks with Cartesian answers)",
+          "Torsion taught correctly for non-coordinate fields, a common error in introductions",
+          "Guide check ('Can nonzero Christoffel symbols alone prove tidal curvature?') targets the key misconception"
+        ],
+        "issues": [
+          "7.4's transformation-law derivation is compressed and index-heavy for a novice",
+          "Gyroscope claim in 7.1 lacks operational grounding (review §7 row 5)",
+          "No coordinate versus non-coordinate frame connection computation, and no Fermi-Walker transport (review §7 row 7)",
+          "Visual plan noted the chapter had no interactive experience; since added (transport lab, commit 2fc1cde)",
+          "Links such as chapter-6.html#6-6-... are build-coupled"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §7 row 7; reading-quality-pass 'Chapters 6 and 7'; docs/parallel-transport-review.md; scripts/check-parallel-transport.mjs; docs/visual-development-plan-2026-09-09.md row 7 (pre-fix)"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 7.1-7.3 and 7.5 verbatim. Make 7.4 a depth layer with a worked 1D example (x'=x^2 relabelling) before the general law. Turn each 7.5 experiment into an interactive check the learner computes before seeing the answer. Add a Fermi-Walker optional card. Replace build links with concept IDs.",
+        "effort": "medium"
+      },
+      "size": "~1,830 words, 26 display equations, 5 sections"
+    },
+    {
+      "id": "manuscript-section-7-3-christoffel-derivation",
+      "kind": "manuscript-section",
+      "title": "§7.2-7.3 Metric compatibility, zero torsion, and the Christoffel formula",
+      "paths": [
+        "book.md:2320-2410"
+      ],
+      "topics": [
+        "Levi-Civita connection",
+        "metric compatibility",
+        "torsion",
+        "Christoffel symbols",
+        "fundamental theorem of Riemannian geometry"
+      ],
+      "teaches": "Why compatibility preserves inner products; torsion with the bracket subtracted; symmetric Gamma only in a coordinate basis; the permutation trick with the reason for adding two and subtracting one; uniqueness plus existence; nabla g^{mu nu}=0.",
+      "pedagogy": "Motivated manipulation ('Why this particular maneuver?'), and ties back to the same formula from the action in 5.5 for a second interpretation.",
+      "interaction": null,
+      "physics_model": "Torsion-free metric connection; checked the torsion example nabla_{d_x}(x d_y)=d_y.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Standard derivation made legible; existence argument not skipped"
+        ],
+        "issues": [
+          "None substantive"
+        ],
+        "evidence": "Read and checked during inventory; comprehensive review §7 row 7"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim. Good candidate for a 'fill in the permutation' exercise.",
+        "effort": "small"
+      },
+      "size": "~800 words"
+    },
+    {
+      "id": "manuscript-section-7-4-connection-transformation-law",
+      "kind": "manuscript-section",
+      "title": "§7.4 Why a connection is geometric but its coefficients are not a tensor",
+      "paths": [
+        "book.md:2411-2448"
+      ],
+      "topics": [
+        "connection transformation law",
+        "Christoffel symbols",
+        "tensor transformation law",
+        "difference of connections",
+        "Riemann normal coordinates"
+      ],
+      "teaches": "The inhomogeneous transformation law for Gamma, derived in a few product-rule lines from e'_nu = K e_lambda. The extra second-derivative term cancels the non-tensorial part of d'V'. Coefficients can vanish at a point in one chart and not in another, so they cannot measure curvature. The difference of two connections is a tensor, and delta Gamma is tensorial, set up for the action derivation.",
+      "pedagogy": "A boxed law followed by a condensed derivation and consequences. There is no numeric or 1D example; the reader must reconstruct the K and J bookkeeping.",
+      "interaction": null,
+      "physics_model": "General coordinate change with Jacobian J and inverse K. Used later in §8.5 to build Gamma(p) = 0 coordinates.",
+      "screenshots": [],
+      "quality": {
+        "status": "partial",
+        "strengths": [
+          "Correct and complete statement including the difference-of-connections tensoriality",
+          "Supplies exactly what §8.5's normal-coordinate construction needs"
+        ],
+        "issues": [
+          "The derivation is compressed into two sentences of index substitution; it is the densest step in Ch 6-8 for a novice",
+          "No concrete example: a 1D relabelling x' = x^2, or polar versus Cartesian, would show the inhomogeneous term producing nonzero Gamma from zero",
+          "The 'delta Gamma is tensorial' remark is a forward reference with no current use"
+        ],
+        "evidence": "Read in review; comprehensive review §7 row 7 (asks for coordinate versus frame connection computation)"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Make it a worked-detail layer. Lead with the Cartesian-to-polar case, where every Cartesian Gamma is zero and the inhomogeneous term alone yields Gamma^r_theta theta = -r and Gamma^theta_r theta = 1/r, matching §7.5. Then state the general law. Keep the difference-of-connections paragraph for the action unit.",
+        "effort": "small"
+      },
+      "size": "~450 words, 3 display equations"
+    },
+    {
+      "id": "manuscript-section-7-5-five-polar-plane-experiments",
+      "kind": "manuscript-section",
+      "title": "§7.5 Five calculations on the polar plane",
+      "paths": [
+        "book.md:2449-2581"
+      ],
+      "topics": [
+        "Christoffel symbols",
+        "polar coordinates",
+        "covariant derivative",
+        "metric compatibility",
+        "geodesic equation",
+        "coordinate acceleration",
+        "parallel transport",
+        "divergence",
+        "Laplacian"
+      ],
+      "teaches": "Gamma^r_theta theta=-r step by step, then five experiments each with an independent Cartesian answer: constant vector has zero covariant derivative; nabla_r g_theta theta=0; straight-line motion with coordinate acceleration r-double-dot=v^2b^2/r^3; transport around a circle is trivial; polar Laplacian of r^2 equals 4 and the naive formula gives 2. Ends by deferring the curvature test to 8.4.",
+      "pedagogy": "Test bench: known flat geometry validates every formula; each experiment defuses a specific misconception (nonzero Gamma, nonconstant g, coordinate acceleration, transport, missing volume factors).",
+      "interaction": null,
+      "physics_model": "Flat Euclidean plane in polar coordinates; all five experiments re-derived without error.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "The single best worked bridge in Ch 0-8: concrete, complete, self-checking, misconception-targeted",
+          "The connection-cancellation figure was placed here in reading-quality pass"
+        ],
+        "issues": [
+          "Presented as finished calculations; the learner never does one"
+        ],
+        "evidence": "reading-quality-pass 'Chapters 6 and 7' (one coefficient evaluated step by step, Laplacian checked against Cartesian); comprehensive review §3 item 3; git 494d5cd"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim as worked-solution layers, but put a predict/compute prompt in front of each experiment. Build a companion polar-plane demo where the learner drags a straight line and sees r-double-dot and r theta-dot^2 cancel live.",
+        "effort": "small"
+      },
+      "size": "~1,000 words, 12 display equations"
+    },
+    {
+      "id": "manuscript-chapter-08-curvature-holonomy",
+      "kind": "manuscript-chapter",
+      "title": "Chapter 8. Curvature and transport around a loop",
+      "paths": [
+        "book.md:2584-2911",
+        "content/guides.json#8"
+      ],
+      "topics": [
+        "holonomy",
+        "parallel transport",
+        "Riemann curvature tensor",
+        "commutator of covariant derivatives",
+        "Riemann tensor components",
+        "Lie bracket",
+        "curvature operator",
+        "Riemann tensor symmetries",
+        "algebraic Bianchi identity",
+        "Riemann normal coordinates",
+        "independent components of the Riemann tensor",
+        "Gaussian curvature",
+        "geodesic triangle",
+        "angular excess",
+        "Gauss-Bonnet theorem",
+        "cone",
+        "contractible loop",
+        "Ricci tensor",
+        "Ricci scalar",
+        "sign conventions",
+        "geodesic circle circumference",
+        "intrinsic curvature",
+        "extrinsic curvature"
+      ],
+      "teaches": "Holonomy intro (return rotation proportional to area times 1/R^2) and the two-route comparison lab. Curvature via [nabla_mu, nabla_nu]V=R V with the component formula derived (key cancellations stated). R(X,Y)Z with the bracket term, covector sign. Small-loop holonomy Delta V=-R V a b with orientation conventions. The octant triangle with three right angles gives a 90 degree rotation. Optional: sphere transport angle equals oriented area/a^2 derived by tiling, and angular excess. Optional cut cone: flat everywhere yet loop holonomy delta. Polar-plane Riemann equals 0 (derivative -1 cancels product +1). Symmetries proven in Gamma=0 coordinates constructed explicitly; 21-1=20 component count; 20 components are not wave polarizations. Sphere: Christoffels, R^theta_phi theta phi=sin^2 theta, K=1/a^2, Ricci defined and computed, R=2/a^2 fixes the sign convention; geodesic-circle circumference deficit; cylinder versus sphere.",
+      "pedagogy": "Experiment-first opening (lab before the 8.1 algebra), then operator definition, then loop interpretation with explicit orientation, then the flat test (polar) and the curved test (sphere). Optional disclosures carry the Gauss-Bonnet flavoured area derivation and the cone. Bridge lessons after 8.3 ('Carry a direction home') and 8.6 ('Measure curvature with a string').",
+      "interaction": null,
+      "physics_model": "Convention R^rho_sigma mu nu = d_mu Gamma^rho_nu sigma - ... with [nabla_mu, nabla_nu]V^rho = R^rho_sigma mu nu V^sigma, R_mu nu = R^rho_mu rho nu; polar and sphere components, K, Ricci, count and normal-coordinate construction re-derived; octant 90 degrees = (1/a^2)(pi a^2/2).",
+      "screenshots": [
+        "qa/chapter-8-1440.png",
+        "qa/chapter-8-390.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Review: 'Strong commutator, holonomy, sphere, and component-count teaching'",
+          "Flat-cone example teaches local versus global holonomy, rarely done at this level",
+          "Sign convention anchored operationally (sphere R>0) and cross-book translation warned",
+          "Symmetry proofs use an explicitly constructed normal chart rather than hand-waving"
+        ],
+        "issues": [
+          "8.1 asserts that first-derivative-of-V terms 'cancel in pairs' without showing them, the step learners most need to see",
+          "8.3's loop formula Delta V=-R V a b is stated, not derived, even for a general small parallelogram (only the sphere-specific version is derived, and it is optional)",
+          "The key sphere-area derivation and cone example sit inside optional 'history-note' disclosures",
+          "No counterexample of a loop returning a vector unchanged despite nonzero curvature, and no new two-dimensional metric for the learner to compute (review §7 row 8)",
+          "Chapter is long and ends without a synthesis or exercise; the 'idea to keep' is only in guides.json",
+          "The unnumbered opening (lines 2586-2598) states what the Ch 7 transport lab showed and embeds the transport-routes insert; without an equivalent demo the first three paragraphs describe an experience the reader never had",
+          "Both optional disclosures in 8.3 carry data-no-narration, so narration skips the only quantitative holonomy derivation and the cone"
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md §7 row 8; reading-quality-pass 'Chapters 8 through 10'; docs/curvature-experiences.md; scripts/check-curvature-experiences.mjs; git 64cc990 and 494d5cd; qa/chapter-8-1440.png viewed (clean opening, holonomy intro readable)"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep the opening holonomy framing, 8.4 and 8.6 verbatim, and keep 8.5's count and normal-coordinate construction. Write out the 8.1 cancellations as an expandable worked layer. Add a short derivation (or clearly labelled result) of the small-loop formula with an orientation diagram. Promote the sphere area derivation from optional to core, since it is the quantitative heart of holonomy. Add a learner-computed new 2D metric (for example a hyperbolic plane or a paraboloid) and the flat-cone/unchanged-loop counterexample as practice. Pair everything with the shrinking-loop holonomy demo.",
+        "effort": "medium"
+      },
+      "size": "~2,450 words, 27 display equations, 6 sections plus unnumbered opening, 2 optional disclosures"
+    },
+    {
+      "id": "manuscript-section-8-1-8-3-riemann-commutator-and-loop",
+      "kind": "manuscript-section",
+      "title": "§8.1-8.3 Riemann tensor from a derivative commutator and the small-loop holonomy formula",
+      "paths": [
+        "book.md:2600-2701"
+      ],
+      "topics": [
+        "Riemann curvature tensor",
+        "commutator of covariant derivatives",
+        "curvature operator",
+        "Lie bracket",
+        "holonomy",
+        "sign conventions"
+      ],
+      "teaches": "Expands nabla_mu nabla_nu V^rho including the often-forgotten derivative-index correction, states which terms cancel, and boxes the component formula. R(X,Y)Z with the bracket subtraction. Covector action. Loop result Delta V^rho=-R^rho_sigma mu nu V^sigma a^mu b^nu for traversal +a,+b,-a,-b, with orientation caveats. The octant triangle described.",
+      "pedagogy": "Algebraic definition anchored by the preceding loop experiment; tensoriality argued from the absence of derivatives of V.",
+      "interaction": null,
+      "physics_model": "Levi-Civita, coordinate basis; transport dV=-Gamma_mu V dx^mu.",
+      "screenshots": [],
+      "quality": {
+        "status": "partial",
+        "strengths": [
+          "Explicitly flags the forgotten correction term",
+          "Orientation and sign discussion unusually honest"
+        ],
+        "issues": [
+          "Cancellations of the terms with first derivatives of V are asserted ('cancel in pairs'), not displayed",
+          "The general loop formula Delta V^rho = -R^rho_sigma mu nu V^sigma a^mu b^nu is stated, not derived. Its sign is correct: the review checked it against the optional sphere tiling result (+sin theta dtheta dphi for the +theta, +phi order) and the octant (the reversed orientation gives -pi/2, so north goes to east).",
+          "The section order puts the general algebra (8.1-8.2) between the opening lab and the loop formula it explains"
+        ],
+        "evidence": "Read during inventory and sign re-derived in review (sphere Riemann component, loop orientation and octant route); comprehensive review §7 row 8 ('Explain oriented loop order carefully whenever comparing signs across books')"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep the text but add an expandable table of the fully expanded cancellations and a second-order transport derivation for the parallelogram. The sign needs no correction; keep the review's hand check as a unit test (R^phi_theta theta phi = -1 on the unit sphere with the octant orientation) so later edits cannot flip it.",
+        "effort": "small"
+      },
+      "size": "~1,000 words"
+    },
+    {
+      "id": "manuscript-section-8-3-sphere-holonomy-area-and-cone",
+      "kind": "manuscript-section",
+      "title": "§8.3 optional calculations: transport angle equals area/a^2, angular excess, and the cut cone",
+      "paths": [
+        "book.md:2702-2766"
+      ],
+      "topics": [
+        "holonomy",
+        "Gaussian curvature",
+        "angular excess",
+        "Gauss-Bonnet theorem",
+        "geodesic triangle",
+        "cone",
+        "contractible loop",
+        "parallel transport"
+      ],
+      "teaches": "Tangent projection of unit-vector derivatives gives d psi=-cos theta d phi. A small rectangle gives sin theta d theta d phi, and tiling gives rotation equal to oriented area/a^2. For a geodesic triangle, rotation equals the angle excess. Cone metric dr^2+alpha^2 r^2 d phi^2 is locally flat but loop holonomy equals the deficit angle.",
+      "pedagogy": "Embedded-surface implementation of intrinsic transport, clearly labelled as convenience; tiling and edge cancellation reuses the Ch 0 box-flux idea (a proto-Stokes argument).",
+      "interaction": null,
+      "physics_model": "Unit sphere frame e_theta, e_phi; cone alpha=1-delta/(2 pi); rotation -2 pi alpha equivalent to delta. Re-derived.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Local-to-global holonomy made quantitative at undergraduate level",
+          "Cone example cleanly separates contractible from non-contractible loops"
+        ],
+        "issues": [
+          "Hidden behind optional disclosures despite being the main quantitative evidence for the chapter's claim"
+        ],
+        "evidence": "reading-quality-pass 'Chapters 8 through 10' (cone and sphere area relation added); learning-experience-audit notes Gauss-Bonnet story otherwise absent"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim, but make the area-rotation derivation core rather than optional. The cone becomes a demo: cut a wedge, glue, transport around the tip.",
+        "effort": "small"
+      },
+      "size": "~750 words"
+    },
+    {
+      "id": "manuscript-section-8-4-8-6-flatness-count-sphere-curvature",
+      "kind": "manuscript-section",
+      "title": "§8.4-8.6 Polar plane is flat, 20 independent components, curvature of the sphere",
+      "paths": [
+        "book.md:2767-2907"
+      ],
+      "topics": [
+        "Riemann tensor components",
+        "Riemann tensor symmetries",
+        "algebraic Bianchi identity",
+        "Riemann normal coordinates",
+        "independent components of the Riemann tensor",
+        "Gaussian curvature",
+        "Ricci tensor",
+        "Ricci scalar",
+        "sign conventions",
+        "geodesic circle circumference",
+        "intrinsic curvature"
+      ],
+      "teaches": "R^r_theta r theta=-1-0+0+1=0. Symmetries checked in explicitly constructed Gamma(p)=0 coordinates with the second-derivative formula. Pair counting 6x6 symmetric=21 minus 1 Bianchi relation=20, with a two-dimensional single component, and not polarizations. Sphere Christoffels, R^theta_phi theta phi=sin^2 theta, R_theta phi theta phi=a^2 sin^2 theta, K=1/a^2, Ricci tensor and scalar 2/a^2. Circumference 2 pi a sin(s/a) deficit. Cylinder versus sphere.",
+      "pedagogy": "Flat control then curved case using the identical formula; component counting by a combinatorial picture; operational sign fix.",
+      "interaction": null,
+      "physics_model": "Checked every component and the count; normal-coordinate transformation x'=x+Gamma(0)xx/2 verified against the 7.4 law.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Clear, correct and complete; the polar/sphere pair is the ideal minimal curvature curriculum",
+          "Normal-coordinate construction is shown, not assumed"
+        ],
+        "issues": [
+          "Learner never computes a new metric (review asks for one)"
+        ],
+        "evidence": "comprehensive review §7 row 8; novice audit first-mention fix (Ricci defined before use in 8.6); all components re-derived during inventory"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Port verbatim. Add a transfer exercise on a new 2D metric (e.g. dr^2+sinh^2 r d phi^2 giving K=-1) and a symbolic-check tool the AI tutor can call.",
+        "effort": "small"
+      },
+      "size": "~1,100 words, 12 display equations"
+    },
+    {
+      "id": "curriculum-structure-chapter-guides-0-8",
+      "kind": "curriculum-structure",
+      "title": "content/guides.json chapter guides for Chapters 0-8 (question, payoff, takeaway, check)",
+      "paths": [
+        "content/guides.json",
+        "scripts/build-site.mjs:197"
+      ],
+      "topics": [
+        "learning objectives",
+        "concept checks",
+        "misconceptions"
+      ],
+      "teaches": "Per chapter: a short navigation title, a one-line deck, a driving question, a 'By the end' payoff, an 'idea to keep' takeaway, and one reveal-answer check. Rendered as a collapsible 'Before you begin' panel and a closing 'The idea to keep' section. Examples: Ch 2 'If one basis vector doubles, what happens to that component?' (halves); Ch 4 'Why is g_theta theta = r^2?'; Ch 7 'Can nonzero Christoffel symbols alone prove tidal curvature?' (no, flat polar); Ch 8 octant excess equals integrated curvature.",
+      "pedagogy": "Question-driven chapter framing with a single misconception-targeted check per chapter; answers are short and correct.",
+      "interaction": null,
+      "physics_model": null,
+      "screenshots": [
+        "qa/chapter-0-1440.png",
+        "qa/chapter-8-1440.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Checks for Ch 3, 5, 6, 7 and 8 target genuine misconceptions (local clock rate, stationary versus maximal, Christoffels versus curvature)",
+          "Decks and questions are well written and suitable for cards or narration intros",
+          "All nine answers verified correct",
+          "The checks are open reveal-answer prompts, not multiple choice, so the F03 answer-order bias in the lesson files does not apply here"
+        ],
+        "issues": [
+          "One recognition-level check per chapter is far too little practice",
+          "Guide titles diverge from manuscript headings (Ch 3 'What a clock actually measures', Ch 6 'Differentiating vector fields'), creating two naming systems",
+          "Ch 5 answer points to Chapter 22 content"
+        ],
+        "evidence": "Read all nine entries; build-site.mjs line 197 (chapter-preparation 'Before you begin' panel) show rendering; docs/reference-comparison.md 'added 25 chapter checkpoints'; comprehensive review §10.1 (practice too sparse)"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Import question/payoff/takeaway into the new lesson metadata schema as learning objectives and summary cards. Keep the checks as seed misconception items but expand each chapter to a practice set. Choose one naming system (short nav titles) and map both to concept IDs.",
+        "effort": "small"
+      },
+      "size": "9 entries x 7 fields"
+    }
+  ]
+}

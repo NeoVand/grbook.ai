@@ -1,0 +1,3722 @@
+{
+  "book": "gifted-amateur",
+  "unit_id": "ch36",
+  "title": "Cartan's method",
+  "part": "V: Geometry",
+  "printed_pages": [
+    374,
+    385
+  ],
+  "pdf_pages": [
+    391,
+    402
+  ],
+  "one_line_summary": "Builds Élie Cartan's exterior-calculus shortcut to curvature: the connection is packaged as a matrix of 1-forms, the torsion-free and metric-compatibility rules are derived from d^2 = 0 and the product rule, and the chain metric -> orthonormal coframe -> connection 1-forms -> curvature 2-forms -> Riemann components becomes a five-step recipe, run on the flat plane, the 2-sphere, a spatially flat expanding universe and the static spherical star metric.",
+  "role_in_book": "Part V revisits geometry with forms. Chapter 33 supplied the exterior derivative and wedge product, Chapter 34 rebuilt the connection and let d act on vectors as the covariant derivative, and Chapter 35 recast Riemann curvature as a commutator operator. This chapter converts that abstract machinery into a practical tool: a far less laborious way to obtain Riemann, Ricci and Einstein components than the Christoffel-symbol grind of Chapters 11 and 21. It re-derives the static-star curvature of Chapter 21 and the expanding-universe curvature behind the cosmology part (Chapters 15-18), and it hands later chapters (e.g. Exercise 38.4) orthonormal-frame connection data, before Chapters 37-38 finish the toolkit with Hodge duality, volume forms and Stokes' theorem.",
+  "assumed_background": [
+    {
+      "topic": "Exterior derivative of p-forms, wedge product, graded Leibniz rule and nilpotency d^2 = 0",
+      "source": "earlier-in-this-book",
+      "where": "GA ch33"
+    },
+    {
+      "topic": "Connection and covariant derivative; d acting on a vector field as nabla; vector-valued 1-forms; connection coefficients as components; dω^μ = Γ ω∧ω claim (34.31); metric compatibility nabla g = 0",
+      "source": "earlier-in-this-book",
+      "where": "GA ch34"
+    },
+    {
+      "topic": "Riemann curvature operator [nabla_a, nabla_b] - nabla_[a,b] and Riemann components in terms of connection coefficients; symmetries of the Riemann tensor; Ricci tensor and scalar",
+      "source": "earlier-in-this-book",
+      "where": "GA ch35, ch11"
+    },
+    {
+      "topic": "Orthonormal frames with hatted indices, vielbein components, normalizing a diagonal metric for a static observer",
+      "source": "earlier-in-this-book",
+      "where": "GA ch10"
+    },
+    {
+      "topic": "General static spherically symmetric metric with Φ(r), Λ(r); Einstein tensor components as sums of Riemann components",
+      "source": "earlier-in-this-book",
+      "where": "GA ch21"
+    },
+    {
+      "topic": "Expanding-universe metrics with scale factor a(t); Einstein tensor for cosmology",
+      "source": "earlier-in-this-book",
+      "where": "GA ch15, ch17, ch18"
+    },
+    {
+      "topic": "Einstein tensor G = Ric - (1/2) g R",
+      "source": "earlier-in-this-book",
+      "where": "GA ch12-13"
+    },
+    {
+      "topic": "Plane polar and spherical polar coordinates; line element of a sphere of radius a",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Antisymmetric matrices and index bookkeeping with the Einstein summation convention",
+      "source": "linear-algebra",
+      "where": null
+    },
+    {
+      "topic": "Minkowski metric diag(-1,1,1,1) and raising/lowering indices",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1-5"
+    }
+  ],
+  "learning_objectives": [
+    "Reader can define connection 1-forms through de_μ = ω^ν_μ ⊗ e_ν and convert them to and from connection coefficients via ω^ν_μ = Γ^ν_{λμ} ω^λ.",
+    "Reader can explain why the second exterior derivative of a vector field need not vanish and show that it produces the curvature 2-form dω + ω∧ω.",
+    "Reader can derive the first structure equation dω^μ = -ω^μ_ν ∧ ω^ν from d^2 P = 0 with dP = e_μ ⊗ ω^μ, and recognize it as the torsion-free condition.",
+    "Reader can derive the compatibility rule dg_{μν} = ω_{μν} + ω_{νμ} from the product rule and deduce antisymmetry of lowered connection forms in an orthonormal frame, including the sign flip for time-space forms in Lorentzian signature.",
+    "Reader can write the orthonormal coframe, dual basis vectors and vielbein components for any diagonal metric by taking square roots of the metric components.",
+    "Reader can execute the five-step Cartan recipe: coframe, exterior derivatives, connection forms by inspection, curvature 2-forms, Riemann components with the |αβ| ordering.",
+    "Reader can confirm with Cartan's method that the polar-coordinate plane is flat despite non-zero connection forms, and that a sphere of radius a has R = 2/a^2.",
+    "Reader can convert orthonormal Riemann components to coordinate components with vielbeins and explain why the Ricci scalar is frame-independent.",
+    "Reader can compute Riemann, Ricci, Ricci scalar and Einstein components for a spatially flat Robertson-Walker metric with arbitrary a(t).",
+    "Reader can obtain the six independent curvature 2-forms of the static spherically symmetric metric in terms of E, Ē, F, F̄ and assemble Einstein components from sectional-curvature sums.",
+    "Reader can spot and correct sign and index slips in Cartan computations by checking every structure equation and known limits."
+  ],
+  "teaching_approach": {
+    "summary": "A compact computational chapter that deliberately trades generality for a mechanical procedure. Two derivation sections (flagged as skippable) establish the curvature 2-form from the double exterior derivative of a vector and the two structure rules from the product rule applied to Cartan's point-displacement object dP and to the metric. The results are boxed as 'Ideas 1-3', reframed through the moving-frame picture, reduced to a five-step flowchart, and then exercised on four metrics of rising difficulty, with basis vectors and vielbeins parked in the margin beside each example. The authors openly describe finding connection forms as guesswork and closely follow Misner, Thorne and Wheeler.",
+    "style_tags": [
+      "computational-recipe",
+      "derivation-heavy",
+      "index-free-abstract",
+      "example-driven",
+      "spiral-revisit",
+      "conversational-informal"
+    ],
+    "narrative_arc": [
+      "Motivation: brute-force curvature from Christoffel symbols is laborious; forms in an orthonormal frame (metric η) promise a leaner route; epigraph puns on 'frames'",
+      "Navigation aid: a margin box tells readers they may skip the derivations of §§36.1-36.2 and jump to the rules box and the recipe",
+      "Model: let d act on vector fields as the connection and expand the change of basis vectors as de_μ = ω^ν_μ ⊗ e_ν, defining connection 1-forms; link to Γ (36.7) and check in Example 36.1",
+      "Formalism: differentiate a vector twice; the component pieces die by d^2 = 0 on functions, leaving a term linear in v that defines the curvature 2-form dω + ω∧ω and the compact law d^2 v = R(v)",
+      "Check: Example 36.2 evaluates the curvature 2-form on two basis vectors and recovers the Riemann-from-Γ formula of Chapter 35, giving the expansion R^μ_ν = R^μ_{ν|αβ|} ω^α∧ω^β",
+      "New problem: the connection forms must come from the metric without Γ; Cartan's dP = e_μ⊗ω^μ and d^2 P = 0 give the symmetry rule; the product rule on e_μ·e_ν gives the compatibility rule; orthonormality makes ω_{μ̂ν̂} antisymmetric",
+      "Consolidation: grey box of Ideas 1-3 in the order they are used",
+      "Geometric reinterpretation: a field of orthonormal frames, Cartan's repère mobile, whose point-to-point rotation is the connection-form field; coframe and vielbein for any diagonal metric",
+      "Algorithm: five-step recipe with the vertical flowchart Fig. 36.1",
+      "Applications of increasing difficulty: flat polar plane (control giving zero), 2-sphere (R = 2/a^2 plus coordinate conversion), spatially flat expanding universe (Ricci, R, Einstein), static spherical star metric (six curvature 2-forms, Einstein components via Chapter 21 sum rules)",
+      "Close: chapter summary restating the three equations; exercises on further surfaces, closed FRW and a time-dependent star, with a pointer to MTW for pulsation and collapse"
+    ],
+    "signature_moves": [
+      "Locates curvature in the failure of d^2 to vanish on vector fields: because dv is built with a tensor product rather than a wedge, a second exterior derivative survives and is exactly the curvature.",
+      "Uses Cartan's displacement-of-a-point object dP = e_μ ⊗ ω^μ as a direction-less 'proto-vector' (an identity map awaiting a direction), so that d^2 P = 0 delivers the torsion-free structure equation almost for free.",
+      "Derives both structure rules from one idea, the Leibniz product rule applied to a contraction or dot product, instead of from Christoffel formulas.",
+      "Advertises the extraction of connection forms as honest pattern-matching guesswork: compare dω^μ̂ with -ω^μ̂_ν̂ ∧ ω^ν̂ and fill in partners with antisymmetry.",
+      "Packages the logic twice for different readers: a grey 'Ideas 1-3' box for the rules and a six-box flowchart (Fig. 36.1) for the procedure.",
+      "Runs a flat-space control computation before any curved case, so the learner sees that non-zero connection forms can coexist with zero curvature.",
+      "Keeps basis vectors and vielbein components for every example in the margin so frame-to-coordinate conversions are always adjacent to the calculation.",
+      "Imports the Chapter 21 shortcut expressing Einstein components as negative sums of sectional curvatures to skip the Ricci stage in the stellar example."
+    ]
+  },
+  "sections": [
+    {
+      "number": null,
+      "title": "Chapter opening",
+      "printed_page": 374,
+      "pdf_page": 391,
+      "summary": "Sets up the chapter's promise: curvature tensors are tedious to compute from Christoffel symbols, but Cartan's use of forms, especially in orthonormal frames where the metric takes Minkowski form, extracts R from g through a routine of exterior derivatives of basis 1-forms. A margin box offers a skip-ahead route to the recipe and credits MTW's treatment.",
+      "concepts": [
+        "orthonormal frame",
+        "orthonormal basis 1-forms",
+        "vielbein",
+        "Cartan's method for curvature"
+      ],
+      "key_moves": [
+        "Epigraph from Humphry Davy about a 'collection of frames' anticipates the moving-frame theme",
+        "Metric written as g = η_{μ̂ν̂} ω^μ̂ ⊗ ω^ν̂ (36.2), diagonal form (36.3)",
+        "Margin note 2 expands the metric with vielbeins (36.1) and defines ω^μ̂ = (e_α)^μ̂ dx^α",
+        "Plan announced: repeated exterior derivatives of the basis 1-forms do the work",
+        "Skip-ahead advice: readers wanting only the method can jump to the rules box and §36.3"
+      ]
+    },
+    {
+      "number": "36.1",
+      "title": "Connection 1-forms",
+      "printed_page": 374,
+      "pdf_page": 391,
+      "summary": "Exploits the similarity between the exterior derivative and the connection when acting on vectors. The change of basis vectors across space is expanded as de_μ = ω^ν_μ ⊗ e_ν, defining a matrix of connection 1-forms tied to connection coefficients by ω^ν_μ = Γ^ν_{λμ} ω^λ (checked in Example 36.1; a note reads ω^ν_μ(e_α) as a frame rotation rate). Differentiating a vector field twice kills the component terms by d^2 = 0 but leaves a piece proportional to v, which defines the curvature 2-form dω^μ_ν + ω^μ_α ∧ ω^α_ν and the compact statement d^2 v = R(v). Example 36.2 evaluates the curvature 2-form on two basis vectors, recovering the Chapter 35 Riemann formula, whence R^μ_ν = R^μ_{ν|αβ|} ω^α ∧ ω^β.",
+      "concepts": [
+        "exterior covariant derivative of a vector field",
+        "vector-valued 1-form",
+        "connection 1-forms",
+        "connection coefficients",
+        "curvature 2-form",
+        "Cartan's second structure equation",
+        "curvature as the second exterior covariant derivative",
+        "curvature operator",
+        "Riemann components in terms of connection coefficients",
+        "ordered index sum notation |αβ|"
+      ],
+      "key_moves": [
+        "dv = dv^μ ⊗ e_μ + v^μ de_μ (36.4): d acts on components and on basis vectors separately",
+        "Define connection 1-forms by de_μ = ω^ν_μ ⊗ e_ν (36.5)",
+        "Contract with e_α to identify ω^ν_μ = Γ^ν_{λμ} ω^λ (36.6-36.7), verified in Example 36.1",
+        "Margin note 3: ω^ν_μ(e_α) measures how fast e_μ turns toward e_ν when moving along e_α",
+        "Write dv = e_μ ⊗ (dv^μ + ω^μ_ν v^ν) (36.8) and differentiate again (36.9)",
+        "Margin note 4: d^2 need not vanish on vectors because dv involves a tensor product, not a wedge",
+        "Use d^2 v^μ = 0 to cancel terms, leaving d^2 v = e_μ ⊗ (dω^μ_ν + ω^μ_α ∧ ω^α_ν) v^ν (36.10)",
+        "Define the curvature 2-form (36.12), called the chapter's most important equation, and the operator form d^2 v = R(v) (36.13-36.14)",
+        "Example 36.2: evaluate dω and ω∧ω on (e_α, e_β) to reproduce R^μ_{ναβ} in terms of Γ (36.15-36.19)",
+        "Expansion R^μ_ν = R^μ_{ν|αβ|} ω^α ∧ ω^β (36.20); margin note 6 gives the bivector-valued form (36.21)"
+      ]
+    },
+    {
+      "number": "36.2",
+      "title": "Two rules",
+      "printed_page": 377,
+      "pdf_page": 394,
+      "summary": "Addresses how to get connection forms from the metric without Christoffel symbols. Both constraints come from the product rule d(u·v) = du·v + u·dv. Cartan regards a point's displacement dP = e_μ ⊗ ω^μ as a (1,1) object that becomes any chosen vector when fed a direction; since P behaves like a function, d^2 P = 0 yields the symmetry condition dω^μ + ω^μ_ν ∧ ω^ν = 0 (Cartan's first structural equation, equivalent to a torsion-free connection). Differentiating g_{μν} = e_μ · e_ν gives the compatibility condition dg_{μν} = ω_{μν} + ω_{νμ}, equivalent to nabla g = 0. In an orthonormal frame the left side vanishes, so ω_{μ̂ν̂} = -ω_{ν̂μ̂}. A grey box lists Ideas 1-3 (rules, curvature 2-form, Riemann extraction) and promises modest guesswork suffices.",
+      "concepts": [
+        "displacement of a point as identity tensor",
+        "Cartan's first structure equation",
+        "torsion-free connection",
+        "metric compatibility of connection 1-forms",
+        "metric compatibility of the connection",
+        "nilpotency of the exterior derivative",
+        "graded Leibniz rule for the exterior derivative",
+        "orthonormal frame"
+      ],
+      "key_moves": [
+        "Product rule for a dot product (36.22) is the single source of both rules",
+        "dP = e_μ ⊗ ω^μ (36.23), justified because feeding it v returns v (36.24)",
+        "d^2 P = 0 expanded with de_μ = ω^ν_μ ⊗ e_ν gives rule 1 (36.25, 36.29)",
+        "Margin note 8 names rule 1 Cartan's first structural equation and links it to Chapter 34's dω^μ = Γ ω∧ω (36.26-36.28)",
+        "d(e_μ·e_ν) with de = ω⊗e gives dg_{μν} = ω^σ_μ g_{σν} + g_{μσ} ω^σ_ν (36.30-36.31); lower indices for rule 2 (36.32)",
+        "Rule 2 identified with nabla g = 0",
+        "Orthonormal basis: dη = 0 forces antisymmetric lowered connection forms",
+        "Ideas 1-3 boxed (36.33-36.35)"
+      ]
+    },
+    {
+      "number": "36.3",
+      "title": "Le repère mobile",
+      "printed_page": 379,
+      "pdf_page": 396,
+      "summary": "Reinterprets 'the' orthonormal frame as a field of frames, one erected and normalized at every event, whose change from point to point is encoded in the connection-form field; this is Cartan's moving frame. Local orthonormal frames use η to raise and lower indices yet generally have non-zero connection coefficients; the default choice is the frame of an observer at rest in the coordinates. For a diagonal metric the coframe is obtained by attaching square roots of the metric components to the coordinate differentials, which also gives the dual basis vectors and the vielbein components. A margin note warns that frame connection coefficients, if extracted, are unnecessary for curvature, do not transform as tensors, and are not symmetric in their lower indices.",
+      "concepts": [
+        "moving frame",
+        "orthonormal frame",
+        "orthonormal basis 1-forms",
+        "vielbein",
+        "asymmetry of connection coefficients in a non-coordinate basis",
+        "orthonormal frame for a diagonal metric"
+      ],
+      "key_moves": [
+        "Plural 'frames': an orthonormal frame at each point forms a field of frames",
+        "Connection forms ω^μ_ν(x) encode how neighbouring frames are related",
+        "Margin note 9: French se repérer (to find one's bearings) suits navigating curved spaces",
+        "Margin note 10: this generalizes Chapter 10's normalization of a diagonal metric",
+        "Diagonal metric (36.37) matched to -(ω^t̂)^2 + ... (36.38) gives ω^t̂ = sqrt(-g_tt) dt etc. (36.39)",
+        "Dual basis vectors (36.40) and vielbein components (36.41) read off",
+        "Margin caution on extracting non-tensorial, non-symmetric frame connection coefficients"
+      ]
+    },
+    {
+      "number": "36.4",
+      "title": "Example computations",
+      "printed_page": 380,
+      "pdf_page": 397,
+      "summary": "Lays out the five-step recipe (identify the orthonormal coframe; take exterior derivatives and read off connection forms using rule 1 and antisymmetry; differentiate the connection forms; assemble curvature 2-forms; extract Riemann components and convert frames if needed), summarized by Fig. 36.1. Four examples follow. The polar plane yields one non-zero connection form dθ whose derivative and wedge products vanish, so the plane is flat. The 2-sphere gives ω^φ̂_θ̂ = cos θ dφ and a single curvature 2-form (1/a^2) ω^θ̂∧ω^φ̂, converted to coordinate components (sin^2 θ and 1), with Ricci components 1/a^2 and R = 2/a^2. A spatially flat expanding universe gives boost forms (ȧ/a) ω^k̂, curvature components ä/a and (ȧ/a)^2, Ricci, R = 6(ä/a + ȧ^2/a^2) and Einstein components. The static spherical metric gives four connection forms, six curvature 2-forms with coefficient functions E, Ē, F, F̄, and Einstein components from Chapter 21's sum rules.",
+      "concepts": [
+        "Cartan's method for curvature",
+        "curvature of the 2-sphere",
+        "vielbein transformation of tensor components",
+        "symmetries of the Riemann tensor",
+        "Ricci tensor",
+        "Ricci scalar",
+        "Einstein tensor",
+        "Lorentzian sign rule for hatted time indices",
+        "spatially flat Robertson-Walker spacetime",
+        "general static spherically symmetric metric",
+        "Riemann tensor components for static spherical symmetry",
+        "Einstein tensor from sectional curvatures"
+      ],
+      "key_moves": [
+        "Recipe Steps I-V with flowchart Fig. 36.1",
+        "Example 36.3: dω^θ̂ = dr∧dθ gives ω^θ̂_r̂ = dθ, whose derivative is zero: flat",
+        "Margin note 11: differentiate using coordinate differentials, not hatted forms, to avoid slips",
+        "Example 36.4: ω^φ̂_θ̂ = cos θ dφ, R^θ̂_φ̂ = (1/a^2) ω^θ̂∧ω^φ̂; coordinate conversion via vielbeins; R = 2/a^2 in any frame",
+        "Margin note 14: index symmetries of R turn one computed component into its partners",
+        "Example 36.5: guess ω^t̂_k̂ ∝ ω^k̂ from dω^t̂ = 0, fix coefficient from dω^k̂; remember the spatial 2-forms R^k̂_l̂ generated by ω∧ω",
+        "Margin note 16: raising or lowering a hatted time index flips sign, so boost forms are symmetric",
+        "Ricci components by summing Riemann components with summation temporarily suspended; Einstein components (printed with typos)",
+        "Example 36.6: connection forms for e^{2Φ}, e^{2Λ} metric, curvature 2-forms assembled term by term, coefficients E, Ē, F, F̄",
+        "Einstein components via G^0_0 = -(sum of spatial sectional curvatures) and cyclic analogues (margin note 20)"
+      ]
+    },
+    {
+      "number": null,
+      "title": "Chapter summary",
+      "printed_page": 384,
+      "pdf_page": 401,
+      "summary": "Restates the working kit: in an orthonormal frame, solve the first structure equation with antisymmetric lowered connection forms, form the curvature 2-form from dω + ω∧ω, and read Riemann components from its expansion in ordered wedge products. The exercises that follow extend the method to more surfaces, closed Robertson-Walker cosmology and a time-dependent spherical star.",
+      "concepts": [
+        "Cartan's first structure equation",
+        "Cartan's second structure equation",
+        "curvature 2-form"
+      ],
+      "key_moves": [
+        "Three boxed equations (36.91-36.93) mirror Ideas 1-3",
+        "Summary calls the connection forms 'curvature 1-forms', a naming slip"
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "Cartan's method for curvature",
+      "aliases": [
+        "Cartan's recipe",
+        "turn-the-handle method",
+        "tetrad formalism for curvature",
+        "moving-frame computation of curvature"
+      ],
+      "kind": "technique",
+      "definition": "A procedure for computing the Riemann tensor from a metric without Christoffel symbols: choose an orthonormal coframe, use the first structure equation and antisymmetry of the lowered connection forms to find the connection 1-forms, build curvature 2-forms from dω + ω∧ω, and read off Riemann components from their expansion in ordered wedge products.",
+      "how_introduced": "Motivated by the tedium of Christoffel-based curvature; derived in §§36.1-36.2, boxed as Ideas 1-3, stated as Steps I-V with a flowchart (Fig. 36.1), and exercised on four metrics.",
+      "depth": "core",
+      "prerequisites": [
+        "orthonormal basis 1-forms",
+        "connection 1-forms",
+        "Cartan's first structure equation",
+        "Cartan's second structure equation",
+        "metric compatibility of connection 1-forms"
+      ],
+      "locators": [
+        {
+          "pdf_page": 391,
+          "printed_page": 374,
+          "section": null
+        },
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 401,
+          "printed_page": 384,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "g \\to d\\omega^{\\hat\\mu} \\to \\omega^{\\hat\\mu}{}_{\\hat\\nu} \\to d\\omega^{\\hat\\mu}{}_{\\hat\\nu} \\to \\mathcal{R}^{\\hat\\mu}{}_{\\hat\\nu} \\to R^{\\hat\\mu}{}_{\\hat\\nu\\hat\\alpha\\hat\\beta}"
+      ],
+      "notes": "Authors follow MTW (Gravitation, ch.14) closely; the method is most efficient for diagonal metrics."
+    },
+    {
+      "name": "connection 1-forms",
+      "aliases": [
+        "connection one-forms",
+        "ω^ν_μ",
+        "matrix of connection forms",
+        "spin connection (orthonormal-frame version)",
+        "curvature 1-forms (book's slip in Idea 1 and summary)"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The 1-forms ω^ν_μ defined by de_μ = ω^ν_μ ⊗ e_ν, recording how each basis vector changes as one moves; evaluated on a direction e_α they give ∇_{e_α} e_μ = ω^ν_μ(e_α) e_ν, so ω^ν_μ = Γ^ν_{λμ} ω^λ. In an orthonormal frame the lowered forms ω_{μ̂ν̂} are antisymmetric, acting like an infinitesimal rotation/boost generator for the frame.",
+      "how_introduced": "Introduced by expanding the vector-valued 1-form de_μ after letting d act on vectors as the connection (Chapter 34), then connected to Γ by contracting with e_α; margin note 3 interprets ω^ν_μ(e_α) as the rate at which e_μ turns toward e_ν along e_α.",
+      "depth": "core",
+      "prerequisites": [
+        "vector-valued 1-form",
+        "exterior covariant derivative of a vector field",
+        "connection coefficients"
+      ],
+      "locators": [
+        {
+          "pdf_page": 392,
+          "printed_page": 375,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.3"
+        },
+        {
+          "pdf_page": 398,
+          "printed_page": 381,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "d\\mathbf{e}_\\mu = \\omega^\\nu{}_\\mu \\otimes \\mathbf{e}_\\nu",
+        "\\omega^\\nu{}_\\mu = \\Gamma^\\nu{}_{\\lambda\\mu}\\,\\omega^\\lambda"
+      ],
+      "notes": "Idea 1 heading and the chapter summary call these 'curvature 1-forms'; they are connection forms."
+    },
+    {
+      "name": "curvature 2-form",
+      "aliases": [
+        "Cartan curvature 2-form",
+        "script R^μ_ν",
+        "matrix of curvature 2-forms"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The matrix of 2-forms R^μ_ν = dω^μ_ν + ω^μ_α ∧ ω^α_ν built from the connection 1-forms; its expansion R^μ_ν = (1/2) R^μ_{ναβ} ω^α ∧ ω^β = R^μ_{ν|αβ|} ω^α ∧ ω^β carries the Riemann tensor components, one 2-form per pair of frame indices.",
+      "how_introduced": "Emerges from taking the exterior derivative of a vector field twice; the term surviving after d^2 v^μ = 0 is linear in v^ν and is named the curvature 2-form, then shown equivalent to Riemann in Example 36.2.",
+      "depth": "core",
+      "prerequisites": [
+        "connection 1-forms",
+        "wedge product",
+        "curvature as the second exterior covariant derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 394,
+          "printed_page": 377,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 401,
+          "printed_page": 384,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathcal{R}^\\mu{}_\\nu = d\\omega^\\mu{}_\\nu + \\omega^\\mu{}_\\alpha\\wedge\\omega^\\alpha{}_\\nu",
+        "\\mathcal{R}^\\mu{}_\\nu = R^\\mu{}_{\\nu|\\alpha\\beta|}\\,\\omega^\\alpha\\wedge\\omega^\\beta"
+      ],
+      "notes": "The book describes the two terms as the change of the connection forms and their 'tube-like structure'; a clearer reading is a derivative term plus a commutator-like term, echoing ∂Γ + ΓΓ."
+    },
+    {
+      "name": "Cartan's second structure equation",
+      "aliases": [
+        "curvature structure equation",
+        "Idea 2",
+        "R = dω + ω∧ω"
+      ],
+      "kind": "identity",
+      "definition": "The relation defining curvature from the connection in the language of forms: R^μ_ν = dω^μ_ν + ω^μ_α ∧ ω^α_ν. It is the forms version of R = ∂Γ - ∂Γ + ΓΓ - ΓΓ.",
+      "how_introduced": "Derived from d^2 v in §36.1 (eqn 36.12), boxed as Idea 2 and repeated in the summary; the book does not use the name 'second structure equation' but names the first one in a margin note.",
+      "depth": "core",
+      "prerequisites": [
+        "connection 1-forms",
+        "curvature 2-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 401,
+          "printed_page": 384,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathcal{R}^\\mu{}_\\nu = d\\omega^\\mu{}_\\nu + \\omega^\\mu{}_\\alpha\\wedge\\omega^\\alpha{}_\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "curvature as the second exterior covariant derivative",
+      "aliases": [
+        "d^2 v = R(v)",
+        "double exterior derivative of a vector"
+      ],
+      "kind": "identity",
+      "definition": "For a vector field v, applying the exterior covariant derivative twice gives a vector-valued 2-form that depends only on v at the point (no derivatives of v survive) and equals the curvature operator acting on v: d^2 v = e_μ ⊗ R^μ_ν v^ν. Flat connections are exactly those for which d^2 v = 0 for all v.",
+      "how_introduced": "The authors ask whether the second covariant derivative defining curvature in Chapter 35 can be re-expressed with d; they differentiate v = v^μ e_μ twice and watch the derivative-of-component terms cancel.",
+      "depth": "core",
+      "prerequisites": [
+        "exterior covariant derivative of a vector field",
+        "nilpotency of the exterior derivative",
+        "graded Leibniz rule for the exterior derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 392,
+          "printed_page": 375,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        }
+      ],
+      "formulas": [
+        "d^2\\mathbf{v} = \\mathbf{e}_\\mu\\otimes(d\\omega^\\mu{}_\\nu+\\omega^\\mu{}_\\alpha\\wedge\\omega^\\alpha{}_\\nu)v^\\nu = \\mathcal{R}(\\mathbf{v})"
+      ],
+      "notes": "Margin note 4 stresses that d^2 = 0 holds for forms and functions, not for vectors."
+    },
+    {
+      "name": "exterior covariant derivative of a vector field",
+      "aliases": [
+        "dv",
+        "d acting on vectors as nabla",
+        "gradient of a vector field"
+      ],
+      "kind": "operation",
+      "definition": "The extension of d to vector fields that coincides with the covariant derivative: dv is a vector-valued 1-form whose value on a direction u is ∇_u v, computed by the product rule dv = dv^μ ⊗ e_μ + v^μ de_μ = e_μ ⊗ (dv^μ + ω^μ_ν v^ν).",
+      "how_introduced": "Recalled from Chapter 34 (d on functions equals ∇ without its direction; for vectors d ≡ ∇), then applied piecewise to components and basis vectors.",
+      "depth": "developed",
+      "prerequisites": [
+        "vector-valued 1-form",
+        "covariant derivative",
+        "exterior derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 391,
+          "printed_page": 374,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 392,
+          "printed_page": 375,
+          "section": "36.1"
+        }
+      ],
+      "formulas": [
+        "d\\mathbf{v} = (dv^\\mu)\\otimes\\mathbf{e}_\\mu + v^\\mu d\\mathbf{e}_\\mu = \\mathbf{e}_\\mu\\otimes(dv^\\mu+\\omega^\\mu{}_\\nu v^\\nu)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "vector-valued 1-form",
+      "aliases": [
+        "(1,1) object from a vector and a 1-form"
+      ],
+      "kind": "mathematical-object",
+      "definition": "An object that eats one vector (a direction) and returns a vector, e.g. de_μ or dv; componentwise a sum of tensor products of basis vectors with 1-forms.",
+      "how_introduced": "Carried over from Chapter 34 as the type of dv and de_μ; used to motivate why its second derivative need not vanish.",
+      "depth": "revisited",
+      "prerequisites": [
+        "exterior derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 392,
+          "printed_page": 375,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "connection coefficients",
+      "aliases": [
+        "Christoffel symbols (coordinate basis)",
+        "Γ^ν_{αμ}",
+        "Ricci rotation coefficients (orthonormal frame)"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The components Γ^ν_{αμ} of the connection in a basis, defined in GA by ∇_{e_α} e_μ = Γ^ν_{αμ} e_ν (differentiation index first). They are the components of the connection 1-forms: ω^ν_μ = Γ^ν_{λμ} ω^λ.",
+      "how_introduced": "Re-derived as components of the connection forms (36.6-36.7); in §36.3 a margin note explains how to extract them in an orthonormal frame if desired, with cautions.",
+      "depth": "revisited",
+      "prerequisites": [
+        "connection 1-forms",
+        "affine connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 392,
+          "printed_page": 375,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.3"
+        },
+        {
+          "pdf_page": 398,
+          "printed_page": 381,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "\\Gamma^\\nu{}_{\\alpha\\mu}\\mathbf{e}_\\nu = \\nabla_\\alpha\\mathbf{e}_\\mu",
+        "\\omega^{\\hat\\nu}{}_{\\hat\\mu} = \\Gamma^{\\hat\\nu}{}_{\\hat\\lambda\\hat\\mu}\\omega^{\\hat\\lambda}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "asymmetry of connection coefficients in a non-coordinate basis",
+      "aliases": [
+        "non-symmetric frame connection coefficients",
+        "loss of lower-index symmetry"
+      ],
+      "kind": "principle",
+      "definition": "In a non-coordinate (e.g. orthonormal) basis the connection coefficients of a torsion-free connection need not be symmetric in their lower indices, because basis vectors fail to commute; for the unit sphere-of-radius-a frame, Γ^φ̂_{φ̂θ̂} = cot θ / a while Γ^φ̂_{θ̂φ̂} = 0.",
+      "how_introduced": "Stated in a margin caution beside the diagonal-metric coframe (p.380) and illustrated implicitly by the sphere coefficients in margin note 12.",
+      "depth": "introduced",
+      "prerequisites": [
+        "connection coefficients",
+        "non-coordinate basis",
+        "commutator of vector fields"
+      ],
+      "locators": [
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.3"
+        },
+        {
+          "pdf_page": 398,
+          "printed_page": 381,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "\\Gamma^{\\hat\\phi}{}_{\\hat\\phi\\hat\\theta} = \\tfrac{1}{a}\\cot\\theta \\neq \\Gamma^{\\hat\\phi}{}_{\\hat\\theta\\hat\\phi} = 0"
+      ],
+      "notes": "The contrast with Γ^φ̂_{θ̂φ̂} = 0 is our illustration, not printed in the chapter."
+    },
+    {
+      "name": "Riemann components in terms of connection coefficients",
+      "aliases": [
+        "Riemann formula from Γ"
+      ],
+      "kind": "identity",
+      "definition": "R^μ_{ναβ} = ∂_α Γ^μ_{βν} - ∂_β Γ^μ_{αν} + Γ^μ_{ασ} Γ^σ_{βν} - Γ^μ_{βσ} Γ^σ_{αν} in a coordinate basis, with GA's index conventions.",
+      "how_introduced": "Recovered in Example 36.2 by evaluating dω^μ_ν and ω^μ_σ ∧ ω^σ_ν on a pair of basis vectors, as a consistency check of the curvature 2-form.",
+      "depth": "revisited",
+      "prerequisites": [
+        "curvature 2-form",
+        "connection coefficients",
+        "wedge product"
+      ],
+      "locators": [
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 394,
+          "printed_page": 377,
+          "section": "36.1"
+        }
+      ],
+      "formulas": [
+        "R^\\mu{}_{\\nu\\alpha\\beta} = \\partial_\\alpha\\Gamma^\\mu{}_{\\beta\\nu}-\\partial_\\beta\\Gamma^\\mu{}_{\\alpha\\nu}+\\Gamma^\\mu{}_{\\alpha\\sigma}\\Gamma^\\sigma{}_{\\beta\\nu}-\\Gamma^\\mu{}_{\\beta\\sigma}\\Gamma^\\sigma{}_{\\alpha\\nu}"
+      ],
+      "notes": "Example 36.2 uses a wedge normalization with a factor 1/2 when feeding vectors, unlike eqn 34.38; the derivative step (36.16) also assumes a coordinate basis where dω^σ = 0."
+    },
+    {
+      "name": "Riemann curvature tensor",
+      "aliases": [
+        "Riemann tensor",
+        "R"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The (1,3) tensor measuring the failure of second covariant derivatives to commute (curvature of the connection); here its frame components are the coefficients of the curvature 2-forms in ordered wedge products.",
+      "how_introduced": "Target of the whole chapter; defined previously via the curvature operator of Chapter 35 and now obtained from curvature 2-forms.",
+      "depth": "revisited",
+      "prerequisites": [
+        "curvature 2-form",
+        "Riemann curvature operator"
+      ],
+      "locators": [
+        {
+          "pdf_page": 391,
+          "printed_page": 374,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 394,
+          "printed_page": 377,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "\\hat{\\mathbf{R}}(\\mathbf{a},\\mathbf{b}) = [\\nabla_{\\mathbf{a}},\\nabla_{\\mathbf{b}}]-\\nabla_{[\\mathbf{a},\\mathbf{b}]}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "curvature operator",
+      "aliases": [
+        "curvature 2-form operator",
+        "script R( )",
+        "bivector-valued curvature 2-form"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The object R(·) = ω^ν(·) ⊗ e_μ ⊗ R^μ_ν that takes a vector v and returns the vector-valued 2-form e_μ ⊗ R^μ_ν v^ν; equivalently (MTW's form) (1/4)(e_μ ∧ e_ν) R^{μν}_{αβ} (ω^α ∧ ω^β), a bivector-valued 2-form.",
+      "how_introduced": "Introduced 'for economy' to write the memorable law d^2 v = R(v); margin note 6 gives the bivector version.",
+      "depth": "introduced",
+      "prerequisites": [
+        "curvature 2-form",
+        "curvature as the second exterior covariant derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 394,
+          "printed_page": 377,
+          "section": "36.1"
+        }
+      ],
+      "formulas": [
+        "\\mathcal{R}(\\ ) = \\omega^\\nu(\\ )\\otimes\\mathbf{e}_\\mu\\otimes\\mathcal{R}^\\mu{}_\\nu",
+        "\\mathcal{R}(\\ ) = \\tfrac14(\\mathbf{e}_\\mu\\wedge\\mathbf{e}_\\nu)R^{\\mu\\nu}{}_{\\alpha\\beta}(\\omega^\\alpha\\wedge\\omega^\\beta)"
+      ],
+      "notes": "Book labels it a (2,2) object; as written in 36.13 it has one vector and three 1-form slots, i.e. type (1,3). The (2,2) count fits the bivector form."
+    },
+    {
+      "name": "ordered index sum notation |αβ|",
+      "aliases": [
+        "restricted sum",
+        "vertical-bar index convention"
+      ],
+      "kind": "convention",
+      "definition": "Indices enclosed in vertical bars are summed only over one ordering (α < β, or the order in which the wedge factors appear), removing the double counting of antisymmetric pairs, so R^μ_ν = R^μ_{ν|αβ|} ω^α ∧ ω^β equals (1/2) R^μ_{ναβ} ω^α ∧ ω^β.",
+      "how_introduced": "Introduced with eqn 36.20 (margin note 6) and re-explained in examples (notes 13 and 19), where components must sometimes be reordered to match the wedge order.",
+      "depth": "introduced",
+      "prerequisites": [
+        "wedge product",
+        "antisymmetrization bracket notation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 394,
+          "printed_page": 377,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 401,
+          "printed_page": 384,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "displacement of a point as identity tensor",
+      "aliases": [
+        "dP",
+        "Cartan's point derivative",
+        "proto-vector",
+        "identity (1,1) tensor e_μ ⊗ ω^μ"
+      ],
+      "kind": "mathematical-object",
+      "definition": "Cartan's object dP = e_μ ⊗ ω^μ: the infinitesimal displacement of a point regarded as a vector-valued 1-form that has not yet been given a direction; inserting any vector v returns v, so it is the identity map on tangent vectors. Because P is like a function, d^2 P = 0.",
+      "how_introduced": "Presented as Cartan's view that the most primitive vector is the movement of a point; its form is fixed by requiring ⟨dP, v⟩ = v, and its second derivative is used to derive the first structure equation.",
+      "depth": "introduced",
+      "prerequisites": [
+        "vector-valued 1-form",
+        "orthonormal basis 1-forms",
+        "nilpotency of the exterior derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 394,
+          "printed_page": 377,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        }
+      ],
+      "formulas": [
+        "d\\mathcal{P} = \\mathbf{e}_\\mu\\otimes\\omega^\\mu",
+        "\\langle d\\mathcal{P},\\mathbf{v}\\rangle = \\mathbf{v}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Cartan's first structure equation",
+      "aliases": [
+        "symmetry condition",
+        "rule 1",
+        "Idea 1 (first part)",
+        "Cartan's first structural equation",
+        "no-torsion condition in forms"
+      ],
+      "kind": "identity",
+      "definition": "For a torsion-free connection the basis 1-forms satisfy dω^μ = -ω^μ_ν ∧ ω^ν. Given a coframe, this fixes the connection forms (together with metric compatibility) and is the step used to read them off by inspection.",
+      "how_introduced": "Derived by applying the product rule to d^2 P = d(e_μ ⊗ ω^μ) = 0; a margin note shows it reproduces Chapter 34's dω^μ = Γ^μ_{βν} ω^ν ∧ ω^β, which requires symmetric Γ in a coordinate basis.",
+      "depth": "core",
+      "prerequisites": [
+        "displacement of a point as identity tensor",
+        "connection 1-forms",
+        "graded Leibniz rule for the exterior derivative",
+        "torsion-free connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 401,
+          "printed_page": 384,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "d\\omega^\\mu + \\omega^\\mu{}_\\nu\\wedge\\omega^\\nu = 0"
+      ],
+      "notes": "The book's name 'symmetry condition' refers to the symmetry of Γ in its lower indices in a coordinate basis, i.e. zero torsion."
+    },
+    {
+      "name": "torsion-free connection",
+      "aliases": [
+        "symmetric connection",
+        "zero torsion"
+      ],
+      "kind": "definition",
+      "definition": "A connection with vanishing torsion, ∇_u v - ∇_v u = [u, v]; in a coordinate basis its coefficients are symmetric in the lower indices. In forms, it is equivalent to the first structure equation.",
+      "how_introduced": "Implicit: the chapter's 'symmetry condition' is the forms statement of zero torsion, linked back to Chapter 34.",
+      "depth": "mention",
+      "prerequisites": [
+        "affine connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        }
+      ],
+      "formulas": [],
+      "notes": "Not named as torsion in this chapter."
+    },
+    {
+      "name": "metric compatibility of connection 1-forms",
+      "aliases": [
+        "compatibility condition",
+        "rule 2",
+        "antisymmetry of ω_{μ̂ν̂}",
+        "Idea 1 (second part)"
+      ],
+      "kind": "identity",
+      "definition": "Compatibility of the connection with the metric expressed in forms: dg_{μν} = ω_{μν} + ω_{νμ}, with ω_{μν} = g_{μσ} ω^σ_ν. In an orthonormal frame g_{μ̂ν̂} = η_{μ̂ν̂} is constant, so ω_{μ̂ν̂} = -ω_{ν̂μ̂}: purely spatial forms are antisymmetric in index position ω^î_ĵ = -ω^ĵ_î, while time-space forms satisfy ω^t̂_î = +ω^î_t̂.",
+      "how_introduced": "Derived by applying the product rule to g_{μν} = e_μ · e_ν and substituting de = ω ⊗ e; identified with nabla g = 0 of Chapter 34; in the examples it supplies the partner of each connection form 'for free'.",
+      "depth": "core",
+      "prerequisites": [
+        "connection 1-forms",
+        "metric compatibility of the connection",
+        "orthonormal frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 402,
+          "printed_page": 385,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "dg_{\\mu\\nu} = \\omega_{\\mu\\nu}+\\omega_{\\nu\\mu}",
+        "\\omega_{\\hat\\mu\\hat\\nu} = -\\omega_{\\hat\\nu\\hat\\mu}"
+      ],
+      "notes": "Exercise 36.1 asks for the two index-position consequences."
+    },
+    {
+      "name": "metric compatibility of the connection",
+      "aliases": [
+        "nabla g = 0",
+        "Levi-Civita condition"
+      ],
+      "kind": "principle",
+      "definition": "The requirement that the covariant derivative of the metric vanish, so parallel transport preserves inner products.",
+      "how_introduced": "Cited from Chapter 34 as the component-free content of rule 2.",
+      "depth": "mention",
+      "prerequisites": [
+        "covariant derivative",
+        "metric tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        }
+      ],
+      "formulas": [
+        "\\nabla\\mathbf{g} = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Levi-Civita connection",
+      "aliases": [
+        "uniqueness of the metric-compatible torsion-free connection"
+      ],
+      "kind": "theorem",
+      "definition": "On a (pseudo-)Riemannian manifold there is exactly one connection that is both torsion-free and metric-compatible. In Cartan language: given an orthonormal coframe, there is a unique antisymmetric matrix of 1-forms ω_{μ̂ν̂} solving dω^μ̂ = -ω^μ̂_ν̂ ∧ ω^ν̂, which is why a guessed solution satisfying both rules is the correct one.",
+      "how_introduced": "Not stated in the chapter; it is the unspoken justification for the authors' 'guesswork' method of finding connection forms.",
+      "depth": "mention",
+      "prerequisites": [
+        "torsion-free connection",
+        "metric compatibility of the connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 394,
+          "printed_page": 377,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.2"
+        }
+      ],
+      "formulas": [],
+      "notes": "Dossier addition to support tutoring; the book appeals to guesswork without invoking uniqueness."
+    },
+    {
+      "name": "nilpotency of the exterior derivative",
+      "aliases": [
+        "d^2 = 0",
+        "dd = 0"
+      ],
+      "kind": "identity",
+      "definition": "Applying the exterior derivative twice to any function or differential form gives zero.",
+      "how_introduced": "Used twice: to kill d^2 v^μ in the derivation of the curvature 2-form and to set d^2 P = 0 in the derivation of rule 1; margin note 4 stresses it does not extend to vector fields.",
+      "depth": "revisited",
+      "prerequisites": [
+        "exterior derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 398,
+          "printed_page": 381,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "d^2 f = 0,\\quad d(d\\theta)=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "graded Leibniz rule for the exterior derivative",
+      "aliases": [
+        "product rule for d",
+        "Leibniz rule"
+      ],
+      "kind": "identity",
+      "definition": "d(α ∧ β) = dα ∧ β + (-1)^p α ∧ dβ for a p-form α, extended to products of vectors and forms, e.g. d(e_μ ⊗ α) = de_μ ∧ α + e_μ ⊗ dα, and to dot products d(u·v) = du·v + u·dv.",
+      "how_introduced": "The engine of every derivation in the chapter: the double derivative of v, d^2 P, and d(e_μ · e_ν).",
+      "depth": "developed",
+      "prerequisites": [
+        "exterior derivative",
+        "wedge product"
+      ],
+      "locators": [
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 394,
+          "printed_page": 377,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        }
+      ],
+      "formulas": [
+        "d(\\mathbf{u}\\cdot\\mathbf{v}) = (d\\mathbf{u})\\cdot\\mathbf{v}+\\mathbf{u}\\cdot(d\\mathbf{v})"
+      ],
+      "notes": "The sign in -ω^μ_ν ∧ dv^ν in eqn 36.9 comes from moving a 1-form past d."
+    },
+    {
+      "name": "wedge product",
+      "aliases": [
+        "exterior product",
+        "∧"
+      ],
+      "kind": "operation",
+      "definition": "The antisymmetric product of forms; for 1-forms α ∧ β = -β ∧ α, so α ∧ α = 0.",
+      "how_introduced": "Relied on throughout for building 2-forms and for spotting vanishing terms (e.g. dθ ∧ dθ = 0).",
+      "depth": "revisited",
+      "prerequisites": [
+        "p-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 393,
+          "printed_page": 376,
+          "section": "36.1"
+        },
+        {
+          "pdf_page": 398,
+          "printed_page": 381,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "\\alpha\\wedge\\beta = \\alpha\\otimes\\beta-\\beta\\otimes\\alpha\\ \\text{(GA eqn 34.38 convention)}"
+      ],
+      "notes": "Example 36.2 evaluates wedges with an extra factor 1/2, inconsistent with the Chapter 34 convention; forms-level results are unaffected."
+    },
+    {
+      "name": "orthonormal frame",
+      "aliases": [
+        "local orthonormal frame",
+        "orthonormal tetrad",
+        "vierbein frame",
+        "hatted basis"
+      ],
+      "kind": "definition",
+      "definition": "A basis of vectors at each point that is orthonormal with respect to the metric, g(e_μ̂, e_ν̂) = η_μ̂ν̂, so that indices are raised and lowered with η; it is generally a non-coordinate basis and its connection coefficients need not vanish.",
+      "how_introduced": "Chosen from the start because Cartan's method is most efficient when metric components are constant; §36.3 recasts it as a field of frames and recalls the default choice of an observer at rest in the coordinates.",
+      "depth": "revisited",
+      "prerequisites": [
+        "vielbein",
+        "non-coordinate basis"
+      ],
+      "locators": [
+        {
+          "pdf_page": 391,
+          "printed_page": 374,
+          "section": null
+        },
+        {
+          "pdf_page": 395,
+          "printed_page": 378,
+          "section": "36.2"
+        },
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.3"
+        }
+      ],
+      "formulas": [
+        "\\mathbf{g} = \\eta_{\\hat\\mu\\hat\\nu}\\,\\omega^{\\hat\\mu}\\otimes\\omega^{\\hat\\nu}"
+      ],
+      "notes": "Should not be confused with a local inertial (freely falling) frame where connection coefficients vanish at a point."
+    },
+    {
+      "name": "orthonormal basis 1-forms",
+      "aliases": [
+        "orthonormal coframe",
+        "tetrad 1-forms",
+        "ω^μ̂"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The dual 1-forms ω^μ̂ = (e_α)^μ̂ dx^α to an orthonormal basis, in terms of which the line element is a sum of signed squares, ds^2 = -(ω^t̂)^2 + (ω^1̂)^2 + (ω^2̂)^2 + (ω^3̂)^2.",
+      "how_introduced": "Introduced via the vielbein in margin note 2 and read off from diagonal metrics in §36.3 and Step I of the recipe.",
+      "depth": "developed",
+      "prerequisites": [
+        "vielbein",
+        "orthonormal frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 391,
+          "printed_page": 374,
+          "section": null
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.3"
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "\\omega^{\\hat\\mu} = (\\mathbf{e}_\\alpha)^{\\hat\\mu}dx^\\alpha"
+      ],
+      "notes": null
+    },
+    {
+      "name": "orthonormal frame for a diagonal metric",
+      "aliases": [
+        "square-root rule for coframes"
+      ],
+      "kind": "technique",
+      "definition": "For g = g_tt dt^2 + g_rr dr^2 + g_θθ dθ^2 + g_φφ dφ^2, take ω^t̂ = sqrt(-g_tt) dt, ω^r̂ = sqrt(g_rr) dr, etc.; the dual vectors carry the reciprocal factors and the vielbein matrices are diagonal with these entries.",
+      "how_introduced": "Presented in §36.3 as an upgrade of Chapter 10's normalization of diagonal metric components, choosing the frame of an observer at rest in the coordinates.",
+      "depth": "developed",
+      "prerequisites": [
+        "orthonormal basis 1-forms",
+        "vielbein"
+      ],
+      "locators": [
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.3"
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.3"
+        }
+      ],
+      "formulas": [
+        "\\omega^{\\hat t}=\\sqrt{-g_{tt}}\\,dt,\\ \\mathbf{e}_{\\hat t} = \\frac{1}{\\sqrt{-g_{tt}}}\\frac{\\partial}{\\partial t}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "vielbein",
+      "aliases": [
+        "tetrad components",
+        "(e_α)^μ̂",
+        "frame field components"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The matrices (e_α)^μ̂ and their inverses (e_μ̂)^α relating coordinate and orthonormal bases, with g_{αβ} = η_{μ̂ν̂} (e_α)^μ̂ (e_β)^ν̂; they convert tensor components between frames.",
+      "how_introduced": "Recalled from Chapter 10 in margin note 2 and listed in the margin of every worked example for converting Riemann components back to coordinates.",
+      "depth": "revisited",
+      "prerequisites": [
+        "orthonormal frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 391,
+          "printed_page": 374,
+          "section": null
+        },
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.3"
+        },
+        {
+          "pdf_page": 398,
+          "printed_page": 381,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 400,
+          "printed_page": 383,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "g_{\\alpha\\beta} = \\eta_{\\hat\\mu\\hat\\nu}(\\mathbf{e}_\\alpha)^{\\hat\\mu}(\\mathbf{e}_\\beta)^{\\hat\\nu}"
+      ],
+      "notes": "The Example 36.6 margin inverts the time vielbein entries (see gaps)."
+    },
+    {
+      "name": "vielbein transformation of tensor components",
+      "aliases": [
+        "frame-to-coordinate conversion"
+      ],
+      "kind": "technique",
+      "definition": "Converting components between orthonormal and coordinate frames by attaching one vielbein factor per index, e.g. R^θ_{φθφ} = R^θ̂_{φ̂θ̂φ̂} (e_θ̂)^θ (e_φ)^φ̂ (e_θ)^θ̂ (e_φ)^φ̂.",
+      "how_introduced": "Step V of the recipe; illustrated in the 2-sphere example where the frame value 1/a^2 becomes sin^2 θ and 1 in coordinates, while the Ricci scalar agrees.",
+      "depth": "revisited",
+      "prerequisites": [
+        "vielbein",
+        "tensor transformation law"
+      ],
+      "locators": [
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "R^\\theta{}_{\\phi\\theta\\phi} = \\tfrac{1}{a^2}\\,a^2\\sin^2\\theta = \\sin^2\\theta"
+      ],
+      "notes": null
+    },
+    {
+      "name": "moving frame",
+      "aliases": [
+        "le repère mobile",
+        "field of frames",
+        "Cartan frame field"
+      ],
+      "kind": "historical-idea",
+      "definition": "Cartan's picture of an orthonormal frame attached to every point, viewed by a traveller who sees the frame turn (or boost) as a function of position; the connection 1-forms quantify that change.",
+      "how_introduced": "Introduced in §36.3 by pluralizing 'the orthonormal frame' into a field of frames, with a margin note on the French verb se repérer (to find one's bearings).",
+      "depth": "developed",
+      "prerequisites": [
+        "orthonormal frame",
+        "connection 1-forms"
+      ],
+      "locators": [
+        {
+          "pdf_page": 396,
+          "printed_page": 379,
+          "section": "36.3"
+        }
+      ],
+      "formulas": [
+        "\\omega^\\mu{}_\\nu(x)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Lorentzian sign rule for hatted time indices",
+      "aliases": [
+        "raising/lowering t̂ flips sign",
+        "symmetric boost connection forms"
+      ],
+      "kind": "convention",
+      "definition": "In an orthonormal Lorentzian frame η_t̂t̂ = -1, so moving a time index up or down changes the sign; combined with ω_{μ̂ν̂} = -ω_{ν̂μ̂}, this gives ω^t̂_k̂ = +ω^k̂_t̂ whereas ω^î_ĵ = -ω^ĵ_î.",
+      "how_introduced": "Margin note 16 in the expanding-universe example (eqn 36.75) and Exercise 36.1.",
+      "depth": "developed",
+      "prerequisites": [
+        "metric compatibility of connection 1-forms",
+        "orthonormal frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 402,
+          "printed_page": 385,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\omega^{\\hat k}{}_{\\hat t} = \\omega_{\\hat k\\hat t} = -\\omega_{\\hat t\\hat k} = \\omega^{\\hat t}{}_{\\hat k}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "symmetries of the Riemann tensor",
+      "aliases": [
+        "pair antisymmetry",
+        "pair-exchange symmetry"
+      ],
+      "kind": "identity",
+      "definition": "R_{αβγδ} is antisymmetric in its first pair and in its last pair and symmetric under exchange of the pairs, so one computed frame component fixes its index-permuted partners and components with repeated antisymmetric indices vanish.",
+      "how_introduced": "Used in margin notes 14 and 17 to generate R^φ̂_{θ̂φ̂θ̂} from R^θ̂_{φ̂θ̂φ̂} and to relate time-space components; used in the Ricci sums to discard R^î_{îîî}.",
+      "depth": "revisited",
+      "prerequisites": [
+        "Riemann curvature tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 400,
+          "printed_page": 383,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "R_{\\hat\\theta\\hat\\phi\\hat\\theta\\hat\\phi} = R_{\\hat\\phi\\hat\\theta\\hat\\phi\\hat\\theta}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Ricci tensor",
+      "aliases": [
+        "R_{μν}"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The contraction R_{μν} = R^α_{μαν} of the Riemann tensor.",
+      "how_introduced": "Computed in the 2-sphere and expanding-universe examples by summing frame Riemann components with summation temporarily suspended.",
+      "depth": "revisited",
+      "prerequisites": [
+        "Riemann curvature tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 400,
+          "printed_page": 383,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "R_{\\hat t\\hat t} = \\sum_k R^{\\hat k}{}_{\\hat t\\hat k\\hat t}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Ricci scalar",
+      "aliases": [
+        "curvature scalar",
+        "R"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The full contraction R = g^{μν} R_{μν}; being a scalar it takes the same value in orthonormal and coordinate frames.",
+      "how_introduced": "Obtained for the sphere (2/a^2) and for the flat expanding universe (6(ä/a + ȧ^2/a^2)); the book notes frame independence.",
+      "depth": "revisited",
+      "prerequisites": [
+        "Ricci tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 400,
+          "printed_page": 383,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "R = \\frac{2}{a^2}\\ \\text{(2-sphere)}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Einstein tensor",
+      "aliases": [
+        "G_{μν}"
+      ],
+      "kind": "mathematical-object",
+      "definition": "G_{μν} = R_{μν} - (1/2) g_{μν} R, the divergence-free curvature combination appearing in the field equations.",
+      "how_introduced": "Extracted for the expanding universe (eqn 36.81, printed with errors) and for the static spherical metric (eqn 36.90).",
+      "depth": "revisited",
+      "prerequisites": [
+        "Ricci tensor",
+        "Ricci scalar"
+      ],
+      "locators": [
+        {
+          "pdf_page": 400,
+          "printed_page": 383,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 401,
+          "printed_page": 384,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "G_{\\mu\\nu} = R_{\\mu\\nu}-\\tfrac12 g_{\\mu\\nu}R"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Einstein tensor from sectional curvatures",
+      "aliases": [
+        "G^0_0 = -(R^{12}_{12}+R^{23}_{23}+R^{31}_{31})"
+      ],
+      "kind": "technique",
+      "definition": "In an orthonormal frame, each diagonal mixed Einstein component equals minus the sum of the sectional-curvature Riemann components R^{ij}_{ij} over all index pairs that exclude that direction (for the time component: minus the sum over the three purely spatial pairs); off-diagonal components are sums of Riemann components sharing one index, such as the time-radial one built from the (time,angle) over (radial,angle) components.",
+      "how_introduced": "Quoted from Chapter 21 in margin note 20 as the fastest route from curvature 2-forms to Einstein components.",
+      "depth": "revisited",
+      "prerequisites": [
+        "Riemann curvature tensor",
+        "Einstein tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 401,
+          "printed_page": 384,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "G^0{}_0 = -(R^{12}{}_{12}+R^{23}{}_{23}+R^{31}{}_{31})"
+      ],
+      "notes": null
+    },
+    {
+      "name": "curvature of the 2-sphere",
+      "aliases": [
+        "sphere of radius a",
+        "Gaussian curvature 1/a^2"
+      ],
+      "kind": "solution-or-model",
+      "definition": "For ds^2 = a^2 dθ^2 + a^2 sin^2 θ dφ^2 the single curvature 2-form is (1/a^2) ω^θ̂ ∧ ω^φ̂, so the Gaussian curvature is 1/a^2, each Ricci frame component is 1/a^2 and R = 2/a^2.",
+      "how_introduced": "Example 36.4, the first curved test case after the flat control.",
+      "depth": "developed",
+      "prerequisites": [
+        "Cartan's method for curvature"
+      ],
+      "locators": [
+        {
+          "pdf_page": 398,
+          "printed_page": 381,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "\\mathcal{R}^{\\hat\\theta}{}_{\\hat\\phi} = \\frac{1}{a^2}\\omega^{\\hat\\theta}\\wedge\\omega^{\\hat\\phi}"
+      ],
+      "notes": "Same result as the brute-force computation of Chapter 11."
+    },
+    {
+      "name": "spatially flat Robertson-Walker spacetime",
+      "aliases": [
+        "flat FRW metric",
+        "expanding universe with flat slices",
+        "book: 'de Sitter model' / 'Universe 1'"
+      ],
+      "kind": "solution-or-model",
+      "definition": "ds^2 = -dt^2 + a(t)^2 (dx^2 + dy^2 + dz^2): flat spatial sections scaled by a(t). Its frame curvature components are ä/a (time-space) and (ȧ/a)^2 (space-space); de Sitter spacetime is the special case a ∝ e^{Ht}.",
+      "how_introduced": "Example 36.5, the first example with time, chosen as a case where space is flat but spacetime is not.",
+      "depth": "developed",
+      "prerequisites": [
+        "Cartan's method for curvature",
+        "Lorentzian sign rule for hatted time indices"
+      ],
+      "locators": [
+        {
+          "pdf_page": 399,
+          "printed_page": 382,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 400,
+          "printed_page": 383,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "ds^2 = -dt^2 + a(t)^2(dx^2+dy^2+dz^2)"
+      ],
+      "notes": "The book calls this the de Sitter model while keeping a(t) arbitrary."
+    },
+    {
+      "name": "general static spherically symmetric metric",
+      "aliases": [
+        "e^{2Φ}, e^{2Λ} metric",
+        "static star metric"
+      ],
+      "kind": "solution-or-model",
+      "definition": "ds^2 = -e^{2Φ(r)} dt^2 + e^{2Λ(r)} dr^2 + r^2 (dθ^2 + sin^2 θ dφ^2), the metric used for static stars and, with e^{2Φ} = e^{-2Λ} = 1 - 2M/r, the Schwarzschild exterior.",
+      "how_introduced": "Example 36.6, revisiting Chapter 21 with Cartan's method.",
+      "depth": "revisited",
+      "prerequisites": [
+        "Cartan's method for curvature"
+      ],
+      "locators": [
+        {
+          "pdf_page": 400,
+          "printed_page": 383,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "ds^2 = -e^{2\\Phi}dt^2+e^{2\\Lambda}dr^2+r^2(d\\theta^2+\\sin^2\\theta\\,d\\phi^2)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Riemann tensor components for static spherical symmetry",
+      "aliases": [
+        "E, Ē, F, F̄ curvature functions"
+      ],
+      "kind": "identity",
+      "definition": "Frame components R^{t̂r̂}_{t̂r̂} = E = -e^{-2Λ}(Φ'' + Φ'^2 - Φ'Λ'), R^{t̂θ̂}_{t̂θ̂} = R^{t̂φ̂}_{t̂φ̂} = Ē = -(1/r) e^{-2Λ} Φ', R^{θ̂φ̂}_{θ̂φ̂} = F = (1 - e^{-2Λ})/r^2, R^{r̂θ̂}_{r̂θ̂} = R^{r̂φ̂}_{r̂φ̂} = F̄ = (1/r) e^{-2Λ} Λ'.",
+      "how_introduced": "Derived in Example 36.6 from four connection forms and six curvature 2-forms, reproducing Chapter 21 results with far less algebra.",
+      "depth": "developed",
+      "prerequisites": [
+        "general static spherically symmetric metric",
+        "curvature 2-form"
+      ],
+      "locators": [
+        {
+          "pdf_page": 400,
+          "printed_page": 383,
+          "section": "36.4"
+        },
+        {
+          "pdf_page": 401,
+          "printed_page": 384,
+          "section": "36.4"
+        }
+      ],
+      "formulas": [
+        "G_{\\hat t\\hat t} = F+2\\bar F"
+      ],
+      "notes": "Schwarzschild check (our computation): E = F = 2M/r^3, Ē = F̄ = -M/r^3, giving G = 0."
+    },
+    {
+      "name": "tensor transformation law",
+      "aliases": [
+        "non-tensorial connection coefficients"
+      ],
+      "kind": "principle",
+      "definition": "Tensor components transform with one Jacobian or vielbein factor per index; connection coefficients do not, so they cannot be carried between frames as tensors.",
+      "how_introduced": "Invoked in the margin caution about extracting connection coefficients in orthonormal frames.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 397,
+          "printed_page": 380,
+          "section": "36.3"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    }
+  ],
+  "key_equations": [
+    {
+      "label": "(36.1)",
+      "name": "Metric from vielbeins",
+      "latex": "g_{\\alpha\\beta} = \\eta_{\\hat\\mu\\hat\\nu}(\\mathbf{e}_\\alpha)^{\\hat\\mu}(\\mathbf{e}_\\beta)^{\\hat\\nu}",
+      "meaning": "Coordinate metric components are the Minkowski metric dressed with one vielbein per index; defines ω^μ̂ = (e_α)^μ̂ dx^α.",
+      "symbols": "(e_α)^μ̂ vielbein components; η Minkowski metric",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "label": "(36.2)",
+      "name": "Metric in an orthonormal coframe",
+      "latex": "ds^2 = \\mathbf{g} = \\eta_{\\hat\\mu\\hat\\nu}\\,\\omega^{\\hat\\mu}\\otimes\\omega^{\\hat\\nu}",
+      "meaning": "In an orthonormal coframe the metric has constant Minkowski components, which is what makes Cartan's method efficient.",
+      "symbols": "ω^μ̂ orthonormal basis 1-forms",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "label": "(36.3)",
+      "name": null,
+      "latex": "ds^2 = -(\\omega^{\\hat t})^2+(\\omega^{\\hat\\chi})^2+(\\omega^{\\hat\\theta})^2+(\\omega^{\\hat\\phi})^2",
+      "meaning": "Diagonal metric written as signed squares of orthonormal 1-forms.",
+      "symbols": "(t, χ, θ, φ) sample coordinates",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "label": "(36.4)",
+      "name": null,
+      "latex": "d\\mathbf{v} = (dv^\\mu)\\otimes\\mathbf{e}_\\mu + v^\\mu\\,d\\mathbf{e}_\\mu",
+      "meaning": "Product rule for d acting on a vector field: change of components plus change of basis vectors.",
+      "symbols": "v^μ components; e_μ basis vectors",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.5)",
+      "name": "Definition of connection 1-forms",
+      "latex": "d\\mathbf{e}_\\mu = \\omega^\\nu{}_\\mu\\otimes\\mathbf{e}_\\nu",
+      "meaning": "The change of each basis vector is expanded on the basis; the expansion coefficients are 1-forms that encode the connection.",
+      "symbols": "ω^ν_μ connection 1-forms",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.6)",
+      "name": null,
+      "latex": "\\Gamma^\\nu{}_{\\alpha\\mu}\\mathbf{e}_\\nu = \\nabla_\\alpha\\mathbf{e}_\\mu = \\langle\\nabla\\mathbf{e}_\\mu,\\mathbf{e}_\\alpha\\rangle \\equiv \\langle d\\mathbf{e}_\\mu,\\mathbf{e}_\\alpha\\rangle = \\langle\\omega^\\nu{}_\\mu\\otimes\\mathbf{e}_\\nu,\\mathbf{e}_\\alpha\\rangle",
+      "meaning": "Feeding a direction into de_μ reproduces the covariant derivative of the basis vector, linking forms to connection coefficients.",
+      "symbols": "Γ connection coefficients (derivative index first)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.7)",
+      "name": "Connection forms in terms of Γ",
+      "latex": "\\omega^\\nu{}_\\mu = \\Gamma^\\nu{}_{\\lambda\\mu}\\,\\omega^\\lambda",
+      "meaning": "Connection coefficients are the components of the connection 1-forms in the basis ω^λ.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.8)",
+      "name": null,
+      "latex": "d\\mathbf{v} = \\mathbf{e}_\\mu\\otimes(dv^\\mu+\\omega^\\mu{}_\\nu v^\\nu)",
+      "meaning": "Covariant derivative of a vector as a vector-valued 1-form; the bracket is the forms version of v^μ_{;α}.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.9)",
+      "name": null,
+      "latex": "d^2\\mathbf{v} = d\\mathbf{e}_\\mu\\wedge(dv^\\mu+\\omega^\\mu{}_\\nu v^\\nu)+\\mathbf{e}_\\mu\\otimes(d^2v^\\mu+d\\omega^\\mu{}_\\nu v^\\nu-\\omega^\\mu{}_\\nu\\wedge dv^\\nu) = \\mathbf{e}_\\mu\\otimes(\\omega^\\mu{}_\\nu\\wedge dv^\\nu+\\omega^\\mu{}_\\alpha\\wedge\\omega^\\alpha{}_\\nu v^\\nu+d^2v^\\mu+d\\omega^\\mu{}_\\nu v^\\nu-\\omega^\\mu{}_\\nu\\wedge dv^\\nu)",
+      "meaning": "Second exterior derivative of a vector: the dv terms cancel pairwise.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.10)-(36.11)",
+      "name": null,
+      "latex": "d^2\\mathbf{v} = \\mathbf{e}_\\mu\\otimes(d\\omega^\\mu{}_\\nu+\\omega^\\mu{}_\\alpha\\wedge\\omega^\\alpha{}_\\nu)\\,v^\\nu = (\\mathbf{e}_\\mu\\otimes\\mathcal{R}^\\mu{}_\\nu)\\,v^\\nu",
+      "meaning": "After d^2 v^μ = 0 only an undifferentiated v survives, so the result is a tensorial (curvature) operation on v.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.12)",
+      "name": "Curvature 2-form (Cartan's second structure equation)",
+      "latex": "\\mathcal{R}^\\mu{}_\\nu = d\\omega^\\mu{}_\\nu+\\omega^\\mu{}_\\alpha\\wedge\\omega^\\alpha{}_\\nu",
+      "meaning": "Curvature is the exterior derivative of the connection forms plus their wedge product; the chapter's most important equation.",
+      "symbols": "script R^μ_ν curvature 2-form",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.13)",
+      "name": "Curvature 2-form operator",
+      "latex": "\\mathcal{R}(\\ ) = \\omega^\\nu(\\ )\\otimes\\mathbf{e}_\\mu\\otimes\\mathcal{R}^\\mu{}_\\nu",
+      "meaning": "Packages the curvature 2-forms into a machine that accepts a vector.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.14)",
+      "name": null,
+      "latex": "d^2\\mathbf{v} = \\mathcal{R}(\\mathbf{v})",
+      "meaning": "Memorable form: differentiating a vector twice equals the curvature acting on it.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.15)-(36.16)",
+      "name": null,
+      "latex": "\\omega^\\mu{}_\\nu = \\Gamma^\\mu{}_{\\sigma\\nu}\\omega^\\sigma,\\qquad d\\omega^\\mu{}_\\nu = \\frac{\\partial\\Gamma^\\mu{}_{\\sigma\\nu}}{\\partial x^\\lambda}\\,\\omega^\\lambda\\wedge\\omega^\\sigma",
+      "meaning": "Exterior derivative of a connection form; dropping the Γ dω^σ term is valid only in a coordinate basis where ω^σ = dx^σ.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.17)",
+      "name": null,
+      "latex": "d\\omega^\\mu{}_\\nu(\\mathbf{e}_\\alpha,\\mathbf{e}_\\beta) = \\frac12\\left(\\frac{\\partial\\Gamma^\\mu{}_{\\beta\\nu}}{\\partial x^\\alpha}-\\frac{\\partial\\Gamma^\\mu{}_{\\alpha\\nu}}{\\partial x^\\beta}\\right)",
+      "meaning": "Derivative part of the Riemann formula. Printed last line omits the parentheses so the 1/2 appears to multiply only the first term; the factor 1/2 itself reflects a wedge normalization different from eqn 34.38.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.18)",
+      "name": null,
+      "latex": "\\omega^\\mu{}_\\sigma\\wedge\\omega^\\sigma{}_\\nu(\\mathbf{e}_\\alpha,\\mathbf{e}_\\beta) = \\frac12\\left(\\Gamma^\\mu{}_{\\alpha\\sigma}\\Gamma^\\sigma{}_{\\beta\\nu}-\\Gamma^\\mu{}_{\\beta\\sigma}\\Gamma^\\sigma{}_{\\alpha\\nu}\\right)",
+      "meaning": "Quadratic part of the Riemann formula. The printed final line drops the factor 1/2 present in the preceding lines; it is restored in 36.19.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.19)",
+      "name": null,
+      "latex": "\\mathcal{R}^\\mu{}_\\nu(\\mathbf{e}_\\alpha,\\mathbf{e}_\\beta) = \\frac12\\left(\\partial_\\alpha\\Gamma^\\mu{}_{\\beta\\nu}-\\partial_\\beta\\Gamma^\\mu{}_{\\alpha\\nu}+\\Gamma^\\mu{}_{\\alpha\\sigma}\\Gamma^\\sigma{}_{\\beta\\nu}-\\Gamma^\\mu{}_{\\beta\\sigma}\\Gamma^\\sigma{}_{\\alpha\\nu}\\right) = \\frac12 R^\\mu{}_{\\nu\\alpha\\beta}",
+      "meaning": "Evaluating the curvature 2-form on two basis vectors recovers the Riemann components (the 1/2 follows the example's wedge normalization; with eqn 34.38's convention it is absent).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.20)",
+      "name": "Riemann components from the curvature 2-form",
+      "latex": "\\mathcal{R}^\\mu{}_\\nu = R^\\mu{}_{\\nu|\\alpha\\beta|}\\,\\omega^\\alpha\\wedge\\omega^\\beta",
+      "meaning": "Riemann components are the coefficients of the curvature 2-form in ordered wedge products; this is the extraction rule (Idea 3).",
+      "symbols": "|αβ| sum over one ordering only",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.21)",
+      "name": "Bivector form of the curvature operator",
+      "latex": "\\mathcal{R}(\\ ) = \\frac14(\\mathbf{e}_\\mu\\wedge\\mathbf{e}_\\nu)\\,R^{\\mu\\nu}{}_{\\alpha\\beta}\\,(\\omega^\\alpha\\wedge\\omega^\\beta)",
+      "meaning": "Curvature as a bivector-valued 2-form (MTW style), given in margin note 6.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.1"
+      }
+    },
+    {
+      "label": "(36.22)",
+      "name": "Product rule for a dot product",
+      "latex": "d(\\mathbf{u}\\cdot\\mathbf{v}) = (d\\mathbf{u})\\cdot\\mathbf{v}+\\mathbf{u}\\cdot(d\\mathbf{v})",
+      "meaning": "Single source of both structure rules.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.23)-(36.24)",
+      "name": "Cartan's displacement of a point",
+      "latex": "d\\mathcal{P} = \\mathbf{e}_\\mu\\otimes\\omega^\\mu,\\qquad \\mathbf{e}_\\mu\\otimes\\omega^\\mu(\\mathbf{v}) = \\mathbf{e}_\\mu v^\\mu = \\mathbf{v}",
+      "meaning": "The displacement of a point is the identity map on vectors: it returns whatever direction is inserted.",
+      "symbols": "P a point of the manifold",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.25)",
+      "name": null,
+      "latex": "0 = d^2\\mathcal{P} = d\\mathbf{e}_\\mu\\wedge\\omega^\\mu+\\mathbf{e}_\\mu\\otimes d\\omega^\\mu = \\mathbf{e}_\\mu\\otimes(\\omega^\\mu{}_\\nu\\wedge\\omega^\\nu+d\\omega^\\mu)",
+      "meaning": "Because P behaves like a function its second derivative vanishes, constraining the connection forms.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.29)",
+      "name": "Symmetry condition (Cartan's first structure equation, rule 1)",
+      "latex": "d\\omega^\\mu+\\omega^\\mu{}_\\nu\\wedge\\omega^\\nu = 0",
+      "meaning": "The exterior derivatives of the basis 1-forms determine the connection forms; equivalent to zero torsion.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.26)-(36.28)",
+      "name": null,
+      "latex": "d\\omega^\\mu = \\Gamma^\\mu{}_{\\beta\\nu}\\,\\omega^\\nu\\wedge\\omega^\\beta,\\quad d\\mathbf{e}_\\mu = \\Gamma^\\nu{}_{\\beta\\mu}\\,\\omega^\\beta\\otimes\\mathbf{e}_\\nu,\\quad \\nabla\\omega^\\mu = -\\Gamma^\\mu{}_{\\beta\\nu}\\,\\omega^\\nu\\otimes\\omega^\\beta",
+      "meaning": "Margin note 8 comparison: the first structure equation in Γ form (as claimed in Chapter 34) versus the derivatives of basis vectors and the covariant derivative of basis 1-forms.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.30)-(36.31)",
+      "name": null,
+      "latex": "dg_{\\mu\\nu} = d\\mathbf{e}_\\mu\\cdot\\mathbf{e}_\\nu+\\mathbf{e}_\\mu\\cdot d\\mathbf{e}_\\nu = \\omega^\\sigma{}_\\mu g_{\\sigma\\nu}+g_{\\mu\\sigma}\\omega^\\sigma{}_\\nu",
+      "meaning": "Product rule applied to the metric components as dot products of basis vectors.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.32)",
+      "name": "Compatibility condition (rule 2)",
+      "latex": "dg_{\\mu\\nu} = \\omega_{\\mu\\nu}+\\omega_{\\nu\\mu}",
+      "meaning": "Metric compatibility in forms; equivalent to ∇g = 0.",
+      "symbols": "ω_{μν} = g_{μσ} ω^σ_ν",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.33)",
+      "name": "Ideas 1: Cartan's two rules in an orthonormal frame",
+      "latex": "0 = d\\omega^\\mu+\\omega^\\mu{}_\\nu\\wedge\\omega^\\nu,\\qquad d\\eta_{\\hat\\mu\\hat\\nu} = 0 = \\omega_{\\hat\\mu\\hat\\nu}+\\omega_{\\hat\\nu\\hat\\mu}",
+      "meaning": "The two constraints used to find connection forms: first structure equation and antisymmetry of lowered forms.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.34)-(36.35)",
+      "name": "Ideas 2 and 3",
+      "latex": "\\mathcal{R}^\\mu{}_\\nu = d\\omega^\\mu{}_\\nu+\\omega^\\mu{}_\\alpha\\wedge\\omega^\\alpha{}_\\nu,\\qquad \\mathcal{R}^\\mu{}_\\nu = R^\\mu{}_{\\nu|\\alpha\\beta|}\\,\\omega^\\alpha\\wedge\\omega^\\beta",
+      "meaning": "Build the curvature 2-form, then read off Riemann components; repeated in the chapter summary as 36.92-36.93.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.2"
+      }
+    },
+    {
+      "label": "(36.37)-(36.39)",
+      "name": "Coframe for a diagonal metric",
+      "latex": "\\mathbf{g} = g_{tt}dt^2+g_{rr}dr^2+g_{\\theta\\theta}d\\theta^2+g_{\\phi\\phi}d\\phi^2 \\Rightarrow \\omega^{\\hat t}=\\sqrt{-g_{tt}}\\,dt,\\ \\omega^{\\hat r}=\\sqrt{g_{rr}}\\,dr,\\ \\omega^{\\hat\\theta}=\\sqrt{g_{\\theta\\theta}}\\,d\\theta,\\ \\omega^{\\hat\\phi}=\\sqrt{g_{\\phi\\phi}}\\,d\\phi",
+      "meaning": "Square roots of diagonal metric components give the orthonormal 1-forms.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      }
+    },
+    {
+      "label": "(36.40)-(36.41)",
+      "name": null,
+      "latex": "\\mathbf{e}_{\\hat t} = \\frac{1}{\\sqrt{-g_{tt}}}\\partial_t,\\ \\ldots;\\quad (\\mathbf{e}_t)^{\\hat t}=\\sqrt{-g_{tt}},\\ (\\mathbf{e}_{\\hat t})^{t} = \\frac{1}{\\sqrt{-g_{tt}}},\\ \\ldots",
+      "meaning": "Dual basis vectors and diagonal vielbein entries for the same frame.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      }
+    },
+    {
+      "label": null,
+      "name": "Extracting frame connection coefficients (margin, p.380)",
+      "latex": "\\omega^{\\hat\\nu}{}_{\\hat\\mu} = \\Gamma^{\\hat\\nu}{}_{\\hat\\lambda\\hat\\mu}\\,\\omega^{\\hat\\lambda}",
+      "meaning": "Optional read-off of orthonormal-frame connection coefficients; the reading copy garbles the indices, the render shows this form.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      }
+    },
+    {
+      "label": "(36.42)",
+      "name": "Step I template",
+      "latex": "ds^2 = \\mathbf{g} = -(\\omega^{\\hat t})^2+(\\omega^{\\hat\\chi})^2+(\\omega^{\\hat\\theta})^2+(\\omega^{\\hat\\phi})^2",
+      "meaning": "Match the given metric to this form to identify the coframe.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.45)-(36.47)",
+      "name": "Polar plane connection form",
+      "latex": "\\omega^{\\hat r}=dr,\\ \\omega^{\\hat\\theta}=r\\,d\\theta;\\quad d\\omega^{\\hat\\theta} = dr\\wedge d\\theta = -\\frac{\\omega^{\\hat\\theta}}{r}\\wedge\\omega^{\\hat r}\\ \\Rightarrow\\ \\omega^{\\hat\\theta}{}_{\\hat r} = \\frac{\\omega^{\\hat\\theta}}{r} = d\\theta",
+      "meaning": "Rotating polar frame: moving in θ turns ê_r toward ê_θ at unit rate.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.48)",
+      "name": null,
+      "latex": "d\\omega^{\\hat\\theta}{}_{\\hat r} = d(d\\theta) = 0\\ \\Rightarrow\\ \\mathcal{R}^{\\hat\\mu}{}_{\\hat\\nu} = 0",
+      "meaning": "Flat plane: non-zero connection form but zero curvature.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.51)-(36.54), (36.56)",
+      "name": "Sphere connection forms",
+      "latex": "\\omega^{\\hat\\theta}=a\\,d\\theta,\\ \\omega^{\\hat\\phi}=a\\sin\\theta\\,d\\phi;\\ d\\omega^{\\hat\\phi} = a\\cos\\theta\\,d\\theta\\wedge d\\phi = -\\frac{\\cos\\theta}{a\\sin\\theta}\\omega^{\\hat\\phi}\\wedge\\omega^{\\hat\\theta}\\ \\Rightarrow\\ \\omega^{\\hat\\phi}{}_{\\hat\\theta}=\\cos\\theta\\,d\\phi,\\ \\omega^{\\hat\\theta}{}_{\\hat\\phi}=-\\cos\\theta\\,d\\phi",
+      "meaning": "One structure equation plus antisymmetry fixes both connection forms on the sphere. (Reading copy drops θ in a cos θ.)",
+      "symbols": "a sphere radius",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.55)",
+      "name": null,
+      "latex": "\\Gamma^{\\hat\\theta}{}_{\\hat\\phi\\hat\\phi} = -\\frac1a\\cot\\theta,\\qquad \\Gamma^{\\hat\\phi}{}_{\\hat\\phi\\hat\\theta} = \\frac1a\\cot\\theta",
+      "meaning": "Orthonormal-frame connection coefficients of the sphere read from the connection forms (margin note 12).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.57)-(36.58)",
+      "name": "Curvature 2-form of the sphere",
+      "latex": "d\\omega^{\\hat\\theta}{}_{\\hat\\phi} = \\sin\\theta\\,d\\theta\\wedge d\\phi = \\frac1{a^2}\\omega^{\\hat\\theta}\\wedge\\omega^{\\hat\\phi},\\qquad \\mathcal{R}^{\\hat\\theta}{}_{\\hat\\phi} = \\frac1{a^2}\\,\\omega^{\\hat\\theta}\\wedge\\omega^{\\hat\\phi}",
+      "meaning": "The sphere's single independent curvature 2-form; the ω∧ω term vanishes in 2D.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.59)-(36.61)",
+      "name": null,
+      "latex": "R^{\\hat\\theta}{}_{\\hat\\phi\\hat\\theta\\hat\\phi} = \\frac1{a^2};\\qquad R^{\\theta}{}_{\\phi\\theta\\phi} = R^{\\hat\\theta}{}_{\\hat\\phi\\hat\\theta\\hat\\phi}(\\mathbf{e}_{\\hat\\theta})^{\\theta}(\\mathbf{e}_\\phi)^{\\hat\\phi}(\\mathbf{e}_\\theta)^{\\hat\\theta}(\\mathbf{e}_\\phi)^{\\hat\\phi} = \\frac1{a^2}a^2\\sin^2\\theta = \\sin^2\\theta",
+      "meaning": "Frame component 1/a^2 and its coordinate-frame counterpart via vielbeins.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.62)-(36.66)",
+      "name": null,
+      "latex": "\\frac1{a^2} = R^{\\hat\\theta}{}_{\\hat\\phi\\hat\\theta\\hat\\phi} = R_{\\hat\\theta\\hat\\phi\\hat\\theta\\hat\\phi} = R_{\\hat\\phi\\hat\\theta\\hat\\phi\\hat\\theta}\\ \\Rightarrow\\ R^{\\hat\\phi}{}_{\\hat\\theta\\hat\\phi\\hat\\theta} = \\frac1{a^2},\\qquad R^{\\phi}{}_{\\theta\\phi\\theta} = 1",
+      "meaning": "Index symmetries give the partner component; in coordinates it equals 1 (the printed conversion shows only the factors that do not cancel).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.67)-(36.68)",
+      "name": "Ricci curvature of the sphere",
+      "latex": "R_{\\hat\\phi\\hat\\phi} = R_{\\hat\\theta\\hat\\theta} = \\frac1{a^2},\\qquad R = \\frac2{a^2}",
+      "meaning": "Ricci frame components and the frame-independent Ricci scalar of a sphere.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.69)-(36.70)",
+      "name": "Flat expanding universe and its coframe",
+      "latex": "ds^2 = -dt^2+a(t)^2(dx^2+dy^2+dz^2);\\qquad \\omega^{\\hat t}=dt,\\ \\omega^{\\hat k}=a(t)\\,dx^k",
+      "meaning": "Metric of Example 36.5 (called the de Sitter model in the book, though a(t) is general).",
+      "symbols": "a(t) scale factor; k = 1,2,3",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.71)-(36.73)",
+      "name": null,
+      "latex": "d\\omega^{\\hat t}=0,\\quad d\\omega^{\\hat k} = \\frac{\\dot a}{a}\\omega^{\\hat t}\\wedge\\omega^{\\hat k} = -\\omega^{\\hat k}{}_{\\hat t}\\wedge\\omega^{\\hat t}-\\omega^{\\hat k}{}_{\\hat l}\\wedge\\omega^{\\hat l}\\ \\Rightarrow\\ \\omega^{\\hat k}{}_{\\hat t} = \\frac{\\dot a}{a}\\omega^{\\hat k},\\ \\omega^{\\hat k}{}_{\\hat l}=0",
+      "meaning": "Boost connection forms of the expanding frame; the reading copy's ω^t̂ in the last term of 36.73 is an OCR slip for ω^l̂ (render verified).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.75)",
+      "name": "Time-index sign rule",
+      "latex": "\\omega^{\\hat k}{}_{\\hat t} = \\omega_{\\hat k\\hat t} = -\\omega_{\\hat t\\hat k} = \\omega^{\\hat t}{}_{\\hat k}",
+      "meaning": "Lowering a hatted time index flips sign, so boost connection forms are symmetric in index position.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.74), (36.76)",
+      "name": "Curvature 2-forms of the flat expanding universe",
+      "latex": "\\mathcal{R}^{\\hat t}{}_{\\hat k} = d\\omega^{\\hat t}{}_{\\hat k} = d(\\dot a\\,dx^k) = \\frac{\\ddot a}{a}\\omega^{\\hat t}\\wedge\\omega^{\\hat k},\\qquad \\mathcal{R}^{\\hat k}{}_{\\hat l} = d\\omega^{\\hat k}{}_{\\hat l}+\\omega^{\\hat k}{}_{\\hat t}\\wedge\\omega^{\\hat t}{}_{\\hat l} = \\left(\\frac{\\dot a}{a}\\right)^2\\omega^{\\hat k}\\wedge\\omega^{\\hat l}",
+      "meaning": "Time-space curvature from acceleration of expansion; space-space curvature generated purely by the ω∧ω term even though spatial slices are flat.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.77)",
+      "name": null,
+      "latex": "R^{\\hat t}{}_{\\hat k\\hat t\\hat k} = \\frac{\\ddot a}{a},\\qquad R^{\\hat k}{}_{\\hat l\\hat k\\hat l} = \\left(\\frac{\\dot a}{a}\\right)^2\\quad\\text{(no sum)}",
+      "meaning": "Frame Riemann components of the flat FRW spacetime.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.78)-(36.80)",
+      "name": "Ricci tensor and scalar of flat FRW",
+      "latex": "R_{\\hat t\\hat t} = \\sum_k R^{\\hat k}{}_{\\hat t\\hat k\\hat t} = -3\\frac{\\ddot a}{a},\\quad R_{\\hat i\\hat i} = \\frac{\\ddot a}{a}+2\\left(\\frac{\\dot a}{a}\\right)^2,\\quad R = 6\\left(\\frac{\\ddot a}{a}+\\frac{\\dot a^2}{a^2}\\right)",
+      "meaning": "Contracting the frame components; R^î_{îîî} = 0 by antisymmetry.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.81)",
+      "name": "Einstein tensor of flat FRW (corrected)",
+      "latex": "G_{\\hat t\\hat t} = 3\\left(\\frac{\\dot a}{a}\\right)^2,\\qquad G_{\\hat i\\hat i} = -2\\frac{\\ddot a}{a}-\\left(\\frac{\\dot a}{a}\\right)^2",
+      "meaning": "Left sides of the Friedmann equations. The book prints G_t̂t̂ = 3(ä/a)^2 and G_îî = -2ä/a - ȧ/a; both are typos, as direct substitution of 36.78-36.80 into G = Ric - (1/2)ηR shows.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.82)-(36.83)",
+      "name": "Static spherical metric and coframe",
+      "latex": "ds^2 = -e^{2\\Phi}dt^2+e^{2\\Lambda}dr^2+r^2(d\\theta^2+\\sin^2\\theta\\,d\\phi^2);\\quad \\omega^{\\hat t}=e^\\Phi dt,\\ \\omega^{\\hat r}=e^\\Lambda dr,\\ \\omega^{\\hat\\theta}=r\\,d\\theta,\\ \\omega^{\\hat\\phi}=r\\sin\\theta\\,d\\phi",
+      "meaning": "Starting point of Example 36.6.",
+      "symbols": "Φ(r), Λ(r) metric functions",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.84)",
+      "name": "Connection forms of the static spherical metric",
+      "latex": "\\omega^{\\hat t}{}_{\\hat r} = \\Phi' e^{\\Phi}e^{-\\Lambda}dt,\\quad \\omega^{\\hat\\theta}{}_{\\hat r} = e^{-\\Lambda}d\\theta,\\quad \\omega^{\\hat\\phi}{}_{\\hat r} = \\sin\\theta\\, e^{-\\Lambda}d\\phi,\\quad \\omega^{\\hat\\phi}{}_{\\hat\\theta} = \\cos\\theta\\,d\\phi",
+      "meaning": "Four independent connection forms; the rest follow from the sign rules.",
+      "symbols": "prime = d/dr",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.85)",
+      "name": "Derivatives of the connection forms (corrected)",
+      "latex": "d\\omega^{\\hat t}{}_{\\hat r} = -[\\Phi''+\\Phi'^2-\\Phi'\\Lambda']e^{-2\\Lambda}\\omega^{\\hat t}\\wedge\\omega^{\\hat r},\\ d\\omega^{\\hat\\theta}{}_{\\hat r} = \\frac{\\Lambda' e^{-2\\Lambda}}{r}\\omega^{\\hat\\theta}\\wedge\\omega^{\\hat r},\\ d\\omega^{\\hat\\phi}{}_{\\hat r} = -\\frac{e^{-\\Lambda}\\cos\\theta}{r^2\\sin\\theta}\\omega^{\\hat\\phi}\\wedge\\omega^{\\hat\\theta}+\\frac{\\Lambda' e^{-2\\Lambda}}{r}\\omega^{\\hat\\phi}\\wedge\\omega^{\\hat r},\\ d\\omega^{\\hat\\phi}{}_{\\hat\\theta} = \\frac1{r^2}\\omega^{\\hat\\phi}\\wedge\\omega^{\\hat\\theta}",
+      "meaning": "Printed version has ω^t̂∧ω^θ̂ in the first line (should be ω^t̂∧ω^r̂) and in the third line merges two different 2-forms under a single ω^φ̂∧ω^θ̂ with Λ in place of Λ'.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.86)",
+      "name": null,
+      "latex": "\\mathcal{R}^{\\hat t}{}_{\\hat r}=d\\omega^{\\hat t}{}_{\\hat r},\\ \\mathcal{R}^{\\hat t}{}_{\\hat\\theta}=\\omega^{\\hat t}{}_{\\hat r}\\wedge\\omega^{\\hat r}{}_{\\hat\\theta},\\ \\mathcal{R}^{\\hat t}{}_{\\hat\\phi}=\\omega^{\\hat t}{}_{\\hat r}\\wedge\\omega^{\\hat r}{}_{\\hat\\phi},\\ \\mathcal{R}^{\\hat\\theta}{}_{\\hat\\phi}=d\\omega^{\\hat\\theta}{}_{\\hat\\phi}+\\omega^{\\hat\\theta}{}_{\\hat r}\\wedge\\omega^{\\hat r}{}_{\\hat\\phi},\\ \\mathcal{R}^{\\hat\\phi}{}_{\\hat r}=d\\omega^{\\hat\\phi}{}_{\\hat r}+\\omega^{\\hat\\phi}{}_{\\hat\\theta}\\wedge\\omega^{\\hat\\theta}{}_{\\hat r},\\ \\mathcal{R}^{\\hat r}{}_{\\hat\\theta}=d\\omega^{\\hat r}{}_{\\hat\\theta}+\\omega^{\\hat r}{}_{\\hat\\phi}\\wedge\\omega^{\\hat\\phi}{}_{\\hat\\theta}",
+      "meaning": "Assembly of the six independent curvature 2-forms, keeping only non-vanishing terms of dω + ω∧ω.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.87)-(36.88)",
+      "name": "Curvature 2-forms of static spherical symmetry",
+      "latex": "\\mathcal{R}^{\\hat t\\hat r}=E\\,\\omega^{\\hat t}\\wedge\\omega^{\\hat r},\\ \\mathcal{R}^{\\hat t\\hat\\theta}=\\bar E\\,\\omega^{\\hat t}\\wedge\\omega^{\\hat\\theta},\\ \\mathcal{R}^{\\hat t\\hat\\phi}=\\bar E\\,\\omega^{\\hat t}\\wedge\\omega^{\\hat\\phi},\\ \\mathcal{R}^{\\hat\\theta\\hat\\phi}=F\\,\\omega^{\\hat\\theta}\\wedge\\omega^{\\hat\\phi},\\ \\mathcal{R}^{\\hat\\phi\\hat r}=\\bar F\\,\\omega^{\\hat\\phi}\\wedge\\omega^{\\hat r},\\ \\mathcal{R}^{\\hat r\\hat\\theta}=\\bar F\\,\\omega^{\\hat r}\\wedge\\omega^{\\hat\\theta};\\ E=-e^{-2\\Lambda}(\\Phi''+\\Phi'^2-\\Phi'\\Lambda'),\\ \\bar E=-\\frac1r e^{-2\\Lambda}\\Phi',\\ F=\\frac1{r^2}(1-e^{-2\\Lambda}),\\ \\bar F=\\frac1r e^{-2\\Lambda}\\Lambda'",
+      "meaning": "All curvature of a static spherical star in four functions; for Schwarzschild E = F = 2M/r^3 and Ē = F̄ = -M/r^3 (our check).",
+      "symbols": "E, Ē, F, F̄ sectional curvatures",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.89)",
+      "name": null,
+      "latex": "R^{\\hat t\\hat r}{}_{\\hat t\\hat r}=E,\\ R^{\\hat t\\hat\\theta}{}_{\\hat t\\hat\\theta}=R^{\\hat t\\hat\\phi}{}_{\\hat t\\hat\\phi}=\\bar E,\\ R^{\\hat\\theta\\hat\\phi}{}_{\\hat\\theta\\hat\\phi}=F,\\ R^{\\hat\\phi\\hat r}{}_{\\hat r\\hat\\phi}=-\\bar F,\\ R^{\\hat r\\hat\\theta}{}_{\\hat r\\hat\\theta}=\\bar F",
+      "meaning": "Riemann components; the minus sign arises from reordering indices to respect |αβ| (margin note 19).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": null,
+      "name": "Einstein components from Riemann sums (margin note 20)",
+      "latex": "G^0{}_0 = -(R^{12}{}_{12}+R^{23}{}_{23}+R^{31}{}_{31}),\\ G^1{}_1 = -(R^{02}{}_{02}+R^{03}{}_{03}+R^{23}{}_{23}),\\ G^0{}_1 = R^{02}{}_{12}+R^{03}{}_{13},\\ G^1{}_2 = R^{10}{}_{20}+R^{13}{}_{23}",
+      "meaning": "Shortcut from Chapter 21: Einstein components as sums of orthonormal Riemann components; others by cyclic permutation.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.90)",
+      "name": "Einstein tensor of static spherical symmetry",
+      "latex": "G^{\\hat t}{}_{\\hat t} = -G_{\\hat t\\hat t} = -(F+2\\bar F),\\quad G^{\\hat r}{}_{\\hat r} = G_{\\hat r\\hat r} = -(F+2\\bar E),\\quad G^{\\hat\\theta}{}_{\\hat\\theta} = G^{\\hat\\phi}{}_{\\hat\\phi} = -(E+\\bar E+\\bar F)",
+      "meaning": "Einstein components feeding the stellar structure equations; G_t̂t̂ = F + 2F̄ = r^{-2} d[r(1 - e^{-2Λ})]/dr (our rewriting).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "label": "(36.99)-(36.102)",
+      "name": "Time-dependent spherical metric (Exercise 36.8)",
+      "latex": "ds^2 = -e^{2\\Phi}dT^2+e^{2\\Lambda}dR^2+r^2 d\\Omega^2;\\ \\omega^{\\hat R}{}_{\\hat T} = \\Phi' e^\\Phi e^{-\\Lambda}dT+\\dot\\Lambda e^\\Lambda e^{-\\Phi}dR;\\ E = e^{-2\\Phi}(\\ddot\\Lambda+\\dot\\Lambda^2-\\dot\\Lambda\\dot\\Phi)-e^{-2\\Lambda}(\\Phi''+\\Phi'^2-\\Phi'\\Lambda'),\\ \\bar E=\\frac1r e^{-2\\Phi}(\\ddot r-\\dot r\\dot\\Phi)-\\frac1r e^{-2\\Lambda}r'\\Phi',\\ H=\\frac1r e^{-\\Phi}e^{-\\Lambda}(\\dot r'-\\dot r\\Phi'-r'\\dot\\Lambda),\\ F=\\frac1{r^2}(1-r'^2e^{-2\\Lambda}+\\dot r^2e^{-2\\Phi}),\\ \\bar F=\\frac1r e^{-2\\Phi}\\dot r\\dot\\Lambda+\\frac1r e^{-2\\Lambda}(r'\\Lambda'-r'')",
+      "meaning": "Generalization used for stellar pulsation and collapse; reduces to 36.88 when nothing depends on T and r = R (H = 0).",
+      "symbols": "prime d/dR, dot d/dT; Φ, Λ, r functions of (R, T)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 402,
+        "printed_page": 385,
+        "section": null
+      }
+    }
+  ],
+  "figures": [
+    {
+      "label": "Fig. 36.1",
+      "image_path": "gifted-amateur/pages/page-397/img-278.jpeg",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.4"
+      },
+      "caption_paraphrase": "Flowchart of the stages in Cartan's procedure that turns a metric into Riemann tensor components.",
+      "visual_description": "A tall, narrow margin flowchart of six rectangular boxes stacked vertically and linked by five thin downward arrows. From top to bottom the boxes contain: bold g (the metric); d ω^μ̂ (exterior derivatives of the orthonormal basis 1-forms); ω^μ̂_ν̂ (connection 1-forms); d ω^μ̂_ν̂ (their exterior derivatives); script R^μ̂_ν̂ (curvature 2-forms); R^μ̂_{ν̂α̂β̂} (Riemann components). No axes, colours or annotations; it sits beside the diagonal-metric coframe derivation on printed p.380.",
+      "what_it_teaches": "Cartan's method is a linear pipeline in which each stage needs only exterior differentiation or algebraic read-off; the coframe is implicit between g and dω^μ̂, and no Christoffel symbols appear anywhere.",
+      "figure_type": "schematic",
+      "concepts": [
+        "Cartan's method for curvature",
+        "orthonormal basis 1-forms",
+        "connection 1-forms",
+        "curvature 2-form",
+        "Riemann curvature tensor"
+      ],
+      "redesign": {
+        "idea": "A 'Cartan pipeline' workbench: a six-node flow whose nodes light up in turn as a chosen metric is processed, paired with a 3D moving-frame view. For surfaces (plane in polar coordinates, sphere, torus, paraboloid, Poincaré half-plane) the 3D panel shows the orthonormal frame arrows riding along a curve and visibly turning at the rate given by the connection form; the final node colours the surface by Gaussian curvature. For spacetimes (flat FRW with a draggable a(t) curve, static star with editable Φ(r), Λ(r)) the panel instead plots the E, Ē, F, F̄ or ä/a, (ȧ/a)^2 curves.",
+        "interaction": "Pick or type a diagonal metric; click through nodes to reveal each symbolic step (with a 'check this structure equation' button that substitutes the guessed forms back in); drag a probe point on the surface to watch ω(e_α) as a rotation rate and the curvature value update; toggle orthonormal versus coordinate components to see sin^2 θ versus 1/a^2 while R stays 2/a^2; inject a deliberate sign error to see which structure equation fails.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    }
+  ],
+  "worked_examples": [
+    {
+      "label": "Example 36.1",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      },
+      "problem": "Confirm that writing connection forms as ω^ν_μ = Γ^ν_{λμ} ω^λ is consistent with the definition ∇_α e_μ = Γ^ν_{αμ} e_ν.",
+      "method": "Substitute the proposed expansion into ⟨ω^ν_μ ⊗ e_ν, e_α⟩, insert e_α into the 1-form slot, and use the duality ω^λ(e_α) = δ^λ_α.",
+      "key_insight": "Connection coefficients are simply the components of the connection 1-forms in the dual basis; nothing new is hidden in the forms.",
+      "result": "The contraction returns Γ^ν_{αμ} e_ν, matching the starting expression.",
+      "concepts": [
+        "connection 1-forms",
+        "connection coefficients"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 36.2",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      },
+      "problem": "Show that the curvature 2-form dω + ω∧ω carries the same information as the Riemann tensor defined earlier via connection coefficients.",
+      "method": "Write ω^μ_ν = Γ^μ_{σν} ω^σ, take d (in a coordinate basis so only Γ is differentiated), expand wedges as antisymmetrized tensor products, and feed in e_α, e_β using Kronecker deltas; repeat for the ω∧ω term and add.",
+      "key_insight": "The derivative term produces the ∂Γ - ∂Γ part and the wedge term the ΓΓ - ΓΓ commutator part of the Riemann formula, so expanding the 2-form in ordered wedge products reads off R^μ_{ναβ}.",
+      "result": "R^μ_ν(e_α, e_β) = (1/2) R^μ_{ναβ} with the example's wedge normalization, hence R^μ_ν = R^μ_{ν|αβ|} ω^α ∧ ω^β (36.20). Printed 36.17 lacks parentheses and 36.18 drops a 1/2.",
+      "concepts": [
+        "curvature 2-form",
+        "Riemann components in terms of connection coefficients",
+        "wedge product",
+        "ordered index sum notation |αβ|"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      },
+      "problem": "Derive a forms expression for curvature by differentiating a vector field v = v^μ e_μ twice (eqns 36.8-36.14).",
+      "method": "Use dv = e_μ ⊗ (dv^μ + ω^μ_ν v^ν), apply the Leibniz rule again with de_μ = ω^ν_μ ⊗ e_ν, note the cancellation of the ω∧dv terms and d^2 v^μ = 0.",
+      "key_insight": "Everything involving derivatives of the components cancels, so d^2 v depends on v only pointwise, the defining property of a tensor, and that tensor is the curvature.",
+      "result": "d^2 v = e_μ ⊗ (dω^μ_ν + ω^μ_α ∧ ω^α_ν) v^ν = R(v).",
+      "concepts": [
+        "curvature as the second exterior covariant derivative",
+        "curvature 2-form",
+        "graded Leibniz rule for the exterior derivative",
+        "nilpotency of the exterior derivative"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      },
+      "problem": "Derive the two rules that fix the connection forms from the metric (eqns 36.23-36.32).",
+      "method": "For rule 1, write dP = e_μ ⊗ ω^μ, differentiate with the product rule, substitute de_μ, and set d^2 P = 0. For rule 2, apply the product rule to g_{μν} = e_μ · e_ν, substitute de = ω ⊗ e, and lower indices.",
+      "key_insight": "Both constraints are consequences of the Leibniz rule; one encodes zero torsion and the other metric compatibility, and in an orthonormal frame the second collapses to antisymmetry.",
+      "result": "dω^μ + ω^μ_ν ∧ ω^ν = 0 and dg_{μν} = ω_{μν} + ω_{νμ}, giving ω_{μ̂ν̂} = -ω_{ν̂μ̂} in orthonormal frames.",
+      "concepts": [
+        "displacement of a point as identity tensor",
+        "Cartan's first structure equation",
+        "metric compatibility of connection 1-forms"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      },
+      "problem": "Find the orthonormal coframe, dual basis vectors and vielbeins for a general diagonal (3+1) metric in spherical polars (eqns 36.37-36.41).",
+      "method": "Match g_tt dt^2 + g_rr dr^2 + ... to -(ω^t̂)^2 + (ω^r̂)^2 + ... and take square roots; invert for the vectors.",
+      "key_insight": "For diagonal metrics Step I is immediate and the vielbein matrices are diagonal, so conversions between frames are single multiplicative factors.",
+      "result": "ω^t̂ = sqrt(-g_tt) dt, ω^r̂ = sqrt(g_rr) dr, ω^θ̂ = sqrt(g_θθ) dθ, ω^φ̂ = sqrt(g_φφ) dφ, with reciprocal factors on the basis vectors.",
+      "concepts": [
+        "orthonormal frame for a diagonal metric",
+        "vielbein",
+        "orthonormal basis 1-forms"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 36.3",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      },
+      "problem": "Use Cartan's method to verify that the plane, written in polar coordinates ds^2 = dr^2 + r^2 dθ^2, has zero curvature.",
+      "method": "Coframe ω^r̂ = dr, ω^θ̂ = r dθ; compute dω^r̂ = 0 and dω^θ̂ = dr ∧ dθ; match to -ω^θ̂_r̂ ∧ ω^r̂ to find ω^θ̂_r̂ = dθ; differentiate and check wedge products.",
+      "key_insight": "A non-zero connection form (the polar frame rotates as θ changes) does not imply curvature; curvature needs dω + ω∧ω ≠ 0.",
+      "result": "dω^θ̂_r̂ = d(dθ) = 0 and the ω∧ω terms vanish, so every curvature 2-form is zero.",
+      "concepts": [
+        "Cartan's method for curvature",
+        "connection 1-forms",
+        "nilpotency of the exterior derivative"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 36.4",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      },
+      "problem": "Compute the Riemann, Ricci and scalar curvature of a sphere of radius a, ds^2 = a^2 dθ^2 + a^2 sin^2 θ dφ^2, in orthonormal and coordinate frames.",
+      "method": "Coframe ω^θ̂ = a dθ, ω^φ̂ = a sin θ dφ; dω^φ̂ gives ω^φ̂_θ̂ = cos θ dφ, antisymmetry gives ω^θ̂_φ̂ = -cos θ dφ; differentiate to get R^θ̂_φ̂; read off with |αβ| ordering; use Riemann symmetries for the partner component; convert with margin vielbeins; contract.",
+      "key_insight": "In two dimensions one curvature 2-form carries all the curvature, and its coefficient is the Gaussian curvature; coordinate components look different (sin^2 θ, 1) but the scalar R agrees.",
+      "result": "R^θ̂_φ̂ = (1/a^2) ω^θ̂ ∧ ω^φ̂; R^θ̂_{φ̂θ̂φ̂} = R^φ̂_{θ̂φ̂θ̂} = 1/a^2; R^θ_{φθφ} = sin^2 θ, R^φ_{θφθ} = 1; R_{θ̂θ̂} = R_{φ̂φ̂} = 1/a^2; R = 2/a^2. Side result: Γ^θ̂_{φ̂φ̂} = -cot θ / a, Γ^φ̂_{φ̂θ̂} = cot θ / a.",
+      "concepts": [
+        "curvature of the 2-sphere",
+        "vielbein transformation of tensor components",
+        "symmetries of the Riemann tensor",
+        "Ricci scalar"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 36.5",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      },
+      "problem": "Find the curvature of the spatially flat expanding universe ds^2 = -dt^2 + a(t)^2(dx^2 + dy^2 + dz^2): Riemann, Ricci, Ricci scalar and Einstein components in the orthonormal frame.",
+      "method": "Coframe ω^t̂ = dt, ω^k̂ = a dx^k; dω^t̂ = 0 suggests ω^t̂_k̂ ∝ ω^k̂; dω^k̂ = (ȧ/a) ω^t̂ ∧ ω^k̂ fixes ω^k̂_t̂ = (ȧ/a) ω^k̂ and ω^k̂_l̂ = 0; use the time-index sign rule; build R^t̂_k̂ from dω and R^k̂_l̂ from ω∧ω; sum components for Ricci with summation suspended; form G.",
+      "key_insight": "Even with flat spatial slices the spacetime is curved: time-space curvature comes from the acceleration ä/a and space-space curvature arises solely from the product of boost connection forms, (ȧ/a)^2.",
+      "result": "R^t̂_{k̂t̂k̂} = ä/a, R^k̂_{l̂k̂l̂} = (ȧ/a)^2; R_t̂t̂ = -3ä/a, R_îî = ä/a + 2(ȧ/a)^2, R = 6(ä/a + ȧ^2/a^2); correctly G_t̂t̂ = 3(ȧ/a)^2 and G_îî = -2ä/a - (ȧ/a)^2 (printed 36.81 contains typos). For a = e^{Ht} (true de Sitter) every sectional curvature equals H^2.",
+      "concepts": [
+        "spatially flat Robertson-Walker spacetime",
+        "Lorentzian sign rule for hatted time indices",
+        "Ricci tensor",
+        "Einstein tensor"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 36.6",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      },
+      "problem": "Compute the curvature 2-forms, Riemann components and Einstein tensor for the general static spherically symmetric metric with Φ(r) and Λ(r).",
+      "method": "Coframe e^Φ dt, e^Λ dr, r dθ, r sin θ dφ; state the four connection forms; differentiate them; assemble six curvature 2-forms keeping only surviving dω and ω∧ω terms; name coefficient functions; extract Riemann components respecting |αβ| ordering; get Einstein components from Chapter 21's sums of sectional curvatures.",
+      "key_insight": "Spherical symmetry leaves only four curvature functions (radial tidal E, transverse tidal Ē, angular F, radial-angular F̄), and Einstein components are simple sums of them, which is much lighter than the Christoffel route.",
+      "result": "E = -e^{-2Λ}(Φ'' + Φ'^2 - Φ'Λ'), Ē = -(1/r)e^{-2Λ}Φ', F = (1 - e^{-2Λ})/r^2, F̄ = (1/r)e^{-2Λ}Λ'; G^t̂_t̂ = -(F + 2F̄), G^r̂_r̂ = -(F + 2Ē), G^θ̂_θ̂ = G^φ̂_φ̂ = -(E + Ē + F̄). Printed 36.85 and the margin time vielbein contain errors (see gaps).",
+      "concepts": [
+        "general static spherically symmetric metric",
+        "Riemann tensor components for static spherical symmetry",
+        "Einstein tensor from sectional curvatures",
+        "curvature 2-form"
+      ],
+      "difficulty": "challenging"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "Connection form as a frame's rotation rate: ω^ν_μ(e_α) says how quickly basis vector e_μ tips toward e_ν as you step in direction e_α (margin note 3).",
+      "target_concept": "connection 1-forms",
+      "how_used": "Gives the abstract matrix of 1-forms a kinematic meaning, akin to an angular-velocity matrix for a rigid body whose 'time' is displacement; antisymmetry in orthonormal frames then matches the antisymmetry of an infinitesimal rotation.",
+      "limits": "In Lorentzian frames the time-space forms are boosts (hyperbolic rotations), and the rate depends on direction, so it is a rotation rate per unit displacement, not a single angular velocity.",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Walk a tripod of frame arrows along a latitude on a sphere; a dial shows ω^φ̂_θ̂(e_φ̂) = cot θ / a as the rate the arrows turn relative to parallel-transported ones."
+    },
+    {
+      "analogy": "Le repère mobile: a traveller carries a set of orthonormal axes and watches them appear to change as position changes; the French se repérer (finding one's bearings) fits navigation in curved space.",
+      "target_concept": "moving frame",
+      "how_used": "Recasts 'the orthonormal frame' as a field of frames whose point-to-point relation is the connection.",
+      "limits": "The apparent rotation depends on the arbitrary choice of frame field; only the curvature built from it is frame-independent (the polar plane rotates frames but has no curvature).",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.3"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Field-of-frames viewer: learner paints a frame field on a surface (e.g. aligned with coordinates or twisted) and sees connection forms change while the computed curvature stays the same."
+    },
+    {
+      "analogy": "A point's displacement dP is a 'proto-vector' that points nowhere until a direction is inserted, then becomes exactly that vector.",
+      "target_concept": "displacement of a point as identity tensor",
+      "how_used": "Motivates writing dP = e_μ ⊗ ω^μ (the identity map) and then applying d^2 P = 0 to get the first structure equation.",
+      "limits": "P is not literally a function with values in a vector space on a curved manifold; the argument is heuristic and relies on the formalism of vector-valued forms.",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.2"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Show dP as a small 'loaded arrow' icon at a point; dragging a direction vector into its slot produces an arrow identical to the input, making the identity map tangible."
+    },
+    {
+      "analogy": "Curvature has two ingredients: how the connection forms change from place to place (dω) and how they combine with each other (ω∧ω), which the authors call their tube-like structure.",
+      "target_concept": "curvature 2-form",
+      "how_used": "Explains why neither term alone suffices, previewing the flat-FRW case where space-space curvature is entirely from ω∧ω and the polar plane where both vanish despite non-zero ω.",
+      "limits": "'Tube-like structure' is vague; a sharper picture is the non-commutation of small rotations/boosts (a matrix commutator), exactly as in gauge-field strength F = dA + A∧A.",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      },
+      "effectiveness": "weak",
+      "app_idea": "Split-bar display of the two contributions to each curvature 2-form coefficient as a parameter (a, ȧ, ä, r) changes."
+    },
+    {
+      "analogy": "Cartan's method as a crank-handle machine: once the rules are in place you feed in the metric and turn the handle until Riemann components come out.",
+      "target_concept": "Cartan's method for curvature",
+      "how_used": "Reassures readers that the heavy derivation can be skipped and the recipe used mechanically.",
+      "limits": "Step II still requires judgment (pattern matching) and consistency checks; the machine can jam for non-diagonal metrics.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    },
+    {
+      "analogy": "The epigraph: Davy's praise of Paris galleries as the finest collection of frames he had seen, punning on reference frames.",
+      "target_concept": "moving frame",
+      "how_used": "Light-hearted hook for a chapter built on fields of frames.",
+      "limits": "Purely a pun; no conceptual content.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      },
+      "effectiveness": "weak",
+      "app_idea": null
+    },
+    {
+      "analogy": "The exterior derivative and the covariant derivative are the same operator when acting on vectors, so the forms rules about d can be borrowed for connections.",
+      "target_concept": "exterior covariant derivative of a vector field",
+      "how_used": "Lets the authors differentiate vectors twice with the familiar Leibniz and d^2 rules.",
+      "limits": "d^2 = 0 does not carry over to vectors; that breakdown is precisely where curvature lives.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": "36.1"
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "Since d^2 = 0, the second exterior derivative of a vector field must vanish too.",
+      "correction": "d^2 = 0 holds for functions and forms. dv is built with a tensor product of a vector and a 1-form, so d^2 v survives and equals the curvature acting on v.",
+      "why_tempting": "Learners have just absorbed d^2 = 0 as a universal rule in Chapter 33.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      },
+      "concepts": [
+        "curvature as the second exterior covariant derivative",
+        "nilpotency of the exterior derivative"
+      ]
+    },
+    {
+      "misconception": "Non-zero connection forms (or Christoffel symbols) mean the space is curved.",
+      "correction": "Connection forms reflect the chosen frame field; the polar plane has ω^θ̂_r̂ = dθ but zero curvature 2-form.",
+      "why_tempting": "Γ ≠ 0 looks like 'gravity' and the rotating polar frame looks like a geometric effect.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      },
+      "concepts": [
+        "connection 1-forms",
+        "curvature 2-form"
+      ]
+    },
+    {
+      "misconception": "You need connection coefficients before you can compute curvature.",
+      "correction": "Cartan's route goes from the coframe directly to connection forms and curvature 2-forms; Γ can be read off afterwards if wanted but is not required.",
+      "why_tempting": "Earlier chapters always computed Γ first.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      },
+      "concepts": [
+        "Cartan's method for curvature",
+        "connection coefficients"
+      ]
+    },
+    {
+      "misconception": "Connection coefficients are symmetric in their lower indices in every basis.",
+      "correction": "Symmetry holds in coordinate bases for a torsion-free connection; in non-coordinate (orthonormal) frames it fails, e.g. on the sphere Γ^φ̂_{φ̂θ̂} = cot θ / a but Γ^φ̂_{θ̂φ̂} = 0.",
+      "why_tempting": "Christoffel symbols were introduced as symmetric.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      },
+      "concepts": [
+        "asymmetry of connection coefficients in a non-coordinate basis"
+      ]
+    },
+    {
+      "misconception": "An orthonormal frame is the same as a local inertial frame, so its connection coefficients vanish.",
+      "correction": "Orthonormal frames have constant metric components η but generally non-zero connection coefficients; only a freely falling frame kills them at a point.",
+      "why_tempting": "Both frames have η as metric at a point.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.3"
+      },
+      "concepts": [
+        "orthonormal frame"
+      ]
+    },
+    {
+      "misconception": "Connection forms in an orthonormal frame always satisfy ω^μ̂_ν̂ = -ω^ν̂_μ̂.",
+      "correction": "Antisymmetry holds for both indices lowered. With a hatted time index, lowering flips sign, so ω^t̂_k̂ = +ω^k̂_t̂ while spatial forms obey ω^î_ĵ = -ω^ĵ_î.",
+      "why_tempting": "In Euclidean examples up and down indices are interchangeable.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      },
+      "concepts": [
+        "Lorentzian sign rule for hatted time indices",
+        "metric compatibility of connection 1-forms"
+      ]
+    },
+    {
+      "misconception": "Guessing connection forms is not rigorous; a different guess might give different curvature.",
+      "correction": "The torsion-free, metric-compatible connection is unique, so any set of antisymmetric forms that satisfies every first structure equation is the answer; the guess must simply be checked against all of them.",
+      "why_tempting": "The book openly calls the step guesswork without citing uniqueness.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.2"
+      },
+      "concepts": [
+        "Levi-Civita connection",
+        "Cartan's first structure equation"
+      ]
+    },
+    {
+      "misconception": "If space is flat, spacetime must be flat.",
+      "correction": "The spatially flat expanding universe has curvature components ä/a and (ȧ/a)^2 because the slices change with time.",
+      "why_tempting": "Euclidean spatial geometry of the flat FRW model suggests no curvature.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      },
+      "concepts": [
+        "spatially flat Robertson-Walker spacetime"
+      ]
+    },
+    {
+      "misconception": "Riemann components and the Ricci scalar differ between orthonormal and coordinate frames in the same way.",
+      "correction": "Components change by vielbein factors (1/a^2 versus sin^2 θ on the sphere), but the Ricci scalar is invariant.",
+      "why_tempting": "After seeing components change, learners expect all curvature numbers to be frame-dependent.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      },
+      "concepts": [
+        "Ricci scalar",
+        "vielbein transformation of tensor components"
+      ]
+    },
+    {
+      "misconception": "Once one structure equation gives a connection form, all curvature 2-forms come from dω alone.",
+      "correction": "Other components can arise purely from the ω∧ω term, e.g. R^k̂_l̂ in the expanding universe; the book explicitly warns not to forget them.",
+      "why_tempting": "In the sphere example the wedge term vanished.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      },
+      "concepts": [
+        "curvature 2-form",
+        "Cartan's second structure equation"
+      ]
+    },
+    {
+      "misconception": "The objects found in Step II are 'curvature 1-forms'.",
+      "correction": "They are connection 1-forms; curvature lives in the 2-forms built from them.",
+      "why_tempting": "The book's Idea 1 heading and chapter summary use the phrase 'curvature 1-forms'.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.2"
+      },
+      "concepts": [
+        "connection 1-forms",
+        "curvature 2-form"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Cartan's traveller with a moving frame",
+      "setup": "Imagine moving through a space while carrying an orthonormal set of axes that is re-erected at every point, and watch how the axes seem to turn as position changes.",
+      "lesson": "The change of the frame from point to point is the connection, recorded by the 1-forms ω^μ_ν; curvature is what remains when that change cannot be undone by re-choosing frames.",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.3"
+      },
+      "concepts": [
+        "moving frame",
+        "connection 1-forms"
+      ],
+      "visualizable": true,
+      "app_idea": "First-person walk on a sphere or saddle with an attached tripod; compare the carried frame with a parallel-transported one around a loop to reveal holonomy equal to the enclosed integral of the curvature 2-form."
+    },
+    {
+      "name": "A vector as the motion of a point",
+      "setup": "Treat the most primitive vector as the infinitesimal displacement dP of a point, an object waiting for a direction to be specified.",
+      "lesson": "dP must be the identity map e_μ ⊗ ω^μ, and because P is function-like, d^2 P = 0 constrains the connection (zero torsion).",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.2"
+      },
+      "concepts": [
+        "displacement of a point as identity tensor",
+        "Cartan's first structure equation"
+      ],
+      "visualizable": true,
+      "app_idea": "Tiny parallelogram built from two displacements; show that closing it (d^2 P = 0) forces the symmetric/torsion-free relation, and let learners add a torsion slider that opens the gap."
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "Élie Cartan"
+      ],
+      "year": null,
+      "event": "Credited with discovering that curvature is extracted efficiently from forms and with the idea of the moving frame (repère mobile).",
+      "significance": "Underpins the modern tetrad/vielbein formalism used for curvature computations, spinors in curved spacetime and gauge-theory analogies.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "Humphry Davy"
+      ],
+      "year": null,
+      "event": "Chapter epigraph: Davy (1778-1829), asked about the Paris art galleries, praised the frames rather than the paintings.",
+      "significance": "Humorous pun on frames that sets the theme of fields of reference frames.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "Charles Misner",
+        "Kip Thorne",
+        "John Archibald Wheeler"
+      ],
+      "year": "1973",
+      "event": "Their textbook Gravitation presents the Cartan curvature computation that this chapter follows closely.",
+      "significance": "Established the method as a standard GR technique; the authors point readers to it for more detail and for time-dependent stellar applications.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Curvature of an expanding universe and the Friedmann equations",
+      "kind": "astrophysical-system",
+      "details": "Example 36.5 yields the Einstein tensor for a spatially flat Robertson-Walker spacetime, whose components set equal to 8πT give the Friedmann equations of the cosmology part; Exercise 36.7 extends this to closed spatial slices (answer: R = 6(ä/a + ȧ^2/a^2 + 1/a^2), per GA Appendix E and our check). For exponential expansion a = e^{Ht} every sectional curvature equals H^2 and G_μ̂ν̂ = -3H^2 η_μ̂ν̂, i.e. a cosmological constant Λ = 3H^2 (our derivation).",
+      "key_numbers": "Our estimate: with H_0 ≈ 70 km/s/Mpc ≈ 2.3×10^-18 s^-1, the curvature scale H_0^2/c^2 is about 6×10^-53 m^-2, a radius of curvature near 1.3×10^26 m (the Hubble length).",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "topic": "Curvature of static stars and the Schwarzschild exterior",
+      "kind": "astrophysical-system",
+      "details": "Example 36.6 gives all Riemann and Einstein components of a static spherical star in terms of E, Ē, F, F̄. G_t̂t̂ = F + 2F̄ = r^{-2} d[r(1 - e^{-2Λ})]/dr feeds the mass function and TOV equation of Chapter 21. Setting e^{2Φ} = e^{-2Λ} = 1 - 2M/r gives E = F = 2M/r^3 and Ē = F̄ = -M/r^3 with all Einstein components zero (our check).",
+      "key_numbers": "Our estimate for Earth's surface: GM/(c^2 r^3) ≈ 1.7×10^-23 m^-2, so the radial tidal component 2GM/(c^2 r^3) ≈ 3.4×10^-23 m^-2 (equivalently 2GM/r^3 ≈ 3.1×10^-6 s^-2).",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "topic": "Stellar pulsation and gravitational collapse",
+      "kind": "astrophysical-system",
+      "details": "Exercise 36.8 sets up curvature 2-forms for a time-dependent spherical metric with functions Φ(R,T), Λ(R,T), r(R,T), with a new mixed function H; the authors point to MTW chapters 14, 26 and 32 for applications to pulsating stars and collapse.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 402,
+        "printed_page": 385,
+        "section": null
+      }
+    },
+    {
+      "topic": "Gaussian curvature of familiar surfaces",
+      "kind": "numerical-estimate",
+      "details": "Exercises apply the method to a surface of revolution, a paraboloid, a torus and the Poincaré half-plane. Results (GA Appendix E, confirmed by our own calculation): K = -r''/r for ds^2 = dσ^2 + r(σ)^2 dφ^2; K = a^2/(1 + a^2 r^2)^2 for the paraboloid; K = cos v/[a(c + a cos v)] for the torus (positive outside, negative inside); K = -1 for the half-plane.",
+      "key_numbers": "Sphere R = 2/a^2; paraboloid R = 2a^2 at the tip; half-plane R = -2.",
+      "locator": {
+        "pdf_page": 402,
+        "printed_page": 385,
+        "section": null
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Metric signature",
+      "convention": "(-,+,+,+); η_μ̂ν̂ = diag(-1,1,1,1) in orthonormal frames; Euclidean 2D examples use diag(1,1) so up and down indices coincide.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "item": "Hats on indices",
+      "convention": "A hatted index (A_μ̂) marks components in an orthonormal frame; unhatted indices are coordinate-frame components.",
+      "notes": "Margin note 1.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "item": "Connection 1-form index placement",
+      "convention": "de_μ = ω^ν_μ ⊗ e_ν: the lower index names the basis vector being differentiated, the upper index the direction it changes into; ω^ν_μ = Γ^ν_{λμ} ω^λ with the differentiation index first among Γ's lower indices (∇_α e_μ = Γ^ν_{αμ} e_ν).",
+      "notes": "MTW writes ω^ν_μ = Γ^ν_{μλ} ω^λ with the derivative index last; compare carefully when switching sources.",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      }
+    },
+    {
+      "item": "Lowered connection forms",
+      "convention": "ω_{μν} = g_{μσ} ω^σ_ν (first index lowered); in orthonormal frames ω_μ̂ν̂ = -ω_ν̂μ̂.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "item": "Bold d on vectors",
+      "convention": "Bold d acting on vector fields means the covariant derivative ∇, producing vector-valued forms.",
+      "notes": "Carried over from Chapter 34.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": "36.1"
+      }
+    },
+    {
+      "item": "Curvature 2-form and operator symbols",
+      "convention": "Script R^μ_ν for the curvature 2-forms, script R( ) for the operator; bold R or R^μ_{ναβ} for the Riemann tensor.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "item": "Restricted sum |αβ|",
+      "convention": "Vertical bars around indices mean sum over one ordering only (the order appearing in the wedge product), removing the factor 1/2.",
+      "notes": "Margin notes 6, 13, 19.",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.1"
+      }
+    },
+    {
+      "item": "Wedge normalization",
+      "convention": "Chapter 34 (eqn 34.38) evaluates dx^α ∧ dx^μ on vectors as dx^α ⊗ dx^μ - dx^μ ⊗ dx^α; Example 36.2 inserts an extra factor 1/2.",
+      "notes": "Forms-level identities (36.12, 36.20) are unaffected; only 'evaluate on two vectors' statements change by a factor 2.",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "item": "Riemann index order and sign",
+      "convention": "R^μ_{ναβ} = ∂_α Γ^μ_{βν} - ∂_β Γ^μ_{αν} + Γ^μ_{ασ} Γ^σ_{βν} - Γ^μ_{βσ} Γ^σ_{αν}; the last two indices are the plane of the 2-form; spheres have positive curvature.",
+      "notes": "Same as MTW.",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.1"
+      }
+    },
+    {
+      "item": "Squares of 1-forms",
+      "convention": "(ω^μ)^2 abbreviates ω^μ ⊗ ω^μ in line elements; dx^2 likewise.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      }
+    },
+    {
+      "item": "Vielbein notation",
+      "convention": "(e_α)^μ̂ converts coordinate to frame components and (e_μ̂)^α the reverse; listed in the margin of each example.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      }
+    },
+    {
+      "item": "Primes and dots",
+      "convention": "Primes are radial derivatives (d/dr or d/dR); dots are time derivatives (d/dt or d/dT).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "item": "Suspended summation",
+      "convention": "In the FRW example repeated indices in single components such as R^t̂_{k̂t̂k̂} are not summed; explicit Σ marks sums.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "Hats on indices remind the reader that orthonormal-frame components are in use.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "summary": "The orthonormal metric form follows from expanding g with vielbeins (eqn 36.1) and defining frame 1-forms from coordinate differentials.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "summary": "Boxed reading guide on the opening page, marked with a curved-arrow signpost: §§36.1-36.2 supply the derivations and may be skipped on a first pass by readers who want only the working method (the grey rules box and the start of §36.3); the treatment follows MTW, which is recommended for more.",
+      "type": "reference",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "summary": "ω^ν_μ evaluated on e_α encodes the rate at which e_μ turns toward e_ν along a curve with tangent e_α.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 392,
+        "printed_page": 375,
+        "section": "36.1"
+      }
+    },
+    {
+      "summary": "Why the double exterior derivative of a vector can be non-zero: the derivative of a vector is a tensor product of vector and 1-form rather than a wedge of two 1-forms, and this loophole is what exposes curvature.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "summary": "Unpacks R(v) component by component to show it matches e_μ ⊗ R^μ_ν v^ν.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "summary": "Explains the |αβ| restricted-sum notation and gives the bivector-valued curvature operator (1/4)(e_μ ∧ e_ν) R^{μν}_{αβ} (ω^α ∧ ω^β) (eqn 36.21).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.1"
+      }
+    },
+    {
+      "summary": "Checks that e_μ ⊗ ω^μ fed a vector v returns v (eqn 36.24).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "summary": "Rule 1 is also called Cartan's first structural equation; combined with ω = Γω it reproduces the Chapter 34 claim dω^μ = Γ ω∧ω, and is compared with de_μ and ∇ω^μ (eqns 36.26-36.28).",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "summary": "Wordplay aside: in French, se repérer is to get one's bearings, which is exactly the constant task in a curved space.",
+      "type": "humor-or-aside",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.3"
+      }
+    },
+    {
+      "summary": "The coframe construction upgrades Chapter 10's procedure for normalizing a diagonal metric.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.3"
+      }
+    },
+    {
+      "summary": "Frame connection coefficients can be read from ω^ν̂_μ̂ = Γ^ν̂_{λ̂μ̂} ω^λ̂, but they are not needed for curvature, do not transform as tensors, and lose lower-index symmetry in non-coordinate frames.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      }
+    },
+    {
+      "summary": "Warning: differentiate connection forms after rewriting them with coordinate differentials dx^μ rather than hatted forms; also, antisymmetry makes ω^θ̂_r̂ ∧ ω^r̂_θ̂ vanish in the polar example.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Sphere connection coefficients in the orthonormal frame: Γ^θ̂_{φ̂φ̂} = -cot θ / a and Γ^φ̂_{φ̂θ̂} = cot θ / a (eqn 36.55).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Margin panels beside Examples 36.3-36.6 list the orthonormal basis vectors and vielbein components for each metric (the Example 36.6 time entries are inverted in print).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Note 13: in the sphere example the bars in |αβ| fix the component order to match the wedge factors, here θ̂ then φ̂.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Note 14: rather than recompute, use Riemann index symmetries (lower all indices, swap both antisymmetric pairs, raise again, which costs nothing for spatial indices) to get R^φ̂_{θ̂φ̂θ̂} = 1/a^2 from R^θ̂_{φ̂θ̂φ̂} (eqns 36.62-36.64).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "The flat expanding model was called Universe 1 in Chapter 15.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Raising or lowering a time index in the orthonormal frame flips sign, so ω^k̂_t̂ = ω^t̂_k̂ (eqn 36.75).",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Relates R^k̂_{t̂k̂t̂} to -R^t̂_{k̂t̂k̂} using lowered indices and pair symmetry.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Note 18: the stellar curvature 2-forms are quoted with both indices up, using the Minkowski components to raise, because the work is in the orthonormal frame.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Note 19: reading components with R^{μ̂ν̂} = R^{μ̂ν̂}_{|α̂β̂|} ω^α̂∧ω^β̂ requires the wedge to appear in the barred order, so the φ̂r̂ 2-form must be rewritten with ω^r̂∧ω^φ̂ first, which is where the component -F̄ comes from.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Einstein components are quickest from Chapter 21's rule expressing G^0_0, G^1_1, G^0_1, G^1_2 as sums of orthonormal Riemann components, with the rest by cyclic permutation.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "summary": "Exercise 36.8 points to MTW chapters 14, 26 and 32 for the time-dependent spherical metric in stellar pulsation and gravitational collapse.",
+      "type": "reference",
+      "locator": {
+        "pdf_page": 402,
+        "printed_page": 385,
+        "section": null
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 8,
+    "pdf_pages": [
+      402
+    ],
+    "skills_practiced": [
+      "index gymnastics with η in orthonormal frames (time versus space signs)",
+      "reading orthonormal-frame connection coefficients off connection forms",
+      "identifying orthonormal coframes for diagonal 2D and 4D metrics",
+      "solving the first structure equation by inspection",
+      "building curvature 2-forms and extracting Riemann components with |αβ| ordering",
+      "contracting to Ricci tensor, Ricci scalar and Einstein tensor",
+      "handling time-dependent metric functions with mixed derivatives"
+    ],
+    "notable": [
+      {
+        "number": "36.1",
+        "summary": "Prove the two orthonormal-frame index relations: time-space connection forms are symmetric under swapping index positions, spatial ones antisymmetric.",
+        "skills": [
+          "compatibility condition",
+          "raising and lowering with η"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Isolates the sign trap that bites in every Lorentzian example.",
+        "pdf_page": 402
+      },
+      {
+        "number": "36.3",
+        "summary": "For a general surface of revolution written with arclength σ and radius function r(σ), find the single curvature 2-form.",
+        "skills": [
+          "coframe",
+          "structure equation by inspection"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Yields the compact result K = -r''/r (Appendix E), which unifies sphere, cylinder, cone and catenoid in one formula.",
+        "pdf_page": 402
+      },
+      {
+        "number": "36.4",
+        "summary": "Compute Riemann, Ricci and scalar curvature for a paraboloid-shaped surface with metric (1 + a^2 r^2) dr^2 + r^2 dθ^2.",
+        "skills": [
+          "non-trivial radial function",
+          "Ricci contraction"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Curvature is maximal at the tip (R = 2a^2) and decays outward, a good visual test.",
+        "pdf_page": 402
+      },
+      {
+        "number": "36.5",
+        "summary": "Compute the curvature of the torus metric (c + a cos v)^2 du^2 + a^2 dv^2.",
+        "skills": [
+          "coframe with angle-dependent factor",
+          "sign of curvature"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Curvature changes sign between outer and inner equators, K = cos v/[a(c + a cos v)], showing positive and negative regions on one surface.",
+        "pdf_page": 402
+      },
+      {
+        "number": "36.6",
+        "summary": "Compute the curvature of the Poincaré half-plane (dx^2 + dr^2)/r^2.",
+        "skills": [
+          "conformally flat metric",
+          "negative curvature"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Constant negative curvature (R = -2), the standard model of hyperbolic geometry.",
+        "pdf_page": 402
+      },
+      {
+        "number": "36.7",
+        "summary": "For the closed Robertson-Walker universe with hyperspherical coordinate χ, find curvature 2-forms, the Ricci scalar and orthonormal Einstein components.",
+        "skills": [
+          "four-dimensional Cartan computation",
+          "several connection forms at once"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Reproduces the k = +1 Friedmann equations' geometric side; spatial curvature adds 1/a^2 to the (ȧ/a)^2 terms.",
+        "pdf_page": 402
+      },
+      {
+        "number": "36.8",
+        "summary": "For a spherically symmetric star whose metric functions depend on both R and T, verify a given boost connection form and the six curvature 2-forms with coefficient functions E, Ē, H, F, F̄.",
+        "skills": [
+          "mixed time and radial derivatives",
+          "combining two structure equations to guess one form"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "The general dynamical spherical metric behind pulsation and collapse; reduces to Example 36.6 in the static limit.",
+        "pdf_page": 402
+      }
+    ],
+    "solutions": "Worked answers to all eight exercises appear in GA Appendix E (Answers to selected problems, printed pp.604-606); 36.2 refers back to Exercise 10.2."
+  },
+  "difficulty": {
+    "math_level": 4,
+    "conceptual_level": 4,
+    "novice_friendliness": 2,
+    "notes": "The recipe in §36.4 is accessible once exterior derivatives are routine, but §§36.1-36.2 lean hard on Chapter 34's vector-valued forms, the heuristic dP argument and dense index manipulation, which the authors themselves flag as skippable. Novices meet several traps: time-index signs in Lorentzian frames, the |αβ| ordering, and an unstated uniqueness theorem behind 'guesswork'. Printed slips (36.17-36.18 factors, 'curvature 1-forms', de Sitter label, Einstein components in 36.81, index and Λ' errors in 36.85, inverted time vielbein in the Example 36.6 margin) plus OCR damage in the reading copy raise the risk of confusion."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "GA ch33 §33.1",
+      "reason": "Exterior derivative, wedge product, graded Leibniz rule and d^2 = 0 used in every step.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": "36.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch34 §34.2",
+      "reason": "Connection and d acting on vectors as ∇; vector-valued 1-forms; claim dω^ν = Γ ω∧ω (34.31) confirmed in margin note 8; wedge evaluation convention of eqn 34.38.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": "36.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch34 §34.4",
+      "reason": "Metric compatibility ∇g = 0, shown equivalent to rule 2.",
+      "locator": {
+        "pdf_page": 395,
+        "printed_page": 378,
+        "section": "36.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch35 §35.2",
+      "reason": "Curvature operator [∇_a, ∇_b] - ∇_[a,b] and Riemann components from Γ, recovered in Example 36.2.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": "36.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch10 §10.3",
+      "reason": "Orthonormal frames, vielbeins and normalization of a diagonal metric, which §36.3 upgrades.",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.3"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch11",
+      "reason": "Brute-force curvature of the plane and sphere (R = 2/a^2) that Examples 36.3-36.4 redo with forms.",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch15 §15.5",
+      "reason": "Universe 1 (flat and expanding), identified with the Example 36.5 metric.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch18 §18.1",
+      "reason": "Spatially flat expanding universes, cited as the source of the Example 36.5 model.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch19 §19.2",
+      "reason": "The de Sitter spacetime proper (exponential scale factor), the special case of Example 36.5's metric.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch21 §21.2",
+      "reason": "Riemann and Einstein components of the general static spherical metric and the sum rules for G quoted in margin note 20.",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch17",
+      "reason": "Friedmann equations whose geometric sides are the Einstein components of Examples 36.5 and Exercise 36.7.",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch37",
+      "reason": "Next chapter continues the geometric toolkit with Hodge duality and volume forms.",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch38 Exercise 38.4",
+      "reason": "Uses this chapter's orthonormal-frame sphere connection coefficients in the geodesic equation.",
+      "locator": null
+    },
+    {
+      "direction": "external",
+      "target": "Misner, Thorne & Wheeler, Gravitation (1973), ch. 14",
+      "reason": "The authors follow MTW's presentation of Cartan's curvature calculation closely and recommend it for further discussion.",
+      "locator": {
+        "pdf_page": 391,
+        "printed_page": 374,
+        "section": null
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Misner, Thorne & Wheeler, Gravitation, chs. 14, 26, 32",
+      "reason": "Time-dependent spherical metric of Exercise 36.8 applied to stellar pulsation and gravitational collapse.",
+      "locator": {
+        "pdf_page": 402,
+        "printed_page": 385,
+        "section": null
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch49 Exercise 49.7",
+      "reason": "The cosmic-string exercise's Appendix E answer reuses the Example 36.4 sphere computation (R = 2/r_0^2) to solve the Einstein equation.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "Differentiate a vector twice and watch everything that depends on derivatives of its components cancel: what survives is linear in v at a point, hence a tensor, hence curvature.",
+      "why_effective": "It explains why curvature is tensorial and why it is built from dω + ω∧ω in one short calculation, and it turns the surprise 'd^2 ≠ 0 for vectors' into the punchline.",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      },
+      "app_idea": "Animated term-by-term expansion of d^2 v where matching terms fly together and annihilate, leaving the two curvature terms highlighted; a toggle shows the same cancellation for a function, where nothing survives."
+    },
+    {
+      "gem": "Treat a point's displacement dP = e_μ ⊗ ω^μ as the identity map and let d^2 P = 0 produce the torsion-free structure equation.",
+      "why_effective": "Derives a key constraint from a single intuitive fact (closing an infinitesimal parallelogram) rather than from Christoffel algebra.",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.2"
+      },
+      "app_idea": "Parallelogram-closure demo: two small displacements composed in either order; with the correct connection forms the figure closes, with a perturbed (torsionful) choice a gap appears whose size equals dω + ω∧ω applied to the pair."
+    },
+    {
+      "gem": "Read connection forms off by inspection: write dω^μ̂ in terms of hatted wedges, match to -ω^μ̂_ν̂ ∧ ω^ν̂, then get partners free from antisymmetry.",
+      "why_effective": "Transforms a dreaded computation into pattern recognition with a built-in consistency check, making curvature of real metrics feasible by hand.",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.4"
+      },
+      "app_idea": "Matching puzzle: the app shows dω^μ̂ for a metric and a palette of candidate connection forms; the learner drags candidates into slots and every structure equation turns green only when all are satisfied."
+    },
+    {
+      "gem": "Run a flat control first: the polar plane has a non-zero connection form yet zero curvature.",
+      "why_effective": "Separates frame rotation (connection) from genuine geometry (curvature) before any curved example, blocking a common misconception.",
+      "locator": {
+        "pdf_page": 398,
+        "printed_page": 381,
+        "section": "36.4"
+      },
+      "app_idea": "Side-by-side plane and sphere with polar/latitude frames drawn; both show rotating frames, but only the sphere's loop-transport holonomy is non-zero, displayed as a live angle."
+    },
+    {
+      "gem": "Keep a margin panel of basis vectors and vielbeins beside each example so orthonormal and coordinate components can be compared (1/a^2 versus sin^2 θ) while the scalar R agrees.",
+      "why_effective": "Makes frame dependence of components visible and reinforces invariance of scalars.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      },
+      "app_idea": "Component inspector: hover any Riemann component to toggle between orthonormal and coordinate values with the vielbein factors multiplying in, alongside a fixed R readout."
+    },
+    {
+      "gem": "In the flat expanding universe, space-space curvature (ȧ/a)^2 comes entirely from ω∧ω even though the slices are flat.",
+      "why_effective": "A concrete, physical case where the quadratic term is the whole story, and a memorable answer to 'flat space but curved spacetime'.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      },
+      "app_idea": "Scale-factor sandbox: drag a(t) (linear, power law, exponential, decelerating); plots of ä/a and (ȧ/a)^2 update with the Einstein components and inferred density and pressure."
+    },
+    {
+      "gem": "Get Einstein components as minus sums of orthonormal sectional curvatures (Chapter 21 rule) instead of forming Ricci first.",
+      "why_effective": "Short, geometric and fast; makes G_t̂t̂ read as the total spatial curvature felt by a static observer.",
+      "locator": {
+        "pdf_page": 401,
+        "printed_page": 384,
+        "section": "36.4"
+      },
+      "app_idea": "Star builder: edit Φ(r) and Λ(r) (or a density profile); bars for E, Ē, F, F̄ and the resulting G components update, and a Schwarzschild preset shows G collapse to zero."
+    },
+    {
+      "gem": "Condense the whole method into a six-box flowchart (Fig. 36.1) plus three boxed 'Ideas'.",
+      "why_effective": "Gives a retrievable mental checklist that learners can follow on any diagonal metric.",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.4"
+      },
+      "app_idea": "Checklist overlay in the pipeline workbench that ticks off each stage and flags skipped consistency checks."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "Printed eqn 36.81 gives G_t̂t̂ = 3(ä/a)^2 and G_îî = -2ä/a - ȧ/a; the correct values from 36.78-36.80 are 3(ȧ/a)^2 and -2ä/a - (ȧ/a)^2.",
+      "impact_on_learner": "Learners checking against the Friedmann equations will think their own correct result is wrong, or will propagate dimensionally inconsistent expressions.",
+      "suggestion": "Show the substitution G = Ric - (1/2)ηR explicitly and check dimensions (every term must scale as 1/time^2).",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "issue": "Example 36.5 is labelled 'de Sitter' but keeps a(t) arbitrary; it is the general spatially flat Robertson-Walker metric, which is de Sitter only for a ∝ e^{Ht}. The text also cites both Chapter 18 and 'Universe 1 in Chapter 15'.",
+      "impact_on_learner": "Confuses de Sitter spacetime with any flat FRW model and obscures the special maximally symmetric case.",
+      "suggestion": "Call it flat FRW, then specialize to a = e^{Ht} to show all sectional curvatures equal H^2 and G = -3H^2 η.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "issue": "In eqn 36.85 the first line ends with ω^t̂ ∧ ω^θ̂ (should be ω^t̂ ∧ ω^r̂), and the third line lumps two different 2-forms under ω^φ̂ ∧ ω^θ̂ and writes Λ for Λ'; the correct form is -(e^{-Λ} cos θ)/(r^2 sin θ) ω^φ̂∧ω^θ̂ + (Λ' e^{-2Λ}/r) ω^φ̂∧ω^r̂.",
+      "impact_on_learner": "The final curvature 2-forms (36.87) are right, so learners following line by line cannot reconcile the intermediate step.",
+      "suggestion": "Present corrected intermediate derivatives, and teach the habit of computing dω in coordinate differentials before converting to hatted wedges.",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "issue": "Margin vielbeins for Example 36.6 invert the time entries: printed e_t̂ = (1/e^{-Φ}) ∂_t, (e_t)^t̂ = e^{-φ}, (e_t̂)^t = e^Φ; correct are e_t̂ = e^{-Φ} ∂_t, (e_t)^t̂ = e^Φ, (e_t̂)^t = e^{-Φ}.",
+      "impact_on_learner": "Any conversion of time components to coordinates picks up wrong exponential factors.",
+      "suggestion": "Derive vielbeins from ω^t̂ = e^Φ dt each time rather than copying tables; verify e_t̂ · e_t̂ = -1.",
+      "locator": {
+        "pdf_page": 400,
+        "printed_page": 383,
+        "section": "36.4"
+      }
+    },
+    {
+      "issue": "Example 36.2 evaluates wedges with an extra factor 1/2, unlike GA's own eqn 34.38; printed 36.17 also lacks parentheses around the derivative difference and the final line of 36.18 drops the 1/2.",
+      "impact_on_learner": "Learners comparing R^μ_ν(e_α, e_β) with Chapter 34 or MTW will find factor-of-2 mismatches and suspect the curvature formula itself.",
+      "suggestion": "State one wedge convention, note that 36.12 and 36.20 are convention-independent as form identities, and restore the parentheses and factor.",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "issue": "Idea 1's heading and the chapter summary say 'curvature 1-forms' for what are connection 1-forms; eqn 36.13's operator is called a (2,2) object although, as written, it has one vector and three covector slots.",
+      "impact_on_learner": "Blurs the crucial distinction between connection (1-forms) and curvature (2-forms), and muddles tensor-type bookkeeping.",
+      "suggestion": "Use 'connection 1-forms' consistently; explain that the (2,2) count applies to the bivector-valued form of eqn 36.21 while R^μ_{ναβ} is (1,3).",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.2"
+      }
+    },
+    {
+      "issue": "The 'guesswork' step is not justified by the uniqueness of the torsion-free metric-compatible connection, and the examples do not always show checking the remaining structure equations (e.g. dω^r̂ = 0 in the polar plane).",
+      "impact_on_learner": "Learners either distrust the method or accept a guess that satisfies only one equation.",
+      "suggestion": "State the uniqueness theorem and require verifying every dω^μ̂ equation with the full antisymmetric set before moving on.",
+      "locator": {
+        "pdf_page": 396,
+        "printed_page": 379,
+        "section": "36.2"
+      }
+    },
+    {
+      "issue": "The dP argument treats a point of a manifold as if it had vector-valued differentials, and §36.1 depends on Chapter 34's identification of d with ∇ on vectors; both are heuristic and terse.",
+      "impact_on_learner": "Readers without firm Chapter 34 background may lose the logic and conclude the rules are arbitrary.",
+      "suggestion": "Offer the alternative derivation: in a coordinate basis rule 1 is exactly Γ^μ_{[αβ]} = 0 and rule 2 is ∇g = 0; follow the authors' advice to learn the recipe first.",
+      "locator": {
+        "pdf_page": 394,
+        "printed_page": 377,
+        "section": "36.2"
+      }
+    },
+    {
+      "issue": "Eqn 36.16 drops the term Γ dω^σ, valid only when ω^σ = dx^σ; this restriction is not stated, while the rest of the chapter works in non-coordinate frames.",
+      "impact_on_learner": "Learners may try to apply 36.16-36.19 directly with orthonormal-frame Γ and get wrong curvature.",
+      "suggestion": "Flag Example 36.2 as a coordinate-basis check; in frames use dω + ω∧ω directly.",
+      "locator": {
+        "pdf_page": 393,
+        "printed_page": 376,
+        "section": "36.1"
+      }
+    },
+    {
+      "issue": "Sign conventions for hatted time indices and the |αβ| ordering are spread across margin notes 13, 16, 17 and 19 rather than stated once.",
+      "impact_on_learner": "Sign errors in Lorentzian examples, e.g. a wrong sign on R^{φ̂r̂}_{r̂φ̂} or on ω^t̂_k̂.",
+      "suggestion": "Give a one-line rule: lower all indices, apply antisymmetry, raise again with η; and always write the wedge in the order used to read components.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "issue": "Step I's template uses χ̂ (from the opening's hyperspherical example) while §36.3 and the recipe's surroundings use r̂; the conversion in 36.66 shows only the two vielbein factors that do not cancel.",
+      "impact_on_learner": "Minor confusion about which coordinates are meant and how the coordinate component 1 arises.",
+      "suggestion": "Write all four vielbein factors in 36.66 and use consistent coordinate labels.",
+      "locator": {
+        "pdf_page": 399,
+        "printed_page": 382,
+        "section": "36.4"
+      }
+    },
+    {
+      "issue": "The reading copy (page export) garbles several hatted equations: the margin Γ-extraction formula on p.380, 36.67, 36.73, footnote 13 and 19 symbols, and Exercise 36.1's indices (checked against PDF renders).",
+      "impact_on_learner": "An AI tutor or author relying on the export could transcribe wrong indices.",
+      "suggestion": "Use the corrected LaTeX in this dossier's key_equations, which were verified against rendered pages.",
+      "locator": {
+        "pdf_page": 397,
+        "printed_page": 380,
+        "section": "36.3"
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Open with a picture question: 'Carry a set of arrows pointing north and east as you walk along a line of latitude. Do they turn? How fast?' Use the answer to introduce connection 1-forms as rotation rates per unit step before any formalism.",
+    "Diagnose prerequisites early: can the learner compute d(f dx) = df ∧ dx, explain α ∧ α = 0, and write an orthonormal coframe for a diagonal metric? If not, detour to GA ch33 and ch10 material first.",
+    "For most learners follow the authors' own advice: teach the recipe on the polar plane and sphere first, then return to §§36.1-36.2 to justify the rules. For mathematically inclined learners, derive the rules first via d^2 v and d^2 P.",
+    "Always pair the flat polar plane with the sphere; ask 'the plane's connection form is dθ, not zero, so is the plane curved?' and let the learner find that dω + ω∧ω vanishes.",
+    "When learners 'guess' connection forms, insist on two checks: every first structure equation holds with the full set, and lowered forms are antisymmetric. Mention uniqueness so guessing feels legitimate.",
+    "Check understanding of Lorentzian signs with a quick quiz: given ω^k̂_t̂ = (ȧ/a) ω^k̂, what is ω^t̂_k̂? What is ω^ĵ_î given ω^î_ĵ? (Answers: the same; minus it.)",
+    "Emphasize the |αβ| rule concretely: write the 2-form coefficient in the same wedge order as the component indices; if you swap the wedge, the component changes sign.",
+    "Warn about printed errors before the learner hits them: Einstein components in 36.81, index and Λ' slips in 36.85, the inverted time vielbein in the Example 36.6 margin, the 1/2 issues in 36.17-36.18, and 'curvature 1-forms'.",
+    "Use dimensional checks: 2D surface curvature ~ 1/length^2; FRW components ~ 1/time^2 (c = 1); any term like ȧ/a added to ä/a signals an error.",
+    "Connect results to physics: for Schwarzschild E = 2M/r^3 is the radial tidal stretch, Ē = -M/r^3 the transverse squeeze; G_t̂t̂ = F + 2F̄ = 8πρ gives the mass function; FRW G components give the Friedmann equations.",
+    "Common learner questions to prepare for: Why does a 1-form carry two extra indices? Why is d^2 v not zero? What does 'torsion-free' have to do with a 'symmetry condition'? Why do coordinate and frame Riemann components differ while R does not? How does this relate to gauge fields (F = dA + A∧A)?",
+    "For 2D surfaces, stress that the single curvature 2-form coefficient is the Gaussian curvature K and R = 2K; use Exercises 36.3-36.6 (surface of revolution, paraboloid, torus, half-plane) as a graded ladder with visual intuition for sign."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Split the combined margin-note entries for notes 13/14 and 18/19 into separate entries so each numbered note is covered with its own content.",
+      "Reading-guide margin note: recorded that it is a boxed signpost with a curved-arrow icon on the opening page (confirmed on the p.391 render).",
+      "Added a missing forward cross-reference: Appendix E's answer to Exercise 49.7 (cosmic string) builds on the Example 36.4 sphere curvature."
+    ],
+    "residual_concerns": [
+      "The reading copy garbles several hatted equations (eqn 36.44, 36.67, 36.73, 36.76, notes 13 and 19, Exercise 36.1). The dossier's LaTeX follows the PDF renders, but anyone working from the export should re-check against the page images.",
+      "Printed errors in the book itself (36.17-36.18 factors of 1/2, 36.81, 36.85, the time vielbeins in the Example 36.6 margin, 'curvature 1-forms') are flagged in gaps_and_pitfalls; the corrected forms were re-derived independently in this review.",
+      "Claims about the Appendix E answers to Exercises 36.4-36.8 were verified by independent derivation; only the 36.1-36.4 answer text was read directly."
+    ],
+    "coverage": {
+      "toc_sections": 4,
+      "sections": 6,
+      "inventory_figures": 1,
+      "figures": 1,
+      "inventory_examples": 6,
+      "worked_examples": 9,
+      "concepts": 39,
+      "key_equations": 56,
+      "locators_checked": 28,
+      "locators_wrong": 0,
+      "pages_rendered": 8
+    }
+  }
+}

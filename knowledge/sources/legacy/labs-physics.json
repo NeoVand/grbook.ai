@@ -1,0 +1,1739 @@
+{
+ "group": "labs-physics",
+ "summary": "The legacy project contains 21 distinct physics experiences in this group. There are ten 2D labs: a spring-cart energy lab (Ch 0), a Hamiltonian phase-space lab (Ch 13), a particle-crossing stress-energy lab (Ch 11), a Couette/Poiseuille viscous-shear lab (Ch 11), a TOV stellar-structure lab (Ch 17), a Schwarzschild photon redshift/Doppler lab (Ch 17), a cosmological distances lab (Ch 19), a numerical FLRW Euler-vs-RK4 audit lab (Ch 20), a GPS clock-rate slider (Ch 16) and a twin-paradox slider (Ch 3). There are also nine three.js 'Spacetime Lab' scenes: Earth free-fall rain flow, covector level planes, light cone, sphere holonomy (atlas only), tidal cloud, Flamm embedding with a proper-length ruler, gravitational-wave rings, an expansion lattice, and ADM lapse/shift. The physics kernels are the strongest part of the group. They are small, pure, unit-declared functions (exact oscillator, exact collisionless crossings with T^{mu nu}=sum p^mu p^nu/p^0, exact laminar profiles, a TOV RK4 in log-enthalpy, Simpson-integrated FLRW distances, a Killing-energy frequency ratio, PG rain radius). Each has independent numerical checks (RK4 vs trig, finite-difference BVP vs analytic, crossing times solved separately, Lane-Emden limit, analytic dust/de Sitter distances, RK4 convergence ratio). All five model-only checks were re-run and pass on 2026-09-12. check-physics-calculations.mjs is also a standalone finite-difference Riemann/Ricci/Kretschmann checker for arbitrary 4D metrics (Kerr, FLRW with k, pp-wave, ADM). The UIs are clean and theme-aware, with honest model disclosures, reduced-motion handling, offscreen pausing, saved state and no-JS fallbacks. Their weaknesses are instructional rather than numerical. Several 3D scenes are orderly but not yet explanatory, per the author's own aesthetic review: embedding, lapse/shift, the expansion observer, and Earth grid density. Some 2D labs hide the key teaching feature, such as the missing mass-radius family in the star lab and the angular-diameter turnover squashed on an axis forced to at least 50 Gpc. The GPS/twins widgets are bare sliders. All rendering is vanilla JS string-templated SVG or imperative three.js inside a static-site build (scripts/*.mjs emit HTML, web/*.js hydrate). The current app/ SvelteKit reader bundles that runtime rather than re-implementing it. For grbook.ai: port the models and checks nearly verbatim, and rebuild views as Svelte/Threlte components. Keep the scientificContext/narrationSource contract as the tutor interface, and redesign the weaker scenes around a measurement. The GPS and twin widgets live in web/app.js, which the SvelteKit app does not bundle, so in the current app they are inert markup with frozen default values.",
+ "lessons_learned": [
+  "Separate the pure physics model (web/*-model.js, relativity-models.js, scene-models.js) from rendering. This single decision made every lab independently testable in Node, and it is why the kernels can move to grbook.ai verbatim.",
+  "Every model shipped with an independent check that does not reuse the formula under test. Examples: RK4 vs the trig solution, a tridiagonal finite-difference BVP vs the Couette/Poiseuille formulas, crossing times solved by brute-force plane intersection, the Newtonian n=1 Lane-Emden radius sqrt(pi/2), and analytic Einstein-de Sitter/de Sitter distances. Keep this standard, and wire these checks into CI for grbook.ai.",
+  "Each lab publishes a machine-readable data-scientific-context (model, parameters, readouts, units, assumptions, equations, source) and a data-narration-source sentence regenerated on every state change, plus a gr:visual-change event. That is exactly the interface a GPT-Live voice tutor needs to see and describe a live lab. Make it a typed contract in grbook.ai, and add a command interface so the tutor can set parameters.",
+  "Passing geometry/layout tests did not make scenes teach. The author's legacy-scene-aesthetic-review.md concluded that embedding, lapse/shift and expansion are 'orderly without yet being explanatory'. The best experiences (particle crossings, fluid cut, photon waves) are organized around one measurement the learner performs.",
+  "Put the main teaching feature on the default screen. The star lab hides the maximum-mass turning point: re-running starProfile gives M_max=0.1637 at rho_c~0.32 (the default already gives 96% of it), the default is 0.2 and the slider runs to 2, but there is no M(rho_c) or M(R) plot. The distances lab plots D_A (peak 1.75 Gpc at z~1.6) on an axis forced to at least 50 Gpc and filled by D_L (46.7 Gpc at z=5), where it looks flat.",
+  "Numerics controls (radial step, Euler vs RK4, requested step) are valuable in an 'audit the answer' lab but distracting as primary controls in a physics-discovery lab. Progressive disclosure is needed.",
+  "String-templated SVG re-rendered via innerHTML each frame, recomputing the full measurement 5-6 times per draw (particle-flow view, readout, insight, crossing, matrix, source), works at this scale but should become memoized derived state in Svelte.",
+  "Honest disclaimers are a strength worth copying. Examples: the embedding height is not time or force, the cone rim is not a boundary, the dye is not molecules, the six-direction gas is not thermal equilibrium, the rain observers fall from rest at infinity, and strain is exaggerated and first order.",
+  "Fixed camera envelopes computed over the full parameter range (scenes.js captureBounds) prevented crop and jump when sliders move. Reuse the idea in Threlte.",
+  "Model-only and browser checks should stay separate. check-mechanics-experience, check-particle-flow and check-fluid-shear exit after the model assertions when given --models. check-relativity-models and check-physics-calculations are model-only. check-relativity-labs is browser-only: it needs a local static server and a Chrome path, and qa/relativity-labs.log records it failing with a Puppeteer TimeoutError (check-relativity-labs.mjs:31) at the notebook-import step. In grbook.ai, CI should always run the physics checks, with browser checks in a separate job.",
+  "A stale qa/relativity-labs.log shows the browser suite once timing out at the notebook-import button. The browser checks depend on a local static server and Chrome path, so they were fragile. Keep model checks separate (--models flag) so CI always runs the physics.",
+  "The SvelteKit port silently dropped behaviour. app/scripts/prepare.ts re-exports six web modules, but not web/app.js, so the GPS and twin widgets ship as server-rendered markup with plausible default numbers and no script behind them. The failure is invisible in static screenshots and in any test that checks only rendering. Every interactive in grbook.ai needs a behavioural test: move a control and assert that a readout changes.",
+  "Hard-coded chart envelopes tuned to one state hide others. Examples: star axes fixed at x 1.3, y 1; evolution fixed at t 8, A 6; distances forced to at least 50 Gpc. This is the 2D counterpart of the good scenes.js captureBounds idea. In grbook.ai, compute envelopes over the parameter range for each curve, or use small multiples, and add a QA assertion that each plotted series spans a minimum fraction of its axis."
+ ],
+ "assets": [
+  {
+   "id": "lab-spring-energy-exchange",
+   "kind": "lab",
+   "title": "Mechanics Lab 01: Watch the energy change places (spring and cart)",
+   "paths": [
+    "web/mechanics-model.js",
+    "web/mechanics-experience.js",
+    "web/mechanics-experience.css",
+    "scripts/mechanics-experience.mjs",
+    "scripts/check-mechanics-experience.mjs",
+    "book.md:268 (data-mechanics-insert=\"energy\", Chapter 0)"
+   ],
+   "topics": [
+    "simple harmonic oscillator",
+    "Hooke's law",
+    "kinetic energy",
+    "potential energy",
+    "conservation of energy",
+    "momentum",
+    "Newton's second law"
+   ],
+   "teaches": "Energy shifts between kinetic and spring potential energy while the total stays fixed. Momentum and force are signed vectors, while energy is a non-negative scalar. At turning points the cart is momentarily at rest while the force is maximal, and at equilibrium all the energy is kinetic.",
+   "pedagogy": "Prediction-free exploration with a state-aware insight sentence (speeding up / storing energy / turning point / equilibrium). A 'Quarter-cycle' button jumps to canonical states. Setup sliders are hidden in a disclosure and reset the clock to zero, and a 'What is being calculated?' disclosure derives q(t) and T=2 pi sqrt(m/k). This is a Chapter 0 preparation lab for novices.",
+   "interaction": {
+    "controls": [
+     "Play/Pause",
+     "Quarter-cycle step",
+     "Time slider (0 to one period)",
+     "Mass m [0.5,2] kg",
+     "Stiffness k [0.5,2] N/m",
+     "Starting displacement [-1.25,1.25] m",
+     "Starting momentum [-1,1] kg m/s",
+     "Reset"
+    ],
+    "what_updates": "Cart position and spring zig-zag, momentum and force arrows with labels, displacement bracket, the kinetic/potential stacked energy bar and values, the direction readout, and the insight sentence. It also updates the scientificContext/narrationSource and saves state to localStorage.",
+    "readouts": [
+     "q [m]",
+     "p [kg m/s]",
+     "F [N]",
+     "K [J]",
+     "U [J]",
+     "E total [J]",
+     "clock t / T"
+    ],
+    "rendering": "String-templated inline SVG re-rendered on each animation frame; KaTeX in the disclosure; CSS container queries"
+   },
+   "physics_model": "Exact undamped Hooke oscillator in SI units: q=q0 cos wt + p0/(m w) sin wt, p=p0 cos wt - m w q0 sin wt, w=sqrt(k/m). Validated by an independent 1024-step RK4 integration (tolerance 1e-11), energy conservation over a 3x3x3x3 parameter grid, the return to the initial state after T, central-difference Hamilton equations, and a unit Jacobian determinant (phase-area preservation).",
+   "screenshots": [
+    "qa/mechanics-0-1440-light.png",
+    "qa/mechanics-0-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Exact model with independent RK4 and symplectic checks (scripts/check-mechanics-experience.mjs --models passes, re-run 2026-09-12)",
+     "Clear hierarchy in the screenshots: separate rows for p and F arrows, readable energy bar and key in both themes and at 390px",
+     "Stops animating offscreen or when the tab is hidden, respects reduced motion, and renders a static SVG plus disclosure without JS"
+    ],
+    "issues": [
+     "Pre-relativistic content only. It is useful as Ch 0 preparation but carries no GR idea.",
+     "The time slider is capped at one period, so the learner cannot watch several cycles or damping (no damping model).",
+     "The energy bar uses a single-colour gradient per term; at extremes one term vanishes entirely, which reads as a missing element.",
+     "Whole SVG replaced via innerHTML each frame (acceptable at this scale, not idiomatic for Svelte)"
+    ],
+    "evidence": "scripts/check-mechanics-experience.mjs (model and browser assertions); qa/mechanics-0-*.png inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep mechanics-model.js and the check verbatim, along with the copy, insight rules and derivation disclosure. Rebuild as a Svelte component sharing one oscillator store with the phase-space lab. Optionally add a damping toggle and a 'predict the turning point' prompt. Place it in a prerequisites/refresher track rather than the GR core.",
+    "effort": "small"
+   },
+   "size": "113-line JS view + 21-line model + 64-line CSS + 23-line HTML builder (minified style)"
+  },
+  {
+   "id": "lab-hamiltonian-phase-space",
+   "kind": "lab",
+   "title": "Mechanics Lab 02: One cart, two ways to see its motion (phase space)",
+   "paths": [
+    "web/mechanics-experience.js#phaseView",
+    "scripts/mechanics-experience.mjs",
+    "scripts/check-mechanics-experience.mjs",
+    "book.md:4632 (data-mechanics-insert=\"phase\", Chapter 13)"
+   ],
+   "topics": [
+    "phase space",
+    "Hamiltonian mechanics",
+    "Hamilton's equations",
+    "Liouville's theorem",
+    "energy contours",
+    "conjugate momentum"
+   ],
+   "teaches": "The same physical state is one point (q,p) in phase space. Motion follows a constant-Hamiltonian ellipse, and the Hamiltonian flow field gives the direction of the next change. The cart view and the phase view are two descriptions of one state, which sets up the action and Hamiltonian formalism used in the GR action chapter.",
+   "pedagogy": "Linked dual views: the cart on the track and the dot in phase space, with a trail and four nested energy contours. The deck prompts the learner to pause either view and notice they describe the same state. Its placement in Ch 13 prepares Lagrangian/Hamiltonian ideas before the Einstein-Hilbert action and ADM conjugate momenta.",
+   "interaction": {
+    "controls": [
+     "Play/Pause",
+     "Quarter-cycle step",
+     "Time slider",
+     "Mass, stiffness, starting q, starting p (disclosure)",
+     "Reset"
+    ],
+    "what_updates": "The phase dot and trail update each frame. Contours and the flow field are rebuilt only when setup parameters change (a cached phaseKey). The cart view and energy bar update in sync.",
+    "readouts": [
+     "q",
+     "p",
+     "K, U, E",
+     "clock"
+    ],
+    "rendering": "Inline SVG with quiver arrows and ellipses; fixed axis scale across parameter changes"
+   },
+   "physics_model": "Same exact oscillator. Hamiltonian H=p^2/2m + kq^2/2, flow (p/m, -kq). Contour semi-axes are sqrt(2H/k) and sqrt(2mH). Phase-area preservation is verified numerically with det of the finite-difference flow Jacobian equal to 1 within 1e-10.",
+   "screenshots": [
+    "qa/mechanics-13-1440-light.png",
+    "qa/mechanics-13-390-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Genuinely linked representations with the same scale; the trail shows the path covered this cycle",
+     "Liouville/area preservation is actually checked, not just asserted",
+     "Clean desktop composition in the screenshot (cart left, phase portrait right)"
+    ],
+    "issues": [
+     "Flow arrows are very faint (opacity 0.25) and the contours at 17% opacity are barely visible in the light theme",
+     "Area preservation is verified in the check but never shown to the learner (no evolving blob of initial conditions)",
+     "Only the harmonic potential is available; there is no pendulum or Kepler effective potential that would link to geodesic orbits"
+    ],
+    "evidence": "scripts/check-mechanics-experience.mjs; qa/mechanics-13-1440-light.png inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the linked cart/phase idea and the model. For grbook.ai, add a draggable cloud of initial conditions to show Liouville area preservation, and an effective-potential mode (Newtonian vs Schwarzschild V_eff) so the same phase portrait carries forward to geodesic orbits and the ISCO.",
+    "effort": "medium"
+   },
+   "size": "Shares the mechanics files; phaseView ~30 lines"
+  },
+  {
+   "id": "lab-particle-stress-energy-crossings",
+   "kind": "lab",
+   "title": "Matter Lab 01: What crosses the surface? (stress-energy from particle crossings)",
+   "paths": [
+    "web/particle-flow-model.js",
+    "web/particle-flow-experience.js",
+    "web/particle-flow-experience.css",
+    "scripts/particle-flow-experience.mjs",
+    "scripts/check-particle-flow.mjs",
+    "docs/particle-flow-review.md",
+    "book.md:3582 (data-foundation-insert=\"particle-flow\", Chapter 11 opening)"
+   ],
+   "topics": [
+    "stress-energy tensor",
+    "energy density",
+    "momentum density",
+    "momentum flux",
+    "pressure",
+    "dust",
+    "kinetic theory",
+    "four-momentum",
+    "mass shell"
+   ],
+   "teaches": "Each component T^{mu nu} is a measurement. The row chooses where you measure (in the box, or across an x/y/z surface) and the column chooses what is carried (energy or a momentum component). The learner sees that opposing streams with zero mean momentum still give a positive normal momentum flux, which is pressure, while their energy flux cancels. Tilted streams give off-diagonal (shear-like) momentum flux whose sign follows the stream angle. A finite crossing count converges to the ensemble average.",
+   "pedagogy": "Measurement before matrix: the tensor is shown only in a disclosure after the learner has built entries by counting. A 'latest contribution' line shows sign x carried value for a single crossing. Insight sentences are keyed to preset, row and column, and include the two-minus-signs explanation for pressure. Disclosures cover 'why opposite motion can produce pressure' (with a reflecting-wall analogy), building the tensor with the c factors, and the model, units and counting checks.",
+   "interaction": {
+    "controls": [
+     "Preset: One stream / Balanced motion / Tilted pairs",
+     "Where to measure: In the box / Across x / y / z (row)",
+     "What is carried: Energy / p_x / p_y / p_z (column)",
+     "Particle speed [0.1,0.85] c",
+     "Detector position [0.15,0.85] L",
+     "Stream angle (tilted only)",
+     "Counting time [0,30] L/c",
+     "Play (replayable, deterministic)",
+     "Reset"
+    ],
+    "what_updates": "Orthographic 3D cube with 96 depth-sorted particles colored by normal-velocity sign, short velocity trails, flash on crossing, detector plane and normal arrow. Readouts compare the counted estimate with the all-particle average and show positive/negative crossing counts. The highlighted 4x4 matrix entry, the insight text and the scientificContext update as well.",
+    "readouts": [
+     "Measured from crossings (mc^2/L^3)",
+     "From all 96 particles",
+     "Crossings toward + / -",
+     "Mean velocity (in-box row)",
+     "Latest signed contribution",
+     "Full 4x4 T matrix"
+    ],
+    "rendering": "Inline SVG with a hand-rolled orthographic projection and painter's-algorithm depth sort; no WebGL"
+   },
+   "physics_model": "96 collisionless equal-mass particles in a periodic unit cube, with deterministic hashed initial positions. Units: L, L/c, mc, mc^2; four-momentum p^0=gamma, p^i=gamma v^i. The ensemble tensor is T^{mu nu}=sum_a p^mu p^nu / p^0 (per unit volume). Detector crossings are counted exactly via floor/ceil of the unwrapped coordinate, and the signed sum of carried momentum is divided by area x time. The first index is the direction crossed and the second the quantity carried. Checks: mass shell p.p=-1, symmetry, trace = -96/gamma, isotropic diagonal for balanced, T^{xy}=96 gamma v^2 cos sin for tilted, crossing counts against brute-force plane intersections for 3 presets x 3 speeds x 3 angles x 3 axes x 3 planes, a finite-time error bound, long-time (t=1e4) convergence, and an edge-of-interval negative crossing.",
+   "screenshots": [
+    "qa/particles-balanced-1440-light.png",
+    "qa/particles-slanted-390-dark.png",
+    "qa/particles-stream-1440-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Best-in-group pedagogy: the stress-energy tensor is built from an operational measurement, with the 'pressure without flow' surprise front and centre (docs/particle-flow-review.md)",
+     "Exhaustive independent numerical verification (check-particle-flow.mjs --models passes, re-run 2026-09-12)",
+     "Honest about limits: not thermal equilibrium, no collisions/viscosity, no observer change",
+     "The latest-crossing line makes the sign bookkeeping concrete"
+    ],
+    "issues": [
+     "Flat SVG projection with small dots; at 390px the cube is small and the controls make the lab very long (qa/particles-slanted-390-dark.png)",
+     "No movable subvolume and no boosted observer. The review lists both as outstanding, and a boost is needed to reach T^{mu nu}=(rho+p)u u + p g.",
+     "Units mc^2/L^3 and the 'one stream / across x / p_x' default are abstract for a novice without a guided sequence",
+     "particleFlowMeasurements recomputed ~6 times per frame (in the view, readout, insight, crossing, matrix and source)",
+     "Neutral (grey, zero normal velocity) particles are not in the legend"
+    ],
+    "evidence": "docs/particle-flow-review.md; scripts/check-particle-flow.mjs --models (passes, re-run 2026-09-12); qa/particles-slanted-1440-light.png (tilted pairs, 45 deg, v=0.56c, across x / p_x, t=4 L/c: counted 18.640 vs ensemble 18.169, 79/77 crossings, latest contribution +0.478) and the 390 and stream screenshots inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep particle-flow-model.js and check-particle-flow.mjs verbatim, along with the row/column framing, the insight rules and the three disclosures. Rebuild the view as a Threlte/three.js scene with instanced particles, larger crossings and a movable box. Add a guided step sequence (density, then pressure, then shear) and a 'boost the observer' step that Lorentz-transforms the analytic tensor, as the review requires. Add a photon-gas preset for p=rho/3.",
+    "effort": "medium"
+   },
+   "size": "57-line view (long lines, ~300 pretty) + 32-line model + 46-line CSS + 24-line builder"
+  },
+  {
+   "id": "lab-fluid-viscous-shear",
+   "kind": "lab",
+   "title": "Matter Lab 02: How one layer pulls another (Couette and plane Poiseuille flow)",
+   "paths": [
+    "web/fluid-shear-model.js",
+    "web/fluid-shear-experience.js",
+    "web/fluid-shear-experience.css",
+    "scripts/fluid-shear-experience.mjs",
+    "scripts/check-fluid-shear.mjs",
+    "docs/fluid-shear-review.md",
+    "book.md:3763 (data-foundation-insert=\"fluid-shear\", Chapter 11)"
+   ],
+   "topics": [
+    "viscosity",
+    "shear stress",
+    "Couette flow",
+    "Poiseuille flow",
+    "momentum flux tensor",
+    "Cauchy stress tensor",
+    "perfect fluid",
+    "Newtonian fluid"
+   ],
+   "teaches": "Neighbouring fluid layers exchange momentum through shear. Force per area on the lower fluid (tau_yx = mu du/dy) and x-momentum flux toward +y have opposite signs. Flow speed and shear are different quantities: in Poiseuille flow the centre is fastest but has zero shear. At fixed plate speed, viscosity changes force but not profile; at fixed pressure gradient it changes speed but not shear. This motivates what the perfect-fluid stress-energy tensor leaves out.",
+   "pedagogy": "One movable 'gold cut' links the flow picture and the velocity profile. Action-reaction arrows act on the upper and lower regions. The insight text directs two controlled comparisons, and the sign derivation is spelled out (momentum entering the lower region downward). Pi_ij = rho v_i v_j + p delta_ij - tau_ij is connected to the Cauchy stress. Disclosures derive both profiles from force balance and state what the animation represents: steady states only, dye as a mean-flow tracer, and gauge pressure.",
+   "interaction": {
+    "controls": [
+     "Mode: Moving plate / Pressure difference",
+     "Upper plate speed [-1.2,1.2] m/s",
+     "Pressure drive G [-1200,1200] Pa/m",
+     "Viscosity [0.04,0.3] Pa s",
+     "Cut height [0.1,0.9] H",
+     "Time [0,0.8] s with 0.1x playback",
+     "Reset"
+    ],
+    "what_updates": "90 dye markers with trails advect at the analytic speed. Five velocity arrows, the velocity profile curve and probe dot, the cut line and paired shear arrows (labelled 'Zero shear here' at the centreline), pressure labels, the three readouts, the mode intro and the insight text all update.",
+    "readouts": [
+     "Speed at the cut [m/s]",
+     "Force/area on lower fluid [Pa]",
+     "x-momentum flux toward +y [Pa]"
+    ],
+    "rendering": "Inline SVG (flow box plus profile plot), KaTeX derivations"
+   },
+   "physics_model": "Steady incompressible Newtonian laminar flow between plates with H=0.02 m, no slip: u(y)=U y/H + G y(H-y)/(2 mu), G=-dp/dx, tau=mu u', flux=-tau, Q=UH/2+GH^3/(12 mu), dissipation = mu U^2/H + G^2 H^3/(12 mu). Validated by an independent 120-cell tridiagonal finite-difference solve of mu u''+G=0 over both modes x 4 drives x 4 gradients x 3 viscosities. Simpson integration checks volume flow and a work/dissipation balance; the wall velocities, pressure gradient and shear sign reversal are also checked.",
+   "screenshots": [
+    "qa/fluid-pressure-1440-light.png",
+    "qa/fluid-plate-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Unusually careful sign conventions (force vs flux vs Cauchy stress) explained in plain language (docs/fluid-shear-review.md)",
+     "Independent BVP solve plus an energy-balance check (check-fluid-shear.mjs --models passes, re-run 2026-09-12)",
+     "The zero-shear-at-max-speed contrast is a strong misconception buster"
+    ],
+    "issues": [
+     "Non-relativistic continuum mechanics: tangential to a GR course except as motivation for anisotropic stress and the perfect-fluid idealization",
+     "Dye markers and velocity arrows are small and low-contrast in the 1440 light screenshot; the pressure-mode drive arrow is teal while the legend uses blue for velocity",
+     "Mobile SVG text is rescaled with 21-24px CSS overrides inside the viewBox, a fragile hack",
+     "No transient (startup) flow, by design; a learner may still expect to see flow develop"
+    ],
+    "evidence": "docs/fluid-shear-review.md; scripts/check-fluid-shear.mjs; screenshots inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the model, the check, the sign-convention text and the cut-based design. Place it as an optional 'beyond perfect fluids' enrichment after the perfect-fluid T^{mu nu}, not on the core path. Rebuild the SVG in Svelte with larger markers and proper responsive text. A later link to relativistic viscous stress (pi^{mu nu}) is optional.",
+    "effort": "small"
+   },
+   "size": "45-line view (long lines) + 11-line model + 22-line CSS + 18-line builder"
+  },
+  {
+   "id": "lab-stellar-structure-tov",
+   "kind": "lab",
+   "title": "Stellar structure lab: Build a star from its centre (TOV integration)",
+   "paths": [
+    "web/relativity-models.js#starProfile",
+    "web/lab-records.js#star",
+    "web/relativity-labs.js#starView",
+    "scripts/check-relativity-models.mjs",
+    "scripts/check-relativity-labs.mjs",
+    "book.md:6199 (data-lab-insert=\"star\", Chapter 17)"
+   ],
+   "topics": [
+    "Tolman-Oppenheimer-Volkoff equation",
+    "relativistic stars",
+    "polytropic equation of state",
+    "hydrostatic equilibrium",
+    "compactness",
+    "maximum mass",
+    "Lane-Emden equation",
+    "Runge-Kutta methods"
+   ],
+   "teaches": "The learner integrates the TOV equations outward from a regular centre until the pressure vanishes, which defines the surface. They read off R, M and compactness 2M/R, see the normalized pressure, density and enclosed-mass profiles, and check numerical convergence by halving the step.",
+   "pedagogy": "The hint poses 'is a denser star also a larger star?' against a fixed spatial scale. A Star/Profiles view switch is provided. A readout of the change in R when the step is halved introduces convergence diagnostics. The limitation text warns that a mass-radius point does not establish stability. A notebook textarea and CSV export with a provenance header (OV 1939 DOI) are included.",
+   "interaction": {
+    "controls": [
+     "Central rest-mass density [0.02,2]",
+     "Radial step {0.02,0.01,0.005,0.0025}",
+     "View: Star / Profiles",
+     "Reset",
+     "Download CSV",
+     "Observation note"
+    ],
+    "what_updates": "Star disc radius on a fixed 1.2 reference circle with a density-shaded radial gradient, profile curves, four readouts, a sampled data table and the scientificContext",
+    "readouts": [
+     "Surface radius R",
+     "Gravitating mass M",
+     "Compactness 2M/R",
+     "Change in R when step is halved"
+    ],
+    "rendering": "Inline SVG (radial gradient disc, line chart with wide and compact variants), KaTeX equations in disclosure"
+   },
+   "physics_model": "G=c=K=1 Gamma=2 polytrope: p=rho0^2, epsilon=rho0+p, log-enthalpy h=ln(1+2 rho0). RK4 in r on (m,h) with dm/dr=4 pi r^2 epsilon and dh/dr=-(m+4 pi r^3 p)/(r(r-2m)). The series start at r0=1e-5 and the surface is a linear zero of h. The integrator throws if r<=2m. Checks: the Newtonian limit (rho_c=1e-6) matches Lane-Emden n=1 R=sqrt(pi/2) and M within 3e-5; mass is monotone and pressure non-increasing; radius differences shrink under refinement. Re-running starProfile (step 0.005, rho_c grid 0.01, reviewer re-run 2026-09-12) shows M peaks at 0.1637 (R=0.762) near rho_c~0.32 and falls to 0.1136 (R=0.490, 2M/R=0.46) at rho_c=2 (the unstable branch). The default rho_c=0.2 gives R=0.8658, M=0.1574, already 96% of M_max.",
+   "screenshots": [
+    "qa/lab-star-1440-light.png",
+    "qa/lab-star-1440-plot.png",
+    "qa/lab-star-390-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Real, correctly formulated TOV solver with a clever enthalpy variable that makes surface detection clean",
+     "Independent Newtonian-limit validation (check-relativity-models.mjs passes, re-run 2026-09-12)",
+     "Provenance-rich record (units, assumptions, limitation, primary source) exported with the CSV"
+    ],
+    "issues": [
+     "The key physics, maximum mass and the unstable branch, is invisible: the default rho_c=0.2 (M=0.1574) sits just below the turning point (M_max=0.1637 at rho_c~0.32), and the slider continues to 2 on the unstable branch where mass falls to 0.114, yet there is no M(rho_c) or M-R family plot and no warning when crossing the peak",
+     "Dimensionless K=1 units are never converted to km or solar masses, so novices get no sense of neutron-star scale",
+     "The radial-step control is a primary control, a numerics distraction in a physics-discovery lab",
+     "The star picture is a flat gradient disc with little information beyond R",
+     "The chart() code hard-codes the profile axes to x in [0,1.3], y in [0,1] (web/relativity-labs.js chart, id==='star'). A low-density star (R~1.19) nearly fills the width, while the rho_c=2 star (R=0.49) occupies about a third of it. No interior-to-exterior metric is shown"
+    ],
+    "evidence": "scripts/check-relativity-models.mjs (passes, re-run 2026-09-12); reviewer node scan of starProfile over rho_c in [0.02,2]; qa/lab-star-1440-plot.png (default readouts R=0.86584, M=0.15736, 2M/R=0.36349, dR on halving -3.9e-5)"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep starProfile and its check verbatim, plus the record's units/assumptions/limitation text. Redesign the view around the family: a live M-R and M(rho_c) curve with the current star as a dot, the turning point marked and the stability caveat attached. Offer a 'physical units' toggle (choose K to give km and solar masses). Move step size under 'audit the numerics'. Optionally show g_tt and g_rr through the surface into the Schwarzschild exterior.",
+    "effort": "medium"
+   },
+   "size": "~45 model lines + record + shared lab shell"
+  },
+  {
+   "id": "lab-photon-redshift-observers",
+   "kind": "lab",
+   "title": "Light and observers lab: Follow the photon, ask each observer (gravitational redshift + Doppler)",
+   "paths": [
+    "web/relativity-models.js#photonExchange",
+    "web/lab-records.js#photon",
+    "web/relativity-labs.js#photonView",
+    "scripts/check-relativity-models.mjs",
+    "book.md:6263 (data-lab-insert=\"photon\", Chapter 17)"
+   ],
+   "topics": [
+    "gravitational redshift",
+    "Doppler effect",
+    "Schwarzschild metric",
+    "Killing vector",
+    "conserved energy",
+    "static observers",
+    "observer-dependent measurement"
+   ],
+   "teaches": "A radial photon's measured frequency depends on who measures it. The static-observer gravitational factor sqrt(f_e/f_r) combines multiplicatively with local special-relativistic Doppler factors gamma(1 - n beta). A receiver moving toward the light can blueshift enough to overcome gravitational redshift. The locally measured light speed is always c, while the coordinate rate f(r) is not a measured speed.",
+   "pedagogy": "Two wave strips over equal local-time windows make frequency visible as crest count. Emitter and receiver markers sit on an r/r_s axis. The prediction prompt reads 'Can a Doppler blueshift overcome the gravitational redshift?'. The limitation points to the regular-coordinate horizon lesson for crossing.",
+   "interaction": {
+    "controls": [
+     "Emission radius [1.1,4] r_s",
+     "Reception radius [1.1,20] r_s",
+     "Emitter velocity [-0.8,0.8] c",
+     "Receiver velocity [-0.8,0.8] c",
+     "View: Waves / Frequency plot",
+     "Reset",
+     "CSV export, observation note"
+    ],
+    "what_updates": "The received-wave crest count, radius markers, the frequency-vs-receiving-radius plot (specified observers vs both static) and the four readouts",
+    "readouts": [
+     "Received/emitted frequency",
+     "Gravitational factor",
+     "Motion factor",
+     "Locally measured light speed / c"
+    ],
+    "rendering": "Inline SVG wave strips and line chart"
+   },
+   "physics_model": "Schwarzschild exterior with f=1-r_s/r and E_obs=-p_mu u^mu. nu_r/nu_e = sqrt(f_e/f_r) * gamma_r(1-n beta_r)/(gamma_e(1-n beta_e)), with n=+1 outward. The coordinate travel time is Delta r + ln((r_r-1)/(r_e-1)) in r_s/c units, computed but not displayed. Checks: sqrt(4/7) for 2->8 r_s, reciprocity (product of the forward and reverse ratios = 1), pure Doppler 0.5 at beta=0.6, and rejection of r<=r_s.",
+   "screenshots": [
+    "qa/lab-photon-1440-dark.png",
+    "qa/lab-photon-390-plot.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct observer-based formulation that cleanly separates gravitational and kinematic factors",
+     "The wave-crest picture is an intuitive, novice-friendly representation of frequency",
+     "Reciprocity and Doppler checks pass (check-relativity-models.mjs)"
+    ],
+    "issues": [
+     "Defaults (emitter 2 r_s, receiver 8 r_s, both velocities 0) make the 'Specified receiving observers' and 'Both observers static' curves identical, so the Frequency plot shows one line with a two-entry legend (qa/lab-photon-1440-plot.png: readouts 0.75593 = sqrt(4/7), motion factor 1)",
+     "Only 4 cycles are drawn, so small ratio changes are hard to see; there is no photon worldline or spacetime diagram",
+     "The coordinate travel time is computed but never shown, a missed chance to contrast coordinate and local speed",
+     "Velocities are 'measured by local static observers', which is not explained visually; there is no picture of the observers"
+    ],
+    "evidence": "scripts/check-relativity-models.mjs; web/relativity-labs.js calculateLab('photon'); screenshots inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep photonExchange, its checks, the wave-strip metaphor and the prediction prompt. Add an animated photon travelling between two observer icons on a radial line (or an EF spacetime diagram), show the coordinate travel time next to the local c, and make the plot compare distinct curves by default (e.g. a static curve vs a moving-receiver curve). This is a natural candidate for tutor-driven 'set receiver velocity to -0.3' commands.",
+    "effort": "medium"
+   },
+   "size": "~30 model lines + record + shared lab shell"
+  },
+  {
+   "id": "lab-cosmological-distances",
+   "kind": "lab",
+   "title": "Cosmology lab: Ask the universe three distance questions",
+   "paths": [
+    "web/relativity-models.js#cosmicDistances",
+    "web/lab-records.js#distances",
+    "scripts/check-relativity-models.mjs",
+    "book.md:7127 (data-lab-insert=\"distances\", Chapter 19)"
+   ],
+   "topics": [
+    "FLRW metric",
+    "Friedmann equations",
+    "Hubble parameter",
+    "density parameters",
+    "comoving distance",
+    "angular diameter distance",
+    "luminosity distance",
+    "Etherington distance duality",
+    "spatial curvature",
+    "redshift"
+   ],
+   "teaches": "'Distance' in cosmology depends on the measurement. Comoving radial, angular-diameter and luminosity distances diverge with redshift, H0 rescales all of them, density fractions change their shapes, and D_L=(1+z)^2 D_A.",
+   "pedagogy": "A question-first title and a prediction prompt ('which distances change when H0 changes?'). The hint suggests changing H0 first, then the matter fraction. A dashed guide and dots mark the chosen source redshift, and the limitation notes it is an ideal background (no catalogue, extinction, lensing).",
+   "interaction": {
+    "controls": [
+     "Matter fraction Omega_m [0,1]",
+     "Vacuum fraction Omega_Lambda [0,1]",
+     "Hubble constant H0 [40,100]",
+     "Source redshift z [0.1,5]",
+     "Reset",
+     "CSV export, observation note"
+    ],
+    "what_updates": "Three distance curves over z in [0,5] (61 samples), the sample dots at the chosen z, and the readouts including Omega_k",
+    "readouts": [
+     "Comoving radial distance [Mpc]",
+     "Angular-diameter distance [Mpc]",
+     "Luminosity distance [Mpc]",
+     "Curvature fraction Omega_k"
+    ],
+    "rendering": "Inline SVG line chart (wide and compact variants)"
+   },
+   "physics_model": "E(z)^2 = Omega_m(1+z)^3 + Omega_r(1+z)^4 + Omega_k(1+z)^2 + Omega_Lambda, with Omega_k=1-sum and radiation fixed at 0 in the UI. chi is a 256-interval composite Simpson integral of dz/E. The transverse distance uses sinh or sin for open or closed curvature, with a series near k=0, and throws past the first antipode or when E^2<=0. The lookback integral is computed but not displayed. Checks: Einstein-de Sitter D_C=2(1-1/sqrt(1+z)) c/H0, de Sitter D_C=z c/H0, and duality D_L=(1+z)^2 D_A in a curved model.",
+   "screenshots": [
+    "qa/lab-distances-1440-light.png",
+    "qa/lab-distances-390-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct, analytically benchmarked distance integrals including curved cases",
+     "Clear framing ('which distance did the observation actually measure?') with honest limitations and a Hogg (1999) source"
+    ],
+    "issues": [
+     "chart() forces the distances y-axis maximum to at least 50 Gpc (ymax=max(50,ceil(ymax/25)*25)), and D_L reaches 46.7 Gpc at z=5 in the default LCDM model. The angular-diameter curve (peak 1.748 Gpc at z~1.6) is visible only as a nearly flat dashed line hugging the axis, so its turnover cannot be seen. The caption's claim that 'Axes keep a common scale unless a curve needs more room' does not help D_A",
+     "Label text renders 'Omega_Lambda' as 'ΩΛ' without a subscript (plain text in the record)",
+     "Lookback time and H(z) are computed or available but not shown; there is no angular-size or apparent-brightness picture connecting to observation",
+     "Invalid combinations (e.g. Omega_Lambda large, Omega_m 0) only produce a status error string; no allowed-region map"
+    ],
+    "evidence": "scripts/check-relativity-models.mjs (passes); web/relativity-labs.js chart() distances branch; reviewer node scan of cosmicDistances (D_A max 1747.6 Mpc at z=1.60; at z=2 D_C=5179.9, D_A=1726.6, D_L=15540 Mpc, matching qa/lab-distances-1440-light.png readouts)"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep cosmicDistances and its checks, which are exact enough for grbook.ai. Redesign the view with log or per-curve axes or small multiples so the D_A turnover shows, plus a 'standard ruler' and 'standard candle' pictogram linking D_A to angular size and D_L to flux. Add lookback time and age, an Omega_m-Omega_Lambda plane with forbidden regions, and preset buttons (Einstein-de Sitter, LCDM, de Sitter, open).",
+    "effort": "medium"
+   },
+   "size": "~55 model lines + record + shared lab shell"
+  },
+  {
+   "id": "lab-numerical-flrw-evolution-audit",
+   "kind": "lab",
+   "title": "Numerical relativity lab: Make a universe and audit the answer (Euler vs RK4, constraint residual)",
+   "paths": [
+    "web/relativity-models.js#evolveDust",
+    "web/relativity-models.js#rk4Step",
+    "web/lab-records.js#evolution",
+    "scripts/check-relativity-models.mjs",
+    "book.md:7418 (data-lab-insert=\"evolution\", Chapter 20)"
+   ],
+   "topics": [
+    "Friedmann equations",
+    "Hamiltonian constraint",
+    "constraint violation",
+    "numerical relativity",
+    "Euler method",
+    "Runge-Kutta methods",
+    "convergence order",
+    "scale factor"
+   ],
+   "teaches": "A numerical evolution can look right while violating the constraint. Halving the step reduces error at the method's convergence order (about 16x for RK4), and constraint monitoring is how numerical relativists audit their solutions. The exact dust solution A=(1+3t/2)^{2/3} is the benchmark.",
+   "pedagogy": "Audit framing ('Will a smaller step repair the apparent motion, the constraint, or both?'). Euler is the default so errors are visible, with a toggle between the expansion curve and the constraint-residual plot. Readouts show the error vs exact and the change under step halving. The limitation text clearly says this is a symmetry reduction, not full NR well-posedness.",
+   "interaction": {
+    "controls": [
+     "Integration method Euler / RK4",
+     "Requested time step {0.4,0.2,0.1,0.05,0.025}",
+     "Final time [1,8]",
+     "Plot: Expansion / Constraint",
+     "Reset",
+     "CSV export, observation note"
+    ],
+    "what_updates": "Numerical and exact scale-factor curves or the constraint residual vs zero, plus the four readouts",
+    "readouts": [
+     "Final scale factor A",
+     "Error against exact solution",
+     "Friedmann constraint residual V^2-1/A",
+     "Change in A when step is halved"
+    ],
+    "rendering": "Inline SVG line chart"
+   },
+   "physics_model": "Flat FLRW dust reduction A'=V, V'=-1/(2A^2), A(0)=V(0)=1, constraint C=V^2-1/A, stepped with forward Euler or classical RK4 (shared rk4Step). The step is adjusted so all refinements reach the same final time. Checks: Euler and RK4 errors decrease under refinement, the RK4 error ratio between successive halvings lies in (12,20) (fourth order), and RK4 constraint < Euler constraint.",
+   "screenshots": [
+    "qa/lab-evolution-390-dark.png",
+    "qa/lab-evolution-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "A rare, well-conceived teaching of constraint monitoring and convergence order with a clean exact benchmark",
+     "Convergence order is actually asserted in the check (ratio 12-20)"
+    ],
+    "issues": [
+     "Axes are fixed at t in [0,8] and A in [0,6]; at the default duration 4 the curves fill half the plot, and a 0.1 error is barely distinguishable from exact (qa/lab-evolution-390-dark.png)",
+     "No log-log convergence plot showing error vs step across all steps at once, which is the most instructive audit view",
+     "No constraint-damping or 'evolve the constraint as well' variant; the ODE has no genuinely free evolution-vs-constraint choice (e.g. evolving A with the second-order equation vs using the first-order constraint)"
+    ],
+    "evidence": "scripts/check-relativity-models.mjs (asserts 12 < RK4 error ratio < 20; passes); qa/lab-evolution-1440-light.png default Euler h=0.2, t=4: A=3.5571, error -0.10218, constraint residual -0.0579, change on halving 0.0515. The numerical and exact curves visibly separate only past t~3 on the fixed 8x6 axes"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep evolveDust, rk4Step and the checks. Add an automatic log-log error-vs-h plot with slope-1 and slope-4 guides, auto-scaled axes, and an option to add Lambda or curvature so a closed universe recollapses. Consider pairing it with a 1D wave-equation CFL demo for the numerical-GR chapter.",
+    "effort": "small"
+   },
+   "size": "~20 model lines + record + shared lab shell"
+  },
+  {
+   "id": "lab-gps-clock-rates",
+   "kind": "lab",
+   "title": "Try the equation: When does an orbiting clock gain time? (GPS)",
+   "paths": [
+    "web/app.js#updateGPS (lines ~535-557 pretty-printed)",
+    "scripts/build-site.mjs:146 (markup, Chapter 16)"
+   ],
+   "topics": [
+    "gravitational time dilation",
+    "time dilation",
+    "GPS",
+    "weak-field metric",
+    "circular orbits",
+    "proper time"
+   ],
+   "teaches": "An orbiting clock's rate relative to a surface clock is the sum of a gravitational gain GM/c^2(1/R-1/r) and a velocity loss -GM/(2rc^2). At GPS altitude the result is +45.72, -7.21 and net +38.51 microseconds per day. The crossover altitude is R/2~3186 km.",
+   "pedagogy": "A single altitude slider with three live contributions and a sentence; the formula is given below. No prediction step, diagram or orbit picture. The footer formula combines both terms as GM/c^2 (1/R - 3/(2r)).",
+   "interaction": {
+    "controls": [
+     "Altitude [200,36000] km"
+    ],
+    "what_updates": "Three KaTeX-rendered contributions (altitude, motion, net) and the sentence gains/loses",
+    "readouts": [
+     "Altitude contribution [micro s/day]",
+     "Motion contribution",
+     "Net clock gain"
+    ],
+    "rendering": "HTML plus KaTeX outputs; no graphic"
+   },
+   "physics_model": "Weak-field, non-rotating spherical Earth (GM=3.986004418e14, R=6371 km), circular-orbit speed v^2=GM/r, and the ground clock at rest (Earth rotation and J2 neglected, stated). The values match the standard textbook GPS numbers. There is no dedicated check script in scope.",
+   "screenshots": [
+    "qa/aesthetic-experiment-gps-1440-light.png",
+    "qa/aesthetic-experiment-gps-390-light.png",
+    "qa/gps-experiment.png"
+   ],
+   "quality": {
+    "status": "rough",
+    "strengths": [
+     "Correct numbers with an explicit crossover altitude and stated neglect of rotation"
+    ],
+    "issues": [
+     "A bare slider plus numbers: no orbit or clock visual, no contribution chart (docs/visualization-audit.md #26 recommends a two-contribution view)",
+     "Not wired into the current SvelteKit reader (confirmed): app/scripts/prepare.ts bundles only course.js, scenes.js, visual-lessons.js, geometry-experiences.js, curvature-experiences.js and symbols.js, never web/app.js. The generated app/src/lib/server/generated/pages.json still ships the markup with pre-rendered 20,200 km values (+45.72/-7.21/+38.51), so in the app the slider moves but the readouts stay frozen and the #gps-reading sentence is empty",
+     "No positioning-error consequence (the ~10 km/day drift story is not computed)"
+    ],
+    "evidence": "web/app.js updateGPS (numbers re-derived by hand: 45.73, 7.21, crossover r=1.5R); app/scripts/prepare.ts modules list; pages.json markup; qa/aesthetic-experiment-gps-1440-light.png inspected (qa/gps-mobile.png only shows the Chapter 16 header, not the widget)"
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the formula, constants, crossover insight and the neglected-effects statement. Rebuild it as the 'Build a working GPS system' experience from docs/experience-ideas.md #11: an orbiting clock and a ground clock ticking, a stacked SR/GR bar vs altitude, a toggle to omit each correction, and the accumulated range error in km/day. Add Earth rotation for the ground clock as an advanced toggle.",
+    "effort": "medium"
+   },
+   "size": "~22 lines JS + one markup line"
+  },
+  {
+   "id": "lab-twin-paradox-clocks",
+   "kind": "lab",
+   "title": "Try the equation: Two routes, one reunion (twin paradox)",
+   "paths": [
+    "web/app.js#updateClock (lines ~522-534 pretty-printed)",
+    "scripts/build-site.mjs:145 (markup, Chapter 3)"
+   ],
+   "topics": [
+    "twin paradox",
+    "proper time",
+    "time dilation",
+    "Lorentz factor",
+    "worldlines",
+    "Minkowski spacetime"
+   ],
+   "teaches": "For an out-and-back trip at speed v with an instantaneous turnaround, the traveller ages tau = 10 sqrt(1-v^2/c^2) years against the home clock's 10.",
+   "pedagogy": "Slider plus two proportional bars and a sentence. The note says it compares complete worldlines in flat spacetime. No worldline diagram.",
+   "interaction": {
+    "controls": [
+     "Speed [0,0.99] c"
+    ],
+    "what_updates": "Traveller bar width and label, the result sentence, and the KaTeX speed value",
+    "readouts": [
+     "Home clock 10 yr",
+     "Traveller clock tau"
+    ],
+    "rendering": "HTML bars and KaTeX"
+   },
+   "physics_model": "tau = T sqrt(1-beta^2), T=10 yr, flat spacetime, instantaneous turnaround. No check script.",
+   "screenshots": [
+    "qa/aesthetic-experiment-twins-1440-dark.png"
+   ],
+   "quality": {
+    "status": "rough",
+    "strengths": [
+     "Correct and immediately legible; the phrasing 'compares complete worldlines' is conceptually right"
+    ],
+    "issues": [
+     "No spacetime diagram, so the geometric point (the straight worldline has maximal proper time) is not shown",
+     "Not wired into the SvelteKit reader (confirmed, same cause as the GPS widget): web/app.js is not in the app/scripts/prepare.ts bundle, and pages.json ships static markup frozen at the v=0.6c state (traveller bar 80%, '8.00 years'), so the slider does nothing in the app",
+     "No simultaneity or Doppler-signal view that resolves the 'paradox'"
+    ],
+    "evidence": "web/app.js updateClock; app/scripts/prepare.ts; app/src/lib/server/generated/pages.json (traveller-bar markup); qa/aesthetic-experiment-twins-1440-dark.png inspected"
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the framing sentence only. Build a draggable-worldline Minkowski diagram (experience-ideas.md #6 'Draw a worldline') with both clocks ticking along the worldlines, a turnaround-acceleration option, and light-signal exchanges showing each twin's received ticks.",
+    "effort": "medium"
+   },
+   "size": "~12 lines JS + one markup line"
+  },
+  {
+   "id": "scene-3d-earth-free-fall-flow",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 01: Compare two falling objects (Earth in a falling reference grid, river model)",
+   "paths": [
+    "web/earth-flow.js",
+    "web/scenes.js (kind === 'earth')",
+    "scripts/scenes.mjs#earthFallback, #earthExplanation",
+    "scripts/check-experience.mjs (imports earth-flow constants; out of this group's scope)",
+    "docs/legacy-scene-aesthetic-review.md#Earth",
+    "web/assets/earth/blue-marble-december.webp"
+   ],
+   "topics": [
+    "free fall",
+    "Painleve-Gullstrand coordinates",
+    "river model of black holes",
+    "escape velocity",
+    "freely falling observers",
+    "tidal effects",
+    "Schwarzschild metric"
+   ],
+   "teaches": "Freely falling observers released from rest at infinity move inward at the local escape speed sqrt(2GM/r), accelerating as they approach. Neighbouring observers on one radial line spread apart while side-by-side observers converge (a precursor of tidal stretching and squeezing). A reference grid can be carried by falling observers without being a substance. This is the opening visual of the book and later links to the Schwarzschild river model in Ch 17.",
+   "pedagogy": "A cinematic hero: a textured globe with a continuously replenished falling grid and rose particles, slow auto-rotation, Space to pause, no sliders. The 'Read the scene' note plus a disclosure derives r(t) from dr/dt=-sqrt(2GM/r), states the 110x speed-up, the 11.2 km/s surface speed and omitted effects, and credits Hamilton-Lisle and ScienceClic's presentation idea.",
+   "interaction": {
+    "controls": [
+     "Drag to orbit (OrbitControls)",
+     "Space to pause/resume",
+     "Auto camera orbit while playing"
+    ],
+    "what_updates": "The vertex shader moves every grid vertex along r(t)=[r0^{3/2}-1.5(age+phase)]^{2/3} with a phase uniform; 160 instanced particles follow the same law; the theme recolours the ink and particles",
+    "readouts": [],
+    "rendering": "three.js WebGL: LineSegments with custom GLSL (radius computed on the GPU), radial connector lines, InstancedMesh particles, a textured sphere with a Fresnel atmosphere shader; a static SVG equatorial-section fallback generated at build time"
+   },
+   "physics_model": "Newtonian escape-speed / Painleve-Gullstrand rain congruence (exact in Schwarzschild in PG time for rain observers, Newtonian form used here). Length unit is R_earth and time unit R/sqrt(2GM/R) (FALL_TIME ~570 s), animated at 110x. Cohorts are injected every 0.72 units from a cube of half-size 5.4, with pre-populated ages so no visible reset occurs. Constants and cohort maths are asserted in scripts/check-experience.mjs (outside this group).",
+   "screenshots": [
+    "qa/lab-earth-1440-dark.png",
+    "qa/lab-earth-390-light.png",
+    "qa/earth-explanation-mobile.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The most striking visual in the legacy project: the GPU-driven falling grid with a real Earth texture reads as 'spacetime falling in' at a glance (qa/lab-earth-1440-dark.png)",
+     "Mathematically exact kinematics with no global reset or fade, and careful disclaimers (the grid is not a material, points are not paths)",
+     "Performance-aware: lazy init, pauses offscreen or hidden, reduced-motion aware, webglcontextlost fallback"
+    ],
+    "issues": [
+     "The grid is too dense, especially at 390px; it accumulates into a starburst and no single cell or observer pair can be followed (legacy-scene-aesthetic-review.md)",
+     "The title says 'Compare two falling objects' but nothing selects or measures two objects; there are no readouts",
+     "The page copy asks the learner to 'watch the gap between points on the same radial line, then compare points side by side', but the 160 rose particles are scattered at random with no pairs marked, so the instruction cannot be followed",
+     "Uses the rest-at-infinity law only; the comprehensive review asks for a comparison with release from rest at finite radius",
+     "A large bright teal circle frames the scene in qa/lab-earth-1440-dark.png and reads as a physical boundary or horizon. earth-flow.js draws no such geometry (only an Earth sphere, a 1.018 atmosphere rim shell, particles and the line grid, plus a discard inside radius 1.005), so it comes from the page or scene chrome. Its source was not pinned down; the writer's 'focus outline' explanation is plausible but unverified"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md (Earth section); docs/comprehensive-course-review-2026-09-09.md line ~410; screenshots inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep earth-flow.js's kinematics, the shader approach, texture and credits (Blue Marble is NASA public domain; ScienceClic inspiration credit). Reduce grid density, highlight one radial pair and one transverse pair with live separation readouts to make 'compare two falling objects' true, and add a finite-radius release toggle. Reuse the identical flow later for a black hole (PG river crossing the horizon at v=c). Port to Threlte, keeping the GLSL.",
+    "effort": "medium"
+   },
+   "size": "218-line earth-flow.js (~326 pretty) plus the shared scene shell"
+  },
+  {
+   "id": "scene-3d-covector-level-planes",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 02: An arrow meets a family of planes (covector pairing)",
+   "paths": [
+    "web/scenes.js (kind === 'covector')",
+    "web/scene-models.js#covectorCrossings",
+    "scripts/scenes.mjs (scene 'covector', Chapter 2 section 2.4)",
+    "docs/legacy-scene-aesthetic-review.md#Covector"
+   ],
+   "topics": [
+    "covectors",
+    "one-forms",
+    "dual vectors",
+    "level sets",
+    "vector-covector pairing",
+    "gradient"
+   ],
+   "teaches": "The one-form dx acting on v=(3,2,1) counts how many unit level surfaces of x the displacement crosses, giving omega(v)=3. The pairing is not a Euclidean length, as rotation shows.",
+   "pedagogy": "The slider grows lambda v from 0 to 1, and rings appear at the integer level crossings. The note explains fractional final intervals, and there is an Explore/Diagram switch with a paired static figure.",
+   "interaction": {
+    "controls": [
+     "Follow the displacement slider (lambda)",
+     "Orbit/rotate left/right/reset, arrow keys, Home",
+     "Explore / Diagram view switch"
+    ],
+    "what_updates": "Arrow length, v label, visible crossing rings, the KaTeX readout omega(lambda v) and the narrationSource",
+    "readouts": [
+     "omega(lambda v)"
+    ],
+    "rendering": "three.js: translucent planes, ArrowHelper, torus rings, CSS2D KaTeX labels"
+   },
+   "physics_model": "Pure geometry: crossings at x=1,2,3 on the ray (3t,2t,t); readout 3 lambda. Model endpoints are checked in scripts/check-experience.mjs (outside this group).",
+   "screenshots": [
+    "qa/lab-covector-390-light.png",
+    "qa/lab-covector-1440-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "A good use of 3D; a single clear vocabulary; numbered levels are legible"
+    ],
+    "issues": [
+     "Four equal translucent panes look like generic CAD, and the arrow is thin relative to the panels (aesthetic review)",
+     "Crossings are not emphasized as they happen; there is no second covector (e.g. dx+dy) or basis change to show the pairing is linear and coordinate-aware"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md; qa/lab-covector-*.png inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the concept and model. Rebuild with plane highlighting on crossing, a draggable vector tip, and a selectable covector (dx, dy, 2dx, dx+dy) so omega(v) = omega_i v^i is discovered. Scale planes with covector magnitude (denser planes means a larger covector).",
+    "effort": "small"
+   },
+   "size": "~40 lines in scenes.js"
+  },
+  {
+   "id": "scene-3d-light-cone",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 03: The shape of a possible future (light cone in 2+1 D)",
+   "paths": [
+    "web/scenes.js (kind === 'cone')",
+    "web/scene-models.js#conePointVisible",
+    "scripts/scenes.mjs (scene 'cone', section 3.3)",
+    "docs/legacy-scene-aesthetic-review.md#Light cone"
+   ],
+   "topics": [
+    "light cone",
+    "causal structure",
+    "timelike vectors",
+    "null vectors",
+    "spacelike vectors",
+    "four-velocity",
+    "Minkowski metric"
+   ],
+   "teaches": "Restoring a second space dimension turns the light-cone lines into a surface. A massive observer's worldline direction tilts with speed but always stays strictly inside the future cone (timelike), while ds^2=0 is the cone.",
+   "pedagogy": "A speed slider tilts the u^mu arrow. Solid/dashed strokes show true occlusion from the current camera (analytic ray-cone intersection). The note disclaims the rim and says the cone is a causal boundary, not a physical surface.",
+   "interaction": {
+    "controls": [
+     "Observer speed v/c [0,0.95]",
+     "Orbit/rotate/reset, keyboard",
+     "Explore / Diagram"
+    ],
+    "what_updates": "Worldline arrow direction/length, endpoint and label, the v/c readout, and the front/rear dashed stroke classification recomputed when the camera moves",
+    "readouts": [
+     "v/c"
+    ],
+    "rendering": "three.js cones, LineSegments and LineDashedMaterial with per-camera visibility, CSS2D KaTeX labels"
+   },
+   "physics_model": "Double cone x^2+z^2=y^2 (ct vertical) with worldline direction (2b, 2, 0), slope v/c=b. conePointVisible solves the sightline-cone quadratic using the known root, including views through the open rim.",
+   "screenshots": [
+    "qa/lab-cone-1440-light.png",
+    "qa/lab-cone-390-dark.png",
+    "qa/cone-side-new.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Reads immediately; the analytic hidden-line dashing is a sophisticated legibility touch; honest notes"
+    ],
+    "issues": [
+     "The only interaction is one tilting arrow; no classification of learner-chosen directions as timelike, null or spacelike (aesthetic review recommendation)",
+     "The label says u^mu but the arrow is not normalized as a four-velocity; the past cone is as prominent as the future cone",
+     "No boosted-frame view showing the cone invariant under Lorentz transformation"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md; qa/lab-cone-1440-light.png inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep conePointVisible (reusable hidden-line helper) and the visual style. Rebuild as an interactive classifier: drag a vector and see it coloured timelike/null/spacelike with ds^2 shown, add a boost slider that tilts axes and simultaneity planes while the cone stays fixed, and de-emphasize the past cone.",
+    "effort": "medium"
+   },
+   "size": "~115 lines in scenes.js + 15-line helper"
+  },
+  {
+   "id": "scene-3d-sphere-holonomy",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 04: Carry a direction, discover curvature (octant holonomy on a sphere)",
+   "paths": [
+    "web/scenes.js (kind === 'sphere')",
+    "scripts/scenes.mjs (scene 'sphere'; excluded from chapter placement in scripts/build-site.mjs:155, atlas only)",
+    "docs/legacy-scene-aesthetic-review.md#Original sphere transport"
+   ],
+   "topics": [
+    "parallel transport",
+    "holonomy",
+    "Gaussian curvature",
+    "great circles",
+    "intrinsic curvature",
+    "tangent plane"
+   ],
+   "teaches": "Parallel transport around a geodesic triangle enclosing one octant (area pi a^2/2) returns the vector rotated by Delta alpha = A/a^2 = pi/2.",
+   "pedagogy": "A continuous 3-arc journey slider with a moving tangent plane and 'Arc n of 3 · %' readout. The author recommends keeping it as an atlas/reference experience while the guided parallel-transport lesson (other group) is the teaching entrance.",
+   "interaction": {
+    "controls": [
+     "Journey around the loop [0,3 arcs]",
+     "Orbit/rotate/reset",
+     "Explore / Diagram"
+    ],
+    "what_updates": "Transported arrow position/direction, tangent-plane placement and the arc/percent readout (the final value is 90 degrees)",
+    "readouts": [
+     "Arc n of 3 · %",
+     "Delta alpha = 90 degrees at return"
+    ],
+    "rendering": "three.js sphere mesh with lat/long lines, TubeGeometry route, ArrowHelper, translucent tangent plane, CSS2D labels"
+   },
+   "physics_model": "Transport along each great-circle arc implemented as rotation about the arc's axis (exact for geodesics). Holonomy pi/2 for an octant.",
+   "screenshots": [
+    "qa/lab-sphere-1440-light.png",
+    "qa/transport-sphere-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Well-composed; the sphere fills the frame and the triangle is unmistakable (aesthetic review)"
+    ],
+    "issues": [
+     "The route tube is heavier than the arrow that carries the lesson; the arrow and tangent plane are easy to miss mid-journey (screenshot)",
+     "Fixed loop only: no variable loop size or latitude circle to show holonomy proportional to area",
+     "Superseded in the chapter by the guided parallel-transport lesson, so it duplicates that concept"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md; scripts/build-site.mjs:155 filter; qa/lab-sphere-1440-light.png inspected"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Do not port separately. Fold its good parts (continuous journey, moving tangent plane, 90-degree result) into the grbook.ai parallel-transport/holonomy experience owned by the geometry group, adding variable loop area (the 'curvature microscope' idea in experience-ideas.md #8).",
+    "effort": null
+   },
+   "size": "~65 lines in scenes.js"
+  },
+  {
+   "id": "scene-3d-tidal-cloud",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 05: Gravity changes a cloud's shape (tidal deformation)",
+   "paths": [
+    "web/scenes.js (kind === 'tides')",
+    "scripts/scenes.mjs (scene 'tides', section 10.5)",
+    "docs/legacy-scene-aesthetic-review.md#Tidal cloud",
+    "docs/visualization-audit.md (Tidal cloud row)"
+   ],
+   "topics": [
+    "tidal forces",
+    "geodesic deviation",
+    "Riemann curvature tensor",
+    "tidal tensor",
+    "freely falling frames",
+    "volume preservation"
+   ],
+   "teaches": "A small freely falling spherical cloud near a mass stretches radially and squeezes in two transverse directions with eigenvalues GM/r^3 (2,-1,-1). Rotating reveals the third dimension that a flat diagram hides, and the trace-free pattern preserves volume to first order.",
+   "pedagogy": "An early-time deformation slider s with dashed reference great circles fixed at the initial sphere, compact r-hat/theta-hat/phi-hat axis labels, and a note stating that volume is preserved only to first order.",
+   "interaction": {
+    "controls": [
+     "Early-time deformation slider (s in [0,0.15])",
+     "Orbit/rotate/reset",
+     "Explore / Diagram"
+    ],
+    "what_updates": "Cloud group scale (1+2s, 1-s, 1-s) and the s readout",
+    "readouts": [
+     "s"
+    ],
+    "rendering": "three.js InstancedMesh of 96 Fibonacci-sphere particles, great-circle lines, dashed reference circles, CSS2D labels"
+   },
+   "physics_model": "Linear, early-time geodesic-deviation scaling of an initially comoving cloud, xi_i -> xi_i(1+lambda_i s) with lambda=(2,-1,-1). An illustrative parameter, not time-evolved in physical units.",
+   "screenshots": [
+    "qa/lab-tides-390-light.png",
+    "qa/lab-tides-1440-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Improved after review (fewer markers, reference circles); an honest small-parameter disclosure"
+    ],
+    "issues": [
+     "The slider parameter s has no physical time, distance or mass meaning; no link to the Riemann components or measured relative acceleration",
+     "No comparison of orbit vs radial infall or height above Earth, and the 'spaghettification' scale is not connected to real numbers",
+     "Small object at 390px (qa/lab-tides-390-light.png)"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md (changes implemented); qa/lab-tides-390-light.png inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the visual language (reference circles, eigen-axes). Drive the deformation from real parameters (M, r, fall time) via the geodesic deviation equation, integrating xi'' = -R^i_{0j0} xi^j. Show the tidal tensor matrix with highlighted eigenvalues, and add Earth, neutron star and stellar-black-hole presets with human-scale numbers.",
+    "effort": "medium"
+   },
+   "size": "~45 lines in scenes.js"
+  },
+  {
+   "id": "scene-3d-schwarzschild-embedding-ruler",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 06: The same interval, a longer ruler (Flamm embedding and proper radial distance)",
+   "paths": [
+    "web/scenes.js (kind === 'embedding')",
+    "web/scene-models.js#embeddingHeight, #radialProperLength",
+    "scripts/scenes.mjs (scene 'embedding', section 17.2)",
+    "web/scene-controls.css (.scene-measurement)",
+    "docs/legacy-scene-aesthetic-review.md#Schwarzschild embedding"
+   ],
+   "topics": [
+    "Schwarzschild metric",
+    "Flamm's paraboloid",
+    "embedding diagrams",
+    "proper distance",
+    "areal radius",
+    "spatial geometry",
+    "event horizon"
+   ],
+   "teaches": "On a constant-t equatorial slice, the proper radial distance between fixed areal radii 0.75R and R exceeds the coordinate difference by a factor that grows with r_s/R, for example 1.19x at r_s/R=0.25. The areal coordinate r is defined by circumference, not by radial rulers. Embedding height is auxiliary, not time or force.",
+   "pedagogy": "A mass slider at fixed reference radius with a live 'Proper length of the rose ruler' measurement card and ratio. The note carefully disclaims the rubber-sheet reading. There is an Explore/Diagram switch.",
+   "interaction": {
+    "controls": [
+     "Mass at fixed reference radius r_s/R [0.05,0.65]",
+     "Orbit/rotate/reset",
+     "Explore / Diagram"
+    ],
+    "what_updates": "Surface mesh positions and wire rings/meridians, the horizon circle, ruler tube and endpoints, screen-space-offset label, the Delta l = ...R readout and ratio, and the narrationSource",
+    "readouts": [
+     "r_s/R",
+     "Delta l (proper length) in units of R",
+     "ratio to coordinate interval"
+    ],
+    "rendering": "three.js dynamic BufferGeometry surface, Line wireframe, TubeGeometry ruler, CSS2D KaTeX labels with screen-space offset"
+   },
+   "physics_model": "z = 2 sqrt(r_s(r-r_s)) (Flamm) and Delta l = [sqrt(r(r-r_s)) + r_s ln(sqrt r + sqrt(r-r_s))] evaluated from 0.75R to R, exact. The ruler must lie outside the horizon (RangeError otherwise).",
+   "screenshots": [
+    "qa/lab-embedding-1440-light.png",
+    "qa/lab-embedding-high-mass-mobile.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Correct closed-form proper length; the right measurement idea (coordinate vs proper radial distance); strong disclaimers",
+     "At 1440px (qa/lab-embedding-1440-light.png) the scene is clean and the measurement card is clear: at r_s/R=0.25 it reads Delta l=0.296R, 1.19x the coordinate interval, which the reviewer re-derived from the closed form"
+    ],
+    "issues": [
+     "The author's review says to 'rebuild the learning interaction'. In qa/lab-embedding-1440-light.png the funnel fills the stage while the measured rose ruler is a short segment on the far rim, and the familiar funnel silhouette invites the rubber-sheet misconception that the note must then undo",
+     "Dense wire lines gather at the throat on phones",
+     "Moving mass is a weak demonstration; there is no side-by-side comparison of circumference-based r and ruler distance"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md ('Rebuild the learning interaction; keep the mathematics'); qa/lab-embedding-1440-light.png inspected"
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep embeddingHeight and radialProperLength and the note's disclaimers. Redesign around the measurement: first lay concentric circles of known circumference, then let the learner walk a ruler outward and count proper length vs Delta r, and only then reveal the embedding surface as an optional 'shape that has these distances'. Pair it with an interior (constant-density) Schwarzschild solution so the funnel does not reach a hole for stars.",
+    "effort": "medium"
+   },
+   "size": "~145 lines in scenes.js + 12 helper lines"
+  },
+  {
+   "id": "scene-3d-gravitational-wave-rings",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 07: One wave, two ways to stretch (plus and cross polarization)",
+   "paths": [
+    "web/scenes.js (kind === 'wave')",
+    "web/scene-models.js#waveStrain, #waveDisplacement",
+    "web/scene-controls.css",
+    "scripts/scenes.mjs (scene 'wave', section 18.4)",
+    "docs/legacy-scene-aesthetic-review.md#Gravitational wave"
+   ],
+   "topics": [
+    "gravitational waves",
+    "plus polarization",
+    "cross polarization",
+    "transverse-traceless gauge",
+    "strain",
+    "linearized gravity",
+    "wavelength and frequency"
+   ],
+   "teaches": "A ring of free test particles in a transverse plane is stretched along one axis and squeezed along the other (plus), or along axes rotated 45 degrees (cross), as a wave travelling along z passes. Strain amplitude sets the deformation; frequency sets the wavelength lambda=2 pi c/omega, while the speed stays c.",
+   "pedagogy": "A brighter middle detector ring with quieter rings sampling other z positions. Play/Pause, plus/cross toggle, phase, amplitude and frequency sliders with a wavelength caption. The equation swaps with polarization and has its own narration, and the note says strain is exaggerated and first order.",
+   "interaction": {
+    "controls": [
+     "Play/Pause",
+     "Plus / Cross polarization",
+     "Phase slider",
+     "Strain amplitude h0 [0,0.35]",
+     "Angular frequency omega L0/c [0.75,2.5]",
+     "Orbit/rotate/reset",
+     "Explore / Diagram"
+    ],
+    "what_updates": "Per-ring 4x4 matrix transforms (1+h/2, h/2 ...) each frame, readouts, wavelength caption, polarization-specific KaTeX equation and the narrationSource",
+    "readouts": [
+     "phi",
+     "h0",
+     "omega L0/c",
+     "lambda/L0"
+    ],
+    "rendering": "three.js groups with manual matrices, sphere dots, ring lines, CSS2D labels; rAF with visibility and reduced-motion gating"
+   },
+   "physics_model": "TT-gauge first-order displacement: h = h0 sin(omega z/c - phi); plus x -> x(1+h/2), y -> y(1-h/2); cross x -> x + h y/2, y -> y + h x/2. The animation advances 0.8 L0/c per second.",
+   "screenshots": [
+    "qa/lab-wave-1440-dark.png",
+    "qa/lab-wave-390-light.png",
+    "qa/wave-final-390-dark-cross.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct TT displacement; good hierarchy after review; the polarization-aware equation and narration are well integrated"
+    ],
+    "issues": [
+     "No detector arms, interferometer response or antenna pattern (review: 'not a complete interferometer simulation')",
+     "Rings along z can read as a coil; propagation direction vs transverse deformation needs a clearer first view",
+     "No link from strain to real magnitudes (1e-21) or to a chirp waveform"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md; qa/lab-wave-1440-dark.png inspected"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep waveStrain/waveDisplacement, the polarization toggle, the equation swap and the narration strings. In grbook.ai, start with a single ring face-on, then reveal propagation; add an L-shaped arm pair with a live arm-length difference plot, arbitrary polarization angle, and a chirp h(t) driven by a binary so it connects to LIGO data.",
+    "effort": "medium"
+   },
+   "size": "~230 lines in scenes.js + 10 helper lines + 240 lines CSS (pretty)"
+  },
+  {
+   "id": "scene-3d-cosmic-expansion-lattice",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 08: More distance, the same cosmic grid (scale factor)",
+   "paths": [
+    "web/scenes.js (kind === 'expansion')",
+    "scripts/scenes.mjs (scene 'expansion', section 19.1)",
+    "docs/legacy-scene-aesthetic-review.md#Cosmological expansion"
+   ],
+   "topics": [
+    "scale factor",
+    "comoving coordinates",
+    "FLRW metric",
+    "Hubble's law",
+    "cosmological principle",
+    "proper distance"
+   ],
+   "teaches": "Physical separations between comoving markers scale as l = a(t) Delta chi, and every separation grows by the same factor.",
+   "pedagogy": "A scale-factor slider with one highlighted separation and a label. The note says the cube is a window, not an edge, and the control selects a, not a history.",
+   "interaction": {
+    "controls": [
+     "Scale factor a [0.6,1.5]",
+     "Orbit/rotate/reset",
+     "Explore / Diagram"
+    ],
+    "what_updates": "Lattice group scale and the l label position; a readout",
+    "readouts": [
+     "a"
+    ],
+    "rendering": "three.js line lattice 3x3x3 with dots, a highlighted tube segment, CSS2D label"
+   },
+   "physics_model": "Uniform scaling of a comoving lattice about its centre; no dynamics.",
+   "screenshots": [
+    "qa/lab-expansion-390-dark.png",
+    "qa/lab-expansion-1440-light.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Honest disclaimers; the measured separation was added after review"
+    ],
+    "issues": [
+     "Scaling about the lattice centre visually creates the very preferred centre the deck denies; there is no observer selection (review: 'make observer comparison the core')",
+     "A small wire cube in a large stage at 390px (screenshot)",
+     "No time evolution, Hubble-law velocity readout or light-travel/redshift connection"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md; qa/lab-expansion-390-dark.png inspected"
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep only the comoving-lattice idea and the disclaimers. Build an observer-centred experience: click any galaxy to become the origin and see all others recede with v = H d. Drive a(t) from the Friedmann solver (reuse cosmicDistances/evolveDust kernels), and send a photon whose wavelength stretches with a to show 1+z = a_obs/a_emit.",
+    "effort": "medium"
+   },
+   "size": "~22 lines in scenes.js"
+  },
+  {
+   "id": "scene-3d-adm-lapse-shift",
+   "kind": "scene-3d",
+   "title": "Spacetime Lab 09: One step in time, two different choices (ADM lapse and shift)",
+   "paths": [
+    "web/scenes.js (kind === 'slices')",
+    "scripts/scenes.mjs (scene 'slices', section 20.2)",
+    "docs/legacy-scene-aesthetic-review.md#Lapse and shift",
+    "docs/visualization-audit.md (ADM slices row)"
+   ],
+   "topics": [
+    "3+1 decomposition",
+    "ADM formalism",
+    "lapse function",
+    "shift vector",
+    "foliation",
+    "normal vector",
+    "gauge freedom"
+   ],
+   "teaches": "The time-evolution vector decomposes as partial_t = N n + beta: lapse moves along the normal between slices and shift slides the spatial coordinates sideways. Shift is a coordinate choice.",
+   "pedagogy": "A shift slider moves the upper slice grid and shows the beta and partial_t arrows. The note says the vertical is schematic and the Euclidean display is not a spacetime distance.",
+   "interaction": {
+    "controls": [
+     "Coordinate shift beta^x [-1.2,1.2]",
+     "Orbit/rotate/reset",
+     "Explore / Diagram"
+    ],
+    "what_updates": "Upper slice position, shift arrow, total step arrow, labels and readout",
+    "readouts": [
+     "beta^x"
+    ],
+    "rendering": "three.js planes with grids, ArrowHelpers, CSS2D KaTeX labels"
+   },
+   "physics_model": "Schematic vector sum only; no lapse control and no metric.",
+   "screenshots": [
+    "qa/lab-slices-1440-light.png",
+    "qa/lab-slices-390-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Correct decomposition and colour semantics matching the equation"
+    ],
+    "issues": [
+     "The two planes dominate while the three short vectors carrying the argument are compressed at the centre; it looks like a sliding sheet (aesthetic review: 'rebuild the instructional hierarchy')",
+     "Lapse cannot be changed, and there is no demonstration that the same spacetime is recovered under different gauges (comprehensive review line ~416)",
+     "Small on phones"
+    ],
+    "evidence": "docs/legacy-scene-aesthetic-review.md; docs/comprehensive-course-review-2026-09-09.md; qa/lab-slices-1440-light.png inspected"
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the colour semantics and equation. Rebuild as a foliation explorer: a fixed spacetime (e.g. Minkowski drawn in 1+1 or 2+1) with draggable slices; lapse and shift sliders change the labels and step without changing the underlying events, and a local clock shows the proper time N dt. Connect it to the numerical-FLRW audit lab for the numerical-GR chapter.",
+    "effort": "medium"
+   },
+   "size": "~38 lines in scenes.js"
+  },
+  {
+   "id": "engine-threejs-scene-shell",
+   "kind": "engine-or-tool",
+   "title": "Spacetime Lab 3D scene shell (renderer, camera framing, labels, theming, fallbacks)",
+   "paths": [
+    "web/scenes.js#createLab, #initScenes, #setView, #fallback",
+    "scripts/scenes.mjs#scenePanel, #icon, #fallbackSVG",
+    "web/scene-controls.css",
+    "web/scene-models.js"
+   ],
+   "topics": [
+    "scientific visualization",
+    "WebGL rendering",
+    "accessibility"
+   ],
+   "teaches": "Infrastructure, not a lesson: one createLab(el) builds a WebGLRenderer with a CSS2DRenderer for KaTeX labels, OrbitControls without pan, and palette-role materials recoloured from CSS variables on theme change. Camera bounds are captured over the full slider range (9 samples) so framing never jumps, with label-aware zoom fitting. It also provides keyboard orbiting (arrows/Home), an Explore/Diagram switch with a paired static SVG, lazy init by IntersectionObserver, and context-loss and no-WebGL fallbacks to the diagram.",
+   "pedagogy": null,
+   "interaction": {
+    "controls": [
+     "Drag orbit",
+     "Rotate left/right/reset buttons",
+     "Arrow keys/Home on the focused stage",
+     "Explore / Diagram toggle"
+    ],
+    "what_updates": "Per-scene update() and beforeRender() hooks; ResizeObserver refits the camera",
+    "readouts": [],
+    "rendering": "three.js (package three ^0.185) with OrbitControls and CSS2DRenderer from vendor assets; KaTeX via window.katex; Hugeicons SVG inlined at build"
+   },
+   "physics_model": "Pure models live in web/scene-models.js (covectorCrossings, conePointVisible, embeddingHeight, radialProperLength, waveStrain, waveDisplacement) and are checked by scripts/check-experience.mjs, which reports 36 scene/theme/viewport combinations in qa/evolution-experience.log.",
+   "screenshots": [
+    "qa/no-webgl-fallback.png",
+    "qa/lab-cone-diagram-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Robust lifecycle: dispose traverses geometries, materials and textures; forceContextLoss; lazy creation",
+     "The full-parameter-envelope framing trick and label-aware zoom are genuinely useful",
+     "Static diagram fallback for no-WebGL and context loss keeps content accessible"
+    ],
+    "issues": [
+     "A single 1,000-line imperative if/else-if over scene kinds, with hard-coded camera positions per kind",
+     "Relies on the global window.katex and a DOM-string build step; not component-based",
+     "CSS2D labels are re-rendered every frame (fine for a few labels)"
+    ],
+    "evidence": "web/scenes.js read in full; qa/evolution-experience.log; docs/legacy-scene-aesthetic-review.md verification section"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Do not port the shell. In grbook.ai build a Threlte (or three.js) <SceneStage> component that re-implements the good patterns: palette-role materials bound to theme tokens, envelope-based camera framing, KaTeX CSS2D labels, keyboard orbit, diagram fallback, visibility-gated rAF and a dispose discipline. Copy scene-models.js verbatim as pure helpers.",
+    "effort": null
+   },
+   "size": "298 raw / 1,075 pretty lines scenes.js; 49/226 scenes.mjs; 30/37 scene-models.js; 51/240 scene-controls.css"
+  },
+  {
+   "id": "engine-lab-records-and-relativity-lab-shell",
+   "kind": "engine-or-tool",
+   "title": "Lab record schema and generic relativity-lab shell (controls, chart, readouts, CSV provenance, notebook)",
+   "paths": [
+    "web/lab-records.js",
+    "web/relativity-labs.js#calculateLab, #chart, #labResultHTML, #labReadoutsHTML, #labDataHTML, #initRelativityLabs",
+    "web/relativity-labs.css",
+    "scripts/relativity-labs.mjs",
+    "web/relativity-models.js",
+    "scripts/check-relativity-labs.mjs",
+    "scripts/check-relativity-models.mjs"
+   ],
+   "topics": [
+    "scientific visualization",
+    "numerical methods",
+    "Runge-Kutta methods",
+    "Simpson's rule",
+    "reproducibility"
+   ],
+   "teaches": "Infrastructure: one declarative record per lab (id, version, chapter, title, question, hint, prediction, units, assumptions[], equations[] as TeX, limitation, source {title,url}, parameters with range or options) generates the controls, the KaTeX 'How this is calculated' disclosure, the scientificContext for the tutor, CSV export headers with provenance, and notebook entries. calculateLab maps parameters to {value, columns, rows, readouts, series} for a shared SVG chart.",
+   "pedagogy": "Every record carries a prediction prompt and a limitation, which enforces 'predict, then check, then know the model's boundary' for all four labs.",
+   "interaction": {
+    "controls": [
+     "Range sliders and segmented option controls generated from the record",
+     "View switch (scene/plot)",
+     "Reset",
+     "Download CSV",
+     "Observation textarea"
+    ],
+    "what_updates": "Result picture/chart, readouts, data table, scientificContext, localStorage, and a gr:experiment-change event consumed by course.js",
+    "readouts": [
+     "Four per lab, defined in calculateLab"
+    ],
+    "rendering": "SVG charts with separate wide (500) and compact (360) variants switched by container query"
+   },
+   "physics_model": "relativity-models.js holds rk4Step, starProfile, simpson, cosmicDistances, photonExchange and evolveDust (see the individual lab assets). validateLabState clamps restored state to the record.",
+   "screenshots": [
+    "qa/lab-star-1440-light.png",
+    "qa/lab-distances-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The record-driven design keeps UI, provenance, tutor context and export consistent",
+     "The CSV header embeds record id, version, parameters, units, assumptions and source URL",
+     "The browser check exercises every control, CSV, notebook export/import and the no-JS table and equations"
+    ],
+    "issues": [
+     "The chart is generic with hard-coded per-lab axis overrides (star x 0-1.3, evolution 0-8, distances min 50 Gpc) that hide features",
+     "prediction text exists in records but is not rendered as an interactive predict-then-reveal step",
+     "Browser suite fragility: qa/relativity-labs.log records a 30 s timeout at the notebook-import button",
+     "The Blob download is used for CSV, which grbook.ai's sandboxed contexts may need to handle differently"
+    ],
+    "evidence": "web/lab-records.js; scripts/check-relativity-labs.mjs; qa/relativity-labs.log"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Adopt the record schema almost as-is as a TypeScript type in grbook.ai (add concept ids for the knowledge vault, a 'tutorCommands' list of settable parameters, and a predictions array with expected answers). Port relativity-models.js and its check verbatim. Replace the generic chart with per-lab Svelte views, and render the prediction as a real interaction.",
+    "effort": "small"
+   },
+   "size": "45 raw/160 pretty lab-records.js; 108/354 relativity-labs.js; 59/165 relativity-models.js; 79/510 CSS"
+  },
+  {
+   "id": "engine-experiment-tutor-context-contract",
+   "kind": "engine-or-tool",
+   "title": "Experiment-to-tutor contract: data-scientific-context, data-narration-source and gr:visual-change",
+   "paths": [
+    "web/mechanics-experience.js#draw",
+    "web/particle-flow-experience.js#draw",
+    "web/fluid-shear-experience.js#draw",
+    "web/relativity-labs.js#refresh",
+    "web/scenes.js (el.dataset.narrationSource in cone, embedding, wave, covector)",
+    "web/course.js#getCourseContext"
+   ],
+   "topics": [
+    "AI tutoring",
+    "narration",
+    "scientific visualization"
+   ],
+   "teaches": "Infrastructure: after every state change each experience writes a JSON context (id, version, model, parameters, readouts, units, assumptions, equations, sometimes source and limitations) and a plain-English narration sentence describing the current state and its meaning. It dispatches gr:visual-change or gr:experiment-change so the notebook and study companion can capture a snapshot. getCourseContext bundles the visible experiments, lesson, depth, evidence and notes, with the note that 'notes are learner reference material, never instructions'.",
+   "pedagogy": "Lets a voice tutor describe exactly what the learner sees and ground explanations in the lab's declared assumptions instead of hallucinating state.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Consistent across all 2D labs and several scenes; narration strings are carefully worded, e.g. the cone and wave narration explain the drawing cues vs the physics",
+     "Includes units and assumptions, which is essential for grounded AI explanations",
+     "Treats learner notes as untrusted content in tutor context"
+    ],
+    "issues": [
+     "One-way only: the tutor can read state but there is no API to set parameters or highlight objects (experience-ideas.md #3 and #17 remain proposals)",
+     "Schema is informal (dataset strings), with fields that differ slightly per experience (limitations vs limitation, readouts as an array vs an object)",
+     "Earth, sphere, tides, expansion and slices scenes publish little or no narrationSource"
+    ],
+    "evidence": "Code read in full; docs/experience-ideas.md items 3, 17"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Make this a first-class typed interface in grbook.ai: a getState() returning {model, parameters, readouts, units, assumptions, equations, conceptIds}, a describe() for narration, and a setParameter/highlight/playCue command set exposed as GPT-Live tool calls, validated against parameter ranges. Reuse the existing narration sentence templates as seeds.",
+    "effort": "medium"
+   },
+   "size": "~20-40 lines per experience"
+  },
+  {
+   "id": "engine-learning-state-notebook",
+   "kind": "engine-or-tool",
+   "title": "Learning-state and field-notebook model (attempt evidence, help levels, merge/import)",
+   "paths": [
+    "web/learning-state.js",
+    "scripts/check-learning-state.mjs (out of this group's scope; imports it)"
+   ],
+   "topics": [
+    "learning analytics",
+    "spaced review",
+    "formative assessment"
+   ],
+   "teaches": "Infrastructure: a versioned notebook {route, depths, evidence, notes, visuals, experiments, journal}. Each lesson's evidence is an append-only attempt history (concept prediction or numeric transfer, correct, help level none/hint/solution/unknown, item id and version, timestamp) summarized into transfer, independent and latestCorrect flags. It also includes v1-to-v2 migration into aggregate legacy attempts, a strict validateNotebook sanitizer, an idempotent mergeNotebooks by event id, a numeric/fraction/scientific-notation answer parser and evidence labels ('Independent check recorded', 'Review this method').",
+   "pedagogy": "The header comment 'A notebook is evidence about attempts, not a permanent label on a learner' sets the philosophy: record whether help was opened before a correct answer, and distinguish independent success from assisted success.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/course-notebook-1440.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Thoughtful evidence semantics (help level captured at attempt time, item versions, independent vs assisted)",
+     "Defensive validation and lossless merge by event id with a legacy migration path"
+    ],
+    "issues": [
+     "localStorage-only and single-device; grbook.ai has Better Auth and Drizzle, so this must become server-side tables",
+     "The review queue in web/course.js is a single rule: a lesson is due if it has no transfer, the latest attempt was wrong, or more than 3 days (3*864e5 ms) have passed since lastSuccess. There is no spacing algorithm",
+     "visuals and experiments are stored as opaque structuredClone objects without schema"
+    ],
+    "evidence": "web/learning-state.js read in full; web/course.js renderNotebook usage"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Port the data model and semantics to Drizzle tables (attempts with kind, item_id, item_version, correct, help_level, at; notes; experiment_snapshots; journal). Keep parseNumericAnswer and evidenceLabel logic verbatim, keep localStorage as an offline cache using mergeNotebooks-style idempotent sync by event id, and replace the 3-day rule with a proper spaced-review scheduler.",
+    "effort": "medium"
+   },
+   "size": "109 raw / 215 pretty lines"
+  },
+  {
+   "id": "app-code-course-runtime",
+   "kind": "app-code",
+   "title": "Course runtime: depth tabs, transfer checks, routes, notebook page, lab wiring (course.js)",
+   "paths": [
+    "web/course.js",
+    "app/src/lib/experiments.ts (calls initCourse from the bundled runtime; out of scope)",
+    "app/scripts/prepare.ts (bundles web runtime into app/static/book/experiments.js; out of scope)"
+   ],
+   "topics": [
+    "learning paths",
+    "formative assessment",
+    "prerequisites"
+   ],
+   "teaches": "Infrastructure: hydrates authored lessons (intuition/derive/formal depth tabs with keyboard support), concept-choice feedback, numeric transfer items with tolerance and 'different example' variants, hint/solution toggles logged as help. It also renders the route-aware next/previous chapter, a return-to-lesson trail from prerequisite links, the notebook page (saved lessons with visual snapshots, experiment settings, attempt history, review queue, JSON/Markdown export, import preview with merge preference), and initializes relativity labs.",
+   "pedagogy": "Feedback copy avoids grading language ('That result checks. Now explain why the method still works when the numbers change.').",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/course-map-1440.png",
+    "qa/course-notebook-1440.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Complete offline study loop; careful accessibility (tabs, aria-pressed, focus); a thoughtful import conflict preview"
+    ],
+    "issues": [
+     "A monolithic DOM-query module coupled to build-generated markup and course-data.json",
+     "Superseded architecturally by the SvelteKit rebuild, which still loads it as a legacy bundle",
+     "Review scheduling is naive"
+    ],
+    "evidence": "web/course.js read in full; app/src/lib/experiments.ts runtime interface"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Use as a behaviour spec for grbook.ai Svelte components (depth tabs, transfer checker with variants, help logging, notebook import/merge UX, return-to-lesson trail). Do not port the code; reimplement over server state.",
+    "effort": null
+   },
+   "size": "169 raw / 571 pretty lines"
+  },
+  {
+   "id": "app-code-reader-shell",
+   "kind": "app-code",
+   "title": "Static reader shell: navigation rail, search, theme/type size, figure dialog, twins/GPS widgets (app.js)",
+   "paths": [
+    "web/app.js"
+   ],
+   "topics": [
+    "reader interface",
+    "accessibility"
+   ],
+   "teaches": "Infrastructure: collapsible sidebar with hover/focus flyout previews and focus trapping, section scroll-spy, client-side substring search with highlighted snippets and a combobox listbox, theme and large-type toggles, responsive figure reflow via authored mobile viewBox/transform data attributes, an accessible figure-inspection dialog, atlas filters, reading progress, and the twin-clock and GPS widgets.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": "updateClock: tau=10 sqrt(1-b^2). updateGPS: weak-field clock-rate terms (see the lab-gps-clock-rates asset).",
+   "screenshots": [
+    "qa/navigation-light-1440.png",
+    "qa/search-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Careful keyboard and ARIA handling for the navigation flyouts; figure mobile-layout reflow preserves one semantic SVG"
+    ],
+    "issues": [
+     "Replaced by the SvelteKit reader (commit 6f6384c); not in the app runtime interface",
+     "Physics widgets are embedded in the navigation module, which mixes concerns"
+    ],
+    "evidence": "web/app.js read in full; app/src/lib/experiments.ts interface lists no initReading"
+   },
+   "reuse": {
+    "verdict": "drop",
+    "notes": "Nothing to port. grbook.ai has its own reader. Only the authored-mobile-viewBox figure reflow idea (setFigureLayout) and the GPS/twins formulas are worth remembering, and those are captured in other assets.",
+    "effort": null
+   },
+   "size": "284 raw / 637 pretty lines"
+  },
+  {
+   "id": "engine-independent-curvature-checker",
+   "kind": "engine-or-tool",
+   "title": "Independent finite-difference curvature verifier for arbitrary 4D metrics (check-physics-calculations.mjs)",
+   "paths": [
+    "scripts/check-physics-calculations.mjs"
+   ],
+   "topics": [
+    "Christoffel symbols",
+    "Riemann curvature tensor",
+    "Ricci tensor",
+    "Ricci scalar",
+    "Kretschmann scalar",
+    "Weyl tensor",
+    "Einstein tensor",
+    "Kerr metric",
+    "Schwarzschild metric",
+    "Eddington-Finkelstein coordinates",
+    "FLRW metric",
+    "pp-wave spacetimes",
+    "ADM formalism",
+    "Gauss-Codazzi equations",
+    "black hole thermodynamics",
+    "linearized gravity"
+   ],
+   "teaches": "Tooling: numerically differentiates any supplied metric function (central differences, h=1e-4) to get Christoffel symbols, then Riemann, Ricci, scalar, Kretschmann (with full index raising via a true inverse) and G_00, G_11, without using the book's closed-form formulas. It verifies: an AdS-like conformally flat metric (R=-12, K=24, constant sectional curvature); the pp-wave (non-diagonal metric, Ricci=0, K=0 but nonzero Riemann); weak-field potentials Phi and Psi (R_00 = Laplacian Phi, G_00 = 2 Laplacian Psi); the time-dependent spherical ansatz off-diagonal R_01; Kerr vacuum for a=0, 0.4, 0.8; Schwarzschild K=48/r^6 in the ingoing chart at and inside the horizon; FLRW dust and radiation invariants; Weyl cancellation for k=-1,0,1; the Kerr first-law area derivatives; ADM Hamiltonian, momentum and evolution equations plus Gauss-Codazzi on an anisotropic slice; and a six-entry Riemann table contraction. It also asserts every chapter has transfer practice.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": "Coordinate-basis curvature from nested central differences. The tolerances are 2e-5 to 3e-6, and all checks pass (re-run 2026-09-12).",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Genuinely independent: it catches sign and convention errors in the manuscript's hand derivations",
+     "Covers the high-risk calculations (Kerr cross term factor 2, non-diagonal inverses, ADM signs)",
+     "Fast (runs in seconds in Node)"
+    ],
+    "issues": [
+     "A single script mixing a curriculum-coverage assertion with physics checks; no reusable module export",
+     "Nested finite differences limit precision; not usable for interactive high-accuracy curvature display"
+    ],
+    "evidence": "node scripts/check-physics-calculations.mjs, exit 0 (2026-09-12)"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Extract curvature(metric, point) and connection() into a grbook.ai verification package (TypeScript) and run it in CI against every metric, Christoffel symbol and invariant quoted in the knowledge vault and course pages. Drop the lessons-coverage assertion. It can also back a 'compute curvature of this metric' tutor tool with a disclosed numerical tolerance.",
+    "effort": "small"
+   },
+   "size": "197 raw / 414 pretty lines"
+  },
+  {
+   "id": "review-doc-legacy-scene-aesthetic-review",
+   "kind": "review-doc",
+   "title": "Aesthetic review of the nine original 3D scenes",
+   "paths": [
+    "docs/legacy-scene-aesthetic-review.md"
+   ],
+   "topics": [
+    "scientific visualization",
+    "visual hierarchy",
+    "embedding diagrams",
+    "light cone",
+    "gravitational waves",
+    "tidal forces",
+    "ADM formalism"
+   ],
+   "teaches": "A scene-by-scene critique of Earth, covector, cone, sphere, tides, embedding, wave, expansion and slices at 1440 and 390 px in both themes, with concrete 'what works / what falls short / best next change' notes. It records the refinements implemented (tides reduced to 96 markers with reference circles, wave middle-ring hierarchy, expansion measured separation) and the priority: rebuild embedding and lapse/shift around measurements, make observer comparison the core of expansion, and simplify the Earth field in motion.",
+   "pedagogy": "Its core principle is the right one for grbook.ai: a strong scene has an immediately legible subject, a real reason to be 3D, and emphasis on a measurement. It also warns that passing tests is not evidence of teaching quality.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/lab-embedding-1440-light.png",
+    "qa/lab-slices-1440-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Specific, self-critical and evidence-based (36 screenshots cited); separates static composition evidence from animation quality"
+    ],
+    "issues": [
+     "Static screenshots only; motion quality explicitly unassessed"
+    ],
+    "evidence": "Document read in full; consistent with screenshots I inspected"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Use as the design brief when rebuilding each scene in grbook.ai; its 'best next changes' map directly onto the reuse notes in this inventory.",
+    "effort": null
+   },
+   "size": "97 lines"
+  },
+  {
+   "id": "review-doc-causality-and-horizon-visual-contract",
+   "kind": "review-doc",
+   "title": "Prerequisite bridges and black-hole causality review (with the horizon visual contract)",
+   "paths": [
+    "docs/causality-review.md"
+   ],
+   "topics": [
+    "Eddington-Finkelstein coordinates",
+    "Kruskal-Szekeres coordinates",
+    "Penrose diagrams",
+    "conformal compactification",
+    "event horizon",
+    "null geodesics",
+    "Binet equation",
+    "perihelion precession",
+    "retarded time",
+    "Stokes' theorem",
+    "Hawking temperature",
+    "black hole entropy"
+   ],
+   "teaches": "It documents seven prerequisite bridges (orbit conservation, phase drift, waves and retarded time, horizon directions, Kruskal and causal maps, oriented Stokes, temperature and quantum input) and a precise 'horizon visual contract'. That contract uses ingoing EF advanced time v in seconds and plotted axes rho=r/r_s and tau_plot=cv/r_s - rho, which is explicitly not proper time. Its null slopes are -1 and (rho-1)/(rho+1), with the first branch not lost by dividing by dv. The plot-time gradient is timelike for all rho>0, and example slopes 1/2, 0, -1/3 at rho=3, 1, 1/2. It also records algebra and domain checks (Kruskal UV<1, a compactification with a positive conformal factor, Stokes examples) and the remaining curriculum boundaries (Kerr, Hawking, singularity theorems).",
+   "pedagogy": "'The correct response to an advanced prerequisite is to teach it or mark its logical boundary. Attractive animation must not conceal that boundary.' Each bridge has a question, intuition, four justified steps, an optional deeper statement, a concept question with explanatory distractors and a numeric transfer.",
+   "interaction": null,
+   "physics_model": "The null-direction and Kruskal algebra is verified numerically at 10 radii; 333 plus 218 plus 46 KaTeX fragments pass strict mode.",
+   "screenshots": [
+    "qa/visual-lesson-horizon-1440-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Scientifically careful, with explicit conventions and units; an excellent spec for any horizon or causal-diagram visual"
+    ],
+    "issues": [
+     "Mixes a lab-visual spec with bridge-lesson and narration-integration notes; the interactive global Penrose diagram is still missing"
+    ],
+    "evidence": "Document read in full"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Adopt the horizon visual contract verbatim as acceptance criteria for grbook.ai's EF light-cone tilt and Penrose/Kruskal demos. Mine the bridge list for the concept registry's prerequisite edges. The bridge lesson content itself belongs to the lessons inventory group.",
+    "effort": null
+   },
+   "size": "123 lines"
+  },
+  {
+   "id": "review-doc-matter-lab-reviews",
+   "kind": "review-doc",
+   "title": "Particle transport and fluid shear lab reviews",
+   "paths": [
+    "docs/particle-flow-review.md",
+    "docs/fluid-shear-review.md"
+   ],
+   "topics": [
+    "stress-energy tensor",
+    "momentum flux",
+    "pressure",
+    "viscosity",
+    "Couette flow",
+    "Poiseuille flow"
+   ],
+   "teaches": "They record the design intent, model assumptions, index convention (first index = direction crossed), units, sources (Bertschinger, Tong) and the full validation list for the two Chapter 11 matter labs, plus visual-review fixes (clipped labels, legend colours, phone slider alignment). They also list what remains: observer changes, a movable subvolume and a field-energy visual.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Precise about what the models do not claim; validation lists match the check scripts line for line"
+    ],
+    "issues": [
+     "Brief; the fluid review's 'deployment run must still confirm the Linux result' is an unresolved note"
+    ],
+    "evidence": "Both documents read in full and cross-checked against scripts/check-particle-flow.mjs and check-fluid-shear.mjs"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Carry the assumptions, units and validation lists into the grbook.ai lab records for the ported particle and fluid labs.",
+    "effort": null
+   },
+   "size": "22 + 24 lines"
+  },
+  {
+   "id": "review-doc-field-energy-preparation",
+   "kind": "review-doc",
+   "title": "Field energy: first-use preparation (section 11.6 repair note)",
+   "paths": [
+    "docs/field-energy-review.md"
+   ],
+   "topics": [
+    "electromagnetic field tensor",
+    "Lorentz force",
+    "Poynting vector",
+    "electromagnetic stress-energy tensor",
+    "cross product"
+   ],
+   "teaches": "It explains how section 11.6 was repaired to define charge, E, B, the cross product, SI units and the Lorentz force before assembling F_{mu nu}. The covariant force law is checked for signs and factors of c, and a plane-wave example connects equal field energies, flux at c and momentum. It notes that a visual field-energy experiment is still open.",
+   "pedagogy": "First-use preparation: never introduce a tensor before the physical quantities it packages.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Identifies a real novice gap and cites Feynman Lectures sources"
+    ],
+    "issues": [
+     "A short change note; the promised field-energy lab was never built"
+    ],
+    "evidence": "Document read in full"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Use as a sequencing rule for grbook.ai's EM stress-energy lesson, and as a backlog item for a field-energy/Poynting-flux lab built on the particle-crossing measurement language.",
+    "effort": null
+   },
+   "size": "11 lines"
+  },
+  {
+   "id": "design-doc-experience-ideas",
+   "kind": "design-doc",
+   "title": "Twenty possibilities for the GR book (interactive experience proposals)",
+   "paths": [
+    "docs/experience-ideas.md"
+   ],
+   "topics": [
+    "equivalence principle",
+    "proper time",
+    "parallel transport",
+    "gravitational lensing",
+    "event horizon",
+    "GPS",
+    "worldlines",
+    "coordinate invariance"
+   ],
+   "teaches": "Twenty unimplemented proposals, including symbol inspection, unfolding derivations, voice-controlled experiments, equations linked to measurements, side-by-side coordinate changes, drawing worldlines, Einstein's elevator, a curvature microscope, a lensing observatory, crossing a horizon, building GPS, predict-then-reveal, misconception tests, a math scratchpad, margin prerequisites, explain-it-back, narration with a visual score, a field notebook, a map of understanding, and one experiment that grows through the book.",
+   "pedagogy": "Stresses that interactions should stay out of the way until they help, keep accessible text and reduced-motion alternatives, and distinguish physical measurements from coordinate choices. It names symbol inspection, unfolding derivations and voice control of vetted visualizations as the first investments.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Strongly aligned with grbook.ai's AI-centred, voice-tutor vision; several ideas address the weaknesses found in this inventory"
+    ],
+    "issues": [
+     "One-line proposals with no specs, priorities beyond the top three, or feasibility notes"
+    ],
+    "evidence": "Document read in full"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Seed the grbook.ai demo backlog from it. Items #3 (voice-controlled labs), #6 (draw a worldline, replacing the twins widget), #7 (elevator), #9 (lensing), #10 (cross a horizon), #11 (GPS system, replacing the GPS widget), #12 (predict-then-reveal) and #17 (narration visual score) map directly onto the reuse notes above.",
+    "effort": null
+   },
+   "size": "24 lines"
+  }
+ ]
+}

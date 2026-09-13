@@ -1,0 +1,4446 @@
+{
+  "book": "gifted-amateur",
+  "unit_id": "ch39",
+  "title": "Fluids as dry water",
+  "part": "VI: Classical and quantum fields",
+  "printed_pages": [
+    411,
+    427
+  ],
+  "pdf_pages": [
+    428,
+    444
+  ],
+  "one_line_summary": "Builds the viscosity-free fluid twice: first as a Newtonian continuum (continuity, convective derivative, Euler and hydrostatics, Bernoulli read as energy conservation), then as a consequence of a divergence-free stress-energy tensor, and finally as a relativistic perfect fluid whose baryon, entropy, energy and momentum laws come from projecting the conservation of T along and across the 4-velocity, ending in a relativistic Euler equation that says transverse pressure gradients push flow lines off geodesics.",
+  "role_in_book": "Opening chapter of Part VI (classical and quantum fields), placed right after the Part V geometry toolkit. The perfect-fluid stress-energy tensor had been used almost as a black box in Chapter 12 and for the cosmological fluid in Chapters 15-18; this chapter, marked as skippable on a first reading, supplies the missing fluid mechanics and thermodynamics behind it. It is a spiral revisit on the matter side of Einstein's equation: the same conservation law is unpacked into continuity, energy and Euler equations. It also plants results that later chapters pick up: the fluid Lagrangian density L = -rho and the free-energy form of the pressure (Chapter 40), equations of state including a scalar field (Chapter 41), and the Lie derivative from Chapter 33 as the natural comoving derivative (exercises).",
+  "assumed_background": [
+    {
+      "topic": "Vector calculus: gradient theorem converting a closed surface integral of p into a volume integral of grad p, curl identities such as v x (curl v)",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Newton's second law applied to a small element of a continuum",
+      "source": "undergrad-mechanics",
+      "where": null
+    },
+    {
+      "topic": "First law of thermodynamics, entropy, enthalpy, Helmholtz-type free energy and natural variables",
+      "source": "thermodynamics-statistical",
+      "where": null
+    },
+    {
+      "topic": "Perfect-fluid energy-momentum tensor T = (rho + p) u x u + p g and its conservation, including the Leibniz-rule expansion of its divergence",
+      "source": "earlier-in-this-book",
+      "where": "GA ch12"
+    },
+    {
+      "topic": "4-velocity components (gamma, gamma v) and the normalization u.u = -1 in signature (-,+,+,+)",
+      "source": "earlier-in-this-book",
+      "where": "GA Part I"
+    },
+    {
+      "topic": "Covariant derivative, directional derivative along a vector, comma and semicolon notation, principle of covariance",
+      "source": "earlier-in-this-book",
+      "where": "GA ch7-ch9"
+    },
+    {
+      "topic": "Geodesic equation written as nabla_u u = 0",
+      "source": "earlier-in-this-book",
+      "where": "GA ch8, ch9"
+    },
+    {
+      "topic": "Comoving observers in an expanding universe and the Einstein-de Sitter (Universe 3) model",
+      "source": "earlier-in-this-book",
+      "where": "GA ch15, ch18"
+    },
+    {
+      "topic": "Differential forms, exterior derivative and Lie derivative (needed for exercises 39.6-39.8)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch32, ch33"
+    },
+    {
+      "topic": "Schwarzschild connection coefficients and vielbeins (exercise 39.5)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch10, ch21"
+    },
+    {
+      "topic": "Projection of a vector perpendicular to a given direction",
+      "source": "linear-algebra",
+      "where": null
+    },
+    {
+      "topic": "Dirac delta distributions in four dimensions (exercise 39.4)",
+      "source": "advanced-math",
+      "where": null
+    }
+  ],
+  "learning_objectives": [
+    "Reader can describe a fluid by a scalar density field and a velocity field, and explain why streamlines coincide with the paths of fluid elements only in steady flow.",
+    "Reader can write local mass conservation both as the vanishing 4-divergence of the mass current J = (rho0, rho0 v) and as the 3D continuity equation.",
+    "Reader can turn the surface integral of pressure over a fluid element into minus the volume integral of grad p and explain why uniform pressure gives no net force.",
+    "Reader can convert rates of change between the comoving observer (d/dt) and the fixed observer (partial_t + v.grad), and interpret div v as the fractional rate of change of a parcel's volume.",
+    "Reader can derive Euler's equation with and without gravity and specialize it to hydrostatic equilibrium and Pascal's law of pressure with depth.",
+    "Reader can use the identity v x (curl v) = grad(v^2/2) - (v.grad)v to rewrite Euler's equation in general Bernoulli form, then reduce it to the steady-flow version along streamlines and the irrotational unsteady version valid throughout the fluid.",
+    "Reader can work with specific internal energy, entropy and enthalpy, and derive p = rho0^2 du/drho0 for a dissipation-free fluid.",
+    "Reader can substitute the slow-flow, flat-space perfect-fluid tensor (eqn 39.41) into the conservation law and recover both the continuity equation and Euler's equation.",
+    "Reader can define the rest-frame scalars n, rho0, rho, p, T and s for a relativistic fluid and state rho = rho0(1 + u).",
+    "Reader can state the relativistic dictionary (d/dt to D/dtau, v.grad to nabla_u, div v to div u) and use it to prove baryon conservation div(n u) = 0.",
+    "Reader can contract the divergence of the perfect-fluid T with u_alpha to obtain nabla_u rho + (rho + p) div u = 0 and show it is the relativistic first law at constant entropy per baryon.",
+    "Reader can build the projection tensor P = g + u x u, apply it to the divergence of T, derive the relativistic Euler equation (rho + p) nabla_u u = -P.grad p, and explain why dust flow lines are geodesics.",
+    "Reader can obtain the pressure from an equation of state rho(n, s) or from a free energy per baryon a(n, T).",
+    "Reader can (through the exercises) derive a sound-wave equation with c_s^2 = (dp/drho)_s and the t^{2/3} growing mode of density perturbations in an Einstein-de Sitter universe."
+  ],
+  "teaching_approach": {
+    "summary": "A do-it-twice chapter. Every idea is first built for an ordinary Newtonian inviscid fluid with vector calculus and elementary thermodynamics, then reinterpreted as a consequence of the vanishing divergence of T, then promoted to a covariant relativistic statement through a short dictionary of replacement rules. Almost all technical work sits in numbered Example boxes, the main text states and interprets the results, and margin notes carry the rules, unit restorations and side calculations. The geometric payoff comes at the end: the relativistic Euler equation read as the geodesic equation plus a transverse pressure-gradient force.",
+    "style_tags": [
+      "physical-motivation-first",
+      "derivation-heavy",
+      "example-driven",
+      "spiral-revisit",
+      "components-first",
+      "conversational-informal"
+    ],
+    "narrative_arc": [
+      "Framing: fluids are a satisfying classical field theory; viscosity (the 'wet' part) is dropped because relativistic fluids are close to inviscid, and the chapter is flagged as optional background.",
+      "Kinematics: a fluid is a density scalar plus a velocity field viewed as the tangent field of a space-filling congruence of streamlines; caution that streamlines are not particle paths unless flow is steady; mass current and continuity; vorticity and irrotational flow.",
+      "Dynamics: the pressure force on an element as a closed surface integral turned into a volume integral of grad p, equated with mass times acceleration.",
+      "Frame bookkeeping: the total derivative belongs to a comoving observer; the chain rule gives the convective derivative for a fixed observer; a fixed-mass parcel shows div v is the fractional volume change rate.",
+      "Euler's equation for the fixed observer, gravity added, hydrostatics and Pascal's law as the static special case.",
+      "A vector identity trades the (v.grad)v term for vorticity, giving the most general Bernoulli form.",
+      "Thermodynamics per unit mass: first law, enthalpy, perfect fluid with no entropy production, pressure from internal energy.",
+      "Steady flow: Bernoulli becomes energy conservation (kinetic + potential + enthalpy) along each streamline; irrotational unsteady flow gives a version valid everywhere using a velocity potential.",
+      "Reframe: substitute the non-relativistic stress-energy tensor into its conservation law and watch continuity and Euler both drop out.",
+      "Relativistic setup: rest-frame scalars n, rho, p, T, s; the two Newtonian rules upgraded to nabla_u and div u = (1/V) dV/dtau; perfect-fluid T and its Leibniz-expanded divergence.",
+      "Five laws in sequence: baryon conservation, entropy (second law), energy (projection along u, matched to a relativistic first law), momentum (projection transverse to u, giving the relativistic Euler equation and the geodesic comparison with dust), and equation of state.",
+      "Closing pointer that the Lie derivative is the natural comoving derivative, left for the exercises, followed by a three-point summary.",
+      "Exercises push outward: Torricelli outflow, relativistic Bernoulli, sound waves, point-particle currents, relativistic hydrostatic equilibrium in Schwarzschild, Lie-derivative form of continuity and Euler, flux 2-form, and density perturbations in Einstein-de Sitter."
+    ],
+    "signature_moves": [
+      "Two conversion rules (derivative rule and divergence rule) are boxed in a margin note for the Newtonian fluid and then upgraded one-for-one into relativistic statements, so the relativistic section reads as a translation exercise.",
+      "A fixed-mass parcel M = rho0 V gives the divergence of velocity a tangible meaning as fractional volume growth.",
+      "The authors stress that the conservation of T yields more than energy conservation and then tame it by projecting along u (energy) and perpendicular to u (momentum).",
+      "The relativistic Euler equation is laid next to the geodesic equation, with an italicized restatement that pressureless dust moves on geodesics.",
+      "The normalization u.u = -1 is used repeatedly to kill terms, justified by the flat-space analogue v.dv = (1/2) d(v^2).",
+      "The relativistic first law is obtained by bookkeeping the energy of a volume holding a fixed number N of baryons with V = N/n.",
+      "Margin notes flag where each result is reused later (Lagrangian density L = -rho, free-energy form of pressure in Chapter 40) and list equations of state used elsewhere in the book.",
+      "Light touches: a punning title, an epigraph about microbes in London drinking water, and gossip-style biographies of Pascal and the Bernoulli family."
+    ]
+  },
+  "sections": [
+    {
+      "number": null,
+      "title": "Part VI overview",
+      "printed_page": 411,
+      "pdf_page": 428,
+      "summary": "Part-opening page: Part VI will apply the Part V geometry to the physics of relativity from both the differential-geometry and classical-field-theory viewpoints, then move toward quantum ideas. It previews fluids (ch39), Lagrangian field theory and the early Universe (ch40-41), geometric electromagnetism and charge conservation (ch42-43), gauge ideas (ch44), weak fields and gravitational waves (ch45-46), quantum gravity and extra dimensions (ch47-49), and the inevitability of a Big Bang (ch50).",
+      "concepts": [
+        "classical field theory"
+      ],
+      "key_moves": [
+        "Defines 'classical' as pre-quantum but relativistic.",
+        "Positions the fluid chapter as the first application of the geometric toolkit to matter."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Chapter opening: describing a fluid",
+      "printed_page": 412,
+      "pdf_page": 429,
+      "summary": "Announces the plan (Newtonian fluid in flat spacetime, then energy, then relativistic fluid) and justifies ignoring viscosity. A fluid is defined as matter that keeps deforming under shear; it is described by a mass-density scalar field and a velocity vector field. The velocity is the tangent field to a congruence of streamlines (flow lines), which only match actual element trajectories for steady flow. Local mass conservation is written as a vanishing divergence of the mass current, giving the continuity equation, and vorticity (curl of v) is defined with irrotational flow as its vanishing (the vorticity definition spills onto p.413 just before the 39.1 heading).",
+      "concepts": [
+        "fluid",
+        "perfect fluid",
+        "streamlines",
+        "steady flow",
+        "mass current",
+        "continuity equation",
+        "vorticity"
+      ],
+      "key_moves": [
+        "Velocity field treated geometrically as tangents to a space-filling congruence of curves (Fig. 39.1).",
+        "Warning that streamlines record instantaneous velocities, not particle histories, except in steady flow.",
+        "Mass current J^mu = (rho0, rho0 v) with divergence zero expresses local mass conservation (39.1).",
+        "Distinguishes rest-mass density rho0 from energy density rho c^2 (margin note 2).",
+        "Defines vorticity omega = curl v and irrotational flow (39.2)."
+      ]
+    },
+    {
+      "number": "39.1",
+      "title": "Euler's equation",
+      "printed_page": 413,
+      "pdf_page": 430,
+      "summary": "Derives the Newtonian equation of motion of an inviscid fluid. Pressure acts inward on each element's surface; the gradient theorem turns this into minus the volume integral of grad p, and equating with mass times acceleration for arbitrary elements gives rho0 dv/dt = -grad p. The total derivative is identified as what a comoving observer measures, and the chain rule converts it into the convective derivative partial_t + v.grad for a fixed observer. Applied to continuity, this yields the comoving form drho0/dt = -rho0 div v, and a fixed-mass parcel shows div v = (1/V) dV/dt. Euler's equation follows, with gravity added as an extra acceleration; the static case gives the hydrostatic equation and Pascal's law. Finally a vector identity rewrites Euler in terms of vorticity and a gravitational potential, the most general form of Bernoulli's equation.",
+      "concepts": [
+        "pressure force on a fluid element",
+        "convective derivative",
+        "comoving and stationary observers",
+        "divergence rule",
+        "Euler's equation",
+        "hydrostatic equilibrium",
+        "Pascal's law",
+        "Bernoulli's equation",
+        "vorticity"
+      ],
+      "key_moves": [
+        "F = -closed integral dS p = -integral d^3x grad p (39.3); no gradient, no net force (margin note 3).",
+        "Integrand of integral d^3x (rho0 dv/dt + grad p) must vanish because the element is arbitrary (39.5-39.6).",
+        "Example 39.1: chain rule dA^i/dt = partial_t A^i + v^j partial_j A^i defines the convective derivative (39.7-39.9).",
+        "Example 39.2: continuity rewritten for the comoving observer; with dM/dt = 0 for M = rho0 V this gives div v = (1/V) dV/dt (39.10-39.11).",
+        "Euler's equation for the stationary observer (39.12) and with gravity (39.13).",
+        "Example 39.3: v = 0 gives grad p = rho0 g and p(z) = -rho0 g z + const (39.14-39.16).",
+        "Example 39.4: v x omega = grad(v^2/2) - (v.grad)v converts Euler into the general Bernoulli form with g = -grad Phi (39.17-39.18)."
+      ]
+    },
+    {
+      "number": "39.2",
+      "title": "Energy and Bernoulli's equation",
+      "printed_page": 415,
+      "pdf_page": 432,
+      "summary": "Adds thermodynamics. The first law is written per unit mass using V -> 1/rho0, and enthalpy per unit mass h = u + p/rho0 is introduced because its natural variables are s and p. A perfect fluid produces no entropy, so du = -p d(1/rho0) and dh = dp/rho0, giving p = rho0^2 du/drho0. For steady flow the comoving rate of change equals the derivative along streamlines. Dotting the general Bernoulli form with v removes the vorticity term; for steady perfect-fluid flow the result is that kinetic energy plus potential plus enthalpy per unit mass is constant along each streamline, which shows Bernoulli is energy conservation. For irrotational flow a velocity potential phi with v = grad phi turns the whole equation into a gradient, so the unsteady Bernoulli combination (with partial_t phi) is uniform throughout the fluid rather than only along streamlines.",
+      "concepts": [
+        "first law of thermodynamics per unit mass",
+        "specific enthalpy",
+        "perfect fluid",
+        "isentropic flow",
+        "steady flow",
+        "Bernoulli's equation",
+        "velocity potential",
+        "irrotational flow"
+      ],
+      "key_moves": [
+        "Unit-mass first law du = T ds - p d(1/rho0) and enthalpy form dh = T ds + dp/rho0 (39.20-39.21).",
+        "Perfect fluid: ds = 0, so du = -p d(1/rho0), dh = dp/rho0 and p = rho0^2 du/drho0 (39.22-39.23).",
+        "Example 39.5: entropy constant along the flow, ds/dt = (v.grad)s = 0 (39.24).",
+        "Steady flow: d/dt = v.grad (39.25), so rho0 (v.grad)h = (v.grad)p (39.26).",
+        "Example 39.6: dot Bernoulli with v, drop v.(v x omega) = 0, get v.grad(v^2/2 + Phi + h) = 0 (39.27-39.28).",
+        "Reinterpretation: (1/2)v^2 + Phi + h, equivalently (1/2)v^2 + Phi + u + p/rho0, is conserved along streamlines (39.29-39.31).",
+        "Example 39.7: with v = grad phi, omega = 0 and isentropic flow, the whole Bernoulli equation is grad of (v^2/2 + Phi + h + partial_t phi), which is therefore uniform in space (39.32-39.37)."
+      ]
+    },
+    {
+      "number": "39.3",
+      "title": "Energy-momentum tensor",
+      "printed_page": 418,
+      "pdf_page": 435,
+      "summary": "Shows that the conservation of stress-energy reproduces the Newtonian fluid equations. The relativistic perfect-fluid tensor from Chapter 12 is recalled; in flat spacetime with slow motion the energy density dwarfs the pressure, so the tensor keeps only a density-weighted product of velocities plus pressure times the Minkowski metric (39.41). Differentiating with v^mu = (1, v) and taking the time component gives an energy-flow (continuity-type) statement; the spatial components, after using mass conservation to cancel three terms, give Euler's equation. The authors admit the argument is untidy and promise a cleaner projection method in the relativistic section.",
+      "concepts": [
+        "energy-momentum tensor of a perfect fluid",
+        "conservation of energy-momentum",
+        "non-relativistic limit of the fluid stress tensor",
+        "continuity equation",
+        "Euler's equation"
+      ],
+      "key_moves": [
+        "Key equation div T = 0 (39.38) as the universal source of matter-field dynamics.",
+        "Energy density rho includes rest mass plus internal energy, rho c^2 = rho0 c^2 + rho0 u (margin note 11).",
+        "Slow flow in flat spacetime: rho >> p/c^2 lets (rho + p) be replaced by rho in the tensor (39.40-39.41).",
+        "Example 39.8: expand partial_mu T^{mu nu} with v^mu = (1, v) (39.42-39.43).",
+        "Time component gives partial_t p = partial_t rho + div(rho v) (39.44).",
+        "Spatial components minus a mass-conservation bracket give rho(partial_t v + v.grad v) = -grad p (39.45-39.46).",
+        "Moral: a single tensor conservation law contains both mass-energy conservation and the equations of motion."
+      ]
+    },
+    {
+      "number": "39.4",
+      "title": "Relativistic fluids: variables, upgraded rules and the stress-energy tensor",
+      "printed_page": 420,
+      "pdf_page": 437,
+      "summary": "Sets up the relativistic perfect fluid. Flow lines are integral curves of the unit timelike 4-velocity field, and the derivative along them is nabla_u; in general they are not geodesics, and the relativistic Euler equation will quantify the departure caused by pressure gradients. The fluids of interest are the cosmological fluid and stellar matter, made mostly of baryons. Rest-frame scalars are defined: baryon number density n, rest-mass density rho0 = m_b n, total energy density rho = rho0(1 + u), pressure p, temperature T and entropy per baryon s. The Newtonian derivative and divergence rules are upgraded to D/dtau = nabla_u and div u = (1/V) dV/dtau (Example 39.9), justified by flat-space component checks and the principle of covariance. The perfect-fluid T and its covariant conservation are written down, and Example 39.10 expands the divergence with the Leibniz rule.",
+      "concepts": [
+        "4-velocity field",
+        "covariant directional derivative",
+        "relativistic divergence rule",
+        "baryon number density",
+        "total energy density",
+        "principle of covariance",
+        "energy-momentum tensor of a perfect fluid",
+        "fluid Lagrangian density"
+      ],
+      "key_moves": [
+        "Flow-line tangents w = d/dtau normalized as u = w / sqrt(-g(w, w)) so u^2 = -1 (margin note 13).",
+        "Scalar fields n, rho, p, T, s are frame independent but defined by comoving measurements (margin note 15).",
+        "rho = rho0(1 + u) (39.48); margin note 16 gives the Lagrangian density L = -rho for later use.",
+        "Example 39.9: in flat space nabla_u A = (u^t partial_t + u^i nabla_i) A mirrors the convective derivative; u^t = 1 non-relativistically motivates (1/V) dV/dtau = div u (39.50-39.52).",
+        "T^{mu nu} = (rho + p) u^mu u^nu + p g^{mu nu}, rest-frame form diag(rho, p, p, p), and T^{mu nu}_{;nu} = 0 (39.53-39.54).",
+        "Example 39.10: Leibniz expansion (rho + p)_{,beta} u^alpha u^beta + (rho + p)(u^alpha_{;beta} u^beta + u^alpha u^beta_{;beta}) + p_{,beta} g^{alpha beta} = 0 (39.55)."
+      ]
+    },
+    {
+      "number": null,
+      "title": "39.4 (cont.) Laws I-III: baryon, entropy and energy conservation",
+      "printed_page": 421,
+      "pdf_page": 438,
+      "summary": "Baryon conservation d(nV)/dtau = 0 becomes div(n u) = 0 via the two upgraded rules (Example 39.11). Entropy in a comoving volume is nsV; with baryon conservation, the second law says entropy per baryon cannot decrease along flow lines, and a perfect fluid keeps it constant. Energy conservation is extracted by contracting the divergence of T with u_alpha, using u.u = -1 and u.nabla_u u = 0 (Example 39.12), giving nabla_u rho + (rho + p) div u = 0; with the volume rule and baryon conservation this becomes drho/dtau = ((rho + p)/n) dn/dtau (Example 39.13). A relativistic first law, obtained by writing the energy of a volume holding N baryons as rho N/n, is drho = ((rho + p)/n) dn + nT ds, which at ds = 0 reproduces the projected equation.",
+      "concepts": [
+        "baryon number conservation",
+        "entropy per baryon conservation",
+        "second law of thermodynamics",
+        "projection of the conservation law along the 4-velocity",
+        "relativistic first law of thermodynamics",
+        "normalization of the 4-velocity"
+      ],
+      "key_moves": [
+        "Example 39.11: 0 = dn/dtau + (n/V) dV/dtau = u.grad n + n div u = div(n u) (39.59-39.60).",
+        "Margin note 21: div u = -(1/rho0) drho0/dtau (printed with dt).",
+        "d(nsV)/dtau >= 0 plus d(nV)/dtau = 0 gives ds/dtau >= 0; perfect fluid has equality (39.62).",
+        "Energy law from u_alpha T^{alpha beta}_{;beta} = 0 (39.63).",
+        "Example 39.12: u.nabla_u u = (1/2) nabla_u(u^2) = 0 removes the acceleration term, leaving -rho_{,beta} u^beta - (rho + p) u^beta_{;beta} = 0 (39.64-39.68).",
+        "Example 39.13: rule (ii) and baryon conservation give drho/dtau - ((rho + p)/n) dn/dtau = 0 (39.69-39.70).",
+        "First law with V = N/n: d(rho N/n) = -p d(N/n) + T d(Ns), hence drho = ((p + rho)/n) dn + nT ds (39.71-39.73)."
+      ]
+    },
+    {
+      "number": null,
+      "title": "39.4 (cont.) Laws IV-V: momentum, the relativistic Euler equation and equations of state",
+      "printed_page": 423,
+      "pdf_page": 440,
+      "summary": "Momentum conservation is the part of the divergence of T perpendicular to u, isolated with the projection tensor P_{alpha mu} = g_{alpha mu} + u_alpha u_mu. Example 39.14 applies P and obtains (rho + p) nabla_u u = -P.grad p, the relativistic Euler equation. Its left side is the relativistic convective acceleration of the flow lines; comparing with the geodesic equation shows that only pressure gradients transverse to u make flow lines non-geodesic, so uniform-pressure fluids and pressureless dust move on geodesics. A margin list gives the equations of state used in the book (vacuum, radiation, dust, homogeneous scalar field). Example 39.15 obtains pressure from rho(n, s) and from a free energy a(n, T), the latter being the form used in Chapter 40. A closing remark names the Lie derivative as the natural comoving derivative, developed in the exercises.",
+      "concepts": [
+        "projection tensor",
+        "relativistic Euler equation",
+        "geodesic equation",
+        "dust",
+        "equation of state",
+        "pressure from an equation of state",
+        "Lie derivative along the flow"
+      ],
+      "key_moves": [
+        "Perpendicular part of a vector: v + (u.v)u, matching P_{alpha mu} v^mu (margin note 24, 39.74-39.75).",
+        "Momentum law P_{alpha mu} T^{mu nu}_{;nu} = 0 (39.76).",
+        "Example 39.14: projecting with P leaves the acceleration term, the pressure gradient and the pressure change along u (39.77), which assemble into the relativistic Euler equation (39.80).",
+        "Non-relativistic limit rho >> p/c^2 recovers Euler; convective derivative replaced by nabla_u.",
+        "Geodesic comparison: transverse pressure gradients are the only cause of non-geodesic flow; dust is geodesic.",
+        "Example 39.15: p(n, s) = n (partial rho/partial n)_s - rho and p(n, T) = n^2 (partial a/partial n)_T (39.81-39.84)."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Chapter summary and exercises",
+      "printed_page": 425,
+      "pdf_page": 442,
+      "summary": "Three-point summary: fluids are described by a velocity field or its integral curves; Euler (motion) and Bernoulli (energy) are both contained in the vanishing divergence of T; relativistic Euler measures departure from geodesic motion due to transverse pressure gradients. Nine exercises follow on pages 425-427, ranging from Torricelli's outflow speed to perturbation growth in an Einstein-de Sitter universe.",
+      "concepts": [
+        "Euler's equation",
+        "Bernoulli's equation",
+        "relativistic Euler equation"
+      ],
+      "key_moves": [
+        "Summary ties motion and energy equations back to a single tensor conservation law."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "classical field theory",
+      "aliases": [
+        "pre-quantum field theory"
+      ],
+      "kind": "definition",
+      "definition": "A description of physics by fields defined over spacetime that obey deterministic equations, relativistic but not quantized.",
+      "how_introduced": "Stated in the Part VI opener as one of the two viewpoints (with differential geometry) the part will use; the fluid is presented as a particularly satisfying example.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 428,
+          "printed_page": 411,
+          "section": null
+        },
+        {
+          "pdf_page": 429,
+          "printed_page": 412,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "fluid",
+      "aliases": [
+        "continuum matter"
+      ],
+      "kind": "definition",
+      "definition": "Matter that keeps deforming for as long as a shear stress acts on it, modelled as a continuum whose elements are labelled by position and carried along by a flow.",
+      "how_introduced": "Opening definition, followed immediately by the field description: a scalar mass density and a vector velocity field over space and time.",
+      "depth": "introduced",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 429,
+          "printed_page": 412,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\rho_0(t,\\vec x),\\ \\vec v(t,\\vec x)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "perfect fluid",
+      "aliases": [
+        "inviscid fluid",
+        "ideal fluid",
+        "dry water"
+      ],
+      "kind": "definition",
+      "definition": "A fluid with no viscosity and no heat conduction, so no dissipation or entropy production; in its rest frame it is fully characterized by an energy density and an isotropic pressure.",
+      "how_introduced": "Viscosity is deliberately dropped at the start (the joke of the title), justified because the fluids of relativity are essentially inviscid; in section 39.2 the no-dissipation condition ds = 0 is made the operational definition.",
+      "depth": "core",
+      "prerequisites": [
+        "fluid",
+        "entropy"
+      ],
+      "locators": [
+        {
+          "pdf_page": 429,
+          "printed_page": 412,
+          "section": null
+        },
+        {
+          "pdf_page": 433,
+          "printed_page": 416,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 438,
+          "printed_page": 421,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s=0",
+        "T^{\\mu\\nu}=(\\rho+p)u^\\mu u^\\nu+p\\,g^{\\mu\\nu}"
+      ],
+      "notes": "Chapter 12 used the tensor; here the thermodynamic meaning (no entropy production) is added."
+    },
+    {
+      "name": "streamlines",
+      "aliases": [
+        "flow lines",
+        "integral curves of the velocity field",
+        "congruence of flow curves"
+      ],
+      "kind": "definition",
+      "definition": "The family of curves, one through every point, whose tangent at each point is the instantaneous fluid velocity there; in relativity, the integral curves of the 4-velocity field.",
+      "how_introduced": "Velocity is introduced as a tangent field to a space-filling congruence (Fig. 39.1); in 39.4 the flow lines become timelike curves with tangent d/dtau normalized to u.",
+      "depth": "core",
+      "prerequisites": [
+        "fluid",
+        "vector field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 429,
+          "printed_page": 412,
+          "section": null
+        },
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol u=\\boldsymbol w/\\sqrt{-g(\\boldsymbol w,\\boldsymbol w)}"
+      ],
+      "notes": "Newtonian streamlines are a snapshot picture; relativistic flow lines are worldlines in spacetime."
+    },
+    {
+      "name": "steady flow",
+      "aliases": [
+        "stationary flow"
+      ],
+      "kind": "definition",
+      "definition": "Flow in which no field quantity changes with time at a fixed position, so partial_t of anything vanishes; streamlines then coincide with the paths of fluid elements.",
+      "how_introduced": "First used in the caution that streamlines equal trajectories only for steady flow; formalized in 39.2 where it reduces the convective derivative to v.grad.",
+      "depth": "developed",
+      "prerequisites": [
+        "streamlines",
+        "convective derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 429,
+          "printed_page": 412,
+          "section": null
+        },
+        {
+          "pdf_page": 433,
+          "printed_page": 416,
+          "section": "39.2"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm d}{\\mathrm dt}=\\vec v\\cdot\\vec\\nabla"
+      ],
+      "notes": null
+    },
+    {
+      "name": "mass current",
+      "aliases": [
+        "mass flux 4-vector",
+        "rest-mass current"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The 4-vector J with components (rho0, rho0 v): time component the mass density, spatial part the mass flux density.",
+      "how_introduced": "Built to express local mass conservation as a vanishing 4-divergence; exercise 39.4 generalizes to a distributional current for point particles.",
+      "depth": "developed",
+      "prerequisites": [
+        "fluid"
+      ],
+      "locators": [
+        {
+          "pdf_page": 429,
+          "printed_page": 412,
+          "section": null
+        },
+        {
+          "pdf_page": 443,
+          "printed_page": 426,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "J^\\mu=(\\rho_0,\\rho_0\\vec v)",
+        "\\nabla\\cdot\\boldsymbol J=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "continuity equation",
+      "aliases": [
+        "local mass conservation",
+        "conservation of mass"
+      ],
+      "kind": "law",
+      "definition": "The statement that the rate of change of mass density at a point equals minus the divergence of the mass flux there, so mass in any volume changes only by flow through its boundary.",
+      "how_introduced": "Derived from the mass current; Example 39.2 rewrites it for the comoving observer as drho0/dt = -rho0 div v; section 39.3 recovers it from the stress-energy tensor; exercise 39.6 recasts it as a Lie-derivative statement.",
+      "depth": "core",
+      "prerequisites": [
+        "mass current",
+        "convective derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 429,
+          "printed_page": 412,
+          "section": null
+        },
+        {
+          "pdf_page": 431,
+          "printed_page": 414,
+          "section": "39.1"
+        },
+        {
+          "pdf_page": 436,
+          "printed_page": 419,
+          "section": "39.3"
+        },
+        {
+          "pdf_page": 443,
+          "printed_page": 426,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\partial_t\\rho_0+\\vec\\nabla\\cdot(\\rho_0\\vec v)=0",
+        "\\frac{\\mathrm d\\rho_0}{\\mathrm dt}=-\\rho_0\\vec\\nabla\\cdot\\vec v"
+      ],
+      "notes": null
+    },
+    {
+      "name": "vorticity",
+      "aliases": [
+        "curl of velocity"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The curl of the velocity field, measuring local rotation of fluid elements; a flow with zero vorticity is irrotational.",
+      "how_introduced": "Defined as a useful quantity at the end of the opening; used in Example 39.4 to rewrite the (v.grad)v term and in Example 39.7 where it is set to zero.",
+      "depth": "developed",
+      "prerequisites": [
+        "fluid"
+      ],
+      "locators": [
+        {
+          "pdf_page": 430,
+          "printed_page": 413,
+          "section": null
+        },
+        {
+          "pdf_page": 432,
+          "printed_page": 415,
+          "section": "39.1"
+        },
+        {
+          "pdf_page": 435,
+          "printed_page": 418,
+          "section": "39.2"
+        }
+      ],
+      "formulas": [
+        "\\vec\\omega=\\vec\\nabla\\times\\vec v"
+      ],
+      "notes": null
+    },
+    {
+      "name": "irrotational flow",
+      "aliases": [
+        "potential flow",
+        "curl-free flow"
+      ],
+      "kind": "definition",
+      "definition": "Flow with zero vorticity everywhere, which allows the velocity to be written as the gradient of a scalar velocity potential.",
+      "how_introduced": "Introduced with vorticity and exploited in 39.2 to obtain a Bernoulli law valid throughout the fluid for unsteady flow.",
+      "depth": "developed",
+      "prerequisites": [
+        "vorticity",
+        "velocity potential"
+      ],
+      "locators": [
+        {
+          "pdf_page": 430,
+          "printed_page": 413,
+          "section": null
+        },
+        {
+          "pdf_page": 435,
+          "printed_page": 418,
+          "section": "39.2"
+        }
+      ],
+      "formulas": [
+        "\\vec\\nabla\\times\\vec v=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "velocity potential",
+      "aliases": [],
+      "kind": "mathematical-object",
+      "definition": "A scalar field phi whose gradient is the velocity of an irrotational flow; it exists because a curl-free field on a simply connected region is a gradient.",
+      "how_introduced": "Introduced to complete the energetics; substituting v = grad phi turns every term of the Bernoulli form into a gradient (Example 39.7).",
+      "depth": "introduced",
+      "prerequisites": [
+        "irrotational flow"
+      ],
+      "locators": [
+        {
+          "pdf_page": 435,
+          "printed_page": 418,
+          "section": "39.2"
+        }
+      ],
+      "formulas": [
+        "\\vec v=\\vec\\nabla\\phi"
+      ],
+      "notes": "Not the same symbol as the gravitational potential Phi, nor the scalar field phi of the equation-of-state list."
+    },
+    {
+      "name": "pressure force on a fluid element",
+      "aliases": [
+        "pressure gradient force"
+      ],
+      "kind": "principle",
+      "definition": "The net force from surrounding fluid on an element equals minus the integral of pressure over its outward-directed surface, which by the gradient theorem is minus the volume integral of grad p; only pressure differences push.",
+      "how_introduced": "Opening move of 39.1 with Fig. 39.2 showing an outward area element; the minus sign encodes that pressure pushes inward; margin note 3 remarks that uniform pressure gives zero net force.",
+      "depth": "developed",
+      "prerequisites": [
+        "fluid"
+      ],
+      "locators": [
+        {
+          "pdf_page": 430,
+          "printed_page": 413,
+          "section": "39.1"
+        }
+      ],
+      "formulas": [
+        "\\vec F=-\\oint \\mathrm d\\vec S\\,p=-\\int\\mathrm d^3x\\,\\vec\\nabla p"
+      ],
+      "notes": null
+    },
+    {
+      "name": "convective derivative",
+      "aliases": [
+        "material derivative",
+        "total derivative",
+        "substantive derivative",
+        "Lagrangian derivative"
+      ],
+      "kind": "operation",
+      "definition": "The rate of change of a quantity following a fluid element, equal to the local rate at fixed position plus the directional derivative along the velocity: d/dt = partial_t + v.grad.",
+      "how_introduced": "Motivated by noticing that the d/dt in Newton's law belongs to an observer carried with the fluid; Example 39.1 derives it by the chain rule; relabelled as the 'derivative rule' in margin note 6; upgraded to nabla_u in 39.4.",
+      "depth": "core",
+      "prerequisites": [
+        "comoving and stationary observers"
+      ],
+      "locators": [
+        {
+          "pdf_page": 430,
+          "printed_page": 413,
+          "section": "39.1"
+        },
+        {
+          "pdf_page": 431,
+          "printed_page": 414,
+          "section": "39.1"
+        },
+        {
+          "pdf_page": 438,
+          "printed_page": 421,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm d}{\\mathrm dt}=\\frac{\\partial}{\\partial t}+\\vec v\\cdot\\vec\\nabla"
+      ],
+      "notes": "Book uses 'total derivative' and 'convective derivative' interchangeably."
+    },
+    {
+      "name": "comoving and stationary observers",
+      "aliases": [
+        "Lagrangian and Eulerian viewpoints",
+        "comoving frame",
+        "stationary frame",
+        "static frame"
+      ],
+      "kind": "convention",
+      "definition": "Two ways of recording fluid behaviour: an observer carried with a fluid element measures total time derivatives, while an observer at fixed position measures partial derivatives; equations are translated between them with the convective derivative.",
+      "how_introduced": "Introduced when interpreting d/dt in Euler's equation, explicitly tied back to comoving observers from the cosmology chapters; relativistically the comoving observer uses proper time along a flow line.",
+      "depth": "core",
+      "prerequisites": [
+        "convective derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 430,
+          "printed_page": 413,
+          "section": "39.1"
+        },
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "divergence rule",
+      "aliases": [
+        "divergence of velocity as fractional volume change",
+        "rule (ii)"
+      ],
+      "kind": "identity",
+      "definition": "The divergence of the velocity field equals the fractional rate of change of the volume of a comoving fluid element: div v = (1/V) dV/dt.",
+      "how_introduced": "Example 39.2 combines the comoving continuity equation with dM/dt = 0 for a fixed mass M = rho0 V; margin note 6 boxes it as the second of two rules.",
+      "depth": "core",
+      "prerequisites": [
+        "continuity equation",
+        "convective derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 431,
+          "printed_page": 414,
+          "section": "39.1"
+        }
+      ],
+      "formulas": [
+        "\\vec\\nabla\\cdot\\vec v=\\frac1V\\frac{\\mathrm dV}{\\mathrm dt}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Euler's equation",
+      "aliases": [
+        "Euler equation of motion",
+        "non-relativistic Euler equation"
+      ],
+      "kind": "law",
+      "definition": "Newton's second law per unit volume for an inviscid fluid: density times convective acceleration equals minus the pressure gradient plus the gravitational force density.",
+      "how_introduced": "Built from the pressure force and mass times acceleration, then rewritten with the convective derivative for a fixed observer; re-derived in 39.3 from the stress-energy tensor and recast with Lie and exterior derivatives in exercise 39.7.",
+      "depth": "core",
+      "prerequisites": [
+        "pressure force on a fluid element",
+        "convective derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 431,
+          "printed_page": 414,
+          "section": "39.1"
+        },
+        {
+          "pdf_page": 436,
+          "printed_page": 419,
+          "section": "39.3"
+        },
+        {
+          "pdf_page": 443,
+          "printed_page": 426,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\partial_t\\vec v+(\\vec v\\cdot\\vec\\nabla)\\vec v=-\\frac{1}{\\rho_0}\\vec\\nabla p+\\vec g"
+      ],
+      "notes": null
+    },
+    {
+      "name": "hydrostatic equilibrium",
+      "aliases": [
+        "hydrostatics"
+      ],
+      "kind": "solution-or-model",
+      "definition": "A fluid at rest in a gravitational field, where the pressure gradient exactly balances gravity: grad p = rho0 g.",
+      "how_introduced": "Example 39.3 sets v = 0 in Euler's equation; exercise 39.5 gives the relativistic analogue in Schwarzschild geometry, where pressure adds to the effective source.",
+      "depth": "developed",
+      "prerequisites": [
+        "Euler's equation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 432,
+          "printed_page": 415,
+          "section": "39.1"
+        },
+        {
+          "pdf_page": 443,
+          "printed_page": 426,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\vec\\nabla p=\\rho_0\\vec g",
+        "\\partial_r p+(p+\\rho)\\partial_r\\Phi=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Pascal's law",
+      "aliases": [
+        "pressure-depth relation"
+      ],
+      "kind": "law",
+      "definition": "In a uniform-density fluid at rest under uniform gravity, pressure rises linearly with depth: p(z) = -rho0 g z + const.",
+      "how_introduced": "Integrated from the Cartesian components of the hydrostatic equation in Example 39.3.",
+      "depth": "introduced",
+      "prerequisites": [
+        "hydrostatic equilibrium"
+      ],
+      "locators": [
+        {
+          "pdf_page": 432,
+          "printed_page": 415,
+          "section": "39.1"
+        }
+      ],
+      "formulas": [
+        "p(z)=-\\rho_0gz+\\text{const}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Bernoulli's equation",
+      "aliases": [
+        "Bernoulli's theorem",
+        "Bernoulli's principle"
+      ],
+      "kind": "law",
+      "definition": "Energy conservation for an inviscid fluid: in its most general form a rearranged Euler equation; for steady perfect-fluid flow, v^2/2 + Phi + h is constant along each streamline; for irrotational flow, v^2/2 + Phi + h + partial_t phi is uniform in space.",
+      "how_introduced": "Example 39.4 obtains the general form from Euler via a vorticity identity; Example 39.6 dots it with v to give the streamline version and reveals the energy meaning; Example 39.7 derives the everywhere-valid irrotational version; exercise 39.2 gives a relativistic steady-flow version.",
+      "depth": "core",
+      "prerequisites": [
+        "Euler's equation",
+        "vorticity",
+        "specific enthalpy",
+        "steady flow",
+        "velocity potential"
+      ],
+      "locators": [
+        {
+          "pdf_page": 432,
+          "printed_page": 415,
+          "section": "39.1"
+        },
+        {
+          "pdf_page": 434,
+          "printed_page": 417,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 435,
+          "printed_page": 418,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 442,
+          "printed_page": 425,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\partial_t\\vec v+\\vec\\nabla(\\tfrac12v^2+\\Phi)+\\frac{\\vec\\nabla p}{\\rho_0}-\\vec v\\times\\vec\\omega=0",
+        "\\tfrac12v^2+\\Phi+u+\\frac{p}{\\rho_0}=\\text{const along streamlines}",
+        "\\tfrac12v^2+\\Phi+h+\\partial_t\\phi=\\text{const}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "first law of thermodynamics per unit mass",
+      "aliases": [
+        "specific first law"
+      ],
+      "kind": "law",
+      "definition": "Energy conservation for a fluid element written in specific (per unit mass) variables, obtained by replacing volume with 1/rho0: du = T ds - p d(1/rho0).",
+      "how_introduced": "Starts from dU = T dS - p dV with natural variables S and V (margin note 9), then divides by mass.",
+      "depth": "developed",
+      "prerequisites": [
+        "entropy"
+      ],
+      "locators": [
+        {
+          "pdf_page": 432,
+          "printed_page": 415,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 433,
+          "printed_page": 416,
+          "section": "39.2"
+        }
+      ],
+      "formulas": [
+        "\\mathrm du=T\\,\\mathrm ds-p\\,\\mathrm d(1/\\rho_0)",
+        "p=\\rho_0^2\\frac{\\mathrm du}{\\mathrm d\\rho_0}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "specific enthalpy",
+      "aliases": [
+        "enthalpy per unit mass"
+      ],
+      "kind": "physical-quantity",
+      "definition": "h = u + p/rho0, the energy function whose natural variables are specific entropy and pressure, satisfying dh = T ds + dp/rho0.",
+      "how_introduced": "Introduced because Bernoulli problems naturally involve s and p; for isentropic flow its gradient equals grad p / rho0, which lets the pressure term be absorbed into an energy.",
+      "depth": "developed",
+      "prerequisites": [
+        "first law of thermodynamics per unit mass"
+      ],
+      "locators": [
+        {
+          "pdf_page": 433,
+          "printed_page": 416,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 434,
+          "printed_page": 417,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 435,
+          "printed_page": 418,
+          "section": "39.2"
+        }
+      ],
+      "formulas": [
+        "h=u+p/\\rho_0",
+        "\\mathrm dh=T\\,\\mathrm ds+\\frac{1}{\\rho_0}\\mathrm dp"
+      ],
+      "notes": null
+    },
+    {
+      "name": "isentropic flow",
+      "aliases": [
+        "adiabatic flow",
+        "entropy conservation along flow lines"
+      ],
+      "kind": "definition",
+      "definition": "Flow in which entropy per unit mass (or per baryon) does not change following a fluid element; in the uniform-entropy case grad s = 0 as well.",
+      "how_introduced": "Example 39.5 states ds/dt = 0 along the flow for a perfect fluid; Example 39.7 uses grad s = 0 to set grad h = grad p/rho0; relativistically becomes ds/dtau = 0.",
+      "depth": "developed",
+      "prerequisites": [
+        "perfect fluid",
+        "convective derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 433,
+          "printed_page": 416,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 435,
+          "printed_page": 418,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 439,
+          "printed_page": 422,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm ds}{\\mathrm dt}=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "energy-momentum tensor of a perfect fluid",
+      "aliases": [
+        "stress-energy tensor of a perfect fluid"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The symmetric rank-2 tensor T = (rho + p) u x u + p g, whose rest-frame components are energy density rho on the diagonal time slot and isotropic pressure p on the spatial diagonal.",
+      "how_introduced": "Recalled from Chapter 12; in 39.3 reduced for slow flow in flat spacetime to rho v^mu v^nu + p eta^{mu nu}; in 39.4 used in full with curved-spacetime covariant derivatives.",
+      "depth": "revisited",
+      "prerequisites": [
+        "4-velocity field",
+        "total energy density"
+      ],
+      "locators": [
+        {
+          "pdf_page": 436,
+          "printed_page": 419,
+          "section": "39.3"
+        },
+        {
+          "pdf_page": 438,
+          "printed_page": 421,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "T^{\\mu\\nu}=(\\rho+p)u^\\mu u^\\nu+p\\,g^{\\mu\\nu}",
+        "T^{\\mu\\nu}\\approx\\rho v^\\mu v^\\nu+p\\,\\eta^{\\mu\\nu}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "conservation of energy-momentum",
+      "aliases": [
+        "divergence-free stress-energy",
+        "div T = 0"
+      ],
+      "kind": "law",
+      "definition": "The vanishing covariant divergence of the stress-energy tensor, T^{mu nu}_{;nu} = 0, which encodes local conservation of energy and momentum and therefore both the energy and motion equations of matter.",
+      "how_introduced": "Presented in 39.3 as the key equation that solves many matter-field problems; shown to produce continuity and Euler, and in 39.4 split by projection into energy and momentum laws.",
+      "depth": "core",
+      "prerequisites": [
+        "energy-momentum tensor of a perfect fluid",
+        "covariant derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 435,
+          "printed_page": 418,
+          "section": "39.3"
+        },
+        {
+          "pdf_page": 436,
+          "printed_page": 419,
+          "section": "39.3"
+        },
+        {
+          "pdf_page": 438,
+          "printed_page": 421,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 439,
+          "printed_page": 422,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\nabla\\cdot\\boldsymbol T=0",
+        "T^{\\mu\\nu}{}_{;\\nu}=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "non-relativistic limit of the fluid stress tensor",
+      "aliases": [
+        "slow-flow limit"
+      ],
+      "kind": "technique",
+      "definition": "For flow speeds far below c and pressure far below the energy density (p << rho c^2), (rho + p) can be replaced by rho and the 4-velocity by (1, v), turning the relativistic fluid equations into Newtonian ones.",
+      "how_introduced": "Used in 39.3 to justify dropping p from (rho + p) and in 39.4 when comparing relativistic and ordinary Euler equations.",
+      "depth": "developed",
+      "prerequisites": [
+        "energy-momentum tensor of a perfect fluid"
+      ],
+      "locators": [
+        {
+          "pdf_page": 436,
+          "printed_page": 419,
+          "section": "39.3"
+        },
+        {
+          "pdf_page": 441,
+          "printed_page": 424,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\rho\\gg p/c^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "4-velocity field",
+      "aliases": [
+        "velocity field u"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A unit timelike vector field whose value at each event is the 4-velocity of the fluid element there, with u.u = -1 in signature (-,+,+,+).",
+      "how_introduced": "Margin note 13 obtains it by normalizing the tangent to flow lines; its normalization is repeatedly used to eliminate terms in the energy and momentum projections.",
+      "depth": "core",
+      "prerequisites": [
+        "streamlines"
+      ],
+      "locators": [
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 439,
+          "printed_page": 422,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 440,
+          "printed_page": 423,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "u^\\alpha u_\\alpha=-1",
+        "u^\\mu=(\\gamma,\\gamma\\vec v)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "normalization of the 4-velocity",
+      "aliases": [
+        "u squared equals minus one"
+      ],
+      "kind": "identity",
+      "definition": "Because u.u = -1 is constant, its derivative along any direction vanishes, so u is orthogonal to its own acceleration: u.nabla_u u = 0.",
+      "how_introduced": "Deployed in Example 39.12 by analogy with v.dv/dx = (1/2) d(v^2)/dx in flat space; also checked in margin note 25.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-velocity field",
+        "covariant directional derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 439,
+          "printed_page": 422,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 440,
+          "printed_page": 423,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 441,
+          "printed_page": 424,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\boldsymbol u\\cdot\\nabla_{\\boldsymbol u}\\boldsymbol u=\\tfrac12\\nabla_{\\boldsymbol u}(\\boldsymbol u^2)=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "covariant directional derivative",
+      "aliases": [
+        "nabla_u",
+        "derivative along flow lines",
+        "relativistic convective derivative",
+        "D/dtau"
+      ],
+      "kind": "operation",
+      "definition": "The covariant derivative taken along the 4-velocity, nabla_u = u.nabla, giving the proper-time rate of change of a tensor measured by a comoving observer; on scalars it reduces to d/dtau.",
+      "how_introduced": "Offered as the upgrade of the convective derivative (rule i); Example 39.9 shows in flat space that its components u^t partial_t + u^i partial_i mirror partial_t + v.grad.",
+      "depth": "core",
+      "prerequisites": [
+        "convective derivative",
+        "covariant derivative",
+        "4-velocity field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 438,
+          "printed_page": 421,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm D\\boldsymbol A}{\\mathrm d\\tau}=\\nabla_{\\boldsymbol u}\\boldsymbol A=u^\\alpha\\frac{\\partial A^\\beta}{\\partial x^\\alpha}\\boldsymbol e_\\beta\\ \\text{(flat)}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "relativistic divergence rule",
+      "aliases": [
+        "rule (ii) upgraded"
+      ],
+      "kind": "identity",
+      "definition": "The 4-divergence of the fluid 4-velocity equals the fractional rate of change, per unit proper time, of the 3-volume of a comoving element: div u = (1/V) dV/dtau.",
+      "how_introduced": "Proposed in Example 39.9 as the natural extension of div v = (1/V) dV/dt, motivated by u^t being 1 for slow flow and extended to curved spacetime by covariance rather than derived.",
+      "depth": "core",
+      "prerequisites": [
+        "divergence rule",
+        "4-velocity field",
+        "principle of covariance"
+      ],
+      "locators": [
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 438,
+          "printed_page": 421,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\nabla\\cdot\\boldsymbol u=\\frac1V\\frac{\\mathrm dV}{\\mathrm d\\tau}"
+      ],
+      "notes": "A cleaner derivation uses the Lie derivative of the volume form or the sqrt(-g) divergence identity."
+    },
+    {
+      "name": "principle of covariance",
+      "aliases": [
+        "comma-goes-to-semicolon rule",
+        "principle of general covariance"
+      ],
+      "kind": "principle",
+      "definition": "A tensor equation valid in flat spacetime in inertial coordinates holds in curved spacetime once partial derivatives are replaced by covariant ones.",
+      "how_introduced": "Invoked briefly to promote the flat-space rules and the conservation law to curved spacetime.",
+      "depth": "mention",
+      "prerequisites": [
+        "covariant derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 438,
+          "printed_page": 421,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "baryon number density",
+      "aliases": [
+        "number density n",
+        "rest-mass density rho0 = m_b n"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The number of baryons per unit proper volume measured in the fluid's rest frame; multiplied by the mean rest mass per baryon it gives the rest-mass density.",
+      "how_introduced": "One of five rest-frame scalars defined at the start of 39.4; baryons chosen because they carry most of the mass of stars and the cosmic fluid (margin note 14).",
+      "depth": "developed",
+      "prerequisites": [
+        "4-velocity field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\rho_0=\\bar m_{\\mathrm b}n"
+      ],
+      "notes": null
+    },
+    {
+      "name": "total energy density",
+      "aliases": [
+        "energy density rho",
+        "rest-frame energy density"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The energy per unit volume in the fluid's rest frame, including rest-mass energy and internal energy: rho = rho0(1 + u) in natural units.",
+      "how_introduced": "Distinguished from mass density in margin note 2, restored with c in margin note 11, and made a rest-frame scalar in 39.4.",
+      "depth": "developed",
+      "prerequisites": [
+        "baryon number density"
+      ],
+      "locators": [
+        {
+          "pdf_page": 429,
+          "printed_page": 412,
+          "section": null
+        },
+        {
+          "pdf_page": 436,
+          "printed_page": 419,
+          "section": "39.3"
+        },
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\rho=\\rho_0(1+u)",
+        "\\rho c^2=\\rho_0c^2+\\rho_0u"
+      ],
+      "notes": "The letter u here is specific internal energy, not the 4-velocity."
+    },
+    {
+      "name": "baryon number conservation",
+      "aliases": [
+        "rest-mass conservation",
+        "law I"
+      ],
+      "kind": "law",
+      "definition": "Baryons are neither created nor destroyed, so the number in a comoving volume is constant; covariantly, the baryon number current n u is divergence-free.",
+      "how_introduced": "Called the most primitive conservation law; Example 39.11 derives the covariant form from d(nV)/dtau = 0 using both upgraded rules.",
+      "depth": "core",
+      "prerequisites": [
+        "baryon number density",
+        "relativistic divergence rule",
+        "covariant directional derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 438,
+          "printed_page": 421,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 439,
+          "printed_page": 422,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm d(nV)}{\\mathrm d\\tau}=0",
+        "(nu^\\alpha)_{;\\alpha}=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "entropy per baryon conservation",
+      "aliases": [
+        "law II",
+        "adiabatic relativistic flow"
+      ],
+      "kind": "law",
+      "definition": "With no heat flow between flow lines, entropy in a comoving volume nsV cannot decrease; with baryon conservation this gives ds/dtau >= 0, and a perfect fluid has ds/dtau = 0.",
+      "how_introduced": "Stated as law II right after baryon conservation.",
+      "depth": "developed",
+      "prerequisites": [
+        "baryon number conservation",
+        "second law of thermodynamics"
+      ],
+      "locators": [
+        {
+          "pdf_page": 439,
+          "printed_page": 422,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm d(nsV)}{\\mathrm d\\tau}\\ge0",
+        "\\frac{\\mathrm ds}{\\mathrm d\\tau}=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "second law of thermodynamics",
+      "aliases": [],
+      "kind": "law",
+      "definition": "The entropy of an isolated system does not decrease; for a fluid element, entropy per baryon is non-decreasing along its worldline.",
+      "how_introduced": "Identified as the content of the entropy law once baryon conservation is factored out.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 439,
+          "printed_page": 422,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "projection of the conservation law along the 4-velocity",
+      "aliases": [
+        "energy equation",
+        "law III",
+        "u_alpha T^{alpha beta}_{;beta} = 0"
+      ],
+      "kind": "technique",
+      "definition": "Contracting the divergence of T with u_alpha isolates the component measured as energy change by comoving observers, giving nabla_u rho + (rho + p) div u = 0 for a perfect fluid.",
+      "how_introduced": "Motivated by the complaint that the full conservation law gives too much; Example 39.12 carries out the contraction and Example 39.13 converts it into drho/dtau = ((rho + p)/n) dn/dtau.",
+      "depth": "core",
+      "prerequisites": [
+        "conservation of energy-momentum",
+        "normalization of the 4-velocity"
+      ],
+      "locators": [
+        {
+          "pdf_page": 439,
+          "printed_page": 422,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 440,
+          "printed_page": 423,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "u_\\alpha T^{\\alpha\\beta}{}_{;\\beta}=0",
+        "\\nabla_{\\boldsymbol u}\\rho+(\\rho+p)\\nabla\\cdot\\boldsymbol u=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "relativistic first law of thermodynamics",
+      "aliases": [
+        "first law in n, rho, s variables"
+      ],
+      "kind": "law",
+      "definition": "For a fluid element containing a fixed number of baryons, the change of total energy density satisfies drho = ((rho + p)/n) dn + nT ds.",
+      "how_introduced": "Derived from d(energy) = -p dV + T dS with energy rho N/n, volume N/n and entropy Ns; at ds = 0 it matches the projected energy equation, proving law III is energy conservation.",
+      "depth": "developed",
+      "prerequisites": [
+        "total energy density",
+        "baryon number density"
+      ],
+      "locators": [
+        {
+          "pdf_page": 440,
+          "printed_page": 423,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm d\\rho=\\frac{\\rho+p}{n}\\mathrm dn+nT\\,\\mathrm ds"
+      ],
+      "notes": "Margin note 23 remarks the d can be read as the exterior derivative, with no reference to following the flow."
+    },
+    {
+      "name": "projection tensor",
+      "aliases": [
+        "spatial projector",
+        "P = g + u x u",
+        "orthogonal projector"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The tensor P_{alpha mu} = g_{alpha mu} + u_alpha u_mu, which removes the component of any vector along u, leaving the part lying in the local rest space of the fluid.",
+      "how_introduced": "Margin note 24 builds it from the Euclidean-style formula for the perpendicular part of a vector; used to extract the momentum equation.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-velocity field",
+        "metric tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 440,
+          "printed_page": 423,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 441,
+          "printed_page": 424,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "P_{\\alpha\\mu}=g_{\\alpha\\mu}+u_\\alpha u_\\mu",
+        "P_{\\alpha\\mu}v^\\mu=v_\\alpha+(u_\\mu v^\\mu)u_\\alpha"
+      ],
+      "notes": null
+    },
+    {
+      "name": "relativistic Euler equation",
+      "aliases": [
+        "momentum conservation",
+        "law IV",
+        "relativistic equation of motion of a fluid"
+      ],
+      "kind": "law",
+      "definition": "The part of the conservation of T transverse to u: (rho + p) nabla_u u = -P.grad p. Fluid worldlines accelerate down the pressure gradient measured in the local rest space, with rho + p playing the role of inertial density.",
+      "how_introduced": "Example 39.14 applies P to the Leibniz-expanded divergence; its left side shows the covariant derivative replacing the convective one, and the non-relativistic limit rho >> p recovers ordinary Euler.",
+      "depth": "core",
+      "prerequisites": [
+        "projection tensor",
+        "energy-momentum tensor of a perfect fluid",
+        "covariant directional derivative",
+        "Euler's equation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 441,
+          "printed_page": 424,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 442,
+          "printed_page": 425,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "(\\rho+p)\\nabla_{\\boldsymbol u}\\boldsymbol u=-\\boldsymbol P\\cdot\\nabla p",
+        "(\\rho+p)u_{\\alpha;\\nu}u^\\nu+p_{,\\alpha}+p_{,\\nu}u^\\nu u_\\alpha=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "geodesic equation",
+      "aliases": [
+        "free-fall condition nabla_u u = 0"
+      ],
+      "kind": "law",
+      "definition": "A worldline is a geodesic when its 4-velocity is parallel transported along itself, nabla_u u = 0.",
+      "how_introduced": "Recalled as the benchmark for comparison with the relativistic Euler equation.",
+      "depth": "revisited",
+      "prerequisites": [
+        "covariant directional derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 441,
+          "printed_page": 424,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\nabla_{\\boldsymbol u}\\boldsymbol u=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "dust",
+      "aliases": [
+        "pressureless fluid",
+        "p = 0 fluid"
+      ],
+      "kind": "solution-or-model",
+      "definition": "A perfect fluid with zero pressure; with no pressure gradients its elements move freely, so every flow line is a geodesic.",
+      "how_introduced": "Presented as the special case of the relativistic Euler equation and restated emphatically as the standard model of the cosmological fluid.",
+      "depth": "developed",
+      "prerequisites": [
+        "relativistic Euler equation",
+        "geodesic equation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 441,
+          "printed_page": 424,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "p=0\\Rightarrow\\nabla_{\\boldsymbol u}\\boldsymbol u=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "equation of state",
+      "aliases": [
+        "EOS",
+        "law V"
+      ],
+      "kind": "definition",
+      "definition": "A relation among thermodynamic variables of a fluid, such as rho(n, s) or p(rho), that closes the fluid equations; common cases are dust p = 0, radiation p = rho/3, vacuum energy p = -rho.",
+      "how_introduced": "Introduced as law V; a margin list collects the equations of state used across the book, and Example 39.15 shows how pressure follows from a chosen energy or free-energy function.",
+      "depth": "developed",
+      "prerequisites": [
+        "relativistic first law of thermodynamics"
+      ],
+      "locators": [
+        {
+          "pdf_page": 441,
+          "printed_page": 424,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 442,
+          "printed_page": 425,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "p=0,\\ p=\\rho/3,\\ p=-\\rho",
+        "p=\\frac{\\dot\\phi^2/2-V(\\phi)}{\\dot\\phi^2/2+V(\\phi)}\\rho"
+      ],
+      "notes": "The scalar-field entry in the margin is misprinted (see gaps)."
+    },
+    {
+      "name": "pressure from an equation of state",
+      "aliases": [
+        "thermodynamic pressure"
+      ],
+      "kind": "technique",
+      "definition": "Given rho(n, s), the first law gives p = n (partial rho/partial n)_s - rho; given a free energy per baryon a(n, T), p = n^2 (partial a/partial n)_T.",
+      "how_introduced": "Example 39.15, noting the free-energy form is the one Chapter 40 uses; the Newtonian analogue p = rho0^2 du/drho0 appears in 39.2.",
+      "depth": "developed",
+      "prerequisites": [
+        "equation of state",
+        "relativistic first law of thermodynamics"
+      ],
+      "locators": [
+        {
+          "pdf_page": 433,
+          "printed_page": 416,
+          "section": "39.2"
+        },
+        {
+          "pdf_page": 441,
+          "printed_page": 424,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 442,
+          "printed_page": 425,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "p=n\\left(\\frac{\\partial\\rho}{\\partial n}\\right)_s-\\rho",
+        "p=n^2\\left(\\frac{\\partial a}{\\partial n}\\right)_T"
+      ],
+      "notes": null
+    },
+    {
+      "name": "fluid Lagrangian density",
+      "aliases": [
+        "L = -rho"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The Lagrangian density whose variation reproduces perfect-fluid dynamics, equal to minus the total energy density: L = -rho0(1 + u).",
+      "how_introduced": "Dropped into margin note 16 as a forward pointer for Chapter 40.",
+      "depth": "mention",
+      "prerequisites": [
+        "total energy density"
+      ],
+      "locators": [
+        {
+          "pdf_page": 437,
+          "printed_page": 420,
+          "section": "39.4"
+        }
+      ],
+      "formulas": [
+        "\\mathcal L=-\\rho=-\\rho_0(1+u)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Lie derivative along the flow",
+      "aliases": [
+        "Lie-dragging by the fluid",
+        "natural comoving derivative"
+      ],
+      "kind": "operation",
+      "definition": "The derivative that compares a tensor with its image carried along by the flow of the velocity field; continuity becomes (partial_t + L_v)(rho0 dx^dy^dz) = 0 and Euler becomes a Lie-plus-exterior-derivative statement for the velocity 1-form.",
+      "how_introduced": "Mentioned in the closing paragraph of 39.4 as the natural derivative for comoving observers and developed only in exercises 39.6 and 39.7, following Schutz (1980).",
+      "depth": "mention",
+      "prerequisites": [
+        "convective derivative",
+        "differential forms"
+      ],
+      "locators": [
+        {
+          "pdf_page": 442,
+          "printed_page": 425,
+          "section": "39.4"
+        },
+        {
+          "pdf_page": 443,
+          "printed_page": 426,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\left(\\partial_t+\\mathcal L_{\\vec v}\\right)(\\rho_0\\tilde\\omega)=0",
+        "\\left(\\partial_t+\\mathcal L_{\\vec v}\\right)\\tilde v+\\frac{1}{\\rho_0}\\boldsymbol dp+\\boldsymbol d(\\Phi-v^2/2)=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "speed of sound",
+      "aliases": [
+        "adiabatic sound speed"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The propagation speed of small adiabatic density waves in a fluid, c_s^2 = (partial p/partial rho)_s in the relativistic case (with (rho + p) as inertia).",
+      "how_introduced": "Exercise 39.3 linearizes baryon conservation and relativistic Euler about a static background to obtain a wave equation for delta n.",
+      "depth": "mention",
+      "prerequisites": [
+        "relativistic Euler equation",
+        "baryon number conservation",
+        "equation of state"
+      ],
+      "locators": [
+        {
+          "pdf_page": 443,
+          "printed_page": 426,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "c_s^2=\\left(\\frac{\\partial p}{\\partial\\rho}\\right)_s"
+      ],
+      "notes": null
+    },
+    {
+      "name": "growth of density perturbations in an expanding universe",
+      "aliases": [
+        "Jeans-type linear growth",
+        "gravitational instability in Einstein-de Sitter"
+      ],
+      "kind": "phenomenon",
+      "definition": "Linear density contrasts in a pressureless, matter-dominated expanding universe obey a damped oscillator-like equation whose solutions grow as t^{2/3} or decay as 1/t.",
+      "how_introduced": "Exercise 39.9 applies Newtonian continuity, Euler and Poisson equations to the Hubble flow, changes to comoving coordinates, and uses Einstein-de Sitter properties.",
+      "depth": "mention",
+      "prerequisites": [
+        "continuity equation",
+        "Euler's equation",
+        "convective derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 444,
+          "printed_page": 427,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\ddot\\delta+\\frac{4}{3t}\\dot\\delta-\\frac{2}{3t^2}\\delta=0"
+      ],
+      "notes": null
+    }
+  ],
+  "key_equations": [
+    {
+      "label": "(39.1)",
+      "name": "Continuity equation",
+      "latex": "\\frac{\\partial\\rho_0}{\\partial t}+\\vec\\nabla\\cdot(\\rho_0\\vec v)=0",
+      "meaning": "Mass density at a point changes only through net mass flux; component form of div J = 0 with J^mu = (rho0, rho0 v).",
+      "symbols": "rho0 rest-mass density; v fluid velocity",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    },
+    {
+      "label": "(39.2)",
+      "name": "Vorticity",
+      "latex": "\\vec\\omega=\\vec\\nabla\\times\\vec v",
+      "meaning": "Local rotation of the flow; irrotational flow has omega = 0.",
+      "symbols": "omega vorticity",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": null
+      }
+    },
+    {
+      "label": "(39.3)",
+      "name": "Pressure force on an element",
+      "latex": "\\vec F=-\\oint\\mathrm d\\vec S\\,p(t,\\vec x)=-\\int\\mathrm d^3x\\,\\vec\\nabla p",
+      "meaning": "Net force from surrounding fluid, converted by the gradient theorem to minus the volume integral of the pressure gradient; the sign reflects inward push on an outward area element.",
+      "symbols": "dS outward area element; p pressure",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.4)",
+      "name": null,
+      "latex": "\\int\\mathrm d^3x\\,\\rho_0\\frac{\\mathrm d\\vec v}{\\mathrm dt}",
+      "meaning": "Mass times acceleration of the element.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.5)",
+      "name": null,
+      "latex": "\\int\\mathrm d^3x\\left(\\rho_0\\frac{\\mathrm d\\vec v}{\\mathrm dt}+\\vec\\nabla p\\right)=0",
+      "meaning": "Newton's law for an arbitrary element; since the element is arbitrary the integrand vanishes (margin note 4).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.6)",
+      "name": "Equation of motion (comoving form)",
+      "latex": "\\rho_0\\frac{\\mathrm d\\vec v}{\\mathrm dt}=-\\vec\\nabla p",
+      "meaning": "Newton's second law per unit volume for an inviscid fluid, with d/dt following the fluid.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.7)",
+      "name": "Chain rule for a field along the flow",
+      "latex": "\\frac{\\mathrm dA^i}{\\mathrm dt}=\\frac{\\partial A^i}{\\partial t}+v^j\\frac{\\partial A^i}{\\partial x^j}=\\left(\\frac{\\partial}{\\partial t}+v^j\\frac{\\partial}{\\partial x^j}\\right)A^i",
+      "meaning": "Rate of change following the fluid equals local rate plus advection along the velocity.",
+      "symbols": "A any vector field; v^j = dx^j/dt (printed as a partial derivative)",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.8)",
+      "name": null,
+      "latex": "\\frac{\\mathrm d\\vec A}{\\mathrm dt}=\\frac{\\partial\\vec A}{\\partial t}+(\\vec v\\cdot\\vec\\nabla)\\vec A",
+      "meaning": "Vector form of (39.7).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.9)",
+      "name": "Convective derivative",
+      "latex": "\\frac{\\mathrm d}{\\mathrm dt}=\\frac{\\partial}{\\partial t}+\\vec v\\cdot\\vec\\nabla",
+      "meaning": "Operator converting between comoving and stationary descriptions: local change plus derivative along the flow lines.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": null,
+      "name": "Comoving continuity (Example 39.2)",
+      "latex": "\\frac{\\mathrm d\\rho_0}{\\mathrm dt}=-\\rho_0\\vec\\nabla\\cdot\\vec v",
+      "meaning": "Density following the fluid falls in proportion to the divergence of the velocity.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.10)",
+      "name": null,
+      "latex": "\\frac{\\mathrm dM}{\\mathrm dt}=\\frac{\\mathrm d\\rho_0}{\\mathrm dt}V+\\rho_0\\frac{\\mathrm dV}{\\mathrm dt}=0",
+      "meaning": "A comoving parcel keeps its mass M = rho0 V.",
+      "symbols": "V parcel volume",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.11)",
+      "name": "Divergence rule",
+      "latex": "\\vec\\nabla\\cdot\\vec v=\\frac1V\\frac{\\mathrm dV}{\\mathrm dt}",
+      "meaning": "Velocity divergence is the fractional growth rate of a comoving volume.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.12)",
+      "name": "Euler's equation",
+      "latex": "\\frac{\\partial\\vec v}{\\partial t}+(\\vec v\\cdot\\vec\\nabla)\\vec v=-\\frac{1}{\\rho_0}\\vec\\nabla p",
+      "meaning": "Equation of motion of an inviscid fluid as seen by a fixed observer.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.13)",
+      "name": "Euler's equation with gravity",
+      "latex": "\\frac{\\partial\\vec v}{\\partial t}+(\\vec v\\cdot\\vec\\nabla)\\vec v=-\\frac{1}{\\rho_0}\\vec\\nabla p+\\vec g",
+      "meaning": "Adds a gravitational acceleration field.",
+      "symbols": "g gravitational acceleration",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.14)",
+      "name": "Hydrostatic equation",
+      "latex": "\\vec\\nabla p=\\rho_0\\vec g",
+      "meaning": "At rest, pressure gradient balances gravity.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.15)",
+      "name": null,
+      "latex": "\\frac{\\partial p}{\\partial x}=\\frac{\\partial p}{\\partial y}=0,\\qquad\\frac{\\partial p}{\\partial z}=-\\rho_0g",
+      "meaning": "Cartesian components with gravity along -z.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.16)",
+      "name": "Pascal's law",
+      "latex": "p(z)=-\\rho_0gz+\\text{const}",
+      "meaning": "Pressure increases linearly with depth in a uniform fluid at rest.",
+      "symbols": "z height",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.17)",
+      "name": "Vorticity identity",
+      "latex": "\\vec v\\times\\vec\\omega=\\vec v\\times(\\vec\\nabla\\times\\vec v)=\\tfrac12\\vec\\nabla v^2-(\\vec v\\cdot\\vec\\nabla)\\vec v",
+      "meaning": "Trades the nonlinear advection term for a gradient of kinetic energy and a vorticity term.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.18)",
+      "name": "General Bernoulli equation",
+      "latex": "\\frac{\\partial\\vec v}{\\partial t}+\\vec\\nabla\\left(\\tfrac12v^2+\\Phi\\right)+\\frac{\\vec\\nabla p}{\\rho_0}-\\vec v\\times\\vec\\omega=0",
+      "meaning": "Euler's equation rewritten with g = -grad Phi; the most general form of Bernoulli's equation.",
+      "symbols": "Phi gravitational potential",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "label": "(39.19)",
+      "name": "First law",
+      "latex": "\\mathrm dU=T\\,\\mathrm dS-p\\,\\mathrm dV",
+      "meaning": "Energy conservation with natural variables S and V.",
+      "symbols": "U internal energy; S entropy",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.20)",
+      "name": "First law per unit mass",
+      "latex": "\\mathrm du=T\\,\\mathrm ds-p\\,\\mathrm d\\!\\left(\\frac{1}{\\rho_0}\\right)",
+      "meaning": "Specific form with volume per unit mass 1/rho0.",
+      "symbols": "u specific internal energy; s specific entropy",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.21)",
+      "name": "Enthalpy per unit mass",
+      "latex": "\\mathrm dh=T\\,\\mathrm ds+\\frac{1}{\\rho_0}\\mathrm dp,\\qquad h=u+\\frac{p}{\\rho_0}",
+      "meaning": "Energy function with natural variables s and p.",
+      "symbols": "h specific enthalpy",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.22)",
+      "name": "Perfect fluid thermodynamics",
+      "latex": "\\mathrm du=-p\\,\\mathrm d\\!\\left(\\frac{1}{\\rho_0}\\right),\\qquad\\mathrm dh=\\frac{1}{\\rho_0}\\mathrm dp",
+      "meaning": "No entropy production (ds = 0).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.23)",
+      "name": "Pressure from internal energy",
+      "latex": "p=\\rho_0^2\\frac{\\mathrm du}{\\mathrm d\\rho_0}",
+      "meaning": "Pressure of an isentropic fluid from how specific internal energy depends on density.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.24)",
+      "name": "Entropy along the flow",
+      "latex": "\\frac{\\mathrm ds}{\\mathrm dt}=(\\vec v\\cdot\\vec\\nabla)s=0",
+      "meaning": "Entropy per unit mass is constant following the fluid; the middle equality assumes partial_t s = 0, which strictly holds only for steady flow (see gaps).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.25)",
+      "name": "Steady-flow derivative",
+      "latex": "\\frac{\\mathrm d}{\\mathrm dt}=\\vec v\\cdot\\vec\\nabla",
+      "meaning": "In steady flow the comoving rate is the derivative along streamlines.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.26)",
+      "name": "Enthalpy in steady perfect-fluid flow",
+      "latex": "\\frac{\\mathrm dh}{\\mathrm dt}=\\frac{1}{\\rho_0}\\frac{\\mathrm dp}{\\mathrm dt},\\qquad\\rho_0(\\vec v\\cdot\\vec\\nabla)h=(\\vec v\\cdot\\vec\\nabla)p",
+      "meaning": "Comoving and stationary-frame versions; the second line was lost in the text export and recovered from the page render.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.27)",
+      "name": null,
+      "latex": "\\vec v\\cdot\\frac{\\partial\\vec v}{\\partial t}+\\vec v\\cdot\\vec\\nabla\\left(\\tfrac12v^2+\\Phi\\right)+\\vec v\\cdot\\frac{\\vec\\nabla p}{\\rho_0}-\\vec v\\cdot(\\vec v\\times\\vec\\omega)=0",
+      "meaning": "General Bernoulli dotted with v.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.28)",
+      "name": null,
+      "latex": "0=\\vec v\\cdot\\vec\\nabla\\left(\\tfrac12v^2+\\Phi+h\\right)",
+      "meaning": "Steady perfect-fluid flow: the energy combination does not change along streamlines.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.29)",
+      "name": null,
+      "latex": "\\frac{\\mathrm d}{\\mathrm dt}\\left(\\tfrac12v^2+\\Phi+h\\right)=0",
+      "meaning": "Comoving form of (39.28).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.30)",
+      "name": "Bernoulli for steady flow",
+      "latex": "\\tfrac12v^2+\\Phi+h=\\text{const along streamlines}",
+      "meaning": "Kinetic + potential + enthalpy per unit mass conserved on each streamline.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.31)",
+      "name": "Bernoulli with explicit pressure",
+      "latex": "\\tfrac12v^2+\\Phi+u+\\frac{p}{\\rho_0}=\\text{const along streamlines}",
+      "meaning": "Same statement with h = u + p/rho0; the boxed textbook Bernoulli equation.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.32)",
+      "name": "Velocity potential",
+      "latex": "\\vec v=\\vec\\nabla\\phi",
+      "meaning": "Irrotational flow as a gradient.",
+      "symbols": "phi velocity potential",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.33)",
+      "name": null,
+      "latex": "\\vec\\nabla h=T\\vec\\nabla s+\\frac{1}{\\rho_0}\\vec\\nabla p",
+      "meaning": "Spatial form of the enthalpy first law; isentropic flow drops the entropy term.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.36)",
+      "name": null,
+      "latex": "0=\\vec\\nabla\\left(\\tfrac12v^2+\\Phi+h+\\frac{\\partial\\phi}{\\partial t}\\right)",
+      "meaning": "Whole Bernoulli equation becomes a gradient for irrotational isentropic flow.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.37)",
+      "name": "Bernoulli for unsteady irrotational flow",
+      "latex": "\\tfrac12v^2+\\Phi+h+\\frac{\\partial\\phi}{\\partial t}=\\text{const (throughout the fluid)}",
+      "meaning": "Holds everywhere in the fluid, not just on streamlines; the constant may depend on time and can be absorbed into phi.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.2"
+      }
+    },
+    {
+      "label": "(39.38)",
+      "name": "Conservation of energy-momentum",
+      "latex": "\\nabla\\cdot\\boldsymbol T=0",
+      "meaning": "Key equation from which fluid dynamics can be extracted.",
+      "symbols": "T stress-energy tensor",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.3"
+      }
+    },
+    {
+      "label": "(39.39)",
+      "name": "Perfect-fluid stress-energy tensor",
+      "latex": "\\boldsymbol T=(\\rho+p)\\,\\boldsymbol v\\otimes\\boldsymbol v+p\\,\\boldsymbol g",
+      "meaning": "Recalled from Chapter 12 with 4-velocity v.",
+      "symbols": "rho rest-frame energy density",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "label": "(39.41)",
+      "name": "Non-relativistic flat-space T",
+      "latex": "T^{\\mu\\nu}=\\rho v^\\mu v^\\nu+p\\,\\eta^{\\mu\\nu}",
+      "meaning": "Slow flow with rho >> p/c^2 (39.40 is the index-free form).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "label": "(39.43)",
+      "name": null,
+      "latex": "\\frac{\\partial T^{\\mu\\nu}}{\\partial x^\\mu}=\\frac{\\partial\\rho}{\\partial t}v^\\nu+(\\vec v\\cdot\\vec\\nabla\\rho)v^\\nu+(\\rho\\vec\\nabla\\cdot\\vec v)v^\\nu+\\rho\\frac{\\partial v^\\nu}{\\partial t}+\\rho\\,\\vec v\\cdot\\vec\\nabla v^\\nu-\\frac{\\partial p}{\\partial t}\\delta^\\nu_t+(\\vec\\nabla p)^i\\delta^\\nu_i=0",
+      "meaning": "Divergence expanded using v^mu = (1, v); the minus sign on the time pressure term comes from eta^{tt} = -1.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "label": "(39.44)",
+      "name": null,
+      "latex": "\\frac{\\partial p}{\\partial t}=\\frac{\\partial\\rho}{\\partial t}+\\vec\\nabla\\cdot(\\rho\\vec v)",
+      "meaning": "Time component: energy flow balance; with negligible pressure change it is the continuity equation.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "label": "(39.46)",
+      "name": "Euler from div T = 0",
+      "latex": "\\rho\\frac{\\partial\\vec v}{\\partial t}+\\rho\\,(\\vec v\\cdot\\vec\\nabla)\\vec v=-\\vec\\nabla p",
+      "meaning": "Spatial components after cancelling a mass-conservation bracket.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "label": "(39.47)",
+      "name": "Fluid Lagrangian density",
+      "latex": "\\mathcal L=-\\rho=-\\rho_0(1+u)",
+      "meaning": "Margin note 16; used in Chapter 40.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.48)",
+      "name": "Total energy density",
+      "latex": "\\rho=\\rho_0(1+u)",
+      "meaning": "Rest-mass plus internal energy, natural units.",
+      "symbols": "u specific internal energy (not 4-velocity)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.51)",
+      "name": "Flat-space covariant directional derivative",
+      "latex": "\\frac{\\mathrm D\\boldsymbol A}{\\mathrm d\\tau}=\\nabla_{\\boldsymbol u}\\boldsymbol A=\\left(u^t\\frac{\\partial}{\\partial t}+u^i\\vec\\nabla_i\\right)\\boldsymbol A",
+      "meaning": "Relativistic analogue of the convective derivative (39.50 gives u^alpha partial_alpha A^beta e_beta); the text export garbles u^t as u^i.",
+      "symbols": "u^mu = (gamma, gamma v)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.52)",
+      "name": "Relativistic divergence rule",
+      "latex": "\\frac1V\\frac{\\mathrm dV}{\\mathrm d\\tau}=\\nabla\\cdot\\boldsymbol u",
+      "meaning": "Fractional proper-time growth of a comoving 3-volume (also 39.49 in the margin).",
+      "symbols": "V comoving 3-volume",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.53)",
+      "name": "Relativistic perfect fluid T",
+      "latex": "T^{\\mu\\nu}=(\\rho+p)u^\\mu u^\\nu+p\\,g^{\\mu\\nu}",
+      "meaning": "Rest frame: T^{00} = rho, T^{j0} = 0, T^{ij} = p delta^{ij} (printed with a stray index k).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.54)",
+      "name": null,
+      "latex": "T^{\\mu\\nu}{}_{;\\nu}=0",
+      "meaning": "Covariant conservation in curved spacetime.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.55)",
+      "name": "Leibniz-expanded divergence",
+      "latex": "(\\rho+p)_{,\\beta}u^\\alpha u^\\beta+(\\rho+p)\\left(u^\\alpha{}_{;\\beta}u^\\beta+u^\\alpha u^\\beta{}_{;\\beta}\\right)+p_{,\\beta}g^{\\alpha\\beta}=0",
+      "meaning": "Master expression projected later along and across u.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.57)",
+      "name": "Baryon conservation (comoving)",
+      "latex": "\\frac{\\mathrm d(nV)}{\\mathrm d\\tau}=0",
+      "meaning": "Baryon count in a comoving volume is fixed; (39.56) is the same with rho0.",
+      "symbols": "n baryon number density",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.58)",
+      "name": "Baryon conservation (covariant)",
+      "latex": "\\nabla\\cdot(n\\boldsymbol u)=0,\\qquad(nu^\\alpha)_{;\\alpha}=0",
+      "meaning": "Baryon number current is divergence-free.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.59)",
+      "name": "Baryon conservation expanded along the flow",
+      "latex": "0=\\frac{\\mathrm dn}{\\mathrm d\\tau}+\\frac{n}{V}\\frac{\\mathrm dV}{\\mathrm d\\tau}",
+      "meaning": "Product rule applied to d(nV)/dtau = 0; the two terms are then translated by rules (i) and (ii).",
+      "symbols": "n baryon density; V comoving 3-volume",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.60)",
+      "name": null,
+      "latex": "0=\\nabla_{\\boldsymbol u}n+n(\\nabla\\cdot\\boldsymbol u)=\\nabla\\cdot(n\\boldsymbol u)",
+      "meaning": "Proof of (39.58) from (39.59) using rules (i) and (ii).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.61)",
+      "name": null,
+      "latex": "\\nabla\\cdot\\boldsymbol u=-\\frac{1}{\\rho_0}\\frac{\\mathrm d\\rho_0}{\\mathrm d\\tau}",
+      "meaning": "Margin note 21; printed with dt, but proper time is meant (as in exercise 39.2).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.62)",
+      "name": "Entropy law",
+      "latex": "\\frac{\\mathrm d(nsV)}{\\mathrm d\\tau}\\ge0",
+      "meaning": "Entropy in a comoving volume cannot decrease; implies ds/dtau >= 0, equality for a perfect fluid.",
+      "symbols": "s entropy per baryon",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.63)",
+      "name": "Energy projection",
+      "latex": "u_\\alpha T^{\\alpha\\beta}{}_{;\\beta}=0",
+      "meaning": "Component of conservation along u gives energy conservation.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.64)",
+      "name": null,
+      "latex": "0=-\\rho_{,\\beta}u^\\beta+(\\rho+p)\\left(u^\\alpha{}_{;\\beta}u^\\beta u_\\alpha-u^\\beta{}_{;\\beta}\\right)",
+      "meaning": "After using u.u = -1; the printed first line contains a stray 0 after p_{,beta} u^beta.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.66)",
+      "name": null,
+      "latex": "\\boldsymbol u\\cdot\\nabla_{\\boldsymbol u}\\boldsymbol u=\\tfrac12\\nabla_{\\boldsymbol u}(\\boldsymbol u^2)=0",
+      "meaning": "4-velocity is orthogonal to its acceleration.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.68)",
+      "name": "Relativistic energy equation",
+      "latex": "\\nabla_{\\boldsymbol u}\\rho+(\\rho+p)\\nabla\\cdot\\boldsymbol u=0",
+      "meaning": "Energy density following the flow falls as the element expands, with enthalpy density rho + p doing the work.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.69)",
+      "name": null,
+      "latex": "\\frac{\\mathrm d\\rho}{\\mathrm d\\tau}+\\frac{\\rho+p}{V}\\frac{\\mathrm dV}{\\mathrm d\\tau}=0",
+      "meaning": "Energy equation with div u replaced by the fractional volume growth rate: expansion lowers rho in proportion to rho + p.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.70)",
+      "name": null,
+      "latex": "\\frac{\\mathrm d\\rho}{\\mathrm d\\tau}-\\frac{\\rho+p}{n}\\frac{\\mathrm dn}{\\mathrm d\\tau}=0",
+      "meaning": "Energy equation rewritten with baryon conservation.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.72)",
+      "name": null,
+      "latex": "\\mathrm d\\!\\left(\\frac{\\rho N}{n}\\right)=-p\\,\\mathrm d\\!\\left(\\frac{N}{n}\\right)+T\\,\\mathrm d(Ns)",
+      "meaning": "First law for a volume V = N/n with fixed baryon number N.",
+      "symbols": "N number of baryons",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.73)",
+      "name": "Relativistic first law",
+      "latex": "\\mathrm d\\rho=\\frac{p+\\rho}{n}\\mathrm dn+nT\\,\\mathrm ds",
+      "meaning": "Energy density change from compression and heating; at ds = 0 reproduces (39.70).",
+      "symbols": "T temperature",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.75)",
+      "name": "Projection tensor action",
+      "latex": "P_{\\alpha\\mu}=g_{\\alpha\\mu}+u_\\alpha u_\\mu,\\qquad P_{\\alpha\\mu}v^\\mu=v_\\alpha+(u_\\mu v^\\mu)u_\\alpha",
+      "meaning": "Removes the part of v along u (margin note 24, with 39.74).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.76)",
+      "name": "Momentum projection",
+      "latex": "P_{\\alpha\\mu}T^{\\mu\\nu}{}_{;\\nu}=0",
+      "meaning": "Part of conservation orthogonal to u: momentum conservation.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.77)",
+      "name": null,
+      "latex": "0=(\\rho+p)u_{\\alpha;\\nu}u^\\nu+p_{,\\alpha}+p_{,\\nu}u^\\nu u_\\alpha",
+      "meaning": "Projected divergence after using P_{alpha mu} u^mu = 0.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.78)",
+      "name": null,
+      "latex": "(\\rho+p)\\nabla_{\\boldsymbol u}\\tilde{\\boldsymbol u}=-\\left[\\nabla p+(\\nabla_{\\boldsymbol u}p)\\,\\tilde{\\boldsymbol u}\\right]",
+      "meaning": "Vector (1-form) notation of (39.77).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.79)",
+      "name": null,
+      "latex": "(\\rho+p)\\nabla_{\\boldsymbol u}\\boldsymbol u+\\boldsymbol P\\cdot\\nabla p=0",
+      "meaning": "Same projected equation written with the (2,0) projector; margin note 25 checks P(grad p, u-tilde) = 0, consistent with u being orthogonal to its acceleration.",
+      "symbols": "P^{alpha beta} = g^{alpha beta} + u^alpha u^beta",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.80)",
+      "name": "Relativistic Euler equation",
+      "latex": "(\\rho+p)\\nabla_{\\boldsymbol u}\\boldsymbol u=-\\boldsymbol P\\cdot\\nabla p",
+      "meaning": "The 4-acceleration of the flow lines is minus the rest-space part of the pressure gradient, divided by rho + p, so elements are pushed from high to low pressure; with no transverse gradient the flow is geodesic.",
+      "symbols": "P (2,0) projection tensor",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": null,
+      "name": "Geodesic equation",
+      "latex": "\\nabla_{\\boldsymbol u}\\boldsymbol u=0",
+      "meaning": "Benchmark: free-fall worldlines; dust satisfies it.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": null,
+      "name": "Equations of state list (margin, corrected)",
+      "latex": "p_{\\rm vac}=-\\rho,\\quad p_{\\rm rad}=\\rho/3,\\quad p_{\\rm dust}=0,\\quad p_\\phi=\\frac{\\dot\\phi^2/2-V(\\phi)}{\\dot\\phi^2/2+V(\\phi)}\\rho",
+      "meaning": "Equations of state used in the book; the scalar-field entry is printed as (phidot/2 + V)/(phidot/2 - V), which is wrong: kinetic term should be squared and signs swapped.",
+      "symbols": "V(phi) scalar potential",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.82)",
+      "name": "Pressure from rho(n, s)",
+      "latex": "p(n,s)=n\\left(\\frac{\\partial\\rho}{\\partial n}\\right)_s-\\rho",
+      "meaning": "From the relativistic first law at fixed s.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 442,
+        "printed_page": 425,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.84)",
+      "name": "Pressure from free energy",
+      "latex": "p(n,T)=n^2\\left(\\frac{\\partial a}{\\partial n}\\right)_T",
+      "meaning": "Free energy per baryon a(n, T) (equivalently a = rho/n - Ts); form used in Chapter 40.",
+      "symbols": "a free energy per baryon",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 442,
+        "printed_page": 425,
+        "section": "39.4"
+      }
+    },
+    {
+      "label": "(39.85)",
+      "name": "Relativistic steady Bernoulli (exercise)",
+      "latex": "\\frac{\\mathrm dB}{\\mathrm d\\tau}=\\gamma\\vec v\\cdot\\vec\\nabla B=0,\\qquad B=\\frac{\\gamma(\\rho+p)}{\\rho_0}",
+      "meaning": "Flat-space steady-flow Bernoulli invariant along streamlines (exercise 39.2).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 442,
+        "printed_page": 425,
+        "section": null
+      }
+    },
+    {
+      "label": "(39.91)",
+      "name": "Sound speed (exercise)",
+      "latex": "c_s^2=\\left(\\frac{\\partial p}{\\partial\\rho}\\right)_s",
+      "meaning": "Definition used to obtain the wave equation (39.92) for delta n in exercise 39.3.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "label": "(39.95)",
+      "name": "Relativistic hydrostatic equilibrium (exercise)",
+      "latex": "\\frac{\\partial p}{\\partial r}+(p+\\rho)\\frac{\\partial\\Phi}{\\partial r}=0",
+      "meaning": "Static perfect fluid in a static spherically symmetric metric: the outward pressure gradient must support rho + p, not rho alone, against the pull encoded in Phi (exercise 39.5).",
+      "symbols": "Phi the potential function in the time part of the static spherically symmetric metric (not the Newtonian potential)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "label": "(39.99)",
+      "name": "Continuity as a Lie derivative (exercise)",
+      "latex": "\\left(\\frac{\\partial}{\\partial t}+\\mathcal L_{\\vec v}\\right)(\\rho_0\\tilde\\omega)=0",
+      "meaning": "Mass 3-form is conserved as it is dragged by the flow (exercise 39.6).",
+      "symbols": "omega-tilde = dx^dy^dz",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "label": "(39.101)",
+      "name": "Euler with Lie and exterior derivatives (exercise)",
+      "latex": "\\left(\\frac{\\partial}{\\partial t}+\\mathcal L_{\\vec v}\\right)\\tilde{\\boldsymbol v}+\\frac{1}{\\rho_0}\\boldsymbol dp+\\boldsymbol d(\\Phi-v^2/2)=0",
+      "meaning": "Coordinate-free Euler for the velocity 1-form (exercise 39.7).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "label": "(39.109)",
+      "name": "Density contrast in Einstein-de Sitter (exercise)",
+      "latex": "\\left[\\frac{\\partial^2}{\\partial t'^2}+\\frac{4}{3t'}\\frac{\\partial}{\\partial t'}-\\frac{2}{3t'^2}\\right]\\frac{\\delta\\rho}{\\rho}=0",
+      "meaning": "Solutions grow as t'^{2/3} or decay as 1/t' (exercise 39.9).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 444,
+        "printed_page": 427,
+        "section": null
+      }
+    }
+  ],
+  "figures": [
+    {
+      "label": "Fig. 39.1",
+      "image_path": "gifted-amateur/pages/page-429/img-284.jpeg",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      },
+      "caption_paraphrase": "Streamlines form a space-filling family of curves whose tangents are the velocity field.",
+      "visual_description": "Margin line drawing of seven stacked, non-crossing curves with no axes or labels. Each curve climbs from the lower left to a crest left of centre, then swings down and levels off toward the right, so the bundle looks like a smooth wave. On the lower six curves a black dot sits on the rising left-hand stretch, the dots forming a slanting column; from each dot a short arrowhead points up and to the left along its curve, with a similar arrow near the crest of the top curve. The arrows mark the tangent (velocity) direction at those points.",
+      "what_it_teaches": "Velocity is a tangent field: one arrow per point, tangent to exactly one curve of the congruence. The curves are an instantaneous picture of velocity, not necessarily the paths particles follow.",
+      "figure_type": "vector-or-tensor-field",
+      "concepts": [
+        "streamlines",
+        "fluid",
+        "steady flow",
+        "4-velocity field"
+      ],
+      "redesign": {
+        "idea": "Flow-field sandbox that separates streamlines, pathlines and streaklines. A 2D velocity field (presets: uniform, shear, vortex, source, flow past a cylinder, plus a time-dependent sloshing mode) is drawn as a faint arrow grid with streamlines as integral curves. Tracer particles can be released and leave pathline trails; a dye injector leaves a streakline.",
+        "interaction": "Learner picks a preset, toggles 'steady / unsteady' and a time slider, clicks to seed streamlines or drop particles. In steady mode the particle trail sits exactly on the streamline through its seed; in unsteady mode the three families visibly separate. A second tab lifts the picture into 2+1 spacetime: flow lines become worldlines and the normalized tangent u is drawn as a unit timelike arrow.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 39.2",
+      "image_path": "gifted-amateur/pages/page-430/img-285.jpeg",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      },
+      "caption_paraphrase": "A small patch of a fluid element's surface with its outward area vector, used to set up the pressure force.",
+      "visual_description": "Sketch of a single tall, slightly curved and lightly shaded rectangular patch of surface, bowed like a bent card and seen at an angle. A black dot marks a point near the centre of the patch, and one arrow starts at that dot and points outward to the right, roughly perpendicular to the patch, labelled dS with a vector arrow over the S. No pressure arrows or coordinate axes are drawn.",
+      "what_it_teaches": "The directed area element points outward, so pressure (which pushes inward) contributes -p dS; summing over a closed surface yields the net force, which vanishes unless pressure varies across the element.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "pressure force on a fluid element"
+      ],
+      "redesign": {
+        "idea": "Pressure-cube force balance in 3D. A small cubic (or deformable blob) fluid element sits in a colour-mapped pressure field. Each face shows its outward normal dS and an inward force arrow of length p dS; a resultant arrow at the centre shows the vector sum next to the value of -grad p times volume.",
+        "interaction": "Learner drags sliders for background pressure and for the pressure gradient's magnitude and direction, and can add gravity. With uniform pressure all face forces cancel and the resultant disappears however large p is; tilting the gradient swings the resultant to point down-gradient. A 'hydrostatic' button adds gravity and lets the learner adjust the gradient until the element floats at rest (grad p = rho0 g).",
+        "form": "interactive-3d",
+        "priority": "medium"
+      }
+    }
+  ],
+  "worked_examples": [
+    {
+      "label": "Example 39.1",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      },
+      "problem": "Relate the rate of change of a vector field seen by an observer drifting with the fluid to rates measured at a fixed point.",
+      "method": "Write the differential of a component A^i in terms of partial derivatives in t and x^j, divide by dt, and identify dx^j/dt with the fluid velocity.",
+      "key_insight": "The comoving rate is local change plus transport along the velocity; the extra piece is a directional derivative along streamlines.",
+      "result": "dA^i/dt = \\partial_t A^i + v^j \\partial_j A^i, giving d/dt = \\partial_t + \\vec v\\cdot\\vec\\nabla",
+      "concepts": [
+        "convective derivative",
+        "comoving and stationary observers"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 39.2",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      },
+      "problem": "Express mass conservation in the comoving frame and extract the meaning of div v.",
+      "method": "Expand the divergence of rho0 v with the product rule, group partial_t rho0 + v.grad rho0 into the convective derivative, then combine with the constancy of a parcel's mass M = rho0 V.",
+      "key_insight": "Density following the flow drops exactly as fast as the parcel's volume grows, so div v is a fractional volume growth rate.",
+      "result": "d\\rho_0/dt = -\\rho_0\\,\\vec\\nabla\\cdot\\vec v;\\ \\vec\\nabla\\cdot\\vec v = (1/V)\\,dV/dt",
+      "concepts": [
+        "continuity equation",
+        "divergence rule"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 39.3",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      },
+      "problem": "Find the pressure distribution in a fluid at rest under uniform gravity.",
+      "method": "Set v = 0 in Euler's equation with gravity, write Cartesian components with g along -z, integrate in z.",
+      "key_insight": "Static fluids need a pressure gradient that exactly holds up their weight; horizontal pressure is uniform.",
+      "result": "\\vec\\nabla p = \\rho_0\\vec g;\\ p(z) = -\\rho_0 g z + \\text{const}",
+      "concepts": [
+        "hydrostatic equilibrium",
+        "Pascal's law"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 39.4",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      },
+      "problem": "Rewrite Euler's equation so that the nonlinear advection term is replaced by a gradient and a vorticity term.",
+      "method": "Apply the double cross product identity to v x (curl v), substitute for (v.grad)v, and replace g by -grad Phi.",
+      "key_insight": "Euler's equation already contains an energy-like gradient grad(v^2/2 + Phi); what is left over is the vorticity force v x omega.",
+      "result": "\\partial_t\\vec v + \\vec\\nabla(\\tfrac12 v^2+\\Phi) + \\vec\\nabla p/\\rho_0 - \\vec v\\times\\vec\\omega = 0",
+      "concepts": [
+        "Bernoulli's equation",
+        "vorticity",
+        "Euler's equation"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 39.5",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      },
+      "problem": "State how the entropy of a perfect fluid behaves in comoving and fixed frames.",
+      "method": "Combine ds/dt = 0 for a non-dissipative fluid with the convective derivative and an assumption of no explicit time dependence of s.",
+      "key_insight": "Entropy is carried unchanged along streamlines, so its gradient has no component along the flow.",
+      "result": "ds/dt = (\\vec v\\cdot\\vec\\nabla)s = 0",
+      "concepts": [
+        "isentropic flow",
+        "perfect fluid",
+        "convective derivative"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 39.6",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      },
+      "problem": "Derive the familiar streamline form of Bernoulli's equation for steady perfect-fluid flow.",
+      "method": "Dot the general Bernoulli form with v so the vorticity term drops (v is perpendicular to v x omega), set partial_t = 0, and replace (v.grad p)/rho0 by v.grad h using the steady perfect-fluid enthalpy relation.",
+      "key_insight": "Projecting a vector equation onto the velocity leaves only the part that describes energy along the streamline.",
+      "result": "\\vec v\\cdot\\vec\\nabla(\\tfrac12v^2+\\Phi+h) = 0 \\Rightarrow \\tfrac12v^2+\\Phi+u+p/\\rho_0 = \\text{const on streamlines}",
+      "concepts": [
+        "Bernoulli's equation",
+        "specific enthalpy",
+        "steady flow"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 39.7",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.2"
+      },
+      "problem": "Find a Bernoulli law for unsteady, isentropic, irrotational flow.",
+      "method": "Take the spatial gradient of the enthalpy first law, drop grad s, set omega = 0 and v = grad phi in the general Bernoulli form, and collect every term under one gradient.",
+      "key_insight": "Because the full gradient (not just its component along v) vanishes, the Bernoulli combination is the same at every point in the fluid, not merely along each streamline.",
+      "result": "\\tfrac12v^2+\\Phi+h+\\partial_t\\phi = \\text{const in space}",
+      "concepts": [
+        "Bernoulli's equation",
+        "velocity potential",
+        "irrotational flow",
+        "isentropic flow"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 39.8",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      },
+      "problem": "Show that the conservation of the non-relativistic fluid stress-energy tensor gives both a conservation law and Euler's equation.",
+      "method": "Insert the slow-flow tensor (39.41) into the flat-space conservation law, expand by the product rule with v^mu = (1, v), and examine the nu = t and nu = i components separately; in the spatial part use mass conservation to cancel a bracket multiplying v^i.",
+      "key_insight": "One tensor equation holds four scalar equations: its time component is a conservation statement and its space components are the momentum equation.",
+      "result": "\\partial_t p = \\partial_t\\rho + \\vec\\nabla\\cdot(\\rho\\vec v);\\ \\rho(\\partial_t\\vec v + \\vec v\\cdot\\vec\\nabla\\vec v) = -\\vec\\nabla p",
+      "concepts": [
+        "conservation of energy-momentum",
+        "non-relativistic limit of the fluid stress tensor",
+        "Euler's equation",
+        "continuity equation"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 39.9",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      },
+      "problem": "Justify the relativistic versions of the derivative rule and the divergence rule.",
+      "method": "For rule (i), write nabla_u A in flat space with vanishing connection and expand into u^t partial_t + u^i partial_i, noting u = (gamma, gamma v). For rule (ii), observe u^t = dt/dtau is close to 1 for slow flow and propose div u = (1/V) dV/dtau, then extend to curved spacetime by covariance.",
+      "key_insight": "Proper time replaces coordinate time and the spacetime directional derivative absorbs the separate time and advection pieces of the convective derivative.",
+      "result": "D\\boldsymbol A/d\\tau = \\nabla_{\\boldsymbol u}\\boldsymbol A;\\ (1/V)\\,dV/d\\tau = \\nabla\\cdot\\boldsymbol u",
+      "concepts": [
+        "covariant directional derivative",
+        "relativistic divergence rule",
+        "principle of covariance"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 39.10",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      },
+      "problem": "Expand the covariant divergence of the perfect-fluid stress-energy tensor.",
+      "method": "Apply the Leibniz rule to (rho + p) u^alpha u^beta + p g^{alpha beta}, using metric compatibility so g^{alpha beta}_{;beta} = 0.",
+      "key_insight": "This single expanded form is the parent of both the energy and momentum equations, obtained later by different projections.",
+      "result": "(\\rho+p)_{,\\beta}u^\\alpha u^\\beta + (\\rho+p)(u^\\alpha{}_{;\\beta}u^\\beta + u^\\alpha u^\\beta{}_{;\\beta}) + p_{,\\beta}g^{\\alpha\\beta} = 0",
+      "concepts": [
+        "energy-momentum tensor of a perfect fluid",
+        "conservation of energy-momentum"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 39.11",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      },
+      "problem": "Prove the covariant baryon conservation law from the comoving statement d(nV)/dtau = 0.",
+      "method": "Expand the comoving derivative with the product rule, convert dn/dtau with rule (i) into u.grad n and (1/V) dV/dtau with rule (ii) into div u, then recognize the product rule for div(n u).",
+      "key_insight": "The two translation rules turn a statement about one parcel into a local field equation valid in any coordinates.",
+      "result": "\\nabla\\cdot(n\\boldsymbol u) = 0,\\ (nu^\\alpha)_{;\\alpha} = 0",
+      "concepts": [
+        "baryon number conservation",
+        "covariant directional derivative",
+        "relativistic divergence rule"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 39.12",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      },
+      "problem": "Extract the energy equation by contracting the expanded divergence of T with u_alpha.",
+      "method": "Multiply (39.55) by u_alpha, use u^alpha u_alpha = -1 to simplify each term, cancel the pressure terms, and show the leftover u_alpha u^alpha_{;beta} u^beta equals (1/2) nabla_u(u.u) = 0.",
+      "key_insight": "The normalization of u makes the 4-acceleration orthogonal to u, so projection along u sees only density change and expansion.",
+      "result": "\\nabla_{\\boldsymbol u}\\rho + (\\rho+p)\\nabla\\cdot\\boldsymbol u = 0",
+      "concepts": [
+        "projection of the conservation law along the 4-velocity",
+        "normalization of the 4-velocity"
+      ],
+      "difficulty": "challenging"
+    },
+    {
+      "label": "Example 39.13",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      },
+      "problem": "Rewrite the projected energy equation in terms of baryon density.",
+      "method": "Replace div u by (1/V) dV/dtau, then use d(nV)/dtau = 0 to trade dV/V for -dn/n.",
+      "key_insight": "Energy density rises under compression at a rate set by rho + p per baryon, which is exactly what the first law predicts at fixed entropy.",
+      "result": "d\\rho/d\\tau - ((\\rho+p)/n)\\,dn/d\\tau = 0",
+      "concepts": [
+        "projection of the conservation law along the 4-velocity",
+        "baryon number conservation",
+        "relativistic first law of thermodynamics"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      },
+      "problem": "Show that the projected energy equation is the relativistic first law of thermodynamics (worked in the main text after Example 39.13).",
+      "method": "Apply d(energy) = -p dV + T dS to a comoving volume holding N baryons, with energy rho N/n, volume N/n and entropy Ns; cancel the common N and rearrange.",
+      "key_insight": "Counting energy per fixed set of baryons, rather than per fixed volume, gives thermodynamics that follows the flow automatically.",
+      "result": "d\\rho = ((p+\\rho)/n)\\,dn + nT\\,ds",
+      "concepts": [
+        "relativistic first law of thermodynamics",
+        "baryon number density"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 39.14",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      },
+      "problem": "Derive the relativistic Euler equation from the part of the conservation law orthogonal to u.",
+      "method": "Contract (39.55) with P_{alpha mu} = g_{alpha mu} + u_alpha u_mu; terms proportional to u^mu are annihilated, the acceleration term survives because it is already orthogonal to u, and the pressure term becomes grad p plus its component along u times u. Rewrite in index-free form with the (2,0) projector.",
+      "key_insight": "Only pressure gradients lying in the fluid's local rest space accelerate the flow, and the inertia resisting them is rho + p rather than rho.",
+      "result": "(\\rho+p)\\nabla_{\\boldsymbol u}\\boldsymbol u = -\\boldsymbol P\\cdot\\nabla p",
+      "concepts": [
+        "relativistic Euler equation",
+        "projection tensor",
+        "geodesic equation"
+      ],
+      "difficulty": "challenging"
+    },
+    {
+      "label": "Example 39.15",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      },
+      "problem": "Obtain the pressure from two kinds of equation of state: rho(n, s) and a free energy a(n, T).",
+      "method": "Differentiate the relativistic first law with respect to n at fixed s to get p = n (partial rho/partial n)_s - rho; for a free energy with natural variables n and T, the pressure is a first derivative, p = n^2 (partial a/partial n)_T.",
+      "key_insight": "Pressure is always a derivative of an energy-like potential with respect to density, which is why pressure gradients encode how the equation of state resists compression.",
+      "result": "p(n,s) = n(\\partial\\rho/\\partial n)_s - \\rho;\\ p(n,T) = n^2(\\partial a/\\partial n)_T",
+      "concepts": [
+        "pressure from an equation of state",
+        "equation of state"
+      ],
+      "difficulty": "standard"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "'Dry water': a fluid with the wetness (viscosity) removed.",
+      "target_concept": "perfect fluid",
+      "how_used": "The title and opening make the idealization memorable: keep density, pressure and flow, discard internal friction, because relativistic fluids such as the cosmic fluid and stellar matter behave that way to good approximation.",
+      "limits": "Real water is strongly affected by viscosity near boundaries; turbulence, drag and shear stresses are absent from this model, and a relativistic perfect fluid also has no heat conduction.",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": "Side-by-side pipe flow: viscous profile (parabolic) versus perfect-fluid plug flow, with a viscosity slider that morphs one into the other."
+    },
+    {
+      "analogy": "The comoving observer of cosmology drifting with a fluid parcel versus an observer fixed in place.",
+      "target_concept": "convective derivative",
+      "how_used": "The authors link the total derivative in Newton's law to the comoving observer already met in the cosmology chapters, then relativistically to proper time along a flow line.",
+      "limits": "In cosmology the comoving frame is special for symmetry reasons; in a general fluid each element has its own comoving frame and there is no global comoving coordinate system.",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Split screen: a thermometer fixed on a bridge and one riding a boat in a river with a temperature gradient; both readouts plotted, with the difference displayed as v.grad T."
+    },
+    {
+      "analogy": "In flat space v.dv/dx = (1/2) d(v^2)/dx, so a vector of fixed length is perpendicular to its rate of change.",
+      "target_concept": "normalization of the 4-velocity",
+      "how_used": "Used as the template for u.nabla_u u = (1/2) nabla_u(u^2) = 0 in the energy projection.",
+      "limits": "In Minkowski geometry perpendicular means Lorentz-orthogonal, which in a spacetime diagram does not look like a right angle.",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Spacetime diagram showing a curved worldline with its unit 4-velocity and 4-acceleration drawn Lorentz-orthogonal, with a toggle to a Euclidean circle picture for comparison."
+    },
+    {
+      "analogy": "Bernoulli's constant as an energy budget per unit mass: kinetic plus gravitational plus enthalpy.",
+      "target_concept": "Bernoulli's equation",
+      "how_used": "After deriving the steady-flow form, the authors read each bracket term as an energy, turning a rewritten Euler equation into energy conservation along streamlines.",
+      "limits": "The budget is per streamline for steady flow; different streamlines can carry different constants unless the flow is irrotational.",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Stacked bar chart riding along a streamline through a narrowing pipe: kinetic, potential and pressure bars trade height while their total stays fixed."
+    },
+    {
+      "analogy": "Dust as a swarm of independent free-falling particles, each on its own geodesic.",
+      "target_concept": "dust",
+      "how_used": "Emphasized after the relativistic Euler equation: with no pressure there is nothing to push elements off their free-fall paths.",
+      "limits": "Real cosmic matter has small pressures and velocity dispersion; dust flow lines can cross (caustics), where the fluid description breaks down.",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Particle cloud in a gravitational field with a pressure slider: at zero pressure each particle traces a geodesic; raising pressure adds outward forces and the trajectories peel away from the geodesic ghosts."
+    },
+    {
+      "analogy": "Removing the component of a vector along a direction, as in ordinary vector geometry, to build a spatial projector.",
+      "target_concept": "projection tensor",
+      "how_used": "Margin note 24 writes the perpendicular part as v - (u.v)u/(u.u), which with u.u = -1 becomes v + (u.v)u, the action of P.",
+      "limits": "The sign flip relative to Euclidean projection comes from the timelike normalization and is easy to get wrong.",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Interactive 1+1 diagram: drag a vector v and a unit timelike u; the display splits v into its part along u and its part in u's rest space."
+    },
+    {
+      "analogy": "The cosmological fluid and stellar interiors, not fast water, as the relativistic fluids of interest.",
+      "target_concept": "perfect fluid",
+      "how_used": "Recalibrates the learner's image of 'fluid' before defining baryon density, energy density and entropy per baryon.",
+      "limits": "Neutron-star matter and the early-universe plasma can have significant viscosity or heat flux in some regimes.",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "Streamlines show the paths that fluid particles follow.",
+      "correction": "Streamlines are tangent to the instantaneous velocity; they coincide with particle paths only when the flow is steady.",
+      "why_tempting": "In the steady flows usually drawn (pipes, wings) the two coincide, and the name 'flow line' suggests a trajectory.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      },
+      "concepts": [
+        "streamlines",
+        "steady flow"
+      ]
+    },
+    {
+      "misconception": "A high pressure on a fluid element pushes it, even if the pressure is the same all around.",
+      "correction": "Only pressure differences exert a net force; for uniform pressure the surface forces cancel and grad p = 0.",
+      "why_tempting": "Everyday language treats pressure as a push in a direction.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      },
+      "concepts": [
+        "pressure force on a fluid element"
+      ]
+    },
+    {
+      "misconception": "d/dt and partial/partial t mean the same thing for a fluid field.",
+      "correction": "d/dt follows a fluid element; partial_t is taken at a fixed position; they differ by v.grad.",
+      "why_tempting": "For a single particle's position there is only one time derivative, and notation is often used loosely.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      },
+      "concepts": [
+        "convective derivative",
+        "comoving and stationary observers"
+      ]
+    },
+    {
+      "misconception": "Bernoulli's equation is an independent law separate from Newton's laws for fluids.",
+      "correction": "In its general form it is Euler's equation rearranged; in steady perfect-fluid flow it expresses energy conservation per unit mass along streamlines.",
+      "why_tempting": "It is usually taught as a stand-alone formula about pressure and speed.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      },
+      "concepts": [
+        "Bernoulli's equation",
+        "Euler's equation"
+      ]
+    },
+    {
+      "misconception": "The Bernoulli constant is the same everywhere in any flow.",
+      "correction": "For steady flow it is constant only along each streamline; a single constant throughout the fluid requires irrotational flow (where the unsteady version holds everywhere).",
+      "why_tempting": "Textbook problems often compare points on different streamlines without comment.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.2"
+      },
+      "concepts": [
+        "Bernoulli's equation",
+        "irrotational flow"
+      ]
+    },
+    {
+      "misconception": "Conservation of the stress-energy tensor only expresses energy conservation.",
+      "correction": "Its time-like projection gives energy conservation, while its spatial projection gives the equations of motion (Euler); both are contained in one tensor law.",
+      "why_tempting": "The phrase 'conservation law' suggests a single conserved scalar.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      },
+      "concepts": [
+        "conservation of energy-momentum",
+        "Euler's equation"
+      ]
+    },
+    {
+      "misconception": "Every element of a fluid in general relativity falls freely along a geodesic.",
+      "correction": "Flow lines are geodesics only when there is no pressure gradient orthogonal to u; pressure gradients accelerate fluid elements off geodesics (that is how stars are held up).",
+      "why_tempting": "GR is summarized as 'free particles follow geodesics', and dust models dominate cosmology courses.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      },
+      "concepts": [
+        "relativistic Euler equation",
+        "geodesic equation",
+        "dust"
+      ]
+    },
+    {
+      "misconception": "The energy density rho of a relativistic fluid is just its rest-mass density.",
+      "correction": "rho includes internal (thermal, compressional) energy: rho = rho0(1 + u); pressure also contributes to inertia through rho + p.",
+      "why_tempting": "In Newtonian fluid mechanics rho0 is the only density that appears.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      },
+      "concepts": [
+        "total energy density",
+        "baryon number density"
+      ]
+    },
+    {
+      "misconception": "Scalars like n, rho and p depend on which observer measures them.",
+      "correction": "They are scalar fields, identical for all observers at an event; they are defined as what a comoving observer would measure.",
+      "why_tempting": "Density does change under boosts if one means the time component of a current rather than the rest-frame scalar.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      },
+      "concepts": [
+        "baryon number density",
+        "total energy density"
+      ]
+    },
+    {
+      "misconception": "Pressure only matters for motion, not for inertia.",
+      "correction": "In the relativistic Euler equation the inertia resisting a pressure gradient is rho + p; pressure also appears in the relativistic hydrostatic equation (exercise 39.5) as an extra source.",
+      "why_tempting": "In the Newtonian limit p << rho c^2, so pressure's inertial role is invisible in everyday fluids.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      },
+      "concepts": [
+        "relativistic Euler equation",
+        "hydrostatic equilibrium"
+      ]
+    },
+    {
+      "misconception": "A perfect fluid's entropy cannot change anywhere in time.",
+      "correction": "Entropy per unit mass is constant following each element; at a fixed point it can still change if fluid with different entropy flows past, unless the flow is steady or entropy is uniform.",
+      "why_tempting": "The text states partial_t s = 0 for a perfect fluid, which is only true under extra assumptions.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      },
+      "concepts": [
+        "isentropic flow",
+        "convective derivative"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Riding observer versus fixed observer",
+      "setup": "One observer floats with a small fluid parcel while another stays at a fixed location; both record how velocity (or density) changes with time.",
+      "lesson": "The two rates differ by transport along the flow; Newton's law is simplest for the rider, while field equations are written for the fixed observer.",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      },
+      "concepts": [
+        "convective derivative",
+        "comoving and stationary observers"
+      ],
+      "visualizable": true,
+      "app_idea": "Draggable probe in a flow animation that can be pinned or released; live plots of both readings plus their difference."
+    },
+    {
+      "name": "Tagging a fixed mass of fluid",
+      "setup": "Mark a blob containing mass M and follow it as it is carried and deformed by the flow; its density and volume change but M does not.",
+      "lesson": "Density decrease following the flow equals fractional volume increase, giving div v = (1/V) dV/dt; relativistically, the baryon count nV is fixed.",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      },
+      "concepts": [
+        "divergence rule",
+        "baryon number conservation"
+      ],
+      "visualizable": true,
+      "app_idea": "A dyed blob advected by a user-chosen field with a live readout of its area and of the integrated divergence inside it."
+    },
+    {
+      "name": "Uniform-pressure element",
+      "setup": "Imagine a small fluid element immersed in fluid whose pressure is the same everywhere around it.",
+      "lesson": "Surface forces cancel, so no net force acts; only a pressure gradient accelerates fluid.",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      },
+      "concepts": [
+        "pressure force on a fluid element"
+      ],
+      "visualizable": true,
+      "app_idea": null
+    },
+    {
+      "name": "Pressureless dust versus a fluid with a pressure gradient",
+      "setup": "Two fluids share an initial flow in the same spacetime: one with zero pressure, one with pressure varying across the flow.",
+      "lesson": "Dust elements trace geodesics; in the second fluid the transverse pressure gradient bends flow lines away from geodesics by an amount inversely proportional to rho + p.",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      },
+      "concepts": [
+        "relativistic Euler equation",
+        "dust",
+        "geodesic equation"
+      ],
+      "visualizable": true,
+      "app_idea": "Worldline plot with geodesic ghost paths and a pressure-gradient slider showing deviations growing."
+    },
+    {
+      "name": "Compressing a box of N baryons",
+      "setup": "Hold fixed a set of N baryons in a comoving volume V = N/n and squeeze it adiabatically.",
+      "lesson": "Work -p dV raises the energy rho V, so rho climbs at rate (rho + p)/n per unit increase in n; this is the relativistic first law and the energy equation.",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      },
+      "concepts": [
+        "relativistic first law of thermodynamics",
+        "baryon number conservation"
+      ],
+      "visualizable": true,
+      "app_idea": "Piston animation with sliders for equation of state (dust, radiation); plots rho versus n with the (rho + p)/n slope."
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "Sydney Smith"
+      ],
+      "year": null,
+      "event": "Epigraph by the English clergyman and wit (1771-1845) remarking that a glass of London water held more living creatures than Earth has people.",
+      "significance": "Playful opener hinting that 'fluid' hides a vast number of constituents, and setting the informal tone.",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "Blaise Pascal",
+        "Roberto Rossellini"
+      ],
+      "year": "1972",
+      "event": "Margin biography of Pascal (1623-1662), with the anecdote that film director Rossellini, who made a television film of Pascal's life in 1972, described him unflatteringly.",
+      "significance": "Attaches a human story to Pascal's law of hydrostatic pressure.",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "people": [
+        "Daniel Bernoulli",
+        "Johann Bernoulli",
+        "Jacob Bernoulli"
+      ],
+      "year": null,
+      "event": "Daniel Bernoulli (1700-1782) published his fluid work as Hydrodynamica; parts were plagiarized by his father Johann in Hydraulica.",
+      "significance": "Credits the origin of Bernoulli's equation and illustrates rivalry in the Bernoulli family.",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "people": [
+        "Richard Feynman",
+        "Robert Leighton",
+        "Matthew Sands"
+      ],
+      "year": null,
+      "event": "The chapter's inviscid-first approach follows Feynman Lectures Vol. II, Lecture 40, with viscosity treated in the following lecture.",
+      "significance": "Signals the pedagogical lineage and where to go for viscous flow.",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Pressure increase with depth (Pascal's law)",
+      "kind": "numerical-estimate",
+      "details": "Hydrostatic balance gives a linear pressure rise with depth in a uniform liquid. Our own estimate for water shows the scale.",
+      "key_numbers": "Own estimate: rho0 g = 1000 kg m^-3 x 9.8 m s^-2, about 9.8 kPa per metre, so roughly one extra atmosphere per 10.3 m of water.",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "topic": "Outflow speed from a reservoir (Torricelli, exercise 39.1)",
+      "kind": "numerical-estimate",
+      "details": "Bernoulli along a streamline from the free surface to an outlet pipe at the bottom, with equal (atmospheric) pressure at both ends and negligible surface speed.",
+      "key_numbers": "v = sqrt(2g(y2 - y1)); own estimate: a 5 m head gives about 9.9 m/s.",
+      "locator": {
+        "pdf_page": 442,
+        "printed_page": 425,
+        "section": null
+      }
+    },
+    {
+      "topic": "Cosmological fluid and its equations of state",
+      "kind": "astrophysical-system",
+      "details": "The fluids of interest in relativity are the matter-energy filling the Universe and matter in stars, mostly baryons. The margin list gives the equations of state used in the cosmology chapters and later inflation discussion.",
+      "key_numbers": "dust p = 0; radiation p = rho/3; vacuum energy p = -rho; homogeneous scalar field w = (phidot^2/2 - V)/(phidot^2/2 + V).",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "topic": "Relativistic hydrostatic equilibrium of stars (exercise 39.5)",
+      "kind": "astrophysical-system",
+      "details": "Conservation of T for a static perfect fluid in a Schwarzschild-type geometry gives dp/dr = -(rho + p) dPhi/dr; pressure itself adds to the effective inertia and gravitational pull, which matters for compact stars (our comment).",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "topic": "Sound speed in a relativistic fluid (exercise 39.3)",
+      "kind": "numerical-estimate",
+      "details": "Linearizing baryon conservation and relativistic Euler about a static state gives a wave equation for density perturbations with c_s^2 = (dp/drho)_s.",
+      "key_numbers": "Own estimate: radiation-like fluid p = rho/3 gives c_s = c/sqrt(3), about 0.577c; dust gives c_s = 0.",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "topic": "Growth of structure in an Einstein-de Sitter universe (exercise 39.9)",
+      "kind": "numerical-estimate",
+      "details": "Newtonian fluid equations for the Hubble flow, perturbed and written in comoving coordinates, give a growing mode t^{2/3} and a decaying mode 1/t for the density contrast.",
+      "key_numbers": "delta proportional to t^{2/3}, i.e. proportional to the scale factor a (own remark); so a density contrast grows only about a thousand-fold between recombination (a ~ 1/1100) and today, which is our own estimate.",
+      "locator": {
+        "pdf_page": 444,
+        "printed_page": 427,
+        "section": null
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Metric signature and 4-velocity normalization",
+      "convention": "Signature (-,+,+,+) so u^alpha u_alpha = -1; timelike tangents normalized by dividing by sqrt(-g(w, w)).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "item": "Units",
+      "convention": "Natural units c = 1 in the relativistic sections; energy density rho c^2 = rho0 c^2 + rho0 u when c is restored; non-relativistic limit written rho >> p/c^2. Exercise 39.9 also sets G = 1 in Phi = 2 pi rho r^2/3.",
+      "notes": "The limit is quoted with c even inside c = 1 formulas.",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "item": "rho0 versus rho",
+      "convention": "rho0 is rest-mass density (in 39.4, rho0 = m_b n); rho is total energy density including internal energy. In section 39.3 the same letter rho is used for the energy density in the slow-flow T.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    },
+    {
+      "item": "Lower-case specific variables",
+      "convention": "u, s, h denote internal energy, entropy and enthalpy per unit mass in 39.2; in 39.4 s is entropy per baryon and a free energy per baryon.",
+      "notes": "Upper case U, S, H are extensive.",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      }
+    },
+    {
+      "item": "Symbol u used twice",
+      "convention": "u is both specific internal energy (rho = rho0(1 + u)) and the fluid 4-velocity (bold u, components u^mu) on the same pages.",
+      "notes": "Main source of confusion in 39.4; context and boldface are the only cues.",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "item": "Potentials and omegas",
+      "convention": "Phi is gravitational potential (or a metric function in exercise 39.5); phi is velocity potential in 39.2 but a scalar field in the equation-of-state list; omega is vorticity while omega-tilde in exercise 39.6 is the volume 3-form.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.2"
+      }
+    },
+    {
+      "item": "Derivative notation",
+      "convention": "d/dt total (comoving) derivative; partial_t at fixed position; D/dtau comoving proper-time rate; nabla_u = u.nabla; comma for partial and semicolon for covariant derivatives, with div T = 0 written T^{mu nu}_{;nu} = 0.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "item": "Vectors, 4-vectors and forms",
+      "convention": "Arrowed letters are 3-vectors; bold letters are 4-vectors or tensors; a tilde marks a 1-form (u-tilde, v-tilde) or other form; bold d is the exterior derivative.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "item": "Projection tensor",
+      "convention": "P with components P_{alpha mu} = g_{alpha mu} + u_alpha u_mu (a (0,2) tensor) and its (2,0) version P^{alpha beta} = g^{alpha beta} + u^alpha u^beta used in P.grad p.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "item": "Background values in perturbation exercises",
+      "convention": "Subscript * marks constant equilibrium values (n_*, rho_*, p_*, s_*) and delta marks small perturbations; primed coordinates are comoving in exercise 39.9.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "Box marks the chapter as background on fluids that can be skipped on a first reading.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    },
+    {
+      "summary": "Pointer to Feynman Lectures Vol. II, Lecture 40 as the model for ignoring viscosity, with the next lecture recommended for viscous effects.",
+      "type": "reference",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    },
+    {
+      "summary": "Separates mass density rho0 from energy density rho c^2, which also includes internal energy.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    },
+    {
+      "summary": "The surface integral runs over the element's boundary where the rest of the fluid pushes; with no pressure gradient the net force vanishes.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "summary": "Equating force and mass-times-acceleration as integrals over an arbitrary element forces the integrand to vanish.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "summary": "Partial time derivative should be read as taken at fixed position.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "summary": "Box of two rules for Newtonian fluids: the derivative rule (d/dt comoving, partial_t + v.grad stationary) and the divergence rule (div v = (1/V) dV/dt).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      }
+    },
+    {
+      "summary": "Biography of Pascal with an unflattering remark attributed to Rossellini, who filmed his life for television.",
+      "type": "biography",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "summary": "Biography of Daniel Bernoulli, Hydrodynamica, and his father Johann's plagiarism in Hydraulica.",
+      "type": "biography",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.1"
+      }
+    },
+    {
+      "summary": "Explains that writing U(S, V) signals S and V as the natural variables appearing as differentials in the first law.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 432,
+        "printed_page": 415,
+        "section": "39.2"
+      }
+    },
+    {
+      "summary": "Points back to Chapter 12 for the conservation of energy-momentum.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.3"
+      }
+    },
+    {
+      "summary": "Restores c: rho c^2 = rho0 c^2 + rho0 u; in natural units rho = rho0(1 + u).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "summary": "Admits the component-by-component argument of Example 39.8 is untidy and promises the projection method of 39.4.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "summary": "Flow-line tangents d/dtau normalized by sqrt(-g(w, w)) become the 4-velocity with u^2 = -1.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Etymology of baryon (Greek for heavy): composites of three or more quarks such as protons and neutrons, excluding electrons and neutrinos.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Thermodynamic scalars are frame independent but defined as comoving-observer measurements.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "The fluid Lagrangian density is L = -rho = -rho0(1 + u), to be used in Chapter 40.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Relativistic rule summary: comoving observers measure D/dtau (d/dtau on scalars), general frames use nabla_u, and (1/V) dV/dtau = div u (labelled there as the derivative rule).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Reminds that div v = v^i_{,i} and div u = u^mu_{;mu}.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Rest-mass form of baryon conservation, d(rho0 V)/dtau = 0.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Reminder that the directional covariant derivative nabla_u is shorthand for u.nabla, used when converting dn/dtau in the baryon-conservation proof.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Useful corollary div u = -(1/rho0) drho0/dtau (printed with dt).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Points to the normalization u^alpha u_alpha = -1 as the tool that simplifies the contraction of the divergence of T with u_alpha.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "The differential in the relativistic first law can be read as the exterior derivative; it does not presuppose following the flow.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Builds the perpendicular part of a vector relative to u and shows it matches the action of P.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Expands P.grad p in components and checks it has no component along u, consistent with u being orthogonal to its acceleration.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "Recalls the non-relativistic Euler equation for comparison.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "summary": "List of equations of state used in the book: vacuum energy, radiation, dust, and a homogeneous scalar field (the scalar-field formula is misprinted).",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 9,
+    "pdf_pages": [
+      442,
+      443,
+      444
+    ],
+    "skills_practiced": [
+      "applying steady-flow Bernoulli between two points on a streamline",
+      "expanding the flat-space conservation of T with explicit gamma factors",
+      "linearizing fluid equations about an equilibrium to obtain a wave equation",
+      "manipulating distributional currents and the sqrt(-g) divergence identity",
+      "computing covariant divergences with Schwarzschild connection coefficients and vielbeins",
+      "Lie derivatives and exterior derivatives of forms in fluid mechanics",
+      "constructing a 2-form that measures flux through a parallelogram",
+      "perturbation theory for the Hubble flow in comoving coordinates"
+    ],
+    "notable": [
+      {
+        "number": "39.1",
+        "summary": "Use Bernoulli's theorem to get the speed of liquid leaving a pipe at the base of a tank in terms of the surface height and outlet height.",
+        "skills": [
+          "Bernoulli along a streamline"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Classic Torricelli result; a quick sanity check that the energy reading of Bernoulli is usable.",
+        "pdf_page": 442
+      },
+      {
+        "number": "39.2",
+        "summary": "Prove a special-relativistic steady-flow Bernoulli law: the quantity gamma(rho + p)/rho0 is constant along streamlines, using the time component of the conservation law and rest-mass conservation.",
+        "skills": [
+          "gamma-factor bookkeeping",
+          "combining energy and mass conservation"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Shows how the Newtonian enthalpy per unit mass generalizes to (rho + p)/rho0 with a gamma factor.",
+        "pdf_page": 442
+      },
+      {
+        "number": "39.3",
+        "summary": "Perturb n, rho, p, s and v about a static, uniform perfect fluid; derive linearized baryon conservation and Euler equations, use the first law to relate delta rho and delta n, and obtain a wave equation with c_s^2 = (dp/drho)_s.",
+        "skills": [
+          "linearization",
+          "first law at fixed entropy",
+          "wave equation derivation"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Gives physical meaning to the equation of state and to the inertial role of rho + p.",
+        "pdf_page": 443
+      },
+      {
+        "number": "39.4",
+        "summary": "For a point particle's mass current written as a proper-time integral of a 4D delta function, show that its covariant divergence vanishes using the sqrt(-g) divergence formula and a delta-function identity.",
+        "skills": [
+          "distributions",
+          "covariant divergence identity"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Connects the continuum current to discrete particles, as Chapter 12 did for T.",
+        "pdf_page": 443
+      },
+      {
+        "number": "39.5",
+        "summary": "Using Schwarzschild-type connection coefficients, show that a static perfect fluid satisfies dp/dr + (p + rho) dPhi/dr = 0.",
+        "skills": [
+          "connection coefficients",
+          "vielbein transformations",
+          "covariant divergence"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "The relativistic hydrostatic equation behind the TOV equation for stellar structure; shows pressure adding to the gravitational source term.",
+        "pdf_page": 443
+      },
+      {
+        "number": "39.6",
+        "summary": "Write mass conservation geometrically: compute the Lie derivative of rho0 times the volume 3-form along v in components, check it with the Cartan-type formula for Lie derivatives of forms, and conclude (partial_t + Lie_v)(rho0 omega-tilde) = 0.",
+        "skills": [
+          "Lie derivative of forms",
+          "exterior derivative",
+          "interior product"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Realizes the closing remark that the Lie derivative is the comoving observer's natural derivative; follows Schutz (1980).",
+        "pdf_page": 443
+      },
+      {
+        "number": "39.7",
+        "summary": "Rewrite the Newtonian Euler equation for the velocity 1-form using Lie and exterior derivatives.",
+        "skills": [
+          "Lie derivative of 1-forms",
+          "index-free notation"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Shows the advection term splits into a Lie derivative and a gradient of v^2/2.",
+        "pdf_page": 443
+      },
+      {
+        "number": "39.8",
+        "summary": "For a uniform velocity field in Euclidean space, construct the 2-form that returns the fluid flux through the parallelogram spanned by two displacement vectors.",
+        "skills": [
+          "building a 2-form from a vector field",
+          "geometric meaning of wedge products"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Gives a concrete physical reading of a 2-form (flux through an oriented area), which prepares the mass 3-form of exercise 39.6.",
+        "pdf_page": 443
+      },
+      {
+        "number": "39.9",
+        "summary": "Treat the matter in an Einstein-de Sitter universe as a Newtonian fluid: check the Hubble flow against Euler, Friedmann and Poisson, perturb density, velocity and potential, move to comoving coordinates, and show the density contrast has modes growing as t^{2/3} and decaying as 1/t.",
+        "skills": [
+          "perturbation theory",
+          "coordinate change to comoving frame",
+          "ODE solution by power law"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Links fluid mechanics to cosmic structure formation and shows how slowly perturbations grow.",
+        "pdf_page": 444
+      }
+    ],
+    "solutions": null
+  },
+  "difficulty": {
+    "math_level": 4,
+    "conceptual_level": 3,
+    "novice_friendliness": 3,
+    "notes": "Sections 39.1-39.2 are gentle undergraduate fluid mechanics (vector calculus plus first-law thermodynamics). Section 39.3 is short but its component argument is admittedly loose. Section 39.4 is index-heavy: Leibniz expansions, contractions with u, projection tensors and repeated use of u.u = -1, with key rules motivated rather than derived and several printing slips (dt for dtau, stray indices, a misprinted scalar-field equation of state, and u used for two different quantities). Exercises 39.4-39.9 require Part V machinery (Lie derivatives, forms) and connection coefficients."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "GA ch12",
+      "reason": "Perfect-fluid stress-energy tensor, its conservation, and the Leibniz-rule expansion of its divergence are recalled.",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.3"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch15",
+      "reason": "The comoving observer used to interpret the total derivative was introduced for cosmology.",
+      "locator": {
+        "pdf_page": 430,
+        "printed_page": 413,
+        "section": "39.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch18 §18.1",
+      "reason": "Exercise 39.9 uses the Einstein-de Sitter model (Universe 3).",
+      "locator": {
+        "pdf_page": 444,
+        "printed_page": 427,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch21",
+      "reason": "Exercise 39.5 uses the Schwarzschild connection coefficients.",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch33 §33.3-33.4",
+      "reason": "The Lie derivative, named as the natural comoving derivative and used in exercises 39.6-39.7.",
+      "locator": {
+        "pdf_page": 442,
+        "printed_page": 425,
+        "section": "39.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch34",
+      "reason": "Exercise 39.4 relies on the sqrt(-g) divergence identity proved in Exercise 34.3.",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch32",
+      "reason": "Exercises 39.6 and 39.8 need forms (volume 3-form, flux 2-form); link inferred, not named in the text.",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch17",
+      "reason": "Dust and radiation equations of state and fluid thermodynamics in cosmology are the earlier uses of the margin EOS list; link inferred.",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch40 §40.7",
+      "reason": "Uses the fluid Lagrangian density L = -rho and the free-energy form of the pressure p = n^2 (partial a/partial n)_T.",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch41",
+      "reason": "The homogeneous scalar field equation of state in the margin list is the inflaton case; link inferred from the list's claim that these equations of state appear later.",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Feynman, Leighton and Sands, The Feynman Lectures on Physics, Vol. II, Lectures 40-41",
+      "reason": "Model for the inviscid-first treatment and recommended source for viscous flow.",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Schutz (1980), Geometrical Methods of Mathematical Physics",
+      "reason": "Source of the Lie-derivative formulation of fluid conservation laws and the proof of the Lie derivative rule for forms.",
+      "locator": {
+        "pdf_page": 443,
+        "printed_page": 426,
+        "section": null
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "A two-entry dictionary translates Newtonian fluid statements into relativistic ones: comoving d/dt becomes D/dtau and partial_t + v.grad becomes nabla_u; div v = (1/V) dV/dt becomes div u = (1/V) dV/dtau.",
+      "why_effective": "The relativistic section becomes a translation exercise from something the learner already trusts, and each relativistic law has an obvious Newtonian parent.",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      },
+      "app_idea": "Two-column 'Rosetta stone' card that animates each Newtonian term morphing into its relativistic counterpart, with hover links to the flow sandbox and the spacetime worldline view."
+    },
+    {
+      "gem": "Give div v a body: follow a tagged parcel of fixed mass and read the divergence as the rate its volume swells.",
+      "why_effective": "Replaces an abstract operator with a visible deformation and sets up baryon conservation d(nV)/dtau = 0 directly.",
+      "locator": {
+        "pdf_page": 431,
+        "printed_page": 414,
+        "section": "39.1"
+      },
+      "app_idea": "Advect a dyed polygon in a 2D field; show its area growth rate next to the averaged divergence inside it; switch to compressible and incompressible presets."
+    },
+    {
+      "gem": "The conservation law for T 'says too much'; projecting it along u gives energy conservation and projecting it perpendicular to u gives the equation of motion.",
+      "why_effective": "Turns an opaque tensor identity into two physically named equations and teaches projection as a general GR technique (reused for 3+1 splits).",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      },
+      "app_idea": "1+1 or 2+1 spacetime diagram with a draggable 4-vector (the divergence of T) and the local u; the vector splits live into its u-parallel (energy) and rest-space (momentum) pieces."
+    },
+    {
+      "gem": "Read the relativistic Euler equation against the geodesic equation: pressure gradients across the flow are the only thing pushing fluid off free fall, so dust is geodesic.",
+      "why_effective": "Connects fluids to the central GR idea of geodesic motion and explains at once why cosmology uses dust and why stars need pressure.",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      },
+      "app_idea": "Cloud of fluid elements falling toward a mass with a pressure slider and a gradient-profile editor; geodesic ghosts vs actual flow lines, with the acceleration arrow equal to -P.grad p/(rho + p)."
+    },
+    {
+      "gem": "Dot Euler (in vorticity form) with v to kill the vorticity term and reveal Bernoulli as energy per unit mass conserved along streamlines.",
+      "why_effective": "Shows a familiar formula emerging from a single projection, and makes clear why it holds per streamline rather than everywhere.",
+      "locator": {
+        "pdf_page": 434,
+        "printed_page": 417,
+        "section": "39.2"
+      },
+      "app_idea": "Venturi-tube simulation with a bar chart of v^2/2, Phi and h following a chosen streamline; toggle a swirl to show streamlines carrying different constants."
+    },
+    {
+      "gem": "Bookkeep energy for a fixed set of N baryons (V = N/n) to derive the relativistic first law and see that it matches the projected conservation law.",
+      "why_effective": "Links geometry (projection of div T) to thermodynamics (first law) and explains why rho + p, the enthalpy density, appears.",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      },
+      "app_idea": "Piston with selectable equations of state; plot rho against n and overlay the slope (rho + p)/n predicted by the energy equation."
+    },
+    {
+      "gem": "Use u.u = -1 as a term-killer, justified by the familiar v.dv = (1/2) d(v^2).",
+      "why_effective": "A one-line trick that removes much index clutter and makes the 4-acceleration's orthogonality to u memorable.",
+      "locator": {
+        "pdf_page": 440,
+        "printed_page": 423,
+        "section": "39.4"
+      },
+      "app_idea": "Worldline curvature explorer showing u and a = nabla_u u as Lorentz-orthogonal arrows, with a numeric u.a readout pinned at zero."
+    },
+    {
+      "gem": "Warn early that streamlines are velocity snapshots, not particle paths, unless the flow is steady.",
+      "why_effective": "Prevents a stubborn misconception before it forms and prepares the relativistic view of flow lines as worldlines.",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      },
+      "app_idea": "Unsteady flow animation with streamlines, pathlines and streaklines drawn in three colours that coincide only when 'steady' is toggled on."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "Example 39.5 asserts partial_t s = 0 in the static frame for any perfect fluid, and concludes (v.grad)s = 0. A perfect fluid only guarantees ds/dt = 0 along the flow; partial_t s = 0 needs steady flow or uniform entropy.",
+      "impact_on_learner": "Learners may think entropy is frozen at every point in space, and misapply (v.grad)s = 0 to unsteady flows.",
+      "suggestion": "State ds/dt = partial_t s + v.grad s = 0 as the perfect-fluid condition and add the steady-flow or homentropic assumption explicitly when dropping either term.",
+      "locator": {
+        "pdf_page": 433,
+        "printed_page": 416,
+        "section": "39.2"
+      }
+    },
+    {
+      "issue": "Symbol clash: u denotes specific internal energy (rho = rho0(1 + u)) and the 4-velocity on the same pages of 39.4; phi is both velocity potential and scalar field; omega is vorticity and a volume form.",
+      "impact_on_learner": "Index expressions like (rho + p) u^mu u^nu next to rho0(1 + u) invite algebra mistakes and confusion.",
+      "suggestion": "In the course use epsilon or e for specific internal energy, keep u for 4-velocity, and use distinct symbols for velocity potential and inflaton.",
+      "locator": {
+        "pdf_page": 437,
+        "printed_page": 420,
+        "section": "39.4"
+      }
+    },
+    {
+      "issue": "The margin equation-of-state list prints the scalar-field case as p = [(phidot/2 + V)/(phidot/2 - V)] rho, with no square and swapped signs. The correct form is p = [(phidot^2/2 - V)/(phidot^2/2 + V)] rho.",
+      "impact_on_learner": "Sign errors would give the wrong inflation limit (the printed version does not give p close to -rho when the potential dominates).",
+      "suggestion": "Use the corrected formula and check limits: kinetic domination gives p = rho, potential domination gives p = -rho.",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "issue": "Minor printing slips in 39.4: rest-frame T^{ij} = p delta^{ik} (should be delta^{ij}); margin eqn 39.61 uses dt where dtau is meant; the first line of 39.64 carries a stray 0; the relativistic volume rule is called the 'derivative rule' in the margin summary and in the main text although it is the divergence rule; eqn 39.7 writes v^j as a partial derivative. The text export also garbles u^t as u^i in 39.51 and T^{0 mu} in exercise 39.2 (printed correctly).",
+      "impact_on_learner": "Careful readers stall on the inconsistencies; rule names get mixed up.",
+      "suggestion": "Present cleaned equations and keep the labels 'derivative rule' and 'divergence rule' fixed.",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "issue": "Exercise 39.9(d) prints the linearized equation of motion as '0 = [...] delta v + (adot/a) delta v = -grad delta Phi', chaining a zero with a nonzero right side.",
+      "impact_on_learner": "The equation as printed is self-contradictory unless grad delta Phi = 0.",
+      "suggestion": "Read it as [partial_t + v.grad] delta v + (adot/a) delta v = -grad delta Phi.",
+      "locator": {
+        "pdf_page": 444,
+        "printed_page": 427,
+        "section": null
+      }
+    },
+    {
+      "issue": "Example 39.8's non-relativistic derivation is internally inconsistent. Replacing (rho + p) by rho while keeping p eta^{mu nu} makes T^{tt} = rho - p instead of approximately rho, and that stray -p is exactly what produces the partial_t p on the left of eqn 39.44. The book then reads that term as an energy source via partial_t p = rho0 partial_t h, which the approximations do not justify. The authors themselves call the argument untidy (margin note 12).",
+      "impact_on_learner": "Learners may not see which terms are genuinely leading order and may misidentify the time component as full energy conservation rather than, at leading order, mass conservation.",
+      "suggestion": "Keep (rho + p) until the end: with u^mu = gamma(1, v) the time component gives partial_t[gamma^2(rho + p) - p] + div[gamma^2(rho + p) v] = 0, whose leading order is mass continuity and whose next order is the Newtonian energy equation. Alternatively go straight to the projection method of 39.4.",
+      "locator": {
+        "pdf_page": 436,
+        "printed_page": 419,
+        "section": "39.3"
+      }
+    },
+    {
+      "issue": "The relativistic divergence rule div u = (1/V) dV/dtau is proposed by analogy and extended by covariance rather than derived.",
+      "impact_on_learner": "Learners may treat it as a guess and distrust later steps (baryon conservation, energy equation) that depend on it.",
+      "suggestion": "Derive it from the Lie derivative of the volume form (L_u of the spatial volume element equals (div u) times it), or in local rest-frame coordinates from the Jacobian of the flow.",
+      "locator": {
+        "pdf_page": 438,
+        "printed_page": 421,
+        "section": "39.4"
+      }
+    },
+    {
+      "issue": "The physical meaning of rho + p as inertial mass density (enthalpy density) is never spelled out, though it appears in the energy equation, relativistic Euler, and exercises 39.3 and 39.5.",
+      "impact_on_learner": "The key relativistic novelty, that pressure has inertia and gravitates, stays hidden behind algebra.",
+      "suggestion": "Pause after (39.80) to interpret rho + p, compare with a box of hot gas being harder to accelerate, and connect to the (rho + p) term in the TOV equation.",
+      "locator": {
+        "pdf_page": 441,
+        "printed_page": 424,
+        "section": "39.4"
+      }
+    },
+    {
+      "issue": "The entropy law d(nsV)/dtau >= 0 is motivated by 'no heat flow between flow lines', which actually implies equality for reversible flow; the inequality is the general second law including dissipation that the chapter otherwise excludes.",
+      "impact_on_learner": "Confusion about whether perfect fluids can generate entropy.",
+      "suggestion": "State: in general entropy per baryon cannot decrease (second law); for a perfect fluid (no viscosity or heat conduction) it is exactly conserved.",
+      "locator": {
+        "pdf_page": 439,
+        "printed_page": 422,
+        "section": "39.4"
+      }
+    },
+    {
+      "issue": "The free energy a(n, T) in Example 39.15 is introduced without definition.",
+      "impact_on_learner": "Readers cannot verify p = n^2 (partial a/partial n)_T.",
+      "suggestion": "Define a = rho/n - Ts (free energy per baryon); then da = (p/n^2) dn - s dT follows from the relativistic first law.",
+      "locator": {
+        "pdf_page": 442,
+        "printed_page": 425,
+        "section": "39.4"
+      }
+    },
+    {
+      "issue": "Viscosity and heat flux are dropped entirely; there is no mention of imperfect-fluid terms in T or where they matter (neutron-star mergers, early-universe damping).",
+      "impact_on_learner": "Learners may assume every relativistic fluid is perfect.",
+      "suggestion": "Add a short sidebar showing the structure of the viscous and heat-flux corrections to T and when they matter.",
+      "locator": {
+        "pdf_page": 429,
+        "printed_page": 412,
+        "section": null
+      }
+    },
+    {
+      "issue": "Bernoulli for irrotational unsteady flow is said to hold with a spatially constant right side, but the constant can depend on time.",
+      "impact_on_learner": "Minor, but can confuse when comparing states at different times.",
+      "suggestion": "Write the right side as C(t) and note it can be absorbed into phi.",
+      "locator": {
+        "pdf_page": 435,
+        "printed_page": 418,
+        "section": "39.2"
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Check first whether the learner wants the Newtonian fluid or only the relativistic payoff; the book marks this chapter as optional, and a GR-focused learner can start from the relativistic Euler equation, borrowing the Newtonian ideas only as needed.",
+    "Opening question: 'If you watch a river from a bridge and from a drifting boat, do you measure the same rate of change of water temperature? Why not?' Use it to introduce the convective derivative before any equations.",
+    "Explanation order that works: fields (rho0, v) -> streamlines vs paths -> continuity -> pressure force -> convective derivative -> Euler -> Bernoulli as energy -> div T = 0 contains both -> relativistic dictionary -> four laws by projection -> relativistic Euler vs geodesic.",
+    "Check for understanding: ask why a submarine at great depth is not pushed sideways despite enormous pressure (only gradients matter), and why the Bernoulli constant can differ between streamlines.",
+    "When reaching 39.4, flag the symbol clash immediately: u is both specific internal energy and 4-velocity. Suggest the learner rewrite rho = rho0(1 + epsilon).",
+    "Before the projections, make sure the learner can split an ordinary vector into parts along and perpendicular to a unit vector, then redo it with u.u = -1 to see the sign change in P = g + u x u.",
+    "Frame the relativistic Euler equation as 'geodesic equation plus pressure force'; ask: what holds a star up against free fall? What happens to the flow lines of dust?",
+    "Common learner question: 'Why rho + p instead of rho?' Answer with inertia of pressure (enthalpy density) and point to exercise 39.5, where the same combination sources gravity in hydrostatic equilibrium.",
+    "Common learner question: 'Why does one tensor equation give both energy and momentum laws?' Answer: four component equations; contracting with u picks the time-like one for the comoving observer, and P picks the three spatial ones.",
+    "Correct the book's misprints proactively when quoting: scalar-field w = (phidot^2/2 - V)/(phidot^2/2 + V); rest-frame T^{ij} = p delta^{ij}; div u = -(1/rho0) drho0/dtau.",
+    "For advanced learners, connect to Part V: the comoving derivative is the Lie derivative along the flow, and continuity is conservation of the mass 3-form (exercise 39.6).",
+    "Useful quick numbers: about 1 atm per 10 m of water; radiation sound speed c/sqrt(3); matter-era density contrasts grow in proportion to the scale factor.",
+    "Retrieval hook for voice tutoring: dust <-> geodesics; pressure gradient <-> non-geodesic flow; projection along u <-> energy; projection across u <-> momentum; d(nV)/dtau = 0 <-> baryon conservation."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Fig. 39.1 visual_description corrected against the image: seven curves (not six) that rise to a crest then fall and level off, dots on the rising stretch, arrows pointing up-left along the curves.",
+      "Relativistic Euler concept definition and eqn 39.80 meaning lacked the minus sign (acceleration points down the pressure gradient); corrected.",
+      "Eqn 39.95 meaning reworded: (p + rho) multiplies dPhi/dr as the inertia/weight the pressure gradient supports, rather than vaguely 'adds to the source'.",
+      "Added missing margin notes 20 (nabla_u = u.nabla) and 22 (u^alpha u_alpha = -1 used in Example 39.12), both on pdf 439.",
+      "Added key equations 39.59, 39.69 and 39.79 (intermediate steps of the baryon, energy and momentum laws that the worked examples reference).",
+      "Sharpened the Example 39.8 gap: diagnosed that dropping p from (rho + p) but keeping p eta gives T^{tt} = rho - p, the origin of the spurious partial_t p in eqn 39.44, and gave the consistent expansion.",
+      "Added exercise 39.8 (flux 2-form) to exercises.notable, which previously skipped it.",
+      "Geodesic-equation background locator widened from ch9 to ch8-ch9 (ch8 'Free fall and geodesics' introduces it)."
+    ],
+    "residual_concerns": [
+      "Book misprints are recorded in gaps_and_pitfalls rather than silently corrected in the book's own labels: scalar-field equation of state (render of pdf 441 confirms the printed form lacks the square and has swapped signs), T^{ij} = p delta^{ik}, dt for dtau in eqn 39.61, stray 0 in eqn 39.64, and 'derivative rule' used for the divergence rule.",
+      "Eqn 39.51 is kept in cleaned form with u^t (render of pdf 438 confirms the export's u^i is an OCR error). Exercise 39.2's T^{0 mu} on pdf 442 was not rendered; its cleaned reading is inferred from context.",
+      "Cross-reference to ch18 section 18.1 for the Einstein-de Sitter model and ch40 section 40.7 are inferred from TOC section titles, not checked against those chapters' text."
+    ],
+    "coverage": {
+      "toc_sections": 4,
+      "sections": 9,
+      "inventory_figures": 2,
+      "figures": 2,
+      "inventory_examples": 15,
+      "worked_examples": 16,
+      "concepts": 46,
+      "key_equations": 79,
+      "locators_checked": 97,
+      "locators_wrong": 0,
+      "pages_rendered": "9 (429, 430, 434, 436, 438, 439, 440, 441, 443)"
+    }
+  }
+}

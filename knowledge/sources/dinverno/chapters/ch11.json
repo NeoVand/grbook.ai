@@ -1,0 +1,3680 @@
+{
+  "book": "dinverno",
+  "unit_id": "ch11",
+  "title": "General relativity from a variational principle",
+  "part": "C: General Relativity",
+  "printed_pages": [
+    187,
+    202
+  ],
+  "pdf_pages": [
+    202,
+    217
+  ],
+  "one_line_summary": "Re-derives Einstein's field equations from an action: proves the Palatini identity for the variation of curvature, shows that coordinate invariance of any action forces a divergence-free Euler-Lagrange tensor (the contracted Bianchi identity), varies sqrt(-g) R both by brute force and by a slicker delta-calculus, explains why the equations stay second order, treats metric and connection as independent (Palatini), and couples matter to define T^ab variationally.",
+  "role_in_book": "Chapter 10 reached G_ab = kappa T_ab from physical heuristics (lift experiments, geodesic deviation, the Newtonian limit). Chapter 11 deliberately gives a second, purely mathematical route that cashes in the machinery of Part B: geodesic coordinates and the Riemann tensor from Chapter 6, and tensor densities, the metric determinant, the divergence theorem and the Euler-Lagrange equations from Chapter 7. It confirms the vacuum and full equations, shows that the Bianchi identity is a structural consequence of general covariance, and supplies the variational definition of the energy-momentum tensor that Chapter 12 uses for the Maxwell and scalar fields. Its 'trivial' sqrt(-g) Lagrangian reappears as the cosmological term in Chapter 13, and the idea of a quadratic first-derivative Lagrangian returns for linearized gravity in Chapter 21.",
+  "assumed_background": [
+    {
+      "topic": "Riemann tensor in terms of connection coefficients, with the book's index convention (6.40)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch06 §6.5"
+    },
+    {
+      "topic": "Geodesic coordinates: at a chosen point the connection vanishes so covariant and partial derivatives coincide there",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch06 §6.6"
+    },
+    {
+      "topic": "Metric connection, the identity nabla_c g_ab = 0 (6.74) and Exercise 6.21 (a symmetric metric-compatible connection is the Christoffel connection)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch06 §6.10"
+    },
+    {
+      "topic": "Lie derivative of the metric along a vector field and infinitesimal coordinate transformations (7.53)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch06 §6.2, ch07 §7.7"
+    },
+    {
+      "topic": "Tensor densities and weights; covariant divergence of a weight +1 vector density equals the ordinary divergence (7.3)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch07 §7.1"
+    },
+    {
+      "topic": "Metric determinant: derivative of a determinant (7.8), partial derivative of g (7.9), nabla sqrt(-g) = 0 (7.12)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch07 §7.3"
+    },
+    {
+      "topic": "Integration over a region and the divergence (Stokes) theorem for vector densities (7.19)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch07 §7.4"
+    },
+    {
+      "topic": "Euler-Lagrange equations for fields and the variational (functional) derivative notation (7.36)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch07 §7.5"
+    },
+    {
+      "topic": "Einstein tensor, contracted Bianchi identities, vacuum and full field equations G^ab = kappa T^ab (10.54)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch06 §6.12, ch10 §10.4 and §10.8"
+    },
+    {
+      "topic": "A tensor equation valid in one coordinate system is valid in every coordinate system",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch05"
+    },
+    {
+      "topic": "Minimal coupling principle (needed for Exercise 11.13)",
+      "source": "earlier-in-this-book",
+      "where": "DIV ch09"
+    },
+    {
+      "topic": "Hamilton's principle and Lagrangians in classical mechanics, including adding a total time derivative",
+      "source": "undergrad-mechanics",
+      "where": null
+    },
+    {
+      "topic": "Integration by parts, multivariable Taylor expansion to first order, continuity arguments",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Inverse and determinant of a matrix and their first-order perturbations",
+      "source": "linear-algebra",
+      "where": null
+    }
+  ],
+  "learning_objectives": [
+    "Reader can prove the Palatini identity delta R^a_bcd = nabla_c(delta Gamma^a_bd) - nabla_d(delta Gamma^a_bc) using geodesic coordinates and the tensor character of both sides, and contract it to delta R_bd.",
+    "Reader can explain why the difference of two connections is a type (1,2) tensor even though a connection itself is not.",
+    "Reader can set up a field-theory action I = integral of a weight +1 scalar density over a region, state the principle of stationary action with variations vanishing on the boundary, and define the Euler-Lagrange tensor density L^ab = delta L / delta g_ab.",
+    "Reader can derive the identity nabla_b L^ab = 0 from the invariance of the action under an infinitesimal coordinate change generated by a vector field that vanishes on the boundary, and explain why it holds off-shell.",
+    "Reader can compute the Euler-Lagrange derivative of the volume Lagrangian sqrt(-g), obtaining one half of the gothic inverse metric, and explain why it cannot be a physical theory on its own.",
+    "Reader can write the Einstein Lagrangian sqrt(-g) R, write the Euler-Lagrange derivative for a Lagrangian containing second derivatives, and state that it yields -sqrt(-g) G^ab.",
+    "Reader can use the variation operator as a derivation (linearity and product rule) to show delta g^ab = -g^ac g^bd delta g_cd and delta sqrt(-g) = (1/2) sqrt(-g) g^ab delta g_ab.",
+    "Reader can carry out the indirect variation of sqrt(-g) R: use the contracted Palatini identity to turn the delta R_ab term into a boundary term and reduce what remains to the Einstein tensor.",
+    "Reader can explain why an action containing second derivatives of the metric still gives second-order field equations, by splitting sqrt(-g) R into a first-order Gamma-Gamma Lagrangian plus a total divergence.",
+    "Reader can state why Lagrangians that differ by a total divergence yield identical field equations, and that the Gamma-Gamma Lagrangian is not a scalar density.",
+    "Reader can perform the Palatini variation, treating the metric and a symmetric connection as independent, and show that the connection equation forces metric compatibility and hence the Christoffel connection.",
+    "Reader can add a matter Lagrangian with coupling 2 kappa, define the energy-momentum tensor as T^ab = (2/sqrt(-g)) delta L_M / delta g_ab, and recover G^ab = kappa T^ab."
+  ],
+  "teaching_approach": {
+    "summary": "A compact, formula-dense chapter written in the mathematical register of Part B. The authors build a general variational framework for a metric theory, extract what can be learned before choosing any Lagrangian, and only then specialise, first to a toy Lagrangian and then to sqrt(-g) R. The pedagogy is comparative: the same field equations are obtained three ways (brute-force Euler-Lagrange, indirect delta-calculus, Palatini), and each route is chosen to expose a different structural fact (off-shell Bianchi identities, the boundary term, the divergence ambiguity, metric compatibility as an output). Physical motivation is almost absent by design; the physics was done in Chapter 10. Many intermediate steps are handed to the reader as '(exercise)' or '(check)', so the chapter reads as a guided proof outline.",
+    "style_tags": [
+      "derivation-heavy",
+      "axiomatic-mathematical",
+      "components-first",
+      "spiral-revisit"
+    ],
+    "narrative_arc": [
+      "Forge the key tool first: vary the connection, note the variation is a tensor, and prove the Palatini identity in geodesic coordinates (§11.1).",
+      "Set up the general action principle for a metric theory and define the Euler-Lagrange tensor density L^ab (§11.2).",
+      "Before choosing any Lagrangian, generate a fake variation by an infinitesimal coordinate change; invariance of I forces nabla_b L^ab = 0 identically (§11.2).",
+      "Test the machinery on the simplest density sqrt(-g): the equations are absurd and the identity is trivially true (§11.3).",
+      "Move to the next simplest candidate sqrt(-g) R, expand it fully in metric derivatives to show the brute-force route is hopeless, and quote the answer -sqrt(-g) G^ab; the identity becomes the contracted Bianchi identity (§11.4).",
+      "Replace brute force with the delta-calculus: product rule, delta of the inverse metric, Palatini identity to push delta R_ab to the boundary, and reduce to G^ab (§11.5).",
+      "Confront the puzzle that second derivatives in L should give fourth-order equations; resolve it by splitting off a total divergence and deriving R_ab = 0 from a first-order Gamma-Gamma Lagrangian (§11.6).",
+      "Offer the elegant alternative: vary metric and symmetric connection independently; one variation gives the vacuum equations, the other forces the connection to be metric (§11.7).",
+      "Add matter, define T^ab variationally with a factor of 2 chosen to match the canonical tensor, and recover the full equations of Chapter 10 (§11.8)."
+    ],
+    "signature_moves": [
+      "Identities before equations: the constraint nabla_b L^ab = 0 is derived for an unspecified Lagrangian purely from the fact that the action is a scalar, so the Bianchi identity appears as a consequence of general covariance rather than an accident of curvature algebra.",
+      "Prove-in-a-special-frame-then-promote: compute at a point in geodesic coordinates where connection terms vanish, then argue that both sides are tensors so the equation holds in all coordinates and at all points.",
+      "Show the ugly thing on purpose: the full expansion (11.24) of sqrt(-g) R in metric derivatives is displayed and then abandoned, which motivates the indirect method more convincingly than any assertion.",
+      "Warm-up with a deliberately trivial Lagrangian (sqrt(-g)) so that every step of the framework can be checked before the real calculation.",
+      "Treat the variation symbol as a derivative-like operator and invite comparison between delta g^ab and the partial-derivative formula (7.9).",
+      "Freely swap the choice of dynamical variables (g_ab, g^ab, gothic g^ab, gothic g_ab) to make a calculation tractable, emphasising that the resulting field equations are equivalent.",
+      "Pose an apparent paradox (second derivatives in L but second-order equations) and resolve it by a total-divergence decomposition.",
+      "Delegate heavy but routine algebra to tagged '(exercise)' prompts that map directly onto end-of-chapter problems."
+    ]
+  },
+  "sections": [
+    {
+      "number": "11.1",
+      "title": "The Palatini equation",
+      "printed_page": 187,
+      "pdf_page": 202,
+      "summary": "Opens without motivation by recalling geodesic coordinates, in which the Riemann tensor at a point reduces to two derivative terms. A connection is perturbed to a nearby connection; their difference is a tensor. The induced change in curvature at the point is written with partial derivatives, which may be swapped for covariant derivatives there. Since both sides are tensors the relation holds in any chart and, the point being arbitrary, everywhere. Contracting gives the variation of the Ricci tensor, the form used repeatedly later.",
+      "concepts": [
+        "geodesic coordinates",
+        "variation of a connection",
+        "Palatini identity",
+        "contracted Palatini identity",
+        "tensor equation invariance"
+      ],
+      "key_moves": [
+        "Choose geodesic coordinates at P so Gamma vanishes and R^a_bcd = partial_c Gamma^a_bd - partial_d Gamma^a_bc there (11.1).",
+        "Observe that delta Gamma is a difference of two connections and so transforms as a (1,2) tensor.",
+        "Commute delta with partial derivatives and replace partial by covariant derivatives at P.",
+        "Promote the result to all coordinate systems because both sides are tensors, and to all points because P was arbitrary (11.3).",
+        "Contract on a and c to get delta R_bd (11.4)."
+      ]
+    },
+    {
+      "number": "11.2",
+      "title": "Differential constraints on the field equations",
+      "printed_page": 188,
+      "pdf_page": 203,
+      "summary": "Sets out the action principle for a metric theory: a Lagrangian density of weight +1 built from the metric and its derivatives, integrated over a region; stationarity under boundary-vanishing variations gives field equations L^ab = 0, where L^ab is a symmetric tensor density. Then comes the chapter's most important structural argument: an infinitesimal change of coordinates produces a change in the metric components equal to minus the Lie derivative but cannot change the action. Integrating by parts, discarding a surface term via the divergence theorem, and using the arbitrariness of the region and of the generating vector field yields the identity nabla_b L^ab = 0, valid whether or not the field equations are satisfied.",
+      "concepts": [
+        "Lagrangian density",
+        "action integral",
+        "principle of stationary action",
+        "Euler-Lagrange derivative",
+        "diffeomorphism invariance of the action",
+        "metric variation induced by a coordinate change",
+        "divergence theorem for vector densities",
+        "fundamental lemma of the calculus of variations",
+        "generalized Bianchi identity"
+      ],
+      "key_moves": [
+        "Require L to be a weight +1 scalar density so the action is coordinate invariant (11.5)-(11.6).",
+        "Write the first-order change of the action as the integral of L^ab delta g_ab and conclude L^ab is a symmetric tensor density because delta I is a scalar (11.8)-(11.9).",
+        "Generate a variation by x -> x + epsilon X with X vanishing on the boundary; delta g_ab = -epsilon(nabla_b X_a + nabla_a X_b) (11.12)-(11.13).",
+        "Use the invariance delta I = 0 identically (11.11) and symmetry of L^ab to reduce to an integral of L^ab nabla_b X_a.",
+        "Integrate by parts; the total divergence of the weight +1 density L^ab X_a is an ordinary divergence and becomes a vanishing boundary integral (11.14)-(11.15).",
+        "Argue from arbitrary region then arbitrary X that nabla_b L^ab = 0 identically (11.16)-(11.18)."
+      ]
+    },
+    {
+      "number": "11.3",
+      "title": "A simple example",
+      "printed_page": 189,
+      "pdf_page": 204,
+      "summary": "Introduces the gothic-letter convention (a tensor multiplied by sqrt(-g), hence a weight +1 density) and tries the simplest scalar density built from the metric alone, sqrt(-g). Using the derivative of a determinant, its Euler-Lagrange derivative is half the gothic inverse metric. Setting that to zero is nonsensical as a set of field equations, while the differential identity reduces to a statement already guaranteed by metric compatibility.",
+      "concepts": [
+        "gothic tensor density notation",
+        "volume Lagrangian sqrt(-g)",
+        "derivative of the metric determinant",
+        "generalized Bianchi identity"
+      ],
+      "key_moves": [
+        "Define gothic quantities as tensors times sqrt(-g).",
+        "Use partial g / partial g_ab = g g^ab (11.20) to get partial sqrt(-g) / partial g_ab = (1/2) gothic g^ab (11.21).",
+        "Note gothic g^ab = 0 cannot be field equations, and nabla_b gothic g^ab = 0 is automatically true (11.22)."
+      ]
+    },
+    {
+      "number": "11.4",
+      "title": "The Einstein Lagrangian",
+      "printed_page": 190,
+      "pdf_page": 205,
+      "summary": "Asserts that the next simplest scalar after the volume element is the Ricci scalar, and takes sqrt(-g) R as the gravitational Lagrangian. Introduces comma notation for partial derivatives and writes the Lagrangian out in full in terms of metric components and their first and second derivatives, making the complexity visible. Gives the Euler-Lagrange derivative for Lagrangians with second derivatives, quotes one of the pieces as an exercise, declines the rest as far too laborious, and states the outcome: the Euler-Lagrange tensor is minus sqrt(-g) times the Einstein tensor, so the vacuum equations follow and the general identity of §11.2 becomes the contracted Bianchi identity.",
+      "concepts": [
+        "Einstein-Hilbert Lagrangian",
+        "comma notation",
+        "Euler-Lagrange derivative with second derivatives",
+        "vacuum field equations",
+        "contracted Bianchi identities",
+        "choice of dynamical variables"
+      ],
+      "key_moves": [
+        "Choose L_G = sqrt(-g) R as the next simplest scalar density (11.23).",
+        "Expand R in Christoffel symbols and then in metric derivatives to display the full dependence (11.24).",
+        "Generalize the Euler-Lagrange derivative to include a second-derivative term with a plus sign (11.25).",
+        "Quote the coefficient of second derivatives (11.26), which contains no metric derivatives.",
+        "State L_G^ab = -sqrt(-g) G^ab (11.27), giving G^ab = 0 (11.28) and nabla_b G^ab = 0 (11.29)."
+      ]
+    },
+    {
+      "number": "11.5",
+      "title": "Indirect derivation of the field equations",
+      "printed_page": 192,
+      "pdf_page": 207,
+      "summary": "Develops a calculus for the variation symbol: it is linear and obeys the product rule. Applying it to the constant Kronecker delta written as g^ab g_bc shows that the variation of the inverse metric is minus the inverse metric twice contracted with the variation of the metric. The action is then written as gothic g^ab R_ab and varied by the product rule. The term containing delta R_ab is rewritten with the contracted Palatini identity; because gothic g^ab is covariantly constant, the integrand is a covariant divergence of a weight +1 vector density and hence a boundary term that drops out. The surviving term, using the variation of sqrt(-g), assembles into minus sqrt(-g) G^ab times delta g_ab, reproducing the field equations and identities in a few lines.",
+      "concepts": [
+        "variation as a derivation",
+        "variation of the inverse metric",
+        "variation of sqrt(-g)",
+        "contracted Palatini identity",
+        "boundary term in the Einstein-Hilbert variation",
+        "Einstein-Hilbert Lagrangian"
+      ],
+      "key_moves": [
+        "Vary g^ab g_bc = delta^a_c, which is constant, to get (11.31) and hence delta g^ad = -g^ab g^cd delta g_bc (11.32).",
+        "Write I as the integral of gothic g^ab R_ab and apply the product rule (11.33).",
+        "Replace delta R_ab by the contracted Palatini identity and pull gothic g^ab inside the covariant derivatives.",
+        "Convert the resulting covariant divergence of a vector density into a partial divergence and discard it as a boundary term.",
+        "Expand delta gothic g^ab using delta sqrt(-g) (11.35) and delta g^ab, and collect into -sqrt(-g) G^cd delta g_cd (11.34)."
+      ]
+    },
+    {
+      "number": "11.6",
+      "title": "An equivalent Lagrangian",
+      "printed_page": 193,
+      "pdf_page": 208,
+      "summary": "Addresses why second derivatives in sqrt(-g) R do not produce fourth-order equations: the coefficient of the second derivatives involves only the metric itself and the coefficient of first derivatives involves only first derivatives. To make this explicit, the Einstein Lagrangian is written as a first-order Lagrangian quadratic in the connection coefficients plus a total divergence Q^a_,a. Integrating the derivative-of-Gamma terms by parts and using the expression for derivatives of gothic g^ab in terms of Gamma produces the split. The divergence contributes only a surface term, so both Lagrangians give the same equations, though the first-order one is not a scalar density. Choosing gothic g^ab as the variables, the Euler-Lagrange equations of the Gamma-Gamma Lagrangian reduce, via the identity for the derivative of ln sqrt(-g), to R_ab = 0.",
+      "concepts": [
+        "second-order nature of the Einstein equations",
+        "total divergence ambiguity of a Lagrangian",
+        "Gamma-Gamma Lagrangian",
+        "derivative of gothic inverse metric in terms of the connection",
+        "contracted connection as gradient of ln sqrt(-g)",
+        "choice of dynamical variables"
+      ],
+      "key_moves": [
+        "Point out the puzzle using (11.25) and (11.26).",
+        "Expand gothic g^ab R_ab into two derivative-of-Gamma terms minus the quadratic L-bar (11.37)-(11.38).",
+        "Integrate by parts to move derivatives onto gothic g^ab, generating the divergence of Q^a (11.39)-(11.40).",
+        "Use (11.41), from nabla gothic g^ab = 0, to show the non-divergence pieces sum to L-bar, giving L_G = L-bar + Q^a_,a (11.36).",
+        "Treat L-bar as a function of gothic g^ab and its first derivatives; compute its partial derivatives (11.42)-(11.43) and the Euler-Lagrange expression (11.44)-(11.45).",
+        "Use Gamma^d_ad = (ln sqrt(-g))_,a (11.46) to symmetrize the derivative terms and recognise R_ab."
+      ]
+    },
+    {
+      "number": "11.7",
+      "title": "The Palatini approach",
+      "printed_page": 195,
+      "pdf_page": 210,
+      "summary": "Presents the metric-affine route: the Einstein Lagrangian is regarded as a function of gothic g^ab and of an arbitrary symmetric connection and its first derivatives, with the Ricci tensor built from the connection alone. Varying the metric gives R_ab = 0 at once. Varying the connection, using the contracted Palatini identity and integrating by parts, gives an integrand linear in delta Gamma; because the connection variation is symmetric in its lower indices only the symmetrized coefficient must vanish (11.48). Manipulating this (in an exercise) shows the covariant derivatives of gothic g^ab, sqrt(-g), g^ab and g_ab all vanish, and by Exercise 6.21 a symmetric metric-compatible connection must be the Christoffel connection.",
+      "concepts": [
+        "Palatini (metric-affine) variation",
+        "symmetric connection",
+        "metric compatibility from the field equations",
+        "metric connection",
+        "contracted Palatini identity"
+      ],
+      "key_moves": [
+        "Declare gothic g^ab and a symmetric Gamma to be independent variables in gothic g^ab R_ab(Gamma) (11.47).",
+        "Vary gothic g^ab only: delta I = integral of R_ab delta gothic g^ab, so R_ab = 0.",
+        "Vary Gamma only: use (11.4), integrate by parts, drop the boundary term.",
+        "Rename indices to factor out delta Gamma^c_ab and symmetrize in a and b because delta Gamma is symmetric (11.48).",
+        "Deduce nabla_c g_ab = 0 and invoke Exercise 6.21 to identify the Christoffel connection."
+      ]
+    },
+    {
+      "number": "11.8",
+      "title": "The full field equations",
+      "printed_page": 197,
+      "pdf_page": 212,
+      "summary": "Adds a matter Lagrangian with a coupling constant, using the combination L_G + 2 kappa L_M. Varying with respect to the metric, the gravitational part gives minus sqrt(-g) G^ab and the matter part is used to define the energy-momentum tensor through T^ab = (2/sqrt(-g)) delta L_M / delta g_ab. The factor of 2 is chosen so that this agrees with the canonical energy-momentum tensor of special relativity (worked out for a scalar field in Exercise 11.13). Dividing by sqrt(-g) gives G^ab = kappa T^ab, matching Chapter 10. The authors note that some texts drop the 2 in both places, and preview Chapter 12.",
+      "concepts": [
+        "matter Lagrangian",
+        "coupling constant",
+        "variational (Hilbert) energy-momentum tensor",
+        "full field equations",
+        "canonical energy-momentum tensor"
+      ],
+      "key_moves": [
+        "Write the total action as the integral of L_G + 2 kappa L_M (11.49).",
+        "Use delta L_G / delta g_ab = -sqrt(-g) G^ab (11.50).",
+        "Define T^ab by the metric variation of L_M with a factor 2 (11.51)-(11.52).",
+        "Sum, divide by sqrt(-g), obtain G^ab = kappa T^ab (11.53)."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "geodesic coordinates",
+      "aliases": [
+        "normal coordinates at a point",
+        "locally inertial coordinates (for the metric connection)"
+      ],
+      "kind": "technique",
+      "definition": "A coordinate system adapted to a chosen point P in which all connection coefficients vanish at P, so that covariant derivatives equal partial derivatives at that point (though not in a neighbourhood).",
+      "how_introduced": "Recalled at the chapter's first line as the standard tool for proving tensor identities; the asterisk-equals notation flags equations valid only in that chart.",
+      "depth": "revisited",
+      "prerequisites": [
+        "affine connection",
+        "covariant derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 202,
+          "printed_page": 187,
+          "section": "11.1"
+        }
+      ],
+      "formulas": [
+        "\\Gamma^a_{bc} \\stackrel{*}{=} 0",
+        "R^a{}_{bcd} \\stackrel{*}{=} \\partial_c\\Gamma^a_{bd} - \\partial_d\\Gamma^a_{bc}"
+      ],
+      "notes": "Also suggested as the method for Exercise 11.14 (variation of the connection)."
+    },
+    {
+      "name": "variation of a connection",
+      "aliases": [
+        "delta Gamma",
+        "difference tensor of two connections"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The first-order difference delta Gamma^a_bc between a connection and a nearby connection. Although connection coefficients do not transform as a tensor, the inhomogeneous terms cancel in the difference, so delta Gamma^a_bc is a type (1,2) tensor.",
+      "how_introduced": "Introduced by replacing Gamma with Gamma + delta Gamma; its tensor character is the hinge that lets the Palatini identity be promoted from geodesic coordinates to all coordinates.",
+      "depth": "developed",
+      "prerequisites": [
+        "affine connection",
+        "tensor transformation law"
+      ],
+      "locators": [
+        {
+          "pdf_page": 202,
+          "printed_page": 187,
+          "section": "11.1"
+        }
+      ],
+      "formulas": [
+        "\\bar\\Gamma^a_{bc} = \\Gamma^a_{bc} + \\delta\\Gamma^a_{bc}"
+      ],
+      "notes": "In the metric theory delta Gamma is fixed by delta g_ab (Exercise 11.14); in the Palatini approach it is an independent variation."
+    },
+    {
+      "name": "Palatini identity",
+      "aliases": [
+        "Palatini equation",
+        "variation of the Riemann tensor"
+      ],
+      "kind": "identity",
+      "definition": "For any variation of a connection, the change in the Riemann tensor is delta R^a_bcd = nabla_c(delta Gamma^a_bd) - nabla_d(delta Gamma^a_bc), where nabla is the covariant derivative of the unvaried connection.",
+      "how_introduced": "Derived at a point in geodesic coordinates where the curvature is a difference of two connection derivatives; partial derivatives commute with variation and equal covariant ones there, and tensor character extends the result everywhere.",
+      "depth": "core",
+      "prerequisites": [
+        "geodesic coordinates",
+        "variation of a connection",
+        "Riemann tensor",
+        "tensor equation invariance"
+      ],
+      "locators": [
+        {
+          "pdf_page": 202,
+          "printed_page": 187,
+          "section": "11.1"
+        }
+      ],
+      "formulas": [
+        "\\delta R^a{}_{bcd} = \\nabla_c(\\delta\\Gamma^a_{bd}) - \\nabla_d(\\delta\\Gamma^a_{bc})"
+      ],
+      "notes": "The book derives it in one paragraph; it is then used in §11.5 and §11.7."
+    },
+    {
+      "name": "contracted Palatini identity",
+      "aliases": [
+        "variation of the Ricci tensor"
+      ],
+      "kind": "identity",
+      "definition": "Contraction of the Palatini identity on its first and third indices: delta R_bd = nabla_a(delta Gamma^a_bd) - nabla_d(delta Gamma^a_ba). Contracted with a covariantly constant density it becomes a total divergence.",
+      "how_introduced": "Obtained immediately from (11.3) and flagged as the useful form; it is the step that converts the delta R_ab term of the action variation into a boundary integral.",
+      "depth": "core",
+      "prerequisites": [
+        "Palatini identity",
+        "Ricci tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 202,
+          "printed_page": 187,
+          "section": "11.1"
+        },
+        {
+          "pdf_page": 208,
+          "printed_page": 193,
+          "section": "11.5"
+        },
+        {
+          "pdf_page": 211,
+          "printed_page": 196,
+          "section": "11.7"
+        }
+      ],
+      "formulas": [
+        "\\delta R_{bd} = \\nabla_a(\\delta\\Gamma^a_{bd}) - \\nabla_d(\\delta\\Gamma^a_{ba})"
+      ],
+      "notes": null
+    },
+    {
+      "name": "tensor equation invariance",
+      "aliases": [
+        "a tensor identity in one chart holds in all charts"
+      ],
+      "kind": "principle",
+      "definition": "If an equation between tensors holds in one coordinate system at a point, it holds in every coordinate system at that point, because both sides transform identically.",
+      "how_introduced": "Invoked as the 'fundamental result' that lets a geodesic-coordinate computation become a general identity.",
+      "depth": "revisited",
+      "prerequisites": [
+        "tensor transformation law"
+      ],
+      "locators": [
+        {
+          "pdf_page": 202,
+          "printed_page": 187,
+          "section": "11.1"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "Lagrangian density",
+      "aliases": [
+        "L",
+        "scalar density Lagrangian"
+      ],
+      "kind": "definition",
+      "definition": "A scalar density of weight +1 built from the dynamical fields (here the metric and its first and possibly higher derivatives) whose integral over a region with the coordinate volume element is coordinate invariant.",
+      "how_introduced": "Stated as the starting specification of the variational principle; the weight +1 requirement is justified by the need for an invariant action integral.",
+      "depth": "core",
+      "prerequisites": [
+        "tensor density",
+        "metric tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 203,
+          "printed_page": 188,
+          "section": "11.2"
+        }
+      ],
+      "formulas": [
+        "\\mathcal{L} = \\mathcal{L}(g_{ab},\\partial_c g_{ab},\\partial_d\\partial_c g_{ab},\\dots)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "action integral",
+      "aliases": [
+        "action I"
+      ],
+      "kind": "definition",
+      "definition": "The integral I of a Lagrangian density over a region Omega of the manifold with the coordinate volume element dOmega; its stationarity under suitable variations defines the field equations.",
+      "how_introduced": "Formed right after the Lagrangian density is required to be weight +1.",
+      "depth": "core",
+      "prerequisites": [
+        "Lagrangian density"
+      ],
+      "locators": [
+        {
+          "pdf_page": 203,
+          "printed_page": 188,
+          "section": "11.2"
+        }
+      ],
+      "formulas": [
+        "I = \\int_\\Omega \\mathcal{L}\\,\\mathrm{d}\\Omega"
+      ],
+      "notes": null
+    },
+    {
+      "name": "principle of stationary action",
+      "aliases": [
+        "variational principle",
+        "Hamilton's principle for fields"
+      ],
+      "kind": "principle",
+      "definition": "The physical field configuration is one for which the action does not change to first order under arbitrary variations of the dynamical variables that vanish on the boundary of the region.",
+      "how_introduced": "Stated formally in the variational notation of Chapter 7 as the demand delta I = 0 for all boundary-vanishing delta g_ab.",
+      "depth": "core",
+      "prerequisites": [
+        "action integral",
+        "Euler-Lagrange derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 203,
+          "printed_page": 188,
+          "section": "11.2"
+        }
+      ],
+      "formulas": [
+        "g_{ab}\\to g_{ab}+\\delta g_{ab}\\ \\Rightarrow\\ \\delta I = 0"
+      ],
+      "notes": "The chapter does not discuss how much of the variation (value versus normal derivatives) must vanish on the boundary when L contains second derivatives."
+    },
+    {
+      "name": "Euler-Lagrange derivative",
+      "aliases": [
+        "variational derivative",
+        "functional derivative",
+        "L^ab"
+      ],
+      "kind": "operation",
+      "definition": "The quantity L^ab = delta L / delta g_ab defined so that the first-order change of the action is the integral of L^ab delta g_ab; for Lagrangians depending on derivatives it equals the partial derivative minus the divergence of the first-derivative coefficient plus the double divergence of the second-derivative coefficient. For a metric theory it is a symmetric tensor density of weight +1.",
+      "how_introduced": "Defined abstractly in §11.2; its tensor-density character is inferred from delta I being a scalar; generalized to second derivatives in (11.25).",
+      "depth": "core",
+      "prerequisites": [
+        "Lagrangian density",
+        "tensor density",
+        "Euler-Lagrange equations"
+      ],
+      "locators": [
+        {
+          "pdf_page": 203,
+          "printed_page": 188,
+          "section": "11.2"
+        },
+        {
+          "pdf_page": 206,
+          "printed_page": 191,
+          "section": "11.4"
+        }
+      ],
+      "formulas": [
+        "\\delta I = \\int_\\Omega \\mathcal{L}^{ab}\\delta g_{ab}\\,\\mathrm{d}\\Omega",
+        "\\frac{\\delta\\mathcal{L}}{\\delta g_{ab}} = \\frac{\\partial\\mathcal{L}}{\\partial g_{ab}} - \\Big(\\frac{\\partial\\mathcal{L}}{\\partial g_{ab,c}}\\Big)_{,c} + \\Big(\\frac{\\partial\\mathcal{L}}{\\partial g_{ab,cd}}\\Big)_{,cd}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "diffeomorphism invariance of the action",
+      "aliases": [
+        "general covariance of the action",
+        "invariance under change of coordinates"
+      ],
+      "kind": "principle",
+      "definition": "Because the Lagrangian is a scalar density, an infinitesimal relabelling of coordinates inside a region changes the metric components but leaves the action exactly unchanged, so the induced first-order change of I vanishes identically.",
+      "how_introduced": "Used as a device: a coordinate change is treated as a 'variation' of g_ab, turning invariance into delta I = 0 identically.",
+      "depth": "core",
+      "prerequisites": [
+        "Lagrangian density",
+        "action integral",
+        "Lie derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 203,
+          "printed_page": 188,
+          "section": "11.2"
+        },
+        {
+          "pdf_page": 204,
+          "printed_page": 189,
+          "section": "11.2"
+        }
+      ],
+      "formulas": [
+        "\\delta I \\equiv 0"
+      ],
+      "notes": "This is the content of Noether's second theorem, although the book does not name it."
+    },
+    {
+      "name": "metric variation induced by a coordinate change",
+      "aliases": [
+        "Lie derivative of the metric",
+        "gauge variation of g_ab"
+      ],
+      "kind": "operation",
+      "definition": "Under x^a -> x^a + epsilon X^a, the new metric components evaluated at the same coordinate values differ from the old by minus the Lie derivative: delta g_ab = -epsilon(nabla_a X_b + nabla_b X_a).",
+      "how_introduced": "Quoted with reference to the isometry calculation of §7.7 and left as Exercise 11.1.",
+      "depth": "developed",
+      "prerequisites": [
+        "Lie derivative",
+        "infinitesimal coordinate transformation",
+        "covariant derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 204,
+          "printed_page": 189,
+          "section": "11.2"
+        }
+      ],
+      "formulas": [
+        "\\delta g_{ab} = -\\mathrm{L}_{\\varepsilon X}g_{ab} = -\\varepsilon(\\nabla_b X_a + \\nabla_a X_b)"
+      ],
+      "notes": "The same combination set to zero is Killing's equation from §7.7."
+    },
+    {
+      "name": "divergence theorem for vector densities",
+      "aliases": [
+        "Gauss/Stokes theorem for densities",
+        "integration by parts in the action"
+      ],
+      "kind": "theorem",
+      "definition": "For a weight +1 vector density the covariant divergence equals the ordinary divergence, and its integral over a region equals the flux through the boundary; if the density vanishes on the boundary the integral is zero.",
+      "how_introduced": "Used three times (§11.2, §11.5, §11.7) as 'the usual argument' for discarding total divergences.",
+      "depth": "developed",
+      "prerequisites": [
+        "tensor density",
+        "covariant derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 204,
+          "printed_page": 189,
+          "section": "11.2"
+        },
+        {
+          "pdf_page": 208,
+          "printed_page": 193,
+          "section": "11.5"
+        },
+        {
+          "pdf_page": 211,
+          "printed_page": 196,
+          "section": "11.7"
+        }
+      ],
+      "formulas": [
+        "\\int_\\Omega \\partial_b[\\mathcal{L}^{ab}X_a]\\,\\mathrm{d}\\Omega = \\int_{\\partial\\Omega}\\mathcal{L}^{ab}X_a\\,\\mathrm{d}S_b"
+      ],
+      "notes": null
+    },
+    {
+      "name": "fundamental lemma of the calculus of variations",
+      "aliases": [
+        "arbitrary region implies zero integrand"
+      ],
+      "kind": "theorem",
+      "definition": "If a continuous function integrates to zero over every region, it vanishes everywhere; and if W^a X_a = 0 for arbitrary X_a then W^a = 0.",
+      "how_introduced": "Used as the final two steps of the identity derivation, with proofs deferred to Exercise 11.8 (continuity and choice of test vectors).",
+      "depth": "introduced",
+      "prerequisites": [
+        "integration"
+      ],
+      "locators": [
+        {
+          "pdf_page": 204,
+          "printed_page": 189,
+          "section": "11.2"
+        },
+        {
+          "pdf_page": 213,
+          "printed_page": 198,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "generalized Bianchi identity",
+      "aliases": [
+        "differential identities",
+        "Noether identity",
+        "nabla_b L^ab = 0"
+      ],
+      "kind": "identity",
+      "definition": "For any metric Lagrangian that is a scalar density, the Euler-Lagrange tensor density is covariantly divergence-free identically, i.e. whether or not the field equations hold.",
+      "how_introduced": "Derived before any Lagrangian is chosen, from coordinate invariance of the action; later specialised to sqrt(-g) (trivial) and sqrt(-g) R (contracted Bianchi identity).",
+      "depth": "core",
+      "prerequisites": [
+        "diffeomorphism invariance of the action",
+        "metric variation induced by a coordinate change",
+        "divergence theorem for vector densities",
+        "fundamental lemma of the calculus of variations"
+      ],
+      "locators": [
+        {
+          "pdf_page": 204,
+          "printed_page": 189,
+          "section": "11.2"
+        },
+        {
+          "pdf_page": 205,
+          "printed_page": 190,
+          "section": "11.3"
+        },
+        {
+          "pdf_page": 207,
+          "printed_page": 192,
+          "section": "11.4"
+        }
+      ],
+      "formulas": [
+        "\\nabla_b\\mathcal{L}^{ab} \\equiv 0"
+      ],
+      "notes": "Exercise 11.7 asks what the analogous identity is for other choices of dynamical variable."
+    },
+    {
+      "name": "contracted Bianchi identities",
+      "aliases": [
+        "nabla_b G^ab = 0",
+        "twice-contracted Bianchi identity"
+      ],
+      "kind": "identity",
+      "definition": "The Einstein tensor has identically vanishing covariant divergence.",
+      "how_introduced": "Reappears here as the special case of the generalized identity for the Einstein Lagrangian, giving a covariance-based explanation of a result first obtained from curvature algebra.",
+      "depth": "revisited",
+      "prerequisites": [
+        "generalized Bianchi identity",
+        "Einstein tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 207,
+          "printed_page": 192,
+          "section": "11.4"
+        },
+        {
+          "pdf_page": 208,
+          "printed_page": 193,
+          "section": "11.5"
+        }
+      ],
+      "formulas": [
+        "\\nabla_b G^{ab} \\equiv 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "gothic tensor density notation",
+      "aliases": [
+        "gothicized tensor",
+        "fraktur densities"
+      ],
+      "kind": "convention",
+      "definition": "A tensor written in gothic (fraktur) type denotes the ordinary tensor multiplied by sqrt(-g), making it a tensor density of weight +1, e.g. gothic g^ab = sqrt(-g) g^ab.",
+      "how_introduced": "Introduced at the start of §11.3 to shorten all later formulas.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tensor density",
+        "metric determinant"
+      ],
+      "locators": [
+        {
+          "pdf_page": 204,
+          "printed_page": 189,
+          "section": "11.3"
+        }
+      ],
+      "formulas": [
+        "\\mathfrak{g}_{ab} = \\sqrt{-g}\\,g_{ab},\\quad \\mathfrak{T}_{ab} = \\sqrt{-g}\\,T_{ab}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "volume Lagrangian sqrt(-g)",
+      "aliases": [
+        "simplest scalar density",
+        "cosmological-constant Lagrangian"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The Lagrangian consisting of the invariant volume density sqrt(-g) alone; its Euler-Lagrange derivative is (1/2) sqrt(-g) g^ab, so on its own it gives the impossible equation g^ab = 0.",
+      "how_introduced": "Offered as the simplest possible test of the framework; the resulting identity is trivially true by metric compatibility.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Lagrangian density",
+        "derivative of the metric determinant"
+      ],
+      "locators": [
+        {
+          "pdf_page": 205,
+          "printed_page": 190,
+          "section": "11.3"
+        }
+      ],
+      "formulas": [
+        "\\mathcal{L} = \\sqrt{-g}",
+        "\\mathcal{L}^{ab} = \\tfrac12\\mathfrak{g}^{ab}"
+      ],
+      "notes": "Not stated here, but DIV ch13 §13.3 adds 2 Lambda sqrt(-g) to the Einstein Lagrangian to obtain the cosmological term, citing §11.3."
+    },
+    {
+      "name": "derivative of the metric determinant",
+      "aliases": [
+        "Jacobi's formula for g"
+      ],
+      "kind": "identity",
+      "definition": "Treating the metric components as independent variables, partial g / partial g_ab = g g^ab; hence the variation of sqrt(-g) is one half sqrt(-g) g^ab delta g_ab.",
+      "how_introduced": "Recalled from (7.8) in §11.3 and used again as (11.35) in the indirect derivation.",
+      "depth": "developed",
+      "prerequisites": [
+        "metric determinant",
+        "inverse metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 205,
+          "printed_page": 190,
+          "section": "11.3"
+        },
+        {
+          "pdf_page": 208,
+          "printed_page": 193,
+          "section": "11.5"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\partial g}{\\partial g_{ab}} = g\\,g^{ab}",
+        "\\delta\\sqrt{-g} = \\tfrac12\\sqrt{-g}\\,g^{ab}\\delta g_{ab}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Einstein-Hilbert Lagrangian",
+      "aliases": [
+        "Einstein Lagrangian",
+        "L_G",
+        "sqrt(-g) R"
+      ],
+      "kind": "definition",
+      "definition": "The gravitational Lagrangian density L_G = sqrt(-g) R, equivalently gothic g^ab R_ab. It depends on the metric and its first and second derivatives, and its Euler-Lagrange derivative with respect to g_ab is -sqrt(-g) G^ab.",
+      "how_introduced": "Presented as the next simplest scalar density after sqrt(-g); first expanded brute force (11.24), then varied indirectly (§11.5), rewritten as first order (§11.6) and treated in Palatini form (§11.7).",
+      "depth": "core",
+      "prerequisites": [
+        "Ricci scalar",
+        "gothic tensor density notation",
+        "Lagrangian density"
+      ],
+      "locators": [
+        {
+          "pdf_page": 205,
+          "printed_page": 190,
+          "section": "11.4"
+        },
+        {
+          "pdf_page": 206,
+          "printed_page": 191,
+          "section": "11.4"
+        },
+        {
+          "pdf_page": 207,
+          "printed_page": 192,
+          "section": "11.5"
+        },
+        {
+          "pdf_page": 209,
+          "printed_page": 194,
+          "section": "11.6"
+        },
+        {
+          "pdf_page": 210,
+          "printed_page": 195,
+          "section": "11.7"
+        }
+      ],
+      "formulas": [
+        "\\mathcal{L}_G = \\sqrt{-g}\\,R = \\mathfrak{g}^{ab}R_{ab}",
+        "\\frac{\\delta\\mathcal{L}_G}{\\delta g_{ab}} = -\\sqrt{-g}\\,G^{ab}"
+      ],
+      "notes": "The book calls it the Einstein Lagrangian and does not name Hilbert in this chapter (Hilbert's 1915 variational derivation is mentioned in ch13 §13.3)."
+    },
+    {
+      "name": "comma notation",
+      "aliases": [
+        "comma for partial derivative"
+      ],
+      "kind": "convention",
+      "definition": "A comma followed by an index denotes partial differentiation, e.g. g_ab,c = partial_c g_ab, which keeps derivatives of Lagrangians with respect to derivatives of fields readable.",
+      "how_introduced": "Adopted at the start of the Einstein Lagrangian calculation to avoid writing partial L / partial(partial_c g_ab).",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 206,
+          "printed_page": 191,
+          "section": "11.4"
+        }
+      ],
+      "formulas": [
+        "g_{ab,c} \\equiv \\partial_c g_{ab}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Euler-Lagrange derivative with second derivatives",
+      "aliases": [
+        "higher-order Euler-Lagrange expression"
+      ],
+      "kind": "operation",
+      "definition": "For a Lagrangian depending on a field, its first and its second derivatives, the variational derivative has an extra term: the double divergence of the partial derivative of L with respect to the second derivatives, entering with a plus sign.",
+      "how_introduced": "Stated as a generalization of the first-order form (7.36) once sqrt(-g) R is recognised to contain second derivatives.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Euler-Lagrange derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 206,
+          "printed_page": 191,
+          "section": "11.4"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\delta\\mathcal{L}_G}{\\delta g_{ab}} = \\frac{\\partial\\mathcal{L}_G}{\\partial g_{ab}} - \\Big(\\frac{\\partial\\mathcal{L}_G}{\\partial g_{ab,c}}\\Big)_{,c} + \\Big(\\frac{\\partial\\mathcal{L}_G}{\\partial g_{ab,cd}}\\Big)_{,cd}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "vacuum field equations",
+      "aliases": [
+        "G^ab = 0",
+        "R_ab = 0"
+      ],
+      "kind": "law",
+      "definition": "In the absence of matter the Einstein tensor vanishes; taking the trace shows this is the same as a vanishing Ricci tensor in any dimension other than two.",
+      "how_introduced": "Recovered three times as the Euler-Lagrange equations: G^ab = 0 from the metric variation (§11.4-§11.5), R_ab = 0 from the Gamma-Gamma Lagrangian with gothic g^ab variables (§11.6), and R_ab = 0 in the Palatini form (§11.7).",
+      "depth": "revisited",
+      "prerequisites": [
+        "Einstein tensor",
+        "Ricci tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 206,
+          "printed_page": 191,
+          "section": "11.4"
+        },
+        {
+          "pdf_page": 210,
+          "printed_page": 195,
+          "section": "11.6"
+        },
+        {
+          "pdf_page": 211,
+          "printed_page": 196,
+          "section": "11.7"
+        }
+      ],
+      "formulas": [
+        "-\\sqrt{-g}\\,G^{ab} = 0",
+        "R_{ab} = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "variation as a derivation",
+      "aliases": [
+        "delta obeys linearity and the Leibniz rule"
+      ],
+      "kind": "technique",
+      "definition": "The first-order variation operator delta acts on sums and products like a derivative: it is linear with constant coefficients and satisfies delta(L1 L2) = L1 delta L2 + L2 delta L1; it also commutes with partial differentiation.",
+      "how_introduced": "Announced at the start of §11.5 (proof in Exercise 11.5) and demonstrated on the constant Kronecker delta.",
+      "depth": "developed",
+      "prerequisites": [
+        "Euler-Lagrange derivative"
+      ],
+      "locators": [
+        {
+          "pdf_page": 207,
+          "printed_page": 192,
+          "section": "11.5"
+        },
+        {
+          "pdf_page": 213,
+          "printed_page": 198,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\delta(L_1L_2) = L_1\\,\\delta L_2 + L_2\\,\\delta L_1"
+      ],
+      "notes": null
+    },
+    {
+      "name": "variation of the inverse metric",
+      "aliases": [
+        "delta g^ab"
+      ],
+      "kind": "identity",
+      "definition": "A change delta g_ab of the metric induces delta g^ab = -g^ac g^bd delta g_cd in the inverse metric: the indices are raised with a minus sign.",
+      "how_introduced": "Obtained by varying g^ab g_bc = delta^a_c, which cannot change, and multiplying through by the inverse metric; the reader is asked to compare with the partial-derivative formula (7.9).",
+      "depth": "developed",
+      "prerequisites": [
+        "variation as a derivation",
+        "inverse metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 207,
+          "printed_page": 192,
+          "section": "11.5"
+        }
+      ],
+      "formulas": [
+        "\\delta g^{ab}g_{bc} + g^{ab}\\delta g_{bc} = 0",
+        "\\delta g^{ad} = -g^{ab}g^{cd}\\delta g_{bc}"
+      ],
+      "notes": "Exercise 11.3 gives the corresponding partial-derivative formula with explicit symmetrization."
+    },
+    {
+      "name": "boundary term in the Einstein-Hilbert variation",
+      "aliases": [
+        "surface term",
+        "discarded divergence"
+      ],
+      "kind": "technique",
+      "definition": "The part of the action variation proportional to delta R_ab equals the integral of an ordinary divergence of a vector density built from gothic g^ab and delta Gamma, which converts to a surface integral and is discarded when variations vanish on the boundary.",
+      "how_introduced": "Derived in §11.5 by combining the contracted Palatini identity with the covariant constancy of gothic g^ab and (7.3).",
+      "depth": "developed",
+      "prerequisites": [
+        "contracted Palatini identity",
+        "divergence theorem for vector densities"
+      ],
+      "locators": [
+        {
+          "pdf_page": 208,
+          "printed_page": 193,
+          "section": "11.5"
+        }
+      ],
+      "formulas": [
+        "\\int_\\Omega\\mathfrak{g}^{ab}\\delta R_{ab}\\,\\mathrm{d}\\Omega = \\int_\\Omega\\partial_c\\big(\\mathfrak{g}^{ab}\\delta\\Gamma^c_{ab} - \\mathfrak{g}^{ac}\\delta\\Gamma^b_{ab}\\big)\\,\\mathrm{d}\\Omega"
+      ],
+      "notes": "Because delta Gamma contains first derivatives of delta g_ab, discarding this term strictly requires those derivatives to vanish on the boundary too; the modern fix is the Gibbons-Hawking-York term, which the book does not discuss."
+    },
+    {
+      "name": "second-order nature of the Einstein equations",
+      "aliases": [
+        "why no fourth-order terms"
+      ],
+      "kind": "phenomenon",
+      "definition": "Although sqrt(-g) R contains second derivatives of the metric, the Euler-Lagrange equations are only second order, because the coefficient of the second derivatives depends only on g_ab and the first-derivative coefficient only on first derivatives, so the potentially fourth-order terms cancel.",
+      "how_introduced": "Raised as a surprise in §11.6 with reference to (11.25)-(11.26) and made manifest by the total-divergence split.",
+      "depth": "developed",
+      "prerequisites": [
+        "Euler-Lagrange derivative with second derivatives",
+        "Einstein-Hilbert Lagrangian"
+      ],
+      "locators": [
+        {
+          "pdf_page": 208,
+          "printed_page": 193,
+          "section": "11.6"
+        },
+        {
+          "pdf_page": 209,
+          "printed_page": 194,
+          "section": "11.6"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "total divergence ambiguity of a Lagrangian",
+      "aliases": [
+        "equivalent Lagrangians",
+        "adding a divergence"
+      ],
+      "kind": "theorem",
+      "definition": "Two Lagrangians that differ by a total divergence Q^a_,a give the same Euler-Lagrange equations, since the divergence integrates to a boundary term that does not affect the variation.",
+      "how_introduced": "Asserted in §11.6 and proved for the one-variable mechanics case in Exercise 11.9; it justifies replacing sqrt(-g) R by the first-order Gamma-Gamma Lagrangian.",
+      "depth": "developed",
+      "prerequisites": [
+        "divergence theorem for vector densities",
+        "principle of stationary action"
+      ],
+      "locators": [
+        {
+          "pdf_page": 209,
+          "printed_page": 194,
+          "section": "11.6"
+        },
+        {
+          "pdf_page": 214,
+          "printed_page": 199,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathcal{L}_G = \\bar{\\mathcal{L}}_G + Q^a{}_{,a}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Gamma-Gamma Lagrangian",
+      "aliases": [
+        "first-order Einstein Lagrangian",
+        "L-bar_G",
+        "Einstein's non-covariant Lagrangian"
+      ],
+      "kind": "definition",
+      "definition": "The Lagrangian formed by contracting gothic g^ab with the difference of the two possible index-linked products of Christoffel symbols (see formulas), quadratic in connection coefficients and so depending only on the metric and its first derivatives. It differs from sqrt(-g) R by a total divergence and is not a scalar density.",
+      "how_introduced": "Extracted from the expansion of gothic g^ab R_ab by integrating the derivative-of-Gamma terms by parts; then used with gothic g^ab as dynamical variables to derive R_ab = 0.",
+      "depth": "developed",
+      "prerequisites": [
+        "Einstein-Hilbert Lagrangian",
+        "total divergence ambiguity of a Lagrangian",
+        "derivative of gothic inverse metric in terms of the connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 209,
+          "printed_page": 194,
+          "section": "11.6"
+        },
+        {
+          "pdf_page": 210,
+          "printed_page": 195,
+          "section": "11.6"
+        }
+      ],
+      "formulas": [
+        "\\bar{\\mathcal{L}}_G = \\mathfrak{g}^{ab}(\\Gamma^d_{ac}\\Gamma^c_{bd} - \\Gamma^c_{ab}\\Gamma^d_{cd})",
+        "Q^a = \\mathfrak{g}^{bc}\\Gamma^a_{bc} - \\mathfrak{g}^{ab}\\Gamma^c_{bc}"
+      ],
+      "notes": "Not a scalar density, so the generalized identity of §11.2 does not directly apply to it."
+    },
+    {
+      "name": "choice of dynamical variables",
+      "aliases": [
+        "g_ab vs g^ab vs gothic variables"
+      ],
+      "kind": "technique",
+      "definition": "The same Lagrangian may be regarded as a function of g_ab, g^ab, gothic g^ab or gothic g_ab (and their derivatives); the Euler-Lagrange derivatives differ by invertible algebraic factors, so the field equations are equivalent, but one choice can make the algebra much simpler.",
+      "how_introduced": "Noted in §11.4 and §11.6, exploited with gothic g^ab in §11.6-§11.7, and systematised in Exercise 11.7 (giving R_ab, -R^ab and sqrt(-g) G_ab).",
+      "depth": "introduced",
+      "prerequisites": [
+        "Euler-Lagrange derivative",
+        "gothic tensor density notation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 206,
+          "printed_page": 191,
+          "section": "11.4"
+        },
+        {
+          "pdf_page": 209,
+          "printed_page": 194,
+          "section": "11.6"
+        },
+        {
+          "pdf_page": 213,
+          "printed_page": 198,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\frac{\\delta\\mathcal{L}_G}{\\delta\\mathfrak{g}^{ab}} = R_{ab},\\quad \\frac{\\delta\\mathcal{L}_G}{\\delta\\mathfrak{g}_{ab}} = -R^{ab},\\quad \\frac{\\delta\\mathcal{L}_G}{\\delta g^{ab}} = \\sqrt{-g}\\,G_{ab}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "derivative of gothic inverse metric in terms of the connection",
+      "aliases": [
+        "partial derivative of gothic g^ab"
+      ],
+      "kind": "identity",
+      "definition": "Because the covariant derivative of the weight +1 density gothic g^ab vanishes, its partial derivative can be written purely with connection coefficients: gothic g^ab_,c = Gamma^d_dc gothic g^ab - Gamma^a_dc gothic g^db - Gamma^b_dc gothic g^ad.",
+      "how_introduced": "Stated as an exercise in §11.6 and used to show the non-divergence part of sqrt(-g) R equals the Gamma-Gamma Lagrangian.",
+      "depth": "introduced",
+      "prerequisites": [
+        "tensor density",
+        "metric connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 209,
+          "printed_page": 194,
+          "section": "11.6"
+        }
+      ],
+      "formulas": [
+        "\\mathfrak{g}^{ab}{}_{,c} = \\Gamma^d_{dc}\\mathfrak{g}^{ab} - \\Gamma^a_{dc}\\mathfrak{g}^{db} - \\Gamma^b_{dc}\\mathfrak{g}^{ad}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "contracted connection as gradient of ln sqrt(-g)",
+      "aliases": [
+        "Gamma^d_ad = partial_a ln sqrt(-g)"
+      ],
+      "kind": "identity",
+      "definition": "For the metric connection the contraction Gamma^d_ad equals the partial derivative of ln sqrt(-g), so its further partial derivative is symmetric in the two derivative indices.",
+      "how_introduced": "Quoted as an exercise at the end of §11.6 to symmetrize the derivative terms in the Euler-Lagrange expression and recognise the Ricci tensor.",
+      "depth": "introduced",
+      "prerequisites": [
+        "metric determinant",
+        "metric connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 210,
+          "printed_page": 195,
+          "section": "11.6"
+        }
+      ],
+      "formulas": [
+        "[\\ln\\sqrt{-g}]_{,a} = \\Gamma^d_{ad}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Palatini (metric-affine) variation",
+      "aliases": [
+        "Palatini approach",
+        "first-order formalism"
+      ],
+      "kind": "technique",
+      "definition": "A variational method in which the metric (here gothic g^ab) and a symmetric connection are independent dynamical variables in L = gothic g^ab R_ab(Gamma); the metric variation gives the vacuum equations and the connection variation determines the connection.",
+      "how_introduced": "Introduced as the elegant alternative after the metric-only routes; relies again on the contracted Palatini identity and integration by parts.",
+      "depth": "core",
+      "prerequisites": [
+        "Einstein-Hilbert Lagrangian",
+        "contracted Palatini identity",
+        "symmetric connection",
+        "divergence theorem for vector densities"
+      ],
+      "locators": [
+        {
+          "pdf_page": 210,
+          "printed_page": 195,
+          "section": "11.7"
+        },
+        {
+          "pdf_page": 211,
+          "printed_page": 196,
+          "section": "11.7"
+        },
+        {
+          "pdf_page": 212,
+          "printed_page": 197,
+          "section": "11.7"
+        }
+      ],
+      "formulas": [
+        "\\mathcal{L}_G = \\mathcal{L}_G(\\mathfrak{g}^{ab},\\Gamma^a_{bc},\\Gamma^a_{bc,d})"
+      ],
+      "notes": "With a non-symmetric connection the method leaves a projective freedom and torsion issues; the book avoids this by assuming symmetry."
+    },
+    {
+      "name": "symmetric connection",
+      "aliases": [
+        "torsion-free connection"
+      ],
+      "kind": "definition",
+      "definition": "An affine connection whose coefficients are symmetric in their two lower indices, Gamma^a_bc = Gamma^a_cb.",
+      "how_introduced": "Assumed from the start in the Palatini approach; the symmetry of delta Gamma means only the symmetric part of its coefficient is forced to vanish.",
+      "depth": "revisited",
+      "prerequisites": [
+        "affine connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 210,
+          "printed_page": 195,
+          "section": "11.7"
+        },
+        {
+          "pdf_page": 211,
+          "printed_page": 196,
+          "section": "11.7"
+        }
+      ],
+      "formulas": [
+        "\\Gamma^a_{bc} = \\Gamma^a_{cb}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "metric compatibility from the field equations",
+      "aliases": [
+        "connection equation of the Palatini method"
+      ],
+      "kind": "phenomenon",
+      "definition": "In the Palatini variation, stationarity with respect to an arbitrary symmetric connection yields equations whose only solution (in any dimension above two) is nabla_c g_ab = 0, so the metric connection is derived rather than assumed.",
+      "how_introduced": "Obtained from (11.48) through a chain of deductions for gothic g^ab, sqrt(-g), g^ab and g_ab (Exercise 11.11), closed by Exercise 6.21.",
+      "depth": "core",
+      "prerequisites": [
+        "Palatini (metric-affine) variation",
+        "metric connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 211,
+          "printed_page": 196,
+          "section": "11.7"
+        },
+        {
+          "pdf_page": 212,
+          "printed_page": 197,
+          "section": "11.7"
+        }
+      ],
+      "formulas": [
+        "\\tfrac12\\delta^b_c\\nabla_d\\mathfrak{g}^{ad} + \\tfrac12\\delta^a_c\\nabla_d\\mathfrak{g}^{bd} - \\nabla_c\\mathfrak{g}^{ab} = 0"
+      ],
+      "notes": "The step from nabla gothic g^ab = 0 to nabla sqrt(-g) = 0 uses the determinant of gothic g^ab, which fails in two dimensions (own observation)."
+    },
+    {
+      "name": "metric connection",
+      "aliases": [
+        "Christoffel connection",
+        "Levi-Civita connection"
+      ],
+      "kind": "definition",
+      "definition": "The unique symmetric connection with nabla_c g_ab = 0, whose coefficients are half the inverse metric contracted with the usual three-term combination of first metric derivatives (the Christoffel symbols of the second kind).",
+      "how_introduced": "Appears as the output of the Palatini connection variation via Exercise 6.21.",
+      "depth": "revisited",
+      "prerequisites": [
+        "symmetric connection",
+        "metric tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 211,
+          "printed_page": 196,
+          "section": "11.7"
+        }
+      ],
+      "formulas": [
+        "\\Gamma^a_{bc} = \\tfrac12 g^{ad}(g_{bd,c} + g_{cd,b} - g_{bc,d})"
+      ],
+      "notes": null
+    },
+    {
+      "name": "matter Lagrangian",
+      "aliases": [
+        "L_M"
+      ],
+      "kind": "definition",
+      "definition": "A Lagrangian density describing non-gravitational fields, depending on the metric and its derivatives as well as the matter fields, added to the gravitational Lagrangian with coupling 2 kappa.",
+      "how_introduced": "Introduced in §11.8 to extend the vacuum treatment to the full field equations.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Lagrangian density",
+        "minimal coupling"
+      ],
+      "locators": [
+        {
+          "pdf_page": 212,
+          "printed_page": 197,
+          "section": "11.8"
+        }
+      ],
+      "formulas": [
+        "I = \\int_\\Omega(\\mathcal{L}_G + 2\\kappa\\mathcal{L}_M)\\,\\mathrm{d}\\Omega"
+      ],
+      "notes": null
+    },
+    {
+      "name": "coupling constant",
+      "aliases": [
+        "kappa"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The constant kappa multiplying the matter contribution in the action and appearing in G^ab = kappa T^ab (equal to 8 pi G / c^4, or 8 pi in relativistic units, per Chapter 10).",
+      "how_introduced": "Used without numerical discussion; the factor of 2 accompanying it is explained by the normalization of T^ab.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 212,
+          "printed_page": 197,
+          "section": "11.8"
+        }
+      ],
+      "formulas": [],
+      "notes": "The numerical value is fixed in DIV ch10 and ch12 §12.3."
+    },
+    {
+      "name": "variational (Hilbert) energy-momentum tensor",
+      "aliases": [
+        "metric energy-momentum tensor",
+        "T^ab from delta L_M / delta g_ab"
+      ],
+      "kind": "definition",
+      "definition": "The energy-momentum tensor defined from the metric variation of the matter Lagrangian: T^ab = (2/sqrt(-g)) delta L_M / delta g_ab, equivalently sqrt(-g) T_ab = -2 delta L_M / delta g^ab.",
+      "how_introduced": "Defined in §11.8 so that the combined Euler-Lagrange equations become G^ab = kappa T^ab; the 2 is justified by agreement with the canonical tensor of special relativity (Exercise 11.13).",
+      "depth": "core",
+      "prerequisites": [
+        "matter Lagrangian",
+        "Euler-Lagrange derivative",
+        "canonical energy-momentum tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 212,
+          "printed_page": 197,
+          "section": "11.8"
+        },
+        {
+          "pdf_page": 215,
+          "printed_page": 200,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "T^{ab} = \\frac{2}{\\sqrt{-g}}\\frac{\\delta\\mathcal{L}_M}{\\delta g_{ab}}"
+      ],
+      "notes": "Chapter 12 applies this route to the Maxwell and scalar fields."
+    },
+    {
+      "name": "full field equations",
+      "aliases": [
+        "Einstein field equations",
+        "G^ab = kappa T^ab"
+      ],
+      "kind": "law",
+      "definition": "The Einstein tensor equals the coupling constant times the energy-momentum tensor of all non-gravitational fields.",
+      "how_introduced": "Recovered from the combined action, in agreement with (10.54).",
+      "depth": "revisited",
+      "prerequisites": [
+        "Einstein tensor",
+        "variational (Hilbert) energy-momentum tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 212,
+          "printed_page": 197,
+          "section": "11.8"
+        }
+      ],
+      "formulas": [
+        "G^{ab} = \\kappa T^{ab}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "canonical energy-momentum tensor",
+      "aliases": [
+        "Theta^a_b"
+      ],
+      "kind": "definition",
+      "definition": "In special relativity, for a field Lagrangian L(phi, partial phi), the tensor built from the derivative of L with respect to the field gradients times the gradient, plus delta^a_b L (with the book's sign convention a minus sign on the first term).",
+      "how_introduced": "Appears only in Exercise 11.13, where it is shown to coincide with the variational T_ab for a scalar field in flat spacetime, justifying the factor of 2.",
+      "depth": "mention",
+      "prerequisites": [
+        "Lagrangian density"
+      ],
+      "locators": [
+        {
+          "pdf_page": 215,
+          "printed_page": 200,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\Theta^a{}_b := -\\frac{\\partial L}{\\partial(\\phi_{,a})}\\phi_{,b} + \\delta^a_b L"
+      ],
+      "notes": null
+    },
+    {
+      "name": "minimal coupling",
+      "aliases": [
+        "comma-goes-to-semicolon with sqrt(-g)"
+      ],
+      "kind": "principle",
+      "definition": "Carrying a special-relativistic Lagrangian into curved spacetime by replacing eta by g, partial by covariant derivatives and multiplying by sqrt(-g), without adding explicit curvature terms.",
+      "how_introduced": "Invoked only in Exercise 11.13 to build the curved-spacetime scalar-field Lagrangian density.",
+      "depth": "mention",
+      "prerequisites": [
+        "tensor density"
+      ],
+      "locators": [
+        {
+          "pdf_page": 215,
+          "printed_page": 200,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathcal{L} = [-\\tfrac12 g^{cd}\\phi_{,c}\\phi_{,d} + V(\\phi)]\\sqrt{-g}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Eddington quadratic Lagrangian",
+      "aliases": [
+        "R^abcd R_abcd Lagrangian"
+      ],
+      "kind": "historical-idea",
+      "definition": "A higher-curvature action, sqrt(-g) times the full contraction of the Riemann tensor with itself, which Eddington considered as an alternative to sqrt(-g) R.",
+      "how_introduced": "Set as Exercise 11.12, to be varied treating g^ab and R^abcd as independent.",
+      "depth": "mention",
+      "prerequisites": [
+        "Palatini (metric-affine) variation",
+        "Riemann tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 215,
+          "printed_page": 200,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathcal{L} = \\sqrt{-g}\\,R^{abcd}R_{abcd}"
+      ],
+      "notes": "The book gives no answer. Own note: varied as a function of the metric alone, a curvature-squared action gives fourth-order field equations. The exercise's instruction to treat R^abcd as independent is what keeps the calculation manageable."
+    },
+    {
+      "name": "variation of the connection in terms of the metric",
+      "aliases": [
+        "delta Gamma formula"
+      ],
+      "kind": "identity",
+      "definition": "For the metric connection, a metric variation induces a change in Gamma that has the same three-term structure as the Christoffel formula, but with partial derivatives of g replaced by covariant derivatives of delta g; it is therefore a tensor.",
+      "how_introduced": "Set as Exercise 11.14, to be proved by the geodesic-coordinate method of §11.1, as preparation for matter Lagrangians containing covariant derivatives.",
+      "depth": "mention",
+      "prerequisites": [
+        "variation of a connection",
+        "geodesic coordinates",
+        "metric connection"
+      ],
+      "locators": [
+        {
+          "pdf_page": 215,
+          "printed_page": 200,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\delta\\Gamma^a_{bc} = \\tfrac12 g^{ad}[\\nabla_c(\\delta g_{db}) + \\nabla_b(\\delta g_{dc}) - \\nabla_d(\\delta g_{bc})]"
+      ],
+      "notes": null
+    }
+  ],
+  "key_equations": [
+    {
+      "label": "(11.1)",
+      "name": "Riemann tensor in geodesic coordinates",
+      "latex": "R^a{}_{bcd} \\stackrel{*}{=} \\partial_c\\Gamma^a_{bd} - \\partial_d\\Gamma^a_{bc}",
+      "meaning": "At a point where the connection vanishes, curvature is just the antisymmetrized derivative of the connection; the quadratic terms of (6.40) drop out.",
+      "symbols": "asterisk: valid only in geodesic coordinates at P",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "label": "(11.2)",
+      "name": "Varied connection",
+      "latex": "\\Gamma^a_{bc} \\to \\bar\\Gamma^a_{bc} = \\Gamma^a_{bc} + \\delta\\Gamma^a_{bc}",
+      "meaning": "A nearby connection; the difference delta Gamma is a (1,2) tensor.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "label": null,
+      "name": "Variation of curvature at P",
+      "latex": "\\delta R^a{}_{bcd} \\stackrel{*}{=} \\partial_c(\\delta\\Gamma^a_{bd}) - \\partial_d(\\delta\\Gamma^a_{bc}) \\stackrel{*}{=} \\nabla_c(\\delta\\Gamma^a_{bd}) - \\nabla_d(\\delta\\Gamma^a_{bc})",
+      "meaning": "Variation commutes with partial derivatives, which equal covariant derivatives at P in geodesic coordinates.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "label": "(11.3)",
+      "name": "Palatini identity",
+      "latex": "\\delta R^a{}_{bcd} = \\nabla_c(\\delta\\Gamma^a_{bd}) - \\nabla_d(\\delta\\Gamma^a_{bc})",
+      "meaning": "The first-order change in the Riemann tensor is a covariant 'curl' of the change in the connection; valid in all coordinates since both sides are tensors.",
+      "symbols": "nabla: covariant derivative of the unvaried connection",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "label": "(11.4)",
+      "name": "Contracted Palatini identity",
+      "latex": "\\delta R_{bd} = \\nabla_a(\\delta\\Gamma^a_{bd}) - \\nabla_d(\\delta\\Gamma^a_{ba})",
+      "meaning": "Variation of the Ricci tensor, obtained by contracting a with c; used to turn the delta R_ab contribution to the action into a divergence.",
+      "symbols": "R_bd = R^a_bad",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "label": "(11.5)",
+      "name": "Lagrangian dependence",
+      "latex": "\\mathcal{L} = \\mathcal{L}(g_{ab},\\partial_c g_{ab},\\partial_d\\partial_c g_{ab},\\dots)",
+      "meaning": "The Lagrangian density is a function of the metric and its derivatives.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.6)",
+      "name": "Action",
+      "latex": "I = \\int_\\Omega \\mathcal{L}\\,\\mathrm{d}\\Omega",
+      "meaning": "Integral of the weight +1 scalar density over a region; coordinate invariant.",
+      "symbols": "Omega: region; dOmega: coordinate volume element",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.7)",
+      "name": "Stationary action",
+      "latex": "g_{ab}\\to g_{ab}+\\delta g_{ab}\\ \\Rightarrow\\ I\\to I+\\delta I\\ \\text{with}\\ \\delta I = 0",
+      "meaning": "For metric variations vanishing on the boundary, the action does not change to first order.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.8)",
+      "name": "First variation of the action",
+      "latex": "\\delta I = \\int_\\Omega \\mathcal{L}^{ab}\\,\\delta g_{ab}\\,\\mathrm{d}\\Omega",
+      "meaning": "The change of the action is linear in delta g_ab with coefficient L^ab (after discarding boundary terms).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.9)",
+      "name": "Euler-Lagrange tensor density",
+      "latex": "\\mathcal{L}^{ab} := \\frac{\\delta\\mathcal{L}}{\\delta g_{ab}}",
+      "meaning": "Definition of the variational derivative; it is a symmetric tensor density of weight +1.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.10)",
+      "name": "Field equations",
+      "latex": "\\mathcal{L}^{ab} = 0",
+      "meaning": "The field equations of the theory are the vanishing of the Euler-Lagrange derivative.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.11)",
+      "name": "Invariance under coordinate change",
+      "latex": "\\delta I \\equiv 0",
+      "meaning": "If the 'variation' is produced by a coordinate change, the action is unchanged identically, not just on solutions.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.12)",
+      "name": "Infinitesimal coordinate change",
+      "latex": "x^a \\to x'^a = x^a + \\varepsilon X^a(x)",
+      "meaning": "Generator X^a is a smooth vector field vanishing on the boundary of Omega.",
+      "symbols": "epsilon: small parameter",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.13)",
+      "name": "Metric change under coordinate change",
+      "latex": "\\delta g_{ab} = g'_{ab}(x) - g_{ab}(x) = -\\mathrm{L}_{\\varepsilon X}g_{ab} = -\\varepsilon(\\nabla_b X_a + \\nabla_a X_b)",
+      "meaning": "Comparing new and old metric components at the same coordinate values gives minus the Lie derivative, i.e. the symmetrized covariant derivative of X.",
+      "symbols": "L_{epsilon X}: Lie derivative along epsilon X",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": null,
+      "name": "Identity in integral form",
+      "latex": "0 \\equiv \\delta I = -2\\varepsilon\\int_\\Omega \\mathcal{L}^{ab}(\\nabla_b X_a)\\,\\mathrm{d}\\Omega",
+      "meaning": "Substituting (11.13) into (11.8) and using symmetry of L^ab.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.14)",
+      "name": "Integration by parts",
+      "latex": "0 \\equiv 2\\varepsilon\\int_\\Omega(\\nabla_b\\mathcal{L}^{ab})X_a\\,\\mathrm{d}\\Omega - 2\\varepsilon\\int_\\Omega\\nabla_b[\\mathcal{L}^{ab}X_a]\\,\\mathrm{d}\\Omega",
+      "meaning": "Leibniz rule for covariant derivatives splits the integral into a bulk term and a total divergence.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.15)",
+      "name": "Divergence to surface term",
+      "latex": "2\\varepsilon\\int_\\Omega\\partial_b[\\mathcal{L}^{ab}X_a]\\,\\mathrm{d}\\Omega = 2\\varepsilon\\int_{\\partial\\Omega}\\mathcal{L}^{ab}X_a\\,\\mathrm{d}S_b",
+      "meaning": "The covariant divergence of a weight +1 vector density is an ordinary divergence; the divergence theorem makes it a boundary flux, which vanishes since X does.",
+      "symbols": "dS_b: boundary surface element",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.16)",
+      "name": null,
+      "latex": "\\int_\\Omega(\\nabla_b\\mathcal{L}^{ab})X_a\\,\\mathrm{d}\\Omega \\equiv 0",
+      "meaning": "Remaining bulk integral vanishes for every region.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.17)",
+      "name": null,
+      "latex": "(\\nabla_b\\mathcal{L}^{ab})X_a \\equiv 0",
+      "meaning": "Arbitrariness of Omega removes the integral (Exercise 11.8(i)).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": "(11.18)",
+      "name": "Generalized Bianchi identity",
+      "latex": "\\nabla_b\\mathcal{L}^{ab} \\equiv 0",
+      "meaning": "The Euler-Lagrange tensor of any covariant metric Lagrangian is identically divergence-free; four differential constraints on the ten field equations.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "label": null,
+      "name": "Gothic densities",
+      "latex": "\\mathfrak{g}_{ab} = \\sqrt{-g}\\,g_{ab},\\qquad \\mathfrak{T}_{ab} = \\sqrt{-g}\\,T_{ab}",
+      "meaning": "Gothic letters denote tensors multiplied by sqrt(-g), which are weight +1 densities.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.3"
+      }
+    },
+    {
+      "label": "(11.19)",
+      "name": "Volume Lagrangian",
+      "latex": "\\mathcal{L}(g_{ab}) = \\sqrt{-g}",
+      "meaning": "Simplest scalar density built from the metric alone.",
+      "symbols": "g: determinant of g_ab",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      }
+    },
+    {
+      "label": "(11.20)",
+      "name": "Derivative of the determinant",
+      "latex": "\\frac{\\partial g}{\\partial g_{ab}} = g\\,g^{ab}",
+      "meaning": "From (7.8): the cofactor of g_ab is g g^ab.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      }
+    },
+    {
+      "label": "(11.21)",
+      "name": null,
+      "latex": "\\frac{\\partial\\sqrt{-g}}{\\partial g_{ab}} = \\frac12\\frac{(-g)}{\\sqrt{-g}}g^{ab} = \\frac12\\sqrt{-g}\\,g^{ab} = \\frac12\\mathfrak{g}^{ab}",
+      "meaning": "Chain rule applied to sqrt(-g).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      }
+    },
+    {
+      "label": null,
+      "name": "Euler-Lagrange derivative of sqrt(-g)",
+      "latex": "\\mathcal{L}^{ab} = \\frac{\\partial\\mathcal{L}}{\\partial g_{ab}} = \\tfrac12\\mathfrak{g}^{ab}",
+      "meaning": "No derivative terms, so the variational derivative is the partial derivative; setting it to zero is impossible.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      }
+    },
+    {
+      "label": "(11.22)",
+      "name": null,
+      "latex": "\\nabla_b\\mathfrak{g}^{ab} \\equiv 0",
+      "meaning": "The identity for the volume Lagrangian, automatically satisfied by (6.74) and (7.12).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      }
+    },
+    {
+      "label": "(11.23)",
+      "name": "Einstein Lagrangian",
+      "latex": "\\mathcal{L}_G = \\sqrt{-g}\\,R",
+      "meaning": "Gravitational Lagrangian density; subscript G for gravitation.",
+      "symbols": "R: Ricci scalar",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.4"
+      }
+    },
+    {
+      "label": "(11.24)",
+      "name": "Einstein Lagrangian expanded",
+      "latex": "\\mathcal{L}_G = \\mathfrak{g}^{cd}R^e{}_{ced} = \\mathfrak{g}^{cd}(\\Gamma^e_{cd,e} - \\Gamma^e_{ce,d} + \\Gamma^f_{cd}\\Gamma^e_{fe} - \\Gamma^f_{ce}\\Gamma^e_{fd}),\\ \\text{with each}\\ \\Gamma^a_{bc} = \\tfrac12 g^{ad}(g_{bd,c}+g_{cd,b}-g_{bc,d})\\ \\text{substituted}",
+      "meaning": "Written out fully in the book (four bracketed lines) to show explicit dependence on g_ab, g_ab,c and g_ab,cd and hence the forbidding complexity of brute-force variation.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "label": null,
+      "name": "Dependence of L_G",
+      "latex": "\\mathcal{L}_G = \\mathcal{L}_G(g_{ab},g_{ab,c},g_{ab,cd})",
+      "meaning": "g^ab and g are regarded as functions of g_ab.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "label": "(11.25)",
+      "name": "Euler-Lagrange derivative with second derivatives",
+      "latex": "\\frac{\\delta\\mathcal{L}_G}{\\delta g_{ab}} = \\frac{\\partial\\mathcal{L}_G}{\\partial g_{ab}} - \\Big(\\frac{\\partial\\mathcal{L}_G}{\\partial g_{ab,c}}\\Big)_{,c} + \\Big(\\frac{\\partial\\mathcal{L}_G}{\\partial g_{ab,cd}}\\Big)_{,cd}",
+      "meaning": "Generalization of (7.36); the last term naively threatens fourth-order equations.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "label": "(11.26)",
+      "name": "Second-derivative coefficient",
+      "latex": "\\frac{\\partial\\mathcal{L}_G}{\\partial g_{ab,cd}} = \\sqrt{-g}\\big[\\tfrac12(g^{ac}g^{bd}+g^{ad}g^{bc}) - g^{ab}g^{cd}\\big]",
+      "meaning": "Contains no derivatives of the metric, which is why the double divergence term in (11.25) is only second order.",
+      "symbols": "Printed with delta rather than partial on the left; the partial derivative is meant (cf. Exercise 11.2)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "label": "(11.27)",
+      "name": "Variational derivative of the Einstein Lagrangian",
+      "latex": "\\mathcal{L}_G^{ab} = \\frac{\\delta\\mathcal{L}_G}{\\delta g_{ab}} = -\\sqrt{-g}\\,G^{ab}",
+      "meaning": "The Euler-Lagrange tensor of sqrt(-g) R is minus the densitized Einstein tensor.",
+      "symbols": "G^ab: Einstein tensor",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "label": "(11.28)",
+      "name": "Vacuum field equations",
+      "latex": "-\\sqrt{-g}\\,G^{ab} = 0",
+      "meaning": "Euler-Lagrange equations of the Einstein Lagrangian.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "label": "(11.29)",
+      "name": "Contracted Bianchi identities from covariance",
+      "latex": "\\nabla_b[-\\sqrt{-g}\\,G^{ab}] \\equiv 0\\ \\Rightarrow\\ \\nabla_b G^{ab} \\equiv 0",
+      "meaning": "The generalized identity (11.18) specialised to L_G, using nabla sqrt(-g) = 0.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.4"
+      }
+    },
+    {
+      "label": "(11.30)",
+      "name": "Induced variation of inverse metric",
+      "latex": "g^{ab} \\to g^{ab} + \\delta g^{ab}",
+      "meaning": "Varying g_ab changes g^ab too.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": null,
+      "name": "Varying the Kronecker delta",
+      "latex": "\\delta^a_c = g^{ab}g_{bc} \\to (g^{ab}+\\delta g^{ab})(g_{bc}+\\delta g_{bc}) = \\delta^a_c + \\delta g^{ab}g_{bc} + g^{ab}\\delta g_{bc} + O(\\delta^2)",
+      "meaning": "Expanding the product to first order.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": "(11.31)",
+      "name": null,
+      "latex": "\\delta g^{ab}g_{bc} + g^{ab}\\delta g_{bc} = 0",
+      "meaning": "The constant Kronecker delta cannot vary.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": "(11.32)",
+      "name": "Variation of the inverse metric",
+      "latex": "\\delta g^{ad} = -g^{ab}g^{cd}\\delta g_{bc}",
+      "meaning": "Raising indices on delta g_bc introduces a minus sign; compare with the partial-derivative relation (7.9).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": null,
+      "name": "Action in gothic form",
+      "latex": "I = \\int_\\Omega\\mathfrak{g}^{ab}R_{ab}\\,\\mathrm{d}\\Omega",
+      "meaning": "Starting point of the indirect derivation.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": "(11.33)",
+      "name": "Product rule on the action",
+      "latex": "\\delta I = \\int_\\Omega(\\delta\\mathfrak{g}^{ab}R_{ab} + \\mathfrak{g}^{ab}\\delta R_{ab})\\,\\mathrm{d}\\Omega",
+      "meaning": "Splits the variation into a metric-variation term and a curvature-variation term.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": null,
+      "name": "Curvature-variation term is a divergence",
+      "latex": "\\int_\\Omega\\mathfrak{g}^{ab}\\delta R_{ab}\\,\\mathrm{d}\\Omega = \\int_\\Omega\\big[\\nabla_c(\\mathfrak{g}^{ab}\\delta\\Gamma^c_{ab}) - \\nabla_b(\\mathfrak{g}^{ab}\\delta\\Gamma^c_{ac})\\big]\\mathrm{d}\\Omega = \\int_\\Omega\\partial_c(\\mathfrak{g}^{ab}\\delta\\Gamma^c_{ab} - \\mathfrak{g}^{ac}\\delta\\Gamma^b_{ab})\\,\\mathrm{d}\\Omega",
+      "meaning": "Using (11.4), nabla gothic g^ab = 0 and (7.3); the result is a boundary term that is discarded.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 208,
+        "printed_page": 193,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": "(11.34)",
+      "name": "Indirect variation of the Einstein action",
+      "latex": "\\delta I = \\int_\\Omega R_{ab}\\,\\delta\\mathfrak{g}^{ab}\\,\\mathrm{d}\\Omega = \\int_\\Omega\\sqrt{-g}\\big(\\tfrac12 R g^{cd} - R_{ab}g^{ac}g^{bd}\\big)\\delta g_{cd}\\,\\mathrm{d}\\Omega = \\int_\\Omega[-\\sqrt{-g}\\,G^{ab}]\\,\\delta g_{ab}\\,\\mathrm{d}\\Omega",
+      "meaning": "After dropping the boundary term, expanding delta(sqrt(-g) g^ab) yields minus sqrt(-g) times the Einstein tensor, reproducing (11.27) with little effort.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 208,
+        "printed_page": 193,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": "(11.35)",
+      "name": "Variation of sqrt(-g)",
+      "latex": "\\delta\\sqrt{-g} = \\tfrac12\\sqrt{-g}\\,g^{ab}\\delta g_{ab}",
+      "meaning": "Variational analogue of (11.21); Exercise 11.6(iii).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 208,
+        "printed_page": 193,
+        "section": "11.5"
+      }
+    },
+    {
+      "label": "(11.36)",
+      "name": "Einstein Lagrangian as first-order Lagrangian plus divergence",
+      "latex": "\\mathcal{L}_G = \\bar{\\mathcal{L}}_G + Q^a{}_{,a}",
+      "meaning": "sqrt(-g) R differs from a Lagrangian containing only first metric derivatives by a total divergence, so both give the same field equations.",
+      "symbols": "L-bar_G: first-order Lagrangian; Q^a: divergence vector",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.37)",
+      "name": null,
+      "latex": "\\mathcal{L}_G = \\mathfrak{g}^{ab}R_{ab} = \\mathfrak{g}^{ab}(\\Gamma^c_{ab,c} - \\Gamma^c_{ac,b} + \\Gamma^c_{ab}\\Gamma^d_{cd} - \\Gamma^d_{ac}\\Gamma^c_{bd}) = \\mathfrak{g}^{ab}\\Gamma^c_{ab,c} - \\mathfrak{g}^{ab}\\Gamma^c_{ac,b} - \\bar{\\mathcal{L}}_G",
+      "meaning": "Separates the derivative-of-connection terms from the quadratic terms.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.38)",
+      "name": "Gamma-Gamma Lagrangian",
+      "latex": "\\bar{\\mathcal{L}}_G = \\mathfrak{g}^{ab}(\\Gamma^d_{ac}\\Gamma^c_{bd} - \\Gamma^c_{ab}\\Gamma^d_{cd})",
+      "meaning": "First-order Lagrangian for gravity: quadratic in Christoffel symbols, not a scalar density.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.39)",
+      "name": null,
+      "latex": "\\mathcal{L}_G = -\\mathfrak{g}^{ab}{}_{,c}\\Gamma^c_{ab} + \\mathfrak{g}^{ab}{}_{,b}\\Gamma^c_{ac} - \\bar{\\mathcal{L}}_G + Q^a{}_{,a}",
+      "meaning": "Integration by parts moves the derivatives off the connection onto gothic g^ab.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.40)",
+      "name": "Divergence vector",
+      "latex": "Q^a = \\mathfrak{g}^{bc}\\Gamma^a_{bc} - \\mathfrak{g}^{ab}\\Gamma^c_{bc}",
+      "meaning": "The quantity whose divergence is discarded.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.41)",
+      "name": "Partial derivative of gothic inverse metric",
+      "latex": "\\mathfrak{g}^{ab}{}_{,c} = \\Gamma^d_{dc}\\mathfrak{g}^{ab} - \\Gamma^a_{dc}\\mathfrak{g}^{db} - \\Gamma^b_{dc}\\mathfrak{g}^{ad}",
+      "meaning": "Restatement of nabla_c gothic g^ab = 0; substituting it into (11.39) turns the first two terms into 2 L-bar_G.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": null,
+      "name": "L-bar as function of gothic variables",
+      "latex": "\\bar{\\mathcal{L}}_G = \\bar{\\mathcal{L}}_G(\\mathfrak{g}^{ab},\\mathfrak{g}^{ab}{}_{,c})",
+      "meaning": "Choice of dynamical variables for the first-order Lagrangian (the reading copy's OCR drops the comma).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.42)",
+      "name": null,
+      "latex": "\\frac{\\partial\\bar{\\mathcal{L}}_G}{\\partial\\mathfrak{g}^{ab}} = -\\Gamma^d_{ac}\\Gamma^c_{bd} + \\Gamma^c_{ab}\\Gamma^d_{cd}",
+      "meaning": "Partial derivative with respect to the undifferentiated variable (derived in Exercise 11.10(vi)).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.43)",
+      "name": null,
+      "latex": "\\frac{\\partial\\bar{\\mathcal{L}}_G}{\\partial\\mathfrak{g}^{ab}{}_{,c}} = -\\Gamma^c_{ab} + \\tfrac12\\delta^c_a\\Gamma^d_{bd} + \\tfrac12\\delta^c_b\\Gamma^d_{ad}",
+      "meaning": "Partial derivative with respect to first derivatives; symmetrized in a,b because gothic g^ab_,c is symmetric.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.44)",
+      "name": "Euler-Lagrange equations of L-bar",
+      "latex": "\\bar{\\mathcal{L}}_G^{ab} = \\frac{\\partial\\bar{\\mathcal{L}}_G}{\\partial\\mathfrak{g}^{ab}} - \\Big(\\frac{\\partial\\bar{\\mathcal{L}}_G}{\\partial\\mathfrak{g}^{ab}{}_{,c}}\\Big)_{,c} = 0",
+      "meaning": "Ordinary first-order Euler-Lagrange form.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.45)",
+      "name": null,
+      "latex": "\\bar{\\mathcal{L}}_G^{ab} = \\Gamma^c_{ab,c} - \\tfrac12\\Gamma^d_{bd,a} - \\tfrac12\\Gamma^d_{ad,b} + \\Gamma^c_{ab}\\Gamma^d_{cd} - \\Gamma^d_{ac}\\Gamma^c_{bd}",
+      "meaning": "Combining (11.42) and (11.43).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.46)",
+      "name": "Contracted connection as log-gradient",
+      "latex": "[\\ln\\sqrt{-g}]_{,a} = \\Gamma^d_{ad}",
+      "meaning": "Makes Gamma^d_ad,b symmetric in a and b.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": null,
+      "name": "Symmetry of contracted connection derivative",
+      "latex": "\\Gamma^d_{ad,b} = [\\ln\\sqrt{-g}]_{,ab} = [\\ln\\sqrt{-g}]_{,ba} = \\Gamma^d_{bd,a}",
+      "meaning": "Partial derivatives commute.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": null,
+      "name": "First-order Lagrangian gives Ricci",
+      "latex": "\\bar{\\mathcal{L}}_G^{ab} = \\Gamma^c_{ab,c} - \\Gamma^d_{ad,b} + \\Gamma^c_{ab}\\Gamma^d_{cd} - \\Gamma^d_{ac}\\Gamma^c_{bd} = R_{ab}",
+      "meaning": "With gothic g^ab as variables the field equations are R_ab = 0.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.6"
+      }
+    },
+    {
+      "label": "(11.47)",
+      "name": "Palatini Lagrangian",
+      "latex": "\\mathcal{L}_G = \\mathfrak{g}^{ab}R_{ab} = \\mathfrak{g}^{ab}(\\Gamma^c_{ab,c} - \\Gamma^d_{ad,b} + \\Gamma^c_{ab}\\Gamma^d_{cd} - \\Gamma^d_{ac}\\Gamma^c_{bd})",
+      "meaning": "Same Lagrangian, but Gamma is now an independent symmetric connection, so R_ab depends on Gamma alone.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.7"
+      }
+    },
+    {
+      "label": null,
+      "name": "Palatini metric variation",
+      "latex": "\\delta I = \\int_\\Omega\\delta\\mathfrak{g}^{ab}R_{ab}\\,\\mathrm{d}\\Omega",
+      "meaning": "Varying only the metric gives R_ab = 0 immediately.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    },
+    {
+      "label": null,
+      "name": "Palatini connection variation",
+      "latex": "\\delta I = \\int_\\Omega\\big[\\nabla_b\\mathfrak{g}^{ab}\\,\\delta\\Gamma^c_{ac} - \\nabla_c\\mathfrak{g}^{ab}\\,\\delta\\Gamma^c_{ab}\\big]\\mathrm{d}\\Omega = \\int_\\Omega(\\delta^b_c\\nabla_d\\mathfrak{g}^{ad} - \\nabla_c\\mathfrak{g}^{ab})\\,\\delta\\Gamma^c_{ab}\\,\\mathrm{d}\\Omega",
+      "meaning": "After using (11.4) and integrating by parts; the integrand must vanish, but the printed line omits '= 0'.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    },
+    {
+      "label": "(11.48)",
+      "name": "Palatini connection equation",
+      "latex": "\\tfrac12\\delta^b_c\\nabla_d\\mathfrak{g}^{ad} + \\tfrac12\\delta^a_c\\nabla_d\\mathfrak{g}^{bd} - \\nabla_c\\mathfrak{g}^{ab} = 0",
+      "meaning": "Only the part symmetric in a,b survives since delta Gamma^c_ab is symmetric; it implies nabla_c g_ab = 0.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    },
+    {
+      "label": null,
+      "name": "Metric connection",
+      "latex": "\\Gamma^a_{bc} = \\tfrac12 g^{ad}(g_{bd,c} + g_{cd,b} - g_{bc,d})",
+      "meaning": "The unique symmetric metric-compatible connection (Exercise 6.21).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    },
+    {
+      "label": "(11.49)",
+      "name": "Total action with matter",
+      "latex": "I = \\int_\\Omega(\\mathcal{L}_G + 2\\kappa\\mathcal{L}_M)\\,\\mathrm{d}\\Omega",
+      "meaning": "Gravity plus matter; factor 2 fixes the normalization of T^ab.",
+      "symbols": "kappa: coupling constant; L_M: matter Lagrangian",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "label": "(11.50)",
+      "name": null,
+      "latex": "\\frac{\\delta\\mathcal{L}_G}{\\delta g_{ab}} = -\\sqrt{-g}\\,G^{ab}",
+      "meaning": "Restates (11.27).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "label": "(11.51)",
+      "name": null,
+      "latex": "\\frac{\\delta\\mathcal{L}_M}{\\delta g_{ab}} = \\tfrac12\\sqrt{-g}\\,T^{ab}",
+      "meaning": "Metric variation of the matter Lagrangian, used as a definition.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "label": "(11.52)",
+      "name": "Variational energy-momentum tensor",
+      "latex": "T^{ab} = \\frac{2}{\\sqrt{-g}}\\frac{\\delta\\mathcal{L}_M}{\\delta g_{ab}}",
+      "meaning": "Defines the energy-momentum tensor of any matter fields from their Lagrangian; agrees with the canonical tensor in flat spacetime.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "label": "(11.53)",
+      "name": "Full field equations",
+      "latex": "G^{ab} = \\kappa T^{ab}",
+      "meaning": "Einstein's equations recovered from the action, matching (10.54).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "label": "Ex. 11.3",
+      "name": "Partial derivative of inverse metric",
+      "latex": "\\frac{\\partial g^{cd}}{\\partial g_{ab}} = -\\tfrac12(g^{ac}g^{bd} + g^{ad}g^{bc})",
+      "meaning": "Symmetrized partial-derivative version of (11.32).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 213,
+        "printed_page": 198,
+        "section": null
+      }
+    },
+    {
+      "label": "Ex. 11.6",
+      "name": "Variations of determinant quantities",
+      "latex": "g_{ab}\\delta g^{ab} = -g^{ab}\\delta g_{ab},\\quad \\delta g = g\\,g^{ab}\\delta g_{ab},\\quad \\delta\\sqrt{-g} = \\tfrac12\\sqrt{-g}\\,g^{ab}\\delta g_{ab}",
+      "meaning": "Toolkit for the indirect derivation.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 213,
+        "printed_page": 198,
+        "section": null
+      }
+    },
+    {
+      "label": "Ex. 11.7",
+      "name": "Euler-Lagrange derivatives for other variables",
+      "latex": "\\frac{\\delta\\mathcal{L}_G}{\\delta\\mathfrak{g}^{ab}} = R_{ab},\\quad \\frac{\\delta\\mathcal{L}_G}{\\delta\\mathfrak{g}_{ab}} = -R^{ab},\\quad \\frac{\\delta\\mathcal{L}_G}{\\delta g^{ab}} = \\sqrt{-g}\\,G_{ab}",
+      "meaning": "Different choices of variable give algebraically equivalent field equations.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 213,
+        "printed_page": 198,
+        "section": null
+      }
+    },
+    {
+      "label": "Ex. 11.13",
+      "name": "Scalar field Lagrangian and canonical tensor",
+      "latex": "L = -\\tfrac12 g^{cd}\\phi_{,c}\\phi_{,d} + V(\\phi),\\quad \\Theta^a{}_b := -\\frac{\\partial L}{\\partial(\\phi_{,a})}\\phi_{,b} + \\delta^a_b L,\\quad \\Theta_{00} = \\tfrac12(\\dot\\phi^2 + |\\nabla\\phi|^2) + V(\\phi)",
+      "meaning": "Flat-space check that the variational T_ab equals the canonical tensor; the sign of L is adapted to signature (+,-,-,-) and the book's action conventions.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 215,
+        "printed_page": 200,
+        "section": null
+      }
+    },
+    {
+      "label": "Ex. 11.14",
+      "name": "Variation of the metric connection",
+      "latex": "\\delta\\Gamma^a_{bc} = \\tfrac12 g^{ad}[\\nabla_c(\\delta g_{db}) + \\nabla_b(\\delta g_{dc}) - \\nabla_d(\\delta g_{bc})]",
+      "meaning": "Needed when matter Lagrangians contain covariant derivatives.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 215,
+        "printed_page": 200,
+        "section": null
+      }
+    }
+  ],
+  "figures": [],
+  "worked_examples": [
+    {
+      "label": "Inline derivation §11.1: Palatini identity",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      },
+      "problem": "Find the first-order change in the Riemann tensor when the connection is perturbed.",
+      "method": "Work at an arbitrary point in geodesic coordinates, where the curvature is the antisymmetrized derivative of Gamma; vary, swap partial for covariant derivatives at the point, then use the tensor character of delta Gamma and delta R to extend the equation to all charts and points; contract.",
+      "key_insight": "A calculation that looks coordinate dependent becomes a general identity once every object in it is shown to be a tensor.",
+      "result": "\\delta R^a{}_{bcd} = \\nabla_c(\\delta\\Gamma^a_{bd}) - \\nabla_d(\\delta\\Gamma^a_{bc}),\\ \\delta R_{bd} = \\nabla_a(\\delta\\Gamma^a_{bd}) - \\nabla_d(\\delta\\Gamma^a_{ba})",
+      "concepts": [
+        "Palatini identity",
+        "geodesic coordinates",
+        "variation of a connection"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Inline derivation §11.2: identities from coordinate invariance",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      },
+      "problem": "Show that for any metric Lagrangian that is a scalar density, the Euler-Lagrange tensor density obeys four differential identities.",
+      "method": "Induce delta g_ab by an infinitesimal coordinate change generated by X vanishing on the boundary; the action is unchanged; substitute the Lie-derivative formula, integrate by parts, convert the divergence of a weight +1 density to a surface integral that vanishes, and apply the arbitrariness of Omega and of X.",
+      "key_insight": "The identities follow from covariance alone and hold off-shell; for GR they are the contracted Bianchi identities, so ten field equations carry four built-in constraints.",
+      "result": "\\nabla_b\\mathcal{L}^{ab} \\equiv 0",
+      "concepts": [
+        "generalized Bianchi identity",
+        "diffeomorphism invariance of the action",
+        "divergence theorem for vector densities"
+      ],
+      "difficulty": "challenging"
+    },
+    {
+      "label": "Inline example §11.3: the Lagrangian sqrt(-g)",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      },
+      "problem": "Compute the field equations and identities for the Lagrangian consisting only of sqrt(-g).",
+      "method": "Differentiate the determinant using (7.8), apply the chain rule, and substitute into the general identity.",
+      "key_insight": "The machinery works but this Lagrangian alone is physically empty; it is a harmless consistency check of the identity.",
+      "result": "\\mathcal{L}^{ab} = \\tfrac12\\mathfrak{g}^{ab},\\ \\nabla_b\\mathfrak{g}^{ab} \\equiv 0",
+      "concepts": [
+        "volume Lagrangian sqrt(-g)",
+        "derivative of the metric determinant"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Inline calculation §11.4: brute-force Einstein Lagrangian",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      },
+      "problem": "Attempt the Euler-Lagrange derivative of sqrt(-g) R directly as a function of g_ab and its first and second derivatives.",
+      "method": "Expand R in Christoffel symbols and those in metric derivatives (11.24), write the second-order Euler-Lagrange expression (11.25), and compute the second-derivative coefficient (11.26); the remaining pieces are skipped and the final answer quoted.",
+      "key_insight": "Displaying the expansion makes the case for a smarter method; the one computed coefficient already hints that the equations will be only second order.",
+      "result": "\\delta\\mathcal{L}_G/\\delta g_{ab} = -\\sqrt{-g}\\,G^{ab}",
+      "concepts": [
+        "Einstein-Hilbert Lagrangian",
+        "Euler-Lagrange derivative with second derivatives"
+      ],
+      "difficulty": "challenging"
+    },
+    {
+      "label": "Inline derivation §11.5: variation of the inverse metric",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      },
+      "problem": "Express delta g^ab in terms of delta g_ab.",
+      "method": "Vary the identity g^ab g_bc = delta^a_c to first order using the product rule and multiply by g^cd.",
+      "key_insight": "Constants have zero variation; the inverse relation introduces a minus sign, just like the derivative of a matrix inverse.",
+      "result": "\\delta g^{ad} = -g^{ab}g^{cd}\\delta g_{bc}",
+      "concepts": [
+        "variation of the inverse metric",
+        "variation as a derivation"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Inline derivation §11.5: field equations by the indirect method",
+      "locator": {
+        "pdf_page": 208,
+        "printed_page": 193,
+        "section": "11.5"
+      },
+      "problem": "Derive the vacuum field equations from sqrt(-g) R without brute force.",
+      "method": "Write the action as gothic g^ab R_ab; product rule; replace delta R_ab by (11.4) and use nabla gothic g^ab = 0 to form a total divergence that becomes a boundary term; expand delta(sqrt(-g) g^ab) with (11.35) and (11.32); collect into the Einstein tensor.",
+      "key_insight": "The Palatini identity isolates all derivatives of the variation into a surface term, leaving an algebraic coefficient of delta g_ab.",
+      "result": "\\delta I = \\int_\\Omega[-\\sqrt{-g}\\,G^{ab}]\\delta g_{ab}\\,\\mathrm{d}\\Omega",
+      "concepts": [
+        "Einstein-Hilbert Lagrangian",
+        "contracted Palatini identity",
+        "boundary term in the Einstein-Hilbert variation",
+        "variation of sqrt(-g)"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Inline derivation §11.6: first-order Lagrangian",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      },
+      "problem": "Show sqrt(-g) R equals a first-order Lagrangian plus a divergence, and derive the field equations from the first-order Lagrangian.",
+      "method": "Split gothic g^ab R_ab into derivative-of-Gamma terms and quadratic terms; integrate by parts to generate Q^a_,a; use (11.41) to turn the remaining pieces into L-bar_G; then treat L-bar_G as a function of gothic g^ab and its first derivatives, compute (11.42)-(11.43), form the Euler-Lagrange expression and simplify with (11.46).",
+      "key_insight": "The apparent second derivatives in the Einstein Lagrangian sit entirely inside a total divergence, which is why the equations are second order.",
+      "result": "\\mathcal{L}_G = \\bar{\\mathcal{L}}_G + Q^a{}_{,a},\\ \\bar{\\mathcal{L}}_G^{ab} = R_{ab}",
+      "concepts": [
+        "Gamma-Gamma Lagrangian",
+        "total divergence ambiguity of a Lagrangian",
+        "second-order nature of the Einstein equations"
+      ],
+      "difficulty": "challenging"
+    },
+    {
+      "label": "Inline derivation §11.7: Palatini variation",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      },
+      "problem": "Vary gothic g^ab R_ab(Gamma) independently with respect to the metric and a symmetric connection.",
+      "method": "Metric variation gives R_ab = 0 immediately. For the connection, apply (11.4), integrate by parts, relabel to factor out delta Gamma^c_ab, symmetrize in a,b, and deduce successively that gothic g^ab, sqrt(-g), g^ab and g_ab are covariantly constant; Exercise 6.21 then fixes Gamma.",
+      "key_insight": "The Levi-Civita connection is an equation of motion of the first-order action rather than an assumption.",
+      "result": "\\tfrac12\\delta^b_c\\nabla_d\\mathfrak{g}^{ad} + \\tfrac12\\delta^a_c\\nabla_d\\mathfrak{g}^{bd} - \\nabla_c\\mathfrak{g}^{ab} = 0\\ \\Rightarrow\\ \\nabla_c g_{ab} = 0",
+      "concepts": [
+        "Palatini (metric-affine) variation",
+        "metric compatibility from the field equations"
+      ],
+      "difficulty": "challenging"
+    },
+    {
+      "label": "Inline derivation §11.8: coupling matter",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      },
+      "problem": "Obtain the full field equations from a combined gravitational and matter action.",
+      "method": "Vary the integral of L_G + 2 kappa L_M with respect to g_ab, define T^ab from the matter variation, and divide by sqrt(-g).",
+      "key_insight": "The energy-momentum tensor can be defined as the response of the matter action to a change of metric; the factor 2 makes it agree with the canonical tensor.",
+      "result": "G^{ab} = \\kappa T^{ab}",
+      "concepts": [
+        "variational (Hilbert) energy-momentum tensor",
+        "matter Lagrangian",
+        "full field equations"
+      ],
+      "difficulty": "standard"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "The variation symbol behaves like a derivative (linear, Leibniz rule), so delta g^ab mirrors the formula for differentiating an inverse matrix.",
+      "target_concept": "variation as a derivation",
+      "how_used": "The authors apply the product rule to g^ab g_bc = delta^a_c and explicitly ask the reader to compare the result with the partial-derivative relation (7.9).",
+      "limits": "Variation acts on the space of field configurations at fixed coordinates, not along a direction in spacetime; it commutes with partial derivatives but is not itself a derivative with respect to a coordinate.",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Matrix sandbox: learner perturbs a 4x4 symmetric metric with a small random symmetric matrix, and the app shows the exact change in the inverse and in sqrt(-g) beside the first-order predictions -g^-1 dg g^-1 and (1/2) sqrt(-g) tr(g^-1 dg), with the error shrinking quadratically as the perturbation slider is reduced."
+    },
+    {
+      "analogy": "A coordinate change as a 'variation' that cannot change anything physical",
+      "target_concept": "generalized Bianchi identity",
+      "how_used": "Relabelling points inside a region alters the numbers g_ab but not the action, so the Euler-Lagrange tensor must be orthogonal to every such change; this yields the identity without knowing L.",
+      "limits": "The argument needs the Lagrangian to be a true scalar density; it does not apply directly to the non-covariant Gamma-Gamma Lagrangian of §11.6.",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Show a 2D region with a coordinate grid and a metric-coloured field; the learner drags a bump vector field X (zero at the boundary) that warps the grid; component plots of g_ab change visibly while an 'action' readout stays fixed."
+    },
+    {
+      "analogy": "Proving an identity in a convenient frame, then promoting it: compute where the connection vanishes, then let tensor transformation carry the result everywhere",
+      "target_concept": "Palatini identity",
+      "how_used": "Geodesic coordinates kill the quadratic Gamma terms; since delta Gamma and delta R are tensors, the simplified equation is automatically general.",
+      "limits": "Works only for equations whose every term is a tensor; derivatives of the connection itself are not tensors and cannot be promoted.",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      },
+      "effectiveness": "strong",
+      "app_idea": "A two-panel proof card: left shows a general chart with all Gamma terms visible; toggling 'geodesic coordinates at P' greys out the Gamma terms and highlights which surviving objects are tensors, with a check mark lighting up for each before the 'valid everywhere' badge appears."
+    },
+    {
+      "analogy": "Adding a total time derivative to a mechanical Lagrangian does not change the equations of motion",
+      "target_concept": "total divergence ambiguity of a Lagrangian",
+      "how_used": "Exercise 11.9 reduces the field-theory statement L_G = L-bar_G + Q^a_,a to the familiar one-dimensional version with dQ/dx.",
+      "limits": "In field theory the boundary term can matter for the well-posedness of the variational problem and for energy definitions, even though bulk equations are unchanged.",
+      "locator": {
+        "pdf_page": 214,
+        "printed_page": 199,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": "Pendulum plotter: the learner types an extra function Q(theta, t); the app shows the Lagrangian curve change while the computed trajectory from the Euler-Lagrange equation stays identical."
+    },
+    {
+      "analogy": "Letting the action choose the connection, like letting a variational principle choose a path",
+      "target_concept": "Palatini (metric-affine) variation",
+      "how_used": "The Palatini approach treats the connection as another unknown field; the stationarity condition then selects the metric connection, just as stationarity selects the geodesic among trial curves.",
+      "limits": "Works cleanly only with a symmetric connection in more than two dimensions and with matter that does not couple to the connection independently.",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.7"
+      },
+      "effectiveness": "useful",
+      "app_idea": "On a curved 2-surface the learner blends the Levi-Civita connection with an added symmetric tensor C via a slider; the app parallel-transports a vector around a loop, shows its length drifting when C is not zero, and displays the residual of the connection equation which vanishes only at C = 0."
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "A Lagrangian containing second derivatives of the metric must give fourth-order field equations.",
+      "correction": "For sqrt(-g) R the second-derivative coefficient contains only undifferentiated metric, and the second derivatives can be packed into a total divergence, so the equations are second order.",
+      "why_tempting": "The generic Euler-Lagrange formula (11.25) contains a double divergence of a term that could itself contain second derivatives.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 208,
+        "printed_page": 193,
+        "section": "11.6"
+      },
+      "concepts": [
+        "second-order nature of the Einstein equations",
+        "Gamma-Gamma Lagrangian"
+      ]
+    },
+    {
+      "misconception": "The divergence identity nabla_b L^ab = 0 holds only for solutions of the field equations.",
+      "correction": "It holds identically for every metric, because it follows from invariance of the action under coordinate changes rather than from stationarity.",
+      "why_tempting": "Most results obtained from a variational principle are on-shell statements.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      },
+      "concepts": [
+        "generalized Bianchi identity",
+        "diffeomorphism invariance of the action"
+      ]
+    },
+    {
+      "misconception": "A valid gravitational Lagrangian must itself be a scalar density.",
+      "correction": "The first-order Gamma-Gamma Lagrangian is not a scalar density but gives exactly the same field equations, since it differs from sqrt(-g) R by a divergence. Covariance lives in the equations, not necessarily in every equivalent Lagrangian.",
+      "why_tempting": "§11.2 explicitly required a weight +1 scalar density to form an invariant action.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      },
+      "concepts": [
+        "Gamma-Gamma Lagrangian",
+        "total divergence ambiguity of a Lagrangian"
+      ]
+    },
+    {
+      "misconception": "The connection must be assumed to be the Christoffel connection before a gravitational action can be written.",
+      "correction": "In the Palatini approach the connection is an independent symmetric field and the connection field equation forces metric compatibility.",
+      "why_tempting": "Earlier chapters work exclusively with the metric connection once it is introduced.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      },
+      "concepts": [
+        "Palatini (metric-affine) variation",
+        "metric compatibility from the field equations"
+      ]
+    },
+    {
+      "misconception": "The variation of the inverse metric is obtained by simply raising the indices of delta g_ab.",
+      "correction": "Varying the inverse metric gives delta g^ab = -g^ac g^bd delta g_cd. So delta(g^ab) is minus the object you get by raising both indices of delta g_ab with the unvaried metric. Leaving out that minus sign is the usual slip.",
+      "why_tempting": "Index gymnastics with the metric normally raises indices without sign changes.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.5"
+      },
+      "concepts": [
+        "variation of the inverse metric"
+      ]
+    },
+    {
+      "misconception": "A connection variation is not a tensor because connections are not tensors.",
+      "correction": "The non-tensorial part of the transformation law is the same for both connections and cancels in the difference, so delta Gamma is a (1,2) tensor.",
+      "why_tempting": "Learners remember firmly that Gamma is not a tensor.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      },
+      "concepts": [
+        "variation of a connection"
+      ]
+    },
+    {
+      "misconception": "The energy-momentum tensor can only be built by guessing physically reasonable expressions.",
+      "correction": "Given a matter Lagrangian, T^ab is defined systematically by its metric variation, normalized with a factor 2 to match the canonical tensor.",
+      "why_tempting": "Chapter 12 first builds T_ab for dust and perfect fluids by physical reasoning. Only in §12.7-§12.8 do the authors contrast that ad hoc method with the variational route set up here.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      },
+      "concepts": [
+        "variational (Hilbert) energy-momentum tensor"
+      ]
+    },
+    {
+      "misconception": "The trivial Lagrangian sqrt(-g) is useless for physics.",
+      "correction": "On its own it gives impossible equations, but added to sqrt(-g) R with coefficient 2 Lambda it produces the cosmological term (used in DIV ch13 §13.3).",
+      "why_tempting": "§11.3 dismisses it as unable to serve as a physical theory.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      },
+      "concepts": [
+        "volume Lagrangian sqrt(-g)"
+      ]
+    },
+    {
+      "misconception": "Different choices of dynamical variable (g_ab, g^ab, gothic g^ab) give different theories.",
+      "correction": "They change the Euler-Lagrange expression by invertible algebraic factors (e.g. -sqrt(-g) G^ab versus R_ab versus sqrt(-g) G_ab), so the solution sets coincide.",
+      "why_tempting": "The resulting equations look different, e.g. G^ab = 0 versus R_ab = 0.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      },
+      "concepts": [
+        "choice of dynamical variables"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Shaking the coordinates inside a region",
+      "setup": "Imagine relabelling spacetime points inside a region by an infinitesimal vector field that is zero on the boundary, and treat the resulting change in metric components as a variation of the field.",
+      "lesson": "Since nothing physical changed, the action cannot change for any metric; this forces the Euler-Lagrange tensor to be divergence-free identically, explaining the Bianchi identity and the four redundancies in Einstein's equations.",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      },
+      "concepts": [
+        "diffeomorphism invariance of the action",
+        "generalized Bianchi identity"
+      ],
+      "visualizable": true,
+      "app_idea": "Animated grid warp inside a fixed boundary with a live readout of changed g_ab components and an unchanged action integral."
+    },
+    {
+      "name": "Pretend the connection is unknown",
+      "setup": "Write the gravitational action with the metric and an unrelated symmetric connection, and ask the variational principle to decide both.",
+      "lesson": "The connection equation leaves only the Levi-Civita connection, so metric compatibility can be seen as dynamics rather than definition.",
+      "locator": {
+        "pdf_page": 210,
+        "printed_page": 195,
+        "section": "11.7"
+      },
+      "concepts": [
+        "Palatini (metric-affine) variation",
+        "metric compatibility from the field equations"
+      ],
+      "visualizable": true,
+      "app_idea": "Connection slider on a sphere showing parallel transport with and without metric compatibility."
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "Attilio Palatini",
+        "Albert Einstein"
+      ],
+      "year": "1919",
+      "event": "Palatini's name is attached both to the formula for the variation of the Riemann tensor and to the method of varying metric and connection independently. Own historical note, not in the book: Palatini's 1919 paper gave the curvature-variation identity. The independent metric-affine variation was introduced by Einstein in 1925, so calling it 'the Palatini approach' is a historical misattribution.",
+      "significance": "Supplies the chapter's central tool and its most elegant derivation.",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "people": [
+        "Erwin Schrödinger"
+      ],
+      "year": "1950",
+      "event": "The authors state that their variational treatment follows Schrödinger's short book Space-time Structure.",
+      "significance": "Identifies the pedagogical lineage of the chapter's sequence (identities, indirect variation, first-order Lagrangian, Palatini).",
+      "locator": {
+        "pdf_page": 216,
+        "printed_page": 201,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "Arthur S. Eddington"
+      ],
+      "year": null,
+      "event": "Eddington considered a gravitational theory based on the square of the Riemann tensor, set here as Exercise 11.12.",
+      "significance": "An early example of an alternative, higher-curvature action treated with independent variables.",
+      "locator": {
+        "pdf_page": 215,
+        "printed_page": 200,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "David Hilbert",
+        "Albert Einstein"
+      ],
+      "year": "1915",
+      "event": "Hilbert obtained the field equations from a variational principle in the same year Einstein published them; this chapter calls sqrt(-g) R the Einstein Lagrangian and leaves the attribution to DIV ch13 §13.3.",
+      "significance": "Explains why the Lagrangian is commonly called Einstein-Hilbert in other texts.",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.4"
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Counting independent field equations (own estimate)",
+      "kind": "numerical-estimate",
+      "details": "In four dimensions the symmetric tensor L^ab has 10 components, and nabla_b L^ab = 0 imposes 4 differential relations among them. That leaves 6 independent equations, while the 4 coordinate freedoms account for the other 4 metric functions. Chapter 11 does not do this count; DIV ch13 §13.2 does it for G_ab = 0.",
+      "key_numbers": "10 components of g_ab; 4 identities; 4 coordinate functions; 6 genuinely dynamical equations (own count)",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "topic": "Size of the Palatini variational problem (own estimate)",
+      "kind": "numerical-estimate",
+      "details": "Treating a symmetric connection as independent in four dimensions adds 40 unknown functions to the 10 metric components; the connection equation (11.48) supplies 40 algebraic-differential conditions that fix all 40.",
+      "key_numbers": "40 components of symmetric Gamma^a_bc; 10 of g_ab; 50 equations total (own count)",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Asterisk over equals sign",
+      "convention": "An equation marked with a starred equals sign holds only in a particular coordinate system, here geodesic coordinates at P.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "item": "Riemann and Ricci index conventions",
+      "convention": "R^a_bcd = partial_c Gamma^a_bd - partial_d Gamma^a_bc + Gamma^e_bd Gamma^a_ec - Gamma^e_bc Gamma^a_ed (6.40); Ricci by contracting first and third indices, R_bd = R^a_bad.",
+      "notes": "With these conventions and signature (+,-,-,-) the action uses +sqrt(-g) R and the field equations read G^ab = kappa T^ab with positive kappa.",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "item": "Gothic (fraktur) letters",
+      "convention": "A gothic tensor means the tensor multiplied by sqrt(-g), a weight +1 density; e.g. gothic g^ab = sqrt(-g) g^ab.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.3"
+      }
+    },
+    {
+      "item": "Comma derivatives",
+      "convention": "g_ab,c = partial_c g_ab and g_ab,cd for second derivatives; partial L / partial g_ab,cd means differentiation with respect to the second-derivative variable.",
+      "notes": "In (11.43) and (11.44) the ', c' is typeset as a subscript under the superscript of gothic g^ab in the denominator. It means differentiation with respect to gothic g^ab_,c. The OCR reading copy prints it as a loose ', c'.",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "item": "Variational notation",
+      "convention": "delta X is a first-order variation; delta L / delta g_ab is the Euler-Lagrange derivative; an identically-equal sign marks results valid for all metrics.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    },
+    {
+      "item": "Subscripts on Lagrangians",
+      "convention": "L_G for the gravitational (Einstein) Lagrangian, L_M for matter, L-bar_G for the first-order equivalent Lagrangian.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.4"
+      }
+    },
+    {
+      "item": "Action normalization and energy-momentum tensor",
+      "convention": "I = integral of (L_G + 2 kappa L_M) dOmega and T^ab = (2/sqrt(-g)) delta L_M / delta g_ab; equivalently sqrt(-g) T_ab = -2 delta L_M / delta g^ab.",
+      "notes": "Some authors drop the 2 in both places, which leaves G^ab = kappa T^ab unchanged.",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "item": "Signature and sign of the scalar-field Lagrangian",
+      "convention": "With the book's signature (+,-,-,-) the scalar field Lagrangian in Exercise 11.13 is written -(1/2) g^cd phi_,c phi_,d + V(phi), and the canonical tensor carries a minus sign on its derivative term, so that Theta_00 is the positive energy density.",
+      "notes": "This is the overall negative of the usual particle-physics Lagrangian in the same signature; mixing sources can flip the sign of T_ab.",
+      "locator": {
+        "pdf_page": 215,
+        "printed_page": 200,
+        "section": null
+      }
+    },
+    {
+      "item": "Integration measure",
+      "convention": "dOmega denotes the coordinate volume element and dS_b the coordinate surface element; densities of weight +1 supply the sqrt(-g).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "The authors call the complete brute-force Euler-Lagrange calculation of sqrt(-g) R an exercise only for the utterly devoted reader.",
+      "type": "humor-or-aside",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "summary": "Integration-by-parts step of the identity derivation is flagged '(check)' for the reader to verify signs.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "summary": "Warning that the first-order Lagrangian L-bar_G, though equivalent, is not a scalar density.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "summary": "The authors note that other texts drop the 2 from both the action and the definition of T^ab. Because the two changes cancel, G^ab = kappa T^ab is unaffected.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "summary": "Further reading: Schrödinger's Space-time Structure (1950) as the basis of the approach, and Choquet-Bruhat, DeWitt-Morette and Dillard-Bleick (1977) as a more modern source.",
+      "type": "reference",
+      "locator": {
+        "pdf_page": 216,
+        "printed_page": 201,
+        "section": null
+      }
+    },
+    {
+      "summary": "Pages 193-195 carry blank ruled grids in the outer margin, apparently space for reader notes rather than content.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 14,
+    "pdf_pages": [
+      213,
+      214,
+      215
+    ],
+    "skills_practiced": [
+      "computing the Lie derivative of the metric under an infinitesimal coordinate change",
+      "partial differentiation of Lagrangians with respect to metric components and their derivatives",
+      "proving linearity and the product rule for variations",
+      "varying the inverse metric, the determinant and sqrt(-g)",
+      "changing dynamical variables and finding the corresponding differential identities",
+      "proving the fundamental lemma of the calculus of variations",
+      "showing Lagrangians differing by a total derivative give the same equations",
+      "deriving the first-order Gamma-Gamma Lagrangian and its partial derivatives",
+      "Palatini manipulation from the connection equation to metric compatibility",
+      "varying a quadratic curvature action with independent variables",
+      "building canonical and variational energy-momentum tensors for a scalar field",
+      "expressing delta Gamma covariantly in terms of delta g"
+    ],
+    "notable": [
+      {
+        "number": "11.1",
+        "summary": "Verify to first order the change in metric components produced by an infinitesimal coordinate shift, recovering the symmetrized covariant derivative of the generator.",
+        "skills": [
+          "Lie derivative",
+          "infinitesimal transformations"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Supplies the one quoted step in the central identity argument of §11.2 and links to Killing's equation.",
+        "pdf_page": 213
+      },
+      {
+        "number": "11.7",
+        "summary": "Recompute the variational derivative of the Einstein Lagrangian when the independent variables are gothic g^ab, gothic g_ab or g^ab, and state the identity each satisfies.",
+        "skills": [
+          "choice of dynamical variables",
+          "chain rule for variations",
+          "generalized Bianchi identity"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Shows concretely that different variable choices give algebraically equivalent equations with different-looking identities.",
+        "pdf_page": 213
+      },
+      {
+        "number": "11.8",
+        "summary": "Prove that a continuous function integrating to zero over every region vanishes, and that a vector contracted to zero with every covector is zero.",
+        "skills": [
+          "continuity argument",
+          "test functions"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Makes rigorous the two arbitrariness steps used repeatedly in the chapter.",
+        "pdf_page": 213
+      },
+      {
+        "number": "11.10",
+        "summary": "A six-part guided derivation establishing (11.41), (11.46) and (11.36), relating derivatives of gothic g^ab to the connection, and computing the partial derivatives of the first-order Lagrangian.",
+        "skills": [
+          "integration by parts",
+          "connection identities",
+          "variations of products"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Fills in all the skipped algebra of §11.6; note that parts (iii), (v) and (vi) contain misprints in the printed indices and a sign.",
+        "pdf_page": 214
+      },
+      {
+        "number": "11.11",
+        "summary": "Starting from the symmetrized Palatini connection equation, show step by step that the covariant derivatives of gothic g^ab, sqrt(-g), g^ab and g_ab vanish, and conclude that the connection is the Christoffel connection.",
+        "skills": [
+          "index contraction",
+          "determinants of densities",
+          "metric compatibility"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Completes the key claim of §11.7; a good place to discover the dimension dependence of the argument.",
+        "pdf_page": 214
+      },
+      {
+        "number": "11.12",
+        "summary": "Find the field equations of Eddington's Riemann-squared theory, treating the inverse metric and the Riemann tensor as independent variables.",
+        "skills": [
+          "variational calculus with independent fields",
+          "higher-curvature actions"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Only exercise that leaves Einstein's theory, testing whether the framework has been understood beyond one Lagrangian.",
+        "pdf_page": 215
+      },
+      {
+        "number": "11.13",
+        "summary": "For a scalar field with potential, compute the canonical energy-momentum tensor in flat spacetime, build the curved-spacetime Lagrangian by minimal coupling, derive the variational T_ab and check that the two agree in Minkowski space.",
+        "skills": [
+          "canonical energy-momentum tensor",
+          "minimal coupling",
+          "metric variation of a matter Lagrangian"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Justifies the factor 2 in (11.52) and previews Chapter 12; the printed index on Theta^c_a should be b.",
+        "pdf_page": 215
+      },
+      {
+        "number": "11.14",
+        "summary": "Use geodesic coordinates to show that the variation of the metric connection is a covariant combination of derivatives of the metric variation.",
+        "skills": [
+          "geodesic coordinates",
+          "variation of the connection"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Needed for matter Lagrangians with covariant derivatives and closes the loop with the method of §11.1.",
+        "pdf_page": 215
+      }
+    ],
+    "solutions": null
+  },
+  "difficulty": {
+    "math_level": 4,
+    "conceptual_level": 4,
+    "novice_friendliness": 2,
+    "notes": "Short but dense: nearly every line is an index manipulation with densities, variations and integration by parts, and many intermediate results are delegated to exercises. Conceptually the key ideas (off-shell identities from covariance, boundary terms, divergence ambiguity, connection as a dynamical field) are deep but stated tersely with almost no physical commentary. Readers need fluent command of Chapter 7 (densities, determinants, divergence theorem, Euler-Lagrange equations). Several misprints (a missing boundary symbol, a missing '= 0', exercise index errors) add friction."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "DIV ch06 §6.5",
+      "reason": "Riemann tensor definition (6.40) reduced in geodesic coordinates.",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch06 §6.6",
+      "reason": "Geodesic coordinates used to prove the Palatini identity.",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch06 §6.10",
+      "reason": "Metric compatibility (6.74) and Exercise 6.21, which closes the Palatini argument.",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch05",
+      "reason": "Principle that a tensor equation valid in one chart is valid in all.",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch07 §7.1",
+      "reason": "(7.3): covariant divergence of a weight +1 vector density is an ordinary divergence.",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch07 §7.3",
+      "reason": "Derivative of a determinant (7.8), (7.9) and nabla sqrt(-g) = 0 (7.12).",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch07 §7.4",
+      "reason": "Divergence theorem (7.19) used to discard boundary terms.",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch07 §7.5",
+      "reason": "Euler-Lagrange equations for fields (7.36), generalized here to second derivatives.",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch07 §7.7",
+      "reason": "Infinitesimal coordinate transformation (7.53) and the Lie-derivative calculation behind (11.13).",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch10 §10.8",
+      "reason": "The full field equations (10.54) obtained heuristically, now recovered from an action.",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch10 §10.4",
+      "reason": "Vacuum field equations first proposed from geodesic deviation.",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "DIV ch09",
+      "reason": "Minimal coupling principle invoked in Exercise 11.13.",
+      "locator": {
+        "pdf_page": 215,
+        "printed_page": 200,
+        "section": null
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "DIV ch12 §12.7",
+      "reason": "Maxwell energy-momentum tensor built from a first-order Lagrangian with potential and field strength varied independently, echoing the Palatini idea.",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "DIV ch12 §12.8",
+      "reason": "Scalar-field Lagrangian and variational energy-momentum tensors for other fields.",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "DIV ch13 §13.3",
+      "reason": "Cosmological term obtained by adding 2 Lambda sqrt(-g), using the result of §11.3; Hilbert's variational derivation mentioned.",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "DIV ch13 §13.4",
+      "reason": "Conservation equations and their relation to the contracted Bianchi identities.",
+      "locator": {
+        "pdf_page": 207,
+        "printed_page": 192,
+        "section": "11.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "DIV ch13 §13.2",
+      "reason": "Counts the vacuum equations: ten for ten unknowns, but tied together by the four contracted Bianchi identities, with four coordinate (gauge) conditions left free. This is the physical meaning of the identity derived in §11.2.",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "DIV ch21 §21.1",
+      "reason": "Linearized Einstein tensor obtained from a quadratic first-derivative Lagrangian, analogous to the Gamma-Gamma Lagrangian.",
+      "locator": {
+        "pdf_page": 209,
+        "printed_page": 194,
+        "section": "11.6"
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Schrödinger, Space-time Structure (Cambridge University Press, 1950)",
+      "reason": "Named as the basis of the chapter's approach.",
+      "locator": {
+        "pdf_page": 216,
+        "printed_page": 201,
+        "section": null
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Choquet-Bruhat, DeWitt-Morette and Dillard-Bleick, Analysis, Manifolds and Physics (North-Holland, 1977)",
+      "reason": "More modern mathematical treatment recommended.",
+      "locator": {
+        "pdf_page": 216,
+        "printed_page": 201,
+        "section": null
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "Derive the contracted Bianchi identity from nothing but coordinate invariance of an unspecified action, before choosing any Lagrangian.",
+      "why_effective": "It turns a mysterious curvature identity into an inevitable consequence of general covariance and explains in one stroke why Einstein's equations have built-in redundancy and why the source must be conserved.",
+      "locator": {
+        "pdf_page": 203,
+        "printed_page": 188,
+        "section": "11.2"
+      },
+      "app_idea": "Interactive 2D region: learner sketches a smooth bump vector field X inside a boundary; the app deforms the grid, plots delta g_ab = -(nabla_a X_b + nabla_b X_a) as a colour map, and steps through integration by parts with the boundary flux counter reading zero, ending at a highlighted nabla_b L^ab = 0."
+    },
+    {
+      "gem": "Prove the Palatini identity in two lines by computing in geodesic coordinates and then promoting via tensor character.",
+      "why_effective": "Models a reusable proof strategy and shows why tensoriality of the difference of connections matters.",
+      "locator": {
+        "pdf_page": 202,
+        "printed_page": 187,
+        "section": "11.1"
+      },
+      "app_idea": "Step-through derivation widget where each term carries a 'tensor?' badge; switching to geodesic coordinates hides Gamma terms, and the learner must mark every surviving object as tensorial before the 'holds in every chart' step unlocks."
+    },
+    {
+      "gem": "Warm up with the trivial Lagrangian sqrt(-g) to exercise the whole framework on a case whose answer is obvious.",
+      "why_effective": "Learners check the machinery (determinant derivative, Euler-Lagrange tensor, identity) without drowning in algebra, and the result later reappears as the cosmological constant.",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      },
+      "app_idea": "Lagrangian mixer: sliders for coefficients a and b in a sqrt(-g) + b sqrt(-g) R; the app displays the Euler-Lagrange tensor -b sqrt(-g) G^ab + (a/2) sqrt(-g) g^ab, and a toggle relabels it as the Einstein equation with cosmological constant Lambda = a/(2b)."
+    },
+    {
+      "gem": "Show the full brute-force expansion of sqrt(-g) R, then abandon it for the indirect method.",
+      "why_effective": "The visible explosion of terms makes the value of clever structure (product rule, Palatini identity, boundary terms) felt rather than asserted.",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      },
+      "app_idea": "An 'expand' button that recursively substitutes Christoffel symbols into sqrt(-g) R with a live term counter, side by side with the six-line indirect derivation that finishes first."
+    },
+    {
+      "gem": "Resolve the fourth-order puzzle by splitting off a total divergence to leave a Gamma-Gamma Lagrangian.",
+      "why_effective": "A concrete paradox gives the decomposition a purpose and teaches that Lagrangians are defined only up to boundary terms.",
+      "locator": {
+        "pdf_page": 208,
+        "printed_page": 193,
+        "section": "11.6"
+      },
+      "app_idea": "Colour-coded term tracker: terms of gothic g^ab R_ab are dragged into 'divergence' and 'first-order' bins during integration by parts, with a derivative-order meter that drops from 2 to 1 for the bulk Lagrangian."
+    },
+    {
+      "gem": "Let the action decide the connection (Palatini).",
+      "why_effective": "It reverses an assumption learners have taken for granted, showing that metric compatibility can be a field equation.",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      },
+      "app_idea": "On a sphere, the learner adds a symmetric distortion C to the Levi-Civita connection; transported vectors change length, the Palatini residual (11.48) is plotted, and the action's first variation with respect to C is shown to vanish only at C = 0."
+    },
+    {
+      "gem": "Define T^ab as the response of the matter action to a change of metric, with the factor 2 checked against the canonical tensor.",
+      "why_effective": "Gives a universal recipe for energy-momentum tensors and ties it back to flat-space intuition about energy density.",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      },
+      "app_idea": "Scalar-field playground in 1+1 dimensions: sliders for field time derivative, gradient and potential; the app computes the canonical Theta_00 and the metric-variation T_00 and shows they coincide, with a toggle that removes the factor 2 to show the mismatch."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "Printed text says the generating vector X^a vanishes 'on Omega' when discarding the surface term; the boundary of Omega is meant.",
+      "impact_on_learner": "Taken literally, X would vanish everywhere and the argument would be empty.",
+      "suggestion": "Read as 'vanishes on the boundary of Omega', consistent with the statement after (11.12).",
+      "locator": {
+        "pdf_page": 204,
+        "printed_page": 189,
+        "section": "11.2"
+      }
+    },
+    {
+      "issue": "In §11.7 the equation after 'the integrand must vanish' is printed without '= 0', and the step from vanishing integral to vanishing integrand needs the symmetry argument that follows.",
+      "impact_on_learner": "An expression with no equality can confuse which quantity is set to zero.",
+      "suggestion": "Write (delta^b_c nabla_d gothic g^ad - nabla_c gothic g^ab) delta Gamma^c_ab = 0 for all symmetric delta Gamma, then symmetrize.",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    },
+    {
+      "issue": "(11.26) is printed with a variational delta on the left, while Exercise 11.2 and §11.6 use the partial derivative for the same quantity.",
+      "impact_on_learner": "Confuses the Euler-Lagrange derivative with an ordinary partial derivative.",
+      "suggestion": "Use partial L_G / partial g_ab,cd.",
+      "locator": {
+        "pdf_page": 206,
+        "printed_page": 191,
+        "section": "11.4"
+      }
+    },
+    {
+      "issue": "The text after (11.34) cites (11.31), but the step substituting delta g^ab actually uses its solved form (11.32).",
+      "impact_on_learner": "Minor; a reader searching for the substitution may be puzzled.",
+      "suggestion": "Point to (11.32) and (11.35) explicitly.",
+      "locator": {
+        "pdf_page": 208,
+        "printed_page": 193,
+        "section": "11.5"
+      }
+    },
+    {
+      "issue": "Exercise 11.10 contains misprints: (iii) should read gothic g^ab_,b = -gothic g^bc Gamma^a_bc (contract (11.41) on b and c); in (v) delta Gamma^a_ac should be delta Gamma^c_ac; in (vi) the minus sign between the two Kronecker-delta terms inside the bracket should be a plus, otherwise the bracket is antisymmetric in a,b and disagrees with (11.43). Exercise 11.13 also writes Theta^c_a where Theta^c_b is meant.",
+      "impact_on_learner": "Students attempting the guided derivation will fail to reproduce the printed intermediate results.",
+      "suggestion": "Provide corrected statements in any tutor or app version; checking index balance catches (iii) immediately.",
+      "locator": {
+        "pdf_page": 214,
+        "printed_page": 199,
+        "section": null
+      }
+    },
+    {
+      "issue": "Discarding the boundary term in §11.5 requires delta Gamma, hence first derivatives of delta g_ab, to vanish on the boundary, not only delta g_ab; the chapter simply says variations vanish on the surface. The Gibbons-Hawking-York boundary term that makes the metric variational problem well posed is not mentioned.",
+      "impact_on_learner": "Readers may later meet the GHY term or the ADM action and not see why it is needed.",
+      "suggestion": "Add a short note: for fixed boundary metric only, a boundary term involving the extrinsic curvature must be added; the first-order Gamma-Gamma Lagrangian sidesteps this.",
+      "locator": {
+        "pdf_page": 208,
+        "printed_page": 193,
+        "section": "11.5"
+      }
+    },
+    {
+      "issue": "§11.4 simply asserts that sqrt(-g) R is the next simplest choice after sqrt(-g). It gives no argument that this choice is forced, and no mention of alternatives such as the curvature-squared Lagrangians that Exercise 11.12 hints at. (Own note.) The standard justification is Lovelock's theorem: in four dimensions, the only symmetric, divergence-free tensors built from the metric and its first two derivatives are combinations a G^ab + b g^ab.",
+      "impact_on_learner": "Learners may think the Einstein Lagrangian is simply the first thing to try, rather than essentially the only choice that gives second-order equations.",
+      "suggestion": "When presenting §11.4, state Lovelock's result: together with the §11.3 result it explains why the most general answer is R plus a cosmological constant.",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.4"
+      }
+    },
+    {
+      "issue": "In the Palatini section the metric variation is said to give R_ab = 0 before the connection is identified; for an arbitrary symmetric connection R_ab need not be symmetric, and only its symmetric part is constrained by varying the symmetric gothic g^ab.",
+      "impact_on_learner": "Could suggest the vacuum equations hold for any connection, or hide the logical order of the two variations.",
+      "suggestion": "Present the connection variation first, conclude Gamma is Christoffel, then note R_(ab) = 0 becomes the usual vacuum equations.",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    },
+    {
+      "issue": "The Palatini deduction from (11.48) to nabla sqrt(-g) = 0 uses the determinant of gothic g^ab, which equals -1 identically in two dimensions; the argument works in any dimension above two, but the book never flags this dependence. Non-symmetric connections (projective freedom, torsion) are excluded without comment.",
+      "impact_on_learner": "Advanced readers generalizing the method may be misled.",
+      "suggestion": "State the n > 2 and torsion-free assumptions explicitly; mention projective invariance for general connections as an aside.",
+      "locator": {
+        "pdf_page": 211,
+        "printed_page": 196,
+        "section": "11.7"
+      }
+    },
+    {
+      "issue": "Partial derivatives with respect to symmetric variables such as g_ab are used without discussing how off-diagonal components are counted; Exercise 11.3 quietly symmetrizes.",
+      "impact_on_learner": "Factor-of-2 errors in off-diagonal components when computing by hand or with computer algebra.",
+      "suggestion": "Adopt the convention that derivatives are symmetrized, or treat g_ab and g_ba as independent and symmetrize at the end.",
+      "locator": {
+        "pdf_page": 205,
+        "printed_page": 190,
+        "section": "11.3"
+      }
+    },
+    {
+      "issue": "Noether's theorem is not named, and there is no discussion of how the matter field equations plus diffeomorphism invariance of L_M imply nabla_b T^ab = 0.",
+      "impact_on_learner": "Misses the most important physical payoff of the identity: consistency of G^ab = kappa T^ab with matter conservation.",
+      "suggestion": "Apply the §11.2 argument to L_M alone, using the matter field equations to kill the matter-variation term, to obtain conservation of T^ab.",
+      "locator": {
+        "pdf_page": 212,
+        "printed_page": 197,
+        "section": "11.8"
+      }
+    },
+    {
+      "issue": "In the same signature, the scalar-field Lagrangian of Exercise 11.13 has the opposite overall sign to the usual particle-physics form. DIV ch12 (12.63) uses the same sign as the exercise, so the book is internally consistent. Chapter 11 never explains the overall sign choices behind (11.49).",
+      "impact_on_learner": "Learners combining this with other textbooks may obtain negative energy densities.",
+      "suggestion": "Check the sign by evaluating T_00 for a constant field: it must come out as +V(phi). For a general configuration it should be (1/2)(phi-dot^2 + |grad phi|^2) + V.",
+      "locator": {
+        "pdf_page": 215,
+        "printed_page": 200,
+        "section": null
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Check prerequisites first: can the learner vary a determinant, integrate a total divergence to a boundary term, and write the Euler-Lagrange equations for a field? If not, revisit DIV ch07 §7.3-§7.5 before starting.",
+    "Open with a motivating question: 'Chapter 10 guessed Einstein's equations. If all we know is that the action must be a scalar, what can we say about the field equations before we pick a Lagrangian?' Let the learner suspect there must be constraints.",
+    "Suggested order: Palatini identity (as a tool), action and Euler-Lagrange tensor, identity from coordinate invariance, sqrt(-g) warm-up, indirect derivation of G^ab, then the second-order puzzle, then Palatini, then matter coupling. The brute-force expansion (11.24) can be shown briefly for effect only.",
+    "When teaching the Palatini identity, have the learner say out loud why delta Gamma is a tensor; this is the step most often skipped and it is essential to the promotion argument.",
+    "For the identity derivation, stress 'identically': ask 'does this hold for a metric that does not solve the field equations?' A correct answer (yes) shows understanding of off-shell versus on-shell.",
+    "Check understanding with a small calculation: vary g^ab g_bc = delta^a_c and ask for delta g^ab; watch for the missing minus sign.",
+    "Ask the learner to predict the order of the field equations from (11.25) before revealing (11.26); then use the total-divergence split to resolve the tension.",
+    "Link §11.3 forward: ask what happens if one adds a small multiple of sqrt(-g) to sqrt(-g) R. The learner should find a term proportional to g^ab, i.e. the cosmological constant.",
+    "In the Palatini section, recommend doing the connection variation first to avoid the logical gap about R_ab of an unknown connection being symmetric.",
+    "Flag misprints proactively if the learner attempts Exercises 11.10 or 11.13 (see gaps list) so they do not lose confidence over unreachable printed results.",
+    "Common learner question: 'Why is the factor 2 in front of kappa L_M?' Answer: it normalizes T^ab so it matches the canonical energy-momentum tensor (energy density = kinetic + potential for a scalar field); dropping it in both the action and the definition changes nothing.",
+    "Common learner question: 'Why can we throw away boundary terms?' Explain the boundary conditions on the variation, and for advanced learners note that fixing only the boundary metric requires an added Gibbons-Hawking-York term.",
+    "Common learner question: 'Is Hilbert's derivation better than Einstein's?' DIV ch13 §13.3 answers that Hilbert got the same equations from a variational principle in the same year, but without the physical meaning Einstein gave them through the equivalence principle. Use this chapter to show the two routes support each other.",
+    "A good closing synthesis question: list three independent facts the variational approach explains that the heuristic route of Chapter 10 did not (Bianchi identity from covariance, second-order equations, metric connection as output, systematic T^ab)."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Concept 'vacuum field equations': G^ab = 0 is equivalent to R_ab = 0 in every dimension except two, not only in four; definition corrected.",
+      "Concept 'metric compatibility from the field equations': 'only in four dimensions' changed to 'any dimension above two'. The argument fails only for n = 2, where det of gothic g^ab is identically -1.",
+      "Concept 'Eddington quadratic Lagrangian': the unsupported claim about higher-order equations was moved out of the definition and into notes, labelled as my own remark.",
+      "Misconception about the variational T^ab: explicit_in_book changed from true to false, since ch11 never states it. why_tempting now points to the ch12 §12.8 contrast of the two methods.",
+      "Misconception about delta g^ab: the muddled correction ('not the inverse metric applied ... in the naive sense') replaced with the exact statement: minus delta g_ab with both indices raised.",
+      "Scalar-field sign gap: the suggested test ('T_00 = +V for a static configuration') was wrong because gradient energy contributes; it now uses a constant field. Also noted that DIV (12.63) uses the same sign.",
+      "Added a gap: §11.4 asserts sqrt(-g) R is the next simplest Lagrangian without justification; noted Lovelock's theorem as the real reason (own note).",
+      "Palatini historical note: added the standard correction that the metric-affine ('Palatini') variation is due to Einstein (1925). Palatini (1919) supplied the identity for delta R.",
+      "Forward cross-reference 'DIV ch14 (degree-of-freedom counting)' retargeted to DIV ch13 §13.2. That section is where the book actually counts 10 equations, 4 Bianchi constraints and 4 gauge conditions.",
+      "Comma-notation note: the claim that the comma 'sits outside the gothic symbol' was corrected against the pdf 210 render (it is a subscript beneath the superscript).",
+      "Reworded a margin-note summary that repeated the source's phrasing word for word.",
+      "Tutor note on Hilbert now matches what DIV ch13 §13.3 actually says (physical meaning via the equivalence principle); the Newtonian-limit claim, which the book does not make there, was removed."
+    ],
+    "residual_concerns": [
+      "Several entries rest on outside knowledge rather than the book, and each is labelled as such: the Einstein-1925 attribution of the metric-affine method, Lovelock's theorem, the Gibbons-Hawking-York boundary term, and the two counting estimates.",
+      "Exercise misprints (11.10 iii, v, vi; 11.13 Theta^c_a) were checked against the pdf 214-215 renders and by working the index algebra. The corrected forms are in gaps_and_pitfalls, but no corrected exercise statements are given.",
+      "The blank note grids in the margins of pp.193-195 are kept as a margin note, though they carry no content."
+    ],
+    "coverage": {
+      "toc_sections": 8,
+      "sections": 8,
+      "inventory_figures": 0,
+      "figures": 0,
+      "inventory_examples": 0,
+      "worked_examples": 9,
+      "concepts": 43,
+      "key_equations": 72,
+      "locators_checked": 236,
+      "locators_wrong": 0,
+      "pages_rendered": 10
+    }
+  }
+}

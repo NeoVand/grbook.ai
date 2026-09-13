@@ -1,0 +1,3881 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch35",
+ "title": "Riemann curvature revisited",
+ "part": "V: Geometry",
+ "printed_pages": [
+  363,
+  373
+ ],
+ "pdf_pages": [
+  380,
+  390
+ ],
+ "one_line_summary": "Rederives geodesic deviation coordinate-free from Lie dragging and torsion-free symmetry, packages curvature as the operator R(a,b) = [nabla_a, nabla_b] - nabla_[a,b], checks it against the Chapter 11 connection formula, obtains the same operator a second way from loop parallel transport, builds Riemann normal coordinates, counts the 20 independent components, and splits curvature into a volume-focusing Ricci part and a shape-distorting Weyl part illustrated by Penrose's transparent Sun.",
+ "role_in_book": "Fifth chapter of Part V, where the book returns to its geometric toolkit with more rigour. Chapter 11 introduced the Riemann tensor by a messy component calculation and merely quoted the geodesic deviation equation and the component count; Chapters 33 (Lie derivative, commutators) and 34 (connection, torsion, covariant derivative in pictures) now supply the index-free tools to derive both properly. The chapter's main product, the curvature operator written as a commutator of covariant derivatives, is the entry point for Chapter 36, where Cartan's method turns it into an efficient recipe for computing curvature from a metric. Its Ricci/Weyl split and volume-focusing argument are later reused in Chapter 43 (Weyl tensor and the Bianchi identity), Chapter 46 (geodesic deviation for gravitational waves) and Chapter 50 (Raychaudhuri equation and the Big-Bang singularity).",
+ "assumed_background": [
+  {
+   "topic": "Riemann tensor components from connection coefficients, its symmetries and the Ricci contraction",
+   "source": "earlier-in-this-book",
+   "where": "GA ch11 §11.3-11.5"
+  },
+  {
+   "topic": "Geodesic deviation stated in a freely falling frame and the Newtonian tidal tensor",
+   "source": "earlier-in-this-book",
+   "where": "GA ch11 §11.2, §11.7"
+  },
+  {
+   "topic": "Lie derivative of a vector, Lie dragging along a congruence, commutator (Lie bracket) of vector fields",
+   "source": "earlier-in-this-book",
+   "where": "GA ch33 §33.2-33.3"
+  },
+  {
+   "topic": "Covariant derivative in index-free form, connection coefficients via dual basis, torsion and the torsion-free symmetry nabla_u v - nabla_v u = [u,v]",
+   "source": "earlier-in-this-book",
+   "where": "GA ch34 §34.1-34.3"
+  },
+  {
+   "topic": "Metric compatibility identity for derivatives of g (Exercise 34.2)",
+   "source": "earlier-in-this-book",
+   "where": "GA ch34 exercises"
+  },
+  {
+   "topic": "Geodesics, affine parameters and the geodesic equation nabla_u u = 0",
+   "source": "earlier-in-this-book",
+   "where": "GA ch8-ch9"
+  },
+  {
+   "topic": "Local inertial and orthonormal freely falling frames; local flatness",
+   "source": "earlier-in-this-book",
+   "where": "GA ch6 §6.4, ch10 §10.3-10.4"
+  },
+  {
+   "topic": "Vectors as derivative operators, basis vectors and dual basis 1-forms, tensors as slot machines",
+   "source": "earlier-in-this-book",
+   "where": "GA ch4, ch31"
+  },
+  {
+   "topic": "Einstein field equation and the Einstein tensor",
+   "source": "earlier-in-this-book",
+   "where": "GA ch13"
+  },
+  {
+   "topic": "Comma-goes-to-semicolon rule of general covariance",
+   "source": "earlier-in-this-book",
+   "where": "GA ch12 §12.4"
+  },
+  {
+   "topic": "Robertson-Walker spacetimes and black-hole singularities (for the Weyl curvature remarks)",
+   "source": "earlier-in-this-book",
+   "where": "GA ch16, ch26"
+  },
+  {
+   "topic": "Newtonian gravitational potential and Taylor expansion of its gradient",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Eigenvectors, eigenvalues and trace of a matrix; symmetric matrices",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Binomial coefficients and counting combinations",
+   "source": "school-math",
+   "where": null
+  },
+  {
+   "topic": "Thin lenses: converging and astigmatic lenses",
+   "source": "other",
+   "where": "introductory optics"
+  }
+ ],
+ "learning_objectives": [
+  "Reader can explain why only the relative acceleration of two freely falling particles, not a felt force, reveals spacetime curvature.",
+  "Reader can define the connecting vector n of a geodesic congruence and justify the condition that its Lie derivative along u vanishes.",
+  "Reader can combine Lie dragging with torsion-free symmetry to show nabla_u n = nabla_n u.",
+  "Reader can derive the geodesic deviation equation by differentiating nabla_u u = 0 along n and commuting covariant derivatives.",
+  "Reader can state the Riemann curvature operator R(a,b) = [nabla_a, nabla_b] - nabla_[a,b], explain why the Lie-bracket correction is needed, and say when it drops out.",
+  "Reader can extract R^alpha_{beta gamma delta} from the operator with dual basis 1-forms and reproduce the Chapter 11 formula in terms of Gamma and its derivatives.",
+  "Reader can write the commutator of covariant derivatives on vector components, c^alpha_{;nu mu} - c^alpha_{;mu nu} = R^alpha_{beta mu nu} c^beta, with the book's derivative ordering.",
+  "Reader can construct Riemann normal coordinates from geodesics sent out of a point and quote the metric expansion g = eta - (1/3) R zeta zeta + O(zeta^3).",
+  "Reader can obtain the curvature operator a second way, from the change of a vector carried around a small closed loop, and explain why curvature forbids a globally parallel Cartesian grid.",
+  "Reader can count independent Riemann components, n^2(n^2-1)/12, and evaluate it for n = 2, 3, 4.",
+  "Reader can describe the Ricci/Weyl split (10 + 10 components in 4D), write the Weyl tensor, and state which part survives in vacuum.",
+  "Reader can explain, using Penrose's transparent Sun, how Ricci curvature magnifies light bundles and Weyl curvature shears them into ellipses.",
+  "Reader can show that the trace of the tidal matrix K = -R(.,u,.,u) is -R_{mu nu}u^mu u^nu and connect it to the second derivative of a small volume."
+ ],
+ "teaching_approach": {
+  "summary": "A compact, derivation-led return visit. The authors open with a physical puzzle (is the force in my bunk gravity or acceleration?), announce that relative acceleration of free particles is the decisive test, write down the answer, and then earn it twice: first by a Newtonian warm-up whose steps deliberately shadow the relativistic proof, then by an index-free derivation using only the Lie derivative and torsion-free covariant derivative from Chapters 33-34. The result is immediately repackaged as an operator, tested against the Chapter 11 component formula, and rederived by a completely different route (a loop of covariant derivatives). The second half turns interpretive: normal coordinates, a counting argument, and an optics picture that separates the focusing Ricci part of curvature from the distorting Weyl part. Heavy proofs (normal-coordinate metric, component identities) are pushed into exercises, and extensive side remarks live in margin notes.",
+  "style_tags": [
+   "spiral-revisit",
+   "derivation-heavy",
+   "index-free-abstract",
+   "geometric-first",
+   "physical-motivation-first",
+   "thought-experiment",
+   "example-driven",
+   "analogy-driven",
+   "conversational-informal"
+  ],
+  "narrative_arc": [
+   "Epigraph from Weyl: Riemann's geometry was first polished by mathematicians and only given its physical meaning by Einstein decades later. Then a puzzle: you wake aboard a space station pinned to your bunk and must decide whether gravity or acceleration is responsible.",
+   "Answer: release two free particles on parallel paths and watch their relative acceleration; this geodesic deviation experiment is the genuine test of curvature and gives access to the Riemann tensor.",
+   "Recast the Riemann tensor as a (1,3) slot machine: feed u, n, u into the last three slots and it returns the relative acceleration vector.",
+   "Set up the geometry (Fig. 35.1): a congruence of geodesics labelled by n and parametrized by lambda, the connecting vector n = d/dn, and the requirement that n is Lie dragged along u.",
+   "State the destination first: D^2 n/dlambda^2 + R( ,u,n,u) = 0 and its component form.",
+   "Newtonian warm-up (Example 35.1): swap the order of d/dn and time derivatives, substitute Newton's law, apply the chain rule, and read off a tidal tensor built from second derivatives of Phi.",
+   "Geometric derivation: Lie dragging plus torsion-free symmetry gives nabla_u n = nabla_n u; differentiate the geodesic equation along n and commute derivatives (Example 35.2).",
+   "Repair: the bare commutator is insufficient for general vector fields because loops need not close; subtract nabla_[a,b] to define the Riemann curvature operator, note the component commutator identity, and restate deviation in operator form. Emphasize that curvature is a double covariant derivative.",
+   "Check (Example 35.3): insert coordinate basis vectors into the operator and recover exactly the Chapter 11 expression in Gamma and its derivatives.",
+   "Application (Example 35.4): Riemann normal coordinates, built first from straight rays in the plane with the concrete point (2,1), then from geodesics in curved spacetime; quote the metric expansion showing a local inertial frame.",
+   "Second route (Example 35.5): carry a vector around a small five-sided loop (Fig. 35.3) using covariant derivatives and recover the same operator.",
+   "Conceptual payoff: parallel transport cannot be used to lay down a global Cartesian grid, which is another way of saying what curvature is.",
+   "Counting (Example 35.6): pair symmetries treated as a symmetric matrix of antisymmetric pairs, minus cyclic constraints, gives n^2(n^2-1)/12, i.e. 20 in four dimensions.",
+   "Interpretation (§35.4): Ricci carries 10 components and shrinks volumes, vanishing in vacuum; the remaining 10 form the Weyl tensor, which survives in vacuum and distorts. Margin notes add constant curvature, Ricci flatness, conformal flatness and the Weyl curvature hypothesis.",
+   "Optics picture (Example 35.7, Fig. 35.4): Penrose's transparent Sun magnifies star images seen through it (Ricci, like a converging lens) and squeezes images seen past its rim into ellipses (Weyl, like an astigmatic lens).",
+   "Mathematical version (Example 35.8): the tidal matrix K from the deviation equation; its trace is the Ricci contraction, which controls the second derivative of a small volume, while its full action turns a sphere into an ellipsoid.",
+   "Hand-off: curvature comes from the metric, and the next chapter gives the efficient way to compute it."
+  ],
+  "signature_moves": [
+   "Newtonian shadow derivation: every step of the Newtonian tidal calculation (commuting the n and t derivatives, then a chain rule) has a direct counterpart (Lie dragging, then a commutator of covariant derivatives) in the relativistic proof.",
+   "Destination-first presentation: the geodesic deviation equation is boxed before it is derived, so the derivation reads as a verification.",
+   "Two independent routes to one object: geodesic deviation and loop parallel transport both produce [nabla_u, nabla_v] - nabla_[u,v], reinforcing that curvature means non-commuting covariant derivatives.",
+   "Backward consistency check: the new operator is required to reproduce the old Chapter 11 component formula, reassuring the reader that the geometric and component definitions agree.",
+   "Flat-space rehearsal with numbers before the curved-space construction (rays from the origin and the point (2,1) before Riemann normal coordinates).",
+   "Defining curvature by what it prevents: no single-valued parallel-transported grid exists in curved spacetime.",
+   "Optical analogy from Penrose: a converging lens for Ricci focusing versus an astigmatic lens for Weyl shear, visualized with a transparent, non-refracting Sun.",
+   "Trace-as-volume argument: the Ricci tensor is motivated as the trace of the tidal matrix, which governs how a small volume changes.",
+   "Proofs of technical results (normal-coordinate metric, component commutator) delegated to multi-part guided exercises."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Chapter opening: gravity or acceleration?",
+   "printed_page": 363,
+   "pdf_page": 380,
+   "summary": "Weyl's epigraph frames general relativity as the physical fulfilment of Riemann's geometry. A wake-up scenario in a space station asks how to tell a real gravitational field from acceleration; the proposed test is to release two free particles on parallel paths and measure their relative acceleration, which probes the Riemann tensor. The chapter promises a geometric route to R using Lie and covariant derivatives, ending in an operator equation useful for computation.",
+   "concepts": [
+    "tidal test of spacetime curvature",
+    "geodesic deviation equation",
+    "Riemann curvature tensor"
+   ],
+   "key_moves": [
+    "Pose the insider problem of distinguishing gravity from acceleration.",
+    "Identify relative acceleration of free particles as the curvature-sensitive observable.",
+    "Announce the tools (Lie and covariant derivatives) and the goal (an operator form of curvature)."
+   ]
+  },
+  {
+   "number": "35.1",
+   "title": "Geodesic deviation (slight return)",
+   "printed_page": 363,
+   "pdf_page": 380,
+   "summary": "Treats the Riemann tensor as a machine that turns (u, n, u) into a relative-acceleration vector. A congruence of geodesics is labelled by n and parametrized by lambda; the connecting vector n = d/dn must be Lie dragged along u. After stating the deviation equation, a Newtonian example derives a tidal tensor from second derivatives of the potential. The relativistic derivation then uses [u,n] = 0 and torsion-free symmetry to get nabla_u n = nabla_n u, differentiates the geodesic equation along n, and commutes derivatives. Because arbitrary vectors need not form closed loops, the commutator is upgraded by subtracting nabla along the Lie bracket, giving the Riemann curvature operator, its component identity, and the deviation equation rewritten in operator form.",
+   "concepts": [
+    "geodesic deviation equation",
+    "connecting vector of a geodesic congruence",
+    "congruence of curves",
+    "Lie dragging",
+    "torsion-free connection symmetry",
+    "Newtonian tidal tensor",
+    "Lie bracket as loop-closure failure",
+    "Riemann curvature operator",
+    "commutator of covariant derivatives on vector components",
+    "second covariant derivative ordering convention",
+    "covariant derivative along a curve",
+    "geodesic equation (coordinate-free)",
+    "affine parameter"
+   ],
+   "key_moves": [
+    "Label neighbouring geodesics n, n+dn, n+2dn and define n = d/dn as the separation vector (Fig. 35.1).",
+    "Argue that a connector that keeps joining the same two particles has zero Lie derivative along u, even though n itself may change.",
+    "Newtonian: d/dn and d^2/dt^2 commute, substitute Newton's law, apply the chain rule to get n-ddot^k + R^k_j n^j = 0 with R^k_j = eta^{ik} d^2 Phi/dx^j dx^i.",
+    "Relativistic: [u,n] = 0 plus zero torsion gives nabla_u n = nabla_n u.",
+    "Apply nabla_n to nabla_u u = 0, insert the commutator, use the symmetry to arrive at nabla_u nabla_u n + [nabla_n, nabla_u] u = 0.",
+    "Explain that for general a, b the two-leg paths a-then-b and b-then-a miss each other by [a,b], so the operator must be [nabla_a, nabla_b] - nabla_[a,b]; the correction vanishes for coordinate basis vectors.",
+    "Define R( , c, a, b) = R-hat(a,b) c and quote the component identity [nabla_mu, nabla_nu] c^alpha = R^alpha_{beta mu nu} c^beta.",
+    "Rewrite deviation as nabla_u nabla_u n + R-hat(n,u) u = 0 and stress that curvature is a double covariant derivative."
+   ]
+  },
+  {
+   "number": "35.2",
+   "title": "Components of the curvature tensor",
+   "printed_page": 366,
+   "pdf_page": 383,
+   "summary": "Components follow by feeding a dual basis 1-form and three basis vectors into R, equivalently pairing omega^alpha with R-hat(e_gamma, e_delta) e_beta. In a coordinate basis the bracket term drops; expanding nabla_gamma nabla_delta e_beta with nabla_mu e_nu = Gamma^alpha_{mu nu} e_alpha and the product rule reproduces the Chapter 11 formula, confirming the geometric and component definitions agree. The deviation machinery is then used to introduce Riemann normal coordinates: rehearsed in the flat plane with rays from the origin (the point (2,1) reached along the unit direction (2,1)/sqrt 5 at lambda = sqrt 5), then generalized to geodesics leaving a point in curved spacetime. The resulting metric has no linear term and a quadratic Riemann correction, so the coordinates realize a local inertial frame.",
+   "concepts": [
+    "component extraction with dual basis 1-forms",
+    "Riemann components in terms of connection coefficients",
+    "connection coefficients",
+    "coordinate basis",
+    "Riemann normal coordinates",
+    "metric expansion in Riemann normal coordinates",
+    "local inertial frame"
+   ],
+   "key_moves": [
+    "R^alpha_{beta gamma delta} = <omega^alpha, R-hat(e_gamma, e_delta) e_beta>.",
+    "Coordinate basis: [e_gamma, e_delta] = 0 so R-hat(e_gamma, e_delta) = [nabla_gamma, nabla_delta].",
+    "Expand nabla_alpha(Gamma^sigma_{beta nu} e_sigma) with the Leibniz rule, treating Gamma as scalar functions whose covariant derivative is a partial derivative.",
+    "Antisymmetrize in gamma, delta and project with omega^alpha to recover eqn 35.20 (identical to Chapter 11).",
+    "Flat rehearsal: coordinates of a point are lambda times the components of the unit direction reaching it.",
+    "Curved generalization: zeta^alpha = lambda u^alpha along geodesics from the origin; metric eta - (1/3)R zeta zeta, first derivatives of g vanish at the origin, hence Gamma = 0 there."
+   ]
+  },
+  {
+   "number": "35.3",
+   "title": "Parallel transport again",
+   "printed_page": 368,
+   "pdf_page": 385,
+   "summary": "Revisits the Chapter 11 loop argument without components. A covariant derivative along an edge compares the field at the two ends after correcting for basis change; around a closed loop the single-valued field contributes nothing, leaving only the parallel-transport correction. Summing covariant derivatives along the edges of a small loop that includes a closing segment along -[u,v] (Fig. 35.3), and pairing opposite edges displaced by u delta a or v delta b, yields -delta A = ([nabla_u, nabla_v] - nabla_[u,v]) A delta a delta b, the same curvature operator as before. The section then observes that parallel transport cannot create a single-valued global grid in curved spacetime, and counts independent Riemann components: pair symmetries give M(M+1)/2 with M = n(n-1)/2, cyclic constraints remove C(n,4), leaving n^2(n^2-1)/12, which is 20 in four dimensions.",
+   "concepts": [
+    "holonomy of parallel transport around a closed loop",
+    "Riemann curvature operator",
+    "path dependence of parallel transport (no global Cartesian grid)",
+    "symmetries of the Riemann tensor",
+    "cyclic identity",
+    "number of independent Riemann components"
+   ],
+   "key_moves": [
+    "Covariant derivative along a closed loop returns minus the parallel-transport change because the field itself is single-valued.",
+    "List edge contributions: plus and minus nabla_v A delta b, minus and plus nabla_u A delta a, and minus nabla_[u,v] A delta a delta b for the closing gap.",
+    "Opposite edges differ by a displacement, so their difference is a second covariant derivative times delta a delta b.",
+    "Collect terms to get the curvature operator (eqn 35.29), identical to §35.1.",
+    "Orthogonal vectors stay orthogonal under transport, but the transported field is multivalued around loops, so no global Cartesian grid.",
+    "Count: antisymmetric pairs give M choices each; pair exchange symmetry gives M(M+1)/2; cyclic identity only adds constraints when all four indices differ, removing n!/((n-4)!4!); result n^2(n^2-1)/12."
+   ]
+  },
+  {
+   "number": "35.4",
+   "title": "The meaning of the Ricci tensor",
+   "printed_page": 370,
+   "pdf_page": 387,
+   "summary": "Ricci is the one non-trivial contraction of Riemann; in 4D it carries 10 of the 20 components and represents the curvature that makes volumes of matter shrink, vanishing in empty space by Einstein's equation. Removing it leaves the Weyl tensor (eqn 35.36), the other 10 components, which generally survives in vacuum and distorts shapes. Margin notes cover constant curvature, Ricci flatness (Ricci as an average of Riemann), conformal invariance of Weyl, conformal flatness of Minkowski and Robertson-Walker spacetimes, the growth of Weyl curvature as matter clumps, and the Weyl curvature hypothesis. For light, the Ricci part acts like a converging lens and the Weyl part like an astigmatic lens, pictured with Penrose's transparent Sun. Finally the deviation equation is written with a tidal matrix K whose trace is minus the Ricci contraction with u twice; this governs how a small volume evolves, while K as a whole turns a small sphere into an ellipsoid.",
+   "concepts": [
+    "Ricci tensor",
+    "Ricci-flat spacetime",
+    "constant-curvature spacetime",
+    "Weyl curvature tensor",
+    "conformal flatness",
+    "Weyl curvature hypothesis",
+    "trace-free Ricci tensor",
+    "Ricci focusing versus Weyl shear of light bundles",
+    "tidal matrix of geodesic deviation",
+    "volume evolution from the Ricci tensor",
+    "vacuum Einstein equation"
+   ],
+   "key_moves": [
+    "Split 20 Riemann components into 10 Ricci plus 10 Weyl in four dimensions.",
+    "Ricci: vanishes in vacuum, shrinks volumes; Weyl: survives in vacuum, distorts.",
+    "Weyl tensor = Riemann minus Ricci and scalar pieces built with the metric (eqn 35.36).",
+    "Compare the two on null geodesics to avoid timelike subtleties: Ricci focuses like a lens, Weyl focuses in one plane and defocuses in the perpendicular one.",
+    "Transparent Sun: rays through the body see mostly Ricci (magnified round images), rays passing outside see only Weyl (elliptical images).",
+    "Tidal matrix K = -R( . , u, . , u), i.e. Riemann with the 4-velocity in slots two and four; separations along its eigenvectors are only rescaled; its trace is minus the Ricci tensor fed u twice.",
+    "For a product of eigen-lengths the trace governs the volume (footnote 14), so D^2 delta V/dlambda^2 = -R_{nu beta} u^nu u^beta delta V.",
+    "Full K deforms a small sphere of free particles into an ellipsoid."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Chapter summary and exercises",
+   "printed_page": 372,
+   "pdf_page": 389,
+   "summary": "The three-point summary restates the Lie-dragging route to geodesic deviation, the curvature operator, and the Ricci-focusing/Weyl-distorting split. Six exercises follow: component forms of nabla along a bracket and of the commutator identity (including its contracted Ricci version), the comma-to-semicolon ambiguity in a Maxwell-like equation, a guided eight-part derivation of the metric in Riemann normal coordinates, and two abstract-basis curvature computations.",
+   "concepts": [
+    "Riemann curvature operator",
+    "commutator of covariant derivatives on vector components",
+    "comma-goes-to-semicolon ambiguity",
+    "Riemann normal coordinates",
+    "metric expansion in Riemann normal coordinates"
+   ],
+   "key_moves": [
+    "Summary equation 35.42 restates the curvature operator.",
+    "Exercises supply the proofs omitted in the text (eqns 35.13 and 35.24)."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "tidal test of spacetime curvature",
+   "aliases": [
+    "distinguishing gravity from acceleration by relative acceleration",
+    "geodesic deviation experiment"
+   ],
+   "kind": "principle",
+   "definition": "A uniform acceleration or a uniform gravitational field can be removed by choosing a freely falling frame, so neither a felt force nor the motion of one particle proves curvature. The relative acceleration of two nearby free particles cannot be transformed away; if it is non-zero, spacetime is genuinely curved and the Riemann tensor is non-zero.",
+   "how_introduced": "Opening scenario: waking in a space station held in bed by a force of unknown origin. The proposed experiment is to release two particles on parallel paths and look for relative acceleration.",
+   "depth": "introduced",
+   "prerequisites": [
+    "equivalence principle",
+    "geodesic deviation equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 380,
+     "printed_page": 363,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": "The book says a non-zero result 'suggests' curvature; strictly, the particles must start with zero relative velocity and be close enough for the linear (first order in separation) approximation."
+  },
+  {
+   "name": "geodesic deviation equation",
+   "aliases": [
+    "Jacobi equation",
+    "equation of geodesic deviation"
+   ],
+   "kind": "theorem",
+   "definition": "For a one-parameter family of geodesics with tangent u and connecting vector n, the second covariant derivative of n along the geodesics is D^2 n^mu/dlambda^2 = -R^mu_{nu alpha beta} u^nu n^alpha u^beta. It expresses the relative acceleration of neighbouring free particles entirely through the Riemann tensor.",
+   "how_introduced": "Stated first (eqn 35.1) as the chapter's most important equation, then proved coordinate-free by combining Lie dragging of n, the torsion-free symmetry of nabla and the commutator of covariant derivatives (Example 35.2), after a Newtonian rehearsal (Example 35.1). Rewritten in operator form as nabla_u nabla_u n + R-hat(n,u)u = 0.",
+   "depth": "core",
+   "prerequisites": [
+    "geodesic equation (coordinate-free)",
+    "Lie dragging",
+    "torsion-free connection symmetry",
+    "Riemann curvature operator",
+    "covariant derivative along a curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 381,
+     "printed_page": 364,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 382,
+     "printed_page": 365,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 383,
+     "printed_page": 366,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 388,
+     "printed_page": 371,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [
+    "\\frac{D^2\\boldsymbol n}{d\\lambda^2}+\\boldsymbol R(\\;,\\boldsymbol u,\\boldsymbol n,\\boldsymbol u)=0",
+    "\\frac{D^2 n^\\mu}{d\\lambda^2}+R^\\mu{}_{\\nu\\alpha\\beta}u^\\nu n^\\alpha u^\\beta=0",
+    "\\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol u}\\boldsymbol n+\\hat{\\boldsymbol R}(\\boldsymbol n,\\boldsymbol u)\\boldsymbol u=0"
+   ],
+   "notes": "Revisits GA ch11 §11.7, where the equation was quoted and specialized to a freely falling frame without proof. The name Jacobi equation is attributed to Jacobi (1837) in margin note 2."
+  },
+  {
+   "name": "connecting vector of a geodesic congruence",
+   "aliases": [
+    "separation vector n",
+    "deviation vector",
+    "n = d/dn"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The tangent vector to curves that cross a family of geodesics at fixed affine parameter, i.e. the derivative d/dn with respect to the label n that distinguishes one geodesic from its neighbours. Its components dx^k/dn measure the (infinitesimal) displacement from one geodesic to the next.",
+   "how_introduced": "Drawn in Fig. 35.1 as an arrow from geodesic n toward n + dn at parameter lambda, beside the tangent u. The same object in Newtonian form is n = (dx^k/dn) d/dx^k in Example 35.1.",
+   "depth": "developed",
+   "prerequisites": [
+    "congruence of curves",
+    "vectors as derivative operators",
+    "affine parameter"
+   ],
+   "locators": [
+    {
+     "pdf_page": 381,
+     "printed_page": 364,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 382,
+     "printed_page": 365,
+     "section": "35.1"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol n=\\frac{d}{dn}=\\frac{dx^k}{dn}\\frac{\\partial}{\\partial x^k}"
+   ],
+   "notes": "The symbol n is overloaded: the geodesic label, the vector, and later the number of dimensions in Example 35.6."
+  },
+  {
+   "name": "congruence of curves",
+   "aliases": [
+    "congruence",
+    "streamlines of a vector field"
+   ],
+   "kind": "definition",
+   "definition": "A family of curves filling a region so that exactly one passes through each point; the curves are the integral curves (streamlines) of a vector field, here the geodesic tangent field u.",
+   "how_introduced": "Recalled parenthetically from Chapter 33 to justify viewing the falling particles as carrying n along the streamlines of u.",
+   "depth": "mention",
+   "prerequisites": [
+    "vector field",
+    "integral curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 381,
+     "printed_page": 364,
+     "section": "35.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Lie dragging",
+   "aliases": [
+    "vanishing Lie derivative",
+    "L_u n = 0"
+   ],
+   "kind": "definition",
+   "definition": "A vector field n is Lie dragged along u if carrying it along the flow of u reproduces the field already there, L_u n = [u,n] = 0. Geometrically, an arrow joining two flow lines still joins the same two flow lines after being carried along the flow.",
+   "how_introduced": "Used as the defining property of the connecting vector: whatever n does as the particles fall, it must keep stretching between them, so its Lie derivative along u is zero (eqn 35.6). The book warns that n itself can still change.",
+   "depth": "developed",
+   "prerequisites": [
+    "Lie derivative",
+    "congruence of curves",
+    "Lie bracket as loop-closure failure"
+   ],
+   "locators": [
+    {
+     "pdf_page": 381,
+     "printed_page": 364,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 382,
+     "printed_page": 365,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 389,
+     "printed_page": 372,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\mathcal L_{\\boldsymbol u}\\boldsymbol n=[\\boldsymbol u,\\boldsymbol n]=0"
+   ],
+   "notes": "In the Newtonian warm-up the same condition appears as the commuting of d/dn with the time derivative in eqn 35.3."
+  },
+  {
+   "name": "Lie bracket as loop-closure failure",
+   "aliases": [
+    "commutator of vector fields",
+    "[a,b]"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The Lie bracket [a,b] = ab - ba of two vector fields is itself a vector field. Moving a small amount along a then along b, versus b then a, ends at points separated by [a,b] times the product of the two step sizes; the bracket vanishes when the two fields are coordinate basis vectors of one chart.",
+   "how_introduced": "Invoked in §35.1 to explain why [nabla_n, nabla_u] is not quite the curvature operator: u and n form closed loops because [u,n] = 0, but arbitrary a and b do not. Drawn in Fig. 35.3 as a short closing edge labelled -[u,v] delta a delta b.",
+   "depth": "developed",
+   "prerequisites": [
+    "vectors as derivative operators",
+    "Lie derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 383,
+     "printed_page": 366,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 385,
+     "printed_page": 368,
+     "section": "35.3"
+    }
+   ],
+   "formulas": [
+    "[\\boldsymbol a,\\boldsymbol b]=\\boldsymbol a\\boldsymbol b-\\boldsymbol b\\boldsymbol a",
+    "[\\boldsymbol e_\\mu,\\boldsymbol e_\\nu]=0\\ \\text{(coordinate basis)}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "torsion-free connection symmetry",
+   "aliases": [
+    "symmetry of the covariant derivative",
+    "zero torsion"
+   ],
+   "kind": "identity",
+   "definition": "For a connection without torsion, nabla_a b - nabla_b a = [a,b] for any vector fields a, b. If the bracket vanishes, the two covariant derivatives are equal.",
+   "how_introduced": "Recalled from Chapter 34 and combined with [u,n] = 0 to give nabla_u n = nabla_n u (eqn 35.7), the step that lets the second derivative of n be traded for a derivative of u.",
+   "depth": "developed",
+   "prerequisites": [
+    "covariant derivative",
+    "Lie bracket as loop-closure failure",
+    "torsion"
+   ],
+   "locators": [
+    {
+     "pdf_page": 382,
+     "printed_page": 365,
+     "section": "35.1"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}\\boldsymbol n-\\nabla_{\\boldsymbol n}\\boldsymbol u=[\\boldsymbol u,\\boldsymbol n]",
+    "\\nabla_{\\boldsymbol u}\\boldsymbol n=\\nabla_{\\boldsymbol n}\\boldsymbol u"
+   ],
+   "notes": "In components it is the symmetry Gamma^alpha_{mu nu} = Gamma^alpha_{nu mu} in a coordinate basis. Exercise 35.6 uses a connection that does not satisfy it."
+  },
+  {
+   "name": "geodesic equation (coordinate-free)",
+   "aliases": [
+    "nabla_u u = 0"
+   ],
+   "kind": "law",
+   "definition": "A curve with tangent u is an affinely parametrized geodesic when u is parallel transported along itself, nabla_u u = 0.",
+   "how_introduced": "Taken as the starting point of Example 35.2, where it is differentiated along n.",
+   "depth": "mention",
+   "prerequisites": [
+    "covariant derivative",
+    "affine parameter"
+   ],
+   "locators": [
+    {
+     "pdf_page": 382,
+     "printed_page": 365,
+     "section": "35.1"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}\\boldsymbol u=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Newtonian tidal tensor",
+   "aliases": [
+    "R^k_j = d^2 Phi/dx^j dx^i",
+    "Hessian of the potential"
+   ],
+   "kind": "physical-quantity",
+   "definition": "In Newtonian gravity the relative acceleration of two nearby free particles separated by n is -R^k_j n^j with R^k_j the matrix of second spatial derivatives of the potential Phi; it is the Newtonian limit of R^k_{0j0}.",
+   "how_introduced": "Example 35.1 derives it as a warm-up that mirrors the relativistic proof: commute the n and t derivatives, substitute Newton's law, use the chain rule, and read off the matrix.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Newtonian gravitational potential",
+    "connecting vector of a geodesic congruence"
+   ],
+   "locators": [
+    {
+     "pdf_page": 381,
+     "printed_page": 364,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 382,
+     "printed_page": 365,
+     "section": "35.1"
+    }
+   ],
+   "formulas": [
+    "\\ddot n^k+R^k{}_j n^j=0",
+    "R^k{}_j=\\eta^{ik}\\frac{\\partial^2\\Phi}{\\partial x^j\\partial x^i}"
+   ],
+   "notes": "First met in GA ch11 §11.2. Here eta^{ik} is just the Euclidean identity on spatial indices."
+  },
+  {
+   "name": "Riemann curvature operator",
+   "aliases": [
+    "curvature operator",
+    "R-hat(a,b)"
+   ],
+   "kind": "mathematical-object",
+   "definition": "For vector fields a, b the linear operator R-hat(a,b) = [nabla_a, nabla_b] - nabla_[a,b] maps a vector field c to a vector field. It is tensorial in a, b and c, antisymmetric in a and b, and related to the Riemann tensor by R( , c, a, b) = R-hat(a,b)c. It measures the failure of covariant derivatives to commute, corrected for the failure of the displacement loop to close.",
+   "how_introduced": "Emerges from the deviation derivation as [nabla_n, nabla_u], then upgraded by subtracting nabla along the Lie bracket so it applies to arbitrary vector fields (eqn 35.12). Rederived independently from transport around a small loop (eqn 35.29) and restated in the chapter summary (eqn 35.42).",
+   "depth": "core",
+   "prerequisites": [
+    "covariant derivative",
+    "Lie bracket as loop-closure failure",
+    "Riemann curvature tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 383,
+     "printed_page": 366,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 386,
+     "printed_page": 369,
+     "section": "35.3"
+    },
+    {
+     "pdf_page": 389,
+     "printed_page": 372,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\hat{\\boldsymbol R}(\\boldsymbol a,\\boldsymbol b)\\boldsymbol c=\\left([\\nabla_{\\boldsymbol a},\\nabla_{\\boldsymbol b}]-\\nabla_{[\\boldsymbol a,\\boldsymbol b]}\\right)\\boldsymbol c",
+    "\\boldsymbol R(\\;,\\boldsymbol c,\\boldsymbol a,\\boldsymbol b)=\\hat{\\boldsymbol R}(\\boldsymbol a,\\boldsymbol b)\\boldsymbol c"
+   ],
+   "notes": "The authors single out one feature for later use: curvature is built from two successive covariant derivatives, and Chapter 36 turns this into a fast computational recipe."
+  },
+  {
+   "name": "commutator of covariant derivatives on vector components",
+   "aliases": [
+    "Ricci identity",
+    "[nabla_mu, nabla_nu] c^alpha"
+   ],
+   "kind": "identity",
+   "definition": "In a coordinate frame, the antisymmetrized second covariant derivative of a vector is linear in the vector itself with the Riemann tensor as coefficient: c^alpha_{;nu mu} - c^alpha_{;mu nu} = R^alpha_{beta mu nu} c^beta, where c^alpha_{;nu mu} denotes the components of nabla_mu(nabla_nu c).",
+   "how_introduced": "Quoted as a memorable component equation right after the operator definition (eqn 35.13), with the proof left to Exercise 35.2, which also derives a contracted version involving the Ricci tensor.",
+   "depth": "developed",
+   "prerequisites": [
+    "Riemann curvature operator",
+    "second covariant derivative ordering convention",
+    "coordinate basis"
+   ],
+   "locators": [
+    {
+     "pdf_page": 383,
+     "printed_page": 366,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 389,
+     "printed_page": 372,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "[\\nabla_\\mu,\\nabla_\\nu]c^\\alpha=c^\\alpha{}_{;\\nu\\mu}-c^\\alpha{}_{;\\mu\\nu}=R^\\alpha{}_{\\beta\\mu\\nu}c^\\beta",
+    "v^{\\mu;\\alpha}{}_{\\mu}-v^{\\mu}{}_{;\\mu}{}^{\\alpha}=R^\\alpha{}_\\mu v^\\mu"
+   ],
+   "notes": "The component identity holds even though the tensor second derivative contains extra Gamma terms compared with nabla_{e_mu} nabla_{e_nu}; those extra terms are symmetric for a torsion-free connection and cancel in the commutator."
+  },
+  {
+   "name": "second covariant derivative ordering convention",
+   "aliases": [
+    "c^alpha_{;nu mu} = (c^alpha_{;nu})_{;mu}"
+   ],
+   "kind": "convention",
+   "definition": "The component c^alpha_{;nu mu} means differentiate first with respect to x^nu and then x^mu, so it belongs to nabla_mu nabla_nu c: indices after the semicolon are read left to right in order of application.",
+   "how_introduced": "Margin note 4 fixes the convention to make the sign of eqn 35.13 unambiguous.",
+   "depth": "mention",
+   "prerequisites": [
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 383,
+     "printed_page": 366,
+     "section": "35.1"
+    }
+   ],
+   "formulas": [
+    "c^\\alpha{}_{;\\nu\\mu}=(c^\\alpha{}_{;\\nu})_{;\\mu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant derivative along a curve",
+   "aliases": [
+    "D/dlambda",
+    "nabla_u"
+   ],
+   "kind": "operation",
+   "definition": "The rate of change of a vector field along a curve with tangent u, corrected for changes of basis: D/dlambda = nabla_u. Its square D^2/dlambda^2 = nabla_u nabla_u gives the covariant acceleration.",
+   "how_introduced": "Used to translate the relative acceleration D^2 n/dlambda^2 into nabla_u nabla_u n.",
+   "depth": "mention",
+   "prerequisites": [
+    "covariant derivative",
+    "affine parameter"
+   ],
+   "locators": [
+    {
+     "pdf_page": 382,
+     "printed_page": 365,
+     "section": "35.1"
+    }
+   ],
+   "formulas": [
+    "\\frac{D^2\\boldsymbol n}{d\\lambda^2}=\\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol u}\\boldsymbol n"
+   ],
+   "notes": null
+  },
+  {
+   "name": "affine parameter",
+   "aliases": [
+    "lambda"
+   ],
+   "kind": "definition",
+   "definition": "A parameter along a geodesic for which the tangent obeys nabla_u u = 0 with no extra term; proper time or proper distance up to linear rescaling.",
+   "how_introduced": "Labels points along each geodesic in Fig. 35.1 (lambda - dlambda, lambda, lambda + dlambda) and serves as the distance parameter in normal coordinates.",
+   "depth": "mention",
+   "prerequisites": [
+    "geodesic"
+   ],
+   "locators": [
+    {
+     "pdf_page": 381,
+     "printed_page": 364,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 384,
+     "printed_page": 367,
+     "section": "35.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Riemann curvature tensor",
+   "aliases": [
+    "R",
+    "curvature tensor",
+    "(1,3) Riemann tensor"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The (1,3) tensor field that encodes intrinsic curvature: with a 1-form in the first slot and vectors c, a, b in the others, R(omega, c, a, b) = <omega, R-hat(a,b)c>. Inserting (u, n, u) into the vector slots yields minus the relative acceleration of neighbouring geodesics.",
+   "how_introduced": "Introduced in this chapter through its physical output (relative acceleration) and its operator form, then shown to have the same components as the Chapter 11 tensor.",
+   "depth": "revisited",
+   "prerequisites": [
+    "tensor as slot machine",
+    "Riemann curvature operator"
+   ],
+   "locators": [
+    {
+     "pdf_page": 380,
+     "printed_page": 363,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 383,
+     "printed_page": 366,
+     "section": "35.2"
+    },
+    {
+     "pdf_page": 384,
+     "printed_page": 367,
+     "section": "35.2"
+    }
+   ],
+   "formulas": [
+    "R^\\alpha{}_{\\beta\\gamma\\delta}=\\boldsymbol R(\\boldsymbol\\omega^\\alpha,\\boldsymbol e_\\beta,\\boldsymbol e_\\gamma,\\boldsymbol e_\\delta)"
+   ],
+   "notes": "Slot order: second slot is the vector acted on, third and fourth are the two directions of differentiation (loop plane)."
+  },
+  {
+   "name": "component extraction with dual basis 1-forms",
+   "aliases": [
+    "<omega^alpha, ...>"
+   ],
+   "kind": "technique",
+   "definition": "The alpha component of a vector V in a basis e_alpha is obtained by pairing it with the dual 1-form omega^alpha, where <omega^alpha, e_beta> = delta^alpha_beta. Applied to curvature, R^alpha_{beta gamma delta} = <omega^alpha, R-hat(e_gamma, e_delta) e_beta>.",
+   "how_introduced": "Used in eqn 35.15 and footnote 5 (connection coefficients as <omega^alpha, nabla_mu e_nu>).",
+   "depth": "mention",
+   "prerequisites": [
+    "dual basis"
+   ],
+   "locators": [
+    {
+     "pdf_page": 383,
+     "printed_page": 366,
+     "section": "35.2"
+    },
+    {
+     "pdf_page": 384,
+     "printed_page": 367,
+     "section": "35.2"
+    }
+   ],
+   "formulas": [
+    "R^\\alpha{}_{\\beta\\gamma\\delta}=\\langle\\boldsymbol\\omega^\\alpha,\\hat{\\boldsymbol R}(\\boldsymbol e_\\gamma,\\boldsymbol e_\\delta)\\boldsymbol e_\\beta\\rangle"
+   ],
+   "notes": null
+  },
+  {
+   "name": "connection coefficients",
+   "aliases": [
+    "Christoffel symbols (coordinate, torsion-free, metric case)",
+    "Gamma^alpha_{mu nu}"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The functions giving the covariant derivative of basis vectors, nabla_mu e_nu = Gamma^alpha_{mu nu} e_alpha, with the derivative direction in the first lower index in this book. For a fixed choice of indices each coefficient is an ordinary function on the manifold, so differentiating it along a basis direction is just a partial derivative (footnote 6).",
+   "how_introduced": "Recalled in footnotes 5 and 6 to carry out Example 35.3.",
+   "depth": "revisited",
+   "prerequisites": [
+    "covariant derivative",
+    "basis vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 384,
+     "printed_page": 367,
+     "section": "35.2"
+    }
+   ],
+   "formulas": [
+    "\\nabla_\\mu\\boldsymbol e_\\nu=\\Gamma^\\alpha{}_{\\mu\\nu}\\boldsymbol e_\\alpha",
+    "\\langle\\boldsymbol\\omega^\\alpha,\\nabla_\\mu\\boldsymbol e_\\nu\\rangle=\\Gamma^\\alpha{}_{\\mu\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Riemann components in terms of connection coefficients",
+   "aliases": [
+    "Riemann component formula"
+   ],
+   "kind": "identity",
+   "definition": "In a coordinate basis, R^alpha_{beta gamma delta} = d_gamma Gamma^alpha_{delta beta} - d_delta Gamma^alpha_{gamma beta} + Gamma^alpha_{gamma mu} Gamma^mu_{delta beta} - Gamma^alpha_{delta mu} Gamma^mu_{gamma beta}.",
+   "how_introduced": "Example 35.3 computes [nabla_gamma, nabla_delta] e_beta with the Leibniz rule and projects with omega^alpha, recovering the Chapter 11 result as a consistency check.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Riemann curvature operator",
+    "connection coefficients",
+    "coordinate basis"
+   ],
+   "locators": [
+    {
+     "pdf_page": 384,
+     "printed_page": 367,
+     "section": "35.2"
+    }
+   ],
+   "formulas": [
+    "R^\\alpha{}_{\\beta\\gamma\\delta}=\\partial_\\gamma\\Gamma^\\alpha{}_{\\delta\\beta}-\\partial_\\delta\\Gamma^\\alpha{}_{\\gamma\\beta}+\\Gamma^\\alpha{}_{\\gamma\\mu}\\Gamma^\\mu{}_{\\delta\\beta}-\\Gamma^\\alpha{}_{\\delta\\mu}\\Gamma^\\mu{}_{\\gamma\\beta}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "coordinate basis",
+   "aliases": [
+    "holonomic basis",
+    "[e_mu, e_nu] = 0"
+   ],
+   "kind": "definition",
+   "definition": "A basis of partial-derivative vectors e_mu = d/dx^mu of a single chart; any two of them commute, so small loops built from them close.",
+   "how_introduced": "Used to drop the nabla_[a,b] term, making the curvature operator a pure commutator of covariant derivatives in coordinate work.",
+   "depth": "mention",
+   "prerequisites": [
+    "Lie bracket as loop-closure failure"
+   ],
+   "locators": [
+    {
+     "pdf_page": 383,
+     "printed_page": 366,
+     "section": "35.1"
+    },
+    {
+     "pdf_page": 384,
+     "printed_page": 367,
+     "section": "35.2"
+    }
+   ],
+   "formulas": [
+    "[\\boldsymbol e_\\mu,\\boldsymbol e_\\nu]=0"
+   ],
+   "notes": "Orthonormal (non-coordinate) frames used in Chapter 36 do not commute in general, which is why the bracket term matters there."
+  },
+  {
+   "name": "Riemann normal coordinates",
+   "aliases": [
+    "normal coordinates",
+    "zeta^mu = lambda u^mu"
+   ],
+   "kind": "technique",
+   "definition": "Coordinates built around a point O by sending out geodesics in every direction from an orthonormal frame at O: the event reached after affine distance lambda along the geodesic with unit initial tangent u gets coordinates zeta^alpha = lambda u^alpha. In these coordinates g_{mu nu}(O) = eta_{mu nu}, all first derivatives of the metric and all connection coefficients vanish at O, and curvature appears at second order.",
+   "how_introduced": "Example 35.4 rehearses the construction in the flat plane (straight rays, point (2,1) at lambda = sqrt 5 along (2e_x + e_y)/sqrt 5), then replaces rays by timelike or spacelike geodesics (Fig. 35.2c). The metric expansion is quoted, with the full derivation in Exercise 35.4 following Poisson and Will.",
+   "depth": "developed",
+   "prerequisites": [
+    "local inertial frame",
+    "geodesic",
+    "affine parameter",
+    "exponential map"
+   ],
+   "locators": [
+    {
+     "pdf_page": 384,
+     "printed_page": 367,
+     "section": "35.2"
+    },
+    {
+     "pdf_page": 385,
+     "printed_page": 368,
+     "section": "35.2"
+    },
+    {
+     "pdf_page": 389,
+     "printed_page": 372,
+     "section": null
+    },
+    {
+     "pdf_page": 390,
+     "printed_page": 373,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\zeta^\\alpha\\boldsymbol e_\\alpha=\\lambda u^\\alpha\\boldsymbol e_\\alpha"
+   ],
+   "notes": "Presented as a second kind of local inertial frame, alongside the freely falling frame of Chapter 10. Reused in GA ch43 to simplify a Bianchi identity argument."
+  },
+  {
+   "name": "metric expansion in Riemann normal coordinates",
+   "aliases": [
+    "g = eta - (1/3) R zeta zeta"
+   ],
+   "kind": "theorem",
+   "definition": "Near the origin of Riemann normal coordinates, g_{mu nu} = eta_{mu nu} - (1/3) R_{mu alpha nu beta}(O) zeta^alpha zeta^beta + O(zeta^3): the metric is Minkowskian at O, has no linear term, and its leading departure is fixed by the Riemann tensor at O.",
+   "how_introduced": "Stated at the end of Example 35.4; derived step by step in Exercise 35.4 via the deviation equation for the family of radial geodesics.",
+   "depth": "developed",
+   "prerequisites": [
+    "Riemann normal coordinates",
+    "geodesic deviation equation",
+    "Riemann curvature tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 385,
+     "printed_page": 368,
+     "section": "35.2"
+    },
+    {
+     "pdf_page": 390,
+     "printed_page": 373,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "g_{\\mu\\nu}=\\eta_{\\mu\\nu}-\\tfrac13R_{\\mu\\alpha\\nu\\beta}(\\mathcal O)\\zeta^\\alpha\\zeta^\\beta+O(\\zeta^3)",
+    "\\frac{\\partial^2 g_{\\mu\\nu}(\\mathcal O)}{\\partial\\zeta^\\alpha\\partial\\zeta^\\sigma}=-\\tfrac13\\left(R_{\\mu\\sigma\\nu\\alpha}+R_{\\mu\\alpha\\nu\\sigma}\\right)"
+   ],
+   "notes": "Shows concretely that curvature is exactly the part of the second derivatives of the metric that no coordinate choice can remove."
+  },
+  {
+   "name": "local inertial frame",
+   "aliases": [
+    "LIF",
+    "locally flat coordinates"
+   ],
+   "kind": "definition",
+   "definition": "Coordinates about a point in which the metric equals eta and its first derivatives vanish at that point, so connection coefficients vanish there and free particles move locally in straight lines; second derivatives, and hence curvature, generally do not vanish.",
+   "how_introduced": "Riemann normal coordinates are presented as a new example of an LIF, complementing the freely falling frame of Chapter 10.",
+   "depth": "revisited",
+   "prerequisites": [
+    "equivalence principle",
+    "metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 384,
+     "printed_page": 367,
+     "section": "35.2"
+    },
+    {
+     "pdf_page": 385,
+     "printed_page": 368,
+     "section": "35.2"
+    }
+   ],
+   "formulas": [
+    "g_{\\mu\\nu}(\\mathcal O)=\\eta_{\\mu\\nu},\\quad g_{\\mu\\nu,\\alpha}(\\mathcal O)=0"
+   ],
+   "notes": "The text calls the result 'flat with vanishing connection coefficients'; this is true only at the point O itself."
+  },
+  {
+   "name": "holonomy of parallel transport around a closed loop",
+   "aliases": [
+    "parallel transport around a loop",
+    "delta A + R(u,v)A delta a delta b = 0"
+   ],
+   "kind": "phenomenon",
+   "definition": "A vector carried by parallel transport around a small closed loop spanned by u delta a and v delta b returns changed by delta A = -R-hat(u,v)A delta a delta b; the change is linear in the vector and in the enclosed coordinate area, and vanishes for all loops only in flat space.",
+   "how_introduced": "Revisits the Chapter 11 component calculation using covariant derivatives: around a closed loop the single-valued field contributes nothing, so summing nabla along the edges (Example 35.5, Fig. 35.3) isolates the transport correction and reproduces the curvature operator.",
+   "depth": "developed",
+   "prerequisites": [
+    "parallel transport",
+    "covariant derivative",
+    "Riemann curvature operator",
+    "Lie bracket as loop-closure failure"
+   ],
+   "locators": [
+    {
+     "pdf_page": 385,
+     "printed_page": 368,
+     "section": "35.3"
+    },
+    {
+     "pdf_page": 386,
+     "printed_page": 369,
+     "section": "35.3"
+    }
+   ],
+   "formulas": [
+    "\\delta\\boldsymbol A+\\hat{\\boldsymbol R}(\\boldsymbol u,\\boldsymbol v)\\boldsymbol A\\,\\Delta a\\,\\Delta b=0"
+   ],
+   "notes": "Footnote 9 reinterprets the deviation equation in the same language: the change of u carried round the loop with sides n delta a and u delta b."
+  },
+  {
+   "name": "path dependence of parallel transport (no global Cartesian grid)",
+   "aliases": [
+    "non-integrability of parallel transport",
+    "curvature as obstruction to a parallel grid"
+   ],
+   "kind": "principle",
+   "definition": "Parallel transport preserves inner products along any single curve, but in curved space transporting a vector from P along different paths gives different results, so the field generated by transporting a vector everywhere is multivalued. Hence no family of everywhere-parallel orthonormal axes, i.e. no global Cartesian grid, exists.",
+   "how_introduced": "Posed as a tempting construction (transport a pair of orthogonal vectors to lay out a grid) and then shown to be an illusion because transport around loops rotates the vectors.",
+   "depth": "introduced",
+   "prerequisites": [
+    "holonomy of parallel transport around a closed loop",
+    "parallel transport"
+   ],
+   "locators": [
+    {
+     "pdf_page": 386,
+     "printed_page": 369,
+     "section": "35.3"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "symmetries of the Riemann tensor",
+   "aliases": [
+    "pair symmetries",
+    "antisymmetry in each index pair",
+    "pair-exchange symmetry"
+   ],
+   "kind": "identity",
+   "definition": "With all indices lowered, R_{alpha beta gamma delta} is antisymmetric in its first pair, antisymmetric in its last pair, and symmetric under exchanging the two pairs; it also obeys the cyclic identity.",
+   "how_introduced": "Recalled in margin note 10 from Chapter 11 to set up the component count.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Riemann curvature tensor",
+    "index lowering with the metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 386,
+     "printed_page": 369,
+     "section": "35.3"
+    }
+   ],
+   "formulas": [
+    "R_{\\alpha\\beta\\gamma\\delta}=-R_{\\beta\\alpha\\gamma\\delta}=-R_{\\alpha\\beta\\delta\\gamma}=R_{\\gamma\\delta\\alpha\\beta}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "cyclic identity",
+   "aliases": [
+    "first Bianchi identity",
+    "algebraic Bianchi identity"
+   ],
+   "kind": "identity",
+   "definition": "Keeping the first index fixed, the sum of R_{alpha beta gamma delta} over cyclic permutations of the last three indices vanishes. Given the pair symmetries, it only imposes a new condition when all four indices are different.",
+   "how_introduced": "Recalled (eqns 35.31 and 35.33) and used as the source of constraints subtracted in the component count.",
+   "depth": "revisited",
+   "prerequisites": [
+    "symmetries of the Riemann tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 386,
+     "printed_page": 369,
+     "section": "35.3"
+    },
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.3"
+    }
+   ],
+   "formulas": [
+    "R_{\\alpha\\beta\\gamma\\delta}+R_{\\alpha\\delta\\beta\\gamma}+R_{\\alpha\\gamma\\delta\\beta}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "number of independent Riemann components",
+   "aliases": [
+    "n^2(n^2-1)/12",
+    "twenty components in four dimensions"
+   ],
+   "kind": "theorem",
+   "definition": "In n dimensions the Riemann tensor has n^2(n^2-1)/12 algebraically independent components: M(M+1)/2 from the pair symmetries with M = n(n-1)/2, minus C(n,4) cyclic constraints. This gives 1, 6 and 20 for n = 2, 3, 4.",
+   "how_introduced": "Example 35.6 counts antisymmetric index pairs, treats pair exchange like a symmetric M-by-M matrix, and subtracts one cyclic constraint for each choice of four distinct indices.",
+   "depth": "developed",
+   "prerequisites": [
+    "symmetries of the Riemann tensor",
+    "cyclic identity",
+    "combinations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 386,
+     "printed_page": 369,
+     "section": "35.3"
+    },
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.3"
+    }
+   ],
+   "formulas": [
+    "\\frac M2(M+1)-\\frac{n!}{(n-4)!\\,4!}=\\frac{n^2(n^2-1)}{12},\\quad M=\\frac{n(n-1)}2"
+   ],
+   "notes": "The proof was promised in GA ch11 §11.4. The book misprints the off-diagonal count of a symmetric matrix as (M-1)/2 instead of M(M-1)/2."
+  },
+  {
+   "name": "Ricci tensor",
+   "aliases": [
+    "R_{mu nu}",
+    "Ricci curvature"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The contraction R_{nu beta} = R^mu_{nu mu beta} of the Riemann tensor, the only independent non-zero contraction. It is symmetric, holds 10 of the 20 Riemann components in 4D, and physically is the part of curvature that makes a small ball of free particles change volume; by Einstein's equation it is tied to local matter and vanishes in vacuum (with zero cosmological constant).",
+   "how_introduced": "Section 35.4 gives it a physical reading: first as the volume-shrinking part of curvature, then via the trace of the tidal matrix K acting on a small volume (Example 35.8), and via the lens analogy for light (Example 35.7).",
+   "depth": "core",
+   "prerequisites": [
+    "Riemann curvature tensor",
+    "tensor contraction",
+    "tidal matrix of geodesic deviation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    },
+    {
+     "pdf_page": 388,
+     "printed_page": 371,
+     "section": "35.4"
+    },
+    {
+     "pdf_page": 389,
+     "printed_page": 372,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "R_{\\nu\\beta}=R^\\mu{}_{\\nu\\mu\\beta}",
+    "K^\\mu{}_\\mu=-R_{\\nu\\beta}u^\\nu u^\\beta"
+   ],
+   "notes": "Margin note 11 describes Ricci as a kind of average of Riemann in which positive and negative curvature contributions can cancel."
+  },
+  {
+   "name": "Ricci-flat spacetime",
+   "aliases": [
+    "R_{mu nu} = 0"
+   ],
+   "kind": "definition",
+   "definition": "A spacetime whose Ricci tensor vanishes everywhere; by Einstein's equation this is a vacuum solution. Its Riemann tensor need not vanish, since the Weyl part can remain.",
+   "how_introduced": "Margin note 11, warning that Ricci flatness only means positive and negative parts of curvature cancel in the contraction.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Ricci tensor",
+    "Weyl curvature tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [
+    "R_{\\mu\\nu}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "constant-curvature spacetime",
+   "aliases": [
+    "maximally symmetric spacetime",
+    "Einstein space (R_{mu nu} proportional to g_{mu nu})"
+   ],
+   "kind": "definition",
+   "definition": "A spacetime whose lowered Riemann tensor is a constant K times the antisymmetrized product of two metrics (the same structure as the R/6 term of the Weyl formula); it follows that R_{mu nu} is a constant multiple of g_{mu nu}. Spacetimes satisfying only the Ricci condition are called Einstein spaces.",
+   "how_introduced": "Mentioned in margin note 11 through its Ricci tensor, R_{mu nu} = C g_{mu nu}.",
+   "depth": "mention",
+   "prerequisites": [
+    "Ricci tensor",
+    "metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [
+    "R_{\\mu\\nu}=C\\,g_{\\mu\\nu}"
+   ],
+   "notes": "The book's footnote gives only the Ricci condition, which is necessary but not sufficient for constant curvature; its constant C is unrelated to the Weyl tensor C."
+  },
+  {
+   "name": "Weyl curvature tensor",
+   "aliases": [
+    "Weyl tensor",
+    "conformal curvature tensor",
+    "C_{mu nu alpha beta}"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The trace-free part of the Riemann tensor, obtained by subtracting metric combinations of the Ricci tensor and Ricci scalar so that every contraction vanishes. In 4D it carries the remaining 10 independent components, is unchanged (with index placement C^mu_{nu alpha beta}) under conformal rescaling of the metric, need not vanish in vacuum, and describes tidal distortion (shear) without volume change.",
+   "how_introduced": "Defined as what is left when the Ricci part is removed (eqn 35.36), contrasted with Ricci by its survival in vacuum and its distorting effect on geodesics, then illustrated by the astigmatic-lens picture.",
+   "depth": "core",
+   "prerequisites": [
+    "Riemann curvature tensor",
+    "Ricci tensor",
+    "Ricci scalar",
+    "metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    },
+    {
+     "pdf_page": 388,
+     "printed_page": 371,
+     "section": "35.4"
+    },
+    {
+     "pdf_page": 389,
+     "printed_page": 372,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "C_{\\mu\\nu\\alpha\\beta}=R_{\\mu\\nu\\alpha\\beta}-\\tfrac12R_{\\mu\\alpha}g_{\\nu\\beta}+\\tfrac12R_{\\mu\\beta}g_{\\nu\\alpha}+\\tfrac12R_{\\nu\\alpha}g_{\\mu\\beta}-\\tfrac12R_{\\nu\\beta}g_{\\mu\\alpha}+\\tfrac16R\\left(g_{\\mu\\alpha}g_{\\nu\\beta}-g_{\\mu\\beta}g_{\\nu\\alpha}\\right)"
+   ],
+   "notes": "The coefficients 1/2 and 1/6 are specific to four dimensions; in n dimensions they are 1/(n-2) and 1/((n-1)(n-2)). The Weyl tensor vanishes identically for n <= 3. Revisited in GA ch43 as the Maxwell-like part of gravity."
+  },
+  {
+   "name": "conformal flatness",
+   "aliases": [
+    "conformally flat spacetime"
+   ],
+   "kind": "definition",
+   "definition": "A spacetime is conformally flat if its metric is a position-dependent positive multiple of a flat metric in suitable coordinates; in four or more dimensions this happens exactly when the Weyl tensor vanishes.",
+   "how_introduced": "Margin note 12: Weyl vanishes in Minkowski space and in Robertson-Walker spacetimes, which are therefore conformally flat.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Weyl curvature tensor",
+    "conformal transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [
+    "C_{\\mu\\nu\\alpha\\beta}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Weyl curvature hypothesis",
+   "aliases": [
+    "Penrose's Weyl curvature hypothesis"
+   ],
+   "kind": "historical-idea",
+   "definition": "The conjecture that the initial cosmological singularity had very small or zero Weyl curvature, in contrast to the diverging Weyl curvature at black-hole singularities, so that the Universe began in an extremely smooth, low-gravitational-entropy state.",
+   "how_introduced": "Margin note 12: a nearly Robertson-Walker early universe has little Weyl curvature, clumping and black-hole formation increase it, and restricting it at the Big Bang is presented as a demanding restriction on which cosmologies are allowed.",
+   "depth": "mention",
+   "prerequisites": [
+    "Weyl curvature tensor",
+    "conformal flatness",
+    "Robertson-Walker spacetime"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [],
+   "notes": "Commonly attributed to Roger Penrose (the book does not name its originator here); see also GA ch50 on the Big-Bang singularity."
+  },
+  {
+   "name": "trace-free Ricci tensor",
+   "aliases": [
+    "R_{mu nu} - (1/4) R g_{mu nu}"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The Ricci tensor with its trace removed, S_{mu nu} = R_{mu nu} - (1/4) R g_{mu nu} in four dimensions, so that g^{mu nu} S_{mu nu} = 0. For a null vector k, S_{mu nu} k^mu k^nu = R_{mu nu} k^mu k^nu because g_{mu nu} k^mu k^nu = 0.",
+   "how_introduced": "Appears in Example 35.7 (eqn 35.37), where the book calls it the trace-reversed part of Ricci and writes it as G_{mu nu}.",
+   "depth": "mention",
+   "prerequisites": [
+    "Ricci tensor",
+    "Ricci scalar"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [
+    "R_{\\mu\\nu}-\\tfrac14Rg_{\\mu\\nu}"
+   ],
+   "notes": "Not the Einstein tensor: the book's own Einstein tensor (GA ch13, eqn 13.52) uses a factor 1/2, and Chapter 13 itself calls that 1/2 version the trace-reversed Ricci tensor, so the chapter 35 label conflicts with the book's own usage. For light rays the distinction does not matter."
+  },
+  {
+   "name": "Ricci focusing versus Weyl shear of light bundles",
+   "aliases": [
+    "Ricci as converging lens",
+    "Weyl as astigmatic lens",
+    "curvature lensing"
+   ],
+   "kind": "phenomenon",
+   "definition": "A thin bundle of light rays passing through a region with non-zero R_{mu nu} k^mu k^nu (matter present) is focused isotropically, magnifying a circular source into a larger circle. Weyl curvature focuses in one transverse direction and defocuses in the perpendicular one, turning circles into ellipses without net area focusing at first order.",
+   "how_introduced": "Example 35.7 compares the two parts on null geodesics to sidestep timelike subtleties, then uses Penrose's transparent, non-refracting Sun (Fig. 35.4): stars seen through the body have enlarged round images, stars seen past the rim have elliptical images.",
+   "depth": "developed",
+   "prerequisites": [
+    "Ricci tensor",
+    "Weyl curvature tensor",
+    "null geodesic",
+    "geodesic deviation equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    },
+    {
+     "pdf_page": 388,
+     "printed_page": 371,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [],
+   "notes": "Follows Penrose, The Road to Reality (2004) §28.8. Quantitatively this is the Sachs optical equations and the null Raychaudhuri equation, not given in the book."
+  },
+  {
+   "name": "tidal matrix of geodesic deviation",
+   "aliases": [
+    "K^mu_alpha = -R^mu_{nu alpha beta} u^nu u^beta",
+    "deviation matrix",
+    "tidal tensor"
+   ],
+   "kind": "mathematical-object",
+   "definition": "For a fixed geodesic tangent u, the linear map K taking a separation vector n to its relative acceleration, obtained by inserting u into the second and fourth slots of Riemann and changing sign, K = -R( . , u, . , u). Eigenvectors of K are separation directions whose relative acceleration is parallel to themselves, scaled by the eigenvalue.",
+   "how_introduced": "Example 35.8 rewrites the deviation equation as D^2 n/dlambda^2 = K n and discusses its eigenvectors and trace.",
+   "depth": "developed",
+   "prerequisites": [
+    "geodesic deviation equation",
+    "eigenvectors and eigenvalues"
+   ],
+   "locators": [
+    {
+     "pdf_page": 388,
+     "printed_page": 371,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [
+    "K^\\mu{}_\\alpha=-R^\\mu{}_{\\nu\\alpha\\beta}u^\\nu u^\\beta",
+    "\\frac{D^2n^\\mu}{d\\lambda^2}=K^\\mu{}_\\alpha n^\\alpha"
+   ],
+   "notes": "The book reuses lambda for the eigenvalue, which clashes with the affine parameter. It is the relativistic version of minus the Newtonian tidal tensor."
+  },
+  {
+   "name": "volume evolution from the Ricci tensor",
+   "aliases": [
+    "focusing of a geodesic congruence",
+    "precursor of the Raychaudhuri equation"
+   ],
+   "kind": "theorem",
+   "definition": "For a small ball of free particles that starts at rest relative to the central geodesic (no initial expansion or shear), the second derivative of its volume is initially -R_{nu beta} u^nu u^beta times the volume. For ordinary matter this is negative, so gravity makes such volumes shrink; in vacuum the volume does not accelerate even though its shape distorts.",
+   "how_introduced": "Example 35.8 and footnote 14: treat the volume as a product of lengths along eigenvectors of K, so its second derivative picks up the sum of eigenvalues, i.e. the trace of K, which is the Ricci contraction.",
+   "depth": "developed",
+   "prerequisites": [
+    "tidal matrix of geodesic deviation",
+    "Ricci tensor",
+    "trace of a matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 388,
+     "printed_page": 371,
+     "section": "35.4"
+    },
+    {
+     "pdf_page": 389,
+     "printed_page": 372,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\frac{D^2\\delta V}{d\\lambda^2}=-R_{\\nu\\beta}u^\\nu u^\\beta\\,\\delta V"
+   ],
+   "notes": "The footnote's product-rule shortcut drops cross terms like 2 (D delta x/dlambda)(D delta y/dlambda), so it holds only at an instant when the bundle has no relative velocity. The full statement is the Raychaudhuri equation, derived in GA ch50."
+  },
+  {
+   "name": "vacuum Einstein equation",
+   "aliases": [
+    "R_{mu nu} = 0 in empty space"
+   ],
+   "kind": "law",
+   "definition": "In a region with no matter or energy (and zero cosmological constant), Einstein's field equation reduces to the vanishing of the Ricci tensor.",
+   "how_introduced": "Used to explain why the Ricci part of curvature vanishes in free space while Weyl curvature does not.",
+   "depth": "mention",
+   "prerequisites": [
+    "Einstein field equation",
+    "Ricci tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 387,
+     "printed_page": 370,
+     "section": "35.4"
+    }
+   ],
+   "formulas": [
+    "R_{\\mu\\nu}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "comma-goes-to-semicolon ambiguity",
+   "aliases": [
+    "ordering ambiguity in minimal coupling",
+    "curvature coupling ambiguity"
+   ],
+   "kind": "principle",
+   "definition": "Promoting a flat-space equation that contains second derivatives to curved spacetime by replacing partial with covariant derivatives is not unique, because covariant derivatives do not commute; the possible curved-space versions differ by terms involving the Ricci (or Riemann) tensor.",
+   "how_introduced": "Exercise 35.3 applies the rule to a Maxwell-like equation for A^mu and uses the Ricci form of the commutator identity (Exercise 35.2) to relate the two candidate equations, citing Misner, Thorne and Wheeler's rules of thumb.",
+   "depth": "introduced",
+   "prerequisites": [
+    "commutator of covariant derivatives on vector components",
+    "general covariance"
+   ],
+   "locators": [
+    {
+     "pdf_page": 389,
+     "printed_page": 372,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "-\\partial^2A^\\mu+\\partial^\\mu\\partial_\\nu A^\\nu=J^\\mu"
+   ],
+   "notes": "The rule itself was introduced in GA ch12 §12.4."
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(35.1)",
+   "name": "Geodesic deviation equation (slot form)",
+   "latex": "\\frac{D^2\\boldsymbol n}{d\\lambda^2}+\\boldsymbol R(\\;,\\boldsymbol u,\\boldsymbol n,\\boldsymbol u)=0",
+   "meaning": "Relative covariant acceleration of neighbouring geodesics equals minus the Riemann tensor with u, n, u in its vector slots; the chapter's headline result.",
+   "symbols": "n connecting vector; u geodesic tangent; lambda affine parameter; R Riemann (1,3) tensor with empty 1-form slot",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.2)",
+   "name": "Geodesic deviation equation (components)",
+   "latex": "\\frac{D^2n^\\mu}{d\\lambda^2}+R^\\mu{}_{\\nu\\alpha\\beta}u^\\nu n^\\alpha u^\\beta=0",
+   "meaning": "Index version of eqn 35.1; u contracts the second and fourth slots, n the third.",
+   "symbols": "R^mu_{nu alpha beta} Riemann components",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.3)",
+   "name": "Newtonian derivative swap",
+   "latex": "\\frac{\\partial^2n^k}{\\partial t^2}=\\frac{\\partial^2}{\\partial t^2}\\frac{dx^k}{dn}=\\frac{d}{dn}\\frac{\\partial^2x^k}{\\partial t^2}",
+   "meaning": "Relative acceleration of the separation is the n-derivative of the particle acceleration, because derivatives along and across the trajectories commute (the Newtonian stand-in for Lie dragging).",
+   "symbols": "n^k = dx^k/dn separation components; t Newtonian time",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.4)",
+   "name": "Newton's force law",
+   "latex": "\\frac{\\partial^2x^k}{\\partial t^2}+\\eta^{ik}\\frac{\\partial\\Phi}{\\partial x^i}=0",
+   "meaning": "Each free particle accelerates down the potential gradient.",
+   "symbols": "Phi Newtonian potential; eta^{ik} Euclidean spatial metric (identity)",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Newtonian tidal chain",
+   "latex": "\\frac{\\partial^2n^k}{\\partial t^2}=-\\eta^{ik}\\frac{d}{dn}\\frac{\\partial\\Phi}{\\partial x^i}=-\\eta^{ik}\\frac{dx^j}{dn}\\frac{\\partial}{\\partial x^j}\\frac{\\partial\\Phi}{\\partial x^i}=-\\eta^{ik}\\frac{\\partial^2\\Phi}{\\partial x^j\\partial x^i}n^j=-R^k{}_jn^j",
+   "meaning": "Substituting Newton's law and using the chain rule turns the n-derivative into the Hessian of Phi acting on n, giving n-ddot^k + R^k_j n^j = 0.",
+   "symbols": "R^k_j Newtonian tidal tensor",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.5)",
+   "name": "Newtonian tidal tensor",
+   "latex": "R^k{}_j=\\eta^{ik}\\frac{\\partial^2\\Phi}{\\partial x^j\\partial x^i}",
+   "meaning": "The matrix of second derivatives of the potential that controls relative acceleration; Newtonian analogue of R^k_{0j0}.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.6)",
+   "name": "Lie dragging of the connecting vector",
+   "latex": "\\mathcal L_{\\boldsymbol u}\\boldsymbol n=[\\boldsymbol u,\\boldsymbol n]=0",
+   "meaning": "The connector keeps joining the same pair of geodesics as it is carried along the flow of u.",
+   "symbols": "L_u Lie derivative along u; [ , ] Lie bracket",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.7)",
+   "name": "Symmetry from zero torsion",
+   "latex": "\\nabla_{\\boldsymbol u}\\boldsymbol n=\\nabla_{\\boldsymbol n}\\boldsymbol u",
+   "meaning": "Torsion-free identity nabla_u n - nabla_n u = [u,n] combined with eqn 35.6.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.8)",
+   "name": "Geodesic equation differentiated along n",
+   "latex": "\\nabla_{\\boldsymbol n}\\nabla_{\\boldsymbol u}\\boldsymbol u=0",
+   "meaning": "Every geodesic of the family obeys nabla_u u = 0, so its derivative across the family also vanishes.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.9)",
+   "name": "Commutator inserted",
+   "latex": "\\left(\\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol n}+[\\nabla_{\\boldsymbol n},\\nabla_{\\boldsymbol u}]\\right)\\boldsymbol u=0",
+   "meaning": "Reorder the two derivatives at the cost of a commutator term.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.10)",
+   "name": "Deviation with bare commutator",
+   "latex": "\\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol u}\\boldsymbol n+[\\nabla_{\\boldsymbol n},\\nabla_{\\boldsymbol u}]\\boldsymbol u=0",
+   "meaning": "Using eqn 35.7 replaces nabla_n u by nabla_u n, producing the second derivative of n.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.11)",
+   "name": "Deviation with bare commutator (affine form)",
+   "latex": "\\frac{D^2\\boldsymbol n}{d\\lambda^2}+[\\nabla_{\\boldsymbol n},\\nabla_{\\boldsymbol u}]\\boldsymbol u=0",
+   "meaning": "Same statement in terms of D/dlambda; the commutator will need a bracket correction to define curvature for general fields.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.12)",
+   "name": "Riemann curvature operator",
+   "latex": "\\boldsymbol R(\\;,\\boldsymbol c,\\boldsymbol a,\\boldsymbol b)=\\hat{\\boldsymbol R}(\\boldsymbol a,\\boldsymbol b)\\boldsymbol c=\\left([\\nabla_{\\boldsymbol a},\\nabla_{\\boldsymbol b}]-\\nabla_{[\\boldsymbol a,\\boldsymbol b]}\\right)\\boldsymbol c",
+   "meaning": "Curvature as the non-commutation of covariant derivatives, corrected for loops that do not close; links operator and tensor slot orders.",
+   "symbols": "a, b directions of differentiation; c vector acted on",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.13)",
+   "name": "Commutator identity on components",
+   "latex": "[\\nabla_\\mu,\\nabla_\\nu]c^\\alpha=c^\\alpha{}_{;\\nu\\mu}-c^\\alpha{}_{;\\mu\\nu}=R^\\alpha{}_{\\beta\\mu\\nu}c^\\beta",
+   "meaning": "In a coordinate frame the antisymmetrized second covariant derivative of a vector is the Riemann tensor acting on the vector (proved in Exercise 35.2).",
+   "symbols": "c^alpha_{;nu mu} = (c^alpha_{;nu})_{;mu}",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.14)",
+   "name": "Geodesic deviation (operator form)",
+   "latex": "\\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol u}\\boldsymbol n+\\hat{\\boldsymbol R}(\\boldsymbol n,\\boldsymbol u)\\boldsymbol u=0",
+   "meaning": "Eqn 35.1 restated with covariant derivatives and the curvature operator (the bracket term vanishes since [n,u] = 0).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "label": "(35.15)",
+   "name": "Components from the operator",
+   "latex": "R^\\alpha{}_{\\beta\\gamma\\delta}=\\boldsymbol R(\\boldsymbol\\omega^\\alpha,\\boldsymbol e_\\beta,\\boldsymbol e_\\gamma,\\boldsymbol e_\\delta)=\\langle\\boldsymbol\\omega^\\alpha,\\hat{\\boldsymbol R}(\\boldsymbol e_\\gamma,\\boldsymbol e_\\delta)\\boldsymbol e_\\beta\\rangle",
+   "meaning": "Insert dual basis 1-form and basis vectors to read off components.",
+   "symbols": "omega^alpha dual basis 1-forms; e_beta basis vectors",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.16)",
+   "name": "Operator on a basis vector (coordinate basis)",
+   "latex": "\\hat{\\boldsymbol R}(\\boldsymbol e_\\gamma,\\boldsymbol e_\\delta)\\boldsymbol e_\\beta=[\\nabla_\\gamma,\\nabla_\\delta]\\boldsymbol e_\\beta=\\nabla_\\gamma\\nabla_\\delta\\boldsymbol e_\\beta-\\nabla_\\delta\\nabla_\\gamma\\boldsymbol e_\\beta",
+   "meaning": "With commuting basis vectors the curvature operator is a pure commutator.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.17)",
+   "name": "Connection coefficients via dual basis",
+   "latex": "\\langle\\boldsymbol\\omega^\\alpha,\\nabla_\\mu\\boldsymbol e_\\nu\\rangle=\\Gamma^\\alpha{}_{\\mu\\nu}",
+   "meaning": "Margin reminder of the Chapter 34 definition, equivalent to nabla_mu e_nu = Gamma^alpha_{mu nu} e_alpha.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.18)",
+   "name": "Covariant derivative of a connection coefficient",
+   "latex": "\\nabla_\\alpha\\Gamma^\\sigma{}_{\\nu\\beta}=\\frac{\\partial\\Gamma^\\sigma{}_{\\nu\\beta}}{\\partial x^\\alpha}",
+   "meaning": "Each Gamma is treated as a scalar function when differentiated along a basis direction.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.19)",
+   "name": "Second derivative of a basis vector",
+   "latex": "\\nabla_\\alpha\\nabla_\\beta\\boldsymbol e_\\nu=\\nabla_\\alpha\\left(\\Gamma^\\sigma{}_{\\beta\\nu}\\boldsymbol e_\\sigma\\right)=\\frac{\\partial\\Gamma^\\sigma{}_{\\beta\\nu}}{\\partial x^\\alpha}\\boldsymbol e_\\sigma+\\Gamma^\\sigma{}_{\\beta\\nu}\\Gamma^\\lambda{}_{\\alpha\\sigma}\\boldsymbol e_\\lambda",
+   "meaning": "Leibniz rule: derivative of the coefficient plus coefficient times derivative of the basis vector. The reading copy loses the indices on the first partial derivative; they are restored here from the page render.",
+   "symbols": "Gamma^sigma_{beta nu} connection coefficients (derivative index first); e_sigma basis vectors",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.20)",
+   "name": "Riemann components from the connection",
+   "latex": "R^\\alpha{}_{\\beta\\gamma\\delta}=\\frac{\\partial\\Gamma^\\alpha{}_{\\delta\\beta}}{\\partial x^\\gamma}-\\frac{\\partial\\Gamma^\\alpha{}_{\\gamma\\beta}}{\\partial x^\\delta}+\\Gamma^\\alpha{}_{\\gamma\\mu}\\Gamma^\\mu{}_{\\delta\\beta}-\\Gamma^\\alpha{}_{\\delta\\mu}\\Gamma^\\mu{}_{\\gamma\\beta}",
+   "meaning": "Reproduces the Chapter 11 formula, confirming that geometric (deviation/operator) and component definitions coincide.",
+   "symbols": "Gamma^alpha_{mu nu} with derivative index first lower",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.21)",
+   "name": "Flat-space ray coordinates",
+   "latex": "\\zeta^\\alpha\\boldsymbol e_\\alpha=\\lambda u^\\alpha\\boldsymbol e_\\alpha",
+   "meaning": "A point reached by travelling distance lambda along a unit direction u has coordinates lambda u^alpha.",
+   "symbols": "zeta^alpha coordinates; u unit direction",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.22)",
+   "name": "The point (2,1)",
+   "latex": "\\zeta^\\alpha\\boldsymbol e_\\alpha=\\frac{\\lambda}{\\sqrt5}\\left(2\\boldsymbol e_x+\\boldsymbol e_y\\right)",
+   "meaning": "Along the unit direction (2,1)/sqrt 5, choosing lambda = sqrt 5 lands on (2,1).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.23)",
+   "name": "Riemann normal coordinates",
+   "latex": "\\zeta^\\alpha\\boldsymbol e_\\alpha=\\lambda u^\\alpha\\boldsymbol e_\\alpha,\\qquad\\zeta^\\alpha=\\lambda u^\\alpha",
+   "meaning": "Same rule with geodesics from the origin replacing straight lines; the frame e_alpha is orthonormal at the origin.",
+   "symbols": "u unit tangent at origin; lambda affine distance",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": "(35.24)",
+   "name": "Metric in Riemann normal coordinates",
+   "latex": "g_{\\mu\\nu}=\\eta_{\\mu\\nu}-\\tfrac13R_{\\mu\\alpha\\nu\\beta}(\\mathcal O)\\zeta^\\alpha\\zeta^\\beta+O(\\zeta^3)",
+   "meaning": "Minkowski at the origin, no linear term (so Gamma = 0 there), curvature enters at second order.",
+   "symbols": "O origin of the coordinates",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Deviation as loop transport of u (margin note 9)",
+   "latex": "\\delta\\boldsymbol u+\\hat{\\boldsymbol R}(\\boldsymbol n,\\boldsymbol u)\\boldsymbol u\\,\\Delta a\\,\\Delta b=0",
+   "meaning": "Reads the term nabla_u nabla_u n delta a delta b as the change of u carried around the loop with sides n delta a and u delta b, motivating the general loop result.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.25)",
+   "name": "Change of a vector transported around a loop",
+   "latex": "\\delta\\boldsymbol A+\\hat{\\boldsymbol R}(\\boldsymbol u,\\boldsymbol v)\\boldsymbol A\\,\\Delta a\\,\\Delta b=0",
+   "meaning": "Curvature operator gives the change in a vector carried round a small loop spanned by u delta a and v delta b.",
+   "symbols": "A transported vector; A' = A + delta A after one circuit",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.26)",
+   "name": "Loop sum of covariant derivatives",
+   "latex": "-\\delta\\boldsymbol A=+\\nabla_{\\boldsymbol v}\\boldsymbol A\\Delta b-\\nabla_{\\boldsymbol v}\\boldsymbol A\\Delta b-\\nabla_{\\boldsymbol u}\\boldsymbol A\\Delta a+\\nabla_{\\boldsymbol u}\\boldsymbol A\\Delta a-\\nabla_{[\\boldsymbol u,\\boldsymbol v]}\\boldsymbol A\\Delta a\\Delta b",
+   "meaning": "Contributions from the edges along v delta b, -v delta b, -u delta a, u delta a and the closing segment -[u,v] delta a delta b, traversed anticlockwise; paired terms are evaluated on opposite, displaced edges.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.27)",
+   "name": "Opposite edges give a second derivative",
+   "latex": "\\left.\\nabla_{\\boldsymbol v}\\boldsymbol A\\Delta b\\right|_0-\\left.\\nabla_{\\boldsymbol v}\\boldsymbol A\\Delta b\\right|_{\\boldsymbol u\\Delta a}=\\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol v}\\boldsymbol A\\,\\Delta a\\,\\Delta b",
+   "meaning": "Two v-edges separated by u delta a differ by a derivative along u. As printed the evaluation points appear reversed: a first-order Taylor step gives (value at u delta a) minus (value at 0) = +nabla_u nabla_v A delta a delta b.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.28)",
+   "name": "Loop result",
+   "latex": "-\\delta\\boldsymbol A=\\left(\\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol v}-\\nabla_{\\boldsymbol v}\\nabla_{\\boldsymbol u}-\\nabla_{[\\boldsymbol u,\\boldsymbol v]}\\right)\\boldsymbol A\\,\\Delta a\\,\\Delta b=\\hat{\\boldsymbol R}(\\boldsymbol u,\\boldsymbol v)\\boldsymbol A\\,\\Delta a\\,\\Delta b",
+   "meaning": "The loop computation reproduces the curvature operator.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.29)",
+   "name": "Curvature operator from parallel transport",
+   "latex": "\\hat{\\boldsymbol R}(\\boldsymbol u,\\boldsymbol v)=\\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol v}-\\nabla_{\\boldsymbol v}\\nabla_{\\boldsymbol u}-\\nabla_{[\\boldsymbol u,\\boldsymbol v]}=[\\nabla_{\\boldsymbol u},\\nabla_{\\boldsymbol v}]-\\nabla_{[\\boldsymbol u,\\boldsymbol v]}",
+   "meaning": "Second, independent route to eqn 35.12. The printed first line has a stray closing parenthesis.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.30)",
+   "name": "Pair symmetries of Riemann",
+   "latex": "R_{\\alpha\\beta\\gamma\\delta}=-R_{\\beta\\alpha\\gamma\\delta},\\quad R_{\\alpha\\beta\\gamma\\delta}=-R_{\\alpha\\beta\\delta\\gamma},\\quad R_{\\alpha\\beta\\gamma\\delta}=+R_{\\gamma\\delta\\alpha\\beta}",
+   "meaning": "Antisymmetry within each index pair and symmetry under exchange of pairs (recalled from Chapter 11).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.31)",
+   "name": "Cyclic identity",
+   "latex": "R_{\\alpha\\beta\\gamma\\delta}+R_{\\alpha\\delta\\beta\\gamma}+R_{\\alpha\\gamma\\delta\\beta}=0",
+   "meaning": "Cyclic sum over the last three indices vanishes; repeated as eqn 35.33 in Example 35.6.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.32)",
+   "name": "Counting scheme",
+   "latex": "N=\\left(\\begin{array}{c}\\text{choices of }\\alpha\\beta\\gamma\\delta\\\\\\text{allowed by pair symmetries}\\end{array}\\right)-\\left(\\begin{array}{c}\\text{constraints from}\\\\\\text{cyclic symmetry}\\end{array}\\right)",
+   "meaning": "Plan for counting independent components.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Pair-symmetry count",
+   "latex": "M=\\frac{n(n-1)}2,\\qquad\\#\\text{pairs of pairs}=\\frac M2(M+1)",
+   "meaning": "Antisymmetric pairs give M values each; exchange symmetry is like a symmetric M-by-M matrix with M diagonal and M(M-1)/2 off-diagonal entries (the text misprints the latter as (M-1)/2).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.33)",
+   "name": "Cyclic identity (restated)",
+   "latex": "R_{\\alpha\\beta\\gamma\\delta}+R_{\\alpha\\delta\\beta\\gamma}+R_{\\alpha\\gamma\\delta\\beta}=0",
+   "meaning": "Only independent when all four indices differ.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.34)",
+   "name": "Number of cyclic constraints",
+   "latex": "\\frac{n!}{(n-4)!\\,4!}",
+   "meaning": "One constraint for each set of four distinct indices.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.35)",
+   "name": "Independent Riemann components",
+   "latex": "\\frac M2(M+1)-\\frac{n!}{(n-4)!\\,4!}=\\frac{n^2(n^2-1)}{12}",
+   "meaning": "20 in four dimensions (6 in three, 1 in two).",
+   "symbols": "n dimension",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.3"
+   }
+  },
+  {
+   "label": "(35.36)",
+   "name": "Weyl tensor",
+   "latex": "C_{\\mu\\nu\\alpha\\beta}=R_{\\mu\\nu\\alpha\\beta}-\\tfrac12R_{\\mu\\alpha}g_{\\nu\\beta}+\\tfrac12R_{\\mu\\beta}g_{\\nu\\alpha}+\\tfrac12R_{\\nu\\alpha}g_{\\mu\\beta}-\\tfrac12R_{\\nu\\beta}g_{\\mu\\alpha}+\\tfrac16R\\left(g_{\\mu\\alpha}g_{\\nu\\beta}-g_{\\mu\\beta}g_{\\nu\\alpha}\\right)",
+   "meaning": "Riemann with its Ricci and scalar parts removed; all traces vanish; the remaining 10 components in 4D.",
+   "symbols": "R_{mu nu} Ricci tensor; R Ricci scalar; g metric",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "label": "(35.37)",
+   "name": "Trace-free Ricci tensor (labelled G by the book)",
+   "latex": "G_{\\mu\\nu}=R_{\\mu\\nu}-\\tfrac14Rg_{\\mu\\nu}",
+   "meaning": "The part of Ricci said to focus light rays. This is the trace-free Ricci tensor, not the book's Einstein tensor (which has 1/2); for null rays the trace term drops out anyway.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "label": "(35.38)",
+   "name": "Deviation as a linear map",
+   "latex": "\\frac{D^2n^\\mu}{d\\lambda^2}=\\left(-R^\\mu{}_{\\nu\\alpha\\beta}u^\\nu u^\\beta\\right)n^\\alpha",
+   "meaning": "Relative acceleration is a matrix acting on n. The example calls this the geodesic equation, but it is the geodesic deviation equation.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Tidal matrix",
+   "latex": "K^\\mu{}_\\alpha=-R^\\mu{}_{\\nu\\alpha\\beta}u^\\nu u^\\beta",
+   "meaning": "Linear map from separation to relative acceleration; its eigenvectors are directions stretched or squeezed without rotation.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "label": "(35.39)",
+   "name": "Area element under K (margin note 14)",
+   "latex": "\\frac{D^2A}{d\\lambda^2}=\\hat KA=(\\lambda_x\\delta x)\\delta y+\\delta x(\\lambda_y\\delta y)=(\\lambda_x+\\lambda_y)A=(\\mathrm{Tr}\\,\\hat K)A",
+   "meaning": "Heuristic: for an area built from eigen-lengths, the second derivative picks up the sum of eigenvalues. Valid only when the lengths have no initial rate of change (cross term 2 delta x' delta y' omitted).",
+   "symbols": "lambda_x, lambda_y eigenvalues of K",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "label": "(35.40)",
+   "name": "Trace of the tidal matrix",
+   "latex": "K^\\mu{}_\\mu=-R^\\mu{}_{\\nu\\mu\\beta}u^\\nu u^\\beta=-R_{\\nu\\beta}u^\\nu u^\\beta",
+   "meaning": "Tracing K contracts Riemann into Ricci.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "label": "(35.41)",
+   "name": "Volume focusing by Ricci",
+   "latex": "\\frac{D^2\\,\\delta V}{d\\lambda^2}=\\left(-R_{\\nu\\beta}u^\\nu u^\\beta\\right)\\delta V",
+   "meaning": "The Ricci tensor governs the acceleration of a small volume of free particles (initially at rest relative to each other).",
+   "symbols": "delta V small volume element",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "label": "(35.42)",
+   "name": "Curvature operator (summary)",
+   "latex": "\\hat{\\boldsymbol R}(\\boldsymbol a,\\boldsymbol b)\\boldsymbol c=\\left([\\nabla_{\\boldsymbol a},\\nabla_{\\boldsymbol b}]-\\nabla_{[\\boldsymbol a,\\boldsymbol b]}\\right)\\boldsymbol c",
+   "meaning": "Restatement of eqn 35.12 in the chapter summary.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.43)",
+   "name": "Derivative along a Lie bracket (Exercise 35.1)",
+   "latex": "\\nabla_{[\\boldsymbol X,\\boldsymbol Y]}\\boldsymbol Z\\ \\to\\ \\left(X^\\gamma Y^\\delta{}_{;\\gamma}-Y^\\gamma X^\\delta{}_{;\\gamma}\\right)Z^\\alpha{}_{;\\delta}",
+   "meaning": "With zero torsion the bracket components can be written with covariant derivatives.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.44)",
+   "name": "Commutator identity (Exercise 35.2a)",
+   "latex": "R^\\mu{}_{\\nu\\alpha\\beta}v^\\nu=v^\\mu{}_{;\\beta\\alpha}-v^\\mu{}_{;\\alpha\\beta}",
+   "meaning": "Component proof target for eqn 35.13.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.45)",
+   "name": "Contracted commutator (Exercise 35.2b)",
+   "latex": "v^{\\mu;\\alpha}{}_{\\mu}-v^{\\mu}{}_{;\\mu}{}^{\\alpha}=R^\\alpha{}_\\mu v^\\mu",
+   "meaning": "Swapping a divergence and a gradient on a vector field costs a Ricci term.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.46)",
+   "name": "Flat-space Maxwell-like equation (Exercise 35.3)",
+   "latex": "-\\partial^2A^\\mu+\\partial^\\mu\\partial_\\nu A^\\nu=J^\\mu",
+   "meaning": "Starting point for demonstrating the comma-to-semicolon ordering ambiguity.",
+   "symbols": "A^mu vector potential; J^mu source",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.47)",
+   "name": "Deviation vectors of radial geodesics (Exercise 35.4)",
+   "latex": "n_\\nu{}^\\mu=\\frac{\\partial\\zeta^\\mu}{\\partial u^\\nu}=s\\,\\delta^\\mu_\\nu",
+   "meaning": "Varying the initial direction component nu generates a connecting vector whose size grows linearly with distance s (the same parameter called lambda elsewhere).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.48)",
+   "name": "Expansion of Gamma about the origin",
+   "latex": "\\Gamma^\\mu{}_{\\alpha\\beta}=\\frac{\\partial\\Gamma^\\mu{}_{\\alpha\\beta}}{\\partial\\zeta^\\sigma}\\zeta^\\sigma+\\dots",
+   "meaning": "Connection coefficients vanish at O, so they start at linear order.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.49)",
+   "name": "First covariant derivative of deviation vectors",
+   "latex": "\\left(\\frac{D\\boldsymbol n_\\nu}{d\\lambda}\\right)^\\mu=\\delta^\\mu_\\nu+\\lambda^2\\frac{\\partial\\Gamma^\\mu{}_{\\alpha\\nu}(\\mathcal O)}{\\partial\\zeta^\\sigma}u^\\alpha u^\\sigma+O(s^3)",
+   "meaning": "Exercise 35.4(b).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.50)",
+   "name": "Second covariant derivative of deviation vectors",
+   "latex": "\\left(\\frac{D^2\\boldsymbol n_\\nu}{d\\lambda^2}\\right)^\\mu=3\\lambda\\frac{\\partial\\Gamma^\\mu{}_{\\alpha\\nu}(\\mathcal O)}{\\partial\\zeta^\\sigma}u^\\alpha u^\\sigma+O(s^2)",
+   "meaning": "Exercise 35.4(c); the factor 3 comes from 2 lambda plus one more lambda from the Gamma correction.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.51)",
+   "name": "Deviation equation at the origin",
+   "latex": "\\left[3\\frac{\\partial\\Gamma^\\mu{}_{\\alpha\\nu}(\\mathcal O)}{\\partial\\zeta^\\sigma}+R^\\mu{}_{\\alpha\\nu\\sigma}(\\mathcal O)\\right]u^\\alpha u^\\sigma+O(s^2)=0",
+   "meaning": "Exercise 35.4(d): links derivatives of Gamma at O to Riemann.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.52)",
+   "name": "Symmetrized relation",
+   "latex": "\\frac{\\partial\\Gamma^\\mu{}_{\\alpha\\nu}(\\mathcal O)}{\\partial\\zeta^\\sigma}+\\frac{\\partial\\Gamma^\\mu{}_{\\sigma\\nu}(\\mathcal O)}{\\partial\\zeta^\\alpha}=-\\tfrac13\\left(R^\\mu{}_{\\alpha\\nu\\sigma}+R^\\mu{}_{\\sigma\\nu\\alpha}\\right)",
+   "meaning": "Exercise 35.4(e): valid for all u, so the symmetric part in alpha, sigma must vanish.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.53)",
+   "name": "Derivative of Gamma at the origin",
+   "latex": "\\frac{\\partial\\Gamma^\\mu{}_{\\nu\\sigma}(\\mathcal O)}{\\partial\\zeta^\\alpha}=-\\tfrac13\\left(R^\\mu{}_{\\nu\\sigma\\alpha}+R^\\mu{}_{\\sigma\\nu\\alpha}\\right)",
+   "meaning": "Exercise 35.4(f), by permuting indices and using Riemann symmetries.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.54)",
+   "name": "Second derivatives of the metric at the origin",
+   "latex": "\\frac{\\partial^2g_{\\mu\\nu}(\\mathcal O)}{\\partial\\zeta^\\alpha\\partial\\zeta^\\sigma}=-\\tfrac13\\left(R_{\\mu\\sigma\\nu\\alpha}+R_{\\mu\\alpha\\nu\\sigma}\\right)",
+   "meaning": "Exercise 35.4(g); Taylor expansion then gives eqn 35.24.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  },
+  {
+   "label": "(35.55)",
+   "name": "Metric derivative identity (hint)",
+   "latex": "g_{\\mu\\nu,\\sigma}=g_{\\mu\\beta}\\Gamma^\\beta{}_{\\sigma\\nu}+g_{\\nu\\beta}\\Gamma^\\beta{}_{\\sigma\\mu}",
+   "meaning": "Differentiating g_{mu nu} = e_mu . e_nu; recalled from Exercise 34.2.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 35.1",
+   "image_path": "gifted-amateur/pages/page-381/img-272.jpeg",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   },
+   "caption_paraphrase": "A family of neighbouring free-fall geodesics, labelled by n, used to set up the separation vector for geodesic deviation.",
+   "visual_description": "Three solid curves run from lower left to upper right, bending gently upward, labelled at their right ends n (lowest), n + dn and n + 2dn. Nearly vertical dashed lines cut across all three curves obliquely, joining points of equal affine parameter. On the lowest curve three dots are labelled beneath as lambda - dlambda, lambda and lambda + dlambda. At the middle dot a bold arrow u points along the curve and a bold arrow n points up toward the n + dn curve.",
+   "what_it_teaches": "Two labels, lambda along each geodesic and n across the family, form a coordinate grid; u = d/dlambda and n = d/dn are the two grid tangents, which commute, so n is Lie dragged along u.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "connecting vector of a geodesic congruence",
+    "congruence of curves",
+    "Lie dragging",
+    "affine parameter"
+   ],
+   "redesign": {
+    "idea": "Geodesic-grid lab on a curved surface: a fan of initially parallel geodesics on a sphere, plane or saddle with live lambda and n grid lines and the two tangent vectors drawn at a movable point.",
+    "interaction": "Learner picks the surface and its curvature, drags the starting spacing and the probe point; the connecting vector n is redrawn along the geodesic, its length plotted against lambda, and a readout compares the measured second derivative of |n| with -K|n| from the curvature, while a toggle shows that carrying n along u by the flow keeps it joining the same two geodesics.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 35.2(a)",
+   "image_path": "gifted-amateur/pages/page-384/img-273.jpeg",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   },
+   "caption_paraphrase": "Unit direction vectors radiating from the origin of a flat plane.",
+   "visual_description": "Panel (a): x and y axes with arrowheads, a dashed unit circle centred on the origin, and about a dozen arrows radiating from the origin with their tips on the dashed circle, spaced at roughly equal angles.",
+   "what_it_teaches": "Every straight line from the origin is characterized by a unit tangent; the set of such tangents is the circle of directions from which normal coordinates are built.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "Riemann normal coordinates"
+   ],
+   "redesign": {
+    "idea": "Combined three-panel normal-coordinate builder (see Fig. 35.2(c)); panel (a) becomes the starting state showing the circle of unit directions.",
+    "interaction": "Learner rotates a highlighted unit arrow around the circle; its components (cos theta, sin theta) are displayed as the future normal-coordinate direction.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 35.2(b)",
+   "image_path": "gifted-amateur/pages/page-384/img-274.jpeg",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   },
+   "caption_paraphrase": "The point (2,1) reached by travelling along a unit direction for parameter distance lambda.",
+   "visual_description": "Panel (b): x and y axes, the same dashed unit circle, and a single arrow from the origin heading up and to the right at a shallow angle, with a dot marking a point on it and the label lambda at the arrowhead. A tick labelled 2 sits on the x axis below the dot.",
+   "what_it_teaches": "Coordinates of a point equal distance travelled times the components of the unit direction: (2,1) = sqrt 5 times (2,1)/sqrt 5.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "Riemann normal coordinates"
+   ],
+   "redesign": {
+    "idea": "Click-a-point exercise within the same builder: the learner clicks any point and the app finds the unit direction and lambda that reach it.",
+    "interaction": "Learner clicks or drags the target point; the ray, the unit direction, lambda and zeta = lambda u update, and a toggle rescales the parameter (e.g. lambda measured in other units) to show the coordinates scale accordingly.",
+    "form": "interactive-2d",
+    "priority": "low"
+   }
+  },
+  {
+   "label": "Fig. 35.2(c)",
+   "image_path": "gifted-amateur/pages/page-384/img-275.jpeg",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   },
+   "caption_paraphrase": "Geodesics leaving the origin in a curved spacetime.",
+   "visual_description": "Panel (c): x and y axes with about eight curved, slightly wavy lines all passing through the origin and fanning out in different directions, replacing the straight rays of panel (a).",
+   "what_it_teaches": "In curved space the rays become geodesics, but each is still labelled by its initial unit tangent and the affine distance along it, which defines Riemann normal coordinates.",
+   "figure_type": "curve-or-surface",
+   "concepts": [
+    "Riemann normal coordinates",
+    "local inertial frame",
+    "metric expansion in Riemann normal coordinates"
+   ],
+   "redesign": {
+    "idea": "Normal-coordinate map on a curved surface: geodesics shot from a chosen point on a sphere or saddle, with the flat (zeta^1, zeta^2) chart displayed side by side and the metric components g_{mu nu}(zeta) coloured by their departure from delta_{mu nu}.",
+    "interaction": "Learner moves the origin, sets the curvature and hovers over the chart; the app shows the geodesic reaching each point, the exact metric components, and the prediction delta - (1/3)R zeta zeta, highlighting that the error is quadratic and vanishes at the origin while the first derivatives are zero there.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 35.3",
+   "image_path": "gifted-amateur/pages/page-385/img-276.jpeg",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   },
+   "caption_paraphrase": "Carrying a vector round a small closed loop changes it from A to A' = A + delta A, which reveals the Riemann tensor.",
+   "visual_description": "A five-sided loop of arrows traversed anticlockwise. From the lower-left corner an arrow labelled u delta a runs right along the bottom; from its end an arrow labelled v delta b climbs up and slightly right; a slanting edge labelled -[u,v] delta a delta b continues up and to the left to reach the top edge; a long arrow labelled -u delta a runs left along the top; and an arrow labelled -v delta b runs straight down the left side back to the start. At the starting corner three small arrows fan out below the loop: A pointing down, A' pointing down and to the right, and -delta A, the short difference arrow, between them. The bracket edge is drawn at a size comparable to the others, exaggerating what is really a second-order gap.",
+   "what_it_teaches": "The u and v edges alone do not close when [u,v] is non-zero; the closing segment explains the extra -nabla_[u,v] term, and the mismatch between A and A' after one circuit is the curvature operator acting on A times the loop area.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "holonomy of parallel transport around a closed loop",
+    "Riemann curvature operator",
+    "Lie bracket as loop-closure failure"
+   ],
+   "redesign": {
+    "idea": "Loop transport playground on a curved surface with two adjustable flow fields u and v; the traced loop visibly fails to close unless the fields commute, and a closing leg along -[u,v] is added automatically.",
+    "interaction": "Learner chooses the vector fields (coordinate pair or a rotating/scaled pair), sets the step sizes delta a and delta b and the starting vector A, then animates transport edge by edge; the app draws A' and delta A, plots |delta A| against delta a delta b to show linearity, and displays R-hat(u,v)A for comparison. A slider shrinks the step sizes so learners see the bracket leg scale like delta a delta b while the long edges scale linearly.",
+    "form": "animated-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 35.4",
+   "image_path": "gifted-amateur/pages/page-388/img-277.jpeg",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   },
+   "caption_paraphrase": "Images of distant stars seen through and past a hypothetical transparent Sun: circles for true sizes, distorted outlines for images.",
+   "visual_description": "A large circle labelled The Sun with a fuzzy, hair-like fringe around its rim. Near its centre a small dashed circle is surrounded by a concentric, slightly larger solid circle. Lower right, still inside the disc near the rim, a dashed circle is overlapped by a slightly larger, offset solid circle. Just outside the rim at lower left a dashed circle sits beside a solid ellipse elongated at an angle, with a small arrow between them.",
+   "what_it_teaches": "Rays crossing matter experience Ricci curvature, which magnifies circular images uniformly; rays passing outside experience only Weyl curvature, which squashes circles into ellipses.",
+   "figure_type": "cartoon-or-analogy",
+   "concepts": [
+    "Ricci focusing versus Weyl shear of light bundles",
+    "Ricci tensor",
+    "Weyl curvature tensor"
+   ],
+   "redesign": {
+    "idea": "Transparent-Sun lensing simulator: a field of background stars behind a translucent, non-refracting star whose density profile and mass the learner controls, with ray bundles traced through the weak-field metric.",
+    "interaction": "Learner drags the star across the background field and adjusts density concentration; each star image is rendered as the true circle plus its lensed outline, colour-coded by the local Ricci and Weyl contributions, with side gauges showing the convergence (isotropic magnification) and the shear (ellipticity) at the cursor.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Example 35.1",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   },
+   "problem": "Find the relative acceleration of two nearby particles falling freely in a Newtonian potential, as a rehearsal for the relativistic calculation.",
+   "method": "Write the separation as n^k = dx^k/dn, exchange the order of the n and t derivatives, substitute Newton's law for the acceleration, and apply the chain rule to differentiate the gradient of Phi across the family.",
+   "key_insight": "The step of commuting derivatives along and across trajectories is exactly what Lie dragging will do relativistically, and the chain rule step foreshadows the commutator; the result is linear in separation with a Hessian as coefficient.",
+   "result": "\\ddot n^k+R^k{}_jn^j=0,\\ R^k{}_j=\\eta^{ik}\\partial_j\\partial_i\\Phi",
+   "concepts": [
+    "Newtonian tidal tensor",
+    "connecting vector of a geodesic congruence",
+    "geodesic deviation equation"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 35.2",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   },
+   "problem": "Derive the relative acceleration of neighbouring geodesics in index-free language.",
+   "method": "Start from nabla_u u = 0, take its covariant derivative along n, trade nabla_n nabla_u for nabla_u nabla_n plus a commutator, then use nabla_n u = nabla_u n (from Lie dragging plus zero torsion).",
+   "key_insight": "Curvature enters only through the failure of covariant derivatives in two directions to commute; the symmetry nabla_n u = nabla_u n is what turns a statement about u into the second derivative of n.",
+   "result": "\\frac{D^2\\boldsymbol n}{d\\lambda^2}+[\\nabla_{\\boldsymbol n},\\nabla_{\\boldsymbol u}]\\boldsymbol u=0",
+   "concepts": [
+    "geodesic deviation equation",
+    "torsion-free connection symmetry",
+    "Lie dragging",
+    "Riemann curvature operator"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   },
+   "problem": "Explain why the commutator [nabla_a, nabla_b] alone cannot serve as the curvature operator for arbitrary vector fields.",
+   "method": "Compare the endpoints of stepping along a then b with stepping along b then a; their separation is the Lie bracket, so a derivative along [a,b] must be subtracted. For u and n, or for coordinate basis vectors, the bracket vanishes.",
+   "key_insight": "The correction term is a loop-closure fix, not new curvature; it guarantees the operator depends only on the vectors at a point (is tensorial).",
+   "result": "\\hat{\\boldsymbol R}(\\boldsymbol a,\\boldsymbol b)=[\\nabla_{\\boldsymbol a},\\nabla_{\\boldsymbol b}]-\\nabla_{[\\boldsymbol a,\\boldsymbol b]}",
+   "concepts": [
+    "Riemann curvature operator",
+    "Lie bracket as loop-closure failure",
+    "coordinate basis"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 35.3",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   },
+   "problem": "Show that components of the curvature operator in a coordinate basis agree with the Chapter 11 Riemann formula.",
+   "method": "Drop the bracket term for coordinate basis vectors, expand nabla_gamma(Gamma^sigma_{delta beta} e_sigma) with the product rule (Gamma treated as functions), subtract the gamma-delta swap, and project with omega^alpha.",
+   "key_insight": "The geometric definition (via deviation and non-commuting derivatives) and the component definition (via Gammas) are the same tensor.",
+   "result": "R^\\alpha{}_{\\beta\\gamma\\delta}=\\partial_\\gamma\\Gamma^\\alpha{}_{\\delta\\beta}-\\partial_\\delta\\Gamma^\\alpha{}_{\\gamma\\beta}+\\Gamma^\\alpha{}_{\\gamma\\mu}\\Gamma^\\mu{}_{\\delta\\beta}-\\Gamma^\\alpha{}_{\\delta\\mu}\\Gamma^\\mu{}_{\\gamma\\beta}",
+   "concepts": [
+    "Riemann components in terms of connection coefficients",
+    "connection coefficients",
+    "component extraction with dual basis 1-forms"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 35.4",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   },
+   "problem": "Construct Riemann normal coordinates and show they give a local inertial frame.",
+   "method": "In the flat plane, label each point by the distance along a ray from the origin times the ray's unit direction (worked for the point (2,1) with u = (2,1)/sqrt 5 and lambda = sqrt 5). In curved spacetime, replace rays by geodesics from an orthonormal frame at O, set zeta^alpha = lambda u^alpha, and quote the metric expansion (proof in Exercise 35.4).",
+   "key_insight": "Because geodesics through O are straight lines in these coordinates, the connection vanishes at O; the absence of a linear term in the metric expansion confirms it, and curvature is pushed to quadratic order.",
+   "result": "g_{\\mu\\nu}=\\eta_{\\mu\\nu}-\\tfrac13R_{\\mu\\alpha\\nu\\beta}(\\mathcal O)\\zeta^\\alpha\\zeta^\\beta+O(\\zeta^3)",
+   "concepts": [
+    "Riemann normal coordinates",
+    "metric expansion in Riemann normal coordinates",
+    "local inertial frame"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 35.5",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   },
+   "problem": "Compute the change in a vector field carried around a small closed loop using covariant derivatives rather than components.",
+   "method": "List covariant-derivative contributions from the four long edges and the short closing edge along -[u,v] (Fig. 35.3), pair each edge with its opposite, and replace each difference of first derivatives on displaced edges by a second derivative times delta a delta b.",
+   "key_insight": "The loop route and the deviation route produce the identical operator, so the curvature operator is not an artefact of one derivation.",
+   "result": "-\\delta\\boldsymbol A=\\left([\\nabla_{\\boldsymbol u},\\nabla_{\\boldsymbol v}]-\\nabla_{[\\boldsymbol u,\\boldsymbol v]}\\right)\\boldsymbol A\\,\\Delta a\\,\\Delta b",
+   "concepts": [
+    "holonomy of parallel transport around a closed loop",
+    "Riemann curvature operator",
+    "Lie bracket as loop-closure failure"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 35.6",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "problem": "Determine how many independent components the Riemann tensor has in n dimensions.",
+   "method": "Count antisymmetric index pairs, M = n(n-1)/2; count symmetric pairs-of-pairs like the entries of a symmetric M-by-M matrix, M(M+1)/2; subtract one cyclic constraint for each choice of four distinct indices, n!/((n-4)!4!).",
+   "key_insight": "Symmetries cut 256 naive components in 4D down to 20; the cyclic identity matters only when all four indices differ.",
+   "result": "\\frac{n^2(n^2-1)}{12}\\ \\Rightarrow\\ 20\\text{ for }n=4",
+   "concepts": [
+    "number of independent Riemann components",
+    "symmetries of the Riemann tensor",
+    "cyclic identity"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 35.7",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   },
+   "problem": "Compare the effects of Ricci and Weyl curvature on bundles of light rays.",
+   "method": "Restrict to null geodesics to avoid timelike complications; associate the (trace-free) Ricci part with isotropic focusing like a converging lens and the Weyl part with astigmatic focusing; illustrate with Penrose's transparent, non-refracting Sun and Fig. 35.4.",
+   "key_insight": "Matter along the line of sight magnifies without distortion; curvature from matter elsewhere (tidal field in vacuum) distorts circles into ellipses.",
+   "result": null,
+   "concepts": [
+    "Ricci focusing versus Weyl shear of light bundles",
+    "Ricci tensor",
+    "Weyl curvature tensor",
+    "trace-free Ricci tensor"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 35.8",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   },
+   "problem": "Show mathematically that the Ricci tensor controls the change of volume of a small bundle of geodesics.",
+   "method": "Write deviation as D^2 n/dlambda^2 = K n, where K is minus Riemann with u in its second and fourth slots; take n along eigenvectors of K; build a volume from eigen-lengths so its second derivative picks up the trace of K (footnote 14); trace K to get the Ricci contraction.",
+   "key_insight": "Tracing Riemann to Ricci is the same operation as combining individual length responses into a volume response; the traceless remainder changes shape, turning a sphere into an ellipsoid.",
+   "result": "\\frac{D^2\\,\\delta V}{d\\lambda^2}=-R_{\\nu\\beta}u^\\nu u^\\beta\\,\\delta V",
+   "concepts": [
+    "tidal matrix of geodesic deviation",
+    "volume evolution from the Ricci tensor",
+    "Ricci tensor"
+   ],
+   "difficulty": "challenging"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Newtonian tidal calculation as a template for the relativistic proof",
+   "target_concept": "geodesic deviation equation",
+   "how_used": "The warm-up is organized so that swapping derivatives stands in for Lie dragging and the chain rule stands in for the derivative commutator, letting learners follow the abstract proof by matching steps.",
+   "limits": "Newtonian time is absolute and the tidal matrix is spatial only; the relativistic version needs covariant derivatives and includes time-space curvature.",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Two-column stepper: each click advances one line of the Newtonian derivation and the matching line of the covariant one, highlighting corresponding terms."
+  },
+  {
+   "analogy": "Converging lens versus astigmatic lens",
+   "target_concept": "Ricci focusing versus Weyl shear of light bundles",
+   "how_used": "Ricci curvature is likened to a positive lens that enlarges an image uniformly; Weyl curvature to an astigmatic lens that focuses in one plane and defocuses in the other.",
+   "limits": "Gravitational lensing is not refraction and has no wavelength dependence; real lenses also have a focal plane, whereas curvature acts continuously along the ray.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Optical bench where the learner swaps a spherical and a cylindrical lens and sees a circular spot become a larger circle or an ellipse, then switches to a curvature panel producing the same outcomes."
+  },
+  {
+   "analogy": "Straight rays from the origin in a flat plane",
+   "target_concept": "Riemann normal coordinates",
+   "how_used": "Flat-space polar-like labelling (distance along a ray times its unit direction) is shown first, with a numerical point, before geodesics replace the rays.",
+   "limits": "In curved space neighbouring geodesics can reconverge, so normal coordinates are only valid in a neighbourhood free of conjugate points.",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Slider morphs a flat sheet into a sphere while the ray fan bends into geodesics and the coordinate labels stay attached."
+  },
+  {
+   "analogy": "Tensor as a slot machine that returns a relative acceleration",
+   "target_concept": "Riemann curvature tensor",
+   "how_used": "Feeding u, n, u into three slots of R outputs the vector that, with a minus sign, is the relative acceleration.",
+   "limits": "Hides which slot is which; learners must remember that u occupies the second and fourth slots.",
+   "locator": {
+    "pdf_page": 380,
+    "printed_page": 363,
+    "section": "35.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Drag-and-drop slot machine: learner drops u, n or basis vectors into slots and sees the output vector drawn on a geodesic pair."
+  },
+  {
+   "analogy": "Pairs of pairs counted like entries of a symmetric matrix",
+   "target_concept": "number of independent Riemann components",
+   "how_used": "Treats each antisymmetric index pair as a single label running over M values, so pair-exchange symmetry is the symmetry of an M-by-M matrix.",
+   "limits": "Needs a separate cyclic-constraint count; the matrix picture alone overcounts by C(n,4).",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Grid of M-by-M cells for n = 2,3,4 with the upper triangle highlighted and cyclic constraints removed one by one to reach 1, 6, 20."
+  },
+  {
+   "analogy": "Ricci as an average of Riemann",
+   "target_concept": "Ricci tensor",
+   "how_used": "Margin note 11 explains Ricci flatness as positive and negative parts of curvature cancelling in the contraction, just as an average can vanish while individual values do not.",
+   "limits": "The contraction is a trace over specific slots, not an average over directions in general, although for the tidal matrix it is proportional to the mean over directions.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Laying out a Cartesian grid by parallel transport",
+   "target_concept": "path dependence of parallel transport (no global Cartesian grid)",
+   "how_used": "Curvature is characterized as exactly what spoils the natural plan of transporting orthogonal axes everywhere to make a grid.",
+   "limits": "Works cleanly for Riemannian surfaces; in Lorentzian spacetime the rotation can be a boost.",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "effectiveness": "strong",
+   "app_idea": "On a sphere, learner transports a pair of axes along two different routes to the same point and sees the mismatch angle equal to the enclosed area times curvature."
+  },
+  {
+   "analogy": "A small sphere of free particles deforming into an ellipsoid",
+   "target_concept": "tidal matrix of geodesic deviation",
+   "how_used": "The action of K is pictured as stretching a ball of particles along its eigen-directions, with volume change governed by the trace.",
+   "limits": "The book says the axes are the eigenvalues; strictly the axis directions are eigenvectors and the eigenvalues set their accelerations.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Particle ball falling past a mass: learner toggles vacuum (pure Weyl, volume preserved) or inside a dust cloud (Ricci added, volume shrinks) and watches axis lengths and volume plots."
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "Feeling a force (being pressed into your bed) proves a gravitational field or curved spacetime is present.",
+   "correction": "A uniformly accelerating station produces the same local sensation; only relative acceleration between free particles, i.e. geodesic deviation, tests curvature.",
+   "why_tempting": "Everyday experience ties weight to gravity, and Newtonian gravity is described as a force.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 380,
+    "printed_page": 363,
+    "section": null
+   },
+   "concepts": [
+    "tidal test of spacetime curvature"
+   ]
+  },
+  {
+   "misconception": "If the Lie derivative of n along u vanishes, the separation vector does not change as the particles fall.",
+   "correction": "Lie dragging only says n keeps joining the same pair of geodesics; its length and direction can change, and that change is what geodesic deviation measures.",
+   "why_tempting": "A vanishing derivative usually means a constant quantity.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   },
+   "concepts": [
+    "Lie dragging",
+    "connecting vector of a geodesic congruence"
+   ]
+  },
+  {
+   "misconception": "The curvature operator is simply the commutator of two covariant derivatives.",
+   "correction": "For general vector fields one must subtract nabla along [a,b]; the plain commutator works only when the fields commute, as for coordinate basis vectors or u and n.",
+   "why_tempting": "Most component calculations use coordinate bases where the extra term vanishes, and the deviation derivation first produces a bare commutator.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   },
+   "concepts": [
+    "Riemann curvature operator",
+    "Lie bracket as loop-closure failure"
+   ]
+  },
+  {
+   "misconception": "The geometrically defined Riemann tensor is a different object from the component formula of Chapter 11.",
+   "correction": "Evaluating the operator on coordinate basis vectors returns exactly the same Gamma-and-derivative expression.",
+   "why_tempting": "The two definitions look nothing alike and were introduced far apart in the book.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   },
+   "concepts": [
+    "Riemann components in terms of connection coefficients",
+    "Riemann curvature operator"
+   ]
+  },
+  {
+   "misconception": "In a local inertial frame such as Riemann normal coordinates, spacetime is flat in a neighbourhood.",
+   "correction": "Only the metric and its first derivatives take flat values at the single point O; second derivatives equal -(1/3) of Riemann combinations and cannot be removed.",
+   "why_tempting": "The book's own phrasing calls the frame flat with vanishing connection coefficients, and the equivalence principle is often paraphrased as local flatness.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.2"
+   },
+   "concepts": [
+    "local inertial frame",
+    "metric expansion in Riemann normal coordinates"
+   ]
+  },
+  {
+   "misconception": "Parallel transporting a pair of orthogonal vectors everywhere gives a consistent Cartesian grid.",
+   "correction": "Transport depends on path; around closed loops vectors rotate, so the resulting field is multivalued in curved spacetime.",
+   "why_tempting": "Transport does preserve orthogonality along each curve, which seems to be all a grid needs.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "concepts": [
+    "path dependence of parallel transport (no global Cartesian grid)"
+   ]
+  },
+  {
+   "misconception": "A four-index tensor in four dimensions has 256 independent numbers to find.",
+   "correction": "Pair antisymmetries, pair exchange symmetry and the cyclic identity reduce the count to 20.",
+   "why_tempting": "Naive counting of index combinations.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "concepts": [
+    "number of independent Riemann components"
+   ]
+  },
+  {
+   "misconception": "If the Ricci tensor vanishes, spacetime is flat.",
+   "correction": "Ricci-flat spacetimes can have non-zero Weyl curvature, as around any isolated mass or in a gravitational wave; the Riemann tensor need not vanish.",
+   "why_tempting": "Einstein's vacuum equation is R_{mu nu} = 0, and 'curvature zero' sounds like flatness.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   },
+   "concepts": [
+    "Ricci-flat spacetime",
+    "Weyl curvature tensor"
+   ]
+  },
+  {
+   "misconception": "Empty space around a star has no curvature because there is no matter there.",
+   "correction": "Vacuum kills only the Ricci part; the Weyl part survives and produces tides and image distortion.",
+   "why_tempting": "Einstein's equation links curvature to matter locally.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   },
+   "concepts": [
+    "Weyl curvature tensor",
+    "vacuum Einstein equation"
+   ]
+  },
+  {
+   "misconception": "R_{mu nu} - (1/4) R g_{mu nu} is the trace-reversed Ricci tensor, i.e. the Einstein tensor.",
+   "correction": "Subtracting (1/4) R g gives the trace-free Ricci tensor; trace reversal (the Einstein tensor) subtracts (1/2) R g. For null rays both agree with R_{mu nu} k^mu k^nu.",
+   "why_tempting": "Example 35.7 uses the name 'trace-reversed' and the symbol G for the 1/4 version.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   },
+   "concepts": [
+    "trace-free Ricci tensor",
+    "Ricci tensor"
+   ]
+  },
+  {
+   "misconception": "Weyl curvature only matters for light.",
+   "correction": "Weyl curvature produces tidal shear on massive bodies too: it is responsible for vacuum tidal stretching near planets and for the effect of gravitational waves on test masses.",
+   "why_tempting": "The book compares the two parts using light rays, and the transparent-Sun picture is optical.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   },
+   "concepts": [
+    "Weyl curvature tensor",
+    "tidal matrix of geodesic deviation"
+   ]
+  },
+  {
+   "misconception": "The eigenvalues of K are the lengths of the axes of the ellipsoid formed by a deforming ball.",
+   "correction": "Axis directions are the eigenvectors of K; each eigenvalue gives the relative acceleration per unit length along its axis, so axis lengths evolve according to it.",
+   "why_tempting": "The text states it loosely, and eigenvalues of a shape matrix do give axis lengths in other contexts.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   },
+   "concepts": [
+    "tidal matrix of geodesic deviation"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Waking in a space station",
+   "setup": "You are pressed into your bunk and cannot tell whether the station sits in a gravitational field or is accelerating. You release two particles moving on parallel paths and later check whether they accelerate relative to one another.",
+   "lesson": "Relative acceleration of free particles is the invariant signature of curvature; a single particle or a felt force is not.",
+   "locator": {
+    "pdf_page": 380,
+    "printed_page": 363,
+    "section": null
+   },
+   "concepts": [
+    "tidal test of spacetime curvature",
+    "geodesic deviation equation"
+   ],
+   "visualizable": true,
+   "app_idea": "Split-screen station: rocket-accelerated in flat spacetime versus orbiting or parked near a planet; learner releases particle pairs in different orientations and compares separation plots."
+  },
+  {
+   "name": "Penrose's transparent Sun",
+   "setup": "Imagine the Sun were transparent and did not refract light, and look at distant stars behind it, some through its body and some just past its rim.",
+   "lesson": "Rays through matter meet Ricci curvature and give larger round images; rays passing outside meet only Weyl curvature and give elliptical images.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   },
+   "concepts": [
+    "Ricci focusing versus Weyl shear of light bundles"
+   ],
+   "visualizable": true,
+   "app_idea": "See Fig. 35.4 redesign: drag a transparent star across a star field with live convergence and shear readouts."
+  },
+  {
+   "name": "Building a grid by parallel transport",
+   "setup": "Start with two orthogonal vectors at a point and try to cover spacetime with a Cartesian grid by parallel transporting them everywhere.",
+   "lesson": "The attempt fails in curved space because transport around loops rotates vectors; this obstruction is another definition of curvature.",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "concepts": [
+    "path dependence of parallel transport (no global Cartesian grid)"
+   ],
+   "visualizable": true,
+   "app_idea": "Sphere with a transport-brush tool: painting axes along different paths produces visible clashes where paths meet."
+  },
+  {
+   "name": "Small ball of free particles",
+   "setup": "Surround a free-falling particle with a tiny sphere of others, all initially at rest relative to it, and follow them along the geodesic.",
+   "lesson": "The traceless part of the tidal matrix deforms the sphere into an ellipsoid; the trace (Ricci) changes its volume.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   },
+   "concepts": [
+    "tidal matrix of geodesic deviation",
+    "volume evolution from the Ricci tensor"
+   ],
+   "visualizable": true,
+   "app_idea": "3D ball of points integrated with the deviation equation; learner sets eigenvalues of K directly or chooses a physical source."
+  },
+  {
+   "name": "Two-step journeys that fail to meet",
+   "setup": "Walk a short way along field a then along field b, and separately along b then a, starting from the same point.",
+   "lesson": "The endpoints differ by the Lie bracket, which is why a derivative along [a,b] must be subtracted when building the curvature operator.",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   },
+   "concepts": [
+    "Lie bracket as loop-closure failure",
+    "Riemann curvature operator"
+   ],
+   "visualizable": true,
+   "app_idea": "Flow-field sketchpad: pick two vector fields in the plane (e.g. radial and rotational) and animate both orderings; the gap vector is drawn and compared with [a,b]."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Hermann Weyl",
+    "Bernhard Riemann",
+    "Elwin Bruno Christoffel",
+    "Gregorio Ricci-Curbastro",
+    "Tullio Levi-Civita",
+    "Albert Einstein"
+   ],
+   "year": "1918",
+   "event": "In Space-Time-Matter, Weyl describes how Christoffel, Ricci and Levi-Civita formalized Riemann's geometry, while its physical development waited about seventy years for Einstein.",
+   "significance": "Frames the chapter as the mathematical side of Riemann's legacy being put to physical use.",
+   "locator": {
+    "pdf_page": 380,
+    "printed_page": 363,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "Carl Gustav Jacob Jacobi"
+   ],
+   "year": "1837",
+   "event": "Credited in margin note 2 with discovering the geodesic deviation equation, hence the alternative name Jacobi equation.",
+   "significance": "Shows the equation predates general relativity as a result in the geometry of geodesics.",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   }
+  },
+  {
+   "people": [
+    "Roger Penrose"
+   ],
+   "year": "2004",
+   "event": "The transparent-Sun picture of Ricci versus Weyl effects on light is taken from Penrose's The Road to Reality, Section 28.8.",
+   "significance": "Source of the chapter's main visual intuition for the curvature split.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "people": [
+    "Roger Penrose"
+   ],
+   "year": null,
+   "event": "Margin note 12 describes the Weyl curvature hypothesis, that Weyl curvature was small or zero at the Big Bang (the book does not name its author; it is usually credited to Penrose).",
+   "significance": "Links a technical piece of the Riemann tensor to cosmological initial conditions and the arrow of time.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Detecting a real gravitational field inside a closed laboratory",
+   "kind": "experiment",
+   "details": "Release two free test masses on parallel paths and monitor their separation; a non-zero relative acceleration indicates curvature, whereas uniform acceleration of the lab gives none.",
+   "key_numbers": "Our estimate: near Earth's surface GM/r^3 is about 1.5e-6 s^-2. Two masses 1 m apart horizontally converge at about 1.5e-6 m s^-2; two masses 1 m apart vertically separate at twice that, about 3.1e-6 m s^-2 (the radial tidal term is 2GM/r^3).",
+   "locator": {
+    "pdf_page": 380,
+    "printed_page": 363,
+    "section": null
+   }
+  },
+  {
+   "topic": "Counting curvature degrees of freedom",
+   "kind": "numerical-estimate",
+   "details": "Independent components of Riemann from n^2(n^2-1)/12, and the Ricci/Weyl split in four dimensions.",
+   "key_numbers": "n = 4: 20 components = 10 Ricci + 10 Weyl (book). Our values: n = 2 gives 1, n = 3 gives 6 (all fixed by Ricci, Weyl vanishes); naive 4D count 4^4 = 256.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.3"
+   }
+  },
+  {
+   "topic": "Lensing by a transparent Sun",
+   "kind": "numerical-estimate",
+   "details": "Penrose's idealization separates focusing inside matter (Ricci) from shear outside (Weyl). Our own weak-field estimate for a uniform-density transparent Sun: rays near the centre of the disc are deflected in proportion to impact parameter, so paraxial rays share a focal length f = c^2 R^2/(6GM) (rays at larger impact parameter enclose proportionally less mass and focus farther away); limb rays focus at c^2 R^2/(4GM).",
+   "key_numbers": "Our estimate: interior focal length about 5.5e13 m (roughly 370 AU) for uniform density; limb-ray focus about 8.2e13 m (roughly 550 AU); limb deflection 1.75 arcsec.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "topic": "Volume focusing by matter",
+   "kind": "numerical-estimate",
+   "details": "For a perfect fluid, Einstein's equation gives R_{mu nu}u^mu u^nu = 4 pi G (rho + 3p/c^2), which is the Newtonian 4 pi G rho for dust; this is the rate that makes a small ball of free particles start to lose volume.",
+   "key_numbers": "Our estimate: at Earth's mean density (5.5e3 kg m^-3) 4 pi G rho is about 4.6e-6 s^-2, a collapse time scale of order 1/sqrt(4 pi G rho), roughly 8 minutes.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "topic": "Weyl curvature in cosmology and black holes",
+   "kind": "astrophysical-system",
+   "details": "Robertson-Walker spacetimes are conformally flat (zero Weyl curvature); gravitational clumping and black-hole formation increase Weyl curvature, which diverges at black-hole singularities. The Weyl curvature hypothesis demands small Weyl curvature at the Big Bang.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "topic": "Gravitational waves as propagating Weyl curvature",
+   "kind": "detection-event",
+   "details": "Our link, not made in this chapter: in vacuum a passing gravitational wave has zero Ricci curvature, so its effect on a ring of test masses (GA ch46) is a pure volume-preserving shear, the Weyl behaviour described here.",
+   "key_numbers": "GW150914 strain amplitude about 1e-21 (standard value, not from this chapter).",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Riemann slot order",
+   "convention": "R( , c, a, b) = R-hat(a,b)c: the second slot takes the vector acted on, the last two the directions of differentiation; components R^alpha_{beta gamma delta} = <omega^alpha, R-hat(e_gamma, e_delta)e_beta>.",
+   "notes": "Matches GA ch11 and MTW ordering.",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "item": "Connection coefficient index order",
+   "convention": "nabla_mu e_nu = Gamma^alpha_{mu nu} e_alpha: derivative direction in the first lower index.",
+   "notes": "MTW puts the derivative index last; the difference is invisible for torsion-free coordinate Gammas but matters for exercise 35.6.",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "item": "Semicolon order for second derivatives",
+   "convention": "c^alpha_{;nu mu} = (c^alpha_{;nu})_{;mu} are the components of nabla_mu nabla_nu c.",
+   "notes": "Reverse of the reading order of nabla operators; essential for the sign in eqn 35.13.",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "item": "Covariant derivative along a curve",
+   "convention": "D/dlambda = nabla_u and D^2/dlambda^2 = nabla_u nabla_u.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "item": "Directional derivative shorthand",
+   "convention": "nabla_mu denotes nabla_{e_mu}, and nabla_a denotes the derivative along vector a.",
+   "notes": "The text uses nabla_mu both for this directional operator and for component second derivatives; they differ by symmetric Gamma terms that cancel in commutators.",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "item": "Ricci contraction",
+   "convention": "R_{nu beta} = R^mu_{nu mu beta}: contract the upper index with the third index.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "item": "Lie derivative symbol",
+   "convention": "Script L with subscript u, equal to the Lie bracket [u, ] on vectors.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "item": "Newtonian metric symbol",
+   "convention": "eta^{ik} used for the spatial Euclidean metric (identity) in Example 35.1, and partial derivatives in t written for particle trajectories.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "item": "Hats omitted",
+   "convention": "Orthonormal-frame indices are left without hats in Example 35.4 and Exercise 35.4 to reduce clutter.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "item": "Overloaded symbols",
+   "convention": "n is a geodesic label, the connecting vector and the number of dimensions; lambda is the affine parameter and an eigenvalue; C is the Weyl tensor and a constant in margin note 11; G_{mu nu} in eqn 35.37 is not the Einstein tensor; s and lambda both denote distance in Exercise 35.4.",
+   "notes": "Warn learners explicitly.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "item": "Loop orientation and sign",
+   "convention": "Fig. 35.3 is traversed anticlockwise starting along u delta a; A' = A + delta A after the circuit, with delta A = -R-hat(u,v)A delta a delta b.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   }
+  },
+  {
+   "item": "Signature and units",
+   "convention": "Book-wide Minkowski components diag(-1, 1, 1, 1), i.e. (-,+,+,+), fixed in GA ch6 and ch10; the relativistic formulas of this chapter carry no factors of c. The Weyl tensor coefficients 1/2 and 1/6 hold only in four dimensions.",
+   "notes": "The + sign in Newton's law (eqn 35.4) with eta^{ik} relies on the spatial block of eta being +delta.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Opening boxed note: the chapter rederives key curvature results with the Part V geometric tools and adds new ones, aiming at insight into curvature's physical role.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 380,
+    "printed_page": 363,
+    "section": null
+   }
+  },
+  {
+   "summary": "Note 1: the actual curvature computations for specific spacetimes are postponed to Chapter 36.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 380,
+    "printed_page": 363,
+    "section": null
+   }
+  },
+  {
+   "summary": "Note 2: the deviation equation is also named after Jacobi, who found it in 1837.",
+   "type": "historical",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   }
+  },
+  {
+   "summary": "Note 3: gives the explicit Newtonian tidal tensor as second derivatives of the potential (eqn 35.5).",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "summary": "Note 4: fixes the ordering convention for semicolon second derivatives used in eqn 35.13.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "summary": "Note 5: alternative definition of connection coefficients by pairing a dual basis 1-form with nabla_mu e_nu, from Chapter 34.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "summary": "Note 6: reminder that a connection coefficient is an ordinary function, so its covariant derivative along a basis direction is a partial derivative.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "summary": "Note 7: hats on orthonormal indices are dropped in the normal-coordinate example.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "summary": "Note 8: the metric expansion in normal coordinates is proved in the exercises.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.2"
+   }
+  },
+  {
+   "summary": "Note 9: motivates the loop approach by reading the deviation term as the change of u carried round a loop with sides n delta a and u delta b, then generalizing to any vector A.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   }
+  },
+  {
+   "summary": "Note 10: recalls the pair symmetries and cyclic identity of Riemann from Chapter 11.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "summary": "Note 11: constant-curvature spacetimes have Ricci proportional to the metric; Ricci-flat does not mean Riemann-flat; Ricci behaves like an average of Riemann.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "summary": "Note 12: Weyl is conformally invariant, vanishes for Minkowski and Robertson-Walker spacetimes (conformally flat), grows with clumping, diverges at black-hole singularities, and is constrained at the Big Bang by the Weyl curvature hypothesis.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "summary": "Note 13: pointer to Penrose (2004), Section 28.8, for the transparent-Sun discussion.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "summary": "Note 14: heuristic that the second derivative of an area built from eigen-lengths equals the trace of K times the area.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "summary": "Exercise 35.3 remark: no definite rule resolves the comma-to-semicolon ordering ambiguity; MTW offers rules of thumb.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 6,
+  "pdf_pages": [
+   389,
+   390
+  ],
+  "skills_practiced": [
+   "expressing the Lie bracket and derivatives along it in covariant components",
+   "proving the commutator identity for covariant derivatives and contracting it to a Ricci identity",
+   "recognizing ordering ambiguities when promoting flat-space equations to curved spacetime",
+   "Taylor expanding connection coefficients and the metric about the origin of normal coordinates",
+   "applying the geodesic deviation equation to a family of radial geodesics",
+   "computing the Riemann tensor from an abstract basis with given covariant derivatives",
+   "using torsion-free symmetry and commuting basis fields"
+  ],
+  "notable": [
+   {
+    "number": "35.1",
+    "summary": "Rewrite the covariant derivative along the bracket of two vector fields in components, using semicolon derivatives of the fields.",
+    "skills": [
+     "Lie bracket components",
+     "torsion-free symmetry"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Supplies the component form of the correction term in the curvature operator.",
+    "pdf_page": 389
+   },
+   {
+    "number": "35.2",
+    "summary": "Prove the component commutator identity in a coordinate frame, then contract it to show that exchanging a divergence and a gradient on a vector gives a Ricci term.",
+    "skills": [
+     "second covariant derivatives",
+     "index contraction",
+     "curvature operator"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Provides the proof of eqn 35.13 omitted in the text and the identity needed for Exercise 35.3.",
+    "pdf_page": 389
+   },
+   {
+    "number": "35.3",
+    "summary": "Take a Maxwell-like flat-space wave equation for a vector potential, write it with commas, show that replacing commas by semicolons is ambiguous, and relate the two versions through a Ricci term.",
+    "skills": [
+     "comma-goes-to-semicolon rule",
+     "commutator identity",
+     "Ricci tensor"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Shows a physical consequence of non-commuting covariant derivatives: minimal coupling is not unique. Appendix E confirms that the two candidate equations differ by a Ricci term acting on A.",
+    "pdf_page": 389
+   },
+   {
+    "number": "35.4",
+    "summary": "Eight guided parts (following Poisson and Will) build Riemann normal coordinates: show Gamma vanishes at the origin, expand it linearly, compute first and second covariant derivatives of the radial deviation vectors, impose geodesic deviation, solve for derivatives of Gamma, obtain second derivatives of the metric with the metric-derivative identity, and reassemble the quadratic metric expansion.",
+    "skills": [
+     "Taylor expansion",
+     "geodesic deviation",
+     "index permutation with Riemann symmetries",
+     "metric compatibility"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "The full proof of eqn 35.24, linking curvature to second derivatives of the metric; the longest exercise of the chapter.",
+    "pdf_page": 389
+   },
+   {
+    "number": "35.5",
+    "summary": "On a 2D surface with commuting basis fields and zero torsion, given three covariant derivatives among the basis fields, show every Riemann component is zero.",
+    "skills": [
+     "curvature operator in an abstract basis",
+     "torsion-free symmetry to infer the missing derivative"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Practises the operator definition without coordinates; the missing derivative nabla_A B must be deduced from zero torsion.",
+    "pdf_page": 390
+   },
+   {
+    "number": "35.6",
+    "summary": "For commuting basis fields with specified covariant derivatives, compute the connection coefficients and the Riemann components.",
+    "skills": [
+     "reading off connection coefficients",
+     "curvature operator"
+    ],
+    "difficulty": "standard",
+    "why_notable": "The given derivatives are not symmetric (nabla_X Y - nabla_Y X = 2Y while [X,Y] = 0), so this connection has torsion, which the learner should notice; by our computation R-hat(X,Y)X = -X - Y and R-hat(X,Y)Y = -X + Y. Appendix E lists R^X_{XXY} = R^Y_{XXY} = R^X_{YXY} = -1 and R^Y_{YXY} = +1, consistent with this; it does not comment on the torsion.",
+    "pdf_page": 390
+   }
+  ],
+  "solutions": "GA Appendix E gives answers or hints for Exercises 35.3 (the two curved-space versions differ by a term R^mu_nu A^nu), 35.4 (hints for parts a, c, g) and 35.6 (connection coefficients and the four non-zero Riemann components). The Appendix E values for 35.6 agree with the operator results quoted above."
+ },
+ "difficulty": {
+  "math_level": 4,
+  "conceptual_level": 4,
+  "novice_friendliness": 2,
+  "notes": "Short but dense: the index-free derivations assume fluency with Lie brackets, torsion and dual bases from Chapters 31-34, and several key results (component commutator, normal-coordinate metric) are quoted with proofs deferred to exercises. The Ricci/Weyl section is more conceptual and friendlier, but its volume argument is heuristic and the text contains slips: the off-diagonal count in Example 35.6, the 1/4 'trace-reversed' tensor named G in eqn 35.37, apparently swapped evaluation points in eqn 35.27, 'geodesic equation' for the deviation equation in Example 35.8, and overloaded symbols (n, lambda, C)."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch11 §11.2",
+   "reason": "Newtonian tidal tensor that Example 35.1 re-derives.",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch11 §11.3",
+   "reason": "Component loop calculation of Riemann that §35.3 redoes with covariant derivatives and that Example 35.3 reproduces.",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch11 §11.4",
+   "reason": "Symmetries of the Riemann tensor and the unproved component count now established in Example 35.6.",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch11 §11.7",
+   "reason": "Geodesic deviation previously quoted in a freely falling frame, now derived.",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch10 §10.4",
+   "reason": "Freely falling frame as the first example of a local inertial frame, complemented by Riemann normal coordinates.",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch6 §6.4",
+   "reason": "Local flatness conditions (metric equals eta, first derivatives vanish) realized by normal coordinates.",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch33 §33.2-33.3",
+   "reason": "Commutators of vector fields, Lie derivative and Lie dragging along a congruence (Fig. 33.4).",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch34 §34.1-34.3",
+   "reason": "Torsion-free symmetry nabla_u v - nabla_v u = [u,v] and connection coefficients via dual basis.",
+   "locator": {
+    "pdf_page": 382,
+    "printed_page": 365,
+    "section": "35.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch34 Exercise 34.2",
+   "reason": "Metric derivative identity used as the hint in Exercise 35.4(g).",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch12 §12.4",
+   "reason": "Comma-goes-to-semicolon rule whose ambiguity Exercise 35.3 exposes.",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch13 §13.4",
+   "reason": "Einstein tensor with factor 1/2 and the earlier physical description of Ricci as the volume-shrinking part of curvature.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch16",
+   "reason": "Robertson-Walker spacetimes, cited as conformally flat.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch36",
+   "reason": "Cartan's method: the curvature operator and double covariant derivatives become an efficient way to compute Riemann for specific spacetimes.",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch43 §43.3",
+   "reason": "Weyl tensor revisited in the Bianchi identity and its analogy with Maxwell's equations; Riemann normal coordinates used there.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch46",
+   "reason": "Geodesic deviation applied to rings of test masses in gravitational waves.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch50 §50.2",
+   "reason": "Raychaudhuri equation: the rigorous version of the Ricci volume-focusing argument, applied to the Big-Bang singularity.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Penrose (2004), The Road to Reality, §28.8",
+   "reason": "Source of the transparent-Sun picture of Ricci versus Weyl curvature.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Poisson and Will, Gravity",
+   "reason": "Approach followed in Exercise 35.4 for Riemann normal coordinates.",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Misner, Thorne and Wheeler, Gravitation",
+   "reason": "Rules of thumb for resolving the comma-to-semicolon ordering ambiguity (Exercise 35.3).",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Weyl, Space-Time-Matter",
+   "reason": "Source of the chapter epigraph.",
+   "locator": {
+    "pdf_page": 380,
+    "printed_page": 363,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Run the Newtonian tidal derivation first, with each step designed to shadow the covariant proof (derivative swap for Lie dragging, chain rule for commutator).",
+   "why_effective": "Learners meet the logical skeleton with familiar calculus before the abstract operators, so the relativistic proof feels like a translation rather than new magic.",
+   "locator": {
+    "pdf_page": 381,
+    "printed_page": 364,
+    "section": "35.1"
+   },
+   "app_idea": "Synchronized two-column derivation stepper with colour-matched terms and a toggle that hides one column to test recall."
+  },
+  {
+   "gem": "Explain the -nabla_[a,b] term as the fix for a loop that does not close, drawn as a short fifth edge.",
+   "why_effective": "Turns a mysterious correction into a picture of two journeys that miss each other by the Lie bracket.",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   },
+   "app_idea": "Flow-field sketchpad animating a-then-b and b-then-a journeys, drawing the gap and the closing edge."
+  },
+  {
+   "gem": "Obtain the same curvature operator by two independent routes: geodesic deviation and parallel transport around a loop.",
+   "why_effective": "Convergence of two arguments builds confidence that 'curvature = non-commuting covariant derivatives' is fundamental, not an artefact.",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "app_idea": "Route-picker: learner chooses 'deviation' or 'loop' and watches the same operator expression assemble from different diagrams."
+  },
+  {
+   "gem": "Rehearse normal coordinates in the flat plane with a concrete point (2,1) before bending the rays into geodesics.",
+   "why_effective": "Concrete numbers anchor an abstract construction and make the curved case a small conceptual step.",
+   "locator": {
+    "pdf_page": 384,
+    "printed_page": 367,
+    "section": "35.2"
+   },
+   "app_idea": "Morphing sheet: plane to sphere with the ray fan and coordinate labels following, and a metric-error heat map appearing as curvature grows."
+  },
+  {
+   "gem": "Define curvature by what it forbids: you cannot lay out a global Cartesian grid by parallel transport.",
+   "why_effective": "An impossibility statement is memorable and directly testable on a globe.",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "app_idea": "Globe transport game: paint grid axes along different routes and score the mismatch where they meet."
+  },
+  {
+   "gem": "Compare Ricci and Weyl curvature as a converging lens and an astigmatic lens, using a transparent Sun.",
+   "why_effective": "Everyday optics gives immediate intuition for isotropic focusing versus shear, and the Sun picture ties each to inside-matter versus vacuum.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   },
+   "app_idea": "Transparent-Sun lensing simulator with convergence and shear gauges and star-image outlines."
+  },
+  {
+   "gem": "Read the Ricci tensor as the trace of the tidal matrix, which controls how a small volume responds.",
+   "why_effective": "Connects an index contraction to a physical, visualizable quantity (volume change) and separates it cleanly from shape change.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   },
+   "app_idea": "Deformable particle ball with eigen-axis sliders; the volume plot follows the trace while the shape follows the traceless part."
+  },
+  {
+   "gem": "Count Riemann components by treating antisymmetric index pairs as single labels of a symmetric matrix, then subtracting cyclic constraints.",
+   "why_effective": "Reduces a four-index counting problem to a familiar matrix count and explains why 20 appears in 4D.",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   },
+   "app_idea": "Interactive count grid for n = 2 to 5 with symmetry filters that grey out redundant cells step by step."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Example 35.6 states that a symmetric M-by-M matrix has (M-1)/2 independent off-diagonal entries; it should be M(M-1)/2. It also says 'pairs or pairs' for 'pairs of pairs'.",
+   "impact_on_learner": "A careful learner checking the arithmetic cannot reproduce M(M+1)/2 from the stated numbers.",
+   "suggestion": "Show M + M(M-1)/2 = M(M+1)/2 explicitly, e.g. M = 6 gives 6 + 15 = 21 in 4D.",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "issue": "Eqn 35.37 calls R_{mu nu} - (1/4)R g_{mu nu} the trace-reversed Ricci tensor and names it G, clashing with the Einstein tensor R_{mu nu} - (1/2)R g_{mu nu} of Chapter 13.",
+   "impact_on_learner": "Confusion between trace-free and trace-reversed tensors and between this G and the Einstein tensor.",
+   "suggestion": "Call it the trace-free Ricci tensor, and note that for null k all three versions give R_{mu nu} k^mu k^nu, which is what focuses light.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "issue": "In eqn 35.27 the evaluation points appear reversed: the v-edge displaced by u delta a minus the v-edge at the origin gives +nabla_u nabla_v A delta a delta b, not the other way round. The printed eqn 35.29 also has an unmatched parenthesis.",
+   "impact_on_learner": "Learners attempting to verify signs in the loop argument get the opposite sign and lose trust in the result.",
+   "suggestion": "Redo the Taylor step explicitly with a labelled diagram; confirm the final operator agrees with eqn 35.12.",
+   "locator": {
+    "pdf_page": 386,
+    "printed_page": 369,
+    "section": "35.3"
+   }
+  },
+  {
+   "issue": "The claim that summing covariant derivatives around a closed loop gives minus the parallel-transport change is heuristic, and the ordering of edges in eqn 35.26 is not explained.",
+   "impact_on_learner": "The step from a sum of first derivatives to a clean operator may feel like sleight of hand.",
+   "suggestion": "Supplement with the explicit Chapter 11 component calculation or a numerical demo on a sphere comparing delta A with -R-hat(u,v)A delta a delta b.",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.3"
+   }
+  },
+  {
+   "issue": "Footnote 14 differentiates an area twice using only 'K acting on each factor', omitting the cross term 2 (D delta x/dlambda)(D delta y/dlambda); the text also calls the second derivative a 'rate of change'.",
+   "impact_on_learner": "Learners may think volume evolution is always given by the trace, missing expansion and shear terms.",
+   "suggestion": "State that the result holds at an instant when the bundle has no relative velocity, and preview the Raychaudhuri equation of Chapter 50.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "issue": "Example 35.8 says the ellipsoid's axes are the eigenvalues of K and introduces the deviation equation as 'the geodesic equation'; the eigenvalue is also written lambda.",
+   "impact_on_learner": "Mixing up eigenvectors and eigenvalues, deviation and geodesic equations, and eigenvalue and affine parameter.",
+   "suggestion": "Axes point along eigenvectors; eigenvalues set their relative accelerations. Use kappa for eigenvalues.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  },
+  {
+   "issue": "Normal coordinates are described as giving a frame that is 'flat' with vanishing Gammas, without stressing this holds only at the origin.",
+   "impact_on_learner": "Reinforces the misconception that local inertial frames remove curvature in a region.",
+   "suggestion": "Point to the quadratic Riemann term in eqn 35.24 as the irreducible curvature and show a numerical metric-error plot.",
+   "locator": {
+    "pdf_page": 385,
+    "printed_page": 368,
+    "section": "35.2"
+   }
+  },
+  {
+   "issue": "Footnote 11 says constant-curvature spacetimes have R_{mu nu} = C g_{mu nu}; that condition defines Einstein spaces and is weaker than constant curvature. The constant C also collides with the Weyl tensor symbol.",
+   "impact_on_learner": "Learners may treat every Einstein space, including Ricci-flat Schwarzschild with C = 0, as maximally symmetric.",
+   "suggestion": "Give the full constant-curvature Riemann form K(g g - g g) and rename the constant.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "issue": "The statement that Ricci vanishes in free space assumes zero cosmological constant, and 'Ricci shrinks volumes' requires an energy condition (rho + 3p > 0).",
+   "impact_on_learner": "Conflicts later with de Sitter space and dark energy, where Ricci is non-zero in vacuum and volumes can grow.",
+   "suggestion": "Add the qualifiers and give R_{mu nu}u^mu u^nu = 4 pi G(rho + 3p) for a perfect fluid.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.4"
+   }
+  },
+  {
+   "issue": "nabla_mu nabla_nu is used both as nabla_{e_mu} acting on nabla_{e_nu} (Example 35.3) and as the component second derivative (eqn 35.13); these differ by Gamma terms.",
+   "impact_on_learner": "Learners computing second covariant derivatives of components may think the two are identical outside commutators.",
+   "suggestion": "Note that the difference is Gamma^sigma_{mu nu} nabla_sigma, symmetric in mu nu for zero torsion, so it cancels only in the commutator.",
+   "locator": {
+    "pdf_page": 383,
+    "printed_page": 366,
+    "section": "35.1"
+   }
+  },
+  {
+   "issue": "Exercise 35.6 supplies covariant derivatives with nabla_X Y - nabla_Y X = 2Y while [X,Y] = 0, so the connection has torsion, unlike the rest of the chapter; this is not flagged.",
+   "impact_on_learner": "Learners applying torsion-free identities or the pair symmetries to their answer will find inconsistencies.",
+   "suggestion": "Ask learners to compute the torsion first, and note that the curvature operator definition still applies but the Riemann symmetries do not all hold.",
+   "locator": {
+    "pdf_page": 390,
+    "printed_page": 373,
+    "section": null
+   }
+  },
+  {
+   "issue": "Exercise 35.4 uses both s and lambda for distance along the geodesic.",
+   "impact_on_learner": "Order-counting in the expansions (O(s^2), O(s^3)) becomes confusing.",
+   "suggestion": "Use one symbol throughout, noting n^mu_nu = lambda delta^mu_nu.",
+   "locator": {
+    "pdf_page": 389,
+    "printed_page": 372,
+    "section": null
+   }
+  },
+  {
+   "issue": "The cyclic-constraint count asserts without argument that only index sets with four distinct values give new constraints.",
+   "impact_on_learner": "The step looks arbitrary and the C(n,4) term unmotivated.",
+   "suggestion": "Show that with a repeated index the cyclic sum reduces to zero by the pair symmetries, e.g. R_{a a b c} terms vanish or cancel.",
+   "locator": {
+    "pdf_page": 387,
+    "printed_page": 370,
+    "section": "35.3"
+   }
+  },
+  {
+   "issue": "Fig. 35.4 and its text say rays through the transparent Sun are affected mostly by Ricci curvature, yet the interior image near the rim in the figure is visibly offset, i.e. Weyl shear is present inside matter too. The text does not say so explicitly.",
+   "impact_on_learner": "Learners may conclude that Ricci and Weyl act in separate regions (inside versus outside matter) rather than superposing everywhere.",
+   "suggestion": "State that both parts act along every ray; inside a uniform body near the centre the Weyl part is small by symmetry, and it grows toward the rim, which is why the off-centre interior image is shifted and slightly distorted.",
+   "locator": {
+    "pdf_page": 388,
+    "printed_page": 371,
+    "section": "35.4"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with the space-station puzzle: 'You feel pressed into bed. What single experiment tells you whether it is gravity?' Steer toward releasing two particles and watching their separation.",
+  "Order of explanation: connecting vector and Lie dragging (picture of Fig. 35.1), Newtonian tidal warm-up, torsion-free symmetry, commutator derivation, loop-closure correction, curvature operator, check against the Gamma formula, then normal coordinates, loop transport, counting, and finally Ricci versus Weyl.",
+  "Before the formal derivation check prerequisites: can the learner state [u,v], the torsion-free identity, and nabla_u u = 0? If not, detour briefly to Chapters 33-34.",
+  "Check for understanding: ask why [u,n] = 0 for the connecting vector but [a,b] need not vanish for arbitrary fields; expected answer uses the lambda-n grid of Fig. 35.1.",
+  "Check for understanding: ask the learner to verify 20 = 21 - 1 for n = 4 and to compute 1 and 6 for n = 2 and 3; ask why Weyl must vanish for n = 3 (6 Ricci components already fill Riemann).",
+  "When sign or index-order confusion arises, fix the conventions explicitly: R( , c, a, b) = R-hat(a,b)c, nabla_mu e_nu = Gamma^alpha_{mu nu}e_alpha, and c^alpha_{;nu mu} = components of nabla_mu nabla_nu c.",
+  "Proactively correct the book's slips when the learner reaches them: M(M-1)/2 in Example 35.6, trace-free (not trace-reversed) in eqn 35.37, swapped evaluation points in eqn 35.27, and eigenvectors (not eigenvalues) as ellipsoid axes.",
+  "Common learner question: 'If Ricci vanishes outside the Sun, why is there any gravity there?' Answer: the Weyl part remains; it gives tides and lensing shear, and the full Riemann tensor is non-zero.",
+  "Common learner question: 'Are Riemann normal coordinates the same as a freely falling frame?' Answer: both are local inertial frames at a point; normal coordinates are built from all geodesics through the point, while the freely falling frame follows one observer's world line.",
+  "Use the transparent-Sun picture before the K-matrix algebra for visual learners; for algebra-first learners, start from D^2 n = K n and let them discover that trace K is the Ricci contraction.",
+  "For advanced learners, connect eqn 35.41 to the Raychaudhuri equation (GA ch50) and note the missing expansion and shear terms; for gravitational-wave interest, point out that GW effects on test masses are pure Weyl.",
+  "Assessment prompt: give Exercise 35.5 (flat surface) and ask the learner to find the missing derivative from zero torsion before computing R-hat(A,B)A and R-hat(A,B)B."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Corrected the Earth tidal estimate: vertical relative acceleration for 1 m separation is about 3.1e-6 m s^-2 (2GM/r^3), not 1.5e-6; horizontal convergence is 1.5e-6.",
+   "Replaced a non-sequitur in the connection-coefficient definition (being non-tensorial is not why their directional derivative is a partial derivative).",
+   "Qualified the uniform transparent-Sun focal length c^2R^2/(6GM) as applying only to paraxial rays.",
+   "Updated exercises.solutions: Appendix E does contain answers for 35.3, 35.4 (hints) and 35.6; checked that its Riemann components for 35.6 match the dossier's operator results.",
+   "Removed an unverified 'geometrized units' claim; stated the (-,+,+,+) signature with its source chapters.",
+   "Corrected Fig. 35.1 description (dashed parameter lines are near-vertical and oblique, not perpendicular) and rewrote the Fig. 35.3 description after viewing the image (edge sizes, arrow fan at the start corner); extended the Fig. 35.3 redesign interaction.",
+   "Moved an OCR note out of the symbols field of eqn 35.19 and supplied real symbol definitions.",
+   "Added that Chapter 13 itself calls the 1/2 Einstein tensor 'trace-reversed', sharpening the eqn 35.37 naming conflict.",
+   "Rephrased three prose fields that tracked the source wording closely (double covariant derivative remark, opening narrative beat, Weyl hypothesis phrasing).",
+   "Added a pitfall: the book's inside-Ricci/outside-Weyl framing of Fig. 35.4 hides that Weyl shear also acts on interior rays, as the offset image in the figure shows."
+  ],
+  "residual_concerns": [
+   "Exercise 35.6 as printed (confirmed on the page render) gives a connection with torsion while the chapter assumes zero torsion; this is a book issue, flagged in gaps_and_pitfalls, not an export loss.",
+   "The book's eqn 35.27 has its evaluation points reversed relative to the Taylor step that yields eqn 35.28; confirmed on the page render and flagged, not silently corrected in the transcription.",
+   "The footnote-14 volume argument and eqn 35.41 hold only at an instant of zero relative velocity; flagged, with pointer to the Raychaudhuri equation in GA ch50.",
+   "The worked_examples entry without a label (the loop-closure correction on p.366) is an argued text passage rather than a formal Example block; kept because it is a substantial derivation step."
+  ],
+  "coverage": {
+   "toc_sections": 4,
+   "sections": 6,
+   "inventory_figures": 6,
+   "figures": 6,
+   "inventory_examples": 8,
+   "worked_examples": 9,
+   "concepts": 39,
+   "key_equations": 59,
+   "locators_checked": 253,
+   "locators_wrong": 0,
+   "pages_rendered": 6
+  }
+ }
+}

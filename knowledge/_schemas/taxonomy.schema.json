@@ -1,0 +1,29 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Concept domain taxonomy",
+	"description": "The domains that partition the concept registry. Domain ids are folder names under knowledge/concepts/ and are permanent.",
+	"type": "object",
+	"required": ["course_arc", "domains"],
+	"additionalProperties": false,
+	"properties": {
+		"course_arc": { "type": "string", "minLength": 100, "description": "How the domains build on each other for learners of any starting level" },
+		"domains": {
+			"type": "array",
+			"minItems": 10,
+			"items": {
+				"type": "object",
+				"required": ["id", "title", "order", "scope", "includes", "excludes", "builds_on"],
+				"additionalProperties": false,
+				"properties": {
+					"id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+					"title": { "type": "string" },
+					"order": { "type": "integer", "minimum": 1 },
+					"scope": { "type": "string", "minLength": 40 },
+					"includes": { "type": "array", "items": { "type": "string" }, "minItems": 3, "description": "Representative concept names" },
+					"excludes": { "type": "array", "items": { "type": "string" }, "description": "Boundary rules, e.g. 'flat-spacetime tensor algebra belongs to spacetime-tensors'" },
+					"builds_on": { "type": "array", "items": { "type": "string" }, "description": "Domain ids this domain depends on" }
+				}
+			}
+		}
+	}
+}

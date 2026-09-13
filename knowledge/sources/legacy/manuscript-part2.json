@@ -1,0 +1,2167 @@
+{
+  "group": "manuscript-part2",
+  "summary": "Chapters 9-16 of book.md (lines 2912-5880, about 18,000 prose words and about 290 display equations) take the learner from curvature contractions to measured experiments. The sequence is Ricci/Weyl/Einstein tensors and the Bianchi identity (9); geodesic deviation, tides, normal coordinates and curvature invariants (10); stress-energy as measured flux, dust, perfect fluids, radiation pressure and field stress tensors (11); the Einstein equation via divergence-free geometry, trace reversal and Newtonian calibration, keeping both weak-field potentials (12); variational calculus for paths, fields and metrics plus the Hilbert stress tensor and Hamilton's equations (13); the Einstein-Hilbert variation with the Palatini identity, GHY boundary term and Palatini formulation (14); pullbacks and Lie derivatives, Noether/Killing charges, gravitational energy, the cosmological constant as vacuum stress, minimal coupling and Mach (15); and weak-field clocks, redshift, light bending, Shapiro delay, Mercury, GPS, the tossed clock and gyroscopes (16). Scientific care is high and was checked here. I re-derived the Weyl decomposition coefficients, trace reversal in d dimensions, the normal-coordinate and Fermi g00 expansions and the GHY cancellation, and recomputed every number in 10.9, 12.7, 16.2 and 16.4-16.8 plus 15.10; all match. scripts/check-physics-calculations.mjs numerically verifies the conformal-Weyl, plane-wave zero-invariant and Phi/Psi weak-field G00 derivations. External reviews rate these chapters strong (docs/comprehensive-course-review-2026-09-09.md rows 9-16). The weaknesses are pedagogical, not physical: very dense derivation-first prose with frequent 'does not' qualifications, graduate asides mixed into the core path, and prerequisite leaks (EM before field theory in 11.6, orbit equation imported from 17.5 in 16.6, Lie derivatives only in 15). Visuals are sparse and late: most chapters get one or two static SVG posters; the interactive pieces are the ch 9 cloud, ch 10 tides scene, ch 11 particle-flow and fluid-shear labs, ch 13 phase-space cart, ch 16 precession experience and a legacy GPS slider. content/guides.json entries 9-16 supply good question/payoff/takeaway/check/answer cards. For grbook.ai the text is an excellent verified source to adapt into shorter, demo-led units, with a few sections reusable nearly verbatim. Reviewer additions: nine worked lessons are inserted into these chapters by their `after:` headings (content/core-practice.mjs: contract-curvature-by-hand 9, what-a-tidal-instrument-measures 10, boundary-action-is-part-of-the-question 14, symmetry-earns-a-charge 15; content/foundation-lessons.mjs: fields-carry-energy 11, poisson-from-a-flux 12, variations-and-boundary-data 13; content/bridge-lessons.mjs: orbit-conservation and phase-drift 16). Each is inventoried below as a lesson asset. The interactive pieces are inventoried in other groups and cross-referenced here: lab-tidal-cloud-geodesic-deviation (9.3) and lab-riemann-independent-components in labs-geometry; scene-3d-tidal-cloud (10.5), lab-particle-stress-energy-crossings (11.1), lab-fluid-viscous-shear (11.4) and lab-gps-clock-rates (16) in labs-physics; scene-3d-mercury-perihelion-precession (16.6) in labs-geometry. Figures 15-27 are in figures-and-media.",
+  "lessons_learned": [
+    "Order tides before Ricci/Weyl. Section 9.2 already uses the spatial tidal matrix and says 'The next chapter derives' it (book.md:2952), so chapter 9 depends on chapter 10. In grbook.ai, teach geodesic deviation (10.2-10.5) first, then the trace/volume (Ricci) versus trace-free/shape (Weyl) split.",
+    "Qualifications are valuable but interrupt the derivations. I counted 'not/cannot/need not' at 12.1 per 1000 prose words in ch 10, 10.5 in ch 15 and 8.8 in ch 9 (3.5 in ch 11). Turn recurring caveats into explicit misconception checks and tutor prompts instead of trailing sentences. Examples: Ricci-flat is not flat; trace-free initial tides do not preserve volume forever; divergence-free is not constant; a Killing charge is not total energy.",
+    "Put a phenomenon demo first, and do not trust placement.json alone. The placement audit (docs/review-evidence/2026-09-09/visual-development/placement.json) shows ch 15's only figure after 1803 words and 29 display equations, and ch 16's first visual after 20. But that audit ignores inline inserts: it lists ch 11 otherLabs as [] although book.md:3582 embeds the particle-flow lab and book.md:3763 the fluid-shear lab, and it misses the ch 13 phase-space cart (book.md:4632, data-mechanics-insert=\"phase\"). The corrected picture is that chapters 12, 14 and 15 have only static posters. Chapter 13's only interactive is a Hamiltonian cart at 13.7, so there is still no variational (trial-history) demo. Each grbook unit should open with a manipulable experiment (cloud, flux detector, trial histories, symmetry flow, lens).",
+    "Separate core from graduate depth explicitly. The conformal-Weyl derivation, VSI plane wave, Fermi coordinates, GHY term, null boundaries and Palatini formulation sit in the main flow; the review asks to 'Separate the minimal core derivation from the graduate boundary analysis visually' (comprehensive review row 14). Use tiered depth in the concept registry.",
+    "Register these prerequisites so the tutor can bridge them. EM, Lorentz force and the cross product are introduced inside 11.6 before field actions (comprehensive review 'Field Lagrangians' row). The oscillator and Hamiltonian mechanics appear in 13.2/13.7. Resonant perturbation theory and the Schwarzschild orbit equation are imported in 16.6 (fixed only by two bridge lessons). Pullback/Lie derivative arrive in 15.1 although the Lie bracket is used in ch 7. Inverse hyperbolic functions appear in 16.5.",
+    "Figure labels drift from the text notation. The stress-energy SVG (figure 17, qa/figure-stress-energy-light.png) puts S/c in row 0 and c*pi in column 0, while book.md:3595-3601 puts c*pi in row 0 and S/c in column 0. It also uses sigma where the text uses Pi. Because T is symmetric, S/c = c*pi, so every numerical entry is still right. The fault is that the labels contradict the text's stated index story (first index = direction of flow, second = which component). The action-variation SVG uses x(t) and epsilon while 13.1 uses q(t) and lambda (qa/figure-action-variation-light.png). grbook demos must pull symbols and index conventions from one notation registry.",
+    "Keep the conventions block so text can be reused verbatim: signature (-,+,+,+), x^0=ct, SI with G_N and c kept, curvature sign fixed so deviation is -R^mu_{alpha nu beta} u xi u, T^{ij} as momentum flux (not Cauchy traction), S_m=(1/c) integral of sqrt(-g) L, s=n.n for GHY. It is consistent throughout 9-16.",
+    "Keep derivations numerically tested. Numbers recomputed here all match: Earth tide 3.08e-6 s^-2 per m, curvature scale 1.71e11 m, c^4/8piG=4.82e42 N, 9.4 ps/day per metre, 1.75 arcsec, 119 microseconds, 43 arcsec/century, GPS +45.7/-7.2/+38.5 microseconds/day with crossover R/2, tossed clock 44.6 attoseconds, 3.5 H atoms/m^3. Carry check-physics-calculations.mjs-style symbolic/numeric tests into the grbook vault for every formula a demo uses.",
+    "Chapter 15 is a grab bag. Lie derivatives, Noether's second theorem, Killing charges, gravitational energy, vacuum energy, minimal coupling and Mach's principle share one chapter. Split them into geometry (flows), conservation (Killing charges and redshift) and cosmology (Lambda) units.",
+    "Chapter 16 has the best pattern for applied units: observer + worldline + approximation leads to a number with units and a cited measurement (Ashby GPS, GP-B 2011, MICROSCOPE 2022). Pair each number with a demo that shows the competing contributions, as the GPS curve and tossed-clock figure do.",
+    "Card titles and chapter headings disagree. guides.json titles (e.g. 'Tides: curvature you can measure') do not match the book.md headings ('Tides: how to measure curvature without seeing spacetime from outside'). Pick one canonical short title per unit.",
+    "The verification is software-only. The reading pass itself says 'Reader observation and exercises with actual beginners remain necessary' (docs/reading-quality-pass-2026-09-09.md). No learner data exists for these chapters, so novice-pacing judgements here are expert reading only.",
+    "The most portable teaching units in this range are the nine structured lessons, not the prose. Each has question, intuition, 3-4 steps (body + one display equation + a one-line reason), formal note, requires links, a multiple-choice misconception check with feedback, and a numeric transfer problem with a variant. content/practice-variants.mjs adds more variants, and content/lesson-sequence.mjs records why each lesson sits where it does. I recomputed every transfer answer (0.06 m/s^2, -6, 24, 8, 4 J/m^3, 2 W, 2/3, 1/8, -12 m/s^2, 8, 1.5, 11 m^2/s, 0.12823 rad) and all are right. That shape maps directly onto grbook tutor check-for-understanding items.",
+    "Toy models that isolate one logical point carry the graduate ideas best. Examples: a six-entry curvature table whose Ricci contractions cancel (Schwarzschild pattern, Kretschmann 48q^2); S=integral of q'' with eta=x(1-x) showing that fixed endpoint values leave slopes free (the whole GHY motivation in one line); L = m(xdot^2+ydot^2)/2 - U(y) for Noether; the string for field energy flux. Several of these solve gaps the chapter reviews flag. Put them at the front of the grbook units, before the tensor versions.",
+    "The same GPS calculator is inventoried twice: lab-legacy-gps-orbiting-clock-slider here and lab-gps-clock-rates in labs-physics, both pointing at scripts/build-site.mjs:146 and web/app.js updateGPS. Treat labs-physics as canonical when merging. Both entries agree on the verdict: reimagine as one clock-budget demo that also replaces figure 26."
+  ],
+  "assets": [
+    {
+      "id": "manuscript-chapter-09-ricci-weyl-einstein",
+      "kind": "manuscript-chapter",
+      "title": "9. Ricci, Weyl, and Einstein: different questions asked of curvature",
+      "paths": [
+        "book.md#L2912-L3175",
+        "content/guides.json#9",
+        "assets/figures/ricci-weyl.svg",
+        "content/core-practice.mjs#contract-curvature-by-hand"
+      ],
+      "topics": [
+        "Ricci tensor",
+        "Ricci scalar",
+        "Weyl tensor",
+        "Ricci decomposition",
+        "tidal tensor",
+        "Raychaudhuri equation",
+        "conformal transformation",
+        "conformal flatness",
+        "second Bianchi identity",
+        "Jacobi identity",
+        "contracted Bianchi identity",
+        "Einstein tensor",
+        "vacuum curvature",
+        "curvature in two and three dimensions"
+      ],
+      "teaches": "Why a trace loses information (diag(2,-1,-1) example and the implication chain Riemann=0 => Ricci=0 => R=0). Ricci on the observer's time direction is the sum of the principal tides, giving initial volume acceleration of an initially comoving ball, V''/V = -R_mu nu u^mu u^nu. The Riemann = Weyl + Ricci-trace decomposition, with the 1/2 and -1/6 coefficients derived from trace removal. Why the shape-versus-volume slogan needs two qualifications. Vacuum curvature is pure Weyl. Optional: the Weyl tensor is conformally invariant. The second Bianchi identity via normal coordinates, contracted to div G = 0. Divergence-free is not constant. In 2D G vanishes identically and in 3D Weyl vanishes.",
+      "pedagogy": "Question-led ('How can empty spacetime be curved?'). Coefficients are derived rather than memorized; a closed optional disclosure holds the conformal calculation. The integrated 3D cloud experience (curvature-cloud-explorer at 9.3) lets the learner compare isotropic focusing with a trace-free tide and read the volume. A worked practice card after 9.1 asks for nonzero curvature with zero Ricci. The Jacobi-identity paragraph is an aside, not used in the proof.",
+      "interaction": null,
+      "physics_model": "Coordinate-free and index derivations with signature (-,+,+,+). The decomposition coefficients re-derived here match the standard n=4 form. The conformal-rescaling result (Weyl tensor invariant with one index up) is numerically checked on a conformally flat metric with sectional curvature -1 (scripts/check-physics-calculations.mjs lines 53-60). The volume formula is stated only for zero initial relative velocity, with the general case deferred to ch 22.",
+      "screenshots": [
+        "qa/curvature-trace-reading.png",
+        "qa/curvature-integrated-cloud-1440-light.png",
+        "qa/figure-ricci-weyl-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Unusually careful Ricci-flat versus flat and trace-free versus volume-preserving distinctions (comprehensive review: 'Particularly good distinction between contractions and full curvature').",
+          "Decomposition coefficients are derived from contraction conditions, not quoted.",
+          "Short, clean Bianchi proof that explains why the Einstein tensor's 1/2 is forced.",
+          "The dimension-dependence section (2D G=0, 3D Weyl=0) pre-empts a common confusion."
+        ],
+        "issues": [
+          "Forward dependency: 9.2 uses the tidal-matrix equation that chapter 10 derives.",
+          "Dense for a novice: 1485 prose words against 24 display equations, with the index-heavy decomposition early.",
+          "No worked Ricci/Weyl decomposition in a concrete spacetime and no concrete divergence-free-but-varying field; the review requests both.",
+          "Static figure 15 cannot carry the volume argument and was demoted to an optional reference (docs/second-figure-review.md).",
+          "The Jacobi-identity paragraph is a digression that does not advance the proof."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row '9 - Ricci, Weyl, Einstein'; docs/reading-quality-pass-2026-09-09.md 'Chapters 8 through 10' (zero-trace example corrected); docs/second-figure-review.md (fig 15 demoted, cloud added); scripts/check-physics-calculations.mjs conformal check; my own re-derivation of the 1/2 and -1/6 coefficients."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 9.1's trace hierarchy, 9.2's edge-length volume argument, the coefficient derivation, the Bianchi-to-Einstein-tensor path and 9.6 almost verbatim. Change the placement to after geodesic deviation. Lead with the existing cloud experience (labs-geometry lab-tidal-cloud-geodesic-deviation, which replaces figure 15 at 9.3 via scripts/build-site.mjs:133), comparing Ricci-only and Weyl-only tides with a volume readout. Start the unit with the lesson-contract-curvature-by-hand counterexample. Move the conformal rescaling and Jacobi aside to an advanced tier. Add one worked decomposition (e.g. Schwarzschild is pure Weyl; FLRW is pure Ricci) and a concrete divergence-free-but-varying vector field before defining G.",
+        "effort": "medium"
+      },
+      "size": "264 lines; ~1485 prose words; 24 display equations; 1 optional disclosure"
+    },
+    {
+      "id": "manuscript-section-09-ricci-volume-weyl-shape",
+      "kind": "manuscript-section",
+      "title": "9.1-9.3 Ricci as the volume trace of tides; Weyl as trace-free curvature",
+      "paths": [
+        "book.md#L2914-L3083"
+      ],
+      "topics": [
+        "Ricci tensor",
+        "Ricci scalar",
+        "Weyl tensor",
+        "Ricci decomposition",
+        "tidal tensor",
+        "geodesic focusing",
+        "conformal transformation",
+        "Weyl tensor conformal invariance",
+        "vacuum curvature"
+      ],
+      "teaches": "The tidal matrix E_ij = R_i0j0 has trace R_00 = R_mu nu u u/c^2. Multiplying three edge lengths L_i[1 - c^2 lambda_i dtau^2/2] gives V(dtau)/V0 = 1 - R_mu nu u u dtau^2/2. The Weyl part is trace-free, so it gives no leading volume acceleration, but it can still produce later shear-driven volume change. With Lambda nonzero, vacuum Ricci is Lambda g.",
+      "pedagogy": "Builds the volume law from elementary products of small changes, then states explicitly which slogans fail and why.",
+      "interaction": null,
+      "physics_model": "Short-time expansion to O(dtau^2) for an initially comoving infinitesimal ball; frame e_0 = u/c; eigenvalue sign convention matches the ch 10 deviation equation.",
+      "screenshots": [
+        "qa/curvature-integrated-cloud-1440-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Correct, minimal and honest about the zero-initial-velocity assumption.",
+          "Two named qualifications block the most common Weyl/Ricci misreadings."
+        ],
+        "issues": [
+          "Depends on the tidal equation from 10.4.",
+          "The conformal disclosure is graduate material inside a novice section."
+        ],
+        "evidence": "Coefficients re-derived in this inventory; docs/comprehensive-course-review-2026-09-09.md strengths item 4 ('Ricci and Weyl are treated carefully')."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Use as the text companion to the cloud demo after tides are taught. Split off the conformal disclosure into an advanced note.",
+        "effort": "small"
+      },
+      "size": "~170 lines"
+    },
+    {
+      "id": "lesson-contract-curvature-by-hand",
+      "kind": "lesson",
+      "title": "A trace loses information you can name (ch 9, after 9.1)",
+      "paths": [
+        "content/core-practice.mjs#contract-curvature-by-hand",
+        "content/lesson-sequence.mjs#L19"
+      ],
+      "topics": [
+        "Ricci tensor",
+        "Ricci scalar",
+        "Weyl tensor",
+        "Kretschmann scalar",
+        "vacuum curvature",
+        "orthonormal frame"
+      ],
+      "teaches": "The learner supplies six sectional entries A-F in an orthonormal frame and contracts them by hand: R_00=A+B+C, R_11=-A+D+E, R_22=-B+D+F, R_33=-C+E+F. Choosing (A..F)=q(-2,1,1,-1,-1,2) makes every Ricci entry and R vanish while R_abcd R^abcd = 48 q^2. This is a concrete vacuum-curvature counterexample with the Schwarzschild pattern.",
+      "pedagogy": "Question ('Can you exhibit nonzero curvature whose entire Ricci tensor vanishes?'), intuition, three steps each with one equation and a reason, a formal note warning that Kretschmann positivity is special to this table, an MCQ with feedback, a numeric transfer (R=24 for constant sectional curvature) and a variant (R_22=8).",
+      "interaction": null,
+      "physics_model": "Algebraic curvature tensor at a point, signature (-+++), temporal contraction sign from eta^00. I re-checked all four Ricci entries at zero and the invariant 4*12q^2 = 48q^2.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Supplies exactly the concrete Ricci-flat-but-curved example the ch 9 review says is missing.",
+          "Arithmetic small enough to do by hand, and it names the Schwarzschild pattern without needing the metric."
+        ],
+        "issues": [
+          "Placed after 9.1, before the Weyl tensor is defined, so the formal note has to forward-reference 9.3."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Use as the opening worked example of the grbook Ricci/Weyl unit, right after tides. Turn the six-entry table into a small interactive (sliders for A-F with live Ricci and Kretschmann readouts, plus a 'find a vacuum' challenge).",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 3 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "manuscript-section-09-bianchi-einstein-tensor",
+      "kind": "manuscript-section",
+      "title": "9.4-9.6 Differential Bianchi identity, divergence-free Einstein tensor, and dimension",
+      "paths": [
+        "book.md#L3084-L3175"
+      ],
+      "topics": [
+        "second Bianchi identity",
+        "Riemann normal coordinates",
+        "contracted Bianchi identity",
+        "Einstein tensor",
+        "covariant divergence",
+        "cosmological constant",
+        "Gaussian curvature",
+        "curvature in two and three dimensions"
+      ],
+      "teaches": "The proof of the cyclic identity: in normal coordinates second derivatives of Gamma cancel pairwise. Contraction then gives div Ricci = (1/2) grad R, so G = Ric - (1/2) R g is identically divergence-free and Lambda g is also allowed. Divergence-free does not mean covariantly constant. G vanishes for every 2D metric, and in 3D Weyl vanishes.",
+      "pedagogy": "Motivates the field equation's left side before any physics is added; the fluid outflow analogy illustrates divergence-free versus constant.",
+      "interaction": null,
+      "physics_model": "Tensor identity proof using normal coordinates at an arbitrary point, extended by tensoriality.",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Every contraction step is shown with index bookkeeping.",
+          "The 2D cancellation example ties back to the sphere computed in ch 8."
+        ],
+        "issues": [
+          "The Jacobi identity digression is not used.",
+          "There is no worked concrete divergence-free field (review request)."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 9 ('The differential Bianchi treatment is valuable')."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep the normal-coordinate proof and the contraction steps. Cut the Jacobi aside, add a concrete divergence-free vector-field example, and place this directly before 'Why subtract half the trace?' (12.2) so the two form one unit.",
+        "effort": "small"
+      },
+      "size": "~90 lines"
+    },
+    {
+      "id": "manuscript-chapter-10-tides-geodesic-deviation",
+      "kind": "manuscript-chapter",
+      "title": "10. Tides: how to measure curvature without seeing spacetime from outside",
+      "paths": [
+        "book.md#L3178-L3567",
+        "content/guides.json#10",
+        "assets/figures/tidal-eigenvalues.svg",
+        "content/core-practice.mjs#what-a-tidal-instrument-measures"
+      ],
+      "topics": [
+        "geodesic deviation",
+        "Jacobi field",
+        "tidal forces",
+        "tidal tensor",
+        "gravity gradiometer",
+        "proper acceleration",
+        "parallel-transported frame",
+        "Newtonian limit",
+        "Riemann normal coordinates",
+        "exponential map",
+        "Fermi normal coordinates",
+        "local inertial frame",
+        "Kretschmann scalar",
+        "curvature invariants",
+        "plane gravitational wave",
+        "coordinate singularity",
+        "counting curvature components"
+      ],
+      "teaches": "An accelerometer cannot see curvature; comparing neighbouring free fallers can. The chapter derives D^2 xi/dtau^2 = -R^mu_{alpha nu beta} u^alpha xi^nu u^beta from a commuting geodesic family, shows orthogonality is preserved, and puts the result in a parallel-transported frame. It recovers the Newtonian Hessian tides with the 2:-1:-1 radial/tangential pattern. It covers the normal-coordinate metric (with the -1/3 coefficient derived optionally), Fermi coordinates along a worldline, and the laboratory size criterion. The Kretschmann scalar distinguishes a coordinate horizon from the r=0 singularity, yet all invariants vanish for a curved plane wave. A table of what g, Gamma, Riemann, Ricci, R, Weyl and G let you ask. Earth's tidal numbers. The 10/40/100-80 = 20 count via coordinate freedom.",
+      "pedagogy": "Operational framing (instrument, then family of worldlines, then frame, then Newtonian check, then numbers). Assumptions are assigned explicit 'jobs'. The three.js tides scene (labs-physics scene-3d-tidal-cloud; scripts/build-site.mjs:180 sceneSections tides:'10.5') is placed in 10.5, after 957 prose words and 19 display equations (placement.json). A worked practice card after 10.5 asks what a tidal cloud can and cannot determine. Advanced detours sit in optional disclosures (factor 1/3, zero-invariant wave). Structural glitch: 10.8 ends with a 'next step is physical' transition, but 10.9-10.10 follow.",
+      "interaction": null,
+      "physics_model": "Exact Jacobi equation for infinitesimal geodesic variations; linear approximation for finite separations is flagged. The Newtonian limit uses static weak fields with g00 = -(1+2Phi/c^2). Recomputed: 2GM/R^3 = 3.08e-6 s^-2, curvature 3.43e-23 m^-2, scale 1.71e11 m = 1.14 AU, GM/c^2 = 4.44 mm, K = 12 R_tidal^2. The plane-wave Ricci=0 and K=0 with nonzero tidal curvature, and the non-diagonal inverse metric, are numerically verified in scripts/check-physics-calculations.mjs (lines 60-75).",
+      "screenshots": [
+        "qa/figure-tidal-eigenvalues-light.png",
+        "qa/lab-tides-1440-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Clean derivation of geodesic deviation with each assumption's role stated; comprehensive review calls it 'Strong observer-based curvature measurement'.",
+          "The 10.8 object/what-it-answers/what-it-does-not-imply table is an exceptional study summary.",
+          "Physically grounded numbers (Earth tides, curvature length) with the units interpreted correctly.",
+          "F02 notation collision (Kretschmann versus tidal component) is repaired: 10.9 now uses a separate symbol R_tidal and states K = 12 R_tidal^2."
+        ],
+        "issues": [
+          "Highest caveat density in scope (about 12 negations per 1000 words); novices may lose the main line.",
+          "Mixes core (10.1-10.5, 10.9) with graduate material (Fermi coordinates, VSI invariants, coordinate-freedom count).",
+          "Section order is awkward: the summary table and 'next step' transition precede two more sections.",
+          "Only one observer's electric tidal part is discussed; the review asks for the magnetic Weyl part and boosted observers in an advanced layer."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row '10 - Tides and normal coordinates' and finding F02; docs/reading-quality-pass-2026-09-09.md (strip versus congruence correction, VV-entry correction, tidal exercise moved after 10.5); scripts/check-physics-calculations.mjs plane-wave check; numbers recomputed in this inventory."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Make this the entry to curvature-as-measurement in grbook, ahead of Ricci/Weyl. Keep 10.1-10.5 and 10.9 nearly verbatim with the tides scene (scene-3d-tidal-cloud) and the lesson-what-a-tidal-instrument-measures calibration. Promote the 10.8 table to a standalone reference card. Move 10.6's Fermi coordinates, 10.7's plane-wave disclosure and 10.10's count into an advanced tier. Fix the section order so the transition paragraph closes the chapter.",
+        "effort": "medium"
+      },
+      "size": "390 lines; ~2643 prose words; 35 display equations; 2 optional disclosures"
+    },
+    {
+      "id": "manuscript-section-10-geodesic-deviation-newtonian-tides",
+      "kind": "manuscript-section",
+      "title": "10.1-10.5 and 10.9 Deriving geodesic deviation and recovering Newtonian tides near Earth",
+      "paths": [
+        "book.md#L3180-L3369",
+        "book.md#L3535-L3557"
+      ],
+      "topics": [
+        "geodesic deviation",
+        "Jacobi field",
+        "torsion-free connection",
+        "Lie bracket",
+        "tidal tensor",
+        "parallel-transported frame",
+        "Newtonian limit",
+        "tidal forces",
+        "gravity gradiometer"
+      ],
+      "teaches": "The full derivation: [u,xi]=0 and zero torsion give nabla_u xi = nabla_xi u, which with the curvature definition gives the deviation equation. Frame components; the eigenvector reading of principal tides; the observer-dependence of the tidal matrix without it being a coordinate illusion. Newtonian Hessian tides for a point mass, with explicit radial-unit-vector derivatives. Earth's 3.08 micro-m/s^2 per metre and the curvature length.",
+      "pedagogy": "Instrument-first motivation, then a 'strip of paths' mental picture, then algebra, then a Newtonian subtraction check that explains the elevator argument.",
+      "interaction": null,
+      "physics_model": "Levi-Civita connection, affine proper time, infinitesimal separations; the static weak-field limit for the Newtonian check. Numbers recomputed and correct.",
+      "screenshots": [
+        "qa/figure-tidal-eigenvalues-light.png",
+        "qa/lab-tides-1440-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Each assumption is tied to a role (normalization gives a physical clock; affine geodesics remove tangential terms).",
+          "The sign convention is stated as non-adjustable.",
+          "The Newtonian limit is derived both from curvature and from direct Taylor subtraction."
+        ],
+        "issues": [
+          "It uses the curvature-operator definition and torsion from chs 7-8 with no inline reminder.",
+          "Tidal-eigenvalue figure 16 is clear but static (review: 'retained')."
+        ],
+        "evidence": "docs/second-figure-review.md fig 16 disposition; docs/reading-quality-pass-2026-09-09.md chapter 8-10 corrections; own recomputation."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Core text for the grbook tides unit. Pair it with scene-3d-tidal-cloud (labs-physics) rebuilt to integrate the deviation equation for real M and r, then lesson-what-a-tidal-instrument-measures. Add an inline reminder card for the curvature operator and torsion (chs 7-8).",
+        "effort": "small"
+      },
+      "size": "~215 lines"
+    },
+    {
+      "id": "lesson-what-a-tidal-instrument-measures",
+      "kind": "lesson",
+      "title": "Read the tidal matrix as an instrument (ch 10, after 10.5)",
+      "paths": [
+        "content/core-practice.mjs#what-a-tidal-instrument-measures",
+        "content/lesson-sequence.mjs#L20"
+      ],
+      "topics": [
+        "tidal tensor",
+        "geodesic deviation",
+        "electric part of Weyl tensor",
+        "magnetic part of Weyl tensor",
+        "Newtonian limit",
+        "sign conventions"
+      ],
+      "teaches": "Calibrates the curvature sign against a physical measurement. With q=GM/r^3 the acceleration map is diag(2q,-q,-q), so R_i0j0 = diag(-2q,q,q)/c^2. A zero trace means no leading volume change but immediate shape change. A single observer's cloud sees at most 6 numbers (5 in vacuum), not all 20 Riemann components. The magnetic Weyl part B_ij is defined as the other 5.",
+      "pedagogy": "Instrument-first: states the observer and apparatus before naming what part of curvature was measured. MCQ targets 'zero volume change means unchanged shape'. Transfer 2q*xi_r = 0.06 m/s^2; variant -q*xi_perp = -0.1 m/s^2.",
+      "interaction": null,
+      "physics_model": "Leading-order geodesic deviation in a local orthonormal frame with x^0 = c tau; Newtonian spherical calibration. Formal note flags finite-size curvature-gradient corrections.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Answers the ch 10 review's request for the magnetic Weyl part in an advanced layer.",
+          "Makes the 6-versus-20 component count an observational statement, which is rare and valuable."
+        ],
+        "issues": [
+          "Its formal note (E/B Weyl split, Levi-Civita definition) is graduate depth attached to a novice exercise."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Pair it with the grbook tides demo as the calibration step. Move the E/B Weyl formal note to the advanced tier.",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 3 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "manuscript-section-10-normal-coordinates-and-counting",
+      "kind": "manuscript-section",
+      "title": "10.6 and 10.10 Riemann and Fermi normal coordinates, laboratory size, and counting curvature through coordinate freedom",
+      "paths": [
+        "book.md#L3370-L3445",
+        "book.md#L3558-L3567"
+      ],
+      "topics": [
+        "Riemann normal coordinates",
+        "exponential map",
+        "normal neighborhood",
+        "Fermi normal coordinates",
+        "local inertial frame",
+        "equivalence principle",
+        "metric Taylor expansion",
+        "independent components of the Riemann tensor"
+      ],
+      "teaches": "g_mu nu(X) = eta - (1/3) R_mu alpha nu beta X^alpha X^beta, with an optional derivation of the 1/3. Fermi coordinates give g00 = -1 - R_0i0j X^i X^j along a worldline. The approximately inertial lab condition |R|L^2 << 1 must also account for curvature variation. Taylor-coefficient counting (10 vs 16, 40 vs 40, 100 vs 80) leaves exactly 20 curvature components.",
+      "pedagogy": "Makes the limits of the equivalence principle precise; the counting argument is presented honestly as support, not an existence proof.",
+      "interaction": null,
+      "physics_model": "Standard second-order expansions (checked against MTW-form Fermi expansion); combinatorial count of symmetric index triples.",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Correct coefficients with a primary citation (Manasse-Misner).",
+          "Clearly distinguishes event-centred from worldline-centred constructions."
+        ],
+        "issues": [
+          "Graduate-level density for a novice path.",
+          "No picture of geodesic rays from the origin or of a lab tube around a worldline."
+        ],
+        "evidence": "docs/reference-comparison.md row 4 (10.10 count added); coefficient checked in this inventory."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Advanced tier. A simple 2D demo (geodesic rays from a point on a sphere, with coordinate grid distortion growing quadratically) would carry the 'flat to first order, curved at second' idea far better than prose.",
+        "effort": "medium"
+      },
+      "size": "~85 lines"
+    },
+    {
+      "id": "manuscript-section-10-curvature-invariants-and-summary-table",
+      "kind": "manuscript-section",
+      "title": "10.7-10.8 Curvature scalars and their limits; table of what each geometric object answers",
+      "paths": [
+        "book.md#L3446-L3534"
+      ],
+      "topics": [
+        "Kretschmann scalar",
+        "curvature invariants",
+        "coordinate singularity",
+        "curvature singularity",
+        "Schwarzschild metric",
+        "pp-wave spacetime",
+        "plane gravitational wave",
+        "vanishing scalar invariants",
+        "metric tensor",
+        "Christoffel symbols",
+        "Riemann tensor",
+        "Weyl tensor",
+        "Einstein tensor"
+      ],
+      "teaches": "K = 48 G^2 M^2 /(c^4 r^6) is finite at the horizon and divergent at r=0, but finiteness is not an extension theorem. A curved vacuum plane wave has all scalar polynomial invariants zero, worked out optionally with its Christoffels, R_UiUj and Ricci=0. The 10.8 table lists, for g, Gamma, Riemann, Ricci, R, Weyl and G, what each lets you ask and what it does not imply.",
+      "pedagogy": "Counterexample-driven (null vector analogy for vanishing norms). The table is a compact misconception inoculation usable as a tutor reference.",
+      "interaction": null,
+      "physics_model": "Brinkmann plane-wave metric ds^2 = -2dUdV + dx^2 + dy^2 + H dU^2 with harmonic H; Ricci=0 and K=0 with nonzero R_UiUj numerically verified (scripts/check-physics-calculations.mjs).",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Numerically verified counterexample.",
+          "The table is a high-value reference distilled from four chapters.",
+          "Cites Pravda et al. for the VSI classification."
+        ],
+        "issues": [
+          "The plane-wave disclosure needs light-cone coordinates a novice has not practised."
+        ],
+        "evidence": "scripts/check-physics-calculations.mjs lines 60-75; docs/reading-quality-pass-2026-09-09.md (VV entry correction)."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Import the 10.8 table verbatim as a concept-registry reference card and tutor grounding. Keep the plane-wave example as an advanced worked example.",
+        "effort": "small"
+      },
+      "size": "~90 lines"
+    },
+    {
+      "id": "manuscript-chapter-11-stress-energy",
+      "kind": "manuscript-chapter",
+      "title": "11. Energy, momentum, and stress",
+      "paths": [
+        "book.md#L3570-L3991",
+        "content/guides.json#11",
+        "assets/figures/stress-energy.svg",
+        "content/foundation-lessons.mjs#fields-carry-energy"
+      ],
+      "topics": [
+        "stress-energy tensor",
+        "energy density",
+        "energy flux",
+        "momentum density",
+        "momentum flux",
+        "local conservation law",
+        "observer decomposition",
+        "spatial projection tensor",
+        "dust",
+        "perfect fluid",
+        "viscosity",
+        "equation of state",
+        "radiation pressure",
+        "active gravitational mass",
+        "divergence theorem",
+        "scalar field stress-energy tensor",
+        "electromagnetic stress-energy tensor",
+        "Poynting vector",
+        "Lorentz force",
+        "Faraday tensor",
+        "traceless stress-energy tensor"
+      ],
+      "teaches": "What each block of T^{mu nu} measures (detector crossings versus contents) and why all entries have energy-density units. S = c^2 pi. The energy and momentum balance laws. The observer decomposition T = eps n n + n j + j n + P, checked in the rest frame and on boosted dust (gamma^2 eps = 1.5625 eps at 0.6c). Dust conservation gives both continuity and geodesic motion. The perfect fluid from isotropy, with (eps+p) explained by the projector. The first law d(eps V) = -p dV via a piston, and the relativistic Euler equation. Radiation p = eps/3 and the Misner-Putnam box resolution via the integral of T^ij being zero. Scalar-field energy and pressure. Electromagnetic fields from the Lorentz force through F_mu nu, T^EM, the Poynting vector, and zero trace.",
+      "pedagogy": "Opens with gas in a box and an embedded particle-flow detector lab (book.md:3582, inside 11.1 before the matrix; stream, balanced and slanted modes; qa/particles-*). A fluid-shear lab (book.md:3763; Couette versus Poiseuille; qa/fluid-*) comes before the perfect-fluid idealization. placement.json misses both inserts. Explicit sign and convention warnings (lowering one time index; momentum-flux versus engineering tension). Field examples are labelled as previews of ch 13. A foundation lesson after 11.6 covers field energy.",
+      "interaction": null,
+      "physics_model": "Orthonormal frames, signature (-,+,+,+), x^0 = ct; symmetric metric stress tensor. Virial argument: d_k(x^i T^kj) = T^ij for stationary localized systems with sufficient falloff. EM uses F_0i = -E_i/c, F_ij = eps_ijk B_k, SI with eps0 mu0 c^2 = 1.",
+      "screenshots": [
+        "qa/figure-stress-energy-light.png",
+        "qa/particles-balanced-1440-light.png",
+        "qa/fluid-pressure-1440-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Measurement-first meaning of each tensor block (review: 'Excellent physical emphasis on energy, momentum flux, pressure, and observer decomposition').",
+          "Dust-to-geodesic and fluid-to-Euler derivations are fully expanded.",
+          "The radiation-in-a-box section resolves the 'pressure gravitates' paradox with a short, correct virial calculation and a primary citation.",
+          "The only chapter in scope that opens with interactive measurement labs before the matrix."
+        ],
+        "issues": [
+          "11.6 teaches the Lorentz force, cross product and permittivity inline, then jumps to Lagrangian densities and F^2 before the variational chapter; flagged by the novice audit and comprehensive review.",
+          "Figure 17 transposes the row/column labels relative to the text (S/c in row 0 and c*pi in column 0, against book.md:3595-3601) and writes sigma for Pi. For symmetric T the values coincide, so this is a convention clash rather than a physics error, but it contradicts the index story the text teaches. Verified in qa/figure-stress-energy-light.png.",
+          "Longest chapter in scope (43 display equations); observer-dependent tensor readings still lack a visual (fluid-shear-review: 'Observer-dependent tensor readings ... remain outstanding').",
+          "The review asks for an anisotropic stress example and a boosted fluid problem."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 11 and the 'Field Lagrangians and electromagnetism' prerequisite row; docs/novice-sequencing-audit-2026-09-09.md table row 11.6; docs/visual-development-plan-2026-09-09.md stress-energy label mismatch; docs/particle-flow-review.md; docs/fluid-shear-review.md; figure seen in qa/figure-stress-energy-light.png; inserts confirmed at book.md:3582 (particle-flow) and 3763 (fluid-shear)."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep 11.1-11.5 largely verbatim with lab-particle-stress-energy-crossings and lab-fluid-viscous-shear (labs-physics) as openers. Rebuild the matrix figure with the text's index story (row = what flows, column = which component) and live-link it to the detector lab. Move 11.6 into a separate 'fields carry energy' unit placed after variations, or behind an explicit preview. Add a boosted-observer demo where the same T gives different eps, j and P.",
+        "effort": "medium"
+      },
+      "size": "422 lines; ~2843 prose words; 43 display equations; 2 embedded labs"
+    },
+    {
+      "id": "manuscript-section-11-stress-energy-measurement-and-observers",
+      "kind": "manuscript-section",
+      "title": "11.1-11.2 Energy density, momentum flux, and measurements made by a chosen observer",
+      "paths": [
+        "book.md#L3576-L3710"
+      ],
+      "topics": [
+        "stress-energy tensor",
+        "energy density",
+        "energy flux",
+        "momentum density",
+        "momentum flux",
+        "continuity equation",
+        "orthonormal frame",
+        "spatial projection tensor",
+        "observer decomposition",
+        "Lorentz boost"
+      ],
+      "teaches": "The detector picture of density versus flux; the matrix packaging with units; the symmetric T gives S = c^2 pi; the partial_mu T^mu nu = 0 components as energy and momentum balance. Coordinate components are not gauge readings. Projector H = delta + n n, and the decomposition into eps, j, P reconstructs T. Boosted dust gives gamma^2 eps (one gamma per particle energy, one from density). A light beam has no rest frame.",
+      "pedagogy": "Particle-flow insert before any formula; a rest-frame check of the projector definitions; a numerical boost example.",
+      "interaction": null,
+      "physics_model": "Special-relativistic orthonormal frame; the particle-flow lab uses finite crossing counts that fluctuate around the volume average (text explains).",
+      "screenshots": [
+        "qa/particles-balanced-1440-light.png",
+        "qa/figure-stress-energy-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Clear operational definitions with SI units.",
+          "The projector sign is explained by applying it to n."
+        ],
+        "issues": [
+          "Figure 17's row/column labels are the transpose of the text's matrix, and it uses sigma for Pi (see the chapter asset). The values agree for symmetric T, but the labels contradict the index reading the text defines."
+        ],
+        "evidence": "docs/particle-flow-review.md; docs/visual-development-plan-2026-09-09.md label-mismatch note; gamma^2 = 1.5625 recomputed."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Core text for the grbook stress-energy unit. Pair it with the particle-flow lab and a corrected matrix figure.",
+        "effort": "small"
+      },
+      "size": "~135 lines"
+    },
+    {
+      "id": "manuscript-section-11-dust-and-perfect-fluids",
+      "kind": "manuscript-section",
+      "title": "11.3-11.4 Dust and perfect fluids: conservation gives geodesics, work, and the relativistic Euler equation",
+      "paths": [
+        "book.md#L3711-L3836"
+      ],
+      "topics": [
+        "dust",
+        "perfect fluid",
+        "viscosity",
+        "Couette flow",
+        "Poiseuille flow",
+        "conservation of stress-energy",
+        "continuity equation",
+        "geodesic equation",
+        "expansion scalar",
+        "first law of thermodynamics",
+        "relativistic Euler equation",
+        "pressure",
+        "inertial mass of pressure"
+      ],
+      "teaches": "T_dust = rho u u; contracting nabla T = 0 with u gives continuity, and the remainder gives geodesic motion. Viscous shear via the fluid-shear lab, then the isotropic rest-frame stress p delta_ij. The (eps+p)uu/c^2 + p g form from the projector. The measured energy (eps+p)gamma^2 - p. Energy equation u.grad eps + (eps+p) theta = 0, equivalent to d(eps V) = -p dV. Projected momentum equation (eps+p)a/c^2 = -H grad p. Caveats for charged, pressured and spinning bodies. Momentum-flux versus Cauchy-tension sign conventions.",
+      "pedagogy": "Derive-then-interpret, with a piston for pdV. The shear lab explicitly shows that the fastest flow can have zero shear stress.",
+      "interaction": null,
+      "physics_model": "Covariant conservation with u.u = -c^2; the fluid-shear lab uses analytic steady Couette and plane Poiseuille profiles (docs/fluid-shear-review.md).",
+      "screenshots": [
+        "qa/fluid-pressure-1440-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "The 'continuity and free fall from one equation' insight is made explicit.",
+          "Honest about the domain of the dust idealization."
+        ],
+        "issues": [
+          "The viscosity lab introduces Newtonian continuum ideas, but no relativistic viscous term follows (fine for scope, but it should be labelled)."
+        ],
+        "evidence": "docs/fluid-shear-review.md; docs/reading-quality-pass-2026-09-09.md chapters 11-12 ('Fluid conservation is expanded before projecting it')."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Reuse the text and keep the fluid-shear lab as the viscosity foil. Later cosmology units can link the pdV law directly.",
+        "effort": "small"
+      },
+      "size": "~125 lines"
+    },
+    {
+      "id": "manuscript-section-11-radiation-pressure-mass-of-a-box",
+      "kind": "manuscript-section",
+      "title": "11.5 Radiation pressure and the mass of a box",
+      "paths": [
+        "book.md#L3837-L3883"
+      ],
+      "topics": [
+        "radiation pressure",
+        "equation of state",
+        "active gravitational mass",
+        "Tolman mass",
+        "virial theorem",
+        "divergence theorem",
+        "stationary systems",
+        "strong energy condition"
+      ],
+      "teaches": "Why R_00 involves eps + 3p. Isotropic radiation has p = eps/3 from direction averages of n_i n_j. A radiation-filled box naively appears to gravitate like 2 eps, but wall tensions cancel it. For stationary isolated systems the integral of T^ij over space vanishes, so the leading mass is E/c^2.",
+      "pedagogy": "Sets up a genuine paradox, then resolves it with a three-line calculation; introduces the divergence theorem by cancellation of shared faces.",
+      "interaction": null,
+      "physics_model": "Flat-space stationary momentum conservation with decaying stresses; weak-field static mass integral (1/c^2) times the integral of (T^00 + sum T^ii); cites Misner and Putnam (1959).",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "A rarely taught, correct resolution with a primary citation.",
+          "States the regime of negligible self-gravity."
+        ],
+        "issues": [
+          "Forward-references the field equation (R_00) before ch 12; acceptable as a preview."
+        ],
+        "evidence": "Checked against the trace-reversed 00 component in 12.3; docs/reading-quality-pass-2026-09-09.md ('a directional momentum-flux calculation explains radiation pressure')."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Excellent 'puzzle' card; move it after the field equation, or keep it as a flagged preview. A demo with a photon gas pushing on elastic walls and a stress readout would make it memorable.",
+        "effort": "small"
+      },
+      "size": "~47 lines"
+    },
+    {
+      "id": "manuscript-section-11-field-stress-tensors",
+      "kind": "manuscript-section",
+      "title": "11.6 Two field examples: scalar waves and electromagnetism",
+      "paths": [
+        "book.md#L3884-L3991",
+        "content/foundation-lessons.mjs#fields-carry-energy"
+      ],
+      "topics": [
+        "scalar field",
+        "Lagrangian density",
+        "scalar field stress-energy tensor",
+        "electric field",
+        "magnetic field",
+        "Lorentz force",
+        "cross product",
+        "Faraday tensor",
+        "electromagnetic stress-energy tensor",
+        "Poynting vector",
+        "electromagnetic plane wave",
+        "traceless stress-energy tensor"
+      ],
+      "teaches": "Scalar T with eps = (phi-dot^2 + |grad phi|^2)/2 + V and homogeneous p = phi-dot^2/2 - V (kinetic positive, potential negative pressure). The operational E and B definitions, Lorentz force, cross product rules, F_mu nu normalization checked by the covariant force law, the EM Lagrangian and T, energy density and Poynting vector, a plane-wave check (flux c eps), and zero trace.",
+      "pedagogy": "Patches in elementary EM and vector algebra mid-chapter. Explicitly a preview of ch 13, with a worked foundation lesson afterwards.",
+      "interaction": null,
+      "physics_model": "c=1 for the scalar part; SI for EM with signature (-,+,+,+); stress tensors quoted from metric variation (derived in 13.6).",
+      "screenshots": [],
+      "quality": {
+        "status": "partial",
+        "strengths": [
+          "Correct normalizations and a satisfying plane-wave check.",
+          "Earlier natural-unit and mass-dimension jumps were removed (novice audit fix)."
+        ],
+        "issues": [
+          "Level whiplash: defines the cross product next to tensor Lagrangians.",
+          "Uses field actions before variations are taught.",
+          "No visual of stored or transported field energy (field-energy-review: 'A corresponding visual field-energy experiment ... still open')."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md 'Field Lagrangians and electromagnetism' row; docs/novice-sequencing-audit-2026-09-09.md row 11.6; docs/field-energy-review.md."
+      },
+      "reuse": {
+        "verdict": "reimagine",
+        "notes": "Build a dedicated 'fields store and carry energy' unit after the variational unit. Keep the scalar energy/pressure formulas and the EM plane-wave check. Move the EM/vector-algebra primer to a prerequisite bridge. Add a wave-packet demo showing energy density and Poynting flux moving at c.",
+        "effort": "medium"
+      },
+      "size": "~108 lines"
+    },
+    {
+      "id": "lesson-fields-carry-energy",
+      "kind": "lesson",
+      "title": "A field has motion and stored energy at every point (ch 11, 11.6)",
+      "paths": [
+        "content/foundation-lessons.mjs#fields-carry-energy",
+        "content/lesson-sequence.mjs#L21"
+      ],
+      "topics": [
+        "scalar field",
+        "energy density",
+        "energy flux",
+        "continuity equation",
+        "wave equation",
+        "Poynting vector",
+        "electromagnetic energy density",
+        "cross product"
+      ],
+      "teaches": "Builds field energy from a stretched string: e = mu phi_t^2/2 + T phi_x^2/2, wave speed c_s^2 = T/mu. Energy flux j = -T phi_t phi_x with d_t e + d_x j = 0. Then the vocabulary for E, B, the Lorentz force and the cross product, u = eps0 E^2/2 + B^2/2mu0, S = E x B/mu0, Poynting's theorem, and the plane-wave check |S| = c u.",
+      "pedagogy": "Section-start prerequisite bridge ('Where is energy while a wave crosses an otherwise empty region?'). Mechanical string before fields. MCQ separates motion of the disturbance from motion of the material. Transfer: u = 4 J/m^3; variant: string flux 2 W. Also a course-map diagnostic (scripts/check-diagnostics.mjs).",
+      "interaction": null,
+      "physics_model": "Small-slope string (Newtonian continuum); SI vacuum electromagnetism. Derivation of the flux is explicit; Maxwell energy density is supplied, not derived.",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "The string gives a derivable, visualizable energy current before any tensor.",
+          "Explicitly warns that c_s need not equal c."
+        ],
+        "issues": [
+          "It is where 11.6's level whiplash comes from: cross-product basics and Poynting's theorem sit in one lesson inside a tensor chapter.",
+          "The Maxwell energy density is asserted."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review; scripts/check-diagnostics.mjs exercises its transfer answer in the browser"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Split it. The string energy-current half becomes the opener of the grbook 'fields carry energy' unit, with a wave-on-a-string demo showing e and j moving. The EM vocabulary half goes to a prerequisite bridge.",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 3 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "manuscript-chapter-12-einstein-field-equation",
+      "kind": "manuscript-chapter",
+      "title": "12. Einstein's field equation",
+      "paths": [
+        "book.md#L3994-L4294",
+        "content/guides.json#12",
+        "assets/figures/einstein-anatomy.svg",
+        "assets/figures/newtonian-calibration.svg",
+        "content/foundation-lessons.mjs#poisson-from-a-flux"
+      ],
+      "topics": [
+        "Einstein field equations",
+        "Einstein tensor",
+        "cosmological constant",
+        "contracted Bianchi identity",
+        "trace-reversed Einstein equations",
+        "Newtonian limit",
+        "Poisson equation",
+        "weak-field metric",
+        "gravitational potential",
+        "linearized gravity",
+        "gauge freedom",
+        "constraint equations",
+        "Einstein gravitational constant",
+        "Lovelock theorem"
+      ],
+      "teaches": "What each symbol in G + Lambda g = (8 pi G/c^4) T does (a table). The equation is nonlinear and coupled to matter dynamics. Why the half-trace: requiring A Ric + B R g + C g to be divergence-free forces B = -A/2, with an honest statement that this does not prove uniqueness. Trace reversal R = 4 Lambda - kappa T and R_mu nu = kappa(T - T g/2) + Lambda g, with the d-dimensional form. Zero trace is not zero source (EM). The Newtonian limit: slow geodesics fix g00; R_00 = laplacian Phi/c^2; the dust source is rho c^2/2; Poisson's equation is derived from flux; so kappa = 8 pi G/c^4, and Lambda gives an outward r^2 potential. Both Phi and Psi are required: G_00 = 2 laplacian psi, and G_ij forces psi = phi, so a time-only perturbation fails to source density. 10 equations minus 4 Bianchi relations minus 4 gauge functions. Units: c^4/(8 pi G) = 4.82e42 N and the 3000 kg/m^3 example.",
+      "pedagogy": "Table-first reading of the equation, then three independent justifications (divergence, trace algebra, Newtonian calibration). Caveats about what the equivalence principle does not prove. Figure 18 is an equation-anatomy poster; figure 19 aligns the geometry, matter and Newton rows. A worked foundation lesson derives Poisson from flux.",
+      "interaction": null,
+      "physics_model": "Static weak field, slow dust, Lambda=0 for matching. Linearized Ricci for ds^2 = -(1+2 phi)c^2 dt^2 + (1-2 psi) dx^2, with R_00, R_ij, R, G_00 and G_ij verified by independent numerical metric differentiation (scripts/check-physics-calculations.mjs lines 80-95). The d-dimensional trace reversal and 4.82e42 N / 5.60e-23 m^-2 re-derived in this inventory.",
+      "screenshots": [
+        "qa/figure-einstein-anatomy-light.png",
+        "qa/figure-newtonian-calibration-light.png",
+        "qa/matter-opening-12.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Trace reversal, coupling normalization and the Newtonian limit are carefully handled (comprehensive review row 12).",
+          "12.5 shows why the spatial metric matters, a point most introductions skip, and it is numerically verified.",
+          "Explicitly separates what is derived from what is a theory choice.",
+          "The guide check question ('is the trace-reversed 00 source rho c^2 or rho c^2/2?') is an excellent misconception probe."
+        ],
+        "issues": [
+          "No worked matter-sourced solution follows; the review wants the equation to 'become a tool rather than a destination'.",
+          "The Einstein-anatomy figure is a tensor-name poster; the visual plan asks for concrete contraction and trace-reversal examples instead.",
+          "Relies on 9.5, 11.5 and 10.5 via back-references that a non-linear reader may not have."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 12; docs/reading-quality-pass-2026-09-09.md chapters 11-12 (numerical verification incl. 'failure of a time-only perturbation to source G00'); docs/visual-development-plan-2026-09-09.md coverage row 12; scripts/check-physics-calculations.mjs."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Among the most reusable text in the book. Keep the symbol table, 12.2-12.5 and 12.7 with light editing. Add a 'solve it once' follow-up (constant-density star exterior or weak-field sphere). Replace the anatomy poster with an interactive trace-reversal calculator (choose dust, radiation, Lambda or EM field; watch T, the trace and the R_00 source). Keep the Newtonian-calibration figure.",
+        "effort": "small"
+      },
+      "size": "301 lines; ~1578 prose words; 30 display equations"
+    },
+    {
+      "id": "manuscript-section-12-trace-subtraction-and-reversal",
+      "kind": "manuscript-section",
+      "title": "12.2-12.3 Why subtract half the trace, and trace reversal",
+      "paths": [
+        "book.md#L4034-L4118"
+      ],
+      "topics": [
+        "Einstein tensor",
+        "contracted Bianchi identity",
+        "Lovelock theorem",
+        "trace-reversed Einstein equations",
+        "perfect fluid",
+        "strong energy condition",
+        "vacuum Einstein equations",
+        "electromagnetic stress-energy tensor",
+        "dimension dependence"
+      ],
+      "teaches": "Divergence-freedom fixes the 1/2 within the chosen low-derivative form; the equivalence principle does not by itself fix the dynamics. R = 4 Lambda - kappa T. The trace-reversed form, and eps+3p for a fluid. Vacuum gives Ricci = 0 but Weyl survives. T=0 does not mean vacuum. d-dimensional coefficients: the 1/2 in G is dimension-independent, but the 1/2 in trace reversal is not.",
+      "pedagogy": "Short algebraic derivations interleaved with named false statements.",
+      "interaction": null,
+      "physics_model": "Constant-coefficient ansatz A Ric + B R g + C g; d-dimensional trace (re-derived in this inventory).",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Honest scope statement about uniqueness.",
+          "The dimension-dependent remark prevents a common error."
+        ],
+        "issues": [
+          "Lovelock's theorem is alluded to but not named."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md strengths 5 and row 12."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Pair it with 9.4-9.5 as one 'left-hand side' unit. Name Lovelock's theorem in an advanced note.",
+        "effort": "small"
+      },
+      "size": "~85 lines"
+    },
+    {
+      "id": "manuscript-section-12-newtonian-limit-and-coupling",
+      "kind": "manuscript-section",
+      "title": "12.4-12.5 and 12.7 Matching Newtonian gravity, both weak-field potentials, and the size of the coupling",
+      "paths": [
+        "book.md#L4119-L4272",
+        "book.md#L4281-L4294",
+        "assets/figures/newtonian-calibration.svg"
+      ],
+      "topics": [
+        "Newtonian limit",
+        "Poisson equation",
+        "Gauss's law for gravity",
+        "weak-field metric",
+        "gravitational potential",
+        "linearized Ricci tensor",
+        "cosmological constant",
+        "Einstein gravitational constant",
+        "dimensional analysis"
+      ],
+      "teaches": "g00 = -(1 + 2 Phi/c^2) from slow free fall; R_00 = laplacian Phi/c^2; the dust source rho c^2/2; Poisson from inverse-square flux and superposition; kappa = 8 pi G/c^4 (4 pi from flux, 2 from trace reversal). The Lambda term in Poisson, with Phi_Lambda = -Lambda c^2 r^2/6. The independent phi and psi calculation giving G_00 = 2 laplacian psi and psi = phi from G_ij=0 plus falloff. A time-only perturbation fails to source density. Coupling units N^-1 and scale 4.82e42 N.",
+      "pedagogy": "Kinematic step and dynamical step kept separate; 'an approximation sufficient for one measurement can omit terms essential for another'.",
+      "interaction": null,
+      "physics_model": "First-order perturbations, static fields, pressureless slow matter; numerically verified in scripts/check-physics-calculations.mjs.",
+      "screenshots": [
+        "qa/figure-newtonian-calibration-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Every factor's origin is named.",
+          "Verified by independent numerics.",
+          "Sets up 16.4's light-bending factor of 2."
+        ],
+        "issues": [
+          "Dense index algebra in 12.5 without a visual of the two potentials."
+        ],
+        "evidence": "scripts/check-physics-calculations.mjs lines 80-95; docs/reading-quality-pass-2026-09-09.md chapters 11-12."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Keep the text. Add a small slider demo: set psi = 0 versus psi = phi and watch predicted slow-particle acceleration stay fixed while light deflection halves and the G_00 source disappears. This links directly to ch 16.",
+        "effort": "small"
+      },
+      "size": "~170 lines"
+    },
+    {
+      "id": "lesson-poisson-from-a-flux",
+      "kind": "lesson",
+      "title": "Find the source by enclosing it (ch 12, 12.4)",
+      "paths": [
+        "content/foundation-lessons.mjs#poisson-from-a-flux",
+        "content/lesson-sequence.mjs#L22"
+      ],
+      "topics": [
+        "Poisson equation",
+        "Gauss's law for gravity",
+        "divergence theorem",
+        "Dirac delta distribution",
+        "Green function",
+        "Newtonian limit"
+      ],
+      "teaches": "The flux of g through any sphere around M is -4 pi G M. The divergence theorem turns that into div g = -4 pi G rho, so laplacian Phi = 4 pi G rho. The point source survives as laplacian(1/r) = -4 pi delta^3, and superposition gives the Green-function solution. The lesson also warns that boundary conditions add harmonic pieces.",
+      "pedagogy": "Section-start bridge placed before 12.4 uses Poisson to fix kappa. MCQ on 'laplacian of -GM/r = 0 away from the origin means no mass'. Transfer a/(pi G rho) = 2/3; variant enclosed fraction 1/8. Also a course-map diagnostic.",
+      "interaction": null,
+      "physics_model": "Newtonian gravity with isolated boundary Phi -> 0; distributional Laplacian stated with a test-function definition.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Gives the '4 pi from flux' half of the 8 pi G/c^4 story its own derivation.",
+          "Distinguishes vacuum at a point from enclosed source, which previews Weyl versus Ricci."
+        ],
+        "issues": [
+          "Duplicates flux material from ch 0 (0.7) that a grbook learner may already have."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review; scripts/check-diagnostics.mjs"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Use as the prerequisite card before the Newtonian calibration. A Gauss-surface demo (drag a sphere radius around a point or a uniform ball; flux readout constant outside, growing as r^3 inside) would make both transfer problems visual.",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 3 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "manuscript-chapter-13-variational-calculus",
+      "kind": "manuscript-chapter",
+      "title": "13. Variational calculus for paths and fields",
+      "paths": [
+        "book.md#L4297-L4767",
+        "content/guides.json#13",
+        "assets/figures/action-variation.svg",
+        "content/foundation-lessons.mjs#variations-and-boundary-data"
+      ],
+      "topics": [
+        "action principle",
+        "calculus of variations",
+        "functional derivative",
+        "Euler-Lagrange equations",
+        "fundamental lemma of calculus of variations",
+        "second variation",
+        "harmonic oscillator",
+        "scalar field",
+        "Klein-Gordon equation",
+        "dispersion relation",
+        "variation of the metric",
+        "Jacobi's formula",
+        "variation of the metric determinant",
+        "Hilbert stress-energy tensor",
+        "electromagnetic potential",
+        "gauge invariance",
+        "phase space",
+        "Hamilton's equations",
+        "Legendre transform",
+        "Poisson bracket",
+        "conjugate momentum",
+        "Hamiltonian constraint",
+        "reparametrization invariance"
+      ],
+      "teaches": "Varying whole histories: families q + lambda eta with fixed endpoints, integration by parts, the fundamental lemma, and the Euler-Lagrange equations. Stationary is not minimal: the explicit oscillator second variation is a saddle for T > pi/omega. Field Euler-Lagrange equations in curved spacetime and the Klein-Gordon equation with omega^2 = k^2 + mu^2 (mu = mc/hbar). Varying the connection. delta g^{mu nu} = -g g delta g_mu nu, and the raised-perturbation sign hazard. delta sqrt(-g) from Jacobi's determinant identity. T_mu nu = -(2c/sqrt(-g)) delta S_m / delta g^{mu nu}, checked on scalar and EM fields. Hamilton's equations from a phase-space cart, the Legendre transform, energy conservation, Poisson brackets, a total-derivative Lagrangian example, and the relativistic particle's vanishing Hamiltonian as a constraint preview.",
+      "pedagogy": "Ordinary derivative, then path, field, metric in succession (review: 'The progressive path/field/metric development is a strength'). The phase-space mechanics insert (data-mechanics-insert=phase) revisits the ch 0 cart. A checkpoint problem with hidden answer. Three optional disclosures. A foundation lesson after 13.1 on admissible variations.",
+      "interaction": null,
+      "physics_model": "SI action S = (1/c) integral of d^4x sqrt(-g) L; the saddle calculation with eta = A sin(k pi t/T) (re-derived here: Delta S = m lambda^2 A^2 T/4 (pi^2/T^2 - omega^2)). The mechanics experience uses the spring cart H = p^2/2m + kq^2/2 (docs/course-evolution.md).",
+      "screenshots": [
+        "qa/figure-action-variation-light.png",
+        "qa/mechanics-13-1440-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Clear first-principles variational method, including the rarely proved fundamental lemma.",
+          "Concrete saddle-point counterexample to 'least action'.",
+          "Metric-variation sign hazards are called out explicitly, which prevents errors in ch 14.",
+          "The Hilbert stress tensor is checked against ch 11's scalar and EM tensors."
+        ],
+        "issues": [
+          "Uses the harmonic oscillator as familiar before it is taught (review row 13).",
+          "13.7 (Hamiltonian mechanics, about 140 lines) is a different subject placed here mainly to prepare ch 20.",
+          "The action-variation figure uses x(t) and epsilon while the text uses q(t) and lambda, and the visual plan says it 'omits essential labels'.",
+          "'Unfamiliar symbols accumulate quickly' (review, constrained variations row); no interactive trial-history demo exists yet (only a Python visual study)."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md rows 13 and 'Constrained variations and boundary data'; docs/visual-development-plan-2026-09-09.md section on action (scripts/visual-studies/action-study.py); docs/reading-quality-pass-2026-09-09.md chapters 13-15 (dimensionful amplitude fix); figure seen in qa/figure-action-variation-light.png (x_eps = x + eps eta labels); phase insert at book.md:4632."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Split into (a) a variational-calculus unit (13.1-13.3) led by the planned trial-history demo (drag a localized bump, see the action change and Euler-Lagrange residual, and the oscillator saddle); (b) a metric-variation toolkit (13.4-13.6), reusable verbatim; and (c) a Hamiltonian/phase-space unit (13.7) placed before the ADM material with the existing cart phase-space insert. Fix figure notation to q and lambda.",
+        "effort": "medium"
+      },
+      "size": "471 lines; ~2460 prose words; 48 display equations; 1 checkpoint, 3 optional disclosures"
+    },
+    {
+      "id": "manuscript-section-13-euler-lagrange-and-stationarity",
+      "kind": "manuscript-section",
+      "title": "13.1-13.2 From an ordinary derivative to a variation; stationary does not mean minimal",
+      "paths": [
+        "book.md#L4303-L4389",
+        "assets/figures/action-variation.svg"
+      ],
+      "topics": [
+        "action principle",
+        "calculus of variations",
+        "Euler-Lagrange equations",
+        "fundamental lemma of calculus of variations",
+        "boundary terms",
+        "second variation",
+        "principle of stationary action",
+        "harmonic oscillator"
+      ],
+      "teaches": "The definition of delta S as d/d lambda at 0, integration by parts with the boundary term, the fundamental lemma via a positive bump, m q-double-dot = -V'. The oscillator's second variation shows the physical path is a saddle for long intervals.",
+      "pedagogy": "Analogy to df/dx = 0, then explicit displacement family, then counterexample.",
+      "interaction": null,
+      "physics_model": "One-degree-of-freedom Lagrangian mechanics; saddle integral re-derived and correct.",
+      "screenshots": [
+        "qa/aesthetic-01-20-light-4.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Rigorous but short.",
+          "The saddle example is concrete, with a dimensional amplitude."
+        ],
+        "issues": [
+          "Needs an interactive; the figure is static and its notation mismatches."
+        ],
+        "evidence": "docs/visual-development-plan-2026-09-09.md action section; docs/reading-quality-pass-2026-09-09.md (amplitude units fix)."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Use as the text of the grbook action unit. Build the planned trial-histories demo (fixed endpoints, bump position and amplitude, action readout, oscillator saddle toggle).",
+        "effort": "small"
+      },
+      "size": "~87 lines"
+    },
+    {
+      "id": "lesson-variations-and-boundary-data",
+      "kind": "lesson",
+      "title": "Say what is allowed to move (ch 13, after 13.1)",
+      "paths": [
+        "content/foundation-lessons.mjs#variations-and-boundary-data",
+        "content/lesson-sequence.mjs#L23"
+      ],
+      "topics": [
+        "calculus of variations",
+        "boundary terms",
+        "Euler-Lagrange equations",
+        "Lagrange multiplier",
+        "constrained optimization",
+        "admissible variations"
+      ],
+      "teaches": "delta S = [m xdot eta] - integral of (m xddot + U') eta, showing that fixing eta at the endpoints does not fix eta-dot. A Lagrange multiplier on the unit circle (x+y stationary at +/-1/sqrt2, values +/-sqrt2) shows that 'stationary' includes maxima. A boundary term can change the admissible problem without changing the bulk equation, which sets up GHY.",
+      "pedagogy": "Frames boundary data as part of the question (the room-versus-staircase analogy). MCQ with counterexample eta = t(1-t). Transfer xddot = -12 m/s^2; variant eta'(1) = -2. Also a course-map diagnostic.",
+      "interaction": null,
+      "physics_model": "One-degree-of-freedom Lagrangian mechanics plus finite-dimensional constrained stationarity.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Plants the exact logical point (value fixed, slope free) that ch 14 needs, in elementary form.",
+          "Covers constrained variation, which the review lists as a missing prerequisite."
+        ],
+        "issues": [
+          "Placed after 13.1 but bundles two ideas (endpoint data and multipliers) that could be separate cards."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review; scripts/check-diagnostics.mjs"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Put it inside the grbook trial-histories demo: endpoints are pinned, the bump's slope at the endpoint can be dragged, and the boundary term readout is shown. Keep the circle multiplier as a separate short check.",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 3 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "manuscript-section-13-metric-variations-and-hilbert-stress-tensor",
+      "kind": "manuscript-section",
+      "title": "13.3-13.6 Field equations, metric and determinant variations, and the stress tensor as response to geometry",
+      "paths": [
+        "book.md#L4390-L4623"
+      ],
+      "topics": [
+        "scalar field",
+        "Klein-Gordon equation",
+        "covariant Euler-Lagrange equations",
+        "variation of the connection",
+        "variation of the inverse metric",
+        "Jacobi's formula",
+        "variation of the metric determinant",
+        "Hilbert stress-energy tensor",
+        "functional derivative",
+        "electromagnetic potential",
+        "gauge invariance",
+        "electromagnetic stress-energy tensor"
+      ],
+      "teaches": "Field Euler-Lagrange equations dL/dphi - nabla P = 0 with the boundary divergence. Klein-Gordon and dispersion, and the quantum identification mu = mc/hbar labelled as extra input. delta(nabla V) includes delta Gamma. Inverse-metric variation and the k^{mu nu} = -delta g^{mu nu} hazard. Jacobi's determinant identity derived. delta sqrt(-g) = -(1/2) sqrt(-g) g delta g^{mu nu}. The Hilbert stress tensor definition in both metric variables, the shortcut T = -2 dL/dg^{mu nu} + g L, and scalar and EM checks. EM gauge freedom. Warnings about fluids and curvature couplings.",
+      "pedagogy": "Every identity is derived from a matrix fact, with physical reading ('stress-energy measures how the matter action responds when its spacetime measuring apparatus is changed').",
+      "interaction": null,
+      "physics_model": "SI action with 1/c prefactor, signature (-,+,+,+). Formulas are standard and consistent with 14.5.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "It is a complete, self-contained toolkit for ch 14.",
+          "The sign hazard note is the kind of detail that saves learners hours."
+        ],
+        "issues": [
+          "Heavy for a novice with no visual. A trace-free versus trace deformation picture of volume change would help."
+        ],
+        "evidence": "docs/reading-quality-pass-2026-09-09.md chapters 13-15; consistency with 14.5 checked here."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Reuse as the 'metric variation toolkit' reference. Add a small 2D deformation demo (trace versus trace-free metric change, with area readout) for 13.5.",
+        "effort": "small"
+      },
+      "size": "~235 lines"
+    },
+    {
+      "id": "manuscript-section-13-hamiltonian-mechanics",
+      "kind": "manuscript-section",
+      "title": "13.7 From a history to a state: Hamilton's equations",
+      "paths": [
+        "book.md#L4624-L4767"
+      ],
+      "topics": [
+        "phase space",
+        "Hamiltonian mechanics",
+        "Hamilton's equations",
+        "Legendre transform",
+        "conjugate momentum",
+        "Poisson bracket",
+        "conservation of energy",
+        "autonomous system",
+        "total derivative in Lagrangian",
+        "reparametrization invariance",
+        "Hamiltonian constraint",
+        "mass shell"
+      ],
+      "teaches": "State (q,p) versus path; energy ellipses and clockwise flow for the spring cart; the Legendre transform via the product rule; invertibility (Hessian) conditions leading to constraints; dH/dt = partial_t H; Poisson brackets. Checkpoint numbers: m=2, k=2, q=1, p=-1 gives H = 1.25 J. A total derivative changes conjugate momentum. The relativistic particle has H = 0 and the mass-shell constraint with lapse-like multiplier N.",
+      "pedagogy": "Motivated by the question 'what does position alone fail to predict?'. The linked phase-space mechanics insert shows the same cart, and a checkpoint precedes the reveal.",
+      "interaction": null,
+      "physics_model": "Spring oscillator; phase-space action S = integral of [p x-dot - (N/2) C].",
+      "screenshots": [
+        "qa/mechanics-13-1440-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Novice-friendly with a real checkpoint.",
+          "Cleanly prepares constraint language for ADM (ch 20)."
+        ],
+        "issues": [
+          "Off-topic for a chapter about variations for GR fields.",
+          "Mixes elementary mechanics with constrained-system ideas in one section."
+        ],
+        "evidence": "docs/course-evolution.md ('Revisited the same cart in Chapter 13 with a simultaneous position-momentum view'); checkpoint arithmetic verified."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Move to a mechanics-foundations or pre-ADM unit with the phase-space cart demo. Keep the relativistic-particle constraint as the bridge into the 3+1 split.",
+        "effort": "small"
+      },
+      "size": "~145 lines"
+    },
+    {
+      "id": "manuscript-chapter-14-einstein-hilbert-action",
+      "kind": "manuscript-chapter",
+      "title": "14. Deriving Einstein's equation from an action",
+      "paths": [
+        "book.md#L4770-L5126",
+        "content/guides.json#14",
+        "assets/figures/action-product-rule.svg",
+        "assets/figures/boundary-variation.svg",
+        "content/core-practice.mjs#boundary-action-is-part-of-the-question"
+      ],
+      "topics": [
+        "Einstein-Hilbert action",
+        "cosmological constant",
+        "variation of the Ricci scalar",
+        "variation of Christoffel symbols",
+        "Palatini identity",
+        "Einstein field equations",
+        "boundary terms",
+        "Dirichlet boundary conditions",
+        "induced metric",
+        "extrinsic curvature",
+        "Gibbons-Hawking-York boundary term",
+        "Gaussian normal coordinates",
+        "null boundaries",
+        "Palatini formulation",
+        "tensor density",
+        "metric compatibility",
+        "higher-derivative gravity"
+      ],
+      "teaches": "Why (c^3/16 pi G) times the integral of sqrt(-g)(R - 2 Lambda), with honest theory-choice framing and unit bookkeeping (c^3 versus c^4 prefactor conventions). delta R = Ric delta g^{-1} + g delta Ric; volume variation gives -1/2 R g and +Lambda g. delta Gamma as a tensor. The Palatini identity (proved in normal coordinates) makes g delta Ric a divergence V^rho. Adding the matter response gives G + Lambda g = 8 pi G T/c^4. Fixed boundary values do not fix normal derivatives. Induced metric, extrinsic curvature, the GHY term and its explicit cancellation in Gaussian normal coordinates; corners and null boundaries require more (LMPS citation). Palatini formulation: an independent torsion-free connection gives nabla(sqrt(-g) g^{-1}) = 0 and Levi-Civita for d > 2.",
+      "pedagogy": "Each stage is named ('change the metric, account for the changed trace ... require the total first-order response to vanish'). The one-dimensional analogy f(0)=0 with f'(0) free is backed by figure 22 (value versus slope). The practice card after 14.7 is about boundary terms.",
+      "interaction": null,
+      "physics_model": "Metric formulation with the Levi-Civita connection; compactly supported variations for bulk equations; GHY with s = n.n and outward normals (conventions match Poisson's Relativist's Toolkit). The Gaussian-normal check n.V = -h^{ab} partial_r delta h_ab = -2 delta K was re-derived here. Palatini trace (d-1)/2 and (d-2) q = 0 are correct.",
+      "screenshots": [
+        "qa/figure-action-product-rule-light.png",
+        "qa/figure-boundary-variation-light.png",
+        "qa/chapter-14-1440.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "The boundary term and sign qualifications are 'more careful than many introductions' (review row 14).",
+          "Unit and prefactor bookkeeping across x^0 = ct versus t conventions is rarely explained this clearly.",
+          "The GHY cancellation is shown explicitly instead of asserted.",
+          "Figure 22 (boundary value versus slope) is rated KEEP, one of the best figures."
+        ],
+        "issues": [
+          "Core derivation (14.1-14.5) and graduate boundary analysis (14.6-14.8) are not visually separated; the review asks for this.",
+          "The Palatini formulation's connection equation is compressed ('Integrating them by parts and collecting ... gives') and should be derived or labelled imported.",
+          "Figure 21 (product rule) is a generic process diagram rated POLISH; the branches point into blank space.",
+          "No worked boundary example on a concrete hypersurface."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 14; docs/figure-aesthetic-review-21-40.md entries 21 (POLISH) and 22 (KEEP); docs/reading-quality-pass-2026-09-09.md chapters 13-15; qa/aesthetic-21-40-light-1.png inspected."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Reuse 14.1-14.5 nearly verbatim as the core 'action to field equation' unit, with a typeset single-expression product rule replacing figure 21. Move 14.6-14.7 (GHY) and 14.8 (Palatini formulation) into an advanced tier. Keep figure 22's value-versus-slope idea as a small interactive (drag the endpoint slope while the value stays fixed).",
+        "effort": "medium"
+      },
+      "size": "357 lines; ~1756 prose words; 34 display equations"
+    },
+    {
+      "id": "manuscript-section-14-einstein-hilbert-variation-core",
+      "kind": "manuscript-section",
+      "title": "14.1-14.5 Einstein-Hilbert action, varying curvature and volume, Palatini identity, field equation",
+      "paths": [
+        "book.md#L4776-L4973",
+        "assets/figures/action-product-rule.svg"
+      ],
+      "topics": [
+        "Einstein-Hilbert action",
+        "variation of the metric determinant",
+        "variation of the Ricci scalar",
+        "variation of Christoffel symbols",
+        "Palatini identity",
+        "divergence theorem",
+        "Einstein field equations",
+        "cosmological constant",
+        "higher-derivative gravity"
+      ],
+      "teaches": "The full bulk variation with each term's origin: the trace term from volume variation, the Lambda sign from -2 Lambda times -1/2, delta Gamma from varied metric compatibility, delta Ric as a covariant divergence, V^rho = nabla_mu k^{mu rho} - nabla^rho k. Why an action linear in R yields second-order equations. Coefficient matching to 8 pi G/c^4.",
+      "pedagogy": "Step-named derivation with a verbal recap.",
+      "interaction": null,
+      "physics_model": "V^rho expression and prefactors verified against standard references in this inventory.",
+      "screenshots": [
+        "qa/aesthetic-21-40-light-1.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Complete and sign-careful.",
+          "Explains why delta Gamma is tensorial."
+        ],
+        "issues": [
+          "'Write the analogous equations with cyclic permutations' for delta Gamma skips the algebra a novice may need."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md strengths item 5 ('Einstein-Hilbert boundary issue ... receive real attention')."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Core derivation text for grbook. Expand the delta Gamma permutation step inline or as a tutor-expandable step.",
+        "effort": "small"
+      },
+      "size": "~200 lines"
+    },
+    {
+      "id": "manuscript-section-14-boundary-terms-ghy-palatini",
+      "kind": "manuscript-section",
+      "title": "14.6-14.8 Boundary data, induced geometry and the Gibbons-Hawking-York term; Palatini identity versus Palatini variation",
+      "paths": [
+        "book.md#L4974-L5126",
+        "assets/figures/boundary-variation.svg"
+      ],
+      "topics": [
+        "Dirichlet boundary conditions",
+        "induced metric",
+        "extrinsic curvature",
+        "Gibbons-Hawking-York boundary term",
+        "Gaussian normal coordinates",
+        "null boundaries",
+        "corner terms",
+        "Palatini formulation",
+        "tensor density",
+        "metric compatibility",
+        "Levi-Civita connection"
+      ],
+      "teaches": "Two legitimate variational problems (compact support versus finite-region Dirichlet). The projector h = g - s n n, K_ab, and the GHY action. Explicit Gaussian-normal cancellation. The remaining (K_ab - K h_ab) delta h^{ab} boundary variation. Limits (corners, null boundaries). Palatini variation recovering the metric connection in d > 2 under the stated assumptions.",
+      "pedagogy": "One-dimensional analogy first, then construction; limits are stated with primary citations (LMPS 2016).",
+      "interaction": null,
+      "physics_model": "Smooth non-null boundaries; conventions for s and K stated, and the sign sensitivity flagged.",
+      "screenshots": [
+        "qa/aesthetic-21-40-light-1.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Unusually honest about conventions and limits.",
+          "The boundary-variation figure is effective."
+        ],
+        "issues": [
+          "Graduate content inside the main route.",
+          "The Palatini connection-equation step is compressed."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 14; docs/figure-aesthetic-review-21-40.md entry 22 KEEP."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Advanced tier. Keep the text and figure 22. Expand the Palatini variation algebra or mark it as supplied. Link the boundary sign convention forward to the ADM unit (review request).",
+        "effort": "small"
+      },
+      "size": "~153 lines"
+    },
+    {
+      "id": "lesson-boundary-action-is-part-of-the-question",
+      "kind": "lesson",
+      "title": "A boundary term that refuses to disappear (ch 14, after 14.7)",
+      "paths": [
+        "content/core-practice.mjs#boundary-action-is-part-of-the-question",
+        "content/lesson-sequence.mjs#L24"
+      ],
+      "topics": [
+        "Gibbons-Hawking-York boundary term",
+        "extrinsic curvature",
+        "induced metric",
+        "boundary terms",
+        "variational principle"
+      ],
+      "teaches": "The toy action S = integral of q'' = q'(1) - q'(0) has delta S = eta'(1) - eta'(0). eta = x(1-x) keeps both endpoint values fixed yet gives delta S = -2, and subtracting [q'] cancels it. That is GHY logic without tensors. Formal example: the r=R cylinder in Minkowski has K_ab = (1/2) d_r h_ab and K = 2/R, and its boundary integral is 8 pi R Delta t, so a flat spacetime can have a curved boundary.",
+      "pedagogy": "Toy first, then one concrete GR boundary. MCQ: is delta q = 0 on the boundary enough? Transfer delta S = -6 for eta = 3x(1-x); variant K = 1/2 for R = 4.",
+      "interaction": null,
+      "physics_model": "Pure-boundary 1D toy (explicitly no bulk dynamics); flat-space extrinsic curvature with outward normal and c = 1.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "The single clearest explanation of why GHY exists in the whole legacy corpus.",
+          "The cylinder example gives learners a computable K."
+        ],
+        "issues": [
+          "Placed after 14.7, so learners meet the full GHY calculation before this motivating toy.",
+          "The corner-term caveat is mentioned but not illustrated."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "In grbook put it before the GHY material, not after. It can also serve as the whole treatment of boundary terms in the core tier, with 14.6-14.7 behind an advanced disclosure.",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 3 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "manuscript-chapter-15-symmetry-conservation-vacuum-energy",
+      "kind": "manuscript-chapter",
+      "title": "15. Symmetry, conservation, and vacuum energy",
+      "paths": [
+        "book.md#L5129-L5526",
+        "content/guides.json#15",
+        "assets/figures/killing-energy.svg",
+        "content/core-practice.mjs#symmetry-earns-a-charge"
+      ],
+      "topics": [
+        "smooth map",
+        "diffeomorphism",
+        "isometry",
+        "pushforward",
+        "pullback",
+        "flow of a vector field",
+        "Lie derivative",
+        "diffeomorphism invariance",
+        "Noether's second theorem",
+        "conservation of stress-energy",
+        "on-shell and off-shell",
+        "Killing vector",
+        "Killing equation",
+        "conserved current",
+        "Killing energy",
+        "gravitational redshift",
+        "gravitational energy",
+        "ADM energy",
+        "Bondi energy",
+        "quasilocal energy",
+        "Brown-York stress tensor",
+        "Isaacson effective stress-energy tensor",
+        "energy nonconservation in cosmology",
+        "cosmological constant",
+        "vacuum energy",
+        "cosmological constant problem",
+        "minimal coupling",
+        "non-minimal coupling",
+        "Mach's principle",
+        "dark energy density",
+        "scale factor"
+      ],
+      "teaches": "Maps and flows: pushforward and pullback from the chain rule; the Lie derivative from a dilation example; the metric Lie derivative equals nabla xi + nabla xi. Diffeomorphism invariance of the matter action gives nabla T = 0 on shell, with the scalar off-shell identity; the gravitational action gives the Bianchi identity off shell. The mixed-index balance law with a metric-derivative source. Killing vectors give conserved currents J = -T xi and the charge E_xi. For photons, E_xi = N E_local, reconciling redshift with conservation. No local gravitational energy tensor, but ADM, Bondi, quasilocal and Isaacson constructions (table). Cosmological redshift does not violate a conservation law the spacetime never had. Lambda as T = -eps_Lambda g with p = -eps. A constant shift in L_m gives Lambda_eff = Lambda + kappa C. Lambda(x) is forbidden without dynamics. Minimal coupling is not unique (xi R phi^2). Mach's bucket and the Minkowski counterexample. rho_Lambda of about 5.9e-27 kg/m^3 (3.5 H atoms/m^3), dilution a^-3 and a^-4 versus constant.",
+      "pedagogy": "Each concept gets one minimal example (dilation, scalar off-shell identity, static-chart photon). Repeated 'this is not X' statements guard against popular myths. The first and only figure (Killing energy) arrives after 29 display equations. A practice card after 15.2.",
+      "interaction": null,
+      "physics_model": "Active pullback sign convention stated. The Killing-charge construction assumes symmetric conserved T and suitable boundaries. rho_Lambda recomputed as 5.89e-27 kg/m^3 and dust/radiation scalings re-derived here. Citations: Brown-York 1993, Einstein 1918.",
+      "screenshots": [
+        "qa/figure-killing-energy-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Flows, pullbacks and the Lie derivative are now genuinely built from an example (learning-experience-audit: 'Section 15.1 now builds pushforward from a mapped curve').",
+          "Local conservation is kept separate from global energy, with a precise table of which energy is defined where.",
+          "The E_xi = N E_local reconciliation of redshift and conservation is excellent and reused in 16.3.",
+          "The vacuum-energy shift argument cleanly opens the cosmological constant problem."
+        ],
+        "issues": [
+          "A grab-bag structure: geometry (flows), field theory (Noether), GR energy, cosmology (Lambda) and philosophy (Mach) share one chapter of about 2850 words.",
+          "Visuals arrive very late (first picture after 1803 words and 29 equations), and the Killing figure is rated REBUILD: its 'three wavy lines have no defined quantity' and nothing shows a measurement carried along the symmetry (docs/figure-aesthetic-review-21-40.md entry 23). qa/figure-killing-energy-light.png confirms that the wavy profiles and the xi arrow are unlabelled decoration next to E_xi = -p.xi.",
+          "Review asks for a first-theorem Noether example before the second theorem, and one computed Killing charge and flux.",
+          "The Lie bracket was used back in ch 7 before this development."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 15 and prerequisite-leak finding (Lie bracket); docs/figure-aesthetic-review-21-40.md entry 23 REBUILD; docs/visual-development-plan-2026-09-09.md coverage table row 15; docs/learning-experience-audit.md line 157; numbers recomputed."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Split across grbook units. (1) 15.1 moves to the geometry sequence with a flow demo (move then measure versus measure then move). (2) 15.2-15.4 become a 'symmetry earns a charge' unit with a rebuilt Killing demo that carries a clock/ruler along the symmetry flow and compares E_xi with E_local. (3) Keep 15.5 as a reference table. (4) 15.6-15.7 and 15.10 go to the cosmology unit. (5) 15.8-15.9 become short advanced and history notes. The text itself needs little rewriting.",
+        "effort": "large"
+      },
+      "size": "398 lines; ~2848 prose words; 39 display equations"
+    },
+    {
+      "id": "manuscript-section-15-maps-pullbacks-lie-derivative",
+      "kind": "manuscript-section",
+      "title": "15.1 Smooth maps and changes of fields: pushforward, pullback, flows, Lie derivative",
+      "paths": [
+        "book.md#L5135-L5231"
+      ],
+      "topics": [
+        "smooth map",
+        "diffeomorphism",
+        "isometry",
+        "pushforward",
+        "pullback",
+        "flow of a vector field",
+        "integral curve",
+        "Lie derivative",
+        "active and passive transformations",
+        "gauge freedom"
+      ],
+      "teaches": "Pushforward of tangents and pullback of covectors and metrics. A dilation example: L_xi of x^2 is 2x^2 and L_xi g = 2g, a diffeomorphism that is not an isometry. The coordinate formula for L_xi g and its covariant form. The difference between a Lie derivative and a covariant derivative. Transforming geometry and matter together is gauge; transforming only matter is physical.",
+      "pedagogy": "Single tangent vector first, then fields; one-dimensional dilation example 'contains the whole comparison rule'.",
+      "interaction": null,
+      "physics_model": "Sign convention via pullback generated by xi; Christoffel substitution verified in text.",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Minimal, correct example-based construction."
+        ],
+        "issues": [
+          "Arrives too late (used implicitly in ch 7 and 12.6 gauge discussion).",
+          "No visual of a flow dragging a field."
+        ],
+        "evidence": "docs/learning-experience-audit.md 'Flows and Lie differentiation' row and line 157; comprehensive review Lie bracket finding."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Move into the geometry sequence before torsion and gauge. Build a 2D flow demo: drag a scalar or metric along a vector field and compare with parallel transport.",
+        "effort": "medium"
+      },
+      "size": "~97 lines"
+    },
+    {
+      "id": "manuscript-section-15-noether-killing-charges-redshift",
+      "kind": "manuscript-section",
+      "title": "15.2-15.4 Diffeomorphism invariance, local conservation, and conserved charges from Killing vectors",
+      "paths": [
+        "book.md#L5232-L5374",
+        "assets/figures/killing-energy.svg"
+      ],
+      "topics": [
+        "diffeomorphism invariance",
+        "Noether's second theorem",
+        "conservation of stress-energy",
+        "on-shell and off-shell",
+        "contracted Bianchi identity",
+        "covariant divergence",
+        "Killing vector",
+        "Killing equation",
+        "conserved current",
+        "Killing energy",
+        "static spacetime",
+        "lapse function",
+        "gravitational redshift"
+      ],
+      "teaches": "nabla T = 0 from matter action invariance on shell. The scalar identity nabla T = (box phi - V') grad phi. The gravitational-action Bianchi identity off shell, so coupling is not circular. The mixed-index balance with a (1/2) T partial g source: time-dependent metrics do not give a flat continuity law. J = -T xi is conserved for Killing xi. The matter Killing energy integral and its flux interpretation. E_xi = N E_local for photons.",
+      "pedagogy": "Carefully distinguishes what each derivation uses (matter equations versus Einstein equation).",
+      "interaction": null,
+      "physics_model": "Compactly supported xi; symmetric T; the static chart N = sqrt(-g00).",
+      "screenshots": [
+        "qa/aesthetic-21-40-light-1.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Clear logic of conservation versus charge.",
+          "Directly sets up 16.3 redshift."
+        ],
+        "issues": [
+          "No computed Killing charge example.",
+          "No Noether first-theorem warm-up.",
+          "Figure 23 needs a rebuild."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 15; docs/figure-aesthetic-review-21-40.md entry 23."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep the derivations. Add a worked Killing energy for a static star or Schwarzschild orbit. Replace figure 23 with an interactive symmetry-flow measurement (the same local clock carried along xi, with the E_xi versus E_local readout).",
+        "effort": "medium"
+      },
+      "size": "~143 lines"
+    },
+    {
+      "id": "lesson-symmetry-earns-a-charge",
+      "kind": "lesson",
+      "title": "Earn a conserved quantity from a symmetry (ch 15, 15.2)",
+      "paths": [
+        "content/core-practice.mjs#symmetry-earns-a-charge",
+        "content/lesson-sequence.mjs#L25"
+      ],
+      "topics": [
+        "Noether's theorem",
+        "conserved quantities",
+        "Killing vector",
+        "Killing equation",
+        "energy conservation",
+        "conserved current"
+      ],
+      "teaches": "Translation invariance of L = m(xdot^2+ydot^2)/2 - U(y) gives p_x constant. dE/dt = -dL/dt for explicitly time-dependent systems. d(xi.u)/d lambda = u u nabla_(a xi_b) = 0 for Killing xi. J^a = T^ab xi_b is divergence-free, and slice charges agree only if side flux is accounted for. Variant: e = -u_t = f dt/dtau = 3/2.",
+      "pedagogy": "Section-start bridge ('What must stay unchanged before you are allowed to claim a conservation law?'). Particle first, then geodesic, then field current. MCQ on an externally driven potential. Transfer p_x = 8.",
+      "interaction": null,
+      "physics_model": "Lagrangian mechanics and affinely parameterized geodesics; symmetric conserved T; boundary flux explicitly retained.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Supplies the first-theorem Noether example the ch 15 review asks for before the second theorem.",
+          "The stationary-metric variant is one computed Killing energy, which is also a review request."
+        ],
+        "issues": [
+          "Cites the metric Lie derivative 'in 15.1' but sits at 15.2, so it depends on the chapter's hardest section."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Make it the core of the grbook 'symmetry earns a charge' unit, paired with the rebuilt Killing-flow demo (carry a clock along xi; compare E_xi with E_local).",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 3 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "manuscript-section-15-gravitational-energy",
+      "kind": "manuscript-section",
+      "title": "15.5 Energy of gravitational fields",
+      "paths": [
+        "book.md#L5375-L5395"
+      ],
+      "topics": [
+        "gravitational energy",
+        "pseudotensor",
+        "ADM energy",
+        "Bondi energy",
+        "quasilocal energy",
+        "Brown-York stress tensor",
+        "Isaacson effective stress-energy tensor",
+        "energy nonconservation in cosmology",
+        "cosmological redshift"
+      ],
+      "teaches": "Why no exact local gravitational stress tensor exists in general. Which constructions answer which question (ADM at spatial infinity, Bondi at null infinity, quasilocal on a finite boundary, averaged wave stress). Photon redshift in FLRW does not require a 'missing energy' reservoir.",
+      "pedagogy": "Warning, then a structured table, then a myth correction.",
+      "interaction": null,
+      "physics_model": "Descriptive; cites Brown-York 1993.",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Accurate, compact reference table.",
+          "Avoids both 'energy not conserved, anything goes' and 'total energy is zero'."
+        ],
+        "issues": [
+          "Names only, with no computation (review requests an advanced path)."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 15 ('supply an advanced path to ADM/Bondi/quasilocal constructions beyond the names in the table')."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Import as a concept-registry reference card and a tutor misconception guard for 'where does redshifted energy go?'.",
+        "effort": "small"
+      },
+      "size": "~21 lines"
+    },
+    {
+      "id": "manuscript-section-15-cosmological-constant-vacuum-energy",
+      "kind": "manuscript-section",
+      "title": "15.6-15.7 and 15.10 The cosmological constant as vacuum stress-energy, constant Lagrangian shifts, and a density that does not dilute",
+      "paths": [
+        "book.md#L5396-L5472",
+        "book.md#L5514-L5526"
+      ],
+      "topics": [
+        "cosmological constant",
+        "vacuum energy",
+        "equation of state",
+        "negative pressure",
+        "strong energy condition",
+        "cosmological constant problem",
+        "dark energy",
+        "Bianchi identity",
+        "energy density scaling with scale factor",
+        "matter-dominated universe",
+        "radiation-dominated universe"
+      ],
+      "teaches": "T_Lambda = -eps_Lambda g gives the same energy density for every observer, with p = -eps; eps + 3p = -2 eps; the thermodynamic check dE = eps dV = -p dV. L_m - C gives Lambda_eff = Lambda + kappa C (gravity sees a constant offset). Lambda(x) is inconsistent without extra dynamics. rho_Lambda of about 5.9e-27 kg/m^3, about 3.5 hydrogen atoms per m^3. Dust dilutes as a^-3 and radiation as a^-4 from d(eps a^3) = -p d(a^3).",
+      "pedagogy": "Three independent checks (observer projection, Ricci focusing term, piston work) plus a relatable density scale.",
+      "interaction": null,
+      "physics_model": "Perfect-fluid algebra and the Bianchi constraint; Lambda = 1.1e-52 m^-2 labelled illustrative. Numbers recomputed.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Every claim has an equation-level justification.",
+          "Honest about the 'illustrative, not measured' parameter."
+        ],
+        "issues": [
+          "Belongs with cosmology; here it interrupts the conservation thread."
+        ],
+        "evidence": "docs/reference-comparison.md row 11 (15.10 added); rho_Lambda recomputed = 5.89e-27 kg/m^3."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Move into the grbook cosmology unit. A log-log density-versus-scale-factor plot with draggable present-day ratios would make 15.10 interactive.",
+        "effort": "small"
+      },
+      "size": "~90 lines"
+    },
+    {
+      "id": "manuscript-section-15-minimal-coupling-and-mach",
+      "kind": "manuscript-section",
+      "title": "15.8-15.9 Coupling a matter model to curved spacetime; Mach's question",
+      "paths": [
+        "book.md#L5473-L5513"
+      ],
+      "topics": [
+        "minimal coupling",
+        "non-minimal coupling",
+        "conformal coupling",
+        "principle of general covariance",
+        "spin connection",
+        "Mach's principle",
+        "Newton's bucket",
+        "frame dragging"
+      ],
+      "teaches": "The replacement rules eta to g, d^4x to sqrt(-g) d^4x, partial to nabla; F = dA needs no connection; spinors need frames. Minimal coupling is not unique (xi R phi^2), and derivative ordering matters after covariantization. Mach's bucket; Minkowski space as a counterexample to strong Mach; frame dragging as partial Machian influence (Einstein 1918 citation).",
+      "pedagogy": "Two short 'idea is not theorem' essays.",
+      "interaction": null,
+      "physics_model": "Conceptual; natural units for the xi R phi^2 term.",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Correct and concise.",
+          "Good epistemic lesson."
+        ],
+        "issues": [
+          "Mach section is historical/philosophical and loosely connected to the chapter."
+        ],
+        "evidence": "docs/reference-comparison.md row 11 ('Mach discussion (15.9)' added)."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Minimal coupling goes to an advanced field-theory note. Mach's bucket goes to a history sidebar near frame dragging (ch 16.9/17 Kerr), ideally with the rotating-bucket visual.",
+        "effort": "small"
+      },
+      "size": "~41 lines"
+    },
+    {
+      "id": "manuscript-chapter-16-clocks-light-mercury",
+      "kind": "manuscript-chapter",
+      "title": "16. Turning geometry into experiments: clocks, light, and Mercury",
+      "paths": [
+        "book.md#L5529-L5880",
+        "content/guides.json#16",
+        "assets/figures/light-bending.svg",
+        "assets/figures/perihelion-precession.svg",
+        "assets/figures/gps-clocks.svg",
+        "assets/figures/tossed-clock.svg",
+        "content/bridge-lessons.mjs#orbit-conservation",
+        "content/bridge-lessons.mjs#phase-drift"
+      ],
+      "topics": [
+        "weak-field metric",
+        "post-Newtonian approximation",
+        "gravitational time dilation",
+        "proper time",
+        "coordinate acceleration",
+        "proper acceleration",
+        "gravitational redshift",
+        "Killing vector",
+        "Pound-Rebka experiment",
+        "gravitational lensing",
+        "deflection of light",
+        "Fermat's principle",
+        "PPN parameter gamma",
+        "Shapiro time delay",
+        "perihelion precession",
+        "Mercury",
+        "orbit equation",
+        "resonant perturbation",
+        "Global Positioning System",
+        "twin paradox",
+        "geodesics maximize proper time",
+        "geodetic precession",
+        "Lense-Thirring precession",
+        "frame dragging",
+        "Gravity Probe B",
+        "equivalence principle tests",
+        "MICROSCOPE",
+        "tests of general relativity"
+      ],
+      "teaches": "A prediction needs an observer, worldlines and an approximation. The weak-field metric with Phi and Psi recovers Newton as coordinate acceleration while the accelerometer reads zero. d tau/dt = 1 + Phi/c^2 - v^2/2c^2; 1 m height gives 1.09e-16, or 9.4 ps/day; clock rates alone do not prove curvature. Killing redshift: nu_rec/nu_em = N_em/N_rec. Light bending from the effective index n = 1 - (Phi+Psi)/c^2 via Euler-Lagrange: 2(1+gamma)GM/(bc^2) = 1.75 arcsec, and setting Psi=0 halves it. Shapiro delay with arsinh, giving 119 microseconds for a grazing 1 AU ray. Mercury: resonant phi sin phi forcing gives Delta phi = 6 pi GM/(a(1-e^2)c^2), 0.104 arcsec per orbit, 43 arcsec per century. GPS: +45.7 altitude, -7.2 motion, +38.5 microseconds/day, 11.5 km ranging scale, crossover altitude R/2. The tossed clock gains g^2 T^3 /(24 c^2) = 44.6 attoseconds. Geodetic versus Lense-Thirring precession, the polar-orbit average, GP-B results, and an experiment map (MICROSCOPE, clocks, light, Mercury, gyroscopes, pulsars and detectors).",
+      "pedagogy": "Opens with a concrete clock-comparison question. Each subsection ends in a number with units and a realism caveat (planetary perturbations, Earth rotation and geoid, radar return trip). Embedded visuals: static light-bending figure (16.4); orbital-precession experience with play, next perihelion, eccentricity and magnification (16.6); GPS curve figure (16.7); tossed-clock figure (16.8); a legacy 'When does an orbiting clock gain time?' slider lab (end of chapter). Two bridge lessons after 16.6 teach angular-momentum conservation and phase drift.",
+      "interaction": null,
+      "physics_model": "First-order weak-field static metric, slow motion, isolated spherical sources. The 16.6 orbit equation is imported from 17.5. All numerical results recomputed in this inventory with G_N M_sun = 1.32712e20, R_sun = 6.957e8 m, a = 5.79e10 m, e = 0.206, GM_earth = 3.986e14; every one matches. The precession experience combines Kepler timing with the leading secular advance, calibrated to about 42.98 arcsec per century (docs/second-figure-review.md, npm run test:geometry-experiences). Citations: Ashby (GPS), GP-B 2011, MICROSCOPE 2022.",
+      "screenshots": [
+        "qa/chapter-16-1440.png",
+        "qa/geometry-experience-precession-1440-light.png",
+        "qa/figure-light-bending-light.png",
+        "qa/figure-gps-clocks-light.png",
+        "qa/figure-tossed-clock-light.png",
+        "qa/aesthetic-experiment-gps-1440-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "The most learner-motivating chapter in scope: every result is a measurable number with a cited experiment (review: 'Strong clock, GPS, deflection, Shapiro, and perihelion material').",
+          "Keeps the observer, worldline and approximation explicit throughout, and explains why light needs Psi as well as Phi.",
+          "All numerical claims verified independently here.",
+          "The best interactive in scope (orbital precession) is explicit about magnification ('Only the extra apsidal rotation is magnified'), and figures 26 and 27 are quantitative with meaningful zero and endpoints."
+        ],
+        "issues": [
+          "16.6 relies on the relativistic orbit equation derived only in 17.5 (review: 'Either derive ... here ... or teach the relevant part of Chapter 17 first'); bridge lessons patch only the math.",
+          "Gyroscope precession (16.9) uses a Lense-Thirring rate imported from 17.7.",
+          "Inverse hyperbolic functions and resonant perturbation theory are introduced inline.",
+          "No lensing image formation (visual plan: 'does not show how a lens produces an image'), and no measurement uncertainty or data comparison exercise.",
+          "Figures 24-26 were rated POLISH (light bending lacks an outgoing-asymptote angle; GPS labels are disconnected from the curve), and the static perihelion figure is superseded by the interactive.",
+          "The legacy GPS slider and the GPS figure duplicate each other."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 16; docs/reading-quality-pass-2026-09-09.md 'Chapters 16 and 17'; docs/second-figure-review.md (Mercury experience, figs 24-27); docs/figure-aesthetic-review-21-40.md entries 24-27; docs/geometry-experiences-review.md; docs/learning-experience-audit.md rows on angular momentum and oscillations; own numeric recomputation."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Strong candidate for grbook's first 'applications' unit, placed after a minimal Schwarzschild orbit derivation. Keep 16.1-16.5 and 16.7-16.8 text almost verbatim. Keep the orbital-precession experience (labs-geometry scene-3d-mercury-perihelion-precession: Play, Next perihelion, Actual scale versus Reveal the advance at x300,000, eccentricity slider, readouts 0.1035 arcsec per orbit and 43 arcsec per century). Merge figure 26 and the legacy slider (labs-physics lab-gps-clock-rates) into one interactive clock-budget demo (separate altitude and motion curves plus sum, with an Earth-rotation toggle). Rebuild light bending as a lens demo (deflection angle between asymptotes, then image formation). Add uncertainty and data comparison (GP-B, Cassini gamma) as tutor exercises.",
+        "effort": "medium"
+      },
+      "size": "352 lines; placement.json counts 3053 prose words and 44 display equations (the writer's own count, excluding tables and the lab, was ~2422 and 36); 1 interactive experience, 1 legacy lab, 4 static figures, 2 bridge lessons"
+    },
+    {
+      "id": "manuscript-section-16-weak-field-clocks-and-redshift",
+      "kind": "manuscript-section",
+      "title": "16.1-16.3 How the metric changes clocks and rulers; what a clock accumulates; gravitational redshift",
+      "paths": [
+        "book.md#L5535-L5654"
+      ],
+      "topics": [
+        "weak-field metric",
+        "gravitational time dilation",
+        "proper time",
+        "coordinate acceleration",
+        "proper acceleration",
+        "Newtonian limit",
+        "gravitational redshift",
+        "Killing vector",
+        "Pound-Rebka experiment",
+        "optical clock comparison"
+      ],
+      "teaches": "Phi and Psi roles; Newton from Gamma^i_00; a scale measures the force preventing a geodesic. d tau/dt = 1 + Phi/c^2 - v^2/(2c^2), and the 1 m example (1.09e-16, 9.4 ps/day, the higher clock gains). Why differential clock rates are not proof of curvature. The Killing-vector redshift derivation with conserved E_K and local E = E_K/N, giving z = (Phi_rec - Phi_em)/c^2.",
+      "pedagogy": "Combines gravitational and kinematic terms in one line so later route comparisons are just integrals.",
+      "interaction": null,
+      "physics_model": "First order in Phi/c^2 and v^2/c^2; stationary Killing symmetry for redshift. Numbers recomputed.",
+      "screenshots": [
+        "qa/chapter-16-1440.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Unified clock formula reused for GPS and the tossed clock.",
+          "Energy convention consistent with 15.4."
+        ],
+        "issues": [
+          "No interactive tower-clock visual."
+        ],
+        "evidence": "docs/reading-quality-pass-2026-09-09.md 'redshift calculation uses the same physical energy convention as Chapter 15'; recomputed 1.0915e-16."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Core text. Pair it with a two-clocks-at-different-heights demo (accumulated offset over a day with a height slider).",
+        "effort": "small"
+      },
+      "size": "~120 lines"
+    },
+    {
+      "id": "manuscript-section-16-light-bending-shapiro-delay",
+      "kind": "manuscript-section",
+      "title": "16.4-16.5 Deriving the bending of light and the Shapiro time delay",
+      "paths": [
+        "book.md#L5655-L5746",
+        "assets/figures/light-bending.svg"
+      ],
+      "topics": [
+        "deflection of light",
+        "gravitational lensing",
+        "Fermat's principle",
+        "effective refractive index",
+        "Euler-Lagrange equations",
+        "impact parameter",
+        "PPN parameter gamma",
+        "Born approximation",
+        "Shapiro time delay",
+        "inverse hyperbolic sine"
+      ],
+      "teaches": "c dt = n dl with n = 1 - (Phi+Psi)/c^2 (no ether: a coordinate description of null geometry). The ray equation x'' = partial_x n from Euler-Lagrange. Integrating along the unperturbed path is valid at first order. The deflection 2(1+gamma)GM/(bc^2), 1.75 arcsec for GR and half with Psi=0. Coordinate split is not observable, but the angle is. Delay Delta t = (2GM/c^3)[arsinh(z1/b) + arsinh(z2/b)], about (2GM/c^3) ln(4 r1 r2/b^2), giving 119 microseconds.",
+      "pedagogy": "Derives geometric optics from the travel-time functional (added after review), defines arsinh and verifies its derivative.",
+      "interaction": null,
+      "physics_model": "First-order weak-field, straight-line (Born) integration; gamma as a comparison parameter. Numbers recomputed (1.751 arcsec, log 12.13, 119.5 microseconds).",
+      "screenshots": [
+        "qa/figure-light-bending-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Makes the factor of 2 from Psi concrete.",
+          "Correct numerical examples."
+        ],
+        "issues": [
+          "Figure 24 (POLISH) has no outgoing asymptote or deflection-angle arc. The ray matches the dashed incoming line for half its width, and the formula floats away from the angle it predicts.",
+          "No image formation or lens equation."
+        ],
+        "evidence": "docs/figure-aesthetic-review-21-40.md entry 24; docs/visual-development-plan-2026-09-09.md chapter 16 lensing note; comprehensive review row 16."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Keep the text. Build a lensing demo: impact-parameter slider, a Phi-only versus Phi+Psi toggle, a deflection-angle arc, and optionally the thin-lens image/Einstein ring as an extension.",
+        "effort": "small"
+      },
+      "size": "~92 lines"
+    },
+    {
+      "id": "manuscript-section-16-mercury-perihelion",
+      "kind": "manuscript-section",
+      "title": "16.6 Mercury and the rotation of an orbit",
+      "paths": [
+        "book.md#L5747-L5799",
+        "assets/figures/perihelion-precession.svg",
+        "content/bridge-lessons.mjs#orbit-conservation",
+        "content/bridge-lessons.mjs#phase-drift"
+      ],
+      "topics": [
+        "perihelion precession",
+        "Binet equation",
+        "Schwarzschild geodesics",
+        "specific angular momentum",
+        "eccentricity",
+        "semimajor axis",
+        "resonant forcing",
+        "secular perturbation",
+        "Mercury",
+        "tests of general relativity"
+      ],
+      "teaches": "The relativistic orbit equation u'' + u = GM/l^2 + 3GM u^2/c^2 (imported). The resonant particular solution phi sin phi is identified with a phase shift cos[(1-delta)phi], giving delta = 3m/p. Delta phi = 6 pi GM/(a(1-e^2)c^2), 0.104 arcsec per orbit, 415 orbits per century, 43 arcsec per century. Other perturbations must be modelled separately.",
+      "pedagogy": "Ellipse vocabulary defined inline; the interactive precession experience (Newton versus GR, next-perihelion stepping, magnification toggle, eccentricity) and two bridge lessons supply angular momentum and phase-drift intuition.",
+      "interaction": null,
+      "physics_model": "First-order perturbation of the Newtonian conic; recomputed 0.1036 arcsec per orbit and 42.99 arcsec per century.",
+      "screenshots": [
+        "qa/geometry-experience-precession-1440-light.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Elegant resonance-to-phase-shift explanation.",
+          "Paired with the best interactive in the group."
+        ],
+        "issues": [
+          "Forward import of the orbit equation from 17.5.",
+          "The static figure is superseded and its ellipses crowd the canvas edge (POLISH)."
+        ],
+        "evidence": "docs/comprehensive-course-review-2026-09-09.md row 16; docs/causality-review.md bridge table (16.6 bridges); docs/second-figure-review.md fig 25; docs/figure-aesthetic-review-21-40.md entry 25."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Place after a short effective-potential derivation of the Schwarzschild orbit equation. Keep the derivation, the two bridge lessons and the precession experience. Drop the static perihelion SVG.",
+        "effort": "small"
+      },
+      "size": "~53 lines"
+    },
+    {
+      "id": "lesson-orbit-conservation",
+      "kind": "lesson",
+      "title": "Why an orbit keeps its angular momentum (ch 16, 16.6)",
+      "paths": [
+        "content/bridge-lessons.mjs#orbit-conservation",
+        "content/practice-variants.mjs#orbit-conservation",
+        "content/lesson-sequence.mjs#L26"
+      ],
+      "topics": [
+        "angular momentum",
+        "central force",
+        "Kepler's second law",
+        "Binet equation",
+        "orbit equation",
+        "Schwarzschild geodesics",
+        "conserved quantities"
+      ],
+      "teaches": "h = x ydot - y xdot is conserved for any central force (a zero determinant), h = r^2 phi-dot gives equal areas, and the substitution u = 1/r turns the radial equation into u'' + u = GM/h^2 with conic solutions. For Schwarzschild the phi-independence of L conserves l = r^2 dphi/dtau.",
+      "pedagogy": "Section-start bridge added to repair the 16.6 import of the orbit equation. Cartesian determinant before polar coordinates. MCQ: angular speed at 2r becomes 1/4. Transfer h = 11 m^2/s; practice variant h = -10 (clockwise).",
+      "interaction": null,
+      "physics_model": "Newtonian planar central-force motion; equatorial Schwarzschild geodesic Lagrangian with proper time. It does not derive the relativistic 3GMu^2/c^2 term (deferred to 17.5), and says so.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Clean, fully elementary derivation of the Binet equation.",
+          "Honest that conservation alone does not give the relativistic correction."
+        ],
+        "issues": [
+          "It patches only the mathematics. The relativistic orbit equation is still imported from 17.5, which is the chapter's main sequencing flaw."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review"
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Keep it as the first card of a grbook orbits unit, but follow it with an effective-potential derivation of the Schwarzschild orbit equation before the Mercury calculation.",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 4 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "lesson-phase-drift",
+      "kind": "lesson",
+      "title": "A tiny frequency change can rotate an entire orbit (ch 16, 16.6)",
+      "paths": [
+        "content/bridge-lessons.mjs#phase-drift",
+        "content/practice-variants.mjs#phase-drift",
+        "content/lesson-sequence.mjs#L27"
+      ],
+      "topics": [
+        "resonant forcing",
+        "secular perturbation",
+        "perihelion precession",
+        "Taylor expansion",
+        "harmonic oscillator"
+      ],
+      "teaches": "y'' + y = C cos phi forces the secular solution (C/2) phi sin phi. That term equals the first-order Taylor term of cos[(1-delta)phi], so it is a frequency shift, not unbounded growth. One radial cycle then takes 2 pi/(1-delta), giving an advance of 2 pi delta = 6 pi GM/(p c^2). The formal note shows that only the 6me cos phi/p^2 piece of 3mu_0^2 drives the drift.",
+      "pedagogy": "Section-start bridge. MCQ on why the expansion fails after many revolutions (accumulated phase is the expansion parameter). Exact toy transfer 2 pi(1/0.98 - 1) = 0.12823 rad and a retrograde variant (-0.12320 rad) that explicitly says it is not GR.",
+      "interaction": null,
+      "physics_model": "Linear ODE resonance; first-order perturbation theory of the Newtonian conic, delta = 3m/p.",
+      "screenshots": [],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Removes the mystery of phi sin phi, which most texts leave implicit.",
+          "Its variant deliberately includes a regression case to prevent pattern-matching."
+        ],
+        "issues": [
+          "Resonant perturbation theory is still a new mathematical idea introduced inside an applications chapter."
+        ],
+        "evidence": "content/lesson-sequence.mjs placement rationale; transfer answers recomputed in this review"
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Pair it directly with the precession experience: add a toggle that overlays the truncated phi sin phi solution against the phase-shifted cosine so learners see the truncated solution diverge after many orbits.",
+        "effort": "small"
+      },
+      "size": "1 lesson object, 4 steps, 1 MCQ, 1 transfer + 1 variant"
+    },
+    {
+      "id": "manuscript-section-16-gps-and-tossed-clock",
+      "kind": "manuscript-section",
+      "title": "16.7-16.8 GPS competing clock effects; a tossed clock can age more than the clock on the shelf",
+      "paths": [
+        "book.md#L5800-L5854",
+        "assets/figures/gps-clocks.svg",
+        "assets/figures/tossed-clock.svg"
+      ],
+      "topics": [
+        "Global Positioning System",
+        "gravitational time dilation",
+        "time dilation",
+        "circular orbit",
+        "proper time",
+        "twin paradox",
+        "geodesics maximize proper time",
+        "variational principle for proper time"
+      ],
+      "teaches": "The orbital-minus-surface rate is GM/c^2 (1/R - 1/r) - GM/(2rc^2), giving +45.7/-7.2/+38.5 microseconds per day and an 11.5 km ranging scale (not a position error). Crossover r = 3R/2 at 3186 km altitude. Real GPS needs rotation, eccentricity, geoid and propagation. Tossed clock: the height integral g^2 T^3/12 and motion integral g^2 T^3/24 give a net g^2 T^3/(24c^2) = 44.6 attoseconds. Free fall locally maximizes proper time, but not globally.",
+      "pedagogy": "Table of signed contributions with physical reasons; quantitative figures with meaningful zero and endpoints.",
+      "interaction": null,
+      "physics_model": "Nonrotating spherical Earth, circular orbit v^2 = GM/r; uniform g for the toss. Recomputed exactly.",
+      "screenshots": [
+        "qa/figure-gps-clocks-light.png",
+        "qa/figure-tossed-clock-light.png",
+        "qa/aesthetic-experiment-gps-1440-light.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Correct numbers with explicit modelling limits and Ashby citation.",
+          "The tossed clock is a memorable counterintuitive result tied to maximal ageing."
+        ],
+        "issues": [
+          "Figure 26 (POLISH) plots only the net curve. The crossover and GPS labels sit in a separate right column instead of on the curve, and the separate altitude and motion contributions are not drawn.",
+          "Figure 27 (KEEP) draws the tossed trajectory and the stationary shelf baseline in the same pink stroke and weight (confirmed in qa/figure-tossed-clock-light.png), and its title 'Height wins over speed loss' gives away the answer."
+        ],
+        "evidence": "docs/figure-aesthetic-review-21-40.md entries 26 (POLISH) and 27 (KEEP); recomputed 45.72/7.21/38.51 microseconds and 4.46e-17 s."
+      },
+      "reuse": {
+        "verdict": "reuse-as-is",
+        "notes": "Use verbatim. Make each an interactive: an altitude slider with separate curves (replacing both the figure and legacy lab), and a toss-duration slider with live accumulated height and speed contributions.",
+        "effort": "small"
+      },
+      "size": "~55 lines"
+    },
+    {
+      "id": "manuscript-section-16-gyroscopes-experimental-map",
+      "kind": "manuscript-section",
+      "title": "16.9 Gyroscopes and a compact experimental map",
+      "paths": [
+        "book.md#L5855-L5880"
+      ],
+      "topics": [
+        "geodetic precession",
+        "Lense-Thirring precession",
+        "frame dragging",
+        "Gravity Probe B",
+        "gyroscope",
+        "Fermi-Walker transport",
+        "tests of the equivalence principle",
+        "MICROSCOPE",
+        "binary pulsar",
+        "gravitational-wave detection",
+        "tests of general relativity"
+      ],
+      "teaches": "Geodetic versus frame-dragging contributions. Omega_LT = G/(c^2 r^3)[3(J.r)r - J], whose polar-orbit average is GJ/(2c^2 r^3). GP-B measured 6601.8 +/- 18.3 and 37.2 +/- 7.2 mas/yr against predictions of 6606.1 and 39.2. A table mapping each experiment to its observable and tested relationship, including MICROSCOPE.",
+      "pedagogy": "A vector-average worked example plus a 'map of questions, not a precision ranking' table.",
+      "interaction": null,
+      "physics_model": "Leading weak-field rotating metric result imported from 17.7; averaging re-derived (3J/2 - J = J/2).",
+      "screenshots": [],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Accurate cited data.",
+          "The experiment map is an excellent reference card."
+        ],
+        "issues": [
+          "The geodetic rate is quoted only via the GP-B number and not derived.",
+          "Imports the LT formula; there is no gyroscope visual."
+        ],
+        "evidence": "docs/reference-comparison.md row 10 (16.9 added); docs/reading-quality-pass-2026-09-09.md ('gyroscope discussion calculates its orbital average and explicitly identifies the leading rotating-field result it uses as an input')."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Reuse the experiment-map table as a registry card. Move gyroscope precession after Kerr/weak rotating metrics with a GP-B orbit demo showing spin-axis drift components.",
+        "effort": "small"
+      },
+      "size": "~26 lines"
+    },
+    {
+      "id": "lab-legacy-gps-orbiting-clock-slider",
+      "kind": "lab",
+      "title": "When does an orbiting clock gain time? (legacy chapter 16 calculator)",
+      "paths": [
+        "scripts/build-site.mjs#L146",
+        "web/app.js#updateGPS (line 263)"
+      ],
+      "topics": [
+        "Global Positioning System",
+        "gravitational time dilation",
+        "time dilation",
+        "circular orbit"
+      ],
+      "teaches": "Moving an altitude slider shows the altitude (gravitational) gain and the motion (velocity) loss per day, and where the net changes sign (R/2, about 3186 km).",
+      "pedagogy": "'TRY THE EQUATION' card appended to the end of chapter 16 (placement.json otherLabs: after 16.9, 3029 prose words in). No prediction prompt.",
+      "interaction": {
+        "controls": [
+          "altitude range slider 200-36,000 km, step 100"
+        ],
+        "what_updates": "Altitude value, three contribution readouts and an aria-live sentence.",
+        "readouts": [
+          "Altitude contribution (microseconds/day)",
+          "Motion contribution (microseconds/day)",
+          "Net clock gain (microseconds/day)"
+        ],
+        "rendering": "Plain HTML range input and text (no plot), static KaTeX note"
+      },
+      "physics_model": "Delta tau/day = (GM/c^2)(1/R - 3/(2r)) times 86,400 s; nonrotating spherical Earth, circular orbit. Default output +45.72/-7.21/+38.51 matches my recomputation. The handler computes gr = GM/c^2 (1/R - 1/r) and sr = -GM/(2 r c^2), each times 86,400 s, with GM = 3.986004418e14 and R = 6371 km. The surface clock's rotational speed is neglected (about 0.1 microseconds per day at the equator).",
+      "screenshots": [
+        "qa/aesthetic-experiment-gps-1440-light.png",
+        "qa/gps-experiment.png"
+      ],
+      "quality": {
+        "status": "solid",
+        "strengths": [
+          "Correct and accessible (aria-live).",
+          "Exposes the sign change interactively."
+        ],
+        "issues": [
+          "Visually plain: numbers only, with no curve, although the adjacent static figure 26 already has the curve.",
+          "It sits after 16.9, far from 16.7.",
+          "Duplicates the figure.",
+          "Duplicate inventory entry: labs-physics.json lab-gps-clock-rates covers the same code, and that entry is canonical for merging."
+        ],
+        "evidence": "Seen in qa/gps-experiment.png; docs/reading-quality-pass-2026-09-09.md ('clock and GPS controls' browser checks); placement.json otherLabs entry for chapter 16."
+      },
+      "reuse": {
+        "verdict": "reimagine",
+        "notes": "Fold into one grbook GPS clock-budget demo placed at 16.7: a live plot of both contributions and their sum versus altitude, a draggable satellite, Earth-rotation and eccentricity toggles, and a ranging-scale readout. Reuse the formula and default values. See labs-physics lab-gps-clock-rates for the fuller rebuild plan ('Build a working GPS system', docs/experience-ideas.md #11).",
+        "effort": "small"
+      },
+      "size": "one inline HTML template plus handler"
+    },
+    {
+      "id": "curriculum-guides-chapters-09-16",
+      "kind": "curriculum-structure",
+      "title": "content/guides.json chapter cards 9-16 (title, deck, question, payoff, takeaway, check, answer)",
+      "paths": [
+        "content/guides.json#9",
+        "content/guides.json#10",
+        "content/guides.json#11",
+        "content/guides.json#12",
+        "content/guides.json#13",
+        "content/guides.json#14",
+        "content/guides.json#15",
+        "content/guides.json#16"
+      ],
+      "topics": [
+        "Weyl tensor",
+        "geodesic deviation",
+        "stress-energy tensor",
+        "trace-reversed Einstein equations",
+        "calculus of variations",
+        "Gibbons-Hawking-York boundary term",
+        "Killing vector",
+        "gravitational time dilation",
+        "Global Positioning System"
+      ],
+      "teaches": "Per-chapter framing: a driving question (e.g. 'How can empty spacetime be curved?', 'Why subtract half the curvature trace?', 'When can we compare energy at different events?'), a payoff statement, a one-sentence takeaway, and a misconception check with a worked answer. Examples: the trace-free tide does not preserve volume forever; the dust source is rho c^2/2, not rho c^2; delta g = 0 on the boundary does not fix the normal derivative; GPS altitude gain beats motion loss.",
+      "pedagogy": "Designed as chapter-header cards and self-checks in the reader (scripts/build-site.mjs uses guides[p.chapter]). Checks target the exact misconceptions the chapter text guards against.",
+      "interaction": null,
+      "physics_model": null,
+      "screenshots": [
+        "qa/chapter-16-1440.png",
+        "qa/chapter-14-1440.png"
+      ],
+      "quality": {
+        "status": "polished",
+        "strengths": [
+          "Short, accurate, and aligned with each chapter's central misconception.",
+          "Answers explain the reason, not just the verdict."
+        ],
+        "issues": [
+          "Titles differ from book.md headings, giving two naming systems.",
+          "Only one check per chapter; long chapters such as 15 need several.",
+          "Payoffs name graduate items (Einstein-Hilbert boundary term) without flagging depth."
+        ],
+        "evidence": "All eight entries read in full; rendered deck visible in qa/chapter-16-1440.png and qa/chapter-14-1440.png."
+      },
+      "reuse": {
+        "verdict": "adapt",
+        "notes": "Import the question/takeaway/check/answer fields as seeds for grbook unit front-matter and tutor check-for-understanding prompts. Unify titles with the grbook unit names and add 2-4 checks per split unit.",
+        "effort": "small"
+      },
+      "size": "8 JSON objects, ~7 fields each"
+    }
+  ]
+}

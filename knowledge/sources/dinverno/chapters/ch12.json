@@ -1,0 +1,4228 @@
+{
+ "book": "dinverno",
+ "unit_id": "ch12",
+ "title": "The energy-momentum tensor",
+ "part": null,
+ "printed_pages": [
+  203,
+  216
+ ],
+ "pdf_pages": [
+  218,
+  231
+ ],
+ "one_line_summary": "Builds the three workhorse sources of Einstein's equations (pressureless dust, perfect fluid, electromagnetic field), fixes the coupling constant kappa = 8 pi G/c^4 from the Newtonian limit, recasts Maxwell theory in tensor and potential form, derives the Maxwell stress-energy tensor from a Lagrangian, and closes with an eigenframe reading of T_ab and the dominant energy condition.",
+ "role_in_book": "Chapters 10 and 11 wrote down G_ab = kappa T_ab (by Newtonian correspondence and by a variational principle) but left the right-hand side abstract and kappa only asserted. This chapter supplies concrete T^ab for the matter models the rest of the book uses: dust and perfect fluid feed the Schwarzschild interior solution (ch15) and the cosmological models (ch24-26); the Maxwell tensor feeds the Einstein-Maxwell equations behind the Reissner-Nordstrom black hole (ch19). It also rehearses the two construction methods (ad hoc tensor ansatz checked against classical limits, and metric variation of a matter Lagrangian) and plants the energy-condition idea used later in the singularity theorems (ch20 section 20.13).",
+ "assumed_background": [
+  {
+   "topic": "4-velocity, proper time and the Lorentz factor in Minkowski coordinates",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch8 section 8.4 (proper time) and section 8.8 (Exercise 8.10 gives u^a = gamma(1, u))"
+  },
+  {
+   "topic": "Relativistic mass increase m = gamma m0 and Lorentz contraction",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch3, ch4 section 4.3 (eq. 4.11)"
+  },
+  {
+   "topic": "Poisson's equation for the Newtonian potential",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch4 section 4.1 (eq. 4.5)"
+  },
+  {
+   "topic": "Covariant derivative, symmetric metric connection, antisymmetrization brackets",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch5-ch6"
+  },
+  {
+   "topic": "Principle of minimal gravitational coupling and correspondence principle",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch9 section 9.6 (minimal coupling) and section 9.7 (correspondence principle)"
+  },
+  {
+   "topic": "Weak-field and slow-motion approximations, g_00 = 1 + 2 phi/c^2, full field equations G_ab = kappa T_ab",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch10 sections 10.6 and 10.8 (eqs 10.41, 10.49, 10.54, 10.55)"
+  },
+  {
+   "topic": "Euler-Lagrange equations for fields, scalar densities, variation with respect to the metric",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch7 and ch11 (eq. 11.51)"
+  },
+  {
+   "topic": "Classical fluid dynamics: continuity equation, convective derivative, Euler equation",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Maxwell's equations in 3-vector form, scalar and vector potentials, Poynting vector",
+   "source": "electromagnetism",
+   "where": null
+  },
+  {
+   "topic": "Eigenvalues and eigenvectors of a matrix, characteristic equation",
+   "source": "linear-algebra",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "Reader can state what u^a and rho_0 describe for a dust flow and write T^ab = rho_0 u^a u^b.",
+  "Reader can explain why a stationary observer measures density gamma^2 rho_0 for moving dust, one factor from energy per particle and one from length contraction.",
+  "Reader can expand T^ab for dust in Minkowski coordinates and show that the time row of partial_b T^ab = 0 is the continuity equation and the space rows are the pressure-free Euler equation.",
+  "Reader can explain why the divergence-free condition justifies the name energy-momentum tensor and how minimal coupling turns partial_b T^ab = 0 into nabla_b T^ab = 0.",
+  "Reader can carry out the Newtonian-limit calculation from linearized field equations with a dust source to obtain kappa = 8 pi G/c^4 (8 pi in relativistic units).",
+  "Reader can write the perfect-fluid tensor (rho_0 + p) u^a u^b - p g^ab, check its rest-frame form diag(rho_0, p, p, p), and explain the role of an equation of state.",
+  "Reader can build F^ab and j^a from E, B, rho and j and verify that partial_b F^ab = j^a and partial_[a F_bc] = 0 reproduce all four Maxwell equations, with charge conservation as an identity.",
+  "Reader can express F_ab through the 4-potential, show gauge invariance, impose the Lorenz gauge and reduce Maxwell's equations to box phi^a = j^a with residual gauge functions obeying box psi = 0.",
+  "Reader can explain why partial and covariant derivatives agree in partial_[a F_bc] and partial_[b phi_a] for a symmetric connection.",
+  "Reader can vary a first-order Maxwell Lagrangian with respect to phi_a and F_ab, then vary the curved-space Lagrangian with respect to g^ab to obtain the Maxwell energy-momentum tensor and the Einstein-Maxwell equations.",
+  "Reader can compute T_00 = (E^2 + B^2)/8 pi and T_0alpha = -(E x B)/4 pi from the Maxwell tensor and relate them to energy density and Poynting momentum.",
+  "Reader can contrast the ad hoc and variational methods of constructing T_ab and give charged dust and the Klein-Gordon field as examples.",
+  "Reader can diagonalize T_a^b in its eigenframe, name energy density and principal stresses, state the dominant energy condition, and recognise dust and perfect fluid as special cases."
+ ],
+ "teaching_approach": {
+  "summary": "A compact, calculation-driven catalogue chapter. For each matter model the authors propose the simplest tensor that can be made from the fields describing the matter, unpack it into components in Minkowski coordinates, and check that its vanishing divergence reproduces a familiar classical law (fluid continuity and Euler equations, or Maxwell's equations); only then do they promote it to general relativity by minimal coupling. The Maxwell case is repeated in a second style, a first-order Lagrangian varied with respect to potentials, field strengths and finally the metric. Many verifications are handed to the reader as '(exercise)', and the chapter ends by stepping back to an invariant, eigenframe description of any T_ab.",
+  "style_tags": [
+   "derivation-heavy",
+   "components-first",
+   "physical-motivation-first",
+   "computational-recipe"
+  ],
+  "narrative_arc": [
+   "Preview: promise explicit tensors for dust, perfect fluid and electromagnetic field, plus the calculation fixing the coupling constant.",
+   "Dust: describe the flow by a 4-velocity field and proper density; propose rho_0 u^a u^b as the simplest available rank-2 tensor.",
+   "Physical check in special relativity: T^00 = gamma^2 rho_0 read as energy density, explained by mass increase times volume contraction.",
+   "Unpack partial_b T^ab = 0 into continuity plus the pressure-free Euler equation; conclude the tensor encodes energy and momentum conservation.",
+   "Promote to curvilinear coordinates (nabla_b) and then to curved spacetime by minimal coupling.",
+   "Use dust as source in the linearized, slow-motion field equations; match the 00 component to Poisson's equation to fix kappa.",
+   "Perfect fluid: add a pressure term built from u^a u^b and g^ab with unknown constants, fix them by the classical fluid limits, add an equation of state.",
+   "Maxwell: rewrite the four 3-vector equations as two tensor equations for F^ab and j^a, derive charge conservation, and pause to state that the tensor character is a hypothesis to be tested.",
+   "Potentials: 4-potential, gauge freedom, Lorenz gauge, wave equations; covariantize, noting that antisymmetrized derivatives need no connection terms; carry to GR by minimal coupling.",
+   "Variational route: a first-order Lagrangian gives the Maxwell equations and the definition of F; the curved-space Lagrangian varied with respect to g^ab yields T_ab and the Einstein-Maxwell equations; check energy density and Poynting vector.",
+   "Survey: two methods for building T_ab, illustrated by charged dust (superposition) and a massive scalar field (Lagrangian).",
+   "Invariant interpretation: eigenvectors of T_a^b give a frame with energy density and principal stresses; impose the dominant energy condition and recover fluid and dust as special cases."
+  ],
+  "signature_moves": [
+   "Ansatz by scarcity: list the tensors the physical fields can supply (u^a u^b, g^ab) and take the simplest combination, leaving constants to be fixed.",
+   "Fix undetermined constants (kappa, lambda, mu) with the correspondence principle by demanding a known classical equation in a limit.",
+   "Decode a compact tensor equation by writing out the 4x4 component matrix and reading each row as a classical conservation law.",
+   "Three-step promotion ladder: Minkowski coordinates -> arbitrary coordinates in flat spacetime (partial to nabla) -> curved spacetime by minimal coupling.",
+   "Explicit epistemic caveat that writing quantities with indices does not make them tensors; tensor character is postulated and tested by experiment.",
+   "First-order (Palatini-style) Lagrangian treating phi_a and F_ab as independent, so that the relation F = d phi and the antisymmetry of F emerge as field equations, mirroring the Palatini approach of ch11.",
+   "Borrowing a result from much later (the linearized Einstein tensor in harmonic gauge, ch21) to finish a calculation now.",
+   "Routine verification steps delegated as '(exercise)' and collected in keyed end-of-chapter exercises.",
+   "Closing with a coordinate-invariant classification (eigenframe of T_a^b) that reinterprets earlier ad hoc models as special cases."
+  ]
+ },
+ "sections": [
+  {
+   "number": "12.1",
+   "title": "Preview",
+   "printed_page": 203,
+   "pdf_page": 218,
+   "summary": "States the plan: construct the energy-momentum tensors for dust, perfect fluid and electromagnetic field, meet Maxwell's equations in tensor form along the way, and use the Newtonian limit of the field equations to pin down the coupling constant. The treatment is deliberately limited to what later chapters need.",
+   "concepts": [
+    "energy-momentum tensor",
+    "incoherent matter (dust)",
+    "perfect fluid",
+    "Maxwell energy-momentum tensor",
+    "Einstein coupling constant"
+   ],
+   "key_moves": [
+    "Frames the chapter as supplying the right-hand side of the full field equations for three standard sources."
+   ]
+  },
+  {
+   "number": "12.2",
+   "title": "Incoherent matter",
+   "printed_page": 203,
+   "pdf_page": 218,
+   "summary": "Models non-interacting dust by a 4-velocity field and a proper density and proposes T^ab = rho_0 u^a u^b. In Minkowski coordinates T^00 = gamma^2 rho_0, interpreted as the energy density seen by a stationary observer (mass up by gamma, volume down by gamma). The full component matrix is written out, and the vanishing divergence is shown to contain the continuity equation and the Euler equation with no pressure or body force, which is why the tensor is said to encode energy and momentum conservation. The law becomes nabla_b T^ab = 0 in curvilinear coordinates and, by minimal coupling, in GR.",
+   "concepts": [
+    "incoherent matter (dust)",
+    "4-velocity field",
+    "proper density",
+    "density enhancement by gamma squared",
+    "energy-momentum tensor",
+    "energy-momentum conservation law",
+    "continuity equation",
+    "Euler equation",
+    "principle of minimal gravitational coupling"
+   ],
+   "key_moves": [
+    "Build the simplest symmetric rank-2 tensor out of u^a and rho_0.",
+    "Use d tau = dt/gamma to get T^00 = gamma^2 rho_0 and justify the gamma^2 physically.",
+    "Rewrite T^ab = rho (1, u)(1, u) with rho = gamma^2 rho_0.",
+    "a = 0 component of partial_b T^ab = 0 gives the continuity equation; a = alpha components, combined with continuity, give rho times the convective derivative of u equal to zero.",
+    "Compare with the Euler (book: Navier-Stokes) equation to identify dust as a pressure-free, force-free fluid.",
+    "Replace partial by nabla for general coordinates and keep the same law in GR by minimal coupling."
+   ]
+  },
+  {
+   "number": "12.3",
+   "title": "The coupling constant",
+   "printed_page": 206,
+   "pdf_page": 221,
+   "summary": "Takes weak fields g = eta + epsilon h, quotes the linearized Einstein tensor in the gauge of ch21, takes the trace to rewrite the equations in trace-reversed form, and applies the slow-motion approximation so the d'Alembertian becomes minus the Laplacian. For slow, dilute dust only T_00 = c^2 rho_0 survives; the 00 equation becomes a Poisson-type equation for h_00. With g_00 = 1 + 2 phi/c^2 this is Poisson's equation provided kappa = 8 pi G/c^4, i.e. 8 pi in relativistic units.",
+   "concepts": [
+    "weak-field approximation",
+    "slow-motion approximation",
+    "linearized field equations",
+    "trace-reversed field equations",
+    "Newtonian limit",
+    "Einstein coupling constant",
+    "Poisson's equation",
+    "relativistic units"
+   ],
+   "key_moves": [
+    "Quote G_ab to first order in epsilon as minus half box of the trace-reversed perturbation (gauge condition 21.24).",
+    "Contract with eta^ab to relate the traces, then solve for box h_ab in terms of T_ab - (1/2) eta_ab T.",
+    "Drop time derivatives (slow motion) so box -> -nabla^2.",
+    "Keep only T_00 = c^2 rho_0 for slow dust; since the trace is also c^2 rho_0, the trace-reversed 00 source is c^2 rho_0/2.",
+    "Substitute g_00 = 1 + 2 phi/c^2 and compare with nabla^2 phi = 4 pi G rho_0."
+   ]
+  },
+  {
+   "number": "12.4",
+   "title": "Perfect fluid",
+   "printed_page": 207,
+   "pdf_page": 222,
+   "summary": "A perfect fluid adds a scalar pressure to the dust description. Because the tensor must reduce to dust as p -> 0 and the only available tensors are u^a u^b and g^ab, the authors write T^ab = rho_0 u^a u^b + p(lambda u^a u^b + mu g^ab) and state that demanding the classical continuity and Euler equations in the appropriate limit gives lambda = 1, mu = -1. The resulting (rho_0 + p) u^a u^b - p g^ab is adopted in GR with nabla_b T^ab = 0, supplemented by an equation of state, taken to be barotropic p = p(rho) at effectively fixed temperature.",
+   "concepts": [
+    "perfect fluid",
+    "isotropic pressure",
+    "equation of state",
+    "energy-momentum conservation law",
+    "correspondence principle"
+   ],
+   "key_moves": [
+    "Require the dust limit when p vanishes.",
+    "Restrict the pressure term to combinations of u^a u^b and g^ab with constant coefficients.",
+    "Fix lambda and mu by matching classical fluid equations (details left to Exercise 12.3).",
+    "Add an equation of state to close the system."
+   ]
+  },
+  {
+   "number": "12.5",
+   "title": "Maxwell's equations",
+   "printed_page": 208,
+   "pdf_page": 223,
+   "summary": "Writes the vacuum Maxwell equations in Heaviside-Lorentz units with c = 1 as two source equations and two internal equations, interprets each (Gauss, Ampere-Maxwell, no monopoles, Faraday), and shows that the source equations force charge conservation. Defines the antisymmetric field tensor F^ab and current 4-vector j^a so that Maxwell's equations become partial_b F^ab = j^a and partial_[a F_bc] = 0, with continuity partial_a j^a = 0. Stresses that this is so far only a formal rewriting; the tensor transformation law is a hypothesis whose consequences must be tested.",
+   "concepts": [
+    "Maxwell's equations",
+    "source and internal equations",
+    "charge conservation",
+    "electromagnetic field tensor",
+    "current 4-vector",
+    "Heaviside-Lorentz units",
+    "Lorentz covariance of Maxwell's equations"
+   ],
+   "key_moves": [
+    "Differentiate Gauss's law in time and take the divergence of the Ampere-Maxwell law to derive charge continuity.",
+    "Identify j = rho u continuity with the fluid continuity equation (12.8).",
+    "Arrange E in the time row/column and B in the spatial block of an antisymmetric 4x4 array.",
+    "Compress the internal equations with the antisymmetrization bracket.",
+    "Separate the formal index rewriting from the physical claim that F^ab and j^a transform as tensors."
+   ]
+  },
+  {
+   "number": "12.6",
+   "title": "Potential formulation of Maxwell's equations",
+   "printed_page": 210,
+   "pdf_page": 225,
+   "summary": "Introduces the scalar and vector potentials, combines them into a 4-potential with F_ab = partial_b phi_a - partial_a phi_b, and shows the gauge freedom phi_a -> phi_a + partial_a psi leaves the measurable fields unchanged. Because F is built from a potential, the internal equations become identities. A gauge condition trims the freedom: in the Lorenz gauge the residual gauge functions must obey box psi = 0, and the source equations reduce to box phi^a = j^a, hence wave equations for the potentials and fields in source-free regions. Covariantization needs no connection terms in the antisymmetrized equations; the covariant set is carried into GR by minimal coupling, where the metric now solves G^ab = kappa T^ab with the electromagnetic T^ab still to be found.",
+   "concepts": [
+    "4-potential",
+    "gauge transformation",
+    "Lorenz gauge",
+    "d'Alembertian",
+    "residual gauge freedom",
+    "electromagnetic waves",
+    "antisymmetrized covariant derivative identity",
+    "Maxwell's equations in curved spacetime",
+    "principle of minimal gravitational coupling"
+   ],
+   "key_moves": [
+    "Show that the 3-vector definitions of E and B are the components of the antisymmetrized gradient of phi_a.",
+    "Gauge invariance follows from equality of mixed partial derivatives.",
+    "Lorenz gauge condition restricts psi to solutions of box psi = 0.",
+    "Expand the source equation and drop the divergence term in Lorenz gauge to reach box phi^a = j^a.",
+    "Christoffel terms cancel in antisymmetrized derivatives because the connection is symmetric."
+   ]
+  },
+  {
+   "number": "12.7",
+   "title": "The Maxwell energy-momentum tensor",
+   "printed_page": 211,
+   "pdf_page": 226,
+   "summary": "In flat spacetime, a first-order Lagrangian depending on phi_a and F_ab independently is varied: the phi variation gives the source-free Maxwell equations and the F variation gives F as the curl of the potential (hence antisymmetric, and the internal equations hold automatically). The on-shell Lagrangian is proportional to F_ab F^ab; its curved-space version with sqrt(-g) is differentiated with respect to g^ab and, using the ch11 definition of T_ab from a matter Lagrangian, gives the Maxwell energy-momentum tensor and, with kappa = 8 pi, the Einstein-Maxwell equations. In Minkowski coordinates T_00 is (E^2 + B^2)/8 pi and T_0alpha is minus the Poynting vector over 4 pi; the tensor is divergence-free by Maxwell's equations.",
+   "concepts": [
+    "first-order variational principle for electromagnetism",
+    "Euler-Lagrange field equations",
+    "scalar density",
+    "metric definition of the energy-momentum tensor",
+    "Maxwell energy-momentum tensor",
+    "Einstein-Maxwell equations",
+    "electromagnetic energy density",
+    "Poynting vector"
+   ],
+   "key_moves": [
+    "Euler-Lagrange derivative with respect to phi_a picks up only the derivative term, giving (F^ab - F^ba)_{,b} = 0.",
+    "Derivative with respect to F_ab (treated as 16 independent components) sets F_ab = phi_{a,b} - phi_{b,a}.",
+    "Substitute back to get the Lagrangian as (1/16 pi) F_ab F^ab.",
+    "Promote to curved spacetime with g^ab and sqrt(-g); differentiate with respect to g^ab, including the variation of sqrt(-g).",
+    "Match with delta L/delta g^ab = -(sqrt(-g)/2) T_ab to read off T_ab.",
+    "Check the 00 and 0alpha components against classical electrodynamics."
+   ]
+  },
+  {
+   "number": "12.8",
+   "title": "Other energy-momentum tensors",
+   "printed_page": 213,
+   "pdf_page": 228,
+   "summary": "Names the two construction methods used so far: an ad hoc tensor guess tested through the conservation equations in the classical limit, and a variational method starting from a Lagrangian. Non-interacting fields can be superposed, while interacting ones need interaction terms. Illustrations: charged dust (dust tensor plus Maxwell tensor) and a massive scalar field Lagrangian (Klein-Gordon, attributed to a neutral pion), whose T_ab follows from the metric-variation definition.",
+   "concepts": [
+    "ad hoc construction of energy-momentum tensors",
+    "metric definition of the energy-momentum tensor",
+    "superposition of energy-momentum tensors",
+    "charged dust",
+    "Klein-Gordon scalar field"
+   ],
+   "key_moves": [
+    "Contrast construction by guess-and-check with construction from a Lagrangian.",
+    "Add tensors for non-interacting components; flag that interactions require extra care.",
+    "Give a charged-dust sum and a scalar-field Lagrangian as one example of each method."
+   ]
+  },
+  {
+   "number": "12.9",
+   "title": "The dominant energy condition",
+   "printed_page": 214,
+   "pdf_page": 229,
+   "summary": "Argues that coordinate components lack invariant meaning, so one should use components in a physically singled-out frame. That frame comes from the eigenvalue problem for T_a^b: for standard matter it yields one timelike and three spacelike eigenvectors, in which T_ij = diag(mu, p_1, p_2, p_3). mu is the energy density, e_0 the 4-velocity of the medium, p_alpha the principal stresses along the principal axes. Realistic matter obeys the dominant energy condition mu >= 0 and |p_alpha| <= mu, said to amount to sound not outrunning light. Equal principal stresses give a perfect fluid, vanishing ones give dust.",
+   "concepts": [
+    "frame components",
+    "eigenvalue problem for the energy-momentum tensor",
+    "energy density (eigenvalue)",
+    "principal stresses",
+    "dominant energy condition",
+    "perfect fluid",
+    "incoherent matter (dust)"
+   ],
+   "key_moves": [
+    "Replace coordinate components by frame components in an invariantly defined frame.",
+    "Find that frame from eigenvectors of T_a^b and its characteristic equation.",
+    "Read off energy density, rest frame of the medium and principal stresses from the diagonal form.",
+    "Impose the dominant energy condition and interpret it causally.",
+    "Recover the perfect fluid and dust as degenerate cases of the stress spectrum."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "energy-momentum tensor",
+   "aliases": [
+    "stress-energy tensor",
+    "matter tensor",
+    "T^ab"
+   ],
+   "kind": "physical-quantity",
+   "definition": "A symmetric rank-2 tensor field whose components, relative to an observer with 4-velocity v, give the energy density T_ab v^a v^b, momentum density (equivalently energy flux) and stresses of matter or fields; it is the source term in G_ab = kappa T_ab and its vanishing covariant divergence expresses local energy-momentum conservation.",
+   "how_introduced": "Built model by model: for dust as the simplest tensor from the flow variables, for a perfect fluid by adding pressure terms, for the electromagnetic field by metric variation of a Lagrangian. The name is justified by showing that its zero divergence reproduces energy and momentum conservation in special relativity.",
+   "depth": "core",
+   "prerequisites": [
+    "4-velocity field",
+    "tensor",
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 218,
+     "printed_page": 203,
+     "section": "12.1"
+    },
+    {
+     "pdf_page": 220,
+     "printed_page": 205,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.8"
+    },
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.9"
+    }
+   ],
+   "formulas": [
+    "T^{ab} = T^{ba}",
+    "\\nabla_b T^{ab} = 0",
+    "G_{ab} = \\kappa T_{ab}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "incoherent matter (dust)",
+   "aliases": [
+    "dust",
+    "non-interacting incoherent matter",
+    "pressureless matter"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A continuum of particles that do not interact with each other (no pressure, no stresses), fully described by a 4-velocity field u^a and a proper density rho_0; its energy-momentum tensor is rho_0 u^a u^b. In special relativity its conservation law says each element moves force-free; the chapter does not go on to derive geodesic motion in GR.",
+   "how_introduced": "First and simplest model of the chapter; world-lines of the particles drawn as a non-crossing family (Fig. 12.1). Later recovered as the zero-stress case of the eigenframe classification.",
+   "depth": "core",
+   "prerequisites": [
+    "4-velocity field",
+    "proper density"
+   ],
+   "locators": [
+    {
+     "pdf_page": 218,
+     "printed_page": 203,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 219,
+     "printed_page": 204,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 230,
+     "printed_page": 215,
+     "section": "12.9"
+    }
+   ],
+   "formulas": [
+    "T^{ab} = \\rho_0 u^a u^b"
+   ],
+   "notes": "Used later as the matter content of the simplest cosmological models. Tutor addition: in GR, nabla_b T^ab = 0 for dust implies geodesic flow lines, but this is not shown in ch12."
+  },
+  {
+   "name": "4-velocity field",
+   "aliases": [
+    "velocity field of flow",
+    "u^a"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A timelike unit vector field u^a = dx^a/d tau tangent to the world-lines of a flow, with tau proper time along each world-line; in Minkowski coordinates u^a = gamma(1, u).",
+   "how_introduced": "Revisited from ch8 as the first ingredient needed to describe dust; the book cites Exercise 8.10 for its Minkowski form.",
+   "depth": "revisited",
+   "prerequisites": [
+    "proper time",
+    "Lorentz factor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 218,
+     "printed_page": 203,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 219,
+     "printed_page": 204,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "u^a = \\frac{dx^a}{d\\tau}",
+    "u^a = \\gamma(1, \\mathbf{u})",
+    "\\gamma = (1-u^2)^{-1/2}"
+   ],
+   "notes": "Normalization g_ab u^a u^b = 1 in this signature is used implicitly but not stated in the chapter."
+  },
+  {
+   "name": "proper density",
+   "aliases": [
+    "rest density",
+    "co-moving density",
+    "rho_0"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The density of a flow as measured by an observer moving with it (a co-moving observer); a scalar field rho_0(x).",
+   "how_introduced": "Introduced as the second ingredient of the dust model and contrasted with the density measured by a stationary observer.",
+   "depth": "developed",
+   "prerequisites": [
+    "4-velocity field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 218,
+     "printed_page": 203,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\rho_0 = \\rho_0(x)"
+   ],
+   "notes": "For a perfect fluid rho_0 must be read as the full rest-frame energy density, not just rest-mass density; the book does not make this distinction."
+  },
+  {
+   "name": "density enhancement by gamma squared",
+   "aliases": [
+    "relativistic energy density of moving dust",
+    "rho = gamma^2 rho_0"
+   ],
+   "kind": "phenomenon",
+   "definition": "A stationary observer watching dust of proper density rho_0 flow past at speed u measures energy density gamma^2 rho_0: one factor gamma because each particle's energy (relativistic mass) is larger, another because Lorentz contraction shrinks the volume containing a given number of particles.",
+   "how_introduced": "Derived from T^00 = rho_0 (dt/d tau)^2 and then explained physically by combining mass increase (4.11) with length contraction.",
+   "depth": "developed",
+   "prerequisites": [
+    "proper density",
+    "Lorentz contraction",
+    "relativistic mass"
+   ],
+   "locators": [
+    {
+     "pdf_page": 219,
+     "printed_page": 204,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "T^{00} = \\gamma^2 \\rho_0",
+    "\\rho = \\gamma^2\\rho_0"
+   ],
+   "notes": "A factor c^2 is needed in (12.1) to make T^00 an energy density in ordinary units."
+  },
+  {
+   "name": "energy-momentum conservation law",
+   "aliases": [
+    "conservation equations",
+    "divergence-free energy-momentum tensor"
+   ],
+   "kind": "law",
+   "definition": "The requirement that the energy-momentum tensor have zero divergence: partial_b T^ab = 0 in Minkowski coordinates, nabla_b T^ab = 0 in general coordinates and in curved spacetime. Its time component expresses energy conservation and its space components momentum conservation (equations of motion). The book singles out the a = 0 row as the conservation-of-energy equation for dust, since matter and energy are equivalent in SR.",
+   "how_introduced": "Shown for dust to reproduce continuity and the pressure-free Euler equation; reused for the fluid, the Maxwell field (as a consequence of Maxwell's equations) and charged matter.",
+   "depth": "core",
+   "prerequisites": [
+    "energy-momentum tensor",
+    "covariant derivative",
+    "principle of minimal gravitational coupling"
+   ],
+   "locators": [
+    {
+     "pdf_page": 219,
+     "printed_page": 204,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 220,
+     "printed_page": 205,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.7"
+    },
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.8"
+    }
+   ],
+   "formulas": [
+    "\\partial_b T^{ab} = 0",
+    "\\nabla_b T^{ab} = 0"
+   ],
+   "notes": "In curved spacetime this is a local statement; it does not in general integrate to a global conserved energy (not discussed here; see DIV ch13 section 13.4 and ch21 section 21.8)."
+  },
+  {
+   "name": "continuity equation",
+   "aliases": [
+    "equation of continuity",
+    "mass conservation equation"
+   ],
+   "kind": "law",
+   "definition": "partial rho/partial t + div(rho u) = 0: the rate of change of density in a region is balanced by the net outflow; for charge, partial rho/partial t + div j = 0.",
+   "how_introduced": "Appears twice: as the time component of partial_b T^ab = 0 for dust (reinterpreted as energy conservation because mass and energy are equivalent), and as the consistency condition forced by Maxwell's source equations, which in 4-vector form is partial_a j^a = 0.",
+   "depth": "developed",
+   "prerequisites": [
+    "divergence"
+   ],
+   "locators": [
+    {
+     "pdf_page": 220,
+     "printed_page": 205,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 224,
+     "printed_page": 209,
+     "section": "12.5"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\partial\\rho}{\\partial t} + \\mathrm{div}(\\rho\\mathbf{u}) = 0",
+    "\\partial_a j^a = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Euler equation",
+   "aliases": [
+    "Navier-Stokes equation of motion for a perfect fluid (book's term)",
+    "inviscid fluid equation of motion"
+   ],
+   "kind": "law",
+   "definition": "rho[partial u/partial t + (u . grad) u] = -grad p + rho X: Newton's second law per unit volume for an inviscid fluid, with pressure gradient and body force X per unit mass.",
+   "how_introduced": "Quoted to identify the space components of the dust conservation law as its pressure-free, force-free case, and later used to fix the pressure terms of the perfect-fluid tensor.",
+   "depth": "introduced",
+   "prerequisites": [
+    "continuity equation",
+    "convective derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 220,
+     "printed_page": 205,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\rho\\left[\\frac{\\partial\\mathbf{u}}{\\partial t} + (\\mathbf{u}\\cdot\\nabla)\\mathbf{u}\\right] = -\\mathrm{grad}\\, p + \\rho\\mathbf{X}"
+   ],
+   "notes": "The book calls this the Navier-Stokes equation; strictly, Navier-Stokes includes viscosity and this inviscid form is Euler's equation."
+  },
+  {
+   "name": "principle of minimal gravitational coupling",
+   "aliases": [
+    "minimal coupling",
+    "comma-goes-to-semicolon rule"
+   ],
+   "kind": "principle",
+   "definition": "The prescription that a special-relativistic tensor law is carried into general relativity in its simplest covariant form, replacing eta_ab by g_ab and partial derivatives by covariant derivatives, without adding curvature terms.",
+   "how_introduced": "Applied three times as the final step: to the dust and fluid conservation laws, and to the covariant Maxwell equations.",
+   "depth": "revisited",
+   "prerequisites": [
+    "covariant derivative",
+    "tensor equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 220,
+     "printed_page": 205,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 223,
+     "printed_page": 208,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 226,
+     "printed_page": 211,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\partial_b T^{ab} = 0 \\;\\to\\; \\nabla_b T^{ab} = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "weak-field approximation",
+   "aliases": [
+    "linearized gravity",
+    "g = eta + epsilon h"
+   ],
+   "kind": "technique",
+   "definition": "Treating the metric as Minkowski plus a small perturbation, g_ab = eta_ab + epsilon h_ab, and keeping only terms linear in the bookkeeping parameter epsilon.",
+   "how_introduced": "Revisited from ch10 as the starting point of the coupling-constant calculation.",
+   "depth": "revisited",
+   "prerequisites": [
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 221,
+     "printed_page": 206,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "g_{ab} = \\eta_{ab} + \\varepsilon h_{ab} + O(\\varepsilon^2)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "slow-motion approximation",
+   "aliases": [
+    "quasi-static approximation"
+   ],
+   "kind": "technique",
+   "definition": "Assuming sources move slowly compared with light so time derivatives of the field are negligible relative to spatial ones; the d'Alembertian reduces to minus the Laplacian.",
+   "how_introduced": "Invoked (eq. 10.41) to turn the linearized wave-type equation into a Poisson-type equation.",
+   "depth": "revisited",
+   "prerequisites": [
+    "d'Alembertian"
+   ],
+   "locators": [
+    {
+     "pdf_page": 221,
+     "printed_page": 206,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "\\Box \\approx -\\nabla^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "linearized field equations",
+   "aliases": [
+    "linearized Einstein equations"
+   ],
+   "kind": "law",
+   "definition": "Einstein's equations to first order in the metric perturbation; in the harmonic (de Donder) gauge of ch21 the Einstein tensor is minus one half the d'Alembertian of the trace-reversed perturbation.",
+   "how_introduced": "Quoted from ch21 (gauge condition 21.24) without derivation to complete the Newtonian correspondence now.",
+   "depth": "introduced",
+   "prerequisites": [
+    "weak-field approximation",
+    "Einstein tensor",
+    "d'Alembertian"
+   ],
+   "locators": [
+    {
+     "pdf_page": 221,
+     "printed_page": 206,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "G_{ab} = -\\tfrac12 \\varepsilon \\Box\\left(h_{ab} - \\tfrac12\\eta_{ab}\\eta^{cd}h_{cd}\\right) + O(\\varepsilon^2)"
+   ],
+   "notes": "Full derivation appears in DIV ch21 section 21.1-21.2."
+  },
+  {
+   "name": "trace-reversed field equations",
+   "aliases": [
+    "T_ab - (1/2) g_ab T form"
+   ],
+   "kind": "technique",
+   "definition": "Rewriting G_ab = kappa T_ab (by taking its trace and substituting back) so that the Ricci-type side is sourced by T_ab - (1/2) g_ab T; in the linearized case this isolates the perturbation h_ab itself.",
+   "how_introduced": "Obtained by contracting (12.13) with eta^ab and substituting back, left as Exercise 12.2.",
+   "depth": "introduced",
+   "prerequisites": [
+    "linearized field equations",
+    "trace of a tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 221,
+     "printed_page": 206,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "\\tfrac12\\varepsilon\\nabla^2 h_{ab} = \\kappa\\left(T_{ab} - \\tfrac12\\eta_{ab}\\eta^{cd}T_{cd}\\right) + O(\\varepsilon^2)"
+   ],
+   "notes": "For slow dust the trace equals T_00, so T_00 - T/2 is only c^2 rho_0/2; this halving, together with the 2 phi/c^2 in g_00, is why 8 pi appears rather than 4 pi."
+  },
+  {
+   "name": "Newtonian limit",
+   "aliases": [
+    "Newtonian correspondence",
+    "correspondence principle"
+   ],
+   "kind": "principle",
+   "definition": "The requirement that general relativity reproduce Newtonian gravity (Poisson's equation and Newtonian motion) for weak fields, slow motion and small pressures; used to fix otherwise free constants.",
+   "how_introduced": "Used to determine kappa by matching the 00 linearized equation to Poisson's equation, and (in outline) to fix the pressure coefficients of the perfect fluid.",
+   "depth": "developed",
+   "prerequisites": [
+    "weak-field approximation",
+    "slow-motion approximation",
+    "Poisson's equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 221,
+     "printed_page": 206,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "g_{00} \\approx 1 + \\frac{2\\phi}{c^2}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Einstein coupling constant",
+   "aliases": [
+    "kappa",
+    "gravitational coupling constant"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The constant kappa in G_ab = kappa T_ab, equal to 8 pi G/c^4 in ordinary units and 8 pi in relativistic units (G = c = 1).",
+   "how_introduced": "Asserted in ch10 (10.55) and here derived by the Newtonian-limit calculation with a dust source.",
+   "depth": "core",
+   "prerequisites": [
+    "Newtonian limit",
+    "trace-reversed field equations",
+    "Poisson's equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 221,
+     "printed_page": 206,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "\\kappa = 8\\pi G/c^4",
+    "\\kappa = 8\\pi"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Poisson's equation",
+   "aliases": [
+    "Newtonian field equation"
+   ],
+   "kind": "law",
+   "definition": "nabla^2 phi = 4 pi G rho_0: the Newtonian gravitational potential is sourced by mass density.",
+   "how_introduced": "Recalled from ch4 (4.5) as the target of the correspondence calculation.",
+   "depth": "revisited",
+   "prerequisites": [
+    "gravitational potential"
+   ],
+   "locators": [
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "\\nabla^2\\phi = 4\\pi G\\rho_0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "relativistic units",
+   "aliases": [
+    "geometrized units",
+    "c = G = 1"
+   ],
+   "kind": "convention",
+   "definition": "Units in which c = 1 (and, for gravity, G = 1), so that factors like c^2 in T^ab and G/c^4 in kappa disappear.",
+   "how_introduced": "The chapter switches between non-relativistic units (restoring c^2 in T^ab and G/c^4 in kappa) and relativistic units.",
+   "depth": "revisited",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 219,
+     "printed_page": 204,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 221,
+     "printed_page": 206,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "T^{ab} = c^2\\rho_0\\delta^a_0\\delta^b_0",
+    "\\kappa = 8\\pi"
+   ],
+   "notes": null
+  },
+  {
+   "name": "perfect fluid",
+   "aliases": [
+    "ideal fluid"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A continuum with no viscosity or heat conduction, described by a 4-velocity u^a, a rest-frame energy density rho_0 and an isotropic pressure p; T^ab = (rho_0 + p) u^a u^b - p g^ab, which in the rest frame is diag(rho_0, p, p, p).",
+   "how_introduced": "Obtained by adding to the dust tensor a pressure term built from u^a u^b and g^ab with constant coefficients, fixed by requiring the classical continuity and Euler equations; later recovered as the equal-stress case of the eigenframe classification.",
+   "depth": "core",
+   "prerequisites": [
+    "incoherent matter (dust)",
+    "isotropic pressure",
+    "energy-momentum tensor",
+    "Euler equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 223,
+     "printed_page": 208,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 230,
+     "printed_page": 215,
+     "section": "12.9"
+    }
+   ],
+   "formulas": [
+    "T^{ab} = (\\rho_0 + p)u^a u^b - p g^{ab}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "isotropic pressure",
+   "aliases": [
+    "scalar pressure field",
+    "p"
+   ],
+   "kind": "physical-quantity",
+   "definition": "A scalar field p(x) giving the same normal stress in every direction in the fluid's rest frame.",
+   "how_introduced": "Third defining quantity of the perfect fluid.",
+   "depth": "introduced",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 222,
+     "printed_page": 207,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "p = p(x)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "equation of state",
+   "aliases": [
+    "barotropic equation of state"
+   ],
+   "kind": "definition",
+   "definition": "A relation closing the fluid equations by fixing pressure in terms of density (and in general temperature): p = p(rho, T), reduced to p = p(rho) when temperature is effectively constant.",
+   "how_introduced": "Added after the perfect-fluid tensor as the extra information specifying the type of fluid.",
+   "depth": "introduced",
+   "prerequisites": [
+    "perfect fluid"
+   ],
+   "locators": [
+    {
+     "pdf_page": 223,
+     "printed_page": 208,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "p = p(\\rho, T)",
+    "p = p(\\rho)"
+   ],
+   "notes": "T here is absolute temperature, not the trace of the energy-momentum tensor."
+  },
+  {
+   "name": "Maxwell's equations",
+   "aliases": [
+    "Maxwell's equations in vacuo"
+   ],
+   "kind": "law",
+   "definition": "The field equations of electromagnetism: div E = rho, curl B - partial E/partial t = j (source equations), div B = 0, curl E + partial B/partial t = 0 (internal equations), here in Heaviside-Lorentz units with c = 1; in tensor form partial_b F^ab = j^a and partial_[a F_bc] = 0.",
+   "how_introduced": "Stated in 3-vector form with a physical gloss of each equation, then compressed into tensor form, potential form, covariant form and finally obtained from a Lagrangian.",
+   "depth": "developed",
+   "prerequisites": [
+    "divergence and curl",
+    "electromagnetic field tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 223,
+     "printed_page": 208,
+     "section": "12.5"
+    },
+    {
+     "pdf_page": 224,
+     "printed_page": 209,
+     "section": "12.5"
+    },
+    {
+     "pdf_page": 226,
+     "printed_page": 211,
+     "section": "12.6"
+    },
+    {
+     "pdf_page": 227,
+     "printed_page": 212,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "\\partial_b F^{ab} = j^a",
+    "\\partial_{[a}F_{bc]} = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "source and internal equations",
+   "aliases": [
+    "inhomogeneous and homogeneous Maxwell equations"
+   ],
+   "kind": "definition",
+   "definition": "The split of Maxwell's equations into those containing charge and current (Gauss and Ampere-Maxwell) and those that do not (no monopoles and Faraday); the latter become identities once fields come from potentials.",
+   "how_introduced": "Used as organizing labels through sections 12.5-12.7.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Maxwell's equations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 223,
+     "printed_page": 208,
+     "section": "12.5"
+    },
+    {
+     "pdf_page": 225,
+     "printed_page": 210,
+     "section": "12.6"
+    },
+    {
+     "pdf_page": 227,
+     "printed_page": 212,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "charge conservation",
+   "aliases": [
+    "charge continuity equation"
+   ],
+   "kind": "law",
+   "definition": "partial rho/partial t + div j = 0, equivalently partial_a j^a = 0: electric charge is locally conserved; in Maxwell theory this is a consequence of the source equations, not an independent assumption.",
+   "how_introduced": "Derived by differentiating Gauss's law in time and taking the divergence of the Ampere-Maxwell law; in tensor form it follows from the antisymmetry of F^ab.",
+   "depth": "developed",
+   "prerequisites": [
+    "Maxwell's equations",
+    "continuity equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 223,
+     "printed_page": 208,
+     "section": "12.5"
+    },
+    {
+     "pdf_page": 224,
+     "printed_page": 209,
+     "section": "12.5"
+    },
+    {
+     "pdf_page": 226,
+     "printed_page": 211,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\partial_a j^a = 0",
+    "\\nabla_a j^a = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "electromagnetic field tensor",
+   "aliases": [
+    "Maxwell tensor",
+    "Faraday tensor",
+    "F^ab"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The antisymmetric rank-2 tensor combining the electric and magnetic fields, with F^{0 alpha} = E_alpha and the spatial block holding B (F^{12} = B_z, F^{13} = -B_y, F^{23} = B_x); in terms of the 4-potential F_ab = partial_b phi_a - partial_a phi_b.",
+   "how_introduced": "Defined by an explicit 4x4 matrix chosen so Maxwell's equations take tensor form; its tensor character is proposed as a working hypothesis to be tested.",
+   "depth": "core",
+   "prerequisites": [
+    "tensor",
+    "antisymmetric tensor",
+    "Maxwell's equations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 224,
+     "printed_page": 209,
+     "section": "12.5"
+    },
+    {
+     "pdf_page": 225,
+     "printed_page": 210,
+     "section": "12.6"
+    },
+    {
+     "pdf_page": 227,
+     "printed_page": 212,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "F^{ab} = -F^{ba}",
+    "F_{ab} = \\partial_b\\phi_a - \\partial_a\\phi_b"
+   ],
+   "notes": "Index order in F_ab = partial_b phi_a - partial_a phi_b is the reverse of the common convention F_ab = partial_a A_b - partial_b A_a."
+  },
+  {
+   "name": "current 4-vector",
+   "aliases": [
+    "source 4-vector",
+    "4-current",
+    "j^a"
+   ],
+   "kind": "physical-quantity",
+   "definition": "j^a = (rho, j): charge density and current density combined into a 4-vector that sources F^ab.",
+   "how_introduced": "Defined alongside F^ab in section 12.5.",
+   "depth": "introduced",
+   "prerequisites": [
+    "charge conservation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 224,
+     "printed_page": 209,
+     "section": "12.5"
+    }
+   ],
+   "formulas": [
+    "j^a = (\\rho, \\mathbf{j})"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Heaviside-Lorentz units",
+   "aliases": [
+    "rationalized Gaussian units"
+   ],
+   "kind": "convention",
+   "definition": "An electromagnetic unit system in which Maxwell's equations have no 4 pi factors (div E = rho); combined here with c = 1.",
+   "how_introduced": "Declared at the start of section 12.5.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 223,
+     "printed_page": 208,
+     "section": "12.5"
+    }
+   ],
+   "formulas": [],
+   "notes": "The 1/8 pi and 1/4 pi factors in (12.50), (12.57) and (12.59) belong to Gaussian units, so the chapter's units are not internally consistent."
+  },
+  {
+   "name": "Lorentz covariance of Maxwell's equations",
+   "aliases": [
+    "tensor character of F and j"
+   ],
+   "kind": "principle",
+   "definition": "The statement that E, B, rho and j transform under Lorentz transformations as the components of the tensor F^ab and the vector j^a, so that Maxwell's equations hold in the same form in every inertial frame.",
+   "how_introduced": "Presented as a hypothesis: the index rewriting is only formal, the transformation law must be assumed and confirmed by experiment; historically the wish to make Maxwell theory Lorentz covariant drove special relativity.",
+   "depth": "developed",
+   "prerequisites": [
+    "electromagnetic field tensor",
+    "Lorentz transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 224,
+     "printed_page": 209,
+     "section": "12.5"
+    }
+   ],
+   "formulas": [],
+   "notes": "Exercise 12.5 asks for the boost transformation of E, B, rho and j."
+  },
+  {
+   "name": "4-potential",
+   "aliases": [
+    "electromagnetic 4-potential",
+    "phi^a"
+   ],
+   "kind": "mathematical-object",
+   "definition": "phi^a = (phi, A), combining scalar and vector potentials, from which E = -grad phi - partial A/partial t and B = curl A, i.e. F_ab = partial_b phi_a - partial_a phi_b.",
+   "how_introduced": "Introduced as more convenient than E and B; makes the internal equations identities and allows gauge choices.",
+   "depth": "developed",
+   "prerequisites": [
+    "electromagnetic field tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 225,
+     "printed_page": 210,
+     "section": "12.6"
+    },
+    {
+     "pdf_page": 226,
+     "printed_page": 211,
+     "section": "12.6"
+    },
+    {
+     "pdf_page": 227,
+     "printed_page": 212,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "\\phi^a = (\\phi, \\mathbf{A})",
+    "\\mathbf{E} = -\\mathrm{grad}\\,\\phi - \\partial\\mathbf{A}/\\partial t",
+    "\\mathbf{B} = \\mathrm{curl}\\,\\mathbf{A}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "gauge transformation",
+   "aliases": [
+    "electromagnetic gauge freedom"
+   ],
+   "kind": "operation",
+   "definition": "The change phi_a -> phi_a + partial_a psi for arbitrary scalar psi, which leaves F_ab and hence the measurable E and B unchanged.",
+   "how_introduced": "Arises from the non-uniqueness of the potential; exploited by imposing gauge conditions.",
+   "depth": "developed",
+   "prerequisites": [
+    "4-potential"
+   ],
+   "locators": [
+    {
+     "pdf_page": 225,
+     "printed_page": 210,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\phi_a \\to \\bar\\phi_a = \\phi_a + \\partial_a\\psi"
+   ],
+   "notes": "The book also introduces the general idea of a gauge condition: a constraint on phi_a that uses up part of the gauge freedom to simplify a problem; the Lorenz condition is its example."
+  },
+  {
+   "name": "Lorenz gauge",
+   "aliases": [
+    "Lorentz gauge (book's name)",
+    "gauge condition (example of)"
+   ],
+   "kind": "convention",
+   "definition": "The gauge condition partial_a phi^a = 0 on the 4-potential, under which Maxwell's source equations become box phi^a = j^a.",
+   "how_introduced": "Offered as the important gauge for radiation problems.",
+   "depth": "introduced",
+   "prerequisites": [
+    "gauge transformation",
+    "d'Alembertian"
+   ],
+   "locators": [
+    {
+     "pdf_page": 225,
+     "printed_page": 210,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\eta^{ab}\\phi_{a,b} = \\phi^a{}_{,a} = 0"
+   ],
+   "notes": "Named after Ludvig Lorenz; 'Lorentz gauge' is a common historical misattribution."
+  },
+  {
+   "name": "residual gauge freedom",
+   "aliases": [
+    "restricted gauge transformations"
+   ],
+   "kind": "phenomenon",
+   "definition": "Gauge transformations that preserve a gauge condition; for the Lorenz gauge the function psi must satisfy box psi = 0.",
+   "how_introduced": "Found by applying the Lorenz condition to a gauge-transformed potential; Exercise 12.7 asks what freedom remains.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Lorenz gauge",
+    "gauge transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 225,
+     "printed_page": 210,
+     "section": "12.6"
+    },
+    {
+     "pdf_page": 230,
+     "printed_page": 215,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\Box\\psi \\equiv \\eta^{ab}\\psi_{,ab} = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "d'Alembertian",
+   "aliases": [
+    "wave operator",
+    "box"
+   ],
+   "kind": "operation",
+   "definition": "The Lorentz-invariant second-order operator box = eta^ab partial_a partial_b = partial_0^2 - nabla^2 in signature (+,-,-,-); box f = 0 is the wave equation.",
+   "how_introduced": "Defined when the residual gauge condition is found; reused in the linearized field equations.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Minkowski metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 221,
+     "printed_page": 206,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 225,
+     "printed_page": 210,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\Box \\equiv \\partial_0^2 - \\partial_1^2 - \\partial_2^2 - \\partial_3^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "electromagnetic waves",
+   "aliases": [
+    "wave equations for E and B"
+   ],
+   "kind": "phenomenon",
+   "definition": "In source-free regions and Lorenz gauge each component of phi^a, and consequently F^ab, E and B, satisfies the wave equation, i.e. propagates at the speed of light.",
+   "how_introduced": "Follows from box phi^a = 0; details left as an exercise. Also cited as part of Maxwell's motive for the displacement current.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Lorenz gauge",
+    "d'Alembertian"
+   ],
+   "locators": [
+    {
+     "pdf_page": 223,
+     "printed_page": 208,
+     "section": "12.5"
+    },
+    {
+     "pdf_page": 226,
+     "printed_page": 211,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\Box\\phi^a = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "antisymmetrized covariant derivative identity",
+   "aliases": [
+    "exterior derivative needs no connection"
+   ],
+   "kind": "identity",
+   "definition": "For a symmetric (torsion-free) connection the Christoffel terms cancel in totally antisymmetrized derivatives, so nabla_[a F_bc] = partial_[a F_bc] for antisymmetric F and nabla_[b phi_a] = partial_[b phi_a] for any covector.",
+   "how_introduced": "Invoked to explain why the internal Maxwell equations and the potential relation keep partial derivatives after covariantization; checked in Exercise 12.8.",
+   "depth": "introduced",
+   "prerequisites": [
+    "covariant derivative",
+    "Christoffel symbols",
+    "antisymmetrization"
+   ],
+   "locators": [
+    {
+     "pdf_page": 226,
+     "printed_page": 211,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{[a}F_{bc]} = \\partial_{[a}F_{bc]}",
+    "\\nabla_{[b}\\phi_{a]} = \\partial_{[b}\\phi_{a]}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Maxwell's equations in curved spacetime",
+   "aliases": [
+    "covariant formulation of Maxwell's equations"
+   ],
+   "kind": "law",
+   "definition": "nabla_b F^ab = j^a and partial_[a F_bc] = 0 with nabla_a j^a = 0 and F_ab = partial_b phi_a - partial_a phi_b, first valid in arbitrary coordinates in flat spacetime and adopted in GR by minimal coupling.",
+   "how_introduced": "Reached by replacing partial with covariant derivatives only where it matters.",
+   "depth": "developed",
+   "prerequisites": [
+    "Maxwell's equations",
+    "antisymmetrized covariant derivative identity",
+    "principle of minimal gravitational coupling"
+   ],
+   "locators": [
+    {
+     "pdf_page": 226,
+     "printed_page": 211,
+     "section": "12.6"
+    }
+   ],
+   "formulas": [
+    "\\nabla_b F^{ab} = j^a",
+    "\\partial_{[a}F_{bc]} = 0",
+    "\\nabla_a j^a = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "first-order variational principle for electromagnetism",
+   "aliases": [
+    "Palatini-type Maxwell Lagrangian"
+   ],
+   "kind": "technique",
+   "definition": "A Lagrangian in which the potential phi_a and the field strength F_ab are varied independently; one set of Euler-Lagrange equations gives the source-free Maxwell equations and the other defines F_ab as the antisymmetric derivative of phi_a.",
+   "how_introduced": "Chosen to derive the Maxwell energy-momentum tensor; parallels the Palatini approach to the Einstein Lagrangian in ch11.",
+   "depth": "developed",
+   "prerequisites": [
+    "Euler-Lagrange field equations",
+    "4-potential",
+    "electromagnetic field tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 226,
+     "printed_page": 211,
+     "section": "12.7"
+    },
+    {
+     "pdf_page": 227,
+     "printed_page": 212,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "\\mathcal{L}_E = \\frac{1}{8\\pi}\\left[-\\tfrac12 F_{ab}F^{ab} + (\\phi_{a,b} - \\phi_{b,a})F^{ab}\\right]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Euler-Lagrange field equations",
+   "aliases": [
+    "variational derivative"
+   ],
+   "kind": "technique",
+   "definition": "For a Lagrangian density depending on fields and their first derivatives, delta L/delta psi = partial L/partial psi - (partial L/partial psi_{,b})_{,b} = 0.",
+   "how_introduced": "Applied to phi_a and F_ab (no derivatives of F appear, so only the partial derivative survives).",
+   "depth": "revisited",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 227,
+     "printed_page": 212,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\delta\\mathcal{L}}{\\delta\\phi_a} = \\frac{\\partial\\mathcal{L}}{\\partial\\phi_a} - \\left(\\frac{\\partial\\mathcal{L}}{\\partial\\phi_{a,b}}\\right)_{,b}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "scalar density",
+   "aliases": [
+    "tensor density of weight one",
+    "sqrt(-g) factor"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A quantity that transforms like a scalar times the Jacobian of the coordinate change, so its integral over coordinates is invariant; sqrt(-g) times a scalar is a scalar density.",
+   "how_introduced": "Mentioned to justify the sqrt(-g) factor in the curved-space Maxwell Lagrangian.",
+   "depth": "revisited",
+   "prerequisites": [
+    "metric determinant"
+   ],
+   "locators": [
+    {
+     "pdf_page": 227,
+     "printed_page": 212,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "\\sqrt{-g}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "metric definition of the energy-momentum tensor",
+   "aliases": [
+    "Hilbert energy-momentum tensor",
+    "variational definition of T_ab"
+   ],
+   "kind": "definition",
+   "definition": "Defining T_ab from a matter Lagrangian density by varying with respect to the inverse metric; in this book's convention delta L_M/delta g^ab = -(sqrt(-g)/2) T_ab.",
+   "how_introduced": "Brought in from ch11 (analogue of 11.51) to extract the Maxwell tensor, and cited again as the way to get T_ab for the scalar field.",
+   "depth": "core",
+   "prerequisites": [
+    "scalar density",
+    "Euler-Lagrange field equations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.7"
+    },
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.8"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\delta\\mathcal{L}}{\\delta g^{ab}} = -\\frac{\\sqrt{-g}}{2}T_{ab}"
+   ],
+   "notes": "Because L_E contains no derivatives of g^ab, the variational derivative equals the ordinary partial derivative."
+  },
+  {
+   "name": "Maxwell energy-momentum tensor",
+   "aliases": [
+    "electromagnetic stress-energy tensor"
+   ],
+   "kind": "physical-quantity",
+   "definition": "T_ab = (1/4 pi)(-g^cd F_ac F_bd + (1/4) g_ab F_cd F^cd) (Gaussian-type normalization, signature +---): symmetric, traceless, divergence-free when source-free Maxwell equations hold, with energy density (E^2 + B^2)/8 pi and momentum density given by the Poynting vector over 4 pi.",
+   "how_introduced": "Derived by metric variation of the curved-space Maxwell Lagrangian and checked against classical energy density and Poynting momentum.",
+   "depth": "core",
+   "prerequisites": [
+    "metric definition of the energy-momentum tensor",
+    "electromagnetic field tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.7"
+    },
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.8"
+    }
+   ],
+   "formulas": [
+    "T_{ab} = \\frac{1}{4\\pi}\\left(-g^{cd}F_{ac}F_{bd} + \\tfrac14 g_{ab}F_{cd}F^{cd}\\right)"
+   ],
+   "notes": "Tracelessness is not stated in the chapter but follows immediately in four dimensions."
+  },
+  {
+   "name": "Einstein-Maxwell equations",
+   "aliases": [
+    "electrovac field equations"
+   ],
+   "kind": "law",
+   "definition": "Einstein's equations with the Maxwell tensor as source (plus Maxwell's equations on the curved background): G_ab = -2 g^cd F_ac F_bd + (1/2) g_ab F_cd F^cd in relativistic units, in source-free regions.",
+   "how_introduced": "Obtained by inserting (12.57) and kappa = 8 pi into the full field equations.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Maxwell energy-momentum tensor",
+    "Einstein coupling constant",
+    "Maxwell's equations in curved spacetime"
+   ],
+   "locators": [
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "G_{ab} = -2g^{cd}F_{ac}F_{bd} + \\tfrac12 g_{ab}F_{cd}F^{cd}"
+   ],
+   "notes": "Solved later for the Reissner-Nordstrom black hole (DIV ch19)."
+  },
+  {
+   "name": "electromagnetic energy density",
+   "aliases": [
+    "field energy density"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The energy per unit volume stored in electric and magnetic fields, T_00 = (E^2 + B^2)/8 pi in the book's normalization.",
+   "how_introduced": "Read off from the Maxwell tensor as a consistency check with electrodynamics.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Maxwell energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "T_{00} = \\frac{1}{8\\pi}(\\mathbf{E}^2 + \\mathbf{B}^2)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Poynting vector",
+   "aliases": [
+    "electromagnetic momentum density",
+    "E x B"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The vector E x B (times a unit-dependent constant) giving the energy flux of the electromagnetic field, which in c = 1 units equals its momentum density.",
+   "how_introduced": "Identified in the time-space components of the Maxwell tensor.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Maxwell energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.7"
+    }
+   ],
+   "formulas": [
+    "(T_{01}, T_{02}, T_{03}) = -\\frac{1}{4\\pi}\\mathbf{E}\\times\\mathbf{B}"
+   ],
+   "notes": "The minus sign belongs to the covariant components; the contravariant T^{0 alpha} = +(E x B)/4 pi is the physical momentum density."
+  },
+  {
+   "name": "ad hoc construction of energy-momentum tensors",
+   "aliases": [
+    "guess-and-check method"
+   ],
+   "kind": "technique",
+   "definition": "Constructing a candidate T^ab from the tensors available in the matter description and testing it by checking that its conservation equations reproduce known non-relativistic physics.",
+   "how_introduced": "Named retrospectively in section 12.8 as the method used for dust and perfect fluid.",
+   "depth": "introduced",
+   "prerequisites": [
+    "energy-momentum conservation law",
+    "Newtonian limit"
+   ],
+   "locators": [
+    {
+     "pdf_page": 228,
+     "printed_page": 213,
+     "section": "12.8"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "superposition of energy-momentum tensors",
+   "aliases": [
+    "adding matter sources"
+   ],
+   "kind": "principle",
+   "definition": "The total energy-momentum tensor of several non-interacting components is the sum of their individual tensors; interacting components need their interaction taken into account.",
+   "how_introduced": "Stated in section 12.8 and illustrated by charged dust.",
+   "depth": "introduced",
+   "prerequisites": [
+    "energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.8"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "charged dust",
+   "aliases": [
+    "charged incoherent matter"
+   ],
+   "kind": "solution-or-model",
+   "definition": "Dust carrying charge together with its electromagnetic field, described by the sum of the dust and Maxwell tensors; the conservation law then yields energy conservation and the Lorentz-force equations of motion.",
+   "how_introduced": "Example of the ad hoc method in section 12.8.",
+   "depth": "mention",
+   "prerequisites": [
+    "incoherent matter (dust)",
+    "Maxwell energy-momentum tensor",
+    "superposition of energy-momentum tensors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.8"
+    }
+   ],
+   "formulas": [
+    "T^{ab} = \\rho_0 u^a u^b + \\frac{1}{4\\pi}\\left(-F^{ac}F^b{}_c + \\tfrac14 g^{ab}F_{cd}F^{cd}\\right)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Klein-Gordon scalar field",
+   "aliases": [
+    "massive scalar field"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A real scalar field whose Lagrangian density is minus one half of sqrt(-g) times the squared gradient of the field minus the mass term m_0^2 phi^2 (book's sign convention); varying the field gives the Klein-Gordon equation, and varying the metric gives its T_ab.",
+   "how_introduced": "Example of the variational method in section 12.8, associated with a spinless particle of rest mass m_0 such as the neutral pion; conservation equations are left as Exercise 12.10.",
+   "depth": "mention",
+   "prerequisites": [
+    "metric definition of the energy-momentum tensor",
+    "Euler-Lagrange field equations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.8"
+    },
+    {
+     "pdf_page": 231,
+     "printed_page": 216,
+     "section": "12.8"
+    }
+   ],
+   "formulas": [
+    "\\mathcal{L}_s = -\\frac{\\sqrt{-g}}{2}\\left(g^{ab}\\nabla_a\\phi\\nabla_b\\phi - m_0^2\\phi^2\\right)"
+   ],
+   "notes": "Units with hbar = 1 are implicit; m_0 then has dimensions of inverse length."
+  },
+  {
+   "name": "frame components",
+   "aliases": [
+    "tetrad components",
+    "orthonormal-frame components"
+   ],
+   "kind": "definition",
+   "definition": "Components of a tensor with respect to a set of basis vectors at a point that is picked out invariantly (for example an orthonormal frame of physically meaningful vectors), as opposed to coordinate components.",
+   "how_introduced": "Motivated by the remark that coordinate components have no invariant meaning.",
+   "depth": "introduced",
+   "prerequisites": [
+    "tensor",
+    "orthonormal frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.9"
+    }
+   ],
+   "formulas": [
+    "T_{ij} = T_{ab}e_i{}^a e_j{}^b"
+   ],
+   "notes": null
+  },
+  {
+   "name": "eigenvalue problem for the energy-momentum tensor",
+   "aliases": [
+    "Hawking-Ellis type I decomposition",
+    "eigenframe of T_a^b"
+   ],
+   "kind": "technique",
+   "definition": "Solving T_a^b u^a = lambda u^b via det(T_a^b - lambda delta_a^b) = 0; when there is one timelike and three spacelike eigenvectors they form an orthonormal frame in which T_ab is diagonal.",
+   "how_introduced": "Used to construct the invariant frame in section 12.9.",
+   "depth": "introduced",
+   "prerequisites": [
+    "frame components",
+    "eigenvalues and eigenvectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.9"
+    }
+   ],
+   "formulas": [
+    "T_a{}^b u^a = \\lambda u^b",
+    "\\det(T_a{}^b - \\lambda\\delta_a^b) = 0"
+   ],
+   "notes": "Not every physically reasonable T_ab has a timelike eigenvector: a null electromagnetic wave or null dust does not (Hawking-Ellis type II)."
+  },
+  {
+   "name": "energy density (eigenvalue)",
+   "aliases": [
+    "mu",
+    "rest-frame energy density",
+    "4-velocity of the medium"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The eigenvalue mu belonging to the timelike eigenvector of T_a^b; that unit eigenvector e_0 defines the 4-velocity of the medium, and mu is the energy density it measures.",
+   "how_introduced": "Read off from the diagonal frame form.",
+   "depth": "introduced",
+   "prerequisites": [
+    "eigenvalue problem for the energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 229,
+     "printed_page": 214,
+     "section": "12.9"
+    },
+    {
+     "pdf_page": 230,
+     "printed_page": 215,
+     "section": "12.9"
+    }
+   ],
+   "formulas": [
+    "T_{ij} = \\mathrm{diag}(\\mu, p_1, p_2, p_3)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "principal stresses",
+   "aliases": [
+    "principal pressures",
+    "principal axes of stress"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The frame components p_1, p_2, p_3 of T_ab along the three spacelike eigenvectors (the principal axes of stress) in the rest frame of the medium.",
+   "how_introduced": "Read off from the diagonal frame form; equal stresses give a perfect fluid, zero stresses give dust.",
+   "depth": "introduced",
+   "prerequisites": [
+    "eigenvalue problem for the energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 230,
+     "printed_page": 215,
+     "section": "12.9"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "dominant energy condition",
+   "aliases": [
+    "DEC"
+   ],
+   "kind": "principle",
+   "definition": "In the eigenframe, mu >= 0 and -mu <= p_alpha <= mu: energy density is non-negative and no principal stress exceeds it in magnitude. (Invariant form, not in the chapter: for every future-directed timelike v, T_ab v^a v^b >= 0 and the energy-flux vector T^a_b v^b is future-directed and non-spacelike.)",
+   "how_introduced": "Presented as the criterion that a proposed T_ab describe physically realistic matter, citing Hawking and Ellis, and glossed as sound not travelling faster than light.",
+   "depth": "core",
+   "prerequisites": [
+    "energy density (eigenvalue)",
+    "principal stresses"
+   ],
+   "locators": [
+    {
+     "pdf_page": 230,
+     "printed_page": 215,
+     "section": "12.9"
+    }
+   ],
+   "formulas": [
+    "\\mu \\geq 0, \\quad -\\mu \\leq p_\\alpha \\leq \\mu"
+   ],
+   "notes": "The weak and strong energy conditions are deferred to the singularity theorems (DIV ch20 section 20.13), per the further-reading note. The invariant form in parentheses is standard but not given in the chapter. The book's gloss equating the stress bound with a sub-luminal sound speed is imprecise (see gaps)."
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(12.1)",
+   "name": "Dust energy-momentum tensor",
+   "latex": "T^{ab} = \\rho_0 u^a u^b",
+   "meaning": "The simplest symmetric rank-2 tensor built from the flow velocity and proper density; adopted as the energy-momentum tensor of pressureless matter in SR and GR.",
+   "symbols": "rho_0 proper density; u^a = dx^a/d tau 4-velocity",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 218,
+    "printed_page": 203,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.2)",
+   "name": "4-velocity in Minkowski coordinates",
+   "latex": "u^a = \\gamma(1, \\mathbf{u}), \\qquad \\gamma = (1-u^2)^{-1/2}",
+   "meaning": "Components of the flow 4-velocity in terms of the ordinary 3-velocity.",
+   "symbols": "u 3-velocity, gamma Lorentz factor (c = 1)",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.3)",
+   "name": "Proper time along a dust world-line",
+   "latex": "d\\tau^2 = \\eta_{ab}dx^a dx^b = dt^2 - dx^2 - dy^2 - dz^2 = dt^2(1-u^2) = \\gamma^{-2}dt^2",
+   "meaning": "Relates proper time to coordinate time for a particle moving with speed u.",
+   "symbols": "eta_ab Minkowski metric, signature (+,-,-,-)",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.4)",
+   "name": null,
+   "latex": "T^{00} = \\rho_0\\frac{dx^0}{d\\tau}\\frac{dx^0}{d\\tau} = \\rho_0\\frac{dt^2}{d\\tau^2} = \\gamma^2\\rho_0",
+   "meaning": "The time-time component of the dust tensor exceeds the proper density by gamma squared.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.5)",
+   "name": "Measured density of moving dust",
+   "latex": "\\rho = \\gamma^2\\rho_0",
+   "meaning": "Density (energy density) seen by a stationary observer: gamma from energy per particle times gamma from Lorentz contraction.",
+   "symbols": "rho measured density",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.6)",
+   "name": "Component matrix of the dust tensor",
+   "latex": "T^{ab} = \\rho\\begin{pmatrix}1 & u_x & u_y & u_z\\\\ u_x & u_x^2 & u_xu_y & u_xu_z\\\\ u_y & u_xu_y & u_y^2 & u_yu_z\\\\ u_z & u_xu_z & u_yu_z & u_z^2\\end{pmatrix}",
+   "meaning": "Energy density in the corner, momentum density (= energy flux) in the first row and column, momentum flux rho u_i u_j in the spatial block.",
+   "symbols": "u_x, u_y, u_z are 3-velocity components, not covariant 4-velocity components",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.7)",
+   "name": "Energy-momentum conservation (Minkowski coordinates)",
+   "latex": "\\partial_b T^{ab} = 0",
+   "meaning": "Zero divergence of T^ab; encodes the force-free equations of motion of dust and, generally, conservation of energy and momentum.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Time component of (12.7) for dust",
+   "latex": "\\frac{\\partial\\rho}{\\partial t} + \\frac{\\partial}{\\partial x}(\\rho u_x) + \\frac{\\partial}{\\partial y}(\\rho u_y) + \\frac{\\partial}{\\partial z}(\\rho u_z) = 0",
+   "meaning": "Component form of the a = 0 conservation equation.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.8)",
+   "name": "Continuity equation",
+   "latex": "\\frac{\\partial\\rho}{\\partial t} + \\mathrm{div}(\\rho\\mathbf{u}) = 0",
+   "meaning": "Matter (here energy) conservation for a flowing medium.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Space components of (12.7) for dust",
+   "latex": "\\frac{\\partial}{\\partial t}(\\rho\\mathbf{u}) + \\frac{\\partial}{\\partial x}(\\rho u_x\\mathbf{u}) + \\frac{\\partial}{\\partial y}(\\rho u_y\\mathbf{u}) + \\frac{\\partial}{\\partial z}(\\rho u_z\\mathbf{u}) = \\mathbf{0}",
+   "meaning": "Momentum conservation: rate of change of momentum density plus divergence of momentum flux vanishes.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.9)",
+   "name": "Pressure-free Euler equation",
+   "latex": "\\rho\\left[\\frac{\\partial\\mathbf{u}}{\\partial t} + (\\mathbf{u}\\cdot\\nabla)\\mathbf{u}\\right] = \\mathbf{0}",
+   "meaning": "Each dust element moves with zero acceleration (convective derivative of velocity vanishes): free motion.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.10)",
+   "name": "Euler equation (book: Navier-Stokes)",
+   "latex": "\\rho\\left[\\frac{\\partial\\mathbf{u}}{\\partial t} + (\\mathbf{u}\\cdot\\nabla)\\mathbf{u}\\right] = -\\mathrm{grad}\\,p + \\rho\\mathbf{X}",
+   "meaning": "Classical equation of motion of an inviscid fluid with pressure p and body force X per unit mass.",
+   "symbols": "p pressure, X body force per unit mass",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.11)",
+   "name": "Covariant conservation law",
+   "latex": "\\nabla_b T^{ab} = 0",
+   "meaning": "Form of the conservation law in arbitrary coordinates, adopted in GR by minimal coupling.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.12)",
+   "name": "Weak-field metric",
+   "latex": "g_{ab} = \\eta_{ab} + \\varepsilon h_{ab} + O(\\varepsilon^2)",
+   "meaning": "Metric as small perturbation of Minkowski.",
+   "symbols": "epsilon small bookkeeping parameter, h_ab perturbation",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Linearized Einstein tensor (gauge 21.24)",
+   "latex": "G_{ab} = -\\tfrac12\\varepsilon\\,\\Box\\left(h_{ab} - \\tfrac12\\eta_{ab}\\eta^{cd}h_{cd}\\right) + O(\\varepsilon^2)",
+   "meaning": "Quoted from ch21: in harmonic gauge the Einstein tensor is a wave operator on the trace-reversed perturbation.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.13)",
+   "name": "Linearized field equations",
+   "latex": "-\\tfrac12\\varepsilon\\,\\Box\\left(h_{ab} - \\tfrac12\\eta_{ab}\\eta^{cd}h_{cd}\\right) = \\kappa T_{ab} + O(\\varepsilon^2)",
+   "meaning": "G_ab = kappa T_ab to first order in the perturbation.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.14)",
+   "name": "Trace-reversed slow-motion equations",
+   "latex": "\\tfrac12\\varepsilon\\nabla^2 h_{ab} = \\kappa\\left(T_{ab} - \\tfrac12\\eta_{ab}\\eta^{cd}T_{cd}\\right) + O(\\varepsilon^2)",
+   "meaning": "After taking the trace and neglecting time derivatives: each metric perturbation obeys a Poisson equation with trace-reversed source.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.15)",
+   "name": "Slow dilute dust source",
+   "latex": "T^{ab} = c^2\\rho_0\\,\\delta^a_0\\delta^b_0",
+   "meaning": "Only the energy density survives for slowly moving, low-density dust (non-relativistic units).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.16)",
+   "name": null,
+   "latex": "T_{ab} = c^2\\rho_0\\,\\delta_a^0\\delta_b^0, \\qquad \\eta^{cd}T_{cd} = c^2\\rho_0",
+   "meaning": "Lowered components and trace of the slow dust tensor.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.17)",
+   "name": "00 equation",
+   "latex": "\\varepsilon\\nabla^2 h_{00} = c^2\\kappa\\rho_0 + O(\\varepsilon^2)",
+   "meaning": "The time-time metric perturbation obeys a Poisson equation sourced by mass density.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "g_00 from the potential (via 10.49)",
+   "latex": "g_{00} = 1 + \\varepsilon h_{00} + O(\\varepsilon^2), \\qquad \\nabla^2 g_{00} = \\nabla^2\\left(\\frac{2\\phi}{c^2}\\right) + O(\\varepsilon)",
+   "meaning": "Connects h_00 to the Newtonian potential using the geodesic-equation correspondence from ch10.",
+   "symbols": "phi Newtonian potential",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Recovered Poisson equation",
+   "latex": "\\nabla^2\\phi = \\tfrac12 c^4\\kappa\\rho_0 + O(\\varepsilon) \\quad\\text{vs}\\quad \\nabla^2\\phi = 4\\pi G\\rho_0",
+   "meaning": "Matching the relativistic 00 equation with Newton's field equation.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.18)",
+   "name": "Einstein coupling constant",
+   "latex": "\\kappa = \\frac{8\\pi G}{c^4}",
+   "meaning": "Value of kappa forced by the Newtonian limit.",
+   "symbols": "G Newton's constant",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.19)",
+   "name": null,
+   "latex": "\\kappa = 8\\pi",
+   "meaning": "Coupling constant in relativistic units (G = c = 1).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.20)",
+   "name": "Perfect-fluid ansatz",
+   "latex": "T^{ab} = \\rho_0 u^a u^b + p S^{ab}",
+   "meaning": "Dust term plus a pressure term with unknown symmetric tensor S^ab, reducing to dust when p = 0.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.21)",
+   "name": null,
+   "latex": "S^{ab} = \\lambda u^a u^b + \\mu g^{ab}",
+   "meaning": "Most general S^ab built linearly from the available tensors with constant coefficients.",
+   "symbols": "lambda, mu constants (mu not the energy eigenvalue of 12.9)",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.22)",
+   "name": "Perfect-fluid energy-momentum tensor",
+   "latex": "T^{ab} = (\\rho_0 + p)u^a u^b - p g^{ab}",
+   "meaning": "Fixed by lambda = 1, mu = -1; in the rest frame T^ab = diag(rho_0, p, p, p) with signature (+,-,-,-).",
+   "symbols": "p isotropic pressure",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Barotropic equation of state",
+   "latex": "p = p(\\rho)",
+   "meaning": "Pressure as a function of density only (temperature effectively constant).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.23)",
+   "name": "Gauss's law",
+   "latex": "\\mathrm{div}\\,\\mathbf{E} = \\rho",
+   "meaning": "Source equation: electric flux sourced by charge (Heaviside-Lorentz, c = 1).",
+   "symbols": "rho charge density here",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.24)",
+   "name": "Ampere-Maxwell law",
+   "latex": "\\mathrm{curl}\\,\\mathbf{B} - \\frac{\\partial\\mathbf{E}}{\\partial t} = \\mathbf{j}",
+   "meaning": "Source equation: magnetic circulation from current and displacement current.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.25)",
+   "name": "No magnetic monopoles",
+   "latex": "\\mathrm{div}\\,\\mathbf{B} = 0",
+   "meaning": "Internal equation.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.26)",
+   "name": "Faraday's law",
+   "latex": "\\mathrm{curl}\\,\\mathbf{E} + \\frac{\\partial\\mathbf{B}}{\\partial t} = \\mathbf{0}",
+   "meaning": "Internal equation.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": null,
+   "name": null,
+   "latex": "\\mathrm{div}\\left(\\frac{\\partial\\mathbf{E}}{\\partial t}\\right) = \\frac{\\partial\\rho}{\\partial t}, \\qquad -\\mathrm{div}\\left(\\frac{\\partial\\mathbf{E}}{\\partial t}\\right) = \\mathrm{div}\\,\\mathbf{j}",
+   "meaning": "Time derivative of Gauss's law and divergence of the Ampere-Maxwell law, whose sum gives charge conservation.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.27)",
+   "name": "Charge continuity",
+   "latex": "\\frac{\\partial\\rho}{\\partial t} + \\mathrm{div}\\,\\mathbf{j} = 0",
+   "meaning": "Charge conservation forced by the source equations; same form as (12.8) if j = rho u.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.28)",
+   "name": "Electromagnetic field tensor",
+   "latex": "F^{ab} = \\begin{pmatrix}0 & E_x & E_y & E_z\\\\ -E_x & 0 & B_z & -B_y\\\\ -E_y & -B_z & 0 & B_x\\\\ -E_z & B_y & -B_x & 0\\end{pmatrix}",
+   "meaning": "Antisymmetric array packaging E and B.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.29)",
+   "name": "Current 4-vector",
+   "latex": "j^a = (\\rho, \\mathbf{j})",
+   "meaning": "Charge and current densities as one 4-vector.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.30)",
+   "name": "Source equations in tensor form",
+   "latex": "\\partial_b F^{ab} = j^a",
+   "meaning": "Gauss plus Ampere-Maxwell.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.31)",
+   "name": "Internal equations in tensor form",
+   "latex": "\\partial_a F_{bc} + \\partial_c F_{ab} + \\partial_b F_{ca} = 0",
+   "meaning": "No-monopole plus Faraday laws.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.32)",
+   "name": null,
+   "latex": "\\partial_{[a}F_{bc]} = 0",
+   "meaning": "Compact antisymmetrized form of (12.31), valid because F_ab is antisymmetric.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.33)",
+   "name": null,
+   "latex": "\\partial_a j^a = 0",
+   "meaning": "Charge conservation as a 4-divergence; an identity by (12.30) and antisymmetry of F.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "label": "(12.34)",
+   "name": null,
+   "latex": "\\mathbf{E} = -\\mathrm{grad}\\,\\phi - \\frac{\\partial\\mathbf{A}}{\\partial t}",
+   "meaning": "Electric field from potentials.",
+   "symbols": "phi scalar potential, A vector potential",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.35)",
+   "name": null,
+   "latex": "\\mathbf{B} = \\mathrm{curl}\\,\\mathbf{A}",
+   "meaning": "Magnetic field from vector potential.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.36)",
+   "name": "4-potential",
+   "latex": "\\phi^a = (\\phi, \\mathbf{A})",
+   "meaning": "Scalar and vector potentials combined.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.37)",
+   "name": "Field tensor from potential",
+   "latex": "F_{ab} = \\partial_b\\phi_a - \\partial_a\\phi_b",
+   "meaning": "Equivalent to (12.34)-(12.35); makes the internal equations identities.",
+   "symbols": "note index order",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.38)",
+   "name": "Gauge transformation",
+   "latex": "\\phi_a \\to \\bar\\phi_a = \\phi_a + \\partial_a\\psi",
+   "meaning": "Changes the potential but not F_ab.",
+   "symbols": "psi arbitrary scalar",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.39)",
+   "name": "Lorenz gauge condition",
+   "latex": "\\eta^{ab}\\phi_{a,b} = \\phi^a{}_{,a} = 0",
+   "meaning": "Gauge condition used for radiation.",
+   "symbols": "comma denotes partial derivative",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.40)",
+   "name": "Residual gauge condition",
+   "latex": "\\Box\\psi \\equiv \\eta^{ab}\\psi_{,ab} = 0",
+   "meaning": "Gauge functions preserving the Lorenz gauge satisfy the wave equation.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": null,
+   "name": "d'Alembertian",
+   "latex": "\\Box \\equiv \\partial_0^2 - \\partial_1^2 - \\partial_2^2 - \\partial_3^2",
+   "meaning": "Wave operator in signature (+,-,-,-).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.41)",
+   "name": null,
+   "latex": "\\partial_b\\left[\\eta^{ac}\\eta^{bd}(\\partial_d\\phi_c - \\partial_c\\phi_d)\\right] = j^a",
+   "meaning": "Source equations in terms of the 4-potential.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.42)",
+   "name": "Maxwell equations in Lorenz gauge",
+   "latex": "\\Box\\phi^a = j^a",
+   "meaning": "Each potential component obeys a sourced wave equation.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.43)",
+   "name": null,
+   "latex": "\\Box\\phi^a = 0",
+   "meaning": "Source-free wave equation; hence E and B also satisfy wave equations.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.44)",
+   "name": null,
+   "latex": "\\nabla_{[a}F_{bc]} = \\partial_{[a}F_{bc]}",
+   "meaning": "Connection terms cancel for the antisymmetrized derivative of an antisymmetric tensor.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.45)",
+   "name": null,
+   "latex": "\\nabla_{[b}\\phi_{a]} = \\partial_{[b}\\phi_{a]}",
+   "meaning": "Connection terms cancel in the antisymmetrized derivative of a covector.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.46)",
+   "name": "Covariant source equations",
+   "latex": "\\nabla_b F^{ab} = j^a",
+   "meaning": "Maxwell source equations in general coordinates; adopted in GR.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.47)",
+   "name": "Covariant internal equations",
+   "latex": "\\partial_{[a}F_{bc]} = 0",
+   "meaning": "Unchanged under covariantization.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.48)",
+   "name": null,
+   "latex": "\\nabla_a j^a = 0",
+   "meaning": "Covariant charge conservation.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.49)",
+   "name": null,
+   "latex": "F_{ab} = \\partial_b\\phi_a - \\partial_a\\phi_b",
+   "meaning": "Potential relation needs no covariant derivatives.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   }
+  },
+  {
+   "label": "(12.50)",
+   "name": "First-order Maxwell Lagrangian",
+   "latex": "\\mathcal{L}_E(\\phi_a, F_{ab}) = \\frac{1}{8\\pi}\\left[-\\tfrac12 F_{ab}F^{ab} + (\\phi_{a,b} - \\phi_{b,a})F^{ab}\\right]",
+   "meaning": "Lagrangian with phi_a and F_ab as independent fields, in flat spacetime, source-free.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Variation with respect to phi_a",
+   "latex": "\\frac{\\delta\\mathcal{L}_E}{\\delta\\phi_a} = \\frac{\\partial\\mathcal{L}_E}{\\partial\\phi_a} - \\left(\\frac{\\partial\\mathcal{L}_E}{\\partial\\phi_{a,b}}\\right)_{,b} = 0 - \\frac{1}{8\\pi}(F^{ab} - F^{ba})_{,b}",
+   "meaning": "Only the derivative term of L_E depends on phi.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.51)",
+   "name": null,
+   "latex": "(F^{ab} - F^{ba})_{,b} = 0",
+   "meaning": "Field equation from varying phi_a.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Variation with respect to F_ab",
+   "latex": "\\frac{\\delta\\mathcal{L}_E}{\\delta F_{ab}} = \\frac{\\partial\\mathcal{L}_E}{\\partial F_{ab}} = \\frac{1}{8\\pi}\\eta^{ac}\\eta^{bd}\\left[-F_{cd} + (\\phi_{c,d} - \\phi_{d,c})\\right]",
+   "meaning": "Treating all sixteen F_ab as independent; the quadratic term contributes twice.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.52)",
+   "name": null,
+   "latex": "F_{ab} = \\phi_{a,b} - \\phi_{b,a}",
+   "meaning": "Field equation from varying F_ab: F is the antisymmetric derivative of phi (so F is antisymmetric and internal equations hold).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Source-free Maxwell equations recovered",
+   "latex": "F^{ab}{}_{,b} = 0",
+   "meaning": "(12.51) once F is antisymmetric.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.53)",
+   "name": null,
+   "latex": "\\mathcal{L}_E = \\frac{1}{16\\pi}\\eta^{ac}\\eta^{bd}F_{ab}F_{cd}",
+   "meaning": "On-shell (second-order) Maxwell Lagrangian.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.54)",
+   "name": "Curved-space Maxwell Lagrangian",
+   "latex": "\\mathcal{L}_E = \\frac{\\sqrt{-g}}{16\\pi}g^{ac}g^{bd}F_{ab}F_{cd}",
+   "meaning": "Scalar-density Lagrangian in GR.",
+   "symbols": "g determinant of g_ab",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.55)",
+   "name": null,
+   "latex": "\\frac{\\partial\\mathcal{L}_E}{\\partial g^{ab}} = -\\frac{\\sqrt{-g}}{8\\pi}\\left(-g^{cd}F_{ac}F_{bd} + \\tfrac14 g_{ab}F_{cd}F^{cd}\\right)",
+   "meaning": "Metric derivative, including delta sqrt(-g) = -(1/2) sqrt(-g) g_ab delta g^ab.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.56)",
+   "name": "Metric definition of T_ab (book's sign convention)",
+   "latex": "\\frac{\\delta\\mathcal{L}}{\\delta g^{ab}} = -\\frac{\\sqrt{-g}}{2}T_{ab}",
+   "meaning": "Contravariant-metric analogue of (11.51); defines T_ab from any matter Lagrangian.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.57)",
+   "name": "Maxwell energy-momentum tensor",
+   "latex": "T_{ab} = \\frac{1}{4\\pi}\\left(-g^{cd}F_{ac}F_{bd} + \\tfrac14 g_{ab}F_{cd}F^{cd}\\right)",
+   "meaning": "Stress-energy of the source-free electromagnetic field.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.58)",
+   "name": "Einstein-Maxwell equations",
+   "latex": "G_{ab} = -2g^{cd}F_{ac}F_{bd} + \\tfrac12 g_{ab}F_{cd}F^{cd}",
+   "meaning": "Field equations with electromagnetic source, relativistic units.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.59)",
+   "name": "Electromagnetic energy density",
+   "latex": "T_{00} = \\frac{1}{8\\pi}(\\mathbf{E}^2 + \\mathbf{B}^2)",
+   "meaning": "Agrees with classical electrodynamics (Gaussian normalization).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.60)",
+   "name": "Electromagnetic momentum density",
+   "latex": "(T_{01}, T_{02}, T_{03}) = -\\frac{1}{4\\pi}\\mathbf{E}\\times\\mathbf{B}",
+   "meaning": "Covariant time-space components; the contravariant T^{0 alpha} = +(E x B)/4 pi is the Poynting momentum density.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.61)",
+   "name": null,
+   "latex": "\\nabla_b T^{ab} = 0",
+   "meaning": "The Maxwell tensor is conserved as a consequence of the source-free Maxwell equations.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "label": "(12.62)",
+   "name": "Charged dust",
+   "latex": "T^{ab} = \\rho_0 u^a u^b + \\frac{1}{4\\pi}\\left(-F^{ac}F^b{}_c + \\tfrac14 g^{ab}F_{cd}F^{cd}\\right)",
+   "meaning": "Dust plus Maxwell tensor (text export garbled this; transcribed from the page render).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.8"
+   }
+  },
+  {
+   "label": "(12.63)",
+   "name": "Massive scalar field Lagrangian",
+   "latex": "\\mathcal{L}_s = -\\frac{\\sqrt{-g}}{2}\\left(g^{ab}\\nabla_a\\phi\\nabla_b\\phi - m_0^2\\phi^2\\right)",
+   "meaning": "Klein-Gordon Lagrangian (book's sign convention); T_ab follows from (12.56).",
+   "symbols": "m_0 rest mass (hbar = c = 1)",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.8"
+   }
+  },
+  {
+   "label": null,
+   "name": "Eigenvalue equation for T",
+   "latex": "T_a{}^b u^a = \\lambda u^b, \\qquad \\det(T_a{}^b - \\lambda\\delta_a^b) = 0",
+   "meaning": "Defines the invariant frame of the medium.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.9"
+   }
+  },
+  {
+   "label": null,
+   "name": "Frame components",
+   "latex": "T_{ij} = T_{ab}e_i{}^a e_j{}^b = \\mathrm{diag}(\\mu, p_1, p_2, p_3)",
+   "meaning": "In the eigenframe T is diagonal: energy density and principal stresses.",
+   "symbols": "e_i^a orthonormal eigenframe, i = 0..3",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.9"
+   }
+  },
+  {
+   "label": "(12.64)",
+   "name": "Dominant energy condition",
+   "latex": "\\mu \\geq 0, \\qquad -\\mu \\leq p_\\alpha \\leq \\mu",
+   "meaning": "Energy density non-negative and dominating every principal stress.",
+   "symbols": "alpha = 1, 2, 3",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 12.1",
+   "image_path": "dinverno/pages/page-218/img-86.jpeg",
+   "locator": {
+    "pdf_page": 218,
+    "printed_page": 203,
+    "section": "12.2"
+   },
+   "caption_paraphrase": "A family of dust-particle world-lines.",
+   "visual_description": "Nine roughly parallel, non-intersecting curves stand side by side with no axes (time implicitly upward). Each rises from the bottom almost vertically, leaning slightly, and above a certain height bends gently to the right. At the same height on every curve, about three quarters of the way up, sits a solid dot, and from each dot a short straight arrow points straight up, tangent to the curve at that dot, so that above the dots the arrow and the continuing, right-bending curve visibly separate. Only the leftmost dot carries a label, u^a, identifying the arrows as the 4-velocity vectors of the flow.",
+   "what_it_teaches": "Dust is a congruence of non-crossing timelike world-lines, one through each event, and the 4-velocity field is the field of unit tangent vectors to that congruence; proper time is measured along each curve.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "incoherent matter (dust)",
+    "4-velocity field",
+    "proper density"
+   ],
+   "redesign": {
+    "idea": "Dust tube explorer: a 1+1 spacetime diagram of a flowing dust congruence next to a spatial strip showing the particles at one moment. A small box moves with the flow (co-moving) and a second box sits still. The panel shows T^00, T^01 and T^11 and the gamma^2 split into 'energy per particle' and 'particles per volume'.",
+    "interaction": "Drag a velocity slider (and optionally make velocity vary along x to show compression). World-lines tilt, the tangent 4-velocity arrows update, the spatial spacing Lorentz-contracts in the lab view, and the density bars show rho_0, gamma rho_0 and gamma^2 rho_0. A toggle boosts into the co-moving frame, where the matrix collapses to diag(rho_0, 0, 0, 0).",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Inline: energy density of moving dust (eqs 12.2-12.6)",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   },
+   "problem": "Compute the components of T^ab = rho_0 u^a u^b for dust moving with 3-velocity u in Minkowski coordinates and interpret T^00.",
+   "method": "Write u^a = gamma(1, u), obtain d tau = dt/gamma from the line element, compute T^00 = rho_0 (dt/d tau)^2, then factor gamma^2 rho_0 out of every component.",
+   "key_insight": "The two gamma factors have separate physical origins: one from increased energy per particle and one from Lorentz contraction of the volume.",
+   "result": "T^00 = gamma^2 rho_0 = rho; T^{0i} = rho u_i; T^{ij} = rho u_i u_j.",
+   "concepts": [
+    "density enhancement by gamma squared",
+    "4-velocity field",
+    "proper density"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Inline: dust conservation law gives fluid equations (eqs 12.7-12.10)",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   },
+   "problem": "Show that partial_b T^ab = 0 for dust is equivalent to the continuity equation and the pressure-free Euler equation.",
+   "method": "Take a = 0 with the matrix (12.6) to get continuity. Take a = alpha to get a momentum-flux equation, expand the product derivatives and subtract u times the continuity equation, leaving rho times the convective derivative of u.",
+   "key_insight": "A single tensor equation packages both energy (mass) conservation and the equation of motion; comparing with the Euler equation identifies dust as a fluid with no pressure and no body force. The result is exact in SR for dust once rho = gamma^2 rho_0.",
+   "result": "partial rho/partial t + div(rho u) = 0 and rho[partial_t u + (u . grad) u] = 0.",
+   "concepts": [
+    "energy-momentum conservation law",
+    "continuity equation",
+    "Euler equation"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Inline: the coupling constant from the Newtonian limit (eqs 12.12-12.19)",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   },
+   "problem": "Determine kappa in G_ab = kappa T_ab by requiring weak-field, slow-motion dust to obey Newtonian gravity.",
+   "method": "Linearize the metric; use the harmonic-gauge Einstein tensor from ch21; contract with eta^ab to relate the traces and solve for box h_ab; drop time derivatives; insert a source whose only non-zero lowered component is the 00 entry c^2 rho_0 (so the trace is also c^2 rho_0); take the 00 component; replace h_00 by 2 phi/c^2; compare with nabla^2 phi = 4 pi G rho_0.",
+   "key_insight": "Trace reversal halves the effective source of h_00 (T_00 - T/2 = c^2 rho_0/2), and g_00 carries 2 phi/c^2; together these fix the factor 8 pi.",
+   "result": "kappa = 8 pi G/c^4 (8 pi in units with G = c = 1).",
+   "concepts": [
+    "Einstein coupling constant",
+    "Newtonian limit",
+    "trace-reversed field equations",
+    "linearized field equations"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Inline: fixing the perfect-fluid tensor (eqs 12.20-12.22, Exercise 12.3)",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   },
+   "problem": "Find constants lambda and mu in T^ab = rho_0 u^a u^b + p(lambda u^a u^b + mu g^ab) so that the conservation law gives the classical fluid equations.",
+   "method": "Outlined only: expand partial_b T^ab = 0 in Minkowski coordinates at low speed and match the space components to the Euler equation with pressure gradient, and the time component to continuity; full working is Exercise 12.3.",
+   "key_insight": "The pressure-gradient force requires mu = -1 (the metric term supplies grad p with the right sign in signature +---); lambda = 1 makes the rest-frame energy density equal rho_0 (lambda + mu = 0) and supplies the relativistic (rho_0 + p) inertia, a point the Newtonian limit alone does not settle.",
+   "result": "T^ab = (rho_0 + p) u^a u^b - p g^ab.",
+   "concepts": [
+    "perfect fluid",
+    "Euler equation",
+    "ad hoc construction of energy-momentum tensors"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Inline: charge conservation from Maxwell's source equations (eq. 12.27)",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   },
+   "problem": "Show that charge and current densities cannot be prescribed independently in Maxwell theory.",
+   "method": "Differentiate Gauss's law with respect to time, take the divergence of the Ampere-Maxwell law (div curl = 0), and add.",
+   "key_insight": "The displacement current is what makes the source equations consistent with charge conservation; in tensor form this is the antisymmetry of F^ab killing partial_a partial_b F^ab.",
+   "result": "partial rho/partial t + div j = 0, i.e. partial_a j^a = 0.",
+   "concepts": [
+    "charge conservation",
+    "Maxwell's equations"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Inline: Maxwell's equations as wave equations (eqs 12.37-12.43)",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   },
+   "problem": "Express the source equations in terms of the 4-potential and simplify them with a gauge condition.",
+   "method": "Substitute F_ab = partial_b phi_a - partial_a phi_b into partial_b F^ab = j^a, raise indices with eta, impose partial_a phi^a = 0 so the gradient-of-divergence term drops, and check which gauge transformations preserve the condition.",
+   "key_insight": "Gauge freedom can be spent to decouple the four potential components into independent wave equations; a leftover freedom (box psi = 0) remains.",
+   "result": "box phi^a = j^a, and box phi^a = 0 in source-free regions.",
+   "concepts": [
+    "4-potential",
+    "Lorenz gauge",
+    "residual gauge freedom",
+    "d'Alembertian"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Inline: Maxwell equations from a first-order Lagrangian (eqs 12.50-12.53)",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   },
+   "problem": "Derive the source-free Maxwell equations and the relation between F and phi from a Lagrangian with independent phi_a and F_ab.",
+   "method": "Euler-Lagrange derivative with respect to phi_a (only the phi_{a,b} F^ab term contributes); ordinary derivative with respect to F_ab after writing indices explicitly with eta, collecting the two identical contributions of the quadratic term.",
+   "key_insight": "Antisymmetry of F is not assumed but emerges from the F-equation; substituting it back gives the familiar (1/16 pi) F_ab F^ab Lagrangian.",
+   "result": "F_ab = phi_{a,b} - phi_{b,a} and F^ab_{,b} = 0; L_E = (1/16 pi) eta^ac eta^bd F_ab F_cd on shell.",
+   "concepts": [
+    "first-order variational principle for electromagnetism",
+    "Euler-Lagrange field equations"
+   ],
+   "difficulty": "challenging"
+  },
+  {
+   "label": "Inline: Maxwell energy-momentum tensor by metric variation (eqs 12.54-12.61)",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   },
+   "problem": "Obtain T_ab for the electromagnetic field from the curved-space Lagrangian and check its physical components.",
+   "method": "Differentiate sqrt(-g) g^ac g^bd F_ab F_cd /16 pi with respect to g^ab, using the product rule for the two inverse metrics and delta sqrt(-g) = -(1/2) sqrt(-g) g_ab delta g^ab; equate to -(sqrt(-g)/2) T_ab; evaluate T_00 and T_0alpha in Minkowski coordinates with (12.28).",
+   "key_insight": "Energy density and Poynting momentum drop out of pure geometry: the response of the field Lagrangian to a change of metric.",
+   "result": "T_ab = (1/4 pi)(-g^cd F_ac F_bd + (1/4) g_ab F_cd F^cd); T_00 = (E^2 + B^2)/8 pi; T_0alpha = -(E x B)_alpha/4 pi; G_ab = -2 g^cd F_ac F_bd + (1/2) g_ab F^2.",
+   "concepts": [
+    "metric definition of the energy-momentum tensor",
+    "Maxwell energy-momentum tensor",
+    "Einstein-Maxwell equations",
+    "Poynting vector"
+   ],
+   "difficulty": "challenging"
+  },
+  {
+   "label": "Inline: eigenframe reduction and special cases (eq. 12.64)",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.9"
+   },
+   "problem": "Give an invariant physical reading of a general T_ab and see where dust and perfect fluid fit.",
+   "method": "Solve the eigenvalue problem for T_a^b, normalize the eigenvectors into an orthonormal frame, write the frame components as a diagonal matrix, impose the dominant energy condition, and specialize the stresses.",
+   "key_insight": "Any type-I matter is locally 'a medium at rest with energy density mu and three principal stresses'; the perfect fluid is the isotropic case and dust the stress-free case.",
+   "result": "T_ij = diag(mu, p_1, p_2, p_3); p_alpha = p gives (12.22) with mu = rho_0; p_alpha = 0 gives (12.1).",
+   "concepts": [
+    "eigenvalue problem for the energy-momentum tensor",
+    "principal stresses",
+    "dominant energy condition"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Moving dust looks denser for two independent reasons: each particle carries more energy (relativistic mass up by gamma) and the box holding them is squashed (Lorentz contraction), so the effects multiply.",
+   "target_concept": "density enhancement by gamma squared",
+   "how_used": "Used to give T^00 = gamma^2 rho_0 an immediate physical meaning before the component matrix is written.",
+   "limits": "Leans on relativistic mass, a notion many modern courses avoid; better phrased as energy per particle gamma m times number density gamma n. Only the 00 component is explained this way.",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Two live counters beside a boostable box of dust: 'particles per unit volume' and 'energy per particle'. As the learner raises the speed, both grow by gamma and their product, shown as a T^00 bar, grows by gamma^2."
+  },
+  {
+   "analogy": "A convection current j = rho u is just charge carried by moving matter, so charge conservation is the same continuity equation as mass conservation in a fluid.",
+   "target_concept": "charge conservation",
+   "how_used": "Links electromagnetic continuity (12.27) back to fluid continuity (12.8).",
+   "limits": "Conduction currents in neutral wires have no net charge density carried at the flow velocity; the parallel is exact only for convective currents.",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Side-by-side animation: dye in a flowing fluid and charge in a charged beam, both with a control volume whose inflow/outflow counter matches the change inside."
+  },
+  {
+   "analogy": "Dust is a perfect fluid with the pressure dial turned to zero; the fluid tensor is designed so that turning p off returns the dust tensor.",
+   "target_concept": "perfect fluid",
+   "how_used": "Motivates the ansatz (12.20) and later reappears in the eigenframe classification.",
+   "limits": "Pressure in relativity also adds to inertia and gravitates (rho + p); the dial picture hides this.",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Pressure slider on a rest-frame T^ab matrix and a boosted one, showing how p enters the energy flux and momentum-flux entries once the fluid moves."
+  },
+  {
+   "analogy": "Coordinate components of T are like readings on an arbitrarily oriented set of instruments; only readings in a frame singled out by the matter itself (its eigenframe) have direct physical meaning, like principal stresses in engineering.",
+   "target_concept": "frame components",
+   "how_used": "Motivates the eigenvalue problem and the naming of principal stresses and principal axes.",
+   "limits": "Unlike a Euclidean stress tensor, T_a^b is not symmetric with respect to a positive-definite metric, so a real diagonalizing frame need not exist (null radiation).",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.9"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Draggable observer frame in a 2D Lorentzian plane: components of T update and snap to diagonal form when aligned with the eigenvectors."
+  },
+  {
+   "analogy": "The dominant energy condition means energy 'outranks' stress, which the authors tie to sound never outrunning light.",
+   "target_concept": "dominant energy condition",
+   "how_used": "Gives a physical gloss on the inequality |p_alpha| <= mu.",
+   "limits": "The DEC bounds p/mu, whereas sound speed squared is dp/d rho; they coincide only for linear equations of state p = w rho.",
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   },
+   "effectiveness": "weak",
+   "app_idea": "Equation-of-state plotter: learner draws p(rho); regions violating |p| <= rho and dp/d rho <= 1 are shaded separately, showing they differ."
+  },
+  {
+   "analogy": "Potentials are like a height reference: shifting all heights by a gauge function changes the numbers but not the slopes that can be measured.",
+   "target_concept": "gauge transformation",
+   "how_used": "The book states that gauge transformations alter potentials but leave the measurable E and B unchanged; the height picture is a tutor framing of that point.",
+   "limits": "Electromagnetic gauge functions vary in space and time, not a single constant offset; in quantum theory potentials acquire observable phase effects (Aharonov-Bohm).",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Paint a gauge function psi(x, t) on a grid; arrows of A and a color map of phi change while the computed E and B arrow fields stay fixed."
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "Density is an invariant, so all observers agree on the density of a dust cloud.",
+   "correction": "Only the proper density rho_0 is a scalar; a stationary observer measures gamma^2 rho_0 because density is the 00 component of a rank-2 tensor.",
+   "why_tempting": "In Newtonian physics mass and volume are both frame-independent.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   },
+   "concepts": [
+    "proper density",
+    "density enhancement by gamma squared"
+   ]
+  },
+  {
+   "misconception": "If an equation is written with indices, the objects in it are automatically tensors and the equation is automatically covariant.",
+   "correction": "Rewriting Maxwell's equations with F^ab and j^a is purely formal; that these arrays transform as tensors under Lorentz transformations is an extra hypothesis, confirmed by experiment.",
+   "why_tempting": "Index notation looks covariant by construction.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   },
+   "concepts": [
+    "Lorentz covariance of Maxwell's equations",
+    "electromagnetic field tensor"
+   ]
+  },
+  {
+   "misconception": "The potentials phi and A are the physical, measurable electromagnetic quantities.",
+   "correction": "Potentials change under gauge transformations while F_ab (and so E and B) do not; the fields are what is measured classically.",
+   "why_tempting": "Potentials are what one solves for, and in Lorenz gauge they obey tidy wave equations.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   },
+   "concepts": [
+    "gauge transformation",
+    "4-potential"
+   ]
+  },
+  {
+   "misconception": "Minimal coupling always means every partial derivative must become a covariant derivative, which always changes the equation.",
+   "correction": "For totally antisymmetrized derivatives (partial_[a F_bc] and partial_[b phi_a]) the symmetric connection terms cancel, so the partial-derivative forms are already covariant.",
+   "why_tempting": "The comma-to-semicolon rule is usually stated as a blanket replacement.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   },
+   "concepts": [
+    "antisymmetrized covariant derivative identity",
+    "principle of minimal gravitational coupling"
+   ]
+  },
+  {
+   "misconception": "Any symmetric tensor one writes down can serve as a physical source in Einstein's equations.",
+   "correction": "The book requires a physically realistic T_ab to have non-negative energy density that dominates its stresses (the dominant energy condition). Tutor addition: without some such restriction, any metric would 'solve' G_ab = kappa T_ab simply by defining T_ab from it.",
+   "why_tempting": "The field equations accept any symmetric divergence-free T_ab mathematically.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   },
+   "concepts": [
+    "dominant energy condition",
+    "energy-momentum tensor"
+   ]
+  },
+  {
+   "misconception": "nabla_b T^ab = 0 in general relativity means total energy of matter is globally conserved, exactly as in special relativity.",
+   "correction": "The covariant divergence contains connection terms describing exchange with the gravitational field; only in flat spacetime (or with a symmetry, a Killing vector) does it integrate to a conserved total.",
+   "why_tempting": "The chapter calls (12.11) 'the conservation law' in both SR and GR.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   },
+   "concepts": [
+    "energy-momentum conservation law"
+   ]
+  },
+  {
+   "misconception": "The rho_0 in the perfect-fluid tensor is the rest-mass density of the fluid.",
+   "correction": "It must be the total rest-frame energy density, including internal (thermal, compressional) energy; rest-mass density and energy density differ when pressure is significant.",
+   "why_tempting": "The same symbol and name 'proper density' are carried over from dust, where the two coincide.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   },
+   "concepts": [
+    "perfect fluid",
+    "proper density"
+   ]
+  },
+  {
+   "misconception": "Pressure is only a Newtonian force term and does not contribute to inertia or energy flow.",
+   "correction": "In T^ab = (rho_0 + p) u^a u^b - p g^ab the combination rho_0 + p multiplies the flow: moving pressurized fluid carries extra momentum and energy flux, and pressure also acts as a source of gravity.",
+   "why_tempting": "In the classical Euler equation pressure appears only through its gradient.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   },
+   "concepts": [
+    "perfect fluid",
+    "isotropic pressure"
+   ]
+  },
+  {
+   "misconception": "Since (T_01, T_02, T_03) = -(E x B)/4 pi, electromagnetic momentum points opposite to the Poynting vector.",
+   "correction": "The minus sign comes from lowering a spatial index in signature (+,-,-,-); the contravariant components T^{0 alpha} = +(E x B)/4 pi are the physical momentum density.",
+   "why_tempting": "Covariant and contravariant components are easy to conflate when reading off 3-vectors.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   },
+   "concepts": [
+    "Poynting vector",
+    "Maxwell energy-momentum tensor"
+   ]
+  },
+  {
+   "misconception": "Since dust particles do not interact, charged dust can be described by simply adding tensors with no further physics.",
+   "correction": "The sum is fine, but the charges do interact with the field: conservation of the total tensor transfers momentum between field and matter, giving the Lorentz-force equation of motion for the dust.",
+   "why_tempting": "The book says non-interacting fields superpose and then writes charged dust as a plain sum.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.8"
+   },
+   "concepts": [
+    "charged dust",
+    "superposition of energy-momentum tensors"
+   ]
+  },
+  {
+   "misconception": "The coupling constant kappa is an extra free parameter that must be measured independently.",
+   "correction": "Once Newtonian gravity is required in the weak-field slow-motion limit, kappa is fixed in terms of G and c.",
+   "why_tempting": "It appears as an unexplained symbol in G_ab = kappa T_ab.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.3"
+   },
+   "concepts": [
+    "Einstein coupling constant",
+    "Newtonian limit"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Stationary observer watching a dust stream",
+   "setup": "A cloud of dust with proper density rho_0 streams past an observer at rest with speed u; the observer counts the energy contained in a fixed box.",
+   "lesson": "The observer finds gamma^2 rho_0: T^00 is a frame-dependent component of a tensor, and density is not a scalar.",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   },
+   "concepts": [
+    "density enhancement by gamma squared",
+    "proper density"
+   ],
+   "visualizable": true,
+   "app_idea": "Boostable box of particles with a live energy readout and its decomposition into number density and energy per particle."
+  },
+  {
+   "name": "Turning off the pressure",
+   "setup": "Imagine a perfect fluid whose pressure is gradually reduced to zero.",
+   "lesson": "The tensor must continuously become the dust tensor; this requirement constrains the form of the pressure terms.",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   },
+   "concepts": [
+    "perfect fluid",
+    "incoherent matter (dust)"
+   ],
+   "visualizable": true,
+   "app_idea": "Fluid parcel animation with a pressure knob: pressure arrows shrink, parcels stop pushing on neighbours, world-lines become geodesic, and T^ab entries update."
+  },
+  {
+   "name": "Matter whose stress exceeds its energy",
+   "setup": "Consider a hypothetical medium whose principal stress p is larger in magnitude than its energy density mu.",
+   "lesson": "Such matter would violate the dominant energy condition; the book links this to disturbances outrunning light, so it is excluded as unphysical.",
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   },
+   "concepts": [
+    "dominant energy condition",
+    "principal stresses"
+   ],
+   "visualizable": true,
+   "app_idea": "Point in the (mu, p) plane dragged by the learner; a light cone and an energy-flux vector T^a_b v^b are drawn and turn red when the flux becomes spacelike."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "James Clerk Maxwell"
+   ],
+   "year": null,
+   "event": "Maxwell added the displacement current term to Ampere's law, partly so that E and B would satisfy wave equations.",
+   "significance": "Makes the source equations consistent with charge conservation and predicts electromagnetic waves.",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "people": [
+    "Albert Einstein",
+    "Hendrik Lorentz"
+   ],
+   "year": "1905",
+   "event": "Before special relativity the transformation properties of E, B, rho and j were unclear; one view is that making Maxwell's equations Lorentz covariant drove the creation of special relativity.",
+   "significance": "Explains why the tensor character of F^ab and j^a is treated as a hypothesis confirmed by experiment rather than as obvious. The book names no individuals here; the people and the date are supplied by us for context.",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "people": [
+    "Stephen Hawking",
+    "George Ellis"
+   ],
+   "year": "1973",
+   "event": "The dominant energy condition (with the weak and strong energy conditions) is taken from The Large Scale Structure of Space-Time.",
+   "significance": "Standard source for energy conditions used in singularity theorems.",
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   }
+  },
+  {
+   "people": [
+    "Andrzej Trautman",
+    "Felix Pirani",
+    "Hermann Bondi"
+   ],
+   "year": "1964",
+   "event": "The chapter's Newtonian-limit treatment follows their Brandeis Summer Institute lectures on general relativity.",
+   "significance": "Identifies the source of the coupling-constant argument.",
+   "locator": {
+    "pdf_page": 231,
+    "printed_page": 216,
+    "section": null
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Numerical value of the Einstein coupling constant",
+   "kind": "numerical-estimate",
+   "details": "Our estimate, not in the book: with G = 6.674e-11 m^3 kg^-1 s^-2 and c = 2.998e8 m/s, kappa = 8 pi G/c^4 is about 2.08e-43 s^2 m^-1 kg^-1 (N^-1). The tiny value explains why ordinary energy densities curve spacetime so weakly.",
+   "key_numbers": "kappa ~ 2.08e-43 N^-1 (our estimate)",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.3"
+   }
+  },
+  {
+   "topic": "Size of the gamma^2 density enhancement",
+   "kind": "numerical-estimate",
+   "details": "Our estimate: dust moving at 0.6c has gamma = 1.25, so a stationary observer measures 1.5625 times its proper energy density; at 0.99c the factor is about 50.",
+   "key_numbers": "gamma^2 = 1.5625 at 0.6c; ~50 at 0.99c (our estimate)",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "topic": "Experimental support for Lorentz covariance of electromagnetism",
+   "kind": "experiment",
+   "details": "The book notes, without detail, that many experiments support treating F^ab and j^a as Lorentz tensors (e.g. field transformations for moving charges and conductors).",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   }
+  },
+  {
+   "topic": "Neutral pion as an example of a massive scalar field",
+   "kind": "observation",
+   "details": "The Klein-Gordon Lagrangian is illustrated by a spinless particle such as the neutral pion. Our addition: its rest mass is about 135 MeV/c^2, and strictly it is a pseudoscalar, which does not change the free Lagrangian.",
+   "key_numbers": "m(pi0) ~ 135 MeV/c^2 (our addition)",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.8"
+   }
+  },
+  {
+   "topic": "Electromagnetic energy density and Poynting momentum",
+   "kind": "numerical-estimate",
+   "details": "Our estimate in SI terms: sunlight at Earth carries about 1.36 kW/m^2, i.e. an energy density of roughly 4.5e-6 J/m^3 and momentum density about 1.5e-14 kg m^-2 s^-1; the Maxwell tensor packages both.",
+   "key_numbers": "flux ~ 1361 W/m^2; u ~ 4.5e-6 J/m^3 (our estimate)",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Metric signature",
+   "convention": "(+,-,-,-): eta_ab = diag(1,-1,-1,-1), d tau^2 = dt^2 - dx^2 - dy^2 - dz^2; unit timelike vectors have u.u = +1.",
+   "notes": "Consequences: perfect fluid is (rho + p)uu - p g, the Lorenz gauge box is partial_0^2 - nabla^2, covariant spatial components flip sign.",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "item": "Relativistic vs non-relativistic units",
+   "convention": "c = 1 (and G = 1 for kappa = 8 pi) in most formulas; c^2 restored in T^ab = c^2 rho_0 u u and kappa = 8 pi G/c^4 when non-relativistic units are used.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.3"
+   }
+  },
+  {
+   "item": "Bold u versus u^a",
+   "convention": "Bold u and u_x, u_y, u_z denote ordinary 3-velocity; u^a is the 4-velocity.",
+   "notes": "u_x here is not the covariant x-component of u^a, a potential index confusion.",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "item": "rho_0, rho",
+   "convention": "rho_0 proper (rest-frame) density; rho = gamma^2 rho_0 density measured by a stationary observer; in section 12.5 rho is charge density; in the equation of state rho replaces rho_0.",
+   "notes": "Symbol reused with three meanings.",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "item": "Comma, partial, nabla, brackets",
+   "convention": "phi_{a,b} = partial_b phi_a; nabla_a covariant derivative; square brackets denote antisymmetrization over enclosed indices.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "item": "Field tensor from potential",
+   "convention": "F_ab = partial_b phi_a - partial_a phi_b, with F^{0 alpha} = E_alpha and F^{12} = B_z.",
+   "notes": "Opposite index ordering and overall sign to the common F_ab = partial_a A_b - partial_b A_a; results agree once F^ab is fixed by (12.28).",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "item": "phi",
+   "convention": "Newtonian potential in section 12.3; electromagnetic scalar potential and 4-potential phi^a in sections 12.6-12.7; scalar field in (12.63); psi is the gauge function.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "item": "Electromagnetic units",
+   "convention": "Heaviside-Lorentz with c = 1 declared (div E = rho), but Lagrangian and energy-momentum tensor carry Gaussian 1/8 pi and 1/4 pi factors.",
+   "notes": "Internally inconsistent; see gaps.",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "item": "Matter Lagrangian sign and T_ab definition",
+   "convention": "delta L_M/delta g^ab = -(sqrt(-g)/2) T_ab, i.e. T_ab = -(2/sqrt(-g)) delta L_M/delta g^ab, paired with L_E = +(sqrt(-g)/16 pi) F_ab F^ab and L_s = -(sqrt(-g)/2)(nabla phi . nabla phi - m^2 phi^2).",
+   "notes": "Both Lagrangians have the opposite overall sign to the usual particle-physics choice in signature (+,-,-,-), compensated by the minus sign in the T_ab definition; energy densities come out positive (our check).",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "item": "Frame indices",
+   "convention": "Bold i, j label frame vectors e_i^a (i = 0..3); Greek alpha = 1, 2, 3 labels spatial directions and principal stresses.",
+   "notes": "mu is the energy eigenvalue in section 12.9 but a fluid constant in (12.21).",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.9"
+   }
+  },
+  {
+   "item": "epsilon",
+   "convention": "Small bookkeeping parameter for the order of the metric perturbation.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "item": "In vacuo",
+   "convention": "Maxwell equations without material media (no polarization or magnetization), charges and currents still allowed; 'source-free region' means j^a = 0.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Parenthetical: T^00 is an energy density only if (12.1) carries a factor c^2 in non-relativistic units.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "summary": "Parenthetical in the Ampere-Maxwell gloss: the displacement current was added partly to yield wave equations for E and B.",
+   "type": "historical",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "summary": "Remark that the linearized Einstein tensor used here will be derived in Chapter 21 with gauge condition (21.24).",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "summary": "Parenthetical: the sqrt(-g) factor makes the Lagrangian a scalar density and equals 1 in Minkowski coordinates.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   }
+  },
+  {
+   "summary": "Citation of Hawking and Ellis (1973) for the dominant energy condition.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   }
+  },
+  {
+   "summary": "Further reading: standard texts from the previous chapter; Hawking and Ellis for the dominant, weak and strong energy conditions (used for singularity theorems in section 20.13); Trautman-Pirani-Bondi lectures as the basis of the Newtonian-limit treatment, with Hartle (2003) as an alternative.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 231,
+    "printed_page": 216,
+    "section": null
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 10,
+  "pdf_pages": [
+   230,
+   231
+  ],
+  "skills_practiced": [
+   "expanding T^ab = rho_0 u^a u^b into components and reading off conservation laws",
+   "linearized field equations: taking traces, trace reversal, slow-motion limit",
+   "deriving classical fluid equations from a relativistic conservation law",
+   "translating between 3-vector and tensor forms of Maxwell's equations",
+   "Lorentz transformation of electromagnetic fields and 4-current",
+   "gauge transformations and gauge conditions for the 4-potential",
+   "checking cancellation of Christoffel symbols in antisymmetrized derivatives",
+   "varying Lagrangians with respect to the inverse metric, including sqrt(-g)",
+   "computing energy density and Poynting momentum from F^ab",
+   "conservation equations for a scalar field energy-momentum tensor"
+  ],
+  "notable": [
+   {
+    "number": "12.1",
+    "summary": "Verify the component matrix of the dust tensor and show that its vanishing divergence produces the continuity equation and the pressure-free Euler equation.",
+    "skills": [
+     "index expansion",
+     "fluid equations"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Completes the chapter's central interpretive argument for why T is called the energy-momentum tensor.",
+    "pdf_page": 230
+   },
+   {
+    "number": "12.2",
+    "summary": "Fill in the trace step taking the linearized field equations to their trace-reversed, slow-motion Poisson form and extract the 00 equation.",
+    "skills": [
+     "trace reversal",
+     "weak-field limit"
+    ],
+    "difficulty": "standard",
+    "why_notable": "The only step in the kappa derivation the text skips; it is where the factor one half that produces 8 pi appears.",
+    "pdf_page": 230
+   },
+   {
+    "number": "12.3",
+    "summary": "Show that the perfect-fluid conservation equations reduce to continuity and the Euler equation in Minkowski coordinates.",
+    "skills": [
+     "perfect fluid",
+     "Newtonian limit"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Supplies the omitted justification for lambda = 1 and mu = -1 and exposes where pressure enters relativistic inertia.",
+    "pdf_page": 230
+   },
+   {
+    "number": "12.5",
+    "summary": "Use the tensor transformation of F^ab and j^a to find how E, B, charge density and current transform under an x-boost.",
+    "skills": [
+     "Lorentz boosts of tensors",
+     "field transformations"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Turns the 'working hypothesis' of section 12.5 into testable predictions (e.g. a moving charge produces a magnetic field).",
+    "pdf_page": 230
+   },
+   {
+    "number": "12.7",
+    "summary": "Reduce Maxwell's equations to sourced wave equations in a suitable gauge, identify the remaining gauge freedom, and deduce wave equations for E and B in empty regions.",
+    "skills": [
+     "Lorenz gauge",
+     "wave equation"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Connects the covariant formalism to light as an electromagnetic wave.",
+    "pdf_page": 230
+   },
+   {
+    "number": "12.8",
+    "summary": "Check that covariant and partial derivatives agree in the antisymmetrized field equations and in the potential relation.",
+    "skills": [
+     "Christoffel symbols",
+     "antisymmetrization"
+    ],
+    "difficulty": "intro",
+    "why_notable": "A quick, reusable lemma: exterior-derivative-type equations are insensitive to the (symmetric) connection.",
+    "pdf_page": 230
+   },
+   {
+    "number": "12.9",
+    "summary": "Carry out the metric variation that gives the Maxwell energy-momentum tensor, verify its energy and momentum densities, and show its conservation follows from Maxwell's equations.",
+    "skills": [
+     "metric variation",
+     "Maxwell stress tensor",
+     "conservation laws"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "The hardest computation of the chapter and the model for extracting T_ab from any matter Lagrangian.",
+    "pdf_page": 231
+   },
+   {
+    "number": "12.10",
+    "summary": "Study the conservation equations of the energy-momentum tensor obtained from the massive scalar-field Lagrangian.",
+    "skills": [
+     "Klein-Gordon field",
+     "metric variation",
+     "conservation"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Shows that conservation of T_ab reproduces the field equation of the matter field itself, an open-ended exercise with little guidance.",
+    "pdf_page": 231
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 4,
+  "conceptual_level": 3,
+  "novice_friendliness": 2,
+  "notes": "Mathematically dense for its length: index gymnastics with Minkowski components, trace reversal in the linearized equations, first-order and metric variations of Lagrangians, and an eigenvalue problem with a Lorentzian metric. Conceptually it is mostly consolidation (conservation laws, Maxwell theory in tensor form) with two genuinely new ideas, the metric definition of T_ab and energy conditions. Novices struggle because many key steps are '(exercise)', a crucial ingredient is borrowed from Chapter 21, notation is overloaded (rho, phi, mu, T, u), units switch between Heaviside-Lorentz and Gaussian conventions, and some claims in section 12.9 are stated more strongly than they hold."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "DIV ch4 §4.1 (eq. 4.5)",
+   "reason": "Poisson's equation, the Newtonian target of the coupling-constant calculation.",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch4 §4.3 (eq. 4.11)",
+   "reason": "Relativistic mass increase used to explain one factor of gamma in T^00.",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch8 §8.4 and §8.8 (Exercise 8.10)",
+   "reason": "Proper time and the Minkowski components of the 4-velocity.",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch6",
+   "reason": "Covariant derivative and symmetric metric connection behind (12.11), (12.44), (12.45).",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.6"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch9 §9.6-9.7",
+   "reason": "Principle of minimal gravitational coupling (9.6), used to carry each conservation law and Maxwell's equations into GR, and the correspondence principle (9.7), used to fix kappa and the fluid coefficients.",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch10 §10.6 (eqs 10.41, 10.49)",
+   "reason": "Slow-motion approximation and g_00 = 1 + 2 phi/c^2 from the Newtonian correspondence.",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch10 §10.8 (eqs 10.54, 10.55)",
+   "reason": "Full field equations and the previously quoted value of kappa that this chapter derives.",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch11 §11.8 (eq. 11.51)",
+   "reason": "Definition of T_ab from the variation of a matter Lagrangian, adapted to the contravariant metric in (12.56).",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch11 §11.7",
+   "reason": "Palatini approach whose independent-variation idea is mirrored by the first-order Maxwell Lagrangian.",
+   "locator": {
+    "pdf_page": 226,
+    "printed_page": 211,
+    "section": "12.7"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch13 §13.4",
+   "reason": "Conservation equations and their relation to the contracted Bianchi identities.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch15 §15.8",
+   "reason": "Schwarzschild interior solution uses the perfect-fluid tensor.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch19 §19.1",
+   "reason": "The field of a charged mass point solves the Einstein-Maxwell equations (12.58).",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch20 §20.13",
+   "reason": "Singularity theorems use the weak and strong energy conditions mentioned in the further reading.",
+   "locator": {
+    "pdf_page": 231,
+    "printed_page": 216,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch21 §21.1-21.2 (eq. 21.24)",
+   "reason": "Linearized field equations and gauge condition borrowed for the coupling-constant calculation.",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch24 §24.6 and ch25-26",
+   "reason": "Dust and perfect-fluid sources for the Friedmann cosmological models.",
+   "locator": null
+  },
+  {
+   "direction": "external",
+   "target": "Hawking, S. W. and Ellis, G. F. R. (1973), The Large Scale Structure of Space-Time",
+   "reason": "Energy conditions (dominant, weak, strong) and the classification of energy-momentum tensors.",
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Trautman, A., Pirani, F. A. E. and Bondi, H. (1964), Lectures on General Relativity (Brandeis Summer Institute)",
+   "reason": "Basis of the Newtonian-limit treatment.",
+   "locator": {
+    "pdf_page": 231,
+    "printed_page": 216,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Hartle, J. B. (2003), Gravity: An Introduction to Einstein's General Relativity",
+   "reason": "Alternative, more physical treatment of the Newtonian limit.",
+   "locator": {
+    "pdf_page": 231,
+    "printed_page": 216,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Explain T^00 = gamma^2 rho_0 as the product of two separate relativistic effects: more energy per particle and fewer cubic metres per particle.",
+   "why_effective": "It turns an abstract tensor component into a counting argument that learners can check, and shows immediately why density cannot be a scalar.",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   },
+   "app_idea": "Boost a box of dust with a rapidity slider; two gauges (energy per particle, particle count per box) multiply into a T^00 bar, and a 4x4 heatmap of T^ab lights up its off-diagonal entries as speed grows."
+  },
+  {
+   "gem": "Read the rows of the 4x4 dust matrix as conservation laws: row 0 is continuity, rows 1-3 are the momentum equation, which is where the name energy-momentum tensor comes from.",
+   "why_effective": "Gives a concrete, component-level meaning to the compact statement partial_b T^ab = 0 and ties it to fluid dynamics learners already know.",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   },
+   "app_idea": "Clickable matrix: selecting a row highlights the corresponding flux arrows through the faces of a small spacetime cube and writes out the classical equation it becomes."
+  },
+  {
+   "gem": "Fix kappa by demanding that weak-field, slow dust reproduce Poisson's equation; trace reversal and the 2 phi/c^2 in g_00 together produce the 8 pi.",
+   "why_effective": "Shows that the constant in Einstein's equations is not arbitrary and makes the correspondence principle an actual calculation.",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   },
+   "app_idea": "Step-through derivation card deck where each step has a 'what if' toggle (skip trace reversal, forget the factor 2 in g_00) that shows the wrong kappa that would result."
+  },
+  {
+   "gem": "Scarcity ansatz: list the only tensors a fluid can provide (u^a u^b and g^ab), write the most general combination, and let classical limits fix the coefficients.",
+   "why_effective": "A reusable recipe for building relativistic models, teaching learners to think about what structures are available rather than memorizing formulas.",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   },
+   "app_idea": "Tensor builder: learner picks coefficients lambda and mu with sliders; the app shows the rest-frame matrix and the low-speed conservation equations, turning green when they match continuity and Euler."
+  },
+  {
+   "gem": "Pause after the tensor rewriting of Maxwell's equations to say that indices alone prove nothing: the tensor transformation law is a hypothesis tested by experiment.",
+   "why_effective": "Models scientific honesty about the logical status of a formalism and prevents the common belief that notation guarantees covariance.",
+   "locator": {
+    "pdf_page": 224,
+    "printed_page": 209,
+    "section": "12.5"
+   },
+   "app_idea": "Boost a static charge: panel compares E and B predicted by transforming F^ab with the field computed directly from a moving-charge simulation, confirming the hypothesis visually."
+  },
+  {
+   "gem": "First-order Lagrangian with phi_a and F_ab independent: the relation F = d phi and the antisymmetry of F come out of the variation instead of being put in.",
+   "why_effective": "Demonstrates the power of variational principles to generate structure, and echoes the Palatini idea from the previous chapter.",
+   "locator": {
+    "pdf_page": 227,
+    "printed_page": 212,
+    "section": "12.7"
+   },
+   "app_idea": "Interactive variational calculator: learner chooses which field to vary; the app highlights the terms that contribute and displays the resulting field equation."
+  },
+  {
+   "gem": "Energy-momentum from how a Lagrangian responds to a change of metric: varying g^ab in the Maxwell action yields energy density (E^2 + B^2)/8 pi and the Poynting vector.",
+   "why_effective": "Connects abstract geometry (metric variation) to familiar electromagnetic energy and momentum, giving a universal definition of T_ab.",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   },
+   "app_idea": "Field-configuration sandbox: learner sets E and B vectors; T_ab components, the energy density and a Poynting arrow update, with a toggle comparing covariant and contravariant components."
+  },
+  {
+   "gem": "Use the eigenframe of T_a^b to describe any ordinary matter as a medium at rest with an energy density and three principal stresses; dust and perfect fluid become special cases, and the dominant energy condition becomes a simple inequality.",
+   "why_effective": "Unifies the chapter's models under one invariant picture and links to engineering stress intuition.",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.9"
+   },
+   "app_idea": "Stress ellipsoid viewer: learner sets mu and p_1, p_2, p_3; a 3D ellipsoid shows the stresses, a label names the matter type (dust, perfect fluid, anisotropic), and a warning appears if the dominant energy condition fails."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "The component form of the a = 0 conservation equation on p. 205 is printed without '= 0'.",
+   "impact_on_learner": "A careful reader may think it is an expression rather than an equation or wonder if something is missing.",
+   "suggestion": "Write the full equation with = 0 and immediately identify it with (12.8).",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "issue": "Equation (12.10) is called the Navier-Stokes equation, but without viscosity it is the Euler equation.",
+   "impact_on_learner": "Confuses terminology and may lead learners to believe viscosity is included in the perfect fluid.",
+   "suggestion": "Name it Euler's equation and mention that Navier-Stokes adds viscous terms, which a perfect fluid lacks.",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "issue": "The gamma^2 argument relies on 'relativistic mass', a concept many modern courses avoid.",
+   "impact_on_learner": "Learners taught with invariant mass may reject or misinterpret the explanation.",
+   "suggestion": "Rephrase as energy per particle gamma m c^2 times number density gamma n.",
+   "locator": {
+    "pdf_page": 219,
+    "printed_page": 204,
+    "section": "12.2"
+   }
+  },
+  {
+   "issue": "The linearized Einstein tensor and its gauge condition are imported from Chapter 21 without derivation.",
+   "impact_on_learner": "The kappa derivation rests on an unexplained formula; learners cannot verify it at this point.",
+   "suggestion": "Either give a short derivation of the linearized Ricci tensor or present a heuristic argument; flag clearly that this is a forward borrowing.",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "issue": "The approximation 'neglect terms of order v/c and rho_0 v/c' is stated obscurely; the actual requirements (T^{0i}/T^{00} ~ v/c, T^{ij}/T^{00} ~ v^2/c^2, time derivatives negligible, phi/c^2 small) are not spelled out.",
+   "impact_on_learner": "Unclear which approximations are needed and why only T_00 survives.",
+   "suggestion": "List the orders of magnitude of each component and the role of each approximation.",
+   "locator": {
+    "pdf_page": 221,
+    "printed_page": 206,
+    "section": "12.3"
+   }
+  },
+  {
+   "issue": "The claim that classical limits fix lambda = 1 is incomplete: pressure contributions to inertia are relativistic corrections invisible in the Newtonian limit; lambda + mu = 0 really follows from requiring rest-frame energy density rho_0.",
+   "impact_on_learner": "Learners attempting Exercise 12.3 may find lambda undetermined and feel they erred.",
+   "suggestion": "State the rest-frame requirement T^00 = rho_0 explicitly and treat mu = -1 as fixed by the pressure-gradient term.",
+   "locator": {
+    "pdf_page": 222,
+    "printed_page": 207,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "rho_0 in the perfect-fluid tensor is not distinguished from rest-mass density, and the equation of state switches to rho and uses T for temperature.",
+   "impact_on_learner": "Notation clashes cause confusion between energy density, mass density, trace of T and temperature.",
+   "suggestion": "Use distinct symbols (e.g. rho for energy density, n or rho_m for rest-mass density, Theta for temperature) and explain internal energy.",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "Units are inconsistent: section 12.5 declares Heaviside-Lorentz units (no 4 pi in Maxwell's equations), but (12.50), (12.57) and (12.59) use Gaussian 1/8 pi and 1/4 pi normalizations.",
+   "impact_on_learner": "Learners checking factors against electrodynamics texts get mismatches of 4 pi.",
+   "suggestion": "Either use Gaussian units throughout (div E = 4 pi rho) or drop the 4 pi factors in the Lagrangian and T_ab; state the choice clearly.",
+   "locator": {
+    "pdf_page": 223,
+    "printed_page": 208,
+    "section": "12.5"
+   }
+  },
+  {
+   "issue": "The index order F_ab = partial_b phi_a - partial_a phi_b and the overall sign of the matter Lagrangians differ from the most common conventions without comment.",
+   "impact_on_learner": "Comparing with other books leads to sign errors and doubt about the results.",
+   "suggestion": "Add a conventions box comparing with Jackson or Carroll, and show that physical results (energy density positive) are unaffected.",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "issue": "The gauge is called 'Lorentz gauge'; it is named after Ludvig Lorenz.",
+   "impact_on_learner": "Minor historical inaccuracy, and a search for 'Lorenz gauge' in modern literature may be missed.",
+   "suggestion": "Use 'Lorenz gauge' with a note on the historical misattribution.",
+   "locator": {
+    "pdf_page": 225,
+    "printed_page": 210,
+    "section": "12.6"
+   }
+  },
+  {
+   "issue": "The metric variation (12.55) is left entirely as an exercise, including the variation of sqrt(-g).",
+   "impact_on_learner": "The central computation of section 12.7 is not demonstrated; many learners get stuck on delta sqrt(-g).",
+   "suggestion": "Show the product-rule step and the formula delta sqrt(-g) = -(1/2) sqrt(-g) g_ab delta g^ab explicitly.",
+   "locator": {
+    "pdf_page": 228,
+    "printed_page": 213,
+    "section": "12.7"
+   }
+  },
+  {
+   "issue": "Charged dust (12.62) is presented as a plain sum without showing how the conservation law yields the Lorentz force, despite the preceding remark that interacting fields need care.",
+   "impact_on_learner": "Learners may think interactions are ignored or be puzzled by the apparent contradiction.",
+   "suggestion": "Show that nabla_b T^ab_EM = -F^a_b j^b (sign convention dependent) and hence rho_0 u^b nabla_b u^a equals the Lorentz force density.",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.8"
+   }
+  },
+  {
+   "issue": "Section 12.9 says standard matter always yields real non-zero eigenvalues and a timelike eigenvector. But dust has zero principal stresses (zero eigenvalues), and null radiation such as a plane electromagnetic wave has no timelike eigenvector. Also, in signature (+,-,-,-) the eigenvalues of the mixed tensor T_a^b on the spacelike eigenvectors are -p_alpha, while the covariant frame components T_ij carry +p_alpha.",
+   "impact_on_learner": "Learners may misapply the classification to null fields or be confused by sign errors in eigenvalues.",
+   "suggestion": "Introduce Hawking-Ellis types I and II, note the null exception, and distinguish eigenvalues of T_a^b from frame components T_ij.",
+   "locator": {
+    "pdf_page": 229,
+    "printed_page": 214,
+    "section": "12.9"
+   }
+  },
+  {
+   "issue": "The statement that the dominant energy condition is equivalent to sound speed not exceeding light speed is imprecise; the DEC bounds p/rho, while sound speed depends on dp/d rho.",
+   "impact_on_learner": "Leads to incorrect conclusions about causality of equations of state.",
+   "suggestion": "Say the DEC ensures energy flux is causal (non-spacelike) for all observers, and treat sound speed as a separate condition.",
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   }
+  },
+  {
+   "issue": "The book asserts without qualification that every known matter field obeys the dominant energy condition. This is dated: quantum effects (Casimir energy) violate energy conditions, a cosmological constant sits on the boundary, and phantom dark-energy models violate it.",
+   "impact_on_learner": "Gives an outdated view of the status of energy conditions in modern physics.",
+   "suggestion": "Present energy conditions as classical assumptions and mention known exceptions.",
+   "locator": {
+    "pdf_page": 230,
+    "printed_page": 215,
+    "section": "12.9"
+   }
+  },
+  {
+   "issue": "The chapter calls nabla_b T^ab = 0 a conservation law in GR without cautioning that it does not imply global energy conservation.",
+   "impact_on_learner": "Learners may believe total matter energy is conserved in expanding universes or dynamic spacetimes.",
+   "suggestion": "Explain the difference between local covariant conservation and integral conservation, which requires a Killing vector.",
+   "locator": {
+    "pdf_page": 220,
+    "printed_page": 205,
+    "section": "12.2"
+   }
+  },
+  {
+   "issue": "Section 12.2 describes (12.1) as the 'simplest' second-rank tensor built from u^a and rho_0 and then says it turns out to be the energy-momentum tensor, but the only justification given is that its divergence reproduces the SR fluid equations; the alternative rho_0 g^ab (also built from available objects) is not discussed.",
+   "impact_on_learner": "Learners may think the tensor is uniquely forced by simplicity rather than selected by matching conservation laws.",
+   "suggestion": "Ask the learner why rho_0 g^ab fails (its divergence gives grad rho_0 = 0, not fluid flow) before revealing that rho_0 u^a u^b works.",
+   "locator": {
+    "pdf_page": 218,
+    "printed_page": 203,
+    "section": "12.2"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Opening question: 'If a cloud of dust rushes past you at 60% of light speed, is it denser, less dense, or the same as for someone riding along with it?' Let the learner reason about mass and length contraction before revealing gamma^2.",
+  "For learners with fluids background, begin with the classical continuity and Euler equations and ask how to package density, momentum density and momentum flux into one object; then reveal T^ab.",
+  "Order for a first pass: dust tensor and its interpretation -> conservation law as fluid equations -> perfect fluid -> kappa from the Newtonian limit -> Maxwell tensor. The coupling-constant calculation can be postponed until the learner has seen linearized gravity.",
+  "Check for understanding: ask the learner to write T^ab for a perfect fluid at rest and to explain why the spatial diagonal entries are +p despite the minus sign in front of p g^ab (signature +---).",
+  "When deriving kappa, pause at the trace step and ask why T_00 - (1/2) T equals half of T_00 for dust; many learners miss that the trace equals T_00.",
+  "Common question: 'Why 8 pi and not 4 pi?' Answer with the two factors of 2: g_00 carries 2 phi/c^2, and trace reversal halves the effective source.",
+  "For Maxwell theory, have the learner fill in F^ab from E and B and verify one source equation (e.g. a = 0 gives Gauss's law) before trusting the compact form.",
+  "Emphasize the book's warning that index notation alone does not guarantee tensor behaviour; ask 'What experiment would test whether E and B mix under boosts as F^ab predicts?'",
+  "On gauge freedom, ask the learner to show that adding the gradient of any psi leaves F unchanged, then ask what extra condition Lorenz gauge places on psi.",
+  "Flag the units mismatch (Heaviside-Lorentz vs Gaussian) proactively when learners compare T_00 with their electromagnetism course.",
+  "When covering metric variation, write delta sqrt(-g) = -(1/2) sqrt(-g) g_ab delta g^ab on the board before starting; it is the most common sticking point.",
+  "Common question: 'Why do the covariant momentum components have a minus sign?' Explain index lowering in signature (+,-,-,-).",
+  "For section 12.9, draw an analogy with principal stresses in solid mechanics, then note where the analogy fails (null radiation has no rest frame).",
+  "Check for understanding of energy conditions: give example equations of state (p = rho/3 radiation, p = -rho vacuum energy, p = 2 rho) and ask which satisfy the dominant energy condition.",
+  "Address the misconception that nabla_b T^ab = 0 is global energy conservation, especially for learners headed to cosmology.",
+  "For section 12.8, have the learner compute nabla_b of the Maxwell part of the charged-dust tensor using Maxwell's equations with a source, so they see the Lorentz force appear; the book only asserts that the conservation equations give energy conservation and equations of motion."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Assumed background: Exercise 8.10 belongs to section 8.8, not 8.4; correspondence principle is section 9.7, not 9.5.",
+   "Cross-references to ch8 and ch9 corrected to the right sections (8.8 for Exercise 8.10; 9.6-9.7 for minimal coupling and correspondence).",
+   "Dust concept no longer attributes geodesic motion to the chapter; the book only shows the force-free SR Euler equation.",
+   "Added the book's general notion of a gauge condition (previously missing) to the gauge-transformation and Lorenz-gauge concepts.",
+   "Section 12.6 summary implied the Lorenz gauge makes the internal equations identities; corrected (that follows from the potential definition, independent of gauge).",
+   "Figure 12.1 description tightened against the image (roughly parallel curves, vertical tangent arrows at a common height, single u^a label).",
+   "Historical note on Lorentz covariance now states that the named people and date are our additions, not the book's.",
+   "Reworded two gaps (energy-condition claim, eigenvalue claim) that tracked the book's sentences closely, and clarified the T_a^b versus T_ij sign point.",
+   "Added a gap on the 'simplest tensor' justification for the dust tensor, with a concrete discriminating question (why not rho_0 g^ab)."
+  ],
+  "residual_concerns": [
+   "The dossier's tensor and sign checks (T_00, T_0alpha, (12.55), (12.57), perfect-fluid rest frame, kappa derivation, Klein-Gordon energy density sign) were redone by hand and agree with the book; the book's own unit mix (Heaviside-Lorentz Maxwell equations with Gaussian 1/4 pi normalization of T_ab) remains a genuine inconsistency in the source and is recorded as a gap.",
+   "Worked-example 4 (perfect fluid) and several tutor points go beyond the book (lambda undetermined in the Newtonian limit); they are labelled as outline or tutor additions but a reader should not attribute them to d'Inverno-Vickers.",
+   "The n-gram self-check still shows 7-word matches, but only in equations written out in words, bibliographic citations, and short technical phrases such as the Navier-Stokes name; no prose passage tracks the source."
+  ],
+  "coverage": {
+   "toc_sections": 9,
+   "sections": 9,
+   "inventory_figures": 1,
+   "figures": 1,
+   "inventory_examples": 0,
+   "worked_examples": 9,
+   "concepts": 52,
+   "key_equations": 77,
+   "locators_checked": 275,
+   "locators_wrong": 0,
+   "pages_rendered": 8
+  }
+ }
+}

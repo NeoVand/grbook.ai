@@ -1,0 +1,3402 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch07",
+ "title": "Parallel lines and the covariant derivative",
+ "part": "II: Curvature and general relativity",
+ "printed_pages": [
+  81,
+  90
+ ],
+ "pdf_pages": [
+  98,
+  107
+ ],
+ "one_line_summary": "Builds a derivative of vectors that works in curved spacetime: parallelism is defined from the viewpoint of observers trapped in a surface, the naive derivative of v = v^mu e_mu is split into component change plus basis-vector change, the basis change is packaged into connection coefficients Gamma (shown to be non-tensorial and non-zero even in flat polar coordinates), the covariant derivative nabla_u v and its along-a-curve form Dv/dlambda are defined, parallel transport becomes nabla_u v = 0, and metric compatibility nabla g = 0 is argued from length preservation, pointing ahead to Gamma built from dg.",
+ "role_in_book": "Second chapter of Part II. Chapter 6 argued that gravity is geometry and that spacetime is locally flat; before any equation of motion or curvature tensor can be written, the book needs a way to compare and differentiate vectors at different points. This chapter supplies that tool in a light, component-first way (connection coefficients, covariant derivative, parallel transport, affine parameters, four-velocity along curves, metric compatibility), so that Chapter 8 can write free fall as a geodesic, Chapter 9 can extract Gamma efficiently from the metric (eqn 7.37 is quoted in advance) and Chapter 11 can build a genuine curvature test from Gammas and their derivatives (as margin note 7 promises). Rigour is explicitly postponed: the transformation law of Gamma, covariant derivatives of general tensors and the Leibniz rule are promised for Part V (Chapter 34 revisits the covariant derivative in pictures), in keeping with the book's spiral design.",
+ "assumed_background": [
+  {
+   "topic": "Vectors expanded on basis vectors, v = v^mu e_mu, with the summation convention and up/down index placement",
+   "source": "earlier-in-this-book",
+   "where": "GA ch2, ch4"
+  },
+  {
+   "topic": "Plane polar coordinates and position-dependent basis vectors e_r and e_theta",
+   "source": "earlier-in-this-book",
+   "where": "GA ch3 §3.1"
+  },
+  {
+   "topic": "Why the position (displacement) vector cannot be used in general coordinates",
+   "source": "earlier-in-this-book",
+   "where": "GA ch3 §3.2"
+  },
+  {
+   "topic": "Parametrized paths through spacetime and proper time",
+   "source": "earlier-in-this-book",
+   "where": "GA ch1 §1.4"
+  },
+  {
+   "topic": "Tensor classification (m,n) and the tensor transformation law with Jacobian factors",
+   "source": "earlier-in-this-book",
+   "where": "GA ch4"
+  },
+  {
+   "topic": "Metric tensor as g(e_mu, e_nu), dot products and lengths of vectors",
+   "source": "earlier-in-this-book",
+   "where": "GA ch5"
+  },
+  {
+   "topic": "Local flatness and the Minkowski metric as the small-region limit",
+   "source": "earlier-in-this-book",
+   "where": "GA ch6 §6.4"
+  },
+  {
+   "topic": "Partial derivatives, chain rule, Leibniz product rule, limit definition of a derivative",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Gradient and directional derivative of a scalar field in Euclidean 3-space",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Intuition for a sphere embedded in 3D space: great circles and tangent planes",
+   "source": "school-math",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "Reader can explain why a vector drawn as a straight arrow between two points is useless on a curved surface and why tangent vectors to curves are used instead.",
+  "Reader can state what it means for observers confined to a surface to call two vectors at different points parallel, and why such vectors look rotated to an observer using the embedding space.",
+  "Reader can differentiate v = v^mu e_mu with the product rule and identify the extra term coming from position-dependent basis vectors.",
+  "Reader can define connection coefficients through de_mu/dx^alpha = Gamma^lambda_{alpha mu} e_lambda and compute them by brute force for plane polar coordinates.",
+  "Reader can argue from the polar-coordinate example that non-zero connection coefficients do not by themselves signal curvature.",
+  "Reader can explain, using the inhomogeneous second-derivative term in the transformation law, why Gamma is not a tensor.",
+  "Reader can write the component formula v^mu_{;alpha} = v^mu_{,alpha} + Gamma^mu_{alpha lambda} v^lambda and use comma/semicolon notation fluently.",
+  "Reader can form the directional covariant derivative nabla_u v = u^alpha nabla_alpha v and state the parallel-transport condition nabla_u v = 0 in components.",
+  "Reader can parametrize simple curves, recognise when a reparametrization is affine, and write the tangent vector u = (dx^mu/dlambda) e_mu.",
+  "Reader can describe Dv/dlambda as 'transport the later vector back, subtract, divide, take the limit' and check that it reduces to dA^alpha/dlambda in flat Cartesian coordinates.",
+  "Reader can state metric compatibility nabla g = 0 and show, via the product rule, that it is what keeps lengths of parallel-transported vectors fixed.",
+  "Reader can write covariant derivatives of (0,2) and (2,0) tensors, with the sign pattern for lower and upper indices, and use them to check g_{mu nu;alpha} = 0."
+ ],
+ "teaching_approach": {
+  "summary": "A short, deliberately non-rigorous chapter that moves from a picture to a recipe. It opens with ants and humans confined to a curved surface to motivate an insider's notion of parallelism, then turns immediately to components: the product rule applied to v^mu e_mu exposes a basis-change term, which is named, computed by brute force for flat polar coordinates, and flagged as non-tensorial. Word equations in large brackets ('change in vector' minus 'change due to coordinates') carry the conceptual load before and after each formula. The authors then generalize from basis directions to arbitrary directions by analogy with the Euclidean directional derivative, recast everything along parametrized curves (introducing D/dlambda, the tangent vector and the four-velocity), give a limit-based picture of the derivative using parallel transport back to the starting point, and finish by asserting that the metric forces this connection through the compatibility condition, proved heuristically from length conservation. Almost all heavy lifting (transformation law of Gamma, tensor covariant derivatives, Leibniz rule, Gamma from the metric) is quoted and deferred to Chapter 9 or Part V.",
+  "style_tags": [
+   "physical-motivation-first",
+   "components-first",
+   "conversational-informal",
+   "example-driven",
+   "computational-recipe",
+   "spiral-revisit",
+   "diagram-driven",
+   "analogy-driven"
+  ],
+  "narrative_arc": [
+   "Motivating need: physics is written as fields and their derivatives, and ordinary derivatives of vectors break in curved spacetime (chapter opening).",
+   "Model of a curved spacetime: a manifold covered by many small flat maps, like street maps patched over the globe, locally Minkowskian (Example 7.1).",
+   "Insider viewpoint: observers trapped in a surface cannot use chord-like arrows, so vectors are tangents to paths; parallelism is defined by carrying local axes along and keeping components unchanged (§7.1, Figs 7.1-7.3).",
+   "Conceptual split: the change of a vector along a direction equals its intrinsic change plus a contribution from the changing coordinate system; the covariant derivative keeps only the intrinsic part (eqn 7.1).",
+   "Warm-up from calculus: gradient and directional derivative in Euclidean space as the template for a derivative along a vector (Example 7.3).",
+   "Formalism: product rule on v^mu e_mu, definition of connection coefficients from derivatives of basis vectors (eqns 7.5-7.6).",
+   "Check by brute force: flat plane in polar coordinates has non-zero Gammas, so Gamma is not a curvature detector (Example 7.4); symmetry of Gamma noted (7.9).",
+   "Caveat: Gamma is not a tensor because of the second-derivative term in its transformation law (Example 7.5).",
+   "Assemble the covariant derivative nabla_alpha v and its semicolon components; flat Cartesian check gives ordinary derivatives (eqns 7.12-7.19, Example 7.6).",
+   "Generalize to arbitrary directions via the connection operator, analogous to u . grad f (eqns 7.20-7.23).",
+   "Parallel transport becomes the equation nabla_u v = 0, read as component change equals coordinate-induced change (eqns 7.24-7.27).",
+   "Move to curves: parametrization, affine reparametrizations, vector fields, D/dlambda along a curve, tangent vector and four-velocity with u.u = -1 (§7.4).",
+   "Picture of the definition: transport the vector at lambda_0 + epsilon back, subtract, divide and take the limit (Example 7.9, Fig. 7.6); flat-space check with the chain rule (Example 7.10).",
+   "Closing constraint: the metric fixes the connection through nabla g = 0, justified by requiring lengths to survive parallel transport (§7.5, Example 7.11).",
+   "Forward look: since g_{mu nu} = e_mu . e_nu and Gamma comes from derivatives of e_mu, Gamma should be built from first derivatives of g (boxed rule 7.38; formula 7.37 quoted for Chapter 9)."
+  ],
+  "signature_moves": [
+   "Large-bracket word equations (eqns 7.1, 7.4, 7.27, 7.28, 7.30) state each derivative in plain language before or alongside its components.",
+   "Frames curved space from the standpoint of confined observers (ants on a football, people on the Earth) who are forbidden to use the embedding space, and contrasts their judgment of parallelism with that of an outside observer (Figs 7.1, 7.2).",
+   "Uses a flat space in curvilinear coordinates (plane polar) as the 'brute force and ignorance' test case, extracting a separation between coordinate effects and genuine curvature.",
+   "Relegates notation bridges to margin notes (nabla_alpha = nabla_{e_alpha}; components of derivative versus derivative of components; comma/semicolon shaded box) so the main line stays short.",
+   "Gives an operational four-step recipe for the covariant derivative (take later vector, transport back, subtract, divide and limit) paired with a labelled diagram (Fig. 7.6).",
+   "Checks each new formula against flat spacetime in Cartesian coordinates, where it must collapse to ordinary partial or total derivatives (Examples 7.6, 7.10).",
+   "Uses boxed-symbol arrow rules (dg -> Gamma) as a dependency map of which geometric objects are built from which; the text says this link will be expanded in coming chapters.",
+   "Quotes results that will be derived later (transformation law of Gamma, tensor covariant derivatives, Gamma from metric) with explicit forward pointers rather than deriving them now."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Chapter opening: why a new derivative, and manifolds as patched maps",
+   "printed_page": 81,
+   "pdf_page": 98,
+   "summary": "States the goal: equations for fields in spacetime need derivatives of vectors and tensors, and curvature undermines the usual rules. Example 7.1 introduces a manifold via the analogy of covering the curved Earth with many small rectangular street maps that join smoothly; spacetime is likewise covered by locally flat four-coordinate charts, looks Minkowskian over small enough regions, and can be curved on larger scales. A margin note pictures a 2D manifold as a smooth, unpunctured rubber sheet.",
+   "concepts": [
+    "manifold",
+    "local flatness",
+    "differential geometry"
+   ],
+   "key_moves": [
+    "Physics needs differential equations for fields, hence a derivative of vectors valid in curved spacetime",
+    "Earth's surface: flat street maps work only locally but can be stitched smoothly over the globe",
+    "Spacetime as a smooth manifold covered by local four-coordinate maps",
+    "Smoothness implies Minkowski-like behaviour over sufficiently small regions; curvature shows up over larger distances"
+   ]
+  },
+  {
+   "number": "7.1",
+   "title": "Parallelism",
+   "printed_page": 82,
+   "pdf_page": 99,
+   "summary": "Observers are confined to a curved 2D surface and may not use the surrounding 3D space. A vector as a directed chord between points leaves the surface (New York to Paris tunnel), so vectors are instead tangents to paths. On a path that does not turn according to the insiders, such as a great circle, the tangent is judged the same everywhere; moving a vector so that it matches the local tangent is parallel transport. Generalizing, insiders carry their local axes along and call vectors parallel when they have equal components in these carried frames; from outside, those same vectors appear to rotate (Fig. 7.1; London and Tokyo north directions). Example 7.2 contrasts vectors that are parallel in R^3 but not tangent to a sphere (Fig. 7.2) with correctly transported vectors on the sphere (Fig. 7.3). It closes by setting a requirement for what follows: differentiating a field made of mutually parallel vectors has to give zero.",
+   "concepts": [
+    "intrinsic (insider) viewpoint on geometry",
+    "tangent vector to a curve",
+    "parallel transport",
+    "parallelism in curved space"
+   ],
+   "key_moves": [
+    "Forbid use of the embedding space: all measurements are made within the surface",
+    "Replace chord vectors by tangent vectors to paths",
+    "Tangent of a non-turning path (great circle) is declared parallel to itself along the path",
+    "Parallelism for general vectors: equal components in local frames that are themselves transported",
+    "Outside view: insider-parallel vectors appear to change direction (Fig. 7.1)",
+    "Embedding-parallel vectors fail to be tangent to the sphere, so they are not parallel for insiders (Example 7.2, Fig. 7.2)",
+    "Requirement carried forward: the derivative of a parallel field must be zero"
+   ]
+  },
+  {
+   "number": "7.2",
+   "title": "Derivatives and connections",
+   "printed_page": 83,
+   "pdf_page": 100,
+   "summary": "Separates the change of a vector into its intrinsic change and the change caused by position-dependent coordinates, defining the covariant derivative in words as the former (eqn 7.1) and noting that it is directional. Example 7.3 recalls the Euclidean gradient and directional derivative u . grad f as the model. The product rule applied to v^mu e_mu gives a component term and a basis-vector term; the latter is expanded on the basis to define connection coefficients (Christoffel symbols) Gamma^lambda_{alpha mu}, which say how neighbouring local coordinate systems are connected. Example 7.4 reads off the polar-coordinate Gammas from known derivatives of e_r and e_theta, showing that flat space can have non-zero Gamma. The Gammas used in the book are symmetric in their lower indices (torsion free), and Example 7.5 quotes their transformation law, whose second-derivative term shows they are not tensor components.",
+   "concepts": [
+    "covariant derivative",
+    "directional derivative",
+    "gradient",
+    "position-dependent basis vectors",
+    "connection coefficients",
+    "Christoffel symbols of plane polar coordinates",
+    "torsion-free (symmetric) connection",
+    "non-tensorial transformation of connection coefficients",
+    "tensor transformation law"
+   ],
+   "key_moves": [
+    "Word equation: covariant derivative = change in vector minus change due to coordinate system (7.1)",
+    "Directional derivative in Euclidean space as template (7.2-7.4)",
+    "Product rule on v^mu e_mu isolates the basis-vector term (7.5)",
+    "Define Gamma by expanding de_mu/dx^alpha on the basis (7.6)",
+    "Polar coordinates: read off Gamma^theta_{r theta} = Gamma^theta_{theta r} = 1/r and Gamma^r_{theta theta} = -r from derivatives of basis vectors (7.7-7.8)",
+    "Non-zero Gamma in flat space means Gamma alone cannot diagnose curvature",
+    "Symmetry Gamma^mu_{alpha beta} = Gamma^mu_{beta alpha} assumed throughout (7.9)",
+    "Inhomogeneous term in the transformation law spoils tensor behaviour (7.10-7.11)"
+   ]
+  },
+  {
+   "number": "7.3",
+   "title": "The covariant derivative",
+   "printed_page": 85,
+   "pdf_page": 102,
+   "summary": "Substitutes the definition of Gamma into the product-rule expression and relabels dummy indices to obtain nabla_alpha v = (dv^mu/dx^alpha + Gamma^mu_{alpha lambda} v^lambda) e_mu, a vector for each alpha. Margin notes clarify that components of the derivative differ from derivatives of components, write nabla acting on components and on basis vectors separately, and introduce comma (partial) and semicolon (covariant) notation. In flat Cartesian coordinates all Gammas vanish and the covariant derivative reduces to partial derivatives (Example 7.6). A connection operator nabla is introduced so that e_alpha . nabla = nabla_alpha; acting on scalars it is the partial derivative, and replacing e_alpha by any u gives directional derivatives nabla_u f and nabla_u v = u^alpha nabla_alpha v. Parallel transport along u is the statement nabla_u v = 0, which in components says the change of components is entirely due to the Gamma term (Example 7.7).",
+   "concepts": [
+    "covariant derivative",
+    "comma and semicolon notation",
+    "connection operator",
+    "covariant derivative of a scalar",
+    "directional covariant derivative",
+    "parallel transport equation",
+    "components of a derivative versus derivatives of components"
+   ],
+   "key_moves": [
+    "Insert (7.6) into (7.5) and relabel dummies to factor out e_mu (7.12-7.13)",
+    "Rename the result nabla_alpha v and note its (1,0) character for fixed alpha (7.18)",
+    "Distinguish (nabla_alpha v)^mu from dv^mu/dx^alpha; nabla_alpha e_mu = Gamma^lambda_{alpha mu} e_lambda (7.15-7.17)",
+    "Flat Cartesian check: Gamma = 0 recovers partial derivatives (7.19)",
+    "Define nabla via e_alpha . nabla = nabla_alpha, act on scalars, extend linearly to any direction u (7.20-7.23)",
+    "Parallel transport: nabla_u v = 0 (7.24), components obey u^alpha(dv^mu/dx^alpha + Gamma^mu_{alpha beta} v^beta) = 0 (7.25)",
+    "Interpretation: component change equals coordinate-induced change (7.26-7.27)"
+   ]
+  },
+  {
+   "number": "7.4",
+   "title": "Parametrized paths",
+   "printed_page": 86,
+   "pdf_page": 103,
+   "summary": "Recasts the covariant derivative for curves such as world lines. A curve is x(lambda) with lambda increasing monotonically between endpoints (Fig. 7.4); Example 7.8 parametrizes a line, a parabola and a circle. If lambda is an allowed parameter, any linear re-labelling lambda = alpha eta + beta is equally good; the book calls such parametrizations affine. For a vector field v(x), the rate of change along the curve is written Dv/dlambda and equals nabla_u v with the tangent u = (dx^mu/dlambda) e_mu (Fig. 7.5); choosing lambda = tau for massive particles makes u the velocity with u.u = -1. Example 7.9 gives the limit recipe: transport v from lambda_0 + epsilon back to lambda_0, subtract v(lambda_0), divide by epsilon (Fig. 7.6). Example 7.10 checks that in flat Cartesian coordinates the components of DA/dlambda are just dA^alpha/dlambda by the chain rule.",
+   "concepts": [
+    "parametrized curve",
+    "affine parameter",
+    "vector field",
+    "covariant derivative along a curve",
+    "tangent vector to a curve",
+    "four-velocity",
+    "limit definition of the covariant derivative via parallel transport"
+   ],
+   "key_moves": [
+    "Curve as x(lambda) with a monotonic parameter marking progress (Fig. 7.4, Example 7.8)",
+    "Affine reparametrization: linear relation between parameters",
+    "Define Dv/dlambda for a vector field along a curve (7.28)",
+    "Tangent vector u = (dx^mu/dlambda) e_mu supplies the direction (7.29), so Dv/dlambda = nabla_u v (7.30)",
+    "Proper time as parameter gives four-velocity with u.u = -1",
+    "Operational definition: parallel transport back, subtract, divide, take limit (7.31, Fig. 7.6)",
+    "Flat-space check via chain rule: (DA/dlambda)^alpha = dA^alpha/dlambda (7.32)"
+   ]
+  },
+  {
+   "number": "7.5",
+   "title": "Enter the metric",
+   "printed_page": 88,
+   "pdf_page": 105,
+   "summary": "Asks whether the covariant derivative could have been built differently and answers that the metric removes the freedom: the connection must be compatible, nabla_alpha g = 0, i.e. g_{mu nu;alpha} = 0. Margin notes quote the covariant derivatives of (0,2) and (2,0) tensors and reinterpret affine parameters in terms of vector lengths under transport. Example 7.11 argues that if a parallel vector A keeps its length g_{mu nu}A^mu A^nu, the product rule forces g_{mu nu;alpha} = 0. Because g_{mu nu} = e_mu . e_nu and Gamma describes how e_mu change, Gamma should be a combination of first derivatives of the metric, summarized by the boxed rule dg -> Gamma, with the explicit formula (7.37) promised for Chapter 9.",
+   "concepts": [
+    "metric compatibility of the connection",
+    "preservation of vector length under parallel transport",
+    "covariant derivative of tensors",
+    "Leibniz rule for covariant derivatives",
+    "connection coefficients from the metric",
+    "metric tensor"
+   ],
+   "key_moves": [
+    "The metric, not free choice, fixes the connection: impose nabla g = 0 (7.33)",
+    "Quote tensor covariant derivatives: minus Gamma per lower index, plus Gamma per upper index (7.34-7.35)",
+    "Without compatibility, lengths would drift under parallel transport, which is physically unacceptable",
+    "Product rule on g(A,A) with A^mu_{;alpha} = 0 isolates g_{mu nu;alpha} (7.36)",
+    "g_{mu nu} = e_mu . e_nu plus Gamma from de_mu/dx^alpha suggests Gamma is built from first derivatives of g (7.38, 7.37)"
+   ]
+  },
+  {
+   "number": null,
+   "title": "Chapter summary",
+   "printed_page": 89,
+   "pdf_page": 106,
+   "summary": "Three bullet points: parallel transport compares vectors at different points by keeping components fixed in local frames; the covariant derivative nabla_u v measures genuine change of vector fields and has the component form of eqn 7.39; the proper-time tangent to a massive particle's world line is a timelike velocity with u.u = -1.",
+   "concepts": [
+    "parallel transport",
+    "covariant derivative",
+    "four-velocity"
+   ],
+   "key_moves": [
+    "Restates eqn 7.23 as 7.39",
+    "Omits metric compatibility from the summary even though §7.5 introduced it"
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "manifold",
+   "aliases": [
+    "smooth manifold",
+    "rubber-sheet space"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A space that can be covered by overlapping local coordinate patches, each looking like ordinary R^n, which join smoothly where they overlap; spacetime is modelled as a 4-dimensional manifold.",
+   "how_introduced": "Through covering the curved Earth with many small rectangular street maps that blend into one another; a margin note adds the image of a smooth rubber surface such as a sphere or torus.",
+   "depth": "introduced",
+   "prerequisites": [
+    "coordinates"
+   ],
+   "locators": [
+    {
+     "pdf_page": 98,
+     "printed_page": 81,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": "Full treatment promised in Part V and Appendix C. The rubber-sheet note speaks of not being punctured, which is loose: a plane with a point removed is still a manifold."
+  },
+  {
+   "name": "differential geometry",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "The mathematical study of smooth spaces (manifolds) using calculus: tangent vectors, connections, curvature and related structures.",
+   "how_introduced": "Named in passing in Example 7.1 as the subject of Part V.",
+   "depth": "mention",
+   "prerequisites": [
+    "manifold"
+   ],
+   "locators": [
+    {
+     "pdf_page": 98,
+     "printed_page": 81,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "local flatness",
+   "aliases": [
+    "locally Minkowskian spacetime"
+   ],
+   "kind": "principle",
+   "definition": "Over a sufficiently small region around any point, a smooth spacetime can be described by coordinates in which it looks like Minkowski spacetime; curvature only becomes apparent over larger separations.",
+   "how_introduced": "Asserted as a consequence of smoothness in Example 7.1, continuing the street-map analogy.",
+   "depth": "mention",
+   "prerequisites": [
+    "manifold",
+    "Minkowski spacetime"
+   ],
+   "locators": [
+    {
+     "pdf_page": 98,
+     "printed_page": 81,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": "Precisely, the metric can be made Minkowski with vanishing first derivatives at a point; second derivatives (curvature) cannot be removed. Developed in GA ch6 §6.4 and ch10."
+  },
+  {
+   "name": "intrinsic (insider) viewpoint on geometry",
+   "aliases": [
+    "confined observers",
+    "ants on a football"
+   ],
+   "kind": "principle",
+   "definition": "Geometry of a space should be describable using only measurements made within the space itself, without reference to any higher-dimensional space in which it might be embedded; this is the only viewpoint available for spacetime.",
+   "how_introduced": "Ants confined to a football and humans confined to the Earth's surface are forbidden to float above it; this rules out chord vectors and motivates tangent vectors and insider parallelism.",
+   "depth": "developed",
+   "prerequisites": [
+    "manifold"
+   ],
+   "locators": [
+    {
+     "pdf_page": 99,
+     "printed_page": 82,
+     "section": "7.1"
+    }
+   ],
+   "formulas": [],
+   "notes": "Part V (Chapter 30, Classical curvature) returns to curvature of surfaces judged from inside versus from an embedding; Appendix D treats embedding."
+  },
+  {
+   "name": "tangent vector to a curve",
+   "aliases": [
+    "tangent vector",
+    "u = dx^mu/dlambda e_mu"
+   ],
+   "kind": "mathematical-object",
+   "definition": "For a curve x^mu(lambda), the vector u = (dx^mu/dlambda) e_mu at each point, which lies in the tangent space at that point and gives the direction and rate of progress along the curve.",
+   "how_introduced": "First qualitatively in §7.1 as the replacement for chord vectors on a curved surface; later in §7.4 as the direction needed to take a covariant derivative along a curve (Fig. 7.5).",
+   "depth": "core",
+   "prerequisites": [
+    "parametrized curve",
+    "coordinate basis vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 99,
+     "printed_page": 82,
+     "section": "7.1"
+    },
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    }
+   ],
+   "formulas": [
+    "u = \\frac{\\mathrm{d}x^\\mu(\\lambda)}{\\mathrm{d}\\lambda} \\boldsymbol{e}_\\mu"
+   ],
+   "notes": "Margin note 14 stresses that it is not written dx/dlambda because the position vector x does not transform properly in general coordinates."
+  },
+  {
+   "name": "parallelism in curved space",
+   "aliases": [
+    "parallel vectors at different points"
+   ],
+   "kind": "definition",
+   "definition": "Two vectors at different points of a curved space are called parallel (relative to a chosen path) when one is obtained from the other by parallel transport; for insiders this means they have the same components in local frames that have themselves been carried along the path.",
+   "how_introduced": "Built from the tangent of a non-turning path (great circle) and generalized by transporting the insiders' local axes; contrasted with vectors that are parallel in the embedding space but not tangent to the sphere (Fig. 7.2).",
+   "depth": "developed",
+   "prerequisites": [
+    "intrinsic (insider) viewpoint on geometry",
+    "tangent vector to a curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 99,
+     "printed_page": 82,
+     "section": "7.1"
+    }
+   ],
+   "formulas": [],
+   "notes": "The book does not emphasize here that the outcome depends on the path taken; that path dependence becomes the curvature test in Chapter 11."
+  },
+  {
+   "name": "parallel transport",
+   "aliases": [
+    "parallel transported vector",
+    "covariantly constant along a curve"
+   ],
+   "kind": "operation",
+   "definition": "Moving a vector along a curve so that it undergoes no intrinsic change, i.e. its covariant derivative along the curve's tangent vanishes, nabla_u v = 0; all apparent change in its components is then due to the changing coordinate basis.",
+   "how_introduced": "Pictorially in §7.1 (great circles on a sphere, Figs 7.1 and 7.3), then as the equation nabla_u v = 0 in §7.3, then as the ingredient of the limit definition of D/dlambda in §7.4 (Fig. 7.6).",
+   "depth": "core",
+   "prerequisites": [
+    "parallelism in curved space",
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 99,
+     "printed_page": 82,
+     "section": "7.1"
+    },
+    {
+     "pdf_page": 100,
+     "printed_page": 83,
+     "section": "7.2"
+    },
+    {
+     "pdf_page": 103,
+     "printed_page": 86,
+     "section": "7.3"
+    },
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol{u}} \\boldsymbol{v} = 0",
+    "u^\\alpha \\frac{\\partial v^\\mu}{\\partial x^\\alpha} + \\Gamma^\\mu_{\\alpha\\beta} v^\\beta u^\\alpha = 0"
+   ],
+   "notes": "Along a curve the condition is best written dv^mu/dlambda + Gamma^mu_{alpha beta} u^alpha v^beta = 0; the book's eqn 7.26, which drops u^alpha, only holds for a field that is parallel in every direction."
+  },
+  {
+   "name": "position-dependent basis vectors",
+   "aliases": [
+    "changing coordinate basis",
+    "coordinate basis vectors"
+   ],
+   "kind": "mathematical-object",
+   "definition": "In curvilinear coordinates (and in any coordinates on a curved space) the coordinate basis vectors e_mu differ from point to point, so differentiating a vector v = v^mu e_mu requires differentiating the basis as well as the components.",
+   "how_introduced": "Through the product rule in eqn 7.5 and the explicit plane polar example, where e_r = cos theta e_x + sin theta e_y and e_theta = -r sin theta e_x + r cos theta e_y (margin note 6).",
+   "depth": "developed",
+   "prerequisites": [
+    "plane polar coordinates",
+    "vector components"
+   ],
+   "locators": [
+    {
+     "pdf_page": 100,
+     "printed_page": 83,
+     "section": "7.2"
+    },
+    {
+     "pdf_page": 101,
+     "printed_page": 84,
+     "section": "7.2"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\partial \\boldsymbol{v}}{\\partial x^\\alpha} = \\frac{\\partial v^\\mu}{\\partial x^\\alpha}\\boldsymbol{e}_\\mu + v^\\mu \\frac{\\partial \\boldsymbol{e}_\\mu}{\\partial x^\\alpha}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "directional derivative",
+   "aliases": [
+    "u . grad f",
+    "derivative along a vector"
+   ],
+   "kind": "operation",
+   "definition": "The rate of change of a field along a given vector u; for a scalar f in Euclidean space it is u . grad f = u^i df/dx^i, roughly the value of f at the tip of u minus its value at the base for small u.",
+   "how_introduced": "Example 7.3 recalls it from vector calculus as the template that the covariant derivative generalizes; later nabla_u f = u^alpha df/dx^alpha (7.21).",
+   "depth": "revisited",
+   "prerequisites": [
+    "gradient"
+   ],
+   "locators": [
+    {
+     "pdf_page": 100,
+     "printed_page": 83,
+     "section": "7.2"
+    },
+    {
+     "pdf_page": 102,
+     "printed_page": 85,
+     "section": "7.3"
+    }
+   ],
+   "formulas": [
+    "\\vec{u}\\cdot\\vec{\\nabla} f = u^x \\frac{\\partial f}{\\partial x} + u^y \\frac{\\partial f}{\\partial y} + u^z \\frac{\\partial f}{\\partial z}",
+    "\\nabla_{\\boldsymbol{u}} f = u^\\alpha \\frac{\\partial f}{\\partial x^\\alpha}"
+   ],
+   "notes": "The tip-minus-base reading (7.4) is only first-order accurate and needs division by the length of u to be a rate."
+  },
+  {
+   "name": "gradient",
+   "aliases": [
+    "grad f"
+   ],
+   "kind": "operation",
+   "definition": "For a scalar field in Euclidean 3-space, the vector of partial derivatives, grad f = (df/dx) e_x + (df/dy) e_y + (df/dz) e_z, which points normal to surfaces of constant f.",
+   "how_introduced": "Recalled in Example 7.3 as background for the directional derivative.",
+   "depth": "mention",
+   "prerequisites": [
+    "partial derivatives"
+   ],
+   "locators": [
+    {
+     "pdf_page": 100,
+     "printed_page": 83,
+     "section": "7.2"
+    }
+   ],
+   "formulas": [
+    "\\vec{\\nabla} f = \\frac{\\partial f}{\\partial x}\\vec{e}_x + \\frac{\\partial f}{\\partial y}\\vec{e}_y + \\frac{\\partial f}{\\partial z}\\vec{e}_z"
+   ],
+   "notes": "Chapter 31 revisits the gradient as a 1-form rather than a vector."
+  },
+  {
+   "name": "covariant derivative",
+   "aliases": [
+    "nabla_alpha v",
+    "v^mu_{;alpha}",
+    "intrinsic derivative"
+   ],
+   "kind": "operation",
+   "definition": "A derivative of vector (and tensor) fields that measures only the genuine change of the field, removing the part caused by position-dependent basis vectors; in coordinates (nabla_alpha v)^mu = dv^mu/dx^alpha + Gamma^mu_{alpha lambda} v^lambda, and the result transforms as a tensor.",
+   "how_introduced": "Defined in words (eqn 7.1) as change of vector minus change due to coordinates, then derived by applying the product rule to v^mu e_mu and substituting the connection coefficients (7.12-7.18).",
+   "depth": "core",
+   "prerequisites": [
+    "position-dependent basis vectors",
+    "connection coefficients",
+    "directional derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 100,
+     "printed_page": 83,
+     "section": "7.2"
+    },
+    {
+     "pdf_page": 102,
+     "printed_page": 85,
+     "section": "7.3"
+    },
+    {
+     "pdf_page": 103,
+     "printed_page": 86,
+     "section": "7.3"
+    }
+   ],
+   "formulas": [
+    "\\nabla_\\alpha \\boldsymbol{v} = \\left(\\frac{\\partial v^\\mu}{\\partial x^\\alpha} + v^\\lambda \\Gamma^\\mu_{\\alpha\\lambda}\\right)\\boldsymbol{e}_\\mu",
+    "v^\\mu{}_{;\\alpha} = v^\\mu{}_{,\\alpha} + v^\\lambda\\Gamma^\\mu_{\\alpha\\lambda}"
+   ],
+   "notes": "For fixed alpha, nabla_alpha v is a vector; with alpha left free, nabla v is a (1,1) tensor (used in Exercise 7.3d)."
+  },
+  {
+   "name": "connection coefficients",
+   "aliases": [
+    "Christoffel symbols",
+    "Gamma^lambda_{alpha mu}",
+    "connection"
+   ],
+   "kind": "mathematical-object",
+   "definition": "Functions Gamma^lambda_{alpha mu}(x) defined by expanding the derivative of a basis vector on the basis, de_mu/dx^alpha = Gamma^lambda_{alpha mu} e_lambda; they tell how local frames at neighbouring points are related and supply the correction term in covariant derivatives.",
+   "how_introduced": "Needed to express the awkward basis-vector term in the product rule (7.5); read as the rate at which e_mu turns toward e_lambda when moving along e_alpha (margin note 8); computed by brute force for polar coordinates.",
+   "depth": "core",
+   "prerequisites": [
+    "position-dependent basis vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 100,
+     "printed_page": 83,
+     "section": "7.2"
+    },
+    {
+     "pdf_page": 101,
+     "printed_page": 84,
+     "section": "7.2"
+    },
+    {
+     "pdf_page": 106,
+     "printed_page": 89,
+     "section": "7.5"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\partial \\boldsymbol{e}_\\mu}{\\partial x^\\alpha} = \\Gamma^\\lambda_{\\alpha\\mu}\\boldsymbol{e}_\\lambda"
+   ],
+   "notes": "The book prefers 'connection coefficients' to 'Christoffel symbols'. In a genuinely curved space with no embedding, eqn 7.6 is really a definition of how to compare nearby tangent spaces, not something derivable; this subtlety is left to Part V."
+  },
+  {
+   "name": "Christoffel symbols of plane polar coordinates",
+   "aliases": [
+    "polar-coordinate connection"
+   ],
+   "kind": "solution-or-model",
+   "definition": "For the flat plane in (r, theta) coordinates the only non-zero connection coefficients are Gamma^theta_{r theta} = Gamma^theta_{theta r} = 1/r and Gamma^r_{theta theta} = -r.",
+   "how_introduced": "Example 7.4 differentiates the polar basis vectors expressed on the Cartesian basis and reads off coefficients using eqn 7.6.",
+   "depth": "developed",
+   "prerequisites": [
+    "connection coefficients",
+    "position-dependent basis vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 101,
+     "printed_page": 84,
+     "section": "7.2"
+    }
+   ],
+   "formulas": [
+    "\\Gamma^\\theta_{r\\theta} = \\Gamma^\\theta_{\\theta r} = \\frac{1}{r}, \\quad \\Gamma^r_{\\theta\\theta} = -r"
+   ],
+   "notes": "Reused in Exercise 7.3(c), which asks for covariant derivatives in polar coordinates 'using the connection coefficients given in the chapter'. Chapter 9 gives a faster way to obtain the same values from the metric."
+  },
+  {
+   "name": "non-zero connection coefficients do not imply curvature",
+   "aliases": [],
+   "kind": "principle",
+   "definition": "Connection coefficients can be non-zero purely because of curvilinear coordinates on a flat space, so their presence cannot decide whether a space is curved; a curvature test needs a combination of Gamma and its derivatives (the Riemann tensor).",
+   "how_introduced": "Drawn as the moral of Example 7.4 with a forward pointer to Chapter 11.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Christoffel symbols of plane polar coordinates"
+   ],
+   "locators": [
+    {
+     "pdf_page": 101,
+     "printed_page": 84,
+     "section": "7.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "torsion-free (symmetric) connection",
+   "aliases": [
+    "symmetric connection",
+    "torsion free"
+   ],
+   "kind": "definition",
+   "definition": "A connection whose coefficients in a coordinate basis are symmetric in the two lower indices, Gamma^mu_{alpha beta} = Gamma^mu_{beta alpha}; equivalently its torsion tensor vanishes.",
+   "how_introduced": "Stated as a property holding in all the coordinate frames used in the book (eqn 7.9), and used to excuse the choice of lower-index ordering.",
+   "depth": "introduced",
+   "prerequisites": [
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 101,
+     "printed_page": 84,
+     "section": "7.2"
+    }
+   ],
+   "formulas": [
+    "\\Gamma^\\mu_{\\alpha\\beta} = \\Gamma^\\mu_{\\beta\\alpha}"
+   ],
+   "notes": "True in coordinate bases for the Levi-Civita connection; in non-coordinate (e.g. orthonormal) bases connection coefficients need not be symmetric, which matters in Chapter 10 and Cartan's method (Chapter 36)."
+  },
+  {
+   "name": "non-tensorial transformation of connection coefficients",
+   "aliases": [
+    "Gamma is not a tensor"
+   ],
+   "kind": "identity",
+   "definition": "Under a change of coordinates the connection coefficients pick up an extra term involving second derivatives of the old coordinates with respect to the new ones, so they do not transform as tensor components and can be made zero at a point by a suitable coordinate choice.",
+   "how_introduced": "Example 7.5 contrasts the tensor transformation law (7.10) with the quoted law for Gamma (7.11), deferring the proof to Part V.",
+   "depth": "introduced",
+   "prerequisites": [
+    "tensor transformation law",
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 101,
+     "printed_page": 84,
+     "section": "7.2"
+    }
+   ],
+   "formulas": [
+    "\\Gamma^{\\alpha'}{}_{\\gamma'\\beta'} = \\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\left(\\frac{\\partial^2 x^\\alpha}{\\partial x^{\\beta'}\\partial x^{\\gamma'}} + \\frac{\\partial x^\\beta}{\\partial x^{\\beta'}}\\frac{\\partial x^\\gamma}{\\partial x^{\\gamma'}}\\Gamma^\\alpha{}_{\\gamma\\beta}\\right)"
+   ],
+   "notes": "The book offers this as the reason for the names 'coefficients' and 'symbols'. The connection to local flatness (Gamma can be transformed away at a point) is not drawn here."
+  },
+  {
+   "name": "tensor transformation law",
+   "aliases": [],
+   "kind": "identity",
+   "definition": "Components of an (m,n) tensor transform with one Jacobian factor dx'/dx for each upper index and one dx/dx' for each lower index, with no additional terms.",
+   "how_introduced": "Recalled in Example 7.5 for a (1,2) object as the standard against which Gamma fails.",
+   "depth": "revisited",
+   "prerequisites": [
+    "coordinate transformations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 101,
+     "printed_page": 84,
+     "section": "7.2"
+    }
+   ],
+   "formulas": [
+    "T^{\\alpha'}{}_{\\gamma'\\beta'} = \\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\frac{\\partial x^\\beta}{\\partial x^{\\beta'}}\\frac{\\partial x^\\gamma}{\\partial x^{\\gamma'}} T^\\alpha{}_{\\gamma\\beta}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "comma and semicolon notation",
+   "aliases": [
+    "comma derivative",
+    "semicolon derivative",
+    "f_{,alpha}",
+    "v^mu_{;alpha}"
+   ],
+   "kind": "convention",
+   "definition": "Shorthand in which a comma before an index denotes a partial derivative, f_{,alpha} = df/dx^alpha, and a semicolon denotes a covariant derivative, v^mu_{;alpha} = (nabla_alpha v)^mu.",
+   "how_introduced": "Shaded margin box in §7.3, with the authors' remark that compactness comes at the price of punctuation-heavy expressions.",
+   "depth": "introduced",
+   "prerequisites": [
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 102,
+     "printed_page": 85,
+     "section": "7.3"
+    },
+    {
+     "pdf_page": 103,
+     "printed_page": 86,
+     "section": "7.3"
+    }
+   ],
+   "formulas": [
+    "f_{,\\alpha} \\equiv \\frac{\\partial f}{\\partial x^\\alpha}",
+    "(\\nabla_\\alpha \\boldsymbol{v})^\\mu \\equiv v^\\mu{}_{;\\alpha} = v^\\mu{}_{,\\alpha} + v^\\lambda\\Gamma^\\mu_{\\alpha\\lambda}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "components of a derivative versus derivatives of components",
+   "aliases": [],
+   "kind": "principle",
+   "definition": "The mu-component of the covariant derivative of v is generally not the derivative of the component v^mu, because the basis vectors also change; nabla_alpha acting on the scalar functions v^mu gives dv^mu/dx^alpha, while nabla_alpha e_mu = Gamma^lambda_{alpha mu} e_lambda supplies the rest.",
+   "how_introduced": "Margin note 10 with eqns 7.15-7.17, reinforced in margin note 13 for D/dlambda.",
+   "depth": "developed",
+   "prerequisites": [
+    "covariant derivative",
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 102,
+     "printed_page": 85,
+     "section": "7.3"
+    },
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_\\alpha(v^\\mu) = \\frac{\\partial v^\\mu}{\\partial x^\\alpha}",
+    "\\nabla_\\alpha(\\boldsymbol{e}_\\mu) = \\Gamma^\\lambda_{\\alpha\\mu}\\boldsymbol{e}_\\lambda"
+   ],
+   "notes": "Eqn 7.16 treats each v^mu as a scalar function, which is a notational convention; the combination is not a tensor."
+  },
+  {
+   "name": "connection operator",
+   "aliases": [
+    "nabla",
+    "del operator on vectors"
+   ],
+   "kind": "operation",
+   "definition": "The operator nabla defined so that e_alpha . nabla = nabla_alpha; contracting it with any vector u gives the covariant derivative along u, nabla_u = u . nabla = u^alpha nabla_alpha.",
+   "how_introduced": "Introduced in §7.3 to pass from derivatives along basis directions to derivatives along arbitrary vectors, by analogy with u . grad f.",
+   "depth": "introduced",
+   "prerequisites": [
+    "covariant derivative",
+    "directional derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 102,
+     "printed_page": 85,
+     "section": "7.3"
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol{e}_\\alpha\\cdot\\nabla = \\nabla_\\alpha",
+    "\\nabla_\\alpha \\equiv \\nabla_{\\boldsymbol{e}_\\alpha}"
+   ],
+   "notes": "The dot notation u . nabla is informal; in Part V nabla v is treated as a (1,1) tensor into whose slot u is inserted."
+  },
+  {
+   "name": "covariant derivative of a scalar",
+   "aliases": [
+    "nabla_alpha f"
+   ],
+   "kind": "definition",
+   "definition": "Acting on a scalar field, the covariant derivative is simply the partial derivative, nabla_alpha f = df/dx^alpha, because a scalar has no basis vectors to change; along a curve Df/dlambda = df/dlambda.",
+   "how_introduced": "Defined in eqn 7.20 as the starting point for the connection operator; restated in margin note 13.",
+   "depth": "introduced",
+   "prerequisites": [
+    "connection operator"
+   ],
+   "locators": [
+    {
+     "pdf_page": 102,
+     "printed_page": 85,
+     "section": "7.3"
+    },
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_\\alpha f = \\frac{\\partial f}{\\partial x^\\alpha}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "directional covariant derivative",
+   "aliases": [
+    "nabla_u v",
+    "covariant derivative along a vector"
+   ],
+   "kind": "operation",
+   "definition": "The covariant derivative of v in the direction of a vector u, nabla_u v = u^alpha nabla_alpha v = u^alpha (dv^mu/dx^alpha + Gamma^mu_{alpha lambda} v^lambda) e_mu, linear in u.",
+   "how_introduced": "Obtained by replacing the basis direction e_alpha with a general vector u in eqn 7.20 and applying the same rule to vectors (7.22-7.23); becomes the chapter summary formula 7.39.",
+   "depth": "core",
+   "prerequisites": [
+    "covariant derivative",
+    "connection operator"
+   ],
+   "locators": [
+    {
+     "pdf_page": 102,
+     "printed_page": 85,
+     "section": "7.3"
+    },
+    {
+     "pdf_page": 103,
+     "printed_page": 86,
+     "section": "7.3"
+    },
+    {
+     "pdf_page": 106,
+     "printed_page": 89,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol{u}}\\boldsymbol{v} = u^\\alpha\\left(\\frac{\\partial v^\\mu}{\\partial x^\\alpha} + v^\\lambda\\Gamma^\\mu_{\\alpha\\lambda}\\right)\\boldsymbol{e}_\\mu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "parallel transport equation",
+   "aliases": [
+    "nabla_u v = 0 in components"
+   ],
+   "kind": "law",
+   "definition": "The component statement of parallel transport along u: u^alpha dv^mu/dx^alpha + Gamma^mu_{alpha beta} u^alpha v^beta = 0, meaning the change in components is exactly compensated by the connection term.",
+   "how_introduced": "Example 7.7 writes out nabla_u v = 0 in components and interprets it with a word equation (7.27).",
+   "depth": "developed",
+   "prerequisites": [
+    "parallel transport",
+    "directional covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 103,
+     "printed_page": 86,
+     "section": "7.3"
+    }
+   ],
+   "formulas": [
+    "u^\\alpha\\frac{\\partial v^\\mu}{\\partial x^\\alpha} + \\Gamma^\\mu_{\\alpha\\beta}v^\\beta u^\\alpha = 0"
+   ],
+   "notes": "With u^alpha d/dx^alpha = d/dlambda this becomes the ODE dv^mu/dlambda = -Gamma^mu_{alpha beta} u^alpha v^beta, which is what one integrates along a curve; applied to v = u it is the geodesic equation of Chapter 8."
+  },
+  {
+   "name": "parametrized curve",
+   "aliases": [
+    "path x(lambda)",
+    "world line parametrization"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A curve described by coordinate functions x^mu(lambda) of a parameter lambda that increases monotonically along it from one endpoint value to the other.",
+   "how_introduced": "Recalled from Chapter 1 with Fig. 7.4 and the examples of a line, parabola and circle in R^2 (Example 7.8).",
+   "depth": "revisited",
+   "prerequisites": [
+    "coordinates"
+   ],
+   "locators": [
+    {
+     "pdf_page": 103,
+     "printed_page": 86,
+     "section": "7.4"
+    }
+   ],
+   "formulas": [
+    "x^\\mu = x^\\mu(\\lambda), \\quad a \\le \\lambda \\le b"
+   ],
+   "notes": null
+  },
+  {
+   "name": "affine parameter",
+   "aliases": [
+    "affine parametrization"
+   ],
+   "kind": "definition",
+   "definition": "A parameter along a curve that is related to a preferred parameter (arc length for spacelike curves, proper time for timelike ones, or any parameter making a geodesic's tangent parallel transported) by a linear map lambda = alpha eta + beta; for non-null curves it keeps the length of the tangent vector constant.",
+   "how_introduced": "Given loosely as parameters that mark off regular intervals, with any linear rescaling lambda = alpha eta + beta also allowed; margin note 16 later ties it to lengths under parallel transport, and Exercise 7.2 contrasts arc length s on a unit circle with the non-affine t = sin s.",
+   "depth": "introduced",
+   "prerequisites": [
+    "parametrized curve",
+    "tangent vector to a curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    },
+    {
+     "pdf_page": 105,
+     "printed_page": 88,
+     "section": "7.5"
+    },
+    {
+     "pdf_page": 107,
+     "printed_page": 90,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\lambda = \\alpha\\eta + \\beta"
+   ],
+   "notes": "The book's characterization is imprecise (see gaps); the sharp statement comes with the geodesic equation in Chapter 8, where only affine parameters give D u/dlambda = 0."
+  },
+  {
+   "name": "vector field",
+   "aliases": [
+    "v(x)"
+   ],
+   "kind": "mathematical-object",
+   "definition": "An assignment of a vector (in the tangent space) to each point of a region of spacetime, v(P).",
+   "how_introduced": "Described in §7.4 as a machine taking a position and returning a vector there, whose rate of change along a curve is sought.",
+   "depth": "introduced",
+   "prerequisites": [
+    "tangent vector to a curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "covariant derivative along a curve",
+   "aliases": [
+    "Dv/dlambda",
+    "absolute derivative",
+    "intrinsic derivative along a curve"
+   ],
+   "kind": "operation",
+   "definition": "The rate of intrinsic change of a vector field along a parametrized curve, Dv/dlambda = nabla_u v with u the tangent; in components (Dv/dlambda)^mu = dv^mu/dlambda + Gamma^mu_{alpha beta} u^alpha v^beta.",
+   "how_introduced": "Defined by a word equation (7.28, 7.30) identifying it with nabla_u v, then pictured as a limit using parallel transport back along the curve (7.31, Fig. 7.6).",
+   "depth": "core",
+   "prerequisites": [
+    "directional covariant derivative",
+    "tangent vector to a curve",
+    "affine parameter"
+   ],
+   "locators": [
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    },
+    {
+     "pdf_page": 105,
+     "printed_page": 88,
+     "section": "7.4"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\mathrm{D}\\boldsymbol{v}}{\\mathrm{d}\\lambda} \\equiv \\nabla_{\\boldsymbol{u}}\\boldsymbol{v}"
+   ],
+   "notes": "The book reserves D/dlambda for an affine parameter, but the definition works for any parameter; affine parameters matter for geodesics."
+  },
+  {
+   "name": "four-velocity",
+   "aliases": [
+    "velocity vector u",
+    "timelike tangent"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The tangent vector to a massive particle's world line parametrized by proper time, u = (dx^mu/dtau) e_mu, normalized so that u . u = -1 in the book's signature.",
+   "how_introduced": "Mentioned as the preferred special case of the tangent vector (lambda = tau) in §7.4 and in the chapter summary.",
+   "depth": "revisited",
+   "prerequisites": [
+    "tangent vector to a curve",
+    "proper time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    },
+    {
+     "pdf_page": 106,
+     "printed_page": 89,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\boldsymbol{u}\\cdot\\boldsymbol{u} = -1"
+   ],
+   "notes": "Introduced in special relativity in Part I; here it becomes the u in D/dtau used for free fall in Chapter 8."
+  },
+  {
+   "name": "limit definition of the covariant derivative via parallel transport",
+   "aliases": [
+    "transport-back-and-subtract definition"
+   ],
+   "kind": "technique",
+   "definition": "Dv/dlambda at lambda_0 is the limit, as epsilon goes to zero, of [v(lambda_0 + epsilon) parallel transported back to lambda_0, minus v(lambda_0)] divided by epsilon; transport makes the two vectors live in the same tangent space so their difference is meaningful.",
+   "how_introduced": "Example 7.9 presents it as a four-step recipe modelled on [f(x + dx) - f(x)]/dx and illustrates it with Fig. 7.6.",
+   "depth": "developed",
+   "prerequisites": [
+    "parallel transport",
+    "covariant derivative along a curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\mathrm{D}\\boldsymbol{v}}{\\mathrm{d}\\lambda} = \\lim_{\\varepsilon\\to 0}\\frac{\\boldsymbol{v}(\\lambda_0+\\varepsilon)_{\\parallel\\to\\lambda_0} - \\boldsymbol{v}(\\lambda_0)}{\\varepsilon}"
+   ],
+   "notes": "Revisited pictorially in Chapter 34 (covariant derivative in pictures)."
+  },
+  {
+   "name": "metric compatibility of the connection",
+   "aliases": [
+    "compatibility condition",
+    "nabla g = 0",
+    "g_{mu nu;alpha} = 0"
+   ],
+   "kind": "principle",
+   "definition": "The requirement that the covariant derivative of the metric tensor vanishes, nabla_alpha g = 0, so that parallel transport preserves lengths and angles; together with a symmetric (torsion-free) connection it fixes Gamma uniquely in terms of the metric.",
+   "how_introduced": "Posed as the answer to 'could we have defined the derivative differently?'; justified in Example 7.11 by demanding that a parallel vector keep its length.",
+   "depth": "developed",
+   "prerequisites": [
+    "covariant derivative of tensors",
+    "metric tensor",
+    "parallel transport"
+   ],
+   "locators": [
+    {
+     "pdf_page": 105,
+     "printed_page": 88,
+     "section": "7.5"
+    },
+    {
+     "pdf_page": 106,
+     "printed_page": 89,
+     "section": "7.5"
+    },
+    {
+     "pdf_page": 107,
+     "printed_page": 90,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\nabla_\\alpha \\boldsymbol{g} = 0",
+    "g_{\\mu\\nu;\\alpha} = 0"
+   ],
+   "notes": "The book implies the metric alone forces the connection; uniqueness also needs the symmetry (7.9). Exercise 7.4 verifies compatibility directly from eqn 7.37."
+  },
+  {
+   "name": "preservation of vector length under parallel transport",
+   "aliases": [],
+   "kind": "principle",
+   "definition": "For a metric-compatible connection, the inner product g(A, B) of two vectors parallel transported along the same curve is constant, so lengths and angles are unchanged by transport.",
+   "how_introduced": "Given as the physical reason compatibility must hold (a world in which rulers change length on being moved would be unphysical), and used as the premise of Example 7.11.",
+   "depth": "introduced",
+   "prerequisites": [
+    "metric compatibility of the connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 105,
+     "printed_page": 88,
+     "section": "7.5"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\mathrm{D}}{\\mathrm{d}\\lambda}\\left(g_{\\mu\\nu}A^\\mu A^\\nu\\right) = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Leibniz rule for covariant derivatives",
+   "aliases": [
+    "product rule"
+   ],
+   "kind": "identity",
+   "definition": "The covariant derivative of a tensor product or contraction of tensors obeys the ordinary product rule: differentiate each factor in turn with the others held fixed and add the results; for the squared length of a vector this yields one term containing the derivative of the metric and two containing the derivative of the vector.",
+   "how_introduced": "Assumed in Example 7.11 with a margin note deferring justification to Part V; also used implicitly in eqn 7.5.",
+   "depth": "introduced",
+   "prerequisites": [
+    "covariant derivative of tensors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 105,
+     "printed_page": 88,
+     "section": "7.5"
+    },
+    {
+     "pdf_page": 100,
+     "printed_page": 83,
+     "section": "7.2"
+    }
+   ],
+   "formulas": [
+    "(g_{\\mu\\nu}A^\\mu A^\\nu)_{;\\alpha} = g_{\\mu\\nu;\\alpha}A^\\mu A^\\nu + g_{\\mu\\nu}A^\\mu{}_{;\\alpha}A^\\nu + g_{\\mu\\nu}A^\\mu A^\\nu{}_{;\\alpha}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant derivative of tensors",
+   "aliases": [
+    "covariant derivative of (0,2) and (2,0) tensors"
+   ],
+   "kind": "operation",
+   "definition": "Extension of the covariant derivative to higher-rank tensors: each upper index gets a +Gamma correction and each lower index a -Gamma correction, e.g. g_{mu nu;alpha} = g_{mu nu,alpha} - Gamma^beta_{alpha mu}g_{beta nu} - Gamma^beta_{alpha nu}g_{mu beta}.",
+   "how_introduced": "Quoted without derivation in margin note 15 (eqns 7.34, 7.35) and in Exercise 7.4 (7.40), with derivation deferred to Part V.",
+   "depth": "introduced",
+   "prerequisites": [
+    "covariant derivative",
+    "tensor transformation law"
+   ],
+   "locators": [
+    {
+     "pdf_page": 105,
+     "printed_page": 88,
+     "section": "7.5"
+    },
+    {
+     "pdf_page": 107,
+     "printed_page": 90,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "T^{\\mu\\nu}{}_{;\\alpha} = T^{\\mu\\nu}{}_{,\\alpha} + \\Gamma^\\mu_{\\alpha\\beta}T^{\\beta\\nu} + \\Gamma^\\nu_{\\alpha\\beta}T^{\\mu\\beta}",
+    "g_{\\mu\\nu;\\alpha} = g_{\\mu\\nu,\\alpha} - \\Gamma^\\beta_{\\alpha\\mu}g_{\\beta\\nu} - \\Gamma^\\beta_{\\alpha\\nu}g_{\\mu\\beta}"
+   ],
+   "notes": "The minus sign for lower indices follows from requiring f = w_mu v^mu to obey nabla_alpha f = df/dx^alpha with the Leibniz rule; the book does not show this here."
+  },
+  {
+   "name": "connection coefficients from the metric",
+   "aliases": [
+    "Levi-Civita connection",
+    "dg -> Gamma"
+   ],
+   "kind": "identity",
+   "definition": "For a metric-compatible, torsion-free connection the coefficients are fixed by first derivatives of the metric: g_{rho lambda}Gamma^rho_{mu sigma} = (1/2)(g_{lambda mu,sigma} + g_{lambda sigma,mu} - g_{mu sigma,lambda}).",
+   "how_introduced": "Motivated heuristically: metric components are dot products of basis vectors and Gamma measures how basis vectors change, so Gamma should come from dg (boxed rule 7.38); the formula is quoted in margin note 18 for use in Chapter 9.",
+   "depth": "mention",
+   "prerequisites": [
+    "metric compatibility of the connection",
+    "torsion-free (symmetric) connection",
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 106,
+     "printed_page": 89,
+     "section": "7.5"
+    }
+   ],
+   "formulas": [
+    "g_{\\rho\\lambda}\\Gamma^\\rho_{\\mu\\sigma} = \\frac{1}{2}\\left(\\frac{\\partial g_{\\lambda\\mu}}{\\partial x^\\sigma} + \\frac{\\partial g_{\\lambda\\sigma}}{\\partial x^\\mu} - \\frac{\\partial g_{\\mu\\sigma}}{\\partial x^\\lambda}\\right)"
+   ],
+   "notes": "Derived in Chapter 9 and again in Chapter 34."
+  },
+  {
+   "name": "metric tensor",
+   "aliases": [
+    "g",
+    "g_{mu nu} = e_mu . e_nu"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The symmetric (0,2) tensor giving inner products of vectors, with coordinate components g_{mu nu} = g(e_mu, e_nu) = e_mu . e_nu; it defines lengths and is the fundamental field describing spacetime geometry.",
+   "how_introduced": "Recalled in §7.5 as the object that constrains the connection and whose derivatives build Gamma.",
+   "depth": "revisited",
+   "prerequisites": [
+    "position-dependent basis vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 105,
+     "printed_page": 88,
+     "section": "7.5"
+    },
+    {
+     "pdf_page": 106,
+     "printed_page": 89,
+     "section": "7.5"
+    }
+   ],
+   "formulas": [
+    "g_{\\mu\\nu} = \\boldsymbol{g}(\\boldsymbol{e}_\\mu, \\boldsymbol{e}_\\nu) = \\boldsymbol{e}_\\mu\\cdot\\boldsymbol{e}_\\nu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "position vector is not a vector in general coordinates",
+   "aliases": [
+    "farewell to the displacement vector"
+   ],
+   "kind": "principle",
+   "definition": "The object x = x^mu e_mu pointing from an origin to a coordinate point does not transform as a vector in curvilinear coordinates or curved space, so tangent vectors are built from dx^mu/dlambda rather than from d(x)/dlambda.",
+   "how_introduced": "Margin note 14 recalls Chapter 3 to explain why the tangent is not written dx/dlambda; margin note 2 gives the related picture of a chord leaving the surface.",
+   "depth": "mention",
+   "prerequisites": [
+    "tangent vector to a curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 104,
+     "printed_page": 87,
+     "section": "7.4"
+    },
+    {
+     "pdf_page": 99,
+     "printed_page": 82,
+     "section": "7.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(7.1)",
+   "name": "Covariant derivative in words",
+   "latex": "\\left(\\text{covariant derivative of } \\boldsymbol{v}\\right)_{\\boldsymbol{u}} = \\left(\\text{change in vector } \\boldsymbol{v}\\right) - \\left(\\text{change due to coordinate system}\\right)",
+   "meaning": "Conceptual definition: the covariant derivative along u keeps only the intrinsic change of v by removing the part caused by changing coordinates.",
+   "symbols": "v vector being differentiated; u direction of differentiation",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.2)",
+   "name": "Euclidean gradient",
+   "latex": "\\vec{\\nabla} f(x,y,z) = \\frac{\\partial f}{\\partial x}\\vec{e}_x + \\frac{\\partial f}{\\partial y}\\vec{e}_y + \\frac{\\partial f}{\\partial z}\\vec{e}_z",
+   "meaning": "Gradient of a scalar field, normal to its level surfaces.",
+   "symbols": "f scalar field; e_x, e_y, e_z Cartesian unit vectors",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.3)",
+   "name": "Euclidean directional derivative",
+   "latex": "\\vec{u}\\cdot\\vec{\\nabla} f = u^x\\frac{\\partial f}{\\partial x} + u^y\\frac{\\partial f}{\\partial y} + u^z\\frac{\\partial f}{\\partial z}",
+   "meaning": "Rate of change of f along the vector u; the template the covariant derivative generalizes.",
+   "symbols": "u^i Cartesian components of u",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.4)",
+   "name": "Directional derivative in words",
+   "latex": "\\vec{u}\\cdot\\vec{\\nabla} f \\approx f(\\text{tip of } \\vec{u}) - f(\\text{base of } \\vec{u})",
+   "meaning": "Heuristic reading of the directional derivative as the difference of f between the ends of u. The book writes it as an equality; it holds only to first order for a short u, and a rate also needs division by the step length.",
+   "symbols": "Valid to first order for small u",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.5)",
+   "name": "Product rule on a vector",
+   "latex": "\\frac{\\partial \\boldsymbol{v}}{\\partial x^\\alpha} = \\frac{\\partial v^\\mu}{\\partial x^\\alpha}\\boldsymbol{e}_\\mu + v^\\mu\\frac{\\partial \\boldsymbol{e}_\\mu}{\\partial x^\\alpha}",
+   "meaning": "Differentiating v = v^mu e_mu produces a term from changing components and a term from changing basis vectors.",
+   "symbols": "v^mu components; e_mu coordinate basis vectors",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.6)",
+   "name": "Definition of connection coefficients",
+   "latex": "\\frac{\\partial \\boldsymbol{e}_\\mu}{\\partial x^\\alpha} = \\Gamma^\\lambda_{\\alpha\\mu}\\boldsymbol{e}_\\lambda",
+   "meaning": "The derivative of each basis vector is expanded on the basis; the expansion coefficients are the connection coefficients.",
+   "symbols": "Gamma^lambda_{alpha mu}: lambda component of the change of e_mu along e_alpha (derivative index first)",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.7)",
+   "name": "Derivatives of polar basis vectors",
+   "latex": "\\frac{\\partial \\boldsymbol{e}_r}{\\partial r} = 0,\\quad \\frac{\\partial \\boldsymbol{e}_r}{\\partial \\theta} = \\frac{\\boldsymbol{e}_\\theta}{r},\\quad \\frac{\\partial \\boldsymbol{e}_\\theta}{\\partial r} = \\frac{\\boldsymbol{e}_\\theta}{r},\\quad \\frac{\\partial \\boldsymbol{e}_\\theta}{\\partial \\theta} = -r\\,\\boldsymbol{e}_r",
+   "meaning": "How the coordinate basis of plane polar coordinates changes with position (from Chapter 3).",
+   "symbols": "e_r = cos theta e_x + sin theta e_y; e_theta = -r sin theta e_x + r cos theta e_y (unnormalized)",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Polar basis vectors on the Cartesian basis (margin note 6)",
+   "latex": "\\boldsymbol{e}_r = \\cos\\theta\\,\\boldsymbol{e}_x + \\sin\\theta\\,\\boldsymbol{e}_y, \\qquad \\boldsymbol{e}_\\theta = -r\\sin\\theta\\,\\boldsymbol{e}_x + r\\cos\\theta\\,\\boldsymbol{e}_y",
+   "meaning": "Coordinate basis vectors obtained from e_r = (dx/dr) e_x + (dy/dr) e_y and similarly for theta; differentiating them gives (7.7).",
+   "symbols": "x = r cos theta, y = r sin theta",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.8)",
+   "name": "Plane polar connection coefficients",
+   "latex": "\\Gamma^r_{rr} = \\Gamma^\\theta_{rr} = \\Gamma^r_{\\theta r} = \\Gamma^r_{r\\theta} = \\Gamma^\\theta_{\\theta\\theta} = 0,\\quad \\Gamma^\\theta_{\\theta r} = \\Gamma^\\theta_{r\\theta} = \\frac{1}{r},\\quad \\Gamma^r_{\\theta\\theta} = -r",
+   "meaning": "All eight connection coefficients of the flat plane in polar coordinates; non-zero despite zero curvature.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.9)",
+   "name": "Symmetric (torsion-free) connection",
+   "latex": "\\Gamma^\\mu_{\\alpha\\beta} = \\Gamma^\\mu_{\\beta\\alpha}",
+   "meaning": "Symmetry in the lower indices holding in all coordinate frames used in the book.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.10)",
+   "name": "Tensor transformation law for a (1,2) tensor",
+   "latex": "T^{\\alpha'}{}_{\\gamma'\\beta'} = \\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\frac{\\partial x^\\beta}{\\partial x^{\\beta'}}\\frac{\\partial x^\\gamma}{\\partial x^{\\gamma'}}T^\\alpha{}_{\\gamma\\beta}",
+   "meaning": "Homogeneous linear transformation expected of genuine tensor components.",
+   "symbols": "Primed indices refer to new coordinates",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.11)",
+   "name": "Transformation law of connection coefficients",
+   "latex": "\\Gamma^{\\alpha'}{}_{\\gamma'\\beta'} = \\frac{\\partial x^{\\alpha'}}{\\partial x^\\alpha}\\left(\\frac{\\partial^2 x^\\alpha}{\\partial x^{\\beta'}\\partial x^{\\gamma'}} + \\frac{\\partial x^\\beta}{\\partial x^{\\beta'}}\\frac{\\partial x^\\gamma}{\\partial x^{\\gamma'}}\\Gamma^\\alpha{}_{\\gamma\\beta}\\right)",
+   "meaning": "Gamma transforms with an extra second-derivative term, so it is not a tensor.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "label": "(7.12)",
+   "name": null,
+   "latex": "\\frac{\\partial \\boldsymbol{v}}{\\partial x^\\alpha} = \\frac{\\partial v^\\mu}{\\partial x^\\alpha}\\boldsymbol{e}_\\mu + v^\\mu\\Gamma^\\lambda_{\\alpha\\mu}\\boldsymbol{e}_\\lambda",
+   "meaning": "Product-rule expression with the basis derivative replaced by connection coefficients.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.13)",
+   "name": null,
+   "latex": "\\frac{\\partial \\boldsymbol{v}}{\\partial x^\\alpha} = \\left(\\frac{\\partial v^\\mu}{\\partial x^\\alpha} + v^\\lambda\\Gamma^\\mu_{\\alpha\\lambda}\\right)\\boldsymbol{e}_\\mu",
+   "meaning": "After relabelling dummy indices, both contributions multiply the same basis vector.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.14)",
+   "name": "Shorthand for derivative along a basis vector",
+   "latex": "\\nabla_\\alpha \\equiv \\nabla_{\\boldsymbol{e}_\\alpha}",
+   "meaning": "nabla_alpha is the covariant derivative along the coordinate basis direction e_alpha.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.15)",
+   "name": "Old and new notation",
+   "latex": "\\frac{\\partial \\boldsymbol{v}}{\\partial x^\\alpha} \\equiv (\\nabla_\\alpha\\boldsymbol{v})^\\mu\\boldsymbol{e}_\\mu",
+   "meaning": "The full derivative of the vector has components (nabla_alpha v)^mu, which generally differ from dv^mu/dx^alpha.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.16)",
+   "name": "nabla acting on components",
+   "latex": "\\nabla_\\alpha(v^\\mu) = \\frac{\\partial v^\\mu}{\\partial x^\\alpha}",
+   "meaning": "Treating each component as a scalar function, its derivative is the ordinary partial derivative.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.17)",
+   "name": "nabla acting on basis vectors",
+   "latex": "\\nabla_\\alpha(\\boldsymbol{e}_\\mu) = \\Gamma^\\lambda_{\\alpha\\mu}\\boldsymbol{e}_\\lambda",
+   "meaning": "Restatement of eqn 7.6 in nabla notation.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.18)",
+   "name": "Covariant derivative along a basis direction",
+   "latex": "\\nabla_\\alpha\\boldsymbol{v} = \\left(\\frac{\\partial v^\\mu}{\\partial x^\\alpha} + v^\\lambda\\Gamma^\\mu_{\\alpha\\lambda}\\right)\\boldsymbol{e}_\\mu",
+   "meaning": "Main component formula for the covariant derivative of a vector; for fixed alpha the result is a vector.",
+   "symbols": "Gamma^mu_{alpha lambda} connection coefficients",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Comma and semicolon notation (margin box)",
+   "latex": "\\frac{\\partial f}{\\partial x^\\alpha} \\equiv f_{,\\alpha}, \\qquad (\\nabla_\\alpha\\boldsymbol{v})^\\mu \\equiv v^\\mu{}_{;\\alpha} = v^\\mu{}_{,\\alpha} + v^\\lambda\\Gamma^\\mu_{\\alpha\\lambda}",
+   "meaning": "Compact notation for partial (comma) and covariant (semicolon) derivatives.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.19)",
+   "name": "Flat spacetime in Cartesian coordinates",
+   "latex": "\\nabla_\\alpha\\boldsymbol{v} = \\frac{\\partial v^\\mu}{\\partial x^\\alpha}\\boldsymbol{e}_\\mu \\quad (\\text{flat spacetime})",
+   "meaning": "With constant Cartesian basis vectors all Gammas vanish and the covariant derivative is the partial derivative of components.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.20)",
+   "name": "Connection operator on scalars",
+   "latex": "\\boldsymbol{e}_\\alpha\\cdot\\nabla f = \\nabla_\\alpha f = \\frac{\\partial f}{\\partial x^\\alpha}",
+   "meaning": "Definition of the connection operator via basis directions, acting on a scalar as the partial derivative.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.21)",
+   "name": "Directional derivative of a scalar",
+   "latex": "\\nabla_{\\boldsymbol{u}} f = \\boldsymbol{u}\\cdot\\nabla f = u^\\alpha\\boldsymbol{e}_\\alpha\\cdot\\nabla f = u^\\alpha\\frac{\\partial f}{\\partial x^\\alpha}",
+   "meaning": "Derivative of a scalar along an arbitrary vector u.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.22)",
+   "name": "Directional covariant derivative of a vector",
+   "latex": "\\nabla_{\\boldsymbol{u}}\\boldsymbol{v} = \\boldsymbol{u}\\cdot\\nabla\\boldsymbol{v} = u^\\alpha\\boldsymbol{e}_\\alpha\\cdot\\nabla\\boldsymbol{v} = u^\\alpha\\nabla_\\alpha\\boldsymbol{v}",
+   "meaning": "The covariant derivative along u is linear in u: a u^alpha-weighted combination of derivatives along basis directions.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.23)",
+   "name": "Covariant derivative along a vector in components",
+   "latex": "\\nabla_{\\boldsymbol{u}}\\boldsymbol{v} = u^\\alpha\\left(\\frac{\\partial v^\\mu}{\\partial x^\\alpha} + v^\\lambda\\Gamma^\\mu_{\\alpha\\lambda}\\right)\\boldsymbol{e}_\\mu",
+   "meaning": "Working formula for the covariant derivative of v along u; in semicolon form nabla_u v = u^alpha v^mu_{;alpha} e_mu (margin note 11).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.24)",
+   "name": "Parallel transport condition",
+   "latex": "\\nabla_{\\boldsymbol{u}}\\boldsymbol{v} = 0 \\quad (\\text{parallel transport})",
+   "meaning": "A vector is parallel transported along u when it has no intrinsic change in that direction.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.25)",
+   "name": "Parallel transport in components",
+   "latex": "u^\\alpha\\frac{\\partial v^\\mu}{\\partial x^\\alpha} + \\Gamma^\\mu_{\\alpha\\beta}v^\\beta u^\\alpha = 0",
+   "meaning": "Component form of the parallel transport condition; with u^alpha d/dx^alpha = d/dlambda it is an ODE for v^mu along the curve.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.26)",
+   "name": null,
+   "latex": "\\frac{\\partial v^\\mu}{\\partial x^\\alpha} = -\\Gamma^\\mu_{\\alpha\\beta}v^\\beta",
+   "meaning": "Component change fully accounted for by the coordinate (connection) term.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": "(7.27)",
+   "name": "Parallel transport in words",
+   "latex": "\\left(\\text{change in a vector's components}\\right) = \\left(\\text{change due to coordinate system}\\right)",
+   "meaning": "For a transported vector, all component change is attributable to the moving basis.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Affine reparametrization",
+   "latex": "\\lambda = \\alpha\\eta + \\beta",
+   "meaning": "Linear change of parameter that preserves the property of marking regular intervals; defines affine parametrizations.",
+   "symbols": "alpha, beta constants",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "label": "(7.28)",
+   "name": "Rate of change along a curve",
+   "latex": "\\left(\\text{rate of change of } \\boldsymbol{v} \\text{ with respect to } \\lambda\\right) \\equiv \\frac{\\mathrm{D}\\boldsymbol{v}}{\\mathrm{d}\\lambda}",
+   "meaning": "Introduces D/dlambda for the covariant derivative along a parametrized curve.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "label": "(7.29)",
+   "name": "Tangent vector",
+   "latex": "\\boldsymbol{u} = \\left(\\frac{\\mathrm{d}x^\\mu(\\lambda)}{\\mathrm{d}\\lambda}\\right)\\boldsymbol{e}_\\mu",
+   "meaning": "The tangent vector to the curve provides the direction for the covariant derivative; for lambda = tau it is the four-velocity.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "label": "(7.30)",
+   "name": "Covariant derivative along a curve",
+   "latex": "\\frac{\\mathrm{D}\\boldsymbol{v}}{\\mathrm{d}\\lambda} \\equiv \\nabla_{\\boldsymbol{u}}\\boldsymbol{v}",
+   "meaning": "The rate of change of v along the curve equals its covariant derivative along the tangent vector.",
+   "symbols": "u tangent vector field to the curve",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Four-velocity normalization",
+   "latex": "\\boldsymbol{u}\\cdot\\boldsymbol{u} = -1",
+   "meaning": "With proper time as parameter the tangent to a timelike world line has unit negative norm (signature -+++).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "label": "(7.31)",
+   "name": "Limit definition via parallel transport",
+   "latex": "\\frac{\\mathrm{D}\\boldsymbol{v}}{\\mathrm{d}\\lambda} = \\nabla_{\\boldsymbol{u}}\\boldsymbol{v} = \\lim_{\\varepsilon\\to 0}\\left(\\frac{\\boldsymbol{v}(\\lambda_0+\\varepsilon)_{(\\text{parallel transport to }\\lambda_0)} - \\boldsymbol{v}(\\lambda_0)}{\\varepsilon}\\right)",
+   "meaning": "Operational meaning: move the later vector back by parallel transport so the difference is taken within one tangent space.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "label": "(7.32)",
+   "name": "Flat-space check along a curve",
+   "latex": "\\left(\\frac{\\mathrm{D}\\boldsymbol{A}}{\\mathrm{d}\\lambda}\\right)^\\alpha = u^\\mu\\left(\\frac{\\partial A^\\alpha}{\\partial x^\\mu} + \\Gamma^\\alpha_{\\mu\\nu}A^\\nu\\right) = u^\\mu\\frac{\\partial A^\\alpha}{\\partial x^\\mu} = \\frac{\\mathrm{d}x^\\mu}{\\mathrm{d}\\lambda}\\frac{\\partial A^\\alpha}{\\partial x^\\mu} = \\frac{\\mathrm{d}A^\\alpha}{\\mathrm{d}\\lambda}",
+   "meaning": "With vanishing Gamma (Cartesian coordinates in flat spacetime) the chain rule makes the covariant derivative the ordinary derivative of components.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.4"
+   }
+  },
+  {
+   "label": "(7.33)",
+   "name": "Metric compatibility",
+   "latex": "\\nabla_\\alpha\\boldsymbol{g} = 0 \\quad\\text{or}\\quad g_{\\mu\\nu;\\alpha} = 0",
+   "meaning": "The covariant derivative of the metric vanishes in every direction, binding the connection to the metric and preserving lengths under transport.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "label": "(7.34)",
+   "name": "Covariant derivative of the metric",
+   "latex": "g_{\\mu\\nu;\\alpha} = g_{\\mu\\nu,\\alpha} - \\Gamma^\\beta_{\\alpha\\mu}g_{\\beta\\nu} - \\Gamma^\\beta_{\\alpha\\nu}g_{\\mu\\beta}",
+   "meaning": "Component formula for the covariant derivative of a (0,2) tensor: one minus-Gamma term per lower index (quoted, derived in Part V).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "label": "(7.35)",
+   "name": "Covariant derivative of a (2,0) tensor",
+   "latex": "T^{\\mu\\nu}{}_{;\\alpha} = T^{\\mu\\nu}{}_{,\\alpha} + \\Gamma^\\mu_{\\alpha\\beta}T^{\\beta\\nu} + \\Gamma^\\nu_{\\alpha\\beta}T^{\\mu\\beta}",
+   "meaning": "One plus-Gamma term per upper index; needed later for conservation of the energy-momentum tensor.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "label": "(7.36)",
+   "name": "Product rule on the squared length",
+   "latex": "g_{\\mu\\nu;\\alpha}A^\\mu A^\\nu + g_{\\mu\\nu}A^\\mu{}_{;\\alpha}A^\\nu + g_{\\mu\\nu}A^\\mu A^\\nu{}_{;\\alpha} = 0",
+   "meaning": "If a parallel vector keeps its length, the two terms with A^mu_{;alpha} vanish, leaving g_{mu nu;alpha}A^mu A^nu = 0 and hence compatibility.",
+   "symbols": "A a parallel (covariantly constant) vector",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "label": "(7.37)",
+   "name": "Connection coefficients from the metric",
+   "latex": "g_{\\rho\\lambda}\\Gamma^\\rho_{\\mu\\sigma} = \\frac{1}{2}\\left(\\frac{\\partial g_{\\lambda\\mu}}{\\partial x^\\sigma} + \\frac{\\partial g_{\\lambda\\sigma}}{\\partial x^\\mu} - \\frac{\\partial g_{\\mu\\sigma}}{\\partial x^\\lambda}\\right)",
+   "meaning": "Quoted ahead of Chapter 9: for a compatible symmetric connection, Gamma is determined by first derivatives of the metric.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": "7.5"
+   }
+  },
+  {
+   "label": "(7.38)",
+   "name": "Rule of thumb: dg gives Gamma",
+   "latex": "\\boxed{\\partial g} \\rightarrow \\boxed{\\Gamma}",
+   "meaning": "Dependency map: connection coefficients are built from first derivatives of metric components.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": "7.5"
+   }
+  },
+  {
+   "label": "(7.39)",
+   "name": "Summary formula",
+   "latex": "\\nabla_{\\boldsymbol{u}}\\boldsymbol{v} = u^\\alpha\\left(\\frac{\\partial v^\\mu}{\\partial x^\\alpha} + v^\\lambda\\Gamma^\\mu_{\\alpha\\lambda}\\right)\\boldsymbol{e}_\\mu",
+   "meaning": "Restatement of eqn 7.23 in the chapter summary.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": null
+   }
+  },
+  {
+   "label": "(7.40)",
+   "name": "Covariant derivative of a (0,2) tensor (Exercise 7.4)",
+   "latex": "(\\nabla_\\alpha\\boldsymbol{\\xi})_{\\mu\\nu} = \\frac{\\partial \\xi_{\\mu\\nu}}{\\partial x^\\alpha} - \\Gamma^\\lambda_{\\alpha\\mu}\\xi_{\\lambda\\nu} - \\Gamma^\\lambda_{\\alpha\\nu}\\xi_{\\mu\\lambda}",
+   "meaning": "General (0,2) formula supplied in the exercise so that compatibility can be checked using eqn 7.37.",
+   "symbols": "xi any (0,2) tensor",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 107,
+    "printed_page": 90,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 7.1",
+   "image_path": "gifted-amateur/pages/page-99/img-62.jpeg",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "caption_paraphrase": "A tangent vector carried by parallel transport around a curved surface keeps constant components in the local frame yet points in changing directions when described in the outside (X, Z) coordinates of an embedding observer.",
+   "visual_description": "A plain circle (a great circle seen face on) with three bold arrows labelled t drawn tangent to it: one at the top pointing horizontally right, one on the upper right side pointing down and to the right, and one lower on the right side pointing down and slightly left. In the lower left corner, separate from the circle, a pair of axes shows e_Z pointing up and e_X pointing right.",
+   "what_it_teaches": "The same insider-parallel tangent vector has different directions relative to fixed embedding axes; parallelism is a local, intrinsic notion, not constancy of direction in the surrounding space.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "parallel transport",
+    "tangent vector to a curve",
+    "intrinsic (insider) viewpoint on geometry"
+   ],
+   "redesign": {
+    "idea": "Two-panel 'insider versus outsider' view of a great circle: left panel is the 3D sphere with fixed X, Y, Z axes; right panel is the ant's local frame (tangent and normal-in-surface) which always shows the transported vector with the same components.",
+    "interaction": "Learner drags an ant along the great circle; the vector's components in the local frame stay fixed on a readout while its (X, Z) components rotate on a second readout and a trail of ghost arrows builds up on the sphere.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 7.2",
+   "image_path": "gifted-amateur/pages/page-99/img-63.jpeg",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "caption_paraphrase": "Arrows on a sphere that all point in one fixed direction of the surrounding 3D space are not parallel for surface dwellers, because most of them stick out of the local tangent plane.",
+   "visual_description": "A circle outlining a sphere with a great circle through the top and bottom drawn nearly edge-on: its front half is a solid curve left of centre and its back half a dashed curve right of centre. Several small arrows sit on the solid front arc, all pointing straight up (the same direction in 3D space); one arrow pokes above the sphere at the top. Some light shading marks the lower left of the sphere.",
+   "what_it_teaches": "Embedding-space parallelism is not surface parallelism: a vector fixed in R^3 is tangent to the sphere at only special points and otherwise leaves the tangent plane.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "parallelism in curved space",
+    "intrinsic (insider) viewpoint on geometry",
+    "tangent vector to a curve"
+   ],
+   "redesign": {
+    "idea": "Tangent-plane projector: a sphere with a movable point and a fixed 3D arrow; a translucent tangent plane follows the point and the arrow is split into its in-plane part and its normal part.",
+    "interaction": "Drag the point along a meridian; watch the normal component grow and the in-plane part shrink, with a readout of the angle between the arrow and the tangent plane. A toggle replaces the fixed arrow with the correctly transported one, whose normal component stays zero.",
+    "form": "interactive-3d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 7.3",
+   "image_path": "gifted-amateur/pages/page-100/img-64.jpeg",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   },
+   "caption_paraphrase": "A vector parallel transported along several paths on a sphere.",
+   "visual_description": "A sphere outline crossed by two great circles that intersect at a point labelled P in the upper half. One circle enters from the left edge, rises through P and exits at the upper right; the other rises from near the bottom left, passes through P and descends to the right edge. Dots along both circles carry short arrows. On the left leg of the first circle the arrows hang downward, and on its upper-right leg they point down and to the left. On the right-hand leg of the second circle they point leftward, while on its lower-left leg they lie nearly along the arc, pointing down. Along any single leg the arrows keep a steady angle to the path. Faint hatching near the rim suggests shading.",
+   "what_it_teaches": "Along a great circle (a path that does not turn, as judged from inside the surface), a correctly transported vector keeps a fixed angle to the path even though outside observers see it swing round. Two different routes through P show that the transported arrows depend on the route taken, a first hint of the path dependence that later signals curvature.",
+   "figure_type": "vector-or-tensor-field",
+   "concepts": [
+    "parallel transport",
+    "parallelism in curved space"
+   ],
+   "redesign": {
+    "idea": "Parallel-transport sandbox on a sphere: learner sets a starting vector at P and sketches a route made of great-circle legs or an arbitrary curve; the app integrates the transport equation and paints arrows along the route.",
+    "interaction": "Choose start point, initial vector angle and path; close the loop to see the returned vector and the rotation angle, compared with the enclosed area divided by R^2. Sliders for sphere radius and step size.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 7.4",
+   "image_path": "gifted-amateur/pages/page-103/img-65.jpeg",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.4"
+   },
+   "caption_paraphrase": "A curve x(lambda) through a curved spacetime running from lambda = a to lambda = b, with tick marks recording progress along it.",
+   "visual_description": "A wavy, saddle-like sheet drawn in perspective with a grey coordinate grid. On it a wiggly black curve runs from a dot labelled x(a) near the lower left to a dot labelled x(b) near the upper right. Short tick marks cross the curve at regular spacings along its length.",
+   "what_it_teaches": "A curve is specified by coordinates as functions of a parameter, and the parameter marks position along the curve independent of the grid.",
+   "figure_type": "curve-or-surface",
+   "concepts": [
+    "parametrized curve",
+    "affine parameter"
+   ],
+   "redesign": {
+    "idea": "Reparametrization explorer: a curve on a warped surface with tick marks at equal parameter steps, where the learner swaps between arc length, a linear rescaling and a nonlinear parameter.",
+    "interaction": "Choose lambda = s, lambda = 2s + 1, or lambda = sin s (or drag a warping curve); ticks bunch or spread, and a live plot of |u| versus lambda shows it is constant only for affine choices.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 7.5",
+   "image_path": "gifted-amateur/pages/page-104/img-66.jpeg",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   },
+   "caption_paraphrase": "Tangent vectors u = (dx^mu/dlambda) e_mu at points along a parametrized curve; with proper time as parameter they are velocities that vary along the path.",
+   "visual_description": "A smooth S-shaped curve rising from lower left to upper right. Four dots sit on it, each with an open-headed arrow labelled u leaving tangent to the curve: steep near the bottom, shallower in the middle two points, and steep again near the top.",
+   "what_it_teaches": "The tangent vector is attached to each point of the curve and changes along it; it supplies the direction for differentiating along the curve.",
+   "figure_type": "curve-or-surface",
+   "concepts": [
+    "tangent vector to a curve",
+    "four-velocity"
+   ],
+   "redesign": {
+    "idea": "Tangent from secants: a draggable point on a curve with a secant to a nearby point that shrinks into the tangent u = dx^mu/dlambda, with the components shown.",
+    "interaction": "Drag the point and a 'delta lambda' slider; watch the secant become the tangent and the component readout converge; switch the parameter to see u rescale without changing direction.",
+    "form": "interactive-2d",
+    "priority": "low"
+   }
+  },
+  {
+   "label": "Fig. 7.6",
+   "image_path": "gifted-amateur/pages/page-104/img-67.jpeg",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   },
+   "caption_paraphrase": "Constructing the covariant derivative with the limit formula 7.31.",
+   "visual_description": "A thick curve that falls gently from upper left to lower right, with tick marks labelled lambda_0, lambda_0 + epsilon, lambda_0 + 1 and lambda_0 + 2 (the first two ticks close together at the left end). At lambda_0 a solid arrow labelled v(lambda_0) points up and to the right. At lambda_0 + epsilon a solid arrow labelled v(lambda_0 + epsilon) rises from the curve. A dashed copy of that arrow starts at lambda_0, and a short arrow labelled delta v joins the tip of v(lambda_0) to the tip of the dashed copy. A label above, 'v(lambda_0 + epsilon) parallel transport to lambda_0', has a leader line to the dashed arrow.",
+   "what_it_teaches": "To differentiate a vector field along a curve, bring the neighbouring vector back by parallel transport so both live at one point, then take their difference and divide by the parameter step.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "limit definition of the covariant derivative via parallel transport",
+    "covariant derivative along a curve",
+    "parallel transport"
+   ],
+   "redesign": {
+    "idea": "Construct Dv/dlambda on a cone, which is flat once unrolled, so transport can be exact and checked by eye. Show a vector field along a circle of latitude on the cone. A split view places the rolled-up cone beside its unrolled flat sector, where parallel transport is ordinary sliding. The later vector is carried back in the flat sector, and the difference arrow delta v is formed and scaled by 1/epsilon.",
+    "interaction": "Slider for epsilon shrinks toward zero while the ratio arrow stabilizes; a toggle compares the naive component difference (no transport) with the correct one, highlighting the Gamma term as the gap between them.",
+    "form": "animated-2d",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Example 7.1",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   },
+   "problem": "Give a concrete picture of how a curved space can still be described by flat coordinates, and what a manifold is.",
+   "method": "Analogy with navigating the Earth: flat rectangular street maps work in a town but not globally, yet many overlapping small maps can blend smoothly to cover the globe; the same is done for 4D spacetime with local four-coordinate charts.",
+   "key_insight": "Smoothness means spacetime is Minkowski-like in a small enough region, so curvature is a large-scale property that the new derivative must be able to handle.",
+   "result": "Working definition of a manifold and the statement of local flatness.",
+   "concepts": [
+    "manifold",
+    "local flatness",
+    "differential geometry"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 7.2",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "problem": "Decide whether vectors that are all parallel in R^3 and drawn on a sphere are parallel for inhabitants of the sphere.",
+   "method": "Compare each vector with the tangent plane at its base point (Fig. 7.2), then contrast with vectors correctly transported along great circles (Fig. 7.3), which have identical components in the inhabitants' local frames.",
+   "key_insight": "Parallelism defined by the embedding space is not available to insiders; their parallel vectors must stay in the tangent plane and so rotate as seen from outside.",
+   "result": null,
+   "concepts": [
+    "parallelism in curved space",
+    "parallel transport",
+    "intrinsic (insider) viewpoint on geometry"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 7.3",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   },
+   "problem": "Recall the gradient and directional derivative of a scalar field in Euclidean 3-space as a model for a derivative along a vector.",
+   "method": "Write grad f in Cartesian components, contract with u to get u . grad f, and read it as the difference in f between the tip and base of u.",
+   "key_insight": "A derivative along a direction is linear in the direction vector; the covariant derivative will keep this structure for vectors in curved space.",
+   "result": "u . grad f = u^x f_x + u^y f_y + u^z f_z",
+   "concepts": [
+    "gradient",
+    "directional derivative"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 7.4",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   },
+   "problem": "Find all connection coefficients of the flat plane in polar coordinates by brute force.",
+   "method": "Express e_r and e_theta on the Cartesian basis using x = r cos theta, y = r sin theta (margin note 6), differentiate them with respect to r and theta (7.7), and match each derivative to Gamma^lambda_{alpha mu} e_lambda (7.6).",
+   "key_insight": "Curvilinear coordinates on a flat space already produce non-zero Gammas, so Gamma measures coordinate behaviour and cannot on its own detect curvature.",
+   "result": "Gamma^theta_{r theta} = Gamma^theta_{theta r} = 1/r, Gamma^r_{theta theta} = -r, all others zero.",
+   "concepts": [
+    "Christoffel symbols of plane polar coordinates",
+    "connection coefficients",
+    "non-zero connection coefficients do not imply curvature"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 7.5",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   },
+   "problem": "Show why connection coefficients are not the components of a tensor.",
+   "method": "Compare the homogeneous tensor transformation law (7.10) with the quoted transformation law for Gamma (7.11), which contains an additional second-derivative term; the proof is deferred to Part V.",
+   "key_insight": "The inhomogeneous term means Gamma can vanish in one coordinate system and not in another, which is impossible for a tensor.",
+   "result": null,
+   "concepts": [
+    "non-tensorial transformation of connection coefficients",
+    "tensor transformation law"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   },
+   "problem": "Derive the component formula for the covariant derivative of a vector along a basis direction.",
+   "method": "Insert the definition of Gamma (7.6) into the product-rule expansion (7.5), swap the dummy labels mu and lambda in the second term so both terms multiply e_mu (7.12-7.13), and rename the result nabla_alpha v (7.18).",
+   "key_insight": "Relabelling dummy indices is what turns 'derivative of components plus derivative of basis' into a single set of components; those components differ from the partial derivatives of v^mu by Gamma v.",
+   "result": "(nabla_alpha v)^mu = dv^mu/dx^alpha + Gamma^mu_{alpha lambda} v^lambda",
+   "concepts": [
+    "covariant derivative",
+    "connection coefficients",
+    "components of a derivative versus derivatives of components"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 7.6",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   },
+   "problem": "Evaluate the covariant derivative in Minkowski spacetime using Cartesian coordinates.",
+   "method": "Note that Cartesian basis vectors are constant, so every connection coefficient vanishes, and substitute into eqn 7.18.",
+   "key_insight": "The covariant derivative reduces to the familiar partial derivative whenever the basis does not change, which is why special relativity never needed it.",
+   "result": "nabla_alpha v = (dv^mu/dx^alpha) e_mu in flat spacetime with Cartesian coordinates.",
+   "concepts": [
+    "covariant derivative",
+    "connection coefficients"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 7.7",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   },
+   "problem": "Write the parallel transport condition nabla_u v = 0 in components and interpret it.",
+   "method": "Expand eqn 7.23 set to zero to get u^alpha dv^mu/dx^alpha + Gamma^mu_{alpha beta} v^beta u^alpha = 0 (7.25), then (dropping u^alpha) dv^mu/dx^alpha = -Gamma^mu_{alpha beta} v^beta (7.26), read as a word equation (7.27).",
+   "key_insight": "Under parallel transport the components still change, but only by exactly the amount forced by the changing basis.",
+   "result": null,
+   "concepts": [
+    "parallel transport equation",
+    "parallel transport"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 7.8",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.4"
+   },
+   "problem": "Parametrize a straight line, a parabola and a circle in the plane.",
+   "method": "Use x = lambda with y = m lambda + c for the line and y = lambda^2 for the parabola; use x = a cos lambda, y = a sin lambda for the circle.",
+   "key_insight": "A curve is a map from a parameter to coordinates; the same geometric curve admits many parametrizations.",
+   "result": "(lambda, m lambda + c); (lambda, lambda^2); (a cos lambda, a sin lambda)",
+   "concepts": [
+    "parametrized curve"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 7.9",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   },
+   "problem": "Give an operational, limit-based definition of Dv/dlambda that parallels the ordinary derivative.",
+   "method": "Four steps: take v at lambda_0 + epsilon, parallel transport it back to lambda_0, form the difference with v(lambda_0), divide by epsilon and let epsilon go to zero (7.31, Fig. 7.6).",
+   "key_insight": "Vectors at different points cannot be subtracted directly; parallel transport supplies the missing identification, and that is exactly what removes the coordinate-induced change.",
+   "result": null,
+   "concepts": [
+    "limit definition of the covariant derivative via parallel transport",
+    "covariant derivative along a curve",
+    "parallel transport"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 7.10",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.4"
+   },
+   "problem": "Check that DA/dlambda reduces to the ordinary derivative of components in flat spacetime.",
+   "method": "Write (DA/dlambda)^alpha = u^mu(dA^alpha/dx^mu + Gamma^alpha_{mu nu} A^nu), set Gamma = 0 for Cartesian coordinates, replace u^mu by dx^mu/dlambda and use the chain rule (7.32).",
+   "key_insight": "The D/dlambda notation is designed to look like d/dlambda because it becomes exactly that when the basis is constant.",
+   "result": "(DA/dlambda)^alpha = dA^alpha/dlambda",
+   "concepts": [
+    "covariant derivative along a curve",
+    "tangent vector to a curve"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 7.11",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   },
+   "problem": "Show that requiring parallel-transported vectors to keep their lengths forces the metric compatibility condition.",
+   "method": "Take a covariantly constant vector A (A^mu_{;alpha} = 0), assume the product rule for the covariant derivative of g_{mu nu}A^mu A^nu (7.36), set the total to zero because the length is constant, and observe the two terms containing A^mu_{;alpha} vanish.",
+   "key_insight": "Length preservation and nabla g = 0 are two faces of the same requirement; the metric thereby constrains which connection is allowed.",
+   "result": "g_{mu nu;alpha} = 0",
+   "concepts": [
+    "metric compatibility of the connection",
+    "preservation of vector length under parallel transport",
+    "Leibniz rule for covariant derivatives"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Ants on a football or humans on the Earth who may not float above the surface",
+   "target_concept": "intrinsic (insider) viewpoint on geometry",
+   "how_used": "Sets the rules: every measurement and every notion of 'same direction' must be made inside the surface, just as we cannot step outside spacetime.",
+   "limits": "A 2D surface visibly sits inside 3D space, which invites learners to sneak in extrinsic reasoning; spacetime has no such outside, and the Lorentzian signature has no everyday picture.",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Toggleable 'ant camera' that shows only the local tangent plane view while the learner steers along a surface, versus the god's-eye 3D view."
+  },
+  {
+   "analogy": "Patching the globe with small rectangular street maps",
+   "target_concept": "manifold",
+   "how_used": "Explains that a curved space can be covered by locally flat coordinate charts that blend smoothly, and that flatness holds only locally.",
+   "limits": "Suggests charts are always rectangular grids and hides the transition functions and the fact that some manifolds need several charts for topological reasons.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   },
+   "effectiveness": "strong",
+   "app_idea": "Atlas builder: tile a sphere with small square maps; enlarge one map and watch its grid distort from the true distances."
+  },
+  {
+   "analogy": "A 2D manifold as a smooth rubber sheet that may be shaped into a sphere or torus but not torn",
+   "target_concept": "manifold",
+   "how_used": "Emphasizes smoothness and continuity as defining features.",
+   "limits": "Rubber suggests stretching is irrelevant, which is true for topology but wrong for geometry where lengths matter; 'not punctured' is loose since a punctured plane is still a manifold.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   },
+   "effectiveness": "weak",
+   "app_idea": null
+  },
+  {
+   "analogy": "Straight-line path from New York to Paris tunnels hundreds of kilometres below ground",
+   "target_concept": "position vector is not a vector in general coordinates",
+   "how_used": "Shows why vectors as straight arrows between distant points leave the space being described, motivating tangent vectors.",
+   "limits": "Only works while the embedding space is available to draw the chord; the deeper point about tangent spaces is left implicit.",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Globe with two draggable cities: show the great-circle route and the straight chord, with the chord's maximum depth displayed."
+  },
+  {
+   "analogy": "Tourists in London and Tokyo each have a 'north' on their street maps, defined the same way but pointing differently in absolute 3D terms",
+   "target_concept": "parallel transport",
+   "how_used": "Illustrates vectors defined identically in local frames that are nonetheless different arrows as seen from outside the Earth.",
+   "limits": "North is defined by a global field (toward the pole), not by transporting along a chosen path; parallel transport along different routes between the cities would not all give north.",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Transport a north arrow from London to Tokyo along a great circle and along a latitude line, and compare both results with local north on arrival."
+  },
+  {
+   "analogy": "Directional derivative as 'value at the tip of u minus value at its base'",
+   "target_concept": "directional derivative",
+   "how_used": "Builds intuition that a derivative along a vector compares a field at two nearby points, preparing for comparing vectors at two points.",
+   "limits": "For scalars the comparison is trivial; for vectors the two values live in different tangent spaces, which is exactly the difficulty the chapter resolves.",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Connection coefficients as the rate at which e_mu swings toward e_lambda while travelling along e_alpha",
+   "target_concept": "connection coefficients",
+   "how_used": "Gives each index of Gamma a geometric job (margin note 8) and justifies the word 'connection' as translating between neighbouring local frames.",
+   "limits": "Speaks of rotation, but Gamma also encodes stretching of basis vectors (e.g. e_theta grows with r, giving Gamma^theta_{r theta} = 1/r).",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Polar grid with basis arrows at a draggable point; step along e_r or e_theta and display how the arrows turn and stretch, labelling the change with the corresponding Gamma values."
+  },
+  {
+   "analogy": "Covariant derivative as an ordinary difference quotient [f(x + dx) - f(x)]/dx, but with the later vector carried back by parallel transport first",
+   "target_concept": "limit definition of the covariant derivative via parallel transport",
+   "how_used": "Connects the new derivative with the familiar limit definition and makes clear what extra ingredient curved space needs.",
+   "limits": "Hides the fact that the transported vector depends on the chosen connection; the picture is flat, so the rotation from transport is not visible.",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": "See the Fig. 7.6 redesign: animated transport-back and shrinking epsilon."
+  },
+  {
+   "analogy": "Bracketed word equations: covariant derivative equals change in vector minus change due to the coordinate system",
+   "target_concept": "covariant derivative",
+   "how_used": "Carries the logic before and after the index calculations (eqns 7.1, 7.27, 7.30).",
+   "limits": "The sign bookkeeping is slippery: in the formula the Gamma term is added to the component derivative, which learners may think contradicts 'minus the coordinate change'.",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Stacked-bar decomposition of dv^mu/dlambda into intrinsic part and coordinate part for a field in polar coordinates, with the sign of each piece shown."
+  },
+  {
+   "analogy": "Length drift under transport as physically unacceptable (the book states this in one sentence; the 'moving rulers' image is our framing)",
+   "target_concept": "metric compatibility of the connection",
+   "how_used": "The book's physical reason for imposing nabla g = 0: if the condition failed, parallel transport would change the lengths of vectors, which it calls highly undesirable for describing the real world.",
+   "limits": "Metric-incompatible connections exist mathematically (e.g. Weyl's theory), so compatibility is a choice justified by physics, not a logical necessity.",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "If the connection coefficients are non-zero, the space must be curved.",
+   "correction": "Flat space in polar coordinates has non-zero Gammas; curvature is detected by a specific combination of Gammas and their derivatives (Riemann tensor).",
+   "why_tempting": "Gamma appears exactly where curved spaces need corrections, and it vanishes in the flat Cartesian case learners know best.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   },
+   "concepts": [
+    "non-zero connection coefficients do not imply curvature",
+    "Christoffel symbols of plane polar coordinates"
+   ]
+  },
+  {
+   "misconception": "Connection coefficients are tensor components like everything else with indices.",
+   "correction": "Their transformation law contains a second-derivative term, so they are not a tensor; only combinations such as the covariant derivative or Riemann tensor are.",
+   "why_tempting": "They carry one upper and two lower indices and are placed like (1,2) tensor components.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   },
+   "concepts": [
+    "non-tensorial transformation of connection coefficients"
+   ]
+  },
+  {
+   "misconception": "Vectors pointing in the same direction in the surrounding 3D space are parallel on a curved surface.",
+   "correction": "Such vectors generally stick out of the tangent plane; insiders' parallel vectors must remain tangent and therefore rotate relative to the embedding.",
+   "why_tempting": "Everyday parallelism is defined in flat 3D space.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "concepts": [
+    "parallelism in curved space"
+   ]
+  },
+  {
+   "misconception": "A parallel transported vector keeps a fixed direction in absolute terms.",
+   "correction": "It keeps fixed components in transported local frames; seen from an embedding it changes direction (Fig. 7.1).",
+   "why_tempting": "In flat Cartesian space both statements coincide.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "concepts": [
+    "parallel transport"
+   ]
+  },
+  {
+   "misconception": "The components of the derivative of a vector are the derivatives of its components.",
+   "correction": "(nabla_alpha v)^mu = dv^mu/dx^alpha + Gamma^mu_{alpha lambda} v^lambda; only for constant basis vectors (or for scalars) do the two agree.",
+   "why_tempting": "True in Cartesian coordinates, which is where learners met vector calculus.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   },
+   "concepts": [
+    "components of a derivative versus derivatives of components",
+    "covariant derivative"
+   ]
+  },
+  {
+   "misconception": "Straight arrows from one point to another (displacement vectors) are legitimate vectors in curved space.",
+   "correction": "Such chords leave the space; vectors live in the tangent space at a single point, and the position vector does not transform properly in general coordinates.",
+   "why_tempting": "Special relativity and school physics use displacement vectors freely.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "concepts": [
+    "position vector is not a vector in general coordinates",
+    "tangent vector to a curve"
+   ]
+  },
+  {
+   "misconception": "Parallel transport means the components of the vector stay constant.",
+   "correction": "Components change along the path according to dv^mu/dlambda = -Gamma^mu_{alpha beta} u^alpha v^beta; only the intrinsic change is zero.",
+   "why_tempting": "The chapter summary says components are the same 'in local coordinate systems', which is easily misread as 'in the global coordinates'.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   },
+   "concepts": [
+    "parallel transport equation"
+   ]
+  },
+  {
+   "misconception": "Since the Gamma term 'removes the coordinate change', it should enter the covariant derivative with a minus sign.",
+   "correction": "The component derivative dv^mu/dx^alpha already contains the coordinate effect with the opposite sign; adding +Gamma v cancels it. For lower indices the Gamma term does come with a minus sign.",
+   "why_tempting": "Word equation 7.1 is phrased as a subtraction, while formula 7.18 shows an addition.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   },
+   "concepts": [
+    "covariant derivative",
+    "covariant derivative of tensors"
+   ]
+  },
+  {
+   "misconception": "nabla v is a vector because nabla_alpha v is a vector.",
+   "correction": "For each fixed alpha the result is a vector, but with alpha free the covariant derivative is a (1,1) tensor; contracting with u gives the vector nabla_u v.",
+   "why_tempting": "The book stresses that nabla_alpha v is a (1,0) object.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   },
+   "concepts": [
+    "covariant derivative",
+    "directional covariant derivative"
+   ]
+  },
+  {
+   "misconception": "Locally flat means the metric is exactly Minkowski throughout some small but finite region.",
+   "correction": "Only at a point can the metric be made Minkowski with zero first derivatives; second derivatives (curvature) remain and produce tidal effects in any finite region.",
+   "why_tempting": "Example 7.1 says spacetime is flat over a sufficiently small region.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   },
+   "concepts": [
+    "local flatness"
+   ]
+  },
+  {
+   "misconception": "Any parametrization of a curve is as good as any other when differentiating along it.",
+   "correction": "Covariant derivatives along a curve rescale with the parameter. A quantity such as u . Du/dlambda = (1/2) d(u . u)/dlambda vanishes only when |u| is constant, i.e. when the parameter is a linear function of arc length or proper time (Exercise 7.2).",
+   "why_tempting": "The text says the precise parametrization choice is not crucial.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   },
+   "concepts": [
+    "affine parameter",
+    "covariant derivative along a curve"
+   ]
+  },
+  {
+   "misconception": "The metric by itself uniquely determines the covariant derivative.",
+   "correction": "Compatibility nabla g = 0 plus the symmetry (torsion-free) condition together pick out a unique connection; compatibility alone allows torsionful alternatives.",
+   "why_tempting": "Section 7.5 states that the metric forces this version of the derivative on us.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   },
+   "concepts": [
+    "metric compatibility of the connection",
+    "torsion-free (symmetric) connection"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Ants carrying their axes along a great circle",
+   "setup": "Surface-bound observers walk along a path that never turns from their point of view, carrying a local frame built from the path's tangent and a perpendicular direction in the surface, and compare vectors by their components in that frame.",
+   "lesson": "Parallelism can be defined without leaving the surface, and the resulting parallel vectors look rotated to anyone using the embedding space.",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "concepts": [
+    "parallel transport",
+    "intrinsic (insider) viewpoint on geometry",
+    "parallelism in curved space"
+   ],
+   "visualizable": true,
+   "app_idea": "First-person ant walk on a sphere with a head-up display of the carried frame and a picture-in-picture outside view."
+  },
+  {
+   "name": "Rigid arrows on a globe",
+   "setup": "Draw many arrows on a sphere, all aligned with one fixed direction of 3D space, and ask surface dwellers whether they are parallel.",
+   "lesson": "Most of them are not even tangent to the surface, so embedding-space parallelism is meaningless to insiders.",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "concepts": [
+    "parallelism in curved space"
+   ],
+   "visualizable": true,
+   "app_idea": "See the Fig. 7.2 redesign."
+  },
+  {
+   "name": "What if rulers changed length when transported?",
+   "setup": "Imagine a connection under which a vector's length drifts as it is parallel transported along a curve. The book raises this only as a one-sentence counterfactual in §7.5; the thought-experiment framing is ours.",
+   "lesson": "Comparisons of lengths at different places would be ambiguous, which is unacceptable physically; demanding invariance leads to nabla g = 0.",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   },
+   "concepts": [
+    "metric compatibility of the connection",
+    "preservation of vector length under parallel transport"
+   ],
+   "visualizable": true,
+   "app_idea": "Toggle between a compatible connection and a deliberately incompatible one on a surface; a transported arrow visibly grows or shrinks in the incompatible case."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Elwin Bruno Christoffel"
+   ],
+   "year": "1869",
+   "event": "Introduced the symbols now called Christoffel symbols or connection coefficients.",
+   "significance": "Supplied the key object for differentiating vectors in curved spaces, later used by Einstein.",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  },
+  {
+   "people": [
+    "Gregorio Ricci-Curbastro"
+   ],
+   "year": "c. 1880s-1900",
+   "event": "Developed Christoffel's ideas into the tensor calculus (absolute differential calculus) that Einstein adopted for general relativity.",
+   "significance": "Provided the mathematical machinery of general relativity decades before the theory existed.",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Chord versus great-circle route between New York and Paris",
+   "kind": "numerical-estimate",
+   "details": "Used in a margin note to show that a straight-line vector between two points on the Earth leaves the surface, passing hundreds of kilometres underground.",
+   "key_numbers": "Our estimate: great-circle distance about 5,800 km subtends about 0.92 rad at the Earth's centre (R = 6,371 km); the chord's deepest point is R(1 - cos 0.46) which is roughly 650 km below the surface.",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   }
+  },
+  {
+   "topic": "Local street maps on a curved Earth",
+   "kind": "observation",
+   "details": "Flat rectangular maps work within a town but cannot be extended over the whole planet, illustrating local flatness and the need for many charts.",
+   "key_numbers": "Our estimate: for a map of side L on a sphere of radius R, fractional distance errors scale like (L/R)^2; a 10 km town map has errors of order 10^-6, a 1,000 km map of order 10^-2.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   }
+  },
+  {
+   "topic": "Four-velocity of massive particles",
+   "kind": "observation",
+   "details": "Choosing proper time as parameter along timelike world lines makes the tangent vector the physical velocity, normalized to u.u = -1 (units with c = 1); this is the u used in the geodesic equation of Chapter 8.",
+   "key_numbers": "u.u = -1",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Lower-index order of connection coefficients",
+   "convention": "Gamma^lambda_{alpha mu} with the derivative (direction) index first: de_mu/dx^alpha = Gamma^lambda_{alpha mu} e_lambda, so (nabla_alpha v)^mu = v^mu_{,alpha} + Gamma^mu_{alpha lambda} v^lambda.",
+   "notes": "Margin note 8 says Hawking and Ellis use this order and MTW do not; harmless for the symmetric connections used in the book. The text on printed p.89 writes Gamma^lambda_{mu alpha} for the same derivative, silently switching order.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "item": "nabla_alpha",
+   "convention": "Short for nabla_{e_alpha}, the covariant derivative along the coordinate basis vector e_alpha; nabla_u = u^alpha nabla_alpha.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "item": "Comma and semicolon",
+   "convention": "f_{,alpha} = df/dx^alpha; v^mu_{;alpha} = (nabla_alpha v)^mu, the derivative index written after the punctuation.",
+   "notes": "Index placement in the reading copy's LaTeX sometimes puts the semicolon index as a subscript beneath the superscript; the book's typeset form is v^mu_{;alpha}.",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "item": "Dot notation for the connection operator",
+   "convention": "e_alpha . nabla = nabla_alpha and u . nabla v = nabla_u v.",
+   "notes": "Borrowed from vector calculus; not standard in modern GR texts, where nabla_u v is preferred.",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "item": "D/dlambda",
+   "convention": "Covariant derivative along a curve with respect to its (affine) parameter lambda; d/dlambda is kept for ordinary derivatives of scalars and components.",
+   "notes": "Many books write D/dtau or nabla_u; some use delta/dlambda.",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "item": "Metric signature",
+   "convention": "Mostly plus (-,+,+,+), implied by u.u = -1 for the four-velocity; units with c = 1.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "item": "Tensor type (m,n)",
+   "convention": "m upper (vector) slots and n lower (1-form) slots; nabla_alpha v for fixed alpha is described as a (1,0) object, g as (0,2), T^{mu nu} as (2,0).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "item": "Vector typography",
+   "convention": "Bold symbols for spacetime vectors and tensors (v, e_mu, g); arrows over symbols for ordinary Euclidean 3-vectors in Example 7.3.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  },
+  {
+   "item": "Coordinate basis vectors",
+   "convention": "e_mu are unnormalized coordinate basis vectors (e.g. |e_theta| = r in polar coordinates), with g_{mu nu} = e_mu . e_nu.",
+   "notes": "Contrast with the normalized unit vectors of elementary vector calculus; Chapter 10 introduces orthonormal frames.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "item": "Boxed-arrow dependency rule",
+   "convention": "A boxed symbol arrow such as [dg] -> [Gamma] means 'is built from'.",
+   "notes": "The chapter says it will expand on this in coming chapters; a similar boxed chain for curvature is a natural extension for teaching.",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": "7.5"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Pictures a 2D manifold as a smooth, untorn rubber surface such as a sphere or torus, stressing smoothness as a recurring theme.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   }
+  },
+  {
+   "summary": "A straight path between New York and Paris would pass far underground, so a directed straight line is outside the curved space.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   }
+  },
+  {
+   "summary": "Tourists in London and Tokyo each define north the same way on local maps, yet their north arrows differ in absolute direction; north is like a transported vector.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   }
+  },
+  {
+   "summary": "Biographical note on Christoffel (1829-1900), who introduced the symbols in 1869, and Ricci-Curbastro (1853-1925), who built the machinery Einstein used; the book calls them connection coefficients.",
+   "type": "biography",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   }
+  },
+  {
+   "summary": "Connection coefficients, functions of position, will be used to detect curvature and can be derived from the metric, the ultimate source of curvature.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "summary": "Recalls how the polar basis vectors are expressed on the Cartesian basis via partial derivatives of x = r cos theta, y = r sin theta.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "summary": "Chapter 11 will show that a combination of Gammas and their derivatives decides whether space is curved.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "summary": "Interprets Gamma^lambda_{alpha mu} as the rate e_mu rotates toward e_lambda along e_alpha and explains the index-order convention (Hawking and Ellis versus MTW), harmless since Gamma is symmetric.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "summary": "Defines nabla_alpha as shorthand for the derivative along e_alpha.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "summary": "Relates dv/dx^alpha to (nabla_alpha v)^mu e_mu, warns that components of the derivative differ from derivatives of components, and splits nabla into its action on components and on basis vectors.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "summary": "Shaded box introducing comma notation for partial derivatives and semicolon notation for covariant derivatives, with a wry comment about punctuation-strewn equations.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "summary": "Writes nabla_u v in semicolon notation as u^alpha v^mu_{;alpha} e_mu.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "summary": "The partial derivative of components mixes intrinsic change with coordinate change; the covariant derivative must remove the coordinate part.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "summary": "The D/dlambda notation signals that components of the covariant derivative differ from d v^mu/dlambda, though for scalars the two coincide.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "summary": "Explains why the tangent is not written dx/dlambda: the position vector does not transform properly (Chapter 3); dx^mu/dlambda are derivatives of scalar functions so D and d agree for them.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "summary": "Quotes the covariant derivatives of a (0,2) tensor such as g and a (2,0) tensor such as T, deferring derivation to Part V.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "summary": "Claims compatibility explains affine parametrizations as those along which transported vectors keep their length (a loose statement, see gaps).",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "summary": "The Leibniz product rule for covariant derivatives is justified in Part V.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "summary": "Quotes the formula giving Gamma from metric derivatives, to be derived in Chapter 9.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": "7.5"
+   }
+  },
+  {
+   "summary": "Chapter epigraphs from Hume on finding parallels in ourselves and Shakespeare's Dogberry on comparisons, punning on parallel lines and comparing vectors.",
+   "type": "humor-or-aside",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 4,
+  "pdf_pages": [
+   106,
+   107
+  ],
+  "skills_practiced": [
+   "translating between component (semicolon) notation and index-free notation",
+   "parametrizing curves and computing tangent vectors",
+   "computing Du/ds along a curve in flat space",
+   "distinguishing affine from non-affine parametrizations through u . Du/dlambda",
+   "computing nabla_mu v in Cartesian and polar coordinates using the polar Gammas",
+   "transforming vector components between Cartesian and polar coordinates",
+   "treating (nabla_mu v)^nu as a (1,1) tensor and applying its transformation law",
+   "verifying metric compatibility from the covariant derivative of a (0,2) tensor and the Gamma-from-metric formula"
+  ],
+  "notable": [
+   {
+    "number": "7.1",
+    "summary": "Convert two semicolon expressions into index-free form (one is the commutator-like combination of covariant derivatives of two vectors along each other, the other a covariant derivative of a 1-form fed two vectors), and convert a sandwich v . (nabla_u T) . w with symmetric T into components.",
+    "skills": [
+     "index-free versus component notation",
+     "slot ordering of covariant derivatives"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Forces fluency in the notation and previews the torsion/commutator structure nabla_u v - nabla_v u that reappears with Lie brackets in Part V.",
+    "pdf_page": 106
+   },
+   {
+    "number": "7.2",
+    "summary": "For the unit circle parametrized by arc length, find the tangent, its size and Du/ds, and confirm u is orthogonal to Du/ds; then redo the calculation with the non-affine parameter t = sin s and see that the orthogonality fails.",
+    "skills": [
+     "tangent vectors",
+     "covariant derivative along a curve",
+     "affine parametrization"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Gives the only concrete meaning in the chapter to 'affine': with arc length the tangent keeps unit length so u . Du/ds = 0, while a nonlinear reparametrization makes |u| vary.",
+    "pdf_page": 106
+   },
+   {
+    "number": "7.3",
+    "summary": "Take the shear-like flat-space field with Cartesian components (0, Cx); compute its covariant derivatives in Cartesian coordinates, convert the field to polar components, recompute the derivatives using the polar Gammas, and check both answers agree via the (1,1) tensor transformation law.",
+    "skills": [
+     "polar connection coefficients",
+     "coordinate transformation of components",
+     "tensor transformation law"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Demonstrates concretely that the Gamma terms are exactly what make the covariant derivative coordinate independent, even though Gamma itself is not a tensor.",
+    "pdf_page": 107
+   },
+   {
+    "number": "7.4",
+    "summary": "Apply the given formula for the covariant derivative of a (0,2) tensor to the metric and use the expression for Gamma in terms of metric derivatives to show the result vanishes.",
+    "skills": [
+     "covariant derivative of tensors",
+     "index manipulation with the metric",
+     "metric compatibility"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Closes the logical loop the chapter only sketches: the Gamma built from the metric is indeed compatible.",
+    "pdf_page": 107
+   }
+  ],
+  "solutions": "Selected answers appear in Appendix E (Answers to selected problems); not checked for these exercises."
+ },
+ "difficulty": {
+  "math_level": 3,
+  "conceptual_level": 3,
+  "novice_friendliness": 3,
+  "notes": "The computations are light (product rule, relabelling dummy indices, polar-coordinate derivatives), but the conceptual step from embedded surfaces to intrinsic comparison of vectors is subtle and the text blurs several points: eqn 7.26 drops u^alpha without comment, the sign logic of 'subtract the coordinate change' versus the added Gamma term is confusing, affine parameters are defined vaguely and then mischaracterized in a margin note, and compatibility is presented as fixing the connection without mentioning the torsion-free condition. Many results are quoted rather than derived (7.11, 7.34, 7.35, 7.37). Reading-copy LaTeX is clean apart from index placement in semicolon expressions."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch1 §1.4",
+   "reason": "Parametrized paths through spacetime and proper time, recalled to describe curves x(lambda).",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.4"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch3 §3.1",
+   "reason": "Plane polar basis vectors and their derivatives used for the brute-force Gammas.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch3 §3.2",
+   "reason": "Farewell to the position vector: why tangents are built from dx^mu/dlambda.",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch4",
+   "reason": "Tensor classification (m,n) and transformation laws used to show Gamma is not a tensor.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch5",
+   "reason": "Metric components as g(e_mu, e_nu) underpin compatibility and dg -> Gamma.",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": "7.5"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch6 §6.4",
+   "reason": "Local flatness of spacetime restated via locally Minkowskian charts.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch8",
+   "reason": "Covariant derivative along world lines used to describe free fall as geodesic motion (next chapter).",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": "7.5"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch9",
+   "reason": "Efficient extraction of connection coefficients and derivation of the Gamma-from-metric formula quoted as eqn 7.37.",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": "7.5"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch10",
+   "reason": "Coordinate versus non-coordinate bases and orthonormal frames (§10.2-10.3). There connection coefficients need not be symmetric, which is the caveat hidden in the 'all frames we use' qualifier on eqn 7.9.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch11",
+   "reason": "A combination of Gammas and their derivatives (the Riemann tensor) decides whether a space is curved, as margin note 7 promises.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch31",
+   "reason": "Rigorous reintroduction of vectors, vector fields and tensors (Part V).",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch34",
+   "reason": "Geometry of the connection: covariant derivative in pictures, transformation law of Gamma, covariant derivatives of tensors, Leibniz rule and the metric revisited.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA appC",
+   "reason": "Manifolds, charts, curves and tangent spaces treated formally.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Hawking and Ellis, The Large Scale Structure of Space-Time",
+   "reason": "Cited as sharing the book's lower-index ordering for connection coefficients.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Misner, Thorne and Wheeler, Gravitation",
+   "reason": "Cited as using the opposite lower-index ordering for connection coefficients.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Separate the insider's and outsider's verdicts on parallelism: the same transported arrow has constant components in the carried local frame but visibly swings in the embedding axes.",
+   "why_effective": "Makes 'parallel' a relational, intrinsic notion before any formula, and pre-empts the flat-space instinct that parallel means fixed absolute direction.",
+   "locator": {
+    "pdf_page": 99,
+    "printed_page": 82,
+    "section": "7.1"
+   },
+   "app_idea": "Split-screen sphere walk: 3D view with fixed XYZ arrows beside an ant's-eye local frame; both component readouts update as the learner drags the ant."
+  },
+  {
+   "gem": "Brute-force Gammas for the flat plane in polar coordinates, followed by the punchline that non-zero Gamma does not mean curvature.",
+   "why_effective": "A familiar flat space with a changing basis isolates exactly what Gamma measures and inoculates against using Gamma as a curvature detector.",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   },
+   "app_idea": "Polar grid with draggable point: arrows e_r, e_theta and their neighbours; nudging along r or theta shows the basis change, with the non-zero Gamma values lighting up; a second tab shows the Riemann tensor staying zero."
+  },
+  {
+   "gem": "Product rule on v = v^mu e_mu: the derivative of a vector has a component part and a basis part, and the basis part is named Gamma.",
+   "why_effective": "Derives the covariant derivative from one line of calculus the learner already trusts, making the Gamma term inevitable rather than mysterious.",
+   "locator": {
+    "pdf_page": 100,
+    "printed_page": 83,
+    "section": "7.2"
+   },
+   "app_idea": "Step-through derivation card with each term colour-coded; the learner chooses a coordinate system (Cartesian, polar, spherical) and sees which terms survive."
+  },
+  {
+   "gem": "Four-step recipe for Dv/dlambda: take the vector a little further along, carry it back by parallel transport, subtract, divide and take the limit.",
+   "why_effective": "Connects directly to the limit definition of an ordinary derivative and makes clear why a connection is needed: to move vectors to a common point before subtracting.",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   },
+   "app_idea": "Animated Fig. 7.6 on a cone or sphere with an epsilon slider and a toggle for 'subtract without transporting' to expose the error."
+  },
+  {
+   "gem": "Word equations in big brackets that restate each formula in plain language: covariant change = total change minus coordinate change; under transport, component change equals coordinate change.",
+   "why_effective": "Gives voice-tutor-ready sentences that anchor the index expressions and can be recalled when the algebra gets heavy.",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   },
+   "app_idea": "Hover over each term in eqns 7.18 and 7.25 to reveal its word-equation label and a mini animation of the effect it represents."
+  },
+  {
+   "gem": "Justify metric compatibility by insisting transported rulers keep their lengths, then prove it in one line with the product rule on g(A, A).",
+   "why_effective": "Physical requirement first, compact algebra second; it also sets up why Gamma must come from derivatives of the metric.",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   },
+   "app_idea": "Transport experiment with a 'connection knob' that adds an incompatible piece; the arrow length drifts and a readout of g_{mu nu;alpha} leaves zero."
+  },
+  {
+   "gem": "Flat-Cartesian sanity checks after each new definition (nabla_alpha v and DA/dlambda both collapse to ordinary derivatives).",
+   "why_effective": "Teaches the habit of testing new geometric machinery against the known limit and reassures learners the new derivative contains the old one.",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.4"
+   },
+   "app_idea": "Coordinate switch on any derivative demo: flipping to Cartesian in flat space greys out all Gamma terms and shows the ordinary derivative result."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Eqn 7.26 drops the u^alpha from eqn 7.25, which is only valid if v is parallel transported in every direction; along a single curve the constraint is the contraction u^alpha(...) = 0. The following sentence also mislabels the derivative index (nu instead of alpha).",
+   "impact_on_learner": "Learners may think parallel transport fixes all partial derivatives of v, or try to use 7.26 for a vector defined only along a curve where partial derivatives off the curve are meaningless.",
+   "suggestion": "Teach the transport condition as the ODE dv^mu/dlambda + Gamma^mu_{alpha beta} (dx^alpha/dlambda) v^beta = 0 along the curve, and reserve 7.26 for covariantly constant fields.",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "issue": "Sign logic: eqn 7.1 and margin note 12 describe subtracting the coordinate change, yet the Gamma term is added in eqn 7.18; the sign flips because dv^mu/dx^alpha contains the coordinate effect with the opposite sign.",
+   "impact_on_learner": "Confusion about whether the Gamma term should be plus or minus, compounded later when lower indices get minus signs.",
+   "suggestion": "Work polar coordinates explicitly: take a constant Cartesian field, show its polar components change, and show +Gamma v exactly cancels that change so nabla v = 0.",
+   "locator": {
+    "pdf_page": 103,
+    "printed_page": 86,
+    "section": "7.3"
+   }
+  },
+  {
+   "issue": "Eqns 7.5-7.6 differentiate basis vectors as if vectors at different points could be subtracted directly, which only makes sense with an embedding (as in the polar example); on a genuine curved manifold eqn 7.6 is effectively the definition of the connection.",
+   "impact_on_learner": "Circularity is hidden: the derivative is derived using the very comparison of vectors at different points that it is supposed to supply.",
+   "suggestion": "State openly that in curved space one must choose a rule for comparing nearby tangent spaces; Gamma encodes that rule and metric compatibility plus symmetry pick the natural one (Chapter 34).",
+   "locator": {
+    "pdf_page": 101,
+    "printed_page": 84,
+    "section": "7.2"
+   }
+  },
+  {
+   "issue": "Affine parametrization is defined vaguely (parameters that 'mark regular intervals', closed under linear maps) and margin note 16 says affine parameters are those along which transported vectors keep their length, but length preservation under transport holds for any parameter given compatibility.",
+   "impact_on_learner": "No usable criterion for affinity; the note may be read as saying non-affine parameters break length conservation.",
+   "suggestion": "Say: for non-null curves a parameter is affine if it is a linear function of arc length or proper time (so |u| is constant); for geodesics, affine parameters are exactly those with Du/dlambda = 0. Use Exercise 7.2 as the demonstration.",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "issue": "Section 7.5 says the metric forces this covariant derivative, omitting that the symmetry condition 7.9 is also needed for uniqueness.",
+   "impact_on_learner": "Misses the fundamental theorem of Riemannian geometry and is unprepared for torsion or non-coordinate bases.",
+   "suggestion": "State: a unique connection is both metric compatible and torsion free (the Levi-Civita connection); eqn 7.37 follows from those two conditions together.",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "issue": "Example 7.11 assumes a vector field A with nabla_alpha A = 0 in all directions, which generally does not exist in curved space, and concludes g_{mu nu;alpha} = 0 from its contraction with A^mu A^nu without the polarization step.",
+   "impact_on_learner": "The proof looks airtight but relies on an object that may not exist; careful learners may be puzzled.",
+   "suggestion": "Rephrase along a curve: for all vectors A transported along any direction u, u^alpha g_{mu nu;alpha} A^mu A^nu = 0; since u and A are arbitrary and g is symmetric, polarization gives g_{mu nu;alpha} = 0.",
+   "locator": {
+    "pdf_page": 105,
+    "printed_page": 88,
+    "section": "7.5"
+   }
+  },
+  {
+   "issue": "The claim that a smooth manifold is flat over a sufficiently small region is stated without the qualification that only first derivatives of the metric can be removed at a point.",
+   "impact_on_learner": "Encourages the belief that curvature vanishes in small regions, conflicting with tidal effects in Chapter 11.",
+   "suggestion": "Say 'approximately flat, with deviations growing like the square of the region's size', and connect to local inertial frames.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 81,
+    "section": null
+   }
+  },
+  {
+   "issue": "Index ordering inconsistency: printed p.89 writes the basis-vector derivative with Gamma^lambda_{mu alpha} although eqn 7.6 uses Gamma^lambda_{alpha mu}.",
+   "impact_on_learner": "Minor confusion about conventions, harmless for symmetric connections but not in non-coordinate frames.",
+   "suggestion": "Keep one convention (derivative index first) throughout the app and flag when bases are non-coordinate.",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": "7.5"
+   }
+  },
+  {
+   "issue": "The chapter summary omits metric compatibility and the dg -> Gamma link, and states parallel transport only in terms of 'same components in local coordinate systems'.",
+   "impact_on_learner": "Learners may skip §7.5 as optional and misread the summary as 'components stay constant'.",
+   "suggestion": "Add summary points: nabla g = 0 preserves lengths; parallel transport changes coordinate components according to -Gamma u v.",
+   "locator": {
+    "pdf_page": 106,
+    "printed_page": 89,
+    "section": null
+   }
+  },
+  {
+   "issue": "Minor slips: Exercise 7.3 says 'cylindrical polar' for 2D plane polar coordinates; after eqn 7.30 'u us' is a typo for 'u is'; Example 7.5 says 'braces' for parentheses. Exercise 7.3(b) also asks for 'the transformations from Chapter 3' but prints none. The page render confirms this is the book's own omission, not an export loss.",
+   "impact_on_learner": "Small distractions; the Exercise 7.3 wording might send learners looking for a z coordinate.",
+   "suggestion": "Use 'plane polar' in any rewritten version, and supply the component transformations explicitly: v^r = cos theta v^x + sin theta v^y, v^theta = (-sin theta v^x + cos theta v^y)/r.",
+   "locator": {
+    "pdf_page": 107,
+    "printed_page": 90,
+    "section": null
+   }
+  },
+  {
+   "issue": "The distinction that nabla v (alpha free) is a (1,1) tensor is only implicit in Exercise 7.3(d); the text emphasizes nabla_alpha v being a (1,0) object.",
+   "impact_on_learner": "Learners struggle with Exercise 7.3(d) and later with nabla_mu T^{mu nu} = 0.",
+   "suggestion": "Explicitly introduce the (1,1) tensor nabla v with components v^mu_{;alpha} and show nabla_u v as inserting u into its lower slot.",
+   "locator": {
+    "pdf_page": 102,
+    "printed_page": 85,
+    "section": "7.3"
+   }
+  },
+  {
+   "issue": "Fig. 7.6 is drawn on a flat page, so the 'parallel transported' dashed arrow is just a translated copy of v(lambda_0 + epsilon). Nothing in the picture shows how transport differs from naive sliding.",
+   "impact_on_learner": "The figure can reinforce the idea that one simply slides arrows to a common base point, exactly the flat-space habit the chapter is trying to break.",
+   "suggestion": "Pair Fig. 7.6 with a curved example: transport along a latitude circle on a sphere, or on a cone via its unrolled sector, where the transported arrow visibly differs from a rigid translation in the embedding.",
+   "locator": {
+    "pdf_page": 104,
+    "printed_page": 87,
+    "section": "7.4"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with: 'If you were an ant on a football and could never leave the surface, how would you decide whether two arrows at different places point the same way?' Let the learner discover that chords are not allowed and that a local frame must be carried along.",
+  "Second opener for calculus-minded learners: 'In polar coordinates, a constant vector field has components that change from point to point. So what should its derivative be?' This sets up the need for a Gamma term.",
+  "Recommended order: insider viewpoint and tangent vectors -> embedding versus insider parallelism (Figs 7.1-7.3) -> product rule on v^mu e_mu -> define Gamma -> polar Gammas and 'Gamma is not curvature' -> nabla_alpha v and semicolon notation -> nabla_u v and the transport condition -> curves, tangent vectors, D/dlambda -> transport-back limit picture -> metric compatibility and dg -> Gamma.",
+  "Do a concrete polar check before or right after eqn 7.18: take v = e_x written in polar components (cos theta, -sin theta / r) and verify with the polar Gammas that nabla_r v and nabla_theta v vanish. This settles the sign of the Gamma term.",
+  "Check for understanding: 'The flat plane in polar coordinates has Gamma^r_{theta theta} = -r. Does that mean the plane is curved?' Expected: no; Gamma reflects the coordinates.",
+  "Check for understanding: 'Why can't we just subtract v at lambda_0 + epsilon from v at lambda_0?' Expected: they live in different tangent spaces; parallel transport brings them together.",
+  "Check for understanding: 'Under parallel transport, do the components of the vector stay the same?' Expected: not in general coordinates; they change by -Gamma u v, and only the intrinsic change is zero.",
+  "When the learner meets comma/semicolon notation, have them read v^mu_{;alpha} aloud as 'the mu component of the covariant derivative of v in the alpha direction' to avoid treating it as the derivative of a component.",
+  "For affine parameters, use Exercise 7.2 rather than the text's definition: arc length on a circle keeps |u| = 1; t = sin s makes |u| blow up near s = pi/2.",
+  "Common learner question: 'Why is Gamma called a connection?' Answer: it connects (relates) the local frames at neighbouring points, telling you how to translate a vector from one to the next.",
+  "Common learner question: 'Why should nabla g be zero?' Answer with the transported-ruler argument, then show the one-line product-rule proof; mention that torsion-freeness is also needed for uniqueness.",
+  "Common learner question: 'Is Gamma a tensor?' Point to the second-derivative term in its transformation law and to the fact that Gamma can be zero in Cartesian coordinates yet non-zero in polar coordinates for the same flat space.",
+  "For advanced learners, flag the logical subtlety that on an abstract manifold eqn 7.6 defines the connection, and preview that Chapter 9 derives Gamma from the metric and Chapter 11 uses loop transport to get curvature.",
+  "Signpost the physics payoff early: applying parallel transport to the tangent vector itself (Du/dtau = 0) will be the equation of free fall in Chapter 8."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "role_in_book: replaced an unverified claim that Chapter 11 builds Riemann curvature by loop transport with what the chapter actually promises (margin note 7: a combination of Gammas and their derivatives).",
+   "assumed_background: removed unverifiable section numbers 4.3-4.4 for the tensor-transformation prerequisite (now GA ch4).",
+   "§7.1 summary: reworded the closing sentence, which tracked the source phrasing too closely.",
+   "Concept 'intrinsic viewpoint': replaced an unverified pointer to Chapter 11 for intrinsic vs extrinsic curvature with the Part V chapter on classical curvature and Appendix D (Embedding) from the TOC.",
+   "Concept 'polar Christoffel symbols': removed an unverified claim about Chapter 11; pointed to Exercise 7.3(c) and Chapter 9 (Finding connection coefficients) instead.",
+   "Key eqn 7.4: noted that the book writes the tip-minus-base statement as an equality, whereas the dossier's approximate sign reflects that it is only first-order.",
+   "Fig. 7.3: corrected visual description after viewing the image; it shows two great circles crossing at P (four legs), not 'several arcs meeting at P'.",
+   "Fig. 7.6: added that the curve descends and that the first two ticks sit close together; made the redesign concrete and original (cone plus unrolled sector, so transport is exact and checkable).",
+   "Misconception on parametrizations: corrected 'proportional to arc length' to 'a linear function of arc length or proper time', and added the identity u . Du/dlambda = (1/2) d(u.u)/dlambda that explains it.",
+   "Analogy entry on rulers: made clear that the book only asserts length drift would be unacceptable; the ruler image is the dossier's framing, not the book's.",
+   "Notation 'boxed-arrow rule': removed an unverified claim that Chapter 11 extends it to [dg]+[d^2 g] -> [R].",
+   "Cross-reference ch10: replaced a speculative reason with the TOC-verified topic (coordinate vs non-coordinate bases, orthonormal frame) and its link to eqn 7.9.",
+   "Gaps: recorded that Exercise 7.3(b) refers to transformations it never prints (confirmed on the pdf 107 render, so a book omission, not an export loss), and supplied the needed polar component transformations.",
+   "Gaps: added a pitfall that Fig. 7.6, being flat, makes transport look like rigid sliding, with a curved-surface remedy."
+  ],
+  "residual_concerns": [
+   "Chapter pointers for Part V and later chapters were checked only against TOC titles, not their text (e.g. Chapter 34 for the transformation law of Gamma, Appendix E answers for these exercises).",
+   "Figure descriptions for the small arrow-direction details in Figs 7.1, 7.3 and 7.6 come from low-resolution images and may be slightly off in angle.",
+   "All 40 tagged equations (7.1-7.40) are covered. Nothing was missing in the export: no suspect pages were listed, and the ten renders (pdf 98-107) matched the reading copy. The only hole, in Exercise 7.3(b), is in the book itself."
+  ],
+  "coverage": {
+   "toc_sections": 5,
+   "sections": 7,
+   "inventory_figures": 6,
+   "figures": 6,
+   "inventory_examples": 11,
+   "worked_examples": 12,
+   "concepts": 36,
+   "key_equations": 44,
+   "locators_checked": 24,
+   "locators_wrong": 0,
+   "pages_rendered": 10
+  }
+ }
+}

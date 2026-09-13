@@ -1,0 +1,2393 @@
+{
+ "group": "figures-and-media",
+ "summary": "The legacy project has 40 original static SVG figures (one per manifest entry, chapters 0-24). They come from one Python generator (scripts/figures.py, about 540 lines, no dependencies) that computes coordinates from real formulas. A second pass (scripts/typeset-figures.mjs) swaps 226 exact-string labels for MathJax vector glyphs using content/figure-math.json and rewrites hex colours into a five-role light/dark CSS-variable palette. A Playwright checker (scripts/check-figures.mjs) renders all 40 in both themes and fails on clipped, overlapping, stroke-crossed or overpainted labels; the latest report shows 80 renders, 0 issues. I regenerated the manifest from figures.py in the scratchpad and it matches the committed one, so the pipeline is reproducible. I viewed every current light capture (qa/figure-*-light.png, 2026-09-09 23:00), several dark and phone-width captures, and the history and Earth screenshots. Science is careful throughout. I re-derived the GPS net gain GM/c^2(1/R - 3/(2r)) (+38.5 us/day, crossover at h = R/2), the tossed-clock +89.2/-44.6/+44.6 as, the Earth tidal gradient 2GM/r^3 = 3.08e-6 s^-2, the Eddington-Finkelstein cone slopes (r - rs)/(r + rs), the Newtonian calibration of kappa, the horizon-area bound 1 - 1/sqrt2, the Raychaudhuri focusing bound and the 30-degree Cartan holonomy inset. All are correct, and every caption states its approximation and exaggeration. Visually the set is uneven, and it all uses one 1000-unit landscape slide template: numbered uppercase heading, coloured headline and subtitle, diagram on the left and prose on the right. The strongest figures are single geometric constructions with a visible invariant: light cone, affine-parameter dots, action variation, lapse/shift, black-hole radii to scale, horizon-area disks, wave polarizations and the rebuilt Cartan plane/sphere comparison. The weakest are boxed-formula cards and flowcharts that belong in HTML/KaTeX: Newtonian calibration, product rule, constraint count, calculation map, effective theory. Only 7 of 40 have a phone composition (data-mobile-viewbox); the rest shrink to about 7 px labels in a 350 px column. The four public-domain history images (Newton 1689, Principia 1687, Einstein 1921, Einstein 1916 title page) and the NASA Blue Marble Earth texture ship with exemplary provenance manifests (source, licence rationale, modifications, sha256, verification date) and can be reused verbatim. Six review docs give specific, evidence-linked critique of every figure, but they overlap and go stale fast (visual-review.md still lists superseded titles and captions). second-figure-review.md (2026-09-09) is the most current disposition. For grbook.ai: reuse the formulas, captions and limitation statements, the palette roles, the provenance schema and the label-collision test idea. Rebuild most figures as Svelte/KaTeX components, turning about 15 into interactive demos. Drop the Python/MathJax string-matching pipeline.",
+ "lessons_learned": [
+  "Do not bake prose into SVG. The shared 1000x480 template (a 'NN / TITLE' heading, then a headline and subtitle, then diagram left and prose right) made the collection read like lecture slides. At a 350 px phone column a 20-unit label renders at about 7 px (docs/figure-aesthetic-review-01-20.md). Only 7 of 40 figures got a data-mobile-viewbox composition. In grbook.ai keep titles, captions and explanations in responsive HTML, keep only construction labels inside the drawing, and design the phone layout first.",
+  "Author math labels as TeX at the source. content/figure-math.json maps exact display strings to TeX. It has drifted: 24 of 226 keys match no current label, and '1912-13' is unmapped, so it renders visibly in sans-serif among serif dates on the historical timeline (qa/figure-historical-timeline-light.png). In Svelte, pass TeX straight to KaTeX instead of post-matching strings.",
+  "Keep build passes idempotent. scripts/typeset-figures.mjs rewrites the SVGs in place (prefixes IDs, replaces text with glyphs, maps hex colours to CSS variables), so it is only correct immediately after figures.py regenerates the files. Keep sources and outputs separate.",
+  "Automated layout checks are necessary but not sufficient. check-figures.mjs catches clipping, overlap, label/stroke collisions and overpainting (80/80 pass), but it passed boundary-variation after its dashed tangents were thinned until they almost disappear into the curve. The figure's whole point is now barely visible in qa/figure-boundary-variation-light.png. Pair every automated pass with a visual review against the question 'can the reader point at the part of the image that justifies the caption?' (docs/figure-aesthetic-review-21-40.md).",
+  "One colour means one role, everywhere. The five-role palette (geometry teal, curvature violet, transport blue, matter amber, observer rose, with dark variants above 4.5:1 contrast) is worth keeping. The figures that confused readers broke it: polar-metric draws r in rose but labels r dtheta teal while listing 'Angular: r dtheta' in rose; the three Rindler hyperbolae are coloured but unlabelled; the cosmic-expansion legend runs in reverse vertical order to the curves.",
+  "Spacetime diagrams need equal ct and x scales. Two legacy figures silently use unequal pixel scales: Rindler (105 px vs 85 px per unit, so the null asymptote sits at about 39 degrees) and horizon-cones (ingoing null rays not at 45 degrees). The light-cone figure gets it right. Make an equal-scale axis helper the default in grbook.ai.",
+  "Compute annotations from the same model as the curves. figures.py computes every curve from a formula, but tangents, edge labels, reference lines and axis scales are typed in as pixel literals, and that is exactly where the surviving defects are: the boundary-variation tangent about 10% shallower than the real slope, polar-metric's 'dr' beside an angular arc, the light-bending ray 5 px off its own reference line, and the 39-degree and 55-degree 'null' lines in Rindler and horizon-cones. In grbook.ai, derive tangents, labels and anchors from the model object, and unit-test anchor positions (for example, a tangent slope equals the derivative) rather than only testing label collisions.",
+  "Keep the honesty rule: every figure is computed from a stated model and its caption names the approximation, the exaggeration and what the picture does not show. It stopped several classic misconceptions: caustic is not a singularity, Hubble radius is not a horizon, the area theorem is a bound not an efficiency, Flamm-style radii are not proper distances. Carry this into the grbook.ai figure spec.",
+  "Boxed formula cards and process flowcharts (connection-cancellation before its rebuild, newtonian-calibration, action-product-rule, constraint-count, calculation-map, effective-theory) were consistently the weakest figures in three separate reviews. Derivations belong in aligned KaTeX with colour roles. Checklists belong in HTML or as an AI-tutor tool, not in illustrations.",
+  "Give each idea one primary representation. Once an interactive existed, the legacy build demoted the static SVG to a collapsed 'reference diagram' or a 'Diagram' tab (build-site.mjs chapterFigure / referenceByLesson / paired scenes). Before that, figure and scene competed as duplicate introductions (docs/visualization-audit.md). Plan interactive and static fallback as a pair from the start.",
+  "Show visual claims directly in the picture. The two most effective late fixes were geometric: caustic paths continuing past the focus, and the Page curve sharing its early branch with the semiclassical trend (docs/second-figure-review.md). No added prose achieved the same.",
+  "Reuse the media provenance schema. assets/history/manifest.json and assets/earth/manifest.json record source page, direct file URL, author and date, licence and jurisdiction rationale, upstream and local modifications, pixel size, sha256 and a verification date. Adopt it for every grbook.ai image, texture and video.",
+  "Keep a single source of truth for status. Six overlapping review docs recorded dispositions on 2026-09-08 and 2026-09-09 that were superseded within hours (figures 06, 12, 14, 18, 35, 36 and 38 changed after being reviewed). Track figure status in the knowledge vault, not parallel markdown reviews.",
+  "Do not identify figures by ordinal. figures.py re-sorts by (chapter, after) and rewrites the 'NN /' heading, so the number is a global position, not a chapter (Rindler '09' is in chapter 5), and adding one figure shifts every later number. The review docs cite figures as '15', '22', '35'. Key status, reviews and cross-links on stable ids such as polar-metric."
+ ],
+ "assets": [
+  {
+   "id": "figure-local-prediction",
+   "kind": "figure",
+   "title": "01 A derivative predicts the next small step",
+   "paths": [
+    "assets/figures/local-prediction.svg",
+    "scripts/figures.py#L59-L72",
+    "assets/figures/manifest.json"
+   ],
+   "topics": [
+    "derivative",
+    "tangent line",
+    "linear approximation",
+    "Taylor expansion"
+   ],
+   "teaches": "Uses a cart with x = 3t^2 to show that the tangent line at t = 2 s (x = 12 m, v = 12 m/s) matches value and slope, predicting the next small displacement dx = v dt, while the curve keeps accelerating. This is the first-order/second-order hierarchy the book later reuses for local expansions of the metric.",
+   "pedagogy": "Concrete units first (metres, seconds), then the approximation symbol. Placed as the chapter 0 opener for novices.",
+   "interaction": null,
+   "physics_model": "Exact parabola x = (3 m/s^2) t^2 and tangent x = 12t - 12, plotted from the formulas.",
+   "screenshots": [
+    "qa/figure-local-prediction-light.png",
+    "qa/figure-local-prediction-dark.png",
+    "qa/responsive-local-prediction-390-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct and uncluttered; the contact label has a leader and clears both curves",
+     "One of 7 figures with a dedicated phone composition",
+     "Dashed tangent vs solid curve reads instantly"
+    ],
+    "issues": [
+     "Right column is a mini-article (headline, rule, equation, two sentences) that shrinks the plot",
+     "Does not show the growing gap between line and curve, which is the actual lesson about error order"
+    ],
+    "evidence": "Viewed qa/figure-local-prediction-light.png; docs/figure-aesthetic-review-01-20.md section 01 (Polish); qa/responsive-figures-report.json (no clipping/overlap at 320/390/1440)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the cart numbers and caption. Rebuild as a small interactive for the calculus-refresher module: drag t0 and dt and show the tangent prediction next to the true value, with the error shrinking like dt^2. Move the explanatory sentences to HTML.",
+    "effort": "small"
+   },
+   "size": "68 KB typeset SVG, 1000x480, mobile viewBox 500x750"
+  },
+  {
+   "id": "figure-free-fall-comparison",
+   "kind": "figure",
+   "title": "02 Comparing two free falls",
+   "paths": [
+    "assets/figures/free-fall-comparison.svg",
+    "scripts/figures.py#L74-L85"
+   ],
+   "topics": [
+    "equivalence principle",
+    "free fall",
+    "geodesic deviation",
+    "tidal acceleration",
+    "worldline"
+   ],
+   "teaches": "A single freely falling body's accelerometer reads 0 g. Only a pair of free-fall worldlines reveals gravity, through their changing separation (tangential convergence near Earth).",
+   "pedagogy": "Split comparison, one laboratory vs two. The caption warns that drawn curvature of coordinate worldlines is not evidence of spacetime curvature.",
+   "interaction": null,
+   "physics_model": "Schematic only: separation shrinks quadratically in time (70 - 35 (i/50)^2 in drawing units). No physical scale.",
+   "screenshots": [
+    "qa/figure-free-fall-comparison-light.png",
+    "qa/figure-free-fall-comparison-dark.png"
+   ],
+   "quality": {
+    "status": "rough",
+    "strengths": [
+     "Conceptually right framing: relative acceleration is the observable",
+     "Honest caption about coordinate schematics"
+    ],
+    "issues": [
+     "Visually thin: a near-straight line with a dot, and a right panel that reads as an arch",
+     "No measured separations on common time slices and no drawn instruments",
+     "Axes have no scale; large empty panels and a centre divider"
+    ],
+    "evidence": "Viewed qa/figure-free-fall-comparison-light.png; docs/figure-aesthetic-review-01-20.md section 02 (Rebuild); docs/visualization-audit.md row 02 (Tighten)."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the idea (one accelerometer reads zero; two bodies' separation changes). Build an interactive two-capsule drop toward Earth with live accelerometer readouts (0 g), a separation plot vs time, and a toggle between radial (stretch) and side-by-side (squeeze) pairs. Link it to the Earth rain-frame lab and geodesic deviation.",
+    "effort": "medium"
+   },
+   "size": "12 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-historical-timeline",
+   "kind": "figure",
+   "title": "03 A century of consequences (historical timeline)",
+   "paths": [
+    "assets/figures/historical-timeline.svg",
+    "scripts/figures.py#L431-L438"
+   ],
+   "topics": [
+    "history of general relativity",
+    "Newtonian gravity",
+    "special relativity",
+    "equivalence principle",
+    "Minkowski spacetime",
+    "Einstein field equations",
+    "Schwarzschild metric",
+    "Kerr metric",
+    "Hawking radiation",
+    "gravitational waves"
+   ],
+   "teaches": "Ten dated milestones (1687 Newton; 1905 special relativity; 1907 equivalence principle; 1908 Minkowski; 1912-13 Grossmann; 1915 November papers; 1916 Schwarzschild; 1963 Kerr; 1974 Hawking; 2015 LIGO), separating the teaching order from the historical order.",
+   "pedagogy": "Optional context after section 1.9. The caption notes the dates are selected rather than a priority history, and that the 2015 detection was reported in 2016.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/figure-historical-timeline-light.png",
+    "qa/figure-historical-timeline-dark.png"
+   ],
+   "quality": {
+    "status": "rough",
+    "strengths": [
+     "Carefully hedged dates and caption",
+     "Legible at desktop width"
+    ],
+    "issues": [
+     "A ten-card grid rather than a connected timeline; rows do not continue",
+     "Visible typography defect: '1912-13' has no figure-math.json key, so it renders in bold sans among serif dates",
+     "note.split(' ',1) strands single words ('one', 'the', 'a', 'first') on their own line",
+     "The heading 'A century of consequences' fits 1915-2015 but the grid opens at 1687 Newton, so heading and content frame different spans (minor)"
+    ],
+    "evidence": "Viewed qa/figure-historical-timeline-light.png; label-mapping audit (1912-13 unmapped); docs/figure-aesthetic-review-01-20.md section 03 (Rebuild); docs/aesthetic-review.md priority 1."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Build a responsive HTML/Svelte timeline with continuous reading order that uses the four public-domain history images and the section 1.9 narrative (Entwurf wrong turn, the four November 1915 communications, Hilbert without a race narrative). Keep the hedged caption facts and add links from each milestone to the course module that teaches it.",
+    "effort": "small"
+   },
+   "size": "31 KB typeset SVG, 1000x495"
+  },
+  {
+   "id": "figure-vector-covector",
+   "kind": "figure",
+   "title": "04 Arrows and the questions they answer (vector vs covector)",
+   "paths": [
+    "assets/figures/vector-covector.svg",
+    "scripts/figures.py#L87-L95"
+   ],
+   "topics": [
+    "tangent vector",
+    "covector",
+    "one-form",
+    "dual space",
+    "level sets",
+    "differential dx",
+    "contraction"
+   ],
+   "teaches": "A vector v = (3,2) is a displacement; the covector dx is a linear question answered by counting level intervals crossed (omega(v) = 3), not by Euclidean length.",
+   "pedagogy": "Side-by-side arrow and level-set pictures. The caption notes that rescaling a coordinate changes both components but leaves the pairing invariant. In the legacy book it was the 'Diagram' tab of a 3D covector-planes scene.",
+   "interaction": null,
+   "physics_model": "Exact: evenly spaced lines x = 0..4, vector from origin to (3,2).",
+   "screenshots": [
+    "qa/figure-vector-covector-light.png",
+    "qa/figure-vector-covector-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Concrete counting interpretation of a one-form",
+     "Strong, confident arrows; equal-weight comparison"
+    ],
+    "issues": [
+     "Left panel's rose projection arrow is unlabelled",
+     "The arrowhead lands exactly on the x = 3 line; crossed intervals are not highlighted, so the reader counts boundaries instead of intervals",
+     "The invariance under rescaling is claimed in the caption but not shown"
+    ],
+    "evidence": "Viewed qa/figure-vector-covector-light.png; docs/figure-aesthetic-review-01-20.md section 04 (Polish); docs/second-figure-review.md table (3D counterpart marks crossings)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "A strong candidate for an interactive 2D demo: drag v, tint the crossed intervals, show omega(v) live, then add a 'rescale x' slider under which the components of v and dx change and their pairing does not. Keep this static layout as the fallback card.",
+    "effort": "small"
+   },
+   "size": "33 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-light-cone",
+   "kind": "figure",
+   "title": "05 The minus sign creates a light cone",
+   "paths": [
+    "assets/figures/light-cone.svg",
+    "scripts/figures.py#L97-L105"
+   ],
+   "topics": [
+    "light cone",
+    "Minkowski metric",
+    "spacetime interval",
+    "timelike",
+    "spacelike",
+    "null",
+    "causal structure"
+   ],
+   "teaches": "In 1+1 Minkowski spacetime with equal x and ct scales, light rays (|dx| = c dt) bound the future of an event. A massive observer's displacement is timelike, inside the cone; a spacelike displacement is outside.",
+   "pedagogy": "One generous construction and a restrained fill. Paired in the legacy book with a 2+1 3D cone scene.",
+   "interaction": null,
+   "physics_model": "Exact 45-degree null lines on equal-scale axes.",
+   "screenshots": [
+    "qa/figure-light-cone-light.png",
+    "qa/figure-light-cone-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Equal-scale axes (unlike the Rindler and horizon-cone figures)",
+     "Rated among the strongest assets in two reviews",
+     "Clear timelike/spacelike colour roles"
+    ],
+    "issues": [
+     "The null-condition label floats away from the ray it describes",
+     "Flat truncation of the fill at the top; heavy arrowheads",
+     "No invariant-interval readout or boost"
+    ],
+    "evidence": "Viewed qa/figure-light-cone-light.png; docs/figure-aesthetic-review-01-20.md section 05 (Keep); docs/visualization-audit.md row 05 (Keep)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the construction verbatim as a static card. The interactive version should let the learner drag an event and apply a Lorentz boost slider: coordinates change, the timelike/spacelike/null classification and the interval value do not.",
+    "effort": "small"
+   },
+   "size": "20 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-twin-worldlines",
+   "kind": "figure",
+   "title": "06 Two histories between the same events (twin paradox)",
+   "paths": [
+    "assets/figures/twin-worldlines.svg",
+    "scripts/figures.py#L106-L112"
+   ],
+   "topics": [
+    "twin paradox",
+    "proper time",
+    "worldline",
+    "time dilation",
+    "Minkowski spacetime"
+   ],
+   "teaches": "The home clock takes 10 years on a vertical worldline. A traveller at 0.6c to 3 light-years and back accumulates 10 sqrt(1 - 0.6^2) = 8 years. Same departure and reunion events, different spacetime lengths.",
+   "pedagogy": "Shared endpoint events emphasised. The caption notes the proper-time integral, not a 'feeling' of slow time, gives the difference, and that the sharp turnaround is idealised.",
+   "interaction": null,
+   "physics_model": "Exact proper-time integral for piecewise constant speed 0.6c. Validated in scripts/check-site.mjs (per docs/visual-review.md numerical table).",
+   "screenshots": [
+    "qa/figure-twin-worldlines-light.png",
+    "qa/figure-twin-worldlines-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Quantitative and reproducible",
+     "After the second review the home path is neutral dashed and the traveller rose, fixing the earlier single-colour triangle"
+    ],
+    "issues": [
+     "Clock readings sit in a remote right column instead of on the worldlines",
+     "Unused axis extent right of the turnaround; distance axis has one tick"
+    ],
+    "evidence": "Viewed qa/figure-twin-worldlines-light.png; docs/figure-aesthetic-review-01-20.md section 06; docs/second-figure-review.md row 06 (fixed)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Make it interactive: a speed slider and optional smooth turnaround, with ticking proper-time marks along each worldline and live totals attached to the paths. Keep the 0.6c to 8 years default as the worked example.",
+    "effort": "small"
+   },
+   "size": "34 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-polar-metric",
+   "kind": "figure",
+   "title": "07 Coordinates are not rulers (polar metric)",
+   "paths": [
+    "assets/figures/polar-metric.svg",
+    "scripts/figures.py#L114-L124"
+   ],
+   "topics": [
+    "metric tensor",
+    "line element",
+    "polar coordinates",
+    "coordinate basis",
+    "area element"
+   ],
+   "teaches": "A polar grid on the flat plane has radial edge dr and angular edge r dtheta, so ds^2 = dr^2 + r^2 dtheta^2 and the cell area is about r dr dtheta. Grid lines can curve while the surface stays flat.",
+   "pedagogy": "An enlarged annular cell with physical edge lengths. In the legacy book it was a collapsed reference inside the interactive shrinking-cell polar-metric lesson.",
+   "interaction": null,
+   "physics_model": "Exact polar grid; the finite cell is enlarged for visibility (stated in the caption).",
+   "screenshots": [
+    "qa/figure-polar-metric-light.png",
+    "qa/figure-polar-metric-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Economical cell drawing; correct metric and area element",
+     "The 'grid bends, surface is flat' message is valuable"
+    ],
+    "issues": [
+     "Colour roles are inconsistent: r is rose, 'dr' and 'r dtheta' edge labels are teal, and 'Angular: r dtheta' is rose, so lengths cannot be traced by colour",
+     "Edge labels are misplaced relative to the edges they name: from scripts/figures.py L119-120 (cell r 125-185 px, theta 0.5-0.9 rad, origin 265,325) the 'dr' label at (428,205) sits 34 px from the midpoint of the outer arc, which is an angular edge, and about 66 px from the nearest radial edge. 'r dtheta' at (380,151) is roughly equidistant from the outer arc and the upper radial edge. The figure meant to separate the two edge lengths does not clearly attach either label to its own edge. None of the three reviews noticed this.",
+     "Top-heavy layout with an empty lower half; no angle dtheta at the origin",
+     "The finite cell hides the limiting argument"
+    ],
+    "evidence": "Viewed qa/figure-polar-metric-light.png; docs/figure-aesthetic-review-01-20.md section 07; docs/visualization-audit.md row 07 (rebuild as early cornerstone).; label-to-edge distances computed from the cell geometry in scripts/figures.py L114-121 (reviewer check)."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "This is a cornerstone metric concept and should be interactive: drag the cell outward and shrink dr, dtheta, with a ruler overlay showing the angular edge equals r dtheta and a live comparison of coordinate vs physical lengths. Fix the colour roles (one colour per edge, repeated in the equation). The static SVG then becomes a summary card.",
+    "effort": "medium"
+   },
+   "size": "44 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-metric-volume",
+   "kind": "figure",
+   "title": "08 Why a determinant belongs in the volume",
+   "paths": [
+    "assets/figures/metric-volume.svg",
+    "scripts/figures.py#L440-L446"
+   ],
+   "topics": [
+    "determinant",
+    "metric determinant",
+    "volume element",
+    "Jacobian",
+    "Gram matrix",
+    "invariant volume"
+   ],
+   "teaches": "A linear map A sends the unit coordinate square to a parallelogram of area |det A|. For a Euclidean Gram metric g = A^T A, sqrt(det g) = |det A|, which motivates sqrt(-g) d^4x in Lorentzian geometry.",
+   "pedagogy": "A linear-algebra bridge from area scaling to the invariant measure; the caption flags the Lorentzian sign.",
+   "interaction": null,
+   "physics_model": "Illustrative linear map (square to parallelogram); the relation is exact.",
+   "screenshots": [
+    "qa/figure-metric-volume-light.png",
+    "qa/figure-metric-volume-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct, simple bridge from linear algebra",
+     "Clean shapes"
+    ],
+    "issues": [
+     "The map's column vectors are not drawn on the parallelogram and the arrow is unnamed",
+     "Large empty gap between the shapes; a full-width sentence is baked into the SVG",
+     "Signed determinant vs positive area is not visualised"
+    ],
+    "evidence": "Viewed qa/figure-metric-volume-light.png; docs/figure-aesthetic-review-01-20.md section 08 (Polish); docs/visualization-audit.md row 08."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Turn it into a 2D interactive: drag the two basis-vector tips of A (coloured to match the square's edges), show the live parallelogram area, det A with its sign and orientation flip, and sqrt(det g) from g = A^T A. Cheap and high value for the linear-algebra prerequisites.",
+    "effort": "small"
+   },
+   "size": "47 KB typeset SVG, 1000x505"
+  },
+  {
+   "id": "figure-rindler-worldlines",
+   "kind": "figure",
+   "title": "09 Acceleration without curvature (Rindler observers)",
+   "paths": [
+    "assets/figures/rindler-worldlines.svg",
+    "scripts/figures.py#L126-L134"
+   ],
+   "topics": [
+    "Rindler coordinates",
+    "uniform acceleration",
+    "proper acceleration",
+    "Minkowski spacetime",
+    "Riemann curvature tensor",
+    "Bell's spaceship paradox"
+   ],
+   "teaches": "Stationary observers in a rigid accelerating rocket follow hyperbolae X^2 - (cT)^2 = xi^2 in flat spacetime. Different heights need different proper accelerations, and Riemann curvature is zero, so varying clock rates are not proof of tides.",
+   "pedagogy": "Separates acceleration and clock-rate effects from curvature, before gravity is introduced as geometry.",
+   "interaction": null,
+   "physics_model": "Exact hyperbolae X = sqrt(xi^2 + T^2) for xi = 1, 1.65, 2.3, drawn at 105 px/unit horizontally and 85 px/unit vertically. The unequal scale puts the dashed null asymptote at about 39 degrees instead of 45.",
+   "screenshots": [
+    "qa/figure-rindler-worldlines-light.png",
+    "qa/figure-rindler-worldlines-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Exact hyperbolae; clear flat-spacetime message"
+    ],
+    "issues": [
+     "The three coloured curves carry no labels (xi, proper acceleration c^2/xi, clock rate)",
+     "The null asymptote is unlabelled and not at 45 degrees because of unequal axis scales",
+     "All physical conclusions live in the text column"
+    ],
+    "evidence": "Viewed qa/figure-rindler-worldlines-light.png; coordinate scales read from scripts/figures.py lines 127-131; docs/figure-aesthetic-review-01-20.md section 09 (Rebuild around measurement)."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Rebuild as an interactive equal-scale Rindler diagram: pick rocket floor and ceiling positions xi, read proper acceleration c^2/xi and relative clock rate, show lines of simultaneity through the origin, and label the Rindler horizon. Keep the 'Riemann = 0' contrast with a later tidal demo.",
+    "effort": "medium"
+   },
+   "size": "61 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-affine-parameter",
+   "kind": "figure",
+   "title": "10 Do not confuse a route with its parameter (affine parameter)",
+   "paths": [
+    "assets/figures/affine-parameter.svg",
+    "scripts/figures.py#L448-L454"
+   ],
+   "topics": [
+    "affine parameter",
+    "reparametrization",
+    "geodesic equation",
+    "curve parametrization"
+   ],
+   "teaches": "The same straight route can carry equally spaced (affine) or non-uniformly spaced labels. Affine parameters are related by lambda -> a lambda + b; a nonlinear relabelling adds a tangent-proportional term to the geodesic equation.",
+   "pedagogy": "Two rows of dots isolate parameter choice from path shape; almost no clutter.",
+   "interaction": null,
+   "physics_model": "Non-affine labels at 770 (0.15 s + 0.85 s^2), regular at the start.",
+   "screenshots": [
+    "qa/figure-affine-parameter-light.png",
+    "qa/figure-affine-parameter-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Visual economy; instantly legible",
+     "Rated Keep in both the audit and aesthetic review"
+    ],
+    "issues": [
+     "Crowded heading/subtitle stack above the first row; detached bottom sentence",
+     "Does not show the extra geodesic-equation term itself"
+    ],
+    "evidence": "Viewed qa/figure-affine-parameter-light.png; docs/figure-aesthetic-review-01-20.md section 10 (Keep); docs/visualization-audit.md row 10 (Keep)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the two-row construction. Remove the in-SVG heading and sentence, and optionally add a reparametrization slider (lambda -> lambda + k lambda^2) that moves the lower dots and shows the resulting f(lambda) dx/dlambda term. A static card is enough if time is short.",
+    "effort": "small"
+   },
+   "size": "20 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-moving-basis",
+   "kind": "figure",
+   "title": "11 Different components can describe the same arrow (moving basis)",
+   "paths": [
+    "assets/figures/moving-basis.svg",
+    "scripts/figures.py#L136-L148"
+   ],
+   "topics": [
+    "coordinate basis",
+    "polar basis vectors",
+    "vector components",
+    "covariant derivative",
+    "connection"
+   ],
+   "teaches": "At three points on a circle a constant eastward field stays horizontal while the local radial and angular basis directions rotate, so component derivatives are nonzero even though the field is constant. The connection correction cancels them.",
+   "pedagogy": "Invariant arrow plus rotating basis. In the legacy book it was a collapsed reference inside the interactive moving-basis lesson.",
+   "interaction": null,
+   "physics_model": "Exact basis directions: radial (cos t, sin t) and angular (-sin t, cos t), checked against the rendered arrows at 25, 65 and 125 degrees.",
+   "screenshots": [
+    "qa/figure-moving-basis-light.png",
+    "qa/figure-moving-basis-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Three identical eastward arrows make the invariant convincing",
+     "Basis directions are geometrically correct"
+    ],
+    "issues": [
+     "No component values are shown, so the learner must reconstruct them",
+     "Detached three-line legend; the oversized slogan footer outweighs the content",
+     "Unit basis vs coordinate basis is not distinguished visually"
+    ],
+    "evidence": "Viewed qa/figure-moving-basis-light.png; docs/figure-aesthetic-review-01-20.md section 11; docs/visualization-audit.md row 11 (rebuild with linked basis/components)."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Make it interactive: drag a point around the plane and show its local basis, the components (V^r, V^theta) as bars, and d/dtheta of the components vs the Gamma-term correction summing to zero. This demo should precede the connection formula. Keep the static figure only as a fallback thumbnail.",
+    "effort": "medium"
+   },
+   "size": "8 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-connection-cancellation",
+   "kind": "figure",
+   "title": "12 The connection cancels a false change (Christoffel symbol worked step)",
+   "paths": [
+    "assets/figures/connection-cancellation.svg",
+    "scripts/figures.py#L150-L156"
+   ],
+   "topics": [
+    "Christoffel symbols",
+    "covariant derivative",
+    "polar coordinates",
+    "coordinate basis"
+   ],
+   "teaches": "For a fixed eastward unit vector on the flat polar plane, V^r = cos theta and V^theta = -sin theta / r. Then nabla_theta V^r = d_theta V^r + Gamma^r_theta theta V^theta = -sin theta + (-r)(-sin theta / r) = 0: the Christoffel term exactly cancels the coordinate-component change.",
+   "pedagogy": "A worked algebraic step with the actual indexed coefficient (rebuilt after reviews criticised an anonymous 'relevant coefficient' card). It follows the moving-basis intuition.",
+   "interaction": null,
+   "physics_model": "Exact computation in coordinate-basis components; verified by hand (Gamma^r_theta theta = -r).",
+   "screenshots": [
+    "qa/figure-connection-cancellation-light.png",
+    "qa/figure-connection-cancellation-dark.png",
+    "qa/responsive-connection-cancellation-390-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct explicit indices and derivative direction",
+     "Card framing removed; has a phone composition",
+     "Transport-blue colour role is consistent"
+    ],
+    "issues": [
+     "It is an equation layout, not a picture; SVG is the wrong medium for accessible, selectable math",
+     "Lots of empty space at 1000x580"
+    ],
+    "evidence": "Viewed qa/figure-connection-cancellation-light.png; docs/aesthetic-review.md ('Figure 12 ... removed the framed formula cards'); qa/responsive-figures-report.json."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Reuse the content verbatim, but render it as an aligned KaTeX derivation block in the lesson (coloured Gamma term, hover links to the Christoffel-symbol concept) rather than an SVG. Pair it with the interactive moving-basis demo.",
+    "effort": "small"
+   },
+   "size": "36 KB typeset SVG, 1000x580, mobile viewBox 500x620"
+  },
+  {
+   "id": "figure-sphere-holonomy",
+   "kind": "figure",
+   "title": "13 A sphere remembers the loop (parallel transport holonomy)",
+   "paths": [
+    "assets/figures/sphere-holonomy.svg",
+    "scripts/figures.py#L158-L174"
+   ],
+   "topics": [
+    "parallel transport",
+    "holonomy",
+    "Gaussian curvature",
+    "great circle",
+    "angle excess",
+    "Gauss-Bonnet theorem"
+   ],
+   "teaches": "Carrying a tangent vector around the spherical octant P to A to B to P along great circles rotates it by 90 degrees, equal to area/radius^2 = pi/2 (angle excess). It is the signature of intrinsic curvature.",
+   "pedagogy": "The destination figure after tangent-plane, single-arc and loop steps. The caption warns that projected angles on the page are not the intrinsic angles. Paired with the 3D sphere scene and referenced in the transport lesson.",
+   "interaction": null,
+   "physics_model": "Orthographic projection of exact great-circle arcs on the unit sphere; rotation = enclosed area / R^2.",
+   "screenshots": [
+    "qa/figure-sphere-holonomy-light.png",
+    "qa/figure-sphere-holonomy-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Evocative soft sphere with exact arcs",
+     "Correct angle-excess statement and honest projection caveat"
+    ],
+    "issues": [
+     "The start (rose) and return (blue) arrows are tiny at the apex and merge with the loop, so the key mismatch reads as decoration",
+     "No undistorted tangent-plane inset measuring the 90 degrees (figure 35 later solved this)"
+    ],
+    "evidence": "Viewed qa/figure-sphere-holonomy-light.png; docs/figure-aesthetic-review-01-20.md section 13; docs/visualization-audit.md row 13."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "The primary grbook.ai experience should be a 3D parallel-transport demo (arbitrary loops, live area vs rotation). Keep this SVG as the no-WebGL fallback and summary card, adding a tangent-plane inset with initial vs returned arrows as in cartan-comparison and enlarging the arrows.",
+    "effort": "small"
+   },
+   "size": "66 KB typeset SVG, 1000x560"
+  },
+  {
+   "id": "figure-curvature-count",
+   "kind": "figure",
+   "title": "14 From 256 slots to 20 independent entries (Riemann component count)",
+   "paths": [
+    "assets/figures/curvature-count.svg",
+    "scripts/figures.py#L456-L469"
+   ],
+   "topics": [
+    "Riemann curvature tensor",
+    "tensor symmetries",
+    "algebraic Bianchi identity",
+    "independent components"
+   ],
+   "teaches": "Antisymmetry in each index pair gives 6 pair labels (01..23). Pair-exchange symmetry makes the 6x6 pair matrix symmetric (6 + 15 = 21 entries), and the cyclic identity removes one, giving 20 independent components in 4D. These are not propagating degrees of freedom.",
+   "pedagogy": "A pair-index matrix with mirrored entries greyed. In the legacy book it was a reference inside the interactive 'pairs' curvature experience.",
+   "interaction": null,
+   "physics_model": "Exact combinatorics; the legacy interactive checked all 256 index choices (docs/second-figure-review.md).",
+   "screenshots": [
+    "qa/figure-curvature-count-light.png",
+    "qa/figure-curvature-count-dark.png",
+    "qa/responsive-curvature-count-390-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Correct count and caveat; pair labels on rows and columns",
+     "Phone composition exists"
+    ],
+    "issues": [
+     "Uses invented symbols m_11..m_66 not tied to R_abcd notation",
+     "Mirrored vs independent cells differ only by a subtle grey/violet tint",
+     "The cyclic Bianchi relation is not located anywhere in the matrix"
+    ],
+    "evidence": "Viewed qa/figure-curvature-count-light.png and qa/responsive-curvature-count-390-dark.png; docs/figure-aesthetic-review-01-20.md section 14 (keypad critique, before fix); docs/second-figure-review.md row 14."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Rebuild as the interactive counter: click R_abcd, see its antisymmetric and pair-exchange partners light up with signs, and step 256 -> 36 -> 21 -> 20, highlighting the single cyclic relation R_0123 + R_0231 + R_0312 = 0. Use real index notation. A dimension selector (n = 2, 3, 4 giving n^2(n^2 - 1)/12) is a cheap extension.",
+    "effort": "medium"
+   },
+   "size": "116 KB typeset SVG, 1000x585, mobile viewBox 460x870"
+  },
+  {
+   "id": "figure-ricci-weyl",
+   "kind": "figure",
+   "title": "15 Volume and shape ask different questions (Ricci vs Weyl)",
+   "paths": [
+    "assets/figures/ricci-weyl.svg",
+    "scripts/figures.py#L176-L182"
+   ],
+   "topics": [
+    "Ricci tensor",
+    "Weyl tensor",
+    "geodesic deviation",
+    "Raychaudhuri equation",
+    "shear",
+    "expansion scalar"
+   ],
+   "teaches": "An isotropic squeeze (nonzero trace, Ricci-like) gives negative initial volume acceleration. A trace-free distortion (Weyl-like) stretches one way and squeezes another with zero initial volume acceleration.",
+   "pedagogy": "Two exaggerated cross-sections of an infinitesimal cloud. The caption distinguishes initial volume acceleration from later shear-induced volume change. Demoted to a reference inside the 3D cloud experience.",
+   "interaction": null,
+   "physics_model": "Schematic ellipses only (120x70 and a radius-72 circle against a radius-95 reference); not a solution of the Jacobi equation.",
+   "screenshots": [
+    "qa/figure-ricci-weyl-light.png",
+    "qa/figure-ricci-weyl-dark.png"
+   ],
+   "quality": {
+    "status": "rough",
+    "strengths": [
+     "Careful caption wording about trace vs shear"
+    ],
+    "issues": [
+     "Overlapping circle and ellipse read like logos",
+     "No particles, velocities or accelerations; before and after carried by colour alone",
+     "A projected area cannot teach volume acceleration (the second review's own conclusion)"
+    ],
+    "evidence": "Viewed qa/figure-ricci-weyl-light.png; docs/figure-aesthetic-review-01-20.md section 15 (Rebuild); docs/second-figure-review.md row 15 (demoted; 'projected ellipses cannot carry the volume argument')."
+   },
+   "reuse": {
+    "verdict": "drop",
+    "notes": "Replace with a 3D geodesic-deviation cloud demo (exact constant-matrix Jacobi solutions, as in the legacy curvature cloud experience) showing all three axis lengths, volume and axis ratio for Ricci-type vs Weyl-type tidal matrices. Keep only the caption's trace-vs-shear wording.",
+    "effort": null
+   },
+   "size": "6 KB SVG (no typeset math), 1000x480"
+  },
+  {
+   "id": "figure-tidal-eigenvalues",
+   "kind": "figure",
+   "title": "16 Stretching and squeezing near Earth (tidal eigenvalues)",
+   "paths": [
+    "assets/figures/tidal-eigenvalues.svg",
+    "scripts/figures.py#L184-L192"
+   ],
+   "topics": [
+    "tidal tensor",
+    "tidal forces",
+    "geodesic deviation",
+    "Newtonian limit",
+    "Ricci tensor",
+    "vacuum Einstein equations"
+   ],
+   "teaches": "Near a spherical mass the Newtonian relative-acceleration matrix has eigenvalues +2GM/r^3 (radial) and -GM/r^3 twice (tangential), summing to zero in exterior vacuum. At Earth's surface the radial value is about 3.08 um/s^2 per metre.",
+   "pedagogy": "A four-particle cross with arrows plus an eigenvalue list. The caption keeps relative-acceleration eigenvalues distinct from curvature components (divide by c^2; sign convention tracked). Paired with the 3D tidal-cloud scene.",
+   "interaction": null,
+   "physics_model": "Newtonian tidal tensor of a point mass; 2 x 3.986e14 / (6.371e6)^3 = 3.08e-6 s^-2 (re-derived).",
+   "screenshots": [
+    "qa/figure-tidal-eigenvalues-light.png",
+    "qa/figure-tidal-eigenvalues-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Quantitative, correct and unit-careful",
+     "Trace-zero vacuum statement links directly to R_mu nu = 0"
+    ],
+    "issues": [
+     "The boxed eigenvalue card outweighs the small particle cloud; arrowheads are oversized",
+     "'tangent' is listed twice without showing the second transverse direction",
+     "Tiny footer number baked into the SVG"
+    ],
+    "evidence": "Viewed qa/figure-tidal-eigenvalues-light.png; docs/figure-aesthetic-review-01-20.md section 16 (Polish); docs/visualization-audit.md row 16 (Keep, with dimensional care)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the numbers and caption. The primary grbook.ai experience is an interactive tidal cloud (3D, adjustable r and M, live eigenvalues and trace). This SVG, unboxed and with both transverse directions indicated, is its summary card.",
+    "effort": "small"
+   },
+   "size": "75 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-stress-energy",
+   "kind": "figure",
+   "title": "17 The source has more than one kind of entry (stress-energy tensor matrix)",
+   "paths": [
+    "assets/figures/stress-energy.svg",
+    "scripts/figures.py#L194-L207"
+   ],
+   "topics": [
+    "stress-energy tensor",
+    "energy density",
+    "momentum density",
+    "energy flux",
+    "stress tensor",
+    "pressure"
+   ],
+   "teaches": "In one local inertial frame (x^0 = ct), T has energy density epsilon, energy-flux entries S/c, momentum-density entries c pi (equal for symmetric T) and spatial stresses sigma (diagonal pressure, off-diagonal shear). Every entry has energy-density units.",
+   "pedagogy": "A colour-graded 4x4 matrix with three glossary headings, using the matter-amber role throughout.",
+   "interaction": null,
+   "physics_model": "Component conventions only; units checked (W m^-2 / (m/s) = J m^-3).",
+   "screenshots": [
+    "qa/figure-stress-energy-light.png",
+    "qa/figure-stress-energy-dark.png",
+    "qa/responsive-stress-energy-390-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct units and symmetric-T statement",
+     "Attractive in both themes; phone composition exists"
+    ],
+    "issues": [
+     "A table of names: no row/column index headers (mu, nu = 0..3) and no drawn flux through a surface",
+     "Three reviews asked for a local measuring-volume construction that was never built"
+    ],
+    "evidence": "Viewed qa/figure-stress-energy-light.png and -dark.png; docs/figure-aesthetic-review-01-20.md section 17 (Rebuild as measurement); docs/aesthetic-review.md priority 2; docs/visualization-audit.md row 17."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Build an interactive 'measuring cube': select a matrix cell and the corresponding energy or momentum flow through a face of a small cube animates (T^0i as energy flux through face i, T^ij as i-momentum through face j). Add a dust / perfect fluid / EM field preset. Keep this colour-graded matrix, with index headers added, as the linked table.",
+    "effort": "medium"
+   },
+   "size": "98 KB typeset SVG, 1000x490, mobile viewBox 500x750"
+  },
+  {
+   "id": "figure-einstein-anatomy",
+   "kind": "figure",
+   "title": "18 Read the equation as a relationship (Einstein field equations anatomy)",
+   "paths": [
+    "assets/figures/einstein-anatomy.svg",
+    "scripts/figures.py#L209-L223"
+   ],
+   "topics": [
+    "Einstein field equations",
+    "Ricci tensor",
+    "Ricci scalar",
+    "metric tensor",
+    "cosmological constant",
+    "Einstein gravitational constant",
+    "stress-energy tensor"
+   ],
+   "teaches": "The full equation R_mu nu - 1/2 R g_mu nu + Lambda g_mu nu = (8 pi G / c^4) T_mu nu, followed by six named, colour-coded ingredients with one-line meanings. It constrains geometry and matter together; matter still needs its own dynamics.",
+   "pedagogy": "Symbol-by-symbol decoding with semantic colour: curvature violet, metric teal, matter amber, constants neutral.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/figure-einstein-anatomy-light.png",
+    "qa/figure-einstein-anatomy-dark.png",
+    "qa/responsive-einstein-anatomy-390-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Rebuilt from three vague labels into six precise ingredients",
+     "Clean desktop and phone compositions (the 390 px capture stacks well)",
+     "Semantic colours match the manuscript math palette"
+    ],
+    "issues": [
+     "Uses G_N here but G in newtonian-calibration (notation inconsistency)",
+     "Text-heavy content that would be more accessible as HTML than SVG"
+    ],
+    "evidence": "Viewed qa/figure-einstein-anatomy-light.png and qa/responsive-einstein-anatomy-390-light.png; docs/aesthetic-review.md (Figure 18 rebuilt); docs/second-figure-review.md row 18."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the design and wording exactly, but implement as a Svelte component with KaTeX: hovering or tapping a symbol highlights it in the equation and opens its concept card, and the voice tutor can reference it. Standardise on G (or G_N) course-wide.",
+    "effort": "small"
+   },
+   "size": "37 KB typeset SVG, 1000x620, mobile viewBox 500x820"
+  },
+  {
+   "id": "figure-newtonian-calibration",
+   "kind": "figure",
+   "title": "19 Where the factor of eight comes from (Newtonian limit calibration)",
+   "paths": [
+    "assets/figures/newtonian-calibration.svg",
+    "scripts/figures.py#L471-L477"
+   ],
+   "topics": [
+    "Newtonian limit",
+    "Poisson equation",
+    "trace-reversed Einstein equations",
+    "Einstein gravitational constant",
+    "weak-field limit"
+   ],
+   "teaches": "For slow, weak, pressureless dust, R_00 is about nabla^2 Phi / c^2, and the trace-reversed source is T_00 - 1/2 T g_00, about 1/2 rho c^2. Matching nabla^2 Phi = 4 pi G rho fixes kappa = 8 pi G / c^4: the 4 pi comes from spherical flux and the extra 2 compensates for the half-sized dust source.",
+   "pedagogy": "A three-row worked comparison (geometry, matter, Newton), then the result.",
+   "interaction": null,
+   "physics_model": "Weak-field stationary dust with signature -+++; re-derived: kappa rho c^4 / 2 = 4 pi G rho gives kappa = 8 pi G / c^4.",
+   "screenshots": [
+    "qa/figure-newtonian-calibration-light.png",
+    "qa/figure-newtonian-calibration-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Correct and well-motivated derivation of the coupling constant"
+    ],
+    "issues": [
+     "Three outlined rounded boxes look like form input fields",
+     "A detached 'Match the two' arrow points into blank space far from the rows",
+     "Tiny explanatory footer baked in"
+    ],
+    "evidence": "Viewed qa/figure-newtonian-calibration-light.png; docs/figure-aesthetic-review-01-20.md section 19 (Polish, high priority)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Drop the SVG and keep the derivation as a stepwise KaTeX block (optionally revealed one line at a time) with the same colour roles and caption assumptions. Good material for a tutor-guided 'derive kappa' exercise.",
+    "effort": "small"
+   },
+   "size": "69 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-action-variation",
+   "kind": "figure",
+   "title": "20 A derivative of whole paths (variation with fixed endpoints)",
+   "paths": [
+    "assets/figures/action-variation.svg",
+    "scripts/figures.py#L225-L232"
+   ],
+   "topics": [
+    "principle of stationary action",
+    "calculus of variations",
+    "Euler-Lagrange equations",
+    "action"
+   ],
+   "teaches": "A family x_epsilon(t) = x(t) + epsilon eta(t) with eta(t1) = eta(t2) = 0 shares its endpoints. Each candidate has an action S(epsilon), and the physical path satisfies dS/depsilon = 0. The varied paths need not obey the motion law.",
+   "pedagogy": "A family of smooth candidate paths through common endpoint dots; the caption stresses that a variation is a comparison, not a motion.",
+   "interaction": null,
+   "physics_model": "x = 0.3 + 0.45 t + epsilon sin(pi t) for epsilon = -0.42, 0, 0.42.",
+   "screenshots": [
+    "qa/figure-action-variation-light.png",
+    "qa/figure-action-variation-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "One of the most effective drawings (recognisable shape, clear invariant)",
+     "Rated Keep in both reviews"
+    ],
+    "issues": [
+     "Candidate curves are not labelled by epsilon; the right column is a mini-lecture with tiny definition text",
+     "S(epsilon) is not shown, so stationarity stays abstract"
+    ],
+    "evidence": "Viewed qa/figure-action-variation-light.png; docs/figure-aesthetic-review-01-20.md section 20 (Keep); docs/visualization-audit.md row 20."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "High-value interactive: an epsilon slider deforms the path (endpoints pinned) while a linked plot of S(epsilon) for a free particle or harmonic oscillator shows the minimum or stationary point at epsilon = 0. Choosing eta shapes shows stationarity holds for every eta. Do not animate a particle along the path (the review warns this confuses variation with evolution).",
+    "effort": "medium"
+   },
+   "size": "58 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-action-product-rule",
+   "kind": "figure",
+   "title": "21 Two variations make one field equation (Einstein-Hilbert product rule)",
+   "paths": [
+    "assets/figures/action-product-rule.svg",
+    "scripts/figures.py#L234-L241"
+   ],
+   "topics": [
+    "Einstein-Hilbert action",
+    "variational principle",
+    "metric determinant",
+    "Einstein tensor",
+    "boundary term"
+   ],
+   "teaches": "Varying sqrt(-g) R gives two branches: sqrt(-g) delta R (Ricci plus a boundary divergence) and R delta sqrt(-g) (-1/2 R g_mu nu). After treating the boundary divergence, the bulk coefficient is the Einstein tensor.",
+   "pedagogy": "A two-branch flowchart with rounded perpendicular connectors.",
+   "interaction": null,
+   "physics_model": "Symbolic only; the chapter carries the full derivation.",
+   "screenshots": [
+    "qa/figure-action-product-rule-light.png",
+    "qa/figure-action-product-rule-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Correct decomposition, with the boundary term acknowledged"
+    ],
+    "issues": [
+     "Generic process diagram: boxes with little content",
+     "Ends at the words 'Together: the Einstein tensor' without the tensor itself",
+     "The boundary divergence visually merges into the result instead of being set aside"
+    ],
+    "evidence": "Viewed qa/figure-action-product-rule-light.png; docs/figure-aesthetic-review-21-40.md section 21 (Polish); docs/second-figure-review.md row 21."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Replace with an annotated aligned KaTeX derivation: delta(sqrt(-g) R) = sqrt(-g)(R_mu nu - 1/2 R g_mu nu) delta g^mu nu + boundary. Brace annotations under each term; the boundary term routed to a side note linking to the GHY boundary-term discussion. No SVG needed.",
+    "effort": "small"
+   },
+   "size": "38 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-boundary-variation",
+   "kind": "figure",
+   "title": "22 Fixing the value does not fix the slope (boundary variation)",
+   "paths": [
+    "assets/figures/boundary-variation.svg",
+    "scripts/figures.py#L479-L485"
+   ],
+   "topics": [
+    "Gibbons-Hawking-York boundary term",
+    "Einstein-Hilbert action",
+    "boundary conditions",
+    "variational principle",
+    "normal derivative"
+   ],
+   "teaches": "A variation delta g that vanishes on the boundary can still have a nonzero normal derivative, so a boundary term can survive and the variational problem needs a boundary policy.",
+   "pedagogy": "A scalar analogy (bump function between fixed endpoints) with tangent strokes at both ends.",
+   "interaction": null,
+   "physics_model": "Plot of x(1 - x) at 355 px per unit horizontally and about 733 px per unit vertically. The dashed 'tangents' are hand-placed segments, (105,370)-(168,253) and (397,253)-(460,370), 1.8 px wide with a 6-5 dash. Their pixel slope is 1.86 against a true endpoint tangent of 2.07, so they are about 10% shallower than the real tangent and only about 133 px long. They are not computed from the curve.",
+   "screenshots": [
+    "qa/figure-boundary-variation-light.png",
+    "qa/figure-boundary-variation-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Rated one of the best figures before the tangent change; a clean analogy"
+    ],
+    "issues": [
+     "After the second review thinned and dashed the tangents, they nearly coincide with the curve and are barely visible (qa/figure-boundary-variation-light.png), so the nonzero slope, the figure's whole point, is hard to see. They are also not exact tangents: the hand-placed endpoints give a slope about 10% shallower than the curve's.",
+     "Small closing sentence baked into the SVG"
+    ],
+    "evidence": "Viewed qa/figure-boundary-variation-light.png (tangents nearly invisible); docs/figure-aesthetic-review-21-40.md section 22 (Keep, asked for longer tangents); docs/second-figure-review.md row 22 (made thinner and dashed)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the analogy. Draw long, contrasting tangent lines that extend outside the interval, with slope labels. Optionally add a slider that changes the bump's shape (value fixed at zero, slope changes) with a live readout of the normal derivative.",
+    "effort": "small"
+   },
+   "size": "21 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-killing-energy",
+   "kind": "figure",
+   "title": "23 A symmetry supplies an energy comparison (Killing vector energy)",
+   "paths": [
+    "assets/figures/killing-energy.svg",
+    "scripts/figures.py#L243-L252"
+   ],
+   "topics": [
+    "Killing vector",
+    "conserved quantities",
+    "Noether's theorem",
+    "stationary spacetime",
+    "geodesic",
+    "energy in general relativity"
+   ],
+   "teaches": "A timelike Killing vector xi (a direction along which the metric is unchanged) makes E_xi = -p . xi constant along free geodesics. Without such a symmetry there is no automatic conserved energy of this form.",
+   "pedagogy": "Three repeated wavy 'slices' with a xi arrow, beside the formula and a warning question.",
+   "interaction": null,
+   "physics_model": "Schematic; the wavy profiles have no defined quantity.",
+   "screenshots": [
+    "qa/figure-killing-energy-light.png",
+    "qa/figure-killing-energy-dark.png"
+   ],
+   "quality": {
+    "status": "rough",
+    "strengths": [
+     "Correct formula and an important caveat"
+    ],
+    "issues": [
+     "The wavy lines are undefined (slices? waves?) and nothing conserved is visible",
+     "Formula and text do all the teaching; the warning competes with the main equation"
+    ],
+    "evidence": "Viewed qa/figure-killing-energy-light.png; docs/figure-aesthetic-review-21-40.md section 23 (Rebuild); docs/visualization-audit.md row 23 (Rebuild); docs/second-figure-review.md row 23 (still schematic)."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Build an interactive Schwarzschild geodesic in which E = -p . xi and L = p . eta readouts stay constant along the orbit, while a static observer's locally measured energy changes with radius. A contrasting time-dependent metric (e.g. an FLRW photon redshift) shows the conservation failing. Keep the caption caveats.",
+    "effort": "medium"
+   },
+   "size": "24 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-light-bending",
+   "kind": "figure",
+   "title": "24 A ray samples more than the clock rate (gravitational light deflection)",
+   "paths": [
+    "assets/figures/light-bending.svg",
+    "scripts/figures.py#L268-L278"
+   ],
+   "topics": [
+    "gravitational lensing",
+    "light deflection",
+    "weak-field limit",
+    "impact parameter",
+    "post-Newtonian approximation"
+   ],
+   "teaches": "A weak-field ray passing a spherical mass at impact parameter b is deflected by alpha = 4GM/(c^2 b). Both the clock (g_00) and spatial terms contribute; keeping only the clock term gives half the GR value.",
+   "pedagogy": "One long ray against a dashed incoming reference, with the deflection exaggerated (stated).",
+   "interaction": null,
+   "physics_model": "Integrated first-order slope profile y = 0.045 (x + sqrt(x^2 + 1)) with enlarged amplitude; alpha = 4GM/(c^2 b).",
+   "screenshots": [
+    "qa/figure-light-bending-light.png",
+    "qa/figure-light-bending-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Economical composition; correct formula and honest exaggeration",
+     "Mass disk and b bracket read well in both themes"
+    ],
+    "issues": [
+     "No outgoing asymptote or angle arc, so alpha is named but never shown",
+     "The formula floats below an unrelated part of the curve",
+     "The clock-only vs full comparison is described but not drawn",
+     "The ray's incoming asymptote sits at y = 190 while the dashed 'incoming direction' reference is at y = 185 (scripts/figures.py L270-273), so the ray never lies on its own reference line. At phone scale this 5 px offset reads as an unexplained pre-deflection."
+    ],
+    "evidence": "Viewed qa/figure-light-bending-light.png; docs/figure-aesthetic-review-21-40.md section 24 (Polish); docs/visualization-audit.md row 24."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Make it interactive: M and b sliders, a drawn outgoing asymptote with a magnified angle arc, and two rays (clock-only 2GM/c^2 b vs full 4GM/c^2 b), with a Sun-grazing preset reading 1.75 arcsec. Keep the static version as a fallback.",
+    "effort": "small"
+   },
+   "size": "52 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-perihelion-precession",
+   "kind": "figure",
+   "title": "25 A slowly turning orbit (perihelion precession)",
+   "paths": [
+    "assets/figures/perihelion-precession.svg",
+    "scripts/figures.py#L496-L507"
+   ],
+   "topics": [
+    "perihelion precession",
+    "Mercury",
+    "Schwarzschild geodesics",
+    "Kepler orbits",
+    "classical tests of general relativity"
+   ],
+   "teaches": "Successive Kepler ellipses with rotated perihelia illustrate the per-orbit advance delta phi = 6 pi GM / [c^2 a (1 - e^2)], which for Mercury is about 43 arcseconds per century.",
+   "pedagogy": "Schematic, greatly exaggerated rotation. In the legacy book it was a reference inside the timed-orbit precession experience.",
+   "interaction": null,
+   "physics_model": "Three focus-aligned ellipses r = 135 / (1 + 0.55 cos phi) rotated by 0.23 rad each and compressed vertically by 0.65. Not an integrated orbit (stated in the caption).",
+   "screenshots": [
+    "qa/figure-perihelion-precession-light.png",
+    "qa/figure-perihelion-precession-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Correct formula and number; honest schematic caption"
+    ],
+    "issues": [
+     "The orbit's left edge sits about 10 px from the canvas edge and looks cropped",
+     "The fraction is much smaller than neighbouring prose",
+     "The three perihelion dots are unordered and distinguished by colour only",
+     "Superseded by the interactive orbit"
+    ],
+    "evidence": "Viewed qa/figure-perihelion-precession-light.png; docs/figure-aesthetic-review-21-40.md section 25; docs/second-figure-review.md row 25 (optional; replaced by timed orbit)."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "grbook.ai should use an interactive orbit (Kepler timing plus secular advance, or integrated Schwarzschild geodesics) with eccentricity and magnification controls and a perihelion trail, as the legacy precession experience did. Reuse only the formula, the Mercury calibration (about 42.98 arcsec/century) and the caption caveats.",
+    "effort": null
+   },
+   "size": "26 KB typeset SVG, 1000x505"
+  },
+  {
+   "id": "figure-gps-clocks",
+   "kind": "figure",
+   "title": "26 Altitude and motion compete (GPS clock rates)",
+   "paths": [
+    "assets/figures/gps-clocks.svg",
+    "scripts/figures.py#L254-L267"
+   ],
+   "topics": [
+    "gravitational time dilation",
+    "special relativistic time dilation",
+    "GPS",
+    "circular orbits",
+    "weak-field metric"
+   ],
+   "teaches": "For circular orbits around a nonrotating spherical Earth, an orbiting clock's net rate relative to a surface clock is (GM/c^2)(1/R - 3/(2r)). It is negative below about 3,186 km (h = R/2) and about +38.5 us/day at GPS altitude (about 20,200 km).",
+   "pedagogy": "A real signed graph with a meaningful zero line and a highlighted operating point.",
+   "interaction": null,
+   "physics_model": "GM = 3.986004418e14, R = 6.371e6 m; net rate x 86400 x 1e6 us/day. Validated in scripts/check-site.mjs: altitude +45.724, motion -7.211, net +38.514 us/day (docs/visual-review.md); formula re-derived.",
+   "screenshots": [
+    "qa/figure-gps-clocks-light.png",
+    "qa/figure-gps-clocks-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Quantitative, correct, and a famous real-world hook",
+     "Caption lists what real GPS also models (rotation, eccentricity, geoid, signal propagation)"
+    ],
+    "issues": [
+     "Only the net curve is drawn, not the competing gravitational and velocity terms",
+     "Crossover and GPS labels sit in a remote column rather than on the curve; small tick labels"
+    ],
+    "evidence": "Viewed qa/figure-gps-clocks-light.png; docs/figure-aesthetic-review-21-40.md section 26 (Polish); docs/visual-review.md numerical table."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Rebuild as an interactive chart: altitude slider or draggable satellite; three curves (gravitational +, velocity -, net) with direct labels; the crossover and GPS point annotated on the curve; optional 'what if we ignored GR' accumulated position error per day. Same formula and constants.",
+    "effort": "small"
+   },
+   "size": "60 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-tossed-clock",
+   "kind": "figure",
+   "title": "27 The tossed clock records more time",
+   "paths": [
+    "assets/figures/tossed-clock.svg",
+    "scripts/figures.py#L487-L494"
+   ],
+   "topics": [
+    "proper time",
+    "gravitational time dilation",
+    "principle of maximal aging",
+    "geodesic",
+    "weak-field metric"
+   ],
+   "teaches": "A clock tossed up and caught after 1 s near Earth gains +89.2 as from height and loses -44.6 as from motion, for a net +44.6 as over the shelf clock sharing both events: free fall maximises proper time.",
+   "pedagogy": "Shared endpoints and a counterintuitive, precisely quantified result, set up for the maximal-aging principle.",
+   "interaction": null,
+   "physics_model": "Uniform g, weak field, slow motion. Height term g^2 T^3 / (12 c^2) = 89.2 as; motion term -g^2 T^3 / (24 c^2) = -44.6 as (re-derived). check-site.mjs calibration 44.615 as (docs/visual-review.md).",
+   "screenshots": [
+    "qa/figure-tossed-clock-light.png",
+    "qa/figure-tossed-clock-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Exact, surprising and memorable; clean arithmetic alignment"
+    ],
+    "issues": [
+     "The stationary shelf worldline has the same rose colour and weight as the tossed trajectory",
+     "The title states the answer before the picture argues it"
+    ],
+    "evidence": "Viewed qa/figure-tossed-clock-light.png; docs/figure-aesthetic-review-21-40.md section 27 (Keep); docs/visualization-audit.md row 27."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Make it interactive: a toss-duration slider (and a 'non-geodesic' path you can draw or deform) with running accumulators of the height and motion contributions, showing the free-fall parabola maximises the total. Neutral dashed styling for the shelf clock.",
+    "effort": "small"
+   },
+   "size": "72 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-black-hole-radii",
+   "kind": "figure",
+   "title": "28 Do not merge these three radii (horizon, photon sphere, ISCO)",
+   "paths": [
+    "assets/figures/black-hole-radii.svg",
+    "scripts/figures.py#L292-L298"
+   ],
+   "topics": [
+    "Schwarzschild metric",
+    "event horizon",
+    "Schwarzschild radius",
+    "photon sphere",
+    "innermost stable circular orbit",
+    "areal radius"
+   ],
+   "teaches": "For a nonrotating uncharged black hole, the horizon (2GM/c^2), photon sphere (3GM/c^2) and ISCO (6GM/c^2) are distinct radii answering different questions, drawn in true 2:3:6 proportion of the areal coordinate r.",
+   "pedagogy": "An orientation map; the caption warns it is not an isometric picture of proper distances. Paired with the Flamm embedding scene.",
+   "interaction": null,
+   "physics_model": "Circle radii 53.33, 80 and 160 px (exact 2:3:6).",
+   "screenshots": [
+    "qa/figure-black-hole-radii-light.png",
+    "qa/figure-black-hole-radii-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Proportions carry real information; calm composition",
+     "Avoids a misleading accretion-disk image"
+    ],
+    "issues": [
+     "Circles are identified only by matching colours to a legend, with no direct labels or scale",
+     "Does not show why each radius arises (effective potential)"
+    ],
+    "evidence": "Viewed qa/figure-black-hole-radii-light.png; docs/figure-aesthetic-review-21-40.md section 28 (Keep); docs/visualization-audit.md row 28."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep as a summary card with direct labels on the circles. The richer grbook.ai demo links it to the Schwarzschild effective potential: drag angular momentum L and see circular orbits appear, merge at the ISCO and reach the photon-sphere limit.",
+    "effort": "small"
+   },
+   "size": "30 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-horizon-cones",
+   "kind": "figure",
+   "title": "29 A horizon changes which way the future goes (light cones in Eddington-Finkelstein coordinates)",
+   "paths": [
+    "assets/figures/horizon-cones.svg",
+    "scripts/figures.py#L280-L291"
+   ],
+   "topics": [
+    "event horizon",
+    "Eddington-Finkelstein coordinates",
+    "light cone",
+    "causal structure",
+    "Schwarzschild metric",
+    "trapped surface"
+   ],
+   "teaches": "In regular ingoing coordinates (T = v - r, c = 1), future radial light directions have slopes dr/dT = -1 and (r - rs)/(r + rs). Outside, the outward ray escapes; at the horizon it is vertical; inside, both rays go to smaller r.",
+   "pedagogy": "Future-cone wedges at r/rs = 0.5, 1, 1.6, 2.7. The caption stresses T is a drawing coordinate, not a falling clock. In the legacy book it was a reference inside the interactive horizon-directions lesson.",
+   "interaction": null,
+   "physics_model": "Exact ingoing-EF null slopes dr/dT = -1 and (r - rs)/(r + rs) (re-derived from ds^2 = -(1 - rs/r) dv^2 + 2 dv dr). Drawing: 240 px per rs horizontally; each cone rises 115 px while the ingoing edge moves 80 px (1/3 rs), which implies 345 px per rs vertically. The T axis has no ticks, so the 1.44:1 scale mismatch is invisible and the ingoing edges sit about 55 degrees from horizontal instead of 45.",
+   "screenshots": [
+    "qa/figure-horizon-cones-light.png",
+    "qa/figure-horizon-cones-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Physically faithful alternative to the funnel cliche; correct slopes",
+     "Called the highest-priority black-hole cornerstone in the audit"
+    ],
+    "issues": [
+     "The wedges have meaningless horizontal caps and look like pennants",
+     "No event dots at the vertices; all four cones equally weighted",
+     "Unequal implied axis scales (345 vs 240 px per rs) with no T tick labels, so ingoing rays are at about 55 degrees, not 45",
+     "At r = rs the vertical outgoing edge is drawn directly over the horizon bar, so the key 'vertical at the horizon' generator is hidden under the rose line; check-figures.mjs has no stroke-over-stroke test"
+    ],
+    "evidence": "Viewed qa/figure-horizon-cones-light.png and -dark.png; docs/figure-aesthetic-review-21-40.md section 29 (Polish); docs/visualization-audit.md row 29 (highest-priority cornerstone)."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Build an interactive ingoing-EF diagram at equal scales: drag an event and see its future cone tilt, with tracer rays launched from it. An infalling observer worldline crosses the horizon smoothly with its proper time shown, and a toggle to Schwarzschild t shows the coordinate singularity. Keep these slope formulas as the tested model.",
+    "effort": "medium"
+   },
+   "size": "73 KB typeset SVG, 1000x505"
+  },
+  {
+   "id": "figure-wave-polarizations",
+   "kind": "figure",
+   "title": "30 Two independent patterns of strain (gravitational-wave polarizations)",
+   "paths": [
+    "assets/figures/wave-polarizations.svg",
+    "scripts/figures.py#L300-L311"
+   ],
+   "topics": [
+    "gravitational waves",
+    "plus polarization",
+    "cross polarization",
+    "transverse-traceless gauge",
+    "strain",
+    "linearized gravity"
+   ],
+   "teaches": "A ring of free test particles in the transverse plane deforms into an ellipse for plus polarization. Cross polarization is the same pattern rotated 45 degrees. One exaggerated phase is shown, with propagation perpendicular to the page.",
+   "pedagogy": "Reference ring vs deformed ring with particle markers. Paired with the 3D wave scene (play, scrub phase, choose polarization).",
+   "interaction": null,
+   "physics_model": "First-order TT displacement at maximum strain (ellipse semi-axes 132/78 vs reference radius 105, about h = 0.26, exaggerated).",
+   "screenshots": [
+    "qa/figure-wave-polarizations-light.png",
+    "qa/figure-wave-polarizations-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "One of the few figures called close to an elegant textbook plate",
+     "Reference rings retained; strong in both themes"
+    ],
+    "issues": [
+     "The right subtitle renders in serif (typeset) while the left is sans (minor inconsistency)",
+     "A single static phase; the alternation needs animation"
+    ],
+    "evidence": "Viewed qa/figure-wave-polarizations-light.png; docs/figure-aesthetic-review-21-40.md section 30 (Keep); docs/visualization-audit.md row 30."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Animate it: a phase scrubber, plus/cross/mixed polarization and a strain amplitude control. Optionally overlay an L-shaped interferometer showing the arm-length difference signal. The static plate stays as the thumbnail and fallback.",
+    "effort": "small"
+   },
+   "size": "28 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-cosmic-expansion",
+   "kind": "figure",
+   "title": "31 Expansion is not the same as acceleration (scale factor histories)",
+   "paths": [
+    "assets/figures/cosmic-expansion.svg",
+    "scripts/figures.py#L313-L318"
+   ],
+   "topics": [
+    "scale factor",
+    "Friedmann equations",
+    "FLRW metric",
+    "radiation-dominated universe",
+    "matter-dominated universe",
+    "de Sitter space",
+    "cosmological constant",
+    "accelerating expansion"
+   ],
+   "teaches": "Flat single-component models normalised to a(1) = 1: radiation a proportional to t^(1/2) and dust a proportional to t^(2/3) expand while decelerating (concave down); positive Lambda gives a proportional to exp(Ht), accelerating (concave up).",
+   "pedagogy": "A quantitative comparison. The caption notes the exponential has no finite-time big bang in this slicing and that these are separate single-component universes. Paired with the 3D comoving lattice scene.",
+   "interaction": null,
+   "physics_model": "a = sqrt(t), t^(2/3), exp(2(t - 1)/3). H = 2/3 is chosen so the de Sitter slope at t = 1 matches dust's (observed from the code).",
+   "screenshots": [
+    "qa/figure-cosmic-expansion-light.png",
+    "qa/figure-cosmic-expansion-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Real functions and a meaningful normalisation point",
+     "Correct physical distinction between expansion and acceleration"
+    ],
+    "issues": [
+     "Legend order (radiation, dust, Lambda top to bottom) is the reverse of the curves' right-edge order",
+     "No tangent or concavity cue and no marker at the shared normalisation point"
+    ],
+    "evidence": "Viewed qa/figure-cosmic-expansion-light.png; docs/figure-aesthetic-review-21-40.md section 31 (Polish); docs/visualization-audit.md row 31 (Keep)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Upgrade to an interactive Friedmann-equation integrator: Omega_r, Omega_m, Omega_Lambda and Omega_k sliders with a(t) and the deceleration parameter q(t), direct-labelled curves, tangent lines, and a LambdaCDM preset showing the deceleration-to-acceleration transition. Keep the three pure-component curves as presets.",
+    "effort": "medium"
+   },
+   "size": "52 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-cosmic-horizons",
+   "kind": "figure",
+   "title": "32 A causal horizon is not just a distance scale (particle horizon, event horizon, Hubble radius)",
+   "paths": [
+    "assets/figures/cosmic-horizons.svg",
+    "scripts/figures.py#L509-L515"
+   ],
+   "topics": [
+    "particle horizon",
+    "cosmological event horizon",
+    "Hubble radius",
+    "conformal time",
+    "comoving distance",
+    "conformal diagram",
+    "FLRW metric"
+   ],
+   "teaches": "In conformal coordinates (chi, eta) light moves at 45 degrees. The past light cone from 'now' back to the initial boundary sets the particle horizon; the future cone to a finite future boundary sets the event horizon. The Hubble radius c/H is an expansion scale, not generally a causal horizon.",
+   "pedagogy": "An hourglass diagram plus three definitions. The caption notes other histories can lack one or both boundaries.",
+   "interaction": null,
+   "physics_model": "Schematic conformal diagram with finite past and future conformal intervals; no specific a(t).",
+   "screenshots": [
+    "qa/figure-cosmic-horizons-light.png",
+    "qa/figure-cosmic-horizons-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Tackles a notorious confusion with correct definitions"
+    ],
+    "issues": [
+     "Promises three quantities but draws only two; the Hubble radius is absent from the diagram",
+     "No observer worldline; horizon distances are not bracketed",
+     "The dashed future boundary reads like a physical wall; tied to one special model"
+    ],
+    "evidence": "Viewed qa/figure-cosmic-horizons-light.png; docs/figure-aesthetic-review-21-40.md section 32 (Rebuild); docs/visualization-audit.md row 32 (Rebuild with selectable history)."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Build an interactive conformal diagram driven by a chosen expansion history (matter, radiation, LambdaCDM, de Sitter). Draw the observer worldline, past and future light cones, the particle and event horizon brackets (shown only when they exist), and a separately computed comoving Hubble-radius curve. Reuse the definitions and caption text.",
+    "effort": "large"
+   },
+   "size": "59 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-adm-slicing",
+   "kind": "figure",
+   "title": "33 Lapse and shift separate two choices (ADM 3+1 decomposition)",
+   "paths": [
+    "assets/figures/adm-slicing.svg",
+    "scripts/figures.py#L320-L328"
+   ],
+   "topics": [
+    "ADM formalism",
+    "3+1 decomposition",
+    "lapse function",
+    "shift vector",
+    "foliation",
+    "extrinsic curvature",
+    "spatial metric"
+   ],
+   "teaches": "A coordinate-time step between spatial slices decomposes into lapse x unit normal (proper-time separation) plus shift (tangential relabelling). The spatial metric gamma measures within a slice; extrinsic curvature K describes how the slice sits in spacetime.",
+   "pedagogy": "Two translucent planes and three vectors. The caption warns the arrow lengths are not a Euclidean decomposition of a Lorentzian norm. Paired with the 3D slices scene.",
+   "interaction": null,
+   "physics_model": "Schematic vector sum; no metric computed.",
+   "screenshots": [
+    "qa/figure-adm-slicing-light.png",
+    "qa/figure-adm-slicing-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Called a successful explanatory diagram; the shared vector endpoints tell the story",
+     "Uses the full width instead of the diagram/prose split"
+    ],
+    "issues": [
+     "The 'coordinate-time step' label sits far from its diagonal",
+     "The Euclidean look can make the gauge decomposition seem physical; no extrinsic curvature shown"
+    ],
+    "evidence": "Viewed qa/figure-adm-slicing-light.png; docs/figure-aesthetic-review-21-40.md section 33 (Keep); docs/visualization-audit.md row 33."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep as a static summary with labels moved next to their vectors. Pair it with an interactive foliation demo: lapse and shift sliders move the next slice and its coordinate grid, and a slice-normal field shows extrinsic curvature on a curved slicing.",
+    "effort": "small"
+   },
+   "size": "53 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-constraint-count",
+   "kind": "figure",
+   "title": "34 Two physical degrees of freedom, counted honestly (canonical GR count)",
+   "paths": [
+    "assets/figures/constraint-count.svg",
+    "scripts/figures.py#L517-L521"
+   ],
+   "topics": [
+    "degrees of freedom",
+    "Hamiltonian constraint",
+    "momentum constraint",
+    "gauge symmetry",
+    "first-class constraints",
+    "ADM formalism",
+    "phase space"
+   ],
+   "teaches": "Initial data are 12 phase-space functions (6 metric + 6 momentum). Removing 4 constraints and 4 gauge directions leaves 4 phase-space functions, which is 2 configuration degrees of freedom (the two polarizations).",
+   "pedagogy": "Arithmetic in three cards; the caption states it is the local canonical count with first-class constraints.",
+   "interaction": null,
+   "physics_model": "Standard Dirac counting: 12 - 2 x 4 = 4 phase-space functions, giving 2 dof.",
+   "screenshots": [
+    "qa/figure-constraint-count-light.png",
+    "qa/figure-constraint-count-dark.png"
+   ],
+   "quality": {
+    "status": "rough",
+    "strengths": [
+     "Correct and carefully worded count"
+    ],
+    "issues": [
+     "Slide-deck cards; the two -4 removals look identical though they mean different things",
+     "Not a visual explanation; the 12 functions collapse into a number"
+    ],
+    "evidence": "Viewed qa/figure-constraint-count-light.png; docs/figure-aesthetic-review-21-40.md section 34 (Rebuild); docs/second-figure-review.md row 34 ('clear arithmetic, still not a visual derivation')."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Replace with 12 grouped tokens (6 q, 6 p) that the learner removes in two differently animated steps (constraint surface vs gauge orbit), leaving 2 q-p pairs linked to the wave polarizations. Precede it with a simple constrained system (particle on a circle, or Maxwell's 2 dof). Low priority; HTML or Svelte, no SVG template.",
+    "effort": "small"
+   },
+   "size": "53 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-cartan-comparison",
+   "kind": "figure",
+   "title": "35 Same method, different curvature (Cartan coframes on plane and sphere)",
+   "paths": [
+    "assets/figures/cartan-comparison.svg",
+    "scripts/figures.py#L330-L397"
+   ],
+   "topics": [
+    "Cartan structure equations",
+    "orthonormal frame",
+    "coframe",
+    "connection one-form",
+    "curvature two-form",
+    "holonomy",
+    "parallel transport",
+    "Gaussian curvature"
+   ],
+   "teaches": "The same coframe method on a flat polar plane (e1 = dr, e2 = r dtheta) and a sphere of radius a (e1 = a dtheta, e2 = a sin theta dphi). Parallel transport around a closed loop returns unchanged on the plane (delta alpha = 0). On the sphere it rotates by A/a^2: the pictured patch (theta from pi/3 to pi/2, phi from -pi/6 to pi/6) has area pi a^2/6, so the tangent-plane inset shows a computed 30 degrees.",
+   "pedagogy": "Matched side-by-side comparison. Return angles are measured in an undistorted tangent-plane inset, never in the perspective surface. The caption covers the full-turn ambiguity and coordinate-singularity exclusions.",
+   "interaction": null,
+   "physics_model": "omega^1_2 = -d theta (plane) and -cos theta d phi (sphere); Omega^1_2 = e1 ^ e2 / a^2. Transport d beta = -cos theta d phi integrated around the oriented loop gives pi/6 (docs/figure-aesthetic-review-21-40.md, figure 35 mathematical checks). Exact visible-hemisphere clipping of grid lines.",
+   "screenshots": [
+    "qa/figure-cartan-comparison-light.png",
+    "qa/figure-cartan-comparison-dark.png",
+    "qa/responsive-cartan-comparison-390-light.png",
+    "qa/cartan-before-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "The best-engineered figure: every angle computed, conventions checked against Tong's notes",
+     "Distinct roles (dashed neutral initial, blue transport, teal rulers, violet holonomy); excellent in both themes",
+     "Responsive stacking (500x1270 phone viewBox) passed clipping and overlap checks"
+    ],
+    "issues": [
+     "Dense for novices (coframes, connection forms and holonomy in one plate)",
+     "The flat plane drawn in perspective can read as a tilted disk; the transport arrow along the loop is small"
+    ],
+    "evidence": "Viewed qa/figure-cartan-comparison-light.png and -dark.png; docs/figure-aesthetic-review-21-40.md section 35 (rebuild implemented, with math verification); docs/aesthetic-review.md; qa/responsive-figures-report.json."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the drawing and numbers essentially verbatim as the static plate for the differential-forms module; only strip the '35 /' heading and move the bottom sentences to HTML. The tangent-plane-inset technique should be the house pattern for every holonomy visual. A later interactive can let the learner resize the loop and watch delta alpha track A/a^2.",
+    "effort": "small"
+   },
+   "size": "72 KB typeset SVG, 1000x650, mobile viewBox 500x1270"
+  },
+  {
+   "id": "figure-focusing-caustic",
+   "kind": "figure",
+   "title": "36 Focusing is not yet a singularity (Raychaudhuri focusing and caustics)",
+   "paths": [
+    "assets/figures/focusing-caustic.svg",
+    "scripts/figures.py#L399-L407"
+   ],
+   "topics": [
+    "Raychaudhuri equation",
+    "geodesic focusing",
+    "caustic",
+    "singularity theorems",
+    "expansion scalar",
+    "geodesic incompleteness"
+   ],
+   "teaches": "If theta_0 < 0 and d theta / d tau <= -theta^2 / 3, the congruence focuses within tau_focus <= 3/|theta_0|. But straight geodesics cross at a caustic even in flat spacetime and continue beyond it, so a caustic is not a singular spacetime; singularity theorems need extra global hypotheses.",
+   "pedagogy": "A deliberately flat-spacetime counterexample: five straight paths converge and continue as dashed lines past the focus.",
+   "interaction": null,
+   "physics_model": "Straight lines through a common point; the focusing bound follows from Raychaudhuri with the shear and Ricci terms dropped (re-derived).",
+   "screenshots": [
+    "qa/figure-focusing-caustic-light.png",
+    "qa/figure-focusing-caustic-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Directly attacks a common misconception",
+     "Paths now continue past the caustic, so the image itself makes the point (second-review fix)"
+    ],
+    "issues": [
+     "The assumption inequality is rendered very small next to the large bound",
+     "No link between theta(tau) and the picture (the expansion blowing up is not shown)"
+    ],
+    "evidence": "Viewed qa/figure-focusing-caustic-light.png; docs/figure-aesthetic-review-21-40.md section 36; docs/second-figure-review.md row 36 (paths continue)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the construction. Add an interactive companion: a theta_0 slider and a Ricci-term (energy condition) slider showing the congruence and a theta(tau) plot diverging at the focus, with a note that the geodesics continue. Enlarge the assumption math.",
+    "effort": "small"
+   },
+   "size": "37 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-horizon-area",
+   "kind": "figure",
+   "title": "37 Two areas constrain one remnant (Hawking area theorem bound)",
+   "paths": [
+    "assets/figures/horizon-area.svg",
+    "scripts/figures.py#L523-L529"
+   ],
+   "topics": [
+    "Hawking area theorem",
+    "black hole mergers",
+    "Schwarzschild radius",
+    "horizon area",
+    "gravitational waves",
+    "black hole thermodynamics"
+   ],
+   "teaches": "Two equal nonspinning black holes of mass M have total horizon area 2A(M). Area cannot decrease and A is proportional to M^2, so the remnant mass is at least sqrt2 M, bounding the radiated fraction at 1 - 1/sqrt2, about 29.3%. It is a bound, not an efficiency prediction.",
+   "pedagogy": "Area-true disks (final radius sqrt2 times each initial one). The caption flags the limiting case, neglected binding energy and the Kerr caveat.",
+   "interaction": null,
+   "physics_model": "A = 16 pi G^2 M^2 / c^4; final radius 60 sqrt2 px vs 60 px; 1 - 1/sqrt2 = 0.29289 (check-site.mjs, docs/visual-review.md).",
+   "screenshots": [
+    "qa/figure-horizon-area-light.png",
+    "qa/figure-horizon-area-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Disk areas are drawn to scale, so the picture carries the mathematics",
+     "Limiting-case wording is prominent"
+    ],
+    "issues": [
+     "The long bottom formula sentence runs across the canvas in a different typographic texture",
+     "Nothing contrasts the bound with real mergers (GW150914 radiated about 4.6%)"
+    ],
+    "evidence": "Viewed qa/figure-horizon-area-light.png; docs/figure-aesthetic-review-21-40.md section 37 (Keep); docs/visualization-audit.md row 37."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the construction. Add a mass-ratio and spin selector (Kerr area formula) showing the area bound vs the actual radiated fraction from real LIGO events, making 'bound vs efficiency' tangible. Move the long sentence into HTML.",
+    "effort": "small"
+   },
+   "size": "47 KB typeset SVG, 1000x480"
+  },
+  {
+   "id": "figure-page-curve",
+   "kind": "figure",
+   "title": "38 The information question has a shape (Page curve)",
+   "paths": [
+    "assets/figures/page-curve.svg",
+    "scripts/figures.py#L531-L535"
+   ],
+   "topics": [
+    "black hole information paradox",
+    "Page curve",
+    "Hawking radiation",
+    "entanglement entropy",
+    "unitarity",
+    "black hole evaporation"
+   ],
+   "teaches": "The fine-grained entropy of the radiation follows the leading semiclassical (Hawking) trend early. Unitary evolution requires it to turn down after the Page time and return to zero, while the uncorrected semiclassical estimate keeps growing. A thermal-looking spectrum can still carry correlations.",
+   "pedagogy": "Schematic qualitative axes, stated explicitly.",
+   "interaction": null,
+   "physics_model": "Piecewise-linear schematic: shared rise to the midpoint, then divergence (solid down, dashed up).",
+   "screenshots": [
+    "qa/figure-page-curve-light.png",
+    "qa/figure-page-curve-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Corrected so both curves share the early branch and diverge later (earlier version was physically misleading)",
+     "Honest 'schematic' labelling"
+    ],
+    "issues": [
+     "The y-axis says 'radiation entropy' rather than fine-grained or entanglement entropy of the radiation subsystem",
+     "Page time is not marked; sharp triangular peak; no coarse-grained vs fine-grained distinction drawn"
+    ],
+    "evidence": "Viewed qa/figure-page-curve-light.png; docs/figure-aesthetic-review-21-40.md section 38 (misaligned early branch, before fix); docs/second-figure-review.md row 38 (corrected)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep as a static figure for the advanced/quantum-gravity outlook module. Relabel the axis as fine-grained entropy of the radiation, mark the Page time, and optionally overlay the black hole's Bekenstein-Hawking entropy as the decreasing bound that the unitary curve follows after the Page time. Interactivity is not needed.",
+    "effort": "small"
+   },
+   "size": "6 KB SVG (no typeset math), 1000x480"
+  },
+  {
+   "id": "figure-effective-theory",
+   "kind": "figure",
+   "title": "39 A theory has a resolution scale (effective field theory hierarchy)",
+   "paths": [
+    "assets/figures/effective-theory.svg",
+    "scripts/figures.py#L409-L417"
+   ],
+   "topics": [
+    "effective field theory",
+    "quantum gravity",
+    "Planck scale",
+    "cutoff scale",
+    "perturbative expansion"
+   ],
+   "teaches": "A theory is an expansion in energy/cutoff (or microscopic length/wavelength): controlled corrections at long wavelength, no small parameter near the cutoff. The coefficients encode unresolved physics.",
+   "pedagogy": "An orientation axis with three ticks and a slogan. The caption says it is a hierarchy diagram, not an error curve.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/figure-effective-theory-light.png",
+    "qa/figure-effective-theory-dark.png"
+   ],
+   "quality": {
+    "status": "rough",
+    "strengths": [
+     "Caution about a model-dependent (non-universal) cutoff"
+    ],
+    "issues": [
+     "Mostly sentences; the axis quantity is unlabelled",
+     "Shows no resolution and no relative correction sizes",
+     "No typeset math at all"
+    ],
+    "evidence": "Viewed qa/figure-effective-theory-light.png; docs/figure-aesthetic-review-21-40.md section 39 (Rebuild); docs/second-figure-review.md row 39."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "If kept, rebuild as a small interactive: slide E/Lambda (or the GR example E/E_Planck) and watch bars for the leading term and the first two corrections scale as 1, x^2, x^4 until they become comparable near x = 1. Low priority; otherwise drop.",
+    "effort": "small"
+   },
+   "size": "7 KB SVG (no typeset math), 1000x480"
+  },
+  {
+   "id": "figure-calculation-map",
+   "kind": "figure",
+   "title": "40 From a question to a measurement (GR calculation workflow)",
+   "paths": [
+    "assets/figures/calculation-map.svg",
+    "scripts/figures.py#L419-L429"
+   ],
+   "topics": [
+    "problem-solving strategy",
+    "observables in general relativity",
+    "tetrad",
+    "four-velocity",
+    "Newtonian limit",
+    "dimensional analysis"
+   ],
+   "teaches": "A six-step method: choose a measurement, specify the metric, choose the observer (four-velocity or tetrad), compute only the geometry needed (connection, curvature or neither), evaluate the prediction, check a familiar limit.",
+   "pedagogy": "The chapter 24 synthesis. The caption gives examples of skipping steps (a clock comparison needs only the metric, a tide needs curvature).",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/figure-calculation-map-light.png",
+    "qa/figure-calculation-map-dark.png",
+    "qa/responsive-calculation-map-390-light.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Good pedagogical content that emphasises observables",
+     "Stacks vertically on phones (375x1040 viewBox)"
+    ],
+    "issues": [
+     "Six text cards with arrows: an interface drawn as artwork",
+     "Suggests a mandatory pipeline despite the caption; no links to worked examples"
+    ],
+    "evidence": "Viewed qa/figure-calculation-map-light.png; docs/figure-aesthetic-review-21-40.md section 40 (rebuild as interface, not artwork); docs/second-figure-review.md row 40."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "A natural grbook.ai AI-tutor feature: an interactive 'calculation planner' checklist in HTML. The learner picks a measurement (clock, ray, orbit, tide); the planner reveals only the steps and tensors needed and links to the relevant worked examples and demos. The GPT-Live tutor can walk through it. Reuse the six step names and the skip examples.",
+    "effort": "medium"
+   },
+   "size": "14 KB typeset SVG, 1000x525, mobile viewBox 375x1040"
+  },
+  {
+   "id": "historical-image-newton-1689",
+   "kind": "historical-image",
+   "title": "Portrait of Sir Isaac Newton, Godfrey Kneller, 1689",
+   "paths": [
+    "assets/history/newton-1689.jpg",
+    "assets/history/manifest.json",
+    "content/credits.md#L15-L22",
+    "book.md#L506"
+   ],
+   "topics": [
+    "history of general relativity",
+    "Newtonian gravity",
+    "Isaac Newton"
+   ],
+   "teaches": "Historical texture for the 1687 starting point of the gravity story in section 1.9 (Newton's unification of terrestrial and celestial motion, and the later-productive puzzles of instantaneous action and inertial = gravitational mass).",
+   "pedagogy": "Inside a collapsed 'illustrated history' disclosure, deliberately kept separate from the teaching sequence.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/history-people.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Public domain (Kneller died 1723; PD-Art reproduction; US pre-1931)",
+     "Manifest has source and direct URLs, upstream source (Cambridge), licence rationale, modifications (resized to 1400 px, q85), sha256 and verified date 2026-09-08",
+     "Renders cleanly with a caption and provenance link"
+    ],
+    "issues": [
+     "1162x1400 JPEG (466 KB); no WebP/AVIF or responsive srcset",
+     "The Commons file is itself a cropped reproduction (noted in source_modifications)"
+    ],
+    "evidence": "assets/history/manifest.json entry newton-1689; viewed qa/history-people.png; content/credits.md table."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Copy the file and its manifest entry verbatim into grbook.ai media, and generate responsive WebP/AVIF derivatives while keeping the original sha256 record. Use it in the history timeline and the Newtonian-gravity module opener.",
+    "effort": "small"
+   },
+   "size": "466 KB JPEG, 1162x1400"
+  },
+  {
+   "id": "historical-image-einstein-1921",
+   "kind": "historical-image",
+   "title": "Albert Einstein in Vienna, Ferdinand Schmutzer, 1921",
+   "paths": [
+    "assets/history/einstein-1921.jpg",
+    "assets/history/manifest.json",
+    "content/credits.md#L15-L22",
+    "book.md#L507"
+   ],
+   "topics": [
+    "history of general relativity",
+    "Albert Einstein"
+   ],
+   "teaches": "The iconic portrait of Einstein at a chalkboard, used to humanise the development narrative (1905-1915) in section 1.9.",
+   "pedagogy": "Paired with the Newton portrait in a two-image history grid.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/history-people.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Detailed PD rationale (Schmutzer died 1928; PD in Austria/life+95; US via 17 USC 303; Commons keep decision recorded)",
+     "Complete provenance with sha256 and modification notes (Quibik noise reduction upstream)"
+    ],
+    "issues": [
+     "The manifest's US rationale is 17 USC 303 (a work unpublished before 2003, author dead before 1956). If the photo was in fact published around 1921, it is US public domain anyway (published before 1931), so both branches give US public domain. The residual risk is the Commons copyright discussion (recorded as kept), not the US term. Record which branch applies when importing.",
+     "382 KB JPEG, no responsive variants"
+    ],
+    "evidence": "assets/history/manifest.json entry einstein-1921 (licence_rationale mentions copyright discussion keep decision); viewed qa/history-people.png."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Reuse with its manifest. At import, re-check the Commons page (the copyright discussion was closed as keep) and record a new verified_date. Note that US status holds under either the unpublished (17 USC 303) or the pre-1931-publication branch. Keep the caption crediting Schmutzer.",
+    "effort": "small"
+   },
+   "size": "382 KB JPEG, 1066x1400"
+  },
+  {
+   "id": "historical-image-principia-1687",
+   "kind": "historical-image",
+   "title": "Philosophiae Naturalis Principia Mathematica, first-edition title page, 1687",
+   "paths": [
+    "assets/history/principia-1687.jpg",
+    "assets/history/manifest.json",
+    "content/credits.md#L15-L22",
+    "book.md#L521"
+   ],
+   "topics": [
+    "history of general relativity",
+    "Newtonian gravity",
+    "Principia"
+   ],
+   "teaches": "Primary-source texture: the actual 1687 printed title page (not a modern facsimile) anchoring the 'one law for terrestrial and celestial motion' milestone.",
+   "pedagogy": "Paired with the 1916 Einstein title page to contrast two foundational documents; the caption distinguishes original publication from typeset facsimile.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/history-documents.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Faithful colour scan (University of Strasbourg) with PD-old / Public Domain Mark",
+     "Complete provenance and sha256"
+    ],
+    "issues": [
+     "Commons lacks a separate US tag (the manifest argues 1687 publication makes this moot)",
+     "571 KB JPEG, the largest of the set"
+    ],
+    "evidence": "assets/history/manifest.json entry principia-1687; viewed qa/history-documents.png."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Reuse verbatim with its manifest in the history timeline and the Newtonian-gravity opener; add optimised derivatives.",
+    "effort": "small"
+   },
+   "size": "571 KB JPEG, 1188x1400"
+  },
+  {
+   "id": "historical-image-einstein-gr-1916",
+   "kind": "historical-image",
+   "title": "Die Grundlage der allgemeinen Relativitätstheorie, 1916 separate-edition title page",
+   "paths": [
+    "assets/history/einstein-gr-1916.jpg",
+    "assets/history/manifest.json",
+    "content/credits.md#L15-L22",
+    "book.md#L522"
+   ],
+   "topics": [
+    "history of general relativity",
+    "Einstein field equations",
+    "Albert Einstein"
+   ],
+   "teaches": "The title page of Einstein's 1916 comprehensive exposition of general relativity. The caption carefully says it is not the November 1915 paper or a manuscript.",
+   "pedagogy": "Illustrates the section 1.9 point that document dates and versions are distinct historical evidence.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/history-documents.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "PD rationale (Einstein died 1955: life+70 expired end of 2025; US pre-1931)",
+     "Complete provenance and sha256; precise, non-misleading caption"
+    ],
+    "issues": [
+     "Upstream source is an auction house photograph (Koller); visually plain",
+     "The EU life+70 expiry is very recent (1 Jan 2026), so keep the verification date on record"
+    ],
+    "evidence": "assets/history/manifest.json entry einstein-gr-1916; viewed qa/history-documents.png."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Reuse verbatim with the manifest and the careful caption. Consider adding other now-public-domain items using the same schema (e.g. the 1915 Sitzungsberichte pages, Schwarzschild 1916, Eddington's 1919 eclipse plates).",
+    "effort": "small"
+   },
+   "size": "277 KB JPEG, 924x1400"
+  },
+  {
+   "id": "figure-earth-blue-marble-texture",
+   "kind": "figure",
+   "title": "NASA Blue Marble Next Generation Earth texture (December 2004), used by the Earth rain-frame lab",
+   "paths": [
+    "assets/earth/blue-marble-december.webp",
+    "assets/earth/manifest.json",
+    "content/credits.md#L45",
+    "web/earth-flow.js#L123"
+   ],
+   "topics": [
+    "Earth",
+    "free fall",
+    "Schwarzschild metric",
+    "Gullstrand-Painleve coordinates"
+   ],
+   "teaches": "No teaching content of its own. It is the equirectangular albedo map wrapped on the Three.js Earth sphere in the chapter 1 and home 'compare two falling objects' rain-frame scene, making the free-fall flow concrete and recognisable.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/lab-earth-1440-light.png",
+    "qa/lab-earth-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "NASA imagery (US government, generally not copyrighted) with rights source, processing notes (Lanczos 5400x2700 to 2048x1024, WebP q86), source and output sha256, check date",
+     "Looks good on the sphere in the lab capture"
+    ],
+    "issues": [
+     "December base map shows northern-hemisphere snow cover and no clouds or night lights",
+     "2048x1024 is soft at close zoom; no normal or specular maps"
+    ],
+    "evidence": "assets/earth/manifest.json; viewed qa/lab-earth-1440-light.png and a scratchpad render of the texture."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Reuse verbatim with the manifest for any Earth-based demo (free fall, GPS, tides, Gravity Probe B). Add NASA's no-endorsement line to credits, as the manifest notes. Optionally add a cloud or night-lights layer from the same NASA series using the same provenance schema.",
+    "effort": "small"
+   },
+   "size": "WebP 2048x1024"
+  },
+  {
+   "id": "engine-or-tool-figure-generator",
+   "kind": "engine-or-tool",
+   "title": "scripts/figures.py SVG figure generator and assets/figures/manifest.json",
+   "paths": [
+    "scripts/figures.py",
+    "assets/figures/manifest.json",
+    "package.json#figures"
+   ],
+   "topics": [
+    "scientific visualization",
+    "SVG generation"
+   ],
+   "teaches": "Build tool, not learner-facing. Generates all 40 SVGs from analytic formulas, plus a manifest of id, reading-order number, chapter, title, alt text, caption (with model limitations), dimensions and 'after' section anchor.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": "Formulas embedded per figure (Rindler hyperbolae, EF slopes, GPS rate, orthographic great circles, Cartan loop geometry). Helper primitives: text, line, poly, plot, elbow connectors, responsive_group with data-mobile-transform and data-compact-hide.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Reproducible and dependency-free; regenerating in the scratchpad produced a manifest identical to the committed one",
+     "Alt text and limitation captions are authored next to each drawing",
+     "Accessible SVG (role=img, title/desc)"
+    ],
+    "issues": [
+     "Terse one-letter-variable code, about 540 lines, with hand-placed pixel coordinates",
+     "Hard-codes the slide template. After generation it sorts the manifest by (chapter, after) and rewrites each 'NN / ' heading by string replacement (L537-541). The ordinal in the heading is therefore a global figure number, not the chapter (Rindler is '09' in chapter 5), and inserting one figure renumbers every later heading.",
+     "Colours are hex constants later remapped by another script; mobile layouts are bolted on via transforms for only 7 figures",
+     "Curves are computed, but annotations are hand-placed pixel coordinates that do not follow the model: boundary-variation tangents about 10% off the true slope, polar-metric edge labels beside the wrong edges, the light-bending ray offset from its reference line, and unequal axis scales in Rindler and horizon-cones."
+    ],
+    "evidence": "Read scripts/figures.py in full; ran it into scratchpad/legacy/regen and diffed the manifest (identical)."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Do not port the generator. Mine it for exact formulas, parameter choices and caption text when building Svelte figure components (SVG with KaTeX or foreignObject labels, theme tokens, mobile-first layout). The manifest's alt/caption/limitations fields are a good template for grbook.ai figure metadata.",
+    "effort": null
+   },
+   "size": "54 KB Python; 12 KB manifest"
+  },
+  {
+   "id": "engine-or-tool-figure-typesetter",
+   "kind": "engine-or-tool",
+   "title": "scripts/typeset-figures.mjs with content/figure-math.json (MathJax label typesetting and theme palette)",
+   "paths": [
+    "scripts/typeset-figures.mjs",
+    "content/figure-math.json"
+   ],
+   "topics": [
+    "mathematical typesetting",
+    "semantic color",
+    "dark mode"
+   ],
+   "teaches": "Build tool. Replaces SVG text nodes whose exact content matches a figure-math.json key with MathJax SVG glyphs (colour-classed through semanticTex/mathPaletteCSS). It prefixes all IDs per figure so inline SVGs coexist, and rewrites hex colours into CSS variables with a prefers-color-scheme dark palette and per-figure role overrides.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/figure-stress-energy-dark.png",
+    "qa/figure-cartan-comparison-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Produced consistent vector math and working dark themes for all 40 figures (verified in dark captures)",
+     "Fails the build on invalid TeX",
+     "The five semantic roles (geometry, curvature, transport, matter, observer) map cleanly to CSS variables"
+    ],
+    "issues": [
+     "String-keyed mapping drifted: 24 of 226 keys are stale and 284 labels are unmapped, including '1912-13', which causes a visible font mismatch",
+     "Mutates SVGs in place and is not idempotent (a second run would re-prefix IDs); only safe right after figures.py",
+     "Per-figure colour-role override table and a stress-energy special case are hard-coded"
+    ],
+    "evidence": "Read the script; label/key audit comparing figure-math.json to text nodes regenerated from figures.py; viewed qa/figure-historical-timeline-light.png."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Keep the ideas (role-based palette, TeX glyphs inside diagrams, ID namespacing, dark variants at 4.5:1 or better) and discard the implementation. In grbook.ai, figure components should receive TeX directly and use the app's theme tokens.",
+    "effort": null
+   },
+   "size": "6 KB script; 12 KB JSON (226 mappings)"
+  },
+  {
+   "id": "engine-or-tool-figure-geometry-check",
+   "kind": "engine-or-tool",
+   "title": "scripts/check-figures.mjs label collision and clipping checker",
+   "paths": [
+    "scripts/check-figures.mjs",
+    "qa/figure-geometry-report.json",
+    "package.json#test:figures"
+   ],
+   "topics": [
+    "visual regression testing",
+    "accessibility"
+   ],
+   "teaches": "QA tool. Loads each SVG in headless Chromium (Playwright) with the real Manrope font, in light and dark, and reports text outside the viewBox, label/label overlaps above 3 px, rendered stroke centrelines passing through label boxes (sampled every 2 px), and later-painted opaque fills covering labels. It screenshots every figure to qa/.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/figure-local-prediction-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Caught real collisions in the light cone, polar metric, sphere, light bending, radii, horizons and ADM figures (docs/visual-review.md, label-to-geometry clearance)",
+     "Latest report: 80 renders checked, 0 issues",
+     "Both themes and TeX glyph boxes included"
+    ],
+    "issues": [
+     "Cannot judge whether a construction is visible or meaningful (the thinned boundary-variation tangents passed)",
+     "It only tests labels against strokes and other labels. It cannot detect strokes drawn on top of other strokes (the horizon-cones r = rs cone edge hidden under the horizon bar), a label attached to the wrong element (polar-metric 'dr' beside an angular arc), or a reference line offset from the curve it annotates (light-bending).",
+     "O(strokes x samples x labels) brute force; requires a local server on :4173"
+    ],
+    "evidence": "Read the script; qa/figure-geometry-report.json {checked: 80, issues: 0}; docs/visual-review.md."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Port it as a Playwright test for grbook.ai figure and demo components (run against SvelteKit preview routes, both themes and 320/390/1440 widths, including interactive control extremes). Add a minimum rendered label height check, like the legacy check-responsive-figures.mjs mathHeight.",
+    "effort": "small"
+   },
+   "size": "4 KB"
+  },
+  {
+   "id": "engine-or-tool-visual-placement-audit",
+   "kind": "engine-or-tool",
+   "title": "scripts/audit-visual-placement.mjs (prose and equations before the first visual)",
+   "paths": [
+    "scripts/audit-visual-placement.mjs",
+    "qa/visual-placement-audit.json",
+    "docs/visual-development-plan-2026-09-09.md"
+   ],
+   "topics": [
+    "curriculum design",
+    "novice sequencing"
+   ],
+   "teaches": "Editorial audit tool. Walks generated site/chapter-N.html in document order and records, for each outermost visual (static figure or any interactive type), the prose word count and display-equation count before it. Hidden, narration and control content is excluded, and legacy .lab calculators are listed separately. Output is a console table plus a JSON report with an input hash.",
+   "pedagogy": "Supported the 2026-09-09 visual development plan's finding that several chapters front-loaded equations before any visual (e.g. chapter 21 had only one default static figure).",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Reproducible, clearly scoped ('measures placement, not difficulty or quality')",
+     "Cheap signal for 'how long until the learner sees something'"
+    ],
+    "issues": [
+     "Tied to the legacy generated-HTML class names and a fixed chapter range 0-24",
+     "Does not simulate runtime-inserted content or CSS visibility"
+    ],
+    "evidence": "Read the script; referenced from docs/visual-development-plan-2026-09-09.md (placement inventory)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Re-implement as a knowledge-vault or CI check over grbook.ai lesson sources: words and equations before the first demo, gaps between visuals, and demo density per module. It is a useful guardrail for the 'AI-centred, visual-first' promise.",
+    "effort": "small"
+   },
+   "size": "4 KB"
+  },
+  {
+   "id": "design-doc-vendor-notices",
+   "kind": "design-doc",
+   "title": "assets/vendor-notices.md (third-party licences)",
+   "paths": [
+    "assets/vendor-notices.md"
+   ],
+   "topics": [
+    "software licensing"
+   ],
+   "teaches": "Lists bundled third-party materials: Three.js (MIT), KaTeX (MIT), MathJax (Apache 2.0, build-time glyphs), Hugeicons free stroke-rounded icons 4.3.2, Manrope and Newsreader fonts (OFL 1.1). It keeps original figures and text distinct from vendor material and points to the history provenance manifest.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Concise and points to full licence texts"
+    ],
+    "issues": [
+     "Flags a genuine ambiguity: the Hugeicons package manifest says MIT while its README says 'All rights reserved'",
+     "Does not list the NASA Earth texture (credited only in content/credits.md)"
+    ],
+    "evidence": "Read assets/vendor-notices.md in full."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Carry the practice into grbook.ai (a THIRD_PARTY notices page including media). Choose an icon set with an unambiguous licence, or document the Hugeicons ambiguity decision explicitly. Manrope and Newsreader (OFL) can be reused if the design keeps them.",
+    "effort": null
+   },
+   "size": "1 KB"
+  },
+  {
+   "id": "review-doc-figure-aesthetic-01-20",
+   "kind": "review-doc",
+   "title": "docs/figure-aesthetic-review-01-20.md",
+   "paths": [
+    "docs/figure-aesthetic-review-01-20.md",
+    "qa/aesthetic-01-20-light-1.png",
+    "qa/aesthetic-01-20-dark-1.png"
+   ],
+   "topics": [
+    "scientific visualization",
+    "information design"
+   ],
+   "teaches": "Per-figure aesthetic critique of figures 01-20 (2026-09-08), with Keep/Polish/Rebuild verdicts and concrete treatments. Its main findings: slide-deck sameness, a flat light theme, 7 px labels on phones, colour roles not doing their job, and cards resembling form fields or keypads.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/aesthetic-01-20-light-1.png",
+    "qa/aesthetic-01-20-light-2.png",
+    "qa/aesthetic-01-20-light-3.png",
+    "qa/aesthetic-01-20-light-4.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Specific, honest and evidence-linked; separates correctness, comprehension and beauty",
+     "Implementation order is sensible (framing, then semantic emphasis, then misleading forms, then responsive)"
+    ],
+    "issues": [
+     "Baseline is partly stale: 06, 12, 14 and 18 changed afterwards",
+     "Some titles quoted are older versions (e.g. 02 'One laboratory is not enough')"
+    ],
+    "evidence": "Read in full; compared its claims with current captures (06 twin colours fixed, 12 cards removed, 18 six ingredients present)."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Use as a critique checklist and a source of concrete redesign ideas when rebuilding these topics; do not treat its per-figure status as current. Its criteria (one role, one colour; prose out of SVG; the phone reading size matters) belong in the grbook.ai design guide.",
+    "effort": null
+   },
+   "size": "24 KB"
+  },
+  {
+   "id": "review-doc-figure-aesthetic-21-40",
+   "kind": "review-doc",
+   "title": "docs/figure-aesthetic-review-21-40.md",
+   "paths": [
+    "docs/figure-aesthetic-review-21-40.md",
+    "qa/aesthetic-pair-35-36.png"
+   ],
+   "topics": [
+    "scientific visualization",
+    "information design",
+    "Cartan structure equations"
+   ],
+   "teaches": "Per-figure critique of figures 21-40 with KEEP/POLISH/REBUILD verdicts, the documented rebuild of figure 35 (Cartan plane/sphere) including a full math verification of coframes, connection forms and the pi/6 holonomy, and five collection-wide priorities (make geometric claims visible, direct labels, reserve SVG for relationships, consistent optical size for math, fit composition to the argument).",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": "Figure 35 section: e1 = a dtheta, e2 = a sin theta dphi, omega^1_2 = -cos theta dphi, Omega^1_2 = e1 ^ e2 / a^2; loop integral gives pi/6.",
+   "screenshots": [
+    "qa/aesthetic-pair-21-22.png",
+    "qa/cartan-rebuilt-desktop-light.png",
+    "qa/cartan-rebuilt-mobile-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The best single statement of what makes a figure good ('a reader should be able to point at the part of the image that justifies the caption')",
+     "Caught the physically misleading Page-curve early branch"
+    ],
+    "issues": [
+     "36 and 38 were fixed afterwards and 22 was altered in a way that undermined its 'Keep' verdict",
+     "Mixes the design critique with the figure-35 implementation log"
+    ],
+    "evidence": "Read in full; cross-checked against current captures of 22, 35, 36 and 38."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Adopt its priorities section into the grbook.ai figure design guide. Use the figure-35 verification as a model for how demo math should be checked and documented.",
+    "effort": null
+   },
+   "size": "27 KB"
+  },
+  {
+   "id": "review-doc-second-figure-review",
+   "kind": "review-doc",
+   "title": "docs/second-figure-review.md (2026-09-09 dispositions)",
+   "paths": [
+    "docs/second-figure-review.md"
+   ],
+   "topics": [
+    "scientific visualization",
+    "semantic color",
+    "visual regression testing"
+   ],
+   "teaches": "The most current disposition of all 40 SVGs (which were fixed, demoted to optional reference, or left as future opportunities), the list of new interactive experiences that superseded static figures (covector crossings, light cone, manifold charts, curvature-count matrix, 3D cloud, Mercury orbit, Flamm embedding, wave), the second-level semantic colour scheme, and the full verification command list.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Separates mathematical tests, render inspection and browser interaction as distinct evidence",
+     "Clear row-per-figure status table"
+    ],
+    "issues": [
+     "Some dispositions are optimistic: 22 'tangents made thinner and dashed' actually made the point nearly invisible",
+     "Describes interactive experiences that belong to other inventory groups"
+    ],
+    "evidence": "Read in full; compared the table against the current qa/figure-*-light.png captures."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Treat as the authoritative legacy status snapshot when mapping figures to grbook.ai concepts, and cross-reference the named experiences with the labs/scenes inventory groups.",
+    "effort": null
+   },
+   "size": "13 KB"
+  },
+  {
+   "id": "review-doc-visual-review",
+   "kind": "review-doc",
+   "title": "docs/visual-review.md (visual and numerical review changelog)",
+   "paths": [
+    "docs/visual-review.md"
+   ],
+   "topics": [
+    "numerical validation",
+    "GPS",
+    "proper time",
+    "Hawking area theorem",
+    "tidal forces"
+   ],
+   "teaches": "Changelog of visual fixes (label overlaps, exact great circles, Rindler hyperbolae, EF slopes), a numerical calibration table (GPS +45.724 / -7.211 / +38.514 us/day, crossover at altitude R/2, Earth surface curvature 3.43e-23 m^-2, tossed clock 44.615 as, twin 8 years, area bound 29.289%), a 40-figure caption inventory, and September 8 notes on the Earth rain-frame opening and the label-to-geometry clearance audit.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": "The calibration values are asserted in scripts/check-site.mjs.",
+   "screenshots": [
+    "qa/figure-review-1.png",
+    "qa/figure-review-5.png"
+   ],
+   "quality": {
+    "status": "broken-or-stale",
+    "strengths": [
+     "The numerical table is still correct and useful as test oracles"
+    ],
+    "issues": [
+     "The inventory table's titles and captions are outdated (02 'One laboratory is not enough', 12 and 35 old captions, 40 'From a metric to a measurement')",
+     "Mixes figure review with unrelated site and Earth-scene changelog entries"
+    ],
+    "evidence": "Read in full; compared the inventory rows with the current assets/figures/manifest.json (titles and captions differ for 02, 12, 18, 35 and 40)."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Extract the numerical calibration table as unit-test expectations for the grbook.ai GPS, tossed-clock, tidal and area-theorem demos. Ignore the stale inventory.",
+    "effort": null
+   },
+   "size": "23 KB"
+  },
+  {
+   "id": "review-doc-visualization-audit",
+   "kind": "review-doc",
+   "title": "docs/visualization-audit.md (scene shell audit and 40-figure keep/tighten/rebuild table)",
+   "paths": [
+    "docs/visualization-audit.md"
+   ],
+   "topics": [
+    "scientific visualization",
+    "interactive visualization design",
+    "curriculum design"
+   ],
+   "teaches": "Scene-by-scene criticism of nine 3D models (Earth, covector, light cone, sphere, tides, embedding, wave, expansion, ADM), with what a deeper rebuild should teach. It sets a 10-point quality bar for visual work (state the question first; one new representation at a time; colour equals role; LaTeX labels attached to moving objects; one primary view; state domain and approximations; motion reveals a dependency; fit extremes on phone; keyboard and reset; narration as an alternative path) and gives a teaching-sequence table for all 40 figures.",
+   "pedagogy": "Proposes the first deeper rebuilds: polar metric, moving basis/connection, sphere transport, local stress-energy, horizon causality and Cartan coframes, chosen as missing conceptual bridges.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The 10-point quality bar is directly reusable as a grbook.ai demo acceptance checklist",
+     "Figure-level suggestions are pedagogically motivated (what the learner should be able to test)"
+    ],
+    "issues": [
+     "Self-declared superseded by the later aesthetic review; several rows are outdated (12, 18, 35 rebuilt)"
+    ],
+    "evidence": "Read in full; header states the later collection-wide review supersedes it."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Copy the 10-point quality bar into the grbook.ai design system docs, and use the 'what a deeper rebuild should teach' column as seed specs for demos.",
+    "effort": null
+   },
+   "size": "24 KB"
+  },
+  {
+   "id": "review-doc-aesthetic-review",
+   "kind": "review-doc",
+   "title": "docs/aesthetic-review.md (collection-wide aesthetic review index)",
+   "paths": [
+    "docs/aesthetic-review.md",
+    "qa/aesthetic-experiment-gps-1440-light.png",
+    "qa/aesthetic-experiment-twins-1440-light.png"
+   ],
+   "topics": [
+    "scientific visualization",
+    "responsive design"
+   ],
+   "teaches": "Index and summary of the 2026-09-08 aesthetic pass over 40 SVGs, 9 spatial models, 5 guided models and 2 numerical experiments. It records the figure 12, 18 and 35 rebuilds and their responsive re-composition, gives judgments on the guided models (two charts, polar metric, moving basis, parallel transport, horizon directions) and the twins and orbital-clock experiments, and lists remaining priorities (history timeline, stress-energy measurement, curvature count, prose out of SVG).",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/aesthetic-experiment-gps-390-light.png",
+    "qa/aesthetic-new-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Explicitly separates 'correct', 'understandable' and 'beautiful'",
+     "Honest that priorities are unresolved rather than delivered"
+    ],
+    "issues": [
+     "Overlaps heavily with the two per-figure reviews and the audit; priorities 3 and 4 were partly addressed the next day"
+    ],
+    "evidence": "Read in full."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Use only its remaining-priorities list and guided-model judgments as input when specifying the corresponding grbook.ai demos. Fold its principles into the single design guide rather than keeping parallel review docs.",
+    "effort": null
+   },
+   "size": "9 KB"
+  }
+ ]
+}

@@ -1,0 +1,2380 @@
+{
+ "group": "lessons-and-curriculum",
+ "summary": "The legacy course layer is 37 authored guided lessons (6 geometry lessons, 7 prerequisite bridges, 13 assessed foundations, 11 core-practice sequences) placed in all 25 chapters. There are about 17,000 words of original prose, 128 justified derivation steps, 37 misconception checks with 111 per-option feedback rationales, and 74 numerical problems with hints and worked solutions (37 transfers plus 37 changed-calculation variants). Five lessons carry synchronized interactive models: charts, metric, basis, transport and horizon. A shared lesson record format (question, intuition, reasoned steps, formal limits, check, transfer, variant, sources, takeaway) is inventoried as its own asset. The curriculum around them has five parts: a 25-chapter prerequisite DAG, three chapter-level routes, a 30-skill readiness map with a validator, 37 placement records that each give an editorial reason, and 25 chapter guides. Every lesson follows the same template: a motivating question, an intuitive account, numbered steps with a stated reason for each, a formal layer that states limits and scope, a predict-then-feedback check, a changed-data calculation, and a takeaway. Scientific care is exceptionally high. Two independent author cross-reviews found no incorrect results (geometry-review.md, causality-review.md). The capstone and curvature-table numbers are independently re-derived by finite-difference Riemann code (check-physics-calculations.mjs). validateCourse() still passes (re-run 2026-09-12), and I hand-verified every transfer and variant answer. For novices the picture is uneven. The geometry, horizon, orbit and capstone lessons are excellent and reusable almost verbatim. The foundations that try to teach electromagnetism, statistical mechanics and quantum states in three steps supply vocabulary rather than competence. Practice is numeric-only, one variant deep, and cannot check method. Routes are chapter-level and long. Everything is hard-wired to book.md headings and chapter-N.html anchors. It is authored as one-line String.raw JavaScript objects, which makes review painful. No learner study was ever run. Recommendation: port the lesson content and misconception feedback into a schema-validated grbook.ai lesson format keyed to concept IDs. Mine the skill map and placement reasons into the concept DAG. Rebuild routes and diagnostics on that DAG, and rebuild practice as parameterized, method-revealing items that the AI tutor can extend.",
+ "lessons_learned": [
+  "Structural validity is not teachability. Acyclic chapter graphs, valid links and passing browser suites all coexisted with a Chapter 0 lesson that required metrics, intervals and connection coefficients (novice-sequencing-audit-2026-09-09.md). grbook.ai needs a recorded editorial reason for every lesson placement, plus a human first-use read, not just graph checks.",
+  "Required preparation must not hide behind optional-looking depth tabs. The legacy fix split lessons into section-start PREPARATION (always visible) and section-end WORKED EXAMPLE (tabbed). Keep that distinction as a first-class field.",
+  "Answer position leaks. All 13 original checks had the correct choice at index 0 (review F03). The fix rotates choices by lesson index modulo 3, so correct positions still cycle 0,2,1 through the sorted sequence (verified 2026-09-12), and the source still lists every correct answer first. Use a per-learner shuffle with stable choice IDs.",
+  "Numeric-only answer checking cannot tell whether the intended method was used. For example, the coordinate-change transfer can be solved without transforming anything (comprehensive review §9, line 314). Design items whose answer requires the method's intermediate object (a transformed component, a Christoffel symbol), or have the AI tutor grade written steps against a rubric.",
+  "Heuristic symbol meanings are dangerous. The inspector called the horizon lesson's dimensionless plotting time 'proper time' (review F01). Symbol identity must be scoped to the lesson or equation in the concept registry, and unresolved symbols should get no tooltip.",
+  "Chapter-level prerequisites over-constrain and under-constrain at the same time (review F08). The 'short' black-hole route still requires 22 chapters, and omitted edges cannot be detected. Model prerequisites at concept or skill granularity.",
+  "A prerequisite subject cannot be taught in a three-step bridge. The electromagnetism, thermal and quantum foundations give correct but compressed vocabulary (novice audit, 'Remaining teaching review'). Either build a real optional module or state the boundary explicitly.",
+  "Progressive enhancement matters for content. Hidden derivation panels disappeared without JavaScript (review F05). Lesson text must be readable by default, with interactivity layered on.",
+  "Honest evidence language worked and should carry over: 'an independent check is evidence about that example, not mastery'; 'End of route' rather than 'Route complete'; diagnostics 'suggest preparation, not a placement grade'.",
+  "Authoring 37 lessons as one-line String.raw objects with LaTeX inside JavaScript made scientific review and diffs hard (review line 503). The variants also live in two different places: a map in practice-variants.mjs and inline variants arrays. Use one schema-validated content file per lesson, one field per line, with a single practice-item format.",
+  "Independent physics verification is a pattern worth keeping. Finite-difference Riemann and Einstein-tensor checks against the lesson numbers (check-physics-calculations.mjs) are stronger than testing that a display matches its own formula.",
+  "Design docs drifted from reality within a day. course-architecture.md still says 13 bridges and five visual models, and says course.mjs owns the graph. credits.md says both 'three interactive experiments' and 'nine Three.js labs'. Generate counts and ownership statements from the content, or omit them.",
+  "Placing a diagnostic item identical to a lesson's own transfer problem spoils the transfer. Diagnostic and assessment items should be distinct.",
+  "Chapter bundling, not content, set route length. Chapter 22 packs singularity theorems (which need forms) together with Hawking temperature (which does not), so the black-hole route inherits Chapter 21 and its own prerequisites. In grbook.ai keep unrelated destinations in separate concept clusters so one heavy topic cannot gate another.",
+  "Reusing one item for three jobs broke all three. Each foundation skill's check is literally the lesson's transfer prompt, which is also the diagnostic card. Give every concept a distinct pool for diagnostic, in-lesson transfer and later review.",
+  "Choice IDs derived from a hash of the option text make stored attempts fragile: any copy-edit to a distractor changes its ID. Author stable IDs explicitly.",
+  "Exempting 'basic' skills (calculus, linear algebra) from ordering checks hides exactly the novice gaps the audit found. Validators should treat entry skills as assessed entry requirements, not as always satisfied."
+ ],
+ "assets": [
+  {
+   "id": "lesson-measurements-and-units",
+   "kind": "lesson",
+   "title": "One distance, two ways to count it",
+   "paths": [
+    "content/foundation-lessons.mjs:14-25",
+    "content/lesson-sequence.mjs:4"
+   ],
+   "topics": [
+    "units and dimensional analysis",
+    "unit conversion",
+    "dimensional consistency"
+   ],
+   "teaches": "A measurement is a number together with a unit. Convert with a ratio equal to one (2 m = 200 cm, 0.5 m/s = 50 cm/s). Squared units square the factor (1 m² = 10,000 cm²). Dimensions are [x]=L, [v]=L/T, [a]=L/T². Dimensional agreement is necessary but not sufficient: x=At² and x=2At² both pass. Transfer: 2 m × 30 cm = 0.60 m². Variant: a 0.5 m square is 2500 cm².",
+   "pedagogy": "Opening lesson of Chapter 0 (end of §0.1). The hook is 'what changed when the number changed?', followed by three steps (length, rate, area). The misconception check targets comparing numbers across units ('100 times faster'). It was added after reader feedback, once the earlier advanced units lesson was moved out of Chapter 0.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/diagnostics-1440.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Genuinely novice-level entry point",
+     "Formal layer adds the necessary-but-not-sufficient point about dimensional checks"
+    ],
+    "issues": [
+     "Very elementary compared with the rest of the course; the check is easy to guess",
+     "Does not connect to geometrized units (c=G=1), which is handled separately in dimensions-before-symbols",
+     "No visual"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md (row 'First Chapter 0 bridge'); scripts/check-learning-sequence.mjs asserts it is the first lesson in Chapter 0; reading-quality-pass-2026-09-09.md line 31 (SI source)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep as an optional warm-up card that the tutor can route to when a learner mishandles units. Merge its dimension paragraph with dimensions-before-symbols into one units-and-geometrized-units sequence, and re-key it to concept IDs.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~400 words, 1 check + 2 numeric items"
+  },
+  {
+   "id": "lesson-initial-data-and-oscillations",
+   "kind": "lesson",
+   "title": "A law needs a starting state",
+   "paths": [
+    "content/foundation-lessons.mjs:39-51",
+    "content/lesson-sequence.mjs:5"
+   ],
+   "topics": [
+    "ordinary differential equations",
+    "initial value problem",
+    "exponential growth and decay",
+    "simple harmonic oscillator",
+    "first-order systems",
+    "boundary value problem",
+    "existence and uniqueness"
+   ],
+   "teaches": "Solve dy/dt=ky with y(0). Build x(t)=x0 cos ωt + (v0/ω) sin ωt from two initial data. Rewrite a second-order equation as a first-order state system (the basis of numerical stepping). Components obeying Ȧ=−ΩB, Ḃ=ΩA keep A²+B² fixed. Initial data differ from boundary data (x(0)=x(π/ω)=0 is not unique). Solutions can blow up in finite time (y=1/(1−t)). Transfer: x(π/4)=3 m. Variant: x(π/3)=−2 m.",
+   "pedagogy": "Two swings obey the same law but have different histories. A proposed solution must pass two separate checks, substitution and initial data. Step 4 quietly previews the rotating-component structure of parallel transport.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The state-vector and conserved-norm steps set up numerical evolution and transport",
+     "Units kept on ω and kt"
+    ],
+    "issues": [
+     "The purpose of step 4's rotating system (parallel transport) is never named, so it reads as unmotivated",
+     "Check is easy"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md row 'Chapter 0 bridge layers' (dot notation, frequency and oscillator law defined after feedback); transfer answers hand-verified."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the derivations and the initial-versus-boundary counterexample. Name the payoff of the rotating components ('this is what transport will look like'). Pair with the mechanics/phase-space lab inventoried by the labs group.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~440 words"
+  },
+  {
+   "id": "lesson-mechanics-energy-and-pressure",
+   "kind": "lesson",
+   "title": "Motion, stored energy, and pressure work",
+   "paths": [
+    "content/foundation-lessons.mjs:52-63",
+    "content/lesson-sequence.mjs:6"
+   ],
+   "topics": [
+    "Newton's second law",
+    "momentum",
+    "work-energy theorem",
+    "potential energy",
+    "conservation of energy",
+    "pressure",
+    "first law of thermodynamics",
+    "quasistatic process"
+   ],
+   "teaches": "d(½mv²)/dt = F·v. With F=−∇U, K+U is constant, and the zero of potential is arbitrary. A piston gives pressure work p dV and dE = δQ − p dV. The unit check 1 Pa = 1 J/m³ says pressure has the dimensions of energy density, which prepares stress-energy and the cosmological fluid equation. Transfer: a 5 m fall gives 10 m/s. Variant: ΔE = −6 J.",
+   "pedagogy": "Question: 'How can a force exchange energy without making it disappear?' The misconceptions addressed are a held book (force without work), whether insulation blocks work, and whether volume counts as energy.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Pressure-as-energy-density check is a well-chosen bridge to T^μν and the Friedmann fluid equation",
+     "Heat versus stored energy distinguished explicitly"
+    ],
+    "issues": [
+     "Mechanics, potentials and thermodynamics are compressed into three steps",
+     "The heat/internal-energy clarification sits in the formal layer that novices may skip"
+    ],
+    "evidence": "comprehensive-course-review-2026-09-09.md §5 table (asked for exactly this bridge); novice audit row 'Chapter 0 bridge layers' (insulation, internal energy, quasistatic defined)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Split into two cards: energy in mechanics, and pressure work. Keep the piston derivation and the Pa = J/m³ check as the explicit hook into stress-energy.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~470 words"
+  },
+  {
+   "id": "lesson-weightlessness-and-tides",
+   "kind": "lesson",
+   "title": "Release two pebbles, not just one",
+   "paths": [
+    "content/core-practice.mjs:8-20",
+    "content/lesson-sequence.mjs:7"
+   ],
+   "topics": [
+    "equivalence principle",
+    "free fall",
+    "accelerometer",
+    "tidal forces",
+    "relative acceleration",
+    "geodesic deviation"
+   ],
+   "teaches": "A freely falling accelerometer reads zero, yet neighboring free-fall paths still separate. With g(z) = −g0 + κz, the separation obeys ξ̈ = κξ. An accelerating coordinate change removes the common acceleration but not the difference. For small |κ|t², Δξ/ξ0 ≈ κt²/2, with the next correction at fourth order. One accelerometer reading cannot tell rocket from gravity. Transfer: 0.03 m. Variant: −0.01 m.",
+   "pedagogy": "A Newtonian calibration that is labelled as such. It separates 'reading at one event' from 'comparison between neighboring histories', which is the central move of the whole course, and states the local limit quantitatively.",
+   "interaction": null,
+   "physics_model": "Newtonian 1D linear field g(z) = −g0 + κz with ξ̈ = κξ. The lesson states only the short-time expansion ξ0(1 + κt²/2 + O(t⁴)); the closed form ξ0 cosh(√κ t) for κ > 0 (cos for κ < 0) is the reviewer's, not in the source.",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Correct, well-scoped core GR motivation",
+     "Makes 'local' a controlled limit with a stated small parameter",
+     "Matches the Chapter 1 guide takeaway and check"
+    ],
+    "issues": [
+     "One-dimensional only; no in-lesson visual even though the free-fall Earth grid and tidal scenes exist",
+     "The distractor 'one accelerometer is secretly wrong' is weak"
+    ],
+    "evidence": "content/guides.json chapter 1 check/answer; novice audit (§1.1 rebuilt around a spring scale and two test bodies); numbers hand-verified."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the text. Embed a two-pebble drop interactive (separation versus time, with an accelerating-frame toggle), or link the tidal lab. Replace the weak distractor with 'they separate only because of air resistance'.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~380 words"
+  },
+  {
+   "id": "lesson-coordinates-change-measurements-do-not",
+   "kind": "lesson",
+   "title": "Change the coordinates. Keep the measurement.",
+   "paths": [
+    "content/geometry-lessons.mjs:10-29",
+    "content/practice-variants.mjs:5-9",
+    "content/lesson-sequence.mjs:8"
+   ],
+   "topics": [
+    "covectors",
+    "Jacobian",
+    "coordinate transformation",
+    "tensor transformation law",
+    "directional derivative",
+    "differential of a function"
+   ],
+   "teaches": "A sensor moves through the field f=3x−y. Under the nonlinear change u=x, v=y+x², the tangent transforms with J (V'=JV) and the covector with J⁻¹ (ω'=ωJ⁻¹), so df(V)=7 in both charts. Storing covectors as columns explains the inverse transpose. The map is nonlinear, but its action on each tangent space is linear. Transfer: −1. Variant (negative coordinate): 3.",
+   "pedagogy": "The same measured rate is computed twice, and the compensation is shown explicitly. The misconception check has a classmate transform covector components with J. All quantities are dimensionless, so adding x² to y is legitimate.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Called 'especially good' by the comprehensive review",
+     "Exact algebraic proof plus a worked numeric instance; numerically checked at 25 positions"
+    ],
+    "issues": [
+     "The transfer can be answered by direct Cartesian computation, so the checker cannot see whether the transformation was done",
+     "No in-lesson visual (the covector level-plane scene lives elsewhere)"
+    ],
+    "evidence": "comprehensive-course-review-2026-09-09.md line 56; geometry-review.md 'Verification performed' (invariant pairings at 25 positions)."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Carry the prose, steps and feedback verbatim; only re-key prerequisites to concept IDs. Change the transfer to ask for a new-chart covector component (for example ∂f'/∂u) so that the method is assessed. Link to the covector level-plane lab.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~515 words"
+  },
+  {
+   "id": "lesson-hyperbolas-and-rapidity",
+   "kind": "lesson",
+   "title": "Build a boost from exponentials",
+   "paths": [
+    "content/foundation-lessons.mjs:64-76",
+    "content/lesson-sequence.mjs:9"
+   ],
+   "topics": [
+    "hyperbolic functions",
+    "rapidity",
+    "Lorentz transformation",
+    "Lorentz factor",
+    "relativistic velocity addition",
+    "Wigner rotation"
+   ],
+   "teaches": "Define cosh and sinh from exponentials and verify cosh²−sinh²=1. β=tanh η, γ=cosh η, γβ=sinh η. The boost matrix in rapidity form preserves −(ct)²+x². The inverses artanh and arsinh (with d/dy arsinh y = 1/√(1+y²)) are needed later for a light-delay integral. Collinear rapidities add, giving (β1+β2)/(1+β1β2). Noncollinear boosts include a rotation. Transfer: e^η=2 gives 3/5. Variant: 15/17.",
+   "pedagogy": "Circle-versus-hyperbola analogy; functions are built from definitions rather than recalled. Placed after the interval (§3.3) following the novice audit.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Self-contained construction",
+     "Explicit warning that boosts in different directions do not commute"
+    ],
+    "issues": [
+     "No Minkowski-diagram hyperbola visual, where one would help most",
+     "The addition formula is asserted in the formal layer rather than derived",
+     "The arsinh step is a forward reference whose use is not named"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md row 'Rapidity bridge' (moved after §3.3); comprehensive review chapter 5/16 rows requested the hyperbolic-function bridge."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep. Add an interactive invariant hyperbola with a rapidity slider, and show that composing two boosts adds the parameters. Derive the addition formula in a step rather than in the formal layer.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~330 words"
+  },
+  {
+   "id": "lesson-doppler-is-an-observer-measurement",
+   "kind": "lesson",
+   "title": "Chase a photon without slowing it down",
+   "paths": [
+    "content/core-practice.mjs:21-32",
+    "content/lesson-sequence.mjs:10"
+   ],
+   "topics": [
+    "relativistic Doppler effect",
+    "four-momentum",
+    "four-velocity",
+    "observer-dependent energy",
+    "null vectors",
+    "relativistic aberration"
+   ],
+   "teaches": "A photon's energy as measured by an observer is E_obs = −p·u. For a chasing observer, E_obs/E = γ(1−β) = √((1−β)/(1+β)). The transformed momentum stays null, so the speed is still c. The general factor γ(1−β cos θ) and the aberration formula follow, and these local formulas hold in orthonormal frames in curved spacetime. Transfer: β=3/5 gives 1/2. Variant: approaching at β=−4/5 gives 3.",
+   "pedagogy": "Resolves the 'same speed, different energy' puzzle with the operational contraction that later underlies gravitational and cosmological redshift.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Establishes E = −p·u as the reusable definition of measured energy"
+    ],
+    "issues": [
+     "Short; aberration only stated",
+     "Negative β for an approaching observer may confuse novices",
+     "No visual"
+    ],
+    "evidence": "comprehensive review chapter 3 row (asked for a relativistic Doppler calculation); answers hand-verified."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep as the canonical 'energy is a contraction' lesson and reuse it explicitly in gravitational redshift and cosmological redshift lessons. Replace signed β with 'toward/away' wording plus a small observer-velocity visual.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~315 words"
+  },
+  {
+   "id": "lesson-two-maps-one-sphere",
+   "kind": "lesson",
+   "title": "Give one sphere two reliable addresses",
+   "paths": [
+    "content/geometry-lessons.mjs:30-49",
+    "content/practice-variants.mjs:10-14",
+    "content/lesson-sequence.mjs:11"
+   ],
+   "topics": [
+    "manifold",
+    "coordinate chart",
+    "atlas",
+    "stereographic projection",
+    "transition map",
+    "coordinate singularity"
+   ],
+   "teaches": "Build north- and south-pole stereographic charts (u,v) = (X,Y)/(1−Z) and (p,q) = (X,Y)/(1+Z), with the inverse map. The transition is (p,q) = (u,v)/(u²+v²), which is its own inverse with determinant −1/(u²+v²)². The Jacobian at (2,0) transforms a tangent (1,2) to (−1/4, 1/2). A chart can fail where the surface is perfectly regular, and a manifold needs no embedding. Transfer: 3/4. Variant: 1/2.",
+   "pedagogy": "Question: 'What should a map do when the place you want is missing?' Exploding coordinates are presented as a warning about the map, which seeds the later horizon story. The visual keeps both addresses visible for the same point.",
+   "interaction": {
+    "controls": [
+     "Point presets: Worked example, Two coordinates, Equator, Southward, North pole",
+     "Projection from: North pole / South pole",
+     "Drag to rotate"
+    ],
+    "what_updates": "Highlighted point on the sphere, the active projection ray/plane, both chart addresses, and 'not defined' when the point is the excluded pole",
+    "readouts": [
+     "(X,Y,Z)",
+     "north-pole projection (u,v) or 'not defined'",
+     "south-pole projection (p,q)"
+    ],
+    "rendering": "three.js sphere with KaTeX overlay labels; SVG orthographic fallback without WebGL (web/visual-lessons.js, inventoried by the labs group)"
+   },
+   "physics_model": "Exact stereographic projection formulas on the unit sphere; chart inverses and transitions verified by scripts/check-visual-lessons.mjs.",
+   "screenshots": [
+    "qa/visual-lesson-charts-1440-light.png",
+    "qa/visual-lesson-charts-1440-dark.png",
+    "qa/visual-lesson-charts-390-light.png",
+    "qa/visual-lesson-charts-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Text and visual share one convention; clean readouts (screenshot shows north pole 'not defined' next to (p,q)=(0,0))",
+     "Chart inverses checked at 169 points and transitions at 168"
+    ],
+    "issues": [
+     "Presets only; no arbitrary point dragging",
+     "Stereographic algebra is heavy for a first contact with manifolds",
+     "Does not explicitly foreshadow the Schwarzschild r=2M coordinate failure"
+    ],
+    "evidence": "geometry-review.md; visual-lessons-review.md; novice audit row '§4.1 interactive chart experience' (moved after the explanations); QA screenshots viewed."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep text and model. Add a draggable point and a sentence plus link foreshadowing the horizon as a coordinate singularity. Consider moving the full inverse derivation into the deeper layer.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~500 words, 1 interactive model"
+  },
+  {
+   "id": "lesson-a-metric-converts-labels-into-lengths",
+   "kind": "lesson",
+   "title": "Teach a coordinate grid how to measure",
+   "paths": [
+    "content/geometry-lessons.mjs:50-69",
+    "content/practice-variants.mjs:15-19",
+    "content/lesson-sequence.mjs:12"
+   ],
+   "topics": [
+    "metric tensor",
+    "line element",
+    "polar coordinates",
+    "coordinate basis",
+    "physical versus coordinate components"
+   ],
+   "teaches": "Derive ds² = dr² + r²dθ² from Cartesian differentials. Then g = diag(1, r²), with g_θθ in length² and g_rr dimensionless. At r = 3 m, dr = 0.03 m and dθ = 0.01 give equal lengths. The lesson separates a local tangent norm, a finite chord and a two-leg path, and gives the exact instantaneous speed √(ṙ² + r²θ̇²). Position-dependent components do not prove curvature. Transfer: 5 m/s. Variant: 13 m/s.",
+   "pedagogy": "Walking between two spokes shows why the same angle means a longer trip farther out. Shrinking the visual's coordinate cell separates an exact local rule from a finite-step approximation.",
+   "interaction": {
+    "controls": [
+     "Radius presets: 1 m, 3 m, 6 m",
+     "Coordinate steps: Large, Smaller, Tiny cell"
+    ],
+    "what_updates": "Magnified polar cell with radial and angular rulers and its diagonal; readouts recomputed",
+    "readouts": [
+     "Δr",
+     "r Δθ",
+     "tangent prediction ℓ_tan",
+     "actual endpoint distance ℓ_end"
+    ],
+    "rendering": "SVG geometry with KaTeX labels; equal physical scale in both directions, disclosed magnification"
+   },
+   "physics_model": "Euclidean plane: exact chord √(Δr² + 2r(r+Δr)(1−cos Δθ)) versus the tangent norm √(Δr² + r²Δθ²); convergence verified by scripts/check-visual-lessons.mjs.",
+   "screenshots": [
+    "qa/visual-lesson-metric-1440-light.png",
+    "qa/visual-lesson-metric-1440-dark.png",
+    "qa/visual-lesson-metric-390-light.png",
+    "qa/visual-lesson-metric-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Rare care in separating the metric on tangent vectors from finite distances; screenshot shows ℓ_tan = 0.06708 m versus ℓ_end = 0.06722 m",
+     "Units of metric components explained"
+    ],
+    "issues": [
+     "Only presets; no free sliders",
+     "Overlaps with dimensions-before-symbols (same polar example)"
+    ],
+    "evidence": "geometry-review.md; visual-lessons-review.md ('Changes made after visual criticism'); QA screenshot viewed."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep text and model. Replace presets with continuous r and Δθ sliders. Merge the unit discussion with dimensions-before-symbols so the polar example is taught once.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~500 words, 1 interactive model"
+  },
+  {
+   "id": "lesson-dimensions-before-symbols",
+   "kind": "lesson",
+   "title": "Units belong to coordinates, too",
+   "paths": [
+    "content/foundation-lessons.mjs:26-38",
+    "content/lesson-sequence.mjs:13"
+   ],
+   "topics": [
+    "units and dimensional analysis",
+    "metric tensor",
+    "geometrized units",
+    "coordinate transformation",
+    "spacetime interval"
+   ],
+   "teaches": "Every term of ds² has units of length². Relabelling X = ct changes g_tt = −c² into g_XX = −1 while the interval stays the same. [g_ab] = L²/([x^a][x^b]). The Galilean shift y = x − vt produces the mixed coefficient g_ty = v, which has speed units. Setting c = 1 matches time and length units but does not turn angles into lengths. Transfer: g_θθ = 9 m². Variant (q = 2θ): 2.25 m².",
+   "pedagogy": "Its history is itself a lesson learned. It was first placed at the start of Chapter 0, where it required metrics before they were taught, and was moved to §4.5 while keeping its practice identity.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Makes the component-unit bookkeeping behind c = 1 explicit",
+     "Good mixed-term counterexample"
+    ],
+    "issues": [
+     "The mixed-term example is buried in the formal layer",
+     "Largely repeats the polar metric from the previous lesson",
+     "Easy check"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md opening paragraph and row 'First Chapter 0 bridge'."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Merge with the metric lesson or turn into a geometrized-units card (c = G = 1, converting M to length), which grbook.ai needs anyway for Schwarzschild. Promote the y = x − vt mixed-term example to a step.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~380 words"
+  },
+  {
+   "id": "lesson-affine-is-a-parameter-choice",
+   "kind": "lesson",
+   "title": "A straight path can have an accelerating label",
+   "paths": [
+    "content/core-practice.mjs:33-44",
+    "content/lesson-sequence.mjs:14"
+   ],
+   "topics": [
+    "affine parameter",
+    "reparametrization",
+    "geodesic equation",
+    "proper time",
+    "null geodesics",
+    "four-acceleration"
+   ],
+   "teaches": "Relabelling a straight worldline nonlinearly gives d²x/dσ² + Γ(dx/dσ)(dx/dσ) = (λ''/λ')(dx/dσ), an extra term parallel to the tangent. Only λ = Aσ + B preserves affine form, and λ = √σ gives −1/(2σ). Proper time is affine for timelike geodesics. Null curves need an affine parameter fixed by a physical normalization. Transfer: −1/8. Variant (ln σ): −1/5.",
+   "pedagogy": "Question: 'Can relabeling points create a nonzero second derivative?' The misconception that every nonzero second derivative is a force is answered by the check.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Clean chain-rule demonstration that isolates a common confusion"
+    ],
+    "issues": [
+     "Step 2 jumps to the general-chart equation with Γ without showing the step",
+     "Transfers are pure calculus (λ''/λ') and do not test the geodesic concept",
+     "No visual, although an affine-parameter figure exists in the figure set"
+    ],
+    "evidence": "comprehensive review chapter 5 row ('affine/null subtleties' genuinely taught); answers hand-verified."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the argument. Add a 'speed of the pen' animation (same path, uniform versus accelerating tick marks). Replace one numeric item with 'is this parameterization affine?' judgements on given worldlines.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~340 words"
+  },
+  {
+   "id": "lesson-differentiate-the-arrow-not-its-address",
+   "kind": "lesson",
+   "title": "An unchanged arrow can have changing components",
+   "paths": [
+    "content/geometry-lessons.mjs:70-89",
+    "content/practice-variants.mjs:20-24",
+    "content/lesson-sequence.mjs:15"
+   ],
+   "topics": [
+    "covariant derivative",
+    "orthonormal frame",
+    "polar coordinates",
+    "connection coefficients",
+    "Christoffel symbols",
+    "coordinate versus orthonormal basis"
+   ],
+   "teaches": "A fixed eastward vector expanded in the rotating unit polar frame is cos θ ê_r − sin θ ê_θ. The product rule gives four terms that cancel, and collecting them yields the frame connection (∇_θV)^r̂ = ∂_θV^r̂ − V^θ̂ and (∇_θV)^θ̂ = ∂_θV^θ̂ + V^r̂. Hatted components differ from coordinate components (V^θ = V^θ̂/r). Nonzero connection coefficients can describe a flat plane. Transfer: 1 rad/s. Variant: −2 s⁻¹.",
+   "pedagogy": "Contrasting the arrow with its address shows that differentiating only the component numbers invents change. The practice pushes on the unit-frame versus coordinate-component factor of r.",
+   "interaction": {
+    "controls": [
+     "Basis angle θ slider (degrees)",
+     "Angle presets 0°, 45°, 90°, 180°"
+    ],
+    "what_updates": "Rotating ê_r and ê_θ around the fixed V = (1,0); component values",
+    "readouts": [
+     "V = (1,0)",
+     "V^r̂ = cos θ",
+     "V^θ̂ = −sin θ",
+     "dV/dθ = (0,−1) + (0,1) = 0"
+    ],
+    "rendering": "SVG with KaTeX labels"
+   },
+   "physics_model": "Euclidean plane, orthonormal polar frame; basis-derivative cancellation verified through a full turn in scripts/check-visual-lessons.mjs.",
+   "screenshots": [
+    "qa/visual-lesson-basis-1440-light.png",
+    "qa/visual-lesson-basis-1440-dark.png",
+    "qa/visual-lesson-basis-390-light.png",
+    "qa/visual-lesson-basis-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Directly supplies the intuition behind the connection before Christoffel symbols",
+     "Careful hatted versus coordinate distinction (formal layer and visual footnote)"
+    ],
+    "issues": [
+     "The derivative readout is a fixed identity rather than per-angle vector arrows for the two cancelling terms",
+     "Visual shows only the unit frame, not the coordinate basis ∂_θ = r ê_θ",
+     "UI state bug in qa/visual-lesson-basis-1440-dark.png: the 180° preset stays highlighted while the slider reads θ = 273° (the readouts 0.052 and 0.999 are correct for 273°)"
+    ],
+    "evidence": "geometry-review.md; visual-lessons-review.md; guides.json chapter 6 check; QA screenshot at θ = 273° viewed."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep text. In grbook.ai draw the two cancelling derivative arrows at each angle and add a toggle between unit and coordinate basis (showing length r).",
+    "effort": "small"
+   },
+   "size": "4 steps, ~490 words, 1 interactive model"
+  },
+  {
+   "id": "lesson-flows-that-do-not-commute",
+   "kind": "lesson",
+   "title": "Do the two moves in the other order",
+   "paths": [
+    "content/foundation-lessons.mjs:77-89",
+    "content/lesson-sequence.mjs:16"
+   ],
+   "topics": [
+    "Lie bracket",
+    "vector fields as derivations",
+    "commutator of flows",
+    "torsion",
+    "coordinate basis"
+   ],
+   "teaches": "[X,Y]f = X(Yf) − Y(Xf), with component formula X^b∂_bY^a − Y^b∂_bX^a. [∂x, x∂y] = ∂y. Composing the flows explicitly gives endpoints that differ by ε² in y. Coordinate bases commute, and torsion is T(X,Y) = ∇_XY − ∇_YX − [X,Y]. A noncommuting frame is not by itself curvature or torsion. Transfer: 6. Variant (reversed fields): −3.",
+   "pedagogy": "Preparation placed at the start of §7.2, before torsion is defined. The hook is a concrete 'move right, then up at speed x' scenario, followed by an actual flow composition.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Fixes the review's 'Lie bracket before torsion' gap",
+     "Checks the bracket by composing moves, not only by formula"
+    ],
+    "issues": [
+     "No visual, although a flow-order lab exists elsewhere (docs/flow-order-review.md)",
+     "The sign of a closed commutator loop is left vague",
+     "Torsion is defined in a single sentence"
+    ],
+    "evidence": "comprehensive-course-review-2026-09-09.md line 193; course-evolution.md 'Assessed preparation' increment."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep. Embed or link the flow-order interactive so the ε² gap is seen. Fix the loop-sign sentence by drawing the four-leg loop.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~330 words"
+  },
+  {
+   "id": "lesson-carry-a-direction-without-turning-it",
+   "kind": "lesson",
+   "title": "Carry a direction home—and find it changed",
+   "paths": [
+    "content/geometry-lessons.mjs:90-110",
+    "content/practice-variants.mjs:25-29",
+    "content/lesson-sequence.mjs:17"
+   ],
+   "topics": [
+    "parallel transport",
+    "holonomy",
+    "Levi-Civita connection",
+    "induced connection",
+    "tangent plane",
+    "angular excess",
+    "Gaussian curvature",
+    "Gauss-Bonnet theorem"
+   ],
+   "teaches": "Tangent projection P = I − nnᵀ. The transport rule P dV/ds = 0 is checked on a great circle. On the octant loop A→N→B→A, the vector goes (0,0,1) → (−1,0,0) → (−1,0,0) → (0,1,0), a right angle equal to area/a² = π/2. A single finite projection is not transport. Norm is preserved, rotation is defined modulo 2π, and the angular excess of a geodesic triangle equals area/a². Transfer: 15°. Variant: 10°.",
+   "pedagogy": "Question: 'How can an arrow turn if you never turn it?' The local rule comes first, then one verified arc, then the loop. The check asks whether projecting once at the end would do, and why not. It replaced the chapter's older opening animation.",
+   "interaction": {
+    "controls": [
+     "Step tabs: 1 Tangent plane, 2 First arc, 3 Second arc, 4 Closed loop",
+     "Drag to rotate"
+    ],
+    "what_updates": "Active path arc, transported vector, tangent plane at A",
+    "readouts": [
+     "V_final = (0,1,0)",
+     "|Δα| = π/2"
+    ],
+    "rendering": "three.js opaque sphere with tangent-plane quad and KaTeX labels; SVG fallback"
+   },
+   "physics_model": "Exact rotations along three great-circle arcs of the unit sphere; tangency, unit norm and purely normal ambient derivative verified on every arc (scripts/check-visual-lessons.mjs).",
+   "screenshots": [
+    "qa/visual-lesson-transport-1440-light.png",
+    "qa/visual-lesson-transport-1440-dark.png",
+    "qa/visual-lesson-transport-390-light.png",
+    "qa/visual-lesson-transport-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Exact, fully checked calculation with a synchronized visual",
+     "Explicit about what is proved (octant) versus stated (general area theorem)",
+     "QA screenshot (Closed loop tab) shows V_start and V_final in the same tangent plane at A with the octant loop drawn, plus the caption |Δα| = ∬K dA = π/2"
+    ],
+    "issues": [
+     "Longest geometry lesson (~730 words)",
+     "Fixed octant loop only; no latitude-circle or user-drawn loop (the separate parallel-transport lab covers more)",
+     "Notation drift: Δψ in text, Δα in visual and variant"
+    ],
+    "evidence": "geometry-review.md (all three arcs checked); visual-lessons-review.md; course-architecture.md (replaced opening animation); QA screenshot viewed."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Flagship holonomy lesson. Port text and model essentially unchanged, unify Δψ/Δα, and link onward to the fuller parallel-transport lab for arbitrary loops and latitude circles.",
+    "effort": "small"
+   },
+   "size": "5 steps, ~730 words, 1 interactive model"
+  },
+  {
+   "id": "lesson-measure-curvature-with-a-string",
+   "kind": "lesson",
+   "title": "Measure curvature without leaving the surface",
+   "paths": [
+    "content/geometry-lessons.mjs:111-130",
+    "content/practice-variants.mjs:30-34",
+    "content/lesson-sequence.mjs:18"
+   ],
+   "topics": [
+    "Gaussian curvature",
+    "geodesic circle",
+    "intrinsic versus extrinsic curvature",
+    "Taylor expansion",
+    "Bertrand-Diguet-Puiseux theorem"
+   ],
+   "teaches": "C(ρ) = 2πa sin(ρ/a). The ratio C/(2πρ) = 1 − ρ²/(6a²) + O(ρ⁴/a⁴), and K = lim 6/ρ² (1 − C/2πρ) = 1/a². The cylinder is a control: bent but intrinsically flat. Finite circles give only estimates. The general theorem is stated and cited (Kriegl, Thm 11.1), not proved. Transfer: infer a ≈ 2 m from a measured ratio. Variant: a ≈ 5 m.",
+   "pedagogy": "Could inhabitants discover curvature with a string? The lesson distinguishes the surface radius from the ambient radius and uses an inverse measurement problem as the transfer.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Second, independent operational curvature measurement alongside holonomy",
+     "Transfer is a genuine inverse problem with a self-consistency check"
+    ],
+    "issues": [
+     "No visual; a string-circle demo on sphere, cylinder and saddle is the obvious companion",
+     "Negative curvature (saddle) is not covered"
+    ],
+    "evidence": "geometry-review.md (limit checked at shrinking radii; transfer 2.00017 m); answers re-verified."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Port the text unchanged. In grbook.ai add an interactive string circle on sphere, cylinder and saddle (K > 0, 0, < 0) with a live C/(2πρ) readout.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~590 words"
+  },
+  {
+   "id": "lesson-contract-curvature-by-hand",
+   "kind": "lesson",
+   "title": "A trace loses information you can name",
+   "paths": [
+    "content/core-practice.mjs:45-56",
+    "content/lesson-sequence.mjs:19"
+   ],
+   "topics": [
+    "Ricci tensor",
+    "Ricci scalar",
+    "Riemann curvature tensor",
+    "Weyl tensor",
+    "Kretschmann scalar",
+    "index contraction",
+    "vacuum curvature"
+   ],
+   "teaches": "A six-entry orthonormal curvature table (A..F) with pair symmetries. R_ab = η^cd R_cadb, where the temporal index contributes a sign. The Ricci diagonal is A+B+C, −A+D+E, −B+D+F and −C+E+F. The vacuum counterexample q(−2,1,1,−1,−1,2) has zero Ricci and scalar curvature but Kretschmann 48q², the Schwarzschild pattern. Lorentzian invariants need not be positive. Transfer: R = 24. Variant: R_22 = 8.",
+   "pedagogy": "Question: 'Can you exhibit nonzero curvature whose entire Ricci tensor vanishes?' A supplied table makes the loss of information under contraction concrete.",
+   "interaction": null,
+   "physics_model": "Algebraic curvature tensor at a point; contraction, signs and multiplicities independently asserted by contract() in scripts/check-physics-calculations.mjs (vacuum Ricci = 0, K = 48, R = 24, R22 = 8).",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Directly answers the review's request for a supplied component table",
+     "Independently verified by code, not by the lesson's own formulas"
+    ],
+    "issues": [
+     "'Sectional entries' jargon is unexplained",
+     "The table is supplied rather than derived from a metric",
+     "Formal mention of vanishing-invariant spacetimes is unreferenced"
+    ],
+    "evidence": "scripts/check-physics-calculations.mjs (contract() assertions); comprehensive review chapter 9 row."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Port text as-is. Strong candidate for a small interactive 'curvature table' where learners set A..F and see Ricci, scalar, Weyl remainder and Kretschmann update, with a Schwarzschild preset.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~350 words"
+  },
+  {
+   "id": "lesson-what-a-tidal-instrument-measures",
+   "kind": "lesson",
+   "title": "Read the tidal matrix as an instrument",
+   "paths": [
+    "content/core-practice.mjs:57-68",
+    "content/lesson-sequence.mjs:20"
+   ],
+   "topics": [
+    "tidal tensor",
+    "geodesic deviation",
+    "Riemann curvature tensor",
+    "electric part of the Weyl tensor",
+    "magnetic part of the Weyl tensor",
+    "Newtonian limit",
+    "shear and expansion"
+   ],
+   "teaches": "Spherical Newtonian tides give ξ̈ = diag(2q, −q, −q)ξ with q = GM/r³. Geodesic deviation gives R_î0̂ĵ0̂ = (1/c²)diag(−2q, q, q). A trace-free map means no leading volume change but immediate shape distortion. One observer measures at most 6 of the 20 Riemann components; the electric and magnetic Weyl parts together hold the 10 vacuum components. Apparatus-size limits apply. Transfer: 0.06 m/s². Variant: −0.1 m/s².",
+   "pedagogy": "'What can a tiny cloud determine, and what can it miss?' The curvature sign convention is calibrated against a physical relative acceleration.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/tidal-lesson-position.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Operational definition of what curvature a local experiment recovers",
+     "Mobile rendering is readable, with clear See the idea / Work it out / Go deeper tabs (screenshot)"
+    ],
+    "issues": [
+     "Magnetic Weyl definition in the formal layer is graduate-level and dense",
+     "No in-lesson visual although the tidal deformation scene exists"
+    ],
+    "evidence": "comprehensive review chapter 10 row (requested apparatus limits and magnetic Weyl at advanced depth); QA screenshot viewed."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep steps 1–3. Pair with the tidal-deformation 3D lab (cloud stretching and squeezing with a trace readout). Move the magnetic-Weyl paragraph to an optional advanced note.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~410 words"
+  },
+  {
+   "id": "lesson-fields-carry-energy",
+   "kind": "lesson",
+   "title": "A field has motion and stored energy at every point",
+   "paths": [
+    "content/foundation-lessons.mjs:90-101",
+    "content/lesson-sequence.mjs:21"
+   ],
+   "topics": [
+    "classical field theory",
+    "wave equation",
+    "energy density",
+    "energy flux",
+    "continuity equation",
+    "electromagnetic field",
+    "Poynting vector",
+    "Poynting theorem",
+    "stress-energy tensor"
+   ],
+   "teaches": "The string is a model field: energy density μφ_t²/2 + 𝒯φ_x²/2, wave equation μφ_tt = 𝒯φ_xx from tension, and flux j = −𝒯φ_tφ_x with ∂_te + ∂_xj = 0. The EM energy density ε0E²/2 + B²/2μ0, S = E×B/μ0 and ∂u/∂t + ∇·S = −J·E are then stated as a supplied model. A plane wave has |S| = cu. T^00 = u and T^0i = S_i/c. Transfer: 4 J/m³. Variant: string flux 2 W.",
+   "pedagogy": "Preparation at the start of §11.6. 'Where is energy while a wave crosses empty space?' The string derivation is complete. The EM part is presented as model input, and the Maxwell action is flagged as a preview.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Honest, complete string energy-flux derivation",
+     "Correctly relates field energy and flux to stress-energy components"
+    ],
+    "issues": [
+     "Step 3 packs E, B, the Lorentz force, the cross product, Maxwell energy and Poynting's theorem into one paragraph; a novice gets vocabulary, not electromagnetism",
+     "~530 words, the densest foundation lesson"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md 'Remaining teaching review' (Chapter 11/13 field energy and Maxwell flagged); comprehensive review §5 table row 'Field Lagrangians and electromagnetism'."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the string half verbatim as the core lesson. Split EM into a separate optional card with a travelling E/B wave and Poynting-arrow visual. In grbook.ai let the tutor scaffold EM for learners who lack it.",
+    "effort": "medium"
+   },
+   "size": "3 steps, ~530 words"
+  },
+  {
+   "id": "lesson-poisson-from-a-flux",
+   "kind": "lesson",
+   "title": "Find the source by enclosing it",
+   "paths": [
+    "content/foundation-lessons.mjs:102-113",
+    "content/lesson-sequence.mjs:22"
+   ],
+   "topics": [
+    "Poisson equation",
+    "Gauss's law for gravity",
+    "divergence theorem",
+    "gravitational flux",
+    "Dirac delta function",
+    "Green's function",
+    "Newtonian limit"
+   ],
+   "teaches": "The outward flux of g is −4πGM on every sphere. The divergence theorem gives ∇·g = −4πGρ and hence ∇²Φ = 4πGρ. A point source satisfies ∇²(1/r) = −4πδ³, and potentials superpose through Φ = −G∫ρ/|x−x'|. Boundary conditions select the harmonic part. Transfer: a/(πGρ) = 2/3 inside a uniform ball. Variant: enclosed fraction 1/8.",
+   "pedagogy": "Preparation at the start of §12.4 so that the Einstein coupling can be calibrated. 'How can a field have zero divergence outside a star and still reveal its mass?'",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Supplies the 4π normalization that the Newtonian-limit matching needs",
+     "Clear vacuum-at-a-point versus enclosed-source distinction"
+    ],
+    "issues": [
+     "Delta distribution defined via test functions, which is abstract for novices",
+     "No visual; nested flux spheres would be natural"
+    ],
+    "evidence": "comprehensive review chapter 12 row ('Derive Poisson's equation from flux in a worked bridge')."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep. Add a flux-through-concentric-spheres visual (area grows as r², field falls as 1/r², flux is constant). Soften the distribution definition into an intuitive shrinking-sphere argument, and keep the rigorous form in the deeper layer.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~360 words"
+  },
+  {
+   "id": "lesson-variations-and-boundary-data",
+   "kind": "lesson",
+   "title": "Say what is allowed to move",
+   "paths": [
+    "content/foundation-lessons.mjs:114-125",
+    "content/lesson-sequence.mjs:23"
+   ],
+   "topics": [
+    "calculus of variations",
+    "action principle",
+    "Euler-Lagrange equations",
+    "integration by parts",
+    "boundary conditions",
+    "Lagrange multipliers"
+   ],
+   "teaches": "δS = [m ẋ η] − ∫(m ẍ + U')η dt. Fixed endpoints give η = 0 but not η' = 0. Free endpoints produce a separate boundary condition. For f = x+y on the unit circle, Lagrange multipliers give ±√2. Stationary does not mean minimum. This prepares the derivative boundary term in Einstein–Hilbert. Transfer: ẍ = −12 m/s². Variant: η'(1) = −2.",
+   "pedagogy": "Room versus staircase analogy for constrained stationarity. The check refutes 'fixed endpoint fixes the slope' with η = t(1−t).",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Isolates exactly the boundary issue that later matters for GHY"
+    ],
+    "issues": [
+     "The Lagrange-multiplier example is disconnected from the action example",
+     "Short; no picture of varied paths (an action-variation figure exists)"
+    ],
+    "evidence": "course-evolution.md 'Assessed preparation' increment; answers hand-verified."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep. Add an interactive path-variation view (drag a bump η, watch S(ε) and the endpoint term). Move the multiplier example to its own card or connect it to constrained geodesics.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~350 words"
+  },
+  {
+   "id": "lesson-boundary-action-is-part-of-the-question",
+   "kind": "lesson",
+   "title": "A boundary term that refuses to disappear",
+   "paths": [
+    "content/core-practice.mjs:69-80",
+    "content/lesson-sequence.mjs:24"
+   ],
+   "topics": [
+    "Einstein-Hilbert action",
+    "Gibbons-Hawking-York boundary term",
+    "extrinsic curvature",
+    "induced metric",
+    "calculus of variations",
+    "boundary conditions"
+   ],
+   "teaches": "The toy action S = ∫q'' = q'(1) − q'(0). The fixed-value variation η = x(1−x) still gives δS = −2, and adding −[q'] cancels the boundary dependence. For the cylinder r = R in Minkowski spacetime: induced metric diag(−1, R², R² sin²θ), K = 2/R and ∫√|h| K = 8πRΔt. Corners and other segments are mentioned. Transfer: −6. Variant: K = 1/2.",
+   "pedagogy": "A deliberately pure-boundary toy isolates the logical point before the GR machinery. It is honest that the toy has no bulk dynamics.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Excellent minimal toy",
+     "Concrete K computation for a flat-spacetime boundary with nonzero extrinsic curvature"
+    ],
+    "issues": [
+     "The link from the toy to GR's actual variation is asserted",
+     "Formal layer depends on a convention 'in the next section' (forward reference)",
+     "Advanced; of limited value on a novice path"
+    ],
+    "evidence": "comprehensive review §7 chapter 14 context and F-list; course-evolution.md 'Every chapter asks the learner to calculate'."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep for an optional advanced action module. Inline the sign convention for K rather than forward-referencing it.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~360 words"
+  },
+  {
+   "id": "lesson-symmetry-earns-a-charge",
+   "kind": "lesson",
+   "title": "Earn a conserved quantity from a symmetry",
+   "paths": [
+    "content/core-practice.mjs:81-92",
+    "content/lesson-sequence.mjs:25"
+   ],
+   "topics": [
+    "Noether's theorem",
+    "conserved quantities",
+    "cyclic coordinates",
+    "energy function",
+    "Killing vector",
+    "Killing equation",
+    "conserved quantities along geodesics",
+    "conserved currents"
+   ],
+   "teaches": "A translation-invariant Lagrangian conserves p_x. The energy function E = q̇ ∂L/∂q̇ − L obeys dE/dt = −∂L/∂t. Along geodesics, d(ξ·u)/dλ = u^a u^b ∇_(aξ_b) = 0 when the Killing equation holds. J^a = T^ab ξ_b is conserved, but global charges need boundary flux accounting. Transfer: p_x = 8. Variant: specific energy e = f dt/dτ = 3/2.",
+   "pedagogy": "Preparation at the start of §15.2. The particle example comes before the covariant identity, and the misconception 'Noether makes every energy constant' is addressed.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Gives the conserved E and L used for Schwarzschild orbits",
+     "Careful about when a global energy exists"
+    ],
+    "issues": [
+     "Jumps from particle mechanics to the covariant Killing identity in one step; symmetrization notation is unexplained"
+    ],
+    "evidence": "guides.json chapter 15; comprehensive review chapter 15 context; variant answer hand-verified."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep. Insert an intermediate step (a static metric has a cyclic t, so p_t is conserved) before the Killing identity. Pair with the effective-potential orbit demo in grbook.ai.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~380 words"
+  },
+  {
+   "id": "lesson-orbit-conservation",
+   "kind": "lesson",
+   "title": "Why an orbit keeps its angular momentum",
+   "paths": [
+    "content/bridge-lessons.mjs:14-32",
+    "content/practice-variants.mjs:35-39",
+    "content/lesson-sequence.mjs:26"
+   ],
+   "topics": [
+    "angular momentum",
+    "central force",
+    "Kepler's second law",
+    "polar coordinates",
+    "Binet equation",
+    "conic sections",
+    "Schwarzschild geodesics"
+   ],
+   "teaches": "h = xẏ − yẋ is conserved for any central force (a determinant of parallel vectors). h = r²φ̇ and dA/dt = h/2. The radial acceleration is r̈ − rφ̇², and with u = 1/r the Newtonian orbit equation is u'' + u = GM/h². The conic solution follows. In Schwarzschild, cyclic φ conserves ℓ = r² dφ/dτ. Transfer: h = 11 m²/s. Variant (clockwise): −10.",
+   "pedagogy": "Preparation at the start of §16.6. It explicitly excludes radial motion (h = 0) and r = 0, and separates conservation (symmetry) from orbit shape (force law).",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Cross-reviewed with no incorrect result; positive-radius and timelike qualifications added",
+     "Clean symmetry-versus-dynamics distinction"
+    ],
+    "issues": [
+     "Four dense steps (~540 words)",
+     "No orbit visual (swept-area animation would be natural)"
+    ],
+    "evidence": "geometry-review.md 'Independent cross-review of the prerequisite bridges'; causality-review.md algebra checks 1–2."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep derivation verbatim. Add an interactive orbit with swept-area wedges and a force-law toggle. Place it just before the Schwarzschild effective-potential lesson in grbook.ai.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~540 words"
+  },
+  {
+   "id": "lesson-phase-drift",
+   "kind": "lesson",
+   "title": "A tiny frequency change can rotate an entire orbit",
+   "paths": [
+    "content/bridge-lessons.mjs:33-51",
+    "content/practice-variants.mjs:40-44",
+    "content/lesson-sequence.mjs:27"
+   ],
+   "topics": [
+    "perihelion precession",
+    "resonance",
+    "secular terms",
+    "Poincaré-Lindstedt method",
+    "Taylor expansion",
+    "Schwarzschild orbit equation"
+   ],
+   "teaches": "y'' + y = C cos φ has the resonant particular solution (C/2)φ sin φ. cos((1−δ)φ) ≈ cos φ + δφ sin φ, so the growing term is really a frequency shift valid while δφ is small. With δ = 3m/p the advance is 6πGM/(pc²). The formal layer shows which terms of 3mu0² resonate. Transfer: exact toy advance 2π(1/0.98 − 1) = 0.12823 rad. Variant: retrograde toy −0.12320 rad.",
+   "pedagogy": "'Why does a small correction grow into a measurable shift?' The hard part of the Mercury calculation, the secular term, is taught before the numbers. The check targets extrapolating a truncated expansion.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Explains accumulation of perihelion advance, which textbooks often skip",
+     "Resonance coefficient independently checked"
+    ],
+    "issues": [
+     "Uses the §17.5 relativistic orbit equation before it is derived (review chapter 16 row)",
+     "No visual; a precessing ellipse with a δ slider is an obvious win"
+    ],
+    "evidence": "causality-review.md check 3 (resonance); geometry-review.md cross-review; comprehensive review chapter 16 row."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep text. Place it after the Schwarzschild orbit equation in grbook.ai. Add an interactive comparing the truncated secular solution with the resummed phase over many orbits.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~540 words"
+  },
+  {
+   "id": "lesson-horizon-directions",
+   "kind": "lesson",
+   "title": "At a horizon, ask which directions lead into the future",
+   "paths": [
+    "content/bridge-lessons.mjs:71-89",
+    "content/practice-variants.mjs:50-54",
+    "content/lesson-sequence.mjs:28"
+   ],
+   "topics": [
+    "Eddington-Finkelstein coordinates",
+    "Schwarzschild metric",
+    "event horizon",
+    "light cone",
+    "null geodesics",
+    "tortoise coordinate",
+    "coordinate singularity",
+    "Kretschmann scalar",
+    "areal radius"
+   ],
+   "teaches": "r_* and advanced time v give the regular metric −fc²dv² + 2c dv dr (determinant −c²). Factoring the null condition keeps the dv = 0 branch. In ρ = r/r_s and τ_plot = cv/r_s − ρ the slopes are −1 and (ρ−1)/(ρ+1), equal to 1/2, 0 and −1/3 at ρ = 3, 1 and 1/2. Timelike futures lie between the two slopes. The event horizon is defined globally, not by a local cone tilt, and the Kretschmann scalar is 12/r_s⁴ at the horizon but diverges at r = 0. Transfer: −1/7. Variant: 1/3.",
+   "pedagogy": "'Can a future-directed light ray point outward and still lose areal radius?' The directions are computed from the metric, never drawn as a funnel, and coordinate slope is kept separate from local light speed.",
+   "interaction": {
+    "controls": [
+     "Event presets: Outside, On the horizon, Inside"
+    ],
+    "what_updates": "Event marker, ingoing and outgoing null arrows, shaded future wedge relative to the horizon line ρ = 1 in a near-horizon magnified window",
+    "readouts": [
+     "ρ",
+     "ingoing slope dρ/dτ_plot = −1",
+     "outgoing slope (ρ−1)/(ρ+1)"
+    ],
+    "rendering": "SVG plot with equal unit scales and KaTeX labels"
+   },
+   "physics_model": "Radial null directions of ingoing Eddington–Finkelstein Schwarzschild in dimensionless coordinates; null condition verified at 10 radii and plot-time gradient shown timelike (causality-review.md 'Horizon visual contract'; scripts/check-visual-lessons.mjs). Horizon Kretschmann checked by finite differences in scripts/check-physics-calculations.mjs.",
+   "screenshots": [
+    "qa/visual-lesson-horizon-1440-dark.png",
+    "qa/visual-lesson-horizon-1440-light.png",
+    "qa/visual-lesson-horizon-390-light.png",
+    "qa/visual-lesson-horizon-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Review: 'Horizon teaching is conceptually sound… Do not replace these with an escape-speed story'",
+     "Local-versus-global horizon distinction is explicit in text and visual caption"
+    ],
+    "issues": [
+     "Review F01: the symbol inspector mislabeled τ_plot as proper time (later repaired with symbol identities)",
+     "Visual shows tangent directions only, not integrated light rays; three presets only"
+    ],
+    "evidence": "comprehensive-course-review-2026-09-09.md line 60 and F01; causality-review.md; visual-lessons-review.md; QA screenshot (inside preset, slopes −1 and −1/3) viewed."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Port text and contract unchanged. In grbook.ai make ρ continuously draggable, add integrated ingoing and outgoing null curves, and give τ_plot an explicit lesson-scoped symbol identity ('plot time, not proper time').",
+    "effort": "small"
+   },
+   "size": "4 steps, ~640 words, 1 interactive model"
+  },
+  {
+   "id": "lesson-kruskal-and-causal-maps",
+   "kind": "lesson",
+   "title": "Build a global causal map one coordinate change at a time",
+   "paths": [
+    "content/bridge-lessons.mjs:90-108",
+    "content/practice-variants.mjs:55-59",
+    "content/lesson-sequence.mjs:29"
+   ],
+   "topics": [
+    "Kruskal-Szekeres coordinates",
+    "Penrose diagram",
+    "conformal compactification",
+    "maximally extended Schwarzschild spacetime",
+    "white hole",
+    "Einstein-Rosen bridge",
+    "null infinity",
+    "curvature singularity"
+   ],
+   "teaches": "U = −e^(−ū/2) and V = e^(v̄/2) give UV = −(ρ−1)e^ρ. The metric −(4r_s²e^(−ρ)/ρ) dU dV is regular for UV < 1, and the metric is extended rather than exterior formulas. The four regions are identified by signs, with horizons at U = 0 and V = 0 and spacelike singularities at UV = 1. Arctan compactification keeps null lines at 45°, and I⁺ is reached as V → ∞. Eternal and collapse spacetimes differ, and there is no future route across the bridge. Transfer: T_c = π/12, entered as the coefficient 1/12 ≈ 0.08333. Variant: −π/24, entered as −1/24.",
+   "pedagogy": "Analogy: a road map preserves routes, not distances. The coordinate changes are built one at a time, with the monotonicity argument for preserving causal order.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Algebra reconciled at 15 exterior points; review agrees with Tong §§6.1.3–6.1.5",
+     "Careful eternal-versus-collapse and no-traversable-bridge statements"
+    ],
+    "issues": [
+     "A causal-map lesson with no map: no diagram at all (causality-review lists an interactive global diagram as remaining work)",
+     "Transfers test arctan arithmetic, not causal reasoning",
+     "~650 words of dense coordinate algebra",
+     "Answer entry is 'the coefficient of π', an input convention a learner can get wrong while reasoning correctly",
+     "The lesson's visual field is null in source, confirming no diagram was ever attached"
+    ],
+    "evidence": "causality-review.md checks 6–7 and 'Remaining curriculum boundaries'; geometry-review.md cross-review; course-evolution.md unchecked 'causal diagrams' item."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the derivation as the Work-it-out layer. Build the interactive Kruskal/Penrose diagram (region labels, infalling worldline, draggable light signals, compactification toggle). Replace transfers with causal questions ('can event A signal event B?').",
+    "effort": "medium"
+   },
+   "size": "4 steps, ~650 words"
+  },
+  {
+   "id": "lesson-causal-domains",
+   "kind": "lesson",
+   "title": "Which initial data can determine this event?",
+   "paths": [
+    "content/foundation-lessons.mjs:138-149",
+    "content/lesson-sequence.mjs:30"
+   ],
+   "topics": [
+    "causal structure",
+    "chronological future",
+    "causal future",
+    "domain of dependence",
+    "Cauchy surface",
+    "global hyperbolicity",
+    "achronal set",
+    "geodesic completeness"
+   ],
+   "teaches": "I⁺(p) ⊆ J⁺(p). For S = [−L, L] at t = 0 in 1+1 Minkowski spacetime, D⁺(S) = {0 ≤ t ≤ L, |x| ≤ L−t}. The lesson defines inextendible causal curves, Cauchy surfaces and global hyperbolicity, and notes that achronal is not Cauchy. Punctures shrink domains, and geodesic incompleteness need not show up as a curvature blow-up. Transfer: half-width 3. Variant: latest time 5.",
+   "pedagogy": "'Why does a local light cone not settle every question about predictability?' The definition's quantifier ('every past-inextendible causal curve') is emphasized. It prepares the singularity theorems of Chapter 22.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Precise definitions with the right quantifiers",
+     "Concrete triangle example"
+    ],
+    "issues": [
+     "Step 3 stacks four definitions (inextendible, Cauchy, globally hyperbolic, achronal)",
+     "No diagram, though the triangle begs for one",
+     "Sits in Chapter 17 but serves Chapter 22"
+    ],
+    "evidence": "comprehensive review chapter 22 row ('Define Cauchy/global causal concepts before theorem use'); causality-review.md remaining boundaries."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep. Add a draggable D⁺(S) triangle with a removable puncture that visibly shrinks the domain. Place it next to the singularity-theorem material in grbook.ai.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~490 words"
+  },
+  {
+   "id": "lesson-waves-and-retarded-time",
+   "kind": "lesson",
+   "title": "Read a wave before reading its complex notation",
+   "paths": [
+    "content/bridge-lessons.mjs:52-70",
+    "content/practice-variants.mjs:45-49",
+    "content/lesson-sequence.mjs:31"
+   ],
+   "topics": [
+    "wave equation",
+    "retarded time",
+    "dispersion relation",
+    "complex exponential",
+    "plane waves",
+    "linearized gravity",
+    "null wave vector"
+   ],
+   "teaches": "F(z−ct) solves the wave equation by the chain rule, and G(z+ct) moves the other way. From A cos(kz−ωt): λ = 2π/k and ω = ck, so fλ = c. Retarded time is t − |x−x'|/c. Complex exponentials are an optional abbreviation, with the real part taken and complex amplitude storing phase. The wave covector is null. Transfer: emission at 9 s. Variant: −3 s (negative coordinate time).",
+   "pedagogy": "Preparation at the start of §18.1. Real translating profiles come before complex notation, and dimensions are checked in every step.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Real-first treatment of waves; dimensions and signs verified",
+     "Makes complex notation explicitly optional"
+    ],
+    "issues": [
+     "No travelling-pulse animation",
+     "Complex-number introduction is repeated in waves-modes-and-green-functions"
+    ],
+    "evidence": "causality-review.md check 4; comprehensive review chapter 18 row and §5 'Waves and complex notation' ('should remain')."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Merge with waves-modes-and-green-functions into one wave-propagation sequence with a single complex-notation card. Add an animated pulse with a crest-follower showing dz/dt = c.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~550 words"
+  },
+  {
+   "id": "lesson-waves-modes-and-green-functions",
+   "kind": "lesson",
+   "title": "From an initial ripple to a retarded field",
+   "paths": [
+    "content/foundation-lessons.mjs:126-137",
+    "content/lesson-sequence.mjs:32"
+   ],
+   "topics": [
+    "d'Alembert's formula",
+    "initial value problem",
+    "wave packets",
+    "Fourier superposition",
+    "retarded Green's function",
+    "Dirac delta function",
+    "phase velocity",
+    "group velocity"
+   ],
+   "teaches": "d'Alembert's formula shows finite propagation through its integration interval. Complex exponentials build a packet integral. The retarded kernel δ(t−t'−R/c)/R, with its normalization, gives ψ = ∫ f(t−R/c)/R d³x'. Homogeneous solutions can be added, dispersion separates phase and group velocity, and curved-spacetime Green functions have tails. Transfer: u(0,2) = 4. Variant: 6.",
+   "pedagogy": "Preparation at the start of §18.5. 'Which step chooses a wave from the source rather than from the future?' The check refutes 'wave equation forces retarded'.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct statement of what selects the retarded solution",
+     "Good caveats on dispersion and curved-space tails"
+    ],
+    "issues": [
+     "The distributional kernel identity is stated, not derived (novice audit asks to verify these operations)",
+     "Three big topics in three steps; repeats the complex-notation introduction"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md 'Remaining teaching review' (retarded distributions, Chapter 18); comprehensive review chapter 18 row."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Split into (a) d'Alembert and domain of influence, with an interactive initial-ripple demo, and (b) retarded Green's function via a shrinking-sphere argument. Drop the duplicated complex-number step.",
+    "effort": "medium"
+   },
+   "size": "3 steps, ~410 words"
+  },
+  {
+   "id": "lesson-distances-are-measurement-protocols",
+   "kind": "lesson",
+   "title": "Calculate three distances to one galaxy",
+   "paths": [
+    "content/core-practice.mjs:93-104",
+    "content/lesson-sequence.mjs:33"
+   ],
+   "topics": [
+    "FLRW metric",
+    "Friedmann equations",
+    "density parameters",
+    "Hubble parameter",
+    "cosmological redshift",
+    "comoving distance",
+    "angular diameter distance",
+    "luminosity distance",
+    "Etherington distance duality"
+   ],
+   "teaches": "E(z)² = Ω_m(1+z)³ + Ω_r(1+z)⁴ + Ω_k(1+z)² + Ω_Λ. D_C = (c/H0)∫dz/E, and D_M = a0 S_k(D_C/a0). D_A = D_M/(1+z) and D_L = (1+z)D_M = (1+z)²D_A. For flat matter-only, D_C = 2(c/H0)[1−(1+z)^(−1/2)]. D_A can turn over, and real-data caveats are listed. Transfer: D_C = c/H0 at z = 3. Variant: D_A = 1/4.",
+   "pedagogy": "'Why do brightness and angular size assign different distances?' Each distance is presented as a measurement protocol with assumptions, not a label on a diagram.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Fills the review's 'observational cosmology' gap with correct, sourced (Hogg) formulas",
+     "Pairs with the calculated FLRW distance laboratory"
+    ],
+    "issues": [
+     "Dense for novices (Ω_k with length-valued a)",
+     "No plot inside the lesson itself (the lab supplies one)"
+    ],
+    "evidence": "comprehensive review §8 'Observational cosmology' and chapter 19 row; course-evolution.md 'Recovered calculated laboratories' (FLRW distance lab)."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Port text as-is and embed or link the FLRW distance lab so the D_A turnover is visible. Re-key the redshift and Friedmann prerequisites.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~400 words"
+  },
+  {
+   "id": "lesson-evolve-and-check-the-constraint",
+   "kind": "lesson",
+   "title": "Let the constraint audit your simulation",
+   "paths": [
+    "content/core-practice.mjs:105-116",
+    "content/lesson-sequence.mjs:34"
+   ],
+   "topics": [
+    "numerical relativity",
+    "constraint equations",
+    "Hamiltonian constraint",
+    "Friedmann equations",
+    "Euler method",
+    "convergence testing",
+    "truncation error"
+   ],
+   "teaches": "Dimensionless flat dust: Ȧ = V, V̇ = −1/(2A²), with constraint C = V² − 1/A. The exact benchmark is A = (1+3t/2)^(2/3), and the constraint propagates. One Euler step leaves a residual −(3/4)h². Refining h should shrink differences by a ratio near 2^p. A residual alone is not a complete error estimate, and this is not 3D numerical relativity. Transfer: C1 = −7/300 at h = 0.2. Variant: A = 4 at t = 14/3.",
+   "pedagogy": "'Can a smooth-looking numerical universe solve the wrong problem?' Teaches computational skepticism: constraint, convergence and benchmark.",
+   "interaction": null,
+   "physics_model": "Symmetry-reduced Friedmann dust ODE; forward Euler; exact solution benchmark.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Rare computational-literacy lesson with an exact benchmark",
+     "Pairs with the Euler/RK4 dust-evolution lab"
+    ],
+    "issues": [
+     "Convergence protocol only in the formal layer",
+     "No live plot or code in the lesson"
+    ],
+    "evidence": "comprehensive review chapter 20 row and §8 'Computational methods'; course-evolution.md (Euler/RK4 lab); answers hand-verified."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep. Embed the numerical-evolution lab with a step-size slider showing residual and error on log axes. Promote the convergence-ratio test to a step with a practice item.",
+    "effort": "small"
+   },
+   "size": "3 steps, ~380 words"
+  },
+  {
+   "id": "lesson-oriented-stokes",
+   "kind": "lesson",
+   "title": "Calculate both sides of Stokes’ theorem",
+   "paths": [
+    "content/bridge-lessons.mjs:109-127",
+    "content/practice-variants.mjs:60-64",
+    "content/lesson-sequence.mjs:35"
+   ],
+   "topics": [
+    "differential forms",
+    "one-forms",
+    "wedge product",
+    "exterior derivative",
+    "orientation",
+    "Stokes' theorem",
+    "Green's theorem",
+    "line integrals"
+   ],
+   "teaches": "Integrate α = x²dy along a parameterized path. The counterclockwise rectangle boundary gives a²b. dx∧dy is signed area (a determinant), dα = 2x dx∧dy, and the interior integral also gives a²b. The general planar rule is dα = (∂_xQ − ∂_yP)dx∧dy. The conditions of the general theorem and the danger of punctures are stated. Transfer: 9. Variant (clockwise): −6.",
+   "pedagogy": "Tile-cancellation intuition: shared edges cancel, only the boundary survives. Both sides are computed explicitly, and orientation is the focus of the check.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Makes forms tangible by computing both sides; orientation signs verified"
+    ],
+    "issues": [
+     "The promised tile-cancellation picture is never drawn",
+     "Green's theorem is not named for learners who know it",
+     "Practice is mostly sign bookkeeping"
+    ],
+    "evidence": "causality-review.md check 8; comprehensive review chapter 21 row ('Cartan calculations and the oriented Stokes bridge make the formalism tangible')."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep. Add an animated tiling where internal edges cancel as tiles shrink, and name Green's theorem. Add one non-rectangular region item.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~490 words"
+  },
+  {
+   "id": "lesson-probability-temperature-and-entropy",
+   "kind": "lesson",
+   "title": "What temperature adds to a theory",
+   "paths": [
+    "content/foundation-lessons.mjs:150-161",
+    "content/lesson-sequence.mjs:36"
+   ],
+   "topics": [
+    "probability distributions",
+    "Gibbs entropy",
+    "Boltzmann distribution",
+    "canonical ensemble",
+    "partition function",
+    "temperature",
+    "first law of thermodynamics",
+    "maximum entropy principle"
+   ],
+   "teaches": "Macrostates versus microstates. S = −k Σ p ln p, which gives k ln N for equal probabilities. Maximizing entropy with multipliers gives the canonical distribution p_i = e^(−E_i/kT)/Z. dS = δQ_rev/T and (∂S/∂E)_V,N = 1/T. A two-level example is worked. Classical thermodynamics does not by itself imply Hawking emission. Transfer: S/(k ln 2) = 2. Variant: population ratio 1/3.",
+   "pedagogy": "Preparation at the start of §22.7 on the optional 'deeper trail'. Question: 'What does a thermal distribution know that a metric does not?' Arena, law and state are kept separate.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/diagnostics-1440.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Correct and explicit about what is extra physical input"
+    ],
+    "issues": [
+     "Compresses introductory statistical mechanics into three steps; the multiplier derivation is terse",
+     "Insufficient as a real prerequisite (novice audit: the thermal/quantum trail 'does not constitute a self-contained course')",
+     "Relevant only to black-hole thermodynamics"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md 'Remaining teaching review'; comprehensive review §5 row 'Probability, thermal physics, quantum states'."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Do not port as a course lesson. Use as tutor grounding and as an outline if grbook.ai later adds an optional thermodynamics primer for the Hawking-temperature module. Keep the 'metric alone does not specify a state' check in the misconception catalog.",
+    "effort": null
+   },
+   "size": "3 steps, ~355 words"
+  },
+  {
+   "id": "lesson-quantum-states-and-reduced-information",
+   "kind": "lesson",
+   "title": "A pure whole can have an uncertain part",
+   "paths": [
+    "content/foundation-lessons.mjs:162-173",
+    "content/lesson-sequence.mjs:37"
+   ],
+   "topics": [
+    "quantum state",
+    "density matrix",
+    "partial trace",
+    "quantum entanglement",
+    "von Neumann entropy",
+    "unitary evolution",
+    "purity",
+    "Bose-Einstein distribution",
+    "quantum field modes"
+   ],
+   "teaches": "Amplitudes and the Born rule. Density matrices for pure states and mixtures, with S = −k tr(ρ ln ρ). The partial trace of (|00⟩+|11⟩)/√2 is I/2, so S_A = k ln 2. Unitary evolution preserves the spectrum, whereas restriction does not. The formal layer adds oscillator modes, Bose occupation 1/(e^(ħω/kT) − 1), and vacuum ambiguity in curved spacetime. Transfer: purity 1/2. Variant: 5/8.",
+   "pedagogy": "Preparation at the start of §22.7 on the optional 'deeper trail'. Separates 'mixed information about a part' from 'information loss in the whole'.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Precise distinction between subsystem entropy and nonunitary evolution, useful for the information-paradox discussion"
+    ],
+    "issues": [
+     "QM postulates condensed into one intuition paragraph; field quantization only asserted",
+     "Not usable by a learner without prior quantum mechanics"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md 'Remaining teaching review'; causality-review.md 'Remaining curriculum boundaries' (Hawking radiation needs Hilbert space, fields, positive frequency)."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Keep as tutor grounding for information-paradox and entanglement questions. Do not port into the main course; if an advanced module is built, rebuild it with real QM prerequisites.",
+    "effort": null
+   },
+   "size": "3 steps, ~430 words"
+  },
+  {
+   "id": "lesson-temperature-and-quantum-input",
+   "kind": "lesson",
+   "title": "Separate the geometry from the quantum assumption",
+   "paths": [
+    "content/bridge-lessons.mjs:128-146",
+    "content/practice-variants.mjs:65-69",
+    "content/lesson-sequence.mjs:38"
+   ],
+   "topics": [
+    "Hawking temperature",
+    "Bekenstein-Hawking entropy",
+    "black hole thermodynamics",
+    "Euclidean methods",
+    "Wick rotation",
+    "first law of black hole mechanics",
+    "semiclassical gravity"
+   ],
+   "teaches": "dE = T dS and Boltzmann weights are named as new input. Wick rotation t = −iτ_E matches phase to weight and gives Δτ_E = ħ/kT. Smoothness of the Euclidean near-horizon plane gives the period 4πr_s/c, so T_H = ħc³/(8πGMk). Integrating the first law gives S = kAc³/(4ħG) + S0. The scope is stated: this is an equilibrium argument, not the collapse flux, microscopic counting or the end of evaporation. Transfer: S(3M)/S(M) = 9. Variant: 1/4.",
+   "pedagogy": "'Which part can we derive with calculus, and what must we import?' Every imported assumption is labelled at its first appearance (look for where ħ and k_B enter).",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Unusually honest boundary between derived and imported physics (review praises it)",
+     "Units and constants checked by the cross-reviewer"
+    ],
+    "issues": [
+     "Relies on the manuscript's near-horizon Euclidean calculation",
+     "Five prerequisites and ~680 words; advanced-only"
+    ],
+    "evidence": "causality-review.md check 9; comprehensive review chapter 22 row; geometry-review.md cross-review."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep as the optional advanced 'where Hawking temperature comes from' lesson with its derived/imported labelling intact. Inline the near-horizon Euclidean step. Add a visual of the Euclidean cigar and the conical deficit when the period is wrong.",
+    "effort": "medium"
+   },
+   "size": "4 steps, ~680 words"
+  },
+  {
+   "id": "lesson-an-error-budget-for-effective-theory",
+   "kind": "lesson",
+   "title": "Make the approximation promise numerical",
+   "paths": [
+    "content/core-practice.mjs:117-128",
+    "content/lesson-sequence.mjs:39"
+   ],
+   "topics": [
+    "effective field theory",
+    "power counting",
+    "derivative expansion",
+    "scale separation",
+    "truncation error",
+    "higher-curvature corrections"
+   ],
+   "teaches": "Heavy-field toy (M² − □)X = J with a harmonic source. The exact amplitude is (J0/M²)/(1−x) with x = ω²/M². Keeping two terms leaves relative error x², so 1% accuracy needs ω/M < 0.316. The expansion breaks down at the pole. GR-EFT caveats cover curvature scales, field redefinitions and operator basis. Transfer: 0.0016. Variant: 0.0625.",
+   "pedagogy": "'Small correction' is made quantitative with a named expansion parameter and an exact remainder. It is explicitly classical, not a loop calculation.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Clean exact remainder; honest scope statements"
+    ],
+    "issues": [
+     "Niche and far from core GR; formal layer is expert-only",
+     "The toy does not connect to any concrete gravitational observable"
+    ],
+    "evidence": "comprehensive review chapter 23 row (asked for a worked power-counting example); answers hand-verified."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Keep as tutor grounding for 'Is GR an effective theory?' questions. If grbook.ai has a frontier module, adapt it as an optional card; it is not needed on the core path.",
+    "effort": null
+   },
+   "size": "3 steps, ~410 words"
+  },
+  {
+   "id": "lesson-a-curved-universe-capstone",
+   "kind": "lesson",
+   "title": "Build a universe with matter, then observe it",
+   "paths": [
+    "content/core-practice.mjs:129-141",
+    "content/lesson-sequence.mjs:40"
+   ],
+   "topics": [
+    "FLRW metric",
+    "Einstein field equations",
+    "Riemann curvature tensor",
+    "Ricci scalar",
+    "Kretschmann scalar",
+    "stress-energy tensor",
+    "dust",
+    "radiation-dominated universe",
+    "cosmological redshift",
+    "comoving observers"
+   ],
+   "teaches": "The full chain for a ∝ t^(2/3). H = 2/(3t) and ä/a = −2/(9t²). The orthonormal Riemann components give R = 4/(3t²) and Kretschmann 80/(27t⁴). The Einstein tensor gives ε = 1/(6πGt²) and p = 0, with εa³ constant. Comoving observers are geodesic. The null ray gives Δχ and 1+z = (t_o/t_e)^(2/3), so t_o = 8t_e yields z = 3 and energy ratio 1/4. The independent radiation case a ∝ t^(1/2) has R = 0 but is curved, with p = ε/3 and z = 2 for t_o = 9t_e. Transfer: Rt² = 4/3. Variant: z = 2.",
+   "pedagogy": "The learner is asked to attempt the whole chain in a notebook before opening Work it out. It closes metric → curvature → source → observers → measurement, and ends with a second counterexample to 'zero scalar curvature means flat'.",
+   "interaction": null,
+   "physics_model": "FLRW flat dust and radiation; R, Kretschmann, G00 and G11 independently computed by finite-difference Christoffel/Riemann code at t = 1, 2, 3 in scripts/check-physics-calculations.mjs.",
+   "screenshots": [
+    "qa/course-notebook-1440.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Implements the review's request for a curved, matter-filled capstone",
+     "Every headline number independently verified by metric-derivative code"
+    ],
+    "issues": [
+     "'Attempt before opening' relies on self-discipline; only one scalar (Rt²) is machine-checked",
+     "Orthonormal curvature formulas are quoted from Chapter 19 rather than recomputed"
+    ],
+    "evidence": "scripts/check-physics-calculations.mjs (FLRW dust/radiation block); comprehensive review chapter 24 row; qa/course-notebook-1440.png shows the capstone saved as a notebook observation."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep all content and numbers. In grbook.ai turn it into a multi-stage assessed project with numeric checkpoints at each stage (H, R, ε, p, z) and AI-tutor review of the written chain, and let learners choose the second model.",
+    "effort": "small"
+   },
+   "size": "4 steps, ~480 words"
+  },
+  {
+   "id": "practice-set-misconception-checks",
+   "kind": "practice-set",
+   "title": "Predict-then-feedback conceptual checks (37 items)",
+   "paths": [
+    "content/geometry-lessons.mjs",
+    "content/bridge-lessons.mjs",
+    "content/foundation-lessons.mjs",
+    "content/core-practice.mjs",
+    "content/practice-variants.mjs:72-85",
+    "scripts/course-content.mjs:14-20",
+    "scripts/check-course.mjs"
+   ],
+   "topics": [
+    "Christoffel symbols",
+    "Ricci tensor",
+    "Weyl tensor",
+    "event horizon",
+    "Penrose diagram",
+    "parallel transport",
+    "equivalence principle",
+    "tidal forces",
+    "FLRW metric",
+    "Noether's theorem",
+    "calculus of variations",
+    "affine parameter",
+    "coordinate singularity",
+    "Hawking temperature"
+   ],
+   "teaches": "37 'First, predict' questions, each with 3 choices, a mistake-specific feedback paragraph for every option (111 rationales) and a hint. The items target durable GR misconceptions: nonzero connection coefficients as proof of curvature; Ricci-flat meaning flat; light slowing at the horizon; causal-diagram distances being physical; k = 0 FLRW being flat spacetime; weightlessness meaning no tides; stationary meaning minimum; a fixed endpoint fixing the slope; a mixed subsystem proving nonunitarity; a spacelike slice being Cauchy.",
+   "pedagogy": "Prediction before explanation, feedback that explains why each wrong option is tempting, and a hint. A 'Compare the reasoning' disclosure shows all rationales without JavaScript. Attempts are stored in the notebook with the help opened before each attempt.",
+   "interaction": {
+    "controls": [
+     "Choice buttons",
+     "A hint disclosure",
+     "Compare the reasoning disclosure"
+    ],
+    "what_updates": "Feedback status for the chosen option; notebook attempt record",
+    "readouts": [
+     "Per-option feedback text"
+    ],
+    "rendering": "Server-rendered HTML with KaTeX, enhanced by web/course.js"
+   },
+   "physics_model": null,
+   "screenshots": [
+    "qa/tidal-lesson-position.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Every distractor has a real, explanatory rationale, which amounts to a ready-made misconception catalog",
+     "Checks validated for exactly one correct choice and unique choice IDs"
+    ],
+    "issues": [
+     "In source, every correct choice is still listed first; prepareLesson rotates by lesson index mod 3, so correct positions cycle 0,2,1 through the sequence (verified 2026-09-12)",
+     "Only three options; a few distractors are implausible",
+     "Records a click, not the learner's reasoning"
+    ],
+    "evidence": "comprehensive-course-review-2026-09-09.md F03; scripts/check-course.mjs asserts only that correct positions take three values; my lesson-stats run on 2026-09-12."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Harvest all 111 rationales into the grbook.ai misconceptions catalog keyed by concept ID. Serve with per-learner shuffling. Have the AI tutor ask the learner to explain why a chosen distractor fails (review §10) rather than only marking it.",
+    "effort": "medium"
+   },
+   "size": "37 items, 111 option rationales, 37 hints"
+  },
+  {
+   "id": "practice-set-transfer-problems-and-variants",
+   "kind": "practice-set",
+   "title": "Numerical transfer problems and changed-calculation variants (74 items)",
+   "paths": [
+    "content/practice-variants.mjs:1-85",
+    "content/foundation-lessons.mjs (transfer, variants)",
+    "content/core-practice.mjs (transfer, variants)",
+    "content/geometry-lessons.mjs (transfer)",
+    "content/bridge-lessons.mjs (transfer)",
+    "content/course.mjs:19-20"
+   ],
+   "topics": [
+    "Jacobian",
+    "metric tensor",
+    "parallel transport",
+    "Gaussian curvature",
+    "Eddington-Finkelstein coordinates",
+    "Kruskal-Szekeres coordinates",
+    "Stokes' theorem",
+    "relativistic Doppler effect",
+    "Ricci scalar",
+    "geodesic deviation",
+    "luminosity distance",
+    "numerical relativity",
+    "Hawking temperature",
+    "Poisson equation"
+   ],
+   "teaches": "37 'Now change the example' problems plus 37 authored variants. About half change the reasoning path: a sign or orientation (negative-coordinate, clockwise-orbit, reverse-orientation, retrograde-phase, approaching-observer), or a different target quantity (compose-boosts, angular-distance D_A instead of D_C, temperature-to-entropy, radiation-observer). The rest reuse the same formula with new numbers (larger-sphere, different-radius-and-area, different-scale, outside-slope). Each has a unit, a tolerance, a hint and a worked solution. Input accepts decimals, fractions and scientific notation.",
+   "pedagogy": "Near transfer immediately after the worked example, then 'Try a different example'. The attempt history records whether a hint or solution was opened before each attempt; solved items return for review after three days.",
+   "interaction": {
+    "controls": [
+     "Answer input (decimal, fraction, scientific notation)",
+     "Check",
+     "A hint",
+     "Work through the solution",
+     "Try a different example"
+    ],
+    "what_updates": "Transfer feedback, attempt history with assistance flags, review queue",
+    "readouts": [
+     "Correct/incorrect status with unit"
+    ],
+    "rendering": "HTML + KaTeX; web/course.js"
+   },
+   "physics_model": null,
+   "screenshots": [
+    "qa/course-notebook-1440.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "All 74 answers hand-verified correct on 2026-09-12",
+     "Units and tolerances explicit; about half the variants genuinely alter the reasoning path, though larger-sphere, different-radius-and-area and different-scale are pure re-numberings"
+    ],
+    "issues": [
+     "Numeric-only checking cannot detect the method, and many items are plug-into-visible-formula (review §9, line 314)",
+     "Only one variant per lesson and no parameterized generation",
+     "Two storage mechanisms (map in practice-variants.mjs for the 13 original lessons, inline arrays for 24 others); variants silently inherit unit and tolerance via object spread"
+    ],
+    "evidence": "comprehensive-course-review-2026-09-09.md §9; course-evolution.md 'Practice that records learning after help'; content/course.mjs validateCourse (finite answers, nonnegative tolerance)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Unify into one practice-item schema (prompt, answer, unit, tolerance, hint, solution, required intermediate). Convert formula-driven items into parameterized generators, and add method-revealing sub-answers. Use the 74 as a verified seed set for AI-generated variants, checked by a symbolic or numeric validator.",
+    "effort": "medium"
+   },
+   "size": "74 numerical items with hints and solutions"
+  },
+  {
+   "id": "practice-set-readiness-diagnostics",
+   "kind": "practice-set",
+   "title": "Find your starting point: readiness diagnostics (13 items)",
+   "paths": [
+    "scripts/course-content.mjs:30-35",
+    "content/foundation-lessons.mjs (transfer prompts)",
+    "scripts/check-diagnostics.mjs",
+    "content/curriculum.mjs:39 (foundation skills reuse transfer.prompt as the check)"
+   ],
+   "topics": [
+    "units and dimensional analysis",
+    "initial value problem",
+    "work-energy theorem",
+    "rapidity",
+    "metric tensor",
+    "Lie bracket",
+    "Poynting vector",
+    "Poisson equation",
+    "calculus of variations",
+    "d'Alembert's formula",
+    "domain of dependence",
+    "Boltzmann distribution",
+    "density matrix"
+   ],
+   "teaches": "On the course map, each of the 13 foundation lessons offers its transfer calculation before any explanation. There is correct/incorrect feedback, a 'Compare your reasoning' solution, and a link to 'Work through the method and a different example'. Chapter 20+ items are labelled 'deeper trail'.",
+   "pedagogy": "Try before reading, then skip what is familiar. Explicitly framed as 'These checks suggest preparation, not a placement grade'.",
+   "interaction": {
+    "controls": [
+     "Expandable diagnostic card",
+     "Answer input + Check",
+     "Compare your reasoning disclosure",
+     "Link to lesson"
+    ],
+    "what_updates": "Feedback status ('another look' / 'example checks')",
+    "readouts": [
+     "Feedback text"
+    ],
+    "rendering": "HTML + KaTeX; no-JavaScript fallback shows reasoning"
+   },
+   "physics_model": null,
+   "screenshots": [
+    "qa/diagnostics-1440.png",
+    "qa/diagnostics-390.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Honest framing; works at both widths and without JavaScript (check-diagnostics.mjs)",
+     "Clean two-column card layout (screenshot)"
+    ],
+    "issues": [
+     "One numeric item per skill is a weak diagnostic",
+     "Items are identical to the lesson's own transfer problem, so taking the diagnostic spoils the transfer. Root cause: curriculum.mjs builds each foundation skill with check = l.transfer.prompt, so the skill map, the diagnostics and the lesson share one item",
+     "No aggregation into a readiness profile; the 17 base skills have prompts but no checkable answers"
+    ],
+    "evidence": "scripts/check-diagnostics.mjs; course-evolution.md 'Assessed preparation, available where it is needed'; QA screenshot viewed."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the try-before-reading idea and the non-grade framing. In grbook.ai build concept-level diagnostics with several distinct items per concept (not the lesson's transfer), adaptive follow-up by the tutor, and a readiness map over the concept DAG. Reuse the 13 prompts only as seeds.",
+    "effort": "medium"
+   },
+   "size": "13 diagnostic cards"
+  },
+  {
+   "id": "practice-set-chapter-guide-checks",
+   "kind": "practice-set",
+   "title": "Chapter guide check questions (25 items)",
+   "paths": [
+    "content/guides.json"
+   ],
+   "topics": [
+    "equivalence principle",
+    "proper time",
+    "metric tensor",
+    "geodesic equation",
+    "Christoffel symbols",
+    "holonomy",
+    "Weyl tensor",
+    "geodesic deviation",
+    "stress-energy tensor",
+    "Einstein field equations",
+    "Gibbons-Hawking-York boundary term",
+    "Killing vector",
+    "GPS relativistic corrections",
+    "innermost stable circular orbit",
+    "gravitational waves",
+    "Friedmann equations",
+    "ADM formalism",
+    "Cartan structure equations",
+    "Raychaudhuri equation",
+    "effective field theory",
+    "Rindler coordinates"
+   ],
+   "teaches": "One conceptual check and answer per chapter. Examples: 'Does stationary proper time always mean a global maximum?'; 'Can nonzero Christoffel symbols alone prove tidal curvature?'; 'For slow dust, is the trace-reversed 00 source ρc² or ρc²/2?'; 'What does 12 − 4 − 4 count?'; 'Can clocks at different heights disagree even when curvature vanishes?' (Rindler).",
+   "pedagogy": "End-of-chapter self-check with a model answer; reveal-only.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Well-chosen, precise questions that each target a specific trap",
+     "Answers are short and correct"
+    ],
+    "issues": [
+     "Reveal-only: no attempt capture or feedback",
+     "One question per chapter"
+    ],
+    "evidence": "content/guides.json read in full; comprehensive review §9 counts them among the sparse practice ingredients."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Import into the grbook.ai misconceptions/check-yourself catalog keyed by concept, as prompts the AI tutor can ask and grade conversationally.",
+    "effort": "small"
+   },
+   "size": "25 question/answer pairs"
+  },
+  {
+   "id": "curriculum-chapter-dependency-graph",
+   "kind": "curriculum-structure",
+   "title": "25-chapter prerequisite DAG and course assembly/validation",
+   "paths": [
+    "content/curriculum.mjs:5",
+    "content/course.mjs:1-24",
+    "scripts/check-course.mjs:14-45"
+   ],
+   "topics": [
+    "special relativity",
+    "tensors",
+    "metric tensor",
+    "covariant derivative",
+    "parallel transport",
+    "Riemann curvature tensor",
+    "geodesic deviation",
+    "stress-energy tensor",
+    "Einstein field equations",
+    "Schwarzschild metric",
+    "gravitational waves",
+    "FLRW metric",
+    "ADM formalism",
+    "differential forms",
+    "black hole thermodynamics",
+    "effective field theory"
+   ],
+   "teaches": "Nothing directly; it structures the course. Chapter prerequisites include, for example, 7←[5,6], 9←[8], 12←[9,10,11], 16←[3,7,15], 17←[3,7,12,16], 20←[15,18,19], 21←[7,8,14,15], 22←[17,18,21] and 24←[10,16,17,18,19]. course.mjs merges the four lesson collections, sequences and sorts them, prepares practice, and validateCourse() rejects duplicates, incomplete lessons, ambiguous checks, duplicate choice IDs, invalid variants and tolerances, cyclic edges, and routes that skip a dependency.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/course-map-1440.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Machine-validated in build and CI (validateCourse re-run 2026-09-12 passes)",
+     "Edges were materially repaired after cross-review (Chapter 11 needs 7; Chapter 20 needs 15, 18, 19)"
+    ],
+    "issues": [
+     "Chapter granularity over- and under-constrains (review F08); omitted edges are undetectable",
+     "course-architecture.md still says course.mjs owns the graph, but it moved to curriculum.mjs"
+    ],
+    "evidence": "comprehensive-course-review-2026-09-09.md F08; causality-review.md 'Independent geometry and route cross-review'."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Use as a sanity cross-check when building the grbook.ai concept DAG. Port the validation rules (acyclicity, route closure, exactly one correct choice, unique choice IDs, finite answers and tolerances) into grbook.ai content tests. Do not reuse the chapter edges as the model.",
+    "effort": null
+   },
+   "size": "25 nodes, 62 edges; 24-line assembler"
+  },
+  {
+   "id": "curriculum-learning-routes",
+   "kind": "curriculum-structure",
+   "title": "Three learning routes",
+   "paths": [
+    "content/curriculum.mjs:6-10",
+    "scripts/course-content.mjs:36-39"
+   ],
+   "topics": [
+    "special relativity",
+    "differential geometry",
+    "Einstein field equations",
+    "Schwarzschild metric",
+    "black hole thermodynamics",
+    "FLRW cosmology"
+   ],
+   "teaches": "The route picker offers three routes. 'Build the complete picture' (core) covers chapters 0–19 then 24. 'Build the geometry of spacetime' covers chapters 0–10. 'Follow a light ray into a black hole' covers chapters 0–19, 21 and 22, with numerical evolution excluded. Each chapter shows its route position, and the final chapter says 'End of route'.",
+   "pedagogy": "Destination-first framing with honest wording: dependencies included, skill checks to judge readiness, and position is not mastery.",
+   "interaction": {
+    "controls": [
+     "Route picker cards"
+    ],
+    "what_updates": "Route status line, next-chapter links in chapter compass",
+    "readouts": [
+     "'22 chapters · Follow a light ray into a black hole. Chapter dependencies are included; use the skill checks to judge readiness.'"
+    ],
+    "rendering": "HTML cards"
+   },
+   "physics_model": null,
+   "screenshots": [
+    "qa/course-map-1440.png",
+    "qa/course-map-390.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Good destination concepts; tidy card UI (screenshot)",
+     "Non-mastery language after review F06/F08 fixes"
+    ],
+    "issues": [
+     "Routes are long chapter lists; the black-hole route still needs 22 of 25 chapters",
+     "No concept-level skipping; diagnostics only suggest",
+     "No progress model beyond position",
+     "The 22-chapter length is driven by one bundled chapter: Chapter 22 combines singularity theorems with Hawking temperature, and its edges 22←[17,18,21] pull in Chapter 21 (forms, which itself needs 7, 8, 14, 15) and Chapter 18 (waves). The temperature lesson only needs 0.5, 17.2, the 18 waves lesson and two Chapter 22 foundations"
+    ],
+    "evidence": "comprehensive-course-review-2026-09-09.md F08; course-evolution.md 'Assessed preparation' (horizon route no longer requires Chapter 20); QA screenshot viewed."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the three destinations (complete course, geometry apprenticeship, black-hole trail) and the honest wording. Rebuild routes as paths over the grbook.ai concept DAG, with diagnostic- and tutor-driven skipping, so a prepared learner can reach horizons without 22 chapters.",
+    "effort": "medium"
+   },
+   "size": "3 routes"
+  },
+  {
+   "id": "curriculum-skill-map",
+   "kind": "curriculum-structure",
+   "title": "Readiness skill map (30 skills) with chapter preparation and validator",
+   "paths": [
+    "content/curriculum.mjs:11-60",
+    "scripts/course-content.mjs:28-29"
+   ],
+   "topics": [
+    "calculus",
+    "linear algebra",
+    "coordinate transformation",
+    "spacetime interval",
+    "metric tensor",
+    "covariant derivative",
+    "Levi-Civita connection",
+    "Riemann curvature tensor",
+    "Ricci and Weyl decomposition",
+    "stress-energy tensor",
+    "Einstein field equations",
+    "action principle",
+    "Hamiltonian mechanics",
+    "Killing vector",
+    "Schwarzschild metric",
+    "Friedmann equations",
+    "differential forms",
+    "Lie bracket",
+    "Poisson equation",
+    "domain of dependence"
+   ],
+   "teaches": "There are 17 base skills with anchor, check prompt and required skills. Examples: 'For G=diag(1,4) and v=(3,2), calculate vᵀGv'; 'Calculate both nonzero types of polar Christoffel coefficient'; 'Recover the factor of one half in the trace-reversed source'. Another 13 skills come from foundation lessons via provides, with dependency edges. chapterSkills lists the readiness skills for each chapter, rendered as 'Before you begin'. validateCurriculum() rejects unknown or cyclic skills, skills required before they are taught (by chapter and section position), chapters needing untaught skills, and routes that omit a teaching chapter.",
+   "pedagogy": "Readiness, not mastery: 'reaching a chapter is never mastery evidence' (file comment). Each skill links to the exact place it is taught.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/course-map-1440.png",
+    "qa/course-map-390.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The closest legacy artifact to a concept prerequisite graph, with concrete check prompts",
+     "Validator enforces taught-before-required by section position"
+    ],
+    "issues": [
+     "Base-skill check prompts have no answers or checker",
+     "Mixed granularity ('calculus' next to 'killing-charge'); anchors are manuscript slugs",
+     "Skill definitions and the dependencies table are maintained separately",
+     "validateCurriculum() exempts 'calculus' and 'linear-algebra' from the taught-before-required check, and the 13 lesson-derived skills reuse the lesson's transfer prompt as their check",
+     "chapterSkills[22] lists 'forms', so Chapter 21 (tetrads and forms) becomes mandatory for the black-hole route even though the Hawking-temperature lesson's five prerequisites never touch forms"
+    ],
+    "evidence": "course-evolution.md 'Assessed preparation' (validator rejects unknown/cyclic skills and forward dependencies); content/curriculum.mjs read in full. qa/course-map-1440.png shows Chapter 0 'Starting point' rendering base-skill prompts as links with no answer input."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Seed the grbook.ai concept registry and prerequisite DAG with these 30 skills and their edges (renamed to standard concept names). Attach answers to the 17 check prompts. Port the taught-before-required validator logic onto concept and lesson IDs.",
+    "effort": "medium"
+   },
+   "size": "30 skills, 25 chapter readiness lists"
+  },
+  {
+   "id": "curriculum-lesson-sequence",
+   "kind": "curriculum-structure",
+   "title": "Reviewed lesson placements (37 records with reasons)",
+   "paths": [
+    "content/lesson-sequence.mjs:1-50",
+    "scripts/lesson-placement.mjs:1-14",
+    "scripts/check-learning-sequence.mjs"
+   ],
+   "topics": [
+    "curriculum sequencing"
+   ],
+   "teaches": "Each lesson has a placement: section-start PREPARATION (10 lessons) or section-end WORKED EXAMPLE (27). Each carries a written reason, for example 'Four-momentum and observer energy must precede the photon calculation' or 'Define states and restriction after probabilities, before the horizon-temperature argument'. The build fails on missing or unreviewed placements. A generated-HTML check verifies that each lesson sits on its authored side of the section exposition and that same-chapter prerequisites appear earlier.",
+   "pedagogy": "Placement is treated as an editorial decision with an explicit role and reason, introduced after the Chapter 0 sequencing failure.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/tidal-lesson-position.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Turns implicit ordering into reviewable records; the reasons encode prerequisite edges",
+     "Regression-checked against the generated pages"
+    ],
+    "issues": [
+     "Coupled to book.md h3 headings via regex insertion",
+     "Reasons are prose, not machine-readable edges",
+     "The file itself notes it cannot establish learner comprehension"
+    ],
+    "evidence": "novice-sequencing-audit-2026-09-09.md ('All 36 existing lesson placements have now received an explicit editorial classification'); scripts/check-learning-sequence.mjs."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Mine the 37 reasons into explicit concept edges in the grbook.ai DAG. Carry over the rules 'preparation vs worked example is a field' and 'every placement needs a recorded reason'. Drop the regex heading insertion.",
+    "effort": null
+   },
+   "size": "37 records"
+  },
+  {
+   "id": "curriculum-lesson-template",
+   "kind": "curriculum-structure",
+   "title": "Guided-lesson record format and its completeness validator",
+   "paths": [
+    "content/course.mjs:11-24",
+    "content/practice-variants.mjs:72-85",
+    "content/geometry-lessons.mjs",
+    "content/bridge-lessons.mjs",
+    "content/foundation-lessons.mjs",
+    "content/core-practice.mjs"
+   ],
+   "topics": [
+    "curriculum design",
+    "worked examples",
+    "formative assessment"
+   ],
+   "teaches": "Nothing directly. It is the shared shape of all 37 lessons: id, chapter, after (a book.md section heading), title, question, intuition, optional visual key (charts, metric, basis, transport, horizon; null or absent elsewhere), steps [{title, body, tex, reason}], formal (scope and limits), requires [{label, href to chapter-N.html anchors}], practice {prompt, 3 choices {text, correct, feedback}, hint}, transfer {prompt, answer, unit, hint, solution, tolerance}, variants, sources [{title, url}], takeaway, and provides (foundation lessons only, the skill ID). lesson-sequence.mjs adds placement, reason and order. validateCourse() requires after, intuition, formal, steps and sources, exactly one correct choice, unique choice IDs, finite answers and nonnegative tolerances.",
+   "pedagogy": "Every derivation step must carry a stated 'reason'. The formal layer is where limits live, which is why lessons say what they do not prove (for example the Gaussian-curvature theorem in measure-curvature-with-a-string).",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The step 'reason' field forced justification of every move; 128 steps all have one",
+     "A small, consistent record that maps cleanly onto a typed schema"
+    ],
+    "issues": [
+     "No schema file: completeness is checked imperatively, and fields such as unit, provides and visual are unvalidated",
+     "requires links are HTML anchors into the legacy site, not concept IDs",
+     "Sources are lesson-level links, not claim-level; 14 of 37 lessons cite only the generic 'David Tong · General relativity' page",
+     "None of the 111 choices has an authored ID; prepareLesson derives option-<hash of choice text> (practice-variants.mjs identity()), so editing a distractor's wording silently changes its ID and orphans stored attempts"
+    ],
+    "evidence": "content/course.mjs validateCourse(); node run on 2026-09-12 listing lesson keys and source titles."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Use as the starting point for the grbook.ai lesson schema (JSON Schema or Zod): keep question, intuition, steps with required reason, formal limits, predict-check with per-option feedback, transfer and takeaway. Replace requires hrefs with concept IDs, give choices authored stable IDs, add per-claim citations to the knowledge vault, and add a required intermediate answer to transfers.",
+    "effort": "small"
+   },
+   "size": "18 fields; 37 instances"
+  },
+  {
+   "id": "curriculum-chapter-guides",
+   "kind": "curriculum-structure",
+   "title": "Chapter guides: deck, question, payoff, takeaway (25 chapters)",
+   "paths": [
+    "content/guides.json",
+    "scripts/build-site.mjs:58"
+   ],
+   "topics": [
+    "measurement and motion",
+    "equivalence principle",
+    "tensors",
+    "proper time",
+    "manifold",
+    "geodesic equation",
+    "covariant derivative",
+    "parallel transport",
+    "Riemann curvature tensor",
+    "Weyl tensor",
+    "tidal forces",
+    "stress-energy tensor",
+    "Einstein field equations",
+    "action principle",
+    "Noether's theorem",
+    "classical tests of general relativity",
+    "Schwarzschild black holes",
+    "gravitational waves",
+    "FLRW cosmology",
+    "numerical relativity",
+    "tetrads and differential forms",
+    "singularity theorems",
+    "effective field theory"
+   ],
+   "teaches": "For each of chapters 0–24 (from 'Measurements and motion' to 'From geometry to measurements'; Chapter 22 is 'Singularities and black-hole thermodynamics'): a title, a deck ('Carry an arrow around a loop. Its return tells you something no coordinate label can erase.'), a motivating question ('What does the Riemann tensor actually measure?'), a payoff (outcomes), a one-paragraph takeaway, and a check with its answer (inventoried separately). Rendered as chapter headers and course-map payoffs.",
+   "pedagogy": "Question-led chapter framing with plain-language takeaways.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/ci-34390044009/chapter-8-1440.png",
+    "qa/ci-34390044009/chapter-16-390.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Crisp, accurate, novice-friendly language; decks read well in the rendered chapter headers (screenshots)",
+     "Takeaways are correct conceptual summaries"
+    ],
+    "issues": [
+     "Tied to the legacy 25-chapter structure",
+     "Some payoffs promise more than the lessons assess (for example 'derive… count the physical degrees of freedom')"
+    ],
+    "evidence": "content/guides.json read in full; QA chapter screenshots viewed; learning-experience-audit.md line 3 treats guides as chapter contracts."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Reuse decks, questions and takeaways as module intros and tutor summary text after remapping to grbook.ai modules. Rewrite payoffs only where the new module actually assesses them.",
+    "effort": "small"
+   },
+   "size": "25 entries, ~19 KB"
+  },
+  {
+   "id": "tool-section-id-map",
+   "kind": "engine-or-tool",
+   "title": "Stable section anchor map",
+   "paths": [
+    "content/section-ids.json",
+    "scripts/build-site.mjs:59-60",
+    "scripts/check-site.mjs:15"
+   ],
+   "topics": [],
+   "teaches": "Nothing to learners. It maps 132 section numbers (for example '8.3') to legacy anchor slugs so renamed headings keep saved links and lesson references working.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Simple, checked by check-site.mjs"
+    ],
+    "issues": [
+     "Partial coverage (for example 0.1–0.3 absent); meaningful only for the legacy site"
+    ],
+    "evidence": "scripts/build-site.mjs comment 'Titles can improve without breaking saved section links'."
+   },
+   "reuse": {
+    "verdict": "drop",
+    "notes": "grbook.ai has new URLs and concept IDs. Only resurrect it as a redirect table if old general-relativity links must resolve to new pages.",
+    "effort": null
+   },
+   "size": "132 entries"
+  },
+  {
+   "id": "tool-figure-and-caption-math-maps",
+   "kind": "engine-or-tool",
+   "title": "Figure-label and caption LaTeX mappings",
+   "paths": [
+    "content/figure-math.json",
+    "content/caption-math.json",
+    "scripts/typeset-figures.mjs:12",
+    "scripts/build-site.mjs:136-140"
+   ],
+   "topics": [],
+   "teaches": "Nothing directly. figure-math.json maps 226 plain SVG label strings to LaTeX, some with semantic color classes such as math-matter, for MathJax vector typesetting (for example 'Ω¹₂ = e¹ ∧ e² / a²' and 'net clock gain (μs/day)'). caption-math.json maps 32 caption fragments to inline LaTeX.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Enables sharp, theme-colored math in static SVG figures"
+    ],
+    "issues": [
+     "Fragile string matching, including bare numerals and single letters ('A', 'P', '0', '1')",
+     "Coupled to the Python figure generator's exact label text"
+    ],
+    "evidence": "scripts/typeset-figures.mjs; content files read in full."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Only relevant if the figures group ports the legacy figure pipeline; then keep it alongside those sources. New grbook.ai figures should author labels as LaTeX at the source.",
+    "effort": null
+   },
+   "size": "226 + 32 mappings"
+  },
+  {
+   "id": "design-doc-course-architecture",
+   "kind": "design-doc",
+   "title": "A course built from connected arguments (course architecture)",
+   "paths": [
+    "docs/course-architecture.md"
+   ],
+   "topics": [
+    "curriculum design"
+   ],
+   "teaches": "Six educational decisions: a physical or geometric question before a symbolic procedure; separate the object from its description; measure intrinsic geometry; make necessary knowledge visible; require a new calculation; make detail available without repeating it (See the idea / Work it out / Go deeper). It also covers the authoring/runtime split, browser-local notebook, tutor lesson record, and verification boundaries.",
+   "pedagogy": "Cites Feynman's intrinsic-experiment approach, Needham's geometric arguments and CMU teaching principles.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "broken-or-stale",
+    "strengths": [
+     "The six principles are sound and reflected in the lessons"
+    ],
+    "issues": [
+     "Stale counts ('thirteen worked bridges', 'five synchronized visual models') versus 37 lessons now",
+     "Says course.mjs owns the dependency graph; it is now in curriculum.mjs"
+    ],
+    "evidence": "Compared with content/course.mjs and validateCourse output (37 lessons) on 2026-09-12."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Carry the six principles into the grbook.ai pedagogy notes. Ignore the counts and file ownership.",
+    "effort": null
+   },
+   "size": "~5.7 KB"
+  },
+  {
+   "id": "design-doc-course-evolution",
+   "kind": "design-doc",
+   "title": "Course evolution (implementation record after the 2026-09-09 review)",
+   "paths": [
+    "docs/course-evolution.md"
+   ],
+   "topics": [
+    "curriculum design"
+   ],
+   "teaches": "A dated log of increments: scientific identities, readable-without-JS lessons, attempt histories, reading-position restoration, 12→13 assessed foundations and the skill map, practice in every chapter, the novice entry correction, the calculated labs, and the Hamiltonian mechanics labs. It also lists open work (shared scientific records, tutor evaluation corpus, visual curriculum, graduate paths, learner studies) and states a validation boundary.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Accurate and candid; explicitly refuses to call software checks learner validation"
+    ],
+    "issues": [
+     "Some counts in early increments were superseded (36 → 37 lessons)"
+    ],
+    "evidence": "Cross-checked against content files and validateCourse output."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Use the unchecked items as a backlog signal (causal diagrams, tutor evaluation corpus, learner studies). Adopt its validation-boundary wording in grbook.ai docs.",
+    "effort": null
+   },
+   "size": "~14.7 KB"
+  },
+  {
+   "id": "design-doc-edition-credits",
+   "kind": "design-doc",
+   "title": "Edition notes and credits",
+   "paths": [
+    "content/credits.md"
+   ],
+   "topics": [],
+   "teaches": "Attribution and licensing: NASA Blue Marble Earth texture (resized, WebP), four public-domain historical images with manifest, Newsreader/Manrope fonts (OFL), Hugeicons, KaTeX/MathJax. Inspiration credit for the falling Earth grid to ScienceClic and Hamilton–Lisle's river model. Also statements on what diagrams do and do not show.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "broken-or-stale",
+    "strengths": [
+     "Careful rights rationale and source links"
+    ],
+    "issues": [
+     "Internally inconsistent and stale: 'three interactive experiments' and 'nine Three.js labs' in the same file; '24-chapter' sequence plus Chapter 0; says the reference comparison was an external document"
+    ],
+    "evidence": "content/credits.md read in full."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Copy the attribution and licensing facts for any reused asset (Earth texture, historical images, ScienceClic inspiration credit, fonts) into grbook.ai credits. Discard the edition narrative.",
+    "effort": null
+   },
+   "size": "~7.6 KB"
+  }
+ ]
+}

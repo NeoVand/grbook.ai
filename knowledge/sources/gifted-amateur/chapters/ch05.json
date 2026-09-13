@@ -1,0 +1,3773 @@
+{
+  "book": "gifted-amateur",
+  "unit_id": "ch05",
+  "title": "The metric",
+  "part": "I: Geometry and mechanics in flat spacetime",
+  "printed_pages": [
+    56,
+    66
+  ],
+  "pdf_pages": [
+    73,
+    83
+  ],
+  "one_line_summary": "Promotes the Minkowski dot-product machine eta to a position-dependent metric field g, shows how the line element ds^2 = g_{mu nu} dx^mu dx^nu encodes a geometry in any coordinates, teaches readers to picture a metric by solving ds^2 = 0 for its local light cones (flat, Rindler, Eddington-Finkelstein, Alcubierre warp bubble), and turns the metric into a calculator for proper lengths, areas and the invariant 4-volume sqrt(-g) d^4x justified by local flatness.",
+  "role_in_book": "Last chapter of Part I. Chapters 1-4 built vectors, 1-forms and tensors as slot machines in flat spacetime; this chapter keeps that machinery but lets the metric vary from point to point, which is the doorway to gravity. It is deliberately a 'meet the metrics' tour rather than a derivation: metrics such as the weak-field Newtonian metric, Rindler, Eddington-Finkelstein and Alcubierre are handed over without derivation so the reader learns to read, visualize and measure with a line element before Part II explains where metrics come from (local flatness in ch6, the Newtonian-limit metric derived in ch14, black-hole coordinates in Part IV). It also plants the Jacobian/volume-element idea that Part V (ch37-38) treats rigorously with forms.",
+  "assumed_background": [
+    {
+      "topic": "Tensors as linear slot machines; the metric eta as a (0,2) tensor giving dot products; raising and lowering with the inverse metric",
+      "source": "earlier-in-this-book",
+      "where": "GA ch4 (eqn 4.1)"
+    },
+    {
+      "topic": "Minkowski line element, invariant interval, timelike/spacelike/null separation and light cones in special relativity",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1-ch2"
+    },
+    {
+      "topic": "Weak-field correction g_00 = -(1+2Phi) motivated from gravitational time dilation",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2 Example 2.13, eqn 2.75"
+    },
+    {
+      "topic": "Coordinate transformations, basis vectors e_mu, transformation matrices Lambda, circle geometry on a sphere (eqn 3.20)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch3"
+    },
+    {
+      "topic": "Cylindrical and spherical polar coordinates and their relation to Cartesians",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Total differentials, chain rule, and multiple integrals with a Jacobian",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Matrix determinants, transposes and the product rule det(AB) = det A det B",
+      "source": "linear-algebra",
+      "where": null
+    },
+    {
+      "topic": "Newtonian gravitational potential Phi",
+      "source": "undergrad-mechanics",
+      "where": null
+    }
+  ],
+  "learning_objectives": [
+    "Reader can explain the difference between the metric field (position in, tensor out) and the metric tensor at a point (two vectors in, number out).",
+    "Reader can extract metric components g_{mu nu} = g(e_mu, e_nu) and write the corresponding line element and matrix, and vice versa.",
+    "Reader can derive the flat-space line element in cylindrical and spherical polars from Cartesian differentials and state why a position-dependent g_{mu nu} does not by itself mean curvature.",
+    "Reader can show that metric components transform as a (0,2) tensor using invariance of ds^2.",
+    "Reader can set ds^2 = 0 in a given two-dimensional line element, solve for the null directions dt/dx (or dv/dx), integrate them, and sketch the resulting light-cone field.",
+    "Reader can use light-cone coordinates u = t - r, v = t + r to write the flat radial line element as -du dv.",
+    "Reader can explain qualitatively how the Alcubierre bubble tips light cones so a traveller covers large coordinate distances while never leaving her local forward cone, and why it needs negative energy.",
+    "Reader can compute proper lengths along coordinate lines (dl = sqrt(g_ii) dx^i) and apply them to the radius and circumference of a latitude circle on a sphere.",
+    "Reader can build area, 3-volume and 4-volume elements for a diagonal metric and generalize to sqrt(-g) d^4x.",
+    "Reader can reproduce the local-flatness argument that the Jacobian to local Cartesian coordinates equals sqrt(-g), using det g = det Lambda det eta det Lambda^T.",
+    "Reader can read off the Newtonian-limit metric components, check that Phi = 0 returns Minkowski, and identify which components carry the gravitational correction."
+  ],
+  "teaching_approach": {
+    "summary": "A catalogue-and-toolkit chapter. The authors lean on the slot-machine language from ch4 so the only genuinely new idea is that the machine now depends on position; everything else is presented as practical recipes applied to a gallery of line elements. Metrics are quoted without derivation and visualized by drawing local light cones, with a science-fiction hook (the warp drive) to make cone-tipping memorable. The final section switches from visualizing to measuring: integrate sqrt(g_ii) for lengths, multiply such proper lengths for areas and volumes, then generalize via the determinant and a short local-flatness proof. Many of the key calculations and cautions live in margin notes rather than the main text.",
+    "style_tags": [
+      "components-first",
+      "example-driven",
+      "computational-recipe",
+      "diagram-driven",
+      "conversational-informal",
+      "survey-overview",
+      "spiral-revisit"
+    ],
+    "narrative_arc": [
+      "Motivation: Einstein's theory in words is curvature equals energy density; curvature needs a more general metric g than eta.",
+      "Model: the metric becomes a field; margin note separates 'position into field' from 'vectors into tensor'.",
+      "Formalism: g(X,Y) = X.Y, components g(e_mu, e_nu), line element ds^2 = g_{mu nu} dx^mu dx^nu, interval as an integral of |ds|.",
+      "Check (Example 5.1): invariance of ds^2 forces the (0,2) tensor transformation law for g_{mu nu}.",
+      "Caution: coordinates carry no built-in metric meaning (t need not be time, r need not be radius).",
+      "Gallery: Euclidean 3D, Minkowski in Cartesian, cylindrical and spherical polars (with margin derivations), 2-sphere, weak-field Newtonian metric.",
+      "Consolidation: components that vary with position make the field nature manifest; margin example computes r d theta arc length with the slot machine.",
+      "Visualization tool: light cones from ds^2 = 0, applied to flat spacetime with u,v coordinates, Rindler, baby Eddington-Finkelstein and full Eddington-Finkelstein.",
+      "Application: Alcubierre warp drive as an exotic spacetime whose light cones tip inside a bubble; negative-energy caveat.",
+      "Measurement: proper lengths on a sphere (radius, polar distance, latitude circumference with the sinc relation).",
+      "Generalization: area, 3-volume and 4-volume elements for diagonal metrics, then sqrt(-g) d^4x for any metric.",
+      "Proof: Jacobian transformation of volumes plus local flatness (g = Lambda eta Lambda^T) gives det Lambda = sqrt(-g).",
+      "Summary box and exercises on determinants, Rindler flatness, moving frames, and an FRW-type line element."
+    ],
+    "signature_moves": [
+      "Treat the line element as the metric itself: every spacetime is introduced by writing ds^2, and components are read off as coefficients.",
+      "Use the same flat Minkowski spacetime in three coordinate systems to separate 'components vary' from 'space is curved'.",
+      "Visualize a metric by its field of local light cones computed from ds^2 = 0 rather than by embedding (embedding is deferred to Appendix D).",
+      "Deliberately pluck toy metrics from thin air (Rindler, a 'baby' Eddington-Finkelstein with 2GM/r replaced by x) so the reader practises the null-cone recipe on simple functions first.",
+      "Hook with science fiction: the Alcubierre warp drive shows that apparent faster-than-light travel is a statement about cone orientation, not local speed.",
+      "Build volume elements from products of proper lengths dl^i = sqrt(g_ii) dx^i before introducing determinants and Jacobians.",
+      "Justify the invariant volume by the local-flatness picture of an Earth-dweller whose street map is locally Euclidean.",
+      "Push technical support (polar differentials, determinant formula, Jacobian definition, worked slot-machine arc length) into margin notes to keep the main line short."
+    ]
+  },
+  "sections": [
+    {
+      "number": null,
+      "title": "Chapter opening: from eta to a metric field",
+      "printed_page": 56,
+      "pdf_page": 73,
+      "summary": "Recalls that eta is a (0,2) tensor producing dot products and that everything so far was flat. States Einstein's theory schematically as spacetime curvature balanced by energy density, and says curvature needs a general metric g. Because g changes from point to point it is a field, and relating tensors at neighbouring points is what makes general relativity a field theory of gravity. Margin notes warn that two kinds of input are involved and that g will also sit on the matter side, which is why the field equations are hard.",
+      "concepts": [
+        "metric tensor",
+        "metric field",
+        "field theory",
+        "Einstein field equation (schematic)"
+      ],
+      "key_moves": [
+        "Schematic equation (5.1): curvature of spacetime = energy density of matter.",
+        "Replace eta by g for curved spacetime; g = eta everywhere only in flat spacetime.",
+        "Define a field as a map from spacetime position to a tensor valid at that point.",
+        "Margin note 1: position goes into the field, then two vectors go into the resulting tensor."
+      ]
+    },
+    {
+      "number": "5.1",
+      "title": "Metrics in general",
+      "printed_page": 56,
+      "pdf_page": 73,
+      "summary": "Restates the metric as a two-slot machine returning the dot product, obtains components by feeding in basis vectors, and generalizes the Minkowski line element to ds^2 = g_{mu nu} dx^mu dx^nu by inserting dx into both slots. The finite interval along a curve is the integral of the square root of the absolute value of this quadratic form. Example 5.1 derives the (0,2) transformation law of g_{mu nu} from invariance of ds^2. A margin note contrasts this simple product of differentials with genuine area and volume products that need a Jacobian.",
+      "concepts": [
+        "metric tensor",
+        "metric components",
+        "line element",
+        "inverse metric",
+        "interval along a curve",
+        "tensor transformation law of the metric"
+      ],
+      "key_moves": [
+        "g(X,Y) = X.Y and g_{mu nu} = g(e_mu, e_nu).",
+        "Insert the displacement dx into both slots to get ds^2 = g_{mu nu} dx^mu dx^nu; slogan that the line element is the metric.",
+        "Integrate |ds| along a curve from A to B for the total interval (5.5).",
+        "Invariance of ds^2 plus the chain rule for dx^mu gives g'_{alpha beta} = g_{mu nu} (dx^mu/dx^alpha')(dx^nu/dx^beta').",
+        "Inverse metric recalled in a margin note: g^{mu nu} g_{nu lambda} = delta^mu_lambda."
+      ]
+    },
+    {
+      "number": "5.2",
+      "title": "Meet some metrics",
+      "printed_page": 58,
+      "pdf_page": 75,
+      "summary": "A gallery of line elements with their component matrices: 3D Euclidean space, Minkowski in Cartesian coordinates, the same flat spacetime in cylindrical and spherical polars (margin notes derive the polar forms from differentials and introduce dOmega^2), the 2-sphere obtained by freezing r (Example 5.2), and the weak-field Newtonian metric in which both g_00 and the spatial components pick up 2Phi corrections. A margin note (placed on this page) insists that coordinate labels have no built-in metric meaning. The section ends by stressing that non-constant components make the metric a function g_{mu nu}(x), with a margin example computing an arc length r d theta.",
+      "concepts": [
+        "Euclidean metric",
+        "Minkowski metric",
+        "flat metric in polar coordinates",
+        "solid-angle element",
+        "metric on a 2-sphere",
+        "Newtonian-limit metric",
+        "metric field",
+        "coordinates have no intrinsic metric significance"
+      ],
+      "key_moves": [
+        "Write each metric both as ds^2 and as a matrix g_{mu nu}.",
+        "Derive dx^2 + dy^2 = dr^2 + r^2 dtheta^2 from dx = cos theta dr - r sin theta dtheta and dy = sin theta dr + r cos theta dtheta.",
+        "Abbreviate d theta^2 + sin^2 theta d phi^2 as dOmega^2.",
+        "Fix r = a to get the first curved space, the sphere (Example 5.2).",
+        "Newtonian limit: g_00 = -(1+2Phi) (already motivated in Example 2.13) and g_ii = 1-2Phi; Phi = 0 restores Minkowski; valid for static potentials; derivation deferred to ch14.",
+        "Position dependence of components shows the metric is a field; slot-machine arc length ds = r dtheta depends on where it is evaluated."
+      ]
+    },
+    {
+      "number": "5.3",
+      "title": "Light and light cones",
+      "printed_page": 60,
+      "pdf_page": 77,
+      "summary": "Introduces the local light-cone field as the main way to picture a metric (embedding is mentioned as the alternative). Setting ds^2 = 0 gives the null directions in whatever coordinates are used. Example 5.3 works four cases: flat spacetime (identical 45-degree cones, light-cone coordinates u, v with ds^2 = -du dv), Rindler (cones whose coordinate opening changes with x as dt/dx = +-1/x), a toy 'baby' Eddington-Finkelstein metric (one null family v = const, the other dv/dx = 2/x) and the Eddington-Finkelstein form of the black-hole metric. Example 5.4 constructs the Alcubierre warp metric from a bubble function f(r_s) and shows that inside the bubble the cones are shifted by v_s f, letting a traveller cross large distances while always inside her local cone; a note adds that negative energy is required.",
+      "concepts": [
+        "null condition",
+        "local light cone",
+        "light-cone coordinates",
+        "Rindler spacetime",
+        "Eddington-Finkelstein coordinates",
+        "Alcubierre warp drive metric",
+        "causal structure",
+        "embedding diagram"
+      ],
+      "key_moves": [
+        "Null world lines satisfy ds^2 = 0 (5.27); solve for the coordinate slope of light rays at each point.",
+        "Flat: dt/d|r| = +-1, cones everywhere identical; u = t - |r|, v = t + |r| turn ds^2 into -du dv so null lines are u or v constant.",
+        "Rindler: -x^2 dt^2 + dx^2 = 0 gives dt/dx = +-1/x, t - t0 = +-ln|x| (up to constant), cones narrow near x = 0 and flatten at large x.",
+        "Baby EF: -x dv^2 + 2 dv dx factorizes as dv(-x dv + 2 dx) = 0, so dv = 0 or dv/dx = 2/x.",
+        "Full EF: dv = 0 or dv/dr = 2/(1-2GM/r).",
+        "Alcubierre: write ds^2 = -dt^2 + (dx - v_s f dt)^2 + dy^2 + dz^2; null condition gives dx/dt = v_s f +- 1; outside f = 0 the cones are ordinary, inside they tilt.",
+        "Traveller's world line stays inside the local forward cone yet looks superluminal against the exterior cones."
+      ]
+    },
+    {
+      "number": "5.4",
+      "title": "Lengths, areas, volumes",
+      "printed_page": 62,
+      "pdf_page": 79,
+      "summary": "Uses the line element as a measuring device. Example 5.5 recovers the radius of a ball, the polar distance r0 = R theta0 to a latitude circle and its circumference 2 pi R sin theta0 = 2 pi r0 sinc(r0/R). From these, proper length along a coordinate line is sqrt(g_ii) dx^i. Example 5.6 multiplies such lengths for a diagonal metric to get area, 3-volume (spherical-polar dA and dV as checks) and, with a sign flip for the timelike component, 4-volume. The product of diagonal components is recognized as det g, and the result is extended to any metric as sqrt(-g) d^4x. Invariance is argued with the Jacobian and local flatness: in Example 5.7 g = Lambda eta Lambda^T at a point, so det Lambda = sqrt(-g), and the locally Cartesian volume equals sqrt(-g) d^4x. Chapter summary follows.",
+      "concepts": [
+        "proper length element",
+        "diagonal metric",
+        "area element",
+        "volume element",
+        "invariant 4-volume element",
+        "determinant of the metric",
+        "Jacobian",
+        "Levi-Civita symbol",
+        "principle of local flatness",
+        "circle on a sphere"
+      ],
+      "key_moves": [
+        "Freeze all but one coordinate and integrate sqrt(g_ii) to get a proper length (5.43-5.45).",
+        "Latitude circle on a sphere: circumference 2 pi R sin theta0 is less than 2 pi times its intrinsic radius r0.",
+        "dl^i = sqrt(g_ii) dx^i; area and volumes are products of these for diagonal metrics.",
+        "4-volume needs sqrt(-g_00 g_11 g_22 g_33) because g_00 < 0; the product is det g for a diagonal matrix.",
+        "Generalize to dV = sqrt(-det g) d^4x for any metric.",
+        "Volume elements transform with the Jacobian determinant of the coordinate change.",
+        "Local flatness: at a point g = Lambda eta Lambda^T; taking determinants, det g = -(det Lambda)^2, so Jacobian = sqrt(-g)."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Chapter summary",
+      "printed_page": 64,
+      "pdf_page": 81,
+      "summary": "Boxed recap: the metric is a geometry-encoding field that returns g_{mu nu} X^mu Y^nu; its components are usually given as a line element; a metric can be pictured through its light cones defined by ds^2 = 0; the invariant volume element is sqrt(-g) d^4x; and local flatness says an observer sees Minkowski spacetime at her own location.",
+      "concepts": [
+        "metric field",
+        "line element",
+        "local light cone",
+        "invariant 4-volume element",
+        "principle of local flatness"
+      ],
+      "key_moves": [
+        "Collects (5.63)-(5.65) as the three formulas to remember."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Exercises",
+      "printed_page": 65,
+      "pdf_page": 82,
+      "summary": "Five problems: invariant area elements from determinants (plane in polars, sphere, torus); proving the Rindler metric is flat with a hyperbolic coordinate change; the Minkowski metric in Galilean-shifted coordinates with its cone structure, proper time and inverse metric; proper length and a radial light ray in an FRW-type metric with curvature constant k; and proper length and time intervals in Rindler space.",
+      "concepts": [
+        "determinant of the metric",
+        "Rindler spacetime",
+        "inverse metric",
+        "proper time",
+        "Robertson-Walker metric"
+      ],
+      "key_moves": [
+        "Practice reading g_{mu nu} off a line element and using determinants, null conditions and coordinate transformations."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "metric tensor",
+      "aliases": [
+        "g( , )",
+        "general metric",
+        "(0,2) metric tensor"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A symmetric, non-degenerate (0,2) tensor defined at each spacetime point that takes two vectors and returns their scalar product; it fixes lengths, angles, intervals and causal character. In flat spacetime it reduces to eta.",
+      "how_introduced": "Carried over from ch4's slot-machine description of eta, then renamed g so it can differ from eta once curvature is allowed; components come from feeding in basis vectors.",
+      "depth": "core",
+      "prerequisites": [
+        "tensor as slot machine",
+        "Minkowski metric",
+        "basis vectors"
+      ],
+      "locators": [
+        {
+          "pdf_page": 73,
+          "printed_page": 56,
+          "section": null
+        },
+        {
+          "pdf_page": 74,
+          "printed_page": 57,
+          "section": "5.1"
+        }
+      ],
+      "formulas": [
+        "g(X,Y)=X\\cdot Y",
+        "g_{\\mu\\nu}=g(e_\\mu,e_\\nu)"
+      ],
+      "notes": "The chapter uses g for general spacetimes and reserves eta for flat Minkowski spacetime."
+    },
+    {
+      "name": "metric field",
+      "aliases": [
+        "metric as a field",
+        "g_{\\mu\\nu}(x)"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The assignment of a metric tensor to every point of spacetime, so that the components g_{mu nu}(x) are functions of the coordinates; its variation encodes the geometry that general relativity treats as the gravitational field.",
+      "how_introduced": "Introduced in the opening by contrasting flat spacetime (same eta everywhere) with curved spacetime (different g at different points), and made concrete at the end of 5.2 by noticing that polar and weak-field components depend on position.",
+      "depth": "core",
+      "prerequisites": [
+        "metric tensor",
+        "field theory"
+      ],
+      "locators": [
+        {
+          "pdf_page": 73,
+          "printed_page": 56,
+          "section": null
+        },
+        {
+          "pdf_page": 76,
+          "printed_page": 59,
+          "section": "5.2"
+        },
+        {
+          "pdf_page": 81,
+          "printed_page": 64,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "g_{\\mu\\nu}=g_{\\mu\\nu}(x)"
+      ],
+      "notes": "Margin note 1 warns that there are two stages of input: a position into the field, then two vectors into the tensor it returns."
+    },
+    {
+      "name": "field theory",
+      "aliases": [
+        "field theory of gravity"
+      ],
+      "kind": "definition",
+      "definition": "A theory whose basic variables are fields over spacetime, with laws relating their values at neighbouring points so that one can predict how they change and how they act on matter; general relativity is the field theory whose field is the metric.",
+      "how_introduced": "Mentioned in the opening as the reason neighbouring metric tensors must be related.",
+      "depth": "mention",
+      "prerequisites": [
+        "metric field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 73,
+          "printed_page": 56,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "Einstein field equation (schematic)",
+      "aliases": [
+        "curvature = energy density"
+      ],
+      "kind": "law",
+      "definition": "Einstein's gravitational law in words: a measure of spacetime curvature built from the metric equals a measure of the energy content of matter; the metric enters both sides, making the equation non-linear and hard to solve.",
+      "how_introduced": "Stated as a word equation (5.1) to motivate why a general metric is needed; full form deferred to ch13.",
+      "depth": "mention",
+      "prerequisites": [
+        "metric field"
+      ],
+      "locators": [
+        {
+          "pdf_page": 73,
+          "printed_page": 56,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\text{(curvature of spacetime)} = \\text{(energy density of matter)}"
+      ],
+      "notes": "Margin note 2 flags that the metric also appears on the matter side."
+    },
+    {
+      "name": "metric components",
+      "aliases": [
+        "g_{\\mu\\nu}",
+        "components of the metric",
+        "metric matrix"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The numbers g_{mu nu} = g(e_mu, e_nu) obtained by inserting pairs of coordinate basis vectors into the metric; arranged as a symmetric 4x4 matrix they specify the metric in a given coordinate system.",
+      "how_introduced": "Extracted by feeding basis vectors into the slot machine; every metric in the gallery is displayed both as a matrix and as a line element.",
+      "depth": "developed",
+      "prerequisites": [
+        "metric tensor",
+        "basis vectors"
+      ],
+      "locators": [
+        {
+          "pdf_page": 74,
+          "printed_page": 57,
+          "section": "5.1"
+        },
+        {
+          "pdf_page": 75,
+          "printed_page": 58,
+          "section": "5.2"
+        },
+        {
+          "pdf_page": 76,
+          "printed_page": 59,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [
+        "g_{\\mu\\nu}=e_\\mu\\cdot e_\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "line element",
+      "aliases": [
+        "ds^2",
+        "the metric (as line element)",
+        "invariant interval"
+      ],
+      "kind": "definition",
+      "definition": "The quadratic expression ds^2 = g_{mu nu} dx^mu dx^nu giving the squared invariant interval between infinitesimally separated events; since its coefficients are the metric components, quoting the line element specifies the metric.",
+      "how_introduced": "Generalized from the special-relativity form ds^2 = eta_{mu nu} dx^mu dx^nu by inserting the displacement dx into both slots of g; thereafter every spacetime in the chapter is introduced by writing its ds^2.",
+      "depth": "core",
+      "prerequisites": [
+        "metric tensor",
+        "invariant interval"
+      ],
+      "locators": [
+        {
+          "pdf_page": 74,
+          "printed_page": 57,
+          "section": "5.1"
+        },
+        {
+          "pdf_page": 75,
+          "printed_page": 58,
+          "section": "5.2"
+        },
+        {
+          "pdf_page": 81,
+          "printed_page": 64,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=g_{\\mu\\nu}\\,\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu"
+      ],
+      "notes": "The book's slogan is that the line element is the metric."
+    },
+    {
+      "name": "interval along a curve",
+      "aliases": [
+        "total interval",
+        "finite interval",
+        "length of a curve"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The integral of |g_{mu nu} dx^mu dx^nu|^{1/2} along a path between two events; for spacelike paths it is proper length, for timelike paths it is proportional to proper time.",
+      "how_introduced": "Introduced right after the line element as the way to get finite separations, then used in note 9 and Example 5.5 for arc lengths.",
+      "depth": "developed",
+      "prerequisites": [
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 74,
+          "printed_page": 57,
+          "section": "5.1"
+        },
+        {
+          "pdf_page": 76,
+          "printed_page": 59,
+          "section": "5.2"
+        },
+        {
+          "pdf_page": 79,
+          "printed_page": 62,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "s=\\int_{\\mathcal A}^{\\mathcal B}\\left|g_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu\\right|^{1/2}"
+      ],
+      "notes": "The absolute value hides the distinction between timelike and spacelike paths; the book does not separate proper time here."
+    },
+    {
+      "name": "inverse metric",
+      "aliases": [
+        "g^{\\mu\\nu}",
+        "'up' form of the metric",
+        "(2,0) metric"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The (2,0) tensor whose component matrix is the inverse of g_{mu nu}, so that g^{mu nu} g_{nu lambda} = delta^mu_lambda; it takes two 1-forms and returns a scalar and raises indices.",
+      "how_introduced": "Recalled from ch4 in margin note 3; computed explicitly in Exercise 5.3(d).",
+      "depth": "mention",
+      "prerequisites": [
+        "metric components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 74,
+          "printed_page": 57,
+          "section": "5.1"
+        },
+        {
+          "pdf_page": 82,
+          "printed_page": 65,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "g^{\\mu\\nu}g_{\\nu\\lambda}=\\delta^\\mu{}_\\lambda"
+      ],
+      "notes": null
+    },
+    {
+      "name": "tensor transformation law of the metric",
+      "aliases": [
+        "(0,2) transformation law",
+        "metric transformation under coordinate change"
+      ],
+      "kind": "identity",
+      "definition": "Under a change of coordinates the metric components transform with two factors of the inverse Jacobian matrix, g'_{alpha beta} = g_{mu nu} (partial x^mu/partial x^alpha')(partial x^nu/partial x^beta'), exactly as a (0,2) tensor must, which keeps ds^2 unchanged.",
+      "how_introduced": "Example 5.1 demands that the line element be the same number in two coordinate systems and substitutes the chain-rule expansion of dx^mu.",
+      "depth": "developed",
+      "prerequisites": [
+        "line element",
+        "chain rule for differentials"
+      ],
+      "locators": [
+        {
+          "pdf_page": 74,
+          "printed_page": 57,
+          "section": "5.1"
+        },
+        {
+          "pdf_page": 80,
+          "printed_page": 63,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "g'_{\\alpha\\beta}=g_{\\mu\\nu}\\frac{\\partial x^\\mu}{\\partial x^{\\alpha'}}\\frac{\\partial x^\\nu}{\\partial x^{\\beta'}}"
+      ],
+      "notes": "Reused in note 20 as the matrix identity g = Lambda eta Lambda^T."
+    },
+    {
+      "name": "coordinates have no intrinsic metric significance",
+      "aliases": [
+        "metric significance",
+        "t isn't necessarily time"
+      ],
+      "kind": "principle",
+      "definition": "Coordinate labels in general relativity are arbitrary names for events; a coordinate called t need not measure time and r need not measure radial distance. Physical lengths and durations come only from combining coordinate differences with the metric.",
+      "how_introduced": "Margin note 6 on p.58 states the slogan and reports Einstein's view that this was among the hardest habits to abandon; Rindler and Eddington-Finkelstein examples then use coordinates (x as a lapse-like factor, null coordinate v) that clearly are not naive times or distances.",
+      "depth": "introduced",
+      "prerequisites": [
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 75,
+          "printed_page": 58,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [],
+      "notes": "In the reading copy this margin note was displaced to the top of p.58 without its number; the render confirms it is note 6."
+    },
+    {
+      "name": "Euclidean metric",
+      "aliases": [
+        "flat 3D space metric"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The positive-definite metric of ordinary flat three-dimensional space, ds^2 = dx^2 + dy^2 + dz^2 in Cartesian coordinates, with g_ij = delta_ij.",
+      "how_introduced": "First entry of the gallery, as the most familiar line element.",
+      "depth": "revisited",
+      "prerequisites": [
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 75,
+          "printed_page": 58,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=\\mathrm{d}x^2+\\mathrm{d}y^2+\\mathrm{d}z^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Minkowski metric",
+      "aliases": [
+        "eta",
+        "flat spacetime metric",
+        "Minkowski line element"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The metric of flat special-relativistic spacetime, ds^2 = -dt^2 + dx^2 + dy^2 + dz^2 in inertial Cartesian coordinates (c = 1), with component matrix diag(-1,1,1,1).",
+      "how_introduced": "Recalled from earlier chapters and displayed as a matrix; then re-expressed in polar coordinates to show that the same flat spacetime can have position-dependent components.",
+      "depth": "revisited",
+      "prerequisites": [
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 75,
+          "printed_page": 58,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [
+        "g_{\\mu\\nu}=\\mathrm{diag}(-1,1,1,1)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "flat metric in polar coordinates",
+      "aliases": [
+        "Minkowski in cylindrical polars",
+        "Minkowski in spherical polars"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The Minkowski line element rewritten in cylindrical coordinates, -dt^2 + dr^2 + r^2 dtheta^2 + dz^2, or spherical coordinates, -dt^2 + dr^2 + r^2 dtheta^2 + r^2 sin^2 theta dphi^2; components like r^2 vary with position even though spacetime is flat.",
+      "how_introduced": "Margin notes 7 and 8 compute the Cartesian differentials in terms of polar ones and square them; the main text shows the resulting diagonal matrices.",
+      "depth": "developed",
+      "prerequisites": [
+        "Minkowski metric",
+        "polar coordinates"
+      ],
+      "locators": [
+        {
+          "pdf_page": 75,
+          "printed_page": 58,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=-\\mathrm{d}t^2+\\mathrm{d}r^2+r^2\\mathrm{d}\\theta^2+\\mathrm{d}z^2",
+        "\\mathrm{d}s^2=-\\mathrm{d}t^2+\\mathrm{d}r^2+r^2\\mathrm{d}\\Omega^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "solid-angle element",
+      "aliases": [
+        "dOmega^2",
+        "metric on the unit sphere"
+      ],
+      "kind": "convention",
+      "definition": "The shorthand dOmega^2 = dtheta^2 + sin^2 theta dphi^2 for the line element of a unit 2-sphere, so that spherical symmetric metrics contain r^2 dOmega^2.",
+      "how_introduced": "Introduced in margin note 8 while writing flat spacetime in spherical polars.",
+      "depth": "introduced",
+      "prerequisites": [
+        "flat metric in polar coordinates"
+      ],
+      "locators": [
+        {
+          "pdf_page": 75,
+          "printed_page": 58,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}\\Omega^2=\\mathrm{d}\\theta^2+\\sin^2\\theta\\,\\mathrm{d}\\phi^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "metric on a 2-sphere",
+      "aliases": [
+        "sphere metric",
+        "surface of a sphere"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The intrinsic geometry of a sphere of radius a, ds^2 = a^2(dtheta^2 + sin^2 theta dphi^2); it is a genuinely curved two-dimensional space even though it sits inside flat space.",
+      "how_introduced": "Example 5.2 freezes r = a in the spherical-polar metric and calls the result the first curved space met; Example 5.5 later measures circles on it.",
+      "depth": "introduced",
+      "prerequisites": [
+        "flat metric in polar coordinates",
+        "solid-angle element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 76,
+          "printed_page": 59,
+          "section": "5.2"
+        },
+        {
+          "pdf_page": 79,
+          "printed_page": 62,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=a^2(\\mathrm{d}\\theta^2+\\sin^2\\theta\\,\\mathrm{d}\\phi^2)"
+      ],
+      "notes": "The printed eqn 5.21 keeps a -dt^2 term, so strictly it describes a sphere times time; the pure surface needs dt = 0."
+    },
+    {
+      "name": "Newtonian-limit metric",
+      "aliases": [
+        "weak-field metric",
+        "Newtonian metric",
+        "static weak-field line element"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The approximate metric of a weak, static gravitational field with Newtonian potential Phi (|Phi| << 1 with c = 1): ds^2 = -(1+2Phi)dt^2 + (1-2Phi)(dx^2+dy^2+dz^2). The time part reproduces gravitational time dilation and Newtonian motion; the spatial part is a relativistic addition.",
+      "how_introduced": "Quoted without derivation as the last gallery entry; the g_00 factor is linked back to Example 2.13, the spatial factor is new, the Phi = 0 check returns Minkowski, and a pointer box sends the derivation to ch14.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Minkowski metric",
+        "gravitational potential"
+      ],
+      "locators": [
+        {
+          "pdf_page": 76,
+          "printed_page": 59,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=-(1+2\\Phi)\\mathrm{d}t^2+(1-2\\Phi)(\\mathrm{d}x^2+\\mathrm{d}y^2+\\mathrm{d}z^2)"
+      ],
+      "notes": "The spatial (1-2Phi) factor is needed for light bending at the full GR value; the chapter does not say this."
+    },
+    {
+      "name": "null condition",
+      "aliases": [
+        "ds^2 = 0",
+        "light-like interval"
+      ],
+      "kind": "principle",
+      "definition": "Light (and anything massless) travels along world lines whose every infinitesimal step has zero interval, ds^2 = 0; solving this equation in given coordinates yields the local directions of light rays.",
+      "how_introduced": "Recalled from special relativity at the start of 5.3 and turned into the working recipe for drawing cones in any metric.",
+      "depth": "core",
+      "prerequisites": [
+        "line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 77,
+          "printed_page": 60,
+          "section": "5.3"
+        },
+        {
+          "pdf_page": 81,
+          "printed_page": 64,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "local light cone",
+      "aliases": [
+        "light-cone structure",
+        "light cones in curved spacetime",
+        "forward light cone"
+      ],
+      "kind": "mathematical-object",
+      "definition": "At each event, the set of null directions given by ds^2 = 0, which separates timelike directions (inside, reachable by massive bodies) from spacelike ones; in curved spacetime or curvilinear coordinates the cones' drawn orientation and opening vary from point to point, and their pattern captures most of the causal structure.",
+      "how_introduced": "Presented as the principal way to visualize a metric; four metrics in Example 5.3 and the warp bubble in Example 5.4 are drawn as fields of little forward cones.",
+      "depth": "core",
+      "prerequisites": [
+        "null condition",
+        "causal structure"
+      ],
+      "locators": [
+        {
+          "pdf_page": 77,
+          "printed_page": 60,
+          "section": "5.3"
+        },
+        {
+          "pdf_page": 78,
+          "printed_page": 61,
+          "section": "5.3"
+        },
+        {
+          "pdf_page": 81,
+          "printed_page": 64,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm{d}t}{\\mathrm{d}|\\vec r|}=\\pm1\\ \\text{(flat)}"
+      ],
+      "notes": "The book calls light cones absolute surfaces; the invariant statement is that the null cone is coordinate independent while its drawn shape depends on the chart."
+    },
+    {
+      "name": "causal structure",
+      "aliases": [
+        "timelike/spacelike separation",
+        "signalling structure"
+      ],
+      "kind": "definition",
+      "definition": "The pattern, set by the light cones, of which events can influence which: events inside or on each other's cones can be connected by signals, spacelike-separated events cannot.",
+      "how_introduced": "Given as the reason cone orientation matters: the tilt of the cone at an event tells you which signals can leave it and which can reach it.",
+      "depth": "developed",
+      "prerequisites": [
+        "local light cone"
+      ],
+      "locators": [
+        {
+          "pdf_page": 77,
+          "printed_page": 60,
+          "section": "5.3"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "light-cone coordinates",
+      "aliases": [
+        "null coordinates",
+        "u and v coordinates"
+      ],
+      "kind": "technique",
+      "definition": "Coordinates u = t - |r| and v = t + |r| adapted to outgoing and ingoing radial light rays; in them the radial flat line element becomes -du dv, so null rays are lines of constant u or constant v.",
+      "how_introduced": "Offered as a useful innovation in Example 5.3(a); Fig. 5.1(a) labels the diagonal grid lines u = constant and v = constant.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Minkowski metric",
+        "null condition"
+      ],
+      "locators": [
+        {
+          "pdf_page": 77,
+          "printed_page": 60,
+          "section": "5.3"
+        }
+      ],
+      "formulas": [
+        "u=t-|\\vec r|,\\quad v=t+|\\vec r|",
+        "\\mathrm{d}s^2=-\\mathrm{d}u\\,\\mathrm{d}v"
+      ],
+      "notes": "Valid for radial motion only; the angular r^2 dOmega^2 part is silently dropped."
+    },
+    {
+      "name": "Rindler spacetime",
+      "aliases": [
+        "Rindler metric",
+        "Rindler coordinates"
+      ],
+      "kind": "solution-or-model",
+      "definition": "Flat two-dimensional spacetime described in coordinates adapted to uniformly accelerated observers, ds^2 = -x^2 dt^2 + dx^2; its light cones have coordinate slope dt/dx = +-1/x, and the transformation X = x cosh t, T = x sinh t shows it is just part of Minkowski spacetime.",
+      "how_introduced": "Plucked from thin air in Example 5.3(b) as a first non-trivial cone exercise; Exercises 5.2 and 5.5 ask the reader to prove its flatness and compute proper intervals.",
+      "depth": "introduced",
+      "prerequisites": [
+        "null condition",
+        "local light cone",
+        "coordinates have no intrinsic metric significance"
+      ],
+      "locators": [
+        {
+          "pdf_page": 77,
+          "printed_page": 60,
+          "section": "5.3"
+        },
+        {
+          "pdf_page": 82,
+          "printed_page": 65,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=-x^2\\mathrm{d}t^2+\\mathrm{d}x^2",
+        "X=x\\cosh t,\\ T=x\\sinh t"
+      ],
+      "notes": "A key example that deformed coordinate cones do not imply curvature."
+    },
+    {
+      "name": "Eddington-Finkelstein coordinates",
+      "aliases": [
+        "Eddington-Finkelstein metric",
+        "baby Eddington-Finkelstein metric",
+        "ingoing null coordinates"
+      ],
+      "kind": "solution-or-model",
+      "definition": "A form of the spherically symmetric black-hole metric using an ingoing null coordinate v, ds^2 = -(1-2GM/r)dv^2 + 2 dv dr (radial part), in which one family of radial light rays is v = constant and the other obeys dv/dr = 2/(1-2GM/r); the book first practises on a toy version with 1-2GM/r replaced by x.",
+      "how_introduced": "Example 5.3(c) uses the 'baby' version -x dv^2 + 2 dv dx, then 5.3(d) gives the real one; a margin note points ahead to stars and spherically symmetric black holes.",
+      "depth": "introduced",
+      "prerequisites": [
+        "null condition",
+        "light-cone coordinates"
+      ],
+      "locators": [
+        {
+          "pdf_page": 77,
+          "printed_page": 60,
+          "section": "5.3"
+        },
+        {
+          "pdf_page": 78,
+          "printed_page": 61,
+          "section": "5.3"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=-x\\,\\mathrm{d}v^2+2\\,\\mathrm{d}v\\,\\mathrm{d}x",
+        "\\mathrm{d}s^2=-\\left(1-\\frac{2GM}{r}\\right)\\mathrm{d}v^2+2\\,\\mathrm{d}v\\,\\mathrm{d}r"
+      ],
+      "notes": "The tipping of cones at r = 2GM (where dv/dr diverges) is the horizon, but the chapter does not draw or discuss this. The 'baby' version is not a curved toy: for a 2D metric -F(x)dv^2 + 2dv dx the scalar curvature is proportional to F'', which vanishes for F = x, so it is Rindler-like flat spacetime in null coordinates. Only the genuine 1 - 2GM/r coefficient carries curvature."
+    },
+    {
+      "name": "Alcubierre warp drive metric",
+      "aliases": [
+        "warp drive",
+        "warp bubble",
+        "Alcubierre metric"
+      ],
+      "kind": "solution-or-model",
+      "definition": "A spacetime in which a bubble of distorted geometry, shaped by a smooth function f(r_s) equal to 1 at the centre and 0 beyond radius R, moves along a path x_s(t) with coordinate speed v_s; inside, light cones are shifted by v_s f so the bubble and its passenger can outrun light as judged from far away while nothing ever moves outside its local light cone.",
+      "how_introduced": "Example 5.4 builds the metric from the bubble function, simplifies it to a completed square, sets ds^2 = 0 to get dx/dt = v_s f +- 1, and uses Fig. 5.2 to show cones tipping inside the dotted region; note 13 adds that negative energy is required.",
+      "depth": "introduced",
+      "prerequisites": [
+        "local light cone",
+        "null condition"
+      ],
+      "locators": [
+        {
+          "pdf_page": 78,
+          "printed_page": 61,
+          "section": "5.3"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=-\\mathrm{d}t^2+[\\mathrm{d}x-v_s(t)f(r_s)\\mathrm{d}t]^2+\\mathrm{d}y^2+\\mathrm{d}z^2",
+        "\\frac{\\mathrm{d}x}{\\mathrm{d}t}=\\pm1+v_s(t)f(r_s)"
+      ],
+      "notes": "Printed expanded form (5.40) has sign errors; use (5.41)."
+    },
+    {
+      "name": "negative energy requirement",
+      "aliases": [
+        "exotic matter"
+      ],
+      "kind": "phenomenon",
+      "definition": "Geometries like the warp bubble can only be sourced, via Einstein's equation, by matter with negative energy density, which no known classical matter provides.",
+      "how_introduced": "One-line margin caution (note 13) after the warp drive example.",
+      "depth": "mention",
+      "prerequisites": [
+        "Alcubierre warp drive metric",
+        "Einstein field equation (schematic)"
+      ],
+      "locators": [
+        {
+          "pdf_page": 78,
+          "printed_page": 61,
+          "section": "5.3"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "embedding diagram",
+      "aliases": [
+        "embedding a slice in higher dimensions"
+      ],
+      "kind": "technique",
+      "definition": "A way to visualize the geometry of a slice of spacetime by realizing it as a surface in a flat space of one more dimension with the same intrinsic distances.",
+      "how_introduced": "Mentioned in margin note 10 as the alternative to drawing light cones, with details deferred to Appendix D.",
+      "depth": "mention",
+      "prerequisites": [
+        "metric on a 2-sphere"
+      ],
+      "locators": [
+        {
+          "pdf_page": 77,
+          "printed_page": 60,
+          "section": "5.3"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "proper length element",
+      "aliases": [
+        "dl^i = sqrt(g_ii) dx^i",
+        "proper length along a coordinate line"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The physical length of an infinitesimal step along a single coordinate direction, dl^i = sqrt(g_ii) dx^i (no sum), obtained by holding every other coordinate fixed in the line element.",
+      "how_introduced": "Abstracted from Example 5.5's sphere calculations and note 14, then used as the building block for areas and volumes.",
+      "depth": "developed",
+      "prerequisites": [
+        "line element",
+        "metric components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 79,
+          "printed_page": 62,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}l^1=\\sqrt{g_{11}}\\,\\mathrm{d}x^1"
+      ],
+      "notes": null
+    },
+    {
+      "name": "circle on a sphere",
+      "aliases": [
+        "latitude circle",
+        "sinc relation",
+        "intrinsic radius vs circumference"
+      ],
+      "kind": "phenomenon",
+      "definition": "On a sphere of radius R, a circle at polar angle theta0 has intrinsic radius r0 = R theta0 measured along the surface but circumference 2 pi R sin theta0 = 2 pi r0 sinc(r0/R), less than 2 pi r0; the shortfall reveals positive curvature from within the surface.",
+      "how_introduced": "Example 5.5 integrates the sphere metric along a meridian and along the circle, linking back to eqn 3.20.",
+      "depth": "developed",
+      "prerequisites": [
+        "metric on a 2-sphere",
+        "proper length element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 79,
+          "printed_page": 62,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "C=2\\pi R\\sin\\theta_0=2\\pi r_0\\,\\mathrm{sinc}\\frac{r_0}{R}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "diagonal metric",
+      "aliases": [
+        "orthogonal coordinates"
+      ],
+      "kind": "definition",
+      "definition": "A metric whose component matrix has no off-diagonal entries, so the line element contains only squares (dx^mu)^2 and no cross terms dx^mu dx^nu with mu != nu.",
+      "how_introduced": "Defined in margin note 15 to set up the simplest area and volume formulas.",
+      "depth": "introduced",
+      "prerequisites": [
+        "metric components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 79,
+          "printed_page": 62,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "area element",
+      "aliases": [
+        "2-volume element",
+        "surface element"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The proper area of an infinitesimal coordinate patch spanned by two coordinate steps; for a diagonal metric dA = sqrt(g_22 g_33) dx^2 dx^3, e.g. r^2 sin theta dtheta dphi on a sphere.",
+      "how_introduced": "Built in Example 5.6 as the product of two proper length elements; note 16 comments that other coordinate pairs give other areas.",
+      "depth": "developed",
+      "prerequisites": [
+        "proper length element",
+        "diagonal metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 79,
+          "printed_page": 62,
+          "section": "5.4"
+        },
+        {
+          "pdf_page": 82,
+          "printed_page": 65,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}A=\\sqrt{g_{22}g_{33}}\\,\\mathrm{d}x^2\\mathrm{d}x^3"
+      ],
+      "notes": null
+    },
+    {
+      "name": "volume element",
+      "aliases": [
+        "3-volume element"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The proper volume of an infinitesimal coordinate box, dV = sqrt(g_11 g_22 g_33) dx^1 dx^2 dx^3 for a diagonal spatial metric, e.g. r^2 sin theta dr dtheta dphi in spherical polars.",
+      "how_introduced": "Example 5.6, as a product of three proper length elements, checked against the familiar spherical-polar volume element.",
+      "depth": "developed",
+      "prerequisites": [
+        "proper length element",
+        "diagonal metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 79,
+          "printed_page": 62,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}V=\\sqrt{g_{11}g_{22}g_{33}}\\,\\mathrm{d}x^1\\mathrm{d}x^2\\mathrm{d}x^3"
+      ],
+      "notes": null
+    },
+    {
+      "name": "invariant 4-volume element",
+      "aliases": [
+        "sqrt(-g) d^4x",
+        "invariant volume element",
+        "4-volume"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The coordinate-independent measure of spacetime volume, dV = sqrt(-g) d^4x with g = det g_{mu nu} < 0 for a Lorentzian metric; it equals the ordinary volume element in local Cartesian (inertial) coordinates and is what makes integrals over spacetime coordinate invariant.",
+      "how_introduced": "Reached by multiplying four proper lengths for a diagonal metric with a sign flip for g_00, recognizing the product as the determinant, generalizing, and proving invariance through the Jacobian and local flatness (Example 5.7).",
+      "depth": "core",
+      "prerequisites": [
+        "volume element",
+        "determinant of the metric",
+        "Jacobian",
+        "principle of local flatness"
+      ],
+      "locators": [
+        {
+          "pdf_page": 80,
+          "printed_page": 63,
+          "section": "5.4"
+        },
+        {
+          "pdf_page": 81,
+          "printed_page": 64,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}\\mathcal V=\\sqrt{-g}\\,\\mathrm{d}^4x"
+      ],
+      "notes": "For purely spatial (Riemannian) metrics such as Exercise 5.1 the minus sign is dropped: sqrt(det g)."
+    },
+    {
+      "name": "determinant of the metric",
+      "aliases": [
+        "g = det g",
+        "metric determinant"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The determinant g of the matrix g_{mu nu}; negative for a Lorentzian metric, equal to the product of diagonal entries for a diagonal metric, and transforming as the square of a Jacobian under coordinate changes.",
+      "how_introduced": "Noticed as the product g_00 g_11 g_22 g_33 in the diagonal 4-volume and then used generally; note 17 gives the Levi-Civita formula for determinants.",
+      "depth": "developed",
+      "prerequisites": [
+        "metric components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 80,
+          "printed_page": 63,
+          "section": "5.4"
+        },
+        {
+          "pdf_page": 81,
+          "printed_page": 64,
+          "section": "5.4"
+        },
+        {
+          "pdf_page": 82,
+          "printed_page": 65,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "g\\equiv\\det g_{\\mu\\nu}",
+        "\\det g=-(\\det\\Lambda)^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Jacobian",
+      "aliases": [
+        "Jacobian determinant",
+        "transformation-matrix determinant"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The determinant J = det(partial x^{mu'}/partial x^nu) of the matrix of partial derivatives of new coordinates with respect to old; it is the factor by which infinitesimal coordinate volumes scale under a coordinate change.",
+      "how_introduced": "Introduced to prove the invariance of the 4-volume; note 18 defines it with the matrix Lambda and names Jacobi; note 5 earlier contrasted it with the simpler transformation of ds^2.",
+      "depth": "developed",
+      "prerequisites": [
+        "coordinate transformation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 74,
+          "printed_page": 57,
+          "section": "5.1"
+        },
+        {
+          "pdf_page": 80,
+          "printed_page": 63,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "J=\\frac{\\partial(x^{0'},x^{1'},x^{2'},x^{3'})}{\\partial(x^0,x^1,x^2,x^3)}=\\det(\\Lambda^{\\alpha'}{}_\\beta)"
+      ],
+      "notes": "Treated rigorously with forms in Part V (ch38)."
+    },
+    {
+      "name": "Levi-Civita symbol",
+      "aliases": [
+        "epsilon symbol",
+        "permutation symbol"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The totally antisymmetric symbol epsilon_{i1...in} equal to +1 for even permutations of (1,...,n), -1 for odd permutations and 0 if any index repeats; it gives the determinant as a signed sum over permutations.",
+      "how_introduced": "Margin note 17 uses it to state the determinant formula.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 80,
+          "printed_page": 63,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "\\det A=\\sum\\varepsilon_{i_1\\ldots i_n}A_{1,i_1}\\cdots A_{n,i_n}"
+      ],
+      "notes": "The note omits the zero value for repeated indices."
+    },
+    {
+      "name": "principle of local flatness",
+      "aliases": [
+        "local flatness",
+        "locally Minkowskian",
+        "local inertial frame"
+      ],
+      "kind": "principle",
+      "definition": "At any single event one can choose coordinates in which the metric takes the Minkowski form, so an observer perceives spacetime as flat in her immediate vicinity; curvature shows up only over finite separations.",
+      "how_introduced": "Invoked to prove the 4-volume result, with the image of a street map that works locally on a curved Earth; note 19 defers the full treatment to ch6.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Minkowski metric",
+        "tensor transformation law of the metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 80,
+          "printed_page": 63,
+          "section": "5.4"
+        },
+        {
+          "pdf_page": 81,
+          "printed_page": 64,
+          "section": "5.4"
+        }
+      ],
+      "formulas": [
+        "g=\\Lambda\\,\\eta\\,\\Lambda^{\\mathrm T}\\ \\text{at a point}"
+      ],
+      "notes": "Here only the value of g at a point is matched; the stronger statement that first derivatives also vanish comes later."
+    },
+    {
+      "name": "gravitational potential",
+      "aliases": [
+        "Phi",
+        "Newtonian potential"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The scalar Phi whose gradient gives Newtonian gravitational acceleration; in units with c = 1 it is dimensionless (Phi = -GM/r for a point mass) and measures field weakness when small.",
+      "how_introduced": "Used without further explanation inside the Newtonian-limit metric.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 76,
+          "printed_page": 59,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "Robertson-Walker metric",
+      "aliases": [
+        "FRW metric",
+        "expanding-universe metric"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The metric of a homogeneous, isotropic universe, ds^2 = -dt^2 + a(t)^2[dr^2/(1-kr^2) + r^2 dOmega^2], with scale factor a(t) and spatial curvature constant k.",
+      "how_introduced": "Appears unnamed in Exercise 5.4, where the reader finds proper radial lengths and the integral equation for a radial light ray; developed in Part III.",
+      "depth": "mention",
+      "prerequisites": [
+        "line element",
+        "null condition"
+      ],
+      "locators": [
+        {
+          "pdf_page": 82,
+          "printed_page": 65,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=-\\mathrm{d}t^2+a(t)^2\\left[\\frac{\\mathrm{d}r^2}{1-kr^2}+r^2\\mathrm{d}\\Omega^2\\right]"
+      ],
+      "notes": null
+    },
+    {
+      "name": "tensor as slot machine",
+      "aliases": [
+        "slot-machine picture"
+      ],
+      "kind": "technique",
+      "definition": "The book's picture of a (m,n) tensor as a machine with slots into which vectors and 1-forms are inserted, linearly producing a number; the metric has two vector slots and returns a dot product.",
+      "how_introduced": "Reused from ch4 throughout: note 4 fills both slots with dx to produce ds^2, and note 9 fills them with a pure dtheta step.",
+      "depth": "revisited",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 73,
+          "printed_page": 56,
+          "section": null
+        },
+        {
+          "pdf_page": 74,
+          "printed_page": 57,
+          "section": "5.1"
+        },
+        {
+          "pdf_page": 76,
+          "printed_page": 59,
+          "section": "5.2"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    }
+  ],
+  "key_equations": [
+    {
+      "label": "(5.1)",
+      "name": "Einstein's equation in words",
+      "latex": "\\begin{pmatrix}\\text{curvature of}\\\\\\text{spacetime}\\end{pmatrix}=\\begin{pmatrix}\\text{energy density of}\\\\\\text{matter in spacetime}\\end{pmatrix}",
+      "meaning": "Schematic statement of general relativity motivating a general metric.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      }
+    },
+    {
+      "label": "(5.2)",
+      "name": "Metric as dot product",
+      "latex": "g(X,Y)=X\\cdot Y",
+      "meaning": "The metric's two slots take vectors and return their scalar product.",
+      "symbols": "X, Y vectors; g metric tensor",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "label": "(5.3)",
+      "name": "Metric components",
+      "latex": "g(e_\\mu,e_\\nu)=e_\\mu\\cdot e_\\nu\\equiv g_{\\mu\\nu}",
+      "meaning": "Components are dot products of basis vectors.",
+      "symbols": "e_mu coordinate basis vectors",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "label": null,
+      "name": "Inverse metric (margin note 3)",
+      "latex": "g^{\\mu\\nu}g_{\\nu\\lambda}=\\delta^\\mu{}_\\lambda",
+      "meaning": "The up-index metric is the matrix inverse of the down-index metric.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "label": "(5.4)",
+      "name": "Line element",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}x\\cdot\\mathrm{d}x=g(\\mathrm{d}x,\\mathrm{d}x)=\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu g(e_\\mu,e_\\nu)=g_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu",
+      "meaning": "Squared interval for an infinitesimal displacement in any geometry; the chain shows it is the metric with dx in both slots.",
+      "symbols": "dx^mu coordinate differentials",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "label": "(5.5)",
+      "name": "Finite interval",
+      "latex": "s=\\int_{\\mathcal A}^{\\mathcal B}\\left|g_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu\\right|^{1/2}",
+      "meaning": "Total interval along a curve between events A and B.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "label": "(5.6)",
+      "name": "Invariance of the line element",
+      "latex": "\\mathrm{d}s^2=g_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu=g'_{\\alpha\\beta}\\mathrm{d}x^{\\alpha'}\\mathrm{d}x^{\\beta'}",
+      "meaning": "Same interval in two coordinate systems.",
+      "symbols": "primes denote the second coordinate system",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "label": "(5.7)",
+      "name": null,
+      "latex": "g'_{\\alpha\\beta}\\mathrm{d}x^{\\alpha'}\\mathrm{d}x^{\\beta'}=g_{\\mu\\nu}\\frac{\\partial x^\\mu}{\\partial x^{\\alpha'}}\\frac{\\partial x^\\nu}{\\partial x^{\\beta'}}\\mathrm{d}x^{\\alpha'}\\mathrm{d}x^{\\beta'}",
+      "meaning": "Substituting the chain rule for the old differentials.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "label": "(5.8)",
+      "name": "Metric transformation law",
+      "latex": "g'_{\\alpha\\beta}=g_{\\mu\\nu}\\frac{\\partial x^\\mu}{\\partial x^{\\alpha'}}\\frac{\\partial x^\\nu}{\\partial x^{\\beta'}}",
+      "meaning": "Metric components transform as a (0,2) tensor.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "label": "(5.9)",
+      "name": "Euclidean 3D line element",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}x^2+\\mathrm{d}y^2+\\mathrm{d}z^2",
+      "meaning": "Flat 3D space in Cartesians.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.10)",
+      "name": "Minkowski line element",
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t^2+\\mathrm{d}x^2+\\mathrm{d}y^2+\\mathrm{d}z^2",
+      "meaning": "Flat spacetime in inertial Cartesian coordinates, c = 1.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.11)",
+      "name": "Minkowski components",
+      "latex": "g_{\\mu\\nu}=\\begin{pmatrix}-1&0&0&0\\\\0&1&0&0\\\\0&0&1&0\\\\0&0&0&1\\end{pmatrix}",
+      "meaning": "Matrix form with dx^mu = (dt,dx,dy,dz).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.12)",
+      "name": "Cartesian differential in polars (note 7)",
+      "latex": "\\mathrm{d}x=\\left(\\frac{\\partial x}{\\partial r}\\right)_\\theta\\mathrm{d}r+\\left(\\frac{\\partial x}{\\partial\\theta}\\right)_r\\mathrm{d}\\theta=\\cos\\theta\\,\\mathrm{d}r-r\\sin\\theta\\,\\mathrm{d}\\theta",
+      "meaning": "Chain rule for x = r cos theta.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.13)",
+      "name": null,
+      "latex": "\\mathrm{d}y=\\sin\\theta\\,\\mathrm{d}r+r\\cos\\theta\\,\\mathrm{d}\\theta",
+      "meaning": "Chain rule for y = r sin theta.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.14)",
+      "name": "Plane metric in polars",
+      "latex": "\\mathrm{d}x^2+\\mathrm{d}y^2=\\mathrm{d}r^2+r^2\\mathrm{d}\\theta^2",
+      "meaning": "Squaring and adding the differentials; cross terms cancel. Printed without the square on dtheta, and the note's coordinate relation prints y = r cos theta instead of r sin theta: both typos.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.15)",
+      "name": "Minkowski in cylindrical polars",
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t^2+\\mathrm{d}r^2+r^2\\mathrm{d}\\theta^2+\\mathrm{d}z^2",
+      "meaning": "Same flat spacetime, position-dependent g_thetatheta.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.16)",
+      "name": null,
+      "latex": "g_{\\mu\\nu}=\\mathrm{diag}(-1,\\,1,\\,r^2,\\,1)",
+      "meaning": "Matrix form with dx^mu = (dt,dr,dtheta,dz).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.17)",
+      "name": "Solid-angle shorthand (note 8)",
+      "latex": "r^2(\\mathrm{d}\\theta^2+\\sin^2\\theta\\,\\mathrm{d}\\phi^2)=r^2\\mathrm{d}\\Omega^2",
+      "meaning": "Defines dOmega^2.",
+      "symbols": "theta polar angle from the z axis; phi azimuth; r radial coordinate of standard spherical polars",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.18)",
+      "name": null,
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t^2+\\mathrm{d}r^2+r^2\\mathrm{d}\\Omega^2",
+      "meaning": "Flat spacetime in spherical polars, compact form.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.19)",
+      "name": "Minkowski in spherical polars (matrix)",
+      "latex": "g_{\\mu\\nu}=\\mathrm{diag}(-1,\\,1,\\,r^2,\\,r^2\\sin^2\\theta)",
+      "meaning": "Diagonal components varying with r and theta.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.20)",
+      "name": null,
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t^2+\\mathrm{d}r^2+r^2\\mathrm{d}\\theta^2+r^2\\sin^2\\theta\\,\\mathrm{d}\\phi^2",
+      "meaning": "Line element form of (5.19).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.21)",
+      "name": "Sphere of radius a",
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t^2+a^2(\\mathrm{d}\\theta^2+\\sin^2\\theta\\,\\mathrm{d}\\phi^2)",
+      "meaning": "Fixing r = a gives a curved 2-surface (with time retained); the surface itself is the dt = 0 part.",
+      "symbols": "a sphere radius",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.22)",
+      "name": "Newtonian-limit metric",
+      "latex": "\\mathrm{d}s^2=-(1+2\\Phi)\\mathrm{d}t^2+(1-2\\Phi)(\\mathrm{d}x^2+\\mathrm{d}y^2+\\mathrm{d}z^2)",
+      "meaning": "Weak static gravity: time and space both corrected at first order in Phi; Phi = 0 gives Minkowski.",
+      "symbols": "Phi gravitational potential (dimensionless, c = 1)",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.23)",
+      "name": null,
+      "latex": "g_{\\mu\\nu}=\\mathrm{diag}\\big(-(1+2\\Phi),\\,1-2\\Phi,\\,1-2\\Phi,\\,1-2\\Phi\\big)",
+      "meaning": "Components of the weak-field metric.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.24)",
+      "name": null,
+      "latex": "\\mathrm{d}s^2=-(1+2\\Phi)\\mathrm{d}t^2+(1-2\\Phi)(\\mathrm{d}r^2+r^2\\mathrm{d}\\theta^2+r^2\\sin^2\\theta\\,\\mathrm{d}\\phi^2)",
+      "meaning": "Weak-field metric in spherical polars.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.25)",
+      "name": "Slot-machine arc element (note 9)",
+      "latex": "\\mathrm{d}s^2=g(\\mathrm{d}X,\\mathrm{d}X)=g_{\\mu\\nu}\\mathrm{d}X^\\mu\\mathrm{d}X^\\nu=g_{\\theta\\theta}\\mathrm{d}\\theta^2=r^2\\mathrm{d}\\theta^2",
+      "meaning": "Squared length of a pure angular step depends on r, illustrating the field nature of g.",
+      "symbols": "dX^mu = (0,0,dtheta,0)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.26)",
+      "name": null,
+      "latex": "\\Delta s=\\int\\mathrm{d}s=\\int_{\\theta_1}^{\\theta_2}\\sqrt{g_{\\theta\\theta}}\\,\\mathrm{d}\\theta=\\int_{\\theta_1}^{\\theta_2}r\\,\\mathrm{d}\\theta",
+      "meaning": "Finite arc length by integrating sqrt(g_thetatheta).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "label": "(5.27)",
+      "name": "Null condition",
+      "latex": "\\mathrm{d}s^2=0",
+      "meaning": "Condition satisfied by every step of a light ray; defines local light cones.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.28)",
+      "name": null,
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t^2+\\mathrm{d}x^2+\\mathrm{d}y^2+\\mathrm{d}z^2=0",
+      "meaning": "Null condition in flat spacetime.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.29)",
+      "name": null,
+      "latex": "\\frac{\\mathrm{d}t}{\\mathrm{d}|\\vec r|}=\\pm1",
+      "meaning": "Light moves one unit of distance per unit time everywhere.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.30)",
+      "name": "Flat light cone",
+      "latex": "t-t_0=\\pm(|\\vec r|-|\\vec r_0|)",
+      "meaning": "Cones from any event are identical 45-degree cones.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.31)",
+      "name": "Light-cone coordinates",
+      "latex": "u=t-|\\vec r|,\\qquad v=t+|\\vec r|",
+      "meaning": "Null coordinates adapted to radial light rays.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.32)",
+      "name": null,
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}u\\,\\mathrm{d}v",
+      "meaning": "Radial flat metric in null coordinates; null lines are u or v constant. Omits the angular r^2 dOmega^2 part.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.33)",
+      "name": "Rindler metric",
+      "latex": "\\mathrm{d}s^2=-x^2\\mathrm{d}t^2+\\mathrm{d}x^2",
+      "meaning": "Flat 2D spacetime in accelerated-observer coordinates.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.34)",
+      "name": null,
+      "latex": "\\frac{\\mathrm{d}t}{\\mathrm{d}x}=\\pm\\frac{1}{x}",
+      "meaning": "Coordinate slope of Rindler light rays.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.35)",
+      "name": "Rindler light cones",
+      "latex": "t-t_0=\\pm\\ln|x|",
+      "meaning": "Integrated null curves; as printed the constant is incomplete: properly t - t0 = +- ln|x/x0| for a cone from (t0, x0).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.36)",
+      "name": "Baby Eddington-Finkelstein metric",
+      "latex": "\\mathrm{d}s^2=-x\\,\\mathrm{d}v^2+2\\,\\mathrm{d}v\\,\\mathrm{d}x",
+      "meaning": "Toy metric with a cross term; practise for the EF form.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.37)",
+      "name": null,
+      "latex": "v-v_0=2\\ln|x|",
+      "meaning": "Non-trivial null family of the baby EF metric (other family v = const); constant should read 2 ln|x/x0|.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.38)",
+      "name": "Eddington-Finkelstein metric (radial part)",
+      "latex": "\\mathrm{d}s^2=-\\left(1-\\frac{2GM}{r}\\right)\\mathrm{d}v^2+2\\,\\mathrm{d}v\\,\\mathrm{d}r",
+      "meaning": "Spherically symmetric black-hole geometry in ingoing null coordinates, angular part suppressed.",
+      "symbols": "M mass; v ingoing null coordinate; c = 1",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.39)",
+      "name": null,
+      "latex": "\\frac{\\mathrm{d}v}{\\mathrm{d}r}=2\\left(1-\\frac{2GM}{r}\\right)^{-1}",
+      "meaning": "Outgoing-type null rays (other family v = const); diverges at r = 2GM.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.40)",
+      "name": "Alcubierre metric (expanded, as printed)",
+      "latex": "\\mathrm{d}s^2=-\\left[1+v_s(t)^2f(r_s)^2\\right]\\mathrm{d}t^2+2v_s(t)f(r_s)\\,\\mathrm{d}x\\,\\mathrm{d}t+\\mathrm{d}x^2+\\mathrm{d}y^2+\\mathrm{d}z^2",
+      "meaning": "Warp metric in expanded form. Printed signs are wrong: expanding (5.41) gives -[1 - v_s^2 f^2]dt^2 - 2 v_s f dx dt.",
+      "symbols": "v_s = dx_s/dt bubble speed; f(r_s) bubble shape, f(0)=1, f=0 for r_s > R; r_s = sqrt((x-x_s)^2+y^2+z^2)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.41)",
+      "name": "Alcubierre metric",
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t^2+[\\mathrm{d}x-v_s(t)f(r_s)\\mathrm{d}t]^2+\\mathrm{d}y^2+\\mathrm{d}z^2",
+      "meaning": "Completed-square form: flat spacetime whose x-displacement is measured relative to a moving bubble flow.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.42)",
+      "name": "Warp-bubble light cones",
+      "latex": "\\frac{\\mathrm{d}x}{\\mathrm{d}t}=\\pm1+v_s(t)f(r_s)",
+      "meaning": "Inside the bubble the cone is shifted by v_s f; outside f = 0 it is the flat cone.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "label": "(5.43)",
+      "name": null,
+      "latex": "\\int_0^R\\mathrm{d}s=\\int_0^R\\mathrm{d}r=R",
+      "meaning": "Radial proper length in flat space.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.44)",
+      "name": null,
+      "latex": "\\int_{\\theta=0}^{\\theta_0}\\mathrm{d}s=\\int_0^{\\theta_0}\\sqrt{g_{\\theta\\theta}(r=R)}\\,\\mathrm{d}\\theta=\\theta_0R",
+      "meaning": "Meridian distance from the pole to a latitude circle.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.45)",
+      "name": "Circumference of a latitude circle",
+      "latex": "\\int_{\\phi=0}^{2\\pi}\\mathrm{d}s=\\int_0^{2\\pi}\\sqrt{g_{\\phi\\phi}(R,\\theta_0)}\\,\\mathrm{d}\\phi=2\\pi R\\sin\\theta_0=2\\pi r_0\\,\\mathrm{sinc}\\frac{r_0}{R}",
+      "meaning": "Circumference is smaller than 2 pi times the intrinsic radius; agrees with ch3 eqn 3.20.",
+      "symbols": "sinc x = sin x / x; r0 = R theta0",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": null,
+      "name": "Proper length element",
+      "latex": "\\mathrm{d}l^1=\\sqrt{g_{11}}\\,\\mathrm{d}x^1",
+      "meaning": "Physical length of a step along one coordinate.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.46)",
+      "name": "Diagonal line element",
+      "latex": "\\mathrm{d}s^2=g_{00}(\\mathrm{d}x^0)^2+g_{11}(\\mathrm{d}x^1)^2+g_{22}(\\mathrm{d}x^2)^2+g_{33}(\\mathrm{d}x^3)^2",
+      "meaning": "General diagonal metric.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.47)",
+      "name": "Area element (diagonal)",
+      "latex": "\\mathrm{d}A=\\mathrm{d}l^2\\mathrm{d}l^3=\\sqrt{g_{22}g_{33}}\\,\\mathrm{d}x^2\\mathrm{d}x^3",
+      "meaning": "Product of two proper lengths.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.48)",
+      "name": "3-volume element (diagonal)",
+      "latex": "\\mathrm{d}V=\\mathrm{d}l^1\\mathrm{d}l^2\\mathrm{d}l^3=\\sqrt{g_{11}g_{22}g_{33}}\\,\\mathrm{d}x^1\\mathrm{d}x^2\\mathrm{d}x^3",
+      "meaning": "Product of three proper lengths.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.49)",
+      "name": null,
+      "latex": "\\mathrm{d}A=r^2\\sin\\theta\\,\\mathrm{d}\\theta\\,\\mathrm{d}\\phi",
+      "meaning": "Sphere area element as a check.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.50)",
+      "name": null,
+      "latex": "\\mathrm{d}V=r^2\\sin\\theta\\,\\mathrm{d}r\\,\\mathrm{d}\\theta\\,\\mathrm{d}\\phi",
+      "meaning": "Spherical-polar volume element as a check.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.51)",
+      "name": "4-volume (diagonal)",
+      "latex": "\\mathrm{d}\\mathcal V=\\mathrm{d}l^0\\mathrm{d}l^1\\mathrm{d}l^2\\mathrm{d}l^3=\\sqrt{-g_{00}g_{11}g_{22}g_{33}}\\,\\mathrm{d}x^0\\mathrm{d}x^1\\mathrm{d}x^2\\mathrm{d}x^3",
+      "meaning": "Minus sign compensates the negative g_00.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.52)",
+      "name": "Determinant via Levi-Civita (note 17)",
+      "latex": "\\det A=\\sum_{i_1,\\ldots,i_n=1}^{n}\\varepsilon_{i_1\\ldots i_n}A_{1,i_1}\\cdots A_{n,i_n}",
+      "meaning": "Signed permutation sum for a determinant.",
+      "symbols": "epsilon Levi-Civita symbol",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.53)",
+      "name": "Invariant 4-volume element",
+      "latex": "\\mathrm{d}\\mathcal V=\\sqrt{-\\det g}\\,\\mathrm{d}^4x",
+      "meaning": "General metric: volume element uses the determinant.",
+      "symbols": "d^4x = dx^0 dx^1 dx^2 dx^3",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.54)",
+      "name": "Transformation matrix (note 18)",
+      "latex": "\\Lambda^{\\mu'}{}_\\nu=\\frac{\\partial x^{\\mu'}}{\\partial x^\\nu}",
+      "meaning": "Matrix of partial derivatives whose determinant is the Jacobian.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.55)",
+      "name": "Jacobian",
+      "latex": "J=\\frac{\\partial(x^{0'},x^{1'},x^{2'},x^{3'})}{\\partial(x^0,x^1,x^2,x^3)}=\\det(\\Lambda^{\\alpha'}{}_\\beta)",
+      "meaning": "Volume scale factor between coordinate systems.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.56)",
+      "name": "Volume transformation",
+      "latex": "\\mathrm{d}x^{0'}\\mathrm{d}x^{1'}\\mathrm{d}x^{2'}\\mathrm{d}x^{3'}=\\frac{\\partial(x^{0'},x^{1'},x^{2'},x^{3'})}{\\partial(x^0,x^1,x^2,x^3)}\\mathrm{d}x^0\\mathrm{d}x^1\\mathrm{d}x^2\\mathrm{d}x^3",
+      "meaning": "Coordinate volume elements scale by the Jacobian.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.57)",
+      "name": "Index form of local-flatness transformation (note 20)",
+      "latex": "g_{\\alpha\\beta}=\\Lambda^\\mu{}_\\alpha\\Lambda^\\nu{}_\\beta\\eta_{\\mu\\nu}",
+      "meaning": "Metric at a point obtained from eta of the local flat frame; a rewrite of (5.8). Here Lambda^mu_alpha means derivatives of local flat coordinates with respect to the general ones.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.58)",
+      "name": null,
+      "latex": "\\underline{g}=\\underline{\\Lambda}\\,\\underline{\\eta}\\,\\underline{\\Lambda}^{\\mathrm T}",
+      "meaning": "Matrix form of the local-flatness relation.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.59)",
+      "name": null,
+      "latex": "\\det\\underline g=\\det\\underline\\Lambda\\,\\det\\underline\\eta\\,\\det\\underline\\Lambda^{\\mathrm T}",
+      "meaning": "Take determinants.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 81,
+        "printed_page": 64,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.60)",
+      "name": null,
+      "latex": "\\det\\underline g=-(\\det\\underline\\Lambda)^2",
+      "meaning": "Using det Lambda^T = det Lambda and det eta = -1.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 81,
+        "printed_page": 64,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.61)",
+      "name": null,
+      "latex": "\\det\\underline\\Lambda=(-g)^{1/2}",
+      "meaning": "Jacobian to local Cartesian coordinates equals sqrt(-g).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 81,
+        "printed_page": 64,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.62)",
+      "name": null,
+      "latex": "\\mathrm{d}x^{0'}\\mathrm{d}x^{1'}\\mathrm{d}x^{2'}\\mathrm{d}x^{3'}=(-g)^{1/2}\\,\\mathrm{d}x^0\\mathrm{d}x^1\\mathrm{d}x^2\\mathrm{d}x^3",
+      "meaning": "Local flat-frame volume equals the invariant 4-volume in general coordinates.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 81,
+        "printed_page": 64,
+        "section": "5.4"
+      }
+    },
+    {
+      "label": "(5.63)",
+      "name": null,
+      "latex": "g(X,Y)=g_{\\mu\\nu}X^\\mu Y^\\nu",
+      "meaning": "Summary: component form of the metric acting on two vectors.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 81,
+        "printed_page": 64,
+        "section": null
+      }
+    },
+    {
+      "label": "(5.64)",
+      "name": "Line element (summary)",
+      "latex": "\\mathrm{d}s^2=g_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu",
+      "meaning": "Summary restatement of (5.4): metric components are usually quoted through the line element.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 81,
+        "printed_page": 64,
+        "section": null
+      }
+    },
+    {
+      "label": "(5.65)",
+      "name": "Invariant volume element (summary)",
+      "latex": "\\mathrm{d}\\mathcal V=\\sqrt{-g}\\,\\mathrm{d}^4x",
+      "meaning": "Summary restatement of (5.53) with g the metric determinant.",
+      "symbols": "g = det g_{mu nu}",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 81,
+        "printed_page": 64,
+        "section": null
+      }
+    },
+    {
+      "label": "(5.66)",
+      "name": "Torus metric (Exercise 5.1)",
+      "latex": "\\mathrm{d}s^2=(c+a\\cos v)^2\\mathrm{d}u^2+a^2\\mathrm{d}v^2",
+      "meaning": "Intrinsic geometry of a torus of tube radius a and centre-line radius c.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      }
+    },
+    {
+      "label": "(5.68)",
+      "name": "Rindler-to-Minkowski map (Exercise 5.2)",
+      "latex": "X=x\\cosh t,\\qquad T=x\\sinh t",
+      "meaning": "Hyperbolic coordinate change showing Rindler is flat.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      }
+    },
+    {
+      "label": "(5.69)",
+      "name": "Minkowski in shifted coordinates (Exercise 5.3)",
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t'^2(1-v^2)+\\mathrm{d}x'^2+\\mathrm{d}y'^2+\\mathrm{d}z'^2-2v\\,\\mathrm{d}x'\\mathrm{d}t'",
+      "meaning": "Flat metric with an off-diagonal term from x = x' - vt, t = t'.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      }
+    },
+    {
+      "label": "(5.70)",
+      "name": "Robertson-Walker-type metric (Exercise 5.4)",
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}t^2+a(t)^2\\left[\\frac{\\mathrm{d}r^2}{1-kr^2}+r^2(\\mathrm{d}\\theta^2+\\sin^2\\theta\\,\\mathrm{d}\\phi^2)\\right]",
+      "meaning": "Expanding homogeneous universe.",
+      "symbols": "a(t) scale factor; k curvature constant",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      }
+    },
+    {
+      "label": "(5.71)",
+      "name": null,
+      "latex": "\\int_{t_{\\rm em}}^{t_{\\rm ob}}\\frac{\\mathrm{d}t}{a(t)}=\\int_\\chi^0\\frac{\\mathrm{d}r}{(1-kr^2)^{1/2}}",
+      "meaning": "Radial light-ray condition in the RW metric (sign follows the inward direction).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      }
+    }
+  ],
+  "figures": [
+    {
+      "label": "Fig. 5.1(a)",
+      "image_path": "gifted-amateur/pages/page-77/img-43.jpeg",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "caption_paraphrase": "Forward light cones in flat spacetime drawn on a grid of null lines.",
+      "visual_description": "t-x axes with the origin near the lower left. A light grey lattice of straight lines at +45 and -45 degrees fills the plane; the lines running one way are labelled 'v = constant' along the top edge and the others 'u = constant' along the right edge. A 3x3 array of identical small upright cones (opening upward, drawn as little funnels) sits in the first quadrant, all the same size and orientation.",
+      "what_it_teaches": "In flat spacetime every local light cone is the same and its edges coincide with the u = const and v = const null lines, so null coordinates make the cone structure trivial.",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "local light cone",
+        "light-cone coordinates",
+        "Minkowski metric"
+      ],
+      "redesign": {
+        "idea": "Cone-field explorer: a 2D spacetime canvas where the learner types or picks a 1+1 line element and the app draws a lattice of local light cones plus the two families of integrated null curves; this panel is the flat preset with u,v grid toggle.",
+        "interaction": "Click anywhere to drop a cone; drag it to see it stays identical; toggle the null-coordinate grid; switch the chart between (t,x) and (u,v) to watch the cones become axis-aligned corners.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 5.1(b)",
+      "image_path": "gifted-amateur/pages/page-77/img-44.jpeg",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "caption_paraphrase": "Light cones of the Rindler metric in its own (t,x) coordinates.",
+      "visual_description": "A t axis near the left edge and an x axis through the middle. Two families of thin grey null curves cross each other; far from the t axis they meet at moderate angles, but as they approach it they turn steeply upward and pile up into an almost solid dark vertical band hugging the axis. Five small upright cones are drawn at different places: the one closest to the axis is a slim little funnel, those at intermediate x are broader, and the one farthest right (just above the x axis) is squat and very wide, nearly flat.",
+      "what_it_teaches": "Because dt/dx = +-1/x, the coordinate opening of the cones grows with x (slim near x = 0, wide far out) even though the spacetime is flat; x acts like a position-dependent clock rate, and the pile-up of null curves at x = 0 marks the edge of the chart (the Rindler horizon).",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "Rindler spacetime",
+        "local light cone",
+        "coordinates have no intrinsic metric significance"
+      ],
+      "redesign": {
+        "idea": "Two linked panels: Rindler (t,x) chart with its cone field, and the Minkowski (T,X) plane showing the Rindler wedge with hyperbolae x = const and rays t = const; hovering a cone in one panel highlights the same cone, perfectly 45-degree, in the other.",
+        "interaction": "Drag a probe point in either panel; slider for x0 of an accelerated observer showing its hyperbola; a 'curvature meter' reading zero to dispel the idea that deformed cones mean curvature.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 5.1(c)",
+      "image_path": "gifted-amateur/pages/page-77/img-45.jpeg",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "caption_paraphrase": "Light cones of the toy 'baby' Eddington-Finkelstein metric.",
+      "visual_description": "A t axis on the left and an x axis through the middle, covered by a lattice of two crossing families of grey curves; one family is labelled 'v = constant' along the top edge. The lattice is distorted rather than a square grid, with the curves bending and bunching toward the t axis. Five small cones sit to the right of the axis; they are no longer upright and symmetric like those of panel (a) but tilted and stretched sideways, the distortion changing from one position to the next (smallest near the axis, broader and more tilted farther out).",
+      "what_it_teaches": "A cross term dv dx makes one null family v = const and the other obey dv/dx = 2/x, so the cones tilt by an amount that depends on position. This is the rehearsal for cone tipping in real Eddington-Finkelstein coordinates; note that the toy metric itself (coefficient linear in x) is still flat, so the tilt here is a coordinate effect.",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "Eddington-Finkelstein coordinates",
+        "local light cone",
+        "null condition"
+      ],
+      "redesign": {
+        "idea": "Morph from the baby metric -x dv^2 + 2 dv dx to the real Eddington-Finkelstein metric by a slider that replaces x with 1 - 2GM/r, animating cones as they tip past vertical at the horizon.",
+        "interaction": "Slider for the interpolation parameter and for M; click to launch outgoing and ingoing light rays from any point; readout of dv/dr showing the divergence at r = 2GM.",
+        "form": "animated-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 5.2(a)",
+      "image_path": "gifted-amateur/pages/page-78/img-46.jpeg",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      },
+      "caption_paraphrase": "A traveller's world line between two distant events enclosed by a warped bubble of spacetime.",
+      "visual_description": "A solid curve rises from a dot labelled (t1, x1) at lower left to a dot labelled (t2, x2) at upper right. It is surrounded by an elongated dotted, dash-outlined lens-shaped region labelled 'warped spacetime'; the regions outside, above and below it, are labelled 'flat spacetime'. No axes are drawn.",
+      "what_it_teaches": "The warp drive's effect is confined to a moving region around the traveller's path; outside it spacetime is ordinary.",
+      "figure_type": "schematic",
+      "concepts": [
+        "Alcubierre warp drive metric"
+      ],
+      "redesign": {
+        "idea": "Spacetime diagram with a moving warp bubble: the bubble's world tube is shaded by f(r_s) and the traveller's world line is drawn inside, while a light ray emitted at departure from outside is drawn for comparison.",
+        "interaction": "Sliders for bubble speed v_s (including values above 1), bubble radius R and wall thickness; the arrival event and the external light ray update, showing when the traveller beats the light.",
+        "form": "interactive-2d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 5.2(b)",
+      "image_path": "gifted-amateur/pages/page-78/img-47.jpeg",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      },
+      "caption_paraphrase": "Light cones outside the bubble are upright; inside the warped band they tip over.",
+      "visual_description": "A patch filled with small cone symbols and no axes. Away from a broad dotted band that runs diagonally from lower left to upper right the cones all stand upright with openings at the top. Inside the dotted band the cones are rotated well away from vertical, tipped over toward the side, so their openings no longer point up the page.",
+      "what_it_teaches": "Inside the bubble, the null directions are shifted by v_s f, so the local 'forward' direction points along the bubble's motion; a world line inside the local cone can look superluminal relative to exterior cones.",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "Alcubierre warp drive metric",
+        "local light cone",
+        "causal structure"
+      ],
+      "redesign": {
+        "idea": "Cone field computed live from dx/dt = +-1 + v_s f(r_s): a cross-section through the bubble shows cones shifting sideways, with the traveller's velocity vector always inside the local cone but outside the far-field reference cone overlaid as a ghost.",
+        "interaction": "Drag a probe through the bubble wall; slider v_s; toggle ghost exterior cone; colour cones red where the local cone no longer contains the exterior 'stationary' direction.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 5.3",
+      "image_path": "gifted-amateur/pages/page-79/img-48.jpeg",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      },
+      "caption_paraphrase": "A sphere with a latitude circle at fixed polar angle theta0 and its intrinsic radius measured over the surface.",
+      "visual_description": "A circle outline representing a sphere with its centre marked. From the centre, a dotted vertical line goes up to the north pole and a solid line labelled R goes to the rim of a horizontal ellipse (a latitude circle) drawn near the top; the angle between them at the centre is labelled theta0, and a cone of two lines joins the centre to the circle. A curved arrow along the sphere's outline from the pole to the latitude circle is labelled r0.",
+      "what_it_teaches": "The circle's radius measured inside the surface (arc r0 = R theta0) differs from its Euclidean radius R sin theta0, so circumference over radius falls below 2 pi on a curved surface.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "circle on a sphere",
+        "metric on a 2-sphere",
+        "proper length element"
+      ],
+      "redesign": {
+        "idea": "3D sphere with a draggable latitude circle; live readouts of intrinsic radius r0, circumference C and the ratio C/(2 pi r0) = sinc(r0/R), plotted against r0/R, with a flat-plane comparison disk.",
+        "interaction": "Drag theta0 from pole to equator and beyond; slider for R; toggle to show the Euclidean chord radius R sin theta0 versus the arc radius.",
+        "form": "interactive-3d",
+        "priority": "medium"
+      }
+    }
+  ],
+  "worked_examples": [
+    {
+      "label": "Example 5.1",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      },
+      "problem": "Relate the metric components in two different coordinate systems.",
+      "method": "Equate ds^2 written in both systems, expand the unprimed differentials by the chain rule in terms of primed ones, and compare coefficients of dx^alpha' dx^beta'.",
+      "key_insight": "Invariance of the interval alone fixes how components must change; the result is the (0,2) tensor law.",
+      "result": "g'_{alpha beta} = g_{mu nu} (partial x^mu / partial x^alpha')(partial x^nu / partial x^beta')",
+      "concepts": [
+        "tensor transformation law of the metric",
+        "line element"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      },
+      "problem": "Margin notes 7-8: obtain the flat metric in cylindrical and spherical polar coordinates from Cartesians.",
+      "method": "Write dx and dy as total differentials of x = r cos theta and y = r sin theta, square and add so cross terms cancel; state the spherical transformation and abbreviate the angular part as dOmega^2.",
+      "key_insight": "Position-dependent components such as r^2 arise from a mere change of coordinates in flat space.",
+      "result": "dx^2 + dy^2 = dr^2 + r^2 dtheta^2; ds^2 = -dt^2 + dr^2 + r^2 dOmega^2",
+      "concepts": [
+        "flat metric in polar coordinates",
+        "solid-angle element"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 5.2",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      },
+      "problem": "Write down the line element for a spherical shell whose equatorial circumference is 2 pi a.",
+      "method": "Take the spherical-polar metric and freeze r = a so dr = 0.",
+      "key_insight": "Restricting a flat space to a submanifold can give a curved space.",
+      "result": "ds^2 = -dt^2 + a^2(dtheta^2 + sin^2 theta dphi^2), with the surface itself the dt = 0 part",
+      "concepts": [
+        "metric on a 2-sphere"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      },
+      "problem": "Margin note 9: find the length of a pure angular displacement in flat cylindrical coordinates using the slot machine, then a finite arc.",
+      "method": "Insert dX = (0,0,dtheta,0) into both slots; only g_thetatheta survives; integrate its square root between theta1 and theta2.",
+      "key_insight": "The same coordinate step has a different physical length at different r, which is what it means for g to be a field.",
+      "result": "ds^2 = r^2 dtheta^2; Delta s = integral of r dtheta",
+      "concepts": [
+        "metric field",
+        "tensor as slot machine",
+        "interval along a curve"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 5.3",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "problem": "Find and sketch the light-cone structure of (a) flat spacetime, (b) Rindler spacetime, (c) a baby Eddington-Finkelstein metric and (d) the Eddington-Finkelstein metric.",
+      "method": "Set ds^2 = 0, solve for the coordinate slope of null curves, integrate; in (a) introduce u, v to diagonalize the null structure; in (c)-(d) factor out dv to find one null family v = const and a second from the remaining bracket.",
+      "key_insight": "The null condition is a mechanical recipe that works in any chart. Cone shapes can change purely because of the coordinates (Rindler, and also the linear 'baby' EF toy, both flat) or because of genuine geometry (full EF, where 2GM/r brings curvature and a horizon).",
+      "result": "(a) t - t0 = +-(|r| - |r0|), ds^2 = -du dv; (b) dt/dx = +-1/x, t - t0 = +-ln|x|; (c) v = const or v - v0 = 2 ln|x|; (d) v = const or dv/dr = 2(1-2GM/r)^{-1}",
+      "concepts": [
+        "null condition",
+        "local light cone",
+        "light-cone coordinates",
+        "Rindler spacetime",
+        "Eddington-Finkelstein coordinates"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 5.4",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      },
+      "problem": "Understand the Alcubierre warp-drive spacetime and why it permits apparently faster-than-light journeys.",
+      "method": "Define a trajectory x_s(t), a bubble function f(r_s) with f(0) = 1 vanishing outside R, write the metric, complete the square, and set ds^2 = 0 to find cone slopes inside and outside the bubble; interpret with Fig. 5.2.",
+      "key_insight": "The traveller always moves within her local light cone; the bubble tilts those cones relative to the exterior, so large coordinate distances are covered without local superluminal motion.",
+      "result": "dx/dt = +-1 + v_s(t) f(r_s); flat cones outside, shifted cones inside; requires negative energy",
+      "concepts": [
+        "Alcubierre warp drive metric",
+        "local light cone",
+        "negative energy requirement"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 5.5",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      },
+      "problem": "Use the flat spherical-polar metric to find the radius of a ball, the surface distance from the pole to a latitude circle on a sphere of radius R, and that circle's circumference.",
+      "method": "Freeze all coordinates but one in each case so ds = sqrt(g_ii) dx^i, then integrate over r, theta or phi.",
+      "key_insight": "Measured along the surface, the circle's radius is R theta0 but its circumference is only 2 pi R sin theta0, the sinc deficit of a curved surface.",
+      "result": "R; r0 = R theta0; C = 2 pi R sin theta0 = 2 pi r0 sinc(r0/R)",
+      "concepts": [
+        "proper length element",
+        "circle on a sphere",
+        "metric on a 2-sphere"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 5.6",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      },
+      "problem": "Construct area, 3-volume and 4-volume elements for a diagonal metric and check them in spherical polars.",
+      "method": "Multiply proper length elements dl^i = sqrt(g_ii) dx^i for the relevant coordinates; for the 4-volume include a minus sign to make -g_00 positive; recognize the product of diagonal entries as det g.",
+      "key_insight": "Volume elements are products of proper lengths, which for a diagonal metric is the square root of the (absolute) determinant.",
+      "result": "dA = sqrt(g22 g33) dx^2 dx^3 = r^2 sin theta dtheta dphi; dV = r^2 sin theta dr dtheta dphi; dV4 = sqrt(-g00 g11 g22 g33) d^4x",
+      "concepts": [
+        "area element",
+        "volume element",
+        "invariant 4-volume element",
+        "diagonal metric",
+        "determinant of the metric"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 5.7",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      },
+      "problem": "Prove that the Jacobian from general coordinates to local flat Cartesian coordinates equals sqrt(-g), so sqrt(-g) d^4x is the invariant 4-volume.",
+      "method": "At the observer's point write the metric as g = Lambda eta Lambda^T (matrix form of the tensor law), take determinants using det Lambda^T = det Lambda and det eta = -1, solve for det Lambda, and insert into the Jacobian volume transformation.",
+      "key_insight": "Local flatness turns an invariance question into a determinant identity: the locally measured Cartesian volume equals sqrt(-g) times the coordinate volume in any chart.",
+      "result": "det g = -(det Lambda)^2, det Lambda = sqrt(-g), dx^0' dx^1' dx^2' dx^3' = sqrt(-g) d^4x",
+      "concepts": [
+        "invariant 4-volume element",
+        "Jacobian",
+        "principle of local flatness",
+        "determinant of the metric"
+      ],
+      "difficulty": "standard"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "Tensors as slot machines: put two vectors in the metric's slots and a number (their dot product) drops out; put dx in both slots and ds^2 drops out.",
+      "target_concept": "metric tensor",
+      "how_used": "Carried from ch4 to explain the line element (note 4) and a concrete arc-length computation (note 9).",
+      "limits": "Hides symmetry and linearity unless stated; says nothing about how the machine changes between points.",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Animated two-slot machine: drag vector arrows into slots; output number updates; move the machine across a polar grid to show the output for the same coordinate step changing with r."
+    },
+    {
+      "analogy": "A field as a two-stage machine: first input a location and receive a tensor for that spot, then feed vectors into that tensor.",
+      "target_concept": "metric field",
+      "how_used": "Margin note 1 untangles the two kinds of input so readers do not conflate position with the vectors.",
+      "limits": "Suggests independent tensors at each point; the smooth relation between neighbours (what field equations govern) is only mentioned.",
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    },
+    {
+      "analogy": "Local flatness is like using a flat street map on a round Earth: locally Euclidean, abandoned only for long distances (and not great on a hillside).",
+      "target_concept": "principle of local flatness",
+      "how_used": "Motivates matching g to eta at a single point in the 4-volume proof.",
+      "limits": "Street maps suggest flatness over a finite neighbourhood; mathematically only the metric (and later its first derivatives) can be matched at a point, with curvature errors at second order.",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Zoomable globe: as the learner zooms in on a patch, a flat map overlay's distance errors shrink quadratically, plotted live."
+    },
+    {
+      "analogy": "A warp drive from science fiction as a bubble that re-aims the local light cones rather than letting the ship outrun light.",
+      "target_concept": "local light cone",
+      "how_used": "Makes vivid that cone orientation, not local speed, controls what journeys are possible.",
+      "limits": "Physically unrealizable (negative energy), and 'faster than light' depends on comparing distant cones, which is not a local measurement.",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Race game: player sets bubble parameters to beat a photon between two stars while a meter confirms the ship's world line is always inside its local cone."
+    },
+    {
+      "analogy": "The pattern of light cones as a portrait of a spacetime, one of two ways to 'see' a metric (the other being an embedding in higher dimensions).",
+      "target_concept": "causal structure",
+      "how_used": "Frames section 5.3; every metric is visualized by drawing cone fields.",
+      "limits": "Cones capture causal (conformal) structure but not the overall scale of distances; very different metrics can share cone patterns.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    },
+    {
+      "analogy": "The line element is the metric: a single formula for ds^2 is treated as the whole geometric object.",
+      "target_concept": "line element",
+      "how_used": "Every spacetime in the chapter is introduced by writing ds^2.",
+      "limits": "Blurs the distinction between the tensor g and the quadratic form it defines; cross terms appear twice in the symmetric matrix but once (doubled) in ds^2, a common slip.",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    },
+    {
+      "analogy": "Building volumes from rulers: area and volume elements are just products of the proper lengths of the coordinate box edges.",
+      "target_concept": "volume element",
+      "how_used": "Bridges familiar r^2 sin theta factors to sqrt(-g) d^4x.",
+      "limits": "Only valid for diagonal (orthogonal) metrics; for skew coordinate boxes one needs the determinant, which the text supplies next.",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Draggable coordinate box on a curvilinear grid showing edge lengths sqrt(g_ii) dx^i and the resulting area; add an off-diagonal term to shear the box and show why the plain product overestimates."
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "A coordinate named t is a time, r is a radius, theta is an angle.",
+      "correction": "Coordinates are labels; only the metric turns coordinate differences into physical times and lengths.",
+      "why_tempting": "Every earlier physics course used letters with fixed physical meaning.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      },
+      "concepts": [
+        "coordinates have no intrinsic metric significance"
+      ]
+    },
+    {
+      "misconception": "The input to the metric is a position and two vectors all at once, or the field and the tensor are the same thing.",
+      "correction": "A position goes into the metric field and returns a tensor; that tensor then takes two vectors.",
+      "why_tempting": "Both are loosely called 'the metric' and written g.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      },
+      "concepts": [
+        "metric field",
+        "metric tensor"
+      ]
+    },
+    {
+      "misconception": "The product dx^mu dx^nu in the line element is an area element and so needs a Jacobian when coordinates change.",
+      "correction": "In ds^2 the product is the square of a displacement and transforms factor by factor with the chain rule; only genuine area or volume products transform with a Jacobian determinant.",
+      "why_tempting": "The same symbol pairs appear in multiple integrals where they do mean areas.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      },
+      "concepts": [
+        "line element",
+        "Jacobian"
+      ]
+    },
+    {
+      "misconception": "If metric components vary from point to point, space must be curved.",
+      "correction": "Flat spacetime in polar coordinates has components r^2 and r^2 sin^2 theta; variation can be pure coordinate effect. The book implies this by showing the same flat spacetime in three charts, but never states the warning outright. Curvature needs a coordinate-independent test (Riemann tensor, ch11).",
+      "why_tempting": "The chapter itself says curved spacetime means g varies, and readers invert the statement.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      },
+      "concepts": [
+        "metric field",
+        "flat metric in polar coordinates"
+      ]
+    },
+    {
+      "misconception": "Light cones that look deformed or tilted in a diagram show that spacetime is curved.",
+      "correction": "Rindler cones change shape with x yet Rindler spacetime is flat (Exercise 5.2), and the baby EF toy is flat too; drawn cone shapes depend on the chart. Only chart-independent features, such as all future cones tipping inward past r = 2GM in the real EF metric, reflect geometry.",
+      "why_tempting": "Section 5.3 motivates cone pictures by saying cones change orientation in curved spacetime.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "concepts": [
+        "Rindler spacetime",
+        "local light cone"
+      ]
+    },
+    {
+      "misconception": "A warp drive lets a ship travel faster than light, breaking relativity.",
+      "correction": "The traveller never leaves her local forward cone; the geometry shifts the cones, so only a comparison with distant flat-space cones suggests superluminal motion.",
+      "why_tempting": "Science-fiction framing and the coordinate velocity exceeding 1.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      },
+      "concepts": [
+        "Alcubierre warp drive metric",
+        "local light cone"
+      ]
+    },
+    {
+      "misconception": "Gravity only affects the time part of the metric; space stays Euclidean in the Newtonian limit.",
+      "correction": "The weak-field metric also carries (1 - 2Phi) on the spatial part; earlier heuristic arguments only captured g_00.",
+      "why_tempting": "Example 2.13 derived just the time correction, and Newtonian motion of slow bodies only needs g_00.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      },
+      "concepts": [
+        "Newtonian-limit metric"
+      ]
+    },
+    {
+      "misconception": "The radius of a circle drawn on a sphere is its distance from the sphere's axis, so circumference is always 2 pi times radius.",
+      "correction": "An inhabitant measures radius along the surface, r0 = R theta0, and finds circumference 2 pi r0 sinc(r0/R) < 2 pi r0.",
+      "why_tempting": "Viewing the sphere from outside in 3D uses the Euclidean radius R sin theta0.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      },
+      "concepts": [
+        "circle on a sphere"
+      ]
+    },
+    {
+      "misconception": "The volume element is always the product of the square roots of diagonal components, even with off-diagonal terms.",
+      "correction": "That shortcut works only for diagonal metrics; in general use the square root of the absolute determinant.",
+      "why_tempting": "The chapter first builds volumes from products of proper lengths.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      },
+      "concepts": [
+        "invariant 4-volume element",
+        "determinant of the metric"
+      ]
+    },
+    {
+      "misconception": "The minus sign in sqrt(-g) applies to every metric.",
+      "correction": "The sign compensates the negative determinant of a Lorentzian metric; for spatial surfaces such as Exercise 5.1 use sqrt(det g).",
+      "why_tempting": "The general formula is boxed with the minus sign and the first exercise asks for 'the invariant volume element' of 2D Riemannian surfaces.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      },
+      "concepts": [
+        "invariant 4-volume element"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Warp-drive journey",
+      "setup": "A traveller wants to go between two distant events faster than a light signal in flat space would allow; a bubble of warped spacetime surrounds her path and moves with her.",
+      "lesson": "Global travel times are governed by how light cones are arranged, while local physics still forbids outrunning one's own cone; exotic geometry needs exotic (negative) energy.",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      },
+      "concepts": [
+        "Alcubierre warp drive metric",
+        "local light cone",
+        "negative energy requirement"
+      ],
+      "visualizable": true,
+      "app_idea": "Side-by-side: exterior observer's spacetime diagram of ship and photon, and the ship's cockpit view where the local cone and the ship's world-line tangent are always compatible."
+    },
+    {
+      "name": "Surveyor on a sphere",
+      "setup": "A being confined to a sphere of radius R marks a circle at fixed distance r0 from the north pole and walks its circumference.",
+      "lesson": "Intrinsic measurements alone (ratio of circumference to radius less than 2 pi) reveal curvature, computed directly from the metric.",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      },
+      "concepts": [
+        "circle on a sphere",
+        "metric on a 2-sphere"
+      ],
+      "visualizable": true,
+      "app_idea": "First-person walker on a sphere unrolling a measuring tape along a meridian and then around the circle, with the ratio plotted."
+    },
+    {
+      "name": "Street map on a hillside",
+      "setup": "Someone navigates with a flat map; it works in town but fails over large distances or on steep ground.",
+      "lesson": "Every point has a neighbourhood where geometry is effectively flat; curved-spacetime quantities can be anchored to local Minkowski frames.",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      },
+      "concepts": [
+        "principle of local flatness"
+      ],
+      "visualizable": true,
+      "app_idea": null
+    },
+    {
+      "name": "Accelerated observers' coordinates",
+      "setup": "Coordinates suited to observers undergoing constant acceleration produce the Rindler line element, whose cones vary with x.",
+      "lesson": "Non-inertial coordinates in flat spacetime can mimic features of gravity in the metric components without any curvature.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "concepts": [
+        "Rindler spacetime",
+        "coordinates have no intrinsic metric significance"
+      ],
+      "visualizable": true,
+      "app_idea": "Fleet of rockets on hyperbolae in the Minkowski plane; the learner selects one rocket and watches its co-moving grid become the Rindler chart."
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "Albert Einstein"
+      ],
+      "year": null,
+      "event": "Einstein judged that giving up the idea that coordinates directly measure times and distances was one of the hardest steps in absorbing his theory.",
+      "significance": "Signals that the coordinate freedom of GR is a conceptual, not merely technical, hurdle.",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "people": [
+        "Miguel Alcubierre"
+      ],
+      "year": "1994",
+      "event": "Alcubierre proposed a metric describing a warp-drive bubble (Class. Quantum Grav. 11, L73).",
+      "significance": "A modern, popular example showing how a hand-built metric's cone structure can be analysed, and why its energy requirements are unphysical.",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "people": [
+        "Carl Gustav Jacob Jacobi"
+      ],
+      "year": null,
+      "event": "The determinant of partial derivatives that governs how volumes transform is named after C. G. J. Jacobi (1804-1851).",
+      "significance": "Connects the relativistic volume element to standard multivariable calculus.",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Weak gravitational field of Earth and Sun",
+      "kind": "numerical-estimate",
+      "details": "The Newtonian-limit metric is accurate wherever |Phi| (in units of c^2) is tiny. Our own estimate, not in the book: this confirms that the 2Phi corrections to both time and space components are minute in the Solar System yet measurable with clocks and light deflection.",
+      "key_numbers": "Our estimate: |Phi|/c^2 = GM/(rc^2) about 7e-10 at Earth's surface and about 2e-6 at the Sun's surface.",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "topic": "Alcubierre warp drive",
+      "kind": "technology",
+      "details": "Hypothetical propulsion by a moving bubble of curved spacetime; its cone structure permits arrival before a flat-space light signal, but sourcing the geometry requires negative energy density, so it is not achievable with known matter.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "topic": "Spherically symmetric black holes",
+      "kind": "astrophysical-system",
+      "details": "The Eddington-Finkelstein metric describes the exterior and interior of a non-rotating black hole in coordinates regular at the horizon; the cone slope dv/dr = 2/(1-2GM/r) blows up at r = 2GM, where outgoing light can no longer escape (horizon interpretation is later material).",
+      "key_numbers": "Horizon at r = 2GM/c^2, about 3 km per solar mass (our estimate).",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "topic": "Light propagation in an expanding universe",
+      "kind": "numerical-estimate",
+      "details": "Exercise 5.4 sets up the integral relating emission and observation times of a radial light ray in a Robertson-Walker-type metric, the basis for cosmological redshift and distance calculations developed in Part III.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Metric signature",
+      "convention": "(-,+,+,+): Minkowski metric diag(-1,1,1,1); timelike intervals have ds^2 < 0.",
+      "notes": "Hence g_00 < 0 and det g < 0, which is why sqrt(-g) appears.",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "item": "Units",
+      "convention": "c = 1 throughout; G is kept explicitly in 2GM/r; Phi is dimensionless.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "item": "g versus eta",
+      "convention": "Bold g( , ) denotes a general metric tensor; eta( , ) is reserved for flat Minkowski spacetime.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      }
+    },
+    {
+      "item": "Line element as metric",
+      "convention": "A metric is usually specified by writing ds^2 = g_{mu nu} dx^mu dx^nu; the book says the line element 'is' the metric.",
+      "notes": "Cross terms such as 2 dv dx mean g_vx = g_xv = 1.",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "item": "Primed indices",
+      "convention": "New coordinates carry primes on the index: x^{alpha'}; components in the new system are written g'_{alpha beta}.",
+      "notes": "Example 5.7 labels the local flat Cartesian system as primed, while note 20 writes g_{alpha beta} = Lambda^mu_alpha Lambda^nu_beta eta_{mu nu} with unprimed indices, so the role of primes flips; read carefully.",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "item": "Transformation matrix Lambda",
+      "convention": "Lambda^{mu'}_nu = partial x^{mu'}/partial x^nu; its determinant is the Jacobian; underlined bold symbols denote matrices.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "item": "Metric determinant",
+      "convention": "g denotes det g_{mu nu} (not the tensor); d^4x = dx^0 dx^1 dx^2 dx^3.",
+      "notes": "Same letter as the tensor; context distinguishes.",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "item": "Solid angle",
+      "convention": "dOmega^2 = dtheta^2 + sin^2 theta dphi^2.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "item": "Coordinate ordering",
+      "convention": "dx^mu = (dt, dx, dy, dz), (dt, dr, dtheta, dz) or (dt, dr, dtheta, dphi); index 0 is the time-like coordinate.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "item": "Proper length element",
+      "convention": "dl^i = sqrt(g_ii) dx^i with no summation over i.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "item": "sinc function",
+      "convention": "sinc x = sin x / x (unnormalized).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "Note 1: two inputs are involved: location into the metric field gives a tensor, then two vectors into that tensor give a scalar.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      }
+    },
+    {
+      "summary": "Note 2: the metric reappears on the matter side of Einstein's equation, which is why it is hard to solve.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      }
+    },
+    {
+      "summary": "Note 3: the metric can also be viewed as a (2,0) tensor on 1-forms; its components g^{mu nu} are the inverse matrix of g_{mu nu}.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "summary": "Note 4: feeding the displacement dx into each of the metric's two slots yields ds^2, a direct use of the slot-machine idea.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "summary": "Note 5: in the line element dx^mu dx^nu is a squared length, transforming by simple multiplication; true areas and volumes need a Jacobian (later in the chapter and ch38).",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "summary": "Note 6 (misplaced to the top of p.58 in the reading copy): coordinates lack intrinsic metric significance; Einstein found this one of the hardest ideas to accept.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "summary": "Note 7: derives the flat plane metric in polar coordinates from Cartesian differentials (contains typos y = r cos theta and a missing square on dtheta).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "summary": "Note 8: spherical polar transformation, reduction to cylindrical at theta = pi/2, and the dOmega^2 shorthand.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "summary": "Pointer box: the Newtonian-limit metric (5.22) is derived in Chapter 14.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "summary": "Note 9: worked slot-machine calculation of an angular step ds = r dtheta in flat cylindrical coordinates and its integral, emphasizing position dependence.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "summary": "Note 10: metrics can be visualized either by light cones or by embedding a slice in a higher-dimensional space (Appendix D).",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "summary": "Note 11: the Eddington-Finkelstein metric returns in the study of stars and spherically symmetric black holes.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "summary": "Note 12: Miguel Alcubierre (born 1964) and the 1994 warp-drive paper reference.",
+      "type": "reference",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "summary": "Note 13: such spacetime warping would require negative energy, so it is not practical.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "summary": "Note 14: reminder that with all but one differential zero, ds = sqrt(g_rr) dr and similarly for other coordinates.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "summary": "Note 15: 'diagonal' refers to the matrix g_{mu nu}: only squared differentials, no cross terms.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "summary": "Note 16: other coordinate pairs give other area elements; theta-phi is the natural one for a sphere.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "summary": "Note 17: determinant formula using the Levi-Civita symbol; diagonal case is the product of entries.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "summary": "Note 18: Jacobi biography and definition of the Jacobian as the determinant of the transformation matrix, with a pointer to ch38.",
+      "type": "biography",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "summary": "Note 19: local flatness is explained further in Chapter 6 and used constantly afterwards.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "summary": "Note 20: the matrix equation g = Lambda eta Lambda^T is just eqn 5.8 rewritten in index form (5.57).",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "summary": "Epigraph: a biblical line about measure being returned in kind, a pun on 'metric' as measure.",
+      "type": "humor-or-aside",
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 5,
+    "pdf_pages": [
+      82
+    ],
+    "skills_practiced": [
+      "reading metric components from a line element and computing determinants",
+      "building invariant area elements for 2D surfaces (plane, sphere, torus)",
+      "proving a metric is flat via an explicit coordinate transformation",
+      "transforming the Minkowski metric to non-inertial coordinates with off-diagonal terms",
+      "finding light-cone structure from ds^2 = 0",
+      "computing proper time and proper length intervals from a line element",
+      "inverting a non-diagonal metric matrix",
+      "setting up null radial rays in a cosmological metric"
+    ],
+    "notable": [
+      {
+        "number": "5.1",
+        "summary": "Compute invariant 2D area elements from sqrt of the metric determinant for a flat plane in polar coordinates, a sphere, and a torus whose line element is supplied as a hint.",
+        "skills": [
+          "determinant of a 2x2 metric",
+          "area element"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Direct practice of sqrt|g|; the torus gives a non-trivial position-dependent area element and forces the reader to drop the Lorentzian minus sign.",
+        "pdf_page": 82
+      },
+      {
+        "number": "5.2",
+        "summary": "Demonstrate that the Rindler line element is flat by substituting a hyperbolic cosh/sinh map to coordinates T, X.",
+        "skills": [
+          "coordinate transformation",
+          "hyperbolic identities",
+          "recognizing Minkowski form"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Resolves the chapter's implicit puzzle that Rindler cones look deformed yet the spacetime is flat.",
+        "pdf_page": 82
+      },
+      {
+        "number": "5.3",
+        "summary": "Rewrite the Minkowski metric in coordinates shifted by a constant velocity, then find its cone structure, the proper time along an observer's world line, and the inverse metric matrix.",
+        "skills": [
+          "off-diagonal metrics",
+          "null condition",
+          "proper time",
+          "matrix inversion"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Shows a flat metric with a cross term, the same structure as the warp-drive and Eddington-Finkelstein metrics, and exercises g^{mu nu}.",
+        "pdf_page": 82
+      },
+      {
+        "number": "5.4",
+        "summary": "For an expanding-universe metric with scale factor a(t) and curvature constant k, find the proper radial length element and show that a radial light ray obeys an integral relation between elapsed time over a(t) and comoving distance.",
+        "skills": [
+          "proper length",
+          "null radial rays",
+          "separation of variables"
+        ],
+        "difficulty": "standard",
+        "why_notable": "First contact with the Robertson-Walker metric and the light-travel integral used throughout cosmology.",
+        "pdf_page": 82
+      },
+      {
+        "number": "5.5",
+        "summary": "In Rindler space, find the proper length for a small x step and the proper time for a small t step at fixed x.",
+        "skills": [
+          "proper length",
+          "proper time",
+          "position-dependent g_tt"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Shows concretely that the Rindler coordinate t is not proper time: clocks at different x tick at rates proportional to x.",
+        "pdf_page": 82
+      }
+    ],
+    "solutions": "Selected answers appear in Appendix E of the book."
+  },
+  "difficulty": {
+    "math_level": 2,
+    "conceptual_level": 3,
+    "novice_friendliness": 4,
+    "notes": "Mathematics is mostly chain rule, integration of simple functions and determinants; the hardest step is the short Jacobian/local-flatness proof with slippery primed-index conventions. Conceptually the chapter asks readers to accept metrics without derivation and to separate coordinate artefacts from geometry, which it does only partially (Rindler flatness is left to an exercise). Informal, well-supported by margin notes, but several typos (polar note, eqn 5.40 signs, integration constants) can trip careful readers."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "GA ch4",
+      "reason": "Metric eta as a (0,2) slot machine giving dot products (eqn 4.1) and the inverse metric.",
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch2 Example 2.13",
+      "reason": "Heuristic derivation of g_00 = -(1+2Phi) in eqn 2.75, extended here by the spatial correction.",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch3",
+      "reason": "Eqn 3.20 on circle circumference on a sphere, reproduced with the metric in Example 5.5.",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch1-2 (flat light cones)",
+      "reason": "Text cites a flat light-cone figure as 'Fig. 3(a)', a broken reference to the earlier special-relativity light-cone picture.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch6",
+      "reason": "Full treatment of local flatness and the equivalence principle.",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch11",
+      "reason": "Invariant curvature test (Riemann tensor) needed to decide whether a metric with varying components is actually curved.",
+      "locator": null
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch13",
+      "reason": "The field equations sketched in words as (5.1).",
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch14",
+      "reason": "Derivation of the Newtonian-limit metric (5.22).",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch16",
+      "reason": "Robertson-Walker metric first met in Exercise 5.4.",
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch21-ch27",
+      "reason": "Schwarzschild geometry, black holes and horizon-penetrating coordinates, where Eddington-Finkelstein reappears.",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch37-ch38",
+      "reason": "Volume forms, Jacobians and integration with differential forms treat sqrt(-g) d^4x rigorously.",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA Appendix D",
+      "reason": "Embedding diagrams as the second way to visualize a metric.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "direction": "external",
+      "target": "M. Alcubierre, Class. Quantum Grav. 11, L73 (1994)",
+      "reason": "Original warp-drive metric paper.",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "direction": "external",
+      "target": "Gospel of Matthew 7:2 (epigraph)",
+      "reason": "Chapter epigraph punning on measure and metric.",
+      "locator": {
+        "pdf_page": 73,
+        "printed_page": 56,
+        "section": null
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "Show one flat spacetime in three coordinate systems (Cartesian, cylindrical, spherical) before any curved metric, so position-dependent components are first met where curvature is certainly absent.",
+      "why_effective": "Inoculates against equating varying g_{mu nu} with curvature and makes the field nature of g concrete without new physics.",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      },
+      "app_idea": "Coordinate-switcher on a fixed flat plane: grid lines morph from Cartesian to polar while a live matrix panel shows g_{mu nu} at the cursor changing, and a 'curvature' readout stays at zero."
+    },
+    {
+      "gem": "Picture every metric by solving ds^2 = 0 locally and drawing a field of small cones.",
+      "why_effective": "Converts an opaque formula into a picture that directly answers physical questions about signalling and escape.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "app_idea": "Universal cone-field plotter: learner enters any 1+1 line element (with cross terms) and the app solves the quadratic null condition at a grid of points, drawing cones and integral null curves."
+    },
+    {
+      "gem": "Practise on a 'baby' metric (-x dv^2 + 2 dv dx) before the real Eddington-Finkelstein metric.",
+      "why_effective": "Strips away 1-2GM/r so the factorization dv(-x dv + 2 dx) = 0 and the resulting two null families are obvious; the full case then needs only a substitution.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      },
+      "app_idea": "Slider morphing the coefficient function from x to 1 - 2GM/r with cones updating, highlighting where one cone edge becomes vertical."
+    },
+    {
+      "gem": "Use the warp drive to separate 'coordinate speed exceeds 1' from 'moves outside the local light cone'.",
+      "why_effective": "A memorable sci-fi hook that makes the local nature of the speed-of-light limit unforgettable.",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      },
+      "app_idea": "Warp-bubble spacetime diagram with draggable bubble speed; the traveller's tangent vector and local cone shown in an inset that never shows a violation."
+    },
+    {
+      "gem": "Get volume elements by multiplying proper lengths dl^i = sqrt(g_ii) dx^i, then recognize the product as a determinant.",
+      "why_effective": "Grounds sqrt(-g) in the familiar r^2 sin theta of calculus before any Jacobian machinery.",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      },
+      "app_idea": "Curvilinear box inspector: hover over a spherical grid to see a small coordinate box with edge lengths and volume labelled, and a toggle adding an off-diagonal term that shears the box and switches to the determinant formula."
+    },
+    {
+      "gem": "Prove sqrt(-g) d^4x is the physical volume by writing g = Lambda eta Lambda^T at a point and taking determinants.",
+      "why_effective": "A three-line proof that ties the invariant volume to local flatness and uses nothing beyond det(AB) = det A det B.",
+      "locator": {
+        "pdf_page": 81,
+        "printed_page": 64,
+        "section": "5.4"
+      },
+      "app_idea": "Step-through derivation card where each determinant step is revealed on tap, with a numerical 2x2 Lorentzian example the learner can edit to confirm det g = -(det Lambda)^2."
+    },
+    {
+      "gem": "Measure a latitude circle on a sphere with the metric to find circumference 2 pi r0 sinc(r0/R).",
+      "why_effective": "Shows the metric doing real geometry and gives an intrinsic curvature signature without any curvature tensor.",
+      "locator": {
+        "pdf_page": 79,
+        "printed_page": 62,
+        "section": "5.4"
+      },
+      "app_idea": "Draggable latitude circle on a 3D sphere with a live plot of C/(2 pi r0) versus r0/R."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "Eqn 5.40 (expanded Alcubierre metric) is printed with the wrong signs: it should read -[1 - v_s^2 f^2]dt^2 - 2 v_s f dx dt, matching the completed-square form (5.41).",
+      "impact_on_learner": "A reader who checks the algebra finds (5.40) and (5.41) inconsistent and may lose confidence or derive wrong cones.",
+      "suggestion": "Present only the completed-square form and let the learner expand it as a check.",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "issue": "Margin note 7 prints y = r cos theta and eqn 5.14 drops the square on dtheta.",
+      "impact_on_learner": "Novices copying the derivation get wrong differentials or a dimensionally inconsistent line element.",
+      "suggestion": "Use y = r sin theta and dr^2 + r^2 dtheta^2; have learners verify that cross terms cancel.",
+      "locator": {
+        "pdf_page": 75,
+        "printed_page": 58,
+        "section": "5.2"
+      }
+    },
+    {
+      "issue": "Integrated null curves (5.35) and (5.37) omit the starting position: they should be t - t0 = +-ln|x/x0| and v - v0 = 2 ln|x/x0|.",
+      "impact_on_learner": "The cone through (t0, x0) appears not to pass through its own apex unless x0 = 1.",
+      "suggestion": "Always carry the integration constant explicitly and plot cones from a clicked apex.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "issue": "Rindler cones are shown deforming with x without saying the spacetime is flat; the flatness is left to Exercise 5.2, and the section introduction links cone reorientation to curvature.",
+      "impact_on_learner": "Learners conclude that any deformed cone picture signals curvature.",
+      "suggestion": "Pair the Rindler cone field with its Minkowski image immediately and state that cone shapes in a chart are not by themselves a curvature test.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "issue": "Light-cone coordinates u = t - |r|, v = t + |r| give ds^2 = -du dv only for radial motion; the angular part is silently dropped.",
+      "impact_on_learner": "Readers may think the 4D flat metric is exactly -du dv.",
+      "suggestion": "Write ds^2 = -du dv + r^2 dOmega^2 with r = (v-u)/2, or restrict explicitly to 1+1 dimensions.",
+      "locator": {
+        "pdf_page": 77,
+        "printed_page": 60,
+        "section": "5.3"
+      }
+    },
+    {
+      "issue": "Example 5.2 calls its result a two-dimensional surface but retains -dt^2.",
+      "impact_on_learner": "Confusion about dimension and about whether the sphere is a space or spacetime.",
+      "suggestion": "Separate the 2-sphere metric a^2 dOmega^2 from the (2+1) product spacetime.",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "issue": "The Newtonian-limit metric is quoted without justification of the spatial (1-2Phi) factor or its conditions (weak, static, slow sources).",
+      "impact_on_learner": "The spatial factor seems arbitrary; learners cannot tell what it does physically.",
+      "suggestion": "Mention that the spatial term matters for light (doubling the deflection) but not for slow particles, and point to ch14.",
+      "locator": {
+        "pdf_page": 76,
+        "printed_page": 59,
+        "section": "5.2"
+      }
+    },
+    {
+      "issue": "The 4-volume invariance argument mixes primed/unprimed conventions (primes denote new coordinates in 5.8, local flat coordinates in 5.56-5.62), and matches only the metric at one point, not a neighbourhood.",
+      "impact_on_learner": "Index gymnastics obscure a simple fact; learners may not see why sqrt(-g) d^4x is chart independent in general.",
+      "suggestion": "Supplement with the direct argument: g' = J^{-2} g under any coordinate change and d^4x' = J d^4x, so sqrt(-g') d^4x' = sqrt(-g) d^4x.",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    },
+    {
+      "issue": "Eqn 5.5 uses an absolute value, merging proper time (timelike) and proper length (spacelike) without comment.",
+      "impact_on_learner": "Learners may not realize timelike intervals should be computed with -ds^2 and interpreted as elapsed proper time.",
+      "suggestion": "Introduce d tau^2 = -ds^2 for timelike curves alongside the length formula; Exercises 5.3(c) and 5.5(b) need it.",
+      "locator": {
+        "pdf_page": 74,
+        "printed_page": 57,
+        "section": "5.1"
+      }
+    },
+    {
+      "issue": "The Eddington-Finkelstein example stops at the cone slope; the horizon at r = 2GM where dv/dr diverges and cones tip is not drawn or discussed, and there is a broken cross-reference 'Fig. 3(a)'.",
+      "impact_on_learner": "Misses the most striking payoff of the cone picture and leaves a dangling figure reference.",
+      "suggestion": "Add a cone-field plot of EF coordinates across r = 2GM showing all future-directed rays heading inward inside the horizon.",
+      "locator": {
+        "pdf_page": 78,
+        "printed_page": 61,
+        "section": "5.3"
+      }
+    },
+    {
+      "issue": "Exercise 5.1 asks for invariant volume elements of 2D Riemannian surfaces right after the boxed Lorentzian formula sqrt(-g).",
+      "impact_on_learner": "Learners take square roots of negative numbers or insert a spurious minus sign.",
+      "suggestion": "State the general rule sqrt(|g|) and flag signature before the exercise.",
+      "locator": {
+        "pdf_page": 82,
+        "printed_page": 65,
+        "section": null
+      }
+    },
+    {
+      "issue": "In Example 5.7 the matrix equation (5.58) g = Lambda eta Lambda^T does not literally match its index form (5.57) g_{alpha beta} = Lambda^mu_alpha Lambda^nu_beta eta_{mu nu}, which with Lambda^mu_nu read as row mu, column nu is Lambda^T eta Lambda. The result det Lambda = (-g)^{1/2} also silently picks the positive root; strictly |det Lambda| = sqrt(-g).",
+      "impact_on_learner": "A careful reader multiplying out the matrices gets a transpose mismatch and may doubt the proof; orientation-reversing charts give a negative Jacobian.",
+      "suggestion": "Note that the transpose placement does not change any determinant, and write the volume rule with |J| so it holds for any orientation.",
+      "locator": {
+        "pdf_page": 80,
+        "printed_page": 63,
+        "section": "5.4"
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Opening question: 'If I tell you a coordinate step is dtheta = 0.01, how long is that step?' Let the learner realize it depends on r (and on the metric), which motivates the metric as a field.",
+    "Check whether the learner is comfortable with ch4's slot-machine picture of eta; if not, spend two minutes on g(X,Y) = g_{mu nu} X^mu Y^nu with a numeric example before moving on.",
+    "Recommended order: metric as position-dependent dot product -> line element and reading components (including factor 2 for cross terms) -> same flat space in polar coordinates -> caution on coordinate meaning -> weak-field metric -> null condition and cones (flat, Rindler, baby EF, EF) -> warp drive -> lengths on a sphere -> area/volume elements -> sqrt(-g) and local flatness.",
+    "Check for understanding: ask for g_{mu nu} from ds^2 = -x dv^2 + 2 dv dx. Correct answer has g_vv = -x, g_vx = g_xv = 1, g_xx = 0; a common error is g_vx = 2.",
+    "Check for understanding: 'Rindler cones change shape with x. Is Rindler spacetime curved?' Expect the learner to say no, with a pointer to X = x cosh t, T = x sinh t.",
+    "When learners ask 'so can we build a warp drive?', emphasize negative energy density and that local physics never exceeds light speed; redirect to what the example teaches about cones.",
+    "Common question: why is there a minus sign in sqrt(-g)? Answer: Lorentzian determinants are negative (one negative eigenvalue); for spatial slices or surfaces use sqrt(det g).",
+    "Common question: why does the Newtonian metric modify the spatial part too? Give a brief answer (needed for correct light bending, derived later from the field equations) and defer details to ch14.",
+    "For advanced learners, offer the direct invariance proof of sqrt(-g) d^4x via g' = J^{-2} g and mention that the book's version matches only the metric at a point.",
+    "For novices, anchor the sphere example with a globe: the 'radius' of the Arctic Circle measured along the ground versus its actual circumference, and compare ratio with 2 pi.",
+    "Watch for typos the learner may encounter in the book: y = r cos theta in note 7, missing square in (5.14), sign errors in (5.40), and missing x0 in (5.35)/(5.37).",
+    "Good exit check: learner computes the proper time for a clock at fixed x in Rindler space (d tau = x dt) and explains why t is not the clock's time.",
+    "Subtle point worth raising with strong learners: the 'baby' Eddington-Finkelstein metric -x dv^2 + 2 dv dx is flat (a 2D metric -F dv^2 + 2 dv dx has curvature proportional to F'', zero for linear F), so both toy panels of Fig. 5.1 show coordinate effects; only the real 1 - 2GM/r version is curved. Use it to reinforce that cone pictures alone do not diagnose curvature."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Fig. 5.1(b) description said the Rindler null curves become nearly horizontal near the t axis; the image shows them turning steeply upward into a dark vertical band. Rewrote the description and cone sizes to match the drawing, and added the chart-edge (horizon) reading to what_it_teaches.",
+      "Fig. 5.1(c) description overstated cones 'almost lying on their sides' and claimed one family was straight; rewrote to match the drawn distorted lattice and tilted, stretched cones.",
+      "Fig. 5.2(b) description reworded to match the drawn cone symbols (tipped inside the dotted band, upright outside).",
+      "Added the physics point, missing throughout, that the 'baby' Eddington-Finkelstein toy metric is itself flat (curvature proportional to F'' = 0), updating the EF concept notes, Example 5.3 key insight, Fig. 5.1(c) teaching point, a misconception correction and a tutor note.",
+      "Misconception 'varying components imply curvature' was marked explicit_in_book; the book only implies it, so set to false and said so.",
+      "Added a pitfall: (5.58) Lambda eta Lambda^T versus index form (5.57), which corresponds to Lambda^T eta Lambda, and the unstated choice of positive root for det Lambda.",
+      "Added summary equations (5.64) and (5.65) to key_equations.",
+      "Jacobi historical note put a lifespan in the year field; moved it into the event text and set year to null.",
+      "Reworded three prose fields that tracked source phrasing closely (causal structure how_introduced, Example 5.2 problem, note 4 summary)."
+    ],
+    "residual_concerns": [
+      "Book typos recorded rather than silently fixed: y = r cos theta in note 7, missing square in (5.14), sign errors in (5.40), missing x0 in (5.35) and (5.37), and the dangling 'Fig. 3(a)' reference (ch01's Fig. 1.3 is a wave-front picture, so the intended target is unclear).",
+      "Equations (5.67) and (5.72) repeat the Rindler line element (5.33) and are not listed separately.",
+      "The reading copy places margin notes 6-8 at the top of p.58 without numbers and before the section heading; the render confirms their content and placement in the margin of section 5.2."
+    ],
+    "coverage": {
+      "toc_sections": 4,
+      "sections": 7,
+      "inventory_figures": 6,
+      "figures": 6,
+      "inventory_examples": 7,
+      "worked_examples": 9,
+      "concepts": 38,
+      "key_equations": 72,
+      "locators_checked": 240,
+      "locators_wrong": 0,
+      "pages_rendered": 8
+    }
+  }
+}

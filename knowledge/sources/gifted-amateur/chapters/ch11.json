@@ -1,0 +1,3343 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch11",
+ "title": "Riemann curvature and the Ricci tensor",
+ "part": "II: Curvature and general relativity",
+ "printed_pages": [
+  120,
+  130
+ ],
+ "pdf_pages": [
+  137,
+  147
+ ],
+ "one_line_summary": "Introduces intrinsic curvature through two operational tests (geodesic deviation and loop parallel transport), derives the Riemann tensor from the connection by carrying a vector round a tiny parallelogram, lists its symmetries, contracts it to the Ricci tensor and scalar, checks the machinery on the plane and the 2-sphere, and recovers Newtonian tidal stretching from Schwarzschild curvature in a freely falling frame.",
+ "role_in_book": "This is the hinge of Part II. Chapters 7-10 built the covariant derivative, connection coefficients, geodesics and orthonormal measurement frames; this chapter turns those tools into a coordinate-independent verdict on whether spacetime is genuinely curved. It supplies the raw material (Ricci tensor and scalar) that Chapters 12-13 need to write the field equations, and it deliberately leaves the rigorous geodesic-deviation derivation, the independent-component count and efficient computation methods to Part V (Chapters 30, 34-36), in keeping with the book's spiral structure.",
+ "assumed_background": [
+  {
+   "topic": "Connection coefficients from metric derivatives and their role in covariant differentiation",
+   "source": "earlier-in-this-book",
+   "where": "GA ch7, ch9"
+  },
+  {
+   "topic": "Parallel transport and the condition nabla_u V = 0",
+   "source": "earlier-in-this-book",
+   "where": "GA ch7"
+  },
+  {
+   "topic": "Geodesics as free-fall world lines and the geodesic equation",
+   "source": "earlier-in-this-book",
+   "where": "GA ch8, ch9"
+  },
+  {
+   "topic": "Equivalence principle: a single freely falling particle cannot detect gravity",
+   "source": "earlier-in-this-book",
+   "where": "GA ch6"
+  },
+  {
+   "topic": "Local flatness theorem / local inertial frames with vanishing first metric derivatives",
+   "source": "earlier-in-this-book",
+   "where": "GA ch6-ch8"
+  },
+  {
+   "topic": "Orthonormal frames, vielbein and measuring components in an observer's frame",
+   "source": "earlier-in-this-book",
+   "where": "GA ch10"
+  },
+  {
+   "topic": "Tensors as linear slot machines, index raising/lowering, contraction",
+   "source": "earlier-in-this-book",
+   "where": "GA ch4, ch5"
+  },
+  {
+   "topic": "Newtonian gravitational potential, Gauss's law and Poisson's equation",
+   "source": "undergrad-mechanics",
+   "where": "GA ch0 §0.4"
+  },
+  {
+   "topic": "Taylor expansion to first order and differentiating products",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Matrices, eigenvalues, trace and commutators",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Polar coordinates on the plane and spherical coordinates on a sphere, with their Christoffel symbols",
+   "source": "earlier-in-this-book",
+   "where": "GA ch9"
+  },
+  {
+   "topic": "Simple harmonic oscillator equation",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Euclid's parallel postulate",
+   "source": "school-math",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "Reader can distinguish intrinsic from extrinsic curvature using the cylinder (unrollable) versus sphere (not unrollable) contrast.",
+  "Reader can describe two operational tests for intrinsic curvature: relative acceleration of initially parallel geodesics, and rotation of a vector parallel transported around a closed loop.",
+  "Reader can derive the Newtonian tidal tensor as the Hessian of the potential and use it to predict stretching along the radial direction and squeezing transverse to it for a falling cloud.",
+  "Reader can explain, via Poisson's equation, why a small cloud falling in vacuum keeps its volume while changing shape.",
+  "Reader can reproduce the parallelogram parallel-transport argument leading to the component formula for the Riemann tensor in terms of Christoffel symbols and their derivatives.",
+  "Reader can use the matrix-commutator mnemonic to remember and evaluate the Riemann formula.",
+  "Reader can show that for a weak static field the Riemann components R^i_{tjt} reduce to second derivatives of the Newtonian potential.",
+  "Reader can state the pair antisymmetries, pair-exchange symmetry and cyclic identity of R_{abcd} and use them to count independent components (0, 1, 6, 20 in 1-4 dimensions).",
+  "Reader can form the Ricci tensor by contracting the first and third indices of Riemann and the Ricci scalar by tracing with the inverse metric.",
+  "Reader can compute Riemann, Ricci and the Ricci scalar for flat polar coordinates (all zero) and for a sphere of radius a (R = 2/a^2).",
+  "Reader can write the geodesic deviation equation in a freely falling orthonormal frame and interpret Riemann components as tidal 'spring constants', recovering the Schwarzschild tidal stretching 2M/r^3 and compression M/r^3."
+ ],
+ "teaching_approach": {
+  "summary": "Short, physically motivated chapter that asks how beings trapped inside spacetime can detect its curvature, answers with two operational tests, and then takes the computationally easier of the two (loop parallel transport) to derive the Riemann formula explicitly. Newtonian tidal physics is used as a bridge on both ends: the chapter opens with the Hessian of the potential acting as a tidal tensor and closes by showing Schwarzschild curvature in a freely falling frame gives the same stretch-and-squeeze pattern. Symmetries are read off from a local-inertial-frame formula rather than proved in general, component counting and the cleaner geodesic-deviation derivation are postponed to Part V, and two brute-force examples (plane, sphere) serve as sanity checks.",
+  "style_tags": [
+   "physical-motivation-first",
+   "derivation-heavy",
+   "example-driven",
+   "spiral-revisit",
+   "conversational-informal",
+   "computational-recipe",
+   "diagram-driven"
+  ],
+  "narrative_arc": [
+   "Motivating question: we cannot step outside spacetime, so how can its curvature be measured from within? (Earth-surface and Gauss analogy)",
+   "Classify curvature: Euclid's parallel postulate fails on curved surfaces; cylinder is extrinsically curved, sphere intrinsically; positive curvature converges parallel lines, negative diverges them",
+   "Two operational tests proposed: geodesic deviation and loop parallel transport, promised to give the same tensor",
+   "Rule of thumb: curvature needs first and second derivatives of the metric, so it should be expressible via Gamma and dGamma",
+   "Newtonian bridge: equivalence principle forces us to look at two particles; tidal tensor = Hessian of Phi; falling cloud elongates radially and shrinks sideways",
+   "State relativistic geodesic deviation equation with R(., u, xi, u) as the relative acceleration; defer its derivation",
+   "Volume conservation of the falling cloud proved with Poisson's equation (trace of tidal tensor vanishes in vacuum)",
+   "Formalism: parallel transport a vector around an infinitesimal parallelogram, expand to lowest order, identify the bilinear coefficient as Riemann components",
+   "Check: weak static field Riemann equals the Newtonian tidal tensor",
+   "Symmetries: go to a local inertial frame where Gamma vanishes, write Riemann as second metric derivatives, read off antisymmetries, pair symmetry and cyclic identity; count independent components",
+   "Contraction: build the symmetric Ricci tensor and the Ricci scalar as the physically usable (0,2) and (0,0) pieces",
+   "Checks by brute force: flat polar coordinates give zero; 2-sphere gives R = 2/a^2",
+   "Application: geodesic deviation in a freely falling orthonormal frame; Schwarzschild components reproduce Newtonian tidal stretching and squeezing; curvature as spring constant"
+  ],
+  "signature_moves": [
+   "Frames curvature detection as an insider's problem (no embedding available), using the surface of the Earth and Gauss as the precedent.",
+   "Uses the 'boxed' rule-of-thumb arrows (dg -> Gamma; dg + d2g -> R) to set expectations about what a curvature object must be built from before deriving it.",
+   "Builds the Newtonian tidal tensor R^i_j = d2Phi/dx^i dx^j first, deliberately naming it R so the later relativistic Riemann components are recognized as its generalization.",
+   "Writes the loop change in words-inside-brackets ('change around the loop' = 'measure of curvature' times V times the area) before any calculus, emphasizing that linearity in the loop sides is what makes it a tensor.",
+   "Offers a matrix commutator mnemonic for the Riemann formula, treating Gamma_mu as a matrix in its other two indices.",
+   "Obtains the symmetries from the local-inertial-frame expression built only from second derivatives of the symmetric metric rather than proving them in general.",
+   "Motivates the Ricci tensor on the grounds that laws of physics are written with (0,2) tensors, and hints at its role in volume shrinkage.",
+   "Closes the loop with a spring-constant/simple-harmonic-oscillator reading of geodesic deviation in a freely falling frame, matching the Newtonian example from the start of the chapter."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Chapter opening: measuring curvature from inside",
+   "printed_page": 120,
+   "pdf_page": 137,
+   "summary": "Sets the problem that observers cannot leave spacetime to inspect its shape, recalls that people deduced the Earth's roundness from within, credits Gauss with intrinsic surface curvature and Riemann (1854) with the higher-dimensional generalization, and announces that a non-vanishing Riemann tensor is the definitive signature of true curvature. A margin note warns that the rubber-sheet picture shows curved space, not curved spacetime.",
+   "concepts": [
+    "intrinsic curvature",
+    "Riemann curvature tensor"
+   ],
+   "key_moves": [
+    "Insider problem: no embedding space is available for spacetime",
+    "Historical lineage Gauss -> Riemann -> Christoffel, Ricci, Levi-Civita -> Einstein",
+    "Claim that R != 0 is the test of genuine curvature"
+   ]
+  },
+  {
+   "number": "11.1",
+   "title": "What is curvature?",
+   "printed_page": 120,
+   "pdf_page": 137,
+   "summary": "Uses the failure of Euclid's parallel postulate to define curvature, contrasts the cylinder (curved only as seen from outside, since it unrolls flat) with the sphere (curved intrinsically), classifies surfaces by whether initially parallel geodesics converge (positive), stay parallel (flat) or diverge (negative, saddle), and proposes two equivalent tests: geodesic deviation and loop parallel transport. Ends with the rule of thumb that curvature is built from first and second metric derivatives, hence from Gamma and its derivatives.",
+   "concepts": [
+    "parallel postulate",
+    "intrinsic curvature",
+    "extrinsic curvature",
+    "sign of curvature",
+    "geodesic deviation",
+    "holonomy of parallel transport around a closed loop",
+    "metric as source of curvature"
+   ],
+   "key_moves": [
+    "Cylinder can be unwrapped into a plane, so parallel lines on it never meet",
+    "Sign of curvature classified by convergence or divergence of parallel geodesics (Fig. 11.1)",
+    "Vector transported around a spherical triangle returns rotated (Fig. 11.2)",
+    "Both tests will yield the same Riemann tensor",
+    "Rule of thumb (11.1): dg + d2g -> R"
+   ]
+  },
+  {
+   "number": "11.2",
+   "title": "Tidal forces",
+   "printed_page": 121,
+   "pdf_page": 138,
+   "summary": "Argues that because the equivalence principle hides gravity from a single particle, curvature must be detected through relative motion of neighbouring particles. In Newtonian gravity a falling spherical cloud is stretched radially and squeezed sideways; Example 11.1 derives the separation equation with the Hessian of the potential as a tidal tensor and evaluates it on the z-axis. The relativistic geodesic deviation equation is stated with R(., u, xi, u) as the relative acceleration, with derivation postponed. Example 11.2 uses Gauss's law and Poisson's equation to show the tidal tensor is traceless in vacuum, so the cloud's volume is preserved.",
+   "concepts": [
+    "equivalence principle",
+    "tidal forces",
+    "Newtonian tidal tensor",
+    "separation (deviation) vector",
+    "geodesic deviation equation",
+    "Poisson's equation for gravity",
+    "volume preservation of a freely falling cloud in vacuum"
+   ],
+   "key_moves": [
+    "Single-particle experiments cannot distinguish curvature from coordinate acceleration; use two particles",
+    "Difference of equations of motion, Taylor-expanded in small separation s, gives d2s^i/dt2 = -R^i_j s^j with R_ij = d2Phi/dx^i dx^j",
+    "On the z-axis the tidal tensor is (GM/z^3) diag(1,1,-2): stretch along z, squeeze in x and y",
+    "Relativistic version: D2 xi/dtau2 + R(., u, xi, u) = 0 with R a (1,3) tensor",
+    "Trace of Hessian equals Laplacian = 4 pi G rho, zero inside a cloud with no mass, so the volume's second time derivative vanishes"
+   ]
+  },
+  {
+   "number": "11.3",
+   "title": "Riemann curvature",
+   "printed_page": 124,
+   "pdf_page": 141,
+   "summary": "Stresses that a changing vector under parallel transport along an open path may just reflect awkward coordinates, but net rotation around a closed loop is a smoking gun for curvature. Example 11.3 transports a vector around an infinitesimal coordinate parallelogram with sides delta a e1 and delta b e2, uses the transport condition dV/dx = -Gamma V on each edge, pairs opposite edges and expands to lowest order to obtain a change proportional to delta a delta b, identifying the bracket as the Riemann components (11.19). A margin mnemonic writes the formula with matrix commutators. Example 11.4 checks that for a weak static field the only non-zero components at this order equal the Hessian of Phi, reproducing the Newtonian tidal tensor.",
+   "concepts": [
+    "parallel transport",
+    "holonomy of parallel transport around a closed loop",
+    "Riemann curvature tensor",
+    "Riemann tensor component formula",
+    "matrix commutator form of the Riemann tensor",
+    "weak-field limit of the Riemann tensor",
+    "metric as source of curvature"
+   ],
+   "key_moves": [
+    "Loop change written schematically as (curvature measure) x V x delta a delta b; linearity in loop sides makes the coefficient a tensor",
+    "Four edge integrals (11.11-11.12), noting constant coordinate on each edge",
+    "Opposite edges pair up into first derivatives across the loop (11.13-11.14)",
+    "Replace derivatives of V with -Gamma V to get dGamma and Gamma Gamma terms (11.15)",
+    "Relabel 1,2 as nu,mu and define R^alpha_{beta mu nu} (11.16, 11.19)",
+    "Weak-field check: Gamma^i_tt = dPhi/dx^i gives R^i_{tjt} = d2Phi/dx^j dx^i (11.20-11.21)"
+   ]
+  },
+  {
+   "number": "11.4",
+   "title": "Symmetries of the Riemann tensor",
+   "printed_page": 126,
+   "pdf_page": 143,
+   "summary": "Lowers the first index and, working at a point in a local inertial frame where the connection vanishes but its derivatives do not, writes the all-lower Riemann tensor purely as second derivatives of the metric (11.23). From this form the antisymmetry in each index pair, symmetry under pair exchange and the cyclic identity are evident. These cut the N^4 components down to N^2(N^2-1)/12 (proof deferred to Chapter 35), tabulated as 0, 1, 6, 20 for dimensions 1-4. Example 11.6 notes that a line has no intrinsic curvature and a surface has a single independent component R_1212.",
+   "concepts": [
+    "local flatness theorem",
+    "Riemann tensor in a local inertial frame",
+    "symmetries of the Riemann tensor",
+    "cyclic (first Bianchi) identity",
+    "number of independent Riemann components",
+    "intrinsic curvature"
+   ],
+   "key_moves": [
+    "Local inertial frame: g = eta, dg = 0 so Gamma = 0 at P, but d2g != 0",
+    "Riemann components reduce to derivatives of Gamma, hence to second metric derivatives (11.23)",
+    "Symmetry of g and of mixed partials makes the index symmetries manifest (11.24-11.25)",
+    "Counting table 0, 1, 6, 20",
+    "1D spaces are always isometric to a straight line; 2D surfaces have one curvature number"
+   ]
+  },
+  {
+   "number": "11.5",
+   "title": "The Ricci tensor and Ricci scalar",
+   "printed_page": 127,
+   "pdf_page": 144,
+   "summary": "Argues that physical laws use rank-two tensors, so the (1,3) Riemann tensor is contracted on its upper index and middle lower index to give the symmetric Ricci tensor, then traced with the inverse metric to give the Ricci scalar. Margin notes define contraction and trace, explain why the Ricci tensor gets no bold symbol (the Einstein tensor does), and hint that Ricci's averaging captures how curvature makes volumes shrink.",
+   "concepts": [
+    "tensor contraction",
+    "Ricci tensor",
+    "Ricci scalar",
+    "Einstein tensor"
+   ],
+   "key_moves": [
+    "Motivation: physics lives in (0,2) tensors, not (1,3)",
+    "Symmetries leave essentially one non-trivial contraction: R_{nu beta} = R^mu_{nu mu beta} (11.26)",
+    "Ricci tensor inherits symmetry from pair exchange",
+    "Scalar R = g^{mu nu} R_{mu nu} (11.27), with the metric needed for the trace in curved spacetime"
+   ]
+  },
+  {
+   "number": "11.6",
+   "title": "Example computations",
+   "printed_page": 128,
+   "pdf_page": 145,
+   "summary": "Two brute-force evaluations of the Riemann formula (11.28). For the plane in polar coordinates, the non-zero Christoffel symbols conspire so every Riemann component cancels, confirming the formalism does not mistake curvilinear coordinates for curvature. For a sphere of radius a, the components R^theta_{phi theta phi} = sin^2 theta and R^phi_{theta phi theta} = 1 lead to Ricci components R_thetatheta = 1, R_phiphi = sin^2 theta and Ricci scalar 2/a^2. A pointer promises more efficient methods in Part V.",
+   "concepts": [
+    "Riemann tensor component formula",
+    "flat space in curvilinear coordinates",
+    "curvature of the 2-sphere",
+    "Ricci tensor",
+    "Ricci scalar"
+   ],
+   "key_moves": [
+    "Polar coordinates: Gamma^r_thetatheta = -r, Gamma^theta_rtheta = 1/r; derivative and product terms cancel (11.29-11.30)",
+    "Sphere: Gamma^theta_phiphi = -sin theta cos theta, Gamma^phi_thetaphi = cot theta (11.32)",
+    "Riemann components sin^2 theta and 1 (11.33-11.34)",
+    "Ricci scalar 2/a^2: smaller spheres are more curved (11.36)"
+   ]
+  },
+  {
+   "number": "11.7",
+   "title": "Geodesic deviation revisited",
+   "printed_page": 129,
+   "pdf_page": 146,
+   "summary": "Returns to geodesic deviation armed with the Riemann tensor and the orthonormal-frame ideas of Chapter 10. In a freely falling local inertial frame the observer's 4-velocity is (1,0,0,0), the covariant second derivative becomes an ordinary one, and deviation reduces to d2 xi^i/dtau2 = -R^i_{0j0} xi^j, a set of oscillator-like equations with curvature components as spring constants. Example 11.9 quotes the Schwarzschild orthonormal-frame components (derived later) and shows radial stretching at rate 2M/r^3 and transverse squeezing at M/r^3, mirroring the Newtonian cloud of Example 11.1. The chapter summary and four exercises follow.",
+   "concepts": [
+    "geodesic deviation equation",
+    "freely falling orthonormal frame",
+    "vielbein transformation of tensor components",
+    "Riemann components as tidal spring constants",
+    "Schwarzschild tidal tensor",
+    "tidal forces"
+   ],
+   "key_moves": [
+    "Deviation acceleration expressed as D2 xi/dtau2 = nabla_u nabla_u xi (Jacobi equation)",
+    "u^0 = 1 from u.u = -1 with eta_00 = -1",
+    "Frame components of R obtained from coordinate ones via vielbein factors",
+    "Schwarzschild: d2xi^r/dtau2 = +2M/r^3 xi^r, transverse components -M/r^3",
+    "Explicit link back to Newtonian diag(1,1,-2) pattern"
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "intrinsic curvature",
+   "aliases": [
+    "true curvature",
+    "genuine curvature"
+   ],
+   "kind": "definition",
+   "definition": "Curvature detectable by measurements made entirely within a space (distances, parallel transport, behaviour of geodesics), independent of any embedding; it is present exactly when the Riemann tensor is non-zero.",
+   "how_introduced": "Posed as the problem faced by beings trapped in spacetime, then made concrete by contrasting a sphere, which cannot be wrapped by flat paper and on which parallel lines meet, with a cylinder that unrolls flat.",
+   "depth": "core",
+   "prerequisites": [
+    "parallel postulate",
+    "geodesic"
+   ],
+   "locators": [
+    {
+     "pdf_page": 137,
+     "printed_page": 120,
+     "section": "11.1"
+    },
+    {
+     "pdf_page": 138,
+     "printed_page": 121,
+     "section": "11.1"
+    }
+   ],
+   "formulas": [],
+   "notes": "A margin note adds that a 1D space can never be intrinsically curved."
+  },
+  {
+   "name": "extrinsic curvature",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "Apparent bending of a space that exists only relative to a higher-dimensional space it is embedded in; it can be removed by unrolling or re-embedding without stretching, and it leaves geodesics and parallel transport unaffected.",
+   "how_introduced": "The cylinder, formed by gluing opposite edges of a flat sheet, is the key example; later a curve tied in a bow illustrates that 1D curvature is always of this kind.",
+   "depth": "introduced",
+   "prerequisites": [
+    "intrinsic curvature"
+   ],
+   "locators": [
+    {
+     "pdf_page": 137,
+     "printed_page": 120,
+     "section": "11.1"
+    },
+    {
+     "pdf_page": 144,
+     "printed_page": 127,
+     "section": "11.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "parallel postulate",
+   "aliases": [
+    "Euclid's fifth postulate"
+   ],
+   "kind": "principle",
+   "definition": "Euclid's axiom, equivalent to the statement that lines which start out parallel never meet; it holds only in flat geometry.",
+   "how_introduced": "Opens Section 11.1 as the definition of flatness whose failure signals curvature; a sidebar lists all five postulates.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 137,
+     "printed_page": 120,
+     "section": "11.1"
+    },
+    {
+     "pdf_page": 138,
+     "printed_page": 121,
+     "section": "11.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "sign of curvature",
+   "aliases": [
+    "positive and negative curvature"
+   ],
+   "kind": "definition",
+   "definition": "Classification of a surface by what happens to initially parallel geodesics: they converge on positively curved surfaces (sphere), remain parallel on flat ones, and diverge on negatively curved (saddle-shaped) ones.",
+   "how_introduced": "Stated right after the cylinder/sphere discussion and illustrated by two geodesics converging on a dome (Fig. 11.1).",
+   "depth": "introduced",
+   "prerequisites": [
+    "intrinsic curvature",
+    "geodesic"
+   ],
+   "locators": [
+    {
+     "pdf_page": 138,
+     "printed_page": 121,
+     "section": "11.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "geodesic",
+   "aliases": [
+    "free-fall world line"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A curve whose tangent vector is parallel transported along itself; freely falling test particles follow timelike geodesics.",
+   "how_introduced": "Relied on from Chapters 8-9; here used as the straightest lines whose relative behaviour reveals curvature.",
+   "depth": "revisited",
+   "prerequisites": [
+    "parallel transport"
+   ],
+   "locators": [
+    {
+     "pdf_page": 138,
+     "printed_page": 121,
+     "section": "11.1"
+    },
+    {
+     "pdf_page": 146,
+     "printed_page": 129,
+     "section": "11.7"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol u}\\boldsymbol u = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "geodesic deviation",
+   "aliases": [
+    "relative acceleration of neighbouring geodesics"
+   ],
+   "kind": "phenomenon",
+   "definition": "The relative acceleration of two nearby freely falling particles whose world lines start parallel; it is non-zero only in intrinsically curved spacetime and is the relativistic form of tidal effects.",
+   "how_introduced": "First of the two proposed curvature tests, drawn as converging paths on a dome; developed via the Newtonian falling cloud and revisited in a freely falling frame at the end.",
+   "depth": "core",
+   "prerequisites": [
+    "geodesic",
+    "separation (deviation) vector",
+    "equivalence principle"
+   ],
+   "locators": [
+    {
+     "pdf_page": 138,
+     "printed_page": 121,
+     "section": "11.1"
+    },
+    {
+     "pdf_page": 140,
+     "printed_page": 123,
+     "section": "11.2"
+    },
+    {
+     "pdf_page": 146,
+     "printed_page": 129,
+     "section": "11.7"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "geodesic deviation equation",
+   "aliases": [
+    "Jacobi equation",
+    "equation of geodesic deviation"
+   ],
+   "kind": "law",
+   "definition": "The equation giving the covariant second proper-time derivative of the separation vector between neighbouring geodesics in terms of the Riemann tensor contracted with the fiducial 4-velocity twice and the separation once: (D^2 xi/dtau^2)^a = -R^a_{bcd} u^b xi^c u^d.",
+   "how_introduced": "Stated without proof in §11.2 as the relativistic analogue of the Newtonian separation equation, with a pointer to Chapter 35 for justification; reused in §11.7 where a freely falling frame reduces it to oscillator equations.",
+   "depth": "core",
+   "prerequisites": [
+    "Riemann curvature tensor",
+    "covariant derivative",
+    "separation (deviation) vector",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 140,
+     "printed_page": 123,
+     "section": "11.2"
+    },
+    {
+     "pdf_page": 146,
+     "printed_page": 129,
+     "section": "11.7"
+    }
+   ],
+   "formulas": [
+    "\\frac{D^2\\xi^\\alpha}{d\\tau^2} = -R^\\alpha{}_{\\beta\\gamma\\delta}u^\\beta\\xi^\\gamma u^\\delta",
+    "\\frac{D^2\\boldsymbol\\xi}{d\\tau^2} = \\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol u}\\boldsymbol\\xi"
+   ],
+   "notes": "Eqn 11.38 as printed omits the minus sign that appears in 11.6 and 11.39."
+  },
+  {
+   "name": "separation (deviation) vector",
+   "aliases": [
+    "connecting vector",
+    "xi",
+    "s"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A small vector joining a point on a fiducial geodesic to the corresponding point on a neighbouring geodesic; its second derivative measures relative (tidal) acceleration.",
+   "how_introduced": "Introduced in the Newtonian setting as s = y - x between two falling particles (Fig. 11.4), then as xi in the relativistic setting.",
+   "depth": "developed",
+   "prerequisites": [
+    "geodesic"
+   ],
+   "locators": [
+    {
+     "pdf_page": 139,
+     "printed_page": 122,
+     "section": "11.2"
+    },
+    {
+     "pdf_page": 140,
+     "printed_page": 123,
+     "section": "11.2"
+    }
+   ],
+   "formulas": [
+    "\\vec s(t) = \\vec y(t) - \\vec x(t)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "equivalence principle",
+   "aliases": [],
+   "kind": "principle",
+   "definition": "Locally, the motion of a single freely falling particle cannot distinguish a gravitational field from acceleration of the reference frame, so gravity must be diagnosed from relative motion of separated particles.",
+   "how_introduced": "Recalled from Part II to explain why a static-frame test of gravity fails and why two particles are needed.",
+   "depth": "revisited",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 139,
+     "printed_page": 122,
+     "section": "11.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "tidal forces",
+   "aliases": [
+    "tidal acceleration"
+   ],
+   "kind": "phenomenon",
+   "definition": "Differential gravitational accelerations across an extended body or cloud that, in the body's own freely falling frame, stretch it along the direction to the attracting mass and compress it in the perpendicular directions.",
+   "how_introduced": "A spherical cloud of test particles falling toward the Earth is shown in the Earth frame and in the cloud's frame (Fig. 11.3): the near side falls faster, the sides converge.",
+   "depth": "core",
+   "prerequisites": [
+    "equivalence principle",
+    "Newtonian tidal tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 139,
+     "printed_page": 122,
+     "section": "11.2"
+    },
+    {
+     "pdf_page": 146,
+     "printed_page": 129,
+     "section": "11.7"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Newtonian tidal tensor",
+   "aliases": [
+    "Hessian of the gravitational potential",
+    "Newtonian R^i_j"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The symmetric matrix of second partial derivatives of the Newtonian potential, R_ij = d^2 Phi/dx^i dx^j, which governs the relative acceleration of nearby particles via d^2 s^i/dt^2 = -R^i_j s^j.",
+   "how_introduced": "Derived in Example 11.1 by subtracting two particles' equations of motion and Taylor expanding in their separation; evaluated for a point mass on the z-axis as (GM/z^3) diag(1,1,-2).",
+   "depth": "developed",
+   "prerequisites": [
+    "separation (deviation) vector",
+    "Taylor expansion"
+   ],
+   "locators": [
+    {
+     "pdf_page": 139,
+     "printed_page": 122,
+     "section": "11.2"
+    }
+   ],
+   "formulas": [
+    "R^i{}_j = \\frac{\\partial^2\\Phi}{\\partial x^i\\partial x^j}",
+    "\\frac{d^2 s^i}{dt^2} = -R^i{}_j s^j"
+   ],
+   "notes": "Named R on purpose to foreshadow the Riemann tensor."
+  },
+  {
+   "name": "Poisson's equation for gravity",
+   "aliases": [
+    "Gauss's law for gravity"
+   ],
+   "kind": "law",
+   "definition": "The field equation of Newtonian gravity, nabla^2 Phi = 4 pi G rho, equivalently div g = -4 pi G rho or the flux of g through a closed surface equals -4 pi G times the enclosed mass.",
+   "how_introduced": "Built by analogy with Gauss's law in electrostatics in Example 11.2, then used to fix the trace of the tidal tensor.",
+   "depth": "developed",
+   "prerequisites": [
+    "Newtonian tidal tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 140,
+     "printed_page": 123,
+     "section": "11.2"
+    }
+   ],
+   "formulas": [
+    "\\oint \\vec g\\cdot d\\vec S = -4\\pi G M",
+    "\\nabla^2\\Phi = 4\\pi G\\rho"
+   ],
+   "notes": null
+  },
+  {
+   "name": "volume preservation of a freely falling cloud in vacuum",
+   "aliases": [
+    "shape change without volume change"
+   ],
+   "kind": "theorem",
+   "definition": "A small cloud of test particles, released from rest in a region containing no matter, is reshaped by tides into an ellipsoid but keeps its initial volume. The reason is that the volume's second time derivative is set by the trace of the tidal tensor, and that trace equals 4 pi G rho, which is zero.",
+   "how_introduced": "Claimed in the tidal-force discussion and proved in Example 11.2; contrasted with a large sphere enclosing the Earth, which contracts.",
+   "depth": "developed",
+   "prerequisites": [
+    "Poisson's equation for gravity",
+    "Newtonian tidal tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 139,
+     "printed_page": 122,
+     "section": "11.2"
+    },
+    {
+     "pdf_page": 140,
+     "printed_page": 123,
+     "section": "11.2"
+    }
+   ],
+   "formulas": [
+    "\\mathrm{tr}\\,R^i{}_j = \\nabla^2\\Phi = 4\\pi G\\rho"
+   ],
+   "notes": "Foreshadows the Ricci tensor as the part of curvature controlling volume change (margin note 20)."
+  },
+  {
+   "name": "parallel transport",
+   "aliases": [],
+   "kind": "operation",
+   "definition": "Moving a vector along a curve so that its covariant derivative along the curve vanishes; component-wise dV^a/dx^mu = -Gamma^a_{mu b} V^b along a coordinate direction.",
+   "how_introduced": "Recalled from Chapter 7; the text stresses that component changes along an open path can be pure coordinate artefacts.",
+   "depth": "revisited",
+   "prerequisites": [
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 141,
+     "printed_page": 124,
+     "section": "11.3"
+    }
+   ],
+   "formulas": [
+    "\\nabla_{\\boldsymbol e_1}\\boldsymbol V = 0 \\Rightarrow \\frac{\\partial V^\\alpha}{\\partial x^1} = -\\Gamma^\\alpha_{1\\beta}V^\\beta"
+   ],
+   "notes": null
+  },
+  {
+   "name": "holonomy of parallel transport around a closed loop",
+   "aliases": [
+    "loop parallel transport test",
+    "vector rotation around a closed loop"
+   ],
+   "kind": "phenomenon",
+   "definition": "The net change of a vector after parallel transport around a closed loop; for a small loop it is proportional to the loop's area and to the Riemann tensor, and it vanishes in flat space regardless of coordinates.",
+   "how_introduced": "Second curvature test, shown on a spherical triangle (Fig. 11.2) and then made quantitative with an infinitesimal parallelogram (Fig. 11.5, Example 11.3).",
+   "depth": "core",
+   "prerequisites": [
+    "parallel transport",
+    "intrinsic curvature"
+   ],
+   "locators": [
+    {
+     "pdf_page": 138,
+     "printed_page": 121,
+     "section": "11.1"
+    },
+    {
+     "pdf_page": 141,
+     "printed_page": 124,
+     "section": "11.3"
+    }
+   ],
+   "formulas": [
+    "\\delta V^\\alpha = R^\\alpha{}_{\\beta\\mu\\nu}V^\\beta\\,\\delta a\\,\\delta b"
+   ],
+   "notes": "The term holonomy is not used in the chapter. The sign of the formula depends on the loop's orientation: eqn 11.16 goes along e_nu first and then along e_mu; going round the other way flips the sign."
+  },
+  {
+   "name": "Riemann curvature tensor",
+   "aliases": [
+    "Riemann tensor",
+    "curvature tensor",
+    "R( , , , )"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The (1,3) tensor built from the connection and its first derivatives (hence from first and second metric derivatives) that gives both the change of a vector transported around an infinitesimal loop and the relative acceleration of neighbouring geodesics; all its components vanish if and only if the space is flat.",
+   "how_introduced": "Anticipated by the rule of thumb dg + d2g -> R, glimpsed as the relativistic generalization of the Newtonian tidal tensor, then defined through the loop transport calculation where linearity in the loop sides certifies tensor character.",
+   "depth": "core",
+   "prerequisites": [
+    "connection coefficients",
+    "parallel transport",
+    "holonomy of parallel transport around a closed loop",
+    "linear slot machine (tensor)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 137,
+     "printed_page": 120,
+     "section": null
+    },
+    {
+     "pdf_page": 140,
+     "printed_page": 123,
+     "section": "11.2"
+    },
+    {
+     "pdf_page": 142,
+     "printed_page": 125,
+     "section": "11.3"
+    }
+   ],
+   "formulas": [
+    "R^\\alpha{}_{\\beta\\mu\\nu} = \\partial_\\mu\\Gamma^\\alpha_{\\nu\\beta} - \\partial_\\nu\\Gamma^\\alpha_{\\mu\\beta} + \\Gamma^\\alpha_{\\mu\\sigma}\\Gamma^\\sigma_{\\nu\\beta} - \\Gamma^\\alpha_{\\nu\\sigma}\\Gamma^\\sigma_{\\mu\\beta}"
+   ],
+   "notes": "GA uses the MTW sign convention with signature (-+++)."
+  },
+  {
+   "name": "Riemann tensor component formula",
+   "aliases": [
+    "Riemann in terms of Christoffel symbols"
+   ],
+   "kind": "identity",
+   "definition": "Explicit expression of R^a_{bmn} as two antisymmetrized derivative-of-Gamma terms plus two antisymmetrized products of Gammas, used for brute-force computation.",
+   "how_introduced": "Emerges at the end of the parallelogram calculation (11.15-11.19) and is restated as the working formula for Section 11.6 and in the chapter summary.",
+   "depth": "core",
+   "prerequisites": [
+    "connection coefficients",
+    "Riemann curvature tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 142,
+     "printed_page": 125,
+     "section": "11.3"
+    },
+    {
+     "pdf_page": 145,
+     "printed_page": 128,
+     "section": "11.6"
+    },
+    {
+     "pdf_page": 147,
+     "printed_page": 130,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "R^\\mu{}_{\\nu\\alpha\\beta} = \\frac{\\partial\\Gamma^\\mu_{\\beta\\nu}}{\\partial x^\\alpha} - \\frac{\\partial\\Gamma^\\mu_{\\alpha\\nu}}{\\partial x^\\beta} + \\Gamma^\\mu_{\\alpha\\rho}\\Gamma^\\rho_{\\beta\\nu} - \\Gamma^\\mu_{\\beta\\rho}\\Gamma^\\rho_{\\alpha\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "matrix commutator form of the Riemann tensor",
+   "aliases": [
+    "aide-memoire for Riemann"
+   ],
+   "kind": "technique",
+   "definition": "Regarding Gamma_mu as a matrix with row index up and column index down, the Riemann components form the matrix d_mu Gamma_nu - d_nu Gamma_mu + [Gamma_mu, Gamma_nu], which makes the index sums matrix multiplications.",
+   "how_introduced": "Offered in margin note 11 as a memory aid, with the 2x2 matrix layout for two dimensions.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Riemann tensor component formula",
+    "commutator"
+   ],
+   "locators": [
+    {
+     "pdf_page": 142,
+     "printed_page": 125,
+     "section": "11.3"
+    }
+   ],
+   "formulas": [
+    "R^{\\bullet}{}_{\\bullet\\mu\\nu} = \\partial_\\mu\\Gamma_{\\nu} - \\partial_\\nu\\Gamma_{\\mu} + [\\Gamma_{\\mu},\\Gamma_{\\nu}]"
+   ],
+   "notes": "Mirrors the field-strength formula of non-abelian gauge theory treated later in the book."
+  },
+  {
+   "name": "weak-field limit of the Riemann tensor",
+   "aliases": [],
+   "kind": "identity",
+   "definition": "For the static weak-field metric ds^2 = -(1+2 Phi)dt^2 + dx^2+dy^2+dz^2, to first order in Phi the Riemann components R^i_{tjt} equal d^2 Phi/dx^i dx^j, the Newtonian tidal tensor.",
+   "how_introduced": "Example 11.4 plugs the single relevant Christoffel symbol Gamma^i_tt = dPhi/dx^i into the new formula as a consistency check with Example 11.1.",
+   "depth": "developed",
+   "prerequisites": [
+    "Riemann tensor component formula",
+    "Newtonian tidal tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 142,
+     "printed_page": 125,
+     "section": "11.3"
+    }
+   ],
+   "formulas": [
+    "R^i{}_{tjt} = \\partial_j\\Gamma^i_{tt} = \\frac{\\partial^2\\Phi}{\\partial x^j\\partial x^i}"
+   ],
+   "notes": "The text says these are the only non-zero components; strictly this holds to linear order in Phi and up to the antisymmetric partners R^i_{ttj}."
+  },
+  {
+   "name": "metric as source of curvature",
+   "aliases": [
+    "rule of thumb dg + d2g -> R"
+   ],
+   "kind": "principle",
+   "definition": "Curvature is determined by the metric: Christoffel symbols come from first metric derivatives and the Riemann tensor from first and second derivatives, so the metric field ultimately encodes curvature.",
+   "how_introduced": "Given as boxed arrow rules (11.1) extending the earlier dg -> Gamma rule, and repeated at the end of §11.3.",
+   "depth": "developed",
+   "prerequisites": [
+    "metric tensor",
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 138,
+     "printed_page": 121,
+     "section": "11.1"
+    },
+    {
+     "pdf_page": 143,
+     "printed_page": 126,
+     "section": "11.3"
+    }
+   ],
+   "formulas": [
+    "\\boxed{\\partial g} + \\boxed{\\partial^2 g} \\to \\boxed{R}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "local flatness theorem",
+   "aliases": [
+    "local inertial frame (LIF)"
+   ],
+   "kind": "theorem",
+   "definition": "At any point one can choose coordinates in which the metric equals the Minkowski metric and its first derivatives vanish, so the Christoffel symbols vanish there; second derivatives generally cannot be removed.",
+   "how_introduced": "Invoked in Example 11.5 as the shortcut to a simple Riemann expression from which symmetries are visible.",
+   "depth": "revisited",
+   "prerequisites": [
+    "metric tensor",
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 143,
+     "printed_page": 126,
+     "section": "11.4"
+    }
+   ],
+   "formulas": [
+    "g_{\\hat\\mu\\hat\\nu}(\\mathcal P) = \\eta_{\\mu\\nu},\\ \\partial g_{\\hat\\mu\\hat\\nu}(\\mathcal P) = 0 \\Rightarrow \\Gamma(\\mathcal P)=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Riemann tensor in a local inertial frame",
+   "aliases": [
+    "Riemann from second metric derivatives"
+   ],
+   "kind": "identity",
+   "definition": "In a local inertial frame the all-lower Riemann tensor is half a signed sum of four second derivatives of the metric; in general coordinates additional Gamma-Gamma terms contracted with the metric appear.",
+   "how_introduced": "Derived in Example 11.5 from the vanishing of Gamma at the point; margin note 14 gives the general-coordinate version for reassurance.",
+   "depth": "developed",
+   "prerequisites": [
+    "local flatness theorem",
+    "Riemann tensor component formula"
+   ],
+   "locators": [
+    {
+     "pdf_page": 143,
+     "printed_page": 126,
+     "section": "11.4"
+    }
+   ],
+   "formulas": [
+    "R_{\\hat\\mu\\hat\\nu\\hat\\alpha\\hat\\beta} = \\tfrac12\\left(g_{\\hat\\alpha\\hat\\nu,\\hat\\beta\\hat\\mu} - g_{\\hat\\alpha\\hat\\mu,\\hat\\beta\\hat\\nu} + g_{\\hat\\beta\\hat\\mu,\\hat\\alpha\\hat\\nu} - g_{\\hat\\beta\\hat\\nu,\\hat\\alpha\\hat\\mu}\\right)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "symmetries of the Riemann tensor",
+   "aliases": [
+    "index symmetries of R_abcd"
+   ],
+   "kind": "identity",
+   "definition": "The all-lower Riemann tensor is antisymmetric under swapping the first two indices, antisymmetric under swapping the last two, and symmetric under exchanging the first pair with the second pair.",
+   "how_introduced": "Read off from the local-inertial-frame expression built from the symmetric metric; a margin note translates them into vanishing components with repeated indices in a pair.",
+   "depth": "core",
+   "prerequisites": [
+    "Riemann tensor in a local inertial frame",
+    "index lowering"
+   ],
+   "locators": [
+    {
+     "pdf_page": 143,
+     "printed_page": 126,
+     "section": "11.4"
+    }
+   ],
+   "formulas": [
+    "R_{\\alpha\\beta\\gamma\\delta} = -R_{\\beta\\alpha\\gamma\\delta} = -R_{\\alpha\\beta\\delta\\gamma} = R_{\\gamma\\delta\\alpha\\beta}"
+   ],
+   "notes": "Being a tensor equation, the result holds in every frame even though derived in a LIF."
+  },
+  {
+   "name": "cyclic (first Bianchi) identity",
+   "aliases": [
+    "cyclic identity"
+   ],
+   "kind": "identity",
+   "definition": "Holding the first index fixed and cyclically permuting the other three, the three Riemann components sum to zero.",
+   "how_introduced": "Stated as checkable from the LIF formula alongside the pair symmetries; the name Bianchi is not used here.",
+   "depth": "introduced",
+   "prerequisites": [
+    "symmetries of the Riemann tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 143,
+     "printed_page": 126,
+     "section": "11.4"
+    }
+   ],
+   "formulas": [
+    "R_{\\alpha\\beta\\gamma\\delta} + R_{\\alpha\\delta\\beta\\gamma} + R_{\\alpha\\gamma\\delta\\beta} = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "number of independent Riemann components",
+   "aliases": [
+    "component counting"
+   ],
+   "kind": "theorem",
+   "definition": "In N dimensions the symmetries reduce the N^4 components of Riemann to N^2(N^2-1)/12 independent ones: 0, 1, 6 and 20 for N = 1, 2, 3, 4.",
+   "how_introduced": "Quoted with proof deferred to Chapter 35 and tabulated; Example 11.6 interprets the 1D and 2D cases.",
+   "depth": "introduced",
+   "prerequisites": [
+    "symmetries of the Riemann tensor",
+    "cyclic (first Bianchi) identity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 143,
+     "printed_page": 126,
+     "section": "11.4"
+    },
+    {
+     "pdf_page": 144,
+     "printed_page": 127,
+     "section": "11.4"
+    }
+   ],
+   "formulas": [
+    "\\frac{N^2(N^2-1)}{12}"
+   ],
+   "notes": "Margin note 13 cites 256 raw components in 4D."
+  },
+  {
+   "name": "tensor contraction",
+   "aliases": [
+    "trace"
+   ],
+   "kind": "operation",
+   "definition": "Setting an upper index equal to a lower index and summing, which lowers the tensor's rank by two; a trace of a (0,2) tensor in curved spacetime requires the inverse metric.",
+   "how_introduced": "Margin notes 17 and 19 define it just when needed to build Ricci objects.",
+   "depth": "revisited",
+   "prerequisites": [
+    "linear slot machine (tensor)",
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 144,
+     "printed_page": 127,
+     "section": "11.5"
+    }
+   ],
+   "formulas": [
+    "A = g^{\\mu\\nu}A_{\\mu\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Ricci tensor",
+   "aliases": [
+    "R_{mu nu}"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The symmetric (0,2) tensor obtained by contracting the upper index of the Riemann tensor with its second lower index (the third slot): R_{nu beta} = R^mu_{nu mu beta}. It captures the average, volume-changing part of curvature.",
+   "how_introduced": "Motivated by the observation that physical laws are written with rank-two tensors and that the symmetries leave essentially one useful contraction; interpreted informally as an average over Riemann components.",
+   "depth": "core",
+   "prerequisites": [
+    "Riemann curvature tensor",
+    "tensor contraction",
+    "symmetries of the Riemann tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 144,
+     "printed_page": 127,
+     "section": "11.5"
+    },
+    {
+     "pdf_page": 145,
+     "printed_page": 128,
+     "section": "11.6"
+    }
+   ],
+   "formulas": [
+    "R_{\\nu\\beta} = R^\\mu{}_{\\nu\\mu\\beta}",
+    "R_{\\mu\\nu} = R_{\\nu\\mu}"
+   ],
+   "notes": "Written without bold in GA because only its trace-reversed combination (Einstein tensor) enters the field equation."
+  },
+  {
+   "name": "Ricci scalar",
+   "aliases": [
+    "curvature scalar",
+    "scalar curvature",
+    "R"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The scalar obtained by tracing the Ricci tensor with the inverse metric, R = g^{mu nu} R_{mu nu}; for a 2-sphere of radius a it equals 2/a^2.",
+   "how_introduced": "Defined immediately after Ricci as a further contraction, with detailed discussion promised for the following chapters; computed for the sphere in Example 11.8.",
+   "depth": "developed",
+   "prerequisites": [
+    "Ricci tensor",
+    "inverse metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 144,
+     "printed_page": 127,
+     "section": "11.5"
+    },
+    {
+     "pdf_page": 145,
+     "printed_page": 128,
+     "section": "11.6"
+    }
+   ],
+   "formulas": [
+    "R = g^{\\mu\\nu}R_{\\mu\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Einstein tensor",
+   "aliases": [
+    "trace-reversed Ricci tensor",
+    "G"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The symmetric combination G_{mu nu} = R_{mu nu} - (1/2) g_{mu nu} R that appears in Einstein's field equation.",
+   "how_introduced": "Only mentioned in a margin note explaining the book's bold-symbol convention; developed in Chapter 13.",
+   "depth": "mention",
+   "prerequisites": [
+    "Ricci tensor",
+    "Ricci scalar"
+   ],
+   "locators": [
+    {
+     "pdf_page": 144,
+     "printed_page": 127,
+     "section": "11.5"
+    }
+   ],
+   "formulas": [
+    "G_{\\mu\\nu} = R_{\\mu\\nu} - \\tfrac12 g_{\\mu\\nu}R"
+   ],
+   "notes": "The OCR copy of the margin note shows 1/3; the correct coefficient is 1/2."
+  },
+  {
+   "name": "flat space in curvilinear coordinates",
+   "aliases": [
+    "polar-coordinate plane"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The Euclidean plane with ds^2 = dr^2 + r^2 dtheta^2 has non-zero Christoffel symbols but identically vanishing Riemann tensor, showing that non-zero connection coefficients do not imply curvature.",
+   "how_introduced": "Example 11.7 as a sanity check: derivative and product terms cancel component by component.",
+   "depth": "developed",
+   "prerequisites": [
+    "Riemann tensor component formula",
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 145,
+     "printed_page": 128,
+     "section": "11.6"
+    }
+   ],
+   "formulas": [
+    "\\Gamma^r_{\\theta\\theta} = -r,\\ \\Gamma^\\theta_{r\\theta} = 1/r"
+   ],
+   "notes": null
+  },
+  {
+   "name": "curvature of the 2-sphere",
+   "aliases": [
+    "spherical space of radius a"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The sphere ds^2 = a^2 dtheta^2 + a^2 sin^2 theta dphi^2 has R^theta_{phi theta phi} = sin^2 theta, R^phi_{theta phi theta} = 1, Ricci components R_thetatheta = 1 and R_phiphi = sin^2 theta, and constant Ricci scalar 2/a^2.",
+   "how_introduced": "Example 11.8, the non-trivial counterpart to the flat-plane check.",
+   "depth": "developed",
+   "prerequisites": [
+    "Riemann tensor component formula",
+    "Ricci tensor",
+    "Ricci scalar"
+   ],
+   "locators": [
+    {
+     "pdf_page": 145,
+     "printed_page": 128,
+     "section": "11.6"
+    }
+   ],
+   "formulas": [
+    "R = \\frac{2}{a^2}"
+   ],
+   "notes": "Gaussian curvature 1/a^2 equals R/2, a connection not made explicit in the chapter."
+  },
+  {
+   "name": "freely falling orthonormal frame",
+   "aliases": [
+    "freely falling local inertial frame",
+    "hatted frame"
+   ],
+   "kind": "definition",
+   "definition": "An orthonormal frame carried by a freely falling observer, in which the metric is Minkowskian, the observer's 4-velocity has components (1,0,0,0), and covariant derivatives along the world line reduce to ordinary ones at the observer.",
+   "how_introduced": "Chosen in §11.7, building on the measurement frames of Chapter 10, to convert abstract deviation into directly measurable relative accelerations.",
+   "depth": "developed",
+   "prerequisites": [
+    "local flatness theorem",
+    "vielbein transformation of tensor components",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 146,
+     "printed_page": 129,
+     "section": "11.7"
+    }
+   ],
+   "formulas": [
+    "u^{\\hat\\beta} = (1,0,0,0)",
+    "\\eta_{\\hat 0\\hat 0}(u^{\\hat 0})^2 = -1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "vielbein transformation of tensor components",
+   "aliases": [
+    "frame components via basis vectors"
+   ],
+   "kind": "technique",
+   "definition": "Components in an orthonormal frame are obtained by contracting coordinate components with the components of the frame basis vectors (and dual one-forms) for each slot.",
+   "how_introduced": "Quoted in §11.7 as the bridge from coordinate Riemann components to frame components, relying on Chapter 10.",
+   "depth": "mention",
+   "prerequisites": [
+    "freely falling orthonormal frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 146,
+     "printed_page": 129,
+     "section": "11.7"
+    }
+   ],
+   "formulas": [
+    "R^{\\hat\\alpha}{}_{\\hat\\beta\\hat\\gamma\\hat\\delta} = R^\\mu{}_{\\nu\\lambda\\sigma}(\\boldsymbol\\omega^{\\hat\\alpha})_\\mu(\\boldsymbol e_{\\hat\\beta})^\\nu(\\boldsymbol e_{\\hat\\gamma})^\\lambda(\\boldsymbol e_{\\hat\\delta})^\\sigma"
+   ],
+   "notes": "The printed formula is OCR-damaged; the first factor must be a dual basis one-form."
+  },
+  {
+   "name": "Riemann components as tidal spring constants",
+   "aliases": [
+    "curvature as spring constant"
+   ],
+   "kind": "phenomenon",
+   "definition": "In a freely falling frame the deviation equation d^2 xi^i/dtau^2 = -R^i_{0j0} xi^j has the form of a harmonic oscillator; positive diagonal components act like squared angular frequencies (restoring, converging), negative ones like anti-springs (separating).",
+   "how_introduced": "Margin note 25 draws the analogy with x-double-dot = -omega^2 x immediately after reducing the deviation equation.",
+   "depth": "developed",
+   "prerequisites": [
+    "geodesic deviation equation",
+    "freely falling orthonormal frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 146,
+     "printed_page": 129,
+     "section": "11.7"
+    }
+   ],
+   "formulas": [
+    "\\frac{d^2\\xi^{\\hat\\alpha}}{d\\tau^2} = -R^{\\hat\\alpha}{}_{\\hat 0\\hat\\beta\\hat 0}\\xi^{\\hat\\beta}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Schwarzschild tidal tensor",
+   "aliases": [
+    "Schwarzschild curvature in a freely falling frame"
+   ],
+   "kind": "solution-or-model",
+   "definition": "Outside a spherical mass, the orthonormal-frame Riemann components give radial deviation acceleration +2M/r^3 times separation and transverse acceleration -M/r^3 times separation, the relativistic version of Newtonian tides.",
+   "how_introduced": "Example 11.9 quotes components derived in later chapters and exercises and compares the resulting deviation equations with Example 11.1.",
+   "depth": "introduced",
+   "prerequisites": [
+    "geodesic deviation equation",
+    "freely falling orthonormal frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 146,
+     "printed_page": 129,
+     "section": "11.7"
+    }
+   ],
+   "formulas": [
+    "R_{\\hat t\\hat r\\hat t\\hat r} = -\\frac{2M}{r^3},\\ R_{\\hat t\\hat\\theta\\hat t\\hat\\theta} = R_{\\hat t\\hat\\phi\\hat t\\hat\\phi} = \\frac{M}{r^3}"
+   ],
+   "notes": "Units G = c = 1."
+  },
+  {
+   "name": "connection coefficients",
+   "aliases": [
+    "Christoffel symbols",
+    "Gamma"
+   ],
+   "kind": "mathematical-object",
+   "definition": "Coefficients Gamma^a_{bc}, built from first derivatives of the metric, that specify how basis vectors change from point to point and hence how to parallel transport vectors.",
+   "how_introduced": "Taken from Chapters 7 and 9 as the raw ingredient; the chapter repeatedly insists that Gamma alone cannot certify curvature.",
+   "depth": "revisited",
+   "prerequisites": [
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 138,
+     "printed_page": 121,
+     "section": "11.1"
+    },
+    {
+     "pdf_page": 141,
+     "printed_page": 124,
+     "section": "11.3"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(11.1)",
+   "name": "Curvature rule of thumb",
+   "latex": "\\boxed{\\partial g} + \\boxed{\\partial^2 g} \\to \\boxed{R}",
+   "meaning": "Curvature requires first and second derivatives of the metric, so it can also be built from Gamma and its first derivatives.",
+   "symbols": "g metric components; R Riemann tensor",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.1"
+   }
+  },
+  {
+   "label": "(11.2)",
+   "name": "Newtonian equation of motion",
+   "latex": "m\\frac{d^2x^i}{dt^2} = -m\\frac{\\partial\\Phi(\\vec x)}{\\partial x^i}",
+   "meaning": "Each test particle accelerates down the gradient of the gravitational potential.",
+   "symbols": "Phi = -GM/|x| potential of a point mass",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   }
+  },
+  {
+   "label": "(11.3)",
+   "name": "Difference of accelerations",
+   "latex": "\\frac{d^2y^i}{dt^2} - \\frac{d^2x^i}{dt^2} = -\\frac{\\partial\\Phi(\\vec x+\\vec s)}{\\partial x^i} + \\frac{\\partial\\Phi(\\vec x)}{\\partial x^i} \\approx -\\frac{\\partial^2\\Phi(\\vec x)}{\\partial x^i\\partial x^j}s^j",
+   "meaning": "Relative acceleration of two nearby particles is the Hessian of the potential acting on their separation, to first order.",
+   "symbols": "s = y - x small separation",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   }
+  },
+  {
+   "label": "(11.4)",
+   "name": "Newtonian tidal (deviation) equation",
+   "latex": "\\frac{d^2s^i}{dt^2} = -R^i{}_j s^j,\\quad R^i{}_j = R_{ij} = \\frac{\\partial^2\\Phi}{\\partial x^i\\partial x^j}",
+   "meaning": "The Newtonian tidal tensor controls how the separation between free particles accelerates; the template for relativistic geodesic deviation.",
+   "symbols": "R^i_j Newtonian tidal tensor (indices unbalanced deliberately)",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   }
+  },
+  {
+   "label": "(11.5)",
+   "name": "Tidal tensor on the z-axis",
+   "latex": "R^i{}_j = \\frac{GM}{z^3}\\begin{pmatrix}1&0&0\\\\0&1&0\\\\0&0&-2\\end{pmatrix}",
+   "meaning": "Above a point mass the cloud is stretched along the radial (z) direction and compressed equally in the two transverse directions; the trace vanishes.",
+   "symbols": "M central mass; z distance from centre",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   }
+  },
+  {
+   "label": "(11.6)",
+   "name": "Geodesic deviation equation (abstract form)",
+   "latex": "\\frac{D^2\\boldsymbol\\xi}{d\\tau^2} + \\boldsymbol R(\\cdot,\\boldsymbol u,\\boldsymbol\\xi,\\boldsymbol u) = 0",
+   "meaning": "The covariant relative acceleration of neighbouring geodesics is given by feeding the fiducial 4-velocity (twice) and separation (once) into the Riemann tensor.",
+   "symbols": "xi separation vector; u 4-velocity of fiducial geodesic; D/dtau covariant derivative along it",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "label": "(11.7)",
+   "name": "Gauss's law for gravity (integral form)",
+   "latex": "\\oint \\vec g\\cdot d\\vec S = -4\\pi G M",
+   "meaning": "Flux of the gravitational field through a closed surface is fixed by the enclosed mass.",
+   "symbols": "g gravitational field (F = m g); M enclosed mass",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "label": "(11.8)",
+   "name": "Poisson's equation",
+   "latex": "\\nabla^2\\Phi = 4\\pi G\\rho",
+   "meaning": "The Laplacian of the potential, which is the trace of the tidal tensor, equals 4 pi G times the local density; zero in vacuum, so tidal deformation preserves volume.",
+   "symbols": "rho mass density",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "label": "(11.9)",
+   "name": "Loop change schematic",
+   "latex": "\\delta V^\\alpha = \\big(\\text{curvature measure}\\big)^\\alpha{}_\\mu V^\\mu\\,\\delta a\\,\\delta b",
+   "meaning": "Transporting V round a small parallelogram changes it by an amount linear in V and in each side length; this linearity is what lets the coefficient be a tensor.",
+   "symbols": "delta a, delta b side lengths along e_1, e_2",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.10)",
+   "name": "Parallel transport along e_1",
+   "latex": "\\frac{\\partial V^\\alpha}{\\partial x^1} = -\\Gamma^\\alpha_{1\\beta}V^\\beta",
+   "meaning": "Component form of nabla_{e_1} V = 0.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.11)",
+   "name": "First leg A to B",
+   "latex": "V^\\alpha(B) = V^\\alpha(A) - \\int_{x^2=b}dx^1\\,\\Gamma^\\alpha_{1\\beta}V^\\beta",
+   "meaning": "Integrating the transport condition along the bottom edge.",
+   "symbols": "subscript records the coordinate held fixed",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.12)",
+   "name": "Remaining legs B to C to D to A",
+   "latex": "V^\\alpha(C) = V^\\alpha(B) - \\int_{x^1=a+\\delta a}dx^2\\,\\Gamma^\\alpha_{2\\beta}V^\\beta,\\ V^\\alpha(D) = V^\\alpha(C) + \\int_{x^2=b+\\delta b}dx^1\\,\\Gamma^\\alpha_{1\\beta}V^\\beta,\\ V^\\alpha(A_{\\rm final}) = V^\\alpha(D) + \\int_{x^1=a}dx^2\\,\\Gamma^\\alpha_{2\\beta}V^\\beta",
+   "meaning": "Signs flip on the return legs because they run against the coordinate directions.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.13)",
+   "name": "Net change as paired edge integrals",
+   "latex": "\\delta V^\\alpha = \\int_{x^1=a}dx^2\\,\\Gamma^\\alpha_{2\\beta}V^\\beta - \\int_{x^1=a+\\delta a}dx^2\\,\\Gamma^\\alpha_{2\\beta}V^\\beta + \\int_{x^2=b+\\delta b}dx^1\\,\\Gamma^\\alpha_{1\\beta}V^\\beta - \\int_{x^2=b}dx^1\\,\\Gamma^\\alpha_{1\\beta}V^\\beta",
+   "meaning": "Opposite sides nearly cancel; only their difference across the loop survives.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.14)",
+   "name": "Lowest-order expansion",
+   "latex": "\\delta V^\\alpha \\approx \\delta a\\,\\delta b\\left[-\\frac{\\partial}{\\partial x^1}(\\Gamma^\\alpha_{2\\beta}V^\\beta) + \\frac{\\partial}{\\partial x^2}(\\Gamma^\\alpha_{1\\beta}V^\\beta)\\right]",
+   "meaning": "Differences of integrals across the loop become derivatives times the loop area.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.15)",
+   "name": "Loop change in terms of Gamma",
+   "latex": "\\delta V^\\alpha \\approx \\delta a\\,\\delta b\\left[\\frac{\\partial\\Gamma^\\alpha_{1\\beta}}{\\partial x^2} - \\frac{\\partial\\Gamma^\\alpha_{2\\beta}}{\\partial x^1} + \\Gamma^\\alpha_{2\\sigma}\\Gamma^\\sigma_{1\\beta} - \\Gamma^\\alpha_{1\\sigma}\\Gamma^\\sigma_{2\\beta}\\right]V^\\beta",
+   "meaning": "Product rule plus the transport condition turn derivatives of V into Gamma-Gamma terms.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.16)",
+   "name": "Loop change for general directions",
+   "latex": "\\delta V^\\alpha = \\left[\\partial_\\mu\\Gamma^\\alpha_{\\nu\\beta} - \\partial_\\nu\\Gamma^\\alpha_{\\mu\\beta} + \\Gamma^\\alpha_{\\mu\\sigma}\\Gamma^\\sigma_{\\nu\\beta} - \\Gamma^\\alpha_{\\nu\\sigma}\\Gamma^\\sigma_{\\mu\\beta}\\right]V^\\beta\\,\\delta a\\,\\delta b",
+   "meaning": "Same result with the loop going first along e_nu, then e_mu, then back.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.17)",
+   "name": "Matrix commutator mnemonic",
+   "latex": "R^{\\bullet}{}_{\\bullet\\mu\\nu} = \\partial_\\mu\\Gamma^{\\bullet}_{\\nu\\bullet} - \\partial_\\nu\\Gamma^{\\bullet}_{\\mu\\bullet} + \\left[\\Gamma^{\\bullet}_{\\mu\\bullet},\\Gamma^{\\bullet}_{\\nu\\bullet}\\right]",
+   "meaning": "Treating Gamma_mu as a matrix turns the index sums into matrix products and a commutator.",
+   "symbols": "[A,B] = AB - BA",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.18)",
+   "name": "Gamma as a 2x2 matrix",
+   "latex": "\\Gamma^{\\bullet}_{\\mu\\bullet} = \\begin{pmatrix}\\Gamma^1_{\\mu1}&\\Gamma^1_{\\mu2}\\\\\\Gamma^2_{\\mu1}&\\Gamma^2_{\\mu2}\\end{pmatrix}",
+   "meaning": "Layout of the connection matrix in two dimensions: upper index labels rows, last lower index labels columns.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.19)",
+   "name": "Riemann tensor components",
+   "latex": "R^\\alpha{}_{\\beta\\mu\\nu} = \\frac{\\partial\\Gamma^\\alpha_{\\nu\\beta}}{\\partial x^\\mu} - \\frac{\\partial\\Gamma^\\alpha_{\\mu\\beta}}{\\partial x^\\nu} + \\Gamma^\\alpha_{\\mu\\sigma}\\Gamma^\\sigma_{\\nu\\beta} - \\Gamma^\\alpha_{\\nu\\sigma}\\Gamma^\\sigma_{\\mu\\beta}",
+   "meaning": "Definition of the Riemann curvature tensor in a coordinate basis; the working formula of the chapter (restated as 11.28 and 11.43).",
+   "symbols": "alpha: output index; beta: transported vector; mu, nu: loop plane",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.20)",
+   "name": "Weak-field connection",
+   "latex": "\\Gamma^i_{tt} = \\frac{\\partial\\Phi}{\\partial x^i}",
+   "meaning": "For ds^2 = -(1+2Phi)dt^2 + dx^2+dy^2+dz^2 this is the relevant connection coefficient at first order.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.21)",
+   "name": "Weak-field Riemann equals tidal tensor",
+   "latex": "R^i{}_{tjt} = \\frac{\\partial\\Gamma^i_{tt}}{\\partial x^j} = \\frac{\\partial^2\\Phi}{\\partial x^j\\partial x^i}",
+   "meaning": "Relativistic curvature reduces to the Newtonian tidal tensor in the weak static limit.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "label": "(11.22)",
+   "name": "All-lower Riemann in general coordinates",
+   "latex": "R_{\\alpha\\beta\\mu\\nu} = \\tfrac12\\left(g_{\\alpha\\nu,\\beta\\mu} - g_{\\alpha\\mu,\\beta\\nu} + g_{\\beta\\mu,\\alpha\\nu} - g_{\\beta\\nu,\\alpha\\mu}\\right) + g_{\\sigma\\rho}\\left(\\Gamma^\\sigma_{\\beta\\mu}\\Gamma^\\rho_{\\alpha\\nu} - \\Gamma^\\sigma_{\\beta\\nu}\\Gamma^\\rho_{\\alpha\\mu}\\right)",
+   "meaning": "Riemann directly from metric derivatives plus quadratic connection terms; reduces to 11.23 where Gamma = 0.",
+   "symbols": "commas denote partial derivatives",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "label": "(11.23)",
+   "name": "Riemann in a local inertial frame",
+   "latex": "R_{\\hat\\mu\\hat\\nu\\hat\\alpha\\hat\\beta} = \\tfrac12\\left(\\frac{\\partial^2 g_{\\hat\\alpha\\hat\\nu}}{\\partial x^{\\hat\\beta}\\partial x^{\\hat\\mu}} - \\frac{\\partial^2 g_{\\hat\\alpha\\hat\\mu}}{\\partial x^{\\hat\\beta}\\partial x^{\\hat\\nu}} + \\frac{\\partial^2 g_{\\hat\\beta\\hat\\mu}}{\\partial x^{\\hat\\alpha}\\partial x^{\\hat\\nu}} - \\frac{\\partial^2 g_{\\hat\\beta\\hat\\nu}}{\\partial x^{\\hat\\alpha}\\partial x^{\\hat\\mu}}\\right)",
+   "meaning": "At a point where the connection vanishes, curvature is purely second metric derivatives, making the symmetries manifest.",
+   "symbols": "hats denote LIF coordinates",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "label": "(11.24)",
+   "name": "Pair symmetries",
+   "latex": "R_{\\alpha\\beta\\gamma\\delta} = -R_{\\beta\\alpha\\gamma\\delta},\\quad R_{\\alpha\\beta\\gamma\\delta} = -R_{\\alpha\\beta\\delta\\gamma},\\quad R_{\\alpha\\beta\\gamma\\delta} = R_{\\gamma\\delta\\alpha\\beta}",
+   "meaning": "Antisymmetric within each index pair, symmetric under exchange of the pairs.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "label": "(11.25)",
+   "name": "Cyclic identity",
+   "latex": "R_{\\alpha\\beta\\gamma\\delta} + R_{\\alpha\\delta\\beta\\gamma} + R_{\\alpha\\gamma\\delta\\beta} = 0",
+   "meaning": "Cyclic sum over the last three indices vanishes (first Bianchi identity).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Independent component count",
+   "latex": "N_{\\rm indep} = \\frac{N^2(N^2-1)}{12}\\ \\ (0,1,6,20 \\text{ for } N=1,2,3,4)",
+   "meaning": "Symmetries reduce N^4 components to this number; 20 in spacetime.",
+   "symbols": "N dimension",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "label": "(11.26)",
+   "name": "Ricci tensor",
+   "latex": "R_{\\nu\\beta} = R^\\mu{}_{\\nu\\mu\\beta} = R^0{}_{\\nu0\\beta} + R^1{}_{\\nu1\\beta} + R^2{}_{\\nu2\\beta} + R^3{}_{\\nu3\\beta}",
+   "meaning": "Contract the upper index with the first index of the loop pair; the result is symmetric.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "label": "(11.27)",
+   "name": "Ricci scalar",
+   "latex": "R = g^{\\mu\\nu}R_{\\mu\\nu}",
+   "meaning": "Metric trace of the Ricci tensor; a single number of curvature at each point.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "label": "(11.28)",
+   "name": "Riemann formula (relabelled)",
+   "latex": "R^\\mu{}_{\\nu\\alpha\\beta} = \\frac{\\partial\\Gamma^\\mu_{\\beta\\nu}}{\\partial x^\\alpha} - \\frac{\\partial\\Gamma^\\mu_{\\alpha\\nu}}{\\partial x^\\beta} + \\Gamma^\\mu_{\\alpha\\rho}\\Gamma^\\rho_{\\beta\\nu} - \\Gamma^\\mu_{\\beta\\rho}\\Gamma^\\rho_{\\alpha\\nu}",
+   "meaning": "Same as 11.19 with renamed indices, used for the brute-force examples.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.29)",
+   "name": "Flat polar check, first component",
+   "latex": "R^\\theta{}_{r\\theta r} = 0 + \\frac{1}{r^2} + 0 - \\frac{1}{r}\\frac{1}{r} = 0",
+   "meaning": "Derivative and product terms cancel in flat space.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.30)",
+   "name": "Flat polar check, second component",
+   "latex": "R^r{}_{\\theta r\\theta} = -1 + 0 + 0 + 1 = 0",
+   "meaning": "Again the curvature vanishes despite non-zero Gammas.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.31)",
+   "name": "2-sphere line element",
+   "latex": "ds^2 = a^2 d\\theta^2 + a^2\\sin^2\\theta\\,d\\phi^2",
+   "meaning": "Metric of the surface of a sphere of radius a.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.32)",
+   "name": "2-sphere connection",
+   "latex": "\\Gamma^\\theta_{\\phi\\phi} = -\\sin\\theta\\cos\\theta,\\quad \\Gamma^\\phi_{\\theta\\phi} = \\cot\\theta",
+   "meaning": "Non-zero Christoffel symbols of the sphere.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.33)",
+   "name": "Sphere Riemann component",
+   "latex": "R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta - \\cos^2\\theta + \\cos^2\\theta = \\sin^2\\theta",
+   "meaning": "Non-zero curvature component of the sphere.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.34)",
+   "name": "Sphere Riemann component (partner)",
+   "latex": "R^\\phi{}_{\\theta\\phi\\theta} = \\frac{1}{\\sin^2\\theta} - \\frac{\\cos^2\\theta}{\\sin^2\\theta} = 1",
+   "meaning": "Second non-zero mixed component; consistent with the single independent R_{theta phi theta phi} = a^2 sin^2 theta.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.35)",
+   "name": "Sphere Ricci tensor",
+   "latex": "R_{\\phi\\phi} = \\sin^2\\theta,\\quad R_{\\theta\\theta} = 1",
+   "meaning": "Ricci components; note R_{mu nu} = g_{mu nu}/a^2.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.36)",
+   "name": "Sphere Ricci scalar",
+   "latex": "R = g^{\\theta\\theta}R_{\\theta\\theta} + g^{\\phi\\phi}R_{\\phi\\phi} = \\frac{1}{a^2} + \\frac{\\sin^2\\theta}{a^2\\sin^2\\theta} = \\frac{2}{a^2}",
+   "meaning": "Constant positive scalar curvature that grows as the sphere shrinks.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "label": "(11.37)",
+   "name": "Deviation acceleration as repeated covariant derivative",
+   "latex": "\\frac{D^2\\boldsymbol\\xi}{d\\tau^2} = \\nabla_{\\boldsymbol u}\\nabla_{\\boldsymbol u}\\boldsymbol\\xi",
+   "meaning": "The D/dtau in the deviation equation is the covariant derivative along the fiducial 4-velocity applied twice.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "label": "(11.38)",
+   "name": "Geodesic deviation (as printed)",
+   "latex": "\\frac{D^2\\boldsymbol\\xi}{d\\tau^2} = -\\boldsymbol R(\\cdot,\\boldsymbol u,\\boldsymbol\\xi,\\boldsymbol u)",
+   "meaning": "Restatement of 11.6; the printed version lacks the minus sign, which is restored here for consistency with 11.6 and 11.39.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "label": "(11.39)",
+   "name": "Geodesic deviation in components",
+   "latex": "\\left(\\frac{D^2\\boldsymbol\\xi}{d\\tau^2}\\right)^\\alpha = -R^\\alpha{}_{\\beta\\gamma\\delta}u^\\beta\\xi^\\gamma u^\\delta",
+   "meaning": "Component form used for calculation.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "label": "(11.40)",
+   "name": "Deviation in a freely falling frame",
+   "latex": "\\frac{d^2\\xi^{\\hat\\alpha}}{d\\tau^2} = -R^{\\hat\\alpha}{}_{\\hat 0\\hat\\beta\\hat 0}\\,\\xi^{\\hat\\beta}",
+   "meaning": "With u = (1,0,0,0) and ordinary derivatives, curvature components act as a matrix of spring constants. (OCR of the printed hats is damaged; this is the intended form.)",
+   "symbols": "hatted indices: freely falling orthonormal frame",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "label": "(11.41)",
+   "name": "Schwarzschild Riemann components in a freely falling frame",
+   "latex": "R_{\\hat t\\hat r\\hat t\\hat r} = -\\frac{2M}{r^3},\\ R_{\\hat\\theta\\hat\\phi\\hat\\theta\\hat\\phi} = +\\frac{2M}{r^3},\\ R_{\\hat t\\hat\\theta\\hat t\\hat\\theta} = R_{\\hat t\\hat\\phi\\hat t\\hat\\phi} = +\\frac{M}{r^3},\\ R_{\\hat r\\hat\\theta\\hat r\\hat\\theta} = R_{\\hat r\\hat\\phi\\hat r\\hat\\phi} = -\\frac{M}{r^3}",
+   "meaning": "Curvature outside a spherical mass as measured by a local observer (index labels reconstructed from the OCR-damaged print using standard results).",
+   "symbols": "M mass (G = c = 1); r areal radius",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "label": "(11.42)",
+   "name": "Schwarzschild tidal equations",
+   "latex": "\\frac{d^2\\xi^{\\hat r}}{d\\tau^2} = \\frac{2M}{r^3}\\xi^{\\hat r},\\quad \\frac{d^2\\xi^{\\hat\\theta}}{d\\tau^2} = -\\frac{M}{r^3}\\xi^{\\hat\\theta},\\quad \\frac{d^2\\xi^{\\hat\\phi}}{d\\tau^2} = -\\frac{M}{r^3}\\xi^{\\hat\\phi}",
+   "meaning": "Radial stretching and transverse squeezing, matching the Newtonian diag(1,1,-2) pattern.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 11.1",
+   "image_path": "gifted-amateur/pages/page-138/img-80.jpeg",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.1"
+   },
+   "caption_paraphrase": "Free particles whose world lines start parallel drift together in a positively curved space; followed far enough, their paths meet.",
+   "visual_description": "A grey wireframe mesh surface shaped like a rounded hill or dome, drawn in perspective. Near the lower front of the dome two black dots are joined by a short dashed segment; small right-angle ticks show that two bold arrowed curves leave each dot perpendicular to the dashed line, i.e. initially parallel. The two curves climb the dome and bend toward each other, their arrowheads nearly touching near the summit.",
+   "what_it_teaches": "Geodesic deviation as a curvature diagnostic: on a positively curved surface initially parallel straightest paths converge without any force acting.",
+   "figure_type": "curve-or-surface",
+   "concepts": [
+    "geodesic deviation",
+    "sign of curvature",
+    "intrinsic curvature"
+   ],
+   "redesign": {
+    "idea": "Geodesic race on shapeable surfaces: two ants launched parallel on a surface whose Gaussian curvature the learner dials from sphere-like through flat to saddle, with the gap between them plotted live against distance travelled.",
+    "interaction": "Slider for curvature K (positive, zero, negative) and for initial separation; drag the launch points; toggle between the 3D surface and a plot of separation versus arc length showing cos, linear or cosh growth.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 11.2",
+   "image_path": "gifted-amateur/pages/page-138/img-81.jpeg",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.1"
+   },
+   "caption_paraphrase": "A vector carried around a closed path on a sphere comes back turned, a direct sign of the sphere's intrinsic curvature.",
+   "visual_description": "Outline of a sphere with a curved three-sided loop drawn on its upper-left face. The trip starts at the lower-left corner and runs right along the bottom edge, where the attached arrows lie along the edge and point forward. At the right-hand corner the path turns up toward the top vertex; on that edge the arrows keep their earlier direction and so lean back down toward the right-hand corner in the perspective view. On the last edge, from the top vertex back down to the start, the arrows stick out sideways from the edge, pointing into the loop. Outlined double-line arrows next to the edges show the direction of travel, and a curled double arrow at the starting corner marks the return. The returning arrow is roughly perpendicular to the one that set off, about a quarter turn.",
+   "what_it_teaches": "Holonomy: parallel transport around a closed loop on a curved surface produces a net rotation, which cannot be blamed on coordinates.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "holonomy of parallel transport around a closed loop",
+    "parallel transport",
+    "intrinsic curvature"
+   ],
+   "redesign": {
+    "idea": "Draw-your-own loop on a globe: the learner sketches any closed path, a vector is transported step by step, and the net rotation angle is compared with the enclosed area divided by a^2.",
+    "interaction": "Drag vertices of a geodesic polygon on a rotatable sphere; scrub a slider to animate transport; readouts for enclosed area, angle excess and rotation; switch to a cylinder or plane to see rotation vanish.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 11.3(a)",
+   "image_path": "gifted-amateur/pages/page-139/img-82.jpeg",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   },
+   "caption_paraphrase": "Panel (a): accelerations on a ring of particles around a falling observer, as seen from the Earth's frame.",
+   "visual_description": "A circle standing for the spherical cloud, with a stick-figure observer at its centre and a strip of the Earth's surface drawn below. Four arrows are attached to the cloud: one at the top, two on the lower left and lower right of the rim, and one just below the bottom of the circle. All point downward toward the Earth, and the two side arrows are angled slightly inward because they aim at the Earth's centre. Faint vertical speed streaks above the circle show that the whole cloud is falling. (The inventory gives the next image the Fig. 11.4 caption, but this image is panel (a) of Fig. 11.3.)",
+   "what_it_teaches": "In the Earth frame every particle accelerates toward the Earth's centre, but by slightly different amounts and directions depending on position in the cloud.",
+   "figure_type": "vector-or-tensor-field",
+   "concepts": [
+    "tidal forces",
+    "Newtonian tidal tensor"
+   ],
+   "redesign": {
+    "idea": "Split-screen frame switch: the same particle cloud falling toward a planet shown in the planet frame and in the cloud's own frame, where subtracting the centre's acceleration reveals the tidal quadrupole pattern.",
+    "interaction": "Toggle frame (planet / freely falling); slider for distance from planet and mass; play time to watch the circle become an ellipse, with a volume readout that stays constant.",
+    "form": "animated-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 11.3(b)",
+   "image_path": "gifted-amateur/pages/page-139/img-83.jpeg",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   },
+   "caption_paraphrase": "Panel (b): the same tidal accelerations seen by the observer falling with the cloud.",
+   "visual_description": "A circle with a stick figure at its centre and no Earth drawn. Arrows at top and bottom point outward, away from the centre; arrows at left and right point inward toward the observer. The pattern is the stretch-along-vertical, squeeze-along-horizontal quadrupole. (Listed in the inventory with the Fig. 11.4 caption, but it is panel (b) of Fig. 11.3.)",
+   "what_it_teaches": "After removing the common free-fall acceleration, what remains is a tidal field that elongates the cloud along the line to the Earth and compresses it sideways.",
+   "figure_type": "vector-or-tensor-field",
+   "concepts": [
+    "tidal forces",
+    "equivalence principle",
+    "Newtonian tidal tensor"
+   ],
+   "redesign": {
+    "idea": "Tidal field glyph viewer: arrows around a ring computed from the tidal matrix, with eigen-directions highlighted, extendable from Newtonian GM/r^3 diag(1,1,-2) to Schwarzschild frame components.",
+    "interaction": "Rotate the direction to the mass; switch between Newtonian and Schwarzschild models; hover a particle to see -R^i_j s^j decomposed into components.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 11.4",
+   "image_path": "gifted-amateur/pages/page-139/img-84.jpeg",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   },
+   "caption_paraphrase": "Two particles falling toward the centre of a Newtonian potential, joined by a separation vector s.",
+   "visual_description": "Two black dots labelled x(t) (left) and y(t) (right) at the same height, joined by a horizontal arrow labelled s pointing from x to y. From each dot a dotted line runs down to a common point labelled 0 at the bottom, and a short arrow on each dot points along its dotted line toward 0. The converging lines make a narrow triangle. (Unlabelled in the inventory, but this is Fig. 11.4.)",
+   "what_it_teaches": "Particles falling radially toward the same centre converge, so their separation shrinks transversely; the separation vector is the object whose second derivative encodes tides.",
+   "figure_type": "schematic",
+   "concepts": [
+    "separation (deviation) vector",
+    "Newtonian tidal tensor",
+    "tidal forces"
+   ],
+   "redesign": {
+    "idea": "Two-particle deviation lab: place two particles anywhere around a point mass and watch s(t) evolve, comparing exact Newtonian integration with the linear tidal approximation -R s.",
+    "interaction": "Drag the pair's position and orientation (radial or transverse); play/pause; overlay exact versus linearized s(t) curves and an error readout as separation grows.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 11.5",
+   "image_path": "gifted-amateur/pages/page-141/img-85.jpeg",
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   },
+   "caption_paraphrase": "A vector carried around a tiny closed parallelogram of coordinate steps.",
+   "visual_description": "A slanted parallelogram with corners A (bottom left), B (bottom right), C (top right) and D (top left). Inside it, a short arrow e_1 near A points along AB, and an arrow e_2 near the right-hand side points up parallel to BC. A double-headed arrow under the bottom edge is labelled delta a, and one alongside the right-hand edge is labelled delta b. At corner A an upright arrow V is drawn, with a dotted arrow leaning to the left for the vector that comes back after the circuit, and a short arrow labelled delta V joining the tip of V to the tip of the dotted arrow.",
+   "what_it_teaches": "Sets up the bookkeeping of the loop derivation: four legs, constant coordinate on each, and a small change delta V at the end proportional to the loop area.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "holonomy of parallel transport around a closed loop",
+    "Riemann curvature tensor",
+    "parallel transport"
+   ],
+   "redesign": {
+    "idea": "Shrinking-loop limit explorer: a coordinate parallelogram on a chosen 2D metric (sphere patch, plane in polar coordinates, saddle) where the numerically transported vector's change is divided by delta a delta b and shown converging to R^alpha_{beta mu nu} V^beta.",
+    "interaction": "Sliders for delta a and delta b and the base point; a log-log plot of |delta V| versus area with slope 1; a panel that highlights which of the four edge integrals and which Gamma terms contribute.",
+    "form": "interactive-plot",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Example 11.1",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   },
+   "problem": "Find how the separation between nearby dust particles in an initially spherical cloud evolves as the cloud falls toward a point mass.",
+   "method": "Write Newton's second law for two particles, subtract, Taylor expand the gradient of Phi about one particle to first order in the separation, define the Hessian as a tidal tensor, and evaluate it on the z-axis for Phi = -GM/r.",
+   "key_insight": "Relative acceleration is linear in separation and set by second derivatives of the potential; the resulting matrix has one negative (stretching) eigenvalue along the radial line and two positive (squeezing) ones transverse to it.",
+   "result": "d^2 s^i/dt^2 = -R^i_j s^j with R^i_j = (GM/z^3) diag(1,1,-2): stretch along z at 2GM/z^3, compression along x and y at GM/z^3.",
+   "concepts": [
+    "Newtonian tidal tensor",
+    "tidal forces",
+    "separation (deviation) vector"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 11.2",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   },
+   "problem": "Show that the falling cloud changes shape but keeps its volume.",
+   "method": "Build Gauss's law for gravity by analogy with electrostatics, convert to Poisson's equation, note that the Laplacian of Phi is the trace (sum of eigenvalues) of the tidal matrix, and relate the second time derivative of the cloud's volume to that trace.",
+   "key_insight": "The trace of the tidal tensor measures enclosed mass density; with no mass inside the cloud the trace vanishes, so tides only reshape. A sphere enclosing the Earth would instead shrink.",
+   "result": "Small vacuum cloud evolves into an ellipsoid of equal volume, to the order considered.",
+   "concepts": [
+    "Poisson's equation for gravity",
+    "volume preservation of a freely falling cloud in vacuum",
+    "Newtonian tidal tensor"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 11.3",
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   },
+   "problem": "Compute the change in a vector's components after parallel transport around an infinitesimal coordinate parallelogram, and extract the Riemann tensor.",
+   "method": "Integrate the transport condition dV/dx = -Gamma V along each of four edges, collect opposite edges into differences, expand to first order in each side length, apply the product rule and substitute the transport condition again for derivatives of V, then relabel to general directions.",
+   "key_insight": "Opposite edges cancel at zeroth order, leaving a term proportional to the area delta a delta b and linear in V; the coefficient therefore defines a (1,3) tensor built from dGamma and GammaGamma.",
+   "result": "R^alpha_{beta mu nu} = d_mu Gamma^alpha_{nu beta} - d_nu Gamma^alpha_{mu beta} + Gamma^alpha_{mu sigma} Gamma^sigma_{nu beta} - Gamma^alpha_{nu sigma} Gamma^sigma_{mu beta}.",
+   "concepts": [
+    "holonomy of parallel transport around a closed loop",
+    "Riemann tensor component formula",
+    "parallel transport"
+   ],
+   "difficulty": "challenging"
+  },
+  {
+   "label": "Example 11.4",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   },
+   "problem": "Evaluate the Riemann tensor for the static weak-field metric and compare with the Newtonian tidal tensor.",
+   "method": "Use the single relevant connection coefficient Gamma^i_tt = dPhi/dx^i, drop time derivatives (static) and products of Gammas (second order in Phi), and substitute into the Riemann formula.",
+   "key_insight": "The relativistic curvature components with two time slots reduce exactly to the Hessian of Phi, so Riemann generalizes Newtonian tides.",
+   "result": "R^i_{tjt} = d^2 Phi/dx^j dx^i, identical to the tidal tensor of eqn 11.4.",
+   "concepts": [
+    "weak-field limit of the Riemann tensor",
+    "Newtonian tidal tensor"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 11.5",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   },
+   "problem": "Find a form of the Riemann tensor that makes its index symmetries evident.",
+   "method": "Work at a point in a local inertial frame where Gamma vanishes; only dGamma terms survive, and writing Gamma via first metric derivatives gives Riemann as four second derivatives of the metric; use symmetry of g and of mixed partials.",
+   "key_insight": "Choosing coordinates that kill the connection at a point isolates the genuinely curvature-carrying second derivatives, and tensor equations proved in one frame hold in all.",
+   "result": "Eqn 11.23 and the symmetries R_abcd = -R_bacd = -R_abdc = R_cdab plus the cyclic identity.",
+   "concepts": [
+    "local flatness theorem",
+    "Riemann tensor in a local inertial frame",
+    "symmetries of the Riemann tensor",
+    "cyclic (first Bianchi) identity"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 11.6",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.4"
+   },
+   "problem": "Interpret the independent-component count in one and two dimensions.",
+   "method": "Apply the counting formula and the symmetries: in 1D all components have repeated indices within a pair; in 2D the only surviving independent combination is R_1212.",
+   "key_insight": "A line can always be reparametrized to Euclidean form, so has no intrinsic curvature; a surface has exactly one curvature number per point.",
+   "result": "N=1: 0 components; N=2: single component R_1212.",
+   "concepts": [
+    "number of independent Riemann components",
+    "intrinsic curvature",
+    "extrinsic curvature"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 11.7",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   },
+   "problem": "Verify that the Euclidean plane in polar coordinates has vanishing Riemann tensor.",
+   "method": "Use Gamma^r_thetatheta = -r and Gamma^theta_rtheta = 1/r in the Riemann formula for mixed components R^theta_{r theta r} and R^r_{theta r theta}.",
+   "key_insight": "Non-zero Christoffel symbols from curvilinear coordinates generate derivative and quadratic terms that cancel exactly; the formalism does not confuse coordinates with curvature.",
+   "result": "R^theta_{r theta r} = 1/r^2 - 1/r^2 = 0 and R^r_{theta r theta} = -1 + 1 = 0; Ricci tensor and scalar also vanish.",
+   "concepts": [
+    "flat space in curvilinear coordinates",
+    "Riemann tensor component formula"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 11.8",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   },
+   "problem": "Compute the Riemann components, Ricci tensor and Ricci scalar for the surface of a sphere of radius a.",
+   "method": "From the line element obtain Gamma^theta_phiphi = -sin theta cos theta and Gamma^phi_thetaphi = cot theta; evaluate two mixed Riemann components; contract to Ricci; trace with the inverse metric g^thetatheta = 1/a^2, g^phiphi = 1/(a^2 sin^2 theta).",
+   "key_insight": "Unlike the plane, the terms no longer cancel; the scalar curvature is constant over the sphere and scales as the inverse square of its radius.",
+   "result": "R^theta_{phi theta phi} = sin^2 theta, R^phi_{theta phi theta} = 1, R_thetatheta = 1, R_phiphi = sin^2 theta, R = 2/a^2.",
+   "concepts": [
+    "curvature of the 2-sphere",
+    "Ricci tensor",
+    "Ricci scalar"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 11.9",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   },
+   "problem": "Use the freely falling frame form of geodesic deviation to find tidal accelerations near a spherical mass described by the Schwarzschild geometry.",
+   "method": "Quote the orthonormal-frame Riemann components (derived later), raise indices with eta, and read off R^i_{0j0} for radial and transverse directions.",
+   "key_insight": "Relativistic tides take the same form as Newtonian ones: radial anti-spring of strength 2M/r^3, transverse springs of strength M/r^3.",
+   "result": "d^2 xi^r/dtau^2 = +(2M/r^3) xi^r; d^2 xi^theta/dtau^2 = -(M/r^3) xi^theta; same for phi.",
+   "concepts": [
+    "Schwarzschild tidal tensor",
+    "geodesic deviation equation",
+    "freely falling orthonormal frame",
+    "Riemann components as tidal spring constants"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Deducing the Earth's shape while standing on it",
+   "target_concept": "intrinsic curvature",
+   "how_used": "Humans confined to the 2D surface of the Earth still found ways to establish it is a ball; spacetime observers face the same insider problem, only harder because there is nothing like watching distant stars change elevation.",
+   "limits": "Earth-surface methods can exploit a third spatial dimension (light from stars); for spacetime no such outside reference exists.",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   },
+   "effectiveness": "useful",
+   "app_idea": "Flatland explorer: a 2D creature on a hidden surface performs triangle, circle-circumference and transport experiments; the learner guesses the shape before it is revealed."
+  },
+  {
+   "analogy": "Cylinder made by rolling a flat sheet versus a sphere that cannot be gift-wrapped",
+   "target_concept": "extrinsic curvature",
+   "how_used": "Anything you can unroll into a flat sheet without tearing or stretching only looks curved from outside; the sphere cannot be flattened, so its curvature is real.",
+   "limits": "Wrapping is about isometric embedding; learners may think any visibly bent surface is curved, and the torus or cone cases need extra care.",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": "11.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Unroll-or-tear: learner tries to peel a paper mesh off a cylinder, cone and sphere; strain colour shows where stretching is forced."
+  },
+  {
+   "analogy": "Rubber-sheet model of gravity",
+   "target_concept": "spacetime curvature (as opposed to spatial curvature)",
+   "how_used": "Mentioned in a margin note as a common picture, with a caution that it shows curved space only, while effects like planetary precession depend strongly on the time-time metric component.",
+   "limits": "Explicitly flagged by the authors: misses curvature involving time, and relies on an external gravity to pull objects into dents.",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   },
+   "effectiveness": "weak",
+   "app_idea": null
+  },
+  {
+   "analogy": "Ant walking on a large ball",
+   "target_concept": "holonomy of parallel transport around a closed loop",
+   "how_used": "An ant can only learn its world is curved by walking a closed loop carrying a direction and comparing on return; such loops are impossible on a line, which is why 1D spaces have no intrinsic curvature.",
+   "limits": "Ignores other insider tests (triangle angle sums, circumference ratios).",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Ant-with-a-compass-needle walk on a sphere, where the needle is transported without twisting and the final misalignment is displayed."
+  },
+  {
+   "analogy": "Tidal deviation as a harmonic oscillator; curvature as spring constant",
+   "target_concept": "Riemann components as tidal spring constants",
+   "how_used": "In a freely falling frame, each deviation component obeys an equation like x-double-dot = -omega^2 x, with Riemann components in the role of omega^2; negative values correspond to separating motion.",
+   "limits": "Only holds for small separations and in a frame where the equation is diagonal; 'negative spring constants' give exponential rather than oscillatory motion.",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Springs-between-particles cartoon: a 3D cross of test masses connected by springs whose stiffness equals the tidal eigenvalues; move closer to a mass and watch springs stiffen or turn into repulsive struts."
+  },
+  {
+   "analogy": "Gauss's law in electrostatics carried over to gravity",
+   "target_concept": "Poisson's equation for gravity",
+   "how_used": "The familiar link between Coulomb's law and div E = rho/epsilon0 is mirrored to write div g = -4 pi G rho and Poisson's equation, which then controls the trace of the tidal tensor.",
+   "limits": "Sign differs (like masses attract) and there is no negative mass.",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Ricci as an average of Riemann",
+   "target_concept": "Ricci tensor",
+   "how_used": "Readers are told to think of Ricci informally as averaging over Riemann components, an average that captures volume shrinkage.",
+   "limits": "Not literally an average; it is a specific contraction that discards the tidal (Weyl) part, which can be non-zero where Ricci vanishes.",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Ball-of-particles volume meter: a cloud in vacuum (Ricci = 0) versus inside matter (Ricci != 0), with shape and volume tracked separately."
+  },
+  {
+   "analogy": "Connection matrices and a commutator",
+   "target_concept": "matrix commutator form of the Riemann tensor",
+   "how_used": "Memory aid: treat each Gamma_mu as a matrix so Riemann reads like derivative-minus-derivative plus a commutator.",
+   "limits": "The matrix picture hides which index is which; careless ordering of the lower indices of Gamma gives sign errors.",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Symbolic Riemann calculator that displays each Gamma_mu as a coloured matrix and animates the commutator product."
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "Any visibly curved surface, such as a cylinder, is curved in the sense relevant to geometry and gravity.",
+   "correction": "Only intrinsic curvature counts; a cylinder is flat intrinsically because it unrolls into a plane and parallel lines on it never meet.",
+   "why_tempting": "Everyday 'curved' means bent in 3D space, and textbook pictures show surfaces embedded in space.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": "11.1"
+   },
+   "concepts": [
+    "intrinsic curvature",
+    "extrinsic curvature"
+   ]
+  },
+  {
+   "misconception": "Non-zero Christoffel symbols, or a vector's components changing under parallel transport along a path, mean the space is curved.",
+   "correction": "Those effects can come purely from curvilinear coordinates; only the net change around a closed loop (non-zero Riemann) signals curvature, as the polar-coordinate plane example shows.",
+   "why_tempting": "Gammas are the first 'gravity-like' objects learners meet, and the geodesic equation makes them look like forces.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   },
+   "concepts": [
+    "connection coefficients",
+    "flat space in curvilinear coordinates",
+    "Riemann curvature tensor"
+   ]
+  },
+  {
+   "misconception": "The rubber-sheet picture shows what spacetime curvature is.",
+   "correction": "It depicts curved space only; the time part of the metric often dominates relativistic corrections, so curvature is a genuinely spacetime property.",
+   "why_tempting": "It is the most widely reproduced popular image of general relativity.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   },
+   "concepts": [
+    "intrinsic curvature"
+   ]
+  },
+  {
+   "misconception": "A single falling particle can reveal whether there is a gravitational field.",
+   "correction": "By the equivalence principle one particle cannot distinguish curvature from frame acceleration; relative acceleration of two separated particles is required.",
+   "why_tempting": "In Newtonian thinking we detect gravity by releasing an object and watching it fall relative to the ground.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   },
+   "concepts": [
+    "equivalence principle",
+    "geodesic deviation"
+   ]
+  },
+  {
+   "misconception": "Tidal forces squash a falling cloud and reduce its volume.",
+   "correction": "In vacuum the cloud stretches along the radial line and compresses sideways by amounts that exactly balance, so its volume is unchanged; only enclosed matter shrinks volume.",
+   "why_tempting": "Gravity is attractive, so one expects everything to be pulled together.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   },
+   "concepts": [
+    "volume preservation of a freely falling cloud in vacuum",
+    "Poisson's equation for gravity"
+   ]
+  },
+  {
+   "misconception": "Vanishing Ricci tensor means spacetime is flat.",
+   "correction": "Ricci can vanish (as outside a star, Exercise 11.3) while Riemann does not; tidal stretching persists in vacuum.",
+   "why_tempting": "Ricci is called a curvature tensor and the vacuum field equation sets it to zero.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 147,
+    "printed_page": 130,
+    "section": null
+   },
+   "concepts": [
+    "Ricci tensor",
+    "Riemann curvature tensor",
+    "Schwarzschild tidal tensor"
+   ]
+  },
+  {
+   "misconception": "The Riemann tensor has 256 independent pieces of information in spacetime.",
+   "correction": "Its symmetries leave only 20 independent components in four dimensions (one in two dimensions).",
+   "why_tempting": "A four-index object in four dimensions naively has 4^4 components.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   },
+   "concepts": [
+    "number of independent Riemann components",
+    "symmetries of the Riemann tensor"
+   ]
+  },
+  {
+   "misconception": "A curve drawn tied in a knot or wound on a cylinder is a curved one-dimensional space.",
+   "correction": "Every 1D space is isometric to a straight line; its bending is purely extrinsic.",
+   "why_tempting": "Visually the curve is obviously bent.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.4"
+   },
+   "concepts": [
+    "extrinsic curvature",
+    "number of independent Riemann components"
+   ]
+  },
+  {
+   "misconception": "Symmetries derived in a local inertial frame hold only in that frame.",
+   "correction": "They are statements about tensor components related by index permutations, so they hold in every frame once true in one.",
+   "why_tempting": "The derivation explicitly used special coordinates where Gamma vanishes.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   },
+   "concepts": [
+    "symmetries of the Riemann tensor",
+    "local flatness theorem"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Two parallel travellers on a curved surface",
+   "setup": "Two free particles start moving side by side along parallel geodesics on a sphere, a plane and a saddle.",
+   "lesson": "Their separation stays constant only on flat surfaces; convergence or divergence measures the sign and size of curvature.",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.1"
+   },
+   "concepts": [
+    "geodesic deviation",
+    "sign of curvature"
+   ],
+   "visualizable": true,
+   "app_idea": "Race two geodesics on switchable surfaces and plot their separation."
+  },
+  {
+   "name": "Vector carried around a spherical triangle",
+   "setup": "Starting at a point on a sphere, carry a vector without turning it along a closed geodesic triangle and compare on return.",
+   "lesson": "Net rotation after a closed loop is an unambiguous sign of intrinsic curvature; on a cylinder or plane it would vanish.",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.1"
+   },
+   "concepts": [
+    "holonomy of parallel transport around a closed loop"
+   ],
+   "visualizable": true,
+   "app_idea": "Interactive globe with draggable triangle vertices and a live rotation-angle readout."
+  },
+  {
+   "name": "Static star frame test for gravity",
+   "setup": "In an idealized static geometry around a star, place one particle at rest in the star's frame and see if it accelerates.",
+   "lesson": "This would detect gravity only if a preferred static frame existed; relativity denies such frames in general, so the test must be replaced by relative acceleration of two particles.",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.2"
+   },
+   "concepts": [
+    "equivalence principle",
+    "geodesic deviation"
+   ],
+   "visualizable": false,
+   "app_idea": null
+  },
+  {
+   "name": "Falling cloud of dust around an observer",
+   "setup": "A spherical cloud of free test particles, with an observer at its centre, drops toward the Earth.",
+   "lesson": "Seen from the cloud's own free-fall frame, it elongates toward the Earth and narrows sideways at constant volume: tidal forces are the residue of gravity after the equivalence principle removes the common acceleration.",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   },
+   "concepts": [
+    "tidal forces",
+    "volume preservation of a freely falling cloud in vacuum"
+   ],
+   "visualizable": true,
+   "app_idea": "Animated cloud with frame toggle and volume meter."
+  },
+  {
+   "name": "Large shell of particles surrounding the Earth",
+   "setup": "Instead of a small cloud, imagine a sphere of free particles enclosing the whole Earth, all released from rest.",
+   "lesson": "Because the shell encloses mass, the volume does shrink, showing that volume change tracks enclosed density (the Ricci part of curvature).",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   },
+   "concepts": [
+    "Poisson's equation for gravity",
+    "Ricci tensor"
+   ],
+   "visualizable": true,
+   "app_idea": "Slider growing the cloud radius past the planet's surface with volume versus time plotted."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Carl Friedrich Gauss"
+   ],
+   "year": null,
+   "event": "Showed how distance measurements made within a 2D surface determine its curvature objectively.",
+   "significance": "Established that curvature can be intrinsic, the precondition for curved spacetime without an embedding.",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "Bernhard Riemann"
+   ],
+   "year": "1854",
+   "event": "Extended curvature to spaces of any dimension, the description later encoded in the Riemann tensor.",
+   "significance": "Provided the mathematics Einstein adopted for gravitation.",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "Elwin Bruno Christoffel",
+    "Gregorio Ricci-Curbastro",
+    "Tullio Levi-Civita",
+    "Albert Einstein"
+   ],
+   "year": null,
+   "event": "Developed Riemann's description into tensor calculus, which Einstein brought into physics.",
+   "significance": "Lineage from geometry to general relativity.",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "Euclid"
+   ],
+   "year": null,
+   "event": "Stated five postulates of plane geometry, the fifth being equivalent to the parallel postulate.",
+   "significance": "Failure of the fifth postulate is the entry point to curved geometry.",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.2"
+   }
+  },
+  {
+   "people": [
+    "Gregorio Ricci-Curbastro"
+   ],
+   "year": null,
+   "event": "Margin biography (1853-1925) attached to the Ricci tensor.",
+   "significance": "Name-giver of the contracted curvature tensor central to the field equations.",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Tidal stretching of a cloud falling toward the Earth",
+   "kind": "numerical-estimate",
+   "details": "Newtonian tidal tensor for a point mass gives radial stretching and transverse compression; used as the physical anchor for curvature.",
+   "key_numbers": "Tidal matrix (GM/r^3) diag(1,1,-2); trace zero in vacuum.",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   }
+  },
+  {
+   "topic": "Tidal accelerations near a spherical star or black hole (Schwarzschild)",
+   "kind": "astrophysical-system",
+   "details": "Freely falling observers see radial separations grow and transverse separations shrink, with rates set by orthonormal Riemann components.",
+   "key_numbers": "Radial +2M/r^3, transverse -M/r^3 (G = c = 1).",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "topic": "Planetary orbit precession depends on time-time metric",
+   "kind": "observation",
+   "details": "Margin note cites orbital precession as a case where the timelike metric component dominates the relativistic correction, undermining purely spatial pictures.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   }
+  },
+  {
+   "topic": "Curvature of a sphere of radius a",
+   "kind": "numerical-estimate",
+   "details": "Scalar curvature of a 2-sphere is constant and scales with inverse radius squared, giving a concrete scale for curvature radius.",
+   "key_numbers": "R = 2/a^2",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Riemann index order",
+   "convention": "R^alpha_{beta mu nu}: first lower index is the transported vector, last two label the loop plane; the derivative term with index mu carries a plus sign as in eqn 11.19 (the MTW convention).",
+   "notes": "Other books order or sign differently; compare before mixing sources.",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "item": "Ricci contraction",
+   "convention": "R_{nu beta} = R^mu_{nu mu beta}: contract upper index with the third slot.",
+   "notes": "With this choice the sphere has positive Ricci scalar.",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "item": "Bold symbols",
+   "convention": "Tensors are bold (R for Riemann, G for Einstein), but the Ricci tensor is written only in components, not bold.",
+   "notes": "Other books do give Ricci a bold symbol, for example Ri.",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "item": "Slot notation",
+   "convention": "R( , , , ) with empty slots, and R(., u, xi, u) for a partially filled tensor returning a vector.",
+   "notes": "Continues the linear slot machine picture of Chapter 4.",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "item": "Hatted indices",
+   "convention": "Hats denote components in a local inertial or freely falling orthonormal frame; indices raised and lowered with eta there.",
+   "notes": "In the OCR copy hats appear as dots.",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "item": "Units and signature",
+   "convention": "Signature (-,+,+,+); Schwarzschild results in G = c = 1 units, while Newtonian examples keep G explicit.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "item": "Unbalanced indices in Newtonian work",
+   "convention": "In Example 11.1 index balance is temporarily relaxed (R^i_j = R_ij) since the space is Euclidean.",
+   "notes": "Margin note 12 gives the fussy form with g^{ki}.",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   }
+  },
+  {
+   "item": "Edge-integral subscripts",
+   "convention": "In the loop derivation the subscript on an integral names the coordinate held fixed along that edge, not its limits.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "item": "Comma derivatives",
+   "convention": "g_{alpha nu, beta mu} denotes second partial derivatives with respect to x^beta and x^mu.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "item": "Covariant proper-time derivative",
+   "convention": "D/dtau denotes nabla_u along the fiducial world line; D^2 xi/dtau^2 = nabla_u nabla_u xi.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Caution that the rubber-sheet model depicts curved space rather than curved spacetime, and that the time part of the metric can dominate effects like orbital precession.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   }
+  },
+  {
+   "summary": "Detecting spacetime curvature is harder than finding the Earth's shape because there is no external reference like stars.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   }
+  },
+  {
+   "summary": "Birth and death years of Bernhard Riemann.",
+   "type": "biography",
+   "locator": {
+    "pdf_page": 137,
+    "printed_page": 120,
+    "section": null
+   }
+  },
+  {
+   "summary": "Sidebar giving all five of Euclid's postulates; the fifth, about two lines crossing a third, amounts to the parallel postulate.",
+   "type": "historical",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.2"
+   }
+  },
+  {
+   "summary": "Geodesic deviation equation is justified properly in Chapter 35 and compared with the loop method.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "summary": "Ways of measuring curvature are treated in Chapter 30; a rough curvature length scale is the inverse square root of a typical orthonormal Riemann component.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "summary": "Defines the gravitational field g through the force on a mass, F = m g.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "summary": "Points back to Section 0.4 for Poisson's equation.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "summary": "Loop transport is computationally simpler than geodesic deviation but more tedious.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   }
+  },
+  {
+   "summary": "Memory aid: write Riemann as derivatives of Gamma matrices plus their commutator, with a 2x2 layout example.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "summary": "Strict index-balanced form of the weak-field result includes an inverse metric factor.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "summary": "In the edge integrals, the subscript names the coordinate held fixed on that edge, not the integration limits.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "summary": "Symmetries mean fewer components to find; without them a four-index tensor in spacetime would have 256.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "summary": "General-coordinate formula for the all-lower Riemann tensor from metric derivatives plus Gamma-Gamma terms; symmetries hold in all frames.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "summary": "Consequence of the symmetries: a component vanishes whenever both indices within the first pair, or within the second pair, are equal.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "summary": "A 1D space can always be laid out as a straight line without stretching, so any bending it shows is extrinsic. An ant on a big ball can only learn that its world is curved by walking a closed route while carrying a direction and comparing when it gets back, and a line has no room for such a route.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.4"
+   }
+  },
+  {
+   "summary": "Definition of contraction and of the trace, stressing the metric is needed to trace in curved spacetime.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "summary": "Ricci-Curbastro biography and why Ricci is not bold: it enters physics through the trace-reversed Einstein tensor.",
+   "type": "biography",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "summary": "The averaging done by Ricci is what captures curvature's power to shrink volumes.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "summary": "For the flat plane, the Ricci tensor and Ricci scalar vanish too, which confirms that the formalism behaves.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "summary": "Pair-exchange symmetry already guarantees that the sphere's two computed mixed components describe the same single independent component, R_1212 = R_2121.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "summary": "Deviation equation is also called the Jacobi equation; in an orthonormal frame u is the time basis vector.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "summary": "Free-fall frame gives u^0 = 1 from normalization with eta_00 = -1.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "summary": "Reduced deviation equation resembles a simple harmonic oscillator with curvature as spring constant.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "summary": "The Schwarzschild geometry is treated in Part IV.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 4,
+  "pdf_pages": [
+   147
+  ],
+  "skills_practiced": [
+   "computing Riemann components from Christoffel symbols for a static spherically symmetric metric",
+   "specializing general metric functions to Schwarzschild",
+   "using Riemann symmetries to relate components",
+   "transforming components to an orthonormal frame",
+   "contracting to the Ricci tensor",
+   "demonstrating flatness of a non-trivial coordinate system"
+  ],
+  "notable": [
+   {
+    "number": "11.1",
+    "summary": "Starting from the connection coefficients of a general static spherically symmetric metric (from Exercise 9.7) with functions Phi(r) and Lambda(r), derive six Riemann components.",
+    "skills": [
+     "Riemann formula",
+     "bookkeeping of many Christoffel symbols"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "First full curvature calculation for a physically important 4D metric; underpins stellar structure and Schwarzschild work.",
+    "pdf_page": 147
+   },
+   {
+    "number": "11.2",
+    "summary": "Given the Schwarzschild metric and the corresponding Riemann components, relate components with swapped index order and convert them to orthonormal-frame values.",
+    "skills": [
+     "index symmetries",
+     "raising/lowering",
+     "orthonormal frames"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Produces the frame components used in Example 11.9 and shows how coordinate components differ from measured ones.",
+    "pdf_page": 147
+   },
+   {
+    "number": "11.3",
+    "summary": "Show the Ricci tensor vanishes outside a star and explain physically why it must.",
+    "skills": [
+     "contraction",
+     "physical interpretation"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Previews the vacuum field equation and makes the learner confront curvature that exists with zero Ricci.",
+    "pdf_page": 147
+   },
+   {
+    "number": "11.4",
+    "summary": "Prove that the metric of a rotating reference frame (from Exercise 3.5) describes flat spacetime.",
+    "skills": [
+     "computing Gammas and Riemann for a non-diagonal metric",
+     "distinguishing coordinate effects from curvature"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Drives home that fictitious forces from rotation carry no curvature.",
+    "pdf_page": 147
+   }
+  ],
+  "solutions": "Answers to selected problems are collected in Appendix E."
+ },
+ "difficulty": {
+  "math_level": 4,
+  "conceptual_level": 3,
+  "novice_friendliness": 3,
+  "notes": "Conceptual framing (intrinsic curvature, tides) is gentle and well motivated, but the loop derivation involves careful sign and index bookkeeping, several results are quoted without proof (deviation equation, component count, Schwarzschild components), and §11.7 relies on vielbein machinery from Chapter 10. The OCR copy damages the hatted equations 11.40-11.42, and printed eqn 11.38 drops a sign."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch7",
+   "reason": "Parallel transport and the covariant derivative used in the loop argument.",
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch9",
+   "reason": "Connection coefficients from metric derivatives (dg -> Gamma rule); Exercise 9.7 Christoffel symbols feed Exercise 11.1; polar and spherical Gammas.",
+   "locator": {
+    "pdf_page": 138,
+    "printed_page": 121,
+    "section": "11.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch10",
+   "reason": "Orthonormal measurement frames and vielbeins used in geodesic deviation revisited.",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch6",
+   "reason": "Equivalence principle and local flatness.",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch0 §0.4",
+   "reason": "Poisson's equation for Newtonian gravity.",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch3 Exercise 3.5",
+   "reason": "Rotating-frame metric shown to be flat in Exercise 11.4.",
+   "locator": {
+    "pdf_page": 147,
+    "printed_page": 130,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch12-ch13",
+   "reason": "Ricci tensor, Ricci scalar and Einstein tensor enter the field equations linking curvature to energy-momentum.",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch21",
+   "reason": "Schwarzschild metric used in Exercise 11.2 and Example 11.9.",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch30",
+   "reason": "Detailed methods of measuring curvature (classical curvature).",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch35",
+   "reason": "Rigorous geodesic deviation derivation and proof of the N^2(N^2-1)/12 count.",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA Part V (ch34-ch36)",
+   "reason": "More efficient geometric computation of curvature (Cartan's method).",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.6"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA Part IV",
+   "reason": "Schwarzschild geometry discussed in full.",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Name the Newtonian Hessian of the potential 'R' before introducing Riemann, then show the weak-field Riemann components equal it.",
+   "why_effective": "Learners already trust Newtonian tides; the new tensor inherits meaning instead of arriving as an unmotivated formula.",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   },
+   "app_idea": "Side-by-side panel: Newtonian tidal matrix computed from Phi and relativistic R^i_{tjt} computed from the weak-field metric, updating together as the learner moves a probe point."
+  },
+  {
+   "gem": "Linearity of the loop change in V and in both side lengths is what certifies the curvature coefficient as a tensor.",
+   "why_effective": "Connects the tensor-as-linear-machine idea to a physical procedure, so the index structure of Riemann has a reason.",
+   "locator": {
+    "pdf_page": 141,
+    "printed_page": 124,
+    "section": "11.3"
+   },
+   "app_idea": "Loop explorer where doubling delta a doubles delta V, and rotating the loop plane changes which components contribute."
+  },
+  {
+   "gem": "Flat plane in polar coordinates as a curvature sanity check: non-zero Gammas, zero Riemann.",
+   "why_effective": "Directly defuses the confusion between coordinate effects and curvature using a familiar space.",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   },
+   "app_idea": "Term-by-term cancellation animation: each of the four Riemann terms appears as a coloured bar that sums to zero for the plane and to a non-zero value for the sphere."
+  },
+  {
+   "gem": "Tidal stretching with constant volume via the trace of the tidal tensor and Poisson's equation.",
+   "why_effective": "Gives the Ricci/Riemann split a tangible physical meaning (shape change versus volume change) before the field equations.",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   },
+   "app_idea": "Deformable particle ball with separate shape and volume gauges, placed in vacuum or inside a uniform-density region."
+  },
+  {
+   "gem": "Curvature components as spring constants in the freely falling frame.",
+   "why_effective": "Maps an abstract four-index object onto the most familiar ODE in physics and gives signs a physical meaning.",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   },
+   "app_idea": "Masses-and-springs model around an observer near a black hole, with spring stiffness driven by 2M/r^3 and M/r^3 as the learner changes r."
+  },
+  {
+   "gem": "Read the Riemann symmetries off the local-inertial-frame form built only from second metric derivatives.",
+   "why_effective": "Replaces tedious general proofs with an inspection argument, using the local flatness theorem productively.",
+   "locator": {
+    "pdf_page": 143,
+    "printed_page": 126,
+    "section": "11.4"
+   },
+   "app_idea": "Index-swap playground: pick a component, swap indices, see sign changes highlighted and the independent-component count tick down toward 20."
+  },
+  {
+   "gem": "Matrix commutator mnemonic for the Riemann formula.",
+   "why_effective": "Compresses a notoriously long formula into a pattern learners can reconstruct, and foreshadows gauge-field strength.",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   },
+   "app_idea": "Riemann calculator that shows Gamma_theta and Gamma_phi as 2x2 matrices for the sphere and evaluates the commutator step by step."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Printed eqn 11.38 lacks the minus sign present in 11.6 and 11.39.",
+   "impact_on_learner": "Sign confusion about whether curvature causes convergence or divergence.",
+   "suggestion": "Always use the component form with the explicit minus sign and check against the Newtonian limit.",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "issue": "Geodesic deviation equation is stated, not derived, and the link to loop transport is only asserted.",
+   "impact_on_learner": "The claim that both tests give the same tensor may feel like a leap of faith.",
+   "suggestion": "Offer a short heuristic: deviation arises because transporting u across to the neighbouring geodesic and along it do not commute, which is the loop argument in disguise.",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  },
+  {
+   "issue": "The loop derivation treats V inside edge integrals loosely and drops terms without stating the order of approximation.",
+   "impact_on_learner": "Careful readers may worry about missing second-order pieces or sign conventions for loop orientation.",
+   "suggestion": "State explicitly that all terms are kept to order delta a delta b and draw the loop orientation, then verify numerically with a small loop on a sphere.",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "issue": "Weak-field example says the listed components are the only non-zero ones, glossing over linear-order truncation and antisymmetric partners.",
+   "impact_on_learner": "Learners may miscount components or think Gamma-Gamma terms vanish exactly.",
+   "suggestion": "Add a caveat: to first order in Phi, and up to R^i_{ttj} = -R^i_{tjt}.",
+   "locator": {
+    "pdf_page": 142,
+    "printed_page": 125,
+    "section": "11.3"
+   }
+  },
+  {
+   "issue": "Choice of Ricci contraction is justified only as constrained by symmetries; other contractions giving zero or minus Ricci are not shown.",
+   "impact_on_learner": "The index position R^mu_{nu mu beta} looks arbitrary and sign conventions across books confuse.",
+   "suggestion": "Demonstrate that contracting the first two indices gives zero by antisymmetry and contracting with the last index gives minus Ricci.",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "issue": "Vielbein transformation and Schwarzschild frame components in §11.7 are quoted from later chapters, and the OCR copy of eqns 11.40-11.42 is garbled.",
+   "impact_on_learner": "Hard to reproduce Example 11.9; index labels are unreadable in the reading copy.",
+   "suggestion": "Present the reconstructed components (t-r: -2M/r^3, t-theta and t-phi: +M/r^3) and show the conversion for one component explicitly.",
+   "locator": {
+    "pdf_page": 146,
+    "printed_page": 129,
+    "section": "11.7"
+   }
+  },
+  {
+   "issue": "No link is made between the sphere's Ricci scalar 2/a^2 and Gaussian curvature 1/a^2, or to angle excess of the triangle in Fig. 11.2.",
+   "impact_on_learner": "Missed opportunity to connect the formal result to the loop picture quantitatively.",
+   "suggestion": "Show that the rotation angle around a loop equals enclosed area times Gaussian curvature, i.e. area times R/2 in 2D.",
+   "locator": {
+    "pdf_page": 145,
+    "printed_page": 128,
+    "section": "11.6"
+   }
+  },
+  {
+   "issue": "Margin note on the Einstein tensor shows a coefficient 1/3 in the reading copy.",
+   "impact_on_learner": "Learners may memorize the wrong trace-reversal coefficient.",
+   "suggestion": "Correct to G_mu nu = R_mu nu - (1/2) g_mu nu R.",
+   "locator": {
+    "pdf_page": 144,
+    "printed_page": 127,
+    "section": "11.5"
+   }
+  },
+  {
+   "issue": "Reading-copy slips in Example 11.1: the stretching equation along z shows the coordinate z where the separation component s^z belongs, and it writes r for the distance that eqn 11.5 calls z.",
+   "impact_on_learner": "It can look as if the tidal acceleration depends on position instead of on the separation, which defeats the point of the tidal tensor.",
+   "suggestion": "Write it as d^2 s^z/dt^2 = +(2GM/z^3) s^z and d^2 s^x/dt^2 = -(GM/z^3) s^x, and say that z and r are the same distance on the axis.",
+   "locator": {
+    "pdf_page": 139,
+    "printed_page": 122,
+    "section": "11.2"
+   }
+  },
+  {
+   "issue": "The volume argument in Example 11.2 is only sketched: the relation between the trace of the tidal matrix and the volume's second time derivative is asserted, not shown (the reading copy also drops the d^2/dt^2 in m s^i = ...), and constant volume also requires the cloud to start with no expansion rate.",
+   "impact_on_learner": "Learners may not see why the sum of eigenvalues controls volume, or may think volume is conserved for any initial motion.",
+   "suggestion": "For a small ellipsoid with semi-axes s_i, V is proportional to s_1 s_2 s_3. Starting from rest, the fractional second derivative of V equals -tr(R^i_j) = -4 pi G rho. Make the release-from-rest condition explicit.",
+   "locator": {
+    "pdf_page": 140,
+    "printed_page": 123,
+    "section": "11.2"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with: 'If you could never leave the surface of a ball, how would you prove it is curved?' Let the learner propose tests before naming geodesic deviation and loop transport.",
+  "Contrast cylinder and sphere early with a paper-wrapping question; check the learner can say why a cylinder is intrinsically flat.",
+  "Order: tides in Newtonian gravity -> equivalence principle forces two-particle tests -> loop transport derivation -> weak-field check -> symmetries -> Ricci -> sphere example -> free-fall deviation with Schwarzschild.",
+  "Before the loop derivation, ask the learner to predict what the change of V should be proportional to (V, delta a, delta b) and why that makes it a tensor.",
+  "Check for understanding: 'The plane in polar coordinates has non-zero Christoffel symbols. Is it curved? How would you prove it?'",
+  "Check: 'Why does a falling cloud keep its volume, and when would it not?' Expect the trace of the tidal tensor and enclosed density.",
+  "When learners ask why Ricci and not Riemann enters the field equations, point to rank-two tensors on the matter side and the volume-shrinking meaning of Ricci; warn that Ricci = 0 does not mean flat.",
+  "Watch for sign and index-order confusion; fix a convention (MTW, as in GA) and have the learner verify with the sphere result R = 2/a^2 > 0.",
+  "Use the spring-constant picture to interpret signs: a negative R^i_{0i0} component means neighbouring particles separate along that direction.",
+  "Common learner question: 'How many numbers describe curvature?' Answer with 0, 1, 6, 20 and relate 1 in 2D to Gaussian curvature.",
+  "If the learner struggles with the matrix mnemonic, compute Gamma_theta and Gamma_phi for the sphere as explicit 2x2 matrices and evaluate the commutator together."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Fig. 11.2 visual description rewritten to match the drawing: the loop starts at the lower-left corner, arrows are tangent on the bottom edge and stick out sideways on the return edge, so the vector comes back turned about a quarter turn. The old text wrongly said the arrows kept their orientation relative to the path.",
+   "Fig. 11.3(a) visual description corrected: the arrows sit at the top, lower-left, lower-right and below the circle; the unsupported claim that the bottom arrow is longest was removed.",
+   "Fig. 11.5 visual description corrected: e_2 is drawn inside the parallelogram next to the right-hand edge, not at corner B, and delta b labels that edge.",
+   "Holonomy concept: added a note that the sign of delta V depends on loop orientation (eqn 11.16 goes along e_nu first).",
+   "Volume-preservation concept: definition reworded to state the release-from-rest condition and to stop tracking the source phrasing.",
+   "Added seven missing margin notes (7, 8, 10, 15, 21, 22, 26) and sorted margin notes by page.",
+   "Added a gap for the Example 11.1 reading-copy slips (z written where s^z belongs; r and z used for the same distance).",
+   "Added a gap noting that the Example 11.2 volume argument is only sketched, with the ellipsoid V proportional to s1 s2 s3 argument and the at-rest condition spelled out.",
+   "Reworded prose that followed the source too closely (margin notes on Euclid's postulates and on the 1D/ant case; the notes on the bold Ricci convention)."
+  ],
+  "residual_concerns": [
+   "Eqns 11.40-11.42 and the vielbein formula are OCR-damaged in the reading copy. I checked the reconstructed Schwarzschild frame components independently from the Exercise 11.2 coordinate components (-2M/r^3 for t-r, +2M/r^3 for theta-phi, +M/r^3 for t-theta and t-phi, -M/r^3 for r-theta and r-phi) and they agree, but the index labels have not been compared against the printed page image.",
+   "Margin note 6 (the curvature scale) is garbled; the dossier's paraphrase as roughly the inverse square root of a frame component is a best guess.",
+   "The 1/3 coefficient in the Einstein-tensor margin note is probably an OCR slip rather than a printing error; the dossier gives the correct 1/2 either way.",
+   "The assumed_background chapter pointers for local flatness (ch6-ch8) were not checked against those chapters."
+  ],
+  "coverage": {
+   "toc_sections": 7,
+   "sections": 8,
+   "inventory_figures": 6,
+   "figures": 6,
+   "inventory_examples": 9,
+   "worked_examples": 9,
+   "concepts": 36,
+   "key_equations": 43,
+   "locators_checked": 45,
+   "locators_wrong": 0
+  }
+ }
+}

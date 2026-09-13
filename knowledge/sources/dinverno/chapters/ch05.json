@@ -1,0 +1,3808 @@
+{
+ "book": "dinverno",
+ "unit_id": "ch05",
+ "title": "Tensor algebra",
+ "part": "B: The Formalism of Tensors",
+ "printed_pages": [
+  62,
+  84
+ ],
+ "pdf_pages": [
+  77,
+  99
+ ],
+ "one_line_summary": "Opens Part B by building tensors from how their components respond to a change of coordinates: an informal manifold with overlapping coordinate patches, the Jacobian matrix, the summation convention, contravariant vectors modelled on curve tangents, covariant vectors modelled on gradients, mixed tensors of type (p,q), tensor fields and the pointwise algebra (sum, symmetrization, outer product, contraction), and finally a glimpse of the index-free view in which a vector field is a directional-derivative operator, leading to tangent spaces and the Lie bracket.",
+ "role_in_book": "Part A developed special relativity with the k-calculus and relativistic mechanics without tensors. Before the principles of general relativity can be stated (the principle of general covariance in ch09 §9.5 demands tensorial equations), Part B makes a three-chapter mathematical detour, ch05-ch07. This chapter is its algebraic base: everything here is pointwise and needs neither a connection nor a metric. Chapter 6 adds differentiation (Lie derivative, affine connection, curvature, metric) and Chapter 7 adds densities, integration, variational methods and isometries. Part C then opens with Chapter 8, which restates special relativity in the new language before the principles of GR in Chapter 9. The Lie bracket that closes this chapter returns at once as the Lie derivative of a vector field in §6.2 and later in the treatment of isometries (§7.7).",
+ "assumed_background": [
+  {
+   "topic": "Partial derivatives, the multivariable chain rule and the total differential of a function of several variables",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Parametric equations of curves and surfaces in Euclidean 2- and 3-space; gradient of a scalar as a normal to its level surfaces",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Matrices, matrix products, determinants and the product rule det(AB) = det A det B",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Vector spaces, bases and (for §5.10) the notion of a dual vector space",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Inverse function theorem (invertibility of a map with non-zero Jacobian), stated without proof",
+   "source": "advanced-math",
+   "where": null
+  },
+  {
+   "topic": "Equality of mixed second partial derivatives for smooth functions",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Vector notation in Newtonian mechanics (one vector equation standing for three component equations)",
+   "source": "undergrad-mechanics",
+   "where": "DIV ch04 §4.1"
+  },
+  {
+   "topic": "Polar and spherical polar coordinates in the plane and in 3-space",
+   "source": "school-math",
+   "where": null
+  },
+  {
+   "topic": "Lorentz transformations as linear changes of inertial coordinates (useful context, not used explicitly)",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch03"
+  }
+ ],
+ "learning_objectives": [
+  "Reader can explain, informally, what a manifold is, why a single non-degenerate chart may not exist (the 2-sphere), and what coordinate patches and an atlas are.",
+  "Reader can describe m-dimensional subspaces of an n-manifold either parametrically with m parameters or by n - m constraint equations, and recognise a hypersurface as a single constraint f(x) = 0.",
+  "Reader can write the transformation matrix and Jacobian for a change of coordinates, and use J = 1/J' and the inverse transformation.",
+  "Reader can apply the Einstein summation convention correctly, distinguishing free from dummy indices and renaming dummies safely.",
+  "Reader can derive the transformation law of a curve's tangent components via the chain rule and use it as the definition of a contravariant vector.",
+  "Reader can derive the transformation law of gradient components and use it as the definition of a covariant vector, explaining why it involves the inverse matrix.",
+  "Reader can write the transformation law for any tensor of type (p,q) and decide whether a given indexed quantity is a tensor by testing its transformation.",
+  "Reader can prove that a tensor equation valid in one coordinate system is valid in all, and explain why this is the reason physics is written in tensors.",
+  "Reader can form sums, symmetric and anti-symmetric parts, outer products and contractions, count independent components of symmetric and anti-symmetric rank-2 tensors, and show that X^a Y_a is invariant.",
+  "Reader can interpret a vector field as the operator X^a ∂_a, show that this operator is coordinate independent, and identify the coordinate basis of the tangent space T_P M and its dual T*_P M.",
+  "Reader can compute the components of the Lie bracket [X,Y] and verify anti-symmetry and the Jacobi identity, distinguishing an identity from an equation."
+ ],
+ "teaching_approach": {
+  "summary": "A deliberately practical, components-first chapter that tells the reader up front it will emphasise what one does with tensors rather than what they are, and justifies the index route (less background, handles many-index contractions, actual calculations need coordinates anyway, closer to Einstein's coordinate-independence idea, and a stepping stone to Penrose's abstract indices). The core method is 'prototype, then definition': a familiar geometric object (the tangent to a curve; the gradient of a level-surface function) is expressed in two coordinate systems, the chain rule yields how its components change, and that law is promoted to the definition of the whole class. Everything else is built by pattern extension (more indices, mixed types), each claim of tensor character is checked by pushing transformation matrices through and collapsing them with the Kronecker delta, and the chapter ends by showing the index-free reading of a vector field so that the reader sees what the component machinery is protecting. Work in n dimensions throughout, few pictures, many small '(check)' and '(exercise)' prompts, and exercises declared integral to the Part.",
+  "style_tags": [
+   "components-first",
+   "derivation-heavy",
+   "computational-recipe",
+   "index-free-abstract"
+  ],
+  "narrative_arc": [
+   "Motivation by analogy: vector notation made Newtonian physics compact and revealing; relativity needs the tensor equivalent.",
+   "Declare the pedagogical choice: index/transformation-law approach rather than index-free, with reasons and a pointer to geometric texts later.",
+   "Manifold as locally Euclidean: sphere versus plane, local versus global; charts, degenerate coordinates (polar origin), sphere needs two charts, patches and atlas.",
+   "Curves, m-surfaces and hypersurfaces in parametric and constraint form.",
+   "Coordinate transformations viewed passively; transformation matrix, Jacobian, inverse transformation, smoothness.",
+   "Total differential leads to the summation convention, free versus dummy indices, Kronecker delta.",
+   "Prototype 1: tangent vector components change by the Jacobian matrix, which becomes the contravariant law; extend to rank 2 and scalars.",
+   "Prototype 2: gradient components change by the inverse matrix, which becomes the covariant law; extend to rank 2; note that dx^a but not x^a is tensorial.",
+   "Mixed tensors and type (p,q); the payoff: a tensor equation in one chart holds in all charts.",
+   "Tensor fields and smoothness; pointwise algebraic operations: sums, symmetry, (anti)symmetrization, outer product, contraction.",
+   "Check: vector-covector contraction is a scalar, revealing duality; full contraction gives measurable invariants (Einstein's motivation).",
+   "Index-free glimpse: vector field as directional derivative, coordinate independence of X^a ∂_a, tangent and cotangent spaces.",
+   "Lie bracket: second derivatives cancel so the commutator is again a vector field; anti-symmetry and the Jacobi identity; what 'identically zero' means."
+  ],
+  "signature_moves": [
+   "Prototype-then-definition: derive a transformation law for a concrete geometric object, then define a whole class of objects by that law.",
+   "Pairs the two natural ways of producing a vector in R^3 (tangent to a curve, gradient of a function) with the two index positions.",
+   "Proves invariance claims by inserting the transformation matrices and collapsing them with the chain-rule identity for the Kronecker delta, written as displayed step-by-step chains.",
+   "Works in arbitrary dimension n from the start, arguing the generality costs nothing.",
+   "Separates the invariant geometric object (written γ̇(0) or dφ) from its component list in a given chart, and repeats this distinction when switching to the index-free view.",
+   "Frequent '(check)' and '(exercise)' prompts that push routine verifications (component counts, tensor character of products and contractions) onto the reader.",
+   "Small mnemonics: 'co goes below' for index position and cycle-right / swap-last-two for the rank-3 alternating sum.",
+   "Ends a technical chapter with a meta-mathematical clarification (equation versus identity) using a school-algebra example."
+  ]
+ },
+ "sections": [
+  {
+   "number": "5.1",
+   "title": "Introduction",
+   "printed_page": 65,
+   "pdf_page": 80,
+   "summary": "Argues that tensors do for relativity what vectors do for Newtonian mechanics: compress sets of equations, ease problem solving and expose structure. Compares the index-free and index-based approaches and chooses indices defined by transformation behaviour, for speed and practicality, while recommending a geometric treatment later. Stresses that the Part B exercises are essential.",
+   "concepts": [
+    "tensor (transformation-law definition)",
+    "index-free (coordinate-free) approach",
+    "abstract index notation"
+   ],
+   "key_moves": [
+    "Analogy: vectors in Newtonian theory are to tensors in relativity as a compact, structure-revealing language.",
+    "Lists costs of the index-free route: heavier prerequisites, awkward many-index contractions, and real calculations still need adapted coordinates.",
+    "Links the index approach to Einstein's demand that laws not depend on coordinate choices and to Penrose's abstract indices."
+   ]
+  },
+  {
+   "number": "5.2",
+   "title": "Manifolds and coordinates",
+   "printed_page": 66,
+   "pdf_page": 81,
+   "summary": "Treats an n-manifold informally as a set of points carrying n real coordinates that near each point resembles a piece of R^n, contrasting local similarity of the sphere and plane with their global difference (compactness). A chart may be degenerate at some points (polar angle at the origin), avoidable in the plane but not on the sphere, which needs at least two charts. Coordinate patches, atlases and smooth transition maps on overlaps are introduced, and the behaviour of quantities under these transitions is named as the heart of tensor calculus.",
+   "concepts": [
+    "differentiable manifold",
+    "local versus global (topological) properties",
+    "coordinate degeneracy",
+    "coordinate patch",
+    "atlas"
+   ],
+   "key_moves": [
+    "Small piece of S^2 looks like a small piece of R^2 if metric properties are ignored; compactness is global.",
+    "Coordinates are written with superscripts, with the reason deferred.",
+    "Polar coordinates fail at the origin (φ undefined) but Cartesian ones do not: a chart artefact, not a feature of the plane.",
+    "No single non-degenerate chart covers S^2; two suffice (Fig. 5.2).",
+    "Patches overlap and are related by differentiable transformations; an atlas is a covering set of patches (Fig. 5.3)."
+   ]
+  },
+  {
+   "number": "5.3",
+   "title": "Curves and surfaces",
+   "printed_page": 67,
+   "pdf_page": 82,
+   "summary": "Defines curves by n functions of one parameter and m-dimensional subspaces by n functions of m parameters. For a hypersurface (m = n - 1) the parameters can be eliminated to leave a single relation f(x) = 0. The dual view counts degrees of freedom: a general point has n, and restricting it to an m-subspace imposes n - m independent constraints.",
+   "concepts": [
+    "parametric curve",
+    "subspace and hypersurface",
+    "parametric versus constraint representation"
+   ],
+   "key_moves": [
+    "Degrees of freedom equal number of parameters: 1 for a curve, m for an m-surface.",
+    "Eliminating n - 1 parameters from n equations leaves one constraint for a hypersurface.",
+    "Equivalent constraint description: n - m equations f^i(x) = 0."
+   ]
+  },
+  {
+   "number": "5.4",
+   "title": "Transformation of coordinates",
+   "printed_page": 68,
+   "pdf_page": 83,
+   "summary": "Introduces a passive change of coordinates x'^a = x'^a(x), its n×n matrix of partial derivatives and its Jacobian determinant. A non-zero Jacobian allows inversion (inverse function theorem) with J = 1/J'. Smooth transition functions define a smooth manifold. The total differential of the new coordinates motivates the summation convention, the free/dummy index distinction and the Kronecker delta, with the chain-rule identity that the derivative of a coordinate with respect to another coordinate of the same system is δ.",
+   "concepts": [
+    "passive coordinate transformation",
+    "transformation matrix",
+    "Jacobian determinant",
+    "smooth manifold",
+    "Einstein summation convention",
+    "free and dummy indices",
+    "Kronecker delta"
+   ],
+   "key_moves": [
+    "Notational economy: x'^a = f^a(x) shortened to x'^a = x'^a(x).",
+    "Non-vanishing J' plus inverse function theorem gives x^a = x^a(x'); determinant product rule gives J J' = 1.",
+    "Surface differential dz = f_x dx + f_y dy used as the template for dx'^a.",
+    "Explicit Σ replaced by the convention that a repeated index is summed; dummy indices can be relabelled with any unused letter.",
+    "∂x^a/∂x^b = δ^a_b in either system."
+   ]
+  },
+  {
+   "number": "5.5",
+   "title": "Contravariant tensors",
+   "printed_page": 71,
+   "pdf_page": 86,
+   "summary": "Takes a curve through P, computes its tangent components in two charts, and uses the chain rule to show the new components are the old ones multiplied by the matrix ∂x'^a/∂x^b at P. That law is then adopted as the definition of a contravariant vector. The geometric tangent γ̇(0) is separated from its component lists. The definition is extended to rank 2 (two matrix factors; example: outer product of two vectors) and higher, and to rank 0, the scalar, which is unchanged.",
+   "concepts": [
+    "tangent vector to a curve",
+    "contravariant vector",
+    "contravariant tensor of rank 2",
+    "scalar invariant",
+    "geometric object versus components"
+   ],
+   "key_moves": [
+    "Tangent components T^a = dx^a/du at u = 0 (Fig. 5.4).",
+    "Same curve in new chart: x'^a(u) = x'^a(x(u)), differentiate with the chain rule.",
+    "Promote the resulting law (5.17) to a definition (5.18).",
+    "Distinguish the arrow γ̇(0) from the numbers [dx^a/du]_P and [dx'^a/du]_P (Fig. 5.5).",
+    "Rank-2 law with two factors; scalar φ' = φ as rank 0."
+   ]
+  },
+  {
+   "number": "5.6",
+   "title": "Covariant tensors",
+   "printed_page": 72,
+   "pdf_page": 87,
+   "summary": "Uses the gradient of a scalar φ, whose level set φ = k is a hypersurface through P, as the second prototype. Writing φ as a function of the new coordinates through the old ones and applying the chain rule shows the gradient components transform with the inverse matrix ∂x^b/∂x'^a. That law defines a covariant vector (co-vector), written with a lower index, and is extended to rank 2. The mnemonic that 'co' sits below is given, and it is noted that coordinate differentials, not the coordinates themselves, are tensorial, which explains the upper index on x^a.",
+   "concepts": [
+    "gradient covector",
+    "covariant vector",
+    "covariant tensor of rank 2",
+    "index placement convention"
+   ],
+   "key_moves": [
+    "In R^3 grad φ is normal to φ = k; claim carried over to general manifolds with N_a = ∂φ/∂x^a at P.",
+    "φ = φ(x^a(x')) differentiated with respect to x'^b gives (5.24).",
+    "Compare (5.25) with (5.17): inverse matrix instead of forward matrix.",
+    "Index-free name dφ for the geometric co-vector.",
+    "dx^a transforms contravariantly by (5.10), so coordinates carry upper indices even though x^a itself is not a vector."
+   ]
+  },
+  {
+   "number": "5.7",
+   "title": "Mixed tensors",
+   "printed_page": 74,
+   "pdf_page": 89,
+   "summary": "Combines both kinds of factors to define mixed tensors, such as one upper and two lower indices, and names the type or valence (p,q). Then gives the central reason tensors matter: if two tensors of the same type agree componentwise in one chart, multiplying both sides by the transformation matrices shows they agree in every chart, so tensor equations are coordinate independent.",
+   "concepts": [
+    "mixed tensor",
+    "type (valence) of a tensor",
+    "coordinate independence of tensor equations"
+   ],
+   "key_moves": [
+    "Transformation law (5.28) uses one forward factor per upper index and one inverse factor per lower index.",
+    "From X_ab = Y_ab, contract both sides with two inverse matrices to get X'_ab = Y'_ab.",
+    "Coordinate systems become a convenience; tensor statements are chart independent."
+   ]
+  },
+  {
+   "number": "5.8",
+   "title": "Tensor fields",
+   "printed_page": 75,
+   "pdf_page": 90,
+   "summary": "Distinguishes a tensor at a point from a tensor field assigning a tensor of fixed type to every point of a region, defines continuity, differentiability and smoothness (C^∞) through the components, and writes the field transformation law with old components as functions of old coordinates and new ones of new coordinates. Announces that 'tensor' will usually mean 'tensor field' from now on.",
+   "concepts": [
+    "tensor field",
+    "smooth tensor field"
+   ],
+   "key_moves": [
+    "Analogy with a fixed vector versus a vector field in vector analysis.",
+    "Contravariant vector field = n functions on a region, smooth if all are C^∞.",
+    "Law (5.30) evaluated pointwise, relating X'^a(x') to X^b(x) at the same point P."
+   ]
+  },
+  {
+   "number": "5.9",
+   "title": "Elementary operations with tensors",
+   "printed_page": 75,
+   "pdf_page": 90,
+   "summary": "Surveys pointwise tensorial operations. Tensors of equal type can be added, subtracted and scaled. Symmetry and anti-symmetry of a rank-2 tensor are chart independent, with n(n+1)/2 and n(n-1)/2 independent components; round and square brackets denote symmetric and anti-symmetric parts with a 1/r! weight, and the rank-3 alternating sum is written out with a mnemonic. Outer products add types, contraction of an upper with a lower index lowers the type by (1,1), and can be done by multiplying with δ. The contraction X^a Y_a is shown to be a scalar, exhibiting co-vectors as the dual of vectors; fully contracting a (p,p) tensor gives invariants, which the authors cite as Einstein's reason for adopting tensors.",
+   "concepts": [
+    "tensorial operation",
+    "addition and scalar multiplication of tensors",
+    "symmetric and anti-symmetric tensors",
+    "symmetrization and anti-symmetrization brackets",
+    "tensor product",
+    "contraction",
+    "invariance of vector-covector contraction",
+    "dual vector space"
+   ],
+   "key_moves": [
+    "Tensor character tested directly from the transformation law.",
+    "Component counting by analogy with symmetric matrices of order n.",
+    "X_[abc] expansion: positive terms by cycling to the right, negative by swapping the last two indices.",
+    "Outer product: type (p1,q1)⊗(p2,q2) gives (p1+p2, q1+q2).",
+    "Chain (5.37): forward and inverse matrices multiply to δ, leaving X^c Y_c.",
+    "Contraction on one upper and one lower index yields type (p-1,q-1); δ can perform it."
+   ]
+  },
+  {
+   "number": "5.10",
+   "title": "Index-free interpretation of contravariant vector fields",
+   "printed_page": 78,
+   "pdf_page": 93,
+   "summary": "Shows the geometric object behind vector components by treating a vector field as an operator taking functions to functions: X = X^a ∂_a, the directional derivative along X^a. Using the vector law and the chain-rule form of δ, the operator is shown to be identical in any chart. The partial-derivative operators at P form a basis of the tangent space T_P M, which is generally distinct from the manifold, so arrows in diagrams really live in T_P M; co-vectors form the dual cotangent space, and general tensors are built from tensor products or multilinear maps. Finally the commutator [X,Y] = XY - YX is computed: second derivatives cancel, so it is again a vector field with components X^b∂_bY^a - Y^b∂_bX^a, obeying [X,X] ≡ 0, anti-symmetry and the Jacobi identity. The difference between an equation and an identity is explained.",
+   "concepts": [
+    "vector field as directional derivative operator",
+    "coordinate basis",
+    "tangent space",
+    "cotangent space",
+    "multilinear-map definition of tensors",
+    "Lie bracket",
+    "Jacobi identity",
+    "identity versus equation"
+   ],
+   "key_moves": [
+    "Define ∂_a := ∂/∂x^a and X f = X^a ∂_a f.",
+    "Write δ^a_b = (∂x^a/∂x'^c)(∂x'^c/∂x^b) via composition of coordinate maps (5.41).",
+    "Show X'^a ∂'_a = X^a ∂_a by inserting transformation laws for components and derivatives.",
+    "Any vector at P is a linear combination of the [∂/∂x^a]_P, giving T_P M (Fig. 5.6).",
+    "Expand [X,Y]f with the product rule; symmetric second-derivative terms cancel.",
+    "Anti-commutativity and Jacobi identity left as exercises; 'identically zero' means all terms cancel pairwise."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Exercises",
+   "printed_page": 81,
+   "pdf_page": 96,
+   "summary": "Seventeen exercises keyed to sections: parametric and constraint forms of circles and spheres, Cartesian to polar and spherical Jacobians, dummy-index manipulation and Kronecker delta identities, tensor character of outer products, sums, symmetry and contractions, non-tensorial second derivatives, the trace of δ, Lie bracket identities, and an extended plane-polar exercise turning vector fields into operators and computing their brackets.",
+   "concepts": [
+    "Jacobian determinant",
+    "Kronecker delta",
+    "contraction",
+    "Lie bracket",
+    "symmetric and anti-symmetric tensors"
+   ],
+   "key_moves": [
+    "Exercises 5.6 and 5.17 form a running Cartesian-versus-polar case study that makes the abstract laws concrete.",
+    "Exercise 5.9 plants the need for a connection in ch06."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Further reading",
+   "printed_page": 83,
+   "pdf_page": 98,
+   "summary": "Justifies the index approach again, cites Synge and Schild as a main source, recommends Schutz (1985) as a companion at similar level and Schutz (1980), Wald, Penrose's abstract indices and Penrose-Rindler for more geometric depth, admits the omission of differential forms (pointing to Hughston and Tod), and notes that sign conventions follow the time-like convention of Landau and Lifshitz, with MTW's inside cover as a convention table.",
+   "concepts": [
+    "abstract index notation",
+    "index-free (coordinate-free) approach"
+   ],
+   "key_moves": [
+    "Positions the book's tensor treatment relative to classical and modern geometric texts.",
+    "Flags the missing topic (differential forms) and the adopted sign convention family."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "tensor (transformation-law definition)",
+   "aliases": [
+    "tensor",
+    "tensor at a point"
+   ],
+   "kind": "definition",
+   "definition": "A tensor of type (p,q) at a point P is an assignment, to every coordinate system around P, of n^(p+q) numbers T^{a...}_{b...} such that the numbers in any two systems are related by one factor of ∂x'/∂x for each upper index and one factor of ∂x/∂x' for each lower index, evaluated at P.",
+   "how_introduced": "Chosen explicitly over the index-free definition in §5.1 for practicality; built up in §§5.5-5.7 from two geometric prototypes and then generalized by pattern.",
+   "depth": "core",
+   "prerequisites": [
+    "passive coordinate transformation",
+    "transformation matrix",
+    "Einstein summation convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 80,
+     "printed_page": 65,
+     "section": "5.1"
+    },
+    {
+     "pdf_page": 86,
+     "printed_page": 71,
+     "section": "5.5"
+    },
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.7"
+    }
+   ],
+   "formulas": [
+    "X'^{a}{}_{bc} = \\frac{\\partial x'^a}{\\partial x^d}\\frac{\\partial x^e}{\\partial x'^b}\\frac{\\partial x^f}{\\partial x'^c} X^{d}{}_{ef}"
+   ],
+   "notes": "The book stresses what one does with tensors over what they are; the geometric object appears only in §5.10."
+  },
+  {
+   "name": "index-free (coordinate-free) approach",
+   "aliases": [
+    "abstract approach",
+    "coordinate-free differential geometry"
+   ],
+   "kind": "technique",
+   "definition": "Treating tensors as geometric objects defined on the manifold independently of charts (vectors as derivations, covectors as dual elements, tensors as multilinear maps), so coordinate independence is built in.",
+   "how_introduced": "Weighed against the index approach in §5.1 (deeper global insight but more prerequisites and clumsy for heavy contractions); sampled in §5.10 for vector fields.",
+   "depth": "introduced",
+   "prerequisites": [
+    "tensor (transformation-law definition)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 80,
+     "printed_page": 65,
+     "section": "5.1"
+    },
+    {
+     "pdf_page": 93,
+     "printed_page": 78,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [],
+   "notes": "Not used later in the book; Wald (1984) cited for details."
+  },
+  {
+   "name": "abstract index notation",
+   "aliases": [
+    "Penrose abstract indices"
+   ],
+   "kind": "convention",
+   "definition": "Penrose's notation in which index letters mark the type and slot structure of a tensor without referring to any coordinate system, so index calculations are coordinate-free.",
+   "how_introduced": "Mentioned in §5.1 as a quick route from the index approach to a geometric one, and recommended in Further reading.",
+   "depth": "mention",
+   "prerequisites": [
+    "tensor (transformation-law definition)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 80,
+     "printed_page": 65,
+     "section": "5.1"
+    },
+    {
+     "pdf_page": 98,
+     "printed_page": 83,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "differentiable manifold",
+   "aliases": [
+    "manifold",
+    "n-dimensional manifold"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A space of points each of which has a neighbourhood that can be labelled smoothly and one-to-one by n real coordinates, with overlapping labellings related by smooth invertible maps; locally it resembles R^n though globally it may differ.",
+   "how_introduced": "Informally: compare a small piece of a sphere with a small piece of a plane; then taken as a set of points carrying n coordinates, with the caveat that more than one chart may be needed.",
+   "depth": "introduced",
+   "prerequisites": [
+    "coordinate patch"
+   ],
+   "locators": [
+    {
+     "pdf_page": 81,
+     "printed_page": 66,
+     "section": "5.2"
+    }
+   ],
+   "formulas": [],
+   "notes": "No precise definition (no Hausdorff or second-countability conditions); smoothness of transition maps is added in §5.4."
+  },
+  {
+   "name": "local versus global (topological) properties",
+   "aliases": [
+    "topology of a manifold",
+    "compactness"
+   ],
+   "kind": "definition",
+   "definition": "Local properties are those visible in an arbitrarily small neighbourhood (every manifold looks like R^n there); global properties such as compactness concern the manifold as a whole and can distinguish spaces that are locally identical, like S^2 and R^2.",
+   "how_introduced": "Sphere is finite (compact) while the plane extends to infinity, yet tiny patches of each look alike; the authors promise topology will matter for solutions of Einstein's equations.",
+   "depth": "mention",
+   "prerequisites": [
+    "differentiable manifold"
+   ],
+   "locators": [
+    {
+     "pdf_page": 81,
+     "printed_page": 66,
+     "section": "5.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "coordinate degeneracy",
+   "aliases": [
+    "degenerate coordinate system",
+    "coordinate singularity"
+   ],
+   "kind": "definition",
+   "definition": "A point where a coordinate system fails to assign a unique set of n numbers (or fails to be invertible), such as the origin in plane polar coordinates where the angle is undefined; it reflects the chart, not the geometry, if another chart is regular there.",
+   "how_introduced": "Plane polar coordinates (Fig. 5.1) degenerate at the origin, cured by Cartesian coordinates; on S^2 no single chart can avoid degeneracy.",
+   "depth": "introduced",
+   "prerequisites": [
+    "differentiable manifold"
+   ],
+   "locators": [
+    {
+     "pdf_page": 81,
+     "printed_page": 66,
+     "section": "5.2"
+    },
+    {
+     "pdf_page": 82,
+     "printed_page": 67,
+     "section": "5.2"
+    }
+   ],
+   "formulas": [],
+   "notes": "Seeds the later distinction between coordinate and physical singularities (Schwarzschild horizon)."
+  },
+  {
+   "name": "coordinate patch",
+   "aliases": [
+    "chart",
+    "local coordinate system"
+   ],
+   "kind": "definition",
+   "definition": "A region of the manifold together with a non-degenerate coordinate system covering it.",
+   "how_introduced": "Needed because a single non-degenerate system may not cover the whole manifold; drawn schematically as overlapping hatched regions (Fig. 5.3).",
+   "depth": "introduced",
+   "prerequisites": [
+    "coordinate degeneracy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 81,
+     "printed_page": 66,
+     "section": "5.2"
+    },
+    {
+     "pdf_page": 82,
+     "printed_page": 67,
+     "section": "5.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "atlas",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "A collection of coordinate patches whose regions together cover the whole manifold, with differentiable coordinate transformations on each overlap.",
+   "how_introduced": "Defined right after coordinate patches; the S^2 case needs at least two patches overlapping at the equator (Fig. 5.2).",
+   "depth": "introduced",
+   "prerequisites": [
+    "coordinate patch"
+   ],
+   "locators": [
+    {
+     "pdf_page": 81,
+     "printed_page": 66,
+     "section": "5.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "parametric curve",
+   "aliases": [
+    "curve",
+    "parametrized curve"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A one-parameter family of points given in coordinates by n functions x^a(u) of a single parameter u.",
+   "how_introduced": "One degree of freedom means one parameter, exactly as in Euclidean 2- and 3-space; later used to define tangent vectors.",
+   "depth": "introduced",
+   "prerequisites": [
+    "differentiable manifold"
+   ],
+   "locators": [
+    {
+     "pdf_page": 82,
+     "printed_page": 67,
+     "section": "5.3"
+    }
+   ],
+   "formulas": [
+    "x^a = x^a(u)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "subspace and hypersurface",
+   "aliases": [
+    "m-dimensional surface",
+    "hypersurface",
+    "submanifold"
+   ],
+   "kind": "mathematical-object",
+   "definition": "An m-dimensional subspace (m < n) is a set of points given by n functions of m parameters, or equivalently by n - m independent constraint equations; a hypersurface is the case m = n - 1, describable by one equation f(x) = 0.",
+   "how_introduced": "By counting degrees of freedom: parameters for the subspace, constraints for its codimension; for a hypersurface the n - 1 parameters are eliminated from n equations.",
+   "depth": "introduced",
+   "prerequisites": [
+    "parametric curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 82,
+     "printed_page": 67,
+     "section": "5.3"
+    },
+    {
+     "pdf_page": 83,
+     "printed_page": 68,
+     "section": "5.3"
+    }
+   ],
+   "formulas": [
+    "x^a = x^a(u^1,\\dots,u^m)",
+    "f(x^1,\\dots,x^n)=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "parametric versus constraint representation",
+   "aliases": [
+    "implicit versus parametric form"
+   ],
+   "kind": "technique",
+   "definition": "The two equivalent ways of describing a subspace: listing coordinates as functions of intrinsic parameters, or listing equations that the coordinates must satisfy.",
+   "how_introduced": "Presented as two viewpoints on degrees of freedom; practised in Exercise 5.1 on a circle and sphere.",
+   "depth": "introduced",
+   "prerequisites": [
+    "subspace and hypersurface"
+   ],
+   "locators": [
+    {
+     "pdf_page": 83,
+     "printed_page": 68,
+     "section": "5.3"
+    },
+    {
+     "pdf_page": 96,
+     "printed_page": 81,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "passive coordinate transformation",
+   "aliases": [
+    "change of coordinates",
+    "coordinate transformation"
+   ],
+   "kind": "operation",
+   "definition": "A relabelling of the same points of the manifold by new coordinates x'^a = x'^a(x), given by n single-valued differentiable functions; points stay fixed, only their names change.",
+   "how_introduced": "Needed because tensor statements must hold in all charts; explicitly labelled 'passive' in contrast to the active point-transformation view used later for the Lie derivative.",
+   "depth": "core",
+   "prerequisites": [
+    "coordinate patch"
+   ],
+   "locators": [
+    {
+     "pdf_page": 83,
+     "printed_page": 68,
+     "section": "5.4"
+    },
+    {
+     "pdf_page": 84,
+     "printed_page": 69,
+     "section": "5.4"
+    }
+   ],
+   "formulas": [
+    "x'^a = x'^a(x)"
+   ],
+   "notes": "DIV ch06 §6.2 switches to the active interpretation."
+  },
+  {
+   "name": "transformation matrix",
+   "aliases": [
+    "Jacobian matrix",
+    "∂x'^a/∂x^b"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The n×n matrix of first partial derivatives ∂x'^a/∂x^b of new coordinates with respect to old, evaluated at a point; its inverse is ∂x^a/∂x'^b.",
+   "how_introduced": "Obtained by differentiating each new coordinate function with respect to each old coordinate; written out in full once, then used in every transformation law.",
+   "depth": "core",
+   "prerequisites": [
+    "passive coordinate transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 84,
+     "printed_page": 69,
+     "section": "5.4"
+    }
+   ],
+   "formulas": [
+    "\\left[\\frac{\\partial x'^a}{\\partial x^b}\\right]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Jacobian determinant",
+   "aliases": [
+    "Jacobian"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The determinant J' = |∂x'^a/∂x^b| of the transformation matrix; where it is non-zero the transformation is locally invertible, and the inverse transformation's Jacobian is J = 1/J'.",
+   "how_introduced": "Assumed non-zero on some coordinate range so the inverse function theorem supplies x^a(x'); J J' = 1 from the product rule for determinants.",
+   "depth": "developed",
+   "prerequisites": [
+    "transformation matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 84,
+     "printed_page": 69,
+     "section": "5.4"
+    }
+   ],
+   "formulas": [
+    "J' = \\left|\\frac{\\partial x'^a}{\\partial x^b}\\right|",
+    "J = 1/J'"
+   ],
+   "notes": "Reappears in DIV ch07 §7.1 as the weight factor of tensor densities."
+  },
+  {
+   "name": "smooth manifold",
+   "aliases": [
+    "C^∞ manifold"
+   ],
+   "kind": "definition",
+   "definition": "A manifold whose coordinate transformations and their inverses are infinitely differentiable.",
+   "how_introduced": "Adopted as a standing assumption for convenience right after the inverse transformation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "passive coordinate transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 84,
+     "printed_page": 69,
+     "section": "5.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Einstein summation convention",
+   "aliases": [
+    "summation convention"
+   ],
+   "kind": "convention",
+   "definition": "A repeated index letter in a term implies summation over its range 1..n, so that the explicit Σ is dropped.",
+   "how_introduced": "Arrived at by rewriting the total differential of x'^a first with an explicit sum and then without it.",
+   "depth": "core",
+   "prerequisites": [
+    "transformation matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 85,
+     "printed_page": 70,
+     "section": "5.4"
+    }
+   ],
+   "formulas": [
+    "dx'^a = \\frac{\\partial x'^a}{\\partial x^b}\\,dx^b"
+   ],
+   "notes": "The book states it for any repeated index; in practice every repeated pair in the chapter is one up and one down."
+  },
+  {
+   "name": "free and dummy indices",
+   "aliases": [
+    "bound index",
+    "dummy index",
+    "free index"
+   ],
+   "kind": "convention",
+   "definition": "A free index appears once in each term and may take any value, giving one equation per value; a dummy (bound) index is repeated and summed, and may be renamed to any letter not already in use.",
+   "how_introduced": "Illustrated on (5.11), with the relabelling b → c shown explicitly.",
+   "depth": "core",
+   "prerequisites": [
+    "Einstein summation convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 85,
+     "printed_page": 70,
+     "section": "5.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Kronecker delta",
+   "aliases": [
+    "δ^a_b",
+    "Kronecker tensor",
+    "numerical tensor"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The symbol δ^a_b equal to 1 when a = b and 0 otherwise; it is a type (1,1) tensor with the same components in every coordinate system, and contracting with it renames an index.",
+   "how_introduced": "Defined in §5.4 to express ∂x^a/∂x^b = δ^a_b; used to collapse products of forward and inverse transformation matrices in every invariance proof; Exercise 5.8 shows its components are chart independent.",
+   "depth": "developed",
+   "prerequisites": [
+    "Einstein summation convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 85,
+     "printed_page": 70,
+     "section": "5.4"
+    },
+    {
+     "pdf_page": 92,
+     "printed_page": 77,
+     "section": "5.9"
+    },
+    {
+     "pdf_page": 93,
+     "printed_page": 78,
+     "section": "5.10"
+    },
+    {
+     "pdf_page": 97,
+     "printed_page": 82,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\frac{\\partial x^a}{\\partial x'^c}\\frac{\\partial x'^c}{\\partial x^b} = \\delta^a_b",
+    "\\delta^a_a = n"
+   ],
+   "notes": null
+  },
+  {
+   "name": "tangent vector to a curve",
+   "aliases": [
+    "tangent vector",
+    "γ̇(0)"
+   ],
+   "kind": "mathematical-object",
+   "definition": "For a curve γ(u) through P = γ(0), the geometric vector γ̇(0) whose components in a chart are the derivatives dx^a/du at u = 0.",
+   "how_introduced": "Used as the first prototype: computed in two charts, the chain rule gives how its components change.",
+   "depth": "core",
+   "prerequisites": [
+    "parametric curve",
+    "transformation matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 86,
+     "printed_page": 71,
+     "section": "5.5"
+    },
+    {
+     "pdf_page": 87,
+     "printed_page": 72,
+     "section": "5.5"
+    }
+   ],
+   "formulas": [
+    "T^a = \\frac{dx^a}{du}(0)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "contravariant vector",
+   "aliases": [
+    "contravariant tensor of rank 1",
+    "vector",
+    "upper-index vector"
+   ],
+   "kind": "definition",
+   "definition": "A set of n quantities X^a at P, one set per coordinate system, related by X'^a = (∂x'^a/∂x^b)_P X^b.",
+   "how_introduced": "Defined by promoting the tangent-vector transformation law (5.17) to a definition.",
+   "depth": "core",
+   "prerequisites": [
+    "tangent vector to a curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 86,
+     "printed_page": 71,
+     "section": "5.5"
+    }
+   ],
+   "formulas": [
+    "X'^a = \\frac{\\partial x'^a}{\\partial x^b}X^b"
+   ],
+   "notes": null
+  },
+  {
+   "name": "contravariant tensor of rank 2",
+   "aliases": [
+    "rank-2 contravariant tensor",
+    "type (2,0) tensor"
+   ],
+   "kind": "definition",
+   "definition": "A set of n^2 quantities X^{ab} at P transforming with one forward transformation matrix per index.",
+   "how_introduced": "Generalizes (5.18) by pattern; the outer product Y^a Z^b of two vectors is offered as an example.",
+   "depth": "developed",
+   "prerequisites": [
+    "contravariant vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 87,
+     "printed_page": 72,
+     "section": "5.5"
+    }
+   ],
+   "formulas": [
+    "X'^{ab} = \\frac{\\partial x'^a}{\\partial x^c}\\frac{\\partial x'^b}{\\partial x^d}X^{cd}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "scalar invariant",
+   "aliases": [
+    "scalar",
+    "tensor of rank zero",
+    "type (0,0) tensor"
+   ],
+   "kind": "definition",
+   "definition": "A single quantity whose value at a point is the same in every coordinate system: φ' = φ.",
+   "how_introduced": "Stated as the zero-rank case of the contravariant pattern; later obtained from full contraction of tensors.",
+   "depth": "developed",
+   "prerequisites": [
+    "contravariant vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 87,
+     "printed_page": 72,
+     "section": "5.5"
+    },
+    {
+     "pdf_page": 93,
+     "printed_page": 78,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [
+    "\\phi' = \\phi"
+   ],
+   "notes": null
+  },
+  {
+   "name": "geometric object versus components",
+   "aliases": [
+    "invariant object versus its representation"
+   ],
+   "kind": "principle",
+   "definition": "A tensor is a chart-independent geometric entity (e.g. γ̇(0), dφ); the numbers listing its components depend on the coordinates chosen, and different charts give different numbers for the same object.",
+   "how_introduced": "Emphasised immediately after each prototype (tangent arrow in Fig. 5.5, gradient dφ) and again at the start of §5.10.",
+   "depth": "core",
+   "prerequisites": [
+    "tangent vector to a curve"
+   ],
+   "locators": [
+    {
+     "pdf_page": 86,
+     "printed_page": 71,
+     "section": "5.5"
+    },
+    {
+     "pdf_page": 87,
+     "printed_page": 72,
+     "section": "5.5"
+    },
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.6"
+    },
+    {
+     "pdf_page": 93,
+     "printed_page": 78,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "gradient covector",
+   "aliases": [
+    "normal co-vector",
+    "dφ",
+    "differential of a function"
+   ],
+   "kind": "mathematical-object",
+   "definition": "For a scalar field φ, the covector dφ at P with components ∂φ/∂x^a; it annihilates every vector tangent to the level hypersurface φ = k through P.",
+   "how_introduced": "Second prototype: in R^3 grad φ is normal to the level surface; the book carries the 'normal' language to general manifolds and derives the transformation of its components.",
+   "depth": "core",
+   "prerequisites": [
+    "scalar invariant",
+    "subspace and hypersurface"
+   ],
+   "locators": [
+    {
+     "pdf_page": 87,
+     "printed_page": 72,
+     "section": "5.6"
+    },
+    {
+     "pdf_page": 88,
+     "printed_page": 73,
+     "section": "5.6"
+    },
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.6"
+    }
+   ],
+   "formulas": [
+    "N_a = \\left[\\frac{\\partial \\phi}{\\partial x^a}\\right]_P"
+   ],
+   "notes": "Without a metric 'normal' can only mean that dφ gives zero on tangent vectors of the hypersurface; a normal vector needs the metric of DIV ch06 §6.8."
+  },
+  {
+   "name": "covariant vector",
+   "aliases": [
+    "co-vector",
+    "covariant tensor of rank 1",
+    "one-form",
+    "lower-index vector"
+   ],
+   "kind": "definition",
+   "definition": "A set of n quantities X_a at P related between charts by X'_a = (∂x^b/∂x'^a)_P X_b, i.e. transforming with the inverse matrix.",
+   "how_introduced": "Defined by promoting the gradient law (5.25) to a definition, contrasted with the contravariant law.",
+   "depth": "core",
+   "prerequisites": [
+    "gradient covector",
+    "transformation matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 88,
+     "printed_page": 73,
+     "section": "5.6"
+    },
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.6"
+    }
+   ],
+   "formulas": [
+    "X'_a = \\frac{\\partial x^b}{\\partial x'^a}X_b"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant tensor of rank 2",
+   "aliases": [
+    "type (0,2) tensor"
+   ],
+   "kind": "definition",
+   "definition": "A set of n^2 quantities X_ab at P transforming with one inverse transformation matrix per index.",
+   "how_introduced": "Extension of the covariant law by pattern; the future metric tensor is of this type.",
+   "depth": "developed",
+   "prerequisites": [
+    "covariant vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.6"
+    }
+   ],
+   "formulas": [
+    "X'_{ab} = \\frac{\\partial x^c}{\\partial x'^a}\\frac{\\partial x^d}{\\partial x'^b}X_{cd}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "index placement convention",
+   "aliases": [
+    "co goes below",
+    "upper and lower indices"
+   ],
+   "kind": "convention",
+   "definition": "Contravariant indices are written up and covariant indices down; the position records the transformation law, and coordinates carry upper indices because their differentials transform contravariantly.",
+   "how_introduced": "Stated with the mnemonic that 'co' goes below; justified for coordinates by (5.10), with the warning that x^a themselves are not components of a vector.",
+   "depth": "core",
+   "prerequisites": [
+    "contravariant vector",
+    "covariant vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 88,
+     "printed_page": 73,
+     "section": "5.6"
+    },
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.6"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "mixed tensor",
+   "aliases": [
+    "tensor of type (p,q)"
+   ],
+   "kind": "definition",
+   "definition": "A tensor with both upper and lower indices, transforming with a forward matrix for each upper index and an inverse matrix for each lower index.",
+   "how_introduced": "Obtained 'in the obvious way' by combining the patterns of (5.19) and (5.27), exemplified by a (1,2) tensor.",
+   "depth": "developed",
+   "prerequisites": [
+    "contravariant tensor of rank 2",
+    "covariant tensor of rank 2"
+   ],
+   "locators": [
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.7"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "type (valence) of a tensor",
+   "aliases": [
+    "valence",
+    "(p,q)"
+   ],
+   "kind": "definition",
+   "definition": "The pair (p,q) giving the number of contravariant (upper) and covariant (lower) indices of a tensor.",
+   "how_introduced": "Named when mixed tensors are introduced; used to state rules for products and contractions.",
+   "depth": "developed",
+   "prerequisites": [
+    "mixed tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.7"
+    },
+    {
+     "pdf_page": 91,
+     "printed_page": 76,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "coordinate independence of tensor equations",
+   "aliases": [
+    "tensor equations hold in all coordinate systems",
+    "covariance of tensor equations"
+   ],
+   "kind": "theorem",
+   "definition": "If two tensors of the same type have equal components in one coordinate system at a point, they have equal components in every coordinate system, because both sides transform by the same homogeneous linear law.",
+   "how_introduced": "Given as 'the reason tensors are important': start from X_ab = Y_ab, multiply both sides by two inverse matrices and recognise the transformed components.",
+   "depth": "core",
+   "prerequisites": [
+    "mixed tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 89,
+     "printed_page": 74,
+     "section": "5.7"
+    },
+    {
+     "pdf_page": 90,
+     "printed_page": 75,
+     "section": "5.7"
+    }
+   ],
+   "formulas": [
+    "X_{ab}=Y_{ab}\\;\\Rightarrow\\; X'_{ab}=Y'_{ab}"
+   ],
+   "notes": "Mathematical basis of the principle of general covariance (DIV ch09 §9.5). Equivalently, a tensor vanishing in one chart vanishes in all."
+  },
+  {
+   "name": "tensor field",
+   "aliases": [],
+   "kind": "mathematical-object",
+   "definition": "An assignment of a tensor of fixed type to each point of a region; its components are functions of the coordinates, and it is continuous, differentiable or smooth (C^∞) if its components are so in every chart.",
+   "how_introduced": "By analogy with a vector field versus a single vector in vector analysis; the book then drops the word 'field'.",
+   "depth": "developed",
+   "prerequisites": [
+    "tensor (transformation-law definition)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 90,
+     "printed_page": 75,
+     "section": "5.8"
+    }
+   ],
+   "formulas": [
+    "X'^a(x') = \\left[\\frac{\\partial x'^a}{\\partial x^b}\\right]_P X^b(x)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "tensorial operation",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "An operation on tensors whose output is again a tensor; algebraic ones act pointwise, and tensor character is checked through the transformation law.",
+   "how_introduced": "Framing statement opening §5.9; differential operations are postponed to ch06.",
+   "depth": "introduced",
+   "prerequisites": [
+    "tensor field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 90,
+     "printed_page": 75,
+     "section": "5.9"
+    },
+    {
+     "pdf_page": 91,
+     "printed_page": 76,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "addition and scalar multiplication of tensors",
+   "aliases": [
+    "linear combination of tensors"
+   ],
+   "kind": "operation",
+   "definition": "Tensors of the same type at the same point can be added, subtracted and multiplied by real numbers (or by scalar fields) to give tensors of that type.",
+   "how_introduced": "Read off directly from linearity of the transformation law; sum and difference proved in Exercise 5.10.",
+   "depth": "introduced",
+   "prerequisites": [
+    "tensorial operation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 91,
+     "printed_page": 76,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [
+    "X^{a}{}_{bc}=Y^{a}{}_{bc}+Z^{a}{}_{bc}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "symmetric and anti-symmetric tensors",
+   "aliases": [
+    "skew-symmetric tensor",
+    "totally symmetric tensor",
+    "totally anti-symmetric tensor"
+   ],
+   "kind": "definition",
+   "definition": "A rank-2 tensor is symmetric if X_ab = X_ba (n(n+1)/2 independent components) and anti-symmetric if X_ab = -X_ba (n(n-1)/2 components); both properties survive coordinate changes. Totally (anti-)symmetric tensors equal their (anti-)symmetrized parts.",
+   "how_introduced": "Defined for covariant rank 2, component counts obtained by analogy with symmetric matrices; tensorial nature proved in Exercise 5.11; decomposition into symmetric plus anti-symmetric parts in Exercise 5.12.",
+   "depth": "developed",
+   "prerequisites": [
+    "covariant tensor of rank 2"
+   ],
+   "locators": [
+    {
+     "pdf_page": 91,
+     "printed_page": 76,
+     "section": "5.9"
+    },
+    {
+     "pdf_page": 97,
+     "printed_page": 82,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "symmetrization and anti-symmetrization brackets",
+   "aliases": [
+    "round brackets (ab)",
+    "square brackets [ab]"
+   ],
+   "kind": "convention",
+   "definition": "Indices in round brackets denote the average over all permutations; in square brackets the signed average (even permutations +, odd -), each with weight 1/r! for r indices.",
+   "how_introduced": "Given for two indices explicitly, for r indices in words, and written out for three indices because it will be needed later (cyclic identities of the Riemann tensor).",
+   "depth": "developed",
+   "prerequisites": [
+    "symmetric and anti-symmetric tensors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 91,
+     "printed_page": 76,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [
+    "X_{(ab)}=\\tfrac12(X_{ab}+X_{ba})",
+    "X_{[ab]}=\\tfrac12(X_{ab}-X_{ba})"
+   ],
+   "notes": null
+  },
+  {
+   "name": "tensor product",
+   "aliases": [
+    "outer product"
+   ],
+   "kind": "operation",
+   "definition": "Multiplying the components of a type (p1,q1) tensor by those of a type (p2,q2) tensor with all indices distinct gives the components of a type (p1+p2, q1+q2) tensor, independent of the chart used.",
+   "how_introduced": "First example Y^a Z^b in §5.5; general statement with X^a_{bcd} = Y^a_b Z_cd in §5.9, chart independence left as an exercise.",
+   "depth": "developed",
+   "prerequisites": [
+    "mixed tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 87,
+     "printed_page": 72,
+     "section": "5.5"
+    },
+    {
+     "pdf_page": 91,
+     "printed_page": 76,
+     "section": "5.9"
+    },
+    {
+     "pdf_page": 92,
+     "printed_page": 77,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [
+    "X^{a}{}_{bcd}=Y^{a}{}_{b}Z_{cd}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "contraction",
+   "aliases": [
+    "trace over an index pair"
+   ],
+   "kind": "operation",
+   "definition": "Setting one upper index equal to one lower index and summing, turning a type (p,q) tensor into a type (p-1,q-1) tensor; can be implemented by multiplying with δ^a_b. Full contraction of a (p,p) tensor gives a scalar invariant.",
+   "how_introduced": "Built from the vector-covector example, then stated generally with X^a_{bcd} → X^a_{acd}; proof for a (1,2) tensor in Exercise 5.14.",
+   "depth": "core",
+   "prerequisites": [
+    "tensor product",
+    "Kronecker delta"
+   ],
+   "locators": [
+    {
+     "pdf_page": 92,
+     "printed_page": 77,
+     "section": "5.9"
+    },
+    {
+     "pdf_page": 93,
+     "printed_page": 78,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [
+    "X^{a}{}_{acd} = \\delta^b_a X^{a}{}_{bcd}"
+   ],
+   "notes": "Always pairs one upper with one lower index. Summing two indices at the same level is not a tensorial operation without a metric (ch06 §6.8)."
+  },
+  {
+   "name": "invariance of vector-covector contraction",
+   "aliases": [
+    "X^a Y_a is a scalar"
+   ],
+   "kind": "theorem",
+   "definition": "For a contravariant vector X^a and covariant vector Y_a at a point, X^a Y_a has the same value in every chart, because the forward and inverse transformation matrices multiply to δ.",
+   "how_introduced": "Step-by-step chain inserting (5.18) and (5.26); presented as the key physical mechanism for producing coordinate-independent numbers.",
+   "depth": "core",
+   "prerequisites": [
+    "contravariant vector",
+    "covariant vector",
+    "Kronecker delta"
+   ],
+   "locators": [
+    {
+     "pdf_page": 92,
+     "printed_page": 77,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [
+    "(X'^a Y'_a)_P = (X^a Y_a)_P = \\phi(P)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "dual vector space",
+   "aliases": [
+    "duality of vectors and covectors"
+   ],
+   "kind": "definition",
+   "definition": "Covectors at P are linear maps from vectors at P to real numbers (the pairing being X^a Y_a); the space of covectors is the dual of the tangent space.",
+   "how_introduced": "Remarked after (5.37) as the reason for the name co-vector, and taken up in §5.10 as the cotangent space.",
+   "depth": "introduced",
+   "prerequisites": [
+    "invariance of vector-covector contraction"
+   ],
+   "locators": [
+    {
+     "pdf_page": 92,
+     "printed_page": 77,
+     "section": "5.9"
+    },
+    {
+     "pdf_page": 94,
+     "printed_page": 79,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "vector field as directional derivative operator",
+   "aliases": [
+    "derivation",
+    "vector field as an operator on functions"
+   ],
+   "kind": "definition",
+   "definition": "A contravariant vector field X is identified with the first-order differential operator X = X^a ∂_a sending a function f to the function X f = X^a ∂_a f, its rate of change along X; this operator is the same in every chart.",
+   "how_introduced": "Introduced to show the geometric object behind the components: compute X f in one chart, then prove X'^a ∂'_a = X^a ∂_a using the component law and the chain rule.",
+   "depth": "core",
+   "prerequisites": [
+    "contravariant vector",
+    "tensor field",
+    "Kronecker delta"
+   ],
+   "locators": [
+    {
+     "pdf_page": 93,
+     "printed_page": 78,
+     "section": "5.10"
+    },
+    {
+     "pdf_page": 94,
+     "printed_page": 79,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [
+    "X = X^a\\partial_a",
+    "Xf = X^a\\,\\partial_a f"
+   ],
+   "notes": null
+  },
+  {
+   "name": "coordinate basis",
+   "aliases": [
+    "∂/∂x^a basis",
+    "holonomic basis"
+   ],
+   "kind": "definition",
+   "definition": "At P the n operators [∂/∂x^a]_P form a basis of the vectors at P; a vector's contravariant components are its expansion coefficients in this basis.",
+   "how_introduced": "Read off from X = X^a ∂_a evaluated at P.",
+   "depth": "developed",
+   "prerequisites": [
+    "vector field as directional derivative operator"
+   ],
+   "locators": [
+    {
+     "pdf_page": 94,
+     "printed_page": 79,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [
+    "X_P = [X^a]_P\\left[\\frac{\\partial}{\\partial x^a}\\right]_P"
+   ],
+   "notes": null
+  },
+  {
+   "name": "tangent space",
+   "aliases": [
+    "T_P M",
+    "tangent vector space"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The n-dimensional vector space T_P M of all contravariant vectors at a point P of M; in general it is a different space from the manifold itself.",
+   "how_introduced": "Named after the coordinate basis; illustrated by a plane touching a blob-shaped manifold with arrows at P (Fig. 5.6) and used to caution that arrows in diagrams live in T_P M.",
+   "depth": "developed",
+   "prerequisites": [
+    "coordinate basis"
+   ],
+   "locators": [
+    {
+     "pdf_page": 94,
+     "printed_page": 79,
+     "section": "5.10"
+    },
+    {
+     "pdf_page": 95,
+     "printed_page": 80,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "cotangent space",
+   "aliases": [
+    "T*_P M"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The dual space T*_P M of linear functionals on T_P M, whose elements are the covariant vectors at P.",
+   "how_introduced": "Stated as a consequence of (5.37) immediately after the tangent space.",
+   "depth": "introduced",
+   "prerequisites": [
+    "tangent space",
+    "dual vector space"
+   ],
+   "locators": [
+    {
+     "pdf_page": 94,
+     "printed_page": 79,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "multilinear-map definition of tensors",
+   "aliases": [
+    "tensors as multilinear maps",
+    "tensor products of T_P M and T*_P M"
+   ],
+   "kind": "definition",
+   "definition": "In the coordinate-free approach a type (p,q) tensor at P is an element of the tensor product of p copies of T_P M and q copies of T*_P M, equivalently a multilinear map taking q vectors and p covectors to a real number.",
+   "how_introduced": "One-sentence sketch; not pursued, Wald (1984) recommended.",
+   "depth": "mention",
+   "prerequisites": [
+    "tangent space",
+    "cotangent space"
+   ],
+   "locators": [
+    {
+     "pdf_page": 94,
+     "printed_page": 79,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Lie bracket",
+   "aliases": [
+    "commutator of vector fields",
+    "[X,Y]"
+   ],
+   "kind": "operation",
+   "definition": "For vector fields X and Y, the vector field [X,Y] = XY - YX, whose action on functions is first order because second derivatives cancel; its components are X^b ∂_b Y^a - Y^b ∂_b X^a.",
+   "how_introduced": "Defined as an operator commutator, then expanded on an arbitrary function with the product rule; symmetry of mixed partials kills the second-order terms.",
+   "depth": "developed",
+   "prerequisites": [
+    "vector field as directional derivative operator"
+   ],
+   "locators": [
+    {
+     "pdf_page": 94,
+     "printed_page": 79,
+     "section": "5.10"
+    },
+    {
+     "pdf_page": 95,
+     "printed_page": 80,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [
+    "[X,Y]=XY-YX",
+    "[X,Y]^a = X^b\\partial_b Y^a - Y^b\\partial_b X^a"
+   ],
+   "notes": "Although the components contain partial derivatives of components, the result is a genuine vector field; becomes the Lie derivative L_X Y in DIV ch06 §6.2."
+  },
+  {
+   "name": "Jacobi identity",
+   "aliases": [],
+   "kind": "identity",
+   "definition": "For any three vector fields, [X,[Y,Z]] + [Z,[X,Y]] + [Y,[Z,X]] vanishes identically.",
+   "how_introduced": "Listed with [X,X] ≡ 0 and anti-commutativity as consequences of the definition, proof left to Exercise 5.16.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Lie bracket"
+   ],
+   "locators": [
+    {
+     "pdf_page": 95,
+     "printed_page": 80,
+     "section": "5.10"
+    },
+    {
+     "pdf_page": 96,
+     "printed_page": 81,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [
+    "[X,[Y,Z]]+[Z,[X,Y]]+[Y,[Z,X]]\\equiv 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "identity versus equation",
+   "aliases": [
+    "identically zero",
+    "≡"
+   ],
+   "kind": "convention",
+   "definition": "An equation holds only for particular values of its variables; an identity (written ≡) holds for all values because, once fully expanded, its terms cancel in pairs.",
+   "how_introduced": "Clarified after the Jacobi identity with the contrast between a quadratic with two roots and an expression that cancels term by term.",
+   "depth": "introduced",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 96,
+     "printed_page": 81,
+     "section": "5.10"
+    }
+   ],
+   "formulas": [
+    "x^2 - x^2 \\equiv 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "non-tensorial character of second partial derivatives",
+   "aliases": [
+    "∂_a∂_b φ is not a tensor"
+   ],
+   "kind": "theorem",
+   "definition": "The array of second derivatives of a scalar does not transform as a covariant rank-2 tensor in general, because differentiating the covariant law produces an extra term with second derivatives of the coordinate transformation.",
+   "how_introduced": "Posed as Exercise 5.9 (differentiate (5.24)), foreshadowing why ch06 needs a connection.",
+   "depth": "mention",
+   "prerequisites": [
+    "covariant vector",
+    "transformation matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 97,
+     "printed_page": 82,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\frac{\\partial^2\\phi}{\\partial x'^a\\partial x'^b} = \\frac{\\partial x^c}{\\partial x'^a}\\frac{\\partial x^d}{\\partial x'^b}\\frac{\\partial^2\\phi}{\\partial x^c\\partial x^d} + \\frac{\\partial^2 x^c}{\\partial x'^a\\partial x'^b}\\frac{\\partial\\phi}{\\partial x^c}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "coordinate independence as the motivation for tensors in physics",
+   "aliases": [
+    "Einstein's reason for tensors"
+   ],
+   "kind": "historical-idea",
+   "definition": "Physical laws should not depend on how coordinates are laid down, and full contractions of tensors give numbers that do not depend on coordinates and so can in principle be measured; hence laws are written as tensor equations.",
+   "how_introduced": "Invoked in §5.1 as a reason for the transformation-law approach and at the end of §5.9 as Einstein's motivation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "coordinate independence of tensor equations",
+    "contraction"
+   ],
+   "locators": [
+    {
+     "pdf_page": 80,
+     "printed_page": 65,
+     "section": "5.1"
+    },
+    {
+     "pdf_page": 93,
+     "printed_page": 78,
+     "section": "5.9"
+    }
+   ],
+   "formulas": [],
+   "notes": "Formalized as the principle of general covariance in DIV ch09 §9.5."
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(5.1)",
+   "name": "Parametric curve",
+   "latex": "x^a = x^a(u),\\quad a = 1,\\dots,n",
+   "meaning": "A curve is given by n coordinate functions of one parameter.",
+   "symbols": "u: curve parameter",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 82,
+    "printed_page": 67,
+    "section": "5.3"
+   }
+  },
+  {
+   "label": "(5.2)",
+   "name": "Parametric m-surface",
+   "latex": "x^a = x^a(u^1,u^2,\\dots,u^m),\\quad m<n",
+   "meaning": "An m-dimensional subspace is given by n functions of m parameters.",
+   "symbols": "u^1..u^m: parameters on the subspace",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 83,
+    "printed_page": 68,
+    "section": "5.3"
+   }
+  },
+  {
+   "label": "(5.3)",
+   "name": "Hypersurface constraint",
+   "latex": "f(x^1,x^2,\\dots,x^n) = 0",
+   "meaning": "A hypersurface (m = n - 1) is described by a single equation among the coordinates.",
+   "symbols": "f: constraint function",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 83,
+    "printed_page": 68,
+    "section": "5.3"
+   }
+  },
+  {
+   "label": "(5.4)",
+   "name": "m-surface as n - m constraints",
+   "latex": "f^1(x)=0,\\; f^2(x)=0,\\;\\dots,\\; f^{n-m}(x)=0",
+   "meaning": "Constraint description of an m-dimensional subspace, equivalent to (5.2).",
+   "symbols": "f^i: independent constraint functions",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 83,
+    "printed_page": 68,
+    "section": "5.3"
+   }
+  },
+  {
+   "label": "(5.5)",
+   "name": "Coordinate transformation",
+   "latex": "x'^a = f^a(x^1,x^2,\\dots,x^n),\\quad a=1,\\dots,n",
+   "meaning": "Passive change of coordinates by n single-valued, continuous, differentiable functions.",
+   "symbols": "x^a: old coordinates; x'^a: new coordinates",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 83,
+    "printed_page": 68,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.6)",
+   "name": "Compact form of the transformation",
+   "latex": "x'^a = x'^a(x)",
+   "meaning": "Shorthand for (5.5) in which the function is named after the new coordinate.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.7)",
+   "name": "Transformation matrix",
+   "latex": "\\left[\\frac{\\partial x'^a}{\\partial x^b}\\right] = \\begin{bmatrix} \\partial x'^1/\\partial x^1 & \\cdots & \\partial x'^1/\\partial x^n \\\\ \\vdots & \\ddots & \\vdots \\\\ \\partial x'^n/\\partial x^1 & \\cdots & \\partial x'^n/\\partial x^n \\end{bmatrix}",
+   "meaning": "n×n matrix of first derivatives of new with respect to old coordinates; row index a, column index b.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.8)",
+   "name": "Jacobian of the transformation",
+   "latex": "J' = \\left|\\frac{\\partial x'^a}{\\partial x^b}\\right|",
+   "meaning": "Determinant of the transformation matrix; assumed non-zero so the transformation can be inverted.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.9)",
+   "name": "Inverse transformation",
+   "latex": "x^a = x^a(x')",
+   "meaning": "Old coordinates as functions of new, guaranteed locally by the inverse function theorem when J' ≠ 0.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Jacobians of inverse transformations",
+   "latex": "J = \\left|\\frac{\\partial x^a}{\\partial x'^b}\\right| = \\frac{1}{J'}",
+   "meaning": "The inverse transformation's Jacobian is the reciprocal, from the determinant product rule applied to (5.41).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.10)",
+   "name": "Total differential with explicit sum",
+   "latex": "dx'^a = \\sum_{b=1}^{n}\\frac{\\partial x'^a}{\\partial x^b}\\,dx^b",
+   "meaning": "Coordinate differentials change by the transformation matrix, the model for the contravariant law.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.11)",
+   "name": "Total differential with summation convention",
+   "latex": "dx'^a = \\frac{\\partial x'^a}{\\partial x^b}\\,dx^b",
+   "meaning": "Same as (5.10) with the repeated index b summed implicitly; a is free.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.12)",
+   "name": "Kronecker delta",
+   "latex": "\\delta^a_b = \\begin{cases}1 & a=b\\\\ 0 & a\\neq b\\end{cases}",
+   "meaning": "Definition of the Kronecker delta.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.13)",
+   "name": "Derivative of coordinates with respect to themselves",
+   "latex": "\\frac{\\partial x'^a}{\\partial x'^b} = \\frac{\\partial x^a}{\\partial x^b} = \\delta^a_b",
+   "meaning": "Coordinates of one system are independent variables, so their mutual partial derivatives form the identity.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   }
+  },
+  {
+   "label": "(5.14)",
+   "name": "Tangent vector components",
+   "latex": "T^a = \\frac{dx^a}{du}(0)",
+   "meaning": "Components, in the x-chart, of the tangent to the curve γ at P = γ(0).",
+   "symbols": "γ(u): curve; P = γ(0)",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   }
+  },
+  {
+   "label": "(5.15)",
+   "name": "Curve in the new chart",
+   "latex": "x'^a(u) = x'^a(x(u))",
+   "meaning": "The same curve described by composing the coordinate change with the old parametrization.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   }
+  },
+  {
+   "label": "(5.16)",
+   "name": "Tangent components in the new chart",
+   "latex": "T'^a = \\frac{dx'^a}{du}(0)",
+   "meaning": "Components of the same tangent in the primed chart.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   }
+  },
+  {
+   "label": "(5.17)",
+   "name": "Transformation of tangent components",
+   "latex": "T'^a = \\left[\\frac{\\partial x'^a}{\\partial x^b}\\right]_P\\left[\\frac{dx^b}{du}(0)\\right] = \\left[\\frac{\\partial x'^a}{\\partial x^b}\\right]_P T^b",
+   "meaning": "Chain rule: new tangent components are the old ones multiplied by the transformation matrix at P. Prototype of the contravariant law.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   }
+  },
+  {
+   "label": "(5.18)",
+   "name": "Contravariant vector law",
+   "latex": "X'^a = \\frac{\\partial x'^a}{\\partial x^b}X^b",
+   "meaning": "Definition of a contravariant vector at P (matrix evaluated at P).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   }
+  },
+  {
+   "label": "(5.19)",
+   "name": "Contravariant rank-2 law",
+   "latex": "X'^{ab} = \\frac{\\partial x'^a}{\\partial x^c}\\frac{\\partial x'^b}{\\partial x^d}X^{cd}",
+   "meaning": "One transformation-matrix factor per upper index; c and d are dummies.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 87,
+    "printed_page": 72,
+    "section": "5.5"
+   }
+  },
+  {
+   "label": "(5.20)",
+   "name": "Scalar law",
+   "latex": "\\phi' = \\phi",
+   "meaning": "A rank-zero tensor has one component, unchanged by coordinate changes (at P).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 87,
+    "printed_page": 72,
+    "section": "5.5"
+   }
+  },
+  {
+   "label": "(5.21)",
+   "name": "Scalar field in coordinates",
+   "latex": "\\phi = \\phi(x^a)",
+   "meaning": "A scalar field written as a function of local coordinates near P; φ = k defines a hypersurface through P.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 87,
+    "printed_page": 72,
+    "section": "5.6"
+   }
+  },
+  {
+   "label": "(5.22)",
+   "name": "Gradient covector components",
+   "latex": "N_a = \\left[\\frac{\\partial\\phi}{\\partial x^a}\\right]_P",
+   "meaning": "Components of the covector dφ at P in the x-chart.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "label": "(5.23)",
+   "name": "Gradient components in the new chart",
+   "latex": "N'_a = \\left[\\frac{\\partial\\phi}{\\partial x'^a}\\right]_P",
+   "meaning": "Components of the same covector in the primed chart.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "label": "(5.24)",
+   "name": "Chain rule for the gradient",
+   "latex": "\\frac{\\partial\\phi}{\\partial x'^a} = \\frac{\\partial x^b}{\\partial x'^a}\\frac{\\partial\\phi}{\\partial x^b}",
+   "meaning": "Obtained by writing φ(x^a(x')) and differentiating with respect to a new coordinate, then relabelling indices.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "label": "(5.25)",
+   "name": "Transformation of gradient components",
+   "latex": "N'_a = \\left[\\frac{\\partial x^b}{\\partial x'^a}\\right]_P N_b",
+   "meaning": "Gradient components transform with the inverse matrix. Prototype of the covariant law.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "label": "(5.26)",
+   "name": "Covariant vector law",
+   "latex": "X'_a = \\frac{\\partial x^b}{\\partial x'^a}X_b",
+   "meaning": "Definition of a covariant vector (co-vector) at P.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "label": "(5.27)",
+   "name": "Covariant rank-2 law",
+   "latex": "X'_{ab} = \\frac{\\partial x^c}{\\partial x'^a}\\frac{\\partial x^d}{\\partial x'^b}X_{cd}",
+   "meaning": "One inverse-matrix factor per lower index.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.6"
+   }
+  },
+  {
+   "label": "(5.28)",
+   "name": "Mixed (1,2) tensor law",
+   "latex": "X'^{a}{}_{bc} = \\frac{\\partial x'^a}{\\partial x^d}\\frac{\\partial x^e}{\\partial x'^b}\\frac{\\partial x^f}{\\partial x'^c}X^{d}{}_{ef}",
+   "meaning": "Template for any type (p,q) tensor.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.7"
+   }
+  },
+  {
+   "label": "(5.29)",
+   "name": "Tensor equation in one chart",
+   "latex": "X_{ab} = Y_{ab}",
+   "meaning": "Equality of two covariant rank-2 tensors in one coordinate system; multiplying by two inverse matrices gives X'_ab = Y'_ab in any other.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.7"
+   }
+  },
+  {
+   "label": "(5.30)",
+   "name": "Contravariant vector field law",
+   "latex": "X'^a(x') = \\left[\\frac{\\partial x'^a}{\\partial x^b}\\right]_P X^b(x)",
+   "meaning": "Field version of (5.18): old components as functions of old coordinates, new of new, related at each point P.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 90,
+    "printed_page": 75,
+    "section": "5.8"
+   }
+  },
+  {
+   "label": "(5.31)",
+   "name": "Sum of tensors",
+   "latex": "X^{a}{}_{bc} = Y^{a}{}_{bc} + Z^{a}{}_{bc}",
+   "meaning": "Tensors of the same type add to a tensor of that type.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": "(5.32)",
+   "name": "Symmetric part",
+   "latex": "X_{(ab)} = \\tfrac12\\,(X_{ab} + X_{ba})",
+   "meaning": "Round-bracket notation for the symmetric part.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": "(5.33)",
+   "name": "Anti-symmetric part",
+   "latex": "X_{[ab]} = \\tfrac12\\,(X_{ab} - X_{ba})",
+   "meaning": "Square-bracket notation for the anti-symmetric part.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": null,
+   "name": "General (anti-)symmetrization",
+   "latex": "X_{(a_1\\cdots a_r)} = \\frac{1}{r!}\\sum_{\\sigma\\in S_r} X_{a_{\\sigma(1)}\\cdots a_{\\sigma(r)}},\\qquad X_{[a_1\\cdots a_r]} = \\frac{1}{r!}\\sum_{\\sigma\\in S_r}\\operatorname{sgn}(\\sigma)\\, X_{a_{\\sigma(1)}\\cdots a_{\\sigma(r)}}",
+   "meaning": "Weighted sum (signed sum) over all permutations of r indices. The book states the summand only in words; the explicit sums are our transcription.",
+   "symbols": "S_r: permutations of r objects; sgn: +1 for even, -1 for odd",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": "(5.34)",
+   "name": "Rank-3 anti-symmetrization",
+   "latex": "X_{[abc]} = \\tfrac16\\,(X_{abc} - X_{acb} + X_{cab} - X_{cba} + X_{bca} - X_{bac})",
+   "meaning": "Six-term alternating sum; positive terms are cyclic shifts, each negative term swaps the last two indices of the preceding positive term.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": "(5.35)",
+   "name": "Tensor (outer) product",
+   "latex": "X^{a}{}_{bcd} = Y^{a}{}_{b}\\,Z_{cd}",
+   "meaning": "Product of a (1,1) and a (0,2) tensor is a (1,3) tensor.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": "(5.36)",
+   "name": "Vector-covector contraction",
+   "latex": "\\phi = X^a Y_a",
+   "meaning": "Summed product of a vector and a covector at each point.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 92,
+    "printed_page": 77,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": null,
+   "name": "Invariance chain for contraction",
+   "latex": "X'^a Y'_a = \\left(\\frac{\\partial x'^a}{\\partial x^b}X^b\\right)\\left(\\frac{\\partial x^c}{\\partial x'^a}Y_c\\right) = \\delta^c_b X^b Y_c = X^c Y_c = X^a Y_a",
+   "meaning": "Forward and inverse matrices multiply to δ, so the contraction is chart independent.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 92,
+    "printed_page": 77,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": "(5.37)",
+   "name": "Contraction is a scalar",
+   "latex": "(X'^a Y'_a)_P = (X^a Y_a)_P = \\phi(P)",
+   "meaning": "Contracting a covector with a vector yields a coordinate-independent scalar; exhibits covectors as dual to vectors.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 92,
+    "printed_page": 77,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": null,
+   "name": "General contraction",
+   "latex": "X^{a}{}_{bcd} \\;\\longrightarrow\\; X^{a}{}_{acd} = Y_{cd}",
+   "meaning": "Contracting one upper with one lower index takes type (1,3) to (0,2).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 92,
+    "printed_page": 77,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": "(5.38)",
+   "name": "Contraction via the Kronecker delta",
+   "latex": "X^{a}{}_{acd} = \\delta^b_a\\,X^{a}{}_{bcd}",
+   "meaning": "Multiplying by δ and summing renames an index, performing the contraction.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 92,
+    "printed_page": 77,
+    "section": "5.9"
+   }
+  },
+  {
+   "label": "(5.39)",
+   "name": "Vector field as operator",
+   "latex": "X = X^a\\partial_a,\\qquad \\partial_a := \\frac{\\partial}{\\partial x^a}",
+   "meaning": "Index-free vector field as a first-order differential operator.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 93,
+    "printed_page": 78,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": "(5.40)",
+   "name": "Action on a function",
+   "latex": "Xf = (X^a\\partial_a)f = X^a(\\partial_a f)",
+   "meaning": "Directional derivative of f along X.",
+   "symbols": "f: arbitrary smooth real function",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 93,
+    "printed_page": 78,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": "(5.41)",
+   "name": "Chain-rule form of the Kronecker delta",
+   "latex": "\\delta^a_b = \\frac{\\partial x^a}{\\partial x^b} = \\frac{\\partial}{\\partial x^b}x^a(x'^c(x^d)) = \\frac{\\partial x^a}{\\partial x'^c}\\frac{\\partial x'^c}{\\partial x^b}",
+   "meaning": "Forward and inverse transformation matrices are mutual inverses.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 93,
+    "printed_page": 78,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": null,
+   "name": "Coordinate independence of the operator",
+   "latex": "X'^a\\partial'_a = \\frac{\\partial x'^a}{\\partial x^b}X^b\\,\\frac{\\partial x^c}{\\partial x'^a}\\frac{\\partial}{\\partial x^c} = \\delta^c_b X^b\\frac{\\partial}{\\partial x^c} = X^a\\partial_a",
+   "meaning": "The component law and the chain rule for ∂'_a cancel, so X is the same operator in every chart.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": null,
+   "name": "Coordinate basis expansion",
+   "latex": "X_P = [X^a]_P\\left[\\frac{\\partial}{\\partial x^a}\\right]_P",
+   "meaning": "Vector at P as a linear combination of the coordinate basis of T_P M. (Print has a lower index on x_a in the text and lowercase p on X; corrected here.)",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": "(5.42)",
+   "name": "Lie bracket definition",
+   "latex": "[X,Y] = XY - YX",
+   "meaning": "Commutator of two vector fields regarded as operators.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": null,
+   "name": "Lie bracket on a function",
+   "latex": "[X,Y]f = (X^b\\partial_bY^a - Y^b\\partial_bX^a)\\,\\partial_a f - X^aY^b(\\partial_b\\partial_a f - \\partial_a\\partial_b f)",
+   "meaning": "Product-rule expansion; the last term vanishes by symmetry of second partial derivatives.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": "(5.43)",
+   "name": "Lie bracket components",
+   "latex": "[X,Y]^a = X^b\\partial_b Y^a - Y^b\\partial_b X^a",
+   "meaning": "Components of the vector field [X,Y].",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": "(5.44)",
+   "name": "Self-bracket",
+   "latex": "[X,X] \\equiv 0",
+   "meaning": "Every vector field commutes with itself.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": "(5.45)",
+   "name": "Anti-commutativity",
+   "latex": "[X,Y] \\equiv -[Y,X]",
+   "meaning": "The Lie bracket is anti-symmetric.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   }
+  },
+  {
+   "label": "(5.46)",
+   "name": "Jacobi identity",
+   "latex": "[X,[Y,Z]] + [Z,[X,Y]] + [Y,[Z,X]] \\equiv 0",
+   "meaning": "Cyclic sum of nested brackets vanishes identically.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 5.1",
+   "image_path": "dinverno/pages/page-81/img-41.jpeg",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   },
+   "caption_paraphrase": "The coordinate lines of plane polar coordinates.",
+   "visual_description": "A small line drawing: many straight rays radiate from a common centre O like spokes, crossed by about seven concentric circles. Labels on the right: the rays are marked as half-lines of constant φ, the circles as curves of constant R, and a pointer to the centre notes that φ is indeterminate at O. All rays meet at the centre, where the grid collapses.",
+   "what_it_teaches": "A coordinate system can be degenerate at particular points (every value of φ labels the origin) even though the underlying plane is perfectly regular; such degeneracies belong to the chart.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "coordinate degeneracy",
+    "coordinate patch"
+   ],
+   "redesign": {
+    "idea": "Chart inspector: a plane overlaid with switchable coordinate grids (Cartesian, polar, elliptic) and a draggable probe point that shows its coordinate labels and the local Jacobian determinant; near the polar origin the angle readout spins wildly and J goes to zero.",
+    "interaction": "Drag the probe; toggle grids; a colour map of |J| highlights where each chart degenerates; a button overlays the Cartesian chart to show the origin is regular there.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 5.2",
+   "image_path": "dinverno/pages/page-82/img-42.jpeg",
+   "locator": {
+    "pdf_page": 82,
+    "printed_page": 67,
+    "section": "5.2"
+   },
+   "caption_paraphrase": "A sphere covered by two coordinate systems, neither degenerate on its own region.",
+   "visual_description": "A circular outline standing for the 2-sphere (no shading for depth). The upper part is shaded with diagonal hatching running one way, labelled as the first non-degenerate system covering the North Pole; the lower part is hatched the other way, labelled as the second system covering the South Pole. A cross-hatched band around the middle, where both hatchings overlap, is bracketed and labelled as the overlap at the equator.",
+   "what_it_teaches": "The 2-sphere needs at least two charts; each covers one pole, and they overlap in a band where transition functions relate them.",
+   "figure_type": "schematic",
+   "concepts": [
+    "atlas",
+    "coordinate patch",
+    "coordinate degeneracy"
+   ],
+   "redesign": {
+    "idea": "Two-chart globe: a 3D sphere with two stereographic charts (from north and south poles) shown as flat maps beside it; hovering a point on the sphere lights up its image in whichever chart(s) cover it, and the overlap band is where both maps respond. A 'single chart' attempt using latitude-longitude visibly tears at the seam and pinches at the poles.",
+    "interaction": "Rotate the globe, drag a point, slide the boundary of each chart's domain; a readout shows the transition map x'(x) and its Jacobian in the overlap.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 5.3",
+   "image_path": "dinverno/pages/page-82/img-43.jpeg",
+   "locator": {
+    "pdf_page": 82,
+    "printed_page": 67,
+    "section": "5.2"
+   },
+   "caption_paraphrase": "Two coordinate patches in a manifold that overlap.",
+   "visual_description": "An irregular closed outline labelled Manifold M. Inside, two blob-shaped regions labelled coordinate patch are hatched in opposite diagonal directions; they overlap in a lens-shaped cross-hatched region labelled overlap of coordinate patches. No coordinates or axes are drawn.",
+   "what_it_teaches": "Charts cover only parts of a manifold; in the overlap each point carries two sets of coordinates, and tensor calculus is about how quantities change between them.",
+   "figure_type": "schematic",
+   "concepts": [
+    "coordinate patch",
+    "atlas",
+    "passive coordinate transformation"
+   ],
+   "redesign": {
+    "idea": "Patch-and-transition sandbox: a wobbly 2D region with two draggable, resizable patches each carrying its own deformable grid; in the overlap, a selected point shows both coordinate pairs and the 2×2 transformation matrix between them.",
+    "interaction": "Drag and reshape patches; pick a point in the overlap to see (x, x') and ∂x'/∂x; attempt to leave a patch and watch its coordinates become undefined.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 5.4",
+   "image_path": "dinverno/pages/page-86/img-44.jpeg",
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   },
+   "caption_paraphrase": "A curve and its tangent vector at a point P.",
+   "visual_description": "Inside a blob-shaped outline (the manifold) a curve rises gently from left to right, labelled x^a = x^a(u). At a dot labelled P on the curve an arrow leaves along the curve's direction, labelled with the bracketed derivative [dx^a/du]_P.",
+   "what_it_teaches": "The tangent vector at P is obtained by differentiating the coordinate functions of the curve with respect to its parameter.",
+   "figure_type": "curve-or-surface",
+   "concepts": [
+    "tangent vector to a curve",
+    "parametric curve"
+   ],
+   "redesign": {
+    "idea": "Same arrow, two coordinate readouts: a curve on a plane with a movable point P and its tangent arrow; side panels list the tangent components in Cartesian and polar charts, and the Jacobian matrix that converts one list into the other updates live.",
+    "interaction": "Drag P along the curve, change the curve's shape and its parametrization speed; the arrow and both component lists update, the matrix product check (5.17) turns green when consistent.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 5.5",
+   "image_path": "dinverno/pages/page-87/img-45.jpeg",
+   "locator": {
+    "pdf_page": 87,
+    "printed_page": 72,
+    "section": "5.5"
+   },
+   "caption_paraphrase": "Tangent vectors to a curve at two different points.",
+   "visual_description": "A blob-shaped manifold outline containing a curve labelled x^a = x^a(u). Two points on the curve, P on the left and R further right, each carry a short arrow along the curve labelled [dx^a/du]_P and [dx^a/du]_R respectively. The arrows point in slightly different directions following the curve.",
+   "what_it_teaches": "A tangent vector is attached to a specific point; tangent vectors at different points are distinct objects, depicted as arrows but defined by derivatives at each point.",
+   "figure_type": "curve-or-surface",
+   "concepts": [
+    "tangent vector to a curve",
+    "geometric object versus components",
+    "tangent space"
+   ],
+   "redesign": {
+    "idea": "Tangent planes along a curve on a sphere: as a point slides along a curve drawn on a 3D sphere, a translucent tangent plane moves with it carrying the tangent arrow, making clear that the arrows at P and R live in different planes.",
+    "interaction": "Scrub the parameter u; pin the tangent at P and try to compare it with the one at R, with a note that comparison needs extra structure (preview of the connection).",
+    "form": "interactive-3d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 5.6",
+   "image_path": "dinverno/pages/page-95/img-46.jpeg",
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   },
+   "caption_paraphrase": "The space of tangent vectors at a point P.",
+   "visual_description": "A large irregular closed outline labelled Manifold M. A square, rotated a little and drawn partly outside the outline, is labelled Tangent space T_P(M); it overlaps the manifold region rather than sitting tangent to a drawn surface. At a point P inside the square, four arrows radiate in different directions (up-left, down-left, and two to the right), and four thin leader lines run from these arrows to a single label, Contravariant vectors.",
+   "what_it_teaches": "All vectors at P form a vector space attached at P that is distinct from the manifold; arrows drawn in pictures belong to this space, not to M.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "tangent space",
+    "coordinate basis",
+    "contravariant vector"
+   ],
+   "redesign": {
+    "idea": "Tangent-plane explorer: a curved 3D surface (sphere, saddle, torus) with a tangent plane at a draggable point; the learner draws vectors in the plane, sees them decomposed along the coordinate basis ∂_θ, ∂_φ, and watches long arrows visibly leave the surface.",
+    "interaction": "Drag P over the surface, switch surfaces and charts, add vectors by clicking in the plane; basis arrows and component readouts update; a flat-plane option shows the special case where the tangent plane coincides with the space.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   },
+   "problem": "Relate the Jacobian of a coordinate transformation to the Jacobian of its inverse.",
+   "method": "Assume J' ≠ 0 so the inverse function theorem gives x^a(x'). The book cites only the product rule for determinants; the step it leaves implicit is that the forward and inverse transformation matrices multiply to the identity, which is written out only later as (5.41). Taking determinants then gives J J' = 1.",
+   "key_insight": "Non-vanishing Jacobian is exactly the condition for the change of coordinates to be locally reversible.",
+   "result": "J = 1/J'",
+   "concepts": [
+    "Jacobian determinant",
+    "transformation matrix"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   },
+   "problem": "Find how the components of the tangent vector to a curve at P change under a change of coordinates.",
+   "method": "Write the curve in both charts, x'^a(u) = x'^a(x(u)), differentiate at u = 0 with the chain rule and read off the matrix multiplying the old components.",
+   "key_insight": "The components of a genuinely geometric arrow change by the Jacobian matrix; this law, not the arrow picture, is then used to define all contravariant vectors.",
+   "result": "T'^a = (∂x'^a/∂x^b)_P T^b (5.17)",
+   "concepts": [
+    "tangent vector to a curve",
+    "contravariant vector"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   },
+   "problem": "Find how the components of the gradient of a scalar field transform between charts.",
+   "method": "Express φ as a function of the new coordinates through the old ones, φ(x^a(x')), differentiate with respect to x'^b by the chain rule, then relabel dummy and free indices.",
+   "key_insight": "Because the derivative is taken with respect to the new coordinates, the inverse matrix appears: gradients transform oppositely to tangents.",
+   "result": "N'_a = (∂x^b/∂x'^a)_P N_b (5.25)",
+   "concepts": [
+    "gradient covector",
+    "covariant vector"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.7"
+   },
+   "problem": "Show that an equality between two covariant rank-2 tensors in one coordinate system holds in every coordinate system.",
+   "method": "Multiply both sides of X_ab = Y_ab by the two inverse transformation matrices and sum; each side becomes the transformed components by (5.27).",
+   "key_insight": "Tensor transformation laws are linear and homogeneous, so equality (or vanishing) is preserved; this is why physical laws are written as tensor equations.",
+   "result": "X'_ab = Y'_ab",
+   "concepts": [
+    "coordinate independence of tensor equations"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   },
+   "problem": "Count the independent components of symmetric and anti-symmetric rank-2 tensors in n dimensions, and expand the rank-3 anti-symmetric part.",
+   "method": "Treat the components as an n×n matrix: symmetry fixes entries below the diagonal (leaving n(n+1)/2), anti-symmetry also forces zero diagonal (leaving n(n-1)/2). For three indices list the six permutations with signs.",
+   "key_insight": "Symmetry conditions are chart independent, so these counts are properties of the tensor type; in 4D they give 10 and 6.",
+   "result": "n(n+1)/2 and n(n-1)/2; X_[abc] as in (5.34)",
+   "concepts": [
+    "symmetric and anti-symmetric tensors",
+    "symmetrization and anti-symmetrization brackets"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 92,
+    "printed_page": 77,
+    "section": "5.9"
+   },
+   "problem": "Show that the contraction of a covariant vector with a contravariant vector is a scalar.",
+   "method": "Substitute the two transformation laws into X'^a Y'_a, group the matrices, recognise their product as δ^c_b via the chain rule, and collapse.",
+   "key_insight": "Upper and lower indices are designed so that paired transformation matrices cancel; this cancellation is the engine of every invariant in the book.",
+   "result": "(X'^a Y'_a)_P = (X^a Y_a)_P (5.37)",
+   "concepts": [
+    "invariance of vector-covector contraction",
+    "Kronecker delta",
+    "dual vector space"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   },
+   "problem": "Show that the operator X = X^a ∂_a does not depend on the coordinate system used to write it.",
+   "method": "Transform the components with (5.18) and the derivative operators with the chain rule (5.24), reorder, use (5.41) to produce δ^c_b, and relabel.",
+   "key_insight": "Components and basis operators transform inversely to each other, so their combination is an invariant geometric object: the vector field itself.",
+   "result": "X'^a ∂'_a = X^a ∂_a",
+   "concepts": [
+    "vector field as directional derivative operator",
+    "coordinate basis"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   },
+   "problem": "Compute the components of the commutator of two vector fields and show that it is a vector field.",
+   "method": "Act with XY - YX on an arbitrary f, expand with the product rule, separate first-derivative and second-derivative terms, and use symmetry of mixed partials to cancel the latter; read off components since f is arbitrary.",
+   "key_insight": "Each of XY and YX is a second-order operator, but their difference is first order, hence again a directional derivative.",
+   "result": "[X,Y]^a = X^b ∂_b Y^a - Y^b ∂_b X^a (5.43)",
+   "concepts": [
+    "Lie bracket",
+    "vector field as directional derivative operator"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Vector notation in Newtonian mechanics compresses three component equations into one and exposes structure; tensors do the same job for relativity.",
+   "target_concept": "tensor (transformation-law definition)",
+   "how_used": "Opening motivation for the whole of Part B.",
+   "limits": "Newtonian vectors live in a flat space with a global Cartesian frame; tensors on a manifold need charts, index positions and eventually a connection.",
+   "locator": {
+    "pdf_page": 80,
+    "printed_page": 65,
+    "section": "5.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Side-by-side card: F = ma written as one vector equation versus three component equations, then G_ab = 8πT_ab versus its ten component equations."
+  },
+  {
+   "analogy": "A tiny piece of a sphere looks like a tiny piece of a flat plane, even though the sphere as a whole is finite and the plane is not.",
+   "target_concept": "differentiable manifold",
+   "how_used": "Captures 'locally Euclidean' and separates local from global (topological) properties.",
+   "limits": "The book adds 'if we neglect metrical properties'; a sphere patch is genuinely curved, and local flatness in the manifold sense is about labelling, not distances.",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Zoom slider on a globe: as the viewport shrinks, a lat-long grid becomes indistinguishable from a square grid, while a global counter shows total area stays finite."
+  },
+  {
+   "analogy": "In R^3 there are two natural ways to get a vector: take the tangent to a curve, or take the gradient of a function that defines a surface.",
+   "target_concept": "contravariant vector",
+   "how_used": "Supplies the two prototypes that fix the two index positions and transformation laws.",
+   "limits": "In Euclidean Cartesian coordinates the two kinds look identical because the metric is the identity; the difference only shows up in curvilinear coordinates or without a metric.",
+   "locator": {
+    "pdf_page": 87,
+    "printed_page": 72,
+    "section": "5.6"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Stretch-the-grid demo: stretch the x-axis by a factor s; tangent components scale by s while gradient components scale by 1/s, and their contraction stays fixed."
+  },
+  {
+   "analogy": "The total differential dz = f_x dx + f_y dy of a surface z = f(x, y) in 3-space.",
+   "target_concept": "Einstein summation convention",
+   "how_used": "Template for writing dx'^a in terms of dx^b and then compressing the sum.",
+   "limits": "Only a formal template; the tensorial meaning of dx^a as a vector is asserted rather than derived.",
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "A fixed vector versus a vector field in elementary vector analysis.",
+   "target_concept": "tensor field",
+   "how_used": "Transfers the familiar point/field distinction to tensors.",
+   "limits": "Hides that tensors at different points live in different spaces and cannot be directly compared.",
+   "locator": {
+    "pdf_page": 90,
+    "printed_page": 75,
+    "section": "5.8"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Counting free entries in a symmetric (or anti-symmetric) n×n matrix.",
+   "target_concept": "symmetric and anti-symmetric tensors",
+   "how_used": "Gives the independent component counts n(n+1)/2 and n(n-1)/2.",
+   "limits": "Only rank 2 maps onto a matrix; higher-rank symmetry counts need combinatorics.",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Clickable n×n grid: enforce symmetry or anti-symmetry and watch the mirror entries lock; a counter shows independent entries as n varies."
+  },
+  {
+   "analogy": "An equation like x^2 - 4 = 0 holds only for special x, whereas x^2 - x^2 ≡ 0 holds for every x because its terms cancel.",
+   "target_concept": "identity versus equation",
+   "how_used": "Explains the ≡ symbol used for the Lie bracket identities.",
+   "limits": "Cancellation in pairs is a heuristic; some identities (e.g. those using symmetry of mixed partials) cancel only after using another identity.",
+   "locator": {
+    "pdf_page": 96,
+    "printed_page": 81,
+    "section": "5.10"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "A vector field acts like a directional-derivative machine: feed it a function, get back the rate of change of that function along the field.",
+   "target_concept": "vector field as directional derivative operator",
+   "how_used": "Gives a chart-free meaning to vectors and explains why components and ∂_a transform oppositely.",
+   "limits": "Identifying vectors with derivations needs smooth functions and is not obvious for novices used to arrows; the book gives no picture of it.",
+   "locator": {
+    "pdf_page": 93,
+    "printed_page": 78,
+    "section": "5.10"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Temperature-map probe: a heat map f on a plane, a vector field of arrows, and at a clicked point the value Xf computed in Cartesian and polar charts, identical in both."
+  },
+  {
+   "analogy": "The arrow drawn for a vector really sits in a flat plane touching the manifold at P, not in the manifold itself.",
+   "target_concept": "tangent space",
+   "how_used": "Warning about how to read later spacetime diagrams (Fig. 5.6).",
+   "limits": "In Euclidean and Minkowski space the identification is harmless, which may lull readers into ignoring it in curved spacetime.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   },
+   "effectiveness": "strong",
+   "app_idea": null
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "The coordinates x^a themselves are the components of a contravariant vector (that is why they carry an upper index).",
+   "correction": "Only the differentials dx^a transform like vector components; a finite coordinate n-tuple has no tensor character under non-linear changes of chart.",
+   "why_tempting": "In Cartesian coordinates on flat space, position vectors and coordinates coincide and linear transformations preserve the pattern.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.6"
+   },
+   "concepts": [
+    "index placement convention",
+    "contravariant vector"
+   ]
+  },
+  {
+   "misconception": "A tensor is just its array of components.",
+   "correction": "The tensor is a geometric object; the component array depends on the chart, and different charts give different arrays for the same object related by the transformation law.",
+   "why_tempting": "The chapter's working definition is phrased entirely in terms of components.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   },
+   "concepts": [
+    "geometric object versus components",
+    "tensor (transformation-law definition)"
+   ]
+  },
+  {
+   "misconception": "One coordinate system can always be found that covers a whole manifold without trouble.",
+   "correction": "Some manifolds, such as the 2-sphere, cannot be covered by a single non-degenerate chart; at least two patches are required.",
+   "why_tempting": "Everyday experience with R^n, where Cartesian coordinates work globally.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   },
+   "concepts": [
+    "atlas",
+    "coordinate patch"
+   ]
+  },
+  {
+   "misconception": "A place where coordinates misbehave (like the polar origin) is a special or singular place in the space.",
+   "correction": "The degeneracy can belong to the chart alone; switching to a regular chart (Cartesian) removes it.",
+   "why_tempting": "Formulas in the bad chart genuinely blow up or become undefined there.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   },
+   "concepts": [
+    "coordinate degeneracy"
+   ]
+  },
+  {
+   "misconception": "Upper versus lower index position is cosmetic notation.",
+   "correction": "Index position encodes which transformation law applies (forward versus inverse Jacobian), and only one upper with one lower index can be contracted to give an invariant.",
+   "why_tempting": "In Cartesian coordinates with a Euclidean metric the two kinds of components have the same values.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   },
+   "concepts": [
+    "index placement convention",
+    "contraction"
+   ]
+  },
+  {
+   "misconception": "Any indexed array built by differentiating tensors is itself a tensor, e.g. the matrix of second partial derivatives of a scalar.",
+   "correction": "Differentiating a transformation law generates terms with second derivatives of the coordinate change, so ∂_a∂_b φ is not a tensor in general (Exercise 5.9); tensorial differentiation needs extra structure (ch06).",
+   "why_tempting": "The first derivative of a scalar is a tensor, and in Cartesian coordinates the Hessian behaves well under linear maps.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 97,
+    "printed_page": 82,
+    "section": null
+   },
+   "concepts": [
+    "non-tensorial character of second partial derivatives"
+   ]
+  },
+  {
+   "misconception": "Arrows representing vectors in a diagram lie in the manifold.",
+   "correction": "They lie in the tangent space T_P M at their base point; only in Euclidean or Minkowski space can this be identified with the space itself.",
+   "why_tempting": "Diagrams of flat space and special-relativity spacetime diagrams draw vectors directly in the space.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   },
+   "concepts": [
+    "tangent space"
+   ]
+  },
+  {
+   "misconception": "A dummy index may be renamed to any letter.",
+   "correction": "A dummy may only be renamed to a letter not already used elsewhere in the term; otherwise summations become entangled.",
+   "why_tempting": "Renaming feels like a harmless change of label.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   },
+   "concepts": [
+    "free and dummy indices"
+   ]
+  },
+  {
+   "misconception": "An identity is just an equation whose right side happens to be zero.",
+   "correction": "An identity holds for all values of its variables because its terms cancel when expanded; an equation restricts values.",
+   "why_tempting": "Both are written with a zero on the right.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 96,
+    "printed_page": 81,
+    "section": "5.10"
+   },
+   "concepts": [
+    "identity versus equation"
+   ]
+  },
+  {
+   "misconception": "The gradient covector is a vector perpendicular to the level surface in the usual metric sense on any manifold.",
+   "correction": "Without a metric there is no notion of perpendicularity; dφ is characterised by giving zero on every vector tangent to φ = k. Turning it into a normal vector requires index raising with the metric (ch06).",
+   "why_tempting": "The chapter keeps the word 'normal' from R^3, where grad φ really is perpendicular.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   },
+   "concepts": [
+    "gradient covector",
+    "covariant vector"
+   ]
+  },
+  {
+   "misconception": "Because the Lie bracket components contain partial derivatives of vector components, the bracket cannot be a tensor.",
+   "correction": "The non-tensorial pieces cancel between the two terms, so [X,Y] is a genuine vector field; the operator argument proves this without transformation laws.",
+   "why_tempting": "The chapter has just warned (via exercises) that partial derivatives of tensors are not generally tensors.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   },
+   "concepts": [
+    "Lie bracket",
+    "non-tensorial character of second partial derivatives"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Coordinatizing a whole sphere with one chart",
+   "setup": "Try to give every point of a 2-sphere a unique, smoothly varying pair of numbers with a single system, e.g. latitude and longitude.",
+   "lesson": "Some point always fails (poles where longitude is undefined, a seam where it jumps); a second overlapping chart is unavoidable, which is why manifolds are described by atlases.",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   },
+   "concepts": [
+    "atlas",
+    "coordinate degeneracy",
+    "coordinate patch"
+   ],
+   "visualizable": true,
+   "app_idea": "Let the learner paint a coordinate grid onto a sphere with a brush; the app flags points where the grid pinches or tears and suggests adding a second chart."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Albert Einstein"
+   ],
+   "year": null,
+   "event": "Einstein adopted tensors for physical laws because full contractions of tensors give coordinate-independent numbers that can in principle be measured, matching his view that laws should not depend on how local coordinates are built.",
+   "significance": "Connects the algebra of this chapter to the principle of general covariance used in ch09.",
+   "locator": {
+    "pdf_page": 93,
+    "printed_page": 78,
+    "section": "5.9"
+   }
+  },
+  {
+   "people": [
+    "Roger Penrose"
+   ],
+   "year": "1968",
+   "event": "Penrose introduced abstract index notation, in which indices mark tensor type and slot structure rather than a chart.",
+   "significance": "Presented as the geometric endpoint towards which the index approach naturally leads.",
+   "locator": {
+    "pdf_page": 80,
+    "printed_page": 65,
+    "section": "5.1"
+   }
+  },
+  {
+   "people": [
+    "J. L. Synge",
+    "A. Schild"
+   ],
+   "year": "1949",
+   "event": "Their classic Tensor Calculus followed the index approach and was a major source for the book's treatment.",
+   "significance": "Places the chapter in the classical tradition of relativists' tensor calculus.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Component counts of symmetric and anti-symmetric rank-2 tensors in four-dimensional spacetime",
+   "kind": "numerical-estimate",
+   "details": "Our own application of the chapter's counting formulas with n = 4: a symmetric tensor such as the future metric, Einstein or energy-momentum tensor has 10 independent components, an anti-symmetric tensor such as the electromagnetic field tensor has 6. This explains later statements that the field equations are ten equations.",
+   "key_numbers": "n(n+1)/2 = 10 and n(n-1)/2 = 6 for n = 4 (our estimate, not stated in this chapter)",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Index range",
+   "convention": "Lower-case Latin indices run from 1 to n, the manifold dimension.",
+   "notes": "From DIV ch08 onward the same letters run from 0 to 3 in spacetime.",
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "item": "Primes on the kernel",
+   "convention": "New coordinates and new components carry the prime on the symbol, not on the index: x'^a, X'^a, ∂'_a.",
+   "notes": "Contrast with texts (e.g. Schutz) that prime or bar the index itself.",
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "item": "Einstein summation convention",
+   "convention": "Any repeated index in a term is summed over 1..n; free indices appear once per term; dummies can be renamed to unused letters.",
+   "notes": "Stated for any repeated index rather than one up, one down; the chapter's formulas always pair up with down.",
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   }
+  },
+  {
+   "item": "Index position",
+   "convention": "Contravariant components have upper indices, covariant components lower ('co' goes below); coordinates are written with upper indices because dx^a is contravariant.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.6"
+   }
+  },
+  {
+   "item": "Kronecker delta",
+   "convention": "δ^a_b with one upper and one lower index, a (1,1) tensor with identical components in all charts.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   }
+  },
+  {
+   "item": "Type or valence",
+   "convention": "(p,q) means p contravariant (upper) and q covariant (lower) indices.",
+   "notes": "Some texts order the pair the other way or use 'rank' for p+q; the book uses 'rank' for the number of indices.",
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.7"
+   }
+  },
+  {
+   "item": "Evaluation at a point",
+   "convention": "Square brackets with subscript P, e.g. [∂x'^a/∂x^b]_P, denote evaluation at P.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   }
+  },
+  {
+   "item": "Symmetrization brackets",
+   "convention": "Round brackets (ab) for symmetric part, square brackets [ab] for anti-symmetric part, both normalized with 1/r!.",
+   "notes": "Normalization matters when comparing with texts that omit the 1/r! factor.",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "item": "Partial derivative operator",
+   "convention": "∂_a := ∂/∂x^a, with := meaning 'defined as'.",
+   "notes": "Partial derivatives are not yet written with comma notation in this chapter.",
+   "locator": {
+    "pdf_page": 93,
+    "printed_page": 78,
+    "section": "5.10"
+   }
+  },
+  {
+   "item": "Index-free symbols",
+   "convention": "γ̇(0) for the tangent vector to curve γ, dφ for the gradient co-vector, X = X^a∂_a for a vector field, T_P M and T*_P M for tangent and cotangent spaces, [X,Y] for the Lie bracket.",
+   "notes": "Print writes the tangent space as T_P(M) in Fig. 5.6 and T_P M in the text.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "item": "Identically equal",
+   "convention": "≡ marks an identity valid for all arguments, distinguished from an equation.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 96,
+    "printed_page": 81,
+    "section": "5.10"
+   }
+  },
+  {
+   "item": "Smoothness",
+   "convention": "Smooth means C^∞; the manifold is assumed smooth unless stated otherwise.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "item": "Sign conventions",
+   "convention": "The book follows the time-like sign convention of Landau and Lifshitz and refers to the convention table inside the cover of Misner, Thorne and Wheeler.",
+   "notes": "Signature -2 is defined only in DIV ch06 §6.8; no metric is used in this chapter.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "The authors insist that the Part B exercises are an integral part of the course and must not be skipped.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.1"
+   }
+  },
+  {
+   "summary": "Readers intending to go further are advised to meet a geometric (coordinate-free) treatment as soon as they can.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.1"
+   }
+  },
+  {
+   "summary": "Topology (global structure) is set aside but flagged as returning when solutions of Einstein's equations are analysed.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   }
+  },
+  {
+   "summary": "The reason coordinates carry superscripts is promised for later and resolved in §5.6 via the transformation of differentials.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   }
+  },
+  {
+   "summary": "Parenthetical '(check)' prompts ask the reader to verify that coordinates of one system have partial derivatives δ^a_b with respect to each other (p. 70) and to confirm the symmetric-matrix component count (p. 76).",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   }
+  },
+  {
+   "summary": "Mnemonic that 'co' goes below for covariant indices.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.6"
+   }
+  },
+  {
+   "summary": "Mnemonic for the rank-3 anti-symmetrizer: positive terms by cycling indices to the right, negatives by swapping the last two; flagged as needed later.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "summary": "Duality of covectors and vectors is noted as central to the coordinate-free approach even though the book will not exploit it.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 92,
+    "printed_page": 77,
+    "section": "5.9"
+   }
+  },
+  {
+   "summary": "Coordinate-free construction of general tensors via tensor products or multilinear maps is sketched and deferred to Wald (1984).",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "summary": "Caution that finite vectors drawn as arrows belong to the tangent space, with Euclidean and Minkowski space as the exceptions where the distinction can be ignored.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "summary": "Further reading admits that differential forms are omitted entirely and points to Hughston and Tod for them.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 17,
+  "pdf_pages": [
+   96,
+   97
+  ],
+  "skills_practiced": [
+   "writing curves and surfaces in parametric and constraint form",
+   "computing transformation matrices and Jacobians for polar and spherical coordinates",
+   "locating where a coordinate change degenerates",
+   "manipulating dummy indices and Kronecker deltas",
+   "proving tensor character of sums, products, symmetry and contractions",
+   "showing a quantity is not a tensor",
+   "converting vector fields between Cartesian and polar charts",
+   "writing vector fields as differential operators",
+   "computing Lie brackets and verifying bracket identities"
+  ],
+  "notable": [
+   {
+    "number": "5.2",
+    "summary": "Set up Cartesian-to-spherical-polar coordinates in R^3, find both transformation matrices in terms of the spherical coordinates, compute both Jacobians and determine where J' vanishes or diverges.",
+    "skills": [
+     "Jacobian computation",
+     "coordinate degeneracy"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Turns the abstract Jacobian into a concrete object and reveals the degenerate axis and origin of spherical coordinates, echoing Fig. 5.1.",
+    "pdf_page": 96
+   },
+   {
+    "number": "5.3",
+    "summary": "Use dummy-index relabelling to show that a cyclic sum of a three-index quantity, fully contracted with three copies of the same vector, equals three times one term.",
+    "skills": [
+     "dummy-index relabelling",
+     "summation convention"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Trains dummy relabelling: because X^aX^bX^c is unchanged by any permutation of a, b, c, renaming the summed letters turns each cyclic term into the first one. The same trick later shows that a contraction with a totally symmetric object sees only the symmetric part.",
+    "pdf_page": 96
+   },
+   {
+    "number": "5.6",
+    "summary": "Find the plane polar transformation matrix and use it to transform the tangent vector of a standardly parametrized circle from Cartesian to polar components.",
+    "skills": [
+     "contravariant transformation law",
+     "tangent vectors"
+    ],
+    "difficulty": "intro",
+    "why_notable": "First numerical check of (5.18): the tangent of a circle becomes purely angular in polar components.",
+    "pdf_page": 96
+   },
+   {
+    "number": "5.8",
+    "summary": "Show that if δ^a_b has its defining values in one chart and transforms as a (1,1) tensor, it has the same values in every chart.",
+    "skills": [
+     "mixed tensor law",
+     "chain rule identity"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Introduces the idea of a numerical (constant) tensor, later contrasted with the metric and the Levi-Civita symbol.",
+    "pdf_page": 96
+   },
+   {
+    "number": "5.9",
+    "summary": "Differentiate the covariant transformation law of a gradient once more to show that second partial derivatives of a scalar do not form a tensor.",
+    "skills": [
+     "testing tensor character",
+     "second-order chain rule"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Plants the central motivation for the affine connection and covariant derivative in ch06.",
+    "pdf_page": 97
+   },
+   {
+    "number": "5.11",
+    "summary": "Show that symmetry of a covariant rank-2 tensor is chart independent, and that fully contracting an anti-symmetric with a symmetric tensor gives zero.",
+    "skills": [
+     "symmetry arguments",
+     "dummy relabelling"
+    ],
+    "difficulty": "intro",
+    "why_notable": "The symmetric-times-antisymmetric-vanishes lemma is used constantly later (e.g. with the metric and field-strength tensors).",
+    "pdf_page": 97
+   },
+   {
+    "number": "5.15",
+    "summary": "Evaluate the trace of the Kronecker delta and the full contraction of two deltas in n dimensions.",
+    "skills": [
+     "contraction",
+     "summation convention"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Quick diagnostic for whether a learner really sums over repeated indices (answer n, not 1).",
+    "pdf_page": 97
+   },
+   {
+    "number": "5.17",
+    "summary": "Multi-part study in the plane: transform the unit x-direction field to polar components, relate ∂/∂x, ∂/∂y to ∂/∂R, ∂/∂φ via the gradient in both systems, express vector fields as operators in both charts, then transform two further fields including the rotation field (-y, x) and compute all brackets among the three.",
+    "skills": [
+     "vector fields as operators",
+     "chart changes",
+     "Lie bracket computation"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Ties the whole chapter together; the brackets of the two translations and the rotation (which becomes ∂/∂φ) reproduce the algebra of Euclidean motions of the plane, a preview of Killing vectors in ch07.",
+    "pdf_page": 97
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 3,
+  "conceptual_level": 3,
+  "novice_friendliness": 3,
+  "notes": "Mathematics is multivariable calculus plus bookkeeping, but the index gymnastics are new to most readers and the chapter moves quickly from definitions to invariance proofs with few numerical examples in the text; concrete practice is pushed into the exercises (polar and spherical coordinates). Conceptually the hardest steps are the split between geometric object and components, why covariant components need the inverse matrix, and the jump in §5.10 to vectors as differential operators and tangent spaces. The manifold is described only informally. Several small print slips (T^u for T^a, a reference to (5.2) instead of (5.3), a subscript index in [∂/∂x_a]_P) can confuse careful readers."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "DIV ch04 §4.1",
+   "reason": "Newtonian mechanics written with 3-vectors is the model whose compactness tensors are meant to reproduce.",
+   "locator": {
+    "pdf_page": 80,
+    "printed_page": 65,
+    "section": "5.1"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch06 §6.1",
+   "reason": "Partial derivatives of tensors are not tensors, generalizing Exercise 5.9 and the point-dependence of transformation matrices.",
+   "locator": {
+    "pdf_page": 97,
+    "printed_page": 82,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch06 §6.2",
+   "reason": "Lie derivative, defined with the active view of transformations, reduces to the Lie bracket [X,Y] on vector fields.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch06 §6.3",
+   "reason": "The affine connection is introduced precisely because the transformation law picks up an inhomogeneous second-derivative term.",
+   "locator": {
+    "pdf_page": 97,
+    "printed_page": 82,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch06 §6.8",
+   "reason": "The metric tensor, signature and raising/lowering of indices, absent here, turn covectors into normal vectors and define lengths.",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch06 §6.12",
+   "reason": "The rank-3 anti-symmetrization (5.34) is flagged as needed later; it expresses the cyclic identity of the curvature tensor, R^a_[bcd] = 0 (identity (6.79), Exercise 6.24).",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch07 §7.1",
+   "reason": "Tensor densities generalize the transformation laws with powers of the Jacobian introduced in §5.4.",
+   "locator": {
+    "pdf_page": 84,
+    "printed_page": 69,
+    "section": "5.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch07 §7.7",
+   "reason": "Commutators of Killing vector fields use the Lie bracket and Jacobi identity.",
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch08 §8.1",
+   "reason": "Minkowski spacetime as a manifold with indices now running 0-3; the tangent space of flat spacetime identified with the space itself.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch09 §9.5",
+   "reason": "The principle of general covariance requires physical laws to be tensor equations, justified by the coordinate-independence result of §5.7.",
+   "locator": {
+    "pdf_page": 90,
+    "printed_page": 75,
+    "section": "5.7"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch17",
+   "reason": "Global structure and coordinate degeneracies return when black-hole solutions need more than one coordinate patch.",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Penrose (1968), Structure of space-time; Penrose and Rindler (1986), Spinors and Space-Time",
+   "reason": "Abstract index notation and the most complete geometric treatment.",
+   "locator": {
+    "pdf_page": 80,
+    "printed_page": 65,
+    "section": "5.1"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Wald (1984), General Relativity",
+   "reason": "Coordinate-free construction of tangent/cotangent spaces and tensors as multilinear maps.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Schutz (1985), A First Course in General Relativity; Schutz (1980), Geometrical Methods in Mathematical Physics",
+   "reason": "Companion text at similar level with a more geometric approach, and a deeper grounding in differential geometry.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Synge and Schild (1949), Tensor Calculus",
+   "reason": "Classic index-based text and major source for the chapter.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Hughston and Tod (1990), An Introduction to General Relativity",
+   "reason": "Treatment and application of differential forms, omitted in this book.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Misner, Thorne and Wheeler (1973), Gravitation; Landau and Lifshitz (1971), The Classical Theory of Fields",
+   "reason": "Sign-convention table (MTW) and the time-like convention adopted by the book (Landau-Lifshitz).",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "O'Neill (1983), Semi-Riemannian Geometry; Choquet-Bruhat, DeWitt-Morette and Dillard-Bleick (1977), Analysis, Manifolds and Physics",
+   "reason": "More mathematical texts on Lorentzian geometry for further study.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Prototype-then-definition: compute how a concrete geometric object's components change between charts (curve tangent; gradient), then declare that law to be the definition of the whole class.",
+   "why_effective": "The abstract transformation law arrives already justified by a familiar object, so the reader sees why the forward matrix goes with tangents and the inverse matrix with gradients instead of memorizing two formulas.",
+   "locator": {
+    "pdf_page": 86,
+    "printed_page": 71,
+    "section": "5.5"
+   },
+   "app_idea": "Two-panel lab on a plane: left panel a draggable curve with its tangent, right panel a draggable level set with its gradient; switching between Cartesian and polar charts shows component lists changing by J and J^{-1} respectively, with the matrices displayed."
+  },
+  {
+   "gem": "Invariance by cancellation: substitute both transformation laws into X^a Y_a and watch the forward and inverse matrices multiply to δ.",
+   "why_effective": "Makes the purpose of index placement tangible: every invariant in GR is built by pairing indices so that matrices cancel.",
+   "locator": {
+    "pdf_page": 92,
+    "printed_page": 77,
+    "section": "5.9"
+   },
+   "app_idea": "Animated index algebra: the chain (5.37) plays step by step with colour-coded matrices sliding together, fusing into a δ, and disappearing; a numerical panel simultaneously evaluates both sides for random charts."
+  },
+  {
+   "gem": "One-line proof that tensor equations are chart independent: multiply both sides of X_ab = Y_ab by the same transformation matrices.",
+   "why_effective": "Short enough to remember, and it directly answers why physics should be written in tensors, setting up general covariance.",
+   "locator": {
+    "pdf_page": 89,
+    "printed_page": 74,
+    "section": "5.7"
+   },
+   "app_idea": "Chart-shuffle check: two tensor fields defined equal in one chart; the learner applies random coordinate warps and the app confirms equality survives, while a non-tensor pair (e.g. second derivatives) fails."
+  },
+  {
+   "gem": "The polar-origin versus sphere contrast: a coordinate degeneracy that can be removed by switching chart, versus a space that no single chart can cover.",
+   "why_effective": "Separates chart artefacts from genuine global structure with pictures every student knows, and seeds the later coordinate-versus-physical singularity discussion for black holes.",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   },
+   "app_idea": "Globe with a movable 'bad point': the learner rotates a latitude-longitude chart and sees the degenerate poles move with the chart, not with the sphere; a second chart heals them."
+  },
+  {
+   "gem": "Vector field as a directional-derivative operator X = X^a ∂_a, whose coordinate independence follows because components and ∂_a transform inversely.",
+   "why_effective": "Gives the first glimpse of what a vector is without coordinates and prepares both the coordinate basis and the Lie bracket.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   },
+   "app_idea": "Directional-derivative probe on a height map with switchable charts: the same arrow yields the same slope readout whatever grid is used, while component and basis readouts change in compensating ways."
+  },
+  {
+   "gem": "Lie bracket from operator commutator: expand XY - YX on a test function and let the symmetric second-derivative terms cancel.",
+   "why_effective": "Shows why the commutator of two first-order operators is again first order, hence a vector field, with no appeal to transformation laws.",
+   "locator": {
+    "pdf_page": 95,
+    "printed_page": 80,
+    "section": "5.10"
+   },
+   "app_idea": "Flow-box non-closure: follow X for ε, Y for ε, then back along X and Y; the small gap vector drawn at the end approaches ε²[X,Y], with presets for translations (gap zero) and translation plus rotation (gap non-zero)."
+  },
+  {
+   "gem": "Warning that arrows live in the tangent space, not the manifold (Fig. 5.6).",
+   "why_effective": "Pre-empts a lasting confusion when readers later see vectors drawn on curved spacetime diagrams.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   },
+   "app_idea": "Scale-a-vector demo on a sphere: a vector drawn in the tangent plane is scaled up until it clearly leaves the sphere, contrasted with a flat plane where it never does."
+  },
+  {
+   "gem": "Equation versus identity explained with x^2 - 4 = 0 versus x^2 - x^2 ≡ 0.",
+   "why_effective": "Clarifies notation that recurs for Bianchi and Jacobi identities using school algebra.",
+   "locator": {
+    "pdf_page": 96,
+    "printed_page": 81,
+    "section": "5.10"
+   },
+   "app_idea": "Toggle quiz: learner drags variable sliders and sees which expressions stay zero for all settings (identities) versus only at special values (equations)."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Printed typo: the contravariant tangent vector is written T^u instead of T^a when contrasting index positions.",
+   "impact_on_learner": "A reader may think a new object or index range is meant.",
+   "suggestion": "Read T^u as T^a from (5.14).",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "issue": "Printed cross-reference slip: the level set φ(x^a) = k is said to be a hypersurface 'by (5.2)', but the single-constraint form is (5.3).",
+   "impact_on_learner": "Following the link lands on the parametric m-surface equation, which does not show a single constraint.",
+   "suggestion": "Point to (5.3).",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "issue": "Printed index slips in §5.10: the coordinate basis appears as [∂/∂x_a]_P with a lower index, and the vector at P is written X_p with lowercase p.",
+   "impact_on_learner": "Index position was just said to be meaningful, so a lower index on x looks like a covector or a different object.",
+   "suggestion": "Use [∂/∂x^a]_P and X_P consistently.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "issue": "The gradient is called a co-vector 'normal' to the level hypersurface on a general manifold, and the text even announces that the Euclidean normality result carries over to the general case, although no metric exists yet to give 'normal' a meaning.",
+   "impact_on_learner": "Learners conflate covectors with perpendicular arrows, which breaks down in Lorentzian geometry (null normals lie in their own hypersurface).",
+   "suggestion": "Describe dφ as a stack of level surfaces that gives zero on tangent vectors of φ = k; postpone 'normal vector' until the metric raises the index.",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "issue": "Notational abuse: the same letter φ is used for the scalar as a function of x and as a function of x' (φ(x^a) = k and φ(x'^a) = k).",
+   "impact_on_learner": "Students may think the same functional form is being evaluated on new coordinates, producing wrong transformations.",
+   "suggestion": "Write φ'(x') = φ(x(x')) explicitly once, then explain the shorthand.",
+   "locator": {
+    "pdf_page": 88,
+    "printed_page": 73,
+    "section": "5.6"
+   }
+  },
+  {
+   "issue": "The manifold is not defined precisely (a set of points with coordinates), and smoothness of transition maps is only added later; no mention of Hausdorff or compatibility conditions.",
+   "impact_on_learner": "Adequate for calculation but leaves mathematically minded readers unsure what counts as a manifold, and gives no tools to discuss global structure later.",
+   "suggestion": "Offer an optional precise definition (charts, smooth compatible transition maps, atlas) as an expandable panel.",
+   "locator": {
+    "pdf_page": 81,
+    "printed_page": 66,
+    "section": "5.2"
+   }
+  },
+  {
+   "issue": "The claim that the tangent space coincides with the manifold in Euclidean and Minkowski space is loose; really the affine structure gives a canonical identification.",
+   "impact_on_learner": "Encourages the habit of treating position and displacement vectors as the same kind of thing, which fails in curved spacetime.",
+   "suggestion": "Say 'can be canonically identified with' and show why this needs parallel translation to be path independent.",
+   "locator": {
+    "pdf_page": 94,
+    "printed_page": 79,
+    "section": "5.10"
+   }
+  },
+  {
+   "issue": "The summation convention is stated as applying to any repeated index, without the one-up-one-down rule.",
+   "impact_on_learner": "Learners may sum X_a Y_a without a metric and obtain non-invariant results.",
+   "suggestion": "Teach the hygiene rule immediately: summed pairs must be one upper, one lower, and a letter may not appear more than twice in a term.",
+   "locator": {
+    "pdf_page": 85,
+    "printed_page": 70,
+    "section": "5.4"
+   }
+  },
+  {
+   "issue": "Coordinate transformations are interpreted passively here, but ch06 §6.2 switches to the active view for the Lie derivative with little bridging.",
+   "impact_on_learner": "The Lie derivative argument can feel unrelated to the familiar transformation laws.",
+   "suggestion": "Introduce the active/passive distinction with a simple rotation demo before ch06.",
+   "locator": {
+    "pdf_page": 83,
+    "printed_page": 68,
+    "section": "5.4"
+   }
+  },
+  {
+   "issue": "The general symmetrization formula is given only in words, and the 1/r! normalization is a convention not shared by all texts.",
+   "impact_on_learner": "Factor-of-r! discrepancies when mixing sources, especially for forms and Levi-Civita identities.",
+   "suggestion": "Write the explicit permutation sums and note the normalization choice.",
+   "locator": {
+    "pdf_page": 91,
+    "printed_page": 76,
+    "section": "5.9"
+   }
+  },
+  {
+   "issue": "No numerical worked example in the text; all concrete coordinate computations (polar, spherical) are in exercises.",
+   "impact_on_learner": "Readers who skip exercises see only symbolic derivations and may not internalize what J and J^{-1} look like.",
+   "suggestion": "Embed one fully worked polar-coordinates example transforming a vector, a covector and their contraction.",
+   "locator": null
+  },
+  {
+   "issue": "Dated scope: differential forms and the index-free machinery are omitted, and the book never uses the tangent-space viewpoint heavily.",
+   "impact_on_learner": "Modern GR and numerical relativity literature uses forms, frames and coordinate-free language freely.",
+   "suggestion": "Pair the chapter with a short module on one-forms as level-surface stacks and wedge products.",
+   "locator": {
+    "pdf_page": 98,
+    "printed_page": 83,
+    "section": null
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Opening question: 'If you describe the same arrow using two different grids, do you expect the numbers to be the same? How would you convert them?' Let the learner discover the chain rule before naming the contravariant law.",
+  "Suggested order: charts and why more than one (polar origin, sphere) -> Jacobian and inverse -> summation convention and δ -> tangent prototype -> gradient prototype -> type (p,q) and the equality-in-all-charts proof -> contraction invariance -> vector fields as operators -> Lie bracket.",
+  "Anchor everything in the plane with Cartesian and polar charts. Keep handy: ∂R/∂x = cos φ, ∂R/∂y = sin φ, ∂φ/∂x = -sin φ / R, ∂φ/∂y = cos φ / R; then ∂_x = cos φ ∂_R - (sin φ / R) ∂_φ and the rotation field -y∂_x + x∂_y equals ∂_φ.",
+  "Check for understanding: ask the learner to transform both a tangent vector and a gradient under x' = 2x (1D scaling). Tangent components double, gradient components halve, product unchanged. If they get the same factor for both, revisit index position.",
+  "Check: 'What is δ^a_a in four dimensions?' Answer 4. An answer of 1 means the summation convention has not sunk in.",
+  "Check: 'Is ∂_a∂_b φ a tensor?' Expect 'not in general', with the extra term containing second derivatives of the coordinate change; use this to motivate the connection in ch06.",
+  "Common question: 'Why is x^a written with an upper index if it is not a vector?' Answer: its differentials dx^a are contravariant; finite coordinates only behave like vectors under linear maps.",
+  "Common question: 'What is the difference between a covector and a vector if I can just lower the index?' Explain that this chapter has no metric, so they are genuinely different kinds of objects; lowering requires the metric of ch06.",
+  "Common question: 'Why does the Lie bracket have derivatives but still count as a vector?' Show the operator expansion: the second-derivative pieces cancel. Optionally show the flow-box picture where [X,Y] measures the failure of a small flow parallelogram to close.",
+  "Flag the three print slips (T^u, reference to (5.2), [∂/∂x_a]_P) proactively if the learner is reading the book alongside.",
+  "For advanced learners, connect X = X^a ∂_a and T_P M to the multilinear-map definition and to Schutz's or Wald's geometric treatments; for novices, keep the index approach and emphasise the 'components change, object stays' mantra."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "role_in_book wrongly placed Chapter 8 inside the Part B tensor detour; the TOC shows Part B is ch05-ch07 and ch08 opens Part C. Rewritten, and the Lie bracket forward pointer now names §7.7.",
+   "Fig. 5.6 visual description corrected against the image: exactly four arrows at P with four leader lines to one label, and the square overlaps the outline instead of touching a drawn surface.",
+   "Fig. 5.2 description no longer says the sphere is drawn with depth; it is a plain circular outline.",
+   "Removed the 'axiomatic-mathematical' style tag. The chapter says outright that it will not define a manifold precisely and states no postulates.",
+   "Margin note on '(check)' prompts now locates both prompts (p. 70 delta identity, p. 76 component count).",
+   "Contraction note sharpened: summing two same-level indices is non-tensorial without a metric, rather than impossible.",
+   "Gap on 'normal' co-vectors now records that the book explicitly claims the Euclidean normality result carries over to general manifolds.",
+   "Exercise 5.3 rationale corrected: the identity rests on total symmetry of X^aX^bX^c under dummy relabelling.",
+   "J = 1/J' worked example no longer credits the book with a matrix-inverse argument it leaves implicit until (5.41)."
+  ],
+  "residual_concerns": [
+   "PDF pages 77-79 (printed 62-64) are the blank verso, Part B title page and blank page. They were rendered and have no teaching content beyond the part title.",
+   "Pages 87, 88 and 94 carry real print slips (T^u for T^a, 'by (5.2)' where (5.3) is meant, [∂/∂x_a]_P and X_p). Rendering confirmed they are in the book, not export errors. The reading copy also drops the primes in the second tangent component list on p. 72, but the dossier does not quote it.",
+   "The chapter has few genuine worked examples. The eight listed are inline derivations, and the one for J = 1/J' is only a line long.",
+   "The 10 and 6 component counts for n = 4 are the dossier's own application and are labelled that way."
+  ],
+  "coverage": {
+   "toc_sections": 10,
+   "sections": 12,
+   "inventory_figures": 6,
+   "figures": 6,
+   "inventory_examples": 0,
+   "worked_examples": 8,
+   "concepts": 49,
+   "key_equations": 53,
+   "locators_checked": 62,
+   "locators_wrong": 0,
+   "pages_rendered": 9
+  }
+ }
+}

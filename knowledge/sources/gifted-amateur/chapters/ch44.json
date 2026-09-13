@@ -1,0 +1,3011 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch44",
+ "title": "Gauge fields",
+ "part": "VI: Classical and quantum fields",
+ "printed_pages": [
+  476,
+  484
+ ],
+ "pdf_pages": [
+  493,
+  501
+ ],
+ "one_line_summary": "Shows that the covariant derivative of general relativity has a twin in field theory: demanding that a complex scalar field be invariant under position-dependent phase rotations forces in a compensating 1-form (the electromagnetic potential), a gauge covariant derivative D = d + iqA that plays the role of the connection, and, via transport round a tiny loop, a field strength [D,D] = iqF that plays the role of the Riemann tensor, all pictured as a fibre bundle of phase circles over spacetime.",
+ "role_in_book": "Part VI turns from geometry to fields. Chapter 40 built Lagrangian field theory, Chapter 42 introduced the electromagnetic 4-potential and its gauge freedom, and Chapter 43 tied charge conservation to the Bianchi identity. This short chapter unifies those threads with the geometric machinery of Parts II and V (covariant derivative from Chapter 7, loop curvature from Chapters 11 and 35) by presenting gauge fields as connections on a bundle of internal spaces. It supplies the vocabulary of gauge freedom that Chapter 45 exploits for linearized gravity, that Chapter 46 uses to treat gravitational waves as waves in a gauge theory, and that Chapter 48 needs when an internal phase is promoted to an extra spacetime dimension.",
+ "assumed_background": [
+  {
+   "topic": "Covariant derivative as total change minus change of the basis, with connection coefficients",
+   "source": "earlier-in-this-book",
+   "where": "GA ch07"
+  },
+  {
+   "topic": "Parallel transport of a vector and its component equation",
+   "source": "earlier-in-this-book",
+   "where": "GA ch07"
+  },
+  {
+   "topic": "Riemann curvature from parallel transport round an infinitesimal loop",
+   "source": "earlier-in-this-book",
+   "where": "GA ch11 §11.3"
+  },
+  {
+   "topic": "Riemann tensor as the commutator of covariant derivatives in a coordinate frame",
+   "source": "earlier-in-this-book",
+   "where": "GA ch35 §35.3"
+  },
+  {
+   "topic": "Lagrangian densities, symmetries of the action and field equations",
+   "source": "earlier-in-this-book",
+   "where": "GA ch40"
+  },
+  {
+   "topic": "Electromagnetic 4-potential, Faraday tensor F = dA and gauge transformations A -> A - d chi",
+   "source": "earlier-in-this-book",
+   "where": "GA ch42 §42.2-42.3"
+  },
+  {
+   "topic": "Bianchi identity from summing curvature rotations over the faces of a cube (needed for Exercise 44.1)",
+   "source": "earlier-in-this-book",
+   "where": "GA ch43"
+  },
+  {
+   "topic": "1-forms and components with index notation, Minkowski metric raising indices",
+   "source": "earlier-in-this-book",
+   "where": "GA Part I and ch36"
+  },
+  {
+   "topic": "Tangent spaces at points of a manifold",
+   "source": "earlier-in-this-book",
+   "where": "GA Part V; Appendix C"
+  },
+  {
+   "topic": "Complex numbers in polar form, phases and complex conjugation",
+   "source": "school-math",
+   "where": null
+  },
+  {
+   "topic": "Product rule and Taylor expansion to second order in several variables",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Commutators of linear operators",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Overall phase of a wavefunction and the minimal-coupling replacement p -> p - qA",
+   "source": "quantum-mechanics",
+   "where": "helpful but not required"
+  }
+ ],
+ "learning_objectives": [
+  "Reader can explain what an internal variable of a field is and why a phase rotation is not a rotation in physical space.",
+  "Reader can describe a fibre bundle in terms of base space, fibre and bundle, and give the tangent bundle and the U(1) phase-circle bundle as examples.",
+  "Reader can distinguish a global phase transformation from a local one and show that the complex scalar Lagrangian is invariant only under the global kind.",
+  "Reader can carry out the product-rule calculation showing which extra terms a position-dependent phase generates in the kinetic term.",
+  "Reader can define the gauge covariant derivative D_mu = partial_mu + iqA_mu and verify that D_mu psi picks up the same phase factor as psi when A shifts by -(1/q) partial_mu alpha.",
+  "Reader can identify the compensating transformation of A with electromagnetic gauge freedom by setting chi = alpha/q.",
+  "Reader can set up the parallel-transport analogy delta psi = -iqA_nu psi dx^nu versus delta v^mu = -Gamma^mu_{nu beta} v^beta dx^nu, and state which object plays the role of the connection.",
+  "Reader can explain how transporting a field round an infinitesimal loop yields a change proportional to the commutator [D_mu, D_nu] times the loop area, and compute [D_mu, D_nu] = iqF_mu nu for the U(1) case.",
+  "Reader can fill in the three-column dictionary linking general relativity (coordinate change, Gamma, Riemann), gauge theory (local phase change, A, iqF) and bundles (strained bundle, connection, curvature).",
+  "Reader can state the limits of the analogy and recognise where later chapters (weak fields, gravitational waves, Kaluza-Klein) reuse gauge ideas."
+ ],
+ "teaching_approach": {
+  "summary": "A compact, analogy-driven chapter that never introduces a new mathematical tool without tying it to one the reader already owns. It opens and closes on the covariant derivative of relativity, uses pictures of arrows, knobs and hatched strips to make the invisible internal space concrete, stages a deliberate failure (local phase change spoils invariance) to motivate the gauge field, and then replays the Chapter 11 loop computation with D in place of the connection so that the Faraday tensor emerges as a curvature. A closing three-way dictionary table is the payoff. Rigour about bundles is deferred to Appendix C; the argument is heuristic but tightly sequenced.",
+  "style_tags": [
+   "analogy-driven",
+   "physical-motivation-first",
+   "diagram-driven",
+   "spiral-revisit",
+   "conversational-informal",
+   "example-driven",
+   "geometric-first"
+  ],
+  "narrative_arc": [
+   "Recall: a vector's change on displacement has an intrinsic part and a basis-change part, which defined the covariant derivative (eqn 44.1).",
+   "Picture a complex field as a grid of phase arrows and rotate them all by one angle to illustrate an internal symmetry (Fig. 44.1).",
+   "Ask where the phase lives: not in spacetime but in a fibre above each event, introducing base space, fibre and bundle (Fig. 44.2, Example 44.1).",
+   "Make the fibre a circle so the phase becomes a knob at each point; a global transformation twists all knobs equally (Fig. 44.3).",
+   "Write the complex scalar field Lagrangian and confirm global U(1) invariance.",
+   "Pose the provocative question of letting the twist vary from point to point and compute the resulting non-invariance (Example 44.2).",
+   "Repair it by adding a 1-form gauge field with a compensating shift, building D_mu, and verify invariance (Example 44.3).",
+   "Recognise the compensating shift as the electromagnetic gauge transformation of Chapter 42 and name the construction a gauge theory.",
+   "Reinterpret: point-dependent shifts strain the bundle and A is the connection that accounts for the strain.",
+   "Return to parallel transport: write delta v for vectors (Example 44.4) and delta psi for the charged field, then build D as total change minus transport change, reading off A as the analogue of Gamma.",
+   "Generalise parallel transport to horizontal transport through the bundle (Example 44.5, Fig. 44.4).",
+   "Carry the field round an infinitesimal loop, expand to second order and extract the commutator times the area as the field strength (Examples 44.6-44.7).",
+   "Compare with the commutator of nabla giving Riemann (eqn 44.24) and summarise in a GR / gauge theory / bundle dictionary table.",
+   "Exercises extend the cube-of-loops Bianchi argument to a gauge field and ask for the scalar field's energy-momentum tensor."
+  ],
+  "signature_moves": [
+   "The same words-equation template, change of the object minus change attributable to the reference frame, is written for both nabla (eqn 44.13) and D (eqn 44.17), so the reader sees one idea applied twice.",
+   "Break-then-repair: first show explicitly which cross terms a local phase introduces, then introduce exactly the field needed to cancel them.",
+   "The same internal space is drawn four ways in the order the argument needs them: phase arrows on a grid (Fig. 44.1), tubes standing over a curve (Fig. 44.2), knob circles seen from above (Fig. 44.3), and a hatched strip crossed by a horizontal curve (Fig. 44.4).",
+   "Replays the loop-transport curvature derivation from Chapter 11 almost line for line with D replacing the geometric covariant derivative.",
+   "Grounds the unfamiliar bundle concept first in the tangent bundle the reader already knows, then isospin, then Newtonian spacetime as a bundle over time.",
+   "Borrows a solid-state image (a strained crystal whose atoms are displaced by position-dependent amounts) to name the strained bundle.",
+   "Ends on a compact three-column dictionary table rather than a prose recap."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Chapter opening: two reasons a vector changes",
+   "printed_page": 476,
+   "pdf_page": 493,
+   "summary": "After a Chesterton epigraph about change, the authors recall that when you move and see a vector's components alter, part of the alteration is real and part comes from the coordinate grid shifting underneath; that split defined the covariant derivative in Chapter 7. They announce that this split has a close cousin in field theories with local symmetries, where a derivative D_mu does the same job. A boxed pointer says gauge ideas will pay off for weak fields, gravitational waves and higher-dimensional theories, and a footnote explains the historical, rather unhelpful, origin of the word gauge.",
+   "concepts": [
+    "covariant derivative",
+    "connection coefficients",
+    "gauge covariant derivative"
+   ],
+   "key_moves": [
+    "Restate nabla as change in the vector minus change due to the coordinate system, with eqn 44.1 as its component form.",
+    "Flag the analogy between nabla_mu and a field-theory covariant derivative D_mu as the chapter's organising theme."
+   ]
+  },
+  {
+   "number": "44.1",
+   "title": "Fibre bundles and gauge invariance",
+   "printed_page": 476,
+   "pdf_page": 493,
+   "summary": "Fields assign values to every spacetime point and a theory is specified by its Lagrangian; a transformation leaving the Lagrangian unchanged is a symmetry. Besides coordinates, fields can carry internal variables such as a phase, drawn as an arrow at each point; rotating every arrow by the same angle is an internal symmetry if the Lagrangian does not notice. Because the phase is not a direction in spacetime, the authors introduce the fibre bundle: a base space with a fibre of internal values attached to each point. Example 44.1 lists the tangent bundle, isospin and Newtonian spacetime as bundles. For a single-valued phase the fibre is a circle, pictured as a turnable knob. The complex scalar field Lagrangian is invariant under a constant phase shift (global U(1)), but Example 44.2 shows that a position-dependent shift generates extra derivative-of-alpha terms. Introducing a 1-form gauge field A with D_mu = partial_mu + iqA_mu and the compensating rule A -> A - (1/q) partial alpha makes D psi transform like psi, so the Lagrangian with D in place of partial is locally invariant (Example 44.3). Identifying chi = alpha/q shows the compensating rule is the electromagnetic gauge transformation of Chapter 42; the result is called a gauge theory, the basis of particle physics, superconductivity and quantum Hall physics. In bundle language, point-dependent shifts produce a strained bundle and A introduces the strain into the connection.",
+   "concepts": [
+    "internal variable",
+    "symmetry of a Lagrangian",
+    "internal symmetry",
+    "amplitude-phase representation of a complex field",
+    "fibre bundle",
+    "base space",
+    "fibre",
+    "tangent bundle",
+    "isospin",
+    "Newtonian spacetime as a bundle over time",
+    "U(1) circle fibre",
+    "complex scalar field theory",
+    "global U(1) phase symmetry",
+    "global transformation",
+    "local transformation",
+    "local gauge invariance",
+    "gauge field",
+    "gauge covariant derivative",
+    "gauge transformation",
+    "gauge theory",
+    "electric charge as gauge coupling",
+    "strained bundle",
+    "bundle connection"
+   ],
+   "key_moves": [
+    "Separate spacetime dependence of a field from internal variables it carries, using the phase of rho e^{i theta} as the example.",
+    "Place the internal variable in a fibre above each point, making the field a structure on a bundle over the base space.",
+    "Use single-valuedness (theta ~ theta + 2 pi) to make the fibre a unit circle.",
+    "Show global invariance of eqn 44.2 under eqn 44.3 because psi-dagger picks up the opposite phase.",
+    "Compute the transformed kinetic term under a local phase and exhibit the non-cancelling terms (eqns 44.4-44.6).",
+    "Introduce A_mu and D_mu (eqn 44.7) with a transformation law (eqn 44.8) chosen to cancel those terms; verify D psi -> e^{i alpha} D psi (eqn 44.9).",
+    "Match the compensating law to A -> A - partial chi (eqn 44.11) with chi = alpha/q.",
+    "Translate into bundle language: local shift = strained bundle, partial_mu compares neighbouring fibres, A supplies the connection."
+   ]
+  },
+  {
+   "number": "44.2",
+   "title": "Parallel transport and field strength",
+   "printed_page": 480,
+   "pdf_page": 497,
+   "summary": "The naive difference psi(x+dx) - psi(x) mixes genuine change with a change of reference frame in the internal space. The authors restate the geometric covariant derivative as total change minus frame change and, in Example 44.4, reduce nabla_u v = 0 to the transport rule delta v = -Gamma v dx. By analogy they posit the transport rule delta psi = -iqA psi dx for the charged field and define D psi = d psi - delta psi, which reproduces D_mu = partial_mu + iqA_mu and shows A playing the role of Gamma (with a footnote noting the vector case needs extra indices). Example 44.5 recasts parallel transport as horizontal transport through the bundle, where D_mu psi = 0. Example 44.6 carries psi round an infinitesimal quadrilateral, expanding each leg to second order; first-order and square terms cancel, leaving a change equal to the loop area times the commutator [D_mu, D_nu], named the gauge field strength Q_mu nu. Example 44.7 evaluates it for U(1): iq(partial_mu A_nu - partial_nu A_mu) = iqF_mu nu, so the Faraday tensor is the curvature of the bundle. The commutator of nabla giving the Riemann tensor (Chapter 35) completes the parallel, summarised in a table matching coordinate transformation / local phase transformation / strained bundle, connection coefficient / gauge field / bundle connection, and Riemann curvature / iqF / bundle curvature. The section closes by noting that U(1) is the simplest of many gauge theories, all with field strength given by the commutator, and that Chapter 48 will try to house an internal parameter in an extra dimension.",
+   "concepts": [
+    "parallel transport of a vector",
+    "parallel transport of a charged field",
+    "covariant derivative",
+    "gauge covariant derivative",
+    "gauge field as connection",
+    "horizontal transport",
+    "holonomy of an infinitesimal loop",
+    "commutator of covariant derivatives as curvature operator",
+    "gauge field strength",
+    "Faraday tensor as U(1) field strength",
+    "bundle curvature",
+    "Riemann tensor as commutator of covariant derivatives",
+    "gravity-gauge theory dictionary",
+    "non-abelian gauge theory"
+   ],
+   "key_moves": [
+    "Point out that d psi = psi(x+dx) - psi(x) compares values expressed in two different internal frames.",
+    "Cancel the tangent vector in the transport equation to isolate delta v^mu = -Gamma^mu_{nu beta} v^beta dx^nu (eqn 44.15).",
+    "Write the matching transport change delta psi = -iqA_nu psi dx^nu (eqn 44.16) and subtract it from d psi to obtain D_mu (eqns 44.17-44.18).",
+    "Define horizontal transport by D_mu psi = 0.",
+    "Expand transport along each of the four legs of a loop to second order, compose, and show only the antisymmetric cross term survives (eqn 44.20).",
+    "Name [D_mu, D_nu] the field strength (eqn 44.21) and compute it for U(1) to get iqF_mu nu (eqn 44.23).",
+    "Place eqn 44.23 beside [nabla_mu, nabla_nu] Z = R Z (eqn 44.24) and tabulate the three-way correspondence."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Chapter summary and exercises",
+   "printed_page": 483,
+   "pdf_page": 500,
+   "summary": "A three-point summary restates fibres and bundles, the gauge covariant derivative obtained from local phase invariance, and loop transport giving [D_mu, D_nu] = iqF as the counterpart of Riemann. Exercise 44.1 follows Ryder's approach to derive a Bianchi identity for a (generally non-abelian) gauge field by traversing loops round the faces of a small cube (Fig. 44.5) in three composite paths, ending with a cyclic sum of covariant derivatives of the field strength and its link to the Jacobi identity for commutators. Exercise 44.2, a short closing task on pdf page 501, asks for the energy-momentum tensor of the complex scalar field in flat space.",
+   "concepts": [
+    "gauge-field Bianchi identity",
+    "Jacobi identity",
+    "energy-momentum tensor of a complex scalar field"
+   ],
+   "key_moves": [
+    "Decompose the closed cube surface into three composite loop paths (eqn 44.25).",
+    "Accumulate the loop factors leg by leg to leading order in the coupling g to obtain eqn 44.26.",
+    "Relate the vanishing cyclic sum to the Jacobi identity of the D operators (eqn 44.27)."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "internal variable",
+   "aliases": [
+    "internal degree of freedom",
+    "internal coordinate"
+   ],
+   "kind": "definition",
+   "definition": "A quantity carried by a field at each spacetime point that is not a spacetime coordinate or direction, such as the phase of a complex field or an isospin label; transformations acting on it do not move anything in spacetime.",
+   "how_introduced": "Introduced by contrasting the spacetime dependence of psi(x) with the phase theta carried in the factor e^{i theta}, pictured as an arrow at each point in Fig. 44.1.",
+   "depth": "core",
+   "prerequisites": [
+    "classical field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 493,
+     "printed_page": 476,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\psi(x)=\\rho(x)\\,e^{i\\theta(x)}"
+   ],
+   "notes": "The arrow drawing can mislead: the arrow direction is not a spatial direction."
+  },
+  {
+   "name": "symmetry of a Lagrangian",
+   "aliases": [
+    "symmetry of a field theory"
+   ],
+   "kind": "definition",
+   "definition": "A transformation of the fields or coordinates under which the Lagrangian takes the same value, so the equations of motion derived from it are unchanged.",
+   "how_introduced": "Stated at the start of §44.1 as the criterion used for every transformation in the chapter.",
+   "depth": "developed",
+   "prerequisites": [
+    "Lagrangian density",
+    "Euler-Lagrange equation for fields"
+   ],
+   "locators": [
+    {
+     "pdf_page": 493,
+     "printed_page": 476,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "internal symmetry",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "A symmetry whose transformation acts only on internal variables of the fields (for example rotating every phase), leaving spacetime points untouched.",
+   "how_introduced": "Defined as the case where rotating the phase arrows of Fig. 44.1 leaves the Lagrangian unchanged.",
+   "depth": "introduced",
+   "prerequisites": [
+    "internal variable",
+    "symmetry of a Lagrangian"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "amplitude-phase representation of a complex field",
+   "aliases": [
+    "phasor picture",
+    "arrow picture of a complex field"
+   ],
+   "kind": "technique",
+   "definition": "Writing a complex field as a real non-negative amplitude times a unit phase factor and drawing the phase as the angle of an arrow at each point of space.",
+   "how_introduced": "Used in Fig. 44.1 to make phase rotations visible; later replaced by circles with a pointer (Fig. 44.3).",
+   "depth": "introduced",
+   "prerequisites": [
+    "internal variable"
+   ],
+   "locators": [
+    {
+     "pdf_page": 493,
+     "printed_page": 476,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\psi=\\rho e^{i\\theta}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "fibre bundle",
+   "aliases": [
+    "bundle",
+    "an M worth of V's (Penrose)"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A space B built by attaching a copy of a fibre space V to every point of a base manifold M, locally looking like M x V, so that a field with internal variables is a choice of point in the fibre above each base point.",
+   "how_introduced": "Motivated by the question of where the phase lives, since it is not part of spacetime; illustrated by tubes floating above a curve (Fig. 44.2) and backed by familiar examples in Example 44.1. The formal treatment is deferred to Appendix C.",
+   "depth": "core",
+   "prerequisites": [
+    "manifold",
+    "tangent space",
+    "internal variable"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "\\mathcal{B}\\;\\sim\\;\\mathcal{M}\\text{ with a fibre }\\mathcal{V}\\text{ above each point}"
+   ],
+   "notes": "Local product structure and transition functions are not discussed in this chapter."
+  },
+  {
+   "name": "base space",
+   "aliases": [
+    "base manifold"
+   ],
+   "kind": "definition",
+   "definition": "The manifold over which a bundle is built; here ordinary (3+1)-dimensional spacetime M, whose points label the fibres.",
+   "how_introduced": "Named while introducing the bundle; drawn as the curve or line labelled M in Figs 44.2 and 44.4.",
+   "depth": "introduced",
+   "prerequisites": [
+    "manifold"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "fibre",
+   "aliases": [
+    "internal space"
+   ],
+   "kind": "definition",
+   "definition": "The space of possible values of the internal variables attached above a single point of the base space, such as the unit circle of phases or the tangent space at a point.",
+   "how_introduced": "Introduced as a space floating over each spacetime point; drawn as vertical tubes (Fig. 44.2) and as circles with pointers (Fig. 44.3).",
+   "depth": "core",
+   "prerequisites": [
+    "internal variable"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "tangent bundle",
+   "aliases": [
+    "TM"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The bundle whose fibre above each point P of a manifold is the tangent space T_P of vectors at P; a vector field is a choice of vector in each fibre.",
+   "how_introduced": "First bullet of Example 44.1, used to show the reader has already met a bundle when studying tangent vectors.",
+   "depth": "revisited",
+   "prerequisites": [
+    "tangent space",
+    "fibre bundle"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\mathcal{T}\\mathcal{M}=\\bigcup_{\\mathcal{P}\\in\\mathcal{M}}\\mathcal{T}_{\\mathcal{P}}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "isospin",
+   "aliases": [
+    "isotopic spin"
+   ],
+   "kind": "physical-quantity",
+   "definition": "An internal variable of certain matter fields that acts like a switch rotating one particle identity into another (for example proton and neutron) at a given point, describable with fibres.",
+   "how_introduced": "Second bullet of Example 44.1, as a physics example of internal space beyond phase.",
+   "depth": "mention",
+   "prerequisites": [
+    "internal variable",
+    "fibre"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Newtonian spacetime as a bundle over time",
+   "aliases": [
+    "Galilean fibration"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The pre-relativistic picture in which absolute time is a one-dimensional base and each instant carries its own three-dimensional space as the fibre.",
+   "how_introduced": "Third bullet of Example 44.1; a footnote adds that general relativity replaces this layered structure with a metric on a single manifold.",
+   "depth": "mention",
+   "prerequisites": [
+    "fibre bundle"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "U(1) circle fibre",
+   "aliases": [
+    "phase circle",
+    "knob picture"
+   ],
+   "kind": "mathematical-object",
+   "definition": "For a single-valued complex field the phase angle is only defined modulo 2 pi, so the fibre above each point is a unit circle, the group manifold of U(1); a phase transformation turns the pointer on each circle.",
+   "how_introduced": "Derived from single-valuedness and drawn as a grid of circles with pointers at different angles (Fig. 44.3), which the authors invite the reader to think of as knobs.",
+   "depth": "core",
+   "prerequisites": [
+    "fibre",
+    "amplitude-phase representation of a complex field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\theta\\sim\\theta+2\\pi"
+   ],
+   "notes": null
+  },
+  {
+   "name": "complex scalar field theory",
+   "aliases": [
+    "U(1) theory",
+    "charged scalar field"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The flat-spacetime theory of a complex-valued scalar field whose Lagrangian is minus the squared modulus of its gradient minus a mass term m^2 |psi|^2 (eqn 44.2); the simplest theory with a U(1) phase symmetry.",
+   "how_introduced": "Chosen in flat space as the concrete model on which to test global versus local phase invariance.",
+   "depth": "core",
+   "prerequisites": [
+    "Lagrangian density",
+    "Klein-Gordon equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 494,
+     "printed_page": 477,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 495,
+     "printed_page": 478,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\mathcal{L}=-(\\partial^\\mu\\psi)^\\dagger(\\partial_\\mu\\psi)-m^2\\psi^\\dagger\\psi"
+   ],
+   "notes": null
+  },
+  {
+   "name": "global U(1) phase symmetry",
+   "aliases": [
+    "global phase symmetry",
+    "global gauge symmetry"
+   ],
+   "kind": "principle",
+   "definition": "Invariance of a theory under multiplying the field everywhere by the same constant phase factor e^{i alpha}; for the complex scalar field it holds because psi-dagger acquires the inverse factor.",
+   "how_introduced": "Checked directly on eqn 44.2 with a footnote giving the cancellation between psi and psi-dagger.",
+   "depth": "developed",
+   "prerequisites": [
+    "complex scalar field theory",
+    "internal symmetry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 495,
+     "printed_page": 478,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\psi\\to\\psi e^{i\\alpha},\\quad \\psi^\\dagger\\to\\psi^\\dagger e^{-i\\alpha}"
+   ],
+   "notes": "Noether's theorem (Chapter 40) would associate a conserved charge with it; the chapter does not make this link."
+  },
+  {
+   "name": "global transformation",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "A transformation whose parameter has the same value at every spacetime point, e.g. adding the same alpha to every phase.",
+   "how_introduced": "Named after eqn 44.3; in the knob picture every knob is twisted by the same amount.",
+   "depth": "introduced",
+   "prerequisites": [
+    "internal symmetry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 495,
+     "printed_page": 478,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\theta(x)\\to\\theta(x)+\\alpha"
+   ],
+   "notes": null
+  },
+  {
+   "name": "local transformation",
+   "aliases": [
+    "position-dependent transformation"
+   ],
+   "kind": "definition",
+   "definition": "A transformation whose parameter alpha(x) is an arbitrary smooth function of spacetime position, so different points are rotated by different amounts.",
+   "how_introduced": "Posed as a what-if question immediately after global invariance is established.",
+   "depth": "core",
+   "prerequisites": [
+    "global transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 495,
+     "printed_page": 478,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\theta(x)\\to\\theta(x)+\\alpha(x)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "local gauge invariance",
+   "aliases": [
+    "local phase symmetry",
+    "local U(1) invariance",
+    "gauge principle"
+   ],
+   "kind": "principle",
+   "definition": "The requirement that a theory be unchanged under local transformations of its internal variables; achieving it for a field with derivatives requires introducing a gauge field that compensates for the position dependence.",
+   "how_introduced": "Motivated by showing that the ordinary kinetic term fails the test (Example 44.2) and then restoring invariance with a covariant derivative (Example 44.3).",
+   "depth": "core",
+   "prerequisites": [
+    "local transformation",
+    "global U(1) phase symmetry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 495,
+     "printed_page": 478,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 496,
+     "printed_page": 479,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\mathcal{L}[\\psi e^{i\\alpha(x)},A-\\tfrac1q\\partial\\alpha]=\\mathcal{L}[\\psi,A]"
+   ],
+   "notes": "The book presents this as a repair; the stronger modern reading (demanding local invariance predicts electromagnetism) is implicit."
+  },
+  {
+   "name": "gauge field",
+   "aliases": [
+    "gauge potential",
+    "1-form gauge field A",
+    "compensating field"
+   ],
+   "kind": "physical-quantity",
+   "definition": "A 1-form field A = A_mu dx^mu introduced so that derivatives of a field can be made to transform covariantly under local internal transformations; it shifts by a gradient of the transformation parameter.",
+   "how_introduced": "Introduced as the fix for the non-invariance found in Example 44.2; later identified with the electromagnetic potential when q is the charge.",
+   "depth": "core",
+   "prerequisites": [
+    "local gauge invariance",
+    "1-form",
+    "electromagnetic 4-potential"
+   ],
+   "locators": [
+    {
+     "pdf_page": 495,
+     "printed_page": 478,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 496,
+     "printed_page": 479,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "\\tilde A=A_\\mu\\,dx^\\mu",
+    "A_\\mu\\to A_\\mu-\\frac1q\\partial_\\mu\\alpha"
+   ],
+   "notes": null
+  },
+  {
+   "name": "gauge covariant derivative",
+   "aliases": [
+    "covariant field derivative",
+    "D_mu",
+    "minimal-coupling derivative"
+   ],
+   "kind": "operation",
+   "definition": "The derivative D_mu = partial_mu + iqA_mu acting on a charged field; it removes the part of the change due to the local phase convention, so under psi -> e^{i alpha} psi with the compensating shift of A it transforms as D_mu psi -> e^{i alpha} D_mu psi.",
+   "how_introduced": "Defined in eqn 44.7 to cancel the unwanted terms, verified in Example 44.3, and then re-derived in §44.2 as total change minus parallel-transport change, directly paralleling nabla.",
+   "depth": "core",
+   "prerequisites": [
+    "gauge field",
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 495,
+     "printed_page": 478,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 496,
+     "printed_page": 479,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 498,
+     "printed_page": 481,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "D_\\mu\\psi=\\partial_\\mu\\psi+iqA_\\mu\\psi",
+    "D_\\mu\\psi\\to e^{i\\alpha}D_\\mu\\psi"
+   ],
+   "notes": null
+  },
+  {
+   "name": "gauge transformation",
+   "aliases": [
+    "gauge freedom"
+   ],
+   "kind": "definition",
+   "definition": "The simultaneous change psi -> e^{i alpha(x)} psi and A_mu -> A_mu - (1/q) partial_mu alpha; for the potential alone it is the familiar A -> A - partial chi that leaves Maxwell's equations and F unchanged.",
+   "how_introduced": "The compensating law of eqn 44.8 is matched to the electromagnetic gauge freedom of Chapter 42 by setting chi = alpha/q.",
+   "depth": "developed",
+   "prerequisites": [
+    "gauge field",
+    "Faraday tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 495,
+     "printed_page": 478,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 496,
+     "printed_page": 479,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [
+    "A_\\mu\\to A_\\mu-\\partial_\\mu\\chi,\\quad \\chi=\\alpha/q"
+   ],
+   "notes": null
+  },
+  {
+   "name": "gauge theory",
+   "aliases": [
+    "gauge field theory"
+   ],
+   "kind": "definition",
+   "definition": "A field theory made invariant under local internal transformations by replacing ordinary derivatives with gauge covariant derivatives built from gauge fields.",
+   "how_introduced": "Named after the complex scalar example is made locally invariant by the replacement partial -> D; said to underlie particle physics, superconductivity and topological phases.",
+   "depth": "core",
+   "prerequisites": [
+    "local gauge invariance",
+    "gauge covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 496,
+     "printed_page": 479,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "\\partial_\\mu\\to D_\\mu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "electric charge as gauge coupling",
+   "aliases": [
+    "coupling constant q"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The constant q in D_mu = partial_mu + iqA_mu that sets how strongly the field couples to the gauge field; interpreted as electric charge it makes A the electromagnetic potential.",
+   "how_introduced": "Mentioned in a footnote identifying the U(1) gauge field with electromagnetism.",
+   "depth": "mention",
+   "prerequisites": [
+    "gauge covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 496,
+     "printed_page": 479,
+     "section": "44.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "strained bundle",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "The authors' name for a bundle after a local transformation has shifted the value stored in each fibre by a different amount, by analogy with a strained solid whose atoms are displaced by position-dependent amounts.",
+   "how_introduced": "Introduced when translating the local phase change into bundle language, and listed in the dictionary table opposite coordinate transformation and local phase transformation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "fibre bundle",
+    "local transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 496,
+     "printed_page": 479,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [],
+   "notes": "Book-specific terminology; a pure local transformation alone produces no curvature, so strain here is a gauge artefact."
+  },
+  {
+   "name": "bundle connection",
+   "aliases": [
+    "connection on a fibre bundle",
+    "gauge field as connection"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A rule for comparing the values in neighbouring fibres, i.e. for saying which change counts as no change when moving across the base; in U(1) gauge theory its components are iqA_mu, playing the role that Gamma plays for tangent vectors.",
+   "how_introduced": "Introduced verbally (partial_mu connects fibres; A introduces strain into the connection) and made precise by comparing delta psi = -iqA psi dx with delta v = -Gamma v dx.",
+   "depth": "core",
+   "prerequisites": [
+    "fibre bundle",
+    "connection coefficients",
+    "gauge field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 496,
+     "printed_page": 479,
+     "section": "44.1"
+    },
+    {
+     "pdf_page": 497,
+     "printed_page": 480,
+     "section": "44.2"
+    },
+    {
+     "pdf_page": 498,
+     "printed_page": 481,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "iqA_\\nu\\;\\leftrightarrow\\;\\Gamma^\\mu{}_{\\nu\\beta}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant derivative",
+   "aliases": [
+    "nabla",
+    "geometric covariant derivative"
+   ],
+   "kind": "operation",
+   "definition": "The derivative of a tensor field that subtracts from the raw component change the part caused by the basis changing with position, so the result is a tensor; for vectors (nabla_alpha v)^mu = partial_alpha v^mu + Gamma^mu_{alpha beta} v^beta.",
+   "how_introduced": "Recalled from Chapter 7 in words and components at the chapter opening and again at the start of §44.2 as the template for D.",
+   "depth": "revisited",
+   "prerequisites": [
+    "connection coefficients",
+    "tangent space"
+   ],
+   "locators": [
+    {
+     "pdf_page": 493,
+     "printed_page": 476,
+     "section": null
+    },
+    {
+     "pdf_page": 497,
+     "printed_page": 480,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "(\\nabla_\\alpha v)^\\mu=\\partial_\\alpha v^\\mu+\\Gamma^\\mu{}_{\\alpha\\beta}v^\\beta"
+   ],
+   "notes": null
+  },
+  {
+   "name": "connection coefficients",
+   "aliases": [
+    "Christoffel symbols",
+    "Gamma"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The coefficients Gamma^mu_{alpha beta} that encode how basis vectors change from point to point and hence how vector components shift under parallel transport.",
+   "how_introduced": "Used as the geometric partner of the gauge field in the analogy and in the dictionary table.",
+   "depth": "revisited",
+   "prerequisites": [
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 497,
+     "printed_page": 480,
+     "section": "44.2"
+    },
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "\\delta v^\\mu=-\\Gamma^\\mu{}_{\\nu\\beta}v^\\beta dx^\\nu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "parallel transport of a vector",
+   "aliases": [],
+   "kind": "operation",
+   "definition": "Moving a vector along a curve so that its covariant derivative along the tangent vanishes; its components then change only by the amount the connection dictates.",
+   "how_introduced": "Example 44.4 reduces nabla_u v = 0 to the component change delta v^mu = -Gamma^mu_{nu beta} v^beta dx^nu.",
+   "depth": "revisited",
+   "prerequisites": [
+    "covariant derivative",
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 497,
+     "printed_page": 480,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "u^\\nu\\partial_\\nu v^\\mu+\\Gamma^\\mu{}_{\\nu\\beta}v^\\beta u^\\nu=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "parallel transport of a charged field",
+   "aliases": [
+    "gauge parallel transport"
+   ],
+   "kind": "operation",
+   "definition": "Moving the value of a charged field to a neighbouring point so that only the gauge connection changes it: delta psi = -iqA_nu psi dx^nu, i.e. an infinitesimal phase rotation set by A.",
+   "how_introduced": "Written down by direct analogy with the vector rule and then used to define D psi = d psi - delta psi.",
+   "depth": "core",
+   "prerequisites": [
+    "bundle connection",
+    "parallel transport of a vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 497,
+     "printed_page": 480,
+     "section": "44.2"
+    },
+    {
+     "pdf_page": 498,
+     "printed_page": 481,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "\\delta\\psi=-iqA_\\nu\\psi\\,dx^\\nu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "horizontal transport",
+   "aliases": [
+    "horizontal lift",
+    "horizontal curve"
+   ],
+   "kind": "operation",
+   "definition": "Transport through the bundle along a curve whose fibre value counts as unchanged according to the connection, characterised by D_mu psi = 0; the bundle analogue of parallel transport.",
+   "how_introduced": "Example 44.5 and Fig. 44.4, where a horizontal line with arrows crosses the hatched strip representing the bundle.",
+   "depth": "introduced",
+   "prerequisites": [
+    "bundle connection",
+    "gauge covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 498,
+     "printed_page": 481,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "D_\\mu\\psi=0\\iff\\partial_\\mu\\psi=-iqA_\\mu\\psi"
+   ],
+   "notes": null
+  },
+  {
+   "name": "holonomy of an infinitesimal loop",
+   "aliases": [
+    "loop transport",
+    "Wilson loop (infinitesimal)"
+   ],
+   "kind": "phenomenon",
+   "definition": "The change in a field (or vector) after parallel transport round a small closed loop; to leading order it equals the loop's area element contracted with a curvature operator acting on the field.",
+   "how_introduced": "Example 44.6 revisits the Chapter 11 loop computation for psi on a quadrilateral ABCDA, expanding each leg to second order.",
+   "depth": "core",
+   "prerequisites": [
+    "parallel transport of a charged field",
+    "gauge covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 498,
+     "printed_page": 481,
+     "section": "44.2"
+    },
+    {
+     "pdf_page": 499,
+     "printed_page": 482,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "\\psi'_{\\mathcal A}=(1+\\delta x^\\mu\\Delta x^\\nu[D_\\mu,D_\\nu])\\psi_{\\mathcal A}"
+   ],
+   "notes": "For U(1) the finite version is the phase factor exp(-iq times the loop integral of A), not written in the book."
+  },
+  {
+   "name": "commutator of covariant derivatives as curvature operator",
+   "aliases": [
+    "curvature operator"
+   ],
+   "kind": "identity",
+   "definition": "The operator [D_mu, D_nu] (or [nabla_mu, nabla_nu]) contains no derivatives of the object it acts on; it is a linear map built from the connection that measures the failure of transport to be path independent, i.e. curvature.",
+   "how_introduced": "Emerges from the loop expansion and is emphasised as striking because a purely algebraic, linear operator results.",
+   "depth": "core",
+   "prerequisites": [
+    "holonomy of an infinitesimal loop"
+   ],
+   "locators": [
+    {
+     "pdf_page": 499,
+     "printed_page": 482,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "[D_\\mu,D_\\nu]=D_\\mu D_\\nu-D_\\nu D_\\mu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "gauge field strength",
+   "aliases": [
+    "field strength",
+    "Q_mu nu",
+    "bundle curvature operator"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The commutator Q_mu nu = [D_mu, D_nu] of gauge covariant derivatives; it is gauge covariant (invariant for U(1)) and encodes the physical content of the gauge field.",
+   "how_introduced": "Named immediately after the loop result (eqn 44.21) and evaluated for U(1) in Example 44.7.",
+   "depth": "core",
+   "prerequisites": [
+    "commutator of covariant derivatives as curvature operator",
+    "gauge covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 499,
+     "printed_page": 482,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "Q_{\\mu\\nu}=[D_\\mu,D_\\nu]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Faraday tensor as U(1) field strength",
+   "aliases": [
+    "electromagnetic field tensor as curvature"
+   ],
+   "kind": "identity",
+   "definition": "For D = partial + iqA the commutator is iq(partial_mu A_nu - partial_nu A_mu) = iqF_mu nu, so the electromagnetic field tensor is the curvature of the U(1) phase bundle.",
+   "how_introduced": "Direct computation in Example 44.7, then interpreted as the local strain of the bundle.",
+   "depth": "core",
+   "prerequisites": [
+    "gauge field strength",
+    "Faraday tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 499,
+     "printed_page": 482,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "[D_\\mu,D_\\nu]=iq(\\partial_\\mu A_\\nu-\\partial_\\nu A_\\mu)=iqF_{\\mu\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "bundle curvature",
+   "aliases": [
+    "curvature of a connection"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The curvature 2-form of a bundle connection, obtained from the commutator of covariant derivatives; for the tangent bundle it is the Riemann tensor and for the U(1) phase bundle it is iqF.",
+   "how_introduced": "Named in the fibre-bundle column of the dictionary table after both commutators have been compared.",
+   "depth": "developed",
+   "prerequisites": [
+    "bundle connection",
+    "gauge field strength"
+   ],
+   "locators": [
+    {
+     "pdf_page": 499,
+     "printed_page": 482,
+     "section": "44.2"
+    },
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Riemann tensor as commutator of covariant derivatives",
+   "aliases": [
+    "Ricci identity"
+   ],
+   "kind": "identity",
+   "definition": "In a coordinate frame with a torsion-free connection, commuting two covariant derivatives on a vector field produces no derivative terms, only the Riemann tensor contracted with the vector (eqn 44.24); Riemann is thus the curvature operator of the tangent bundle.",
+   "how_introduced": "Recalled from Chapter 35 to complete the analogy with eqn 44.23.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Riemann curvature tensor",
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 499,
+     "printed_page": 482,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [
+    "[\\nabla_\\mu,\\nabla_\\nu]Z^\\rho=R^\\rho{}_{\\sigma\\mu\\nu}Z^\\sigma"
+   ],
+   "notes": null
+  },
+  {
+   "name": "gravity-gauge theory dictionary",
+   "aliases": [
+    "GR / gauge / bundle correspondence table"
+   ],
+   "kind": "principle",
+   "definition": "The correspondence coordinate transformation <-> local phase transformation <-> strained bundle; connection coefficient Gamma <-> gauge field A <-> bundle connection; Riemann curvature R <-> field strength iqF <-> bundle curvature.",
+   "how_introduced": "Presented as a three-column table closing §44.2.",
+   "depth": "core",
+   "prerequisites": [
+    "bundle connection",
+    "bundle curvature",
+    "Riemann tensor as commutator of covariant derivatives",
+    "Faraday tensor as U(1) field strength"
+   ],
+   "locators": [
+    {
+     "pdf_page": 499,
+     "printed_page": 482,
+     "section": "44.2"
+    },
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": "44.2"
+    }
+   ],
+   "formulas": [],
+   "notes": "The analogy is structural; the dynamics (Einstein-Hilbert versus Maxwell action) and the soldering of tangent fibres to spacetime are not discussed."
+  },
+  {
+   "name": "non-abelian gauge theory",
+   "aliases": [
+    "Yang-Mills theory"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A gauge theory whose internal transformations form a non-commuting group, so the gauge field is matrix-valued and the field strength contains a commutator of potentials in addition to derivatives.",
+   "how_introduced": "Only alluded to: the chapter says many gauge theories exist with U(1) the simplest, and Exercise 44.1 uses a general field strength G_mu nu.",
+   "depth": "mention",
+   "prerequisites": [
+    "gauge theory",
+    "gauge field strength"
+   ],
+   "locators": [
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": "44.2"
+    },
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "[D_\\mu,D_\\nu]=-igG_{\\mu\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "gauge-field Bianchi identity",
+   "aliases": [
+    "Bianchi identity for gauge fields"
+   ],
+   "kind": "identity",
+   "definition": "The statement that the cyclically permuted sum of covariant derivatives of the gauge field strength vanishes, following from transport round the closed surface of a small cube or equivalently from the Jacobi identity of covariant derivatives.",
+   "how_introduced": "Exercise 44.1, adapted from Ryder and from the Chapter 43 gravitational argument.",
+   "depth": "introduced",
+   "prerequisites": [
+    "gauge field strength",
+    "holonomy of an infinitesimal loop"
+   ],
+   "locators": [
+    {
+     "pdf_page": 500,
+     "printed_page": 483,
+     "section": null
+    },
+    {
+     "pdf_page": 501,
+     "printed_page": 484,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "D_\\rho G_{\\mu\\nu}+D_\\mu G_{\\nu\\rho}+D_\\nu G_{\\rho\\mu}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Jacobi identity",
+   "aliases": [],
+   "kind": "identity",
+   "definition": "For any three operators, the cyclic sum of nested commutators [X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] vanishes identically.",
+   "how_introduced": "Invoked in Exercise 44.1(g) as the algebraic reason the cube calculation gives zero.",
+   "depth": "mention",
+   "prerequisites": [
+    "commutator of covariant derivatives as curvature operator"
+   ],
+   "locators": [
+    {
+     "pdf_page": 501,
+     "printed_page": 484,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "[D_\\rho,[D_\\mu,D_\\nu]]+[D_\\mu,[D_\\nu,D_\\rho]]+[D_\\nu,[D_\\rho,D_\\mu]]=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "energy-momentum tensor of a complex scalar field",
+   "aliases": [],
+   "kind": "physical-quantity",
+   "definition": "The symmetric tensor T_mu nu describing energy density, momentum and stress of the complex scalar field, obtained from its Lagrangian by the methods of Chapter 40.",
+   "how_introduced": "Set as Exercise 44.2, a one-line task that sends the reader back to the Chapter 40 machinery using this chapter's model Lagrangian (eqn 44.2).",
+   "depth": "mention",
+   "prerequisites": [
+    "complex scalar field theory",
+    "Hilbert energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 501,
+     "printed_page": 484,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(44.1)",
+   "name": "Geometric covariant derivative",
+   "latex": "(\\nabla_\\alpha \\boldsymbol{v})^\\mu=\\frac{\\partial v^\\mu}{\\partial x^\\alpha}+\\Gamma^\\mu{}_{\\alpha\\beta}v^\\beta",
+   "meaning": "Component form of the vector covariant derivative: raw change of components plus a connection term correcting for the changing basis.",
+   "symbols": "v^mu vector components; Gamma connection coefficients",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "Covariant derivative in words (opening)",
+   "latex": "\\begin{pmatrix}\\text{Covariant}\\\\\\text{derivative}\\end{pmatrix}=\\begin{pmatrix}\\text{Change}\\\\\\text{in vector}\\end{pmatrix}-\\begin{pmatrix}\\text{Change due to}\\\\\\text{coordinate system}\\end{pmatrix}",
+   "meaning": "Verbal template that the chapter reuses for the gauge covariant derivative.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "Index conventions for derivatives (footnote 4)",
+   "latex": "\\partial_\\mu=\\frac{\\partial}{\\partial x^\\mu},\\qquad \\partial^\\mu=\\eta^{\\mu\\nu}\\partial_\\nu",
+   "meaning": "Shorthand for partial derivatives and their raised-index version using the Minkowski metric.",
+   "symbols": "eta Minkowski metric",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.2)",
+   "name": "Complex scalar field Lagrangian",
+   "latex": "\\mathcal{L}=-(\\partial^\\mu\\psi)^\\dagger(\\partial_\\mu\\psi)-m^2\\psi^\\dagger\\psi",
+   "meaning": "Free charged scalar field theory in flat spacetime; the minus signs suit the (-,+,+,+) signature so the time-derivative term is positive.",
+   "symbols": "psi complex scalar field; dagger hermitian (complex) conjugate; m mass parameter",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.3)",
+   "name": "Global phase transformation",
+   "latex": "\\psi(x)\\to\\psi(x)\\,e^{i\\alpha}",
+   "meaning": "Constant phase rotation of the field at every point; eqn 44.2 is invariant.",
+   "symbols": "alpha constant angle",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Conjugate field under global rotation (footnote 5)",
+   "latex": "\\psi^\\dagger\\to\\psi^\\dagger e^{-i\\alpha}",
+   "meaning": "The conjugate picks up the opposite phase, so every product psi-dagger psi is unchanged.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.4)",
+   "name": "Derivative under local phase change",
+   "latex": "\\partial_\\mu\\psi\\to\\partial_\\mu\\!\\left(\\psi e^{i\\alpha(x)}\\right)=e^{i\\alpha(x)}\\partial_\\mu\\psi+i\\psi e^{i\\alpha(x)}\\partial_\\mu\\alpha=e^{i\\alpha(x)}\\{\\partial_\\mu+i[\\partial_\\mu\\alpha(x)]\\}\\psi",
+   "meaning": "Product rule shows the derivative acquires an extra term proportional to the gradient of alpha, so it does not simply pick up the phase factor.",
+   "symbols": "alpha(x) position-dependent angle",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.5)",
+   "name": "Conjugate derivative under local phase change",
+   "latex": "\\partial^\\mu\\psi^\\dagger\\to e^{-i\\alpha(x)}\\{\\partial^\\mu-i[\\partial^\\mu\\alpha(x)]\\}\\psi^\\dagger",
+   "meaning": "Complex-conjugate counterpart of eqn 44.4.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.6)",
+   "name": "Transformed kinetic term",
+   "latex": "(\\partial^\\mu\\psi^\\dagger)(\\partial_\\mu\\psi)-i\\psi^\\dagger(\\partial^\\mu\\alpha)(\\partial_\\mu\\psi)+i\\psi(\\partial^\\mu\\psi^\\dagger)(\\partial_\\mu\\alpha)+\\psi^\\dagger\\psi(\\partial^\\mu\\alpha)(\\partial_\\mu\\alpha)",
+   "meaning": "The kinetic term after a local phase change contains three unwanted terms involving derivatives of alpha, proving local non-invariance.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.7)",
+   "name": "Gauge covariant derivative",
+   "latex": "D_\\mu\\psi(x)=\\partial_\\mu\\psi(x)+iqA_\\mu(x)\\psi(x)",
+   "meaning": "Derivative supplemented by a gauge-field term designed to absorb the gradient-of-alpha terms.",
+   "symbols": "A_mu gauge field components; q coupling (charge)",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.8)",
+   "name": "Compensating transformation of the gauge field",
+   "latex": "A_\\mu(x)\\to A_\\mu(x)-\\frac1q\\partial_\\mu\\alpha(x)",
+   "meaning": "How A must shift when psi is rotated by alpha(x) so that D_mu psi transforms covariantly.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.9)",
+   "name": "Covariance of D",
+   "latex": "D_\\mu\\psi\\to e^{i\\alpha}(\\partial_\\mu\\psi)+i\\psi e^{i\\alpha}(\\partial_\\mu\\alpha)+iqA_\\mu\\psi e^{i\\alpha}-i\\psi e^{i\\alpha}(\\partial_\\mu\\alpha)=e^{i\\alpha}D_\\mu\\psi",
+   "meaning": "The gradient term from the product rule is exactly cancelled by the shift of A, so D psi rotates like psi itself.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.10)",
+   "name": "Locally invariant Lagrangian",
+   "latex": "\\mathcal{L}=-(D^\\mu\\psi)^\\dagger(D_\\mu\\psi)-m^2\\psi^\\dagger\\psi",
+   "meaning": "Replacing partial by D makes the complex scalar theory invariant under local U(1) transformations; this is the scalar field coupled to electromagnetism.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.11)",
+   "name": "Electromagnetic gauge transformation",
+   "latex": "A_\\mu(x)\\to A_\\mu(x)-\\partial_\\mu\\chi(x)",
+   "meaning": "Gauge freedom of the 4-potential from Chapter 42, leaving F and Maxwell's equations unchanged.",
+   "symbols": "chi arbitrary scalar function",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Identification of gauge parameters",
+   "latex": "\\chi(x)=\\frac{\\alpha(x)}{q}",
+   "meaning": "With this choice eqn 44.8 is exactly the electromagnetic gauge transformation, so A is the familiar potential.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "label": "(44.12)",
+   "name": "Total change of a field",
+   "latex": "d\\psi=\\psi(x+dx)-\\psi(x)",
+   "meaning": "Naive difference of field values at neighbouring points, which mixes real change with the change of internal reference frame.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.13)",
+   "name": "Covariant derivative along u in words",
+   "latex": "\\begin{pmatrix}\\text{Covariant}\\\\\\text{derivative of }\\boldsymbol v\\end{pmatrix}_{\\boldsymbol u}=\\begin{pmatrix}\\text{total change}\\\\\\text{in vector }\\boldsymbol v\\end{pmatrix}-\\begin{pmatrix}\\text{change due to}\\\\\\text{coordinate system}\\end{pmatrix}",
+   "meaning": "Verbal definition of nabla_u v reused as the template for D.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.14)",
+   "name": "Parallel transport condition in components",
+   "latex": "u^\\nu\\frac{\\partial v^\\mu}{\\partial x^\\nu}+\\Gamma^\\mu{}_{\\nu\\beta}v^\\beta u^\\nu=0",
+   "meaning": "nabla_u v = 0 written out: v is parallel transported along a curve with tangent u.",
+   "symbols": "u tangent vector of the path",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.15)",
+   "name": "Component change under parallel transport",
+   "latex": "\\delta v^\\mu=-\\Gamma^\\mu{}_{\\nu\\beta}v^\\beta\\,dx^\\nu",
+   "meaning": "How much the components of a parallel-transported vector change over a displacement dx; entirely set by the connection.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.16)",
+   "name": "Parallel transport change of a charged field",
+   "latex": "\\delta\\psi(x)=-iqA_\\nu(x)\\psi(x)\\,dx^\\nu",
+   "meaning": "Gauge analogue of eqn 44.15: transport rotates the phase by an amount set by A along the displacement.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Connection analogy (footnote 7)",
+   "latex": "iqA_\\nu(x)\\;\\leftrightarrow\\;\\Gamma^\\mu{}_{\\nu\\beta}(x)",
+   "meaning": "The gauge field times iq plays the role of the connection; the vector case carries extra indices labelling which component is transported.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.17)",
+   "name": "Gauge covariant differential",
+   "latex": "D\\psi=d\\psi-\\delta\\psi=d\\psi+iqA_\\mu\\psi\\,dx^\\mu",
+   "meaning": "Covariant change of the field is total change minus the change attributable to transport.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.18)",
+   "name": "Gauge covariant derivative recovered",
+   "latex": "\\frac{D\\psi}{dx^\\mu}\\equiv D_\\mu\\psi=\\partial_\\mu\\psi+iqA_\\mu\\psi",
+   "meaning": "Dividing eqn 44.17 by dx^mu gives back eqn 44.7, now motivated geometrically.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Horizontal transport condition (Example 44.5, corrected)",
+   "latex": "D_\\mu\\psi=0\\quad\\Longleftrightarrow\\quad\\partial_\\mu\\psi=-iqA_\\mu\\psi",
+   "meaning": "A field value is carried horizontally through the bundle when its gauge covariant derivative vanishes. The book prints the right-hand side without the factor psi.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.19)",
+   "name": "First leg of the loop",
+   "latex": "\\psi(x_{\\mathcal B})=\\psi(x_{\\mathcal A})+D_\\mu\\psi(x_{\\mathcal A})\\Delta x^\\mu+\\tfrac12D_\\mu D_\\nu\\psi(x_{\\mathcal A})\\Delta x^\\mu\\Delta x^\\nu=\\left(1+\\Delta x^\\mu D_\\mu+\\tfrac12\\Delta x^\\mu\\Delta x^\\nu D_\\mu D_\\nu\\right)\\psi(x_{\\mathcal A})",
+   "meaning": "Second-order covariant Taylor expansion used as the transport operator from A to B.",
+   "symbols": "Delta x^mu displacement from A to B",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Second leg of the loop",
+   "latex": "\\psi_{\\mathcal C}=\\left(1+\\delta x^\\mu D_\\mu+\\tfrac12\\delta x^\\mu\\delta x^\\nu D_\\mu D_\\nu\\right)\\psi_{\\mathcal B}=\\left[1+(\\delta x^\\mu+\\Delta x^\\mu)D_\\mu+\\left(\\tfrac12\\delta x^\\mu\\delta x^\\nu+\\delta x^\\mu\\Delta x^\\nu+\\tfrac12\\Delta x^\\mu\\Delta x^\\nu\\right)D_\\mu D_\\nu\\right]\\psi_{\\mathcal A}",
+   "meaning": "Composing two legs keeps second-order terms including the ordered cross term delta x Delta x D D.",
+   "symbols": "delta x^mu displacement from B to C",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Third leg of the loop",
+   "latex": "\\psi_{\\mathcal D}=\\left(1-\\Delta x^\\mu D_\\mu+\\tfrac12\\Delta x^\\mu\\Delta x^\\nu D_\\mu D_\\nu\\right)\\psi_{\\mathcal C}=\\left[1+\\delta x^\\mu D_\\mu+\\tfrac12\\delta x^\\mu\\delta x^\\nu D_\\mu D_\\nu+(\\delta x^\\mu\\Delta x^\\nu-\\Delta x^\\mu\\delta x^\\nu)D_\\mu D_\\nu\\right]\\psi_{\\mathcal A}",
+   "meaning": "Returning along -Delta x cancels the Delta x terms and leaves an antisymmetric cross term.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.20)",
+   "name": "Change after transport round the loop",
+   "latex": "\\psi'_{\\mathcal A}=\\left(1+\\delta x^\\mu\\Delta x^\\nu[D_\\mu,D_\\nu]\\right)\\psi_{\\mathcal A}",
+   "meaning": "After the full circuit only the commutator term survives, multiplied by the loop's area element. The text defines the commutator with a typo (D_mu D_nu - D_mu D_nu); it should read D_mu D_nu - D_nu D_mu.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.21)",
+   "name": "Gauge field strength",
+   "latex": "Q_{\\mu\\nu}=[D_\\mu,D_\\nu]",
+   "meaning": "Definition of field strength as the commutator of covariant derivatives.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.22)",
+   "name": "Field strength for the complex scalar field",
+   "latex": "Q_{\\mu\\nu}=[D_\\mu,D_\\nu]=[(\\partial_\\mu+iqA_\\mu),(\\partial_\\nu+iqA_\\nu)]",
+   "meaning": "Setting up the U(1) commutator explicitly.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.23)",
+   "name": "U(1) field strength is the Faraday tensor",
+   "latex": "[D_\\mu,D_\\nu]=iq(\\partial_\\mu A_\\nu-\\partial_\\nu A_\\mu)=iqF_{\\mu\\nu}",
+   "meaning": "Derivative terms cancel in the commutator, leaving iq times the electromagnetic field tensor: electromagnetism's F is the curvature of the phase bundle.",
+   "symbols": "F_mu nu Faraday tensor components",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": "(44.24)",
+   "name": "Riemann tensor from commuting covariant derivatives",
+   "latex": "[\\nabla_\\mu,\\nabla_\\nu]Z^\\rho=R^\\rho{}_{\\sigma\\mu\\nu}Z^\\sigma",
+   "meaning": "Coordinate-frame expression recalled from Chapter 35; the geometric counterpart of eqn 44.23.",
+   "symbols": "Z vector field; R Riemann tensor",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Field strength convention in Exercise 44.1",
+   "latex": "[D_\\mu,D_\\nu]=-igG_{\\mu\\nu}",
+   "meaning": "Ryder-style convention with coupling g and a general (possibly matrix-valued) field strength G, differing in sign and symbol from eqn 44.23.",
+   "symbols": "g coupling; G general gauge field strength",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": null
+   }
+  },
+  {
+   "label": "(44.25)",
+   "name": "Path decomposition of the cube surface",
+   "latex": "(\\mathcal{ABCDAPSRQPA})+(\\mathcal{ADSPABQRCBA})+(\\mathcal{APQBADCRSDA})",
+   "meaning": "Three composite closed paths that together traverse all six faces of the cube with consistent orientation.",
+   "symbols": "script letters label cube vertices in Fig. 44.5",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 501,
+    "printed_page": 484,
+    "section": null
+   }
+  },
+  {
+   "label": "(44.26)",
+   "name": "Cube result",
+   "latex": "1-ig\\,\\Delta V^{\\rho\\mu\\nu}\\left(D_\\rho G_{\\mu\\nu}+D_\\mu G_{\\nu\\rho}+D_\\nu G_{\\rho\\mu}\\right)",
+   "meaning": "Factor by which the field changes after all three paths; since the surface is closed it must equal 1, giving the gauge Bianchi identity.",
+   "symbols": "Delta V volume element of the cube",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 501,
+    "printed_page": 484,
+    "section": null
+   }
+  },
+  {
+   "label": "(44.27)",
+   "name": "Jacobi identity for covariant derivatives",
+   "latex": "[D_\\rho,[D_\\mu,D_\\nu]]+[D_\\mu,[D_\\nu,D_\\rho]]+[D_\\nu,[D_\\rho,D_\\mu]]=0",
+   "meaning": "Algebraic identity that guarantees the cyclic sum in eqn 44.26 vanishes.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 501,
+    "printed_page": 484,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 44.1",
+   "image_path": "gifted-amateur/pages/page-493/img-302.jpeg",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": "44.1"
+   },
+   "caption_paraphrase": "A complex field drawn as arrows whose tilt from vertical gives the local phase (a), and the same field after every phase is advanced by one constant angle (b).",
+   "visual_description": "Two 5-by-5 grids of equal-length black arrows stacked in the margin. In panel (a) the top and bottom rows and the edge columns point straight up, while the interior tilts to the right in a smooth bump that is strongest at the centre, where the arrow leans far over towards the right. Panel (b) repeats the same pattern with every arrow turned clockwise by one common angle (about 45 degrees), so the formerly vertical arrows now point up-right and the centre arrow points roughly down-right. Arrow length never changes, so the amplitude rho is not depicted.",
+   "what_it_teaches": "A phase is an internal angle at each point, and a global transformation rotates every arrow equally, preserving all relative angles between neighbours.",
+   "figure_type": "vector-or-tensor-field",
+   "concepts": [
+    "amplitude-phase representation of a complex field",
+    "global transformation",
+    "internal variable"
+   ],
+   "redesign": {
+    "idea": "Phase-field playground: a grid of phase arrows over a 2D patch with a live heat map of the kinetic energy density |grad psi|^2 underneath, used to contrast global rotations, local rotations and gauge-compensated local rotations.",
+    "interaction": "Learner drags a global-angle slider (arrows all turn, heat map unchanged), then switches to a brush that paints a position-dependent alpha(x) (heat map lights up where alpha varies), then toggles 'gauge field on' to display A = -grad(alpha)/q as small arrows and the heat map of |D psi|^2 returns to its original state.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 44.2",
+   "image_path": "gifted-amateur/pages/page-494/img-303.jpeg",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "caption_paraphrase": "A one-dimensional base manifold with a fibre standing above each point; all the fibres together form the bundle.",
+   "visual_description": "A wavy black curve at the bottom labelled M. Above it stand about thirteen narrow grey vertical cylinders (tubes) side by side, their tops at slightly different heights, labelled B at the right. Thin dashed vertical lines drop from the bottom of each tube to the curve, showing which base point each fibre sits over.",
+   "what_it_teaches": "The bundle is the base space plus one copy of the internal space attached at every point; fibres are not directions within the base.",
+   "figure_type": "schematic",
+   "concepts": [
+    "fibre bundle",
+    "base space",
+    "fibre"
+   ],
+   "redesign": {
+    "idea": "3D bundle builder showing a base curve or plane with switchable fibre types (real line, phase circle, tangent plane) and a highlighted section (one chosen value per fibre) running through them.",
+    "interaction": "Learner picks the fibre type, drags a probe along the base to highlight its fibre, and sculpts a section by dragging values up and down (or around circles); the camera can orbit to see that fibres stick out of the base in an extra, non-spatial direction.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 44.3",
+   "image_path": "gifted-amateur/pages/page-494/img-304.jpeg",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "caption_paraphrase": "Looking down on a two-dimensional space where every point carries a circular fibre, like a knob.",
+   "visual_description": "A 4-by-4 grid of identical black circles. Each circle has a short radial tick mark, like the pointer on a control knob, sitting at a different angle on each circle (some pointing up-left, some right, some down), with no obvious pattern.",
+   "what_it_teaches": "For a single-valued phase the fibre is a circle; a field configuration is a setting of every knob, and a global transformation turns all knobs by the same amount.",
+   "figure_type": "schematic",
+   "concepts": [
+    "U(1) circle fibre",
+    "global transformation",
+    "local transformation"
+   ],
+   "redesign": {
+    "idea": "Knob board: a grid of phase knobs where turning knobs individually versus via a master dial makes the global/local distinction tactile, with a readout of neighbour phase differences.",
+    "interaction": "Learner turns a master dial (all knobs rotate, neighbour-difference readout unchanged) or grabs individual knobs (differences change); a 'connection' overlay draws small links between neighbouring knobs storing the offset A that keeps the covariant difference fixed.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 44.4",
+   "image_path": "gifted-amateur/pages/page-498/img-305.jpeg",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   },
+   "caption_paraphrase": "The bundle drawn above the base; horizontal transport through the bundle is the counterpart of parallel transport.",
+   "visual_description": "An outlined rectangle filled with dense fine vertical hatching (the fibres), labelled B on the right. A horizontal line runs across its middle from a dot on the left edge to a dot on the right edge, carrying six rightward arrowheads. Below the rectangle, separated by white space, is a plain horizontal line labelled M.",
+   "what_it_teaches": "Transport through the bundle picks out a curve that the connection declares horizontal, i.e. with no covariant change, as one moves along the base.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "horizontal transport",
+    "bundle connection"
+   ],
+   "redesign": {
+    "idea": "Horizontal lift on a cylinder bundle: the base is a line, each fibre a phase circle, so the bundle is a cylinder; the horizontal curve through it winds around at a rate set by -qA(x).",
+    "interaction": "Learner draws a profile A(x) along the base and a starting phase; the app traces the horizontal curve on the 3D cylinder. A gauge-transformation slider re-labels every fibre by alpha(x), visibly twisting both the curve and A while keeping their relationship (D psi = 0) intact.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 44.5",
+   "image_path": "gifted-amateur/pages/page-500/img-306.jpeg",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": null
+   },
+   "caption_paraphrase": "A route that runs around faces of a small cube, used in the exercise on the gauge Bianchi identity.",
+   "visual_description": "A line drawing of two horizontal parallelogram faces of a cube: the bottom face with corners A (front right), B (back right), C (back left), D (front left), and the top face with P (above A), S (front left), R (back left), Q (back right). Arrowheads show the circuit A to B to C to D and back to A, then a vertical segment up from A to the top level and left to S, then S to R to Q to P, then a separate vertical segment with two downward arrowheads from P back to A. The up and down vertical segments are drawn slightly apart so they can be told apart. Side faces are not drawn.",
+   "what_it_teaches": "Composite paths let one traverse face loops of a closed surface so that connecting segments cancel; summing such paths over all faces gives zero net holonomy, which is the Bianchi identity.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "gauge-field Bianchi identity",
+    "holonomy of an infinitesimal loop"
+   ],
+   "redesign": {
+    "idea": "Cube-of-loops animator: a rotatable cube where a marker traverses each of the three composite paths of eqn 44.25 while a running tally shows the phase or rotation picked up on each face.",
+    "interaction": "Learner sets a field strength F (or chooses a non-abelian example), plays the traversal, watches connecting edges cancel in pairs and face contributions accumulate, and sees the grand total vanish; a toggle removes one face to show the total no longer cancels.",
+    "form": "interactive-3d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Table (unnumbered, analogy dictionary)",
+   "image_path": null,
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": "44.2"
+   },
+   "caption_paraphrase": "Three-column table matching ideas in general relativity, gauge theory and fibre-bundle language.",
+   "visual_description": "A ruled table with column headings General relativity, Gauge theory and Fibre bundles, and three rows: coordinate transformation / local phase transformation / strained bundle; connection coefficient Gamma^mu_{alpha beta} / gauge field A_mu / bundle connection; curvature R^mu_{nu alpha beta} / field strength iqF_mu nu / bundle curvature. It is exported as an HTML table (tbl-25.html) rather than an image.",
+   "what_it_teaches": "The whole chapter compressed into a correspondence: gauge fields are connections and field strengths are curvatures.",
+   "figure_type": "table",
+   "concepts": [
+    "gravity-gauge theory dictionary",
+    "bundle connection",
+    "bundle curvature"
+   ],
+   "redesign": {
+    "idea": "Linked dictionary cards: each cell expands into the corresponding equation, and selecting a row highlights the matching lines in side-by-side nabla and D derivations.",
+    "interaction": "Learner clicks a row (e.g. connection) to see delta v = -Gamma v dx and delta psi = -iqA psi dx light up together, and can quiz themselves by dragging shuffled terms into the correct columns.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Example 44.1",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "problem": "Give familiar structures that are fibre bundles.",
+   "method": "Lists three cases: tangent spaces glued over a manifold (tangent bundle), isospin as an internal switch on matter fields, and Newtonian spacetime as three-dimensional space attached over each instant of absolute time.",
+   "key_insight": "The reader has already used a bundle (the tangent bundle) without naming it, so internal phase spaces are a generalisation rather than a novelty.",
+   "result": "Tangent bundle TM, isospin fibres, Newtonian space-over-time bundle.",
+   "concepts": [
+    "fibre bundle",
+    "tangent bundle",
+    "isospin",
+    "Newtonian spacetime as a bundle over time"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 44.2",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   },
+   "problem": "Test whether the complex scalar Lagrangian survives a position-dependent phase change psi -> psi e^{i alpha(x)}.",
+   "method": "Apply the product rule to partial_mu of the transformed field and its conjugate, multiply out the kinetic term and collect terms.",
+   "key_insight": "Derivatives of alpha appear and do not cancel, so global invariance does not extend to local invariance.",
+   "result": "Kinetic term gains three extra pieces (eqn 44.6); the theory is not locally invariant.",
+   "concepts": [
+    "local transformation",
+    "complex scalar field theory",
+    "local gauge invariance"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 44.3",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   },
+   "problem": "Show that D_mu = partial_mu + iqA_mu with A_mu -> A_mu - (1/q) partial_mu alpha makes the Lagrangian locally invariant.",
+   "method": "Transform D_mu psi term by term; the product-rule gradient term cancels against the shift of A; substitute into the Lagrangian with D in place of partial.",
+   "key_insight": "Designing the gauge field's transformation to cancel exactly the offending gradient makes D psi transform like psi.",
+   "result": "D_mu psi -> e^{i alpha} D_mu psi and eqn 44.10 is invariant.",
+   "concepts": [
+    "gauge covariant derivative",
+    "gauge field",
+    "local gauge invariance"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   },
+   "problem": "Is the compensating field required by local phase invariance something already known?",
+   "method": "Compare eqn 44.8 with the electromagnetic gauge transformation eqn 44.11 and choose chi = alpha/q.",
+   "key_insight": "The transformation law demanded by symmetry is precisely electromagnetic gauge freedom, so A is the electromagnetic potential and q the charge.",
+   "result": "Local U(1) invariance of a charged field forces coupling to electromagnetism.",
+   "concepts": [
+    "gauge transformation",
+    "gauge field",
+    "electric charge as gauge coupling"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 44.4",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   },
+   "problem": "Extract the component change of a parallel-transported vector.",
+   "method": "Write nabla_u v = 0 in components, cancel the tangent vector against dx along the path.",
+   "key_insight": "Under transport the components change by an amount fixed entirely by the connection, which is the template for the gauge case.",
+   "result": "delta v^mu = -Gamma^mu_{nu beta} v^beta dx^nu (eqn 44.15).",
+   "concepts": [
+    "parallel transport of a vector",
+    "connection coefficients"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 44.5",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   },
+   "problem": "Describe parallel transport in bundle language.",
+   "method": "Picture fibres over the base and call a curve through the bundle horizontal if the value it carries has zero covariant change; express as D_mu psi = 0.",
+   "key_insight": "Parallel transport generalises to horizontal transport defined by the connection, independent of any spacetime geometry.",
+   "result": "Horizontal transport condition D_mu psi = 0, i.e. partial_mu psi = -iqA_mu psi (book omits psi).",
+   "concepts": [
+    "horizontal transport",
+    "bundle connection"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 44.6",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   },
+   "problem": "Find the change in a charged field after transport round an infinitesimal quadrilateral ABCDA with sides Delta x and delta x.",
+   "method": "Represent each leg by the second-order operator 1 + dx D + (1/2) dx dx DD, compose the four legs keeping all second-order terms, and watch linear and squared terms cancel.",
+   "key_insight": "Only the ordered cross terms survive and combine into a commutator, so loop transport measures [D_mu, D_nu] times the area, exactly as in the Riemann derivation.",
+   "result": "psi'_A = (1 + delta x^mu Delta x^nu [D_mu, D_nu]) psi_A (eqn 44.20).",
+   "concepts": [
+    "holonomy of an infinitesimal loop",
+    "commutator of covariant derivatives as curvature operator"
+   ],
+   "difficulty": "challenging"
+  },
+  {
+   "label": "Example 44.7",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   },
+   "problem": "Compute the gauge field strength for the complex scalar field.",
+   "method": "Expand the commutator of partial + iqA with itself acting on a test field; second-derivative terms and A-derivative cross terms cancel by symmetry.",
+   "key_insight": "The commutator is a multiplication operator equal to iq times the antisymmetrised derivative of A, i.e. the Faraday tensor.",
+   "result": "[D_mu, D_nu] = iqF_mu nu (eqn 44.23).",
+   "concepts": [
+    "gauge field strength",
+    "Faraday tensor as U(1) field strength"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Phase as an arrow at each point of a grid (phasor field)",
+   "target_concept": "internal variable",
+   "how_used": "Makes the complex phase visible so that global rotations are literally all arrows turning together.",
+   "limits": "Invites the false reading that the arrow points in a physical direction; the book immediately stresses the rotation is in internal space.",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": "44.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Draw arrows in a visually distinct 'internal' colour and offer a toggle that lifts them off the plane into a separate layer to reinforce that they are not spatial."
+  },
+  {
+   "analogy": "Each fibre as a knob that can be turned",
+   "target_concept": "U(1) circle fibre",
+   "how_used": "Global transformation equals twisting every knob by one amount; local transformation equals twisting each knob by its own amount.",
+   "limits": "Knobs have an absolute zero mark; in gauge theory there is no preferred zero, only relative settings compared via a connection.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Knob board demo with a hidden-zero mode where the tick marks disappear and only connection-corrected differences are shown."
+  },
+  {
+   "analogy": "Strained bundle compared to a strained solid",
+   "target_concept": "strained bundle",
+   "how_used": "Position-dependent phase shifts are likened to atoms displaced by different amounts in a deformed crystal, motivating the need for a connection to track the strain.",
+   "limits": "Elastic strain is physical and costs energy; a pure local phase shift is a relabelling that leaves F = 0 and all physics unchanged. Only curvature (field strength) is the gauge-invariant analogue of real strain.",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Side-by-side lattice: a uniformly displaced crystal, a non-uniformly displaced one, and a phase grid under local gauge change, with a curvature meter showing zero for the pure relabelling."
+  },
+  {
+   "analogy": "An M worth of V's (Penrose's phrasing)",
+   "target_concept": "fibre bundle",
+   "how_used": "Captures the construction of a bundle as one fibre attached for every point of the base.",
+   "limits": "Suggests a simple product M x V; nontrivial global twisting (e.g. the Mobius band) is not conveyed.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Toggle between a cylinder and a Mobius strip as bundles over a circle, both locally 'a circle worth of intervals'."
+  },
+  {
+   "analogy": "Gauge field as the connection coefficients of internal space",
+   "target_concept": "bundle connection",
+   "how_used": "delta psi = -iqA psi dx is set beside delta v = -Gamma v dx, with iqA_nu matching Gamma^mu_{nu beta}, and both covariant derivatives are written as total change minus frame change.",
+   "limits": "For U(1) the internal space is one-dimensional so the internal indices of Gamma collapse; Gamma can be computed from a metric whereas A is an independent field; the tangent bundle is tied to spacetime directions while an internal fibre is not.",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Split-screen derivation where each line of the nabla derivation is paired with the corresponding D line, and hovering highlights matched symbols."
+  },
+  {
+   "analogy": "Field strength as curvature, parallel to Riemann from loop transport",
+   "target_concept": "gauge field strength",
+   "how_used": "The Chapter 11 loop argument is replayed with D so that F emerges as a curvature just as Riemann did; eqn 44.24 is placed beside eqn 44.23.",
+   "limits": "Gravitational field equations are linear in curvature while Maxwell's Lagrangian is quadratic in F; the Riemann tensor carries tangent-space indices that are also spacetime indices.",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Loop-transport demo with two modes, a vector on a sphere and a phase on a U(1) bundle with a magnetic field, both showing change proportional to enclosed area times curvature."
+  },
+  {
+   "analogy": "Tangent bundle as a bundle the reader already knows",
+   "target_concept": "fibre bundle",
+   "how_used": "Vectors stored in a tangent space floating above each point prepare the idea of values stored in a fibre.",
+   "limits": "The tangent bundle is canonically tied to the manifold; internal bundles are extra structure.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Isospin as an internal switch",
+   "target_concept": "isospin",
+   "how_used": "Shows internal variables need not be phases: a switch can change a particle's identity at a point.",
+   "limits": "A switch suggests discrete settings, whereas isospin rotations are continuous SU(2) transformations.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "effectiveness": "weak",
+   "app_idea": null
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "Rotating the phase arrows of a complex field is a rotation of something in physical space.",
+   "correction": "The phase lives in an internal space (a fibre) above each point; changing it moves nothing in spacetime.",
+   "why_tempting": "The arrow drawing of Fig. 44.1 lies flat on the page like a spatial vector field.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "concepts": [
+    "internal variable",
+    "fibre"
+   ]
+  },
+  {
+   "misconception": "If a theory is symmetric under a constant phase change it is automatically symmetric under a position-dependent one.",
+   "correction": "Derivatives of alpha(x) enter through the product rule and spoil invariance unless a gauge field is introduced.",
+   "why_tempting": "At any single point a local transformation looks like a global one.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   },
+   "concepts": [
+    "local transformation",
+    "global U(1) phase symmetry",
+    "local gauge invariance"
+   ]
+  },
+  {
+   "misconception": "The difference psi(x+dx) - psi(x) is an unambiguous measure of how the field changes.",
+   "correction": "The two values are expressed relative to different internal reference choices, so a connection is needed to compare them; the covariant derivative removes the reference-frame part.",
+   "why_tempting": "For ordinary real functions in Cartesian coordinates the plain difference works.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   },
+   "concepts": [
+    "gauge covariant derivative",
+    "parallel transport of a charged field"
+   ]
+  },
+  {
+   "misconception": "The gauge potential A itself is a directly measurable physical field.",
+   "correction": "A can be shifted by any gradient without physical consequences; the gauge-invariant content is in the field strength F = [D, D]/(iq), the curvature.",
+   "why_tempting": "A appears explicitly in the Lagrangian and in D, so it looks as physical as psi.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   },
+   "concepts": [
+    "gauge transformation",
+    "gauge field strength"
+   ]
+  },
+  {
+   "misconception": "A non-zero gauge field means a non-zero electromagnetic field (or, a strained bundle is a curved bundle).",
+   "correction": "A pure-gauge potential A = -(1/q) grad alpha produces F = 0: the bundle is strained by relabelling but flat, just as polar coordinates give non-zero Gamma in flat space.",
+   "why_tempting": "The text says local strain is represented by the curvature, which can blur the difference between strain from relabelling and genuine curvature.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   },
+   "concepts": [
+    "strained bundle",
+    "bundle curvature",
+    "Faraday tensor as U(1) field strength"
+   ]
+  },
+  {
+   "misconception": "Gauge ideas belong only to electromagnetism, or the analogy with gravity is just a coincidence of notation.",
+   "correction": "U(1) is the simplest of many gauge theories, all with field strength given by a commutator of covariant derivatives, and the same structure (connection and curvature) underlies general relativity.",
+   "why_tempting": "The only worked case is electromagnetism, and GR is usually taught through metrics rather than connections.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": "44.2"
+   },
+   "concepts": [
+    "gauge theory",
+    "gravity-gauge theory dictionary",
+    "non-abelian gauge theory"
+   ]
+  },
+  {
+   "misconception": "The word gauge refers to some kind of measuring device or scale in modern field theory.",
+   "correction": "The term is a historical leftover (originally the thickness of wires and rails) that reached physics through Weyl's early attempt to unify gravity and electromagnetism; it now just means local internal symmetry freedom.",
+   "why_tempting": "In everyday English a gauge is a measuring instrument.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   },
+   "concepts": [
+    "gauge theory"
+   ]
+  },
+  {
+   "misconception": "The general relativity / gauge theory correspondence is an exact identity, so gravity is just another Yang-Mills theory.",
+   "correction": "The dictionary is structural: connection and curvature match, but the gravitational connection is tied to the metric and to spacetime directions, and the Einstein-Hilbert action is linear in curvature while gauge actions are quadratic in F.",
+   "why_tempting": "The three-column table presents entries as one-to-one replacements.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": "44.2"
+   },
+   "concepts": [
+    "gravity-gauge theory dictionary"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Twisting all knobs versus each knob separately",
+   "setup": "Imagine a phase knob at every point of space. First turn every knob by the same angle, then turn each by its own smoothly varying angle, and ask whether the physics described by the Lagrangian notices.",
+   "lesson": "Only relative settings of neighbouring knobs enter derivatives; a uniform twist is invisible, but a non-uniform twist changes neighbour differences unless a connection records compensating offsets.",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   },
+   "concepts": [
+    "global transformation",
+    "local transformation",
+    "gauge field"
+   ],
+   "visualizable": true,
+   "app_idea": "Knob board with a master dial, an individual-knob mode and a connection overlay, plus a live kinetic-energy readout."
+  },
+  {
+   "name": "What does 'change' mean when moving a field from x to x + dx?",
+   "setup": "Move from one event to a neighbouring one and compare the stored field values, as one would compare vector components across a curved coordinate grid.",
+   "lesson": "The raw difference contains a frame contribution; defining the transport change delta psi and subtracting it gives the covariant derivative.",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   },
+   "concepts": [
+    "gauge covariant derivative",
+    "parallel transport of a charged field"
+   ],
+   "visualizable": true,
+   "app_idea": "Two neighbouring fibres with independently rotatable reference marks, showing the raw difference change with the marks while the covariant difference stays fixed."
+  },
+  {
+   "name": "Carrying a charged field round a tiny loop",
+   "setup": "Start at A with a field value, transport it along four short legs of a quadrilateral back to A and compare with the starting value.",
+   "lesson": "The mismatch is proportional to the enclosed area and to the field strength; with no field strength the value returns unchanged, whatever the potential.",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   },
+   "concepts": [
+    "holonomy of an infinitesimal loop",
+    "gauge field strength"
+   ],
+   "visualizable": true,
+   "app_idea": "Draw a loop in a plane with an adjustable magnetic field; animate the phase pointer riding along and show the final phase offset equal to q times flux."
+  },
+  {
+   "name": "Going round every face of a cube",
+   "setup": "Traverse loops on all six faces of a small cube, stitched into three composite paths so connecting edges cancel.",
+   "lesson": "Because the faces make a closed surface the net effect must vanish, giving the cyclic Bianchi identity for the field strength.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": null
+   },
+   "concepts": [
+    "gauge-field Bianchi identity",
+    "Jacobi identity"
+   ],
+   "visualizable": true,
+   "app_idea": "Rotatable cube animation with a per-face tally that sums to zero."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Hermann Weyl"
+   ],
+   "year": "1918",
+   "event": "Weyl's use of 'gauge' in his attempt to extend general relativity (discussed in Chapter 45) is the origin of the term in field theory; the word originally described wire and rail thickness. The year is standard history, not given in the chapter.",
+   "significance": "Explains a confusing name and connects gauge theory's origin to gravity.",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "Roger Penrose"
+   ],
+   "year": null,
+   "event": "Quoted for describing a bundle as a base space's worth of fibres.",
+   "significance": "Supplies a memorable verbal definition of a bundle.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   }
+  },
+  {
+   "people": [
+    "Lewis Ryder"
+   ],
+   "year": "1985",
+   "event": "His quantum field theory text supplies the cube-of-faces route to the Bianchi identity for gauge fields used in Exercise 44.1.",
+   "significance": "Shows the gravitational Bianchi argument of Chapter 43 transfers directly to gauge theory.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": null
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Electromagnetism as a U(1) gauge theory",
+   "kind": "observation",
+   "details": "Interpreting q as electric charge makes the compensating field the electromagnetic potential and the field strength the Faraday tensor; local phase invariance of a charged field thus requires electromagnetism.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "topic": "Particle physics, superconductivity and topological matter",
+   "kind": "experiment",
+   "details": "The authors list gauge theories as the foundation of particle physics and of condensed-matter phenomena such as superconductivity and the fractional quantum Hall fluid; no details are given.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "topic": "Gauge methods for weak gravity, gravitational waves and extra dimensions",
+   "kind": "observation",
+   "details": "A margin box and the closing paragraph point forward: gauge freedom simplifies linearized gravity (Chapter 45), gravitational waves are treated as waves in a gauge theory (Chapter 46), and Chapter 48 tries to realise an internal phase as a fifth dimension.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Metric signature",
+   "convention": "(-,+,+,+), inferred from the overall minus sign on the kinetic term of eqn 44.2, which makes the time-derivative contribution positive.",
+   "notes": "Consistent with the rest of GA; particle-physics texts often use (+,-,-,-) with the opposite overall sign.",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "item": "Derivative shorthand",
+   "convention": "partial_mu = partial/partial x^mu and partial^mu = eta^{mu nu} partial_nu (footnote 4).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "item": "Hermitian conjugate",
+   "convention": "psi^dagger denotes the complex conjugate of the scalar field, written with a dagger in anticipation of quantum fields.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "item": "Gauge covariant derivative and transformation signs",
+   "convention": "D_mu = partial_mu + iqA_mu, psi -> e^{i alpha} psi, A_mu -> A_mu - (1/q) partial_mu alpha, giving [D_mu, D_nu] = +iqF_mu nu with F_mu nu = partial_mu A_nu - partial_nu A_mu.",
+   "notes": "Exercise 44.1 switches to Ryder's convention [D_mu, D_nu] = -igG_mu nu; many texts use D = partial - iqA.",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "item": "Units",
+   "convention": "Natural units with hbar = 1 are implicit: the coupling appears as qA without hbar or c.",
+   "notes": "Not stated in the chapter; inferred.",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "item": "Bold versus tilde-bold symbols",
+   "convention": "Bold nabla for the geometric covariant derivative, plain D_mu for the gauge covariant derivative; 1-forms carry a tilde (A-tilde, F-tilde), vectors are bold (v, u, Z), R bold for Riemann.",
+   "notes": "The print occasionally drops the tilde on A.",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "item": "Bundle symbols",
+   "convention": "Script M for base space, script V for fibre, script B for bundle, T_P for the tangent space at P, TM for the tangent bundle; script capitals label loop and cube vertices.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   }
+  },
+  {
+   "item": "Field strength symbol",
+   "convention": "Q_mu nu = [D_mu, D_nu] denotes the gauge field strength operator; for U(1) it equals iqF_mu nu.",
+   "notes": "Q includes the factor iq, so 'field strength' in the table is iqF rather than F.",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "item": "Riemann index order in the commutator",
+   "convention": "In eqn 44.24 the first Riemann index is the output component, the second is contracted with the transported vector, and the last two match the order of the commuted derivatives (the loop plane).",
+   "notes": "Coordinate frame, torsion-free connection.",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Boxed pointer: gauge theory will help with weak gravitational fields (Chapter 45) and gravitational waves (Chapter 46) and underlies higher-dimensional theories (Chapter 48).",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "summary": "The name gauge is an unlucky historical accident, once about wire and rail thickness, which entered field theory through Weyl's work in general relativity treated in Chapter 45.",
+   "type": "historical",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "summary": "Epigraph from G. K. Chesterton's Heretics about change being inevitable if a thing is left alone, a wry nod to the theme of how things change from place to place.",
+   "type": "humor-or-aside",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "summary": "Footnote 2: Appendix C gives the formal treatment of bundles that this chapter only pictures.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   }
+  },
+  {
+   "summary": "The layered time-plus-space structure of Newtonian spacetime is what general relativity replaces by a metric on a single manifold.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   }
+  },
+  {
+   "summary": "Defines partial_mu and its raised form via the Minkowski metric.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "summary": "Explains global invariance: the conjugate field acquires the opposite phase so alpha drops out of every product in the Lagrangian.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "summary": "Footnote 6: once q is taken to be electric charge, the compensating 1-form of the U(1) example is just the electromagnetic potential.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "summary": "Footnote 7: in the vector rule (eqn 44.15) extra indices label which component is carried, but setting iqA_nu against Gamma^mu_{nu beta} still exposes the analogy.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 2,
+  "pdf_pages": [
+   500,
+   501
+  ],
+  "skills_practiced": [
+   "composing infinitesimal transport operators along piecewise paths",
+   "tracking orientation and cancellation of shared edges on a closed surface",
+   "expanding to leading order in a gauge coupling",
+   "relating cyclic identities to the Jacobi identity for commutators",
+   "deriving an energy-momentum tensor from a field Lagrangian"
+  ],
+  "notable": [
+   {
+    "number": "44.1(a)-(e)",
+    "summary": "Using the cube of Fig. 44.5, evaluate the effect on a field of the first composite path: the bottom face loop, the edge up, the top face loop and the edge back, then combine them to leading order in the coupling.",
+    "skills": [
+     "loop transport operators",
+     "operator ordering",
+     "leading-order expansion"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Direct gauge-field transplant of the Chapter 43 cube argument; forces careful handling of where each operator is evaluated.",
+    "pdf_page": 501
+   },
+   {
+    "number": "44.1(f)-(g)",
+    "summary": "Sum all three composite paths to obtain a volume factor multiplying the cyclic sum of covariant derivatives of the field strength, and show the vanishing of that sum is equivalent to the Jacobi identity for the covariant derivatives.",
+    "skills": [
+     "Bianchi identity",
+     "Jacobi identity",
+     "non-abelian field strength"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Connects a geometric closed-surface argument to a purely algebraic identity, the gauge analogue of the gravitational Bianchi identity.",
+    "pdf_page": 501
+   },
+   {
+    "number": "44.2",
+    "summary": "Find the energy-momentum tensor of the complex scalar field in flat spacetime.",
+    "skills": [
+     "energy-momentum tensor from a Lagrangian",
+     "handling a complex field and its conjugate as independent fields"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Links the chapter's model back to the Chapter 40 methods and prepares for coupling to gravity.",
+    "pdf_page": 501
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 3,
+  "conceptual_level": 4,
+  "novice_friendliness": 3,
+  "notes": "Algebra is light (product rule, commutators, second-order Taylor composition), but the chapter asks readers to hold three languages at once (GR connections, gauge fields, bundles) and leans on Chapters 7, 11, 35, 40 and 42. The loop derivation is heuristic and contains a commutator typo, the horizontal-transport condition drops a factor of psi, and fibre bundles are only pictured, not defined. Exercise 44.1 is markedly harder than the text, switching to a non-abelian convention without comment."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch07",
+   "reason": "Covariant derivative in words and components (eqns 44.1, 44.13) and parallel transport.",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch11 §11.3",
+   "reason": "Loop parallel transport producing curvature, replayed in Example 44.6.",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch35 §35.3",
+   "reason": "Commutator of covariant derivatives gives the Riemann tensor (eqn 44.24).",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch40",
+   "reason": "Lagrangian field theory, symmetries and energy-momentum tensors underpin §44.1 and Exercise 44.2.",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": "44.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch42 §42.3",
+   "reason": "Electromagnetic gauge field and gauge transformation matched in eqn 44.11.",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch43",
+   "reason": "Bianchi identity from summing face rotations of a cube, generalised in Exercise 44.1.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA appC §C.11",
+   "reason": "Formal definition of fibre bundles.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch45",
+   "reason": "Weyl's gauge idea and exploiting gauge freedom in linearized gravity.",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch46 §46.1",
+   "reason": "Gravitational waves treated as waves in a gauge theory.",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch48",
+   "reason": "Kaluza-Klein style attempt to realise an internal parameter as an extra spacetime dimension.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": "44.2"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "L. H. Ryder, Quantum Field Theory (1985)",
+   "reason": "Source of the cube approach to the gauge-field Bianchi identity in Exercise 44.1.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Roger Penrose (work not named in the chapter; the phrasing appears in The Road to Reality)",
+   "reason": "Verbal description of a bundle as a base space's worth of fibres.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "G. K. Chesterton, Heretics",
+   "reason": "Chapter epigraph.",
+   "locator": {
+    "pdf_page": 493,
+    "printed_page": 476,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Break-then-repair: establish global phase invariance, ask what happens if the phase varies with position, compute the damage, then introduce exactly the field whose shift cancels it.",
+   "why_effective": "The gauge field arrives as the answer to a problem the learner has just watched appear, and its transformation law is forced rather than postulated.",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   },
+   "app_idea": "Step-through derivation where the unwanted terms of eqn 44.6 are coloured red, the learner proposes a fix term, and the red terms fade as the correct A-shift is entered."
+  },
+  {
+   "gem": "One words-equation for two derivatives: covariant derivative = total change minus change due to the reference frame, applied to vectors (Gamma) and to charged fields (iqA).",
+   "why_effective": "Learners who understood Christoffel symbols get gauge fields almost free, and vice versa, because the logic is identical.",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   },
+   "app_idea": "Toggleable template card: switch the object from 'vector on a curved grid' to 'phase on a bundle' and watch the symbols in the same sentence and formula swap."
+  },
+  {
+   "gem": "Knob-at-every-point picture of a U(1) fibre.",
+   "why_effective": "Turns the abstract circle group into a tactile control; global versus local becomes master dial versus individual knobs.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "app_idea": "Knob board demo with master dial, individual knobs, and connection links recording offsets between neighbours."
+  },
+  {
+   "gem": "Replay the Riemann loop derivation with D so that the Faraday tensor appears as a curvature.",
+   "why_effective": "Recycling a derivation the reader has already done reveals structural identity instead of asserting it, and makes F = dA feel geometric.",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   },
+   "app_idea": "Dual loop animation: a tangent vector round a small loop on a sphere and a phase pointer round a loop threaded by magnetic flux, each with a readout of change divided by area."
+  },
+  {
+   "gem": "Three-column dictionary: coordinate change / local phase change / strained bundle; Gamma / A / connection; Riemann / iqF / curvature.",
+   "why_effective": "A compact retrieval cue that a learner can rebuild from memory and use to translate questions between gravity and electromagnetism.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": "44.2"
+   },
+   "app_idea": "Drag-and-drop dictionary quiz whose cells expand into the linked equations when placed correctly."
+  },
+  {
+   "gem": "Introduce bundles via the tangent bundle the reader already uses.",
+   "why_effective": "Removes the intimidation of new mathematics by showing it is a name for something familiar.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   },
+   "app_idea": "Morph animation from tangent planes attached to a sphere into phase circles attached to a plane, keeping the 'one fibre per point' structure visible."
+  },
+  {
+   "gem": "Cube of face loops as a route to the Bianchi identity for gauge fields.",
+   "why_effective": "Gives a picture-based proof that a curvature must satisfy a differential constraint, reusable for gravity and electromagnetism alike.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": null
+   },
+   "app_idea": "Rotatable cube with animated paths and per-face contributions that visibly cancel."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "The commutator is defined in the text after eqn 44.20 as D_mu D_nu - D_mu D_nu, which is identically zero; it should be D_mu D_nu - D_nu D_mu.",
+   "impact_on_learner": "A careful reader may conclude the loop effect vanishes or distrust the derivation.",
+   "suggestion": "State the correct definition and show how relabelling dummy indices turns the antisymmetric cross term left after the third leg into the commutator.",
+   "locator": {
+    "pdf_page": 499,
+    "printed_page": 482,
+    "section": "44.2"
+   }
+  },
+  {
+   "issue": "Example 44.5 writes the horizontal transport condition as partial_mu psi = -iqA_mu, missing the factor psi.",
+   "impact_on_learner": "Dimensional and structural confusion about whether the gauge field sets the derivative or the logarithmic derivative.",
+   "suggestion": "Use partial_mu psi = -iqA_mu psi and note that the solution is psi = psi_0 exp(-iq integral of A dx).",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   }
+  },
+  {
+   "issue": "The loop derivation substitutes D for partial in a Taylor series, evaluates operators at different points as if at A, and justifies dropping d psi by single-valuedness without explanation.",
+   "impact_on_learner": "Advanced learners may find the argument unconvincing; novices may not see why transport is a Taylor series at all.",
+   "suggestion": "Supplement with the exact U(1) holonomy: transport with delta psi = -iqA psi dx multiplies psi by exp(-iq times the loop integral of A). For the loop that runs first along Delta x then along delta x, Stokes gives the integral as F_mu nu Delta x^mu delta x^nu, so the factor is 1 - iqF_mu nu Delta x^mu delta x^nu = 1 + iqF_mu nu delta x^mu Delta x^nu, which is eqn 44.20 with eqn 44.23 inserted (orientation matters for the sign).",
+   "locator": {
+    "pdf_page": 498,
+    "printed_page": 481,
+    "section": "44.2"
+   }
+  },
+  {
+   "issue": "The phrase 'change due to coordinate system' is reused for internal space, where what changes is the local phase convention, not spacetime coordinates.",
+   "impact_on_learner": "Learners may think gauge transformations are coordinate transformations of spacetime.",
+   "suggestion": "Say 'change due to the choice of reference phase in each fibre' and contrast explicitly with spacetime coordinate changes in the first row of the dictionary.",
+   "locator": {
+    "pdf_page": 497,
+    "printed_page": 480,
+    "section": "44.2"
+   }
+  },
+  {
+   "issue": "The strained-bundle language suggests that local strain equals curvature, but a pure gauge transformation strains the bundle while leaving F = 0.",
+   "impact_on_learner": "Confusion between gauge artefacts and physical fields, mirroring the classic confusion of non-zero Christoffel symbols with curvature.",
+   "suggestion": "Show A = -(1/q) grad alpha gives zero F and compare with polar coordinates in flat space, where Gamma is non-zero but Riemann vanishes.",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "issue": "No kinetic term for the gauge field is added; the chapter makes the matter Lagrangian invariant but does not say where Maxwell's equations come from.",
+   "impact_on_learner": "Learners may think the gauge field has no dynamics of its own.",
+   "suggestion": "Add the gauge-invariant term -(1/4) F_mu nu F^mu nu from Chapter 42 and note it is built from the curvature, just as the Einstein-Hilbert action is built from R.",
+   "locator": {
+    "pdf_page": 496,
+    "printed_page": 479,
+    "section": "44.1"
+   }
+  },
+  {
+   "issue": "For U(1) the internal space is one-dimensional, so the analogy iqA_nu <-> Gamma^mu_{nu beta} loses the internal indices, and the non-abelian case that restores them is only hinted at.",
+   "impact_on_learner": "The analogy can look forced; Exercise 44.1 then silently uses a matrix-valued field strength with a different sign convention.",
+   "suggestion": "Show an SU(2) example where A_nu is a 2x2 matrix, matching Gamma^mu_{nu beta} as a matrix in (mu, beta) for each nu, and flag the convention switch to -igG.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": null
+   }
+  },
+  {
+   "issue": "Limits of the gravity-gauge analogy (metric-determined, soldered connection; action linear in curvature; diffeomorphisms versus internal symmetries) are not discussed.",
+   "impact_on_learner": "Learners may over-generalise and believe gravity is simply a gauge theory of the same type as electromagnetism.",
+   "suggestion": "Add a 'where the analogy breaks' panel after the dictionary table.",
+   "locator": {
+    "pdf_page": 500,
+    "printed_page": 483,
+    "section": "44.2"
+   }
+  },
+  {
+   "issue": "Natural units (hbar = 1) and the (-,+,+,+) signature are used without comment in the Lagrangian and in D.",
+   "impact_on_learner": "Readers coming from quantum mechanics may miss the factor q/hbar or be confused by overall signs relative to particle-physics texts.",
+   "suggestion": "State D = partial + i(q/hbar)A and the signature once at the start.",
+   "locator": {
+    "pdf_page": 495,
+    "printed_page": 478,
+    "section": "44.1"
+   }
+  },
+  {
+   "issue": "Fig. 44.1 and Fig. 44.3 draw only the phase; the amplitude rho(x) is invisible (all arrows equal length), and neither picture shows the gauge field A that later compares neighbouring fibres.",
+   "impact_on_learner": "Learners may think the local-transformation problem concerns the arrows themselves rather than the comparison between neighbouring arrows, which is what the derivative (and hence A) cares about.",
+   "suggestion": "When moving from Fig. 44.3 to eqn 44.7, add small links between neighbouring knobs labelled by q A_mu dx^mu, and show that a local twist changes the links by -d alpha while the covariant difference is unchanged.",
+   "locator": {
+    "pdf_page": 494,
+    "printed_page": 477,
+    "section": "44.1"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with: 'In Chapter 7, when a vector's components change as you move, what are the two possible reasons?' Then ask whether a complex number's phase could suffer from the same ambiguity.",
+  "Order of explanation that works: phase arrows -> knobs (circle fibre) -> global versus local twist -> the failure calculation -> fixing with A -> recognise electromagnetism -> transport rule -> loop -> F as curvature -> dictionary table.",
+  "Before the calculation, ask the learner to predict whether a position-dependent phase can leave the kinetic term unchanged; have them spot the product-rule term themselves.",
+  "Check for understanding: 'If A_mu = -(1/q) partial_mu alpha for some function alpha, what is F?' Expected answer: zero, it is pure gauge. Follow with the analogy to Christoffel symbols in polar coordinates.",
+  "Check for understanding: ask the learner to fill in the missing row entries of the GR / gauge / bundle table from memory.",
+  "When presenting eqn 44.20, correct the commutator typo explicitly and, for stronger students, show the exact holonomy exp(-iq loop integral of A) plus Stokes as a cross-check.",
+  "Common learner question: 'Is the phase arrow pointing somewhere in space?' Answer: no, it lives in a fibre; use the 3D bundle demo where fibres stick out in a separate direction.",
+  "Common learner question: 'Why call it gauge?' Give the short history (wire gauge, Weyl's scale idea) and point to Chapter 45.",
+  "Common learner question: 'Is gravity a gauge theory then?' Answer: structurally it has a connection and curvature, but the connection comes from the metric and relates to spacetime directions; the actions differ. Avoid overselling the table.",
+  "For learners with quantum mechanics background, connect D_mu to the minimal-coupling replacement p -> p - qA and to the Aharonov-Bohm phase as a loop holonomy.",
+  "For novices, skip Exercise 44.1 and the non-abelian convention; for advanced learners, use it to show the Bianchi identity is a closed-surface statement for any curvature.",
+  "Flag the convention differences (sign of iqA, factor iq inside Q, (-,+,+,+) signature) whenever the learner consults another source."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Removed the false claim (in the summary section, a concept, the exercise list and gaps_and_pitfalls) that Exercise 44.2 was missing from the text export; it is present on pdf p.501 of the reading copy. Replaced the gap entry with a substantive one about what Figs 44.1/44.3 omit.",
+   "Exercise 44.1(a)-(e) notable entry moved from pdf p.500 to p.501, where those parts are printed.",
+   "Corrected the signature move describing the four pictures: the book's order is arrows, tubes, knobs, hatched strip (the dossier had knobs before tubes and called it increasing abstraction).",
+   "Normalised unit references to the book's ids (GA ch7 -> GA ch07) and pointed the Riemann-commutator references to GA ch35 §35.3 (Parallel transport again).",
+   "Fig. 44.1 description: the common rotation in panel (b) is about 45 degrees, not 50-60; tightened the description of panel (a) to match the image.",
+   "Reworded three margin-note summaries (footnotes 2, 6, 7) that followed the source phrasing closely, and labelled them by footnote number.",
+   "Made the holonomy cross-check in gaps_and_pitfalls explicit, with loop orientation, and confirmed that it reproduces the sign of eqns 44.20 and 44.23."
+  ],
+  "residual_concerns": [
+   "The book's loop derivation composes covariant Taylor operators evaluated at different points; the dossier flags this as heuristic rather than rewriting it.",
+   "The 1918 date for Weyl and the attribution of Penrose's phrasing to The Road to Reality are outside knowledge, flagged in place, and not stated in the chapter.",
+   "The unlabelled worked example (matching eqn 44.8 to electromagnetic gauge freedom) is a short prose argument, not a formal Example block; it is kept because it is pedagogically central."
+  ],
+  "coverage": {
+   "toc_sections": 2,
+   "sections": 4,
+   "inventory_figures": 5,
+   "figures": 6,
+   "inventory_examples": 7,
+   "worked_examples": 8,
+   "concepts": 39,
+   "key_equations": 36,
+   "locators_checked": 52,
+   "locators_wrong": 1,
+   "pages_rendered": 9
+  }
+ }
+}

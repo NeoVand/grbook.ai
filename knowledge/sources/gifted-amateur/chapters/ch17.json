@@ -1,0 +1,3034 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch17",
+ "title": "The Friedmann equations",
+ "part": "III: Cosmology",
+ "printed_pages": [
+  181,
+  187
+ ],
+ "pdf_pages": [
+  198,
+  204
+ ],
+ "one_line_summary": "Fills the Robertson-Walker geometry with a perfect fluid plus vacuum energy, reads off the two Friedmann equations from the time-time and space-space parts of Einstein's equation, uses the first law of thermodynamics to show they carry one piece of information and to get the a^-3 (dust) and a^-4 (radiation) dilution laws, then recasts the first equation with the critical density and density parameters so that total density fixes spatial geometry and an integral over redshift gives cosmic ages.",
+ "role_in_book": "Middle chapter of Part III (Cosmology). Chapter 15 set up homogeneity, the Hubble parameter and pure-vacuum de Sitter expansion; Chapter 16 built the Robertson-Walker metrics for k = 0, +1, -1 and supplied their Ricci tensor, which is the left-hand side of Einstein's equation. This short chapter supplies the right-hand side (matter content) and turns the field equation into ordinary differential equations for the expansion factor a(t). It is deliberately a toolkit chapter: the payoff, a catalogue of numbered model universes (Einstein-de Sitter, radiation-filled, dust plus Lambda, closed and open dust models), is deferred to Chapter 18, and horizons built on a(t) follow in Chapter 19. Thermodynamics used here in a light way is treated properly much later in Part VI (Chapter 39).",
+ "assumed_background": [
+  {
+   "topic": "Robertson-Walker line element with curvature constant k and its orthonormal-frame Ricci tensor and Ricci scalar",
+   "source": "earlier-in-this-book",
+   "where": "GA ch16"
+  },
+  {
+   "topic": "Einstein field equation including the cosmological constant, written G = 8 pi T - Lambda g with G = c = 1",
+   "source": "earlier-in-this-book",
+   "where": "GA ch13, ch15 eqn 15.1"
+  },
+  {
+   "topic": "Perfect-fluid energy-momentum tensor and its diagonal form rho, p, p, p in the fluid's orthonormal rest frame",
+   "source": "earlier-in-this-book",
+   "where": "GA ch10, ch12"
+  },
+  {
+   "topic": "Vielbeins and converting between coordinate and orthonormal (hatted) components",
+   "source": "earlier-in-this-book",
+   "where": "GA ch10"
+  },
+  {
+   "topic": "Hubble parameter H = a-dot/a, comoving coordinates and the scale factor",
+   "source": "earlier-in-this-book",
+   "where": "GA ch15"
+  },
+  {
+   "topic": "Cosmological redshift relation 1 + z = a(t_obs)/a(t_em)",
+   "source": "earlier-in-this-book",
+   "where": "GA ch16 eqn 16.48"
+  },
+  {
+   "topic": "Vacuum energy as a fluid with negative pressure; de Sitter expansion from Lambda alone",
+   "source": "earlier-in-this-book",
+   "where": "GA ch15 section 15.5"
+  },
+  {
+   "topic": "Newtonian gravity: potential energy of a test mass outside a uniform sphere, conservation of mechanical energy",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "First law of thermodynamics dU = T dS - p dV, adiabatic processes, equation of state",
+   "source": "thermodynamics-statistical",
+   "where": null
+  },
+  {
+   "topic": "Radiation pressure of a photon gas p = rho/3 and partition functions (for Exercise 17.2)",
+   "source": "thermodynamics-statistical",
+   "where": null
+  },
+  {
+   "topic": "Chain rule, implicit differentiation, separation of variables and power-law integration",
+   "source": "undergrad-calculus",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "Reader can derive a Friedmann-like equation from Newtonian energy conservation for a comoving shell in a uniform expanding ball and identify k with (minus twice) the specific energy of the shell.",
+  "Reader can insert the perfect-fluid tensor (rho, p, p, p) and the Robertson-Walker Ricci components into the 0-hat 0-hat and i-hat i-hat components of Einstein's equation (with Lambda) and obtain both Friedmann equations.",
+  "Reader can state which Friedmann equation is a first-order constraint (initial value equation) and which contains the second derivative (dynamic equation).",
+  "Reader can derive the cosmological fluid equation d rho/(rho + p) = -3 da/a from the adiabatic first law applied to a comoving volume proportional to a^3.",
+  "Reader can show that differentiating the first Friedmann equation and using the fluid equation reproduces the second, so only one of them is independent (given a-dot nonzero).",
+  "Reader can derive rho proportional to a^-3 for pressureless dust and a^-4 for radiation, both from the fluid equation and from a counting argument (number dilution times per-quantum energy).",
+  "Reader can write the Friedmann equations for a mixture of dust, radiation and vacuum energy referenced to a time t_0 and correct the radiation coefficient in the acceleration equation (rho + 3p).",
+  "Reader can define the critical density, density parameters Omega_j and the curvature parameter Omega_k, and use k/a-dot^2 = Omega - 1 to decide whether space is spherical, flat or hyperbolic.",
+  "Reader can rewrite the first Friedmann equation in terms of x = a/a(t_0) and today's density parameters, and turn it into an integral for the cosmic time at which light of redshift z was emitted, including the age of the universe at z = 0.",
+  "Reader can evaluate simple cases by hand: a flat dust universe gives t(z) = (2/3H_0)(1+z)^(-3/2); a flat universe with rho proportional to a^-2 coasts with a proportional to t."
+ ],
+ "teaching_approach": {
+  "summary": "A compact, algebra-light bridge chapter built from five boxed examples. It opens with a Newtonian energy argument so the learner sees the shape of the first Friedmann equation before any tensors, then does the relativistic calculation in two short lines per component by reusing the Ricci tensor from Chapter 16 (reprinted in a margin note) and the fluid tensor from Chapter 10. Thermodynamics is brought in as an independent-looking second link between geometry and matter; it is immediately used to show the two Friedmann equations are redundant and to derive dilution laws for dust and radiation, each backed by a particle-counting rationalization in the margin. The chapter ends by repackaging the first equation into the observational language of critical density, Omega parameters and redshift, stopping just short of solving for any model universe.",
+  "style_tags": [
+   "physical-motivation-first",
+   "example-driven",
+   "derivation-heavy",
+   "conversational-informal",
+   "computational-recipe"
+  ],
+  "narrative_arc": [
+   "Framing: the geometry (left side of Einstein's equation) is already known from Chapter 16; the job now is to specify the matter (right side).",
+   "Newtonian warm-up (Example 17.1): energy of a test mass on an expanding uniform sphere, written with comoving x and a(t), rearranges into the form of the first Friedmann equation with k set by the energy.",
+   "Model the matter: vacuum energy Lambda plus a dissipation-free perfect fluid with orthonormal components rho, p, p, p (margin recaps metric, vielbein and Ricci components).",
+   "Formalism (Example 17.2): take the time-time and space-space components of the Einstein equation to get the initial value equation (17.6) and the dynamic equation (17.7).",
+   "Recognize the missing link between rho and p: an equation of state, which depends on what the fluid is made of.",
+   "Second geometry-matter link (Example 17.3): adiabatic first law for a comoving volume V proportional to a^3 gives the fluid equation d rho/(rho + p) = -3 da/a.",
+   "Consistency check (Example 17.4): differentiate the first equation, use the fluid equation, recover the second; conclude only one Friedmann equation carries independent information.",
+   "Application to matter types (17.3): dust (p = 0) dilutes as a^-3, radiation (p = rho/3) as a^-4, each justified again by counting particles and photon redshift.",
+   "Assemble the multi-component Friedmann equations (17.22, 17.23) referenced to densities at t_0.",
+   "Observational repackaging (Example 17.5): critical density, Omega parameters, k/a-dot^2 = Omega - 1 classifies geometry; sum rule with Omega_k; dimensionless form in x = a/a_0; age-redshift integral 17.33.",
+   "Hand-off: matter content and geometry are now linked; Chapter 18 will solve for specific universes."
+  ],
+  "signature_moves": [
+   "Puts a Newtonian derivation first, inside a formal example box, so the relativistic result arrives as confirmation of a familiar energy balance rather than as a new law.",
+   "Reprints the needed Robertson-Walker metric, vielbein and Ricci components in a margin note so the Einstein-equation substitution fits in a few displayed lines.",
+   "Labels the two equations by their mathematical roles (initial value equation versus dynamic equation), anticipating the constraint-plus-evolution structure.",
+   "Introduces thermodynamics as a second, independent-seeming bridge between geometry and mass-energy, then uses it to prove the two Friedmann equations are redundant.",
+   "Every dilution law is derived twice: formally from the fluid equation and informally by a margin argument about particle number and per-particle energy (rest mass for dust, redshifted quantum for photons).",
+   "Reduces the first Friedmann equation to an 'Omega minus one' diagnostic so a single measured number decides the sign of spatial curvature.",
+   "Ends with an integral that converts density parameters and redshift into a time, setting z = 0 to get the age of the universe, without evaluating any model (left to exercises and Chapter 18)."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Chapter opening and Newtonian warm-up (Example 17.1)",
+   "printed_page": 181,
+   "pdf_page": 198,
+   "summary": "Epigraphs from Marlowe's Doctor Faustus and the Fuller-Carlyle exchange set a playful 'fate of the universe' tone. The authors state the chapter's job: Chapter 16 provided the geometric side of Einstein's equation, and now idealized matter must be put on the other side, giving two equivalent evolution equations for a(t). Example 17.1 derives a Newtonian analogue: a test mass on the edge of a uniform expanding sphere has conserved energy kinetic plus gravitational; writing the radius as a(t) times a comoving coordinate turns energy conservation into (a-dot/a)^2 + k/a^2 = 8 pi G rho/3, with k fixed by the energy.",
+   "concepts": [
+    "Newtonian derivation of the Friedmann equation",
+    "comoving coordinates",
+    "scale factor",
+    "curvature constant k",
+    "first Friedmann equation"
+   ],
+   "key_moves": [
+    "Total energy of a test mass at radius r in a uniform medium: kinetic (1/2) m r-dot^2 plus potential -GMm/r with M = (4/3) pi r^3 rho",
+    "Substitute r = a(t) x with fixed comoving x, giving eqn 17.1",
+    "Divide by (1/2) m a^2 x^2 to reach eqn 17.2 with k = -2U/(m x^2), constant because energy is conserved",
+    "Observation that the first Friedmann equation is at heart an energy statement"
+   ]
+  },
+  {
+   "number": "17.1",
+   "title": "Enter energy-momentum",
+   "printed_page": 182,
+   "pdf_page": 199,
+   "summary": "Following Friedmann, the Robertson-Walker spaces are filled with vacuum energy (Lambda) and a perfect fluid whose orthonormal-frame tensor is diagonal with energy density rho and isotropic pressure p. Example 17.2 inserts these, together with the orthonormal Ricci components R_tt = -3 a-ddot/a and R_ii = a-ddot/a + 2(a-dot/a)^2 + 2k/a^2 and the scalar R (all recapped in the margin), into the time-time and space-space components of Einstein's equation. The results are boxed as Friedmann equation 1, the initial value equation, and Friedmann equation 2, the dynamic equation. The section closes (top of p.183) by noting that rho and p still need to be tied together by an equation of state fixed by the fluid's thermodynamics.",
+   "concepts": [
+    "perfect-fluid energy-momentum tensor",
+    "cosmological constant as vacuum energy",
+    "Robertson-Walker metric",
+    "Ricci tensor of the Robertson-Walker metric",
+    "Einstein field equation with cosmological constant",
+    "Friedmann equations",
+    "first Friedmann equation",
+    "second Friedmann equation",
+    "equation of state"
+   ],
+   "key_moves": [
+    "Perfect fluid in orthonormal frame: T_tt = rho, T_rr = T_thth = T_phph = p (17.3); Exercise 17.1 checks this for k = +1, -1",
+    "0-hat 0-hat component: R_00 + R/2 = 8 pi rho + Lambda collapses to (a-dot/a)^2 + k/a^2 = 8 pi rho/3 + Lambda/3 (17.4)",
+    "i-hat i-hat component: R_ii - R/2 = 8 pi p - Lambda gives 2 a-ddot/a + (a-dot/a)^2 + k/a^2 = -8 pi p + Lambda (17.5)",
+    "Naming: first equation is a constraint on initial data (no a-ddot); second governs the dynamics",
+    "An equation of state linking rho and p is still missing"
+   ]
+  },
+  {
+   "number": "17.2",
+   "title": "Enter thermodynamics",
+   "printed_page": 183,
+   "pdf_page": 200,
+   "summary": "Geometry and energy are also linked by thermodynamics. Example 17.3 applies the first law to a comoving volume V = b a^3 containing energy U = rho V, assuming adiabatic evolution (dS = 0: equilibrium, no phase transitions or shocks). Differentiating in time gives the fluid equation, boxed as d rho/(rho + p) = -3 da/a. Example 17.4 then differentiates the first Friedmann equation, substitutes the fluid equation, and after eliminating 8 pi rho/3 recovers the second Friedmann equation exactly, so the pair contains a single independent equation once energy conservation is imposed.",
+   "concepts": [
+    "first law of thermodynamics",
+    "adiabatic expansion of the cosmic fluid",
+    "fluid equation",
+    "redundancy of the Friedmann equations",
+    "acceleration equation"
+   ],
+   "key_moves": [
+    "dU = T dS - p dV with dS = 0 and U = rho b a^3, V = b a^3 (17.8)",
+    "Expand d(rho a^3)/dt = -p d(a^3)/dt (17.9) and rearrange to (17.10)-(17.11)",
+    "Rewrite F1 as a-dot^2 + k = (Lambda/3 + 8 pi rho/3) a^2 (17.12) and differentiate (17.13)",
+    "Insert rho-dot = -3(rho + p) a-dot/a (17.14), divide by a a-dot to get 2 a-ddot/a = 2 Lambda/3 - 8 pi rho/3 - 8 pi p (17.15)",
+    "Eliminate 8 pi rho/3 with F1 to land on F2 (17.16)"
+   ]
+  },
+  {
+   "number": "17.3",
+   "title": "Dust and radiation",
+   "printed_page": 184,
+   "pdf_page": 201,
+   "summary": "On cosmological scales matter is treated as a continuous classical fluid split into dust (massive, pressureless, density rho_d) and radiation (a photon gas with density rho_r and pressure rho_r/3). The fluid equation gives rho_d proportional to a^-3 and rho_r proportional to a^-4, written relative to values at a reference time t_0 (often today, where H_0 is the Hubble constant). Margin notes justify both by counting: particle number dilutes with volume, dust particles keep their rest energy, photons lose energy in proportion to 1/a by redshift. Substituting gives the Friedmann equations for a dust-radiation-vacuum mixture (17.22-17.23), which determine a(t) for all times from densities and a at t_0.",
+   "concepts": [
+    "dust",
+    "radiation",
+    "radiation equation of state",
+    "scaling of energy density with the scale factor",
+    "cosmological redshift",
+    "Hubble parameter",
+    "Friedmann equations for a multi-component universe"
+   ],
+   "key_moves": [
+    "Dust: p = 0 in 17.11 integrates to rho_d proportional to a^-3 (17.17), or rho_d/rho_d^(0) = [a(t_0)/a]^3 (17.18)",
+    "Radiation: p = rho/3 gives d rho/rho = -4 da/a (17.20) and rho_r/rho_r^(0) = [a(t_0)/a]^4 (17.21)",
+    "Counting rationalization: number density scales as a^-3, per-photon energy as a^-1",
+    "Radiation dilutes fastest, so the universe empties with time and radiation fades first",
+    "Assemble 17.22 (first equation) and 17.23 (acceleration form) for mixed content"
+   ]
+  },
+  {
+   "number": "17.3",
+   "title": "Critical density, density parameters and the age integral (Example 17.5)",
+   "printed_page": 185,
+   "pdf_page": 202,
+   "summary": "Example 17.5 defines the critical density rho_c = 3H^2/(8 pi) and vacuum density rho_Lambda = Lambda/(8 pi), turning the first Friedmann equation into 1 + k/(a^2 H^2) = sum of rho_j/rho_c, hence k/a-dot^2 = Omega - 1. Because a-dot^2 is positive, the sign of Omega - 1 fixes k: below critical is hyperbolic, exactly critical is flat, above critical is spherical. Referencing to t_0 with Omega_k^(0) = -k/(a_0^2 H_0^2) gives the sum rule Omega_d + Omega_r + Omega_Lambda + Omega_k = 1 and a dimensionless evolution equation in x = a/a_0. Using x = 1/(1+z) and setting t = 0 at infinite redshift, the emission time of light seen with redshift z becomes an integral (17.33); z = 0 gives the present age. The chapter then hands over to Chapter 18.",
+   "concepts": [
+    "critical density",
+    "density parameter",
+    "curvature density parameter",
+    "cosmic sum rule",
+    "density determines spatial geometry",
+    "dimensionless Friedmann equation in density parameters",
+    "cosmic time as a function of redshift",
+    "age of the universe"
+   ],
+   "key_moves": [
+    "Define rho_c by replacing (a-dot/a)^2 in F1 (17.24-17.26)",
+    "Divide by rho_c with rho_Lambda = Lambda/8 pi to get 17.27, then use a^2 H^2 = a-dot^2 (17.28-17.29)",
+    "Read off k from the sign of Omega - 1 assuming a-dot > 0",
+    "Present-day parameters and Omega_k^(0) give the sum rule 17.30",
+    "Change variable to x = a/a_0 (17.32) and separate variables",
+    "Use 1 + z = a_0/a to convert to an age-redshift integral with t = 0 at z = infinity (17.33)"
+   ]
+  },
+  {
+   "number": null,
+   "title": "Chapter summary and exercises",
+   "printed_page": 187,
+   "pdf_page": 204,
+   "summary": "The summary box restates the two Friedmann equations and the dust and radiation dilution laws. Four exercises follow: checking the fluid tensor components for curved k via the chi coordinate, verifying p = rho/3 from a photon partition function, solving a flat model whose density falls as a^-2, and finding the emission time of light from a galaxy at redshift z in a flat dust universe.",
+   "concepts": [
+    "Friedmann equations",
+    "dust",
+    "radiation",
+    "Einstein-de Sitter universe",
+    "coasting expansion"
+   ],
+   "key_moves": [
+    "Summary equations 17.34-17.35 repeat 17.6-17.7",
+    "Exercises move from frame bookkeeping to statistical mechanics to first solutions of the Friedmann equation"
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "Friedmann equations",
+   "aliases": [
+    "Friedmann equations of motion",
+    "equations of motion for the expansion factor"
+   ],
+   "kind": "law",
+   "definition": "The pair of ordinary differential equations for the scale factor a(t) of a homogeneous, isotropic (Robertson-Walker) universe obtained from Einstein's equation with a perfect fluid and cosmological constant: a first-order constraint relating the expansion rate to density and curvature, and a second-order equation for the acceleration involving pressure.",
+   "how_introduced": "Motivated as filling the right-hand side of Einstein's equation for the Robertson-Walker geometry; derived from two components in the orthonormal frame (Example 17.2) after a Newtonian preview (Example 17.1).",
+   "depth": "core",
+   "prerequisites": [
+    "Robertson-Walker metric",
+    "Einstein field equation with cosmological constant",
+    "perfect-fluid energy-momentum tensor",
+    "scale factor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 198,
+     "printed_page": 181,
+     "section": null
+    },
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=\\frac{8\\pi}{3}\\rho+\\frac{\\Lambda}{3}",
+    "2\\frac{\\ddot a}{a}+\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=-8\\pi p+\\Lambda"
+   ],
+   "notes": "Named after Alexander Friedmann (1922, 1924); the book keeps G = c = 1 and signature (-,+,+,+)."
+  },
+  {
+   "name": "first Friedmann equation",
+   "aliases": [
+    "Friedmann equation 1",
+    "initial value equation",
+    "Friedmann constraint",
+    "Hubble equation"
+   ],
+   "kind": "law",
+   "definition": "H^2 = (a-dot/a)^2 = 8 pi rho/3 + Lambda/3 - k/a^2: the squared expansion rate at any instant is fixed by the total energy density, the cosmological constant and the spatial curvature term. It contains no second derivative, so it constrains the initial data (a, a-dot) rather than evolving them.",
+   "how_introduced": "Obtained from the time-time orthonormal component of Einstein's equation, where the a-ddot terms cancel between R_00 and R/2; previewed as a Newtonian energy equation.",
+   "depth": "core",
+   "prerequisites": [
+    "Friedmann equations",
+    "Hubble parameter",
+    "curvature constant k"
+   ],
+   "locators": [
+    {
+     "pdf_page": 198,
+     "printed_page": 181,
+     "section": null
+    },
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.2"
+    }
+   ],
+   "formulas": [
+    "\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=\\frac{8\\pi\\rho}{3}+\\frac{\\Lambda}{3}",
+    "\\dot a^2+k=\\left(\\frac{\\Lambda}{3}+\\frac{8\\pi\\rho}{3}\\right)a^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "second Friedmann equation",
+   "aliases": [
+    "Friedmann equation 2",
+    "dynamic equation",
+    "space-space Friedmann equation"
+   ],
+   "kind": "law",
+   "definition": "2 a-ddot/a + (a-dot/a)^2 + k/a^2 = -8 pi p + Lambda: the equation containing the acceleration of the scale factor, sourced by the pressure. Combined with the first equation it becomes the acceleration equation a-ddot/a = -(4 pi/3)(rho + 3p) + Lambda/3.",
+   "how_introduced": "From the space-space (i-hat i-hat) component of Einstein's equation in Example 17.2; later rederived from the first equation plus the fluid equation in Example 17.4.",
+   "depth": "core",
+   "prerequisites": [
+    "first Friedmann equation",
+    "pressure",
+    "Einstein field equation with cosmological constant"
+   ],
+   "locators": [
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.2"
+    }
+   ],
+   "formulas": [
+    "2\\frac{\\ddot a}{a}+\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=-8\\pi p+\\Lambda"
+   ],
+   "notes": null
+  },
+  {
+   "name": "acceleration equation",
+   "aliases": [
+    "Raychaudhuri equation for a homogeneous universe",
+    "a-ddot equation"
+   ],
+   "kind": "law",
+   "definition": "a-ddot/a = -(4 pi/3)(rho + 3p) + Lambda/3, the difference of the two Friedmann equations: ordinary matter and pressure both decelerate the expansion (pressure counts three times as a gravitational source), while positive Lambda accelerates it.",
+   "how_introduced": "Appears as the intermediate step 17.15 in Example 17.4 (2 a-ddot/a = 2 Lambda/3 - 8 pi rho/3 - 8 pi p) and as 17.23 for dust plus radiation; the book never writes the (rho + 3p) form explicitly.",
+   "depth": "developed",
+   "prerequisites": [
+    "first Friedmann equation",
+    "second Friedmann equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.2"
+    },
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\ddot a}{a}=-\\frac{4\\pi}{3}(\\rho+3p)+\\frac{\\Lambda}{3}"
+   ],
+   "notes": "Printed eqn 17.23 omits the factor 2 that radiation's pressure contributes (rho_r + 3p_r = 2 rho_r)."
+  },
+  {
+   "name": "Newtonian derivation of the Friedmann equation",
+   "aliases": [
+    "Newtonian cosmology",
+    "expanding dust ball argument"
+   ],
+   "kind": "technique",
+   "definition": "Heuristic reconstruction of the first Friedmann equation from Newtonian mechanics: a test mass on a comoving shell of a uniform expanding sphere conserves kinetic plus gravitational energy, and writing r = a(t) x gives (a-dot/a)^2 + k/a^2 = 8 pi G rho/3 with k = -2U/(m x^2) proportional to minus the shell's energy.",
+   "how_introduced": "Placed first as Example 17.1 to give physical insight before the relativistic derivation; framed as showing the equation is fundamentally about energy.",
+   "depth": "introduced",
+   "prerequisites": [
+    "comoving coordinates",
+    "scale factor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 198,
+     "printed_page": 181,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "U=\\tfrac12 m\\dot a^2x^2-\\frac{4\\pi G}{3}\\rho a^2x^2 m",
+    "k=-\\frac{2U}{mx^2}"
+   ],
+   "notes": "Implicitly requires the mass inside the shell, rho a^3, to be constant and relies on the shell theorem; k here is not normalized to 0, +1, -1 and has dimensions of velocity squared per comoving length squared."
+  },
+  {
+   "name": "scale factor",
+   "aliases": [
+    "expansion factor",
+    "effective radius of the universe",
+    "a(t)",
+    "radius-like expansion factor"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The time-dependent function a(t) multiplying the spatial part of the Robertson-Walker metric, so that proper distances between comoving observers all scale in proportion to a(t).",
+   "how_introduced": "Carried over from Chapters 15-16; here it becomes the unknown of the Friedmann equations and sets the comoving volume V proportional to a^3 in the thermodynamic argument.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Robertson-Walker metric",
+    "comoving coordinates"
+   ],
+   "locators": [
+    {
+     "pdf_page": 198,
+     "printed_page": 181,
+     "section": null
+    },
+    {
+     "pdf_page": 200,
+     "printed_page": 183,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\vec r=a(t)\\vec x",
+    "x=\\frac{a(t)}{a(t_0)}"
+   ],
+   "notes": "The book calls a an 'effective radius', which is literal only for k = +1; it does not normalize a(t_0) = 1 in this chapter."
+  },
+  {
+   "name": "comoving coordinates",
+   "aliases": [
+    "comoving coordinate x"
+   ],
+   "kind": "definition",
+   "definition": "Coordinates that stay fixed for observers moving with the cosmic expansion; physical separation equals the scale factor times the comoving separation.",
+   "how_introduced": "Used in Example 17.1 to split the radius of a Newtonian shell as a(t) x with x fixed.",
+   "depth": "mention",
+   "prerequisites": [
+    "scale factor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 198,
+     "printed_page": 181,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\vec r=a(t)\\vec x"
+   ],
+   "notes": null
+  },
+  {
+   "name": "curvature constant k",
+   "aliases": [
+    "spatial curvature index",
+    "k = 0, +1, -1"
+   ],
+   "kind": "definition",
+   "definition": "The constant in the Robertson-Walker metric that fixes the geometry of constant-time slices: k = +1 spherical (closed), 0 flat, -1 hyperbolic (open). In the Friedmann equation it enters as the term k/a^2.",
+   "how_introduced": "Inherited from Chapter 16's metric; given physical meaning by the Newtonian argument (k proportional to minus the energy of a shell) and by the Omega classification in Example 17.5.",
+   "depth": "developed",
+   "prerequisites": [
+    "Robertson-Walker metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 198,
+     "printed_page": 181,
+     "section": null
+    },
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\frac{k}{\\dot a^2}=\\Omega-1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Robertson-Walker metric",
+   "aliases": [
+    "Robertson-Walker line element",
+    "Robertson-Walker spaces",
+    "FLRW metric"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The most general spacetime metric with homogeneous, isotropic spatial slices: ds^2 = -dt^2 + a(t)^2 [dr^2/(1 - k r^2) + r^2 (d theta^2 + sin^2 theta d phi^2)].",
+   "how_introduced": "Recalled in a margin note with its metric components and vielbein, as the fixed geometric input to Einstein's equation.",
+   "depth": "revisited",
+   "prerequisites": [
+    "scale factor",
+    "curvature constant k"
+   ],
+   "locators": [
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    }
+   ],
+   "formulas": [
+    "ds^2=-dt^2+a(t)^2\\left[\\frac{dr^2}{1-kr^2}+r^2(d\\theta^2+\\sin^2\\theta\\,d\\phi^2)\\right]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Ricci tensor of the Robertson-Walker metric",
+   "aliases": [
+    "orthonormal Ricci components for Robertson-Walker"
+   ],
+   "kind": "mathematical-object",
+   "definition": "In the orthonormal frame of comoving observers the Robertson-Walker Ricci tensor is diagonal with R_tt = -3 a-ddot/a and each spatial component R_ii = a-ddot/a + 2(a-dot/a)^2 + 2k/a^2; the Ricci scalar is R = 6(a-ddot/a + a-dot^2/a^2 + k/a^2).",
+   "how_introduced": "Quoted from Chapter 16 in a margin note together with the vielbein, so it can be substituted directly into the field equation.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Robertson-Walker metric",
+    "vielbein"
+   ],
+   "locators": [
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    }
+   ],
+   "formulas": [
+    "R_{\\hat t\\hat t}=-3\\frac{\\ddot a}{a}",
+    "R_{\\hat i\\hat i}=\\frac{\\ddot a}{a}+2\\left(\\frac{\\dot a}{a}\\right)^2+2\\frac{k}{a^2}",
+    "R=6\\left(\\frac{\\ddot a}{a}+\\frac{\\dot a^2}{a^2}+\\frac{k}{a^2}\\right)"
+   ],
+   "notes": "The printed margin note (and the first line of eqn 17.5) has 2k/a instead of 2k/a^2; the final equations use the correct power."
+  },
+  {
+   "name": "vielbein",
+   "aliases": [
+    "orthonormal frame components",
+    "tetrad"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The set of components relating coordinate basis vectors to an orthonormal basis; for the diagonal Robertson-Walker metric its entries are the square roots of the magnitudes of the metric components (1, a/sqrt(1 - k r^2), a r, a r sin theta).",
+   "how_introduced": "Listed in the margin to justify working in the orthonormal frame; also used in Exercise 17.1.",
+   "depth": "mention",
+   "prerequisites": [
+    "Robertson-Walker metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "(e_r)^{\\hat r}=\\frac{a}{(1-kr^2)^{1/2}}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Einstein field equation with cosmological constant",
+   "aliases": [
+    "Einstein equation with Lambda"
+   ],
+   "kind": "law",
+   "definition": "R_mu nu - (1/2) g_mu nu R = 8 pi T_mu nu - Lambda g_mu nu (G = c = 1): spacetime curvature is sourced by energy-momentum, with the cosmological constant acting like a uniform vacuum energy.",
+   "how_introduced": "Used component by component in the orthonormal frame in Example 17.2.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Ricci tensor of the Robertson-Walker metric",
+    "perfect-fluid energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    }
+   ],
+   "formulas": [
+    "R_{\\hat\\mu\\hat\\nu}-\\tfrac12 g_{\\hat\\mu\\hat\\nu}R=8\\pi T_{\\hat\\mu\\hat\\nu}-\\Lambda g_{\\hat\\mu\\hat\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "perfect-fluid energy-momentum tensor",
+   "aliases": [
+    "perfect fluid",
+    "fluid without dissipation"
+   ],
+   "kind": "mathematical-object",
+   "definition": "Energy-momentum tensor of a fluid with no viscosity or heat conduction; in its rest frame's orthonormal basis it is diagonal with energy density rho in the time-time slot and the same pressure p in each spatial slot.",
+   "how_introduced": "Stated for spherical polars in the orthonormal frame (17.3), pointing back to Chapter 10's k = 0 version and forward to Exercise 17.1 for k = +1, -1.",
+   "depth": "revisited",
+   "prerequisites": [
+    "vielbein",
+    "pressure"
+   ],
+   "locators": [
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "T_{\\hat t\\hat t}=\\rho,\\quad T_{\\hat r\\hat r}=T_{\\hat\\theta\\hat\\theta}=T_{\\hat\\phi\\hat\\phi}=p"
+   ],
+   "notes": null
+  },
+  {
+   "name": "pressure",
+   "aliases": [
+    "isotropic pressure p"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The isotropic momentum flux (force per area) of the cosmic fluid measured by comoving observers; it appears in the space-space Einstein equation and in the pdV work of the first law.",
+   "how_introduced": "Enters through the fluid tensor and the first law; its effect is to change how fast density falls and to add to deceleration.",
+   "depth": "developed",
+   "prerequisites": [
+    "perfect-fluid energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 200,
+     "printed_page": 183,
+     "section": "17.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "cosmological constant as vacuum energy",
+   "aliases": [
+    "vacuum energy",
+    "Lambda",
+    "rho_Lambda"
+   ],
+   "kind": "physical-quantity",
+   "definition": "A constant Lambda in the field equation that behaves like a fluid with constant energy density rho_Lambda = Lambda/(8 pi) and pressure -rho_Lambda, so it neither dilutes nor decelerates the expansion.",
+   "how_introduced": "The universes are filled with vacuum energy of density Lambda alongside the fluid (the book loosely calls Lambda the energy density); Example 17.5 defines rho_Lambda = Lambda/8 pi.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Einstein field equation with cosmological constant"
+   ],
+   "locators": [
+    {
+     "pdf_page": 199,
+     "printed_page": 182,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\rho_\\Lambda=\\frac{\\Lambda}{8\\pi}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "equation of state",
+   "aliases": [
+    "rho-p relation"
+   ],
+   "kind": "definition",
+   "definition": "A relation p = p(rho) fixed by the microphysics and thermodynamics of the fluid; the Friedmann equations cannot be solved without it.",
+   "how_introduced": "Flagged at the end of section 17.1 as the missing link between the two unknowns rho and p; dust (p = 0) and radiation (p = rho/3) are the worked cases.",
+   "depth": "introduced",
+   "prerequisites": [
+    "pressure"
+   ],
+   "locators": [
+    {
+     "pdf_page": 200,
+     "printed_page": 183,
+     "section": "17.1"
+    },
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "p_{\\rm dust}=0",
+    "p_{\\rm rad}=\\rho/3"
+   ],
+   "notes": null
+  },
+  {
+   "name": "first law of thermodynamics",
+   "aliases": [
+    "energy conservation dU = T dS - p dV"
+   ],
+   "kind": "law",
+   "definition": "The change in internal energy of a system equals heat added (T dS) minus work done by the system (p dV).",
+   "how_introduced": "Presented as a second, thermodynamic bridge between geometry (volume) and mass-energy; applied to a comoving volume in Example 17.3.",
+   "depth": "developed",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 200,
+     "printed_page": 183,
+     "section": "17.2"
+    }
+   ],
+   "formulas": [
+    "dU=T\\,dS-p\\,dV"
+   ],
+   "notes": null
+  },
+  {
+   "name": "adiabatic expansion of the cosmic fluid",
+   "aliases": [
+    "isentropic expansion",
+    "dS = 0 assumption"
+   ],
+   "kind": "principle",
+   "definition": "The assumption that fluid elements stay in thermal equilibrium without entropy production (no phase transitions, shocks or dissipation), so comoving volumes evolve with dS = 0.",
+   "how_introduced": "Stated in Example 17.3 and justified in a margin note giving shockwaves (kinetic energy turned to heat) as a counterexample.",
+   "depth": "introduced",
+   "prerequisites": [
+    "first law of thermodynamics"
+   ],
+   "locators": [
+    {
+     "pdf_page": 200,
+     "printed_page": 183,
+     "section": "17.2"
+    }
+   ],
+   "formulas": [
+    "dS=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "fluid equation",
+   "aliases": [
+    "continuity equation in cosmology",
+    "first law in Friedmann form",
+    "energy conservation equation for the cosmic fluid"
+   ],
+   "kind": "law",
+   "definition": "rho-dot = -3 (a-dot/a)(rho + p), equivalently d rho/(rho + p) = -3 da/a: the energy density in a comoving volume drops both from dilution and from pdV work done by pressure as the volume grows like a^3.",
+   "how_introduced": "Derived from the adiabatic first law with V = b a^3 and U = rho V (Example 17.3); boxed as the thermodynamic statement tailored to Friedmann cosmologies.",
+   "depth": "core",
+   "prerequisites": [
+    "first law of thermodynamics",
+    "adiabatic expansion of the cosmic fluid",
+    "scale factor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 200,
+     "printed_page": 183,
+     "section": "17.2"
+    },
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.2"
+    }
+   ],
+   "formulas": [
+    "\\frac{d\\rho}{\\rho+p}=-3\\frac{da}{a}",
+    "\\dot\\rho=-3(\\rho+p)\\frac{\\dot a}{a}"
+   ],
+   "notes": "In GR this is the time component of the covariant conservation law for T, itself guaranteed by the contracted Bianchi identity; the chapter does not make that link."
+  },
+  {
+   "name": "redundancy of the Friedmann equations",
+   "aliases": [
+    "equivalence of the two Friedmann equations"
+   ],
+   "kind": "theorem",
+   "definition": "Given the fluid equation and a-dot not equal to zero, the second Friedmann equation follows from the time derivative of the first, so the system has one independent equation plus the conservation law and an equation of state.",
+   "how_introduced": "Example 17.4: rearrange, differentiate, substitute rho-dot, divide by a a-dot, eliminate rho with the first equation.",
+   "depth": "developed",
+   "prerequisites": [
+    "first Friedmann equation",
+    "second Friedmann equation",
+    "fluid equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.2"
+    }
+   ],
+   "formulas": [],
+   "notes": "Fails for static configurations (a-dot = 0), where the second equation carries independent content."
+  },
+  {
+   "name": "dust",
+   "aliases": [
+    "matter with mass",
+    "pressureless matter",
+    "non-relativistic matter"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A cosmic fluid of massive, slowly moving particles whose pressure is negligible (p = 0), with energy density rho_d dominated by rest mass.",
+   "how_introduced": "One of two idealized kinds of cosmic matter in section 17.3; its dilution law follows from setting p = 0 in the fluid equation.",
+   "depth": "developed",
+   "prerequisites": [
+    "perfect-fluid energy-momentum tensor",
+    "equation of state"
+   ],
+   "locators": [
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\rho_d\\propto a^{-3}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "radiation",
+   "aliases": [
+    "massless matter",
+    "photon gas",
+    "relativistic matter"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A cosmic fluid of massless particles (photons) with uniform energy density rho_r and pressure p = rho_r/3.",
+   "how_introduced": "The second idealized matter type of section 17.3; its equation of state is quoted from thermodynamics and checked by statistical mechanics in Exercise 17.2.",
+   "depth": "developed",
+   "prerequisites": [
+    "perfect-fluid energy-momentum tensor",
+    "radiation equation of state"
+   ],
+   "locators": [
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\rho_r\\propto a^{-4}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "radiation equation of state",
+   "aliases": [
+    "p = rho/3"
+   ],
+   "kind": "law",
+   "definition": "For a gas of massless particles the pressure is one third of the energy density, reflecting a traceless energy-momentum tensor.",
+   "how_introduced": "Stated as a fundamental thermodynamic result (17.19), with Exercise 17.2 deriving it from the photon partition function.",
+   "depth": "introduced",
+   "prerequisites": [
+    "equation of state"
+   ],
+   "locators": [
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "p=\\frac{\\rho}{3}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "scaling of energy density with the scale factor",
+   "aliases": [
+    "dilution laws",
+    "rho proportional to a^-3 and a^-4"
+   ],
+   "kind": "law",
+   "definition": "As the universe expands, pressureless matter density falls as a^-3 (fixed number of particles in a growing volume, fixed energy per particle) and radiation density as a^-4 (same dilution plus a 1/a redshift of each photon's energy), so radiation fades fastest; vacuum energy stays constant.",
+   "how_introduced": "Derived formally by integrating the fluid equation for p = 0 and p = rho/3, and re-derived informally in margin notes by counting particles.",
+   "depth": "core",
+   "prerequisites": [
+    "fluid equation",
+    "dust",
+    "radiation",
+    "cosmological redshift"
+   ],
+   "locators": [
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\frac{\\rho_d(t)}{\\rho_d^{(0)}}=\\left[\\frac{a(t_0)}{a(t)}\\right]^3",
+    "\\frac{\\rho_r(t)}{\\rho_r^{(0)}}=\\left[\\frac{a(t_0)}{a(t)}\\right]^4"
+   ],
+   "notes": null
+  },
+  {
+   "name": "cosmological redshift",
+   "aliases": [
+    "redshift z",
+    "1 + z = a_obs/a_em"
+   ],
+   "kind": "phenomenon",
+   "definition": "Stretching of light wavelengths in proportion to the scale factor between emission and observation, so 1 + z = a(t_obs)/a(t_em) and each photon's energy scales as 1/a.",
+   "how_introduced": "Invoked in a margin note to explain the extra factor of a in radiation dilution, and via eqn 16.48 to convert x = a/a_0 into redshift for the age integral.",
+   "depth": "revisited",
+   "prerequisites": [
+    "scale factor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "x=\\frac{a(t)}{a(t_0)}=\\frac{1}{1+z}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Hubble parameter",
+   "aliases": [
+    "H(t)",
+    "Hubble constant H_0"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The fractional expansion rate H(t) = a-dot/a; its present value is the Hubble constant H_0 = H(t_0).",
+   "how_introduced": "Reintroduced in a margin note about the reference time t_0 and used to define the critical density.",
+   "depth": "revisited",
+   "prerequisites": [
+    "scale factor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 201,
+     "printed_page": 184,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "H=\\frac{\\dot a}{a}",
+    "H_0=H(t_0)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Friedmann equations for a multi-component universe",
+   "aliases": [
+    "Friedmann equations with dust, radiation and vacuum energy"
+   ],
+   "kind": "law",
+   "definition": "The Friedmann equations with total density written as a sum of components, each scaling with its own power of a relative to reference values at t_0: rho_d^(0)(a_0/a)^3 + rho_r^(0)(a_0/a)^4 plus Lambda/8 pi.",
+   "how_introduced": "Assembled in section 17.3 immediately after the dilution laws (17.22-17.23), with the remark that knowing densities and a at one time determines a(t) at all times.",
+   "depth": "developed",
+   "prerequisites": [
+    "first Friedmann equation",
+    "scaling of energy density with the scale factor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=\\frac{8\\pi}{3}\\left\\{\\rho_d^{(0)}\\left[\\frac{a_0}{a}\\right]^3+\\rho_r^{(0)}\\left[\\frac{a_0}{a}\\right]^4\\right\\}+\\frac{\\Lambda}{3}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "critical density",
+   "aliases": [
+    "rho_c"
+   ],
+   "kind": "physical-quantity",
+   "definition": "rho_c = 3H^2/(8 pi) (3H^2/(8 pi G) in SI): the total energy density, including vacuum energy, for which the first Friedmann equation requires flat spatial sections (k = 0) at the given expansion rate.",
+   "how_introduced": "Defined in Example 17.5 by replacing (a-dot/a)^2 in the first Friedmann equation; the name is justified afterwards by the geometry classification.",
+   "depth": "core",
+   "prerequisites": [
+    "first Friedmann equation",
+    "Hubble parameter"
+   ],
+   "locators": [
+    {
+     "pdf_page": 202,
+     "printed_page": 185,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\rho_c=\\frac{3}{8\\pi}H^2=\\frac{3}{8\\pi}\\left(\\frac{\\dot a}{a}\\right)^2",
+    "\\rho_c^{(0)}=\\frac{3H_0^2}{8\\pi}"
+   ],
+   "notes": "Printed text on p.186 gives rho_c^(0) = 8 pi H_0/3, an inverted and unsquared version of the correct expression."
+  },
+  {
+   "name": "density parameter",
+   "aliases": [
+    "Omega",
+    "Omega_j",
+    "density ratio"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The ratio Omega_j = rho_j/rho_c of a component's energy density to the critical density; the total Omega is the sum over dust, radiation and vacuum energy. Each Omega_j generally changes with time; Omega_j^(0) denotes its value at t_0.",
+   "how_introduced": "Introduced in Example 17.5 to make the first Friedmann equation dimensionless and to read off the geometry.",
+   "depth": "core",
+   "prerequisites": [
+    "critical density"
+   ],
+   "locators": [
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\Omega_j=\\frac{\\rho_j}{\\rho_c}",
+    "\\Omega=\\Omega_d+\\Omega_r+\\Omega_\\Lambda"
+   ],
+   "notes": null
+  },
+  {
+   "name": "curvature density parameter",
+   "aliases": [
+    "Omega_k",
+    "Omega_k^(0)"
+   ],
+   "kind": "physical-quantity",
+   "definition": "Omega_k^(0) = -k/(a_0^2 H_0^2): the curvature term of the first Friedmann equation expressed as if it were a density fraction; positive for open (k = -1) and negative for closed (k = +1) geometry.",
+   "how_introduced": "Defined in Example 17.5 so that all terms of the present-day Friedmann equation sum to one.",
+   "depth": "developed",
+   "prerequisites": [
+    "density parameter",
+    "curvature constant k"
+   ],
+   "locators": [
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\Omega_k^{(0)}=-\\frac{k}{a(t_0)^2H_0^2}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "cosmic sum rule",
+   "aliases": [
+    "closure relation",
+    "Omega sum rule"
+   ],
+   "kind": "identity",
+   "definition": "Evaluated at the reference time and divided by H_0 squared, the first Friedmann equation says the present density fractions of dust, radiation and vacuum energy, together with the curvature fraction, add up to exactly one.",
+   "how_introduced": "Derived from eqn 17.27 once Omega_k^(0) is defined.",
+   "depth": "developed",
+   "prerequisites": [
+    "density parameter",
+    "curvature density parameter"
+   ],
+   "locators": [
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\Omega_d^{(0)}+\\Omega_r^{(0)}+\\Omega_\\Lambda^{(0)}+\\Omega_k^{(0)}=1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "density determines spatial geometry",
+   "aliases": [
+    "Omega-geometry classification"
+   ],
+   "kind": "principle",
+   "definition": "Because k/a-dot^2 = Omega - 1 and a-dot^2 > 0, the total density relative to critical fixes the sign of k: Omega < 1 gives hyperbolic (k = -1), Omega = 1 flat (k = 0), Omega > 1 spherical (k = +1) space. Since k is constant, the sign of Omega - 1 cannot change while the universe expands.",
+   "how_introduced": "Read off from eqn 17.29 as a bullet list; used to justify the name 'critical'.",
+   "depth": "core",
+   "prerequisites": [
+    "density parameter",
+    "curvature constant k",
+    "first Friedmann equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\frac{k}{\\dot a^2}=\\Omega-1"
+   ],
+   "notes": "The classification is about spatial geometry, not about eventual recollapse; with Lambda present the two decouple (Chapter 18)."
+  },
+  {
+   "name": "dimensionless Friedmann equation in density parameters",
+   "aliases": [
+    "E(z) form",
+    "Friedmann equation in x = a/a_0"
+   ],
+   "kind": "law",
+   "definition": "Form of the first Friedmann equation using the relative scale factor x = a/a_0: the squared fractional expansion rate equals H_0 squared times a sum of today's curvature, dust, radiation and vacuum fractions, weighted by inverse powers two, three, four and zero of x respectively, so each component dominates in a different epoch.",
+   "how_introduced": "Reached from 17.22 and the sum rule in Example 17.5 as a stepping stone to the age integral.",
+   "depth": "developed",
+   "prerequisites": [
+    "cosmic sum rule",
+    "Friedmann equations for a multi-component universe"
+   ],
+   "locators": [
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "\\frac{1}{x^2}\\left(\\frac{dx}{dt}\\right)^2=H_0^2\\left(\\frac{\\Omega_k^{(0)}}{x^2}+\\frac{\\Omega_d^{(0)}}{x^3}+\\frac{\\Omega_r^{(0)}}{x^4}+\\Omega_\\Lambda^{(0)}\\right)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "cosmic time as a function of redshift",
+   "aliases": [
+    "age-redshift relation",
+    "emission time t(z)",
+    "lookback integral"
+   ],
+   "kind": "technique",
+   "definition": "Separating variables in the dimensionless Friedmann equation and using x = 1/(1+z) gives the cosmic time at which light now received with redshift z was emitted, measured from the moment of infinite redshift (a = 0).",
+   "how_introduced": "Final step of Example 17.5 (eqn 17.33), with Exercise 17.4 as the flat-dust special case.",
+   "depth": "developed",
+   "prerequisites": [
+    "dimensionless Friedmann equation in density parameters",
+    "cosmological redshift"
+   ],
+   "locators": [
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    },
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "t(z)=\\frac{1}{H_0}\\int_0^{(1+z)^{-1}}\\frac{dx}{x\\left(\\Omega_k^{(0)}x^{-2}+\\Omega_d^{(0)}x^{-3}+\\Omega_r^{(0)}x^{-4}+\\Omega_\\Lambda^{(0)}\\right)^{1/2}}"
+   ],
+   "notes": "Assumes a started from zero at a finite time (a big bang); lookback time would be t_0 - t(z)."
+  },
+  {
+   "name": "age of the universe",
+   "aliases": [
+    "present cosmic age t_0"
+   ],
+   "kind": "physical-quantity",
+   "definition": "Cosmic time elapsed since a = 0, obtained by evaluating the age-redshift integral at z = 0; of order 1/H_0 times a factor set by the density parameters.",
+   "how_introduced": "Mentioned as the z = 0 value of eqn 17.33.",
+   "depth": "introduced",
+   "prerequisites": [
+    "cosmic time as a function of redshift",
+    "Hubble parameter"
+   ],
+   "locators": [
+    {
+     "pdf_page": 203,
+     "printed_page": 186,
+     "section": "17.3"
+    }
+   ],
+   "formulas": [
+    "t_0=\\frac{1}{H_0}\\int_0^1\\frac{dx}{x\\,(\\ldots)^{1/2}}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Einstein-de Sitter universe",
+   "aliases": [
+    "flat dust universe",
+    "Universe 3"
+   ],
+   "kind": "solution-or-model",
+   "definition": "Spatially flat (k = 0) universe containing only pressureless matter and no Lambda; a grows as t^(2/3), the age is 2/(3H_0), and light of redshift z left at t = (2/3H_0)(1+z)^(-3/2).",
+   "how_introduced": "Appears only through Exercise 17.4 here; solved fully in Chapter 18.",
+   "depth": "mention",
+   "prerequisites": [
+    "dust",
+    "cosmic time as a function of redshift"
+   ],
+   "locators": [
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "t(z)=\\frac{2}{3H_0}(1+z)^{-3/2}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "coasting expansion",
+   "aliases": [
+    "a proportional to t",
+    "linear expansion"
+   ],
+   "kind": "solution-or-model",
+   "definition": "Expansion at constant a-dot, obtained in a flat universe whose source density falls as a^-2 (a fluid with p = -rho/3), since then a-dot^2 is constant.",
+   "how_introduced": "Exercise 17.3 asks for a(t) for a flat universe with rho proportional to a^-2.",
+   "depth": "mention",
+   "prerequisites": [
+    "first Friedmann equation",
+    "equation of state"
+   ],
+   "locators": [
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "a(t)\\propto t"
+   ],
+   "notes": null
+  },
+  {
+   "name": "photon gas partition function",
+   "aliases": [
+    "ultra-relativistic single-particle partition function"
+   ],
+   "kind": "technique",
+   "definition": "Statistical mechanics route to the thermodynamics of radiation: from Z proportional to V T^3, the energy per particle is 3 k_B T and the pressure is k_B T/V per particle, so p = rho/3.",
+   "how_introduced": "Exercise 17.2 uses it to check the radiation equation of state.",
+   "depth": "mention",
+   "prerequisites": [
+    "radiation equation of state"
+   ],
+   "locators": [
+    {
+     "pdf_page": 204,
+     "printed_page": 187,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "Z=\\frac{V}{\\pi^2}\\left(\\frac{k_BT}{\\hbar}\\right)^3"
+   ],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(17.1)",
+   "name": "Newtonian energy of a comoving shell",
+   "latex": "U=\\frac12 m\\dot a^2x^2-\\frac{4\\pi G}{3}\\rho a^2x^2m",
+   "meaning": "Conserved energy of a test mass on the surface of a uniform expanding sphere, written with r = a(t) x and M = (4/3) pi r^3 rho.",
+   "symbols": "U total energy; m test mass; x comoving radius; rho density; G Newton's constant",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   }
+  },
+  {
+   "label": "(17.2)",
+   "name": "Newtonian Friedmann equation",
+   "latex": "\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=\\frac{8\\pi G\\rho}{3},\\qquad k=-\\frac{2U}{mx^2}",
+   "meaning": "Same form as the first Friedmann equation, with the curvature-like constant set by minus the shell's energy: bound shells (U < 0) give k > 0.",
+   "symbols": "k constant (not normalized to 0, +1, -1 here)",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "Robertson-Walker line element (margin)",
+   "latex": "ds^2=-dt^2+a(t)^2\\left[\\frac{dr^2}{1-kr^2}+r^2\\left(d\\theta^2+\\sin^2\\theta\\,d\\phi^2\\right)\\right]",
+   "meaning": "Geometry input for the chapter, reprinted with metric components g_tt = -1, g_rr = a^2/(1 - k r^2), g_thth = a^2 r^2, g_phph = a^2 r^2 sin^2 theta.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Robertson-Walker vielbein (margin)",
+   "latex": "(e_t)^{\\hat t}=1,\\quad (e_r)^{\\hat r}=\\frac{a}{(1-kr^2)^{1/2}},\\quad (e_\\theta)^{\\hat\\theta}=ar,\\quad (e_\\phi)^{\\hat\\phi}=ar\\sin\\theta",
+   "meaning": "Diagonal vielbein converting coordinate components to the comoving orthonormal frame.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Orthonormal Ricci tensor and scalar of Robertson-Walker (margin, corrected)",
+   "latex": "R_{\\hat t\\hat t}=-3\\frac{\\ddot a}{a},\\qquad R_{\\hat i\\hat i}=\\frac{\\ddot a}{a}+2\\left(\\frac{\\dot a}{a}\\right)^2+2\\frac{k}{a^2},\\qquad R=6\\left(\\frac{\\ddot a}{a}+\\frac{\\dot a^2}{a^2}+\\frac{k}{a^2}\\right)",
+   "meaning": "Curvature side of Einstein's equation for comoving observers. The printed margin has 2k/a in R_ii (a typo; check: R = -R_tt + 3 R_ii requires k/a^2).",
+   "symbols": "hats orthonormal frame; i = r, theta, phi with no sum",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "label": "(17.3)",
+   "name": "Perfect fluid in the orthonormal frame",
+   "latex": "T_{\\hat t\\hat t}=\\rho,\\qquad T_{\\hat r\\hat r}=T_{\\hat\\theta\\hat\\theta}=T_{\\hat\\phi\\hat\\phi}=p",
+   "meaning": "Matter side: energy density on the diagonal time slot, equal pressure in each spatial slot, no off-diagonal stresses.",
+   "symbols": "rho mass-energy density; p pressure",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "label": "(17.4)",
+   "name": "Time-time component of Einstein's equation",
+   "latex": "R_{\\hat0\\hat0}-\\frac{g_{\\hat0\\hat0}}{2}R=8\\pi T_{\\hat0\\hat0}-\\Lambda g_{\\hat0\\hat0}\\;\\Rightarrow\\;-3\\frac{\\ddot a}{a}+3\\left[\\frac{\\ddot a}{a}+\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}\\right]=8\\pi\\rho+\\Lambda\\;\\Rightarrow\\;\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=\\frac{8\\pi\\rho}{3}+\\frac{\\Lambda}{3}",
+   "meaning": "With g_00 = -1 the a-ddot terms cancel, leaving a first-order equation.",
+   "symbols": "Lambda cosmological constant; G = c = 1",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "label": "(17.5)",
+   "name": "Space-space component of Einstein's equation",
+   "latex": "\\left[\\frac{\\ddot a}{a}+2\\left(\\frac{\\dot a}{a}\\right)^2+2\\frac{k}{a^2}\\right]-3\\left[\\frac{\\ddot a}{a}+\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}\\right]=8\\pi p-\\Lambda\\;\\Rightarrow\\;2\\frac{\\ddot a}{a}+\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=-8\\pi p+\\Lambda",
+   "meaning": "R_ii - R/2 equated with 8 pi p - Lambda; the printed first line again shows 2k/a for 2k/a^2, but the result is correct.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "label": "(17.6)",
+   "name": "Friedmann equation 1 (initial value equation)",
+   "latex": "\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=\\frac{8\\pi}{3}\\rho+\\frac{\\Lambda}{3}",
+   "meaning": "Squared expansion rate equals density plus vacuum term minus curvature term; a constraint on initial data.",
+   "symbols": "a scale factor; k curvature constant; rho energy density; Lambda cosmological constant",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "label": "(17.7)",
+   "name": "Friedmann equation 2 (dynamic equation)",
+   "latex": "2\\frac{\\ddot a}{a}+\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=-8\\pi p+\\Lambda",
+   "meaning": "Evolution equation containing the acceleration of a, sourced by pressure and Lambda.",
+   "symbols": "p pressure",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "label": "(17.8)",
+   "name": "First law of thermodynamics",
+   "latex": "dU=T\\,dS-p\\,dV",
+   "meaning": "Energy bookkeeping for a volume of the cosmic fluid.",
+   "symbols": "U internal energy; T temperature; S entropy; V volume",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.9)",
+   "name": "Adiabatic first law for a comoving volume",
+   "latex": "\\frac{d}{dt}\\left(\\rho a^3\\right)=-p\\frac{d}{dt}a^3\\;\\Rightarrow\\;\\frac{d\\rho}{dt}a^3+3\\rho a^2\\frac{da}{dt}=-3pa^2\\frac{da}{dt}",
+   "meaning": "With dS = 0, V = b a^3 and U = rho V, the energy in a comoving box falls by the work its pressure does.",
+   "symbols": "b dimensionless constant (cancels)",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.10)",
+   "name": null,
+   "latex": "\\frac{1}{\\rho+p}\\frac{d\\rho}{dt}=-\\frac{3}{a}\\frac{da}{dt}",
+   "meaning": "Rearranged form isolating the logarithmic rate of change of a.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.11)",
+   "name": "Fluid equation (first law in Friedmann form)",
+   "latex": "\\frac{d\\rho}{\\rho+p}=-3\\frac{da}{a}",
+   "meaning": "Master equation for how any fluid's density responds to expansion once p(rho) is chosen.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.12)",
+   "name": "First Friedmann equation multiplied by a^2",
+   "latex": "\\dot a^2+k=\\left(\\frac{\\Lambda}{3}+\\frac{8\\pi\\rho}{3}\\right)a^2",
+   "meaning": "Convenient form for differentiation.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.13)",
+   "name": "Time derivative of 17.12",
+   "latex": "2\\dot a\\ddot a=2a\\dot a\\left(\\frac{\\Lambda}{3}+\\frac{8\\pi\\rho}{3}\\right)+a^2\\frac{8\\pi\\dot\\rho}{3}",
+   "meaning": "k drops out on differentiation because it is constant.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.14)",
+   "name": "Fluid equation in rate form",
+   "latex": "\\dot\\rho=-3(\\rho+p)\\frac{\\dot a}{a}",
+   "meaning": "Used to eliminate rho-dot.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.15)",
+   "name": "Acceleration equation (intermediate form)",
+   "latex": "2\\frac{\\ddot a}{a}=\\frac{2\\Lambda}{3}-\\frac{8\\pi\\rho}{3}-8\\pi p\\quad\\Longleftrightarrow\\quad\\frac{\\ddot a}{a}=-\\frac{4\\pi}{3}(\\rho+3p)+\\frac{\\Lambda}{3}",
+   "meaning": "After dividing by a a-dot: deceleration from rho + 3p, acceleration from Lambda. The right-hand form is not printed but is 17.15 halved.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.16)",
+   "name": "Second Friedmann equation recovered",
+   "latex": "2\\frac{\\ddot a}{a}+\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=-8\\pi p+\\Lambda",
+   "meaning": "Substituting 8 pi rho/3 from F1 into 17.15 reproduces F2, demonstrating redundancy.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   }
+  },
+  {
+   "label": "(17.17)",
+   "name": "Dust dilution",
+   "latex": "\\rho_d(t)\\propto a(t)^{-3}",
+   "meaning": "Pressureless matter density falls with volume.",
+   "symbols": "rho_d dust density",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.18)",
+   "name": "Dust dilution referenced to t_0",
+   "latex": "\\frac{\\rho_d(t)}{\\rho_d^{(0)}}=\\left[\\frac{a(t_0)}{a(t)}\\right]^3",
+   "meaning": "Same law normalized to the density at a reference time.",
+   "symbols": "rho_d^(0) = rho_d(t_0)",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.19)",
+   "name": "Radiation equation of state",
+   "latex": "p=\\frac{\\rho}{3}",
+   "meaning": "Pressure of a photon gas is one third of its energy density.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.20)",
+   "name": "Fluid equation for radiation",
+   "latex": "\\frac{d\\rho}{\\rho}=-4\\frac{da}{a}",
+   "meaning": "Inserting p = rho/3 into 17.11.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.21)",
+   "name": "Radiation dilution",
+   "latex": "\\frac{\\rho_r(t)}{\\rho_r^{(0)}}=\\left[\\frac{a(t_0)}{a(t)}\\right]^4",
+   "meaning": "Radiation energy density falls one power of a faster than dust.",
+   "symbols": "rho_r^(0) = rho_r(t_0)",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.22)",
+   "name": "First Friedmann equation for dust + radiation + vacuum",
+   "latex": "\\left[\\frac{\\dot a(t)}{a(t)}\\right]^2+\\frac{k}{a(t)^2}=\\frac{8\\pi}{3}\\left\\{\\rho_d^{(0)}\\left[\\frac{a(t_0)}{a(t)}\\right]^3+\\rho_r^{(0)}\\left[\\frac{a(t_0)}{a(t)}\\right]^4\\right\\}+\\frac{\\Lambda}{3}",
+   "meaning": "Closed equation for a(t) once present densities, k and Lambda are known.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.23)",
+   "name": "Acceleration equation for dust + radiation + vacuum (corrected)",
+   "latex": "\\frac{\\ddot a}{a}=-\\frac{4\\pi}{3}\\left\\{\\rho_d^{(0)}\\left[\\frac{a(t_0)}{a(t)}\\right]^3+2\\rho_r^{(0)}\\left[\\frac{a(t_0)}{a(t)}\\right]^4\\right\\}+\\frac{\\Lambda}{3}",
+   "meaning": "Deceleration from matter and radiation, acceleration from Lambda. The printed equation lacks the factor 2 on the radiation term; it follows from rho + 3p with p_r = rho_r/3.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.24)",
+   "name": "Critical density via H (margin)",
+   "latex": "\\rho_c=\\frac{3}{8\\pi}H(t)^2",
+   "meaning": "Equivalent definition of the critical density; printed in footnote 9, numbered before 17.25 although it appears after it.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.25)",
+   "name": "Critical density",
+   "latex": "\\rho_c=\\frac{3}{8\\pi}\\left(\\frac{\\dot a}{a}\\right)^2",
+   "meaning": "Density that would exactly balance the expansion rate with no curvature term.",
+   "symbols": "rho_c critical density",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.26)",
+   "name": null,
+   "latex": "\\frac{8\\pi}{3}\\rho_c+\\frac{k}{a^2}=\\frac{8\\pi}{3}(\\rho_d+\\rho_r)+\\frac{\\Lambda}{3}",
+   "meaning": "First Friedmann equation with (a-dot/a)^2 replaced by the critical density.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Vacuum energy density",
+   "latex": "\\rho_\\Lambda=\\frac{\\Lambda}{8\\pi}",
+   "meaning": "Expresses Lambda as an equivalent energy density so it can be compared with rho_c.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.27)",
+   "name": null,
+   "latex": "1+\\frac{k}{a^2H^2}=\\frac{\\rho_d}{\\rho_c}+\\frac{\\rho_r}{\\rho_c}+\\frac{\\rho_\\Lambda}{\\rho_c}",
+   "meaning": "Dimensionless first Friedmann equation at any time.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.28)",
+   "name": null,
+   "latex": "1+\\frac{k}{\\dot a^2}=\\frac{\\rho_d}{\\rho_c}+\\frac{\\rho_r}{\\rho_c}+\\frac{\\rho_\\Lambda}{\\rho_c}",
+   "meaning": "Uses a^2 H^2 = a-dot^2.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.29)",
+   "name": "Omega minus one",
+   "latex": "\\frac{k}{\\dot a^2}=\\Omega_d+\\Omega_r+\\Omega_\\Lambda-1=\\Omega-1",
+   "meaning": "Sign of the total density parameter minus one equals the sign of the spatial curvature constant.",
+   "symbols": "Omega_j = rho_j/rho_c",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Geometry classification",
+   "latex": "\\Omega<1\\Rightarrow k=-1\\ (\\text{hyperbolic});\\quad \\Omega=1\\Rightarrow k=0\\ (\\text{flat});\\quad \\Omega>1\\Rightarrow k=+1\\ (\\text{spherical})",
+   "meaning": "Direct reading of 17.29 for an expanding universe.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Present-epoch parameters (corrected)",
+   "latex": "\\rho_c^{(0)}=\\frac{3H_0^2}{8\\pi},\\qquad \\Omega_j^{(0)}=\\frac{\\rho_j^{(0)}}{\\rho_c^{(0)}},\\qquad \\Omega_k^{(0)}=-\\frac{k}{a(t_0)^2H_0^2}",
+   "meaning": "Definitions at t_0. The book prints rho_c^(0) = 8 pi H_0/3, which is dimensionally inconsistent with 17.24.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.30)",
+   "name": "Cosmic sum rule",
+   "latex": "\\Omega_d^{(0)}+\\Omega_r^{(0)}+\\Omega_\\Lambda^{(0)}+\\Omega_k^{(0)}=1",
+   "meaning": "All present-day contributions, including curvature, sum to one.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.31)",
+   "name": "First Friedmann equation in present density parameters (corrected)",
+   "latex": "\\left[\\frac{\\dot a(t)}{a(t)}\\right]^2+\\frac{k}{a(t)^2}=H_0^2\\left\\{\\Omega_d^{(0)}\\left[\\frac{a(t_0)}{a(t)}\\right]^3+\\Omega_r^{(0)}\\left[\\frac{a(t_0)}{a(t)}\\right]^4+\\Omega_\\Lambda^{(0)}\\right\\}",
+   "meaning": "17.22 with densities replaced by Omega^(0) rho_c^(0). The printed version omits the factor H_0^2 on the right, which 17.32 restores.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.32)",
+   "name": "Dimensionless Friedmann equation",
+   "latex": "\\frac{1}{x^2}\\left(\\frac{dx}{dt}\\right)^2=H_0^2\\left(\\frac{\\Omega_k^{(0)}}{x^2}+\\frac{\\Omega_d^{(0)}}{x^3}+\\frac{\\Omega_r^{(0)}}{x^4}+\\Omega_\\Lambda^{(0)}\\right),\\qquad x=\\frac{a(t)}{a(t_0)}",
+   "meaning": "Expansion rate in units of H_0 as a sum of power laws in x; radiation dominates at small x, Lambda at large x.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Redshift and scale factor (eqn 16.48 quoted)",
+   "latex": "x=\\frac{a(t)}{a(t_0)}=\\frac{1}{1+z}",
+   "meaning": "Links the scale factor at emission to the observed redshift.",
+   "symbols": "z redshift",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.33)",
+   "name": "Emission time versus redshift",
+   "latex": "t(z)=\\frac{1}{H_0}\\int_0^{(z+1)^{-1}}\\frac{dx}{x\\left(\\Omega_k^{(0)}x^{-2}+\\Omega_d^{(0)}x^{-3}+\\Omega_r^{(0)}x^{-4}+\\Omega_\\Lambda^{(0)}\\right)^{1/2}}",
+   "meaning": "Cosmic time (from a = 0) at which light now seen with redshift z was emitted; z = 0 gives the age.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "label": "(17.34)",
+   "name": "Summary: first Friedmann equation",
+   "latex": "\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=\\frac{8\\pi}{3}\\rho+\\frac{\\Lambda}{3}",
+   "meaning": "Repeat of 17.6.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 204,
+    "printed_page": 187,
+    "section": null
+   }
+  },
+  {
+   "label": "(17.35)",
+   "name": "Summary: second Friedmann equation",
+   "latex": "2\\frac{\\ddot a}{a}+\\left(\\frac{\\dot a}{a}\\right)^2+\\frac{k}{a^2}=-8\\pi p+\\Lambda",
+   "meaning": "Repeat of 17.7.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 204,
+    "printed_page": 187,
+    "section": null
+   }
+  },
+  {
+   "label": "(17.36)",
+   "name": "Photon single-particle partition function (Exercise 17.2)",
+   "latex": "Z=\\frac{V}{\\pi^2}\\left(\\frac{k_BT}{\\hbar}\\right)^3",
+   "meaning": "Starting point for deriving p = rho/3 from statistical mechanics.",
+   "symbols": "k_B Boltzmann constant; hbar reduced Planck constant",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 204,
+    "printed_page": 187,
+    "section": null
+   }
+  },
+  {
+   "label": null,
+   "name": "Flat dust emission time (Exercise 17.4 answer)",
+   "latex": "t(z)=\\frac{1}{H_0}\\int_0^{(1+z)^{-1}}x^{1/2}\\,dx=\\frac{2}{3H_0}(1+z)^{-3/2}",
+   "meaning": "Special case of 17.33 with Omega_d^(0) = 1; age 2/(3H_0) at z = 0. Answer given in Appendix E (eqn E.145).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 204,
+    "printed_page": 187,
+    "section": null
+   }
+  }
+ ],
+ "figures": [],
+ "worked_examples": [
+  {
+   "label": "Example 17.1",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   },
+   "problem": "Get an equation for the expansion factor of a uniformly expanding medium using only Newtonian energy conservation.",
+   "method": "Write kinetic plus gravitational energy for a test mass on a sphere of radius r enclosing mass (4/3) pi r^3 rho, set r = a(t) x with fixed comoving x, and divide through by (1/2) m a^2 x^2.",
+   "key_insight": "The first Friedmann equation is an energy equation: expansion-rate squared minus gravitational pull equals a constant set by the shell's energy, which plays the role of curvature.",
+   "result": "(a-dot/a)^2 + k/a^2 = 8 pi G rho/3 with k = -2U/(m x^2) constant.",
+   "concepts": [
+    "Newtonian derivation of the Friedmann equation",
+    "comoving coordinates",
+    "curvature constant k"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 17.2",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   },
+   "problem": "Derive the equations governing a(t) for Robertson-Walker spacetimes filled with a perfect fluid and vacuum energy.",
+   "method": "Use the orthonormal-frame Ricci components and scalar from the margin, the fluid tensor (rho, p, p, p) and g_00 = -1, g_ii = +1 in R_mu nu - (1/2) g_mu nu R = 8 pi T_mu nu - Lambda g_mu nu; simplify the 0-0 and i-i components separately.",
+   "key_insight": "In the comoving orthonormal frame everything is diagonal and isotropic, so Einstein's ten equations collapse to just two; the time-time one loses its a-ddot and becomes a constraint.",
+   "result": "Friedmann equations 17.6 and 17.7.",
+   "concepts": [
+    "Friedmann equations",
+    "Ricci tensor of the Robertson-Walker metric",
+    "perfect-fluid energy-momentum tensor",
+    "Einstein field equation with cosmological constant"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 17.3",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   },
+   "problem": "Find how energy density and pressure respond to a change in scale factor using thermodynamics.",
+   "method": "Apply dU = T dS - p dV with dS = 0 to a comoving volume V = b a^3 holding energy rho V; differentiate with respect to time using the product rule and cancel common factors.",
+   "key_insight": "Expansion lowers density in two ways: pure volume dilution (the 3 rho term) and pdV work done by the fluid's pressure (the 3p term).",
+   "result": "d rho/(rho + p) = -3 da/a (17.11).",
+   "concepts": [
+    "first law of thermodynamics",
+    "adiabatic expansion of the cosmic fluid",
+    "fluid equation"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 17.4",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   },
+   "problem": "Show the second Friedmann equation contains no information beyond the first once the fluid equation holds.",
+   "method": "Multiply F1 by a^2, differentiate in time, substitute rho-dot from the fluid equation, divide by a a-dot, then replace 8 pi rho/3 using F1 again.",
+   "key_insight": "Constraint plus conservation implies the evolution equation; a learner solving cosmological models only ever needs F1, the fluid equation and an equation of state (provided a-dot is not zero).",
+   "result": "Intermediate 2 a-ddot/a = 2 Lambda/3 - 8 pi rho/3 - 8 pi p (17.15), and then exactly F2 (17.16).",
+   "concepts": [
+    "redundancy of the Friedmann equations",
+    "acceleration equation",
+    "fluid equation"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.3"
+   },
+   "problem": "Determine how dust and radiation energy densities scale with a, and write the Friedmann equations for a mixture.",
+   "method": "Integrate the fluid equation with p = 0 (ln rho = -3 ln a) and with p = rho/3 (ln rho = -4 ln a), normalize to values at t_0, cross-check with particle counting, and substitute the sum into F1 and the acceleration equation.",
+   "key_insight": "Different equations of state translate into different power laws in a, so the balance of components changes as the universe grows, with radiation losing out first.",
+   "result": "rho_d proportional to a^-3, rho_r proportional to a^-4; eqns 17.22 and 17.23 (the latter needs a factor 2 on the radiation term).",
+   "concepts": [
+    "scaling of energy density with the scale factor",
+    "dust",
+    "radiation",
+    "Friedmann equations for a multi-component universe"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 17.5",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   },
+   "problem": "Rewrite the first Friedmann equation in terms of density fractions and use it to classify spatial geometry.",
+   "method": "Define rho_c = 3H^2/8 pi and rho_Lambda = Lambda/8 pi, divide F1 by H^2, use a^2 H^2 = a-dot^2 to reach k/a-dot^2 = Omega - 1, and read off k from the sign.",
+   "key_insight": "A single dimensionless number, total density relative to critical, decides whether space is spherical, flat or hyperbolic, and because k never changes that verdict holds for all times while a-dot is nonzero.",
+   "result": "Omega < 1: k = -1; Omega = 1: k = 0; Omega > 1: k = +1.",
+   "concepts": [
+    "critical density",
+    "density parameter",
+    "density determines spatial geometry"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 17.5 (continued): present-day parameters and the age integral",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   },
+   "problem": "Express the expansion history in present-day observables and find the cosmic time at which light of redshift z was emitted.",
+   "method": "Define Omega_j^(0) and Omega_k^(0) = -k/(a_0^2 H_0^2) to get the sum rule, rewrite 17.22 in terms of x = a/a_0, take the square root to get dx/dt, separate variables, and change the upper limit using x = 1/(1+z) with t = 0 at x = 0.",
+   "key_insight": "Measured H_0 and a handful of Omegas fix the whole expansion history; ages follow from a one-dimensional integral whose integrand shows which component dominates at each epoch.",
+   "result": "Eqn 17.33; setting z = 0 gives the present age.",
+   "concepts": [
+    "curvature density parameter",
+    "cosmic sum rule",
+    "dimensionless Friedmann equation in density parameters",
+    "cosmic time as a function of redshift",
+    "age of the universe"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Projectile launched from a planet: whether it escapes, just escapes or falls back depends on the sign of its total energy",
+   "target_concept": "curvature constant k",
+   "how_used": "Example 17.1 shows the expanding universe obeys the same energy balance as a shell of test masses flying outward against the gravity of the enclosed mass; the constant in place of curvature is minus twice the energy per unit mass per comoving length squared.",
+   "limits": "Only the first equation is reproduced; pressure's gravitational effect (rho + 3p) and Lambda have no Newtonian origin, the infinite uniform medium has no well-defined centre in Newtonian gravity, and in GR k describes spatial geometry rather than an energy. With Lambda the energy sign no longer decides the fate.",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   },
+   "effectiveness": "strong",
+   "app_idea": "Expanding ball of dust with a launch-speed slider: shells coloured by energy sign, a live plot of a(t), and a label switching between 'closed', 'flat' and 'open' geometry as the energy crosses zero."
+  },
+  {
+   "analogy": "Gas in a cylinder pushing a piston outward and cooling",
+   "target_concept": "fluid equation",
+   "how_used": "A comoving box of cosmic fluid is treated like a thermally isolated gas whose volume grows as a^3: its internal energy drops by p dV, which is exactly the extra 3p term in the fluid equation.",
+   "limits": "In a homogeneous universe there is no piston or surrounding region that receives the work (every box is expanding identically), and energy is not globally conserved in GR; the pdV bookkeeping is local.",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Side-by-side: a piston cylinder and a comoving cube in an expanding lattice; the learner drags a to expand both and watches energy density bars for p = 0, p = rho/3 and p = -rho fall at different rates."
+  },
+  {
+   "analogy": "Counting marbles in a stretching box: fewer per volume, and for photons each marble also shrinks in energy",
+   "target_concept": "scaling of energy density with the scale factor",
+   "how_used": "Margin notes rationalize a^-3 for dust (fixed particle number in a volume growing as a^3, constant rest energy) and a^-4 for radiation (same number dilution times the 1/a redshift of each photon).",
+   "limits": "Relies on particle number being conserved (no creation or annihilation) and on sharply non-relativistic versus massless particles; vacuum energy does not dilute at all and has no particle picture.",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Grid of dots and wavy photons in a comoving box: as a grows, dots stay the same size while photon wavelengths stretch; counters show number density, energy per particle and their product on log-log axes with slopes -3 and -4."
+  },
+  {
+   "analogy": "Balancing a budget with a single dial: total density versus a threshold",
+   "target_concept": "critical density",
+   "how_used": "Rewriting the first equation as k/a-dot^2 = Omega - 1 turns the geometry question into whether the measured density is below, at or above a threshold set by the expansion rate.",
+   "limits": "The threshold itself changes with time (H changes), and exceeding it fixes geometry, not destiny, when Lambda is present.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Omega slider with a three-panel geometry preview (sphere, plane, saddle) and a triangle drawn on each showing angle sums above, equal to or below 180 degrees."
+  },
+  {
+   "analogy": "The expansion factor as the radius of the universe",
+   "target_concept": "scale factor",
+   "how_used": "The book repeatedly calls a(t) the effective or radius-like expansion factor to make volumes proportional to a^3 feel natural.",
+   "limits": "Only the closed k = +1 universe has a literal radius; for flat and open cases a is just a ratio of distances, and its overall normalization is arbitrary.",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Expansion stretching a fluid reduces its force per unit area",
+   "target_concept": "pressure",
+   "how_used": "A margin note suggests the vielbein factors make the spatial stress components look like effective pressures falling as 1/a^2, as expansion should lower pressure.",
+   "limits": "Misleading as stated: orthonormal-frame pressure is just p, and how p falls with a depends on the equation of state (zero for dust, a^-4 for radiation, constant for vacuum); the a^2 factors belong to coordinate components.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   },
+   "effectiveness": "weak",
+   "app_idea": null
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "The two Friedmann equations are independent laws that must both be imposed separately.",
+   "correction": "Given energy conservation (the fluid equation) and a-dot not equal to zero, the second follows from differentiating the first; in practice one solves F1 plus the fluid equation plus an equation of state.",
+   "why_tempting": "They come from different components of Einstein's equation and look different, one first-order and one second-order.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   },
+   "concepts": [
+    "redundancy of the Friedmann equations",
+    "fluid equation"
+   ]
+  },
+  {
+   "misconception": "All kinds of energy thin out with volume, so every density scales as a^-3.",
+   "correction": "Only pressureless matter does; radiation falls as a^-4 because each photon also redshifts, and vacuum energy stays constant. The pressure term in the fluid equation controls the exponent.",
+   "why_tempting": "Everyday intuition about spreading a fixed amount of stuff over a bigger volume.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   },
+   "concepts": [
+    "scaling of energy density with the scale factor",
+    "radiation"
+   ]
+  },
+  {
+   "misconception": "The Friedmann equation is intrinsically relativistic and has no classical counterpart.",
+   "correction": "Its first form follows from Newtonian energy conservation for an expanding sphere; GR adds the geometric meaning of k, the role of pressure as a source, and Lambda.",
+   "why_tempting": "It is presented as a consequence of Einstein's equation with curvature tensors.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   },
+   "concepts": [
+    "Newtonian derivation of the Friedmann equation",
+    "first Friedmann equation"
+   ]
+  },
+  {
+   "misconception": "Pressure pushes outward, so a high-pressure fluid should help the universe expand.",
+   "correction": "A uniform pressure exerts no net force (no gradients), but it adds to the gravitating source: the acceleration equation involves rho + 3p, so positive pressure increases deceleration. Only negative pressure, as for vacuum energy, can accelerate expansion.",
+   "why_tempting": "Pressure in a balloon or a gas cylinder does push walls outward.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   },
+   "concepts": [
+    "acceleration equation",
+    "pressure",
+    "cosmological constant as vacuum energy"
+   ]
+  },
+  {
+   "misconception": "A universe with density above critical must eventually recollapse, and one below critical must expand forever.",
+   "correction": "In this chapter Omega only fixes spatial geometry (k). With Lambda included, a closed geometry can expand forever and the fate must be found by solving the equations (Chapter 18).",
+   "why_tempting": "True for dust-only models without Lambda, which is how it is often quoted.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   },
+   "concepts": [
+    "density determines spatial geometry",
+    "critical density"
+   ]
+  },
+  {
+   "misconception": "A universe could start open (Omega < 1) and later become closed as its density changes.",
+   "correction": "k is a fixed constant and a-dot^2 is positive, so the sign of Omega - 1 is locked; Omega can drift toward or away from 1 but cannot cross it while the universe expands.",
+   "why_tempting": "Omega is built from time-dependent densities and H, so it seems it could take any value later.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   },
+   "concepts": [
+    "density parameter",
+    "curvature constant k"
+   ]
+  },
+  {
+   "misconception": "The constant k from the Newtonian argument is the same +1, 0, -1 label used in the Robertson-Walker metric.",
+   "correction": "In Example 17.1, k = -2U/(m x^2) is any real number with dimensions; only its sign corresponds to the RW label after rescaling a and the comoving coordinates.",
+   "why_tempting": "The same letter is used in a formula with identical shape.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   },
+   "concepts": [
+    "curvature constant k",
+    "Newtonian derivation of the Friedmann equation"
+   ]
+  },
+  {
+   "misconception": "Energy is conserved for the universe as a whole, so the energy lost by radiation must go somewhere.",
+   "correction": "The fluid equation is a local statement; in an expanding spacetime without a global time-translation symmetry there is no conserved total energy, and radiation energy in a comoving volume genuinely decreases.",
+   "why_tempting": "The derivation uses the first law of thermodynamics, which sounds like global energy conservation.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   },
+   "concepts": [
+    "fluid equation",
+    "radiation"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Test mass riding the edge of an expanding uniform sphere",
+   "setup": "Pick a sphere of comoving radius x inside an infinite uniform expanding medium and follow a particle on its surface, feeling only the mass inside.",
+   "lesson": "Conservation of energy for this particle reproduces the first Friedmann equation, with the energy sign mapping to curvature sign.",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   },
+   "concepts": [
+    "Newtonian derivation of the Friedmann equation",
+    "curvature constant k"
+   ],
+   "visualizable": true,
+   "app_idea": "Animated nested shells whose radii all scale together; toggle a slider for density and initial rate, show energy bar (kinetic vs potential) for one shell and the resulting a(t) curve."
+  },
+  {
+   "name": "A sealed comoving box of cosmic fluid",
+   "setup": "Imagine a box whose walls move with the Hubble flow, containing dust or photons, with no heat exchange as it grows like a^3.",
+   "lesson": "Adiabatic pdV work plus dilution fix how each fluid's energy density falls; photons additionally lose energy by redshift.",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   },
+   "concepts": [
+    "fluid equation",
+    "adiabatic expansion of the cosmic fluid",
+    "scaling of energy density with the scale factor"
+   ],
+   "visualizable": true,
+   "app_idea": "Expanding box with switchable contents (dust, radiation, vacuum); readouts of rho, p and rho a^3 as the learner scrubs a."
+  },
+  {
+   "name": "Running the cosmic clock back to infinite redshift",
+   "setup": "Trace light received today with redshift z back to its emission, using the Friedmann equation to convert scale factor into cosmic time, and define t = 0 where a vanishes.",
+   "lesson": "The age of the universe and the time of emission of any observed light follow from H_0 and the density parameters by a single integral.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   },
+   "concepts": [
+    "cosmic time as a function of redshift",
+    "age of the universe"
+   ],
+   "visualizable": true,
+   "app_idea": "Draggable redshift marker on an a(t) curve; the shaded area under 1/(x E(x)) grows as z decreases, with the emission time and age updating."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Alexander Friedmann"
+   ],
+   "year": "1922",
+   "event": "Friedmann (1888-1925) first filled the homogeneous, isotropic geometries with matter and obtained evolving universe solutions of Einstein's equation.",
+   "significance": "Origin of the equations this chapter derives; the chapter explicitly follows his programme.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "people": [
+    "Albert Einstein",
+    "Alexander Friedmann",
+    "Ari Belenkiy"
+   ],
+   "year": "1923-1924",
+   "event": "Friedmann signed his 1922 paper with one n; Einstein's 1923 note spelled it with two, and Friedmann's 1924 paper adopted the double n. Belenkiy (arXiv:1302.1498) documents the story.",
+   "significance": "Explains the conventional spelling and hints at the interaction between Einstein and Friedmann over expanding solutions.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "people": [
+    "Alexander Friedmann"
+   ],
+   "year": "1925",
+   "event": "Friedmann died young of typhoid, according to legend contracted from an unwashed pear bought on the journey home from his honeymoon.",
+   "significance": "Human-interest note; he did not live to see Hubble's evidence for expansion.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Age of the universe from the density parameters",
+   "kind": "numerical-estimate",
+   "details": "The book notes that z = 0 in eqn 17.33 yields the present age but gives no numbers. Own estimate: for a flat universe with Omega_m = 0.315, Omega_Lambda = 0.685 and H_0 = 67.4 km/s/Mpc (Planck 2018 values, radiation negligible), the integral gives about 13.8 Gyr; a flat dust-only model (Exercise 17.4) gives 2/(3H_0), only about 9.7 Gyr for the same H_0, younger than the oldest stars.",
+   "key_numbers": "1/H_0 = 14.5 Gyr for H_0 = 67.4 km/s/Mpc; LambdaCDM age = 13.8 Gyr; Einstein-de Sitter age = 9.7 Gyr (own estimates).",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "topic": "Critical density today",
+   "kind": "numerical-estimate",
+   "details": "Own estimate from rho_c = 3H_0^2/(8 pi G): the universe needs only a few hydrogen atoms per cubic metre of total energy density to be spatially flat.",
+   "key_numbers": "rho_c = 9.2e-27 kg/m^3 (about 5.5 proton masses per m^3) for H_0 = 70 km/s/Mpc; 8.5e-27 kg/m^3 for H_0 = 67.4 (own estimates).",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "topic": "Measured curvature and composition",
+   "kind": "observation",
+   "details": "Own addition: combined CMB and baryon acoustic oscillation data find the curvature parameter consistent with zero, so the observed universe is flat to high precision, with vacuum energy and matter providing the rest of the sum rule. The chapter's Omega classification is exactly the language used to report this.",
+   "key_numbers": "|Omega_k| below about 0.002; Omega_Lambda about 0.69; Omega_m about 0.31; Omega_r about 9e-5 including neutrinos (Planck 2018, own addition).",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "topic": "Matter-radiation equality",
+   "kind": "numerical-estimate",
+   "details": "Own estimate implied by 17.21 and 17.18: because rho_r/rho_d scales as 1/a, radiation dominated at early times. Equality occurs at a/a_0 = Omega_r/Omega_m.",
+   "key_numbers": "a_eq/a_0 about 2.9e-4, so z_eq about 3400 (own estimate with Planck parameters).",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "topic": "Cooling of the cosmic microwave background",
+   "kind": "observation",
+   "details": "Own addition linking to the a^-4 law: for blackbody radiation rho is proportional to T^4, so T falls as 1/a and today's 2.725 K background was about 3000 K when it was released at z of about 1100. The chapter's photon-counting margin note is the underlying reason.",
+   "key_numbers": "T_0 = 2.725 K; T(z) = T_0 (1+z); about 3000 K at z = 1100 (own addition).",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Units",
+   "convention": "Geometrized units G = c = 1 in all relativistic formulas (8 pi rho, 8 pi p); Newton's G is kept only in the Newtonian warm-up (eqns 17.1-17.2).",
+   "notes": "Restore 8 pi G/c^2 or 8 pi G/c^4 as needed; rho_c = 3H^2/(8 pi G) in SI.",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   }
+  },
+  {
+   "item": "Metric signature and field equation form",
+   "convention": "Signature (-,+,+,+) with g_00 = -1; Einstein's equation written R_mu nu - (1/2) g_mu nu R = 8 pi T_mu nu - Lambda g_mu nu, so positive Lambda is positive vacuum energy.",
+   "notes": "Consistent with GA ch15 eqn 15.1.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "item": "Hatted indices",
+   "convention": "Hats denote components in the orthonormal frame of comoving observers (t-hat, r-hat, theta-hat, phi-hat; 0-hat and i-hat); R_ii with repeated i is a single component, not a sum.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "item": "Scale factor names and normalization",
+   "convention": "a(t) is called the expansion factor, effective radius or radius-like expansion factor; a(t_0) is kept explicit rather than set to 1, and x = a(t)/a(t_0) is introduced for the dimensionless form.",
+   "notes": "Chapter 15 normalized a(t_0) = 1; the later V = b a^3 with b dimensionless implies a carries length units, so normalizations are not consistent across chapters.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "item": "Curvature constant",
+   "convention": "k takes values 0, +1, -1 for the Robertson-Walker geometries; in Example 17.1 the same letter denotes an unnormalized constant -2U/(m x^2).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   }
+  },
+  {
+   "item": "Reference time and superscript (0)",
+   "convention": "t_0 is an arbitrary reference time, often but not necessarily the present; quantities there carry a superscript (0), e.g. rho_d^(0), Omega_j^(0), and H_0 = H(t_0) is the Hubble constant.",
+   "notes": "Evaluation times may lie before or after t_0.",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.3"
+   }
+  },
+  {
+   "item": "Component subscripts",
+   "convention": "Subscripts d (dust), r (radiation), Lambda (vacuum), c (critical), k (curvature) on rho and Omega; Omega_j = rho_j/rho_c and total Omega = Omega_d + Omega_r + Omega_Lambda.",
+   "notes": "Many modern texts write m (matter) instead of d.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "item": "Vacuum energy density",
+   "convention": "rho_Lambda = Lambda/(8 pi); the text also loosely says the vacuum energy has energy density Lambda.",
+   "notes": "Keep the 8 pi to avoid factor errors.",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "item": "Curvature parameter sign",
+   "convention": "Omega_k^(0) = -k/(a_0^2 H_0^2), so open (k = -1) universes have positive Omega_k.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "item": "Dots",
+   "convention": "An overdot means derivative with respect to cosmic (comoving proper) time t.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "item": "Equation numbering",
+   "convention": "Eqn 17.24 sits in a margin note beside and after 17.25; 17.34-17.35 in the summary repeat 17.6-17.7; 17.36 belongs to Exercise 17.2.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Opening epigraphs: Faustus pleading for the heavens to stop so midnight never comes, and Carlyle's retort to Margaret Fuller's declaration that she accepts the Universe; they set up the theme of the universe's fate.",
+   "type": "humor-or-aside",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   }
+  },
+  {
+   "summary": "Biography of Alexander Friedmann: early death from typhoid (pear legend) and the one-n versus two-n spelling traced to Einstein's 1923 note, citing Belenkiy arXiv:1302.1498.",
+   "type": "biography",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "summary": "The fluid's orthonormal components were already met in Chapter 10 for flat space; Exercise 17.1 confirms they also apply for k = +1 and -1.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "summary": "Recap of the Robertson-Walker metric, its components and vielbein, the orthonormal Ricci components (with a 2k/a misprint) and Ricci scalar, plus a questionable remark that the vielbein makes spatial stresses behave like pressures falling as 1/a^2.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "summary": "Boxed pointer: thermodynamics gets a fuller treatment in Chapter 39.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   }
+  },
+  {
+   "summary": "Adiabatic evolution means fluid elements stay in thermal equilibrium without phase transitions or shocks; a shock would convert bulk kinetic energy into heat and raise the entropy.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   }
+  },
+  {
+   "summary": "The reference time t_0 is usually taken as now but evaluations can be at earlier or later t; H at t_0 is the Hubble constant H_0.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.3"
+   }
+  },
+  {
+   "summary": "Why dust dilutes as a^-3: conserved particle number spread over a volume proportional to a^3, each particle carrying fixed rest-mass energy.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "summary": "Pointer to Exercise 17.2 for a statistical-mechanics check of the radiation equation of state.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "summary": "Why radiation dilutes as a^-4: photon number diluted by volume and each photon's energy lowered as 1/a by redshift.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "summary": "The critical density's name is explained later in the example; equivalent form rho_c = 3H^2/8 pi given as eqn 17.24.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 4,
+  "pdf_pages": [
+   204
+  ],
+  "skills_practiced": [
+   "transforming orthonormal-frame tensor components between r and chi radial coordinates with the vielbein",
+   "deriving an equation of state from a partition function",
+   "solving the first Friedmann equation for a power-law density",
+   "evaluating the age-redshift integral in a special case"
+  ],
+  "notable": [
+   {
+    "number": "17.1",
+    "summary": "Starting from the chapter 10 result that the chi-chi orthonormal stress equals p, use the relation between chi and r for curved Robertson-Walker slices to compute the derivative of chi with respect to r, verify a product of vielbein factors, and conclude the r-hat r-hat component is also p.",
+    "skills": [
+     "coordinate transformation of tensor components",
+     "vielbein bookkeeping"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Justifies using the same (rho, p, p, p) fluid tensor for k = +1 and -1 as for flat space, which the chapter asserts.",
+    "pdf_page": 204
+   },
+   {
+    "number": "17.2",
+    "summary": "Given the single-particle partition function of an ultra-relativistic gas in volume V, find the internal energy and pressure and show their ratio gives p = rho/3.",
+    "skills": [
+     "statistical mechanics",
+     "free energy and pressure",
+     "equation of state"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Grounds the radiation equation of state in microphysics rather than taking it on trust; answers give 3 k_B T per particle and k_B T/V pressure per particle.",
+    "pdf_page": 204
+   },
+   {
+    "number": "17.3",
+    "summary": "Find how a(t) grows in a spatially flat universe containing only a component whose density falls as the inverse square of the scale factor.",
+    "skills": [
+     "solving the first Friedmann equation",
+     "linking dilution law to expansion law"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Quick first solution showing constant expansion speed (a proportional to t); implicitly introduces a fluid with p = -rho/3, sitting between dust and vacuum energy.",
+    "pdf_page": 204
+   },
+   {
+    "number": "17.4",
+    "summary": "For a flat universe of dust alone, compute the cosmic time at which light now observed with redshift z left its source.",
+    "skills": [
+     "applying eqn 17.33",
+     "sum rule with Omega_d = 1",
+     "power-law integration"
+    ],
+    "difficulty": "intro",
+    "why_notable": "First concrete use of the age-redshift integral; result (2/3H_0)(1+z)^(-3/2) gives the Einstein-de Sitter age 2/(3H_0) at z = 0.",
+    "pdf_page": 204
+   }
+  ],
+  "solutions": "Short answers to all four exercises are given in Appendix E (GA appE, printed pp. 594-595)."
+ },
+ "difficulty": {
+  "math_level": 2,
+  "conceptual_level": 3,
+  "novice_friendliness": 3,
+  "notes": "The algebra is light (product rule, logarithmic integration, substitution) once the Ricci components are accepted from Chapter 16. Conceptual load comes from juggling three links between geometry and matter (Einstein's equation, thermodynamics, particle counting) and from the Omega bookkeeping with t_0 superscripts. Friendliness is reduced by several printed slips in exactly the equations learners copy (2k/a in the Ricci margin, the missing factor 2 in 17.23, rho_c^(0) = 8 pi H_0/3, the missing H_0^2 in 17.31) and by the absence of any numbers, plots or solved models, all deferred to Chapter 18."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch16",
+   "reason": "Robertson-Walker metric, vielbein and orthonormal Ricci components supply the geometric side; the chi-r coordinate relation is used in Exercise 17.1.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch16 eqn 16.48",
+   "reason": "Redshift relation 1 + z = a(t_obs)/a(t_em) converts x = a/a_0 into redshift for the age integral.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch15",
+   "reason": "Hubble parameter, comoving picture and the Lambda-only de Sitter case whose Friedmann-type equation 15.30 is the special case rho = 0, k = 0.",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch10",
+   "reason": "Perfect-fluid energy-momentum tensor in the orthonormal frame for k = 0 and vielbein machinery.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch12",
+   "reason": "Perfect fluid, dust, pressure and the radiation equation of state; covariant conservation of T underlies the fluid equation.",
+   "locator": null
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch13",
+   "reason": "Field equation with cosmological constant and the contracted Bianchi identity that guarantees consistency of the two Friedmann equations.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch18",
+   "reason": "Solutions of the Friedmann equations for numbered model universes and their origins and fates.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch19",
+   "reason": "Causal structure and horizons built from a(t) solutions.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch39",
+   "reason": "Fuller treatment of thermodynamics and relativistic fluids.",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA appE",
+   "reason": "Answers to Exercises 17.1-17.4.",
+   "locator": {
+    "pdf_page": 204,
+    "printed_page": 187,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "A. Belenkiy, arXiv:1302.1498",
+   "reason": "Historical account of Friedmann's name spelling and his exchange with Einstein.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Derive the first Friedmann equation from the energy of a test mass on an expanding uniform sphere before touching Einstein's equation, identifying the curvature constant with minus the shell's energy.",
+   "why_effective": "Learners reach the key equation with tools they trust and gain an immediate interpretation (bound versus unbound) for the sign of k.",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   },
+   "app_idea": "Newtonian cosmology sandbox: set density and initial expansion speed for a ball of dust, watch shells expand or recollapse, and see the computed k and a(t) overlaid on the GR solution for the same parameters."
+  },
+  {
+   "gem": "Reduce Einstein's equation for a homogeneous universe to two lines by working in the comoving orthonormal frame where both the Ricci tensor and the fluid tensor are diagonal.",
+   "why_effective": "Shows that symmetry, not heavy computation, is what makes cosmology tractable; the a-ddot cancellation in the time-time component reveals the constraint nature of F1.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   },
+   "app_idea": "Interactive substitution table: rows for 0-0 and i-i components, click to drop in R, g and T entries and watch terms cancel with colour highlighting until F1 and F2 remain."
+  },
+  {
+   "gem": "Get the fluid equation from the first law applied to a comoving box, separating dilution (3 rho) from pressure work (3p).",
+   "why_effective": "Makes the pressure term physically legible and gives one master equation from which every dilution law follows by choosing p(rho).",
+   "locator": {
+    "pdf_page": 200,
+    "printed_page": 183,
+    "section": "17.2"
+   },
+   "app_idea": "Equation-of-state slider w from -1 to 1 with a comoving cube; plot log rho against log a with slope -3(1+w), marking dust, radiation, curvature-like and vacuum cases."
+  },
+  {
+   "gem": "Prove the second Friedmann equation is redundant by differentiating the first and inserting the fluid equation.",
+   "why_effective": "Teaches the constraint-plus-conservation structure of GR in miniature and tells learners which equations they actually need to solve models.",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   },
+   "app_idea": "Step-through derivation card where each click performs one algebraic move (multiply, differentiate, substitute, divide, eliminate) with the current expression shown and a symbolic check at the end."
+  },
+  {
+   "gem": "Justify rho proportional to a^-3 and a^-4 twice: formally from thermodynamics and informally by counting particles and redshifting photons.",
+   "why_effective": "Two independent routes to the same answer build confidence and give the tutor a quick intuitive explanation for any level of learner.",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   },
+   "app_idea": "Log-log race of energy densities for radiation, matter and vacuum versus a, with a draggable present-day marker and highlighted equality epochs where the lines cross."
+  },
+  {
+   "gem": "Collapse the first Friedmann equation to k/a-dot^2 = Omega - 1 so that one measured ratio determines spatial geometry.",
+   "why_effective": "Connects the abstract k to a measurable quantity and to the observational vocabulary (Omega) learners meet in news and papers.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   },
+   "app_idea": "Omega_m and Omega_Lambda sliders on a triangle-plane chart with regions for closed, flat and open geometry and a live embedded surface (sphere, plane, saddle) with a geodesic triangle."
+  },
+  {
+   "gem": "Turn the dimensionless Friedmann equation into an integral that gives the emission time of light of redshift z and, at z = 0, the age of the universe.",
+   "why_effective": "Directly links theory to an observable (redshift) and a headline number (cosmic age) using a single calculation.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   },
+   "app_idea": "Cosmic age calculator: sliders for H_0 and the four Omegas constrained by the sum rule; outputs age, a(t) curve and t(z) for a draggable z, with presets for Einstein-de Sitter, radiation-only and LambdaCDM."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Printed eqn 17.23 gives the radiation term the same coefficient as dust; the correct acceleration equation has rho + 3p, which is 2 rho_r for radiation.",
+   "impact_on_learner": "Anyone deriving 17.23 from 17.15 gets a different answer and may doubt their algebra; using the printed version underestimates radiation's deceleration.",
+   "suggestion": "Present the general form a-ddot/a = -(4 pi/3)(rho + 3p) + Lambda/3 first, then substitute each component's pressure explicitly.",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "issue": "Printed text defines rho_c^(0) = 8 pi H_0/3, which is inverted and unsquared relative to 17.24; eqn 17.31 also omits the overall factor H_0^2 on its right-hand side.",
+   "impact_on_learner": "Dimensional inconsistency that breaks the passage from 17.22 to 17.32.",
+   "suggestion": "Use rho_c^(0) = 3H_0^2/(8 pi) and include H_0^2 in 17.31; have learners dimension-check each line.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "issue": "The Ricci margin note and the first line of eqn 17.5 print 2k/a instead of 2k/a^2 (the same slip appears in Chapter 16's margin).",
+   "impact_on_learner": "Mixed powers of a make the space-space equation look dimensionally wrong.",
+   "suggestion": "Check by computing R = -R_tt + 3R_ii and comparing with the printed scalar; show the corrected components.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "issue": "Example 17.1 uses U both for total energy and (in the printed text) for the potential energy, and relies silently on the shell theorem, constant enclosed mass (rho a^3 fixed) and a Newtonian infinite medium.",
+   "impact_on_learner": "Confusion over symbols and over why an infinite universe can be treated like a sphere with a centre.",
+   "suggestion": "Rename potential energy V, state the constant-mass assumption, and explain that any point can serve as centre because of homogeneity; flag this as a heuristic.",
+   "locator": {
+    "pdf_page": 198,
+    "printed_page": 181,
+    "section": null
+   }
+  },
+  {
+   "issue": "The margin claim that vielbein factors make effective pressures fall as 1/a^2 conflates coordinate and orthonormal components.",
+   "impact_on_learner": "Learners may think all pressures scale as a^-2 regardless of the fluid, contradicting the dust and radiation laws two pages later.",
+   "suggestion": "Replace with: orthonormal pressure is p, and its time dependence is fixed by the fluid equation plus equation of state.",
+   "locator": {
+    "pdf_page": 199,
+    "printed_page": 182,
+    "section": "17.1"
+   }
+  },
+  {
+   "issue": "The fluid equation is introduced via thermodynamics as if it were extra physics, without noting it is the time component of the covariant conservation law for T (guaranteed by the Bianchi identity). The redundancy argument also assumes a-dot is not zero.",
+   "impact_on_learner": "Misses why the two Friedmann equations must be consistent, and why static solutions such as Einstein's static universe need both equations.",
+   "suggestion": "After Example 17.4, show that the divergence of the perfect-fluid tensor in the Robertson-Walker metric gives the same equation, and discuss the a-dot = 0 exception.",
+   "locator": {
+    "pdf_page": 201,
+    "printed_page": 184,
+    "section": "17.2"
+   }
+  },
+  {
+   "issue": "Only dust and radiation are treated; vacuum energy is carried along as Lambda without showing p = -rho gives constant density, and the general law rho proportional to a^(-3(1+w)) is never stated even though Exercise 17.3 uses an a^-2 fluid.",
+   "impact_on_learner": "Learners do not see the unifying pattern or where curvature-like and vacuum-like behaviours fit.",
+   "suggestion": "Add a w-parameter slide: integrate 17.11 with p = w rho, then tabulate w = 0, 1/3, -1/3, -1.",
+   "locator": {
+    "pdf_page": 202,
+    "printed_page": 185,
+    "section": "17.3"
+   }
+  },
+  {
+   "issue": "The Omega classification is stated purely as geometry; nothing warns that geometry and fate decouple once Lambda is present, and the reader may import the common but outdated 'closed means recollapse' rule.",
+   "impact_on_learner": "Misreads modern cosmology results (flat, accelerating) or older popular accounts.",
+   "suggestion": "Pair the geometry table with a preview plot of a(t) for closed models with and without Lambda.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "issue": "The age integral sets t = 0 at infinite redshift, implicitly assuming a big-bang start with a reaching zero; the chapter provides no numerical values for H_0, rho_c, Omegas or the resulting age.",
+   "impact_on_learner": "No sense of scale, and confusion if a model (such as pure de Sitter) has no a = 0 moment in the finite past.",
+   "suggestion": "Evaluate the integral numerically for a few presets (Einstein-de Sitter, LambdaCDM) and note when it diverges.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  },
+  {
+   "issue": "Exercise 17.2 uses a single-particle (Boltzmann) partition function with fixed particle number, although real photons have zero chemical potential and variable number.",
+   "impact_on_learner": "The ratio p = rho/3 comes out right, but learners may think photon energy per particle is exactly 3 k_B T (the Bose-Einstein mean is about 2.7 k_B T).",
+   "suggestion": "Mention that the ratio is robust (it follows from the massless dispersion relation) while absolute values need Bose-Einstein statistics.",
+   "locator": {
+    "pdf_page": 204,
+    "printed_page": 187,
+    "section": null
+   }
+  },
+  {
+   "issue": "Before eqn 17.28 the text says it substitutes for a^2 using eqn 17.25; what is actually used is a^2 H^2 = a-dot^2 (equivalently a^2 rho_c = 3 a-dot^2/(8 pi)), which turns k/(a^2 H^2) into k/a-dot^2.",
+   "impact_on_learner": "A learner who tries to replace a^2 alone will not reach 17.28 and may think a step is missing.",
+   "suggestion": "State the identity a H = a-dot explicitly when moving from 17.27 to 17.28.",
+   "locator": {
+    "pdf_page": 203,
+    "printed_page": 186,
+    "section": "17.3"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with: 'We know the shape of space for a homogeneous universe; what else do we need to predict how it expands?' Aim for the answer 'what it is filled with'.",
+  "For beginners, start with the Newtonian ball of dust (Example 17.1) and ask the learner to predict what happens for positive, zero and negative total energy before revealing the equation.",
+  "Suggested order: Newtonian energy picture -> perfect fluid and Lambda as sources -> two components of Einstein's equation -> fluid equation from a comoving box -> redundancy -> dust and radiation scalings -> mixture equation -> critical density and Omega -> age integral.",
+  "Check understanding: ask why the time-time component contains no a-ddot, and what that means for choosing initial conditions.",
+  "Check understanding: ask the learner to explain a^-4 for radiation in one sentence without equations (number dilution plus redshift).",
+  "When presenting 17.23, 17.31 or rho_c^(0), use the corrected forms and, for advanced learners, invite them to spot the printed errors by dimensional analysis or by rederiving from 17.15.",
+  "Common learner question: 'Where does the energy lost by radiation go?' Answer that the fluid equation is local and GR has no global energy conservation for expanding spacetimes; avoid claiming it goes into gravity unless discussing pseudo-tensors.",
+  "Common learner question: 'Why does pressure slow expansion if it pushes outward?' Emphasize uniform pressure has no gradient, and in GR pressure gravitates (rho + 3p).",
+  "Common learner question: 'Is Omega = 1 a coincidence?' Explain that the sign of Omega - 1 is locked, but its size |Omega - 1| grows with time during matter- or radiation-dominated expansion, so near-flatness today requires extreme flatness early on (a preview of the flatness problem, not covered here).",
+  "Link to observations early for motivated learners: quote H_0 about 70 km/s/Mpc, critical density of a few protons per cubic metre, and measured flatness, flagging these as not from the chapter.",
+  "Before Chapter 18, have the learner solve F1 by hand for flat dust (a proportional to t^(2/3)) and flat radiation (a proportional to t^(1/2)) to cement the power-law link between dilution and expansion."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Corrected 37 locators on pdf page 203 (printed p.186) whose section was null; that page lies inside section 17.3 (Example 17.5 continues there).",
+   "Set the section number of the 'Critical density, density parameters and the age integral (Example 17.5)' entry to 17.3 instead of null, since Example 17.5 sits within section 17.3.",
+   "Vielbein definition now says entries are square roots of the magnitudes of the metric components (g_tt = -1 has no real square root).",
+   "Added a pitfall for the printed slip 'substitute for a^2 from eqn 17.25' before eqn 17.28 (the step really uses a^2 H^2 = a-dot^2).",
+   "Clarified the tutor note on Omega = 1: it is |Omega - 1| that grows during matter and radiation eras, not Omega itself."
+  ],
+  "residual_concerns": [
+   "The reading copy has OCR losses that the dossier already handles correctly (confirmed against renders of pdf pp.198-204): kinetic energy printed as (1/2) m r-dot^2 not (1/2) m r^2; eqn 17.4 middle line has a-ddot/a inside the bracket, not a-dot/a; the second margin Ricci component is R_ii-hat, not a repeated R_tt; margin and eqn 17.5 genuinely print 2k/a (book misprint, also in ch16 margin).",
+   "Book misprints recorded as corrected forms in key_equations: factor 2 on radiation in 17.23, rho_c^(0) = 8 pi H_0/3 (should be 3H_0^2/8 pi), missing H_0^2 on the right of 17.31; all confirmed on the page renders.",
+   "Numerical estimates in applications_and_observations (Planck 2018 values, critical density, z_eq) are own additions, not from the book, and are labelled as such.",
+   "No figures in this chapter (inventory lists none), and no suspect pages; all seven pages were rendered anyway."
+  ],
+  "coverage": {
+   "toc_sections": 3,
+   "sections": 6,
+   "inventory_figures": 0,
+   "figures": 0,
+   "inventory_examples": 5,
+   "worked_examples": 7,
+   "concepts": 38,
+   "key_equations": 44,
+   "locators_checked": 186,
+   "locators_wrong": 37,
+   "pages_rendered": 7
+  }
+ }
+}

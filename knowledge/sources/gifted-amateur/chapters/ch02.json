@@ -1,0 +1,4381 @@
+{
+  "book": "gifted-amateur",
+  "unit_id": "ch02",
+  "title": "Vectors in flat spacetime",
+  "part": "I: Geometry and mechanics in flat spacetime",
+  "printed_pages": [
+    22,
+    35
+  ],
+  "pdf_pages": [
+    39,
+    52
+  ],
+  "one_line_summary": "Recasts special relativity in 4-vector language: vectors as coordinate-free arrows with basis expansions, Lorentz transformation of up- and down-indexed components, the Minkowski metric and invariant scalar products, a catalogue of physical 4-vectors (velocity, momentum, force, acceleration, current) with uniform acceleration as a showpiece, and finally the relativistic free-particle action -m times proper time, which hints that gravity will enter through the metric.",
+  "role_in_book": "Second chapter of Part I. Chapter 1 set up events, intervals, light cones and proper time; this chapter supplies the component and index machinery (Einstein summation, primes on indices, eta_{mu nu}, the rule that up-indices transform like differentials and down-indices like gradients) that Chapters 3-5 generalize to arbitrary coordinates, 1-forms, tensors and general metrics. Its closing action principle S = -m int dtau is the seed of the geodesic-from-action treatment in Chapters 8-9, and the weak-potential guess ds^2 = -(1+2Phi)dt^2 + ... foreshadows the metric of Chapter 5 and the Newtonian limit of Chapter 14.",
+  "assumed_background": [
+    {
+      "topic": "Events, intervals ds^2, light cones, proper time and dt/dtau = gamma",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1 §1.3-1.4"
+    },
+    {
+      "topic": "Twin paradox argument that the straight world line has the longest proper time",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1 §1.4"
+    },
+    {
+      "topic": "Calculus of variations and the Euler-Lagrange equation",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1 §1.4"
+    },
+    {
+      "topic": "Idea of covariance: laws that keep their form under a change of frame",
+      "source": "earlier-in-this-book",
+      "where": "GA ch0 §0.2 (printed p.3)"
+    },
+    {
+      "topic": "3-vectors, Cartesian basis, dot product, Kronecker delta",
+      "source": "linear-algebra",
+      "where": null
+    },
+    {
+      "topic": "Matrix multiplication and matrix inverses",
+      "source": "linear-algebra",
+      "where": null
+    },
+    {
+      "topic": "Total differential and chain rule for partial derivatives",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Hyperbolic functions sinh, cosh, tanh and simple linear ODEs",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Newton's laws, kinetic and potential energy, power F.v",
+      "source": "undergrad-mechanics",
+      "where": null
+    },
+    {
+      "topic": "Lagrangian mechanics L = T - V (helpful but re-derived briefly)",
+      "source": "undergrad-mechanics",
+      "where": null
+    },
+    {
+      "topic": "Relativistic energy E = gamma m and momentum gamma m v",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1"
+    },
+    {
+      "topic": "Continuity equation for a charge or particle density (used in Exercise 2.3)",
+      "source": "electromagnetism",
+      "where": null
+    }
+  ],
+  "learning_objectives": [
+    "Reader can explain why a vector is a geometric object (an arrow between two events) whose components depend on a chosen basis while the object itself does not.",
+    "Reader can expand a 4-vector as X = X^mu e_mu using the Einstein summation convention and correctly place indices upstairs for components and downstairs for basis vectors.",
+    "Reader can write down the boost matrix Lambda^{mu'}_nu for motion along x and identify it with the partial derivatives dx^{mu'}/dx^nu.",
+    "Reader can compute the Minkowski scalar product eta_{mu nu} X^mu Y^nu in the (-,+,+,+) signature and classify a vector as timelike, null or spacelike.",
+    "Reader can derive the condition eta_{mu' nu'} Lambda^{mu'}_mu Lambda^{nu'}_nu = eta_{mu nu} from invariance of the squared length and use it to show all scalar products are invariant.",
+    "Reader can show that basis vectors and gradient components transform with the inverse matrix, and state why the labels contravariant/covariant are avoided in favour of up/down.",
+    "Reader can explain why dx/dt fails to be a 4-vector and construct the 4-velocity u = dx/dtau with components (gamma, gamma v) and u.u = -1.",
+    "Reader can use the observer trick X^0_obs = -X.u (for example E = -p.u) and the result u.v = -gamma for two observers.",
+    "Reader can derive that 4-force and 4-acceleration are orthogonal to 4-velocity, relate f^mu to the 3-force, and interpret a.a as squared proper acceleration.",
+    "Reader can solve the uniform-proper-acceleration problem to obtain the hyperbolic world line x^2 - t^2 = 1/g^2 with v = tanh(g tau).",
+    "Reader can interpret the particle-current 4-vector J = n_0 u, including the gamma-enhanced density from length contraction.",
+    "Reader can state Hamilton's principle, apply the Euler-Lagrange equations to simple Newtonian Lagrangians, and show that L = -m/gamma reduces to the free Newtonian Lagrangian plus a constant.",
+    "Reader can explain how adding a weak potential to the relativistic action suggests a modified time-time metric component and why the action with g_{mu nu} is the natural GR generalization."
+  ],
+  "teaching_approach": {
+    "summary": "A compact, chatty tour that treats special relativity as geometry in flat spacetime. The authors begin with the picture of a vector as an arrow between events, then immediately impose bases and coordinates so that index gymnastics can be practised in the easiest possible setting before curvature arrives. Much of the formal content is parked inside grey Example boxes and margin notes, leaving a main line that runs: arrows -> components -> transformation rules -> invariant dot product -> a table of physical 4-vectors each with its invariant -> the action principle. Every new vector is justified by checking its self-scalar-product, and 'compute in the easiest frame, then trust the invariant everywhere' is used repeatedly. The chapter ends by pointing forward: replace eta by g in the action and gravity becomes geometry.",
+    "style_tags": [
+      "components-first",
+      "geometric-first",
+      "conversational-informal",
+      "example-driven",
+      "derivation-heavy",
+      "spiral-revisit"
+    ],
+    "narrative_arc": [
+      "Classify quantities in flat spacetime: scalars (invariant numbers) versus vectors (arrows); note that flat spacetime allows one global coordinate system, unlike a curved Earth map.",
+      "Record events in coordinates x^mu = (ct, x) and set c = 1; insist a vector is defined by its transformation behaviour, not by being a list of numbers.",
+      "Define a vector as the arrow from event A to event B, then introduce basis vectors and the expansion X = X^mu e_mu by analogy with Euclidean 3-vectors.",
+      "Express the same arrow in two frames, write the Lorentz transformation of components in index and matrix form, and identify Lambda with partial derivatives of new coordinates with respect to old ones.",
+      "Build the scalar product from e_mu . e_nu, name it the Minkowski metric, tie its minus sign to ds^2, and classify vectors by their squared length using the light cone.",
+      "Demand invariance of length to get the defining identity of Lorentz matrices, then extend invariance to all scalar products.",
+      "Hold X fixed while changing frames to deduce that basis vectors (and gradients, and any down-indexed object) transform with the inverse matrix; summarize the up/down rules.",
+      "Tour the physical 4-vectors in Table 2.1, each with its invariant: position, velocity (after showing dx/dt fails), momentum (including photons), force, acceleration, particle current.",
+      "Showcase the machinery: observer-measured components as -X.u, relative gamma from u.v, 4-force orthogonal to 4-velocity, and the uniformly accelerated hyperbolic world line.",
+      "Switch to Lagrangian mechanics: action, Hamilton's principle, Euler-Lagrange equations checked on Newtonian examples.",
+      "Propose the relativistic action -m times proper time, check its low-velocity limit, add a weak potential to get a first hint of a gravitationally modified metric, and replace eta by g to preview GR."
+    ],
+    "signature_moves": [
+      "Primes are put on indices (X^{mu'}, e_{mu'}) rather than on symbols, so that the index itself records which frame an object belongs to.",
+      "Upstairs-index objects are said to transform 'like differentials' and downstairs ones 'like derivatives', giving a calculus mnemonic instead of the words contravariant and covariant.",
+      "Each 4-vector is admitted only after its invariant self-product is computed; failure of dx/dt to give a frame-independent square is used as the proof it is not a 4-vector.",
+      "Evaluate a dot product in the frame where it is trivial (observer at rest, u = (1,0,0,0)) and export the result to all frames.",
+      "Decomposing another observer's 4-velocity as v/gamma = u + v_rel, with v_rel lying in U's spatial slice, to extract gamma = -u.v geometrically.",
+      "Humorous counterexample (the 'shopping vector' of fish and bread prices) to make the transformation criterion for vectors memorable.",
+      "Using the action principle as a bridge: a Newtonian check of L = -m/gamma followed by a potential-inserted version that reads off a metric, foreshadowing that gravity lives in g_{mu nu}.",
+      "Margin warnings that flag which flat-space habits will break in curved spacetime (the position vector, the vector-interval identification)."
+    ]
+  },
+  "sections": [
+    {
+      "number": null,
+      "title": "Chapter opening: scalars, vectors and events in coordinates",
+      "printed_page": 22,
+      "pdf_page": 39,
+      "summary": "After a Hamlet epigraph, the chapter distinguishes scalars (numbers agreed on by all inertial observers, such as charge and rest mass) from vectors (arrows in spacetime that can also be described by components in a basis). It notes that flat spacetime admits a single coordinate system valid everywhere, contrasting this with a city map that cannot cover a spherical Earth. Example 2.1 recaps events and observers and writes event coordinates as x^mu = (ct, x, y, z). On the following page units with c = 1 are adopted and the conventions of Greek indices for 4-vector components, Roman indices for spatial components, and bold italic symbols for 4-vectors are fixed, with the shopping-vector footnote warning that a vector must transform properly.",
+      "concepts": [
+        "Lorentz scalar",
+        "event",
+        "4-vector",
+        "spacetime coordinates",
+        "geometrized units c = 1",
+        "index conventions"
+      ],
+      "key_moves": [
+        "Scalar defined by frame-independence; vector introduced geometrically.",
+        "Global coordinates are possible only because spacetime is flat; curved spacetime will need local patches.",
+        "Coordinates x^mu = (ct, x) with upstairs index; components depend on the basis.",
+        "A vector is defined by how its components transform, illustrated by the fish-and-bread counterexample."
+      ]
+    },
+    {
+      "number": "2.1",
+      "title": "Vectors",
+      "printed_page": 23,
+      "pdf_page": 40,
+      "summary": "A vector is defined as the difference B - A between two events, an object that needs no coordinates. To describe it numerically a set of basis vectors e_mu is introduced. Example 2.2 reviews Euclidean 3-vectors: components carry upper indices, basis vectors lower ones, Cartesian bases are orthonormal, and dotting with a basis vector projects out a component. By analogy a 4-vector is expanded as X = X^mu e_mu with the Einstein summation convention over repeated up-down index pairs. Margin notes explain that the index on e_mu labels which basis vector rather than a component, define the Kronecker delta, and warn that the close resemblance of vectors and intervals will not survive in curved spacetime.",
+      "concepts": [
+        "4-vector",
+        "basis vectors",
+        "vector components",
+        "Einstein summation convention",
+        "Kronecker delta"
+      ],
+      "key_moves": [
+        "X = B - A makes the vector frame-free.",
+        "Euclidean warm-up fixes up/down index placement and projection by dot products.",
+        "X = X^mu e_mu with implicit summation."
+      ]
+    },
+    {
+      "number": "2.2",
+      "title": "Coordinate transformations",
+      "printed_page": 24,
+      "pdf_page": 41,
+      "summary": "The same vector is written in an unprimed and a primed basis, with primes attached to indices. Components transform between inertial frames with the Lorentz matrix Lambda^{mu'}_nu; Example 2.3 displays the standard boost along x. Treating the displacement dx as the archetypal vector and using the chain rule for differentials identifies Lambda^{mu'}_nu with dx^{mu'}/dx^nu, so components are said to transform like differentials. The scalar product is built from e_mu . e_nu, which in flat spacetime is the Minkowski metric diag(-1,1,1,1); its sign is chosen so that ds^2 = dx . dx. Vectors are classified as spacelike, null or timelike by the sign of X.X and placed relative to the light cone. Example 2.4 derives the Lorentz condition on Lambda from length invariance and generalizes to all scalar products. Example 2.5 keeps X fixed to show basis vectors transform with the inverse matrix, and Example 2.6 shows down-indexed objects such as gradients transform like derivatives. A boxed summary lists the three rules, and margin notes discuss metric signature, the origin of the words contravariant and covariant, and the d'Alembertian.",
+      "concepts": [
+        "Lorentz transformation",
+        "Lorentz boost matrix",
+        "Jacobian of a coordinate change",
+        "Minkowski metric",
+        "scalar product in spacetime",
+        "metric signature",
+        "timelike, null and spacelike vectors",
+        "light cone",
+        "invariance of the scalar product",
+        "transformation of basis vectors",
+        "inverse Lorentz transformation",
+        "gradient as a down-indexed object",
+        "contravariant and covariant components",
+        "d'Alembertian operator"
+      ],
+      "key_moves": [
+        "X = X^mu e_mu = X^{sigma'} e_{sigma'}: same arrow, two bases.",
+        "Chain rule dx^{mu'} = (dx^{mu'}/dx^nu) dx^nu identifies Lambda with a Jacobian.",
+        "eta_{mu nu} = e_mu . e_nu gives X.Y = -X^0Y^0 + X^iY^i and ds^2 = eta dx dx.",
+        "Sign of X.X classifies vectors; light cone as an absolute separator.",
+        "Invariance of X.X for all X forces eta_{mu' nu'} Lambda Lambda = eta_{mu nu}.",
+        "Coordinate independence of X forces e_{alpha'} = Lambda^mu_{alpha'} e_mu with the inverse matrix.",
+        "Down-indexed objects (basis vectors, gradients) transform like partial derivatives with dx^nu/dx^{mu'}."
+      ]
+    },
+    {
+      "number": "2.3",
+      "title": "Examples of vectors",
+      "printed_page": 27,
+      "pdf_page": 44,
+      "summary": "Table 2.1 lists common 4-vectors with their invariants. The position vector works in special relativity but is flagged as the one that will not generalize. Velocity is first attempted as dx/dt, which fails because its square -1/gamma^2 depends on frame; differentiating by proper time instead gives u = (gamma, gamma v) with u.u = -1, tangent to the world line. Example 2.7 shows u = (1,0,0,0) in the rest frame, that any vector's time component measured by an observer is -X.u, and that two observers satisfy u.v = -gamma via the decomposition v/gamma = u + v_rel. Momentum p = m u has components (E, p) and invariant -m^2; Example 2.8 writes p = E v so the form extends to photons. Force f = dp/dtau is orthogonal to u; Example 2.9 relates f^mu to the Newtonian 3-force and recovers power F.v. Acceleration a = du/dtau is orthogonal to u and its square is the proper acceleration squared; Example 2.10 solves constant proper acceleration to find a hyperbolic world line. Finally particle current J = n_0 u gives density gamma n_0 via length contraction and flux as spatial components.",
+      "concepts": [
+        "position 4-vector",
+        "4-velocity",
+        "proper time",
+        "normalization u.u = -1",
+        "observer-measured components",
+        "relative velocity from u.v",
+        "4-momentum",
+        "photon 4-momentum",
+        "4-force",
+        "4-acceleration",
+        "proper acceleration",
+        "instantaneous rest frame",
+        "uniformly accelerated (hyperbolic) motion",
+        "particle current 4-vector",
+        "length contraction"
+      ],
+      "key_moves": [
+        "dx/dt . dx/dt = -1/gamma^2 is frame dependent, so dx/dt is not a 4-vector.",
+        "u = dx/dtau = (gamma, gamma v), u.u = -1.",
+        "Evaluate X.u in the observer's rest frame to get X^0_obs = -X.u.",
+        "v/gamma = u + v_rel with u . v_rel = 0 yields gamma = -u.v.",
+        "p^mu = (E, E v) extends to massless particles.",
+        "Differentiate u.u = -1 to get u . du/dtau = 0, so f.u = 0 and a.u = 0.",
+        "f^0 = F.v gamma links the time component of 4-force to power.",
+        "Constant a.a = g^2 with a.u = 0 gives du^0/dtau = g u^1, du^1/dtau = g u^0, so t = sinh(g tau)/g, x = cosh(g tau)/g.",
+        "J^0 = gamma n_0 = n and J^x = n v^x as a flux."
+      ]
+    },
+    {
+      "number": "2.4",
+      "title": "Principle of least action",
+      "printed_page": 31,
+      "pdf_page": 48,
+      "summary": "The Lagrangian formulation is recalled: the action is the time integral of L = T - V along a path with fixed endpoints, and Hamilton's principle selects the path that makes it stationary, which the calculus of variations turns into the Euler-Lagrange equations. Example 2.11 checks this on a free particle (law of inertia), a general potential (Newton's second law), a harmonic oscillator and Newtonian gravity. Linking to Fermat's principle, the relativistic free-particle action is taken as -m times the elapsed proper time, the minus sign making stationary action correspond to maximal proper time. Since dtau = dt/gamma the Lagrangian is -m/gamma; Example 2.12 writes the action with eta_{mu nu} and the low-speed expansion recovers the Newtonian kinetic term plus a constant. Example 2.13 inserts a weak potential Phi and reads off ds^2 = -(1+2Phi)dt^2 + dx^2 + dy^2 + dz^2 to leading order, a first hint that gravity alters the metric, with a caution that the spatial part is not yet trustworthy. The chapter closes by writing the GR action with g_{mu nu} in place of eta_{mu nu}, followed by the chapter summary.",
+      "concepts": [
+        "action",
+        "Lagrangian",
+        "Hamilton's principle of least action",
+        "Euler-Lagrange equations",
+        "law of inertia",
+        "Fermat's principle of least time",
+        "relativistic free-particle action",
+        "non-relativistic limit",
+        "weak-field metric from a potential",
+        "metric tensor g_{mu nu}"
+      ],
+      "key_moves": [
+        "S = int L dt with L = T - V; endpoints fixed; stationary S gives Euler-Lagrange equations.",
+        "Newtonian examples verify the machinery before relativity.",
+        "S = -m int dtau: the minus sign turns 'longest proper time' into 'stationary minimum of S'.",
+        "L = -m/gamma = -m + m v^2/2 + ... reproduces free Newtonian motion.",
+        "Adding -m Phi to L and matching to -m sqrt(-ds^2) gives g_00 = -(1+2Phi).",
+        "Replace eta_{mu nu} by g_{mu nu} in the action: matter will act through the metric."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "Lorentz scalar",
+      "aliases": [
+        "scalar",
+        "Lorentz invariant"
+      ],
+      "kind": "definition",
+      "definition": "A single number whose value is the same for every inertial observer, for example electric charge, rest mass, or the scalar product of two 4-vectors.",
+      "how_introduced": "First item in an inventory of what kinds of quantity can live in flat spacetime, before vectors are discussed.",
+      "depth": "introduced",
+      "prerequisites": [
+        "inertial frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 39,
+          "printed_page": 22,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "event",
+      "aliases": [],
+      "kind": "definition",
+      "definition": "A point in spacetime, specified by a place and a time, such as the emission or reception of a photon; recorded by observers using the coordinate grid and local clocks.",
+      "how_introduced": "Recapped from Chapter 1 in Example 2.1 as the basic currency of relativity, then assigned coordinates x^mu.",
+      "depth": "revisited",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 39,
+          "printed_page": 22,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "x^\\mu = (ct, x, y, z)"
+      ],
+      "notes": null
+    },
+    {
+      "name": "4-vector",
+      "aliases": [
+        "vector in spacetime",
+        "arrow in spacetime",
+        "four-vector"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A geometric arrow in spacetime, for instance the displacement from one event to another, whose four components in any inertial basis change by the Lorentz transformation when the frame changes while the arrow itself is unchanged.",
+      "how_introduced": "Defined geometrically as B - A between two events, then contrasted with an arbitrary list of numbers via the shopping-vector counterexample, and finally expanded in a basis.",
+      "depth": "core",
+      "prerequisites": [
+        "event",
+        "Lorentz transformation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 40,
+          "printed_page": 23,
+          "section": "2.1"
+        },
+        {
+          "pdf_page": 44,
+          "printed_page": 27,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "X = \\mathcal{B} - \\mathcal{A}",
+        "X = X^\\mu e_\\mu"
+      ],
+      "notes": "Bold italic type marks 4-vectors. The paragraph just before Section 2.1 (not the chapter summary) names x^0 the timelike component and x^i the spacelike components that make up a 3-vector."
+    },
+    {
+      "name": "basis vectors",
+      "aliases": [
+        "e_mu"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A set of four reference vectors e_0,...,e_3 in terms of which any 4-vector is a linear combination; the lower index names which basis vector is meant, not a component.",
+      "how_introduced": "Needed to turn the coordinate-free arrow into numbers; motivated by the Euclidean unit vectors e_x, e_y, e_z in Example 2.2.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-vector"
+      ],
+      "locators": [
+        {
+          "pdf_page": 40,
+          "printed_page": 23,
+          "section": "2.1"
+        }
+      ],
+      "formulas": [
+        "\\vec e_i\\cdot\\vec e_j = \\delta_{ij}",
+        "\\eta_{\\mu\\nu} = e_\\mu\\cdot e_\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "vector components",
+      "aliases": [
+        "contravariant components",
+        "upstairs-index components"
+      ],
+      "kind": "definition",
+      "definition": "The coefficients X^mu that multiply the basis vectors in X = X^mu e_mu; they carry upper indices and depend on the chosen basis.",
+      "how_introduced": "By analogy with a^x, a^y, a^z of a 3-vector, and extracted by projection with a dot product.",
+      "depth": "developed",
+      "prerequisites": [
+        "basis vectors"
+      ],
+      "locators": [
+        {
+          "pdf_page": 40,
+          "printed_page": 23,
+          "section": "2.1"
+        }
+      ],
+      "formulas": [
+        "\\vec a\\cdot\\vec e_x = a^x"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Einstein summation convention",
+      "aliases": [
+        "summation convention"
+      ],
+      "kind": "convention",
+      "definition": "A repeated index that appears once upstairs and once downstairs in a term is summed over all its values (0 to 3 for Greek indices) without writing the sum sign.",
+      "how_introduced": "Introduced when writing X^mu e_mu, and a margin note writes out the explicit sum for Lambda^{mu'}_nu X^nu.",
+      "depth": "introduced",
+      "prerequisites": [
+        "vector components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 40,
+          "printed_page": 23,
+          "section": "2.1"
+        },
+        {
+          "pdf_page": 41,
+          "printed_page": 24,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "X^{\\mu'} = \\sum_\\nu \\Lambda^{\\mu'}{}_{\\nu} X^\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "index conventions",
+      "aliases": [
+        "Greek and Roman indices",
+        "primed indices"
+      ],
+      "kind": "convention",
+      "definition": "Greek indices run over 0-3 for spacetime components, Roman indices over 1-3 for spatial components; primes are placed on indices to denote the transformed frame, so X^{mu'} and X^mu are components of the same vector in different frames.",
+      "how_introduced": "Stated before §2.1 and in a margin note at the start of §2.2, justified as paying off in complicated equations.",
+      "depth": "introduced",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 40,
+          "printed_page": 23,
+          "section": null
+        },
+        {
+          "pdf_page": 41,
+          "printed_page": 24,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "Kronecker delta",
+      "aliases": [
+        "delta_ij",
+        "delta^nu_mu"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The symbol that equals 1 when its two indices are equal and 0 otherwise; the mixed version with one index up and one down represents the identity transformation.",
+      "how_introduced": "First for orthonormal Euclidean bases, later in mixed form when composing a Lorentz matrix with its inverse.",
+      "depth": "introduced",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 40,
+          "printed_page": 23,
+          "section": "2.1"
+        },
+        {
+          "pdf_page": 43,
+          "printed_page": 26,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "\\Lambda^{\\alpha'}{}_{\\mu}\\Lambda^{\\nu}{}_{\\alpha'} = \\delta^\\nu_\\mu"
+      ],
+      "notes": "Why the mixed form needs one index up and one down is deferred to Chapter 4 (Exercise 4.2)."
+    },
+    {
+      "name": "Lorentz transformation",
+      "aliases": [
+        "Lorentz transformation of components",
+        "Lambda^{mu'}_nu"
+      ],
+      "kind": "operation",
+      "definition": "The linear map between the components of a 4-vector in two inertial frames that preserves the Minkowski scalar product; X^{mu'} = Lambda^{mu'}_nu X^nu.",
+      "how_introduced": "Stated as the empirical content of special relativity, written in matrix form for a boost in Example 2.3, then characterized by the invariance condition in Example 2.4.",
+      "depth": "core",
+      "prerequisites": [
+        "4-vector",
+        "vector components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 41,
+          "printed_page": 24,
+          "section": "2.2"
+        },
+        {
+          "pdf_page": 43,
+          "printed_page": 26,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "X^{\\mu'} = \\Lambda^{\\mu'}{}_{\\nu} X^{\\nu}",
+        "\\eta_{\\mu'\\nu'}\\Lambda^{\\mu'}{}_{\\mu}\\Lambda^{\\nu'}{}_{\\nu} = \\eta_{\\mu\\nu}"
+      ],
+      "notes": "The chapter considers only origin-preserving transformations (no translations)."
+    },
+    {
+      "name": "Lorentz boost matrix",
+      "aliases": [
+        "standard boost along x"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The 4x4 matrix with gamma on the t-t and x-x entries, -beta gamma on the t-x and x-t entries and 1 on the y and z diagonal, transforming components to a frame moving at speed beta along x.",
+      "how_introduced": "Example 2.3 rewrites the Chapter 1 coordinate transformation as a matrix acting on a column of components.",
+      "depth": "developed",
+      "prerequisites": [
+        "Lorentz transformation",
+        "Lorentz factor gamma"
+      ],
+      "locators": [
+        {
+          "pdf_page": 41,
+          "printed_page": 24,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "\\Lambda^{\\mu'}{}_{\\nu} = \\begin{pmatrix}\\gamma & -\\beta\\gamma & 0 & 0\\\\ -\\beta\\gamma & \\gamma & 0 & 0\\\\ 0&0&1&0\\\\0&0&0&1\\end{pmatrix}"
+      ],
+      "notes": "Its inverse is obtained by flipping the sign of beta (margin note 14)."
+    },
+    {
+      "name": "Lorentz factor gamma",
+      "aliases": [
+        "gamma"
+      ],
+      "kind": "physical-quantity",
+      "definition": "gamma = (1 - v^2)^{-1/2} in units with c = 1; equals dt/dtau for a moving clock.",
+      "how_introduced": "Carried over from Chapter 1 and used throughout the component formulas; re-derived geometrically from u.v in Example 2.7.",
+      "depth": "revisited",
+      "prerequisites": [
+        "proper time"
+      ],
+      "locators": [
+        {
+          "pdf_page": 45,
+          "printed_page": 28,
+          "section": "2.3"
+        },
+        {
+          "pdf_page": 46,
+          "printed_page": 29,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "\\gamma = (1-v^2)^{-1/2}",
+        "\\mathrm{d}t/\\mathrm{d}\\tau = \\gamma"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Jacobian of a coordinate change",
+      "aliases": [
+        "Lambda as partial derivatives",
+        "components transform like differentials"
+      ],
+      "kind": "identity",
+      "definition": "The transformation matrix of vector components equals the matrix of partial derivatives of the new coordinates with respect to the old: Lambda^{mu'}_nu = dx^{mu'}/dx^nu.",
+      "how_introduced": "The displacement dx is a vector, and the chain rule for differentials transforms its components; comparing with the Lorentz rule identifies the matrices.",
+      "depth": "developed",
+      "prerequisites": [
+        "Lorentz transformation",
+        "total differential"
+      ],
+      "locators": [
+        {
+          "pdf_page": 41,
+          "printed_page": 24,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}x^{\\mu'} = \\frac{\\partial x^{\\mu'}}{\\partial x^\\nu}\\mathrm{d}x^\\nu",
+        "\\Lambda^{\\mu'}{}_{\\nu} = \\frac{\\partial x^{\\mu'}}{\\partial x^\\nu}"
+      ],
+      "notes": "A margin note stresses that this rule is what generalizes to arbitrary coordinates, whereas the position vector only follows it in special cases (Chapter 3)."
+    },
+    {
+      "name": "Minkowski metric",
+      "aliases": [
+        "Minkowski metric tensor",
+        "eta_{mu nu}",
+        "flat-spacetime metric"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The matrix of scalar products of basis vectors in an inertial frame, eta_{mu nu} = e_mu . e_nu = diag(-1, 1, 1, 1), which defines scalar products and the interval ds^2 = eta_{mu nu} dx^mu dx^nu.",
+      "how_introduced": "Appears when the dot product of two basis expansions is multiplied out, leaving a matrix of basis-vector products; its minus sign is fixed by consistency with the interval from Chapter 1.",
+      "depth": "core",
+      "prerequisites": [
+        "basis vectors",
+        "interval"
+      ],
+      "locators": [
+        {
+          "pdf_page": 42,
+          "printed_page": 25,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "\\eta_{\\mu\\nu} = \\mathrm{diag}(-1,1,1,1)",
+        "\\mathrm{d}s^2 = \\eta_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu"
+      ],
+      "notes": "The inverse eta^{mu nu} is asserted to be the same matrix, with proof deferred to Chapter 4."
+    },
+    {
+      "name": "scalar product in spacetime",
+      "aliases": [
+        "dot product of 4-vectors",
+        "inner product"
+      ],
+      "kind": "operation",
+      "definition": "The bilinear rule X.Y = eta_{mu nu} X^mu Y^nu = -X^0Y^0 + X^1Y^1 + X^2Y^2 + X^3Y^3, whose value is the same in all inertial frames.",
+      "how_introduced": "Built by distributing (X^mu e_mu).(Y^nu e_nu) after a Euclidean warm-up.",
+      "depth": "core",
+      "prerequisites": [
+        "Minkowski metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 42,
+          "printed_page": 25,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "X\\cdot Y = \\eta_{\\mu\\nu}X^\\mu Y^\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "metric signature",
+      "aliases": [
+        "signature (-,+,+,+)",
+        "Lorentzian signature"
+      ],
+      "kind": "convention",
+      "definition": "The count or list of signs of the eigenvalues of the metric; the book uses (-,+,+,+), also written (3,1,0). Positive definite metrics are Riemannian; one sign differing from the rest is Lorentzian.",
+      "how_introduced": "Margin jargon note beside the Minkowski matrix.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Minkowski metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 42,
+          "printed_page": 25,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [],
+      "notes": "The margin note lumps Lorentzian metrics under 'pseudo-Riemannian'; strictly pseudo-Riemannian covers any indefinite signature, with Lorentzian as a special case."
+    },
+    {
+      "name": "timelike, null and spacelike vectors",
+      "aliases": [
+        "causal character of a vector",
+        "lightlike vector"
+      ],
+      "kind": "definition",
+      "definition": "With signature (-,+,+,+), a vector is timelike if X.X < 0, null if X.X = 0 and spacelike if X.X > 0; the classification is frame independent.",
+      "how_introduced": "Extends the Chapter 1 classification of intervals to vectors, illustrated by arrows drawn relative to a light cone.",
+      "depth": "core",
+      "prerequisites": [
+        "scalar product in spacetime"
+      ],
+      "locators": [
+        {
+          "pdf_page": 42,
+          "printed_page": 25,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "X^2>0\\ \\text{spacelike},\\ X^2=0\\ \\text{null},\\ X^2<0\\ \\text{timelike}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "light cone",
+      "aliases": [
+        "absolute surfaces"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The set of null directions through an event; timelike vectors from the event point inside the forward or backward cone, spacelike ones outside, null ones along it. Because it is Lorentz invariant it separates causal classes absolutely.",
+      "how_introduced": "Revisited from Chapter 1 with Fig. 2.4 labelling three arrows.",
+      "depth": "revisited",
+      "prerequisites": [
+        "timelike, null and spacelike vectors"
+      ],
+      "locators": [
+        {
+          "pdf_page": 42,
+          "printed_page": 25,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "invariance of the scalar product",
+      "aliases": [
+        "Lorentz invariance of X.Y",
+        "defining property of Lorentz transformations"
+      ],
+      "kind": "theorem",
+      "definition": "Because Lorentz transformations preserve the length of every vector, their matrices satisfy eta_{mu' nu'} Lambda^{mu'}_mu Lambda^{nu'}_nu = eta_{mu nu}, and consequently every scalar product X.Y takes the same value in all inertial frames.",
+      "how_introduced": "Example 2.4 substitutes the transformed components into the length and demands equality for all X, then extends to two different vectors.",
+      "depth": "core",
+      "prerequisites": [
+        "Lorentz transformation",
+        "scalar product in spacetime"
+      ],
+      "locators": [
+        {
+          "pdf_page": 42,
+          "printed_page": 25,
+          "section": "2.2"
+        },
+        {
+          "pdf_page": 43,
+          "printed_page": 26,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "\\eta_{\\mu'\\nu'}\\Lambda^{\\mu'}{}_{\\mu}\\Lambda^{\\nu'}{}_{\\nu} = \\eta_{\\mu\\nu}"
+      ],
+      "notes": "The step from invariance of X.X for all X to invariance of X.Y (polarization, using X+Y) is left to the reader."
+    },
+    {
+      "name": "transformation of basis vectors",
+      "aliases": [
+        "basis vectors transform inversely"
+      ],
+      "kind": "theorem",
+      "definition": "Since the vector X = X^mu e_mu is unchanged by a change of frame, the basis vectors must transform with the inverse of the component matrix: e_{alpha'} = Lambda^mu_{alpha'} e_mu.",
+      "how_introduced": "Example 2.5 writes a general transformation for e_mu, substitutes both rules into X, and requires the product of matrices to be the identity.",
+      "depth": "developed",
+      "prerequisites": [
+        "Lorentz transformation",
+        "basis vectors",
+        "Kronecker delta"
+      ],
+      "locators": [
+        {
+          "pdf_page": 43,
+          "printed_page": 26,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "e_{\\alpha'} = \\Lambda^{\\mu}{}_{\\alpha'} e_\\mu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "inverse Lorentz transformation",
+      "aliases": [
+        "Lambda^mu_{alpha'}"
+      ],
+      "kind": "operation",
+      "definition": "The matrix Lambda^mu_{alpha'} = dx^mu/dx^{alpha'} that undoes Lambda^{alpha'}_mu, so that their contraction on the shared primed or unprimed index is a Kronecker delta; for a boost it is obtained by reversing the velocity.",
+      "how_introduced": "Identified in Example 2.5 from the requirement that X be coordinate independent.",
+      "depth": "developed",
+      "prerequisites": [
+        "Lorentz transformation"
+      ],
+      "locators": [
+        {
+          "pdf_page": 43,
+          "printed_page": 26,
+          "section": "2.2"
+        },
+        {
+          "pdf_page": 44,
+          "printed_page": 27,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "\\Lambda^{\\alpha'}{}_{\\beta}\\Lambda^{\\beta}{}_{\\gamma'} = \\delta^{\\alpha'}_{\\gamma'}",
+        "\\Lambda^{\\beta}{}_{\\alpha'}\\Lambda^{\\alpha'}{}_{\\gamma} = \\delta^{\\beta}_{\\gamma}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "gradient as a down-indexed object",
+      "aliases": [
+        "gradient vector",
+        "partial_mu phi",
+        "down vector"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The partial derivatives partial_mu phi = d phi/dx^mu of a scalar field, which transform with the inverse matrix, dx^nu/dx^{mu'}, like basis vectors; any object with a lower index is required to transform this way.",
+      "how_introduced": "Example 2.6 applies the chain rule to derivative operators and notes that down-indexed quantities transform like derivatives, in contrast to up-indexed ones transforming like differentials.",
+      "depth": "introduced",
+      "prerequisites": [
+        "inverse Lorentz transformation",
+        "Jacobian of a coordinate change"
+      ],
+      "locators": [
+        {
+          "pdf_page": 43,
+          "printed_page": 26,
+          "section": "2.2"
+        },
+        {
+          "pdf_page": 44,
+          "printed_page": 27,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\partial\\phi}{\\partial x^{\\mu'}} = \\frac{\\partial x^\\nu}{\\partial x^{\\mu'}}\\frac{\\partial\\phi}{\\partial x^\\nu}",
+        "a_{\\mu'} = \\Lambda^{\\nu}{}_{\\mu'} a_\\nu"
+      ],
+      "notes": "The book calls this a 'gradient vector' here; Chapter 4 recasts such objects as 1-forms."
+    },
+    {
+      "name": "contravariant and covariant components",
+      "aliases": [
+        "contravariant vector",
+        "covariant vector",
+        "upstairs and downstairs indices"
+      ],
+      "kind": "convention",
+      "definition": "Traditional names for quantities that transform like coordinate differentials (upper index, contravariant) or like gradients (lower index, covariant).",
+      "how_introduced": "Mentioned only to be set aside; a margin note attributes the terms to Sylvester and explains that the authors reserve 'covariant' for 'transforms properly', preferring to say upstairs or downstairs.",
+      "depth": "mention",
+      "prerequisites": [
+        "gradient as a down-indexed object",
+        "vector components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 44,
+          "printed_page": 27,
+          "section": "2.2"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "d'Alembertian operator",
+      "aliases": [
+        "partial^2",
+        "wave operator",
+        "box"
+      ],
+      "kind": "operation",
+      "definition": "The Lorentz-invariant second-derivative operator partial^2 = eta^{mu nu} partial_mu partial_nu = -partial_t^2 + nabla^2, the spacetime analogue of the Laplacian.",
+      "how_introduced": "Mentioned in passing as useful for gravitational waves, with the component form in a margin note; practised in Exercise 2.3.",
+      "depth": "mention",
+      "prerequisites": [
+        "gradient as a down-indexed object",
+        "Minkowski metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 44,
+          "printed_page": 27,
+          "section": "2.2"
+        },
+        {
+          "pdf_page": 51,
+          "printed_page": 34,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\partial^2 = \\eta^{\\mu\\nu}\\partial_\\mu\\partial_\\nu = -\\partial_t^2 + \\nabla^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "position 4-vector",
+      "aliases": [
+        "position vector x"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The arrow from the origin to an event with components (t, x); its self scalar product is -tau^2 for an event timelike-separated from the origin. It is a genuine vector under Lorentz transformations but not under general coordinate changes.",
+      "how_introduced": "First row of Table 2.1 alongside the interval ds, with a boxed margin warning that it will not survive into GR while infinitesimal displacements will.",
+      "depth": "introduced",
+      "prerequisites": [
+        "4-vector",
+        "proper time"
+      ],
+      "locators": [
+        {
+          "pdf_page": 44,
+          "printed_page": 27,
+          "section": "2.3"
+        },
+        {
+          "pdf_page": 45,
+          "printed_page": 28,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "x\\cdot x = -t^2 + x^2 + y^2 + z^2 = -\\tau^2"
+      ],
+      "notes": "Chapter 3 (§3.2) says farewell to it."
+    },
+    {
+      "name": "proper time",
+      "aliases": [
+        "tau"
+      ],
+      "kind": "physical-quantity",
+      "definition": "Time elapsed on a clock carried along a world line; dtau^2 = -ds^2 for timelike displacements, and dt/dtau = gamma.",
+      "how_introduced": "Taken from Chapter 1 and used as the frame-independent parameter needed to define 4-velocity, and later as the quantity whose total the relativistic action measures.",
+      "depth": "revisited",
+      "prerequisites": [
+        "interval"
+      ],
+      "locators": [
+        {
+          "pdf_page": 45,
+          "printed_page": 28,
+          "section": "2.3"
+        },
+        {
+          "pdf_page": 49,
+          "printed_page": 32,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}\\tau = \\mathrm{d}t/\\gamma"
+      ],
+      "notes": null
+    },
+    {
+      "name": "4-velocity",
+      "aliases": [
+        "velocity 4-vector",
+        "u"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The derivative of a particle's spacetime position with respect to its proper time, u = dx/dtau, with components (gamma, gamma v); it is tangent to the world line and has u.u = -1 for any massive particle.",
+      "how_introduced": "Motivated by the failure of dx/dt, whose square -1/gamma^2 is frame dependent; replacing t by the invariant tau fixes the problem.",
+      "depth": "core",
+      "prerequisites": [
+        "proper time",
+        "position 4-vector",
+        "Lorentz factor gamma"
+      ],
+      "locators": [
+        {
+          "pdf_page": 45,
+          "printed_page": 28,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "u^\\mu = (\\gamma, \\gamma\\vec v)",
+        "u\\cdot u = -1",
+        "u^i = v^i u^0"
+      ],
+      "notes": "For slow motion u^mu is approximately (1, v)."
+    },
+    {
+      "name": "observer-measured components",
+      "aliases": [
+        "X^0_obs = -X.u",
+        "projection onto an observer's time axis"
+      ],
+      "kind": "technique",
+      "definition": "An observer with 4-velocity u measures the time component of any 4-vector X to be -X.u; for momentum this gives the energy they measure, E = -p.u.",
+      "how_introduced": "Example 2.7(ii): evaluate the dot product in the observer's rest frame where u = (1,0,0,0), then invoke invariance. Repeated in the chapter summary and Exercise 2.1.",
+      "depth": "core",
+      "prerequisites": [
+        "4-velocity",
+        "invariance of the scalar product"
+      ],
+      "locators": [
+        {
+          "pdf_page": 45,
+          "printed_page": 28,
+          "section": "2.3"
+        },
+        {
+          "pdf_page": 51,
+          "printed_page": 34,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "X^0_{\\mathrm{obs}} = -X\\cdot u",
+        "E = -p\\cdot u"
+      ],
+      "notes": "The sign comes from eta_00 = -1; this is the seed of the Chapter 10 treatment of measurements."
+    },
+    {
+      "name": "relative velocity from u.v",
+      "aliases": [
+        "u.v = -gamma",
+        "relative Lorentz factor"
+      ],
+      "kind": "identity",
+      "definition": "For two observers with 4-velocities u and v, the Lorentz factor of their relative motion is gamma = -u.v; in U's frame v/gamma = u + v_rel with v_rel lying in U's space.",
+      "how_introduced": "Example 2.7(iii) decomposes v/gamma into a part along u and a spatial part orthogonal to u, drawn in Fig. 2.5, then dots with itself and with u.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-velocity",
+        "observer-measured components"
+      ],
+      "locators": [
+        {
+          "pdf_page": 45,
+          "printed_page": 28,
+          "section": "2.3"
+        },
+        {
+          "pdf_page": 46,
+          "printed_page": 29,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "v/\\gamma = u + v_{\\mathrm{rel}}",
+        "u\\cdot v = -\\gamma"
+      ],
+      "notes": "Exercise 2.2 turns this into a velocity-composition formula for gamma."
+    },
+    {
+      "name": "4-momentum",
+      "aliases": [
+        "energy-momentum 4-vector",
+        "p"
+      ],
+      "kind": "physical-quantity",
+      "definition": "p = m u, with components (E, p) = (gamma m, gamma m v) and invariant p.p = -m^2; equivalently p^mu = (E, E v).",
+      "how_introduced": "A short step from 4-velocity; Example 2.8 rewrites it using p = E v so that the formula can be applied to photons.",
+      "depth": "core",
+      "prerequisites": [
+        "4-velocity"
+      ],
+      "locators": [
+        {
+          "pdf_page": 46,
+          "printed_page": 29,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "p^\\mu = (E, \\vec p)",
+        "p\\cdot p = -m^2",
+        "\\vec p = E\\vec v"
+      ],
+      "notes": null
+    },
+    {
+      "name": "photon 4-momentum",
+      "aliases": [
+        "momentum of a massless particle"
+      ],
+      "kind": "physical-quantity",
+      "definition": "For a massless particle p^mu = (E, E v) with |v| = 1, a null vector with p.p = 0.",
+      "how_introduced": "Adopted by extending the E-v form of the massive 4-momentum, since m u is meaningless when m = 0 and tau does not advance.",
+      "depth": "introduced",
+      "prerequisites": [
+        "4-momentum",
+        "timelike, null and spacelike vectors"
+      ],
+      "locators": [
+        {
+          "pdf_page": 46,
+          "printed_page": 29,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "p^\\mu = (E, Ev^x, Ev^y, Ev^z)"
+      ],
+      "notes": "The text calls the photon's velocity a null vector; strictly its 4-velocity cannot be defined via proper time, only its tangent direction."
+    },
+    {
+      "name": "4-force",
+      "aliases": [
+        "f",
+        "Minkowski force"
+      ],
+      "kind": "physical-quantity",
+      "definition": "f = dp/dtau = m du/dtau for constant rest mass; it is orthogonal to the 4-velocity and has components (gamma F.v, gamma F), where F = dp/dt is the 3-force.",
+      "how_introduced": "Newton's second law rewritten in 4-vector language; differentiating u.u = -1 gives orthogonality, and Example 2.9 connects the time component to power.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-momentum",
+        "normalization u.u = -1"
+      ],
+      "locators": [
+        {
+          "pdf_page": 46,
+          "printed_page": 29,
+          "section": "2.3"
+        },
+        {
+          "pdf_page": 47,
+          "printed_page": 30,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "f = \\mathrm{d}p/\\mathrm{d}\\tau",
+        "f\\cdot u = 0",
+        "f^\\mu = (\\gamma\\vec F\\cdot\\vec v, \\gamma\\vec F)"
+      ],
+      "notes": "Newton's first law becomes du/dtau = 0."
+    },
+    {
+      "name": "normalization u.u = -1",
+      "aliases": [
+        "unit timelike 4-velocity"
+      ],
+      "kind": "identity",
+      "definition": "The 4-velocity of any massive particle has squared length -1 in every frame; differentiating it along the world line shows u . du/dtau = 0.",
+      "how_introduced": "Computed from (gamma, gamma v), confirmed in the rest frame, and then exploited to prove orthogonality of force and acceleration to velocity.",
+      "depth": "core",
+      "prerequisites": [
+        "4-velocity"
+      ],
+      "locators": [
+        {
+          "pdf_page": 45,
+          "printed_page": 28,
+          "section": "2.3"
+        },
+        {
+          "pdf_page": 46,
+          "printed_page": 29,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "u\\cdot u = \\gamma^2(-1+v^2) = -1",
+        "2u\\cdot\\frac{\\mathrm{d}u}{\\mathrm{d}\\tau} = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "4-acceleration",
+      "aliases": [
+        "a = du/dtau"
+      ],
+      "kind": "physical-quantity",
+      "definition": "a = du/dtau, orthogonal to u; in the instantaneous rest frame its time component vanishes and a.a equals the square of the proper acceleration.",
+      "how_introduced": "Listed after force; a margin note rebuts the idea that special relativity cannot handle acceleration.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-velocity",
+        "normalization u.u = -1",
+        "instantaneous rest frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 47,
+          "printed_page": 30,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "a\\cdot u = 0",
+        "a\\cdot a = |\\vec a|^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "proper acceleration",
+      "aliases": [],
+      "kind": "physical-quantity",
+      "definition": "The acceleration measured in a body's instantaneous rest frame; its square equals the invariant a.a.",
+      "how_introduced": "Defined in a margin note beside the rest-frame evaluation of a.a.",
+      "depth": "introduced",
+      "prerequisites": [
+        "4-acceleration"
+      ],
+      "locators": [
+        {
+          "pdf_page": 47,
+          "printed_page": 30,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "a\\cdot a = g^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "instantaneous rest frame",
+      "aliases": [
+        "momentarily comoving frame"
+      ],
+      "kind": "definition",
+      "definition": "The inertial frame that at a given moment moves with the same velocity as an accelerating body; the body is at rest in it only instantaneously.",
+      "how_introduced": "Margin note explaining how inertial-frame special relativity can still describe accelerated motion.",
+      "depth": "introduced",
+      "prerequisites": [
+        "inertial frame"
+      ],
+      "locators": [
+        {
+          "pdf_page": 47,
+          "printed_page": 30,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "uniformly accelerated (hyperbolic) motion",
+      "aliases": [
+        "hyperbolic world line",
+        "constant proper acceleration",
+        "Rindler hyperbola"
+      ],
+      "kind": "solution-or-model",
+      "definition": "Motion with constant proper acceleration g along x; with suitable initial conditions t = sinh(g tau)/g, x = cosh(g tau)/g, so the world line is the hyperbola x^2 - t^2 = 1/g^2 and the speed tanh(g tau) approaches but never reaches 1.",
+      "how_introduced": "Example 2.10: the three invariant conditions u.u = -1, u.a = 0, a.a = g^2 reduce to coupled linear ODEs solved by hyperbolic functions; Fig. 2.6 sketches the curve.",
+      "depth": "developed",
+      "prerequisites": [
+        "4-acceleration",
+        "normalization u.u = -1",
+        "proper acceleration"
+      ],
+      "locators": [
+        {
+          "pdf_page": 47,
+          "printed_page": 30,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "t = g^{-1}\\sinh g\\tau,\\ x = g^{-1}\\cosh g\\tau",
+        "x^2 - t^2 = g^{-2}",
+        "v = \\tanh g\\tau"
+      ],
+      "notes": "The book does not name Rindler; the name is ours."
+    },
+    {
+      "name": "particle current 4-vector",
+      "aliases": [
+        "number flux 4-vector",
+        "J = n_0 u"
+      ],
+      "kind": "physical-quantity",
+      "definition": "For a cloud of particles with rest-frame number density n_0 and 4-velocity u, J = n_0 u; its time component is the density n = gamma n_0 seen in a given frame and its spatial components are particle fluxes.",
+      "how_introduced": "Last entry in Table 2.1; the gamma in the density is explained by length contraction of a box of particles (Fig. 2.7).",
+      "depth": "introduced",
+      "prerequisites": [
+        "4-velocity",
+        "length contraction"
+      ],
+      "locators": [
+        {
+          "pdf_page": 48,
+          "printed_page": 31,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "J^\\mu = \\gamma n_0(1, \\vec v)",
+        "J\\cdot J = -n_0^2"
+      ],
+      "notes": "The printed component form uses u for the 3-velocity; see gaps. Chapter 12 builds the energy-momentum tensor from this idea."
+    },
+    {
+      "name": "length contraction",
+      "aliases": [
+        "Lorentz contraction"
+      ],
+      "kind": "phenomenon",
+      "definition": "A body moving at speed v is measured to be shorter by a factor gamma along its motion, so a fixed number of particles occupies a smaller volume.",
+      "how_introduced": "Used from Chapter 1 to explain why the number density in a moving frame is gamma n_0.",
+      "depth": "mention",
+      "prerequisites": [
+        "Lorentz factor gamma"
+      ],
+      "locators": [
+        {
+          "pdf_page": 48,
+          "printed_page": 31,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "n = \\gamma n_0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "action",
+      "aliases": [
+        "S"
+      ],
+      "kind": "definition",
+      "definition": "The integral of the Lagrangian along a trajectory between fixed initial and final configurations, S = int L dt; a number assigned to each possible path.",
+      "how_introduced": "Opening of §2.4 as an alternative to Newton's laws, for a single particle in one dimension going from A to B.",
+      "depth": "developed",
+      "prerequisites": [
+        "Lagrangian"
+      ],
+      "locators": [
+        {
+          "pdf_page": 48,
+          "printed_page": 31,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "S = \\int_{t_1}^{t_2} L(q,\\dot q,t)\\,\\mathrm{d}t"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Lagrangian",
+      "aliases": [
+        "L = T - V"
+      ],
+      "kind": "definition",
+      "definition": "A function of generalized positions, velocities and time characterizing a mechanical system; in Newtonian mechanics it is kinetic minus potential energy.",
+      "how_introduced": "Attributed to Lagrange and worked out in several cases in Example 2.11.",
+      "depth": "developed",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 48,
+          "printed_page": 31,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "L = T - V"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Hamilton's principle of least action",
+      "aliases": [
+        "principle of stationary action",
+        "principle of least action"
+      ],
+      "kind": "principle",
+      "definition": "Among all paths with fixed endpoints, the physically realized one makes the action stationary (a minimum, maximum or saddle) under small variations.",
+      "how_introduced": "Stated as the starting point replacing Newton's laws, with Fig. 2.8 showing a family of candidate paths sharing endpoints.",
+      "depth": "core",
+      "prerequisites": [
+        "action",
+        "calculus of variations"
+      ],
+      "locators": [
+        {
+          "pdf_page": 48,
+          "printed_page": 31,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "\\delta S = 0,\\ \\delta q(t_1)=\\delta q(t_2)=0"
+      ],
+      "notes": "Despite the name, the book notes the extremum need not be a minimum."
+    },
+    {
+      "name": "Euler-Lagrange equations",
+      "aliases": [
+        "equations of motion from the action"
+      ],
+      "kind": "law",
+      "definition": "The differential equations d/dt (dL/d qdot^i) = dL/dq^i, one per coordinate, satisfied by any path that makes the action stationary.",
+      "how_introduced": "Quoted from the calculus of variations of Chapter 1 and immediately tested on Newtonian systems.",
+      "depth": "developed",
+      "prerequisites": [
+        "Hamilton's principle of least action"
+      ],
+      "locators": [
+        {
+          "pdf_page": 49,
+          "printed_page": 32,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "\\frac{\\mathrm{d}}{\\mathrm{d}t}\\frac{\\partial L}{\\partial\\dot x^i} = \\frac{\\partial L}{\\partial x^i}"
+      ],
+      "notes": "Their geometric use (extremal paths) anticipates geodesics in Chapters 8-9."
+    },
+    {
+      "name": "calculus of variations",
+      "aliases": [],
+      "kind": "technique",
+      "definition": "The mathematics of finding functions (paths) that make an integral functional stationary, leading to the Euler-Lagrange equations.",
+      "how_introduced": "Referenced back to Section 1.4 rather than re-derived.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 48,
+          "printed_page": 31,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "law of inertia",
+      "aliases": [
+        "Newton's first law"
+      ],
+      "kind": "law",
+      "definition": "A body with no forces on it keeps a fixed speed and heading when viewed from an inertial frame; in 4-vector language its 4-velocity is constant, du/dtau = 0.",
+      "how_introduced": "Recovered from the free-particle Lagrangian in Example 2.11 and restated with 4-velocity.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Euler-Lagrange equations"
+      ],
+      "locators": [
+        {
+          "pdf_page": 49,
+          "printed_page": 32,
+          "section": "2.4"
+        },
+        {
+          "pdf_page": 47,
+          "printed_page": 30,
+          "section": "2.3"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}u^\\mu/\\mathrm{d}\\tau = 0"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Fermat's principle of least time",
+      "aliases": [],
+      "kind": "principle",
+      "definition": "Light travels between two points along a path for which the travel time is stationary (usually a minimum).",
+      "how_introduced": "Invoked as a cousin of Hamilton's principle to motivate an action proportional to elapsed proper time.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 49,
+          "printed_page": 32,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [],
+      "notes": "The book says 'minimizes'; stationarity is the precise statement."
+    },
+    {
+      "name": "relativistic free-particle action",
+      "aliases": [
+        "S = -m int dtau",
+        "proper-time action"
+      ],
+      "kind": "principle",
+      "definition": "The action for a free massive particle in special relativity is minus its rest mass times the proper time elapsed along its world line, S = -m int dtau = -m int (-eta_{mu nu} dx^mu dx^nu)^{1/2}, giving the Lagrangian L = -m/gamma.",
+      "how_introduced": "Motivated by Fermat's principle and the twin-paradox result that straight world lines maximize proper time; the minus sign makes the extremum of S correspond to maximal tau; checked by the low-velocity limit in Example 2.12.",
+      "depth": "core",
+      "prerequisites": [
+        "proper time",
+        "Hamilton's principle of least action",
+        "Minkowski metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 49,
+          "printed_page": 32,
+          "section": "2.4"
+        },
+        {
+          "pdf_page": 50,
+          "printed_page": 33,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "S = -m\\int\\mathrm{d}\\tau",
+        "L = -m/\\gamma = -m\\sqrt{1-v^2}"
+      ],
+      "notes": "Exercises 2.8 and 2.9 derive momentum gamma m v and energy gamma m from this Lagrangian."
+    },
+    {
+      "name": "non-relativistic limit",
+      "aliases": [
+        "low-velocity expansion"
+      ],
+      "kind": "technique",
+      "definition": "Expanding relativistic expressions in powers of v (with c = 1) and keeping leading terms to check agreement with Newtonian physics.",
+      "how_introduced": "Applied to L = -m/gamma to recover m v^2/2 plus an irrelevant constant.",
+      "depth": "introduced",
+      "prerequisites": [
+        "relativistic free-particle action"
+      ],
+      "locators": [
+        {
+          "pdf_page": 50,
+          "printed_page": 33,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "-m/\\gamma = -m + \\tfrac12 mv^2 + \\dots"
+      ],
+      "notes": null
+    },
+    {
+      "name": "weak-field metric from a potential",
+      "aliases": [
+        "g_00 = -(1+2Phi)",
+        "first hint of gravity in the metric"
+      ],
+      "kind": "solution-or-model",
+      "definition": "Adding the Newtonian potential energy -m Phi to the expanded free Lagrangian and interpreting the result as -m sqrt(-ds^2) suggests ds^2 = -(1+2Phi)dt^2 + dx^2 + dy^2 + dz^2 to leading order, i.e. a gravitational potential modifies the time-time metric component.",
+      "how_introduced": "Example 2.13 matches the Lagrangian with a potential to the proper-time form of the action, squares and drops small terms (shown in a margin derivation).",
+      "depth": "introduced",
+      "prerequisites": [
+        "relativistic free-particle action",
+        "non-relativistic limit"
+      ],
+      "locators": [
+        {
+          "pdf_page": 50,
+          "printed_page": 33,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2 = -(1+2\\Phi)\\mathrm{d}t^2 + \\mathrm{d}x^2+\\mathrm{d}y^2+\\mathrm{d}z^2"
+      ],
+      "notes": "A margin note warns that the spatial part also changes (see eqn 5.22); the correct weak-field metric has (1-2Phi) on the spatial terms."
+    },
+    {
+      "name": "metric tensor g_{mu nu}",
+      "aliases": [
+        "general metric"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The position-dependent generalization of eta_{mu nu} that determines intervals in curved spacetime; in GR it is shaped by the distribution of mass-energy.",
+      "how_introduced": "Previewed at the end of the chapter by replacing eta_{mu nu} with g_{mu nu} in the proper-time action.",
+      "depth": "mention",
+      "prerequisites": [
+        "Minkowski metric",
+        "relativistic free-particle action"
+      ],
+      "locators": [
+        {
+          "pdf_page": 51,
+          "printed_page": 34,
+          "section": "2.4"
+        }
+      ],
+      "formulas": [
+        "S = -m\\int(-g_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu)^{1/2}"
+      ],
+      "notes": "Developed properly in Chapter 5."
+    },
+    {
+      "name": "geometrized units c = 1",
+      "aliases": [
+        "natural units with c = 1"
+      ],
+      "kind": "convention",
+      "definition": "Time and length are measured in the same units so that the speed of light equals 1; then x^0 = t, beta = v, and E = gamma m.",
+      "how_introduced": "Announced in bold at the top of printed p.23 and used for the rest of the book unless stated.",
+      "depth": "introduced",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 40,
+          "printed_page": 23,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Exercise 2.9 temporarily restores c."
+    },
+    {
+      "name": "spacetime coordinates",
+      "aliases": [
+        "x^mu",
+        "coordinate frame"
+      ],
+      "kind": "definition",
+      "definition": "Four numbers x^mu = (ct, x, y, z) labelling an event relative to an observer's grid and clocks; in flat spacetime one global inertial coordinate system suffices.",
+      "how_introduced": "Example 2.1, with the contrast that curved spacetimes only allow local coordinates, like local maps of a spherical Earth.",
+      "depth": "introduced",
+      "prerequisites": [
+        "event"
+      ],
+      "locators": [
+        {
+          "pdf_page": 39,
+          "printed_page": 22,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "x^\\mu = (ct, \\vec x)"
+      ],
+      "notes": null
+    }
+  ],
+  "key_equations": [
+    {
+      "label": "(2.1)",
+      "name": "Event coordinates",
+      "latex": "x^{\\mu} = (x^0, x^1, x^2, x^3) = (ct, x, y, z)",
+      "meaning": "An event is labelled by one time and three space coordinates; the index is written upstairs.",
+      "symbols": "mu = 0..3; c speed of light (later set to 1)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 39,
+        "printed_page": 22,
+        "section": null
+      }
+    },
+    {
+      "label": "(2.2)",
+      "name": "Vector as difference of events",
+      "latex": "X = \\mathcal{B} - \\mathcal{A}",
+      "meaning": "A vector in flat spacetime is the arrow from event A to event B, defined without coordinates.",
+      "symbols": "A, B events",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "label": "(2.3)",
+      "name": "Euclidean basis expansion",
+      "latex": "\\vec a = a^x\\vec e_x + a^y\\vec e_y + a^z\\vec e_z",
+      "meaning": "A 3-vector is a combination of basis vectors with up-indexed components.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "label": "(2.4)",
+      "name": "Euclidean dot product",
+      "latex": "\\vec a\\cdot\\vec b = a^x b^x + a^y b^y + a^z b^z",
+      "meaning": "Cartesian dot product in components.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "label": "(2.5)",
+      "name": "Orthonormal basis",
+      "latex": "\\vec e_i\\cdot\\vec e_j = \\delta_{ij}",
+      "meaning": "Cartesian basis vectors are unit length and mutually perpendicular.",
+      "symbols": "delta_ij Kronecker delta",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "label": "(2.6)",
+      "name": "Projection of a component",
+      "latex": "\\vec a\\cdot\\vec e_x = a^x",
+      "meaning": "Dotting with a basis vector extracts the corresponding component (for an orthonormal Euclidean basis).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "label": "(2.7)",
+      "name": "4-vector basis expansion",
+      "latex": "X = X^0e_0 + X^1e_1 + X^2e_2 + X^3e_3 = X^{\\mu}e_{\\mu}",
+      "meaning": "Any 4-vector is its components times basis vectors, summed by the Einstein convention.",
+      "symbols": "X^mu components; e_mu basis vectors",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "label": "(2.8)",
+      "name": "Same vector in two bases",
+      "latex": "X = X^{\\mu}e_{\\mu} = X^{\\sigma'}e_{\\sigma'}",
+      "meaning": "The arrow is unchanged by a change of frame; only components and basis vectors change.",
+      "symbols": "primed indices refer to the primed frame",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.9)",
+      "name": "Lorentz transformation of components",
+      "latex": "X^{\\mu'} = \\Lambda^{\\mu'}{}_{\\nu}X^{\\nu}",
+      "meaning": "Components of any 4-vector change between inertial frames by the Lorentz matrix; (2.11) repeats this after the explicit matrix.",
+      "symbols": "Lambda depends on relative velocity beta",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.10)",
+      "name": "Boost along x in matrix form",
+      "latex": "\\begin{pmatrix}X^{0'}\\\\X^{1'}\\\\X^{2'}\\\\X^{3'}\\end{pmatrix} = \\begin{pmatrix}\\gamma & -\\beta\\gamma & 0 & 0\\\\ -\\beta\\gamma & \\gamma & 0 & 0\\\\ 0&0&1&0\\\\ 0&0&0&1\\end{pmatrix}\\begin{pmatrix}X^0\\\\X^1\\\\X^2\\\\X^3\\end{pmatrix}",
+      "meaning": "Explicit Lorentz matrix for frame S' moving at speed beta along x relative to S.",
+      "symbols": "gamma = (1-beta^2)^{-1/2}",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.12)",
+      "name": "Chain rule for differentials",
+      "latex": "\\mathrm{d}x^{\\mu'} = \\frac{\\partial x^{\\mu'}}{\\partial x^{\\nu}}\\mathrm{d}x^{\\nu}",
+      "meaning": "Ordinary calculus rule for how coordinate differentials transform.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.13)",
+      "name": "Lorentz matrix as Jacobian",
+      "latex": "\\Lambda^{\\mu'}{}_{\\nu} = \\frac{\\partial x^{\\mu'}}{\\partial x^{\\nu}}",
+      "meaning": "Vector components transform like coordinate differentials; this form generalizes beyond Lorentz transformations.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.14)",
+      "name": "Scalar product in a basis",
+      "latex": "X\\cdot Y = (X^{\\mu}e_{\\mu})\\cdot(Y^{\\nu}e_{\\nu}) = (e_{\\mu}\\cdot e_{\\nu})X^{\\mu}Y^{\\nu}",
+      "meaning": "The dot product of two vectors is determined by the matrix of basis-vector dot products.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.15)",
+      "name": "Minkowski metric",
+      "latex": "\\eta_{\\mu\\nu} = \\begin{pmatrix}-1&0&0&0\\\\0&1&0&0\\\\0&0&1&0\\\\0&0&0&1\\end{pmatrix}",
+      "meaning": "Flat-spacetime metric in inertial coordinates with signature (-,+,+,+).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.16)",
+      "name": "Minkowski scalar product in components",
+      "latex": "X\\cdot Y = \\eta_{\\mu\\nu}X^{\\mu}Y^{\\nu} = -X^0Y^0 + X^1Y^1 + X^2Y^2 + X^3Y^3",
+      "meaning": "Rule for combining two 4-vectors into a scalar.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.17)",
+      "name": "Metric from basis vectors",
+      "latex": "\\eta_{\\mu\\nu} = e_{\\mu}\\cdot e_{\\nu}",
+      "meaning": "Metric components are the dot products of the basis vectors; boxed summary together with (2.18) and (2.19).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.19)",
+      "name": "Interval via the metric",
+      "latex": "\\mathrm{d}s^2 = \\eta_{\\mu\\nu}\\mathrm{d}x^{\\mu}\\mathrm{d}x^{\\nu}",
+      "meaning": "The squared interval is the self scalar product of the displacement vector; (2.18) restates X.Y = eta X Y.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.20)",
+      "name": "Causal classification of vectors",
+      "latex": "X^2 > 0\\ \\text{(spacelike)},\\quad X^2 = 0\\ \\text{(null)},\\quad X^2 < 0\\ \\text{(timelike)}",
+      "meaning": "The sign of the invariant squared length decides the causal character of a vector.",
+      "symbols": "X^2 = X.X",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.21)",
+      "name": "Invariance of length",
+      "latex": "X\\cdot X = \\eta_{\\mu\\nu}X^{\\mu}X^{\\nu} = \\eta_{\\mu'\\nu'}X^{\\mu'}X^{\\nu'}",
+      "meaning": "The squared length computed in either frame agrees.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.22)",
+      "name": "Substituting transformed components",
+      "latex": "\\eta_{\\mu'\\nu'}X^{\\mu'}X^{\\nu'} = \\eta_{\\mu'\\nu'}(\\Lambda^{\\mu'}{}_{\\mu}X^{\\mu})(\\Lambda^{\\nu'}{}_{\\nu}X^{\\nu}) = \\eta_{\\mu\\nu}X^{\\mu}X^{\\nu}",
+      "meaning": "Writing primed components in terms of unprimed ones inside the invariant.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.23)",
+      "name": "Defining condition for Lorentz matrices",
+      "latex": "\\eta_{\\mu'\\nu'}\\Lambda^{\\mu'}{}_{\\mu}\\Lambda^{\\nu'}{}_{\\nu} = \\eta_{\\mu\\nu}",
+      "meaning": "Lorentz transformations are exactly the linear maps that leave the Minkowski metric unchanged (matrix form Lambda^T eta Lambda = eta).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.24)",
+      "name": "Invariance of any scalar product",
+      "latex": "X\\cdot Y = \\eta_{\\mu\\nu}X^{\\mu}Y^{\\nu} = \\eta_{\\mu'\\nu'}X^{\\mu'}Y^{\\nu'}",
+      "meaning": "All inner products of 4-vectors are frame independent.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.25)",
+      "name": "Basis vector transformation ansatz",
+      "latex": "e_{\\alpha'} = \\Lambda^{\\mu}{}_{\\alpha'}e_{\\mu}",
+      "meaning": "Primed basis vectors are combinations of unprimed ones with a matrix to be identified.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.27)",
+      "name": "Coordinate independence of X",
+      "latex": "X = X^{\\alpha'}e_{\\alpha'} = (\\Lambda^{\\alpha'}{}_{\\mu}X^{\\mu})(\\Lambda^{\\nu}{}_{\\alpha'}e_{\\nu}) = (\\Lambda^{\\alpha'}{}_{\\mu}\\Lambda^{\\nu}{}_{\\alpha'})X^{\\mu}e_{\\nu} = X^{\\mu}e_{\\mu}",
+      "meaning": "Requiring the arrow to be unchanged forces the two matrices to compose to the identity; (2.26) states X = X^mu e_mu = X^{alpha'} e_{alpha'}.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.28)",
+      "name": "Inverse Lorentz matrix",
+      "latex": "(\\Lambda^{\\alpha'}{}_{\\mu})^{-1} = \\Lambda^{\\mu}{}_{\\alpha'}",
+      "meaning": "Swapping which index is primed denotes the inverse transformation.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.29)",
+      "name": "Inverse identities",
+      "latex": "\\Lambda^{\\alpha'}{}_{\\beta}\\Lambda^{\\beta}{}_{\\gamma'} = \\delta^{\\alpha'}_{\\gamma'},\\qquad \\Lambda^{\\beta}{}_{\\alpha'}\\Lambda^{\\alpha'}{}_{\\gamma} = \\delta^{\\beta}_{\\gamma}",
+      "meaning": "Contracting a transformation with its inverse gives the mixed Kronecker delta in either frame.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.30)",
+      "name": "Transformation of derivative operators",
+      "latex": "\\frac{\\partial}{\\partial y^{\\alpha'}} = \\frac{\\partial x^{\\mu}}{\\partial y^{\\alpha'}}\\frac{\\partial}{\\partial x^{\\mu}}",
+      "meaning": "Down-indexed objects transform like partial derivatives, with old coordinates differentiated by new ones.",
+      "symbols": "y^{alpha'} denotes the primed coordinates (a one-off notation)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.31)",
+      "name": "Gradient transformation",
+      "latex": "\\frac{\\partial\\phi}{\\partial x^{\\mu'}} = \\frac{\\partial x^{\\nu}}{\\partial x^{\\mu'}}\\frac{\\partial\\phi}{\\partial x^{\\nu}}",
+      "meaning": "Components of the gradient of a scalar field transform with the inverse matrix.",
+      "symbols": "phi scalar field",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": "(2.32)",
+      "name": "Rule for down-indexed components",
+      "latex": "a_{\\mu'} = \\Lambda^{\\nu}{}_{\\mu'}a_{\\nu},\\qquad \\Lambda^{\\nu}{}_{\\mu'} \\equiv \\frac{\\partial x^{\\nu}}{\\partial x^{\\mu'}}",
+      "meaning": "Any lower-index object transforms with the inverse of the component Lorentz matrix.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": null,
+      "name": "d'Alembertian (margin note 16)",
+      "latex": "\\partial^2 = \\eta^{\\mu\\nu}\\partial_{\\mu}\\partial_{\\nu} = -\\frac{\\partial^2}{\\partial t^2} + \\nabla^2",
+      "meaning": "Invariant wave operator, the spacetime version of the Laplacian.",
+      "symbols": "eta^{mu nu} numerically equal to eta_{mu nu}",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    },
+    {
+      "label": null,
+      "name": "Position invariant",
+      "latex": "x\\cdot x = -t^2 + x^2 + y^2 + z^2 = -\\tau^2",
+      "meaning": "Self scalar product of the position vector equals minus the squared proper time from the origin (for a timelike separation).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.33)",
+      "name": "dx/dt is not a 4-vector",
+      "latex": "\\frac{\\mathrm{d}x}{\\mathrm{d}t}\\cdot\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -1 + v^2 = -\\frac{1}{\\gamma^2}",
+      "meaning": "The would-be invariant depends on the frame's speed, so coordinate-time derivatives of position do not form a 4-vector.",
+      "symbols": "v magnitude of 3-velocity",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.34)",
+      "name": "4-velocity definition",
+      "latex": "u = \\frac{\\mathrm{d}x}{\\mathrm{d}\\tau}",
+      "meaning": "Differentiate position with respect to invariant proper time to get a genuine 4-vector tangent to the world line.",
+      "symbols": "tau proper time",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.36)",
+      "name": "4-velocity components",
+      "latex": "u^{\\mu} = \\left(\\frac{\\mathrm{d}t}{\\mathrm{d}\\tau}, \\frac{\\mathrm{d}x^i}{\\mathrm{d}\\tau}\\right) = (\\gamma, \\gamma\\vec v)",
+      "meaning": "Components of the 4-velocity in terms of the ordinary 3-velocity; margin eqn (2.35) gives the slow limit (1, v).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.37)",
+      "name": "Normalization of 4-velocity",
+      "latex": "u\\cdot u = \\gamma^2(-1 + v^2) = -1",
+      "meaning": "Every massive particle's 4-velocity has squared length -1; used throughout the book.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.38)",
+      "name": "Observer-measured time component",
+      "latex": "X^0_{\\mathrm{obs}} = -X\\cdot u",
+      "meaning": "The time component of any vector as measured by an observer with 4-velocity u.",
+      "symbols": "u observer 4-velocity",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.39)",
+      "name": "Decomposition of another observer's velocity",
+      "latex": "\\frac{v}{\\gamma} = u + v_{\\mathrm{rel}}",
+      "meaning": "In U's frame, V's rescaled 4-velocity splits into U's time direction plus a purely spatial relative velocity orthogonal to u.",
+      "symbols": "v_rel = (0, v_rel)",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.40)",
+      "name": "Relative gamma",
+      "latex": "\\gamma = (1 - v_{\\mathrm{rel}}^2)^{-1/2}",
+      "meaning": "Squaring the decomposition recovers the usual Lorentz factor of the relative speed.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.41)",
+      "name": "Scalar product of two 4-velocities",
+      "latex": "u\\cdot v = -\\gamma",
+      "meaning": "The invariant dot product of two observers' 4-velocities gives minus their relative Lorentz factor.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": null,
+      "name": "4-momentum",
+      "latex": "p = mu,\\quad p^{\\mu} = (\\gamma m, \\gamma m\\vec v) = (E, \\vec p),\\quad p\\cdot p = -m^2",
+      "meaning": "Energy and momentum combine into one 4-vector whose invariant is the rest mass.",
+      "symbols": "E = gamma m",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.42)",
+      "name": "Momentum-energy-velocity relation",
+      "latex": "\\vec p = E\\vec v",
+      "meaning": "3-momentum equals energy times velocity, valid also for massless particles.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.43)",
+      "name": "4-momentum in E-v form",
+      "latex": "p^{\\mu} = (E, Ev^x, Ev^y, Ev^z)",
+      "meaning": "Form of the 4-momentum that is adopted for photons.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.44)",
+      "name": "Relativistic Newton's second law",
+      "latex": "f = \\frac{\\mathrm{d}p}{\\mathrm{d}\\tau}",
+      "meaning": "4-force is the proper-time rate of change of 4-momentum.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.45)",
+      "name": "Differentiating the normalization",
+      "latex": "\\frac{\\mathrm{d}u}{\\mathrm{d}\\tau}\\cdot u + u\\cdot\\frac{\\mathrm{d}u}{\\mathrm{d}\\tau} = 2u\\cdot\\frac{\\mathrm{d}u}{\\mathrm{d}\\tau} = 0",
+      "meaning": "Because u.u is constant, 4-acceleration and 4-force are orthogonal to 4-velocity.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.46)",
+      "name": "Time component of 4-force",
+      "latex": "f^0 = \\vec f\\cdot\\vec v",
+      "meaning": "From f.u = 0 with u = (gamma, gamma v). The printed intermediate line writes gamma f^0 - gamma f.v = 0, which has the overall sign flipped relative to the (-,+,+,+) product; the conclusion is unaffected.",
+      "symbols": "f spatial part of 4-force",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.48)",
+      "name": "4-force in coordinate-time rates",
+      "latex": "f^{\\mu} = \\gamma\\left(\\frac{\\mathrm{d}p^0}{\\mathrm{d}t}, \\frac{\\mathrm{d}p^i}{\\mathrm{d}t}\\right)",
+      "meaning": "Chain rule with dt/dtau = gamma, following the component form (2.47).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.50)",
+      "name": "4-force in terms of 3-force",
+      "latex": "f^{\\mu} = (\\gamma\\vec F\\cdot\\vec v, \\gamma\\vec F)",
+      "meaning": "Spatial part is gamma times the Newtonian 3-force F = dp/dt; time part is gamma times the power, consistent with dE/dt = F.v. (2.49) is the intermediate f^mu = (f^0, gamma F).",
+      "symbols": "F = dp/dt",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.51)",
+      "name": "Relativistic law of inertia",
+      "latex": "\\frac{\\mathrm{d}u}{\\mathrm{d}\\tau} = 0 \\quad\\text{or}\\quad \\frac{\\mathrm{d}u^{\\mu}}{\\mathrm{d}\\tau} = 0",
+      "meaning": "A free particle's 4-velocity is constant; flat-space precursor of the geodesic equation.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.52)",
+      "name": "Acceleration orthogonal to velocity",
+      "latex": "a\\cdot u = 0",
+      "meaning": "In the instantaneous rest frame the 4-acceleration has no time component.",
+      "symbols": "a = du/dtau",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.53)",
+      "name": "Invariant magnitude of acceleration",
+      "latex": "a\\cdot a = \\left(\\frac{\\mathrm{d}\\vec v}{\\mathrm{d}t}\\right)^2 = |\\vec a|^2",
+      "meaning": "Evaluated in the instantaneous rest frame, a.a is the squared proper acceleration.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.55)",
+      "name": "Constraints for uniform acceleration",
+      "latex": "u\\cdot u = -1,\\quad u\\cdot a = 0,\\quad a\\cdot a = g^2",
+      "meaning": "Three invariant conditions that fix the motion with constant proper acceleration g; (2.54) gives the first-order definitions dt/dtau = u^0, dx^1/dtau = u^1, du^0/dtau = a^0, du^1/dtau = a^1.",
+      "symbols": "g proper acceleration",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.56)",
+      "name": "Coupled equations for uniform acceleration",
+      "latex": "a^0 = \\frac{\\mathrm{d}u^0}{\\mathrm{d}\\tau} = g u^1,\\quad a^1 = \\frac{\\mathrm{d}u^1}{\\mathrm{d}\\tau} = g u^0",
+      "meaning": "Solving the constraints (margin note 23) gives linear ODEs whose solutions are hyperbolic functions.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.57)",
+      "name": "Hyperbolic world line",
+      "latex": "t = \\frac{1}{g}\\sinh g\\tau,\\quad x = \\frac{1}{g}\\cosh g\\tau \\;\\Rightarrow\\; x^2 - t^2 = g^{-2}",
+      "meaning": "A body with constant proper acceleration traces a hyperbola in the t-x plane.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.58)",
+      "name": "4-velocity on the hyperbola",
+      "latex": "u^0 = \\cosh g\\tau,\\quad u^1 = \\sinh g\\tau",
+      "meaning": "Satisfies u.u = -1 automatically.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.59)",
+      "name": "3-velocity under uniform acceleration",
+      "latex": "v = \\frac{\\mathrm{d}x^1}{\\mathrm{d}t} = \\tanh g\\tau",
+      "meaning": "Speed approaches but never exceeds 1.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.60)",
+      "name": "4-acceleration on the hyperbola",
+      "latex": "a^0 = g\\sinh g\\tau,\\quad a^1 = g\\cosh g\\tau,\\quad |a| = \\sqrt{-(a^0)^2 + (a^1)^2} = g",
+      "meaning": "The 4-acceleration components grow but its invariant magnitude stays g; the needed 4-force is m a^mu.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": null,
+      "name": "Particle current",
+      "latex": "J = n_0 u,\\quad J^{\\mu} = \\gamma n_0(1, \\vec v),\\quad n = \\gamma n_0",
+      "meaning": "Density and flux of particles packaged as a 4-vector; printed with u in place of the 3-velocity v.",
+      "symbols": "n_0 rest-frame number density",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.3"
+      }
+    },
+    {
+      "label": "(2.61)",
+      "name": "Action",
+      "latex": "S = \\int_{t_1}^{t_2}\\mathrm{d}t\\,L(q, \\dot q, t)",
+      "meaning": "Integral of the Lagrangian along a path between fixed endpoints.",
+      "symbols": "q generalized coordinate",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.62)",
+      "name": "Newtonian Lagrangian",
+      "latex": "L = T - V",
+      "meaning": "Kinetic minus potential energy.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.63)",
+      "name": "Euler-Lagrange equation",
+      "latex": "\\frac{\\mathrm{d}}{\\mathrm{d}t}\\frac{\\partial L}{\\partial\\dot q} = \\frac{\\partial L}{\\partial q}",
+      "meaning": "Condition for a path to extremize the action; (2.64) gives one such equation per coordinate x^i.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.66)",
+      "name": "Newton's second law from the Lagrangian",
+      "latex": "m\\ddot x = -\\frac{\\partial V}{\\partial x}",
+      "meaning": "Euler-Lagrange equation for L = m xdot^2/2 - V(x); (2.65) is the free case giving xddot = 0.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.67)",
+      "name": "Newtonian gravity Lagrangian",
+      "latex": "L = \\tfrac12 m(\\dot x^2 + \\dot y^2 + \\dot z^2) + \\frac{GMm}{|\\vec r|}",
+      "meaning": "Kinetic energy minus gravitational potential energy -GMm/r. Printed with the square missing on xdot (confirmed on the page render); corrected here.",
+      "symbols": "G gravitational constant; M central mass",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.68)",
+      "name": "Newtonian gravitational equations of motion",
+      "latex": "\\ddot x = -GM\\frac{x}{r^3},\\quad \\ddot y = -GM\\frac{y}{r^3},\\quad \\ddot z = -GM\\frac{z}{r^3}",
+      "meaning": "Inverse-square attraction recovered from the Lagrangian.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.69)",
+      "name": "Relativistic free-particle action",
+      "latex": "S = -m\\int\\mathrm{d}\\tau",
+      "meaning": "Action is minus rest mass times elapsed proper time; stationary action means maximal proper time.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.70)",
+      "name": "Relativistic free Lagrangian",
+      "latex": "L = -\\frac{m}{\\gamma} = -m\\sqrt{1 - v^2}",
+      "meaning": "Follows from dtau = dt/gamma.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.71)",
+      "name": "Action in terms of the metric",
+      "latex": "S = -m\\int\\sqrt{-\\mathrm{d}s^2} = -m\\int(-\\eta_{\\mu\\nu}\\mathrm{d}x^{\\mu}\\mathrm{d}x^{\\nu})^{1/2}",
+      "meaning": "Makes explicit that the action is a length functional built from the metric.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.72)",
+      "name": "Low-velocity expansion of the Lagrangian",
+      "latex": "L = -\\frac{m}{\\gamma} = -m\\left[1 - \\tfrac12 v^2 + \\dots\\right] = -m + \\tfrac12 mv^2 - \\dots",
+      "meaning": "Apart from an irrelevant constant, the Newtonian free Lagrangian is recovered.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.73)",
+      "name": "Proper time with a potential",
+      "latex": "\\sqrt{-\\mathrm{d}s^2} = \\left(1 - \\tfrac12 v^2 + \\Phi\\right)\\mathrm{d}t",
+      "meaning": "Matching L = -m + mv^2/2 - m Phi to -m sqrt(-ds^2)/dt.",
+      "symbols": "Phi Newtonian potential per unit mass",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.74)",
+      "name": "Squaring and truncating",
+      "latex": "\\mathrm{d}s^2 = -\\left[(1+\\Phi) - \\tfrac{v^2}{2}\\right]^2\\mathrm{d}t^2 = -\\left[1 + 2\\Phi + \\Phi^2 - v^2 - v^2\\Phi + \\tfrac{v^4}{4}\\right]\\mathrm{d}t^2",
+      "meaning": "Margin algebra; terms in Phi^2, v^2 Phi and v^4 are then dropped.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.75)",
+      "name": "Weak-potential line element",
+      "latex": "\\mathrm{d}s^2 = -(1 + 2\\Phi)\\mathrm{d}t^2 + \\mathrm{d}x^2 + \\mathrm{d}y^2 + \\mathrm{d}z^2",
+      "meaning": "First hint that a gravitational potential alters the metric; only the time part is reliable at this order (the spatial part is corrected in eqn 5.22).",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.76)",
+      "name": "Free-fall action in curved spacetime",
+      "latex": "S = -m\\int(-g_{\\mu\\nu}\\mathrm{d}x^{\\mu}\\mathrm{d}x^{\\nu})^{1/2}",
+      "meaning": "In GR the flat metric is replaced by a metric shaped by gravitating matter; extremizing this gives geodesics.",
+      "symbols": "g_{mu nu} general metric",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 51,
+        "printed_page": 34,
+        "section": "2.4"
+      }
+    },
+    {
+      "label": "(2.77)",
+      "name": "Relative gamma from two 3-velocities (Exercise 2.2)",
+      "latex": "\\gamma = \\gamma(\\vec u)\\gamma(\\vec v)(1 - \\vec u\\cdot\\vec v)",
+      "meaning": "Lorentz factor of relative motion of two particles with lab velocities u and v.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 51,
+        "printed_page": 34,
+        "section": null
+      }
+    },
+    {
+      "label": "(2.79)",
+      "name": "Lowered momentum components (Exercise 2.3)",
+      "latex": "p_{\\mu} = \\eta_{\\mu\\nu}p^{\\nu} = (-E, \\vec p),\\qquad p\\cdot p = p_{\\nu}p^{\\nu} = -E^2 + p^2 = -m^2",
+      "meaning": "Index lowering flips the sign of the time component; (2.78) is p^mu = (E, p) and (2.80) the invariant.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 51,
+        "printed_page": 34,
+        "section": null
+      }
+    },
+    {
+      "label": "(2.81)",
+      "name": "Gradient operator components (Exercise 2.3)",
+      "latex": "\\partial_{\\mu} = \\left(\\frac{\\partial}{\\partial t}, \\nabla\\right)",
+      "meaning": "Down-index derivative; raising gives partial^mu = (-partial_t, nabla). The exercise's part (iii) prints partial_mu J^mu = -d rho/dt + div J, but with these components the result is +d rho/dt + div J (the continuity-equation form).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 51,
+        "printed_page": 34,
+        "section": null
+      }
+    }
+  ],
+  "figures": [
+    {
+      "label": "Fig. 2.1",
+      "image_path": "gifted-amateur/pages/page-39/img-20.jpeg",
+      "locator": {
+        "pdf_page": 39,
+        "printed_page": 22,
+        "section": null
+      },
+      "caption_paraphrase": "A rough attempt to draw 3+1-dimensional spacetime: the three space directions are squashed into a single shaded plane, with a time axis and a photon path added.",
+      "visual_description": "A vertical arrow labelled t rises from an origin. Three bold arrows labelled x (pointing left), y (down and to the right) and z (up and to the right) radiate from the same origin inside a stippled triangular plane viewed obliquely. A long dashed straight line labelled gamma passes through the origin from lower left to upper right, tilted between the time axis and the spatial plane.",
+      "what_it_teaches": "Spacetime has one time and three space directions that cannot all be drawn faithfully; diagrams compress space, and light follows a straight 45-degree-type path through the origin.",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "event",
+        "spacetime coordinates"
+      ],
+      "redesign": {
+        "idea": "A 3D spacetime viewer where the learner chooses which spatial dimension to suppress, turning a 3-space slice into a 2+1 diagram with a light cone and photon world line.",
+        "interaction": "Toggle which of x, y, z is hidden; orbit the camera; drag a photon's direction and watch its world line stay on the cone.",
+        "form": "interactive-3d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 2.2",
+      "image_path": "gifted-amateur/pages/page-40/img-21.jpeg",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      },
+      "caption_paraphrase": "A vector exists without coordinates; imposing a basis lets it be written as components times basis vectors.",
+      "visual_description": "Two stacked sketches. Top: a straight arrow labelled X runs from a dot marked A at lower left to a dot marked B at upper right, with no axes. Bottom: the same arrow X drawn as the hypotenuse of a right triangle whose horizontal leg is an arrow labelled X^x e_x and whose vertical leg is an arrow labelled X^y e_y, meeting at the tip of X.",
+      "what_it_teaches": "Separates the geometric object (arrow between events) from its representation (component-weighted basis vectors).",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "4-vector",
+        "basis vectors",
+        "vector components"
+      ],
+      "redesign": {
+        "idea": "Fixed arrow between two draggable events with a rotatable, stretchable basis overlay; component readouts change while the arrow never moves.",
+        "interaction": "Drag events A and B; rotate or skew the basis; see X^mu update and the reconstructed sum X^mu e_mu snap onto the same arrow.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 2.3",
+      "image_path": "gifted-amateur/pages/page-41/img-22.jpeg",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      },
+      "caption_paraphrase": "Unprimed and primed frames shown with a single space axis each.",
+      "visual_description": "An L-shaped pair of axes labelled t (vertical) and x (horizontal) with S near the corner. A second, smaller L-shaped pair labelled t' and x' sits displaced up and to the right, marked S', with a horizontal arrow labelled v pointing right from its vertical axis. A dot labelled P lies in the quadrant of the primed axes. Both frames are drawn with perpendicular axes (not as tilted Minkowski axes).",
+      "what_it_teaches": "The same event P can be described in two frames in relative motion; motivates primed indices for the second frame.",
+      "figure_type": "schematic",
+      "concepts": [
+        "Lorentz transformation",
+        "index conventions"
+      ],
+      "redesign": {
+        "idea": "Proper Minkowski diagram: S axes orthogonal, S' axes drawn as scissored lines determined by a velocity slider, with an event P whose coordinates are read off in both frames by grid lines parallel to each set of axes.",
+        "interaction": "Slide beta from -0.9 to 0.9; drag P; readouts show (t,x) and (t',x') plus the matrix Lambda acting on the column vector, with -t^2 + x^2 displayed as unchanged.",
+        "form": "interactive-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 2.4",
+      "image_path": "gifted-amateur/pages/page-42/img-23.jpeg",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      },
+      "caption_paraphrase": "A light cone and the three types of vector drawn from its apex.",
+      "visual_description": "An hourglass double cone with stippled elliptical rims top and bottom, apex in the middle. Three arrows leave the apex, all toward the upper right: the arrow labelled timelike climbs at a steep angle and stays inside the upper cone; the arrow labelled null runs along the upper cone's surface to its rim; the arrow labelled spacelike points only slightly above horizontal and exits the cones altogether.",
+      "what_it_teaches": "The sign of X.X corresponds to whether the arrow lies inside, on, or outside the light cone, and this classification is frame independent.",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "light cone",
+        "timelike, null and spacelike vectors"
+      ],
+      "redesign": {
+        "idea": "Draggable arrow from the apex of a 2+1 light cone that colours itself by causal type and shows X.X live; a boost slider tilts components but never changes the colour.",
+        "interaction": "Drag arrow tip in 3D; apply boosts; watch components change while X.X and classification stay fixed.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Table 2.1",
+      "image_path": null,
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.3"
+      },
+      "caption_paraphrase": "Common 4-vectors with their self-scalar-product invariants; the position vector is flagged as not surviving general coordinate changes.",
+      "visual_description": "Three-column ruled table: physical quantity, 4-vector, invariant. Rows: interval ds with -dtau^2; position x with -tau^2 (asterisk); velocity u = dx/dtau with -1; momentum p = m u with -m^2; force f = dp/dtau with m^2|a|^2; acceleration a = du/dtau with |a|^2; current J = n_0 u with -n_0^2. Exported only as an HTML table, not an image.",
+      "what_it_teaches": "Every physical 4-vector comes with an invariant that all observers agree on; timelike ones have negative squares and the two derived by differentiating u are spacelike.",
+      "figure_type": "table",
+      "concepts": [
+        "4-velocity",
+        "4-momentum",
+        "4-force",
+        "4-acceleration",
+        "particle current 4-vector",
+        "position 4-vector"
+      ],
+      "redesign": {
+        "idea": "Interactive 4-vector card deck: each card shows a world line with the vector drawn on it, components in the current frame, and its invariant.",
+        "interaction": "Pick a particle speed and a frame velocity; all cards update components while the invariants column stays constant; clicking a card opens its derivation.",
+        "form": "interactive-2d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 2.5",
+      "image_path": "gifted-amateur/pages/page-45/img-24.jpeg",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      },
+      "caption_paraphrase": "In observer U's frame, the rescaled 4-velocity v/gamma of a second observer splits into u plus a spatial relative velocity.",
+      "visual_description": "A shaded parallelogram drawn in perspective is labelled 'Spacelike three-space of U'. From a dot on it, a vertical arrow u points straight up, a longer diagonal arrow v/gamma points up and to the right, and a short horizontal arrow v_rel lies in the plane. Dotted lines complete a rectangle: one horizontal from the tip of u to the tip of v/gamma, one vertical from the tip of v_rel up to the tip of v/gamma.",
+      "what_it_teaches": "Vector addition v/gamma = u + v_rel with v_rel orthogonal to u; dotting with u isolates -gamma, and squaring gives gamma in terms of v_rel.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "relative velocity from u.v",
+        "4-velocity",
+        "observer-measured components"
+      ],
+      "redesign": {
+        "idea": "Observer-split explorer: choose two world lines; the scene shows U's time axis and simultaneity plane, projects V's 4-velocity into parallel and orthogonal parts, and reports gamma = -u.v.",
+        "interaction": "Drag V's velocity arrow; switch to V's frame to see the roles swap; toggle a Euclidean-looking versus Minkowski-correct drawing to highlight that 'orthogonal' uses eta.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 2.6",
+      "image_path": "gifted-amateur/pages/page-47/img-25.jpeg",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      },
+      "caption_paraphrase": "A world line with constant proper acceleration is a hyperbola.",
+      "visual_description": "Axes t (vertical) and x (horizontal). To the right of the t axis a curve touches the x axis at its closest point and bends away to larger x both above and below, like a sideways C opening to the right. Dots along the curve carry short tangent arrows pointing upward (future), one labelled u; the arrows tilt further from vertical the farther the point is from the x axis.",
+      "what_it_teaches": "Uniform proper acceleration gives x^2 - t^2 = 1/g^2; the 4-velocity stays tangent and tilts toward but never reaches 45 degrees.",
+      "figure_type": "spacetime-diagram",
+      "concepts": [
+        "uniformly accelerated (hyperbolic) motion",
+        "4-velocity",
+        "4-acceleration"
+      ],
+      "redesign": {
+        "idea": "Rocket with constant proper acceleration on a Minkowski diagram: world line, tangent u and orthogonal a arrows drawn with Minkowski orthogonality, plus the 45-degree asymptote.",
+        "interaction": "Slider for g and for proper time tau; readouts of v = tanh(g tau), gamma, and |a| = g; a light pulse emitted from behind the asymptote never catches the rocket.",
+        "form": "animated-2d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. 2.7",
+      "image_path": "gifted-amateur/pages/page-48/img-26.jpeg",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.3"
+      },
+      "caption_paraphrase": "A moving box is shorter along its motion, so the same particles are packed more densely.",
+      "visual_description": "Top: a long rectangular 3D box filled with scattered dots, with a double-headed arrow beneath labelled l. Bottom: a shorter box of the same height and depth, with dots that look more crowded, a double-headed arrow labelled l/gamma, and an arrow labelled v pointing right from its side.",
+      "what_it_teaches": "Why the time component of the particle current is gamma n_0: contraction reduces volume while particle number is fixed.",
+      "figure_type": "cartoon-or-analogy",
+      "concepts": [
+        "particle current 4-vector",
+        "length contraction"
+      ],
+      "redesign": {
+        "idea": "Particle box whose length contracts as a speed slider increases, with a live count of particles per unit volume and a flux counter at a plane.",
+        "interaction": "Slide v; see n = gamma n_0 and J^x = n v update; a Minkowski panel shows the corresponding J vector tilting.",
+        "form": "interactive-2d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. 2.8",
+      "image_path": "gifted-amateur/pages/page-49/img-27.jpeg",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      },
+      "caption_paraphrase": "Several candidate paths connecting the same fixed start and end points.",
+      "visual_description": "Two dots: q(t1) at the left and q(t2) at the upper right. Five or six hand-drawn curves with arrowheads connect them, some wavy with wiggles, one arcing high above, and one making a wide loop below and around to the right; all share both endpoints.",
+      "what_it_teaches": "The action is evaluated on every path with the same endpoints and Hamilton's principle selects the extremal one; variations vanish at the ends.",
+      "figure_type": "orbit-or-trajectory",
+      "concepts": [
+        "Hamilton's principle of least action",
+        "action"
+      ],
+      "redesign": {
+        "idea": "Action landscape explorer: the learner sketches or perturbs a path between fixed endpoints for a chosen Lagrangian (free, harmonic, uniform gravity, relativistic -m/gamma) and sees the action value; a gradient-descent button relaxes it to the true path.",
+        "interaction": "Drag control points of a spline path; readout of S; toggle to a spacetime version where the relativistic action rewards the straight world line with maximal proper time.",
+        "form": "interactive-plot",
+        "priority": "high"
+      }
+    }
+  ],
+  "worked_examples": [
+    {
+      "label": "Example 2.1",
+      "locator": {
+        "pdf_page": 39,
+        "printed_page": 22,
+        "section": null
+      },
+      "problem": "Recap what an event is and how an observer assigns it coordinates.",
+      "method": "Describe events as physical happenings recorded by observers with clocks and a coordinate grid; package the readings as x^mu = (ct, x, y, z) and view the event as an arrow from the origin.",
+      "key_insight": "Coordinates of an event are frame-dependent labels; the event itself is not.",
+      "result": "x^mu = (ct, x) with upstairs index.",
+      "concepts": [
+        "event",
+        "spacetime coordinates",
+        "position 4-vector"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 2.2",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      },
+      "problem": "Review Euclidean 3-vectors in index notation.",
+      "method": "Expand in basis vectors with up-indexed components, write the dot product, state orthonormality with the Kronecker delta, and project components out by dotting with basis vectors.",
+      "key_insight": "The index placement rules and the projection trick are the same ones that will be adapted to spacetime, where the metric replaces delta_ij.",
+      "result": "a.e_x = a^x.",
+      "concepts": [
+        "basis vectors",
+        "vector components",
+        "Kronecker delta"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 2.3",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      },
+      "problem": "Write the Lorentz boost along x as a matrix acting on vector components.",
+      "method": "Arrange the Chapter 1 transformation of (t, x, y, z) into a 4x4 matrix and abbreviate it with the summation convention.",
+      "key_insight": "Transformation laws are matrix multiplication on component columns; index notation is shorthand for this.",
+      "result": "Matrix (2.10) with gamma and -beta gamma entries.",
+      "concepts": [
+        "Lorentz boost matrix",
+        "Einstein summation convention"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 2.4",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      },
+      "problem": "Show what invariance of vector length implies for the Lorentz matrices and for general scalar products.",
+      "method": "Write X.X in both frames, substitute the transformation of components, require equality for every X, and conclude eta_{mu' nu'} Lambda Lambda = eta_{mu nu}; then apply to X.Y.",
+      "key_insight": "The metric is the thing Lorentz transformations preserve; this single identity is what makes dot products trustworthy across frames.",
+      "result": "eqns (2.23) and (2.24).",
+      "concepts": [
+        "invariance of the scalar product",
+        "Lorentz transformation",
+        "Minkowski metric"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 2.5",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      },
+      "problem": "Determine how basis vectors transform given how components do.",
+      "method": "Posit e_{alpha'} = Lambda^mu_{alpha'} e_mu, substitute both transformations into X = X^{alpha'} e_{alpha'}, and demand the result equal X^mu e_mu, so the matrices must multiply to the Kronecker delta.",
+      "key_insight": "Components and basis vectors transform oppositely so that the arrow they build stays put.",
+      "result": "Lambda^mu_{alpha'} is the inverse of Lambda^{alpha'}_mu; identities (2.29).",
+      "concepts": [
+        "transformation of basis vectors",
+        "inverse Lorentz transformation",
+        "Kronecker delta"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 2.6",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      },
+      "problem": "Find the transformation rule for lower-index objects such as the gradient of a scalar field.",
+      "method": "Use the chain rule for partial derivative operators, with old coordinates differentiated by new ones, and apply it to d phi/dx^mu.",
+      "key_insight": "Up indices transform like differentials dx^mu; down indices transform like derivatives d/dx^mu, i.e. with the inverse matrix.",
+      "result": "eqns (2.31) and (2.32).",
+      "concepts": [
+        "gradient as a down-indexed object",
+        "inverse Lorentz transformation"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 2.7",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      },
+      "problem": "Three uses of 4-velocity: its rest-frame form, extracting an observer's measured time component of any vector, and relating two observers' 4-velocities to their relative speed.",
+      "method": "(i) In the rest frame u = (1,0,0,0) so u.u = -1. (ii) Compute X.u in that frame and invoke invariance. (iii) In U's frame write v/gamma = u + v_rel, dot with itself for gamma, dot with u for u.v.",
+      "key_insight": "Work out a dot product in the frame where it is simplest; because it is invariant, the answer holds everywhere.",
+      "result": "X^0_obs = -X.u; gamma = (1 - v_rel^2)^{-1/2}; u.v = -gamma.",
+      "concepts": [
+        "4-velocity",
+        "observer-measured components",
+        "relative velocity from u.v"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 2.8",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      },
+      "problem": "Express 4-momentum in a form that also applies to photons.",
+      "method": "Use p = gamma m v and E = gamma m to get p = E v, then write p^mu = (E, E v).",
+      "key_insight": "Eliminating m and gamma leaves a formula meaningful for massless particles, whose momentum vector is null.",
+      "result": "p^mu = (E, E v^x, E v^y, E v^z).",
+      "concepts": [
+        "4-momentum",
+        "photon 4-momentum"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 2.9",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      },
+      "problem": "Relate the components of the 4-force to the Newtonian 3-force.",
+      "method": "Use f.u = 0 with u = (gamma, gamma v) to find f^0 = f.v; write f = dp/dtau with the chain rule dt/dtau = gamma to get f^mu = gamma(dp^0/dt, dp^i/dt); identify the spatial part with gamma F.",
+      "key_insight": "The time component of the 4-force is essentially power, so energy conservation is built into the 4-vector law.",
+      "result": "f^mu = (gamma F.v, gamma F), consistent with dE/dt = F.v.",
+      "concepts": [
+        "4-force",
+        "normalization u.u = -1"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example 2.10",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      },
+      "problem": "Find the world line of a body with constant proper acceleration g along x.",
+      "method": "Write first-order equations for t, x, u^0, u^1 in proper time; impose u.u = -1, u.a = 0, a.a = g^2 to get du^0/dtau = g u^1 and du^1/dtau = g u^0 (algebra in margin note 23); differentiate again to get simple exponential-type ODEs and pick initial conditions t = 0, x = 1/g at tau = 0.",
+      "key_insight": "Invariant constraints turn an apparently hard accelerated-motion problem into coupled linear ODEs; the solution is a hyperbola, and special relativity handles acceleration perfectly well.",
+      "result": "t = sinh(g tau)/g, x = cosh(g tau)/g, x^2 - t^2 = 1/g^2, v = tanh(g tau), a^mu = (g sinh g tau, g cosh g tau) with |a| = g.",
+      "concepts": [
+        "uniformly accelerated (hyperbolic) motion",
+        "4-acceleration",
+        "proper acceleration"
+      ],
+      "difficulty": "challenging"
+    },
+    {
+      "label": "Example 2.11",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      },
+      "problem": "Apply the Euler-Lagrange equations to simple Newtonian systems.",
+      "method": "Insert L = T - V for a free particle in 1D and 3D, a particle in a potential V(x), a harmonic oscillator and a Newtonian point-mass potential, and compute the equations of motion.",
+      "key_insight": "The single variational recipe reproduces the law of inertia, Newton's second law, simple harmonic motion and inverse-square gravity.",
+      "result": "xddot = 0; m xddot = -dV/dx; m xddot = -k x; rddot = -GM r/r^3.",
+      "concepts": [
+        "Euler-Lagrange equations",
+        "Lagrangian",
+        "law of inertia"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 2.12",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      },
+      "problem": "Write the relativistic free-particle action in terms of the metric components.",
+      "method": "Substitute dtau = sqrt(-ds^2) and ds^2 = eta_{mu nu} dx^mu dx^nu into S = -m int dtau.",
+      "key_insight": "The action is a metric-length functional, which is exactly what later allows eta to be swapped for g.",
+      "result": "S = -m int (-eta_{mu nu} dx^mu dx^nu)^{1/2}.",
+      "concepts": [
+        "relativistic free-particle action",
+        "Minkowski metric"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example 2.13",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      },
+      "problem": "See what adding a Newtonian potential to the relativistic Lagrangian implies for the interval.",
+      "method": "Add -m Phi to the expanded Lagrangian, equate L dt to -m sqrt(-ds^2), square, and discard terms of order Phi^2, v^2 Phi and v^4.",
+      "key_insight": "A weak potential can be absorbed into the time-time component of the metric: gravity can be geometry.",
+      "result": "ds^2 = -(1 + 2 Phi) dt^2 + dx^2 + dy^2 + dz^2 (time part only trustworthy).",
+      "concepts": [
+        "weak-field metric from a potential",
+        "non-relativistic limit"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      },
+      "problem": "Test whether dx/dt qualifies as a 4-vector velocity.",
+      "method": "Form its components (1, dx/dt), compute the Minkowski square and note it equals -1/gamma^2, which varies with frame; then differentiate with respect to tau instead and recompute.",
+      "key_insight": "The self-scalar-product is a quick diagnostic: a real 4-vector must have a frame-independent square.",
+      "result": "dx/dt fails; u = dx/dtau = (gamma, gamma v) with u.u = -1 succeeds.",
+      "concepts": [
+        "4-velocity",
+        "proper time",
+        "invariance of the scalar product"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      },
+      "problem": "Check that L = -m/gamma is a sensible free-particle Lagrangian.",
+      "method": "Expand sqrt(1 - v^2) for small v and drop the constant term, which does not affect the Euler-Lagrange equations.",
+      "key_insight": "A relativistic proposal must reduce to Newtonian physics at low speed; constants in L are dynamically irrelevant.",
+      "result": "L = -m + m v^2/2 + ..., so free Newtonian motion is recovered.",
+      "concepts": [
+        "relativistic free-particle action",
+        "non-relativistic limit"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": null,
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.3"
+      },
+      "problem": "Interpret the components of the particle current 4-vector for a moving cloud.",
+      "method": "Write J = n_0 u in the rest frame as n_0(1,0,0,0) and in a general frame as gamma n_0(1, v); read the time component as density and spatial components as flux through planes.",
+      "key_insight": "Density is not invariant; it grows by gamma because of length contraction, while n_0 is the invariant.",
+      "result": "n = gamma n_0; J^x = n v^x particles per unit area per unit time.",
+      "concepts": [
+        "particle current 4-vector",
+        "length contraction"
+      ],
+      "difficulty": "intro"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "A local street map of New York cannot be extended to cover the whole spherical Earth",
+      "target_concept": "spacetime coordinates",
+      "how_used": "Explains why flat spacetime allows one global coordinate system while curved spacetime will only allow local coordinate patches.",
+      "limits": "The Earth's surface is curved space, not spacetime, and is visibly embedded in 3D; spacetime curvature is intrinsic with no outside view.",
+      "locator": {
+        "pdf_page": 39,
+        "printed_page": 22,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": "Try to lay a square grid over a globe versus a plane; distortion grows away from a chosen patch."
+    },
+    {
+      "analogy": "The 'shopping vector' of fish price and bread price",
+      "target_concept": "4-vector",
+      "how_used": "A pair of numbers in brackets does not become a vector just by notation: rotating your trolley does not mix the prices, so the pair fails the transformation test.",
+      "limits": "Humorous and rotation-based rather than Lorentz-based; does not show what proper transformation looks like.",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": null
+      },
+      "effectiveness": "strong",
+      "app_idea": "Rotate a coordinate grid under a genuine displacement arrow and under a 'price pair'; only the arrow's components mix consistently."
+    },
+    {
+      "analogy": "Up-indexed components behave like differentials dx, down-indexed ones like derivatives d/dx",
+      "target_concept": "contravariant and covariant components",
+      "how_used": "Gives a calculus-based mnemonic for which matrix (Lambda or its inverse) acts, avoiding the confusing words contravariant and covariant.",
+      "limits": "Mnemonic only; the geometric distinction between vectors and 1-forms is left to Chapter 4.",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      },
+      "effectiveness": "strong",
+      "app_idea": "Stretch the x axis by a factor k: displacement components shrink by 1/k while gradient components grow by k, shown side by side."
+    },
+    {
+      "analogy": "Twin paradox: the unaccelerated twin ages most",
+      "target_concept": "relativistic free-particle action",
+      "how_used": "Justifies the minus sign in S = -m int dtau: the physical straight world line maximizes proper time, so minimizing S corresponds to maximizing tau.",
+      "limits": "Only a reminder here; the maximality holds among timelike paths and is not proven in this chapter.",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Drag a kink into a world line between two fixed events and watch the proper-time counter drop."
+    },
+    {
+      "analogy": "Fermat's principle: light takes the route of least time",
+      "target_concept": "Hamilton's principle of least action",
+      "how_used": "Offers a familiar optical variational principle as a model for an action proportional to elapsed time along a path.",
+      "limits": "Fermat's time is stationary rather than always minimal, and photons have zero proper time, so the analogy is structural only.",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      },
+      "effectiveness": "useful",
+      "app_idea": null
+    },
+    {
+      "analogy": "Particles crowded into a contracted box",
+      "target_concept": "particle current 4-vector",
+      "how_used": "Makes the gamma factor in the observed number density visual.",
+      "limits": "Ignores relativity of simultaneity in how 'the same particles' are counted.",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.3"
+      },
+      "effectiveness": "useful",
+      "app_idea": "See Fig. 2.7 redesign."
+    },
+    {
+      "analogy": "Relativistic action as 'mass times path length in time'",
+      "target_concept": "relativistic free-particle action",
+      "how_used": "Reads -m int dtau as an energy (m c^2) times a proper-time length, making it the spacetime analogue of a length functional whose extremals are straight lines.",
+      "limits": "The Minkowski 'length' of a timelike path is maximized, not minimized, by straight lines, opposite to Euclidean intuition.",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      },
+      "effectiveness": "useful",
+      "app_idea": "Compare a Euclidean shortest-path demo with the Minkowski longest-proper-time demo on the same pair of points."
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "Any list of numbers written in brackets is a vector.",
+      "correction": "A vector is defined by how its components change under coordinate transformations; arbitrary lists (like prices) do not transform properly.",
+      "why_tempting": "Programming and school algebra call any ordered list a vector.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": null
+      },
+      "concepts": [
+        "4-vector"
+      ]
+    },
+    {
+      "misconception": "dx/dt is the relativistic velocity 4-vector.",
+      "correction": "Its square -1/gamma^2 is frame dependent, so it is not a 4-vector; the 4-velocity uses proper time, u = dx/dtau.",
+      "why_tempting": "Newtonian velocity is dx/dt and coordinate time looks like the natural parameter.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      },
+      "concepts": [
+        "4-velocity",
+        "proper time"
+      ]
+    },
+    {
+      "misconception": "Special relativity cannot describe accelerated motion; you need general relativity for that.",
+      "correction": "Special relativity handles acceleration using instantaneous rest frames and 4-acceleration; Example 2.10 solves uniform acceleration exactly.",
+      "why_tempting": "SR is introduced via inertial frames, and GR is often advertised as the theory of accelerated frames.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      },
+      "concepts": [
+        "4-acceleration",
+        "instantaneous rest frame",
+        "uniformly accelerated (hyperbolic) motion"
+      ]
+    },
+    {
+      "misconception": "'Covariant vector' means a vector that transforms properly and 'contravariant' means one that does not.",
+      "correction": "Both kinds transform properly; the labels only indicate lower versus upper index placement (gradient-like versus differential-like), which is why the book prefers 'upstairs/downstairs'.",
+      "why_tempting": "'Covariant' is also used for 'form-invariant under transformations'.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      },
+      "concepts": [
+        "contravariant and covariant components"
+      ]
+    },
+    {
+      "misconception": "The position vector is as fundamental in general relativity as in special relativity.",
+      "correction": "Position vectors from an origin only transform properly under linear (Lorentz) transformations; in GR only infinitesimal displacements dx^mu survive as vectors.",
+      "why_tempting": "In Euclidean and Minkowski space the position vector is the first vector anyone meets.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      },
+      "concepts": [
+        "position 4-vector"
+      ]
+    },
+    {
+      "misconception": "Vectors and intervals between events are the same thing.",
+      "correction": "They coincide in flat spacetime, but in curved spacetime vectors live at a point (tangent spaces) and finite separations are not vectors.",
+      "why_tempting": "Eqn 2.2 defines a vector as B - A.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      },
+      "concepts": [
+        "4-vector"
+      ]
+    },
+    {
+      "misconception": "The principle of least action always picks the path of minimum action.",
+      "correction": "The physical path makes the action stationary: it can be a minimum, maximum or saddle.",
+      "why_tempting": "The traditional name says 'least'.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      },
+      "concepts": [
+        "Hamilton's principle of least action"
+      ]
+    },
+    {
+      "misconception": "A straight world line has the shortest proper time between two events, as a straight line is shortest in Euclidean space.",
+      "correction": "In Minkowski spacetime the straight timelike world line has the longest proper time; hence the minus sign in S = -m int dtau.",
+      "why_tempting": "Euclidean geometry trains us that straight means shortest.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      },
+      "concepts": [
+        "relativistic free-particle action",
+        "proper time"
+      ]
+    },
+    {
+      "misconception": "Perpendicular 4-vectors look perpendicular on a spacetime diagram.",
+      "correction": "Minkowski orthogonality u.a = 0 means the two arrows are mirror-symmetric about the light cone line, not at a Euclidean right angle, except in the rest frame.",
+      "why_tempting": "Figures such as Fig. 2.5 draw u and v_rel at right angles, which is only accurate in U's own frame.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      },
+      "concepts": [
+        "4-acceleration",
+        "relative velocity from u.v",
+        "scalar product in spacetime"
+      ]
+    },
+    {
+      "misconception": "Eqn 2.75 is the correct weak-field metric of GR.",
+      "correction": "Only the time-time part is reliable at this order; the spatial part also picks up a factor (1 - 2 Phi), as shown later (eqn 5.22).",
+      "why_tempting": "The derivation looks complete and gives a tidy line element.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      },
+      "concepts": [
+        "weak-field metric from a potential"
+      ]
+    },
+    {
+      "misconception": "Number density is a Lorentz scalar.",
+      "correction": "Only the rest-frame density n_0 is invariant; the density measured by a moving observer is gamma n_0 and is the time component of J.",
+      "why_tempting": "Counting particles per volume sounds frame independent.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.3"
+      },
+      "concepts": [
+        "particle current 4-vector"
+      ]
+    },
+    {
+      "misconception": "Components with a minus sign in the time slot mean the metric makes time 'imaginary' or negative.",
+      "correction": "The minus sign in eta_00 simply encodes that timelike separations have negative squared interval in this signature; conventions with (+,-,-,-) flip all signs without changing physics.",
+      "why_tempting": "Older texts used ict and learners see -t^2 as strange.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      },
+      "concepts": [
+        "Minkowski metric",
+        "metric signature"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Rotating the shopping trolley",
+      "setup": "Treat the prices of fish and bread as a two-component 'vector' and turn your trolley by 45 degrees at the checkout.",
+      "lesson": "The prices do not mix as components of a real vector would; being a vector means transforming correctly.",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": null
+      },
+      "concepts": [
+        "4-vector"
+      ],
+      "visualizable": true,
+      "app_idea": "Side-by-side rotation of a real displacement and a price pair, with component readouts."
+    },
+    {
+      "name": "Constant-thrust rocket",
+      "setup": "A body experiences the same acceleration g in each of its momentary rest frames for all proper time.",
+      "lesson": "It follows a hyperbola approaching the light cone asymptotically, never reaching light speed, though its proper acceleration never changes.",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      },
+      "concepts": [
+        "uniformly accelerated (hyperbolic) motion"
+      ],
+      "visualizable": true,
+      "app_idea": "Animated rocket on a Minkowski diagram with speedometer v = tanh(g tau) and onboard clock."
+    },
+    {
+      "name": "Boxed particle cloud seen in motion",
+      "setup": "A box of particles at rest has density n_0; view it moving at speed v.",
+      "lesson": "Length contraction raises the observed density to gamma n_0, and the particles form a flux; density and flux unite in one 4-vector.",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.3"
+      },
+      "concepts": [
+        "particle current 4-vector",
+        "length contraction"
+      ],
+      "visualizable": true,
+      "app_idea": "See Fig. 2.7 redesign."
+    },
+    {
+      "name": "Many trial paths with the same endpoints",
+      "setup": "Imagine every possible route a particle could take between q(t1) and q(t2) and assign each an action.",
+      "lesson": "Nature's route is the one whose action does not change to first order under small wiggles.",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      },
+      "concepts": [
+        "Hamilton's principle of least action",
+        "action"
+      ],
+      "visualizable": true,
+      "app_idea": "See Fig. 2.8 redesign."
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "James Joseph Sylvester"
+      ],
+      "year": null,
+      "event": "Coined the terms contravariant and covariant for the two transformation behaviours.",
+      "significance": "The authors regard the terminology as unfortunate and replace it with upstairs/downstairs index language.",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    },
+    {
+      "people": [
+        "Joseph-Louis Lagrange"
+      ],
+      "year": null,
+      "event": "Lagrange (1736-1813 in the margin) showed that equations of motion can be obtained by making an integral over the path stationary, with the Lagrangian taken as kinetic minus potential energy.",
+      "significance": "Provides the action-based route that the book uses to connect mechanics to spacetime geometry.",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      }
+    },
+    {
+      "people": [
+        "William Rowan Hamilton"
+      ],
+      "year": null,
+      "event": "Principle that the realized motion makes the action stationary (name and dates given in the margin).",
+      "significance": "Starting point for the relativistic proper-time action and later for geodesics.",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      }
+    },
+    {
+      "people": [
+        "Pierre de Fermat"
+      ],
+      "year": null,
+      "event": "Principle of least time for light rays (mentioned without biography).",
+      "significance": "Used as the conceptual model for an action measuring elapsed time.",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    },
+    {
+      "people": [
+        "Albert Einstein"
+      ],
+      "year": null,
+      "event": "Instead of adding a gravitational potential to the Lagrangian, made matter shape the metric of spacetime itself.",
+      "significance": "Motivates replacing eta_{mu nu} by g_{mu nu} in the action, the conceptual step from SR to GR.",
+      "locator": {
+        "pdf_page": 51,
+        "printed_page": 34,
+        "section": "2.4"
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Cosmic-ray proton crossing the Galaxy (Exercise 2.4)",
+      "kind": "numerical-estimate",
+      "details": "Galaxy about 1e5 light years across; highest-energy cosmic rays around 1e19 eV; proton rest energy about 1 GeV. Our estimate: gamma is about 1e10, so the crossing takes about 1e5 years in the Galaxy frame and about 1e5 yr / 1e10 = 1e-5 yr, roughly 5 minutes, in the proton frame.",
+      "key_numbers": "gamma ~ 1e10; ~1e5 yr (Galaxy frame); ~3e2 s (proton frame, our estimate)",
+      "locator": {
+        "pdf_page": 52,
+        "printed_page": 35,
+        "section": null
+      }
+    },
+    {
+      "topic": "Power delivered by a force",
+      "kind": "numerical-estimate",
+      "details": "The time component of the 4-force reproduces the classical result that energy changes at the rate F.v.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "topic": "Uniformly accelerated rocket (our illustrative numbers)",
+      "kind": "numerical-estimate",
+      "details": "Using Example 2.10 with g = 9.8 m/s^2 (1/g is about 0.97 light-years in c = 1 units), after one year of proper time v = tanh(1.03) is about 0.77c; after five years v is about 0.9999c. These numbers are our own estimate, not the book's.",
+      "key_numbers": "c/g ~ 0.97 yr; v(1 yr) ~ 0.77c",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "topic": "Photon absorption by a free electron (Exercise 2.6)",
+      "kind": "numerical-estimate",
+      "details": "4-momentum conservation plus invariance of p.p forbids a free electron from absorbing a single photon, which is why absorption needs a nucleus or lattice to take up momentum.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 52,
+        "printed_page": 35,
+        "section": null
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Units",
+      "convention": "c = 1 from printed p.23 onward unless stated; x^0 = t, beta = v, E = gamma m.",
+      "notes": "Exercise 2.9 restores c in E = gamma m c^2.",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": null
+      }
+    },
+    {
+      "item": "Metric signature",
+      "convention": "eta_{mu nu} = diag(-1, 1, 1, 1), signature (-,+,+,+), so ds^2 = -dt^2 + dx^2 and timelike vectors have negative squares.",
+      "notes": "Margin note also calls it (3,1,0) and mentions the opposite (+,-,-,-) convention.",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "item": "Typeface for vectors",
+      "convention": "4-vectors in bold italic (X, u, p); 3-vectors with an arrow over the symbol.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": null
+      }
+    },
+    {
+      "item": "Index alphabets",
+      "convention": "Greek indices 0-3 for spacetime; Roman indices 1-3 for space; components upstairs, basis vectors downstairs.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": null
+      }
+    },
+    {
+      "item": "Primed indices",
+      "convention": "Frame change indicated by priming the index, e.g. X^{mu'}, e_{alpha'}, Lambda^{mu'}_nu; the position of the prime (upper or lower) tells which direction the matrix maps.",
+      "notes": "Eqn 2.30 briefly uses y^{alpha'} for primed coordinates.",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "item": "Lorentz matrix index layout",
+      "convention": "Lambda^{mu'}_nu = dx^{mu'}/dx^nu acts on up components; Lambda^nu_{mu'} = dx^nu/dx^{mu'} is its inverse and acts on down-indexed objects and basis vectors.",
+      "notes": "Boost along x has -beta gamma off-diagonal entries.",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "item": "Squares of vectors",
+      "convention": "X^2 means X.X, which can be negative, zero or positive; |a| denotes sqrt of a.a for a spacelike acceleration.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "item": "Component shorthand",
+      "convention": "u^mu = (1, 0) abbreviates (1, 0, 0, 0) with a 3-vector in the second slot.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "item": "Raised gradient and d'Alembertian",
+      "convention": "partial^2 = eta^{mu nu} partial_mu partial_nu = -partial_t^2 + nabla^2; eta^{mu nu} numerically equals eta_{mu nu}.",
+      "notes": "Proof deferred to Chapter 4.",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    },
+    {
+      "item": "Relativistic action sign",
+      "convention": "S = -m int dtau with the minus sign so the extremum is a minimum of S (maximum of tau).",
+      "notes": null,
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "Index placement matters: coordinates carry upstairs indices, and whether an index is up or down will acquire meaning later.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 39,
+        "printed_page": 22,
+        "section": null
+      }
+    },
+    {
+      "summary": "Coordinates of an event are frame-dependent labels: a different basis gives different numbers for the same event.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 39,
+        "printed_page": 22,
+        "section": null
+      }
+    },
+    {
+      "summary": "The shopping-vector counterexample: prices of fish and bread do not transform when the trolley is rotated, so they are not a vector; vectors must transform covariantly (pointer back to page 3).",
+      "type": "humor-or-aside",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": null
+      }
+    },
+    {
+      "summary": "Vectors and intervals look alike in flat spacetime, but the resemblance breaks down in curved spacetime.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "summary": "The index on e_mu tells which basis vector, not which component.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "summary": "Definition of the Kronecker delta delta_ij (1 when the indices match, 0 otherwise), used for the orthonormal Cartesian basis.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": "2.1"
+      }
+    },
+    {
+      "summary": "Primes sit on indices, not symbols, to mark the transformed frame; this pays off in complicated equations.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "Summation written out explicitly; all transformations considered keep the origin fixed.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "Only Lorentz transformations are used in this chapter, but the Jacobian rule will apply to vector components generally; the position vector obeys it only in special cases (next chapter).",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "Jargon on signature: eigenvalue signs of the metric; positive definite is Riemannian, one sign different is Lorentzian, described as pseudo-Riemannian.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "The mixed Kronecker delta with one index up and one down is needed for reasons explained after tensors are introduced (Chapter 4, Exercise 4.2).",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "Check the inverse matrix by flipping the sign of beta in the boost.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "Factors in index expressions are just numbers, so their order can be rearranged freely (used in eqn 2.27).",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "Contravariant/covariant terms trace to Sylvester; since both types transform properly, the book says upstairs/downstairs instead.",
+      "type": "historical",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "Component form of the d'Alembertian; eta^{mu nu} shown to equal eta_{mu nu} as a matrix in Chapter 4.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    },
+    {
+      "summary": "Boxed aside: the position vector will not upgrade to GR, though infinitesimal displacements and the other listed vectors will.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "summary": "Boxed 'velocity component trick': spatial 4-velocity components equal the ordinary velocity times u^0.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "summary": "Slow-motion limit u^mu approx (1, v); massive particles have timelike velocity with negative square.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "summary": "Lorentz covariant here simply means the object transforms correctly under Lorentz transformations.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "summary": "Spacelike 3-space of an observer means the purely spatial directions in their frame; eqn 2.39 can be checked by components.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "summary": "Special relativity can treat acceleration through a sequence of instantaneous rest frames.",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "summary": "Proper acceleration defined as the rest-frame acceleration, whose square is a.a.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "summary": "Algebra solving the three invariant conditions for a^0 and a^1 and choosing hyperbolic solutions with t = 0 at tau = 0.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      }
+    },
+    {
+      "summary": "Names and dates of Lagrange (1736-1813) and Hamilton (1805-1865) in the margin; portraits appear not to be printed in this copy.",
+      "type": "biography",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      }
+    },
+    {
+      "summary": "The Lagrangian written with scalar q_i assumes 1D motion per particle; in 3D the arguments become 3-vector positions and velocities.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      }
+    },
+    {
+      "summary": "Squaring-and-truncation algebra leading to the weak-potential metric, dropping Phi^2, v^2 Phi and v^4 terms.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "summary": "Caution that the low-speed derivation only constrains the time part; spatial coordinates need correcting too (eqn 5.22).",
+      "type": "caution",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "summary": "One-line check that L = -m/gamma integrated over coordinate time gives back S = -m times total proper time.",
+      "type": "technical-detail",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 9,
+    "pdf_pages": [
+      51,
+      52
+    ],
+    "skills_practiced": [
+      "using -X.u to extract observer-measured quantities",
+      "manipulating u.v = -gamma into a composition formula",
+      "lowering indices with eta and computing invariants p_mu p^mu",
+      "raising the gradient index and forming the d'Alembertian and a 4-divergence",
+      "order-of-magnitude time dilation with ultra-relativistic gamma",
+      "applying a Lorentz boost to a rest-frame 4-momentum and checking invariance",
+      "4-momentum conservation arguments using invariants",
+      "variational calculus with a constraint (catenary)",
+      "deriving canonical momentum and Hamiltonian from L = -m/gamma"
+    ],
+    "notable": [
+      {
+        "number": "2.1",
+        "summary": "Prove that an observer with 4-velocity u assigns energy -p.u to a particle of 4-momentum p.",
+        "skills": [
+          "observer-measured components",
+          "invariance of the scalar product"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Turns the chapter's key observer trick into the formula used throughout GR for measured energies and redshifts.",
+        "pdf_page": 51
+      },
+      {
+        "number": "2.2",
+        "summary": "Starting from u.v = -gamma, express the relative Lorentz factor in terms of two lab-frame 3-velocities, take the slow limit, and interpret the result.",
+        "skills": [
+          "relative velocity from u.v",
+          "non-relativistic limit"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Shows how an invariant statement yields velocity addition without any boost matrices.",
+        "pdf_page": 51
+      },
+      {
+        "number": "2.3",
+        "summary": "Lower the index on the momentum 4-vector, verify the mass-shell invariant, raise the gradient's index, and build the d'Alembertian, the 4-divergence of a current, and the contraction of acceleration with velocity.",
+        "skills": [
+          "index lowering and raising",
+          "d'Alembertian operator",
+          "4-acceleration"
+        ],
+        "difficulty": "standard",
+        "why_notable": "First hands-on index gymnastics with eta before Chapter 4 formalizes 1-forms; note that part (iii) as printed has a sign error on the time-derivative term.",
+        "pdf_page": 51
+      },
+      {
+        "number": "2.4",
+        "summary": "Estimate how long the most energetic cosmic-ray protons take to cross the Galaxy in the Galaxy frame and in their own frame.",
+        "skills": [
+          "Lorentz factor gamma",
+          "proper time"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Dramatic numbers (gamma of order 1e10, minutes versus 1e5 years) make time dilation vivid.",
+        "pdf_page": 52
+      },
+      {
+        "number": "2.6",
+        "summary": "Use 4-momentum conservation to prove a free electron cannot absorb one photon.",
+        "skills": [
+          "4-momentum",
+          "photon 4-momentum",
+          "invariance of the scalar product"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Classic demonstration that squaring 4-vector conservation laws beats component bookkeeping.",
+        "pdf_page": 52
+      },
+      {
+        "number": "2.7",
+        "summary": "Find the shape of a hanging string by the action principle.",
+        "skills": [
+          "calculus of variations",
+          "Euler-Lagrange equations"
+        ],
+        "difficulty": "challenging",
+        "why_notable": "Needs a constraint (fixed length) and is a non-dynamical variational problem, stretching the Lagrangian idea beyond particle motion; the answer is a catenary.",
+        "pdf_page": 52
+      },
+      {
+        "number": "2.8",
+        "summary": "Show that the relativistic Lagrangian -m/gamma gives canonical momentum gamma m v.",
+        "skills": [
+          "relativistic free-particle action"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Confirms the action proposal reproduces relativistic momentum, not just the Newtonian limit.",
+        "pdf_page": 52
+      },
+      {
+        "number": "2.9",
+        "summary": "Construct the Hamiltonian from L = -m/gamma and show it equals the relativistic energy.",
+        "skills": [
+          "relativistic free-particle action",
+          "Legendre transform"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Closes the loop from action to energy gamma m c^2.",
+        "pdf_page": 52
+      }
+    ],
+    "solutions": null
+  },
+  "difficulty": {
+    "math_level": 3,
+    "conceptual_level": 2,
+    "novice_friendliness": 3,
+    "notes": "The physics is standard special relativity, but the chapter front-loads index machinery: primed indices, Lambda versus its inverse distinguished only by prime position, eta^{mu nu} and lowered indices used before they are defined, and dense Example boxes. Example 2.10 and the weak-potential derivation in Example 2.13 require careful algebra. Conceptually gentle otherwise, with helpful mnemonics, but several printed slips (eqn 2.67, Example 2.9, Exercise 2.3(iii), u used for 3-velocity in the particle current) can trip careful readers."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "GA ch0 §0.2",
+      "reason": "Discussion of covariance (printed p.3) that the shopping-vector note appeals to.",
+      "locator": {
+        "pdf_page": 40,
+        "printed_page": 23,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch1 §1.3",
+      "reason": "Intervals, light cones and the Lorentz transformation reused in index form.",
+      "locator": {
+        "pdf_page": 42,
+        "printed_page": 25,
+        "section": "2.2"
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch1 §1.4",
+      "reason": "Calculus of variations, dt/dtau = gamma and the twin-paradox result that straight world lines maximize proper time.",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch3 §3.2",
+      "reason": "Why the position vector fails under general coordinate transformations.",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.3"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch4 §4.1",
+      "reason": "Proof that eta^{mu nu} is the same matrix as eta_{mu nu}; down-indexed objects recast as 1-forms.",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch4 Exercise 4.2",
+      "reason": "Why the Kronecker delta used as identity must carry one index up and one down.",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch5 §5.2",
+      "reason": "Eqn 5.22 corrects the spatial part of the weak-potential metric guessed in eqn 2.75.",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch6 §6.5",
+      "reason": "Gravitational time dilation, the physical meaning of g_00 = -(1 + 2 Phi).",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch8 §8.1",
+      "reason": "Extremal intervals: the proper-time action becomes the route to geodesics.",
+      "locator": {
+        "pdf_page": 51,
+        "printed_page": 34,
+        "section": "2.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch9 §9.2",
+      "reason": "Geodesic equation derived from the action with a general metric, eqn 2.76.",
+      "locator": {
+        "pdf_page": 51,
+        "printed_page": 34,
+        "section": "2.4"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch10 §10.1",
+      "reason": "Observers and measurement generalize the -X.u rule.",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch12 §12.1",
+      "reason": "Particle current and dust lead to the energy-momentum tensor.",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.3"
+      }
+    },
+    {
+      "direction": "forward",
+      "target": "GA ch14 §14.2",
+      "reason": "The d'Alembertian is flagged as the operator of gravitational-wave theory.",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "Admit a candidate 4-vector only if its self-scalar-product is frame independent: dx/dt fails with -1/gamma^2, dx/dtau passes with -1.",
+      "why_effective": "Gives learners a one-line diagnostic instead of an abstract transformation criterion, and explains why proper time must appear.",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      },
+      "app_idea": "Vector audition panel: learner proposes a component recipe (dx/dt, dx/dtau, E and p, price pair), boosts it, and a meter shows whether its square stays fixed."
+    },
+    {
+      "gem": "Compute any invariant in the frame where it is trivial, then trust it in every frame (X^0_obs = -X.u; u.v = -gamma).",
+      "why_effective": "Replaces messy boosts with a strategy that recurs across all of GR (measured energies, redshifts).",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      },
+      "app_idea": "Split-screen: same two vectors shown in lab frame and observer frame; the dot product readout is identical while components differ; a 'switch to easy frame' button animates the boost."
+    },
+    {
+      "gem": "Up indices transform like differentials, down indices like derivatives.",
+      "why_effective": "Anchors an abstract transformation law in the chain rule every learner knows and sets up 1-forms.",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      },
+      "app_idea": "Stretch or boost coordinates under a fixed displacement arrow and a fixed gradient field; show the two component sets responding with Lambda and its inverse."
+    },
+    {
+      "gem": "Keep the arrow fixed to deduce how the basis must change: components and basis vectors transform inversely so their product is unchanged.",
+      "why_effective": "Makes the inverse-matrix rule a consequence of geometry rather than a rule to memorize.",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      },
+      "app_idea": "Fig. 2.2 redesign with a boost slider showing basis arrows scissoring while components compensate."
+    },
+    {
+      "gem": "Decompose another observer's 4-velocity as v/gamma = u + v_rel to read off gamma = -u.v.",
+      "why_effective": "A picture of vector addition yields a relativistic formula with no boost algebra and introduces the observer's spatial slice.",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      },
+      "app_idea": "Fig. 2.5 redesign: drag V's velocity and watch the projection and gamma update."
+    },
+    {
+      "gem": "Differentiate u.u = -1 to learn that force and acceleration are always orthogonal to velocity, then use invariants alone to solve constant proper acceleration.",
+      "why_effective": "Shows the power of constraints over brute-force components and yields the memorable hyperbola.",
+      "locator": {
+        "pdf_page": 47,
+        "printed_page": 30,
+        "section": "2.3"
+      },
+      "app_idea": "Hyperbolic rocket animation with u and a arrows drawn Minkowski-orthogonal and the invariant |a| = g held fixed."
+    },
+    {
+      "gem": "Action = -m times proper time, checked by the Newtonian limit, then a potential inserted to read off a modified g_00, then eta replaced by g.",
+      "why_effective": "In one page it links Lagrangian mechanics, the twin paradox and the idea that gravity lives in the metric, motivating the whole book.",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      },
+      "app_idea": "World-line relaxer: drag a path between two events in a potential well; the app computes the proper-time action with g_00 = -(1 + 2 Phi) and relaxes to the free-fall path, which matches the Newtonian parabola."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "Eqn 2.67 prints the kinetic term with xdot instead of xdot squared (confirmed on the page render).",
+      "impact_on_learner": "A careful reader applying Euler-Lagrange gets an inconsistent x-equation.",
+      "suggestion": "Show the corrected Lagrangian and note the potential energy is -GMm/r, giving +GMm/r in L.",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    },
+    {
+      "issue": "Example 2.9 writes (f^0, f).(gamma, gamma v) = gamma f^0 - gamma f.v, the negative of the (-,+,+,+) scalar product.",
+      "impact_on_learner": "Learners checking signs may doubt the metric convention; the conclusion f^0 = f.v is unaffected.",
+      "suggestion": "Write -gamma f^0 + gamma f.v = 0 explicitly.",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "issue": "Exercise 2.3(iii) states partial_mu J^mu = -d rho/dt + div J, but with partial_mu = (d/dt, nabla) the correct result is +d rho/dt + div J.",
+      "impact_on_learner": "Learners who compute correctly will think they erred; the continuity equation's sign matters later for conservation laws.",
+      "suggestion": "Flag the sign and connect partial_mu J^mu = 0 to the continuity equation.",
+      "locator": {
+        "pdf_page": 52,
+        "printed_page": 35,
+        "section": null
+      }
+    },
+    {
+      "issue": "The particle-current paragraph uses u both for the 4-velocity and for the particles' 3-velocity (J^mu = gamma n_0 (1, u), J^x = gamma n_0 u^x).",
+      "impact_on_learner": "Confuses 4-vector and 3-vector symbols right after the chapter insisted on distinguishing them.",
+      "suggestion": "Use v for the 3-velocity: J^mu = gamma n_0 (1, v).",
+      "locator": {
+        "pdf_page": 48,
+        "printed_page": 31,
+        "section": "2.3"
+      }
+    },
+    {
+      "issue": "Fig. 2.3 draws the primed frame's axes perpendicular and simply displaced, not as tilted Minkowski axes.",
+      "impact_on_learner": "Novices may think a boosted frame is just a shifted Cartesian grid, missing relativity of simultaneity.",
+      "suggestion": "Pair it with a proper Minkowski diagram whose primed axes tilt symmetrically toward the light line.",
+      "locator": {
+        "pdf_page": 41,
+        "printed_page": 24,
+        "section": "2.2"
+      }
+    },
+    {
+      "issue": "The step from invariance of X.X for all X to invariance of X.Y is asserted but not shown.",
+      "impact_on_learner": "Learners may not see why a condition on lengths constrains all dot products.",
+      "suggestion": "Show the polarization trick: expand (X+Y).(X+Y) in both frames.",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "issue": "eta^{mu nu} and lowered indices (partial^2, p_mu in Exercise 2.3) are used before inverse metrics and index raising are defined.",
+      "impact_on_learner": "Index gymnastics feel like unexplained rules.",
+      "suggestion": "Introduce eta^{mu nu} as the matrix inverse of eta_{mu nu} and show numerically that it equals diag(-1,1,1,1) before using it.",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.2"
+      }
+    },
+    {
+      "issue": "The photon's 'velocity' is called a null vector, but u = dx/dtau cannot be defined when dtau = 0.",
+      "impact_on_learner": "Learners may try to normalize a photon 4-velocity or divide by zero proper time.",
+      "suggestion": "Say only the tangent direction is null; parametrize photon paths with an affine parameter (as later chapters do) and define p directly.",
+      "locator": {
+        "pdf_page": 46,
+        "printed_page": 29,
+        "section": "2.3"
+      }
+    },
+    {
+      "issue": "Distinguishing Lambda^{mu'}_nu from its inverse Lambda^nu_{mu'} relies solely on where the prime sits.",
+      "impact_on_learner": "Easy to multiply by the wrong matrix; OCR and handwriting lose primes.",
+      "suggestion": "Always pair index notation with the explicit boost matrix and its beta -> -beta inverse, and practise with numbers.",
+      "locator": {
+        "pdf_page": 43,
+        "printed_page": 26,
+        "section": "2.2"
+      }
+    },
+    {
+      "issue": "Eqn 2.75 looks like a finished weak-field metric though only g_00 is justified; the caution lives in a margin note.",
+      "impact_on_learner": "Learners may later use a wrong spatial metric for light bending (getting half the deflection).",
+      "suggestion": "State the full weak-field metric with (1 - 2 Phi) spatial factor as a preview and explain why slow particles only probe g_00.",
+      "locator": {
+        "pdf_page": 50,
+        "printed_page": 33,
+        "section": "2.4"
+      }
+    },
+    {
+      "issue": "Table 2.1's force invariant m^2|a|^2 assumes constant rest mass and uses |a| for proper acceleration without saying so in the table.",
+      "impact_on_learner": "Readers may insert coordinate acceleration.",
+      "suggestion": "Annotate the table: |a| is the rest-frame acceleration, f = m a holds for constant m.",
+      "locator": {
+        "pdf_page": 44,
+        "printed_page": 27,
+        "section": "2.3"
+      }
+    },
+    {
+      "issue": "Minkowski orthogonality never gets a picture. Fig. 2.5 is explicitly drawn in U's own frame, where u and v_rel really do look perpendicular, but the chapter never shows how the same orthogonal pair looks from any other frame.",
+      "impact_on_learner": "Learners who carry the right-angle picture into a boosted diagram get simultaneity slices and orthogonal 4-vectors wrong.",
+      "suggestion": "Show orthogonal pairs as mirror images across the 45-degree line in a general frame.",
+      "locator": {
+        "pdf_page": 45,
+        "printed_page": 28,
+        "section": "2.3"
+      }
+    },
+    {
+      "issue": "Fig. 2.8's caption uses the variation symbol delta q (vanishing at both endpoints), but the text never defines a variation; the Euler-Lagrange derivation is only referenced back to Section 1.4.",
+      "impact_on_learner": "Readers who skipped Chapter 1's variational calculus meet delta q with no explanation.",
+      "suggestion": "Define a variation as q(t) + epsilon eta(t) with eta(t1) = eta(t2) = 0 and show one line of dS/d epsilon = 0.",
+      "locator": {
+        "pdf_page": 49,
+        "printed_page": 32,
+        "section": "2.4"
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Open with: 'Is a pair of numbers, like the prices of fish and bread, a vector? What would make it one?' Let the learner discover that transformation behaviour is the criterion.",
+    "Order of explanation that works: arrow between events -> basis and components -> boost matrix on components -> metric and dot product -> invariance -> inverse transformation for basis vectors -> physical 4-vectors -> action.",
+    "Before index notation, have the learner multiply the explicit boost matrix on (t, x) = (1, 0) and check that -t^2 + x^2 is unchanged; then reveal Lambda^T eta Lambda = eta as the general statement.",
+    "Check for understanding: ask why the minus sign sits in eta_00 and what X.X < 0 means geometrically on a light-cone picture.",
+    "When introducing 4-velocity, ask the learner to compute dx/dt . dx/dt first; the failure motivates proper time better than any statement.",
+    "Drill the observer trick: 'An observer moves with u; a particle has p. What energy does the observer measure?' Expect -p.u, and ask them to verify in the rest frame.",
+    "Common learner question: 'Why do basis vectors transform the opposite way?' Answer by holding the arrow fixed while shrinking the unit length: components must grow as basis vectors shrink.",
+    "Common learner question: 'Doesn't acceleration need GR?' Point to the hyperbolic rocket solution and the instantaneous rest frame idea; GR is about gravity, not acceleration per se.",
+    "For the action: ask which path between two events a free clock should take to record the most time, then connect the minus sign in S = -m int dtau to that maximum.",
+    "Warn about printed slips: eqn 2.67 missing square, Example 2.9 sign, Exercise 2.3(iii) sign, and u used for 3-velocity in the current; turn them into 'spot the error' checks for strong learners.",
+    "Flag clearly that eqn 2.75 is only half right and that the position vector will be abandoned in Chapter 3, so learners do not over-invest in either.",
+    "Adapt level: for novices keep c visible and use the explicit 2x2 boost; for advanced learners introduce rapidity (v = tanh of rapidity) to connect the hyperbola in Example 2.10 with boosts as hyperbolic rotations."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Concept '4-vector' notes: said the chapter summary names x^0 and x^i; that paragraph actually sits just before Section 2.1 on printed p.23.",
+      "Fig. 2.4: rewrote the visual description after viewing the image. All three arrows point up and to the right; the timelike arrow is not vertical and the spacelike one sits slightly above horizontal.",
+      "Fig. 2.5 gap: the figure is explicitly drawn in U's frame, so the right angle is not an error; reworded the gap as the missing picture of orthogonality in other frames.",
+      "Added six margin notes that were missing: footnote 2 (event coordinates depend on frame), 6 (Kronecker delta), 12 (reordering factors), 17 (meaning of Lorentz covariant), 24 (3D Lagrangian arguments), 25 (L = -m/gamma returns S = -m int dtau).",
+      "Rewrote historical note on Lagrange and concept definition of the law of inertia, which closely tracked the source wording.",
+      "Added a pitfall: the variation delta q in Fig. 2.8's caption is never defined in this chapter."
+    ],
+    "residual_concerns": [
+      "Cross-reference to GA ch5 §5.2 for eqn 5.22 and to ch6 §6.5, ch10 §10.1, ch12 §12.1 are inferred from TOC section titles, not checked against those chapters' text.",
+      "Equations 2.11, 2.18, 2.26, 2.35, 2.47, 2.49, 2.54, 2.64, 2.65, 2.78 and 2.80 are folded into neighbouring key_equations entries rather than listed separately.",
+      "The reading copy drops the superscript numbers on margin notes 7-10 (pdf p.41); their text is present and confirmed against the render."
+    ],
+    "coverage": {
+      "toc_sections": 4,
+      "sections": 5,
+      "inventory_figures": 8,
+      "figures": 9,
+      "inventory_examples": 13,
+      "worked_examples": 16,
+      "concepts": 51,
+      "key_equations": 74,
+      "locators_checked": 40,
+      "locators_wrong": 0,
+      "pages_rendered": 9
+    }
+  }
+}

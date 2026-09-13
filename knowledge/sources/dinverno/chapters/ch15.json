@@ -1,0 +1,4039 @@
+{
+ "book": "dinverno",
+ "unit_id": "ch15",
+ "title": "The Schwarzschild solution",
+ "part": null,
+ "printed_pages": [
+  269,
+  288
+ ],
+ "pdf_pages": [
+  284,
+  303
+ ],
+ "one_line_summary": "Gives invariant definitions of stationary, static and spherically symmetric space-times (timelike Killing vector, hypersurface-orthogonal Killing vector, SO(3) isometries), reduces the general spherical line element to two unknown functions, solves the vacuum equations to obtain the Schwarzschild metric together with Birkhoff's theorem and the identification m = GM/c^2, recasts it in isotropic coordinates, and ends with the TOV equation and the constant-density interior solution.",
+ "role_in_book": "Chapter 15 is the first exact solution in d'Inverno and Vickers and the gateway to the physics half of the book. It cashes in machinery built earlier: Killing vectors and isometries (Chapter 7), the long Einstein-tensor computation for a spherical metric set as Exercise 6.32, the vacuum field equations and weak-field limit (Chapter 10), the perfect-fluid energy-momentum tensor (Chapter 12) and hypersurface geometry (Chapter 14). Its outputs are used immediately: the static metric and world time underlie the red-shift and orbit tests of Chapter 16, the isotropic form feeds the PPN discussion there, the restriction to r > 2m is lifted in Chapters 17-18 (black holes, Kruskal), and the stationary-versus-static distinction returns for the Kerr solution in Chapter 20. Birkhoff's theorem also foreshadows the gravitational-wave chapters by ruling out monopole radiation.",
+ "assumed_background": [
+  {
+   "topic": "Lie derivative of the metric, Killing's equation and Killing vector fields",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch07 §7.7, eq. (7.55)"
+  },
+  {
+   "topic": "Isometries as coordinate maps preserving the metric components",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch07 §7.7, eq. (7.52)"
+  },
+  {
+   "topic": "Standard forms of Killing vectors (flat-space Killing vectors, rotations)",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch07 Exercise 7.4; DIV ch08 Exercise 8.5"
+  },
+  {
+   "topic": "Christoffel symbols, Ricci and Einstein tensor components for the metric diag(e^nu, -e^lambda, -r^2, -r^2 sin^2 theta)",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch06 Exercise 6.32 (ii)-(v)"
+  },
+  {
+   "topic": "Vacuum field equations and the contracted Bianchi identities",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch10 §10.4; DIV ch13 §13.4, §13.6"
+  },
+  {
+   "topic": "Newtonian correspondence g_00 ~ 1 + 2 phi / c^2",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch10 §10.6, eq. (10.49)"
+  },
+  {
+   "topic": "Perfect-fluid energy-momentum tensor and its conservation",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch12 §12.4, eq. (12.22)"
+  },
+  {
+   "topic": "Antisymmetrization brackets and the fact that the antisymmetrized covariant derivative of a covector equals the partial one (torsion-free connection)",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch05-ch06; DIV ch12 §12.6, eq. (12.45)"
+  },
+  {
+   "topic": "Hypersurfaces, normals and induced geometry",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch14 §14.1-14.2"
+  },
+  {
+   "topic": "Conformally related metrics preserve angles and ratios of lengths",
+   "source": "earlier-in-this-book",
+   "where": "DIV ch06 Exercise 6.28"
+  },
+  {
+   "topic": "Spherical polar coordinates and arc length on a sphere",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Integrating factors for first-order differential forms; separable ODEs",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Rotation group SO(3), group axioms and Lie-bracket commutation relations",
+   "source": "advanced-math",
+   "where": null
+  },
+  {
+   "topic": "Newtonian gravitation of a point mass and hydrostatic equilibrium of a self-gravitating ball",
+   "source": "undergrad-mechanics",
+   "where": "DIV ch04 §4.1, eq. (4.4)"
+  }
+ ],
+ "learning_objectives": [
+  "Reader can state and justify the invariant definition of a stationary space-time as one admitting a timelike Killing vector, moving between that and a chart with metric independent of x^0.",
+  "Reader can explain, using the gas-in-a-pipe picture, why static is strictly stronger than stationary (no motion at all, versus steady motion).",
+  "Reader can show that the gradient of f is normal to the level hypersurfaces f = const and derive the condition X_[a nabla_b X_c] = 0 for a hypersurface-orthogonal field.",
+  "Reader can reproduce the argument that a non-null Killing vector obeying X_[a nabla_b X_c] = 0 satisfies X_a = X^2 f_,a, and use it to build coordinates with g_0alpha = 0.",
+  "Reader can use a time-reflection argument to show that invariance under t -> -t forbids dt dx^alpha cross terms, and similarly use theta -> pi - theta and phi -> -phi to forbid angular cross terms.",
+  "Reader can define spherical symmetry through the isometry group and explain how the four-function ansatz is reduced to e^nu dt^2 - e^lambda dr^2 - r^2 dOmega^2 by choosing the areal radius and an integrating-factor time.",
+  "Reader can solve the three independent vacuum equations for nu(t,r), lambda(t,r), remove h(t) by a time reparametrization, and arrive at the Schwarzschild line element.",
+  "Reader can state Birkhoff's theorem, explain why it is surprising compared with Newtonian gravity, and deduce that a radially pulsating spherical star emits no gravitational waves.",
+  "Reader can fix the integration constant by the weak-field limit, obtaining m = GM/c^2, and estimate m for the Sun or Earth.",
+  "Reader can list the six properties of the exterior Schwarzschild solution and test which survive a change to isotropic coordinates.",
+  "Reader can derive the isotropic form r = rho (1 + m/2rho)^2 and explain what conformal flatness of the t = const slices does and does not mean.",
+  "Reader can derive the TOV equation from G^0_0, G^1_1 and nabla_b T^b_a = 0, interpret each relativistic correction relative to Newtonian hydrostatics, and write down the constant-density interior solution matched to the exterior."
+ ],
+ "teaching_approach": {
+  "summary": "A mathematically careful chapter built around invariant definitions. Each symmetry notion is first stated in a special chart (using the starred equality), then promoted to a coordinate-free 'if and only if' statement using the tensor character of the Lie derivative or of the hypersurface-orthogonality condition. Discrete reflection symmetries are used repeatedly to eliminate cross terms, and remaining coordinate freedom is spent deliberately (areal radius, integrating-factor time, rescaled time) to strip the metric down before the field equations are touched. The field-equation stage is short because the Einstein tensor was precomputed in Exercise 6.32. Physical interpretation (Birkhoff, pulsating stars, Newtonian mass) arrives after the derivation, and the chapter closes by reusing the same Einstein-tensor components with a fluid source to reach the TOV equation.",
+  "style_tags": [
+   "axiomatic-mathematical",
+   "derivation-heavy",
+   "components-first",
+   "physical-motivation-first"
+  ],
+  "narrative_arc": [
+   "Motivate the vocabulary with a pipe of gas whose flow can be time-varying, steady, or absent.",
+   "Write stationarity in a special chart (metric independent of x^0), then show the Lie derivative along delta^a_0 vanishes, so the chart-free criterion is a timelike Killing vector.",
+   "Detour into hypersurface geometry: gradients as normals, hypersurface-orthogonal fields, the necessary condition X_[a nabla_b X_c] = 0, and its converse for non-null Killing vectors.",
+   "Define static via time-reversal symmetry, then combine it with the converse result to construct a chart with no time-space cross terms; extract world time and residual coordinate freedom.",
+   "Define spherical symmetry rigorously through isometry groups, then switch to a heuristic 2-sphere construction plus reflection arguments to reach a four-function ansatz.",
+   "Spend coordinate freedom: areal radius r = sqrt(D), integrating factor for a new time, exponentials to lock the signature; arrive at the canonical form with nu and lambda.",
+   "Quote the Einstein tensor from Exercise 6.32, use the Bianchi identities to cut to three equations, integrate, and remove h(t) to obtain the Schwarzschild metric.",
+   "Read off properties: stationary, hypersurface-orthogonal Killing vector hence static (Birkhoff), no monopole radiation, asymptotic flatness, and m = GM/c^2 from the Newtonian limit; summarise six properties.",
+   "Re-coordinatise the same geometry with conformally flat spatial slices (isotropic coordinates).",
+   "Add a static perfect fluid: mass function, TOV equation, the closed-form constant-density star matched to the exterior, and the need for numerics with a realistic equation of state."
+  ],
+  "signature_moves": [
+   "Starred equality (*=) marks statements true only in a privileged chart; the text then upgrades them to tensor statements valid in every chart.",
+   "Boxed biconditional definitions: stationary iff timelike Killing vector; static iff hypersurface-orthogonal timelike Killing vector; spherically symmetric iff SO(3) isometry subgroup with 2-sphere orbits.",
+   "Reflection-symmetry arguments (t -> -t, theta -> pi - theta, phi -> -phi) that flip the sign of a single cross term and therefore force it to vanish.",
+   "Openly trading rigour for a heuristic when the Killing-vector derivation of the spherical line element is too long, while noting rigorous results exist.",
+   "Coordinate freedom as a budget: each transformation (areal radius, integrating factor, h(t) absorption) removes one unknown function before any field equation is solved.",
+   "Emphasising that staticity and asymptotic flatness are consequences of the field equations rather than assumptions, in explicit contrast to other textbooks.",
+   "Embedded '(why?)' and '(exercise)' prompts that turn intermediate steps into reader tasks, collected in the keyed exercise list.",
+   "An end-of-section numbered checklist of properties that a later exercise asks the reader to re-test in a different chart.",
+   "Reusing the precomputed G^0_0 and G^1_1 expressions with a matter source so that the interior problem costs almost no new algebra."
+  ]
+ },
+ "sections": [
+  {
+   "number": "15.1",
+   "title": "Stationary solutions",
+   "printed_page": 269,
+   "pdf_page": 284,
+   "summary": "Announces the plan to solve the vacuum equations under spherical symmetry and first separates stationary from static. A pipe of gas illustrates the three cases. Stationarity is written as a metric independent of a timelike coordinate in some chart; defining X^a = delta^a_0 there makes L_X g_ab vanish, and tensoriality lifts this to all charts. Conversely any timelike Killing field admits an adapted chart. Result: stationary iff a timelike Killing vector exists.",
+   "concepts": [
+    "stationary space-time",
+    "timelike Killing vector field",
+    "adapted coordinates",
+    "Lie derivative of the metric",
+    "starred equality"
+   ],
+   "key_moves": [
+    "Illustrate non-stationary, stationary and static flow with particles in a pipe.",
+    "State stationarity as partial_0 g_ab = 0 in a special chart.",
+    "Compute L_X g_ab for X^a = delta^a_0 and reduce it to g_ab,0.",
+    "Use tensor character: vanishing in one chart means vanishing in all.",
+    "Use the converse (adapted chart for any Killing field) to close the biconditional."
+   ]
+  },
+  {
+   "number": "15.2",
+   "title": "Hypersurface-orthogonal vector fields",
+   "printed_page": 270,
+   "pdf_page": 285,
+   "summary": "Introduces a one-parameter family of hypersurfaces f = mu, shows by differentiating along a curve in a surface that the gradient f_,a annihilates every tangent vector and so is normal, and calls a field hypersurface-orthogonal if it is everywhere proportional to that normal. Antisymmetrizing X_a partial_b X_c gives the necessary condition X_[a partial_b X_c] = 0, equivalently with covariant derivatives. For a non-null Killing field the converse is proved: antisymmetry of nabla_a X_b collapses the condition to three terms, contraction and index gymnastics yield partial_a(X_b/X^2) = partial_b(X_a/X^2), so X_a/X^2 is a gradient and X_a = X^2 f_,a.",
+   "concepts": [
+    "family of hypersurfaces",
+    "normal covector",
+    "hypersurface-orthogonal vector field",
+    "hypersurface-orthogonality condition",
+    "Killing's equation",
+    "non-null vector"
+   ],
+   "key_moves": [
+    "Differentiate f(x(s)) = const along a curve in S to get f_,a T^a = 0.",
+    "Define n_a = f_,a and write the orthogonal field as X^a = lambda n^a.",
+    "Antisymmetrize X_a partial_b X_c; both terms are symmetric in a pair of indices and drop out.",
+    "For a Killing vector, reduce the six antisymmetrized terms to three using nabla_a X_b = -nabla_b X_a.",
+    "Contract with X^c, swap index heights on the dummy index (metric compatibility), add the two forms.",
+    "Replace covariant by partial derivatives in the antisymmetric combinations, divide by X^4 and recognise a closed covector, hence a gradient."
+   ]
+  },
+  {
+   "number": "15.3",
+   "title": "Static solutions",
+   "printed_page": 272,
+   "pdf_page": 287,
+   "summary": "Argues that a static metric in adapted coordinates should have no dx^0 dx^alpha cross terms because the interval between neighbouring events must be unchanged by x^0 -> -x^0, which flips the sign of the cross term. Then shows the invariant route: for a hypersurface-orthogonal timelike Killing vector in adapted coordinates, g_0a = g_00 f_,a with f = x^0 + h(x^alpha); shifting time by h removes g_0alpha while keeping time independence. Conversely the block-diagonal form gives such a Killing vector. Static iff hypersurface-orthogonal timelike Killing vector. Residual freedom x^0 -> A x^0 + B with arbitrary spatial relabelling; asymptotic normalisation fixes A and defines world time, giving a preferred slicing and a class of observers who agree on simultaneity.",
+   "concepts": [
+    "static space-time",
+    "time-reversal symmetry",
+    "hypersurface-orthogonal vector field",
+    "world time",
+    "residual coordinate freedom in static charts",
+    "Gaussian coordinates"
+   ],
+   "key_moves": [
+    "Compare the interval between neighbouring events before and after x^0 -> -x^0; the cross term changes sign so it must vanish.",
+    "Lower the adapted Killing vector: X_a = g_0a and X^2 = g_00.",
+    "Apply X_a = X^2 f_,a; the a = 0 component forces f = x^0 + h(x^alpha).",
+    "Shift the time coordinate by h to remove g_0alpha, keeping g_00 and time independence.",
+    "Show the residual freedom is an affine rescaling of time plus spatial relabelling; fix the scale by g_00 -> 1 at infinity to get world time."
+   ]
+  },
+  {
+   "number": "15.4",
+   "title": "Spherically symmetric solutions",
+   "printed_page": 274,
+   "pdf_page": 289,
+   "summary": "Shows isometries form a group and defines spherical symmetry as possession of an SO(3) subgroup with 2-sphere orbits, implying three spacelike Killing fields with rotation commutators and a Cartesian chart where they are linear rotations. Rather than derive the metric from these, it argues heuristically: rotating a point about the origin sweeps a sphere with the familiar metric a^2(dtheta^2 + sin^2 theta dphi^2); angles can appear only in that combination, and reflections in theta and phi rule out angular cross terms. The resulting ansatz A dt^2 - 2B dt dr - C dr^2 - D dOmega^2 is simplified by taking sqrt(D) as radius and using an integrating factor to define a new time removing the dt dr term, yielding e^nu dt^2 - e^lambda dr^2 - r^2 dOmega^2 with nu, lambda functions of t and r.",
+   "concepts": [
+    "isometry group",
+    "spherical symmetry",
+    "rotation Killing vectors",
+    "2-sphere line element",
+    "areal radius",
+    "integrating-factor time coordinate",
+    "canonical spherically symmetric line element"
+   ],
+   "key_moves": [
+    "Show inverses and compositions of isometries are isometries, hence a group.",
+    "Define spherical symmetry via an SO(3) subgroup with S^2 orbits; note the Killing commutators.",
+    "Construct theta and phi on the orbit sphere and quote its line element.",
+    "Argue that theta, phi enter only through dOmega^2 and that reflections forbid angular cross terms.",
+    "Write the ansatz with four functions A, B, C, D of (t, r).",
+    "Redefine r so that D = r^2.",
+    "Multiply A dt - B dr by an integrating factor to define dt', complete the square and absorb the cross term.",
+    "Encode the remaining two coefficients as exponentials to guarantee signature -2."
+   ]
+  },
+  {
+   "number": "15.5",
+   "title": "The Schwarzschild solution",
+   "printed_page": 277,
+   "pdf_page": 292,
+   "summary": "Uses the diagonal metric and the mixed Einstein tensor from Exercise 6.32(v). The contracted Bianchi identities make the angular equation redundant, leaving three equations. Adding the tt and rr equations gives lambda + nu = h(t); the G^0_1 equation makes lambda time independent; the tt equation becomes (r e^{-lambda})' = 1, integrated with constant -2m. Then e^nu = e^{h(t)}(1 - 2m/r), and a reparametrized time absorbs e^{h(t)}, producing the Schwarzschild line element as the most general spherically symmetric vacuum solution.",
+   "concepts": [
+    "Einstein tensor for a spherically symmetric metric",
+    "contracted Bianchi identities",
+    "vacuum field equations",
+    "Schwarzschild solution",
+    "integration constant m"
+   ],
+   "key_moves": [
+    "Write g_ab and g^ab for the diagonal canonical metric.",
+    "Quote G^0_0, G^0_1, G^1_1, G^2_2 = G^3_3 with dot and prime derivatives.",
+    "Use the Bianchi identities to discard G^2_2 as dependent.",
+    "Add the tt and rr equations: lambda' + nu' = 0, so lambda + nu = h(t).",
+    "Use lambda-dot = 0 so the tt equation is an ODE: (r e^{-lambda})' = 1.",
+    "Choose the integration constant as -2m.",
+    "Absorb e^{h(t)} by t' = integral of e^{h/2} dt."
+   ]
+  },
+  {
+   "number": "15.6",
+   "title": "Properties of the Schwarzschild solution",
+   "printed_page": 279,
+   "pdf_page": 294,
+   "summary": "Restricting to r > 2m, the solution is manifestly stationary with adapted Killing vector delta^a_0, whose lowered form (1 - 2m/r, 0, 0, 0) is a multiple of the gradient of t, so it is hypersurface-orthogonal and the solution is static with t a world time; equivalently it is invariant under time reflection and translation. This yields Birkhoff's theorem, highlighted as unexpected relative to Newtonian gravity: a spherically pulsating star leaves its exterior unchanged and cannot radiate gravitational waves. The converse fails: sources of a Schwarzschild exterior need not be spherical. Large r gives Minkowski space in polars, so asymptotic flatness is also forced rather than assumed. Matching g_00 to the Newtonian weak-field form identifies m = GM/c^2, a length called geometric mass. Six properties are listed; coordinate ranges are deferred to Chapter 17.",
+   "concepts": [
+    "exterior region",
+    "Birkhoff's theorem",
+    "no monopole gravitational radiation",
+    "asymptotic flatness",
+    "geometric mass",
+    "Newtonian limit of the Schwarzschild metric",
+    "world time"
+   ],
+   "key_moves": [
+    "Observe g_ab,0 = 0 and lower the Killing vector to get X_a = g_00 t_,a.",
+    "Conclude static both via hypersurface orthogonality and via time-reflection plus translation invariance.",
+    "State Birkhoff's theorem and draw the pulsating-star consequence.",
+    "Warn that the exterior solution does not force a spherical source.",
+    "Take r -> infinity to get flat space; stress that staticity and flatness at infinity were not assumed.",
+    "Compare g_00 with 1 + 2 phi/c^2 for phi = -GM/r to identify m.",
+    "Summarise six properties for later reuse."
+   ]
+  },
+  {
+   "number": "15.7",
+   "title": "Isotropic coordinates",
+   "printed_page": 281,
+   "pdf_page": 296,
+   "summary": "Seeks a radial coordinate rho in which each t = const slice has a metric conformal to flat 3-space, so angles and length ratios look Euclidean. Matching the angular coefficients gives r = lambda rho and matching radial elements gives a separable ODE; choosing rho -> infinity with r fixes the sign and integration gives r = rho(1 + m/2rho)^2. Substituting yields the isotropic Schwarzschild metric with lapse factor (1 - m/2rho)^2/(1 + m/2rho)^2 and spatial conformal factor (1 + m/2rho)^4.",
+   "concepts": [
+    "isotropic coordinates",
+    "conformally flat spatial slices",
+    "radial coordinate transformation"
+   ],
+   "key_moves": [
+    "Posit ds^2 = A dt^2 - B dsigma^2 with dsigma^2 Euclidean.",
+    "Equate angular coefficients: r^2 = lambda^2 rho^2.",
+    "Equate radial parts, eliminate lambda, separate variables.",
+    "Pick the positive root so that large rho corresponds to large r and integrate.",
+    "Rewrite g_00 in terms of rho."
+   ]
+  },
+  {
+   "number": "15.8",
+   "title": "The Schwarzschild interior solution",
+   "printed_page": 282,
+   "pdf_page": 297,
+   "summary": "Treats a static spherical perfect fluid as a possible interior. The fluid four-velocity is the normalised Killing vector, so T^0_0 = rho and T^i_j = -p delta^i_j. The tt Einstein equation with the mass function m(r) = 4 pi integral rho r^2 dr gives e^{-lambda} = 1 - 2m(r)/r; the rr equation gives nu'; conservation gives dp/dr = -(rho + p) nu'/2; eliminating nu' yields the Tolman-Oppenheimer-Volkoff equation. For uniform density the pressure and metric can be written in closed form (the Schwarzschild interior solution), joining the exterior at r = R where p vanishes. For realistic matter an equation of state p(rho) is required and the TOV equation must generally be integrated numerically.",
+   "concepts": [
+    "static perfect fluid",
+    "mass function",
+    "Tolman-Oppenheimer-Volkoff equation",
+    "relativistic hydrostatic equilibrium",
+    "Schwarzschild interior solution",
+    "equation of state",
+    "matching interior to exterior"
+   ],
+   "key_moves": [
+    "Set u^a = xi^a / sqrt(xi^b xi_b) for the static fluid.",
+    "Reuse G^0_0 with 8 pi rho on the right and write it as a total derivative of r e^{-lambda}.",
+    "Define m(r) and integrate to e^{-lambda} = 1 - 2m(r)/r.",
+    "Solve the G^1_1 equation for nu'.",
+    "Take the r-component of nabla_b T^b_a = 0 to get the pressure gradient.",
+    "Eliminate nu' to reach the TOV equation.",
+    "Specialise to constant density, impose p(R) = 0, and write p(r) and e^nu.",
+    "Explain why a realistic equation of state forces numerical integration."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "stationary space-time",
+   "aliases": [
+    "stationary solution",
+    "stationary metric"
+   ],
+   "kind": "definition",
+   "definition": "A space-time admitting a timelike Killing vector field; equivalently one with a chart whose timelike coordinate x^0 does not appear in any metric component. Time-independent, but steady internal motion (e.g. rotation) is allowed.",
+   "how_introduced": "Motivated by steady gas flow in a pipe, stated first as partial_0 g_ab = 0 in a special chart, then made invariant by noting that the Lie derivative of the metric along delta^a_0 equals g_ab,0 and is a tensor.",
+   "depth": "core",
+   "prerequisites": [
+    "Killing vector field",
+    "Lie derivative of the metric",
+    "timelike vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 284,
+     "printed_page": 269,
+     "section": "15.1"
+    },
+    {
+     "pdf_page": 285,
+     "printed_page": 270,
+     "section": "15.1"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "\\partial g_{ab}/\\partial x^0 \\stackrel{*}{=} 0",
+    "\\mathcal{L}_X g_{ab} = 0,\\ X \\text{ timelike}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "timelike Killing vector field",
+   "aliases": [
+    "time-translation Killing vector",
+    "X^a = delta^a_0"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A vector field X with L_X g_ab = nabla_a X_b + nabla_b X_a = 0 and g_ab X^a X^b > 0 (signature -2) everywhere in the region considered; its flow is a time-translation symmetry.",
+   "how_introduced": "Produced as the coordinate vector delta^a_0 of a chart in which the metric is time-independent; later written xi^a = (1,0,0,0) for the fluid interior.",
+   "depth": "core",
+   "prerequisites": [
+    "Killing vector field",
+    "Lie derivative of the metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 284,
+     "printed_page": 269,
+     "section": "15.1"
+    },
+    {
+     "pdf_page": 288,
+     "printed_page": 273,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    },
+    {
+     "pdf_page": 297,
+     "printed_page": 282,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "\\nabla_a X_b + \\nabla_b X_a = 0",
+    "X^a X_a > 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Killing vector field",
+   "aliases": [
+    "Killing vector",
+    "infinitesimal isometry"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A vector field along which the Lie derivative of the metric vanishes, so that nabla_a X_b is antisymmetric; its flow maps the space-time isometrically to itself.",
+   "how_introduced": "Recalled from Chapter 7 (7.55); its antisymmetry nabla_a X_b = -nabla_b X_a is the key algebraic input to the hypersurface-orthogonality converse.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Lie derivative of the metric",
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 286,
+     "printed_page": 271,
+     "section": "15.2"
+    },
+    {
+     "pdf_page": 289,
+     "printed_page": 274,
+     "section": "15.4"
+    }
+   ],
+   "formulas": [
+    "\\nabla_a X_b = -\\nabla_b X_a"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Lie derivative of the metric",
+   "aliases": [
+    "L_X g_ab"
+   ],
+   "kind": "operation",
+   "definition": "The rate of change of the metric along the flow of X: a directional derivative of the components plus two terms built from the partial derivatives of X; for the metric connection it equals the symmetrized covariant derivative of the covector X_a.",
+   "how_introduced": "Used to translate the chart statement partial_0 g_ab = 0 into a tensor equation valid in all coordinates.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Lie derivative",
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 284,
+     "printed_page": 269,
+     "section": "15.1"
+    }
+   ],
+   "formulas": [
+    "\\mathcal{L}_X g_{ab} = X^c g_{ab,c} + g_{ac}X^c{}_{,b} + g_{bc}X^c{}_{,a}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "adapted coordinates",
+   "aliases": [
+    "coordinates adapted to a Killing vector"
+   ],
+   "kind": "technique",
+   "definition": "A chart in which a given Killing vector field is the coordinate basis vector of one coordinate, X^a = delta^a_0, so the metric components do not depend on that coordinate.",
+   "how_introduced": "Asserted to exist for any Killing field (converse of the stationarity argument) and used throughout 15.3 and 15.6.",
+   "depth": "developed",
+   "prerequisites": [
+    "Killing vector field",
+    "integral curves"
+   ],
+   "locators": [
+    {
+     "pdf_page": 284,
+     "printed_page": 269,
+     "section": "15.1"
+    },
+    {
+     "pdf_page": 288,
+     "printed_page": 273,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "X^a \\stackrel{*}{=} \\delta^a_0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "family of hypersurfaces",
+   "aliases": [
+    "foliation by level sets",
+    "f(x^a) = mu"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A one-parameter set of three-dimensional submanifolds obtained as level sets f(x^a) = mu of a scalar field f, one for each value of mu.",
+   "how_introduced": "Drawn as stacked sheets labelled mu_1, mu_2, mu_3 in preparation for the static definition.",
+   "depth": "introduced",
+   "prerequisites": [
+    "scalar field",
+    "hypersurface"
+   ],
+   "locators": [
+    {
+     "pdf_page": 285,
+     "printed_page": 270,
+     "section": "15.2"
+    }
+   ],
+   "formulas": [
+    "f(x^a) = \\mu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "normal covector",
+   "aliases": [
+    "gradient normal",
+    "n_a = f_,a"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The gradient n_a = partial_a f of the labelling function of a family of hypersurfaces; it contracts to zero with every tangent vector of a level set, so its raised form n^a is orthogonal to the hypersurface.",
+   "how_introduced": "Derived by differentiating f along a curve lying in one hypersurface and applying the chain rule.",
+   "depth": "developed",
+   "prerequisites": [
+    "family of hypersurfaces",
+    "tangent vector",
+    "chain rule"
+   ],
+   "locators": [
+    {
+     "pdf_page": 285,
+     "printed_page": 270,
+     "section": "15.2"
+    }
+   ],
+   "formulas": [
+    "n_a := \\partial f/\\partial x^a",
+    "n_a T^a = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "hypersurface-orthogonal vector field",
+   "aliases": [
+    "surface-orthogonal field",
+    "irrotational field (in fluid language)"
+   ],
+   "kind": "definition",
+   "definition": "A vector field that is everywhere proportional to the normal of some family of hypersurfaces, X_a = lambda f_,a, so its integral curves cross the level sets orthogonally.",
+   "how_introduced": "Introduced as the missing ingredient for a chart-free definition of static; pictured as curves threading stacked sheets with right-angle marks.",
+   "depth": "core",
+   "prerequisites": [
+    "normal covector",
+    "family of hypersurfaces"
+   ],
+   "locators": [
+    {
+     "pdf_page": 285,
+     "printed_page": 270,
+     "section": "15.2"
+    },
+    {
+     "pdf_page": 286,
+     "printed_page": 271,
+     "section": "15.2"
+    },
+    {
+     "pdf_page": 288,
+     "printed_page": 273,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "X^a = \\lambda(x) n^a",
+    "X_a = \\lambda f_{,a}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "hypersurface-orthogonality condition",
+   "aliases": [
+    "Frobenius condition",
+    "X_[a nabla_b X_c] = 0"
+   ],
+   "kind": "theorem",
+   "definition": "A nowhere-vanishing field X is hypersurface-orthogonal exactly when X_[a nabla_b X_c] = 0 (partial derivatives may be used instead). The chapter proves necessity for any field but sufficiency only for non-null Killing vectors, where it produces X_a = X^2 f_,a explicitly.",
+   "how_introduced": "Necessity comes from antisymmetrizing X_a partial_b X_c for X_a = lambda f_,a; the converse uses Killing antisymmetry, contraction with X^c and a closed-implies-exact step.",
+   "depth": "core",
+   "prerequisites": [
+    "hypersurface-orthogonal vector field",
+    "antisymmetrization",
+    "Killing vector field",
+    "torsion-free connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 286,
+     "printed_page": 271,
+     "section": "15.2"
+    },
+    {
+     "pdf_page": 287,
+     "printed_page": 272,
+     "section": "15.2"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "X_{[a}\\nabla_b X_{c]} = 0",
+    "\\partial_a(X_b/X^2) = \\partial_b(X_a/X^2)",
+    "X_a = X^2 f_{,a}"
+   ],
+   "notes": "The general converse (for any vector field) is Frobenius' theorem, which the book does not name."
+  },
+  {
+   "name": "non-null vector",
+   "aliases": [
+    "X^2 != 0"
+   ],
+   "kind": "definition",
+   "definition": "A vector whose squared norm X^a X_a is non-zero; needed so that one can divide by X^2 in the converse argument.",
+   "how_introduced": "Appears as the hypothesis of the partial converse for Killing vectors.",
+   "depth": "mention",
+   "prerequisites": [
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 287,
+     "printed_page": 272,
+     "section": "15.2"
+    }
+   ],
+   "formulas": [
+    "X^2 = X^a X_a \\neq 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "static space-time",
+   "aliases": [
+    "static solution",
+    "static metric"
+   ],
+   "kind": "definition",
+   "definition": "A space-time admitting a hypersurface-orthogonal timelike Killing vector field; equivalently, one possessing a chart where no metric component depends on x^0 and the line element has no dt dx^alpha cross terms, so it is unchanged by both shifts and reversals of time.",
+   "how_introduced": "Motivated by zero flow in the pipe picture and by requiring the interval to be unchanged under x^0 -> -x^0; then derived invariantly by building a chart that removes g_0alpha.",
+   "depth": "core",
+   "prerequisites": [
+    "stationary space-time",
+    "hypersurface-orthogonal vector field",
+    "time-reversal symmetry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 284,
+     "printed_page": 269,
+     "section": "15.1"
+    },
+    {
+     "pdf_page": 287,
+     "printed_page": 272,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 288,
+     "printed_page": 273,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 289,
+     "printed_page": 274,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "ds^2 \\stackrel{*}{=} g_{00}(x^\\gamma)(dx^0)^2 + g_{\\alpha\\beta}(x^\\gamma)dx^\\alpha dx^\\beta"
+   ],
+   "notes": null
+  },
+  {
+   "name": "time-reversal symmetry",
+   "aliases": [
+    "time-symmetric",
+    "invariance under t -> -t"
+   ],
+   "kind": "principle",
+   "definition": "Invariance of the line element under x^0 -> -x^0. Since dx^0 dx^alpha terms change sign while the time-independent coefficients do not, it forces the cross terms to vanish.",
+   "how_introduced": "Used via the interval between two nearby events before and after the reflection; Exercise 15.1 separates time symmetry from stationarity.",
+   "depth": "developed",
+   "prerequisites": [
+    "line element",
+    "stationary space-time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 287,
+     "printed_page": 272,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 288,
+     "printed_page": 273,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "x^0 \\to -x^0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "time-translation invariance",
+   "aliases": [
+    "invariance under t -> t + const"
+   ],
+   "kind": "principle",
+   "definition": "Invariance of the metric under shifts of the time coordinate by a constant; generated by the Killing vector partial_t.",
+   "how_introduced": "Paired with time symmetry as an alternative certificate that Schwarzschild is static; developed in Exercises 15.1-15.2.",
+   "depth": "introduced",
+   "prerequisites": [
+    "timelike Killing vector field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    },
+    {
+     "pdf_page": 300,
+     "printed_page": 285,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "t \\to t + \\text{const}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "world time",
+   "aliases": [
+    "cosmic time of a static space-time",
+    "static time coordinate"
+   ],
+   "kind": "definition",
+   "definition": "The time coordinate of a static chart, normalised so that g_00 -> 1 at spatial infinity; it is unique up to an additive constant and slices space-time into preferred hypersurfaces t = const on which static observers agree about simultaneity.",
+   "how_introduced": "Extracted from the residual freedom x^0 -> A x^0 + B after fixing A = 1 by the boundary condition; presented as a return of Newtonian absolute time for static space-times.",
+   "depth": "developed",
+   "prerequisites": [
+    "static space-time",
+    "residual coordinate freedom in static charts"
+   ],
+   "locators": [
+    {
+     "pdf_page": 289,
+     "printed_page": 274,
+     "section": "15.3"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "x^0 \\to x^0 + B"
+   ],
+   "notes": "World time is not the proper time of a static observer unless g_00 = 1 there; clock rates differ by sqrt(g_00), which is the origin of gravitational red shift in DIV ch16 §16.2."
+  },
+  {
+   "name": "residual coordinate freedom in static charts",
+   "aliases": [],
+   "kind": "technique",
+   "definition": "The transformations preserving the static form: x^0 -> A x^0 + B with constants A, B and arbitrary relabelling of the spatial coordinates among themselves.",
+   "how_introduced": "Stated (proof as exercise) after constructing the static chart; used to define world time.",
+   "depth": "introduced",
+   "prerequisites": [
+    "static space-time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 289,
+     "printed_page": 274,
+     "section": "15.3"
+    }
+   ],
+   "formulas": [
+    "x'^0 = Ax^0 + B,\\quad x'^\\alpha = h'^\\alpha(x^\\beta)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Gaussian coordinates",
+   "aliases": [
+    "Gaussian normal coordinates",
+    "synchronous coordinates"
+   ],
+   "kind": "definition",
+   "definition": "Coordinates with g_00 = 1 and g_0alpha = 0, so the time coordinate is proper time along the orthogonal curves.",
+   "how_introduced": "Named in passing: the text says the world-time coordinates are Gaussian.",
+   "depth": "mention",
+   "prerequisites": [
+    "static space-time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 289,
+     "printed_page": 274,
+     "section": "15.3"
+    }
+   ],
+   "formulas": [
+    "g_{0a} = \\delta_{0a}"
+   ],
+   "notes": "Strictly true only where g_00 = 1; a general static chart has g_0alpha = 0 but g_00 varying (a non-unit lapse)."
+  },
+  {
+   "name": "isometry group",
+   "aliases": [
+    "symmetry group of the metric"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The set of all isometries of a metric, which is closed under composition and inversion and hence forms a group.",
+   "how_introduced": "Built from the Chapter 7 definition by noting (as exercises) that inverses and compositions of isometries are isometries.",
+   "depth": "introduced",
+   "prerequisites": [
+    "isometry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 289,
+     "printed_page": 274,
+     "section": "15.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "spherical symmetry",
+   "aliases": [
+    "spherically symmetric space-time"
+   ],
+   "kind": "definition",
+   "definition": "A space-time whose isometry group contains a subgroup isomorphic to SO(3) whose orbits are topological 2-spheres; equivalently it has three spacelike Killing fields obeying the rotation commutation relations.",
+   "how_introduced": "Stated rigorously via isometry groups, then replaced by a heuristic picture of rotations about an origin sweeping out spheres.",
+   "depth": "core",
+   "prerequisites": [
+    "isometry group",
+    "Killing vector field",
+    "rotation group SO(3)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 289,
+     "printed_page": 274,
+     "section": "15.4"
+    },
+    {
+     "pdf_page": 290,
+     "printed_page": 275,
+     "section": "15.4"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "[X_1, X_2] = X_3,\\ [X_2, X_3] = X_1,\\ [X_3, X_1] = X_2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "rotation Killing vectors",
+   "aliases": [
+    "angular-momentum Killing fields",
+    "so(3) generators"
+   ],
+   "kind": "mathematical-object",
+   "definition": "Three spacelike Killing fields generating rotations about the x, y, z axes; in a suitable Cartesian chart X^0 = 0 and X^alpha = omega^alpha_beta x^beta with omega antisymmetric.",
+   "how_introduced": "Quoted, using earlier exercises on standard Killing forms, as the consequence of the SO(3) definition; revisited in Exercise 15.17 for the isotropic metric.",
+   "depth": "introduced",
+   "prerequisites": [
+    "spherical symmetry",
+    "Lie bracket"
+   ],
+   "locators": [
+    {
+     "pdf_page": 289,
+     "printed_page": 274,
+     "section": "15.4"
+    },
+    {
+     "pdf_page": 290,
+     "printed_page": 275,
+     "section": "15.4"
+    },
+    {
+     "pdf_page": 301,
+     "printed_page": 286,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "X^\\alpha \\stackrel{*}{=} \\omega^\\alpha{}_\\beta x^\\beta,\\ \\omega_{\\alpha\\beta} = -\\omega_{\\beta\\alpha}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "2-sphere line element",
+   "aliases": [
+    "round metric on S^2",
+    "dOmega^2"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The intrinsic metric on a sphere of radius a in polar angle theta in [0, pi] and azimuth phi in (-pi, pi]: ds^2 = a^2(dtheta^2 + sin^2 theta dphi^2).",
+   "how_introduced": "Obtained (as an exercise via Pythagoras) from the displacements of a point under small changes of theta and phi.",
+   "depth": "developed",
+   "prerequisites": [
+    "spherical polar coordinates"
+   ],
+   "locators": [
+    {
+     "pdf_page": 290,
+     "printed_page": 275,
+     "section": "15.4"
+    }
+   ],
+   "formulas": [
+    "ds^2 = a^2(d\\theta^2 + \\sin^2\\theta\\, d\\phi^2)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "areal radius",
+   "aliases": [
+    "curvature coordinate r",
+    "Schwarzschild radial coordinate"
+   ],
+   "kind": "definition",
+   "definition": "The radial coordinate defined so the coefficient of dOmega^2 is exactly r^2, i.e. r = sqrt(D); the sphere t, r = const then has area 4 pi r^2. It is not in general the proper distance from the centre.",
+   "how_introduced": "Chosen by the transformation r -> r' = D^{1/2} to eliminate one of the four unknown functions.",
+   "depth": "developed",
+   "prerequisites": [
+    "2-sphere line element",
+    "spherical symmetry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 291,
+     "printed_page": 276,
+     "section": "15.4"
+    }
+   ],
+   "formulas": [
+    "r' = D^{1/2}"
+   ],
+   "notes": "Its physical meaning (area not distance) is discussed only in DIV ch17 §17.1; the substitution fails if D is constant or its gradient vanishes."
+  },
+  {
+   "name": "integrating-factor time coordinate",
+   "aliases": [
+    "orthogonalising the (t, r) block"
+   ],
+   "kind": "technique",
+   "definition": "Defining a new time t' by dt' = I(A dt - B dr), with I an integrating factor making the right side exact, so that completing the square removes the dt dr cross term.",
+   "how_introduced": "Used after introducing the areal radius; relies on the ODE fact that a two-variable Pfaffian form always has an integrating factor.",
+   "depth": "developed",
+   "prerequisites": [
+    "integrating factor",
+    "coordinate transformation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 291,
+     "printed_page": 276,
+     "section": "15.4"
+    }
+   ],
+   "formulas": [
+    "dt' = I(t,r')\\,[A'dt - B'dr']"
+   ],
+   "notes": null
+  },
+  {
+   "name": "canonical spherically symmetric line element",
+   "aliases": [
+    "general spherical metric",
+    "e^nu, e^lambda form"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The form ds^2 = e^nu dt^2 - e^lambda dr^2 - r^2(dtheta^2 + sin^2 theta dphi^2) with nu(t, r), lambda(t, r), to which any spherically symmetric metric of signature -2 can be brought (in regions where the areal radius is a good coordinate).",
+   "how_introduced": "Reached heuristically from the four-function ansatz by the two coordinate choices above; exponentials enforce the signature; rigorous proofs are cited but not given.",
+   "depth": "core",
+   "prerequisites": [
+    "spherical symmetry",
+    "areal radius",
+    "integrating-factor time coordinate"
+   ],
+   "locators": [
+    {
+     "pdf_page": 291,
+     "printed_page": 276,
+     "section": "15.4"
+    },
+    {
+     "pdf_page": 292,
+     "printed_page": 277,
+     "section": "15.4"
+    },
+    {
+     "pdf_page": 297,
+     "printed_page": 282,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "ds^2 = e^{\\nu}dt^2 - e^{\\lambda}dr^2 - r^2 d\\Omega^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Einstein tensor for a spherically symmetric metric",
+   "aliases": [
+    "G^a_b components from Exercise 6.32"
+   ],
+   "kind": "identity",
+   "definition": "For the canonical metric the non-zero mixed components are G^0_0, G^0_1 (proportional to lambda-dot), G^1_1 and G^2_2 = G^3_3, given explicitly in terms of nu, lambda and their t and r derivatives.",
+   "how_introduced": "Imported ready-made from Exercise 6.32(v) rather than derived in the chapter; reused with a fluid source in 15.8.",
+   "depth": "developed",
+   "prerequisites": [
+    "Einstein tensor",
+    "Christoffel symbols",
+    "canonical spherically symmetric line element"
+   ],
+   "locators": [
+    {
+     "pdf_page": 292,
+     "printed_page": 277,
+     "section": "15.5"
+    },
+    {
+     "pdf_page": 298,
+     "printed_page": 283,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "G^0{}_0 = e^{-\\lambda}(\\lambda'/r - 1/r^2) + 1/r^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "contracted Bianchi identities",
+   "aliases": [
+    "nabla_b G^b_a = 0"
+   ],
+   "kind": "identity",
+   "definition": "The divergence of the Einstein tensor vanishes identically, so not all field equations are independent; here the angular equation follows from the tt, tr and rr equations.",
+   "how_introduced": "Invoked (with proof left as Exercise 15.9) to cut four equations to three.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Einstein tensor",
+    "Bianchi identity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 292,
+     "printed_page": 277,
+     "section": "15.5"
+    }
+   ],
+   "formulas": [
+    "\\nabla_b G^b{}_a = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "vacuum field equations",
+   "aliases": [
+    "G_ab = 0",
+    "R_ab = 0"
+   ],
+   "kind": "law",
+   "definition": "Einstein's equations with no matter: the Einstein (equivalently Ricci) tensor vanishes.",
+   "how_introduced": "Applied to the canonical metric to determine nu and lambda.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Einstein tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 292,
+     "printed_page": 277,
+     "section": "15.5"
+    }
+   ],
+   "formulas": [
+    "G_{ab} = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Schwarzschild solution",
+   "aliases": [
+    "Schwarzschild exterior solution",
+    "Schwarzschild line element",
+    "Schwarzschild metric"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The unique spherically symmetric vacuum metric (with zero cosmological constant): ds^2 = (1 - 2m/r) dt^2 - (1 - 2m/r)^{-1} dr^2 - r^2 dOmega^2, with m a constant.",
+   "how_introduced": "Derived from spherical symmetry and the vacuum equations alone, with staticity and asymptotic flatness emerging from the calculation.",
+   "depth": "core",
+   "prerequisites": [
+    "canonical spherically symmetric line element",
+    "vacuum field equations",
+    "Einstein tensor for a spherically symmetric metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 293,
+     "printed_page": 278,
+     "section": "15.5"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.5"
+    },
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    },
+    {
+     "pdf_page": 295,
+     "printed_page": 280,
+     "section": "15.6"
+    },
+    {
+     "pdf_page": 296,
+     "printed_page": 281,
+     "section": "15.7"
+    }
+   ],
+   "formulas": [
+    "ds^2 = (1-2m/r)dt^2 - (1-2m/r)^{-1}dr^2 - r^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "exterior region",
+   "aliases": [
+    "r > 2m"
+   ],
+   "kind": "definition",
+   "definition": "The part of the Schwarzschild solution with r > 2m, where t is timelike and r spacelike; the chapter's statements about staticity refer to this region only.",
+   "how_introduced": "Stated as a restriction at the start of 15.6, with the interior behaviour deferred to Chapter 17.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Schwarzschild solution"
+   ],
+   "locators": [
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "r > 2m"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Birkhoff's theorem",
+   "aliases": [
+    "Jebsen-Birkhoff theorem"
+   ],
+   "kind": "theorem",
+   "definition": "Every vacuum space-time with spherical symmetry is, in the region where the areal radius is spacelike-varying (r > 2m), locally the Schwarzschild exterior and hence static, however the source inside moves (zero cosmological constant assumed).",
+   "how_introduced": "Harvested as a corollary of the derivation: the time function h(t) was pure gauge and lambda could not depend on t. Framed as surprising because Newtonian spherical symmetry says nothing about time dependence.",
+   "depth": "core",
+   "prerequisites": [
+    "Schwarzschild solution",
+    "static space-time",
+    "spherical symmetry"
+   ],
+   "locators": [
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    },
+    {
+     "pdf_page": 295,
+     "printed_page": 280,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [],
+   "notes": "The book's wording 'necessarily static' holds for r > 2m; for r < 2m the Killing vector is spacelike and the region is homogeneous but not static."
+  },
+  {
+   "name": "no monopole gravitational radiation",
+   "aliases": [
+    "pulsating spherical star does not radiate"
+   ],
+   "kind": "phenomenon",
+   "definition": "A source that changes while staying spherically symmetric leaves its exterior geometry unchanged, so it cannot send gravitational waves or any disturbance outward.",
+   "how_introduced": "Drawn as a direct consequence of Birkhoff's theorem, with a figure of a pulsating star surrounded by the words 'always static'.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Birkhoff's theorem"
+   ],
+   "locators": [
+    {
+     "pdf_page": 294,
+     "printed_page": 279,
+     "section": "15.6"
+    },
+    {
+     "pdf_page": 295,
+     "printed_page": 280,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "source symmetry not inherited",
+   "aliases": [],
+   "kind": "phenomenon",
+   "definition": "A matter distribution producing an exterior Schwarzschild field need not itself be spherically symmetric; symmetry of the field does not imply symmetry of its source.",
+   "how_introduced": "Stated as the failure of the converse of the Birkhoff consequence, with the remark that counterexamples exist.",
+   "depth": "mention",
+   "prerequisites": [
+    "Birkhoff's theorem"
+   ],
+   "locators": [
+    {
+     "pdf_page": 295,
+     "printed_page": 280,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "asymptotic flatness",
+   "aliases": [
+    "asymptotically flat"
+   ],
+   "kind": "definition",
+   "definition": "The property that the metric approaches the Minkowski metric at large distances; here the Schwarzschild metric tends to flat space in spherical polars as r -> infinity.",
+   "how_introduced": "Observed from the limit of the solution and emphasised as forced by the field equations rather than assumed.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Schwarzschild solution",
+    "Minkowski metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 295,
+     "printed_page": 280,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "ds^2 \\to dt^2 - dr^2 - r^2 d\\Omega^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "geometric mass",
+   "aliases": [
+    "mass in relativistic units",
+    "m = GM/c^2",
+    "gravitational radius (half the Schwarzschild radius)"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The constant m in the Schwarzschild metric, equal to GM/c^2 for a central mass M; it has dimensions of length.",
+   "how_introduced": "Identified by comparing g_00 = 1 - 2m/r with the weak-field form 1 + 2 phi/c^2 for phi = -GM/r.",
+   "depth": "core",
+   "prerequisites": [
+    "Newtonian limit of the Schwarzschild metric",
+    "geometrized units"
+   ],
+   "locators": [
+    {
+     "pdf_page": 295,
+     "printed_page": 280,
+     "section": "15.6"
+    }
+   ],
+   "formulas": [
+    "m = GM/c^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Newtonian limit of the Schwarzschild metric",
+   "aliases": [
+    "weak-field identification"
+   ],
+   "kind": "technique",
+   "definition": "Matching the time-time metric component to 1 + 2 phi/c^2 far from the source to interpret integration constants in terms of Newtonian mass.",
+   "how_introduced": "Uses the Newtonian correspondence (10.49) from Chapter 10; repeated for isotropic coordinates in Exercise 15.15.",
+   "depth": "developed",
+   "prerequisites": [
+    "weak-field limit",
+    "Newtonian gravitational potential"
+   ],
+   "locators": [
+    {
+     "pdf_page": 295,
+     "printed_page": 280,
+     "section": "15.6"
+    },
+    {
+     "pdf_page": 301,
+     "printed_page": 286,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "g_{00} \\simeq 1 + 2\\phi/c^2 = 1 - 2GM/(c^2 r)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "geometrized units",
+   "aliases": [
+    "relativistic units",
+    "G = c = 1"
+   ],
+   "kind": "convention",
+   "definition": "Units in which G and c are set to one, so mass, time and length share a unit; equations such as 8 pi rho = G^0_0 are written without G or c.",
+   "how_introduced": "Implicit throughout; restored explicitly only when m is identified with GM/c^2.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 295,
+     "printed_page": 280,
+     "section": "15.6"
+    },
+    {
+     "pdf_page": 298,
+     "printed_page": 283,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "G = c = 1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "isotropic coordinates",
+   "aliases": [
+    "isotropic form of Schwarzschild"
+   ],
+   "kind": "technique",
+   "definition": "Coordinates (t, rho, theta, phi) in which the spatial part of the metric is a function times the flat Euclidean metric; for Schwarzschild r = rho(1 + m/2rho)^2.",
+   "how_introduced": "Sought as the chart making t = const slices as close to Euclidean as possible; solved by matching angular and radial coefficients.",
+   "depth": "developed",
+   "prerequisites": [
+    "conformally flat spatial slices",
+    "areal radius",
+    "Schwarzschild solution"
+   ],
+   "locators": [
+    {
+     "pdf_page": 296,
+     "printed_page": 281,
+     "section": "15.7"
+    },
+    {
+     "pdf_page": 297,
+     "printed_page": 282,
+     "section": "15.7"
+    },
+    {
+     "pdf_page": 301,
+     "printed_page": 286,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "r = \\rho(1 + m/2\\rho)^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "conformally flat spatial slices",
+   "aliases": [
+    "conformal to Euclidean 3-space"
+   ],
+   "kind": "definition",
+   "definition": "A 3-metric of the form B(x) times dx^2 + dy^2 + dz^2; angles and ratios of lengths agree with Euclidean values, but lengths themselves do not, and the slice need not be intrinsically flat.",
+   "how_introduced": "Stated as the target property of isotropic coordinates, referring back to Exercise 6.28.",
+   "depth": "introduced",
+   "prerequisites": [
+    "conformal transformation of a metric"
+   ],
+   "locators": [
+    {
+     "pdf_page": 296,
+     "printed_page": 281,
+     "section": "15.7"
+    }
+   ],
+   "formulas": [
+    "ds^2 = A\\,dt^2 - B\\,(dx^2 + dy^2 + dz^2)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "static perfect fluid",
+   "aliases": [
+    "fluid at rest along the Killing vector"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A perfect fluid whose four-velocity is the normalised timelike Killing vector, so its energy-momentum tensor in the static chart is diag(rho, -p, -p, -p) in mixed form.",
+   "how_introduced": "Set up as the matter model for a star interior, reusing the Chapter 12 perfect-fluid tensor.",
+   "depth": "developed",
+   "prerequisites": [
+    "perfect fluid energy-momentum tensor",
+    "timelike Killing vector field"
+   ],
+   "locators": [
+    {
+     "pdf_page": 297,
+     "printed_page": 282,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "u^a = \\xi^a/(\\xi^b\\xi_b)^{1/2}",
+    "T^0{}_0 = \\rho,\\ T^i{}_j = -p\\,\\delta^i_j"
+   ],
+   "notes": null
+  },
+  {
+   "name": "mass function",
+   "aliases": [
+    "m(r)",
+    "mass inside radius r"
+   ],
+   "kind": "physical-quantity",
+   "definition": "m(r) = 4 pi times the integral from 0 to r of rho(s) s^2 ds; it determines the radial metric function through e^{-lambda} = 1 - 2m(r)/r and equals the Schwarzschild m outside the star.",
+   "how_introduced": "Introduced by analogy with the Newtonian enclosed mass, then obtained by integrating the tt field equation.",
+   "depth": "developed",
+   "prerequisites": [
+    "Einstein tensor for a spherically symmetric metric",
+    "static perfect fluid"
+   ],
+   "locators": [
+    {
+     "pdf_page": 298,
+     "printed_page": 283,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "m(r) = 4\\pi\\int_0^r \\rho(s)s^2 ds"
+   ],
+   "notes": "The integral uses the coordinate volume element 4 pi r^2 dr, not the proper volume; the difference encodes gravitational binding energy (not discussed in the book)."
+  },
+  {
+   "name": "Tolman-Oppenheimer-Volkoff equation",
+   "aliases": [
+    "TOV equation",
+    "relativistic stellar structure equation"
+   ],
+   "kind": "law",
+   "definition": "The equation of hydrostatic equilibrium for a static spherical perfect fluid in general relativity: dp/dr = -(rho + p)(m + 4 pi r^3 p) / (r^2 (1 - 2m/r)).",
+   "how_introduced": "Derived by combining the rr Einstein equation (giving nu') with the radial component of energy-momentum conservation (dp/dr = -(rho+p) nu'/2).",
+   "depth": "core",
+   "prerequisites": [
+    "mass function",
+    "relativistic hydrostatic equilibrium",
+    "static perfect fluid"
+   ],
+   "locators": [
+    {
+     "pdf_page": 298,
+     "printed_page": 283,
+     "section": "15.8"
+    },
+    {
+     "pdf_page": 299,
+     "printed_page": 284,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "\\frac{dp}{dr} = -\\frac{(\\rho+p)(m + 4\\pi r^3 p)}{r^2(1-2m/r)}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "relativistic hydrostatic equilibrium",
+   "aliases": [
+    "pressure gradient balances gravity"
+   ],
+   "kind": "principle",
+   "definition": "In a static fluid the pressure gradient is fixed by the gradient of the lapse: dp/dr = -(rho + p) nu'/2, the relativistic version of dp/dr = -rho dPhi/dr.",
+   "how_introduced": "Obtained from nabla_b T^b_1 = 0 with the Christoffel symbols of Exercise 6.32.",
+   "depth": "developed",
+   "prerequisites": [
+    "conservation of energy-momentum",
+    "static perfect fluid"
+   ],
+   "locators": [
+    {
+     "pdf_page": 298,
+     "printed_page": 283,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "p' = -\\tfrac{1}{2}(\\rho+p)\\nu'"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Schwarzschild interior solution",
+   "aliases": [
+    "constant-density star",
+    "uniform-density interior"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The static spherical perfect-fluid solution with uniform density rho_0 inside radius R, with closed-form pressure and metric functions, joined to the exterior Schwarzschild metric at r = R where p = 0.",
+   "how_introduced": "Offered as the simplest explicit case of the TOV equation.",
+   "depth": "developed",
+   "prerequisites": [
+    "Tolman-Oppenheimer-Volkoff equation",
+    "matching interior to exterior"
+   ],
+   "locators": [
+    {
+     "pdf_page": 298,
+     "printed_page": 283,
+     "section": "15.8"
+    },
+    {
+     "pdf_page": 299,
+     "printed_page": 284,
+     "section": "15.8"
+    },
+    {
+     "pdf_page": 301,
+     "printed_page": 286,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "p(r) = \\rho_0\\frac{\\sqrt{1-2M/R}-\\sqrt{1-2Mr^2/R^3}}{\\sqrt{1-2Mr^2/R^3}-3\\sqrt{1-2M/R}}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "matching interior to exterior",
+   "aliases": [
+    "junction at the stellar surface"
+   ],
+   "kind": "technique",
+   "definition": "Joining a matter interior to the vacuum exterior at the stellar radius, requiring the pressure to vanish there and the metric functions to agree, so that m(R) equals the exterior mass.",
+   "how_introduced": "Implemented by the boundary condition p(R) = 0 and by writing piecewise m(r) and e^nu; formal junction conditions are not discussed.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Schwarzschild interior solution",
+    "Schwarzschild solution"
+   ],
+   "locators": [
+    {
+     "pdf_page": 298,
+     "printed_page": 283,
+     "section": "15.8"
+    },
+    {
+     "pdf_page": 299,
+     "printed_page": 284,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "p(R) = 0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "equation of state",
+   "aliases": [
+    "barotropic relation p = p(rho)"
+   ],
+   "kind": "definition",
+   "definition": "A relation giving pressure as a function of density, which closes the TOV system when the density profile is not prescribed.",
+   "how_introduced": "Introduced at the end to explain why realistic stars require numerical integration.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Tolman-Oppenheimer-Volkoff equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 299,
+     "printed_page": 284,
+     "section": "15.8"
+    }
+   ],
+   "formulas": [
+    "p = p(\\rho)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "starred equality",
+   "aliases": [
+    "*=",
+    "holds in a special coordinate system"
+   ],
+   "kind": "convention",
+   "definition": "The book's notation for an equation that holds only in a particular (adapted) coordinate system, as opposed to a tensor equation valid in all charts.",
+   "how_introduced": "Used at every stage where a chart is chosen to simplify the metric.",
+   "depth": "revisited",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 284,
+     "printed_page": 269,
+     "section": "15.1"
+    },
+    {
+     "pdf_page": 288,
+     "printed_page": 273,
+     "section": "15.3"
+    }
+   ],
+   "formulas": [
+    "\\stackrel{*}{=}"
+   ],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(15.1)",
+   "name": "Stationarity in a special chart",
+   "latex": "\\frac{\\partial g_{ab}}{\\partial x^0} \\stackrel{*}{=} 0",
+   "meaning": "In a privileged chart the metric does not depend on the timelike coordinate.",
+   "symbols": "x^0 timelike coordinate; *= holds only in that chart",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   }
+  },
+  {
+   "label": "(15.2)",
+   "name": "Adapted Killing vector",
+   "latex": "X^a \\stackrel{*}{=} \\delta^a_0",
+   "meaning": "The candidate symmetry generator is the coordinate basis vector along x^0.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Lie derivative reduces to time derivative",
+   "latex": "\\mathcal{L}_X g_{ab} = X^c g_{ab,c} + g_{ac}X^c{}_{,b} + g_{bc}X^c{}_{,a} \\stackrel{*}{=} g_{ab,0} = 0",
+   "meaning": "For X^a = delta^a_0 the derivative terms of X vanish, so L_X g equals g_ab,0; being a tensor, it vanishes in all charts, making X a Killing vector.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   }
+  },
+  {
+   "label": "(15.3)",
+   "name": "Family of hypersurfaces",
+   "latex": "f(x^a) = \\mu",
+   "meaning": "Level sets of a scalar function define a one-parameter family of hypersurfaces.",
+   "symbols": "mu labels the member",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 285,
+    "printed_page": 270,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.4)",
+   "name": null,
+   "latex": "\\frac{\\partial f}{\\partial x^a}\\frac{dx^a}{ds} = 0",
+   "meaning": "Chain rule along a curve lying in one hypersurface.",
+   "symbols": "x^a(s) curve in S with tangent T^a",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 285,
+    "printed_page": 270,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.5)",
+   "name": "Normal covector",
+   "latex": "n_a := \\frac{\\partial f}{\\partial x^a},\\qquad n_a T^a = g_{ab}n^a T^b = 0",
+   "meaning": "The gradient annihilates every tangent vector, so n^a is normal to the hypersurface.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 285,
+    "printed_page": 270,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.6)-(15.7)",
+   "name": "Hypersurface-orthogonal field",
+   "latex": "X^a = \\lambda(x)\\,n^a \\quad\\Longleftrightarrow\\quad X_a = \\lambda f_{,a}",
+   "meaning": "A field orthogonal to the family is a point-dependent multiple of the normal.",
+   "symbols": "lambda proportionality function (not the metric function of 15.37)",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 285,
+    "printed_page": 270,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.8)",
+   "name": null,
+   "latex": "X_{[a}\\partial_b X_{c]} = 0",
+   "meaning": "Necessary condition for hypersurface orthogonality: substituting X_a = lambda f_,a into the derivative gives one piece symmetric in the first and third indices and one symmetric in the last two, so the total antisymmetric part is zero.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.9)",
+   "name": "Hypersurface-orthogonality condition",
+   "latex": "X_{[a}\\nabla_b X_{c]} = 0",
+   "meaning": "Covariant form of the condition; Christoffel terms cancel in the total antisymmetrization for a symmetric connection.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.10)",
+   "name": "Killing antisymmetry",
+   "latex": "\\nabla_a X_b = -\\nabla_b X_a",
+   "meaning": "Killing's equation rewritten: the covariant derivative of a Killing covector is antisymmetric.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Condition reduced for a Killing vector",
+   "latex": "X_a\\nabla_b X_c + X_c\\nabla_a X_b + X_b\\nabla_c X_a = 0",
+   "meaning": "The six antisymmetrized terms collapse to three cyclic terms using Killing antisymmetry.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.11)-(15.12)",
+   "name": null,
+   "latex": "X_aX^c\\nabla_bX_c + X^2\\nabla_aX_b - X_bX^c\\nabla_aX_c = 0,\\qquad X_aX_c\\nabla_bX^c - X^2\\nabla_bX_a - X_bX_c\\nabla_aX^c = 0",
+   "meaning": "Contraction with X^c, then swapping index heights on the dummy index (allowed by metric compatibility) and applying antisymmetry to the middle term.",
+   "symbols": "X^2 = X^a X_a",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Sum of (15.11) and (15.12)",
+   "latex": "X_a\\partial_b X^2 - X_b\\partial_a X^2 + X^2(\\partial_a X_b - \\partial_b X_a) = 0",
+   "meaning": "Adding produces gradients of the scalar X^2; the antisymmetric derivative of X_a needs no connection terms (cf. 12.45).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 287,
+    "printed_page": 272,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.13)",
+   "name": null,
+   "latex": "\\partial_a\\!\\left(\\frac{X_b}{X^2}\\right) = \\partial_b\\!\\left(\\frac{X_a}{X^2}\\right)",
+   "meaning": "After dividing by X^4 (X non-null) the covector X_a/X^2 has vanishing curl, so locally it is a gradient.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 287,
+    "printed_page": 272,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.14)-(15.15)",
+   "name": "Killing vector is hypersurface-orthogonal",
+   "latex": "\\frac{X_a}{X^2} = f_{,a}\\quad\\Rightarrow\\quad X_a = X^2 f_{,a}",
+   "meaning": "A non-null Killing vector satisfying (15.9) is orthogonal to the level sets of f, with lambda = X^2.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 287,
+    "printed_page": 272,
+    "section": "15.2"
+   }
+  },
+  {
+   "label": "(15.16)-(15.18)",
+   "name": "Interval before and after time reversal",
+   "latex": "ds^2 \\stackrel{*}{=} g_{00}(dx^0)^2 \\pm 2g_{01}dx^0dx^1 + g_{11}(dx^1)^2,\\qquad x^0\\to -x^0",
+   "meaning": "Under time reversal the time-independent coefficients stay the same but the cross term changes sign; invariance forces g_01 = 0 (similarly g_02, g_03).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 287,
+    "printed_page": 272,
+    "section": "15.3"
+   }
+  },
+  {
+   "label": "(15.19)",
+   "name": "Static metric form",
+   "latex": "ds^2 \\stackrel{*}{=} g_{00}(x^\\gamma)(dx^0)^2 + g_{\\alpha\\beta}(x^\\gamma)dx^\\alpha dx^\\beta",
+   "meaning": "A static space-time admits a chart with time-independent components and no time-space cross terms.",
+   "symbols": "alpha, beta, gamma = 1, 2, 3",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 288,
+    "printed_page": 273,
+    "section": "15.3"
+   }
+  },
+  {
+   "label": "(15.20)",
+   "name": null,
+   "latex": "g_{0a} \\stackrel{*}{=} g_{00} f_{,a}",
+   "meaning": "Hypersurface orthogonality of the adapted Killing vector in components, since X_a = g_0a and X^2 = g_00.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 288,
+    "printed_page": 273,
+    "section": "15.3"
+   }
+  },
+  {
+   "label": "(15.21)",
+   "name": "Time shift removing cross terms",
+   "latex": "x'^0 = x^0 + h(x^\\alpha),\\qquad x'^\\alpha = x^\\alpha",
+   "meaning": "The a = 0 component of (15.20) gives f = x^0 + h; using f as the new time kills g_0alpha.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 288,
+    "printed_page": 273,
+    "section": "15.3"
+   }
+  },
+  {
+   "label": "(15.22)-(15.25)",
+   "name": null,
+   "latex": "X'^a \\stackrel{*}{=} \\delta^a_0,\\quad g'_{ab,0} \\stackrel{*}{=} 0,\\quad g'_{00} \\stackrel{*}{=} g_{00},\\quad g'_{0\\alpha} \\stackrel{*}{=} 0",
+   "meaning": "The shifted chart stays adapted and time-independent while the cross terms disappear.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 288,
+    "printed_page": 273,
+    "section": "15.3"
+   }
+  },
+  {
+   "label": "(15.26)",
+   "name": "Residual freedom in static charts",
+   "latex": "x'^0 = Ax^0 + B,\\qquad x'^\\alpha = h'^\\alpha(x^\\beta)",
+   "meaning": "Only affine time rescalings and spatial relabellings keep the static form; g_00 -> 1 at infinity fixes A = +-1, leaving world time up to an additive constant.",
+   "symbols": "A, B constants",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 289,
+    "printed_page": 274,
+    "section": "15.3"
+   }
+  },
+  {
+   "label": "(15.27)",
+   "name": "Rotation algebra",
+   "latex": "[X^1, X^2] = X^3,\\quad [X^2, X^3] = X^1,\\quad [X^3, X^1] = X^2",
+   "meaning": "Commutators of the three rotational Killing fields (superscripts label the fields, not components).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 289,
+    "printed_page": 274,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Standard form of rotational Killing fields",
+   "latex": "X^0 \\stackrel{*}{=} 0,\\qquad X^\\alpha \\stackrel{*}{=} \\omega^\\alpha{}_\\beta x^\\beta,\\quad \\omega_{\\alpha\\beta} = -\\omega_{\\beta\\alpha}",
+   "meaning": "In a Cartesian-type chart the rotations act linearly on the spatial coordinates with antisymmetric generators.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 290,
+    "printed_page": 275,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": "(15.28)-(15.30)",
+   "name": "2-sphere metric and ranges",
+   "latex": "0\\le\\theta\\le\\pi,\\quad -\\pi<\\phi\\le\\pi,\\qquad ds^2 = a^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)",
+   "meaning": "Coordinates covering a sphere of radius a and its intrinsic line element.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 290,
+    "printed_page": 275,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": "(15.31)-(15.32)",
+   "name": "Reflections forbidding angular cross terms",
+   "latex": "\\theta\\to\\pi-\\theta,\\qquad \\phi\\to-\\phi",
+   "meaning": "Invariance of the metric under each reflection separately removes cross terms involving dtheta or dphi.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 290,
+    "printed_page": 275,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": "(15.33)",
+   "name": "Spherical ansatz",
+   "latex": "ds^2 \\stackrel{*}{=} A\\,dt^2 - 2B\\,dt\\,dr - C\\,dr^2 - D(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)",
+   "meaning": "Most general form compatible with the heuristic symmetry arguments, with A, B, C, D functions of t and r. (Tag recovered from the page render.)",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 291,
+    "printed_page": 276,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": "(15.34)",
+   "name": null,
+   "latex": "ds^2 = A'dt^2 - 2B'dt\\,dr' - C'dr'^2 - r'^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)",
+   "meaning": "After choosing the areal radius r' = D^{1/2}. (Tag recovered from the page render.)",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 291,
+    "printed_page": 276,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Integrating-factor time",
+   "latex": "dt' = I(t,r')[A'dt - B'dr'],\\qquad A'dt^2 - 2B'dt\\,dr' = A'^{-1}I^{-2}dt'^2 - A'^{-1}B'^2dr'^2",
+   "meaning": "Completing the square in the (t, r) block removes the cross term.",
+   "symbols": "I integrating factor",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 291,
+    "printed_page": 276,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": "(15.35)-(15.36)",
+   "name": "Definition of nu and lambda",
+   "latex": "A'^{-1}I^{-2} = e^{\\nu},\\qquad C' + A'^{-1}B'^2 = e^{\\lambda}",
+   "meaning": "Positive exponentials encode the two remaining coefficients and guarantee signature -2. (Tag 15.35 recovered from the render.)",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 291,
+    "printed_page": 276,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": "(15.37)",
+   "name": "Canonical spherically symmetric line element",
+   "latex": "ds^2 = e^{\\nu}dt^2 - e^{\\lambda}dr^2 - r^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2),\\quad \\nu = \\nu(t,r),\\ \\lambda = \\lambda(t,r)",
+   "meaning": "General spherically symmetric metric with two unknown functions.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.4"
+   }
+  },
+  {
+   "label": "(15.38)-(15.39)",
+   "name": "Metric and inverse",
+   "latex": "g_{ab} = \\mathrm{diag}(e^{\\nu}, -e^{\\lambda}, -r^2, -r^2\\sin^2\\theta),\\quad g^{ab} = \\mathrm{diag}(e^{-\\nu}, -e^{-\\lambda}, -r^{-2}, -r^{-2}\\sin^{-2}\\theta)",
+   "meaning": "Diagonal covariant and contravariant forms.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.40)",
+   "name": "G^0_0",
+   "latex": "G^0{}_0 = e^{-\\lambda}\\left(\\frac{\\lambda'}{r} - \\frac{1}{r^2}\\right) + \\frac{1}{r^2}",
+   "meaning": "Time-time mixed Einstein component; depends only on lambda and gives the mass function in the fluid case.",
+   "symbols": "prime = partial_r, dot = partial_t",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.41)",
+   "name": "G^0_1 (as printed)",
+   "latex": "G_0{}^1 = -e^{-\\lambda}r^{-1}\\dot\\lambda = -e^{\\lambda-\\nu}G_1{}^0",
+   "meaning": "Mixed time-radial component, proportional to the time derivative of lambda, so the tr vacuum equation forces lambda to be time independent. The printed exponent looks wrong: with the diagonal metric, G_0^1 = g^{11}G_{01} and G_1^0 = g^{00}G_{10}, so the ratio is -e^{nu-lambda}. Only the vanishing of this component is used.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.42)",
+   "name": "G^1_1",
+   "latex": "G^1{}_1 = -e^{-\\lambda}\\left(\\frac{\\nu'}{r} + \\frac{1}{r^2}\\right) + \\frac{1}{r^2}",
+   "meaning": "Radial-radial mixed Einstein component; gives the pressure equation in the fluid case.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.43)",
+   "name": "Angular components",
+   "latex": "G^2{}_2 = G^3{}_3 = \\tfrac12 e^{-\\lambda}\\left(\\frac{\\nu'\\lambda'}{2} + \\frac{\\lambda'}{r} - \\frac{\\nu'}{r} - \\frac{\\nu'^2}{2} - \\nu''\\right) + \\tfrac12 e^{-\\nu}\\left(\\ddot\\lambda + \\frac{\\dot\\lambda^2}{2} - \\frac{\\dot\\lambda\\dot\\nu}{2}\\right)",
+   "meaning": "Automatically zero once (15.40)-(15.42) vanish, by the contracted Bianchi identities.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.44)-(15.46)",
+   "name": "Independent vacuum equations",
+   "latex": "e^{-\\lambda}\\left(\\frac{\\lambda'}{r} - \\frac{1}{r^2}\\right) + \\frac{1}{r^2} = 0,\\quad e^{-\\lambda}\\left(\\frac{\\nu'}{r} + \\frac{1}{r^2}\\right) - \\frac{1}{r^2} = 0,\\quad \\dot\\lambda = 0",
+   "meaning": "The three equations to solve.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 293,
+    "printed_page": 278,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.47)",
+   "name": null,
+   "latex": "\\lambda' + \\nu' = 0 \\;\\Rightarrow\\; \\lambda + \\nu = h(t)",
+   "meaning": "Sum of the tt and rr equations; the integration 'constant' may depend on t.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 293,
+    "printed_page": 278,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": null,
+   "name": "Mass ODE",
+   "latex": "e^{-\\lambda} - r e^{-\\lambda}\\lambda' = 1 \\;\\Longleftrightarrow\\; (r e^{-\\lambda})' = 1 \\;\\Rightarrow\\; r e^{-\\lambda} = r - 2m",
+   "meaning": "With lambda time-independent the tt equation is an exact derivative; the constant is named -2m.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 293,
+    "printed_page": 278,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.48)",
+   "name": null,
+   "latex": "e^{\\lambda} = (1 - 2m/r)^{-1}",
+   "meaning": "Radial metric function of the vacuum solution.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 293,
+    "printed_page": 278,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.49)-(15.50)",
+   "name": null,
+   "latex": "e^{\\nu} = e^{h(t)}(1 - 2m/r),\\qquad g_{ab} = \\mathrm{diag}[e^{h(t)}(1-2m/r), -(1-2m/r)^{-1}, -r^2, -r^2\\sin^2\\theta]",
+   "meaning": "Metric before removing the residual time function.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 293,
+    "printed_page": 278,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.51)",
+   "name": "Time reparametrization",
+   "latex": "t' = \\int_c^t e^{h(u)/2}\\,du",
+   "meaning": "Absorbs e^{h(t)} into the time coordinate so that g'_00 = 1 - 2m/r.",
+   "symbols": "c arbitrary constant",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 293,
+    "printed_page": 278,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": "(15.52)",
+   "name": "Schwarzschild line element",
+   "latex": "ds^2 = (1 - 2m/r)\\,dt^2 - (1 - 2m/r)^{-1}dr^2 - r^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)",
+   "meaning": "The most general spherically symmetric vacuum solution.",
+   "symbols": "m geometric mass; r areal radius; t world time",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.5"
+   }
+  },
+  {
+   "label": null,
+   "name": "Lowered Killing vector of Schwarzschild",
+   "latex": "X_a = g_{ab}X^b \\stackrel{*}{=} g_{0a} = (1 - 2m/r, 0, 0, 0) = g_{00}\\,t_{,a}",
+   "meaning": "The Killing covector is g_00 times the gradient of t, so it is hypersurface-orthogonal with lambda = g_00 and f = t.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   }
+  },
+  {
+   "label": "(15.53)",
+   "name": null,
+   "latex": "X_{[a}\\partial_b X_{c]} = 0",
+   "meaning": "Direct check of hypersurface orthogonality for the Schwarzschild Killing vector (Exercise 15.11).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   }
+  },
+  {
+   "label": "(15.54)",
+   "name": "Asymptotic limit",
+   "latex": "ds^2 = dt^2 - dr^2 - r^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)",
+   "meaning": "As r -> infinity the solution becomes Minkowski space in spherical polars.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "label": null,
+   "name": "Weak-field comparison",
+   "latex": "g_{00} \\simeq 1 + 2\\phi/c^2 = 1 - 2GM/(c^2 r)",
+   "meaning": "Newtonian point-mass potential inserted into the correspondence (10.49).",
+   "symbols": "phi = -GM/r Newtonian potential",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "label": "(15.55)",
+   "name": "Geometric mass",
+   "latex": "m = GM/c^2",
+   "meaning": "The Schwarzschild constant equals the Newtonian mass converted to a length.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "label": "(15.56)-(15.57)",
+   "name": "Isotropic ansatz",
+   "latex": "r\\to\\rho(r),\\qquad ds^2 = (1 - 2m/r)dt^2 - [\\lambda(\\rho)]^2[d\\rho^2 + \\rho^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)]",
+   "meaning": "Seek a new radius making the spatial metric a multiple of the flat one.",
+   "symbols": "lambda(rho) conformal factor (third use of lambda)",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   }
+  },
+  {
+   "label": "(15.58)-(15.59)",
+   "name": null,
+   "latex": "r^2 = \\lambda^2\\rho^2,\\qquad (1 - 2m/r)^{-1}dr^2 = \\lambda^2 d\\rho^2",
+   "meaning": "Matching angular and radial coefficients.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   }
+  },
+  {
+   "label": "(15.60)",
+   "name": null,
+   "latex": "\\frac{dr}{(r^2 - 2mr)^{1/2}} = \\pm\\frac{d\\rho}{\\rho}",
+   "meaning": "Separated ODE for r(rho); the plus sign keeps rho -> infinity with r.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   }
+  },
+  {
+   "label": "(15.61)-(15.62)",
+   "name": "Isotropic radius",
+   "latex": "r = \\rho\\left(1 + \\frac{m}{2\\rho}\\right)^2,\\qquad \\lambda^2 = \\left(1 + \\frac{m}{2\\rho}\\right)^4",
+   "meaning": "Relation between areal and isotropic radii and the spatial conformal factor.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.7"
+   }
+  },
+  {
+   "label": "(15.63)",
+   "name": "Isotropic Schwarzschild metric",
+   "latex": "ds^2 = \\frac{(1 - m/2\\rho)^2}{(1 + m/2\\rho)^2}dt^2 - \\left(1 + \\frac{m}{2\\rho}\\right)^4[d\\rho^2 + \\rho^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)]",
+   "meaning": "Schwarzschild with conformally flat spatial slices.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.7"
+   }
+  },
+  {
+   "label": "(15.64)",
+   "name": "Perfect fluid",
+   "latex": "T^{ab} = (\\rho + p)u^a u^b - p\\,g^{ab}",
+   "meaning": "Energy-momentum tensor of a perfect fluid (signature -2).",
+   "symbols": "rho energy density, p pressure",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.65)",
+   "name": "Static four-velocity",
+   "latex": "u^a = \\frac{\\xi^a}{(\\xi^b\\xi_b)^{1/2}}",
+   "meaning": "The fluid moves along the normalised timelike Killing vector xi^a = (1,0,0,0).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.66)-(15.67)",
+   "name": null,
+   "latex": "T^0{}_0 = \\rho,\\qquad T^i{}_j = -p\\,\\delta^i_j,\\ i,j = 1,2,3",
+   "meaning": "Mixed components of the static fluid tensor.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.68)",
+   "name": "tt equation with matter",
+   "latex": "8\\pi\\rho = e^{-\\lambda}\\left(\\frac{\\lambda'}{r} - \\frac{1}{r^2}\\right) + \\frac{1}{r^2} = \\frac{1}{r^2}\\left(1 - \\frac{d}{dr}(re^{-\\lambda})\\right)",
+   "meaning": "G^0_0 = 8 pi T^0_0 written as a total derivative.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.69)",
+   "name": "Mass function",
+   "latex": "m(r) = 4\\pi\\int_0^r \\rho(s)\\,s^2\\,ds",
+   "meaning": "Relativistic analogue of the enclosed mass.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.70)",
+   "name": null,
+   "latex": "e^{-\\lambda(r)} = 1 - \\frac{2m(r)}{r}",
+   "meaning": "Radial metric function inside matter, reducing to the exterior form where m(r) = M.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.71)",
+   "name": "rr equation with matter",
+   "latex": "8\\pi p = e^{-\\lambda}\\left(\\frac{\\nu'}{r} + \\frac{1}{r^2}\\right) - \\frac{1}{r^2}",
+   "meaning": "G^1_1 = 8 pi T^1_1 = -8 pi p.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.72)",
+   "name": null,
+   "latex": "\\frac{d\\nu}{dr} = \\frac{1}{r}\\left(1 - \\frac{2m(r)}{r}\\right)^{-1}\\left(\\frac{2m(r)}{r} + 8\\pi r^2 p\\right)",
+   "meaning": "Lapse gradient sourced by both enclosed mass and pressure.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.73)",
+   "name": "Relativistic hydrostatic equilibrium",
+   "latex": "\\frac{dp}{dr} = -\\frac12(\\rho + p)\\frac{d\\nu}{dr}",
+   "meaning": "Radial component of nabla_b T^b_a = 0.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.74)",
+   "name": "TOV equation",
+   "latex": "\\frac{dp}{dr} = -\\frac{1}{r^2}(\\rho + p)\\,(m(r) + 4\\pi r^3 p)\\left(1 - \\frac{2m(r)}{r}\\right)^{-1}",
+   "meaning": "Structure equation for static spherical stars; reduces to Newtonian hydrostatics dp/dr = -m rho / r^2 when p << rho, 4 pi r^3 p << m and 2m/r << 1.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.75)",
+   "name": null,
+   "latex": "m(r) = \\begin{cases} Mr^3/R^3 & r\\le R\\\\ M & r > R\\end{cases},\\qquad M = \\tfrac43\\pi R^3\\rho_0",
+   "meaning": "Mass function of a uniform-density ball.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.76)",
+   "name": "Interior pressure",
+   "latex": "p(r) = \\rho_0\\left[\\frac{(1 - 2M/R)^{1/2} - (1 - 2Mr^2/R^3)^{1/2}}{(1 - 2Mr^2/R^3)^{1/2} - 3(1 - 2M/R)^{1/2}}\\right]",
+   "meaning": "Pressure profile of the constant-density star with p(R) = 0. Central pressure diverges when 3 sqrt(1 - 2M/R) = 1, i.e. R = 9M/4 (our inference, not stated in the book).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": "(15.77)",
+   "name": "Interior lapse (corrected)",
+   "latex": "e^{\\nu(r)} = \\begin{cases}\\left[\\tfrac32(1 - 2M/R)^{1/2} - \\tfrac12(1 - 2Mr^2/R^3)^{1/2}\\right]^2 & r\\le R\\\\ 1 - 2M/r & r > R\\end{cases}",
+   "meaning": "Time-time metric function of the Schwarzschild interior solution, continuous with the exterior at r = R. The book prints (1 - 2M/r)^{1/2} in the first term of the interior branch; it must be the constant (1 - 2M/R)^{1/2} for continuity at R and for nu' to satisfy (15.72).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": "15.8"
+   }
+  },
+  {
+   "label": null,
+   "name": "Equation of state closure",
+   "latex": "p = p(\\rho),\\qquad \\frac{dp}{dr} = \\frac{dp}{d\\rho}\\frac{d\\rho}{dr}",
+   "meaning": "Substituting into (15.74) gives a nonlinear ODE for rho(r), generally solved numerically.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": "15.8"
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 15.1",
+   "image_path": "dinverno/pages/page-284/img-99.jpeg",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   },
+   "caption_paraphrase": "Two marked gas particles in a pipe, compared at an earlier and a later time, for time-varying, steady and absent flow.",
+   "visual_description": "A three-row by two-column grid. Column headings read Before (t = t1) and After (t = t2 > t1). Each cell shows a horizontal pipe (two parallel lines) with two fixed positions x1 and x2 marked by ticks and dots. Row (a): before, a long arrow at x1 and a short arrow at x2; after, the arrow at x1 is short and the arrow at x2 is long, so the velocity at each fixed place has changed. Row (b): equal-length arrows at x1 and x2, identical in both columns. Row (c): dots at x1 and x2 with no arrows in either column.",
+   "what_it_teaches": "Stationary means the velocity field at each fixed location does not change in time even though matter moves; static means there is no motion at all. The distinction is about the field at fixed points, not about particles standing still.",
+   "figure_type": "cartoon-or-analogy",
+   "concepts": [
+    "stationary space-time",
+    "static space-time"
+   ],
+   "redesign": {
+    "idea": "Animated pipe with tracer particles and a velocity-field overlay whose mode can be switched between pumped, steady and still; a ghost 'film run backwards' copy sits beside it.",
+    "interaction": "Learner toggles mode and presses 'reverse time'; the app highlights whether the velocity field at fixed probes changes with time (stationarity) and whether the reversed film is indistinguishable (static), then links each mode to the metric forms with and without g_0alpha.",
+    "form": "animated-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 15.2",
+   "image_path": "dinverno/pages/page-285/img-100.jpeg",
+   "locator": {
+    "pdf_page": 285,
+    "printed_page": 270,
+    "section": "15.2"
+   },
+   "caption_paraphrase": "Three members of a one-parameter family of hypersurfaces, each labelled by a value of mu.",
+   "visual_description": "Three wavy, sheet-like surfaces drawn in perspective, stacked one above another with slight offsets. Leader lines on the right label them mu = mu1 (bottom), mu = mu2 (middle) and mu = mu3 (top). No axes.",
+   "what_it_teaches": "A scalar function f on space-time slices it into level sets; the label mu is the value of f on each sheet.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "family of hypersurfaces"
+   ],
+   "redesign": {
+    "idea": "3D view of level sets of a user-chosen scalar function f(x, y, z) drawn as translucent sheets.",
+    "interaction": "Learner edits f (presets: t, t - x^2/2, a warped time) and drags a slider for mu; the highlighted sheet moves and the gradient arrows are drawn on it.",
+    "form": "interactive-3d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 15.3",
+   "image_path": "dinverno/pages/page-285/img-101.jpeg",
+   "locator": {
+    "pdf_page": 285,
+    "printed_page": 270,
+    "section": "15.2"
+   },
+   "caption_paraphrase": "The normal to a hypersurface at a point P.",
+   "visual_description": "A single curved sheet labelled S, with a leader line on the right reading f(x^a) = mu. At a point P on the sheet a vertical arrow labelled n^a rises; from P a short segment labelled dx^a runs along the sheet to a nearby point Q, with a right-angle mark between the segment and the arrow.",
+   "what_it_teaches": "Any small displacement within the surface is perpendicular to the gradient normal, which is why f_,a T^a = 0 identifies n^a as normal.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "normal covector",
+    "family of hypersurfaces"
+   ],
+   "redesign": {
+    "idea": "Tangent-plane explorer: a surface with a draggable point Q near P showing dx^a and the dot product with the gradient.",
+    "interaction": "Learner drags Q around P in any direction; a live readout shows f_,a dx^a staying near zero for in-surface displacements and growing for displacements off the sheet. A Lorentzian toggle shows that for a timelike normal the right angle looks skewed in a spacetime diagram.",
+    "form": "interactive-3d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 15.4",
+   "image_path": "dinverno/pages/page-286/img-102.jpeg",
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   },
+   "caption_paraphrase": "A vector field whose integral curves cross a family of hypersurfaces at right angles.",
+   "visual_description": "The same three stacked sheets (mu1, mu2, mu3) pierced by about seven roughly vertical curves with upward arrowheads, labelled X^a at top left. Where each curve crosses a sheet a small right-angle mark is drawn. The curves bend slightly between sheets.",
+   "what_it_teaches": "Hypersurface orthogonality is a property of the whole field: its flow lines meet every member of some family of slices perpendicularly, even though the proportionality factor lambda may vary.",
+   "figure_type": "vector-or-tensor-field",
+   "concepts": [
+    "hypersurface-orthogonal vector field",
+    "hypersurface-orthogonality condition"
+   ],
+   "redesign": {
+    "idea": "Side-by-side 3D fields: a gradient-type field that threads a stack of surfaces orthogonally, and a twisting (helical) field for which no such stack exists.",
+    "interaction": "Learner adds a twist parameter; the app tries to grow orthogonal surfaces from a seed disk, showing them closing up when twist is zero and tearing into a spiral staircase when twist is non-zero, while displaying the magnitude of X_[a partial_b X_c].",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 15.5",
+   "image_path": "dinverno/pages/page-289/img-103.jpeg",
+   "locator": {
+    "pdf_page": 289,
+    "printed_page": 274,
+    "section": "15.3"
+   },
+   "caption_paraphrase": "Two events judged simultaneous because they lie on the same slice of constant world time.",
+   "visual_description": "Three stacked wavy sheets labelled t = t1 (bottom), t = t2 and t = t3 (top). On the top sheet two dots are marked P (left) and Q (right).",
+   "what_it_teaches": "In a static space-time the world-time slicing is canonical, so static observers share a notion of simultaneity, much as in Newtonian absolute time.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "world time",
+    "static space-time"
+   ],
+   "redesign": {
+    "idea": "Spacetime diagram of static observers in the Schwarzschild exterior with world-time slices, contrasted with a stationary rotating metric where slices orthogonal to the Killing flow do not exist.",
+    "interaction": "Learner places two events and toggles between static and rotating examples; in the static case they can be marked simultaneous consistently, while in the rotating case a loop of local synchronisations accumulates a time offset that is displayed numerically.",
+    "form": "interactive-2d",
+    "priority": "medium"
+   }
+  },
+  {
+   "label": "Fig. 15.6",
+   "image_path": "dinverno/pages/page-290/img-104.jpeg",
+   "locator": {
+    "pdf_page": 290,
+    "printed_page": 275,
+    "section": "15.4"
+   },
+   "caption_paraphrase": "The usual spherical polar angles on a sphere centred at the origin.",
+   "visual_description": "Right-handed x, y, z axes from origin O. A segment of length a runs from O to a point P in the upper octant; a vertical drop from P meets the x-y plane at Q with a right-angle mark. The angle theta is marked between the z-axis and OP; the angle phi is marked in the x-y plane between the x-axis and OQ.",
+   "what_it_teaches": "How theta and phi are defined, which yields the 2-sphere metric a^2(dtheta^2 + sin^2 theta dphi^2) that spherical symmetry forces into the space-time metric.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "2-sphere line element",
+    "spherical symmetry"
+   ],
+   "redesign": {
+    "idea": "Draggable point on a sphere showing the small coordinate rectangle a dtheta by a sin theta dphi.",
+    "interaction": "Learner drags P and changes dtheta, dphi; the patch's side lengths and diagonal update, and near the pole the sin theta shrinkage is emphasised.",
+    "form": "interactive-3d",
+    "priority": "low"
+   }
+  },
+  {
+   "label": "Fig. 15.7",
+   "image_path": "dinverno/pages/page-295/img-105.jpeg",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   },
+   "caption_paraphrase": "A spherical star that pulsates radially sends out no gravitational waves.",
+   "visual_description": "A hatched disk labelled Star at the origin of x, y, z axes, enclosed by a dotted circle slightly larger than the disk; short radial tick marks between the disk edge and the dotted circle indicate in-and-out pulsation. The letters A-L-W-A-Y-S are spaced around the upper left of the circle and S-T-A-T-I-C around the upper right.",
+   "what_it_teaches": "Birkhoff's theorem: as long as the motion stays spherically symmetric, the exterior geometry is the same static Schwarzschild metric at all times.",
+   "figure_type": "schematic",
+   "concepts": [
+    "Birkhoff's theorem",
+    "no monopole gravitational radiation"
+   ],
+   "redesign": {
+    "idea": "Pulsating or collapsing star with test particles and clocks placed outside, plus a switch to break spherical symmetry.",
+    "interaction": "Learner sets pulsation amplitude and period; outside probes' orbits, clock rates and a strain meter stay perfectly constant. Switching on an ellipsoidal (quadrupole) wobble makes ripples leave the star and the strain meter oscillate.",
+    "form": "animated-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": null,
+   "image_path": "dinverno/pages/page-299/img-106.jpeg",
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": "15.8"
+   },
+   "caption_paraphrase": "Uncaptioned decorative element: a blank ruled grid in the page margin.",
+   "visual_description": "A tall narrow grid of empty rectangular cells, two columns wide and many rows high, printed in the outer margin. It carries no labels or content. The renders show the same grid in the margins of pdf pages 297-299; the text export mislabelled it as non-text.",
+   "what_it_teaches": "Nothing about physics; it is a page-design element (note space) of this edition.",
+   "figure_type": "other",
+   "concepts": [],
+   "redesign": {
+    "idea": "None; decorative.",
+    "interaction": "None.",
+    "form": "not-worth-redesigning",
+    "priority": "low"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   },
+   "problem": "Prove that a non-null Killing vector satisfying X_[a nabla_b X_c] = 0 is orthogonal to a family of hypersurfaces.",
+   "method": "Use nabla_a X_b = -nabla_b X_a to shrink the antisymmetrization to three cyclic terms; contract with X^c; swap index heights on the dummy index and apply antisymmetry again; add the two versions to get gradients of X^2; replace nabla by partial in antisymmetric combinations; divide by X^4.",
+   "key_insight": "X_a/X^2 has zero exterior derivative, so locally it is the gradient of some f; hence X_a = X^2 f_,a.",
+   "result": "X_a = X^2 f_,a, i.e. the hypersurface-orthogonal form with lambda = X^2.",
+   "concepts": [
+    "hypersurface-orthogonality condition",
+    "Killing vector field",
+    "non-null vector"
+   ],
+   "difficulty": "challenging"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 288,
+    "printed_page": 273,
+    "section": "15.3"
+   },
+   "problem": "Given a stationary chart where the Killing vector is hypersurface-orthogonal, construct coordinates with no time-space cross terms.",
+   "method": "In adapted coordinates X_a = g_0a and X^2 = g_00, so g_0a = g_00 f_,a. The time component gives f = x^0 + h(x^alpha); define x'^0 = x^0 + h and check the transformed components.",
+   "key_insight": "The function f whose level sets the Killing vector is orthogonal to is itself the right time coordinate.",
+   "result": "g'_0alpha = 0, g'_00 = g_00, metric still independent of x'^0: the static form (15.19).",
+   "concepts": [
+    "static space-time",
+    "adapted coordinates",
+    "hypersurface-orthogonal vector field"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 291,
+    "printed_page": 276,
+    "section": "15.4"
+   },
+   "problem": "Reduce the four-function spherically symmetric ansatz A dt^2 - 2B dt dr - C dr^2 - D dOmega^2 to a two-function diagonal form.",
+   "method": "Take r' = sqrt(D) as the radius; multiply A' dt - B' dr' by an integrating factor to define dt'; square and substitute to absorb the cross term into dt'^2 and dr'^2 coefficients; name the positive coefficients e^nu and e^lambda.",
+   "key_insight": "Coordinate freedom in the (t, r) plane is exactly enough to remove two functions; the rest is physics.",
+   "result": "ds^2 = e^nu dt^2 - e^lambda dr^2 - r^2 dOmega^2 with nu(t, r), lambda(t, r).",
+   "concepts": [
+    "areal radius",
+    "integrating-factor time coordinate",
+    "canonical spherically symmetric line element"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   },
+   "problem": "Solve the vacuum field equations for the canonical spherically symmetric metric.",
+   "method": "Quote the mixed Einstein tensor; drop the angular equation via Bianchi; the tr equation gives lambda-dot = 0; adding tt and rr gives lambda + nu = h(t); the tt equation becomes (r e^{-lambda})' = 1; integrate with constant -2m; rescale time to remove e^{h(t)}.",
+   "key_insight": "The only time dependence allowed by the equations is a function h(t) that is pure coordinate choice, which is the seed of Birkhoff's theorem.",
+   "result": "The Schwarzschild line element (15.52).",
+   "concepts": [
+    "Schwarzschild solution",
+    "contracted Bianchi identities",
+    "Birkhoff's theorem"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   },
+   "problem": "Show that the Schwarzschild exterior is static and identify its constant m physically.",
+   "method": "Lower the adapted Killing vector to get (1 - 2m/r, 0, 0, 0) = g_00 times grad t, or check invariance under t -> -t and t -> t + const; then compare g_00 at large r with the Newtonian 1 + 2 phi / c^2 for a point mass.",
+   "key_insight": "Two independent certificates of staticity agree, and the Newtonian limit turns an integration constant into a measurable mass.",
+   "result": "Static with world time t; asymptotically flat; m = GM/c^2 (a length).",
+   "concepts": [
+    "static space-time",
+    "geometric mass",
+    "asymptotic flatness"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   },
+   "problem": "Find a radial coordinate rho that makes the spatial part of Schwarzschild conformally flat.",
+   "method": "Match the angular coefficient (r = lambda rho) and the radial element; eliminate lambda to get dr / sqrt(r^2 - 2mr) = d rho / rho; choose the sign so rho grows with r; integrate.",
+   "key_insight": "Two matching conditions for one unknown function and one conformal factor fix the transformation up to an integration constant chosen by asymptotics.",
+   "result": "r = rho(1 + m/2rho)^2 and the isotropic metric (15.63).",
+   "concepts": [
+    "isotropic coordinates",
+    "conformally flat spatial slices"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.8"
+   },
+   "problem": "Derive the equation of hydrostatic equilibrium for a static, spherically symmetric perfect-fluid star.",
+   "method": "Normalise the Killing vector to get u^a; compute T^0_0 = rho and T^i_j = -p delta^i_j; integrate G^0_0 = 8 pi rho to e^{-lambda} = 1 - 2m(r)/r; solve G^1_1 = -8 pi p for nu'; use nabla_b T^b_1 = 0 to get p' = -(rho + p) nu'/2; eliminate nu'.",
+   "key_insight": "The same Einstein-tensor components used for vacuum now carry sources, and conservation of energy-momentum supplies the extra equation linking pressure to the lapse.",
+   "result": "The TOV equation (15.74).",
+   "concepts": [
+    "Tolman-Oppenheimer-Volkoff equation",
+    "mass function",
+    "relativistic hydrostatic equilibrium"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   },
+   "problem": "Solve the TOV equation for a star of uniform density rho_0 and radius R and join it to the exterior.",
+   "method": "Use m(r) = M r^3/R^3 inside; integrate the separable pressure equation with p(R) = 0; obtain lambda from (15.70) and nu by integrating (15.72) with continuity at R.",
+   "key_insight": "Uniform density makes the TOV equation integrable in closed form, giving an exact star whose outside is exactly Schwarzschild.",
+   "result": "p(r) as in (15.76) and e^nu as in (15.77) (with the interior first term corrected to (1 - 2M/R)^{1/2}); exterior e^nu = 1 - 2M/r.",
+   "concepts": [
+    "Schwarzschild interior solution",
+    "matching interior to exterior"
+   ],
+   "difficulty": "challenging"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Gas in a pipe: pumped irregularly, flowing steadily, or at rest",
+   "target_concept": "stationary space-time",
+   "how_used": "Separates time-independence of a field (steady flow) from absence of motion (no flow), mapping onto stationary versus static metrics.",
+   "limits": "A fluid velocity field is not a metric; the metric analogue of steady motion is a rotating source (g_0alpha non-zero), which the picture does not show. It also suggests a preferred rest frame, which geometry does not supply.",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Pair the pipe animation with a rotating-star panel so the learner sees steady flow correspond to frame-dragging cross terms."
+  },
+  {
+   "analogy": "Running the film backwards",
+   "target_concept": "static space-time",
+   "how_used": "Static means time-symmetric about any instant: nothing observable changes under reversing time, which is why cross terms dt dx must vanish.",
+   "limits": "Time symmetry about one instant alone does not give staticity (a ball thrown up and caught is symmetric about the top); translation invariance must be added, as Exercise 15.1 stresses.",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Play short clips (spinning wheel, bouncing ball, still lamp) forward and backward and ask which are stationary, time-symmetric, static."
+  },
+  {
+   "analogy": "Recovering Newtonian absolute time",
+   "target_concept": "world time",
+   "how_used": "In a static space-time a canonical slicing exists and privileged observers agree on simultaneity, like Newton's universal time.",
+   "limits": "Clocks of static observers still tick at rates sqrt(g_00) relative to world time, and the slicing is only defined where the Killing vector is timelike (r > 2m).",
+   "locator": {
+    "pdf_page": 289,
+    "printed_page": 274,
+    "section": "15.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Static-observer clocks at several radii ticking against a world-time master clock, with red-shift readouts."
+  },
+  {
+   "analogy": "Rotating a point about the origin sweeps out a sphere",
+   "target_concept": "spherical symmetry",
+   "how_used": "Heuristic replacement for the group-theoretic definition: orbits of rotations are 2-spheres carrying the standard round metric.",
+   "limits": "Assumes a central point exists in the manifold; in Schwarzschild or Kruskal no such origin need be part of space-time, which is why the rigorous definition speaks only of orbits.",
+   "locator": {
+    "pdf_page": 290,
+    "printed_page": 275,
+    "section": "15.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Enclosed Newtonian mass",
+   "target_concept": "mass function",
+   "how_used": "m(r) is introduced as the relativistic counterpart of the mass inside radius r and controls e^{-lambda} as 1 - 2m(r)/r.",
+   "limits": "The integral uses coordinate volume 4 pi r^2 dr rather than proper volume, so m(r) is not a simple sum of local rest masses; binding energy is included.",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Plot m(r) and a proper-volume mass integral for a uniform star as compactness increases, showing their gap grow."
+  },
+  {
+   "analogy": "Conformal maps preserve angles but not lengths",
+   "target_concept": "conformally flat spatial slices",
+   "how_used": "Isotropic coordinates make each spatial slice look Euclidean in its angles and length ratios, with a position-dependent scale factor.",
+   "limits": "A conformally flat slice can still be curved; the analogy to a map projection (our wording, the book cites Exercise 6.28) must not suggest the slice is flat.",
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Draw a grid in isotropic rho on a slice and overlay the proper-length scale factor (1 + m/2rho)^2 as a colour map."
+  },
+  {
+   "analogy": "Newtonian gravity as contrast: spherical symmetry says nothing about time dependence",
+   "target_concept": "Birkhoff's theorem",
+   "how_used": "Authors present Birkhoff as surprising relative to Newtonian intuition and attribute it to the special character of the non-linear field equations.",
+   "limits": "Newtonian gravity actually has the same exterior property (shell theorem: the outside potential of a pulsating spherical mass is constant); the genuinely relativistic content is that the full metric, not just a potential, is fixed and static. Linear electromagnetism also forbids monopole radiation, so non-linearity is not the whole story.",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   },
+   "effectiveness": "weak",
+   "app_idea": "Compare a pulsating charged sphere in Maxwell theory, a Newtonian pulsating mass and the GR case, all showing no exterior change."
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "Stationary means nothing is happening.",
+   "correction": "Stationary only means no explicit time dependence; steady motion (a rotating star, steady flow) is allowed. Absence of motion is the stronger notion, static.",
+   "why_tempting": "In everyday language 'stationary' means not moving.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   },
+   "concepts": [
+    "stationary space-time",
+    "static space-time"
+   ]
+  },
+  {
+   "misconception": "If the metric components depend on t in the chart I am using, the space-time is time-dependent.",
+   "correction": "Time dependence is chart dependent; the invariant test is the existence of a timelike Killing vector. The Schwarzschild calculation itself produces an apparently time-dependent e^{h(t)} that is removed by relabelling t.",
+   "why_tempting": "Coordinates are usually taken at face value, and the Killing vector is not visible in arbitrary coordinates.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   },
+   "concepts": [
+    "stationary space-time",
+    "timelike Killing vector field"
+   ]
+  },
+  {
+   "misconception": "A time-symmetric system must be static.",
+   "correction": "Symmetry under reversing time about one instant is not enough (a ball thrown up is symmetric about its apex); combined with time-translation invariance it gives staticity.",
+   "why_tempting": "'Unchanged under running time backwards' sounds like 'unchanging'.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": null
+   },
+   "concepts": [
+    "time-reversal symmetry",
+    "time-translation invariance",
+    "static space-time"
+   ]
+  },
+  {
+   "misconception": "To derive Schwarzschild one must assume the field is static and flat at infinity.",
+   "correction": "Only spherical symmetry and the vacuum equations are needed; staticity (in r > 2m) and asymptotic flatness follow.",
+   "why_tempting": "Many textbooks start from a static, asymptotically flat ansatz for convenience.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   },
+   "concepts": [
+    "Birkhoff's theorem",
+    "asymptotic flatness"
+   ]
+  },
+  {
+   "misconception": "A spherically pulsating or collapsing star emits gravitational waves and changes the field outside.",
+   "correction": "By Birkhoff's theorem the exterior stays exactly Schwarzschild with the same m; gravitational radiation needs departures from spherical symmetry (quadrupole or higher).",
+   "why_tempting": "Moving masses radiate in the popular picture, and electromagnetic intuition about accelerating charges is carried over.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   },
+   "concepts": [
+    "no monopole gravitational radiation",
+    "Birkhoff's theorem"
+   ]
+  },
+  {
+   "misconception": "If the exterior field is Schwarzschild, the source must be spherically symmetric.",
+   "correction": "The implication runs one way only; non-spherical sources with a Schwarzschild exterior exist.",
+   "why_tempting": "Symmetry of the effect is naturally attributed to symmetry of the cause.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   },
+   "concepts": [
+    "source symmetry not inherited"
+   ]
+  },
+  {
+   "misconception": "The constant m is a mass in kilograms.",
+   "correction": "In the metric m has dimensions of length; m = GM/c^2 converts the Newtonian mass (about 1.48 km for the Sun).",
+   "why_tempting": "The symbol m and the name 'mass' suggest ordinary units.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   },
+   "concepts": [
+    "geometric mass",
+    "geometrized units"
+   ]
+  },
+  {
+   "misconception": "The coordinate r is the radial distance from the centre.",
+   "correction": "r is the areal radius, defined so spheres have area 4 pi r^2; proper radial distance is the integral of (1 - 2m/r)^{-1/2} dr, which is larger. Isotropic rho is yet another radius for the same spheres.",
+   "why_tempting": "In flat space the same letter means both, and the chart looks like spherical polars.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 291,
+    "printed_page": 276,
+    "section": "15.4"
+   },
+   "concepts": [
+    "areal radius",
+    "isotropic coordinates"
+   ]
+  },
+  {
+   "misconception": "Birkhoff's theorem says the Schwarzschild geometry is static everywhere, including inside r = 2m.",
+   "correction": "The chapter restricts to r > 2m. For r < 2m the Killing vector partial_t is spacelike, so that region is not static; Chapter 17 treats it.",
+   "why_tempting": "The theorem is often quoted without its domain.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   },
+   "concepts": [
+    "Birkhoff's theorem",
+    "exterior region"
+   ]
+  },
+  {
+   "misconception": "Isotropic coordinates show that space around a mass is flat.",
+   "correction": "The slices are only conformally flat: angles look Euclidean but lengths are scaled by (1 + m/2rho)^2, and the 3-geometry is curved.",
+   "why_tempting": "The bracket d rho^2 + rho^2 dOmega^2 looks exactly like flat space.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   },
+   "concepts": [
+    "conformally flat spatial slices",
+    "isotropic coordinates"
+   ]
+  },
+  {
+   "misconception": "World time is the time shown by every static observer's clock.",
+   "correction": "A static observer at radius r measures proper time d tau = sqrt(1 - 2m/r) dt; world time coincides with proper time only at infinity.",
+   "why_tempting": "The analogy with Newtonian absolute time and the book's remark that these coordinates are Gaussian.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 289,
+    "printed_page": 274,
+    "section": "15.3"
+   },
+   "concepts": [
+    "world time",
+    "Gaussian coordinates"
+   ]
+  },
+  {
+   "misconception": "Any static star can be made arbitrarily compact if the pressure is high enough.",
+   "correction": "In the TOV equation pressure itself gravitates (the p terms), so pressure support is self-limiting; for uniform density the central pressure diverges at R = 9M/4 (our inference from (15.76)).",
+   "why_tempting": "In Newtonian hydrostatics more pressure always means more support.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   },
+   "concepts": [
+    "Tolman-Oppenheimer-Volkoff equation",
+    "Schwarzschild interior solution"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Reversing time on a pair of nearby events",
+   "setup": "Take two events differing by dx^0 and dx^1 in a time-independent chart and compute their interval before and after replacing x^0 by -x^0.",
+   "lesson": "Only the cross term changes sign, so a static (time-symmetric) metric cannot have it.",
+   "locator": {
+    "pdf_page": 287,
+    "printed_page": 272,
+    "section": "15.3"
+   },
+   "concepts": [
+    "time-reversal symmetry",
+    "static space-time"
+   ],
+   "visualizable": true,
+   "app_idea": "Two draggable events on a (t, x) grid with a metric slider for g_01; mirror the diagram in t and show the interval readouts diverge unless g_01 = 0."
+  },
+  {
+   "name": "Pulsating spherical star",
+   "setup": "A star expands and contracts while always remaining spherical.",
+   "lesson": "Outside the star the geometry never changes, so no gravitational waves or other signals leave it.",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   },
+   "concepts": [
+    "Birkhoff's theorem",
+    "no monopole gravitational radiation"
+   ],
+   "visualizable": true,
+   "app_idea": "See Fig. 15.7 redesign: probes outside a pulsating star with a symmetry-breaking toggle."
+  },
+  {
+   "name": "Static observers synchronising clocks",
+   "setup": "A family of observers at rest along the Killing flow in a static space-time try to agree on which distant events are simultaneous.",
+   "lesson": "Because the Killing vector is hypersurface-orthogonal, the slices t = const give a consistent common simultaneity; in merely stationary space-times this fails.",
+   "locator": {
+    "pdf_page": 289,
+    "printed_page": 274,
+    "section": "15.3"
+   },
+   "concepts": [
+    "world time",
+    "hypersurface-orthogonal vector field"
+   ],
+   "visualizable": true,
+   "app_idea": "Einstein-synchronise a ring of observers around a static versus a rotating mass and display the closure mismatch."
+  },
+  {
+   "name": "Sweeping a point by rotations",
+   "setup": "Fix a time and a point P at some distance from a centre, then apply all rotations about that centre.",
+   "lesson": "P traces a 2-sphere, so the metric must contain the round sphere metric times a function of t and r.",
+   "locator": {
+    "pdf_page": 290,
+    "printed_page": 275,
+    "section": "15.4"
+   },
+   "concepts": [
+    "spherical symmetry",
+    "2-sphere line element"
+   ],
+   "visualizable": true,
+   "app_idea": null
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Karl Schwarzschild"
+   ],
+   "year": "1916",
+   "event": "Found the exterior vacuum solution named after him (and also the uniform-density interior solution) within weeks of the field equations being published. In DIV ch13 §13.10 the authors recall that he assumed a static spherically symmetric form, an assumption this chapter shows to be unnecessary.",
+   "significance": "First exact solution of general relativity, basis of the classical tests and later of black-hole physics. The January 1916 date is given in DIV ch13 §13.10, not in this chapter.",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.5"
+   }
+  },
+  {
+   "people": [
+    "George D. Birkhoff",
+    "Jorg T. Jebsen"
+   ],
+   "year": "1921-1923",
+   "event": "Proof that spherically symmetric vacuum solutions are static (in the exterior); the book names only Birkhoff.",
+   "significance": "Explains why spherical collapse or pulsation cannot radiate. Dates and Jebsen's priority are our addition.",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   }
+  },
+  {
+   "people": [
+    "Richard C. Tolman",
+    "J. Robert Oppenheimer",
+    "George M. Volkoff"
+   ],
+   "year": "1939",
+   "event": "Relativistic equation of hydrostatic equilibrium for static spherical stars, applied to neutron-star models.",
+   "significance": "Foundation of relativistic stellar structure and of maximum-mass limits for neutron stars. The book names the equation but gives no history; year is our addition.",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Exterior field of the Sun, Earth and other nearly spherical bodies",
+   "kind": "astrophysical-system",
+   "details": "Birkhoff's theorem means the Schwarzschild metric describes the vacuum outside any spherical body, regardless of internal motions, which is what the Chapter 16 tests use. Numbers are our own estimates from m = GM/c^2.",
+   "key_numbers": "Sun: m ~ 1.48 km, 2m ~ 2.95 km, 2m/R_sun ~ 4.2e-6. Earth: m ~ 4.4 mm, 2m/R_earth ~ 1.4e-9 (own estimates).",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "topic": "No gravitational waves from spherical pulsation or collapse",
+   "kind": "astrophysical-system",
+   "details": "Radially pulsating stars (e.g. Cepheid-like modes) and perfectly spherical supernova core collapse emit no gravitational radiation; detectable signals require asymmetry.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "topic": "Neutron-star structure from the TOV equation",
+   "kind": "astrophysical-system",
+   "details": "The book notes that realistic stars need an equation of state and numerical integration of the TOV equation. In practice this sets neutron-star radii and a maximum mass (our addition).",
+   "key_numbers": "Typical neutron star: M ~ 1.4 solar masses, R ~ 12 km, 2M/R ~ 0.35; observed maximum masses ~ 2 solar masses (own addition, not in the book).",
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": "15.8"
+   }
+  },
+  {
+   "topic": "Compactness limit of a uniform-density star",
+   "kind": "numerical-estimate",
+   "details": "From (15.76) the central pressure p(0) = rho_0 (1 - sqrt(1 - 2M/R)) / (3 sqrt(1 - 2M/R) - 1) blows up when sqrt(1 - 2M/R) = 1/3. This limit (Buchdahl's bound, which holds for any reasonable density profile) is not stated in the book.",
+   "key_numbers": "R_min = 9M/4 = 1.125 x (2M) for uniform density (own derivation).",
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": "15.8"
+   }
+  },
+  {
+   "topic": "Isotropic form as the starting point for PPN tests",
+   "kind": "data-analysis",
+   "details": "The isotropic metric expanded in m/rho gives g_00 ~ 1 - 2m/rho + 2m^2/rho^2 and spatial factor ~ 1 + 2m/rho, the form parametrised by beta and gamma in Chapter 16. The expansion coefficients are our computation.",
+   "key_numbers": "GR values beta = gamma = 1 (from DIV ch16 §16.9).",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.7"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Starred equality *=",
+   "convention": "Marks an equation valid only in the specified special coordinate system (adapted chart), not a tensor identity.",
+   "notes": "The text export sometimes renders it as a plain or plus-sign equality (e.g. Exercise 15.5).",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   }
+  },
+  {
+   "item": "Signature and line element",
+   "convention": "Signature -2: ds^2 = g_00 dt^2 minus spatial terms; timelike vectors have X^a X_a > 0 and u^a u_a = 1.",
+   "notes": "Opposite to the (-+++) convention of Schutz, Carroll, Wald, MTW; sign of T^ab = (rho + p) u u - p g follows.",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.4"
+   }
+  },
+  {
+   "item": "Geometrized units",
+   "convention": "G = c = 1 throughout (e.g. 8 pi rho = G^0_0); constants restored only in m = GM/c^2.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "item": "Index ranges",
+   "convention": "Latin a, b, c run 0-3; Greek alpha, beta, gamma run 1-3; in 15.8 spatial indices are written i, j.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 288,
+    "printed_page": 273,
+    "section": "15.3"
+   }
+  },
+  {
+   "item": "Dot and prime",
+   "convention": "Dot denotes partial derivative with respect to t; prime denotes partial derivative with respect to r.",
+   "notes": "Primes also mark new coordinates and transformed functions in 15.3-15.5 (x'^0, r', t', A', B', C', g'_00), so in 15.4 a prime is a relabelling, not an r-derivative; from (15.40) on it is the r-derivative again (nu', lambda').",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "item": "nu and lambda",
+   "convention": "Metric functions in g_00 = e^nu and g_11 = -e^lambda; exponentials guarantee the sign pattern.",
+   "notes": "Other books use e^{2 Phi}, e^{2 Lambda} or A(r), B(r).",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.4"
+   }
+  },
+  {
+   "item": "Overloaded symbols",
+   "convention": "lambda means a proportionality function (15.6), the metric exponent (15.37) and the isotropic conformal factor (15.57); rho is both the isotropic radius (15.7) and the energy density (15.8); phi is both the azimuth and the Newtonian potential (15.6); m is the Schwarzschild constant and m(r) the mass function.",
+   "notes": "Flag these for learners moving between sections.",
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   }
+  },
+  {
+   "item": "Killing vector symbols",
+   "convention": "X^a for the Killing field in 15.1-15.6, xi^a = (1,0,0,0) in 15.8; X^2 := X^a X_a may be negative for spacelike X.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.8"
+   }
+  },
+  {
+   "item": "Antisymmetrization brackets",
+   "convention": "X_[a partial_b X_c] denotes the total antisymmetric part over a, b, c (with the 1/3! normalisation of Chapter 5).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   }
+  },
+  {
+   "item": "Angle names",
+   "convention": "theta in [0, pi] measured from the z-axis; phi in (-pi, pi] measured in the x-y plane from the x-axis.",
+   "notes": "The text calls phi 'axial' and theta 'azimuthal', the reverse of common usage where phi is the azimuth and theta the polar angle.",
+   "locator": {
+    "pdf_page": 290,
+    "printed_page": 275,
+    "section": "15.4"
+   }
+  },
+  {
+   "item": "Field equations and mixed Einstein tensor",
+   "convention": "G^a_b = 8 pi T^a_b with G^a_b computed in Exercise 6.32(v); vacuum means G^a_b = 0.",
+   "notes": "The printed index placement G_0^1 versus G_1^0 in (15.41) needs care.",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Shaded boxes single out the key results: the canonical form (15.37), the Schwarzschild line element (15.52), Birkhoff's theorem, the isotropic form (15.63) and the TOV equation (15.74).",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   }
+  },
+  {
+   "summary": "Mid-derivation '(why?)' prompts ask why the metric depends only on spatial coordinates in the static chart and why index heights on a dummy index may be exchanged.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   }
+  },
+  {
+   "summary": "Pointer ahead to §17.1 for why t is timelike and r spacelike only for r > 2m, and to Chapter 17 for coordinate ranges and interpretation.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   }
+  },
+  {
+   "summary": "The Einstein-tensor components are not derived here but taken from the long Exercise 6.32, which the book set earlier for this purpose.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "summary": "Remark that rigorous derivations confirm the canonical spherical form, used to justify the heuristic argument.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.4"
+   }
+  },
+  {
+   "summary": "Further reading: all standard GR texts treat the exterior solution; for the interior source the authors recommend the simpler treatment in Hughston and Tod (1990), and also list Carroll, Hartle, Schutz and Wald.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 302,
+    "printed_page": 287,
+    "section": null
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 18,
+  "pdf_pages": [
+   299,
+   300,
+   301
+  ],
+  "skills_practiced": [
+   "Distinguishing time symmetry, time-translation invariance, stationarity and staticity",
+   "Constructing adapted coordinates from a Killing vector",
+   "Manipulating antisymmetrized derivative conditions and closed-versus-exact covectors",
+   "Verifying coordinate transformations preserve or remove metric components",
+   "Group properties of isometries and the round 2-sphere metric",
+   "Reflection arguments against cross terms",
+   "Using the contracted Bianchi identities to show dependence of field equations",
+   "Dimensional analysis of G and geometric mass",
+   "Computing Riemann components of Schwarzschild",
+   "Isotropic coordinates: integration, weak-field limit, Killing vectors and commutators",
+   "Deriving and integrating the TOV equation for uniform density"
+  ],
+  "notable": [
+   {
+    "number": "15.1",
+    "summary": "Find an example that is symmetric under time reversal yet not stationary, then prove that time symmetry plus invariance under time shifts implies staticity, and conclude that a stationary time-symmetric system is static.",
+    "skills": [
+     "time-reversal symmetry",
+     "static versus stationary"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Forces the learner to disentangle three symmetry notions that are easily conflated.",
+    "pdf_page": 299
+   },
+   {
+    "number": "15.5",
+    "summary": "Starting from a block-diagonal time-independent metric, show that the coordinate time vector is a timelike Killing vector orthogonal to the constant-time slices.",
+    "skills": [
+     "Killing equation",
+     "hypersurface orthogonality"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Completes the converse direction of the static biconditional left unproved in the text.",
+    "pdf_page": 300
+   },
+   {
+    "number": "15.7",
+    "summary": "Compute how far a point on a sphere moves under small increments of each angle and combine the displacements by Pythagoras to obtain the round sphere metric.",
+    "skills": [
+     "line elements from geometry"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Gentle entry point for novices; note the misprint in part (ii), which should read phi -> phi + dphi.",
+    "pdf_page": 300
+   },
+   {
+    "number": "15.9",
+    "summary": "Use the contracted Bianchi identities to show that the angular Einstein equation is automatically satisfied once the other three vanish.",
+    "skills": [
+     "Bianchi identities",
+     "counting independent equations"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Shows concretely how the identities reduce the field equations, a theme of Chapter 13.",
+    "pdf_page": 300
+   },
+   {
+    "number": "15.13",
+    "summary": "Determine all non-vanishing components of the covariant Riemann tensor of the Schwarzschild metric.",
+    "skills": [
+     "curvature computation",
+     "symmetries of Riemann"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Needed to see that r = 2m is not a curvature singularity and to discuss tidal forces in Chapter 17.",
+    "pdf_page": 300
+   },
+   {
+    "number": "15.16",
+    "summary": "Decide which of the six listed properties of the Schwarzschild exterior remain evident in the isotropic chart.",
+    "skills": [
+     "coordinate invariance of properties"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Tests whether learners distinguish chart-dependent features (adaptedness) from geometric ones.",
+    "pdf_page": 301
+   },
+   {
+    "number": "15.17",
+    "summary": "In Cartesian-type isotropic coordinates, verify by direct computation that time translation and the three rotations are Killing vectors and find their commutators.",
+    "skills": [
+     "Killing equation in components",
+     "Lie brackets",
+     "chain rule for r(rho(x))"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Links the rigorous SO(3) definition of spherical symmetry back to an explicit metric.",
+    "pdf_page": 301
+   },
+   {
+    "number": "15.18",
+    "summary": "Multi-part derivation of the interior theory: fluid tensor components, the mass-function form of lambda, the conservation equation, the TOV equation, and the full uniform-density solution joined to the exterior.",
+    "skills": [
+     "perfect fluid in curved space-time",
+     "ODE integration",
+     "matching conditions"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Fills in every step the text labels as an exercise in 15.8; a careful solver will also catch the misprint in (15.77).",
+    "pdf_page": 301
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 4,
+  "conceptual_level": 3,
+  "novice_friendliness": 2,
+  "notes": "The Schwarzschild derivation itself is routine once Exercise 6.32 is available, but 15.2 relies on fluent index gymnastics (antisymmetrization, dummy index raising, closed-implies-exact) and 15.4 mixes a rigorous definition with a heuristic argument whose hidden assumptions are not stated. Physical interpretation is brief and deferred to Chapters 16-17. The TOV section compresses most steps into exercises. Symbol overloading (lambda, rho, phi) and two printed errors ((15.41) factor, (15.77) interior term) add friction."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "DIV ch07 §7.7",
+   "reason": "Isometry definition (7.52) and Killing's equation (7.55) underpin the stationary, static and spherical definitions.",
+   "locator": {
+    "pdf_page": 286,
+    "printed_page": 271,
+    "section": "15.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch07 Exercise 7.4; DIV ch08 Exercise 8.5",
+   "reason": "Cited for the existence of a chart where rotational Killing vectors take the standard linear form.",
+   "locator": {
+    "pdf_page": 290,
+    "printed_page": 275,
+    "section": "15.4"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch06 Exercise 6.32",
+   "reason": "Supplies Christoffel symbols (ii) and mixed Einstein tensor (v) for the canonical spherical metric.",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch06 Exercise 6.28",
+   "reason": "Conformally related metrics share angles and length ratios, used to motivate isotropic coordinates.",
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch10 §10.6",
+   "reason": "Newtonian correspondence g_00 ~ 1 + 2 phi / c^2 (10.49) identifies m = GM/c^2.",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch12 §12.4",
+   "reason": "Perfect-fluid energy-momentum tensor (12.22) used for the interior.",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.8"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch12 §12.6",
+   "reason": "Equation (12.45): antisymmetrized covariant and partial derivatives of a covector agree, used in the hypersurface-orthogonality converse.",
+   "locator": {
+    "pdf_page": 287,
+    "printed_page": 272,
+    "section": "15.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch04 §4.1",
+   "reason": "Newton's law of gravitation (4.4) needed in Exercise 15.12 for the dimensions of G.",
+   "locator": {
+    "pdf_page": 300,
+    "printed_page": 285,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch13 §13.4-13.6",
+   "reason": "Contracted Bianchi identities and conservation equations reduce the number of independent field equations.",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch13 §13.10",
+   "reason": "Status and history of exact solutions, including Schwarzschild's original search for the simplest solution.",
+   "locator": null
+  },
+  {
+   "direction": "backward",
+   "target": "DIV ch14 §14.1-14.9",
+   "reason": "Hypersurface geometry, normals, foliations and the lapse function give context for hypersurface-orthogonal Killing vectors and the non-unit g_00 of static charts.",
+   "locator": {
+    "pdf_page": 285,
+    "printed_page": 270,
+    "section": "15.2"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch16 §16.2",
+   "reason": "Gravitational red shift uses world time of a static space-time.",
+   "locator": {
+    "pdf_page": 289,
+    "printed_page": 274,
+    "section": "15.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch16 §16.5-16.8",
+   "reason": "Perihelion advance, light bending and time delay are computed in the Schwarzschild exterior.",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.5"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch16 §16.9",
+   "reason": "PPN parameters are defined from an expansion of the isotropic form of a spherical metric.",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.7"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch17 §17.1-17.2",
+   "reason": "Character of t and r, coordinate ranges, and the coordinate versus curvature singularity at r = 2m and r = 0.",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch17 §17.8",
+   "reason": "Spherical collapse to a black hole, where Birkhoff's theorem fixes the exterior during collapse.",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch18 §18.2",
+   "reason": "Kruskal maximal extension of the Schwarzschild solution beyond the exterior region.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch19 §19.1",
+   "reason": "Reissner-Nordstrom solution generalises the spherical derivation to a charged mass.",
+   "locator": null
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch20 §20.4",
+   "reason": "Kerr solution is stationary but not static, illustrating the distinction set up here.",
+   "locator": {
+    "pdf_page": 285,
+    "printed_page": 270,
+    "section": "15.1"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch21 Exercises (§21.14)",
+   "reason": "Weak-field check against the isotropic Schwarzschild metric.",
+   "locator": {
+    "pdf_page": 297,
+    "printed_page": 282,
+    "section": "15.7"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "DIV ch22 §22.1",
+   "reason": "Relation between gravitational waves and symmetries; spherical symmetry excludes radiation.",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Hughston, L. P. and Tod, K. P. (1990) An Introduction to General Relativity, CUP",
+   "reason": "Recommended as a simple treatment of interior sources for the Schwarzschild solution.",
+   "locator": {
+    "pdf_page": 302,
+    "printed_page": 287,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Carroll (2004); Hartle (2003); Schutz (1985); Wald (1984)",
+   "reason": "General texts listed for the exterior Schwarzschild solution.",
+   "locator": {
+    "pdf_page": 302,
+    "printed_page": 287,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Three-panel pipe picture: changing flow, steady flow, no flow, as the anchor for non-stationary, stationary, static.",
+   "why_effective": "Concrete, memorable, and it isolates the key idea that stationarity is about fields at fixed points, not about particles being at rest.",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   },
+   "app_idea": "Animated pipe with a 'reverse time' button next to a metric card that gains or loses g_0alpha terms as the mode changes."
+  },
+  {
+   "gem": "Upgrade a statement made in one convenient chart to a geometric fact: L_X g is a tensor, so showing it is zero in the adapted chart shows it is zero everywhere.",
+   "why_effective": "Gives learners a reusable template for turning 'look how simple the metric is in these coordinates' into geometry.",
+   "locator": {
+    "pdf_page": 284,
+    "printed_page": 269,
+    "section": "15.1"
+   },
+   "app_idea": "Show the Schwarzschild metric in a randomly time-mixed chart where every component depends on t'; let the learner compute L_X g numerically along a suggested X and watch it vanish."
+  },
+  {
+   "gem": "Sign-flip argument: under a reflection only the cross term changes sign, so invariance kills it (used for t, theta and phi).",
+   "why_effective": "One short symmetry argument replaces pages of algebra and recurs in many later derivations (Kerr, cosmology).",
+   "locator": {
+    "pdf_page": 287,
+    "printed_page": 272,
+    "section": "15.3"
+   },
+   "app_idea": "Metric-matrix widget: learner applies reflections to a generic 4x4 metric and sees which entries flip sign and are forced to zero."
+  },
+  {
+   "gem": "Coordinate freedom as a budget: areal radius, integrating-factor time and time rescaling each remove one unknown function before physics enters.",
+   "why_effective": "Makes explicit which parts of the final answer are gauge and which are physical, preparing Birkhoff's theorem.",
+   "locator": {
+    "pdf_page": 291,
+    "printed_page": 276,
+    "section": "15.4"
+   },
+   "app_idea": "Step-through derivation panel counting remaining free functions (A, B, C, D -> nu, lambda -> m) with each transformation highlighted."
+  },
+  {
+   "gem": "The time function h(t) that appears in the solution is pure coordinate choice, which is exactly why a spherical vacuum is static (Birkhoff).",
+   "why_effective": "Learners see the theorem emerge from the calculation rather than being asserted.",
+   "locator": {
+    "pdf_page": 293,
+    "printed_page": 278,
+    "section": "15.5"
+   },
+   "app_idea": "Let learners choose h(t) (e.g. oscillating) and see a 'time-dependent' metric whose clocks and orbits are identical after relabelling t."
+  },
+  {
+   "gem": "Fix the integration constant by the weak-field limit, and notice it has units of length.",
+   "why_effective": "Connects an abstract constant to a number the learner can compute for the Sun or a neutron star.",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   },
+   "app_idea": "Mass-to-length converter with a slider across Earth, Sun, neutron star and M87*, showing m and 2m against the body radius."
+  },
+  {
+   "gem": "A property checklist for the solution (spherical, stationary, adapted, static, asymptotically flat, geometric mass) re-tested in a new chart.",
+   "why_effective": "Distinguishes coordinate-dependent presentation from invariant properties, and gives the tutor an assessment rubric.",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   },
+   "app_idea": "Checklist card that toggles between Schwarzschild, isotropic and Eddington-Finkelstein forms, asking the learner which properties are still visible."
+  },
+  {
+   "gem": "Reuse the vacuum Einstein components with a source: G^0_0 integrates to the mass function and conservation gives the pressure gradient, yielding TOV with little new algebra.",
+   "why_effective": "Shows the economy of the formalism and makes each relativistic correction to Newtonian hydrostatics traceable.",
+   "locator": {
+    "pdf_page": 298,
+    "printed_page": 283,
+    "section": "15.8"
+   },
+   "app_idea": "TOV integrator: learner picks an equation of state and central density; plots p(r), m(r), e^nu and compares with the Newtonian profile, flagging the uniform-density 9M/4 limit."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Printed (15.77) has (1 - 2M/r)^{1/2} in the first term of the interior branch; it must be (1 - 2M/R)^{1/2}.",
+   "impact_on_learner": "With r in place of R the metric is not continuous at the surface and does not satisfy (15.72); learners checking Exercise 15.18(v) will be confused.",
+   "suggestion": "Use e^nu = [3/2 sqrt(1 - 2M/R) - 1/2 sqrt(1 - 2Mr^2/R^3)]^2 and verify continuity at r = R explicitly.",
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": "15.8"
+   }
+  },
+  {
+   "issue": "The relation in (15.41) between the two mixed tr components carries e^{lambda - nu}; raising and lowering with diag(e^nu, -e^lambda, ...) gives e^{nu - lambda}.",
+   "impact_on_learner": "Harmless for the vacuum solution (only lambda-dot = 0 is used) but misleading for anyone checking index gymnastics.",
+   "suggestion": "Derive the ratio directly from G_01 and state it with the correct exponent.",
+   "locator": {
+    "pdf_page": 292,
+    "printed_page": 277,
+    "section": "15.5"
+   }
+  },
+  {
+   "issue": "The text calls world-time coordinates Gaussian because g_0a = delta_0a, which requires g_00 = 1; a general static chart has g_0alpha = 0 but g_00 varying.",
+   "impact_on_learner": "Encourages the belief that world time is proper time for static observers, blurring the source of gravitational red shift.",
+   "suggestion": "Say the chart is orthogonal (zero shift) with lapse sqrt(g_00); Gaussian normal coordinates additionally need unit lapse.",
+   "locator": {
+    "pdf_page": 289,
+    "printed_page": 274,
+    "section": "15.3"
+   }
+  },
+  {
+   "issue": "The heuristic route to the spherical ansatz silently assumes a central origin, that D(t, r) has a non-vanishing spacelike gradient so sqrt(D) can serve as a radial coordinate, and that A' is non-zero when the integrating-factor step divides by it.",
+   "impact_on_learner": "Learners do not see where the argument could fail: the r < 2m region (areal-radius gradient timelike) and product geometries with constant D, which are excluded for Lambda = 0 vacuum by the field equations but do occur with a cosmological constant or electromagnetic field (Nariai, Bertotti-Robinson). Birkhoff can then be over-applied.",
+   "suggestion": "List the assumptions explicitly, note that constant-D vacuum solutions are ruled out only once G_ab = 0 with Lambda = 0 is imposed, and point to Chapter 17 for the r < 2m region.",
+   "locator": {
+    "pdf_page": 291,
+    "printed_page": 276,
+    "section": "15.4"
+   }
+  },
+  {
+   "issue": "Only a partial converse (for Killing vectors) of the hypersurface-orthogonality condition is proved, and Frobenius' theorem is not named.",
+   "impact_on_learner": "Learners may think the condition is special to Killing fields, missing the link to irrotational flows and later twist of congruences (§23.9).",
+   "suggestion": "Mention Frobenius and the fluid-vorticity analogy; show a twisting counterexample.",
+   "locator": {
+    "pdf_page": 287,
+    "printed_page": 272,
+    "section": "15.2"
+   }
+  },
+  {
+   "issue": "Asymptotic flatness is said to be forced, but this depends on zero cosmological constant; with Lambda the unique spherical vacuum is Schwarzschild-de Sitter.",
+   "impact_on_learner": "Overgeneralisation when learners meet cosmology (Chapters 24-26) or the cosmological term of §13.3.",
+   "suggestion": "Add a one-line caveat and optionally show the -Lambda r^2/3 term appearing in e^{-lambda}.",
+   "locator": {
+    "pdf_page": 295,
+    "printed_page": 280,
+    "section": "15.6"
+   }
+  },
+  {
+   "issue": "The interior section omits the Buchdahl compactness limit implied by (15.76), and does not discuss the difference between m(r) and proper-volume mass.",
+   "impact_on_learner": "Misses the most striking physical consequence of TOV (stars cannot be arbitrarily compact) and the idea that binding energy counts toward gravitating mass.",
+   "suggestion": "Evaluate p(0), find R = 9M/4, and compare 4 pi r^2 dr with the proper volume element e^{lambda/2} 4 pi r^2 dr.",
+   "locator": {
+    "pdf_page": 299,
+    "printed_page": 284,
+    "section": "15.8"
+   }
+  },
+  {
+   "issue": "Symbol overloading: lambda (three meanings), rho (radius and density), phi (angle and potential), prime (derivative and new coordinate).",
+   "impact_on_learner": "Confusion when reading 15.2, 15.4, 15.7 and 15.8 in sequence.",
+   "suggestion": "In the app use distinct symbols (e.g. alpha for the proportionality factor, Omega for the conformal factor, bar r for isotropic radius).",
+   "locator": {
+    "pdf_page": 296,
+    "printed_page": 281,
+    "section": "15.7"
+   }
+  },
+  {
+   "issue": "Birkhoff's theorem is contrasted with Newtonian theory as 'unexpected', yet Newtonian gravity also has a time-independent exterior potential for spherical pulsations (shell theorem).",
+   "impact_on_learner": "May attribute to non-linearity something that is shared with linear theories; the real novelty is that the entire exterior geometry is static and unique.",
+   "suggestion": "Present Newtonian and Maxwell analogues, then emphasise what is new in GR (static metric, no monopole waves, uniqueness of geometry).",
+   "locator": {
+    "pdf_page": 294,
+    "printed_page": 279,
+    "section": "15.6"
+   }
+  },
+  {
+   "issue": "Exercise 15.7(ii) misprints the increment as phi -> phi = dphi, and the text names phi 'axial' and theta 'azimuthal', reversing usual terminology.",
+   "impact_on_learner": "Minor confusion for novices.",
+   "suggestion": "Read as phi -> phi + dphi; use polar angle theta and azimuth phi.",
+   "locator": {
+    "pdf_page": 300,
+    "printed_page": 285,
+    "section": null
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with: 'A river flows steadily past you; is the river static?' Use the answer to separate stationary (steady) from static (no flow), then ask for an astrophysical example of each (rotating star versus non-rotating star).",
+  "Before any index work, check the learner can explain why a metric that looks time-dependent in one chart might still be stationary; if not, show a time-mixed coordinate change of Minkowski space.",
+  "Order for a first pass: pipe picture -> Killing vector definition of stationary -> reflection argument for static -> spherical ansatz -> solve for Schwarzschild -> Birkhoff and m = GM/c^2. Postpone the hypersurface-orthogonality proof (15.2) to a second pass or for mathematically oriented learners.",
+  "When presenting hypersurface orthogonality, use the level sets of t in Schwarzschild as the concrete example first: X_a = (1 - 2m/r) partial_a t is visibly a multiple of a gradient.",
+  "Check for understanding: ask which of the coordinate transformations in 15.4-15.5 changed the physics (none) and which constant survives as physical (m).",
+  "Common question: 'Is r the distance from the centre?' Answer that r is defined by sphere area; proper radial distance differs, and isotropic rho is yet another label for the same spheres.",
+  "Common question: 'Does Birkhoff mean a collapsing star has no effect outside?' Yes for the geometry outside the star's surface as long as the collapse stays spherical and the mass is conserved; ripples need asymmetry.",
+  "Use numbers: have the learner compute m for the Earth (about 4.4 mm) and the Sun (about 1.5 km) to feel how weak ordinary fields are (2m/R ~ 1e-9 and 4e-6).",
+  "Warn about printed slips: (15.77) should contain 2M/R in the constant term, and the exponent in (15.41) should be nu - lambda. Encourage learners to verify continuity at r = R themselves.",
+  "For TOV, ask the learner to take the Newtonian limit term by term (p << rho, 4 pi r^3 p << m, 2m/r << 1) and name what each relativistic factor means: pressure has inertia, pressure gravitates, and space is stretched.",
+  "Stretch question for advanced learners: evaluate the central pressure of the uniform-density star and find the radius where it diverges (R = 9M/4).",
+  "Signature reminder: this book uses (+,-,-,-); when learners bring formulas from Carroll or Schutz, flip the sign of g_ab and of p g^ab terms accordingly.",
+  "If a learner asks why a Killing vector is needed rather than just 'no t in the metric', point to the Kerr metric (Chapter 20): stationary with cross terms that no chart can remove, hence not static."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Corrected the notation note on primes: primes denote new coordinates/transformed functions in 15.3-15.5 (not 15.7-15.8 as claimed).",
+   "Rewrote gaps_and_pitfalls entry on the heuristic spherical ansatz: constant-D product geometries (Nariai, Bertotti-Robinson) are not Lambda = 0 vacuum solutions, so the earlier wording misled; added the hidden A' != 0 assumption.",
+   "Hypersurface-orthogonality concept: Frobenius criterion holds for any nowhere-vanishing field, not only non-null ones; clarified what the book proves.",
+   "Birkhoff's theorem definition reworded, domain (r > 2m) and Lambda = 0 made explicit, and source-text n-gram overlap removed.",
+   "Static space-time definition and a teaching gem reworded to remove phrasing that tracked the source.",
+   "Historical note on Schwarzschild: tied to DIV ch13 §13.10 (book gives January 1916 and says he assumed staticity), replacing an unverified general pointer."
+  ],
+  "residual_concerns": [
+   "Book misprints flagged but kept as printed in the transcription notes: (15.41) exponent should be nu - lambda; (15.77) interior term should be (1 - 2M/R)^{1/2}; Exercise 15.7(ii) phi -> phi = dphi; 'Gaussian' remark with g_0a = delta_0a (verified against renders of pdf 292, 299, 300, 289).",
+   "Inventory aside_count = 3 corresponds to figure-caption margins (Figs. 15.1, 15.5, 15.7); the ruled margin grids on pdf 297-299 are decorative and recorded as an unlabeled figure entry.",
+   "Numerical estimates (Sun/Earth m, neutron-star compactness, 9M/4 limit, PPN expansion) are reviewer-checked own additions, labelled as not in the book."
+  ],
+  "coverage": {
+   "toc_sections": 8,
+   "sections": 8,
+   "inventory_figures": 8,
+   "figures": 8,
+   "inventory_examples": 0,
+   "worked_examples": 8,
+   "concepts": 45,
+   "key_equations": 66,
+   "locators_checked": 256,
+   "locators_wrong": 0,
+   "pages_rendered": 11
+  }
+ }
+}

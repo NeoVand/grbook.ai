@@ -1,0 +1,1212 @@
+{
+ "group": "labs-geometry",
+ "summary": "The legacy book has 14 interactive geometry experiences in two generations, plus shared math-typesetting and fallback tools. The newer 'Geometry Lab 01–05' series was built 9–10 Sep 2026 (commits 230ab25, 2fc1cde, c3d5533, 64cc990, b257fd8): polar coordinates (§4.2), comparing a vector field at two points (§6.1), flow order and the Lie bracket (§6.6), continuous parallel transport on a plane, cylinder and sphere (§7.1), and two routes to one endpoint (opening Ch. 8). It shares one look and one saved-state format. Four more labs have their own looks: a curved surface with two overlapping charts (Ch. 4), Mercury's perihelion precession (§16.6), counting the independent Riemann components (Ch. 8) and a tidal particle cloud (§9.3). The older 'visual arguments' (commit 0e8afcc) cover stereographic charts, a polar metric cell, a rotating polar basis, octant transport in four steps, and horizon light directions (§17). The new series largely replaced them, but they stayed in the book, so Chapters 4, 6 and 8 show two different interfaces for the same idea. The mathematics is unusually careful. Each model is checked against an independent method: RK4 integration of the transport equation, Simpson quadrature, integrated flows, all 256 Riemann symmetry/Bianchi cases, and exact geodesic-deviation (Jacobi) solutions. The five suites with a model-only mode (check-flow-order, check-parallel-transport, check-vector-fields and check-geometry-foundations with --models; check-curvature-experiences with --unit-only) were re-run on 2026-09-12 and all exit 0. check-geometry-experiences.mjs and check-visual-lessons.mjs have no model-only flag: their numerical asserts run first in the same process, which then launches Playwright against a local build. Playwright checks cover 390/1440 px in both themes, overflow, label bounds, saved state, pausing offscreen, WebGL context loss and no-JavaScript fallbacks. The best assets are the parallel-transport pair (exact model, antialiased grid painted in the shader on one surface mesh, fixed-scale orthographic camera, face-on view) and the vector-field product-rule lab. The weaknesses are four different interface shells, two ways of labelling math (SVG text vs KaTeX), duplicated concepts, preset-only controls in the older lessons, and several planned items never built: a toggle between unit and coordinate basis vectors, moving markers and a flux box for divergence, an unrolled cylinder view, a shaded loop area, and R(X,Y)V. Geometry Labs 01–05 publish machine-readable state (data-scientific-context: model, parameters, readouts, units, assumptions, equations) plus narration text describing the current state. The manifold, precession, Riemann-count, tidal-cloud and older visual-lesson labs publish only data-narration-source and data-visual-state, which web/scientific-context.js reads as a fallback. The manifold, precession, Riemann-count and tidal-cloud labs also do not save state across reloads (their get/restore functions are called only by the Playwright checks). That is almost exactly what a GPT-Live tutor needs and should become a typed contract in grbook.ai.",
+ "lessons_learned": [
+  "Keep the independent-numerics check pattern. Each model was checked by a different method: RK4 integration of dV/ds = −(V·dn/ds)n along a straight-chord parametrisation against exact great-circle rotations (check-parallel-transport.mjs), Simpson quadrature of analytic field derivatives (check-vector-fields.mjs), step-by-step integration of the flows (check-flow-order.mjs), all 256 index combinations for the Riemann symmetries and cyclic identity (check-curvature-experiences.mjs), and the null condition in ingoing Eddington–Finkelstein coordinates (check-visual-lessons.mjs). The five suites with a --models/--unit-only flag passed on 2026-09-12. The geometry-experiences and visual-lessons checks mix numerics and Playwright in one run, so their numerics cannot run in CI without a browser. Split them. Port them as Vitest unit tests next to each Svelte lab.",
+  "Make the state contract a typed interface from day one. The legacy labs publish data-visual-state, data-narration-source (text describing the current state, with TeX), data-scientific-context JSON {model, parameters, readouts, units, assumptions, equations}, and a gr:visual-change event. That gives the voice tutor grounded, current numbers without screen-scraping. In the legacy code it was re-implemented ad hoc in each file, and web/geometry-experiences.js, web/curvature-experiences.js and web/visual-lessons.js do not emit scientificContext at all. The consumer, web/scientific-context.js visibleExperiments(), therefore takes up to two visible lab roots and falls back to scraping up to 6,000 characters of visible p/li/output text plus every visible range, select, pressed button and tab. A typed contract removes the need to scrape.",
+  "Design one lab shell and one labelling system before building labs. The legacy book has four shells: a card with a serif h2 and 'GEOMETRY LAB / 0n' eyebrow, the gx-* layout (no card, sans title), cx-* (no card, bold sans), and vl-* (tinted card, 9–12 px text). It has two saved-state keys (gr-course-v1 and gr-visual-lessons:v1). It labels math two ways: plain SVG text such as 'eθ', 'Δθ', 'h²' in the polar, field and flow labs, versus KaTeX overlays positioned from the SVG's screen transform elsewhere. check-geometry-experiences.mjs asserts that no SVG text exists, yet the Geometry Lab series relies on it.",
+  "Retire superseded interfaces. The five older visual lessons (charts, metric, basis, transport) repeat concepts that the newer Geometry Labs teach better, yet both were kept, so readers learn two interfaces for coordinates, moving bases and transport. docs/visual-development-plan-2026-09-09.md §3 itself warns against this. It also judged four discrete transport states and a basis rotating at one point insufficient.",
+  "Continuous parameters beat presets. What worked was a scrub slider plus a play button, 'Next corner' stepping, a reverse control, a size control that shrinks the loop toward its start, and a radius control that separates angular size from physical area. Opening in a state that already shows the effect also worked: the routes lab starts on the completed sphere with 90° visible. The older lessons' five-point and three-radius presets felt like a slideshow.",
+  "3D technique worth copying: paint grids and chart patches in the fragment shader with fwidth antialiasing instead of drawing coincident line meshes, which caused z-fighting and flicker (see parallel-transport-scene.js makeSurface and geometry-experiences.js initSpatial). Fit the camera to a bounding sphere once per resize, not per drag, so the model does not appear to 'breathe'. Use an orthographic camera with a fixed frustum when angles are measured. Give every measurement scene a 'look straight at' button. Recreate OrbitControls after changing camera.up.",
+  "Theme pitfall found only by eye: passing the luminous dark-theme text colour into a lit surface material washed out the sphere and the blue route (docs/parallel-transport-review.md, 'Dark-theme surface repair'). Surface-colour tokens must be separate from text and marker tokens, and unlit teaching marks should skip tone mapping so they match the legend.",
+  "Screenshot review caught what assertions missed: an overlit surface, camera fits that left models too small, labels colliding on phones, and a horizon cone too small inside the horizon (geometry-experiences-review.md, visual-lessons-review.md, visualization-audit.md). Keep a human screenshot review at 390 and 1440 px in both themes as a release gate.",
+  "Lifecycle bugs to design out: IntersectionObserver batches can deliver a stale hidden entry first, so use entries.at(-1). This bug surfaced only on reload and has a dedicated regression test. On resume, never integrate the wall-clock time that passed while hidden (the cloud check asserts the jump is at most 0.006). Never auto-start animation; respect reduced motion but still allow an explicit Play. After a WebGL context loss, redraw the current state immediately as SVG and disable camera-only buttons.",
+  "Honest model disclosures should be kept and fed to the tutor. Examples: the precessing Kepler ellipse with only the extra angle magnified 300,000×, 'not an exact Schwarzschild geodesic'; the cloud's 'not a universal Ricci/Weyl decomposition'; flow order 'not a fluid or physical clock'; 'finite projection is not exact transport'. Each lab has a 'model and its limits' disclosure; in grbook.ai these belong in the knowledge vault so the voice tutor repeats the same caveats.",
+  "Planned but never built (docs/visual-development-plan-2026-09-09.md §3; treat as backlog): a toggle between unit and coordinate basis vectors (∂θ = r ê_θ) drawn on the polar grid; mapping a coordinate rectangle to a physical area patch (determinant / volume element); moving markers plus a flux box in the vector-field lab; the limit P_{γ(h)→p} V − V → ∇_X V; an unrolled companion view of the cylinder; a shaded enclosed region with an orientation arrow; two transported vectors showing their inner product is preserved; R(X,Y)V built from two orders of displacement; holonomy on a loop that cannot be shrunk to a point.",
+  "The semantic colouring in scripts/math-system.mjs guesses roles from letters and hard-coded chapter-number regexes (for example /^(8|9|10|12|…)$/). It cannot transfer to a new curriculum. Keep the idea (colour the geometric object, never indices; five roles: geometry, transport, curvature, matter, observer) but author semantic TeX macros explicitly, keyed to concept-registry ids.",
+  "Good placement habit: when a lab replaces a static figure (chapterFigure in build-site.mjs), the old figure stays available as an optional 'reference diagram'. Labs are inserted with explicit markers in the prose and appear after the terms they use are defined, before the formula they motivate. Keep both rules in the grbook.ai lesson schema.",
+  "Preview must never be the same as commit. The Riemann-count lab calls pairSelect(r, c) on pointermove, which rewrites data-narration-source and data-visual-state for whichever tile is under the cursor; pointerout then republishes the committed tile. A tutor reading state mid-hover would describe a tile the learner never chose. In grbook.ai, emit tutor events only for committed selections and keep hover as local UI state.",
+  "One sign convention per quantity, shown the same everywhere. In the transport labs the face-on arc label prints Math.abs(angle) ('90.0°', parallel-transport-scene.js:122) while the readout and insight text print the signed '−90.0°' (routes-sphere-1440-light.png). Readers and the tutor see two values for one angle. Show the sign in both places, with an orientation arrow that explains it.",
+  "Saving state has to be a platform feature, not something each lab opts into. Only the Geometry Labs (gr-course-v1) and the older visual lessons (gr-visual-lessons:v1) persist. The manifold, precession, Riemann-count and tidal-cloud labs export get/restore functions that nothing in production calls, so their state resets on every reload."
+ ],
+ "assets": [
+  {
+   "id": "lab-polar-coordinates-two-addresses",
+   "kind": "lab",
+   "title": "Geometry Lab 01 — One point. Two addresses. (polar coordinates, arc vs chord)",
+   "paths": [
+    "web/geometry-foundations-model.js#polarState,polarMeasurements,polarFromPoint",
+    "web/geometry-foundations.js#polarView,polarReadout,polarInsight,polarSource,initGeometryFoundations",
+    "scripts/geometry-foundations.mjs#polarExperienceHTML",
+    "web/geometry-foundations.css",
+    "scripts/check-geometry-foundations.mjs",
+    "docs/geometry-foundations-review.md",
+    "book.md:1297 (inserted in §4.2 'Where coordinates fail')"
+   ],
+   "topics": [
+    "polar coordinates",
+    "coordinate charts",
+    "coordinate singularity",
+    "arc length",
+    "radian measure",
+    "line element",
+    "metric tensor"
+   ],
+   "teaches": "The same point on a flat plane has Cartesian (x, y) and polar (r, θ) addresses, both in metres/radians. The angle is undefined at the origin even though the plane is regular there, so a coordinate failure is not a failure of the geometry. A fixed angular step Δθ sweeps an arc rθ·Δθ that grows with r. The straight chord 2r·sin(Δθ/2) is shorter for a finite step, and the two agree as Δθ → 0. This is the angular term of the polar metric.",
+   "pedagogy": "Picture first, formula later: it appears before the first polar transformation in §4.2, and §4.5 returns to it before deriving ds² = dr² + r²dθ². Two views (Coordinates / An angular step). A short insight line changes with the state; it says so explicitly at the origin. A collapsible 'From the picture to a distance' derives the chord from the isosceles triangle and takes the small-angle limit. It states explicitly that curved coordinate lines do not make the plane curved.",
+   "interaction": {
+    "controls": [
+     "drag the point P on the plot (pointer capture, uses the SVG's screen transform)",
+     "Distance r slider 0–2.6 m",
+     "Angle θ slider 0–2π (disabled at r = 0)",
+     "Angular step Δθ slider 0.02–0.8 rad (step view only)",
+     "Coordinates / Angular step view switch",
+     "Reset"
+    ],
+    "what_updates": "The SVG redraws completely on each input: square and polar grids, radius segment, angle arc, projection guides, and in step view the swept sector, arc, chord and Q. The readouts, insight text, narration source and scientific-context JSON also update, and state is saved to localStorage gr-course-v1.",
+    "readouts": [
+     "horizontal position x [m]",
+     "vertical position y [m]",
+     "arc r·Δθ [m] (step view)",
+     "chord P–Q [m] (step view)",
+     "slider values, with 'Undefined' angle at the origin"
+    ],
+    "rendering": "Hand-built SVG strings; labels are SVG text with Unicode (θ, Δθ), not KaTeX. KaTeX only in the details text via math-system.mjs."
+   },
+   "physics_model": "Euclidean plane: x = r cos θ, y = r sin θ; arc = rΔθ; chord = 2r sin(Δθ/2). Inputs are clamped and non-finite values fall back to defaults. Verified at 90 (r, θ, Δθ) combinations: |P| = r, chord equals the independently computed endpoint separation, arc ≥ chord, round trip through polarFromPoint, chord/arc → 1 at Δθ = 0.02, no NaN in the SVG. Browser checks: keyboard, drag, origin disabling, saved state, no-JS static SVG.",
+   "screenshots": [
+    "qa/polar-coordinates-1440-light.png",
+    "qa/polar-coordinates-390-dark.png",
+    "qa/polar-step-1440-light.png",
+    "qa/polar-step-390-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Clean, uncluttered plot with a sidebar at 1440 px and sensible stacking at 390 px (screenshots)",
+     "Handles the origin honestly: the angle slider is disabled and the text explains why",
+     "Shows arc vs chord numerically, which makes the metric's local character concrete",
+     "Narration and state contract updated on every change"
+    ],
+    "issues": [
+     "Plot labels are SVG text with Unicode, unlike the KaTeX-labelled labs",
+     "No unit vs coordinate basis arrows (∂θ = r ê_θ), which the ledger required (visual-development-plan §3 Experience A)",
+     "No area-element or determinant cell; ds² is never drawn on the actual displacement",
+     "Overlaps the older visual-lesson 'metric' cell in the same chapter"
+    ],
+    "evidence": "docs/geometry-foundations-review.md; scripts/check-geometry-foundations.mjs (model mode re-run OK 2026-09-12); screenshots qa/polar-*; docs/visual-development-plan-2026-09-09.md Experience A"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Port polarMeasurements and the view into a Svelte SVG component on the shared lab shell. Keep the drag interaction, the undefined-angle handling at the origin, the two views and the derivation text. Change: KaTeX or MathJax labels; add a unit/coordinate basis toggle and a ds² overlay on the displacement; fold in the older metric-cell 'tangent prediction vs endpoint distance' as a third view; add a coordinate-rectangle-to-area mode for the volume element.",
+    "effort": "small"
+   },
+   "size": "model 2.7 KB (shared with the field lab), view 9.1 KB, markup 8.7 KB (shared), CSS 8.9 KB (shared), check 5.1 KB"
+  },
+  {
+   "id": "lab-vector-field-two-arrows",
+   "kind": "lab",
+   "title": "Geometry Lab 02 — Compare two nearby arrows (component change vs frame change)",
+   "paths": [
+    "web/geometry-foundations-model.js#fieldState,fieldVelocity,polarUnitFrame,fieldMeasurements",
+    "web/vector-field-experience.js",
+    "scripts/geometry-foundations.mjs#vectorFieldExperienceHTML",
+    "web/geometry-foundations.css (.vf-*)",
+    "scripts/check-vector-fields.mjs",
+    "docs/geometry-foundations-review.md#Chapter 6",
+    "book.md:1966 (§6.1 'A fixed arrow with changing components')"
+   ],
+   "topics": [
+    "vector fields",
+    "orthonormal frame",
+    "polar unit basis",
+    "coordinate basis",
+    "product rule for vector components",
+    "covariant derivative",
+    "Christoffel symbols"
+   ],
+   "teaches": "Four steady plane fields (uniform, expansion, rotation, shear; rate 0.4/s) are sampled at P and Q on a circle of radius 1.8 m. In a uniform field the arrows are identical, yet their polar components differ. In rotation and expansion on the circle the components are constant, yet the arrows differ. The exact finite identity V_Q − V_P = B_P(c_Q − c_P) + (B_Q − B_P)c_Q splits the change into a component term and a frame term, drawn head to tail. Shrinking the separation leads toward the connection term.",
+   "pedagogy": "Designed around a paradox. The key insight changes with the chosen field; field samples are distinguished from particles, and the gold frame arrows from velocities. A details panel explains the matrix notation B, c before using it, and why the second term must use c_Q. Another states the limits: prescribed steady fields, comparison by Euclidean translation only, unit frame vs ∂θ = r ê_θ. It sets up the need for a transport rule on curved surfaces.",
+   "interaction": {
+    "controls": [
+     "field choice: Uniform / Expansion / Rotation / Shear",
+     "Position around the circle slider 0–2π",
+     "Angular separation P→Q slider 0.04–1.2 rad",
+     "Reset",
+     "disclosure: component vs frame change (second comparison plot)"
+    ],
+    "what_updates": "Field quiver, the P and Q velocity arrows and unit frames, the route arc, the common-origin comparison plot (P, Q, difference), the head-to-tail decomposition plot, the numeric identity, polar components at P and Q, the insight text, narration and scientific context.",
+    "readouts": [
+     "actual change (Cartesian) [m/s]",
+     "radial and tangential components at P and at Q [m/s]",
+     "component + frame = difference [m/s]"
+    ],
+    "rendering": "SVG strings; labels are SVG text ('eᵣ', 'eθ' without hats); the formula in the details is KaTeX via math-system."
+   },
+   "physics_model": "V_uniform = (1, 0) m/s; expansion k(x, y); rotation k(−y, x); shear k(y, 0); k = 0.4/s. Unit polar frame e_r = (cos θ, sin θ), e_θ = (−sin θ, cos θ). The finite decomposition is exact with no small-step approximation. Checked at 72 combinations: frame orthonormality, the decomposition summing to the difference, analytic components per field, and the difference against composite Simpson integration (n = 128) of analytic d/dθ along the circle. Browser: all fields, keyboard, saved state, no-JS static view.",
+   "screenshots": [
+    "qa/field-rotation-1440-dark.png",
+    "qa/field-uniform-1440-light.png",
+    "qa/field-product-1440.png",
+    "qa/field-shear-390-light.png",
+    "qa/field-expansion-390-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Pedagogically the sharpest idea in this group: constant components with a changing vector, and the reverse",
+     "The exact finite product rule is shown geometrically, not just asserted",
+     "The common-origin inset makes 'compare after translation' visible",
+     "Mathematically verified by independent quadrature"
+    ],
+    "issues": [
+     "The main field plot is small and busy at 1440 px: P, Q, frames and the 'eθ' label crowd one small region (field-rotation-1440-dark.png)",
+     "SVG labels are un-hatted Unicode while the text uses ê_θ",
+     "The most important construction (component + frame) is hidden in a collapsed details panel",
+     "No moving markers, divergence flux box or coordinate-basis mode (ledger Experience B not met)",
+     "A 'separation → 0' limit readout (divide by Δθ) is promised but not shown"
+    ],
+    "evidence": "docs/geometry-foundations-review.md; scripts/check-vector-fields.mjs (model mode OK 2026-09-12); qa/field-* screenshots; visual-development-plan Experience B"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep fieldMeasurements, the four fields, the common-origin comparison and the head-to-tail decomposition, and make the decomposition always visible. Change: enlarge the field view (zoom inset around P and Q), KaTeX labels with hats, add a unit/coordinate basis toggle showing Γ terms, a Δθ → 0 readout of (ΔV)/Δθ converging to the covariant derivative, moving tracer markers, and a divergence flux box. Absorb the older 'basis' lesson's (0, −1) + (0, 1) = 0 identity as a readout.",
+    "effort": "medium"
+   },
+   "size": "view 9.0 KB; shares model, markup and CSS with lab 01; check 5.9 KB"
+  },
+  {
+   "id": "lab-flow-order-lie-bracket",
+   "kind": "lab",
+   "title": "Geometry Lab 04 — Try the other order (flows and the Lie bracket)",
+   "paths": [
+    "web/flow-order-experience.js",
+    "scripts/flow-order-experience.mjs",
+    "web/geometry-foundations.css (.fo-*)",
+    "scripts/check-flow-order.mjs",
+    "docs/flow-order-review.md",
+    "book.md:2231 (§6.6 'When the order of two flows matters')"
+   ],
+   "topics": [
+    "flows of vector fields",
+    "integral curves",
+    "Lie bracket",
+    "commutator of vector fields",
+    "torsion"
+   ],
+   "teaches": "Follow X = (1, 0) then Y = (0, x) from P = (1, 0) for the same parameter h, and compare with Y then X. The endpoints (1+h, h+h²) and (1+h, h) differ by h² vertically. Dividing by h² gives the bracket [X, Y] = (0, 1). The gap comes from Y's instruction varying with position, not from curvature or torsion; the plane is flat.",
+   "pedagogy": "Added after a review found §7.2 used the Lie bracket untaught and cited a nonexistent example. The picture precedes the bracket formula. Playback shows the two moves; outlined final markers stay as references. The insight says to shrink h and watch the gap scale as h². A details panel derives h(1+h) − h = h² and contrasts endpoint mismatch with the direction mismatch of parallel transport.",
+   "interaction": {
+    "controls": [
+     "Play/Pause/Replay (2 s per move)",
+     "Next move →",
+     "Step size h slider 0.05–1",
+     "Moves followed slider 0–2",
+     "Reset"
+    ],
+    "what_updates": "Both route polylines (planned dashed plus travelled), moving dots, endpoint markers A/B, the h² bracket annotation, the gap readout, narration and scientific context.",
+    "readouts": [
+     "final vertical gap h²",
+     "gap / h² (hard-coded '1.0000')"
+    ],
+    "rendering": "SVG strings; SVG text labels ('h²', 'P = (1, 0)'); KaTeX in the details text."
+   },
+   "physics_model": "Exact flows: X shifts x at unit rate; Y raises y at rate x. Dimensionless coordinates and parameter. The model is verified against 256-step integration of each field in both orders, h² scaling and continuity between stages. Browser: three step sizes, keyboard, playback, saved state, aligned sliders on phones, no-JS view.",
+   "screenshots": [
+    "qa/flow-order-1440-light.png",
+    "qa/flow-order-390-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Minimal, readable construction; the h² bracket annotation is clear",
+     "Explicitly guards against 'noncommuting implies curvature or torsion'",
+     "Fills a real prerequisite gap found by review"
+    ],
+    "issues": [
+     "'Gap divided by h²' is a string literal, not computed; for this exact example it is always 1, so the O(h³) character of the general case is never seen",
+     "Shows two routes, not the standard four-leg commutator loop",
+     "Only one field pair; no second example where the bracket varies with position",
+     "Plain SVG text labels"
+    ],
+    "evidence": "docs/flow-order-review.md; scripts/check-flow-order.mjs (model mode OK 2026-09-12); qa/flow-order-* screenshots; source line 'Gap divided by h²</span><strong>1.0000'"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the example, the endpoint formulas and the endpoint-vs-transport contrast. Change: compute the ratio; add a second field pair (for example rotation plus translation) where higher-order terms show and the ratio converges only as h → 0; offer a four-leg XYX⁻¹Y⁻¹ loop mode; add a polar coordinate-basis vs unit-frame bracket comparison, which the prose already mentions. Use KaTeX labels.",
+    "effort": "small"
+   },
+   "size": "view 7.9 KB, markup 3.6 KB, check 4.9 KB"
+  },
+  {
+   "id": "scene-3d-parallel-transport-loop",
+   "kind": "scene-3d",
+   "title": "Geometry Lab 03 — Carry an arrow home (continuous parallel transport on plane, cylinder, sphere)",
+   "paths": [
+    "web/parallel-transport-model.js#transportState,surfaceFrame,transportLoop,transportAt,transportResult",
+    "web/parallel-transport-scene.js#createTransportScene",
+    "web/parallel-transport-experience.js#transportFallback,transportInsight,transportSource,transportReadout,initParallelTransport",
+    "scripts/parallel-transport-experience.mjs#parallelTransportHTML",
+    "web/parallel-transport-experience.css",
+    "scripts/check-parallel-transport.mjs",
+    "docs/parallel-transport-review.md",
+    "book.md:2289 (§7.1 'Parallel transport along a path'; revisited in §8.3)"
+   ],
+   "topics": [
+    "parallel transport",
+    "Levi-Civita connection",
+    "tangent plane",
+    "geodesics",
+    "great circles",
+    "holonomy",
+    "Gaussian curvature",
+    "spherical excess",
+    "intrinsic vs extrinsic curvature"
+   ],
+   "teaches": "Moving an arrow without twisting it within the tangent plane keeps it constant on a plane. On a rolled sheet (cylinder) it changes direction in the room yet returns unrotated, because the sheet is intrinsically flat. On a sphere it returns rotated after a geodesic triangle: −90° for the octant. The rotation shrinks with loop size, flips sign when the route is reversed, and equals K × signed area with K = 1/R². At fixed angular size a larger radius gives more area but the same angle. The surface rule dV/ds = −(V·dn/ds)n preserves length.",
+   "pedagogy": "Sequence: plane, then rolled sheet, then sphere, with the term 'great circle' defined before use. The readout reports the rotation 'on return' even mid-journey, rather than a misleading partial value. 'Look straight at A' removes foreshortening. The details derive the transport rule from differentiating the tangency condition V·n = 0, then explain the exact checks. They name corners as places where the path turns but the arrow does not, and define Gaussian curvature as return rotation per unit area in the small-loop limit.",
+   "interaction": {
+    "controls": [
+     "surface: Plane / Rolled sheet / Sphere",
+     "Play/Pause/Replay (9 s per circuit, pauses offscreen)",
+     "Next corner →",
+     "Reverse route",
+     "Distance around the loop slider 0–1",
+     "Loop size slider 0.15–1",
+     "Surface radius slider 0.8–1.6 m (hidden for the plane)",
+     "orbit by drag or arrow keys, Home resets",
+     "Look straight at A",
+     "Reset camera",
+     "Reset experiment"
+    ],
+    "what_updates": "Moving arrow and marker, a tangent-plane patch oriented to (V, n × V, n), a smaller reference arrow at the start, tube routes for three legs, vertex labels hidden when occluded (raycast), and the surface mesh rebuilt when surface, radius, size or reverse change. Readouts, insight, narration and scientific context update; a projection dataset supports tests. The SVG fallback redraws when WebGL is unavailable.",
+    "readouts": [
+     "carried vector length",
+     "rotation on return to A [deg]",
+     "enclosed surface area [m²]"
+    ],
+    "rendering": "three.js WebGLRenderer, orthographic camera with fixed frustum, ACES tone mapping, MeshStandardMaterial surface with a grid injected into the shader (fwidth antialiasing), TubeGeometry routes, cylinder+cone arrows, HTML labels projected from 3D. Static fallback: a painter-sorted, faceted SVG surface with dashed far-side paths."
+   },
+   "physics_model": "Exact Levi-Civita transport for the induced Euclidean metric. Plane: constant vector. Cylinder: constant components in the unrolled frame, mapped through the embedding (R sin(u/R), v, R(1 − cos(u/R))). Sphere: each leg is a great-circle rotation (Rodrigues) of both point and vector about cross(A, B); no projection or renormalisation. Signed area on the sphere comes from the solid-angle formula 2R²·atan2(A·(B×C), 1 + A·B + B·C + C·A). The angle is measured with the outward-normal right-hand rule. Verified over 54 configurations: unit length and tangency at 41 samples, closure, angle = K·signed area, octant |angle| = π/2, area = R²(2·corner − π/2), 512-step RK4 of dV/dt = −(V·dn/dt)n along a normalised chord (a different parametrisation) matching to 4e-10, and retracing the route restores the start vector. Browser: face-on projected perpendicularity, fixed frustum while orbiting, playback pause offscreen, saved state, context loss redrawing the current state, no-JS.",
+   "screenshots": [
+    "qa/transport-sphere-1440-light.png",
+    "qa/transport-face-on-1440.png",
+    "qa/transport-cylinder-390-dark.png",
+    "qa/transport-plane-1440-light.png",
+    "qa/transport-sphere-390-dark.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Exact model with independent numerical verification; the gold standard in this group",
+     "Beautiful, legible sphere and cylinder in both themes after the dark-surface repair (screenshots)",
+     "Face-on view and fixed-scale orthographic camera keep the camera from creating the rotation being measured",
+     "Controls expose the three variables that matter (size, radius, orientation)",
+     "Robust lifecycle: offscreen pause, reduced motion, context loss, saved state"
+    ],
+    "issues": [
+     "The enclosed region is not shaded and the orientation of the loop is not shown in 3D; the sign convention lives only in the details",
+     "The cylinder has no unrolled companion view, so 'intrinsically flat' is only asserted",
+     "Arrows are small relative to the sphere at 1440 px; the A label and tangent patch overlap in the default view; in light theme the tangent-plane patch at A shows as a beige square sticking out past the sphere's silhouette, and the red carried arrow is short (transport-sphere-1440-light.png)",
+     "No second transported vector to show inner products are preserved; no noncontractible loop around the cylinder",
+     "Default plane surface opens on the least surprising case",
+     "Rotation readout is signed ('−90.0°') with the right-hand-rule convention explained only in the collapsed details"
+    ],
+    "evidence": "docs/parallel-transport-review.md; scripts/check-parallel-transport.mjs (model mode OK 2026-09-12); qa/transport-* screenshots; commits 2fc1cde and b257fd8"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Highest-value asset. Reuse parallel-transport-model.js essentially verbatim as a TypeScript module, together with its check. Port createTransportScene into a Svelte + three.js component, keeping the shader-painted grid, orthographic fixed frustum, face-on button, occlusion-aware labels and theme-safe surface colour. Add: shaded signed area with an orientation arrow, an unrolled cylinder inset, an optional second vector, a loop around the cylinder, and a small plot of angle vs area. Merge with the two-routes lab as modes of one lab.",
+    "effort": "small"
+   },
+   "size": "model 5.7 KB, scene 14.7 KB, experience 13.9 KB, markup 9.9 KB, CSS 5.5 KB, check 14.0 KB"
+  },
+  {
+   "id": "scene-3d-parallel-transport-two-routes",
+   "kind": "scene-3d",
+   "title": "Geometry Lab 05 — Two routes. One destination. (path dependence of transport)",
+   "paths": [
+    "web/parallel-transport-model.js#routeComparisonDefaults,transportRoutesAt,transportRoutesResult",
+    "web/parallel-transport-scene.js (routes=true: direct marker, direct tangent patch, angle arc)",
+    "web/parallel-transport-experience.js#transportRoutesInsight,transportRoutesSource,transportRoutesReadout",
+    "scripts/parallel-transport-experience.mjs#parallelTransportHTML(true)",
+    "scripts/check-parallel-transport.mjs (two-route section)",
+    "docs/parallel-transport-review.md#Two prescribed routes to a common endpoint",
+    "book.md:2592 (opening of Chapter 8, before §8.1)"
+   ],
+   "topics": [
+    "parallel transport",
+    "path dependence",
+    "holonomy",
+    "Riemann curvature",
+    "Gaussian curvature",
+    "spherical excess"
+   ],
+   "teaches": "Two identical arrows start at A. One goes directly to C and one via B, both with the no-twist rule. On the sphere they meet at C differing by 90° for the octant; on the plane and cylinder they agree. Following one route out and the other back forms a loop, so the mismatch at C equals the loop's return rotation. Smaller triangles give smaller angles; the angle depends on angular size, not on radius.",
+   "pedagogy": "Opens Chapter 8 already completed on the sphere, so the effect is visible at once. It is distinguished explicitly from the Chapter 6 two-flow experiment, whose endpoints differ. Directions are compared only where both vectors share a tangent plane. Progress is a fraction of each route length, not a physical speed. 'Look straight at C' shows a gold angle arc labelled in degrees.",
+   "interaction": {
+    "controls": [
+     "surface: Plane / Rolled sheet / Sphere",
+     "Replay / Pause",
+     "Back to A / Meet at C",
+     "Journey progress slider",
+     "Triangle size slider",
+     "Surface radius slider",
+     "orbit by drag or arrows, Home",
+     "Look straight at C",
+     "Reset camera",
+     "Reset"
+    ],
+    "what_updates": "Blue direct and pink via-B arrows and routes, a tangent patch at the direct arrow, and at completion a gold angle arc plus a degree label. Readouts, narration and context update as in lab 03.",
+    "readouts": [
+     "blue / pink vector length",
+     "angle when they meet at C [deg]",
+     "area between the routes [m²]"
+    ],
+    "rendering": "Same three.js scene as lab 03 with routes = true; SVG fallback from a viewpoint where C is visible."
+   },
+   "physics_model": "Uses the same exact kernel as the loop. Direct leg is the great-circle rotation from A to C. Verified over 27 configurations: RK4 along both routes matches the analytic vectors to 4e-10, endpoints coincide, unit length and tangency throughout, and the angle equals the closed-loop holonomy. Browser: stale IntersectionObserver entries injected to regression-test 3D loading, face-on perpendicularity with the '90.0°' label visible, fixed frustum, playback, saved state.",
+   "screenshots": [
+    "qa/routes-sphere-1440-light.png",
+    "qa/routes-face-on-1440.png",
+    "qa/routes-cylinder-390-dark.png",
+    "qa/routes-plane-1440-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "The face-on angle arc is an unusually clear depiction of path dependence (routes-face-on-1440.png)",
+     "The default state shows the result immediately",
+     "Numerically tied to the loop result, which gives a natural bridge from holonomy to curvature"
+    ],
+    "issues": [
+     "Near-duplicate interface of lab 03; a reader learns the same controls twice",
+     "The degree label can crowd the arrowheads in the oblique default view (routes-sphere-1440-light.png)",
+     "The shared region between routes is not shaded",
+     "No small-loop limit readout (angle / area → K) or a route to R(X,Y)V (ledger 'advanced return' not built)",
+     "Sign mismatch: the gold arc label shows the unsigned '90.0°' (Math.abs in parallel-transport-scene.js:122) while the readout shows '−90.0°' (routes-sphere-1440-light.png)"
+    ],
+    "evidence": "docs/parallel-transport-review.md; scripts/check-parallel-transport.mjs; qa/routes-* screenshots; commit 64cc990"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Implement as a 'Compare two routes' mode of the single transport lab. Keep the default completed sphere, the face-on angle arc and the equivalence to the loop. Add a shaded region, an angle/area → 1/R² convergence readout, and an optional infinitesimal parallelogram mode leading to R(X,Y)V with the sign convention.",
+    "effort": "small"
+   },
+   "size": "shares all files with lab 03"
+  },
+  {
+   "id": "scene-3d-manifold-surface-charts",
+   "kind": "scene-3d",
+   "title": "A curved world. A flat address. (surface, two overlapping charts, tangent plane)",
+   "paths": [
+    "web/geometry-experiences.js#surfaceHeight,surfaceDerivatives,chartToSurface,surfaceToChart,inChart,domainLayout,domainView,manifoldFallback,initSpatial",
+    "scripts/geometry-experiences.mjs#geometryExperienceHTML('manifold')",
+    "web/geometry-experiences.css",
+    "scripts/check-geometry-experiences.mjs",
+    "docs/geometry-experiences-review.md",
+    "scripts/build-site.mjs:178 (inserted before guided lesson 'two-maps-one-sphere' in Chapter 4)"
+   ],
+   "topics": [
+    "manifold",
+    "coordinate charts",
+    "atlas",
+    "transition maps",
+    "chart domain",
+    "tangent space",
+    "embedded surface"
+   ],
+   "teaches": "A point on a curved 2D surface needs only two numbers. A chart assigns coordinates on an open disk; a flat map disk corresponds to a patch on the surface. Switching between overlapping charts A (u, v) and B (u′, v′) changes the numbers but not the point. A chart that does not cover a point says so rather than inventing coordinates. The tangent plane is the first-order approximation at a point.",
+   "pedagogy": "The deck invites the reader to move a point between the surface and its map, then change the map. The insight text distinguishes three cases: covered by both charts, by one, or by neither. The model details give F_A, the height function, the rotation-plus-translation transition, why the charts are full rank, and the honest caveat that this graph also admits a global chart and the faded rim is a render window.",
+   "interaction": {
+    "controls": [
+     "Chart A / Chart B",
+     "Tangent plane toggle",
+     "drag or click in the flat map (clamped inside the disk)",
+     "arrow keys in the map (Shift for larger steps), Home returns to the overlap point",
+     "On the overlap / Outside the other chart shortcuts",
+     "orbit the surface by drag or arrows, Home",
+     "Reset"
+    ],
+    "what_updates": "Shader uniforms select which chart's grid and patch colour are painted; the point and tangent-plane mesh move; the flat map redraws with both disks; KaTeX readouts show P, selected-chart and other-chart coordinates; insight and narration update.",
+    "readouts": [
+     "P = (x, y, z)",
+     "selected chart coordinates or 'Point outside this patch'",
+     "other chart coordinates"
+    ],
+    "rendering": "three.js perspective camera; one MeshStandardMaterial graph mesh with chart disks, rims and grids painted in the fragment shader; the edge fades out through alpha. KaTeX readouts and point label. SVG flat map; painter-sorted SVG fallback for the surface."
+   },
+   "physics_model": "Graph F(x, y) = (x, y, 0.38 sin(1.3x) cos(1.15y) + 0.16(x² − y²)), dimensionless. Chart A centred at (−0.55, 0), unrotated; chart B centred at (0.55, 0.15), rotated π/5; both are open disks of radius 1.35. Checks: chart round trips, full-rank finite-differenced tangent map (2×2 determinant = 1), analytic height derivatives against finite differences, the overlap transition formula, points covered by only one chart, both map rims fitting with a fixed scale for both charts. Browser: chart switch keeps the point, KaTeX symbols switch, click lands exactly, constant camera distance through a full orbit, no-WebGL fallback.",
+   "screenshots": [
+    "qa/geometry-experience-manifold-1440-light.png",
+    "qa/geometry-experience-manifold-390-dark.png",
+    "qa/geometry-preview3-manifold-1440.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "An attractive saddle-like surface with a clear coloured patch and grid matching the flat map (screenshots)",
+     "Honest scope statements (a global chart exists; the rim is not a boundary)",
+     "Solid shader technique; the 'breathing' camera and flicker problems were fixed and regression-tested"
+    ],
+    "issues": [
+     "The transition map is a rigid rotation plus translation with an orthogonal Jacobian, so it never shows coordinate distortion or why smooth transition maps matter",
+     "Since the graph has a global chart, it cannot motivate needing an atlas; the older stereographic lesson does that better",
+     "The tangent plane is faint in light theme (manifold-1440-light.png)",
+     "A different interface shell from Geometry Labs 01–05 (no card, sans title), and no data-scientific-context",
+     "Duplicates the chart concept of the 'Two maps. One sphere.' lesson placed right after it",
+     "Chart, point and camera state are not persisted; restoreGeometryExperienceState is called only by the Playwright check"
+    ],
+    "evidence": "docs/geometry-experiences-review.md; scripts/check-geometry-experiences.mjs (numerical asserts precede the Playwright run in the same file; no model-only flag); qa/geometry-experience-manifold-*; qa/geometry-experiences-report.json"
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the rendering technique (shader-painted chart patches, bounding-sphere fit, linked 3D surface and 2D map with drag and keyboard) and the covered-by-which-chart insight logic. Rebuild the mathematics as one atlas lab: a sphere, or this surface, with two genuinely nonlinear charts (stereographic north and south, reusing chartCoordinates from the visual-lessons asset, or polar vs Cartesian). Show the transition map and its Jacobian distorting a small grid square, plus point failure at a pole. Add the scientific-context contract.",
+    "effort": "medium"
+   },
+   "size": "geometry-experiences.js 36.2 KB (manifold and precession combined), markup 10.7 KB, CSS 10.9 KB, check 14.9 KB"
+  },
+  {
+   "id": "scene-3d-mercury-perihelion-precession",
+   "kind": "scene-3d",
+   "title": "An ellipse that remembers every revolution (Mercury perihelion advance)",
+   "paths": [
+    "web/geometry-experiences.js#MERCURY,perihelionAdvance,orbitAt,orbitCurve,orbitFallback",
+    "scripts/geometry-experiences.mjs#geometryExperienceHTML('precession')",
+    "web/geometry-experiences.css (.gx-precession, .gx-orbit-*)",
+    "scripts/check-geometry-experiences.mjs",
+    "docs/geometry-experiences-review.md#What the orbit actually represents",
+    "scripts/build-site.mjs:131 (replaces figure 'perihelion-precession' in §16.6, keeping it as a reference diagram)"
+   ],
+   "topics": [
+    "perihelion precession",
+    "Schwarzschild metric",
+    "weak-field limit",
+    "Kepler problem",
+    "Kepler's laws",
+    "classical tests of general relativity"
+   ],
+   "teaches": "A Newtonian ellipse returns to the same perihelion; the leading GR correction advances it by Δϖ = 6πGM/(a(1−e²)c²) per radial cycle. For Mercury that is about 0.1035″ per orbit, or about 43″ per century. At actual scale the paths almost coincide; the 'Reveal' view magnifies only the extra angular advance by 300,000, and markers for the last six perihelia make the accumulated rotation visible. Changing eccentricity makes a hypothetical orbit with Mercury's size and the Sun's mass.",
+   "pedagogy": "Nothing auto-plays. The insight text changes between actual and revealed scale to stop readers mistaking magnification for strong gravity. 'Mercury's shape' restores e = 0.2056. The details give the formula, parameter values, and the explicit statement that this is a precessing Kepler ellipse, not a Schwarzschild geodesic, with omitted effects listed.",
+   "interaction": {
+    "controls": [
+     "Play/Pause (7 s per radial cycle, Kepler timing)",
+     "Next perihelion",
+     "Reset",
+     "Actual scale / Reveal the advance (×300,000)",
+     "Orbital shape slider e 0.05–0.7",
+     "Mercury's shape button",
+     "orbit camera by drag or arrows, Home"
+    ],
+    "what_updates": "Newtonian and GR positions, a GR trail over the last two cycles, perihelion rays and markers (last six), orbit framing by eccentricity; KaTeX readouts, magnification label, century result and narration.",
+    "readouts": [
+     "physical advance per orbit Δϖ [arcsec]",
+     "rotation shown per orbit [deg]",
+     "completed radial cycles",
+     "arcsec per century for Mercury's shape"
+    ],
+    "rendering": "three.js perspective camera, Line orbits, emissive Sun sphere; KaTeX overlay labels; SVG fallback."
+   },
+   "physics_model": "r/a = (1−e²)/(1+e cos χ); φ = (1 + AΔϖ/2π)χ with A ∈ {1, 300000}. Kepler's equation is solved by 12 Newton iterations for timing. Constants: a = 5.7909e10 m, GM/c² = 1476.625 m, period 87.969 d. Checks: perihelion and aphelion radii 1∓e, angle advance per cycle = 2π + AΔϖ, points on the ellipse, equal areas in equal times (numerical derivative), 0.103 < Δϖ < 0.104″, 42.98 ± 0.1″/century. Radial periodic GR corrections and planetary perturbations are omitted (disclosed).",
+   "screenshots": [
+    "qa/geometry-experience-precession-1440-dark.png",
+    "qa/geometry-experience-precession-390-light.png",
+    "qa/geometry-preview-precession-1440.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Carefully separates visual magnification from physics",
+     "Correct leading-order numbers verified (43″/century)",
+     "Clean orbit render and perihelion fan (screenshots)",
+     "Good orbit framing by eccentricity and a working reduced-motion policy"
+    ],
+    "issues": [
+     "Only two magnification settings; no continuous slider or orbit-count scrubbing",
+     "Not a true geodesic, so it cannot show strong-field precession near a black hole (fine for §16.6, limiting for reuse elsewhere)",
+     "Belongs to the solar-system-tests topic, not geometry; the interface shell differs from the other labs",
+     "No data-scientific-context emitted",
+     "'Rotation shown per orbit' prints five decimals (8.62634°) next to 0.1035 arcsec; the precision is noise (geometry-experience-precession-1440-dark.png)",
+     "State (scale mode, eccentricity, cycle) is not persisted across reloads"
+    ],
+    "evidence": "docs/geometry-experiences-review.md; scripts/check-geometry-experiences.mjs (numerical asserts precede the Playwright run in the same file; no model-only flag); qa/geometry-experience-precession-*"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the constants, perihelionAdvance, the Kepler timing, the actual-vs-reveal framing and the perihelion-fan visual. Port to the shared shell with a scientific-context block. Add a continuous log-scale magnification control, and optionally a second mode that integrates the Schwarzschild orbit equation u'' + u = GM/h² + 3GMu²/c² for strong fields, so one lab serves both Mercury and the black-hole orbits chapter.",
+    "effort": "small"
+   },
+   "size": "shares geometry-experiences.js (36.2 KB) and CSS with the manifold lab"
+  },
+  {
+   "id": "lab-riemann-independent-components",
+   "kind": "lab",
+   "title": "Find the twenty independent pieces (Riemann tensor component count)",
+   "paths": [
+    "web/curvature-experiences.js#curvaturePairs,canonicalCurvature,curvatureEntry,pairTable,pairDetail,curvatureExperienceMarkup('pairs')",
+    "scripts/curvature-experiences.mjs",
+    "web/curvature-experiences.css",
+    "scripts/check-curvature-experiences.mjs",
+    "docs/curvature-experiences.md#Counting components at one event",
+    "scripts/build-site.mjs:132 (replaces figure 'curvature-count' in Chapter 8)"
+   ],
+   "topics": [
+    "Riemann tensor",
+    "symmetries of the Riemann tensor",
+    "first Bianchi identity",
+    "independent components of the Riemann tensor",
+    "antisymmetric index pairs"
+   ],
+   "teaches": "With all indices lowered, antisymmetry in each index pair leaves 6 increasing pairs, so a 6×6 array has 36 slots. Pair exchange makes the array symmetric: 6 + 15 = 21. The cyclic (first Bianchi) identity R_0123 − R_0213 + R_0312 = 0 removes one more, leaving 20 in four dimensions. Selecting any tile shows its mirror partner and the sign flips under reversing either pair.",
+   "pedagogy": "Three tabbed phases (pair the indices, match the mirror entries, use the cyclic identity), each with a large KaTeX count (6×6 = 36, 6 + 30/2 = 21, 21 − 1 = 20) and one paragraph. Tiles always name components, never blanks to fill. The explicit scope note says this is an algebraic count, not the number of propagating degrees of freedom, and that exchanging pairs is not index-raising with a Euclidean metric.",
+   "interaction": {
+    "controls": [
+     "phase tabs 1–3",
+     "36 tile buttons (click, hover preview, arrow keys, Home/End)",
+     "conventions disclosure",
+     "optional reference-diagram disclosure"
+    ],
+    "what_updates": "Tile symbols per phase (m_ij → q_k → a, b, b−a), highlight classes (selected, mirror, Bianchi), the detail panel (tile name, mirror equality, two sign rules), the Bianchi block in phase 3, narration and visual state.",
+    "readouts": [
+     "current count equation",
+     "selected component R_abcd",
+     "mirror identity",
+     "reversal sign identities"
+    ],
+    "rendering": "HTML table of buttons with KaTeX, rendered on the server with linkedom and hydrated in the browser; no canvas or SVG."
+   },
+   "physics_model": "Pure algebra of the Levi-Civita curvature tensor in four dimensions (all indices lowered, row pair then column pair). The test builds a symmetric 6×6 matrix obeying the cyclic constraint and verifies, for all 256 index combinations, antisymmetry in both pairs, pair symmetry and the cyclic sum. It also checks 36 slots, 21 distinct canonical labels, tile names, server-rendered KaTeX without errors, and integrated chapter checks at 1440/390 px in both themes with a minimum 18 px math size.",
+   "screenshots": [
+    "qa/curvature-integrated-pairs-1440-light.png",
+    "qa/curvature-pairs-390-dark.png",
+    "qa/curvature-integrated-pairs-390-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Turns a notoriously opaque count into a tactile, three-step argument",
+     "Large, readable KaTeX throughout; server-rendered with a no-script note",
+     "Rigorous sign and convention handling, verified exhaustively"
+    ],
+    "issues": [
+     "In phase 3 the q-index numbering has gaps (q6, q10 and q13 become a, b, b−a), which is mildly confusing",
+     "Colour inconsistency: the equation colours a blue and b pink, while the tiles highlight the pairings pink and the selected b in blue (curvature-integrated-pairs-1440-light.png)",
+     "Hover counts as commit for the tutor: a pointermove listener calls pairSelect(r, c) with announce=true, rewriting data-narration-source and data-visual-state for the tile under the cursor; pointerout restores and republishes the committed tile",
+     "No dimension slider to show n²(n²−1)/12 (1 in 2D, 6 in 3D), which would make the count less arbitrary for novices",
+     "Its interface shell differs from the Geometry Labs",
+     "State (phase, selected tile) is not persisted; restoreCurvatureExperienceState is called only by the Playwright check",
+     "Publishes no data-scientific-context"
+    ],
+    "evidence": "docs/curvature-experiences.md; scripts/check-curvature-experiences.mjs (unit mode OK 2026-09-12); qa/curvature-integrated-pairs-*"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep canonicalCurvature and curvatureEntry, the three-phase structure, the tile-naming principle and the exhaustive symmetry test. Change: renumber independent symbols contiguously in phase 3; use one consistent colour mapping for a, b and b−a; publish state only on commit, not hover; add a dimension selector (2, 3, 4) showing 1, 6, 20 with the general formula, and a link from the 2D count of 1 to Gaussian curvature in the transport lab.",
+    "effort": "small"
+   },
+   "size": "curvature-experiences.js 26.2 KB (pairs and cloud), markup 1.2 KB, CSS 11.9 KB, check 15.2 KB"
+  },
+  {
+   "id": "lab-tidal-cloud-geodesic-deviation",
+   "kind": "lab",
+   "title": "Watch shape and volume part company (freely falling particle cloud, isotropic vs trace-free tide)",
+   "paths": [
+    "web/curvature-experiences.js#tidalCloud,projectCloud,cloudDrawing,cloudStats,curvatureExperienceMarkup('cloud')",
+    "scripts/curvature-experiences.mjs",
+    "web/curvature-experiences.css (.cx-cloud-*)",
+    "scripts/check-curvature-experiences.mjs",
+    "docs/curvature-experiences.md#Evolving a three-dimensional cloud",
+    "scripts/build-site.mjs:133 (replaces figure 'ricci-weyl' in §9.3)"
+   ],
+   "topics": [
+    "geodesic deviation",
+    "tidal tensor",
+    "Riemann tensor",
+    "Ricci tensor",
+    "Weyl tensor",
+    "Ricci and Weyl decomposition",
+    "expansion and shear of a geodesic congruence",
+    "Raychaudhuri equation"
+   ],
+   "teaches": "A small ball of particles released at rest in a freely falling frame evolves as ξ'' = Aξ with A = −c²𝓔, where 𝓔_ij = R_î0ĵ0. Isotropic focusing (−1, −1, −1) shrinks the volume while keeping the sphere round. A trace-free tide (2, −1, −1) has zero initial volume acceleration, yet it stretches the cloud (axis ratio about 3.1 at s = 0.9) and still reduces the volume later: V/V₀ = cosh(√2·s)·cos²s = 1 − s⁴/2 + …. So shape change (Weyl-like) and volume change (Ricci-like) are different questions.",
+   "pedagogy": "Two contrasting modes and four time stops. The grey undeformed reference sphere is kept. Principal lengths are colour-coded to the axes. Volume is the product of all three lengths, and the text says explicitly that it is not the projected area. The 'at the instant of release' block isolates the initial second derivative. The details give exact cos/cosh solutions and warn that this is not a universal Ricci/Weyl decomposition or a full black-hole spacetime.",
+   "interaction": {
+    "controls": [
+     "Isotropic focusing / Trace-free tide",
+     "Release/Pause/Replay (s from 0 to 0.9)",
+     "Reset",
+     "time stops s = 0, 0.3, 0.6, 0.9",
+     "drag or arrow keys to orbit the view (yaw/pitch), Home"
+    ],
+    "what_updates": "112 particles (80 shell, 32 inner) scaled by the principal lengths, projected orthographically and depth-sorted with size and opacity by depth; axes; the projected ellipse glow from the eigenvalues of the projected shape matrix; length, volume and aspect readouts; progress track; narration.",
+    "readouts": [
+     "ℓ1/ℓ0, ℓ2/ℓ0, ℓ3/ℓ0",
+     "V/V₀",
+     "ℓmax/ℓmin",
+     "initial volume acceleration / (ω²V₀)",
+     "s = ωτ"
+    ],
+    "rendering": "SVG drawn from a hand-rolled orthographic projection; KaTeX for all math; server-rendered initial state."
+   },
+   "physics_model": "Constant tidal matrix in dimensionless time s = ωτ. Axes are cos(√−λ·s) or cosh(√λ·s) with zero initial rate; s ≤ 0.9 < π/2. Checks: the second difference of each axis equals λ·axis, V = product of axes, initial volume acceleration equals the trace, the s⁴ coefficient is −1/2, tracefree V(0.9) < 0.8 with aspect > 3, isotropic aspect = 1, the projection preserves norm, no SVG text. Browser: 6 width/theme combinations, playback, offscreen suspension without integrating hidden time, reduced motion, restore, cleanup.",
+   "screenshots": [
+    "qa/curvature-integrated-cloud-1440-dark.png",
+    "qa/curvature-integrated-cloud-390-light.png",
+    "qa/curvature-cloud-1200-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Makes a subtle point (zero initial volume acceleration does not mean constant volume) visible and exact",
+     "Careful Ricci/Weyl caveats",
+     "Readable in both themes; colour-coded axes match the length readouts"
+    ],
+    "issues": [
+     "Only 112 sparse SVG dots make a flat pseudo-3D look; depth is hard to read (screenshots)",
+     "Only two fixed matrices and a fixed time scale; no link to a physical source even though (2, −1, −1)·GM/r³ is exactly the Newtonian point-mass tide",
+     "No mixed Ricci + Weyl case and no initial expansion or rotation (Raychaudhuri terms)",
+     "Its interface shell differs from the Geometry Labs",
+     "No data-scientific-context and no persisted state (mode, time and view reset on reload)"
+    ],
+    "evidence": "docs/curvature-experiences.md; scripts/check-curvature-experiences.mjs (unit mode OK 2026-09-12); qa/curvature-integrated-cloud-*; docs/visualization-audit.md row 15"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep tidalCloud (exact solutions), the volume-vs-shape readouts, the reference sphere and the caveat text. Rebuild rendering in three.js with instanced particles (a few thousand), a translucent ellipsoid and real depth. Add a 'point mass at radius r' preset mapping to (2, −1, −1)·GM/r³ with SI units, a matter (Ricci) slider added to the Weyl part, and a Raychaudhuri readout for expansion and shear. Share the particle renderer with the tidal-forces chapter.",
+    "effort": "medium"
+   },
+   "size": "shares curvature-experiences.js and CSS with the component-count lab"
+  },
+  {
+   "id": "scene-3d-visual-lesson-stereographic-charts",
+   "kind": "scene-3d",
+   "title": "Visual argument — Two maps. One sphere. (stereographic charts)",
+   "paths": [
+    "web/visual-lessons.js#chartCoordinates,chartView,initSpatial(charts)",
+    "web/visual-lessons.css",
+    "scripts/visual-fallbacks.mjs#visualFallback('charts')",
+    "content/geometry-lessons.mjs:36 (visual:'charts')",
+    "scripts/check-visual-lessons.mjs",
+    "docs/visual-lessons-review.md"
+   ],
+   "topics": [
+    "stereographic projection",
+    "coordinate charts",
+    "atlas",
+    "transition maps",
+    "coordinate singularity",
+    "manifold"
+   ],
+   "teaches": "North- and south-pole stereographic charts (u, v) = (X, Y)/(1 − Z) and (p, q) = (X, Y)/(1 + Z) give two addresses for the same sphere point. On the overlap (p, q) = (u, v)/(u² + v²). The north pole has no north-chart address but a regular south-chart one: the point exists and only one description fails. An off-meridian point (2/3, 1/3, 2/3) gives (2, 1) and (2/5, 1/5).",
+   "pedagogy": "Attached to the guided lesson 'Give one sphere two reliable addresses' after §4.1. Five point presets and a projection-source toggle; the active chart is highlighted and the other stays visible. The takeaway changes at the pole.",
+   "interaction": {
+    "controls": [
+     "Point presets: Worked example, Two coordinates, Equator, Southward, North pole",
+     "Projection from: North pole / South pole",
+     "orbit the sphere by drag or arrows, Home"
+    ],
+    "what_updates": "Projection ray and image point on the equatorial plane, KaTeX labels, readouts for both charts with 'not defined' at excluded poles, takeaway; state saved under gr-visual-lessons:v1.",
+    "readouts": [
+     "(X, Y, Z)",
+     "(u, v) or not defined",
+     "(p, q) or not defined"
+    ],
+    "rendering": "three.js translucent sphere with wireframe lines and an equatorial grid; KaTeX HTML labels; SVG orthographic fallback; server-rendered static measurement summary."
+   },
+   "physics_model": "Exact stereographic formulas; verified sphere membership, inverse maps and the u/s transition at sample points, and null returns at the poles.",
+   "screenshots": [
+    "qa/visual-lesson-charts-1440-light.png",
+    "qa/visual-lesson-charts-390-dark.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "The mathematically right example for why an atlas is needed (a pole fails in exactly one chart)",
+     "Exact, tested formulas and a good off-meridian preset"
+    ],
+    "issues": [
+     "Preset-only: the point cannot be dragged and the projection ray cannot be explored",
+     "Projection onto the equatorial plane happens inside a translucent sphere; the image point and '(p,q)' label sit at the sphere centre for the pole (charts-1440-light.png)",
+     "Small type (9–12 px description and notes) in the vl shell",
+     "Duplicates the neighbouring manifold-chart experience in the same chapter"
+    ],
+    "evidence": "docs/visual-lessons-review.md; scripts/check-visual-lessons.mjs (numerical asserts at the top of the file; no model-only flag, so they run together with the Playwright checks); qa/visual-lesson-charts-*"
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Do not port the interface. Reuse chartCoordinates, the pole and off-meridian cases, and the overlap formula inside the reimagined single atlas lab (see scene-3d-manifold-surface-charts): a draggable point on the sphere, both chart planes visible as flat maps beside it, a live transition-map Jacobian, and a small grid square showing distortion near the excluded pole.",
+    "effort": "medium"
+   },
+   "size": "visual-lessons.js 33.7 KB (all five lessons), CSS 7.6 KB, check 9.4 KB"
+  },
+  {
+   "id": "lab-visual-lesson-polar-metric-cell",
+   "kind": "lab",
+   "title": "Visual argument — A coordinate step is not yet a length (polar metric cell)",
+   "paths": [
+    "web/visual-lessons.js#polarMeasurements,metricView",
+    "scripts/visual-fallbacks.mjs#visualFallback('metric')",
+    "content/geometry-lessons.mjs:56 (visual:'metric')",
+    "scripts/check-visual-lessons.mjs",
+    "docs/visual-lessons-review.md"
+   ],
+   "topics": [
+    "metric tensor",
+    "line element",
+    "polar coordinates",
+    "infinitesimal displacement",
+    "coordinate vs physical length"
+   ],
+   "teaches": "The radial side of a polar cell is Δr and the angular side is rΔθ, so the same coordinate step is a longer ruler at larger r. The tangent prediction √(Δr² + r²Δθ²) approaches the exact straight endpoint distance √(Δr² + 2r(r+Δr)(1 − cos Δθ)) only as the cell shrinks. The metric measures infinitesimal lengths, not arbitrary finite diagonals.",
+   "pedagogy": "Attached to the guided lesson 'Teach a coordinate grid how to measure' (§4.5). A 3×3 preset grid (radius 1/3/6 m × large/smaller/tiny cell). The cell is magnified with equal scale in both directions, and the magnification is disclosed. Tangent and endpoint readouts appear side by side with a takeaway that depends on the state.",
+   "interaction": {
+    "controls": [
+     "Radius 1 m / 3 m / 6 m",
+     "Coordinate steps: Large / Smaller / Tiny cell"
+    ],
+    "what_updates": "Magnified cell, arc, radial side, dashed chord and tangent diagonal; context inset; KaTeX labels; four readouts; takeaway.",
+    "readouts": [
+     "Δr [m]",
+     "rΔθ [m]",
+     "ℓ_tan [m]",
+     "ℓ_end [m]"
+    ],
+    "rendering": "SVG geometry with absolutely positioned KaTeX labels fitted to the SVG viewport."
+   },
+   "physics_model": "Exact Euclidean polar cell; Δθ = 0.01 × scale, Δr = 0.03 × scale. Checks: tangent and chord against independent Cartesian formulas, and relative error decreasing monotonically with scale.",
+   "screenshots": [
+    "qa/visual-lesson-metric-1440-dark.png",
+    "qa/visual-final-metric-1440.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "The tangent-prediction vs endpoint-distance comparison is a distinctive, correct point that the polar lab lacks",
+     "Equal-scale magnification is disclosed"
+    ],
+    "issues": [
+     "Presets only; with a tiny cell the diagonal and chord overlap into one line (metric-1440-dark.png)",
+     "The context inset circle is tiny and disconnected from the cell",
+     "Small type in the vl shell; separate saved-state key",
+     "Overlaps Geometry Lab 01's arc-vs-chord view in the same chapter",
+     "The intro prose spells the mathematics out in words ('length delta r', 'r times delta theta') rather than typesetting it, and the 'r' inset circle has the same size at every radius preset (visual-lesson-metric-1440-dark.png)"
+    ],
+    "evidence": "docs/visual-lessons-review.md ('first metric-cell framing made the cell too small'); scripts/check-visual-lessons.mjs; qa/visual-lesson-metric-*"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Merge into the polar-coordinates lab as a 'metric cell' view: keep polarMeasurements (tangent vs exact endpoint), the equal-scale magnification and the readouts. Replace presets with continuous Δr, Δθ and r sliders plus a log-scale 'shrink' control with a convergence plot of relative error vs cell size.",
+    "effort": "small"
+   },
+   "size": "part of visual-lessons.js"
+  },
+  {
+   "id": "lab-visual-lesson-rotating-polar-basis",
+   "kind": "lab",
+   "title": "Visual argument — The arrow stays. Its components change. (rotating orthonormal polar basis)",
+   "paths": [
+    "web/visual-lessons.js#polarBasis,basisView",
+    "scripts/visual-fallbacks.mjs#visualFallback('basis')",
+    "content/geometry-lessons.mjs:76 (visual:'basis')",
+    "scripts/check-visual-lessons.mjs"
+   ],
+   "topics": [
+    "orthonormal frame",
+    "basis vectors",
+    "vector components",
+    "covariant derivative",
+    "connection coefficients"
+   ],
+   "teaches": "The fixed vector V = (1, 0) has unit-polar components (cos θ, −sin θ) that change as the basis rotates. The derivative of the component part (0, −1) and of the basis part (0, 1) cancel exactly, so differentiating only component numbers invents a change. Hatted unit components differ from coordinate components by 1/r.",
+   "pedagogy": "Attached to the guided lesson for §6.2. An angle slider with presets (0°, 45°, 90°, 180°); the note says degrees are displayed while derivatives use radians.",
+   "interaction": {
+    "controls": [
+     "Basis angle slider 0–360°",
+     "presets 0/45/90/180°"
+    ],
+    "what_updates": "Rotated ê_r and ê_θ, the fixed V, a projection guide, KaTeX readouts of components and the cancellation identity.",
+    "readouts": [
+     "V = (1, 0)",
+     "V^r̂ = cos θ",
+     "V^θ̂ = −sin θ",
+     "product-rule cancellation identity"
+    ],
+    "rendering": "SVG with KaTeX overlay labels."
+   },
+   "physics_model": "Exact; the check verifies orthonormality, vector reconstruction and derivative cancellation at 73 angles. The identity components are Cartesian (constant (0, −1) and (0, 1)), which the interface does not state.",
+   "screenshots": [
+    "qa/visual-lesson-basis-1440-light.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "The cancellation identity is typeset cleanly",
+     "Correct and tested"
+    ],
+    "issues": [
+     "Rotates a basis at one origin rather than comparing a field at neighbouring points; the ledger judged this insufficient (visual-development-plan §2 row for Chapter 6)",
+     "Fully superseded by Geometry Lab 02",
+     "Does not say the (0, −1) and (0, 1) identity components are Cartesian"
+    ],
+    "evidence": "docs/visual-development-plan-2026-09-09.md table row 'Chapter 6 — The basis widget rotates arrows at one origin'; scripts/check-visual-lessons.mjs; qa/visual-lesson-basis-1440-light.png"
+   },
+   "reuse": {
+    "verdict": "drop",
+    "notes": "Do not port as a separate lab. Salvage only the typeset cancellation identity dV/dθ = (dV^â/dθ)ê_a + V^â dê_a/dθ = 0, labelled as Cartesian components, as a readout inside the vector-field lab.",
+    "effort": null
+   },
+   "size": "part of visual-lessons.js"
+  },
+  {
+   "id": "scene-3d-visual-lesson-octant-transport-steps",
+   "kind": "scene-3d",
+   "title": "Visual argument — Carry a direction without turning it (four-step octant transport)",
+   "paths": [
+    "web/visual-lessons.js#transportVertices,transportedFrame,transportView,initSpatial(transport)",
+    "scripts/visual-fallbacks.mjs#visualFallback('transport')",
+    "content/geometry-lessons.mjs:96 (visual:'transport')",
+    "scripts/check-visual-lessons.mjs"
+   ],
+   "topics": [
+    "parallel transport",
+    "tangent plane",
+    "orthogonal projection onto tangent space",
+    "holonomy",
+    "Gauss–Bonnet theorem",
+    "great circles"
+   ],
+   "teaches": "Stage 0 shows the tangent projection a_T = a − (a·n)n. Stages 1–3 carry z → −x → −x → y around A → N → B → A with exact rotations. The return vector is perpendicular to the start, and |Δα| = ∬K dA = π/2 on the unit sphere. A single finite projection is not transport; transport projects the derivative.",
+   "pedagogy": "Four discrete stage buttons with stage-specific KaTeX readouts and takeaways. The tangent-projection precursor is a nice idea not present in the continuous lab.",
+   "interaction": {
+    "controls": [
+     "Tangent plane / First arc / Second arc / Closed loop"
+    ],
+    "what_updates": "Completed arcs become tubes, the arrow and tangent patch move, start and final arrows appear at stage 3, KaTeX labels and readouts update.",
+    "readouts": [
+     "a_T formula",
+     "V at N and at the equator",
+     "V_final = (0, 1, 0)",
+     "|Δα| = π/2"
+    ],
+    "rendering": "three.js sphere with ArrowHelper arrows and TubeGeometry arcs; SVG fallback."
+   },
+   "physics_model": "Exact rotations; the check verifies unit norm, tangency and zero tangential derivative (finite differences) on all three arcs, closure, and a perpendicular return.",
+   "screenshots": [
+    "qa/visual-lesson-transport-1440-light.png",
+    "qa/visual-final-transport-1440.png"
+   ],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "The tangent-projection stage is a good conceptual precursor",
+     "Correct and tested"
+    ],
+    "issues": [
+     "Only four static states and no continuous motion; the ledger said explicitly that this is not enough (visual-development-plan Experience C)",
+     "Fully superseded by Geometry Labs 03 and 05",
+     "The ArrowHelper arrows are thin and the V_start/V_final labels crowd near A (transport-1440-light.png)"
+    ],
+    "evidence": "docs/visual-development-plan-2026-09-09.md Experience C ('its four discrete states are not enough'); scripts/check-visual-lessons.mjs; qa/visual-lesson-transport-1440-light.png"
+   },
+   "reuse": {
+    "verdict": "drop",
+    "notes": "Replaced by the continuous transport lab. Salvage the 'tangent projection a − (a·n)n' stage as a visual inside that lab's 'what without twisting means' explanation, showing the ambient change split into normal and tangential parts (also a ledger item).",
+    "effort": null
+   },
+   "size": "part of visual-lessons.js"
+  },
+  {
+   "id": "lab-visual-lesson-horizon-light-cones",
+   "kind": "lab",
+   "title": "Visual argument — Follow the future light can travel (radial null directions across a Schwarzschild horizon)",
+   "paths": [
+    "web/visual-lessons.js#radialNullDirections,horizonView",
+    "scripts/visual-fallbacks.mjs#visualFallback('horizon')",
+    "content/bridge-lessons.mjs:77 (visual:'horizon')",
+    "scripts/check-visual-lessons.mjs",
+    "docs/visual-lessons-review.md"
+   ],
+   "topics": [
+    "Eddington–Finkelstein coordinates",
+    "Schwarzschild metric",
+    "light cones",
+    "null geodesics",
+    "event horizon",
+    "causal structure"
+   ],
+   "teaches": "In regular ingoing coordinates with ρ = r/r_s and τ_plot = cv/r_s − ρ, ingoing light has slope −1 everywhere. Outgoing light has slope (ρ−1)/(ρ+1): positive outside, zero on the horizon, negative inside. So inside the horizon every future-directed light and timelike direction moves to smaller r. These are local directions, not trajectories, and the plot time is not proper time.",
+   "pedagogy": "Part of a bridge lesson for Chapter 17. Three event presets (outside, on, inside the horizon); the coordinate window magnifies near the horizon with equal axis scales so the inside cone stays visible. Careful notes: the horizon is defined globally, so a zero coordinate speed alone does not locate it.",
+   "interaction": {
+    "controls": [
+     "Outside (ρ = 3) / On the horizon (ρ = 1) / Inside (ρ = 0.5)"
+    ],
+    "what_updates": "Event position, cone fill, ingoing and outgoing arrows, ticks and window scale, readouts, takeaway.",
+    "readouts": [
+     "ρ",
+     "ingoing dρ/dτ_plot = −1",
+     "outgoing dρ/dτ_plot"
+    ],
+    "rendering": "SVG with KaTeX tick and axis labels."
+   },
+   "physics_model": "Radial null condition of ingoing Eddington–Finkelstein Schwarzschild coordinates; the check substitutes both slopes into −(1 − 1/ρ) + 2s/ρ + (1 + 1/ρ)s² = 0 at five radii and checks the ordering of the two slopes.",
+   "screenshots": [
+    "qa/visual-lesson-horizon-390-light.png",
+    "qa/visual-final-horizon-1440.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct regular-coordinate construction with scrupulous caveats",
+     "Near-horizon magnification keeps the inside cone readable (horizon-390-light.png)",
+     "Distinct content not duplicated by the Geometry Labs"
+    ],
+    "issues": [
+     "Only three preset events; no continuous ρ or infalling worldline",
+     "Draws half-cones between the two null arrows with no timelike worldline or tilting-cone field across many events",
+     "The topic belongs to black holes and causal structure rather than geometry foundations"
+    ],
+    "evidence": "docs/visual-lessons-review.md; scripts/check-visual-lessons.mjs (numerical asserts at the top of the file; no model-only flag, so they run together with the Playwright checks); qa/visual-lesson-horizon-*"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Move to the black-hole and causal-structure module. Keep radialNullDirections, the τ_plot definition, the equal-scale magnified window and the caveat text. Rebuild with a continuous draggable event, a field of cones at many radii, an infalling timelike worldline reaching r = 0, and a toggle to Schwarzschild t to show the coordinate singularity that the regular chart removes.",
+    "effort": "medium"
+   },
+   "size": "part of visual-lessons.js"
+  },
+  {
+   "id": "engine-lab-state-narration-qa-contract",
+   "kind": "engine-or-tool",
+   "title": "Lab runtime contract: serialisable state, current-state narration, scientific context, lifecycle and QA harness",
+   "paths": [
+    "web/geometry-foundations.js#initGeometryFoundations (draw: dataset.visualState, narrationSource, scientificContext; gr:visual-change)",
+    "web/vector-field-experience.js#initVectorFields",
+    "web/parallel-transport-experience.js#initParallelTransport",
+    "web/flow-order-experience.js#initFlowOrder",
+    "web/geometry-experiences.js#publish,getGeometryExperienceState,restoreGeometryExperienceState",
+    "web/curvature-experiences.js#publish,getCurvatureExperienceState,restoreCurvatureExperienceState",
+    "web/visual-lessons.js#save,getVisualLessonState,restoreVisualLessonState",
+    "scripts/check-parallel-transport.mjs",
+    "scripts/check-geometry-experiences.mjs",
+    "scripts/check-curvature-experiences.mjs",
+    "web/scientific-context.js#visibleExperiments (tutor-side consumer; falls back to narrationSource and scraped text/controls)"
+   ],
+   "topics": [
+    "interactive simulation architecture",
+    "AI tutor grounding",
+    "accessibility",
+    "visual regression testing"
+   ],
+   "teaches": "Infrastructure pattern, not learner content. Each lab publishes: (1) data-visual-state as validated, serialisable parameters; (2) data-narration-source, text describing the current state, with TeX delimiters, for the assistant and read-aloud; (3) data-scientific-context JSON {id, version, model, parameters, readouts, units, assumptions[], equations[]}; (4) a gr:visual-change CustomEvent on user changes; (5) get/restore state functions (persisted to localStorage only in Geometry Labs 01–05 and the visual lessons; in geometry-experiences.js and curvature-experiences.js they are exercised only by Playwright); (6) an sr-only role=status live region.",
+   "pedagogy": "Lifecycle rules: nothing auto-starts; reduced motion stops playback but explicit Play is still allowed; IntersectionObserver and visibilitychange pause animation using entries.at(-1); animation does not integrate hidden time on resume; three.js loads lazily when visible; after WebGL context loss the current state is redrawn as SVG and camera controls are disabled; an AbortController removes listeners; cleanup disposes geometry and materials. The QA harness runs independent numerics first (a --models flag), then Playwright at 1440/390 px in light and dark with overflow, label-bounds, KaTeX-error, saved-state, no-JS and no-WebGL checks, and saves screenshots to qa/.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The scientific-context JSON is a ready-made grounding payload for a voice tutor (model, units, assumptions, equations)",
+     "Rigorous lifecycle handling, regression-tested (stale IntersectionObserver entries, context loss, hidden-time integration)",
+     "Model/UI separation lets numerics run in Node with no DOM"
+    ],
+    "issues": [
+     "Re-implemented by hand in every file, with inconsistencies: gx, cx and vl publish no scientificContext; vl uses a different storage key (gr-visual-lessons:v1); gx and cx do not persist state at all; and the Riemann-count lab rewrites narration and visual state on pointermove (hover)",
+     "Validation is hand-written clamping per lab with no schema",
+     "Playwright checks assume a macOS Chrome path and a local build server",
+     "The consumer (web/scientific-context.js) has to scrape visible text and controls to cover labs without scientificContext, so the grounding quality depends on the DOM layout"
+    ],
+    "evidence": "Code review of all init* functions and web/scientific-context.js; grep shows no localStorage use in web/geometry-experiences.js or web/curvature-experiences.js; scripts/check-*.mjs; docs/parallel-transport-review.md (visibility defect found and fixed)"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Codify as a TypeScript LabContract<State> with a Zod state schema, derived narration(state) and scientificContext(state) functions, a Svelte store emitting to the tutor bus, and one shared lifecycle helper (visibility, reduced motion, lazy WebGL with SVG fallback). Keep the two-stage testing (Vitest numerics, then Playwright at 390/1440 in both themes).",
+    "effort": "medium"
+   },
+   "size": "cross-cutting pattern (~200 lines duplicated per lab)"
+  },
+  {
+   "id": "engine-semantic-tex-colouring",
+   "kind": "engine-or-tool",
+   "title": "Semantic KaTeX colouring and symbol inspection (math-system.mjs)",
+   "paths": [
+    "scripts/math-system.mjs#semanticTex,math,inline,roles,legend"
+   ],
+   "topics": [
+    "mathematical typesetting",
+    "notation colour coding",
+    "KaTeX"
+   ],
+   "teaches": "Infrastructure. Tokenises TeX and wraps recognised geometric objects in \\htmlClass: g_{μν}/η → geometry, Γ/∇ → transport, R/C/G/Ω → curvature, T/ρ/p → matter, u/τ → observer. It adds finer variants (riemann, ricci, weyl, einstein, connection, volume, torsion …) and inspection keys (symbol-metric, symbol-riemann …). Indices, powers, \\text and \\mathrm stay neutral. The original TeX is restored in the MathML annotation so copied and spoken source is clean. A legend() renders the five-role colour key.",
+   "pedagogy": "Principle stated in the legend: colour follows the object, not its importance; ambiguous letters stay neutral ('a radius called R is not automatically curvature'); names and equations carry meaning without colour.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "A sound, restrained colour philosophy consistent across book, labs and figures",
+     "Annotation restoration keeps copy-paste and screen-reader TeX clean",
+     "Referenced by 13 files across scripts/, web/ and content/ (build-site, course-content, scenes, check-symbols, several experience scripts)"
+    ],
+    "issues": [
+     "Roles are guessed from letters plus hard-coded chapter-number regexes (for example scalar-curvature chapters /^(8|9|10|12|13|14|15|21|22|23)$/), so it cannot transfer to a new curriculum",
+     "Hand-rolled tokeniser; fragile for nested groups",
+     "Depends on web/scientific-symbols.js (outside this group)"
+    ],
+    "evidence": "Code review of scripts/math-system.mjs; importers found via grep (build-site, course-content, scenes, check-symbols, several experience scripts)"
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the five roles, the variant palette, the 'never colour indices' rule, the annotation restoration and the legend copy. Replace the heuristics with explicit authored macros (for example \\metric{g}_{\\mu\\nu}, \\riemann{R}) defined as KaTeX macros that emit \\htmlClass with concept-registry ids, so the tutor can resolve 'what is this symbol' from the vault.",
+    "effort": "medium"
+   },
+   "size": "10.1 KB"
+  },
+  {
+   "id": "engine-math-colour-palette",
+   "kind": "engine-or-tool",
+   "title": "Mathematical object colour palette (light and dark tokens)",
+   "paths": [
+    "scripts/math-palette.mjs#mathPalette,mathPaletteCSS",
+    "web/parallel-transport-experience.css (--tp-surface-dark)",
+    "web/curvature-experiences.css (role variables used in check-curvature-experiences.mjs)"
+   ],
+   "topics": [
+    "notation colour coding",
+    "design tokens",
+    "accessibility"
+   ],
+   "teaches": "Infrastructure. 13 detail colours (Riemann, Ricci, Ricci scalar, Weyl, Einstein, metric volume, connection, four-velocity, energy density, pressure, action, orthonormal coframe, torsion), each with a light and a dark hex value, emitted as --math-* CSS variables for the page or for standalone SVG figures (prefers-color-scheme). The five base role colours used by the labs are --geometry #007c78/#64d9c9, --curvature #7951bb/#bd9cff, --transport #275dc5/#8bb5ff, --observer #bb365d/#ff99b4, --matter #a25e00.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [
+    "qa/figure-curvature-count-dark.png",
+    "qa/figure-curvature-count-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Coherent families (curvature purples, transport blues) with separate dark variants",
+     "One source for page and SVG-figure theming"
+    ],
+    "issues": [
+     "The comment says 'contrast-checked', but no contrast check is in scope",
+     "Base role colours live in stylesheets, not in this module",
+     "Needs separate surface-colour tokens: the dark-theme wash-out bug came from reusing text colours as materials"
+    ],
+    "evidence": "scripts/math-palette.mjs; docs/parallel-transport-review.md 'Dark-theme surface repair'; role variables in scripts/check-curvature-experiences.mjs"
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Copy the hex pairs into the grbook.ai design tokens (Tailwind or CSS variables) together with the five base role colours. Add explicit surface and material tokens for 3D and run an automated WCAG contrast check in CI.",
+    "effort": "small"
+   },
+   "size": "1.8 KB"
+  },
+  {
+   "id": "engine-visual-fallbacks-static-measurements",
+   "kind": "engine-or-tool",
+   "title": "Static server-rendered 'state you can check' fallbacks for visual lessons",
+   "paths": [
+    "scripts/visual-fallbacks.mjs#visualFallback",
+    "scripts/course-content.mjs:19 (injected inside each data-visual-lesson container)"
+   ],
+   "topics": [
+    "progressive enhancement",
+    "accessibility",
+    "server-side rendering"
+   ],
+   "teaches": "Infrastructure. Before any browser code runs, each visual lesson container holds a short description and a table of KaTeX measurements at a declared default state. The values are computed by the same model functions (chartCoordinates, polarMeasurements, polarBasis, transportedFrame, radialNullDirections), so the static page and the interactive view cannot disagree.",
+   "pedagogy": "The page reads 'A STATE YOU CAN CHECK': the no-JS reader gets verifiable numbers, not a blank canvas.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Model-derived static content, useful for no-JS readers, search indexing and tutor grounding",
+     "Tiny and clear"
+    ],
+    "issues": [
+     "Hard-coded default states per type",
+     "Only for the five older lessons; the other labs use full SVG fallbacks instead"
+    ],
+    "evidence": "scripts/visual-fallbacks.mjs; scripts/course-content.mjs usage"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Adopt the idea in SvelteKit: each lab component's SSR output is a static diagram plus a measurement table computed from the same TypeScript model at its default state. Do not port this file.",
+    "effort": null
+   },
+   "size": "2.8 KB"
+  },
+  {
+   "id": "engine-experiment-controls-helper",
+   "kind": "engine-or-tool",
+   "title": "Experiment range/radio control markup helper",
+   "paths": [
+    "scripts/experiment-controls.mjs#parameterControl,resetControl"
+   ],
+   "topics": [
+    "UI controls"
+   ],
+   "teaches": "Infrastructure. Generates a labelled range input with an output and a CSS --range-fill variable, or a radio fieldset styled as a segmented switch, plus an icon reset button.",
+   "pedagogy": null,
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Accessible label/output pairing; escapes text"
+    ],
+    "issues": [
+     "Used only by scripts/relativity-labs.mjs; none of the geometry labs use it (each hand-writes its own sliders), which contributes to inconsistency"
+    ],
+    "evidence": "grep of parameterControl/resetControl importers (only scripts/relativity-labs.mjs)"
+   },
+   "reuse": {
+    "verdict": "drop",
+    "notes": "Replace with shared Svelte components (RangeParam, SegmentedChoice, IconButton) used by every lab. Keep the pattern of a live output next to the label and a filled track.",
+    "effort": null
+   },
+   "size": "1.1 KB"
+  },
+  {
+   "id": "review-doc-geometry-apprenticeship-qualifications",
+   "kind": "review-doc",
+   "title": "Review of the geometric apprenticeship (six guided lessons plus bridge cross-review)",
+   "paths": [
+    "docs/geometry-review.md"
+   ],
+   "topics": [
+    "coordinate transformations",
+    "covectors",
+    "stereographic projection",
+    "polar metric",
+    "connection coefficients",
+    "parallel transport",
+    "holonomy",
+    "Gaussian curvature",
+    "geodesic circles",
+    "Eddington–Finkelstein coordinates",
+    "Kruskal–Szekeres coordinates",
+    "Stokes' theorem"
+   ],
+   "teaches": "An editorial and mathematical audit of the six geometry lessons in content/geometry-lessons.mjs, and a cross-review of seven bridge lessons. Its reusable core is the list of 'mathematical qualifications preserved': covector rows transform by the inverse Jacobian; stereographic charts have a negative-determinant orientation flip that is not curvature; the polar metric is exact on tangent vectors but only local for finite increments; hatted vs coordinate components; a finite projection is not transport; octant holonomy is modulo 2π with sign by orientation; the geodesic-circle circumference deficit measures K only for small radius; the cylinder is a control for extrinsic bending; Kruskal regions belong to the eternal idealisation.",
+   "pedagogy": "Documents the lesson template: initial question, intuitive account, justified steps, formal account, prerequisite links, a conceptual question with mistake-specific feedback, a numeric transfer task in a changed context, and a one-sentence takeaway.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Precise, source-cited caveats (Tong, Mannheim Riemannian geometry, Kriegl, Hughes 8.962)",
+     "Records the verification performed (217 and 333 expressions rendered; numeric checks listed)"
+    ],
+    "issues": [
+     "Reviews lessons that live outside this group's files; it does not review the interactive labs",
+     "Admits remaining gaps: an extended curvature–angle-excess proof, and more practice with maps, flows and tensor fields"
+    ],
+    "evidence": "docs/geometry-review.md"
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Import the 'Mathematical qualifications preserved' bullets into the knowledge vault as caveat notes attached to the matching concepts, so labs and the tutor state them consistently. Adopt the lesson template as a baseline for grbook.ai lesson schemas.",
+    "effort": "small"
+   },
+   "size": "14.4 KB"
+  }
+ ]
+}

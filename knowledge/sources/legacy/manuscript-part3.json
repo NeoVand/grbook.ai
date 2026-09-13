@@ -1,0 +1,2300 @@
+{
+ "group": "manuscript-part3",
+ "summary": "Part 3 of the legacy manuscript (book.md lines 5883-9479, about 37,000 words) covers the application and advanced chapters and all back matter. Ch. 17 is black holes (Schwarzschild derivation, Eddington-Finkelstein, infall and hovering, ISCO and photon sphere, a Kerr orientation, a TOV star, photon/observer frequency). Ch. 18 is gravitational waves (linearization, gauge and TT reduction, detector response, quadrupole formula with a full 1/5 angular-average derivation, binary chirp, GW150914). Ch. 19 is cosmology (FLRW curvature, Friedmann and continuity equations, power-law solutions, redshift, conformal time, three horizons, Ricci-vs-Weyl comparison, distance measures, Oppenheimer-Snyder dust collapse). Ch. 20 is 3+1/ADM (lapse and shift, extrinsic curvature, Gauss-Codazzi constraints, Friedmann as a constraint, phase-space degree-of-freedom count, an Euler/RK4 constraint-residual lab, the hole argument). Ch. 21 is tetrads and Cartan forms (polar plane vs sphere, a surface-of-revolution exercise, gauge analogy, spinors, torsion/nonmetricity, Palatini). Ch. 22 is focusing and black-hole thermodynamics (Raychaudhuri, energy conditions, trapped surfaces and Penrose's theorem, Cauchy horizons, Euclidean Hawking temperature, entropy, area theorem, Kerr first law, information/Page curve). Ch. 23 is GR as an effective field theory (power counting, nonrenormalizability, spin-2 self-coupling, Lovelock, the cosmological-constant problem, semiclassical gravity, what tests constrain). Ch. 24 is a synthesis (a Rindler metric-to-measurement check, a 10-step calculation checklist, four calibration geometries, on-shell vs off-shell). The back matter is Appendix A (30 solved exercises spanning the whole book), B (formula sheet), C (glossary), D (reading list and 35 cited sources) and E (index checklist plus three misconception problems). guides.json entries 17-24 give each chapter a question, payoff, takeaway and check/answer. Four calculated labs are embedded here: star (§17.8), photon (§17.9), distances (§19.11) and evolution (§20.7). Their models are small pure functions in web/relativity-models.js, validated against independent analytic limits in scripts/check-relativity-models.mjs. Overall the science is unusually careful and nearly fault-free on spot-check: the derivations are complete, every result states its assumptions, and imported results (Kerr metric, first-class constraint algebra, spin structure, Hawking flux) are flagged as imported. It makes excellent grounding for the vault and the tutor. As novice teaching it is dense and caveat-heavy, and equations come before visuals (docs/visual-development-plan-2026-09-09.md: 27 displayed equation blocks precede the first visual in Ch. 18, 38 in Ch. 21). Practice is segregated in Appendix A. Chapters 20-23 were an 'optional deeper trail' outside the core route. Known content gaps: Kerr depth, no Reissner-Nordstrom at all (zero mentions), and no Schwarzschild or collapse causal diagram in book.md (the only conformal picture is the §19.8 cosmic-horizons figure; Kruskal maps live in a bridge lesson); antenna patterns, noise and real data for waves; density parameters and E(z) in the cosmology prose (they exist only inside the lab record); a solved inhomogeneous initial-data problem; Hodge duality and Maxwell in forms; a curved-spacetime capstone. Recommended use: reuse the derivation layers nearly verbatim; adapt chapters into short visual-first lessons; turn Appendix A/E and the guides into distributed, gradable practice; keep B/C/D as vault seeds.",
+ "lessons_learned": [
+  "The most reusable thing in these chapters is the derivation-with-stated-assumptions style (e.g. §17.1 integrates d/dr[r(1-f)]=0 instead of announcing Schwarzschild; §18.7 derives the 1/5 by isotropic tensor averaging; §22.9 checks the Kerr first law algebraically). Import these as the derivation/deep layer of a lesson and as tutor grounding, not as the first thing a novice reads.",
+  "Caveat density is too high for primary novice text: almost every paragraph adds 'this does not mean...' or 'under the stated assumptions...'. grbook lessons should put one core claim per step up front and move qualifications into a collapsible 'fine print' or tutor-available layer, keeping the misconception checks as explicit quiz items.",
+  "Visuals arrived after the algebra (visual-development-plan: Ch. 18's first visual comes after 27 equation blocks, Ch. 21's after 38; build-site.mjs places pictures at section ends by policy). In grbook the experiment or diagram should open the lesson in plain language, with equations revealed progressively.",
+  "The four calculated labs set the right engineering pattern: a pure-function model shared by build time and browser (web/relativity-models.js), a declared record of units, assumptions, limitations and source (web/lab-records.js), and CI checks against independent analytic limits (the n=1 Lane-Emden radius sqrt(pi/2), dust and de Sitter comoving distances, photon reciprocity, RK4 convergence ratio between 12 and 20). Keep this model/record/check triad for every grbook demo.",
+  "A quantity must never live only inside a demo. The distances lab exposes Omega_m, Omega_Lambda, H0, E(z) and D_C = (c/H0) integral dz/E(z), but none appear in the Ch. 19 prose (grep finds no density parameter or critical density). Every control and readout needs a matching explanation in the lesson text.",
+  "Practice segregated into an appendix does not work (docs/learning-experience-audit.md: 'Practice is largely segregated from the moment a skill is acquired'). Appendix A solutions also sit inline in book.md with no reveal wrapper, unlike Appendix E's checkpoint details. Distribute exercises to the point of use, hide solutions behind attempts, and give answers a structured or numeric form an AI grader can check.",
+  "Review documents go stale fast. The 2026-09-09 comprehensive review says the course 'lacks ... the Tolman-Oppenheimer-Volkoff equation', but §17.8 and the star lab were added the same day (docs/course-evolution.md 'Recovered calculated laboratories'). Every review finding needs a date and a re-check before it drives work.",
+  "Stable IDs decoupled from titles saved links through retitling: content/section-ids.json still maps 18.5 to the old slug '18-5-retarded-solutions-the-field-receives-yesterday-s-news', and curriculum.mjs uses '19-5-solving-for-the-scale-factor-three-recognizable-cosmic-personalities'. grbook should key lessons and concepts to stable IDs from day one and treat headings as display text.",
+  "Symbol collisions multiply in late chapters: the curvature two-form is written with a calligraphic R in §21.4-21.8 but Omega in Appendix A.28 and the Cartan figure review; A is the normalized scale factor (§19, §20.7), horizon area (§22.7) and sphere radius (§24.4, A.8); omega is both spin connection (§21) and vorticity (§22); beta is both shift (§20) and velocity (§17.9). A per-lesson scoped symbol registry is needed; the legacy global tau heuristic already mislabeled a plotting time as proper time (review finding F01).",
+  "Advanced chapters need explicit prerequisite modules and a split between classical and semiclassical material. Ch. 22 had a dependency reversal at §22.7 (docs/novice-sequencing-audit-2026-09-09.md), and the core route in content/curriculum.mjs skips 20-23 entirely. Split focusing and the area theorem from Hawking radiation and information, and give each its own entry requirements.",
+  "A synthesis chapter built only on flat Rindler is too thin a capstone (comprehensive review row 24). grbook's final project should make the learner pick observers in a curved spacetime with matter (e.g. TOV exterior plus FLRW), compute, verify and predict a measurement.",
+  "Revision-log prose and small typos got past the automated checks: §19.11 says 'The worked example now obtains these distances', and §20.3 and §23.3 start a sentence lowercase after a bold lead-in ('extrinsic curvature need not...', 'if we truncate...'). Add prose linting and an editorial pass, not only math and link checks.",
+  "The guides.json pattern (one question, payoff, takeaway and check/answer per chapter) is a compact, high-value exit ticket that maps directly to a voice-tutor 'can you explain...' prompt. Keep it, but add several checks per lesson across predict/calculate/diagnose roles.",
+  "The late-added lab sections (§17.8 star, §17.9 photon, §20.7 evolution) already follow the order grbook wants: a physical picture in plain words, then the lab, then the derivation with an independent limiting check. They are the template for adapting the older equation-first sections, and §19.11 is the counter-example (derivation first, sliders for undefined Omega parameters after).",
+  "Keyword-derived topic tags are unreliable: a grep for 'Shapiro' in Part 3 only hits the BSSN acronym (Baumgarte, Shapiro, Shibata, Nakamura), yet §17.9 had been tagged 'Shapiro delay'. Tag concepts in the grbook vault only after a human or model reads the passage, and require a line reference for each tag.",
+  "Route status must come from one source. build-site.mjs hardcodes 'OPTIONAL DEEPER TRAIL' for chapters 20-23 while curriculum.mjs defines a horizons route that requires 21 and 22. grbook should derive every 'optional' or 'required' badge from the learner's chosen path in the registry.",
+  "A readout that can never change (the photon lab's 'locally measured light speed / c = 1') and a shared axis that flattens the key curve (D_A on a 0-50 Gpc axis) both hide the lesson the lab exists to teach. Review every demo's default state and ask whether the intended surprise is visible without reading numbers.",
+  "The QA screenshot default states contain exact, CI-verified numbers (photon 0.75593 = sqrt(4/7); star R=0.86584, M=0.15736 at rho_c=0.2, step 0.01; distances D_C=5179.9 Mpc at z=2). Carry them over as visual-regression and model-port fixtures so the Svelte ports can be checked against the legacy output."
+ ],
+ "assets": [
+  {
+   "id": "manuscript-chapter-17-black-holes",
+   "kind": "manuscript-chapter",
+   "title": "Chapter 17. Black holes: horizons, falling clocks, and orbits",
+   "paths": [
+    "book.md:5883-6277",
+    "content/guides.json#17",
+    "scripts/figures.py:291 (horizon-cones)",
+    "scripts/figures.py:298 (black-hole-radii)",
+    "scripts/scenes.mjs (embedding scene)",
+    "content/bridge-lessons.mjs (horizon-directions, kruskal-and-causal-maps)",
+    "web/lab-records.js (star, photon)"
+   ],
+   "topics": [
+    "Schwarzschild metric",
+    "Birkhoff's theorem",
+    "areal radius",
+    "Kretschmann scalar",
+    "coordinate singularity",
+    "curvature singularity",
+    "tortoise coordinate",
+    "Eddington-Finkelstein coordinates",
+    "radial infall",
+    "proper acceleration",
+    "effective potential",
+    "innermost stable circular orbit",
+    "photon sphere",
+    "event horizon",
+    "future null infinity",
+    "Kerr metric",
+    "frame dragging",
+    "ergoregion",
+    "no-hair theorem",
+    "Tolman-Oppenheimer-Volkoff equation",
+    "gravitational redshift"
+   ],
+   "teaches": "The learner derives the Schwarzschild exterior from a two-function spherical ansatz. They use the Kretschmann scalar 48m^2/r^6 to show r=2m is a chart failure and r=0 is not. They repair the chart with ingoing Eddington-Finkelstein coordinates and read the tilted future light cones. They compute a finite infall proper time (4m/3c from the horizon) against a diverging hovering acceleration. They find circular orbits and stability, separating 2m (horizon), 3m (photon sphere) and 6m (ISCO), and recover the Ch. 16 orbit equation. They learn the event horizon as a global causal boundary, meet the Kerr metric with ZAMO frame dragging, horizons and ergosurface, integrate a relativistic star with the TOV equation, and compare gravitational and Doppler frequency shifts between chosen observers.",
+   "pedagogy": "Opens with an operational question (can a light pulse escape from here?). Derivations are shown stepwise with commentary on where each term comes from (second derivative, Gamma-Gamma products, 2/r angular terms). It tests with invariants before interpreting the chart and contrasts two observer families (falling vs hovering). A summary table covers the three radii. §17.8 starts with a pressure-gradient slab intuition before the TOV equations. Collapsible 'Further calculation' details hold the Birkhoff time-dependence proof. Embedded star and photon labs each carry predict/observe prompts. Bridge lessons (horizon-directions, Kruskal causal map) are inserted at section ends by content/lesson-sequence.mjs.",
+   "interaction": null,
+   "physics_model": "Static spherical vacuum ansatz ds^2=-e^(2alpha)c^2dt^2+e^(2beta)dr^2+r^2dOmega^2, solved to f=1-2m/r with m=GM/c^2. EF metric -f c^2 dv^2+2c dv dr+r^2dOmega^2. Radial geodesics use E=f dt/dtau. V_eff=(1-2m/r)(1+l^2/(c^2 r^2)) with V''=2m(r-6m)/(r^3(r-3m)). Kerr in Boyer-Lindquist form with r_pm=m pm sqrt(m^2-a^2) and r_ergo=m+sqrt(m^2-a^2cos^2theta). TOV with the Gamma=2 polytrope p=K rho0^2 integrated in enthalpy. Photon ratio sqrt(f_e/f_r) times local Doppler factors.",
+   "screenshots": [
+    "qa/figure-horizon-cones-light.png",
+    "qa/lab-star-1440-dark.png",
+    "qa/lab-photon-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Complete, checkable Schwarzschild derivation, including the Birkhoff staticity step in a details block (R_tr=(2/r) d_t beta).",
+     "Correct, careful distinctions: chart failure vs curvature singularity, static-observer divergence vs regular free fall, eternal maximal extension vs collapse spacetime, photon sphere vs image of the horizon.",
+     "Kerr uniqueness is qualified with its actual hypotheses and a primary citation (Chrusciel-Costa).",
+     "§17.8 TOV is scientifically honest: it states that the toy EOS is not nuclear matter, gives a Newtonian Lane-Emden check and the constant-density benchmark, and says mass-radius turning points need a mode analysis.",
+     "The embedded star and photon labs are verified by scripts/check-relativity-models.mjs, and the screenshots show clean controls and readouts."
+    ],
+    "issues": [
+     "Kerr is orientation only: no geodesics, Carter constant, spin-dependent ISCO, Penrose process, or 3D ergoregion picture.",
+     "No Reissner-Nordstrom solution or inner/Cauchy horizons in this chapter (Cauchy horizons appear only in prose in §22.6).",
+     "The manuscript text has no Penrose or Kruskal diagram; the causal map exists only as a separate bridge lesson.",
+     "No critical impact parameter (3 sqrt3 m) or shadow calculation, although the text warns against reading images as horizons.",
+     "Very dense for a novice: about 3,240 words mixing a derivation, three observer analyses, Kerr, stellar structure and observer redshift in one chapter.",
+     "The star lab offers no mass-radius family sweep, so the text's discussion of turning points has nothing to explore."
+    ],
+    "evidence": "Chapter read in full. docs/comprehensive-course-review-2026-09-09.md row '17 - Black holes' (line 240); its interior and redshift requests were since met per docs/course-evolution.md 'Recovered calculated laboratories - September 9, 2026'. scripts/check-physics-calculations.mjs:108-127 verifies Kerr and Schwarzschild Kretschmann values numerically. QA screenshots viewed: qa/figure-horizon-cones-light.png, qa/lab-star-1440-dark.png, qa/lab-star-1440-plot.png, qa/lab-photon-1440-light.png."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep §17.1-17.6 as the derivation layer and the three-radii table as a misconception check. Split into four short visual-first lessons: solve the exterior; the horizon is a chart problem (open with the horizon-cones tilt, animated); falling vs hovering clocks; orbits (interactive effective potential with draggable angular momentum). Move the Birkhoff proof to a deep dive. Rebuild Kerr as its own 3D lesson, keeping these formulas as grounding. Add a Penrose/Kruskal diagram and a shadow/impact-parameter demo. Keep §17.8-17.9 with their labs (see section assets).",
+    "effort": "medium"
+   },
+   "size": "398 lines, about 3,240 words; 2 labs, 2 figures, 1 scene, 2 bridge lessons"
+  },
+  {
+   "id": "manuscript-section-17-1-schwarzschild-derivation",
+   "kind": "manuscript-section",
+   "title": "§17.1-17.2 Solving the spherical vacuum equation and testing the horizon with curvature",
+   "paths": [
+    "book.md:5887-5991"
+   ],
+   "topics": [
+    "Schwarzschild metric",
+    "Birkhoff's theorem",
+    "areal radius",
+    "Christoffel symbols",
+    "Ricci tensor",
+    "Einstein tensor",
+    "Kretschmann scalar",
+    "Weyl tensor",
+    "Schwarzschild radius",
+    "tidal forces"
+   ],
+   "teaches": "How symmetry reduces ten metric functions to two. Which Christoffel symbols matter and why the angular Gamma^r_thetatheta=-r e^(-2beta) term is essential. How G^t_t=(f-1)/r^2+f'/r=0 integrates to f=1-C/r, and how G^r_r minus G^t_t forces alpha+beta constant. How the Newtonian limit fixes C=2GM/c^2. That Birkhoff extends the result to pulsating spherical sources. That K=48m^2/r^6 is finite at 2m and diverges at 0. That horizon tides scale as M^-2 (r_s about 2.95 km per solar mass).",
+   "pedagogy": "Shows 'a few connection coefficients' and one Ricci component as a mechanism rather than the full list. Explains each term's origin. The integration is presented as the key insight ('explains the inverse-radius form instead of merely announcing it'). The time-dependent case is an optional details block.",
+   "interaction": null,
+   "physics_model": "Static spherical ansatz; mixed Einstein components; the Kretschmann scalar from the six orthonormal curvature entries (-2q,q,q,-q,-q,2q), q=m/r^3.",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "The derivation is short enough to follow and complete enough to check.",
+     "Explicitly separates the static assumption from Birkhoff's stronger theorem and its non-vacuum limits.",
+     "Links back to the Ch. 9 vacuum curvature pattern."
+    ],
+    "issues": [
+     "The remaining Christoffel symbols and the angular Einstein equation are only asserted, which a learner cannot verify without a tool.",
+     "No visual (e.g. an embedding or proper-radial-distance picture) is attached here; the embedding scene is placed after §17.2 by scripts/build-site.mjs sceneSections."
+    ],
+    "evidence": "Read in full. Kretschmann 48m^2/r^6 is also checked numerically in scripts/check-physics-calculations.mjs:127."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Use verbatim as the derivation layer of grbook's Schwarzschild lesson and as tutor grounding. Pair with a symbolic-computation widget that shows every Gamma and G component on demand, and put the embedding/proper-distance visual before the algebra.",
+    "effort": "small"
+   },
+   "size": "about 100 lines"
+  },
+  {
+   "id": "manuscript-section-17-3-horizon-coordinates-and-observers",
+   "kind": "manuscript-section",
+   "title": "§17.3, 17.4 and 17.6 Eddington-Finkelstein coordinates, falling vs hovering clocks, and the global event horizon",
+   "paths": [
+    "book.md:5993-6071",
+    "book.md:6124-6128",
+    "content/bridge-lessons.mjs (horizon-directions, kruskal-and-causal-maps)",
+    "scripts/figures.py:291"
+   ],
+   "topics": [
+    "tortoise coordinate",
+    "Eddington-Finkelstein coordinates",
+    "light cone",
+    "null geodesics",
+    "event horizon",
+    "radial infall",
+    "proper time",
+    "proper acceleration",
+    "static observer",
+    "future null infinity",
+    "asymptotic flatness",
+    "maximal extension"
+   ],
+   "teaches": "The dr^2/f cancellation in v=t+r_*/c. That the horizon block has determinant -c^2 (regular). That outgoing radial light has dr/dv=(c/2)(1-2m/r), so inside even 'outgoing' light moves to smaller r. The conserved energy E=f dt/dtau, the infall rate dr/dtau=-c sqrt(2m/r) and Delta tau=4m/3c from horizon to center. The hovering acceleration GM/(r^2 sqrt(1-2m/r)) diverging at the horizon. Why a distant observer sees redshifted, delayed signals rather than a frozen photograph. And that horizon membership is a global, teleological property, not a local measurement.",
+   "pedagogy": "Algebraic cancellation shown explicitly. The engine-thrust argument ('can change direction within the cone, cannot produce a direction outside it'). Contrasts two observer families. The eternal-extension vs collapse caveat. The bridge lesson converts slopes to a plot with a dimensionless plotting time, and figure 29 shows tilted cones at r/r_s = 0.5, 1, 1.6, 2.7.",
+   "interaction": null,
+   "physics_model": "ds^2=-f c^2 dv^2+2c dv dr+r^2dOmega^2; radial null directions dv=0 and dr/dv=(c/2)f; timelike radial geodesic with E=1; static four-acceleration a^r=Gamma^r_tt (u^t)^2.",
+   "screenshots": [
+    "qa/figure-horizon-cones-light.png",
+    "qa/visual-lesson-horizon-1440-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Conceptually exact treatment of the most misunderstood GR topic, with no escape-speed story.",
+     "The comprehensive review singles out horizon teaching as sound: 'Do not replace these with an escape-speed story.'",
+     "Figure 29 (horizon-cones) is clean and readable: the outward generator is vertical at r_s and tilted inward inside."
+    ],
+    "issues": [
+     "The hovering-acceleration formula needs Gamma^r_tt from §17.1 but the text does not show the magnitude calculation with g_rr.",
+     "No interactive light-cone field or infalling-observer animation; the figure is static.",
+     "The Kruskal/Penrose material sits in a separate bridge, so the manuscript alone never draws the global causal structure."
+    ],
+    "evidence": "Read in full. docs/comprehensive-course-review-2026-09-09.md strengths item 6. docs/causality-review.md rows for 'Horizon directions §17.3' and 'Kruskal and causal maps §17.6'. Screenshot qa/figure-horizon-cones-light.png viewed."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the text and equations. Rebuild the visual as an interactive EF light-cone field with a draggable observer and an infalling worldline that shows proper time vs Schwarzschild t. Add the Kruskal/Penrose map from the bridge lesson directly into the lesson. Keep the hovering-vs-falling contrast as a predict-then-reveal check.",
+    "effort": "small"
+   },
+   "size": "about 85 lines"
+  },
+  {
+   "id": "manuscript-section-17-5-orbits-isco-photon-sphere",
+   "kind": "manuscript-section",
+   "title": "§17.5 Circular orbits and their stability",
+   "paths": [
+    "book.md:6073-6122",
+    "scripts/figures.py:298 (black-hole-radii)"
+   ],
+   "topics": [
+    "effective potential",
+    "circular orbits",
+    "orbital stability",
+    "innermost stable circular orbit",
+    "photon sphere",
+    "null geodesics",
+    "Binet equation",
+    "perihelion precession",
+    "black hole imaging"
+   ],
+   "teaches": "The timelike effective potential with its extra -1/r^3 term. The circular-orbit condition l^2/c^2=mr^2/(r-3m). The stability condition V''>0, giving r>6m. That unstable circular orbits exist between 3m and 6m. That the null potential f/r^2 peaks at the unstable photon sphere r=3m. And how the orbit equation u''+u=GM/l^2+3mu^2 used in Ch. 16 follows by differentiating the energy equation.",
+   "pedagogy": "Algebraic existence vs stability made explicit ('unstable does not mean algebraically nonexistent'). A summary table of the three radii. A warning that black-hole images are not photographs of r_s. The guides.json check asks whether the three radii coincide.",
+   "interaction": null,
+   "physics_model": "V_eff=(1-2m/r)(1+l^2/(c^2 r^2)); V''=2m(r-6m)/(r^3(r-3m)) at circular orbits; null potential proportional to f/r^2.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct and compact, with the Ch. 16 orbit equation derived rather than assumed.",
+     "Good misconception coverage (three radii, photon sphere not a surface)."
+    ],
+    "issues": [
+     "No plot of V_eff for varying l, which is the canonical visual for this topic.",
+     "No orbit integration or precession/zoom-whirl demo.",
+     "No critical impact parameter, capture cross-section or shadow size."
+    ],
+    "evidence": "Read in full. docs/visual-development-plan-2026-09-09.md line 240 plans the horizon/photon-sphere/ISCO schematic with critical impact parameter 3 sqrt3 GM/c^2 as still to build."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Reuse the derivation text. Build an interactive effective-potential plot linked to a live orbit integrator (timelike and null), with the 2m/3m/6m markers and a shadow/impact-parameter extension.",
+    "effort": "small"
+   },
+   "size": "about 50 lines"
+  },
+  {
+   "id": "manuscript-section-17-7-kerr",
+   "kind": "manuscript-section",
+   "title": "§17.7 The geometry of a rotating black hole",
+   "paths": [
+    "book.md:6130-6189"
+   ],
+   "topics": [
+    "Kerr metric",
+    "Boyer-Lindquist coordinates",
+    "frame dragging",
+    "zero angular momentum observer",
+    "ergoregion",
+    "ergosphere",
+    "outer horizon",
+    "inner horizon",
+    "no-hair theorem",
+    "black hole uniqueness"
+   ],
+   "teaches": "The Boyer-Lindquist Kerr metric with Sigma and Delta. The trap in reading g_tphi from the 2g_tphi cross term. That zero angular momentum observers still rotate: dphi/dt=-g_tphi/g_phiphi. The horizon radii r_pm and the ergosurface r_ergo(theta). That the ergoregion means 'cannot stay still' rather than 'cannot escape'. The actual hypotheses behind Kerr uniqueness.",
+   "pedagogy": "States up front that the metric is taken as given rather than derived. Operational definition of frame dragging. Contrasts inability to stay stationary with inability to escape.",
+   "interaction": null,
+   "physics_model": "Kerr metric in Boyer-Lindquist coordinates, a_K=J/(Mc), |chi|<=1; ZAMO angular velocity; roots of Delta; g_tt=0 surface.",
+   "screenshots": [],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Correct formulas and a careful uniqueness caveat with a primary citation.",
+     "Useful practical warning about the cross-term factor of two."
+    ],
+    "issues": [
+     "One section is an orientation, not competence; the comprehensive review says 'One paragraph about Kerr is an orientation, not competence in rotating spacetime.'",
+     "No Kerr geodesics, constants of motion, Carter constant, Penrose process, spin-dependent ISCO or photon orbits.",
+     "No visualization of the ergoregion or horizons, which is a natural 3D showcase."
+    ],
+    "evidence": "Read in full. docs/comprehensive-course-review-2026-09-09.md row 17 and §8.2 'Rotating and charged black holes'. The Kerr metric curvature is numerically checked in scripts/check-physics-calculations.mjs:108."
+   },
+   "reuse": {
+    "verdict": "reimagine",
+    "notes": "Keep the formulas, the ZAMO relation and the uniqueness caveat as grounding. Build a new Kerr lesson around a three.js ergoregion and horizon view with a spin slider, frame-dragged ZAMO paths, spin-dependent ISCO and photon orbits, and an optional Penrose-process energy-extraction demo. Add Reissner-Nordstrom and inner horizons in an advanced track.",
+    "effort": "medium"
+   },
+   "size": "about 60 lines"
+  },
+  {
+   "id": "manuscript-section-17-8-tov-star",
+   "kind": "manuscript-section",
+   "title": "§17.8 A relativistic star has an interior (TOV equation + Stellar structure lab)",
+   "paths": [
+    "book.md:6191-6255",
+    "web/relativity-models.js (starProfile)",
+    "web/lab-records.js (star)",
+    "web/relativity-labs.js",
+    "scripts/relativity-labs.mjs",
+    "scripts/check-relativity-models.mjs"
+   ],
+   "topics": [
+    "hydrostatic equilibrium",
+    "Tolman-Oppenheimer-Volkoff equation",
+    "perfect fluid",
+    "equation of state",
+    "polytrope",
+    "enthalpy",
+    "mass function",
+    "junction conditions",
+    "Lane-Emden equation",
+    "Schwarzschild interior solution",
+    "Buchdahl bound",
+    "stellar stability",
+    "compactness"
+   ],
+   "teaches": "Pressure support needs a gradient, not just pressure. The mass-function metric. How dm/dr and Phi' come from the tt and rr Einstein equations and dp/dr=-(epsilon+p)Phi' from conservation. The three relativistic corrections (pressure inertia, pressure as source, compactness factor) and their Newtonian limit. The integration procedure: regular centre, zero-pressure surface, exterior matching and lapse normalization. A toy Gamma=2 polytrope integrated in enthalpy with series starts. Numerical sensitivity via step halving. The Lane-Emden and constant-density benchmarks. The Buchdahl 8/9 limit with its hypotheses. Why a mass-radius turning point is not by itself a stability proof.",
+   "pedagogy": "Starts with a slab-of-material picture and a build-outward-from-the-centre narrative before any equation. The lab comes before the derivation so the learner sees profiles first. The prose separates numerical error from EOS uncertainty. The lab prompt: 'watch whether a denser star is also a larger star'.",
+   "interaction": {
+    "controls": [
+     "Central rest-mass density slider (0.02 to 2, step 0.02; default 0.2)",
+     "Radial step segmented control: 0.02, 0.01, 0.005, 0.0025",
+     "View toggle: Star (density-shaded disc on fixed reference radius) / Profiles (normalized p, rho, m vs r)",
+     "Reset",
+     "Measurements and notebook disclosure with CSV export"
+    ],
+    "what_updates": "Re-integrates the TOV system with RK4 from the centre to the enthalpy zero, then redraws the star disc radius and colour, or the three normalized profile curves, plus the readouts.",
+    "readouts": [
+     "Surface radius R",
+     "Gravitating mass M",
+     "Compactness 2M/R",
+     "Change in R when step is halved"
+    ],
+    "rendering": "Server-rendered SVG chart and data table with JavaScript-free fallback, enhanced by web/relativity-labs.js; KaTeX in the calculation disclosure; localStorage notebook"
+   },
+   "physics_model": "Geometric units G=c=K=1. EOS p=rho0^2, epsilon=rho0+p. Enthalpy h=ln(1+2rho0). ODEs dm/dr=4 pi r^2 epsilon and dh/dr=-(m+4 pi r^3 p)/(r(r-2m)), started at r0=1e-5 from series expansions. Fixed-step RK4; surface found by linear interpolation of the h zero; the code throws if r<=2m or no surface is found within r<5. Validated in scripts/check-relativity-models.mjs: weak-field limit R=sqrt(pi/2) and M=sqrt(2pi) rho_c within 3e-5, monotone m and p, and convergence under step refinement.",
+   "screenshots": [
+    "qa/lab-star-1440-light.png",
+    "qa/lab-star-1440-dark.png",
+    "qa/lab-star-1440-plot.png",
+    "qa/lab-star-390-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "A genuine relativistic calculation with an independent analytic check wired into CI.",
+     "The text is exceptionally honest about EOS realism, numerical error sources (surface interpolation dominates) and stability claims.",
+     "Screenshots show a polished lab: fixed reference radius, compact readouts beside controls, clear normalized profiles with legend, consistent in dark and light themes.",
+     "Default state verified in qa/lab-star-1440-light.png: rho_c=0.2, step 0.01 gives R=0.86584, M=0.15736, 2M/R=0.36349 and a step-halving change in R of -3.9e-5, so the readouts double as regression fixtures."
+    ],
+    "issues": [
+     "No sweep over central density to draw the mass-radius curve or maximum mass, which is the payoff learners expect.",
+     "Model units only; physical scaling with a chosen K (km, solar masses) is described in the text but not offered as a control.",
+     "The Star view is a flat shaded disc; it does not show the metric (e.g. lapse or redshift) or the exterior Schwarzschild matching.",
+     "Placement makes Ch. 17 very long; the section needs its own lesson.",
+     "The dashed ring is a fixed 'reference radius 1.2', not the Newtonian n=1 radius sqrt(pi/2)=1.253; showing the Newtonian star of the same central density beside the relativistic one (0.866 at the default) would make the relativistic shrinkage visible instead of leaving it to the text."
+    ],
+    "evidence": "Read in full; model code read in web/relativity-models.js; scripts/check-relativity-models.mjs assertions read. docs/course-evolution.md 'Recovered calculated laboratories' and 'Bring the calculated labs back into the Spacetime Lab design'. Screenshots qa/lab-star-1440-dark.png and qa/lab-star-1440-plot.png viewed. Control ranges read from web/lab-records.js. The same lab is inventoried in depth in sources/legacy/labs-physics.json; this asset covers the manuscript section around it."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Port starProfile and its Lane-Emden check unchanged. Keep the slab intuition and the derivation text. Add a mass-radius family sweep with maximum-mass marker and an optional realistic-EOS preset, physical units via K, and a lapse/redshift overlay that continues into the exterior Schwarzschild solution. Make it a standalone 'Build a neutron star' lesson after Schwarzschild. Add a Newtonian-limit ghost star at the same central density.",
+    "effort": "medium"
+   },
+   "size": "about 65 lines of text; model about 60 lines JS"
+  },
+  {
+   "id": "manuscript-section-17-9-photon-observers",
+   "kind": "manuscript-section",
+   "title": "§17.9 Separate the photon from the observers (Light and observers lab)",
+   "paths": [
+    "book.md:6257-6276",
+    "web/relativity-models.js (photonExchange)",
+    "web/lab-records.js (photon)",
+    "web/relativity-labs.js",
+    "scripts/check-relativity-models.mjs"
+   ],
+   "topics": [
+    "gravitational redshift",
+    "Doppler shift",
+    "Killing vector",
+    "conserved photon energy",
+    "static observer",
+    "four-velocity",
+    "coordinate speed of light",
+    "radial null geodesic",
+    "coordinate time vs proper time"
+   ],
+   "teaches": "Photon frequency is an observer-dependent measurement E=-p.u. Static observers give nu_r/nu_e=sqrt(f_e/f_r). Radial motion at either event multiplies by gamma(1-n beta). The Schwarzschild coordinate travel time c Delta t/r_s=(rho_r-rho_e)+ln((rho_r-1)/(rho_e-1)). A changing coordinate slope does not change the locally measured light speed.",
+   "pedagogy": "Holds the emission and reception events fixed and varies only the observers. Each graph point is a possible receiver, not a trajectory. The lab shows two wave strips over equal local-time windows so crest counts show frequency directly, plus a 1D radial marker of the two events.",
+   "interaction": {
+    "controls": [
+     "Emission radius r/r_s slider (1.1 to 4, default 2)",
+     "Reception radius r/r_s slider (1.1 to 20, default 8)",
+     "Emitter velocity / c slider (-0.8 to 0.8; negative is inward)",
+     "Receiver velocity / c slider (-0.8 to 0.8)",
+     "View toggle: Waves / Frequency plot",
+     "Reset, notebook, CSV"
+    ],
+    "what_updates": "Recomputes the gravitational and motion factors and redraws the emitted/received wave strips, the event markers on the radial axis, or the frequency-ratio plot.",
+    "readouts": [
+     "Received / emitted frequency",
+     "Gravitational factor",
+     "Motion factor",
+     "Locally measured light speed / c"
+    ],
+    "rendering": "SVG wave strips and plot with no-JS fallback; web/relativity-labs.js enhancement"
+   },
+   "physics_model": "f(r)=1-1/r in units of r_s. gravity=sqrt(f_e/f_r). Doppler (1-n beta)/sqrt(1-beta^2) with n set by propagation direction; ratio = gravity x motion. Checks: 2->8 r_s gives sqrt(4/7), reciprocity of the forward/backward product equals 1, and the pure Doppler case beta=0.6 gives 0.5.",
+   "screenshots": [
+    "qa/lab-photon-1440-light.png",
+    "qa/lab-photon-1440-plot.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Clean conceptual separation of photon vs observer, with correct formulas and CI checks.",
+     "The wave-strip visual (two strips over equal local-time windows, so crest count is frequency) is novice-friendly; qa/lab-photon-1440-light.png shows 2 r_s to 8 r_s giving 0.75593, which is exactly the CI value sqrt(4/7)."
+    ],
+    "issues": [
+     "Radial motion only; no transverse or orbital observers, and no light bending or angles.",
+     "The radial axis is a 1D line; no spacetime diagram of the null ray between the events.",
+     "The travel-time formula is in the text but is not shown as a readout.",
+     "The 'Locally measured light speed / c' readout is always 1 by construction; a readout that can never change is a statement, not a measurement, and should become a callout or a comparison with the changing coordinate slope.",
+     "The text gives only a Schwarzschild coordinate travel time; it is not a Shapiro-delay calculation (no comparison with a flat-space path or a radar echo), so it should not be tagged as teaching Shapiro delay."
+    ],
+    "evidence": "Read in full; photonExchange code and checks read. Screenshot qa/lab-photon-1440-light.png viewed. Control ranges read from web/lab-records.js; grep shows no travel-time output in web/relativity-models.js or web/relativity-labs.js."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Port photonExchange and checks as is. Keep the wave-strip idea. Add a spacetime diagram (EF or tortoise coordinates) showing the ray and both observer worldlines, a coordinate-travel-time readout, and a free-fall receiver preset so learners can compare free-fall and static receivers.",
+    "effort": "small"
+   },
+   "size": "about 20 lines of text"
+  },
+  {
+   "id": "manuscript-chapter-18-gravitational-waves",
+   "kind": "manuscript-chapter",
+   "title": "Chapter 18. Gravitational waves: from moving masses to a detector",
+   "paths": [
+    "book.md:6281-6722",
+    "content/guides.json#18",
+    "scripts/figures.py:311 (wave-polarizations)",
+    "scripts/scenes.mjs (wave scene)",
+    "content/bridge-lessons.mjs (waves-and-retarded-time)"
+   ],
+   "topics": [
+    "linearized gravity",
+    "metric perturbation",
+    "trace-reversed perturbation",
+    "Lorenz gauge",
+    "gauge transformation",
+    "wave equation",
+    "transverse-traceless gauge",
+    "gravitational wave polarization",
+    "spin-2",
+    "geodesic deviation",
+    "strain",
+    "laser interferometer",
+    "retarded Green function",
+    "quadrupole formula",
+    "mass multipole moments",
+    "Isaacson stress-energy tensor",
+    "gravitational wave luminosity",
+    "chirp mass",
+    "binary inspiral",
+    "GW150914"
+   ],
+   "teaches": "From g=eta+h the learner derives linearized Ricci, trace reversal, Lorenz gauge and Box h-bar=-16 pi G T/c^4. They count two polarizations via residual gauge, with the explicit amplitude reduction. They read TT strain and its 2-theta rotation, and get the detector response both as proper length and as geodesic deviation, plus a light round-trip timing check. They build the retarded solution and derive the quadrupole formula via conservation (d^2 I/dt^2=2 integral T_ij). They learn why monopole and dipole don't radiate, the averaged wave energy flux, and the P=G/(5c^5)<Q'''Q'''> derivation including the isotropic angular averages. They compute the circular binary power 32G^4 mu^2 M^3/(5c^5 r^5), the chirp df/dt with the chirp mass, and compare qualitatively with GW150914.",
+   "pedagogy": "Emphasizes source vs field. Every factor of two is traced to its origin. Residual-gauge reduction is in a details block. The same observable is derived in two gauges to defuse 'moving grid lines' misconceptions. The binary calculation is carried through explicitly. Units are checked. The bridge lesson on real waves and retarded time precedes it.",
+   "interaction": null,
+   "physics_model": "Linearized GR on Minkowski; plane waves with null k; TT projector Lambda_ij,kl; quadrupole approximation for slow, compact, far-zone sources; Newtonian circular binary with energy balance; Isaacson high-frequency averaging.",
+   "screenshots": [
+    "qa/figure-wave-polarizations-light.png",
+    "qa/lab-wave-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The most complete derivation chain in the book; includes derivations most introductions skip (the 1/5 angular average, d^2 I/dt^2=2 integral T_ij, residual gauge removal).",
+     "The detector response is derived three ways (proper length, geodesic deviation, light travel time), which is excellent for misconceptions.",
+     "Careful scope statements: Isaacson averaging is not a pointwise energy tensor, and quadrupole dynamics for compact bodies need a consistent approximation."
+    ],
+    "issues": [
+     "The detector picture arrives too late: the visual plan counts 27 displayed equation blocks before the first visual at §18.4.",
+     "No antenna patterns, detector networks, noise, matched filtering, ringdown or real-data exercise; GW150914 is described, not analyzed.",
+     "Complex-exponential notation and distributional Green functions need preparation (partly patched by bridges; learning-experience-audit lists §18.3 complex notation).",
+     "About 2,800 words of mostly algebra; heavy for novices."
+    ],
+    "evidence": "Chapter read in full. docs/visual-development-plan-2026-09-09.md table row '18 - Gravitational waves §18.4, 27'. docs/comprehensive-course-review-2026-09-09.md row 18. docs/learning-experience-audit.md line 49. docs/second-figure-review.md line 16 describes the wave scene's plus/cross and strain/frequency controls."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Invert the order: open with the test-particle ring / interferometer interactive (reuse the Ch. 18 wave scene, inventoried elsewhere), then derive. Keep §18.1-18.7 derivation text nearly verbatim as the deep layer. Add a chirp lab: choose masses, hear and see the f(t) sweep from the chirp-mass formula, and overlay public GW150914 strain for a real-data comparison. Add antenna-pattern and ringdown lessons in an advanced track.",
+    "effort": "medium"
+   },
+   "size": "445 lines, about 2,830 words"
+  },
+  {
+   "id": "manuscript-section-18-1-linearized-gravity-detector",
+   "kind": "manuscript-section",
+   "title": "§18.1-18.4 Linearized gravity, gauge, polarizations, and what a detector measures",
+   "paths": [
+    "book.md:6287-6522"
+   ],
+   "topics": [
+    "linearized gravity",
+    "trace-reversed perturbation",
+    "Lorenz gauge",
+    "residual gauge freedom",
+    "transverse-traceless gauge",
+    "plus and cross polarization",
+    "spin-2",
+    "Riemann tensor",
+    "geodesic deviation",
+    "strain",
+    "laser interferometer"
+   ],
+   "teaches": "First-order connection and Ricci, with why Gamma-Gamma terms drop. The trace-reversal inverse identity. The gauge transformation of the divergence and solving Box xi=div h-bar. The null wave vector. Explicit removal of H_0mu and trace, leaving H_11=-H_22 and H_12. TT matrix form and the rotation law with double angle. L_x=L0(1+h_+/2) from the metric. R_i0j0=-(1/2c^2) d^2h_ij/dt^2 and the geodesic deviation solution. The ideal differential strain (4e-18 m for 4 km and h=1e-21). Round-trip times T_x-T_y=2L0 h_+/c.",
+   "pedagogy": "Counting claims backed by explicit construction ('counting alone would not establish their independence'). Gauge invariance of linearized Riemann noted. A numeric scale example is given.",
+   "interaction": null,
+   "physics_model": "g=eta+h, first order in h; Box h-bar=-16piG T/c^4; plane-wave TT solution h_ij(t-z/c); long-wavelength short-arm detector approximation.",
+   "screenshots": [
+    "qa/figure-wave-polarizations-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Explicit residual-gauge reduction and a three-way detector derivation.",
+     "The rotation law is tied to the meaning of spin-2."
+    ],
+    "issues": [
+     "No figure before the TT algebra.",
+     "The finite-arm or frequency-dependent response is mentioned only as a caveat."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md strengths item 5 and row 18."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep verbatim as the derivation layer. Restructure so the ring/interferometer animation and the rotation-law interactive (rotate the basis, watch h_+ and h_x mix at 2 theta) lead, and gate the residual-gauge details as a deep dive.",
+    "effort": "small"
+   },
+   "size": "about 235 lines"
+  },
+  {
+   "id": "manuscript-section-18-5-quadrupole-chirp",
+   "kind": "manuscript-section",
+   "title": "§18.5-18.8 Retarded solution, quadrupole formula, wave energy, binary chirp, and GW150914",
+   "paths": [
+    "book.md:6524-6722"
+   ],
+   "topics": [
+    "retarded Green function",
+    "quadrupole moment",
+    "quadrupole formula",
+    "TT projector",
+    "mass monopole",
+    "mass dipole",
+    "Isaacson stress-energy tensor",
+    "gravitational wave flux",
+    "gravitational wave luminosity",
+    "binary inspiral",
+    "chirp mass",
+    "Kepler's third law",
+    "GW150914",
+    "LIGO"
+   ],
+   "teaches": "Retarded time in the source integral. The far-zone slow-source approximation. The conservation manipulation to d^2 I/dt^2=2 integral T_ij. The trace-free Q and 2D-trace projector (1/2 vs 1/3). Why lower multipoles cannot radiate. Averaged flux c^3/(16 pi G)<h_+dot^2+h_x dot^2>. The full angular-average derivation of G/(5c^5). Binary Q components, their third derivatives and 32 mu^2 r^4 Omega^6. Energy balance leading to the inspiral and speed-up paradox. Dominant wave frequency 2 Omega. The chirp mass and df/dt proportional to f^(11/3). Model-dependent GW150914 numbers (35 to 250 Hz, 1e-21, about 3 solar masses radiated).",
+   "pedagogy": "Every constant is derived and explained. Physical explanation of why the flux uses a third derivative. The distance cancellation is narrated. 'Anything accelerating radiates' is rebutted. Operational naming of the chirp mass.",
+   "interaction": null,
+   "physics_model": "Weak-field slow-motion far-zone quadrupole approximation; Newtonian circular orbits with adiabatic energy balance; isotropic tensor identities <n_i n_j>=delta/3 and <n n n n>=(deltadelta+...)/15.",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Rare, complete derivations of both the 1/5 and the binary chirp in an introductory text.",
+     "Scientifically careful about when compact bodies can use the formula."
+    ],
+    "issues": [
+     "No plot of f(t) or h(t); the chirp is algebra only.",
+     "GW150914 is narrative only, with no data interaction or parameter-inference caveat worked through."
+    ],
+    "evidence": "Read in full; derivation steps spot-checked (Q components, 32 mu^2 r^4 Omega^6, P(f), df/dt coefficient 96/5 pi^(8/3))."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Import verbatim as the derivation and grounding layer for grbook's wave-generation and inspiral lessons. Build the new chirp visualizer and real-data overlay around it rather than rewriting the text.",
+    "effort": "small"
+   },
+   "size": "about 200 lines"
+  },
+  {
+   "id": "manuscript-chapter-19-cosmology",
+   "kind": "manuscript-chapter",
+   "title": "Chapter 19. Cosmology: Einstein's equation for the large-scale universe",
+   "paths": [
+    "book.md:6726-7157",
+    "content/guides.json#19",
+    "scripts/figures.py:318 (cosmic-expansion)",
+    "scripts/figures.py:515 (cosmic-horizons)",
+    "scripts/scenes.mjs (expansion scene)",
+    "web/lab-records.js (distances)"
+   ],
+   "topics": [
+    "cosmological principle",
+    "FLRW metric",
+    "comoving coordinates",
+    "scale factor",
+    "spatial curvature",
+    "Hubble parameter",
+    "Friedmann equations",
+    "acceleration equation",
+    "continuity equation",
+    "equation of state parameter",
+    "dust",
+    "radiation",
+    "cosmological constant",
+    "de Sitter space",
+    "cosmological redshift",
+    "conformal time",
+    "Hubble radius",
+    "particle horizon",
+    "cosmological event horizon",
+    "dark matter",
+    "dark energy",
+    "Weyl tensor",
+    "conformal flatness",
+    "angular diameter distance",
+    "luminosity distance",
+    "Etherington reciprocity",
+    "Oppenheimer-Snyder collapse"
+   ],
+   "teaches": "Build the FLRW metric from homogeneity and isotropy, with explicit units (a has length units) and chart limits. Compute Gammas, R_tt=-3 a''/a, R_ij, R and G. Derive both Friedmann equations and the continuity equation (dE=-p dV). Show the equations' redundancy and the turning-point subtlety, density scaling with w, and power-law and exponential solutions. Derive redshift from neighbouring crests; introduce conformal time; distinguish Hubble radius, particle horizon and event horizon (D_p=3ct, D_H=3ct/2 for dust). Explain why bound systems don't expand, and the different roles of dark matter and dark energy. Show FLRW Weyl=0 versus Schwarzschild Ricci=0 with a four-row table. Cover angular-diameter and luminosity distances with D_L=(1+z)^2 D_A. Work the exact dust-ball collapse matched to Schwarzschild, with horizon formation inside the dust.",
+   "pedagogy": "Starts from three galaxies and a common fractional change. Convention warnings (dimensionless vs dimensional a) and analogies (ball thrown upward for expansion vs acceleration). Derivations are explicit and tables contrast concepts. The distances lab asks 'Which distance did the observation actually measure?'",
+   "interaction": null,
+   "physics_model": "FLRW with perfect fluid, constant w components, flat power laws, Lambda-only exponential; geometric optics on FLRW; closed-FLRW dust interior matched to Schwarzschild for collapse.",
+   "screenshots": [
+    "qa/figure-cosmic-horizons-light.png",
+    "qa/lab-distances-1440-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Units and conventions are declared and consistent (t in seconds, k dimensionless, A=a/a0).",
+     "Horizon distinctions and the expansion-vs-acceleration distinction are handled correctly.",
+     "The Ricci/Weyl comparison table across Minkowski, Schwarzschild, radiation FLRW and de Sitter is excellent.",
+     "The FLRW sources and Weyl cancellation are independently verified by scripts/check-physics-calculations.mjs:130-140.",
+     "The §19.12 collapse numbers check out (eta_h=pi-2chi0, a=a_max/4 at chi0=pi/6, horizon starts at eta=pi/2)."
+    ],
+    "issues": [
+     "Density parameters, critical density, H(z)/E(z) and the D_C integral are never introduced in the prose; they appear only inside the distances lab record (web/lab-records.js equations).",
+     "The prose has a revision artifact: 'The worked example now obtains these distances from an expansion history.'",
+     "No CMB, structure growth, inflation or real-data fit; supernova evidence is narrative only.",
+     "§19.12 is an important exact collapse model but has no diagram, even though it is the natural place for a causal picture.",
+     "The distances lab plot uses a common Gpc axis on which D_A is squashed near zero, hiding its turnover (seen in qa/lab-distances-1440-light.png)."
+    ],
+    "evidence": "Chapter read in full; grep of book.md finds no Omega_m or critical density. docs/comprehensive-course-review-2026-09-09.md row 19 and §8.1 'Observational cosmology'. docs/course-evolution.md notes §19.12 was moved after the Friedmann equations. Screenshots qa/figure-cosmic-horizons-light.png and qa/lab-distances-1440-light.png viewed."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep §19.1-19.10 derivations and tables. Split into lessons: FLRW geometry; Friedmann dynamics (with an interactive a(t) solver for mixed components); light, redshift and horizons (conformal diagram interactive); distances and observations (add Omega parameters, E(z), D_C integral to prose, plus a supernova data fit); collapse (animated Oppenheimer-Snyder spacetime diagram). Fix the D_A scale issue with an inset or log axis.",
+    "effort": "medium"
+   },
+   "size": "435 lines, about 3,520 words; 1 lab, 2 figures, 1 scene"
+  },
+  {
+   "id": "manuscript-section-19-1-friedmann-derivation",
+   "kind": "manuscript-section",
+   "title": "§19.1-19.5 FLRW metric, curvature, Friedmann equations, energy conservation, and scale-factor solutions",
+   "paths": [
+    "book.md:6732-6962"
+   ],
+   "topics": [
+    "FLRW metric",
+    "comoving coordinates",
+    "spatial curvature",
+    "Hubble parameter",
+    "Christoffel symbols",
+    "Ricci tensor",
+    "Einstein tensor",
+    "perfect fluid",
+    "Friedmann equations",
+    "acceleration equation",
+    "continuity equation",
+    "equation of state parameter",
+    "cosmological constant",
+    "de Sitter space",
+    "matter-dominated universe",
+    "radiation-dominated universe"
+   ],
+   "teaches": "Spatial sectional curvature K_s=k/a^2 and 3R=6k/a^2. FLRW Christoffels with physical meaning. R_tt, R_ij and R, and why k=0 is not spacetime-flat. G_tt and G^i_j with a unit explanation. H^2=(8piG/3c^2)epsilon-kc^2/a^2+Lambda c^2/3 and a''/a=-(4piG/3c^2)(epsilon+3p)+Lambda c^2/3. The continuity equation from the divergence and as dE=-p dV. Friedmann equation redundancy and H=0 care. epsilon proportional to A^(-3(1+w)) with a component table. Lambda as fluid without double counting. a proportional to t^(2/(3(1+w))) and e^(Ht). The w<-1/3 acceleration criterion.",
+   "pedagogy": "Each Gamma gets a physical sentence; a units explanation for G_tt vs G^i_j; the ball-thrown-upward analogy; an explicit warning not to substitute w=-1 into the power law.",
+   "interaction": null,
+   "physics_model": "FLRW with constant-curvature spatial metric gamma; perfect fluid T^t_t=-epsilon, T^i_j=p delta; separately conserved constant-w components.",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "A full, correct derivation with units tracked (t in seconds).",
+     "Clear conceptual guardrails (spatial vs spacetime flatness; expansion vs acceleration; no double counting of Lambda)."
+    ],
+    "issues": [
+     "No interactive a(t) or component-dominance plot here (the cosmic-expansion figure and expansion scene exist separately).",
+     "Mixed-component solutions are described but not computed."
+    ],
+    "evidence": "Read in full; FLRW G00 and scalar checks in scripts/check-physics-calculations.mjs:130-131."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Use verbatim as the Friedmann derivation layer and tutor grounding. Pair with a new interactive expansion-history solver (radiation+matter+Lambda+curvature sliders, a(t), H(t), deceleration sign), which the legacy text already sets up conceptually.",
+    "effort": "small"
+   },
+   "size": "about 230 lines"
+  },
+  {
+   "id": "manuscript-section-19-6-redshift-horizons",
+   "kind": "manuscript-section",
+   "title": "§19.6-19.10 Cosmological redshift, conformal time, horizons, bound systems, and Ricci vs Weyl",
+   "paths": [
+    "book.md:6964-7098",
+    "scripts/figures.py:515 (cosmic-horizons)"
+   ],
+   "topics": [
+    "cosmological redshift",
+    "conformal time",
+    "conformal transformation",
+    "Hubble radius",
+    "particle horizon",
+    "cosmological event horizon",
+    "recession velocity",
+    "bound systems in expanding universe",
+    "dark matter",
+    "dark energy",
+    "Type Ia supernovae",
+    "Weyl tensor",
+    "conformal flatness",
+    "Ricci-flat",
+    "de Sitter space"
+   ],
+   "teaches": "1+z=a_rec/a_em from two neighbouring crests. Radiation's a^-4 scaling from two routes. Why cosmological redshift is not a static-potential redshift. Conformal-time radial null rays at 45 degrees, and what conformal rescaling preserves. D-dot=HD and superluminal recession without violating local causality. A three-horizon table with formulas and the questions they answer (flat dust D_p=3ct, D_H=1.5ct, no event horizon; de Sitter D_e=c/H). Why atoms don't expand. The distinct roles of dark matter and dark energy. Explicit Weyl cancellation for FLRW, and radiation FLRW with R=0 but Ricci nonzero.",
+   "pedagogy": "Question-shaped headings ('Does expansion stretch your atoms?'); comparison tables; figure 32 contrasts particle horizon, event horizon and Hubble radius in conformal coordinates.",
+   "interaction": null,
+   "physics_model": "Null geodesics in FLRW; conformal time eta=integral c dt/a; horizon integrals; orthonormal FLRW curvature components with A=a''/(ac^2), B=H^2/c^2+k/a^2.",
+   "screenshots": [
+    "qa/figure-cosmic-horizons-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Correct, rarely confused horizon distinctions, with worked dust and de Sitter cases.",
+     "Figure 32 is clear and uncluttered (viewed).",
+     "The Ricci/Weyl table connects cosmology, black holes and waves."
+    ],
+    "issues": [
+     "The conformal diagram is static and schematic; no interactive past light cone or horizon growth for a chosen expansion history.",
+     "The supernova discussion is qualitative."
+    ],
+    "evidence": "Read in full; screenshot qa/figure-cosmic-horizons-light.png viewed; Weyl cancellation verified in scripts/check-physics-calculations.mjs:140."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the text and tables verbatim. Replace figure 32 with an interactive conformal diagram driven by the same expansion-history solver (past light cone, particle and event horizons, Hubble sphere) so the three distances visibly diverge as the parameters change.",
+    "effort": "small"
+   },
+   "size": "about 135 lines"
+  },
+  {
+   "id": "manuscript-section-19-11-distance-measures",
+   "kind": "manuscript-section",
+   "title": "§19.11 Observe an expansion history (Cosmology distances lab)",
+   "paths": [
+    "book.md:7100-7127",
+    "web/relativity-models.js (cosmicDistances, simpson)",
+    "web/lab-records.js (distances)",
+    "web/relativity-labs.js",
+    "scripts/check-relativity-models.mjs"
+   ],
+   "topics": [
+    "comoving distance",
+    "transverse comoving distance",
+    "angular diameter distance",
+    "luminosity distance",
+    "Etherington reciprocity relation",
+    "Hubble constant",
+    "density parameters",
+    "Lambda-CDM model",
+    "spatial curvature"
+   ],
+   "teaches": "D_C=a0 psi and D_M=a0 S_k(psi). D_A=l/theta=D_M/(1+z) from the angular metric. Flux with two redshift factors giving D_L=(1+z)D_M=(1+z)^2 D_A (D_L=4D_A at z=1), with stated assumptions (smooth FLRW, geometric optics, photon conservation). In the lab: how H0 rescales all distances while Omega_m and Omega_Lambda change curve shapes.",
+   "pedagogy": "Derives each distance from what an observer actually measures (angle or flux). The lab prompt asks the learner to predict which distances change with H0 before changing the matter fraction. The lab-first/derivation-second order is reversed here: the three distances are derived first and the lab follows, and the lab's H0 and Omega sliders arrive with no prose definition.",
+   "interaction": {
+    "controls": [
+     "Matter fraction Omega_m slider (0-1, step 0.05, default 0.3)",
+     "Vacuum fraction Omega_Lambda slider (0-1, step 0.05, default 0.7)",
+     "Hubble constant H0 slider (40-100 km/s/Mpc, default 70)",
+     "Source redshift z slider (0.1-5, default 2)",
+     "Reset, notebook, CSV export"
+    ],
+    "what_updates": "Recomputes E(z), integrates D_C by composite Simpson, applies the curvature sinh/sin mapping, and redraws three distance-vs-redshift curves (0 to 5) with dots at the chosen z, plus readouts.",
+    "readouts": [
+     "Comoving radial distance (Mpc)",
+     "Angular-diameter distance (Mpc)",
+     "Luminosity distance (Mpc)",
+     "Curvature fraction Omega_k"
+    ],
+    "rendering": "SVG line chart in Gpc with legend; server-rendered fallback table; web/relativity-labs.js enhancement"
+   },
+   "physics_model": "E(z)^2=Omega_m(1+z)^3+Omega_r(1+z)^4+Omega_k(1+z)^2+Omega_Lambda with Omega_k=1-sum and radiation fixed at 0 in the lab. D_C=(c/H0) integral 0..z dz/E by 256-interval Simpson; transverse distance via sinh/sin of sqrt|Omega_k| D_C; guards against non-expanding paths and passing the antipode. Checks: flat dust D_C=2(1-1/sqrt(1+z)) c/H0, de Sitter D_C=z c/H0, and D_L=(1+z)^2 D_A for a curved model.",
+   "screenshots": [
+    "qa/lab-distances-1440-light.png",
+    "qa/lab-distances-390-dark.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct model with analytic calibrations in CI and a clear limitations statement (no catalogue fit, peculiar velocities, extinction or lensing).",
+     "Sourced to Hogg's distance-measures paper."
+    ],
+    "issues": [
+     "The prose never defines Omega_m, Omega_Lambda, critical density, E(z) or the D_C integral that the lab uses; they appear only in the lab record's hidden 'How this is calculated'.",
+     "On the shared Gpc axis (0-50) the angular-diameter curve peaks at only about 1.75 Gpc near z=1.6 and falls to about 1.30 Gpc by z=5 (default Omega_m=0.3, Omega_Lambda=0.7, H0=70), so its turnover, the most counter-intuitive fact about D_A, reads as a nearly flat line.",
+     "No real data (e.g. supernova Hubble diagram) to fit."
+    ],
+    "evidence": "Section read; model and checks read; screenshot qa/lab-distances-1440-light.png viewed (D_C 5179.9, D_A 1726.6, D_L 15540 Mpc at z=2); D_A peak recomputed independently with Simpson integration; grep confirms no density-parameter definitions in book.md."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Port cosmicDistances and its checks. Add a prose step defining critical density, the Omega parameters and E(z) before the lab. Give D_A its own panel or log scale so the turnover is visible. Add a supernova/BAO data overlay with a simple chi-square fit so the learner reproduces the acceleration inference qualitatively.",
+    "effort": "medium"
+   },
+   "size": "about 30 lines of text; model about 50 lines JS"
+  },
+  {
+   "id": "manuscript-section-19-12-dust-collapse",
+   "kind": "manuscript-section",
+   "title": "§19.12 A collapsing surface can cross its horizon in finite proper time (Oppenheimer-Snyder dust ball)",
+   "paths": [
+    "book.md:7129-7157"
+   ],
+   "topics": [
+    "Oppenheimer-Snyder collapse",
+    "gravitational collapse",
+    "closed FLRW interior",
+    "junction conditions",
+    "Misner-Sharp mass",
+    "event horizon formation",
+    "cycloid solution",
+    "proper time"
+   ],
+   "teaches": "Parametric closed-dust solution a(eta)=(a_max/2)(1+cos eta), tau(eta)=(a_max/2c)(eta+sin eta). Matching mass M=(c^2 a_max/2G) sin^3 chi0 without surface stress. The surface reaches r_s at eta_h=pi-2chi0 in finite proper time. The event horizon forms at the centre before the surface crosses r_s (chi0=pi/6: at eta=pi/2). The horizon is a global, teleological object that matter crosses smoothly.",
+   "pedagogy": "One exact model shown to verify claims made about horizons in Ch. 17, with clear idealizations (no pressure, rotation or radiation).",
+   "interaction": null,
+   "physics_model": "Closed FLRW dust interior in conformal time; Israel-type matching to exterior Schwarzschild; interior outgoing null line chi=eta-pi+3chi0.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct, compact, quantitative demonstration that horizons form before the surface crosses; numbers verified.",
+     "Honest about idealizations."
+    ],
+    "issues": [
+     "No diagram at all, although this is the standard Penrose/Finkelstein collapse picture.",
+     "Junction conditions are asserted without derivation or reference; the placement in the cosmology chapter separates it from Ch. 17 horizon lessons."
+    ],
+    "evidence": "Read in full; algebra spot-checked. docs/course-evolution.md: 'Moved the recovered dust-collapse calculation after the Friedmann equations... This is not a substitute for the planned visual causal-structure lesson in Chapter 17.'"
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the calculation as grounding. Build an animated collapse spacetime diagram (dust surface worldline, light cones, the horizon forming at the centre then meeting the surface at r_s) and place it in the black-hole module after Schwarzschild and Friedmann, cross-linked from cosmology.",
+    "effort": "medium"
+   },
+   "size": "about 30 lines"
+  },
+  {
+   "id": "manuscript-chapter-20-initial-data-numerical-relativity",
+   "kind": "manuscript-chapter",
+   "title": "Chapter 20. Initial data, constraints, and numerical relativity",
+   "paths": [
+    "book.md:7161-7473",
+    "content/guides.json#20",
+    "scripts/figures.py:328 (adm-slicing)",
+    "scripts/figures.py:521 (constraint-count)",
+    "scripts/scenes.mjs (slices scene)",
+    "web/lab-records.js (evolution)"
+   ],
+   "topics": [
+    "3+1 decomposition",
+    "ADM formalism",
+    "foliation",
+    "lapse function",
+    "shift vector",
+    "spatial metric",
+    "extrinsic curvature",
+    "Lie derivative",
+    "Gaussian normal coordinates",
+    "Gauss-Codazzi equations",
+    "Hamiltonian constraint",
+    "momentum constraint",
+    "phase space",
+    "Poisson bracket",
+    "first-class constraints",
+    "degrees of freedom",
+    "numerical relativity",
+    "Runge-Kutta method",
+    "constraint propagation",
+    "harmonic gauge",
+    "BSSN formulation",
+    "well-posedness",
+    "hyperbolic partial differential equations",
+    "hole argument",
+    "Cauchy problem",
+    "maximal globally hyperbolic development"
+   ],
+   "teaches": "Why an equation needs initial data. The 3+1 metric with a flat lapse/shift example. K_ij=-(1/2N)(d_t gamma-D beta-D beta) with the sign convention translated from Ch. 14. The Gauss and Codazzi relations derived in Gaussian normal coordinates, leading to the Hamiltonian and momentum constraints. Why Euclidean data with matter and K=0 is inconsistent. Friedmann as the Hamiltonian constraint. The vacuum evolution equation for K_ij. The ADM bulk action. Conjugate momenta, Poisson brackets and first-class constraints building up to 12-2x4=4. A dust-universe numerical test of Euler vs RK4 with constraint residual. Harmonic-gauge quasilinear structure, well-posedness, BSSN, characteristic boundaries. The hole argument and Choquet-Bruhat-Geroch uniqueness up to diffeomorphism.",
+   "pedagogy": "Motivated by the Ch. 19 branch choice. Tables of what objects mean and do not mean. A toy phase-space reduction before the GR count. The numerical section starts with 'can a computed solution look convincing while violating an equation?' and teaches Euler/RK4 in a checkpoint. The hole argument is framed as a thought experiment.",
+   "interaction": null,
+   "physics_model": "ADM 3+1 with c=1; Gaussian normal chart for the derivations; flat dust Friedmann ODE A'=V, V'=-1/(2A^2) with constraint V^2-1/A=0 for the lab.",
+   "screenshots": [
+    "qa/lab-evolution-1440-dark.png",
+    "qa/figure-adm-slicing-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Constraint derivation via Gauss-Codazzi is actually shown, not cited; sign conventions are reconciled with Ch. 14.",
+     "The degree-of-freedom count is done correctly, with the '10-4=6' fallacy called out.",
+     "The numerical lab teaches the right epistemics (accuracy and constraint residual are different evidence) and its RK4 convergence is CI-checked.",
+     "The hole argument and uniqueness are stated precisely with a primary source."
+    ],
+    "issues": [
+     "No solved inhomogeneous constraint problem (e.g. conformally flat Brill-Lindquist or time-symmetric puncture data).",
+     "The evolution lab is a homogeneous ODE with no spatial grid, gauge dynamics, or visible gauge pathology.",
+     "Marked 'OPTIONAL DEEPER TRAIL' and excluded from the core route; heavy prerequisites (action, Lie derivative, waves, Hamiltonian mechanics).",
+     "Lowercase typo after bold lead-in in §20.3 ('extrinsic curvature need not...')."
+    ],
+    "evidence": "Chapter read in full. docs/comprehensive-course-review-2026-09-09.md row 20 and the 'Initial-data laboratory' recommendation (line 405). docs/causality-review.md lines 106 and 111 (prerequisite repair; §20.6 phase-space introduction). scripts/build-site.mjs label for chapters 20-23; content/curriculum.mjs routes. Screenshot qa/lab-evolution-1440-dark.png viewed."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Offer as an advanced module. Keep §20.2-20.6 and §20.8 text as the derivation layer; keep the evolution lab. Add a constraint-solving lab (e.g. time-symmetric two-black-hole conformal factor, psi=1+sum m/2r, visualized as an embedding) and a 1+1 gauge-wave demo showing lapse collapse or grid stretching, so 'numerical relativity' is more than an ODE.",
+    "effort": "medium"
+   },
+   "size": "316 lines, about 2,670 words; 1 lab, 2 figures, 1 scene"
+  },
+  {
+   "id": "manuscript-section-20-2-constraints-and-dof",
+   "kind": "manuscript-section",
+   "title": "§20.2-20.6 Lapse and shift, extrinsic curvature, Hamiltonian and momentum constraints, Friedmann as a constraint, and the two degrees of freedom",
+   "paths": [
+    "book.md:7171-7401"
+   ],
+   "topics": [
+    "lapse function",
+    "shift vector",
+    "extrinsic curvature",
+    "Lie derivative",
+    "Gauss equation",
+    "Codazzi equation",
+    "Hamiltonian constraint",
+    "momentum constraint",
+    "Gaussian normal coordinates",
+    "ADM action",
+    "conjugate momentum",
+    "Poisson bracket",
+    "first-class constraints",
+    "gravitational degrees of freedom"
+   ],
+   "teaches": "The operational meaning of lapse and shift (normal observers drift at -beta). K_ij sign conventions and 'velocity of the spatial metric'. Intrinsic vs extrinsic vs spacetime curvature. Normal-frame energy and momentum densities E and j_i. The Gauss relation 4R_ijkl=3R_ijkl+KK-KK, leading to 2G_nn=3R+K^2-K_ijK^ij and the Hamiltonian constraint 3R+K^2-KK=16piGE+2Lambda. Codazzi leading to the momentum constraint. The inconsistency example (flat data with matter). FLRW K_ij=-H gamma_ij giving Friedmann. The evolution equation for K_ij. Phase-space reduction: 12 variables minus 2x4 leaves 4, i.e. two polarizations.",
+   "pedagogy": "What-it-is / what-it-is-not tables; the electric-field-with-charge analogy for constraint violation; a toy model (q1,q2,p1,p2) with p2=0 plus gauge before GR; a worked FLRW check.",
+   "interaction": null,
+   "physics_model": "ADM 3+1 decomposition, c=1, Levi-Civita spatial derivative D_i, K_ij=-(1/2)L_n gamma_ij convention.",
+   "screenshots": [
+    "qa/figure-adm-slicing-light.png"
+   ],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Correct derivation of the constraints from projections, with the Lambda sign traced.",
+     "A pedagogically excellent toy reduction before the GR phase-space count; the FLRW example ties it to known physics."
+    ],
+    "issues": [
+     "The first-class constraint algebra is imported, as the text states.",
+     "The general lapse/shift evolution equation is stated, not derived."
+    ],
+    "evidence": "Read in full; docs/reference-comparison.md line 32 notes the manuscript's c=1 convention avoids a reference's inconsistent shift units; docs/causality-review.md line 111."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Import verbatim as the advanced ADM lesson text and tutor grounding. Pair the lapse/shift table with the interactive slices scene (inventoried elsewhere) and add a 'make inconsistent initial data' predict-and-check item.",
+    "effort": "small"
+   },
+   "size": "about 230 lines"
+  },
+  {
+   "id": "manuscript-section-20-7-numerical-evolution-lab",
+   "kind": "manuscript-section",
+   "title": "§20.7 A stable spacetime simulator needs a good coordinate policy (Numerical relativity lab)",
+   "paths": [
+    "book.md:7403-7463",
+    "web/relativity-models.js (evolveDust, rk4Step)",
+    "web/lab-records.js (evolution)",
+    "web/relativity-labs.js",
+    "scripts/check-relativity-models.mjs"
+   ],
+   "topics": [
+    "numerical integration",
+    "Euler method",
+    "Runge-Kutta method",
+    "convergence testing",
+    "truncation error",
+    "constraint residual",
+    "constraint propagation",
+    "harmonic coordinates",
+    "quasilinear hyperbolic equations",
+    "well-posedness",
+    "BSSN formulation",
+    "generalized harmonic formulation",
+    "characteristic fields",
+    "elliptic equations",
+    "boundary conditions"
+   ],
+   "teaches": "Nondimensionalize the flat dust universe (A'=V, V'=-1/(2A^2), A(0)=V(0)=1). The exact solution A=(1+3t/2)^(2/3). The Friedmann constraint C=V^2-1/A is preserved exactly but not numerically. Euler vs RK4 step formulas and expected error scaling (2x vs 16x under halving). Accuracy and constraint residual are distinct evidence. Then the conceptual bridge to real numerical relativity: harmonic gauge exposing wave structure, quasilinear equations, well-posedness, BSSN vs generalized harmonic, constraint monitoring, characteristic boundary data, and elliptic initial-data solves that do not signal instantly.",
+   "pedagogy": "A predict question ('Will a smaller time step repair the apparent motion, the constraint, or both?'). The checkpoint teaches the integrators before use. An explicit statement that a homogeneous benchmark is not a spacetime evolution.",
+   "interaction": {
+    "controls": [
+     "Integration method: Euler / RK4",
+     "Requested time step: 0.4, 0.2, 0.1, 0.05, 0.025",
+     "Final time slider (1 to 8, step 0.5, default 4; the model function accepts up to 20)",
+     "Plot toggle: Expansion / Constraint",
+     "Reset, notebook, CSV"
+    ],
+    "what_updates": "Re-integrates A(t) with the chosen method and step, redrawing the numerical vs exact scale-factor curves or the constraint residual curve, plus readouts.",
+    "readouts": [
+     "Final scale factor A",
+     "Error against the exact solution",
+     "Friedmann constraint residual",
+     "Change in A when step is halved"
+    ],
+    "rendering": "SVG line chart with legend and no-JS fallback table; web/relativity-labs.js"
+   },
+   "physics_model": "Flat dust FLRW acceleration equation in initial-Hubble-time units; fixed-step Euler or RK4 with the step adjusted to hit the final time exactly; constraint V^2-1/A. CI checks: errors shrink under refinement for both methods, the RK4 error ratio between steps 0.1 and 0.05 lies in (12,20), and the RK4 constraint beats Euler.",
+   "screenshots": [
+    "qa/lab-evolution-1440-light.png",
+    "qa/lab-evolution-1440-dark.png",
+    "qa/lab-evolution-390-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Teaches genuine numerical epistemics (convergence, constraint monitoring) with a verified benchmark.",
+     "The well-posedness and formulation discussion is accurate and appropriately scoped.",
+     "The screenshot shows a clean, readable lab (Euler h=0.2: error -0.102, residual -0.058)."
+    ],
+    "issues": [
+     "An ODE only: no spatial grid, gauge choice, constraint violation growth or boundary reflection to see.",
+     "The x-axis is fixed at 0-8 (the slider maximum), so at the default final time 4 half the plot is empty; in the Euler h=0.2 default the numerical and exact curves visually overlap while the readouts show error -0.102 and constraint residual -0.058, which is the intended lesson but needs a zoom or residual inset to be seen rather than read.",
+     "BSSN and generalized harmonic are named but nothing is shown."
+    ],
+    "evidence": "Section read; evolveDust code and checks read; screenshot qa/lab-evolution-1440-dark.png viewed; docs/course-evolution.md 'Recovered calculated laboratories'."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Port evolveDust with its convergence check as a first 'audit your simulation' lab. Add a second-stage 1+1D wave-equation or gauge-wave evolution with a grid, CFL condition, reflecting vs outgoing boundaries and a constraint-growth plot, so the conceptual text about characteristic fields and constraint damping becomes visible. Porting evolveDust is small; the proposed gridded gauge-wave stage is the medium part.",
+    "effort": "medium"
+   },
+   "size": "about 60 lines of text; model about 30 lines JS"
+  },
+  {
+   "id": "manuscript-section-20-8-hole-argument",
+   "kind": "manuscript-section",
+   "title": "§20.8 What uniqueness means when coordinates are free (hole argument)",
+   "paths": [
+    "book.md:7465-7473"
+   ],
+   "topics": [
+    "hole argument",
+    "general covariance",
+    "diffeomorphism invariance",
+    "determinism",
+    "Cauchy problem",
+    "maximal globally hyperbolic development",
+    "asymptotic symmetries"
+   ],
+   "teaches": "Why a diffeomorphism that is the identity near the initial slice does not break determinism. Physical predictions are coincidences and invariants ('curvature measured when this clock reads this value'). Boundary transformations can carry charges. The precise Choquet-Bruhat-Geroch uniqueness statement, and that 'maximal' does not mean complete.",
+   "pedagogy": "A thought experiment in four short paragraphs with a primary citation.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Philosophically careful and physically operational in very little space.",
+     "Correctly flags asymptotic symmetries as not pure gauge."
+    ],
+    "issues": [
+     "No picture of the 'hole' diffeomorphism; abstract for novices."
+    ],
+    "evidence": "Read in full."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Use verbatim as an advanced concept card and tutor grounding for 'does general covariance break determinism?' questions. Optionally add a simple animation of a grid deformed inside a region while a clock/pulse coincidence stays fixed.",
+    "effort": "small"
+   },
+   "size": "about 10 lines"
+  },
+  {
+   "id": "manuscript-chapter-21-tetrads-forms",
+   "kind": "manuscript-chapter",
+   "title": "Chapter 21. Local laboratory frames and differential forms",
+   "paths": [
+    "book.md:7477-7873",
+    "content/guides.json#21",
+    "scripts/figures.py:397 (cartan-comparison)",
+    "content/bridge-lessons.mjs (oriented-stokes)"
+   ],
+   "topics": [
+    "tetrad",
+    "vierbein",
+    "orthonormal frame",
+    "coframe",
+    "local Lorentz transformations",
+    "differential forms",
+    "wedge product",
+    "exterior derivative",
+    "Stokes' theorem",
+    "spin connection",
+    "tetrad postulate",
+    "torsion",
+    "Cartan structure equations",
+    "curvature two-form",
+    "Gaussian curvature",
+    "gauge theory",
+    "Yang-Mills theory",
+    "spinors",
+    "gamma matrices",
+    "spin structure",
+    "nonmetricity",
+    "Palatini formalism",
+    "projective invariance",
+    "Einstein-Cartan theory",
+    "tetrad action"
+   ],
+   "teaches": "Laboratory components via e^a with g=eta_ab e^a e^b, and why 16-6=10. Forms as oriented measurements: wedge as determinant, the graded sign (-1)^pq, the exterior derivative, d^2=0 and Stokes. The spin connection from demanding a frame-covariant derivative; the tetrad postulate; the inhomogeneous transformation. Cartan's first and second structure equations and D^2=R. Worked contrast: the polar plane has omega=-dphi but R=0, the sphere has R^1_2=(1/a^2) e^1 wedge e^2. The analogy with non-Abelian gauge fields and its limits. Optional spinor frame rotations (the S(2pi)=-I derivation). Curvature/torsion/nonmetricity table. Palatini equivalence and its exceptions (projective freedom, f(R), spinor torsion). The first-order tetrad action with normalization check. A 'your turn' surface-of-revolution calculation K=-f''/f.",
+   "pedagogy": "Starts from the practical question 'a radian is not a metre'. Geometric reading of each formal object. One worked example contrasts connection without curvature against curvature. An optional quantum details block. Active practice with a hidden solution and a follow-up variant (f=a exp(u/a)).",
+   "interaction": null,
+   "physics_model": "Orthonormal coframes; torsion-free metric-compatible spin connection; Cartan structure equations; first-order Einstein-Cartan/Palatini action with c=1.",
+   "screenshots": [
+    "qa/figure-cartan-comparison-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct and unusually complete formal chain, including the tetrad postulate derivation of torsion components and the D^2=R calculation.",
+     "The polar-plane vs sphere contrast is the right pedagogical pair; figure 35 renders it clearly (flat polar loop, Delta alpha=0, vs sphere loop, Delta alpha=A/a^2; viewed).",
+     "Palatini exceptions and the normalization check show rare scientific care.",
+     "The earlier duplicated sphere computation was replaced by the surface-of-revolution practice (course-evolution 'Scientific identities and active Cartan practice')."
+    ],
+    "issues": [
+     "Visually starved: 38 displayed equation blocks precede the first default visual at §21.5.",
+     "No Hodge dual, Maxwell equations in forms, or pullback/integration practice beyond the Stokes bridge.",
+     "Notation drift: the curvature two-form is a calligraphic R here but Omega in Appendix A.28.",
+     "§21.6-21.7 digressions (spinors, Palatini, projective symmetry) are graduate-level inside an already optional chapter."
+    ],
+    "evidence": "Chapter read in full. docs/visual-development-plan-2026-09-09.md row '21 - Forms and Cartan geometry §21.5, 38'. docs/comprehensive-course-review-2026-09-09.md row 21 and F-item on the repeated sphere computation (line 168). docs/reference-comparison.md line 33. docs/figure-aesthetic-review-21-40.md line 188. Screenshot qa/figure-cartan-comparison-light.png viewed."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep §21.1-21.5 and §21.8 as the core of an optional 'frames and forms' module. Lead with interactives: an oriented-parallelogram wedge product explorer, a Stokes boundary-cancellation grid, and a frame-rotation-vs-holonomy comparison built on figure 35. Add Maxwell in forms and the Hodge star. Move §21.6-21.7 into deep-dive cards. Unify the curvature two-form symbol across lessons and exercises.",
+    "effort": "medium"
+   },
+   "size": "400 lines, about 2,530 words; 1 figure, 1 bridge lesson"
+  },
+  {
+   "id": "manuscript-section-21-1-cartan-structure-equations",
+   "kind": "manuscript-section",
+   "title": "§21.1-21.5 Tetrads, differential forms, spin connection, Cartan structure equations, and the polar-plane vs sphere example",
+   "paths": [
+    "book.md:7479-7765",
+    "scripts/figures.py:397"
+   ],
+   "topics": [
+    "tetrad",
+    "orthonormal frame",
+    "local Lorentz transformations",
+    "wedge product",
+    "exterior derivative",
+    "Stokes' theorem",
+    "spin connection",
+    "tetrad postulate",
+    "torsion",
+    "Cartan structure equations",
+    "curvature two-form",
+    "Gaussian curvature",
+    "holonomy"
+   ],
+   "teaches": "Converting coordinate increments into ruler readings (r dphi). The 6 local Lorentz freedoms. The wedge product as signed area; (-1)^pq; dA for A=x^2 dy; why d^2=0 unifies curl-grad and div-curl; that d needs no connection. Metric compatibility giving antisymmetric omega_ab (with the boost index subtlety). The tetrad postulate. omega'=L omega L^-1-(dL)L^-1. T^a=de^a+omega wedge e. R=d omega+omega wedge omega and D^2 V=RV. Polar plane: omega^2_1=dphi, R=0. Sphere: omega^2_1=cos theta dphi, R^1_2=sin theta dtheta wedge dphi, K=1/a^2.",
+   "pedagogy": "Operational framing, a determinant interpretation of the wedge product, an explicit sign-handling example, and a two-line machinery payoff contrasting the plane and sphere.",
+   "interaction": null,
+   "physics_model": "Cartan formalism with torsion-free Levi-Civita spin connection; 2D examples with spatial frame indices only.",
+   "screenshots": [
+    "qa/figure-cartan-comparison-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Accurate, logically ordered, and the worked contrast is ideal.",
+     "Figure 35 is clean and directly supports the contrast."
+    ],
+    "issues": [
+     "Figure placement comes after the math.",
+     "No 4D example (e.g. Schwarzschild via Cartan), which is where the method pays off in GR."
+    ],
+    "evidence": "Read in full; screenshot viewed; scripts/build-site.mjs openingSections maps cartan-comparison to 21.5."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Reuse the text. Put a rotating-frame vs holonomy interactive first (drag a loop on plane/sphere/saddle, watch coframe rotation and the returned angle). Add a Schwarzschild Cartan calculation as a payoff that reproduces the Ch. 17 curvature components in fewer lines.",
+    "effort": "small"
+   },
+   "size": "about 290 lines"
+  },
+  {
+   "id": "manuscript-section-21-6-gauge-spinors-palatini",
+   "kind": "manuscript-section",
+   "title": "§21.6-21.7 Frame symmetry and gauge theories, spinor frames, torsion/nonmetricity, and the Palatini approach",
+   "paths": [
+    "book.md:7767-7838"
+   ],
+   "topics": [
+    "gauge theory",
+    "Yang-Mills theory",
+    "non-Abelian gauge field",
+    "spinors",
+    "Dirac spinor",
+    "gamma matrices",
+    "Clifford algebra",
+    "spinor covariant derivative",
+    "spin structure",
+    "torsion",
+    "nonmetricity",
+    "Palatini formalism",
+    "projective invariance",
+    "f(R) gravity",
+    "Einstein-Cartan theory",
+    "tetrad action"
+   ],
+   "teaches": "How the spin connection mirrors F=dA+A wedge A and where the analogy stops (the action is linear vs quadratic in curvature). Gamma-matrix algebra in (-,+,+,+) signature, the spinor covariant derivative, and a derivation of S(2pi)=-I. Spin structure as a global topological condition. The curvature/torsion/nonmetricity table. When Palatini variation gives GR and when it doesn't. The first-order tetrad action with a normalization check.",
+   "pedagogy": "The spinor material is in a no-narration details block marked as imported quantum input. A comparison table. Exceptions are listed explicitly.",
+   "interaction": null,
+   "physics_model": "Clifford algebra {gamma^a,gamma^b}=2 eta^ab; Palatini and tetrad first-order formulations.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct and carefully qualified (Dadhich-Pons cited; spinor torsion noted).",
+     "The normalization checks (2R vol, 24 vol) are included."
+    ],
+    "issues": [
+     "Graduate-level content inside an optional chapter, with little motivation for a novice.",
+     "No exercises target this material."
+    ],
+    "evidence": "Read in full; docs/causality-review.md line 112 on the §21.6 spinor treatment."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Do not put this in the main learner path. Keep it in the knowledge vault as tutor grounding for questions on torsion, Palatini, f(R) and spinors in curved spacetime, and optionally surface it as short 'going further' cards linked from the Cartan lesson.",
+    "effort": null
+   },
+   "size": "about 70 lines"
+  },
+  {
+   "id": "practice-set-21-8-surface-of-revolution",
+   "kind": "practice-set",
+   "title": "§21.8 Your turn: make the sphere calculation work harder (surface of revolution with Cartan equations)",
+   "paths": [
+    "book.md:7840-7873"
+   ],
+   "topics": [
+    "Cartan structure equations",
+    "spin connection",
+    "Gaussian curvature",
+    "surface of revolution",
+    "hyperbolic plane",
+    "intrinsic curvature",
+    "extrinsic curvature"
+   ],
+   "teaches": "Independently computing omega^2_1=f' dphi and R^1_2=-(f''/f) e^1 wedge e^2 for ds^2=du^2+f^2 dphi^2. Checking the plane (f=u), sphere (a sin(u/a)), hyperbolic plane (a sinh(u/a)) and cylinder (constant f, K=0: extrinsic bending only). A transfer variant f=a exp(u/a) (K=-1/a^2) that asks whether connection alone reveals the sign.",
+   "pedagogy": "Predict first, 'Try independently', a hidden checkpoint solution including signs, then a changed problem without a template. This is the course's model active-practice pattern.",
+   "interaction": null,
+   "physics_model": "2D Riemannian surface of revolution, orthonormal coframe e^1=du, e^2=f dphi.",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Exactly the predict / attempt / check / transfer structure the reviews recommend.",
+     "The cylinder case targets the intrinsic vs extrinsic misconception."
+    ],
+    "issues": [
+     "The transfer answer is not provided or auto-checkable.",
+     "No visual of the surfaces."
+    ],
+    "evidence": "Read in full; docs/course-evolution.md 'Scientific identities and active Cartan practice' records replacing the duplicate sphere derivation with this calculation."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Import as a practice item in the Cartan lesson. Add a 3D surface-of-revolution viewer driven by f(u) and a numeric/symbolic answer checker for K(u).",
+    "effort": "small"
+   },
+   "size": "about 35 lines"
+  },
+  {
+   "id": "manuscript-chapter-22-focusing-singularities-thermodynamics",
+   "kind": "manuscript-chapter",
+   "title": "Chapter 22. Focusing, singularities, and black-hole thermodynamics",
+   "paths": [
+    "book.md:7877-8247",
+    "content/guides.json#22",
+    "scripts/figures.py:407 (focusing-caustic)",
+    "scripts/figures.py:529 (horizon-area)",
+    "scripts/figures.py:535 (page-curve)",
+    "content/bridge-lessons.mjs (temperature-and-quantum-input)"
+   ],
+   "topics": [
+    "geodesic congruence",
+    "expansion scalar",
+    "shear tensor",
+    "vorticity tensor",
+    "Raychaudhuri equation",
+    "focusing theorem",
+    "caustic",
+    "Frobenius theorem",
+    "energy conditions",
+    "null energy condition",
+    "weak energy condition",
+    "dominant energy condition",
+    "strong energy condition",
+    "trapped surface",
+    "Penrose singularity theorem",
+    "geodesic incompleteness",
+    "event horizon",
+    "apparent horizon",
+    "marginally outer trapped surface",
+    "domain of dependence",
+    "Cauchy surface",
+    "global hyperbolicity",
+    "Cauchy horizon",
+    "strong cosmic censorship",
+    "conformal compactification",
+    "Hawking temperature",
+    "Euclidean gravity",
+    "Bekenstein-Hawking entropy",
+    "negative heat capacity",
+    "generalized second law",
+    "area theorem",
+    "surface gravity",
+    "first law of black hole mechanics",
+    "black hole information paradox",
+    "Page curve",
+    "quantum extremal islands"
+   ],
+   "teaches": "Congruence kinematics (theta, sigma, omega), with theta as fractional volume rate. A derivation of timelike Raychaudhuri with the vorticity sign explained. The focusing deadline 3/|theta0| via both 1/theta and the volume argument. Why caustics are not singularities. Perfect-fluid energy conditions derived from boosted observers. Lambda defeats timelike but not null focusing. Null screen space and null Raychaudhuri. Trapped surfaces and one precise form of Penrose's theorem. Incompleteness vs curvature blow-up. Event vs apparent horizons. Domain of dependence, Cauchy surfaces and Cauchy horizons. A Euclidean near-horizon plane giving T_H=hbar c^3/(8piGMk_B) with explicit caveats. Entropy from the first law, S=k_B A/(4 l_P^2), negative heat capacity. Generalized entropy. The area theorem with its global step. The 29.3% merger bound. The Kerr first law with surface gravity and Omega_H verified. The information puzzle's conflicting assumptions and the Page curve/islands with scope.",
+   "pedagogy": "A spacecraft-cloud metaphor. Each Raychaudhuri term gets a physical bullet. The flat-spacetime caustic counterexample. The deleted-point incompleteness counterexample. A 'heuristic vs derivation' warning on pair-creation pictures. Quantum and thermal preparation delivered through bridge lessons reordered after the sequencing audit.",
+   "interaction": null,
+   "physics_model": "c=1 for §22.1-22.6; SI with hbar and k_B restored for §22.7-22.9; Euclidean regularity for temperature; Schwarzschild and nonextremal Kerr families for the first law.",
+   "screenshots": [
+    "qa/figure-horizon-area-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Theorem statements carry their actual hypotheses (noncompact Cauchy surface, NEC, closed trapped surface; the global step in the area theorem).",
+     "Derivations are complete where claimed (energy-condition inequalities, Kerr first-law check, Euclidean periodicity).",
+     "Classical vs semiclassical vs speculative claims are sharply separated; reference-comparison notes the corrected Kerr-area and information-theorem misstatements from a reference text."
+    ],
+    "issues": [
+     "Mixes two modules with different prerequisites: classical focusing and causality vs quantum thermodynamics and information. The review recommends splitting them.",
+     "Global causal concepts (J^-, Cauchy surface) arrive after being used in theorem statements, and there are no causal/Penrose diagrams in the text.",
+     "The Hawking flux is only described; there is no mode or Bogoliubov calculation, correctly flagged but leaving a gap.",
+     "Excluded from the core route; the §22.7 bridge ordering had a dependency reversal fixed later.",
+     "Symbol reuse: omega is vorticity here and the spin connection in Ch. 21."
+    ],
+    "evidence": "Chapter read in full. docs/comprehensive-course-review-2026-09-09.md row 22. docs/novice-sequencing-audit-2026-09-09.md row '§22.7 bridges'. docs/reference-comparison.md lines 34, 62-69. docs/learning-experience-audit.md lines 24 and 52. Kerr first-law algebra spot-checked."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Split into (a) 'Focusing and singularity theorems' (§22.1-22.6) with interactive congruence and caustic demos and proper Penrose diagrams, and (b) 'Black-hole thermodynamics' (§22.7-22.9) with explicit thermal and quantum prerequisite lessons. Keep §22.10 as a short frontier card. Keep the derivation text nearly verbatim in both.",
+    "effort": "medium"
+   },
+   "size": "374 lines, about 3,370 words; 3 figures, 1 bridge lesson"
+  },
+  {
+   "id": "manuscript-section-22-1-raychaudhuri-energy-conditions",
+   "kind": "manuscript-section",
+   "title": "§22.1-22.4 Congruences, the Raychaudhuri equation, finite-time focusing, and energy conditions",
+   "paths": [
+    "book.md:7879-8060",
+    "scripts/figures.py:407 (focusing-caustic)"
+   ],
+   "topics": [
+    "geodesic congruence",
+    "expansion scalar",
+    "shear tensor",
+    "vorticity tensor",
+    "geodesic deviation",
+    "Raychaudhuri equation",
+    "hypersurface-orthogonal congruence",
+    "Frobenius theorem",
+    "timelike convergence condition",
+    "focusing theorem",
+    "caustic",
+    "null energy condition",
+    "weak energy condition",
+    "dominant energy condition",
+    "strong energy condition",
+    "cosmological constant"
+   ],
+   "teaches": "Decomposition B=theta h/3+sigma+omega with physical meanings. theta=d ln V/dtau via the determinant identity. Commuting derivatives to get d theta/dtau=-theta^2/3-sigma^2+omega^2-R_uu (plus div a for accelerated flows). Why vorticity enters with a plus sign (a rotation generator squares to -w^2 I). How Weyl acts through shear. Hypersurface orthogonality implies omega=0. The 3/|theta0| bound by two methods. The flat-spacetime caustic counterexample. The energy-condition table and its derivation via boosted observers and null vectors. SEC implies timelike convergence only for Lambda=0; NEC null convergence survives Lambda.",
+   "pedagogy": "A spacecraft-cloud metaphor. Each term is interpreted. A 2x2 matrix example for the vorticity sign. The finite-time argument is done twice. An explicit 'This is not yet a spacetime singularity' warning.",
+   "interaction": null,
+   "physics_model": "Timelike geodesic congruences in 4D, c=1; perfect fluid energy conditions in the rest frame.",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "A clean, self-contained derivation connecting back to geodesic deviation and the determinant identity.",
+     "Energy conditions derived rather than tabulated."
+    ],
+    "issues": [
+     "The focusing figure is static; no interactive cloud whose shape (expand/shear/rotate) responds to curvature and initial theta.",
+     "Null screen construction is deferred to §22.5."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md row 22 strengths; docs/reference-comparison.md line 54."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Import verbatim as the focusing lesson's derivation layer. Build a 3D particle-cloud interactive (ties to the legacy fluid-shear and tides experiences inventoried elsewhere) with sliders for initial expansion, shear, vorticity and R_uu, showing the volume and the 3/|theta0| deadline.",
+    "effort": "small"
+   },
+   "size": "about 180 lines"
+  },
+  {
+   "id": "manuscript-section-22-5-trapped-surfaces-causal-structure",
+   "kind": "manuscript-section",
+   "title": "§22.5-22.6 Trapped surfaces, Penrose's theorem, event vs apparent horizons, and domains of dependence",
+   "paths": [
+    "book.md:8062-8113"
+   ],
+   "topics": [
+    "null geodesic congruence",
+    "screen space",
+    "null Raychaudhuri equation",
+    "trapped surface",
+    "Penrose singularity theorem",
+    "geodesic incompleteness",
+    "extendibility",
+    "event horizon",
+    "apparent horizon",
+    "marginally outer trapped surface",
+    "domain of dependence",
+    "Cauchy surface",
+    "global hyperbolicity",
+    "Cauchy horizon",
+    "strong cosmic censorship",
+    "conformal diagram"
+   ],
+   "teaches": "The null screen projector q=g+kl+lk and null Raychaudhuri (affine parameter essential). Future trapped surfaces (both null expansions negative) without 'light slows down' myths. A precise statement of Penrose's theorem and what it does not give (location, curvature blow-up). The deleted-point incompleteness caveat. H+=boundary of J^-(scri+). MOTS and apparent horizons as slicing-dependent tools. D+(Sigma), Cauchy surfaces, global hyperbolicity, Cauchy horizons vs event horizons. Conformal rescaling for causal maps.",
+   "pedagogy": "Definitions paired with what-it-does-not-mean statements and counterexamples; a primary source for the theorem.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "partial",
+    "strengths": [
+     "Precise and correct statements with hypotheses.",
+     "Clear separation of causal access from predictability."
+    ],
+    "issues": [
+     "No diagrams at all for inherently diagrammatic concepts (trapped surfaces, domains of dependence, Cauchy horizons, conformal compactification). The only conformal-style picture in Part 3 is the cosmic-horizons figure for §19.8; the Kruskal and causal-map teaching lives outside book.md, in the kruskal-and-causal-maps bridge lesson (content/bridge-lessons.mjs:91).",
+     "Global causal definitions come after their use in §17.6 and §20.8; the review asks to define them before theorem use.",
+     "No worked example of computing null expansions (e.g. for spheres in Schwarzschild or in the §19.12 collapse)."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md row 22 ('Define Cauchy/global causal concepts before theorem use') and §8.2 'Global Lorentzian geometry'."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the text as grounding. Build new visual lessons: null expansions of spheres in Schwarzschild EF coordinates (compute theta_out proportional to 1-2m/r, showing trapping inside), an interactive Penrose-diagram builder (Minkowski, Schwarzschild, collapse, Reissner-Nordstrom with Cauchy horizon), and a domain-of-dependence painter. Move causal definitions earlier in the black-hole module.",
+    "effort": "medium"
+   },
+   "size": "about 50 lines"
+  },
+  {
+   "id": "manuscript-section-22-7-black-hole-thermodynamics",
+   "kind": "manuscript-section",
+   "title": "§22.7-22.9 Hawking temperature, Bekenstein-Hawking entropy, area theorem, and the Kerr first law",
+   "paths": [
+    "book.md:8115-8235",
+    "scripts/figures.py:529 (horizon-area)",
+    "content/bridge-lessons.mjs (temperature-and-quantum-input)"
+   ],
+   "topics": [
+    "Hawking temperature",
+    "Euclidean time",
+    "Wick rotation",
+    "conical singularity",
+    "Bekenstein-Hawking entropy",
+    "Planck length",
+    "first law of black hole mechanics",
+    "negative heat capacity",
+    "generalized entropy",
+    "generalized second law",
+    "renormalization",
+    "Hawking area theorem",
+    "black hole merger",
+    "surface gravity",
+    "horizon angular velocity",
+    "Kerr metric",
+    "zeroth law of black hole mechanics"
+   ],
+   "teaches": "Near-horizon Euclidean metric turned into polar coordinates via rho=2 sqrt(r_s x); regularity forces period 4 pi r_s/c and hence T_H. What the Euclidean argument does and does not establish (vs collapse flux and greybody factors). Pair-creation pictures as heuristic. dS=dE/T gives S=4pi k_B G M^2/(hbar c)=k_B A/(4 l_P^2), area scaling, and negative heat capacity. Generalized entropy and GSL scope. The area theorem via null Raychaudhuri plus a global step. The equal-mass merger bound M_f>=sqrt2 M (29.3% maximum radiated) and why A proportional to M^2 fails for spinning remnants. Surface gravity as a redshifted hovering acceleration. Kerr A, Omega_H, kappa and an algebraic check of the first law.",
+   "pedagogy": "A short derivation reveals why temperature appears. Explicit statements of imported quantum input. Numerical illustration labelled as an upper bound, not a prediction. The bridge lesson prepares Boltzmann weights and quantum phase before this section.",
+   "interaction": null,
+   "physics_model": "Semiclassical Euclidean regularity; Schwarzschild and nonextremal Kerr families; classical area theorem under NEC and global regularity.",
+   "screenshots": [
+    "qa/figure-horizon-area-light.png"
+   ],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct, well-qualified derivations; the Kerr first-law verification is a strong worked calculation.",
+     "The merger-area bound avoids the common M^2-for-Kerr error (reference-comparison line 62)."
+    ],
+    "issues": [
+     "Quantum and thermal prerequisites live outside the manuscript (bridges), and ordering needed repair.",
+     "No Hawking-mode calculation, evaporation time, or numerical temperature/entropy examples for solar-mass vs supermassive holes.",
+     "No interactive; the horizon-area figure is static."
+    ],
+    "evidence": "Read in full; docs/novice-sequencing-audit-2026-09-09.md §22.7 row; docs/reference-comparison.md lines 34 and 62; docs/causality-review.md line 17 (Temperature and quantum input)."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the derivations verbatim. Package as a thermodynamics module with explicit prerequisites (thermal probability, quantum states). Add a black-hole thermometer calculator (mass to T_H, S, lifetime estimate, CMB comparison) and a merger area-bound explorer with Kerr remnant spin.",
+    "effort": "small"
+   },
+   "size": "about 120 lines"
+  },
+  {
+   "id": "manuscript-section-22-10-information-paradox",
+   "kind": "manuscript-section",
+   "title": "§22.10 The black-hole information question",
+   "paths": [
+    "book.md:8237-8247",
+    "scripts/figures.py:535 (page-curve)"
+   ],
+   "topics": [
+    "black hole information paradox",
+    "entanglement",
+    "pure state",
+    "mixed state",
+    "unitarity",
+    "Page curve",
+    "quantum extremal surface",
+    "islands",
+    "generalized entropy",
+    "replica wormholes"
+   ],
+   "teaches": "Minimal definitions (entanglement, pure/mixed, unitary). Which four assumptions conflict. What a Page curve is. How island prescriptions produce it in specified semiclassical models, with a clear scope statement (not astrophysical measurements).",
+   "pedagogy": "States the puzzle as incompatible assumptions rather than a slogan; a schematic page-curve figure; a review citation.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Accurate, appropriately hedged, and avoids overclaiming.",
+     "Replaces an incorrect information-erasure theorem claim from a reference (reference-comparison line 69)."
+    ],
+    "issues": [
+     "Too compressed to teach the concepts it names (saddle points, islands) to a novice."
+    ],
+    "evidence": "Read in full; docs/reference-comparison.md lines 34 and 69."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Keep as vault grounding and a short 'open frontier' card; the tutor can use it to answer paradox questions without overclaiming. Do not expand into a full lesson unless a quantum-information prerequisite track exists.",
+    "effort": null
+   },
+   "size": "about 10 lines"
+  },
+  {
+   "id": "manuscript-chapter-23-effective-field-theory",
+   "kind": "manuscript-chapter",
+   "title": "Chapter 23. Gravity as an effective theory and its open questions",
+   "paths": [
+    "book.md:8251-8461",
+    "content/guides.json#23",
+    "scripts/figures.py:417 (effective-theory)"
+   ],
+   "topics": [
+    "effective field theory",
+    "separation of scales",
+    "matching",
+    "loop corrections",
+    "renormalization",
+    "reduced Planck mass",
+    "mass dimension",
+    "power counting",
+    "higher-curvature corrections",
+    "Gauss-Bonnet term",
+    "field redefinition",
+    "nonlocal effective action",
+    "renormalization scale",
+    "nonrenormalizability",
+    "runaway solutions",
+    "ghosts",
+    "order reduction",
+    "spin-2 field",
+    "gauge invariance",
+    "self-interaction",
+    "Lovelock's theorem",
+    "cosmological constant problem",
+    "zero-point energy",
+    "naturalness",
+    "semiclassical gravity",
+    "tests of general relativity",
+    "binary pulsars",
+    "dark matter",
+    "dark energy",
+    "quantum gravity"
+   ],
+   "teaches": "Why GR can be incomplete yet predictive. Integrating out a heavy field as a derivative expansion of 1/(M^2-Box). Matching, loops and renormalization in plain language. The schematic local EFT action with mass-dimension bookkeeping. Why R^2 terms vanish on Ricci-flat vacua in 4D (Gauss-Bonnet). Field-redefinition redundancy. Nonlocal log(-Box) terms via Fourier modes. Nonrenormalizable does not mean nonpredictive (Taylor analogy). Quantum ratio l_P^2/L^2 vs classical GM/(c^2 L). Runaways and ghosts from truncated EFTs, with order reduction. Deser's spin-2 self-coupling argument and its assumptions. Lovelock uniqueness hypotheses. Vacuum energy as Lambda, the M^4 zero-point estimate, why the 120-orders slogan is a heuristic, and radiative stability/naturalness. Validity of semiclassical gravity. A table of what experiment families constrain, including GWTC-5.0. The roles of dark matter and dark energy. A list of open questions.",
+   "pedagogy": "An elasticity/sound-in-solids analogy, a geometric-series operator expansion, a Taylor-series analogy for predictivity, and the harmonic-oscillator uncertainty argument for zero-point energy. Mostly prose with schematic equations; each claim is scoped and cited.",
+   "interaction": null,
+   "physics_model": "Natural units c=hbar=1 in §23.2; schematic local EFT action; heavy-field toy (M^2-Box)X=J; free-field zero-point sum with cutoff.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "A scientifically mature, well-cited conceptual account (Donoghue, Deser, Lovelock revisited, Martin, Solomon-Trodden, GWTC-5.0).",
+     "It corrects common slogans (120 orders, 'nonrenormalizable equals useless', 'strong gravity means quantum gravity').",
+     "The dated GWTC-5.0 citation was verified as real and correctly summarized by the comprehensive review."
+    ],
+    "issues": [
+     "No worked power-counting calculation with an observable (e.g. a leading quantum correction to the Newtonian potential), so the reader can't do anything with the ideas.",
+     "Heavy QFT vocabulary (loops, regulators, renormalization scale) introduced in passing.",
+     "Observational tables will date; there is no research-window mechanism.",
+     "Lowercase typo after a bold lead-in in §23.3 ('if we truncate...')."
+    ],
+    "evidence": "Chapter read in full; docs/comprehensive-course-review-2026-09-09.md row 23 and §9 'Current science'; docs/reference-comparison.md line 35."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Cut to a short frontier module (about 40% of the length). Keep §23.1-23.3 with one new worked power-counting example and a 'scale ladder' interactive comparing l_P^2/L^2 with GM/(c^2 L) for lab, Earth, neutron star, stellar and supermassive horizons. Move §23.4-23.6 to vault grounding (see section assets). Turn §23.8's table into dated research-window cards.",
+    "effort": "medium"
+   },
+   "size": "214 lines, about 2,910 words; 1 figure"
+  },
+  {
+   "id": "manuscript-section-23-2-eft-power-counting",
+   "kind": "manuscript-section",
+   "title": "§23.1-23.3 Effective theory, derivative expansion, power counting, and predictivity without renormalizability",
+   "paths": [
+    "book.md:8253-8344"
+   ],
+   "topics": [
+    "effective field theory",
+    "integrating out heavy fields",
+    "derivative expansion",
+    "matching",
+    "loop corrections",
+    "renormalization",
+    "reduced Planck mass",
+    "mass dimension",
+    "power counting",
+    "higher-curvature corrections",
+    "Gauss-Bonnet term",
+    "field redefinition",
+    "nonlocal effective action",
+    "nonrenormalizability",
+    "Planck length",
+    "ghosts",
+    "order reduction"
+   ],
+   "teaches": "Heavy-field operator expansion and its validity. Mass-dimension counting of the action terms. Relative size a R/M_Pl^2 of curvature-squared corrections. Why R^2 and Ricci^2 variations vanish on Ricci-flat backgrounds and Gauss-Bonnet is topological in 4D. Field redefinitions and operator redundancy. The log(-Box) nonlocality. Finite parameters per order. l_P^2/L^2 vs GM/(c^2 L). The runaway/ghost caution with order reduction.",
+   "pedagogy": "Analogies (elasticity, Taylor series); a geometric series applied to operators; explicit unit bookkeeping.",
+   "interaction": null,
+   "physics_model": "Schematic EFT Lagrangian with coefficients a_i, b_i and cutoff M_*.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Correct and well scoped; the two-ratio comparison is a high-value intuition."
+    ],
+    "issues": [
+     "No computed observable or number; the Appendix A.30 companion exercise is a one-line scaling."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md row 23 ('Add a worked power-counting example')."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the text. Add a worked example (e.g. order of magnitude of curvature-squared corrections at a neutron-star surface vs the LIGO band) and an interactive scale-ladder plot of the two dimensionless ratios across astrophysical systems.",
+    "effort": "small"
+   },
+   "size": "about 90 lines"
+  },
+  {
+   "id": "manuscript-section-23-4-uniqueness-vacuum-energy",
+   "kind": "manuscript-section",
+   "title": "§23.4-23.6 Spin-2 self-coupling, Lovelock uniqueness, and the cosmological-constant problem",
+   "paths": [
+    "book.md:8346-8412"
+   ],
+   "topics": [
+    "massless spin-2 field",
+    "linearized gauge invariance",
+    "self-interaction",
+    "Deser construction",
+    "Lovelock's theorem",
+    "cosmological constant",
+    "vacuum energy",
+    "zero-point energy",
+    "harmonic oscillator ground state",
+    "ultraviolet cutoff",
+    "cosmological constant problem",
+    "naturalness",
+    "radiative stability"
+   ],
+   "teaches": "Why coupling h to a conserved T forces nonlinear self-coupling toward GR, and the assumptions that limit that conclusion. Lovelock: metric-only, second-order, divergence-free, giving G+Lambda g in 4D. Vacuum stress -epsilon g acting as Lambda. The uncertainty-principle lower bound hbar omega/2. Mode counting d^3k/(2pi)^3 with M^4 scaling. Why 120 orders is heuristic. The real radiative-stability question.",
+   "pedagogy": "Assumptions listed explicitly; the zero-point estimate built from a single oscillator upward.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Accurate and appropriately cautious; good primary citations."
+    ],
+    "issues": [
+     "Conceptual only; little a learner can calculate beyond the M^4 scaling."
+    ],
+    "evidence": "Read in full."
+   },
+   "reuse": {
+    "verdict": "reference-only",
+    "notes": "Keep in the vault as tutor grounding for 'why Einstein's equation?' and 'why is Lambda small?' questions. In learner-facing content use at most a two-paragraph frontier card plus an optional cutoff-energy-density calculator.",
+    "effort": null
+   },
+   "size": "about 65 lines"
+  },
+  {
+   "id": "manuscript-section-23-7-semiclassical-tests-open-questions",
+   "kind": "manuscript-section",
+   "title": "§23.7-23.9 Semiclassical gravity, what experiments test, dark matter/dark energy roles, and open questions",
+   "paths": [
+    "book.md:8414-8461"
+   ],
+   "topics": [
+    "semiclassical gravity",
+    "renormalized stress-energy tensor",
+    "tests of general relativity",
+    "equivalence principle tests",
+    "binary pulsars",
+    "gravitational lensing",
+    "gravitational wave tests of GR",
+    "GWTC-5.0",
+    "dark matter",
+    "dark energy",
+    "quantum gravity"
+   ],
+   "teaches": "The semiclassical Einstein equation with <T>_ren and why higher-curvature terms appear. Its validity conditions. A table mapping measurement families to what they constrain. What the July 2026 LVK GWTC-5.0 tests do and do not show. Why dark matter and dark energy are distinct explanatory roles. Five concrete open questions.",
+   "pedagogy": "Tables and bullet questions; careful claim scoping.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Current (GWTC-5.0, July 2026) and correctly characterized; clear roles for the dark sector."
+    ],
+    "issues": [
+     "Dated observational claims are embedded in prose with no review-date metadata; no data exercise."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md §9 verifies the GWTC-5.0 citation and recommends research-window cards."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Convert the experiment-families table into dated 'research window' cards (source, review date, what was measured, assumptions), linked to lessons where each effect is taught. Keep the semiclassical and open-question text as vault grounding.",
+    "effort": "small"
+   },
+   "size": "about 50 lines"
+  },
+  {
+   "id": "manuscript-chapter-24-synthesis",
+   "kind": "manuscript-chapter",
+   "title": "Chapter 24. Calculating and interpreting a spacetime",
+   "paths": [
+    "book.md:8465-8679",
+    "content/guides.json#24",
+    "scripts/figures.py:429 (calculation-map)"
+   ],
+   "topics": [
+    "Rindler coordinates",
+    "uniformly accelerated observers",
+    "Christoffel symbols",
+    "Riemann tensor",
+    "proper acceleration",
+    "gravitational redshift",
+    "Killing vector",
+    "acceleration horizon",
+    "calculation workflow",
+    "calibration metrics",
+    "on-shell and off-shell",
+    "variational principle",
+    "Einstein-Hilbert action",
+    "Bianchi identity",
+    "equivalence principle"
+   ],
+   "teaches": "A stage table from model to measurement. A complete Rindler check: transform Minkowski to ds^2=-q^2c^2dt^2+dx^2, compute Gammas, get proper acceleration a0/q, show R^z_tzt=c^2 q q''=0, and derive frequency ratio q(z_e)/q(z_r) from conserved p_t. The punchline: non-constant metric components, nonzero Gamma, accelerometer readings and redshift don't individually prove curvature. A 10-step procedure for interpreting any metric. Four calibration geometries with the error each catches. Why substituting on-shell solutions into the action loses the variation. A plain-language reconstruction of the field equation. A closing list of better questions to ask.",
+   "pedagogy": "Synthesis via one fully worked flat-spacetime counterexample, then procedural checklists and a 'close the book and rebuild' exercise. The guides.json check reinforces 'clock-rate variation alone does not prove curvature'.",
+   "interaction": null,
+   "physics_model": "Rindler wedge of Minkowski spacetime; stationary observers at fixed z; conserved Killing energy of photons.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The Rindler check is complete and targets the central conceptual trap.",
+     "The 10-step checklist and calibration table are practical and reusable for learners and for automated or tutor verification.",
+     "A concise and inspiring close."
+    ],
+    "issues": [
+     "The capstone is only flat spacetime; there is no curved spacetime with matter where the learner makes a real prediction.",
+     "No assessment beyond reading; solutions are fully shown.",
+     "At about 1,700 words it is the lightest chapter; the core route jumps from 19 to 24."
+    ],
+    "evidence": "Chapter read in full; docs/comprehensive-course-review-2026-09-09.md row 24 ('Add a second capstone with nonzero curvature and matter'); docs/learning-experience-audit.md line 69; content/curriculum.mjs core route [0..19, 24]."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Keep the Rindler check and the checklist/calibration tables. Make the finale a project: the learner picks a metric (Schwarzschild exterior, a TOV interior from the star lab, or FLRW), follows the 10 steps with a symbolic tool, chooses observers and predicts a measurement; the AI tutor grades each stage. Use Rindler as the warm-up.",
+    "effort": "small"
+   },
+   "size": "214 lines, about 1,700 words; 1 figure"
+  },
+  {
+   "id": "manuscript-section-24-2-rindler-full-check",
+   "kind": "manuscript-section",
+   "title": "§24.2 A complete check with accelerating observers (Rindler)",
+   "paths": [
+    "book.md:8484-8599"
+   ],
+   "topics": [
+    "Rindler coordinates",
+    "hyperbolic motion",
+    "Christoffel symbols",
+    "four-acceleration",
+    "proper acceleration",
+    "Riemann tensor",
+    "flat spacetime",
+    "Killing energy",
+    "gravitational redshift",
+    "acceleration horizon",
+    "equivalence principle"
+   ],
+   "teaches": "Derive the Rindler metric with the cosh^2-sinh^2 cancellation. Clock rates dtau=q dt. Gamma^t_tz=q'/q and Gamma^z_tt=a0 q. Proper acceleration a0/q varying with height. The Riemann component cancels because q''=0 (connection derivatives alone are not curvature). Redshift nu_r/nu_e=q(z_e)/q(z_r) from conserved p_t. Inertial vs accelerated descriptions predict the same readings. The chart domain and null acceleration horizons.",
+   "pedagogy": "Structured into 'Calculate the connection / curvature / frequency shift'; a callout box summarizing what the calculation distinguishes.",
+   "interaction": null,
+   "physics_model": "cT=(c^2/a0+z) sinh(a0 t/c), Z+c^2/a0=(c^2/a0+z) cosh(a0 t/c); q=1+a0 z/c^2.",
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Complete, correct, and conceptually the most important counterexample in GR teaching."
+    ],
+    "issues": [
+     "No spacetime diagram of Rindler worldlines here (a rindler-worldlines figure exists for Ch. 5)."
+    ],
+    "evidence": "Read in full; derivation spot-checked (R^z_tzt=c^2 q q''=0)."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Import verbatim as the capstone warm-up and as a model worked example for the tutor. Link the Ch. 5 Rindler worldline visual and add an interactive (drag emitter and receiver heights, see the q ratio and the flat-curvature readout).",
+    "effort": "small"
+   },
+   "size": "about 115 lines"
+  },
+  {
+   "id": "manuscript-section-24-3-calculation-checklist",
+   "kind": "manuscript-section",
+   "title": "§24.1, 24.3-24.6 Model-to-measurement stages, a 10-step metric interpretation checklist, calibration geometries, and on-shell vs off-shell",
+   "paths": [
+    "book.md:8467-8482",
+    "book.md:8601-8664",
+    "scripts/figures.py:429 (calculation-map)"
+   ],
+   "topics": [
+    "calculation workflow",
+    "coordinate chart",
+    "inverse metric",
+    "metric determinant",
+    "Killing vector",
+    "Christoffel symbols",
+    "Riemann tensor",
+    "Ricci tensor",
+    "Einstein tensor",
+    "stress-energy tensor",
+    "orthonormal frame",
+    "Newtonian limit",
+    "Kretschmann scalar",
+    "FLRW metric",
+    "on-shell and off-shell",
+    "Einstein-Hilbert action",
+    "variational principle"
+   ],
+   "teaches": "An eight-stage table mapping questions to mathematical objects. A 10-step procedure (chart and domain, invert, determinant, symmetries, Gamma, full Riemann, contractions, stress tensor sanity, observers, known limits). Four calibration geometries with expected results and the errors they catch (plane Gamma nonzero but R=0; sphere R=2/A^2; Schwarzschild Ricci=0 with K=48m^2/r^6; flat FLRW G_tt=3H^2 and R=6(a''/a+H^2)). Why imposing equations before varying destroys the question. The field equation rebuilt in prose.",
+   "pedagogy": "Checklists and tables for retrieval; a 'close the book' reconstruction prompt.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "polished",
+    "strengths": [
+     "Directly usable as a tutor procedure and as the test suite for a symbolic GR calculator.",
+     "The calibration values match independent checks in scripts/check-physics-calculations.mjs (FLRW G00 and scalar; Schwarzschild Kretschmann)."
+    ],
+    "issues": [
+     "No practice metrics supplied to apply the checklist to."
+    ],
+    "evidence": "Read in full; cross-checked against scripts/check-physics-calculations.mjs:127-131."
+   },
+   "reuse": {
+    "verdict": "reuse-as-is",
+    "notes": "Adopt the checklist as the tutor's 'interpret a metric' protocol and the calibration table as unit tests for any grbook symbolic-geometry tool. Add a bank of unseen metrics (e.g. Reissner-Nordstrom, de Sitter static patch, a pp-wave) to apply it to.",
+    "effort": "small"
+   },
+   "size": "about 80 lines"
+  },
+  {
+   "id": "practice-set-appendix-a-thirty-exercises",
+   "kind": "practice-set",
+   "title": "Appendix A. Thirty exercises that turn recognition into understanding",
+   "paths": [
+    "book.md:8685-9101"
+   ],
+   "topics": [
+    "vector transformation",
+    "covector transformation",
+    "Jacobian",
+    "inverse metric",
+    "index raising and lowering",
+    "four-momentum",
+    "observer-dependent energy",
+    "covariant Hessian",
+    "Christoffel symbols",
+    "covariant divergence",
+    "divergence theorem",
+    "Dirac delta distribution",
+    "covariant derivative",
+    "Riemann normal coordinates",
+    "Riemann tensor",
+    "Gaussian curvature",
+    "Newtonian tidal tensor",
+    "geodesic deviation",
+    "trace-reversed Einstein equation",
+    "Newtonian limit",
+    "Poisson equation",
+    "Ricci-flat",
+    "Weyl tensor",
+    "Maxwell stress-energy tensor",
+    "perfect fluid",
+    "active gravitational mass",
+    "Jacobi's formula",
+    "variation of the metric determinant",
+    "vacuum energy",
+    "cosmological constant",
+    "Gibbons-Hawking-York boundary term",
+    "Killing vector",
+    "Noether current",
+    "gravitational time dilation",
+    "Schwarzschild metric",
+    "static observer",
+    "Kretschmann scalar",
+    "gravitational wave strain",
+    "mass dipole",
+    "quadrupole radiation",
+    "continuity equation",
+    "equation of state parameter",
+    "Friedmann equations",
+    "scale factor",
+    "acceleration equation",
+    "ADM formalism",
+    "first-class constraints",
+    "degrees of freedom",
+    "Hamiltonian constraint",
+    "extrinsic curvature",
+    "Raychaudhuri equation",
+    "focusing theorem",
+    "Cartan structure equations",
+    "spin connection",
+    "Bekenstein-Hawking entropy",
+    "Hawking temperature",
+    "effective field theory",
+    "power counting"
+   ],
+   "teaches": "Exercise-by-exercise topic map. A.1: vector vs covector transformation with a Jacobian, invariant contraction (numeric). A.2: inverse of a nondiagonal metric, lowering, norm (numeric). A.3: observer-dependent energy E=-p.U, gamma=1.25 (numeric). A.4: covariant Hessian and Laplacian of f=r in polar coordinates. A.5: divergence-free 1/r field with nonzero flux, delta source. A.6: constant Cartesian vector with changing polar components, Gamma cancellation. A.7: normal coordinates, Gamma=0 but Riemann nonzero (verbal). A.8: circumference deficit on a sphere, Gaussian curvature (series). A.9: Newtonian tidal eigenvalues and sign convention. A.10: trace reversal giving R_00=4piG rho/c^2. A.11: scalar-flat vs Ricci-flat vs Riemann-flat (verbal). A.12: perfect-fluid trace and epsilon+3p source. A.13: determinant variation minus sign. A.14: constant Lagrangian shift as vacuum stress -V0 g. A.15: why Dirichlet variation needs the GHY term (verbal). A.16: Killing vector times T gives a conserved current (proof). A.17: 100 m clock-height redshift 1.09e-14, 0.94 ns/day (numeric). A.18: static vs falling clocks at the horizon (verbal). A.19: Kretschmann at the horizon 3/(4m^4), M^-4 scaling. A.20: 4 km arm with h_+=1e-21: 2e-18 m per arm and 4e-18 m differential, plus the caveat that a real interferometer has a frequency-dependent response (numeric). A.21: no mass-dipole radiation (verbal). A.22: expanding box to continuity equation and w-scaling. A.23: power-law a(t) and the w=-1 exception. A.24: w<-1/3 acceleration criterion. A.25: ADM 12-2x4=4 count (verbal). A.26: Hamiltonian constraint gives Friedmann. A.27: Raychaudhuri focusing deadline 3/|theta0|. A.28: flat polar coframe connection without curvature. A.29: black-hole entropy units and T dS=c^2 dM. A.30: EFT correction scaling a/(M_* L)^2 and why R=0 is not a validity check.",
+   "pedagogy": "Designed around tempting wrong answers ('Several are designed so that the tempting answer is wrong'). Each item is a Problem followed by a Solution that ends with the conceptual moral. In book.md solutions follow the problems inline, not wrapped in the checkpoint disclosure used by Appendix E. Exercises are ordered roughly by chapter (A.1-A.16 cover Ch. 2-15; A.17-A.30 cover Ch. 16-23).",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Well-chosen misconception targets across the whole book, all with correct solutions (numerics spot-checked: A.1 contraction 7, A.2 norm 14, A.17 1.09e-14 and 0.94 ns, A.19 3/(4m^4), A.20 4e-18 m).",
+     "Retained and expanded after comparison with a reference course (reference-comparison line 39)."
+    ],
+    "issues": [
+     "Segregated from the point of use (learning-experience-audit line 25).",
+     "About 8 of 30 are one-line verbal distinctions (A.7, A.11, A.15, A.18, A.21, A.25, plus parts of A.27 and A.30), useful as formative checks but not evidence of competence.",
+     "No multi-step derivations with omitted steps, no computational items, no unseen transfer variants.",
+     "Solutions are immediately visible in the source; no hints or answer format for automated grading.",
+     "Notation drift: A.28 uses Omega for the curvature two-form while Ch. 21 uses a calligraphic R."
+    ],
+    "evidence": "Read all 30 in full. docs/comprehensive-course-review-2026-09-09.md row 'Appendix A' and §10.1 (13 conceptual checks, 13 numerical transfers, 30 Appendix A exercises). docs/learning-experience-audit.md lines 25 and 108 ('Reuse Appendix A and E as a starting corpus'). Confirmed no <details> wrapper appears in Appendix A (lines 8685-9101), while E.2-E.4 use three checkpoint disclosures; §21.4-21.8 write the curvature two-form as \\mathcal R and A.28 (line 9074) writes \\Omega."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Use all 30 as the seed corpus for grbook's practice engine. Attach each to its concept and lesson via the topic map above and place it at the point of use. Hide solutions behind an attempt. Add a structured answer (numeric with tolerance, sign/choice, or a short rubric for verbal items) so the AI tutor can grade. Write 1-2 transfer variants per item (the Ch. 21.8 'change the problem' pattern). Fix A.28's Omega to match the chosen curvature two-form symbol.",
+    "effort": "medium"
+   },
+   "size": "422 lines, about 2,820 words; 30 solved problems"
+  },
+  {
+   "id": "manuscript-chapter-appendix-b-reference-sheet",
+   "kind": "manuscript-chapter",
+   "title": "Appendix B. A working reference sheet",
+   "paths": [
+    "book.md:9107-9297"
+   ],
+   "topics": [
+    "metric tensor",
+    "proper time",
+    "inverse metric",
+    "Christoffel symbols",
+    "covariant derivative",
+    "geodesic equation",
+    "affine parameter",
+    "Riemann tensor",
+    "Ricci tensor",
+    "Ricci scalar",
+    "Einstein tensor",
+    "geodesic deviation",
+    "metric volume element",
+    "covariant divergence",
+    "d'Alembertian",
+    "four-momentum",
+    "perfect fluid",
+    "Einstein field equations",
+    "trace-reversed Einstein equation",
+    "Einstein-Hilbert action",
+    "stress-energy tensor",
+    "Bianchi identity",
+    "Newtonian limit",
+    "vacuum solutions",
+    "Weyl tensor"
+   ],
+   "teaches": "A retrieval sheet in the book's (-,+,+,+) signature and Riemann convention: the geometry ladder (interval to tidal acceleration, volume, divergence, wave operator); matter and dynamics (observer energy, perfect fluid, Einstein and trace-reversed forms with Lambda, action and metric variation with x^0=ct, identities, Newtonian limit with its assumptions); a 'vacuum is a family of possibilities' table; and six distinctions to keep (coordinates vs observers, connection vs curvature, spatial vs spacetime curvature, local conservation vs global energy, coordinate vs geometric singularity, identity vs equation of motion).",
+   "pedagogy": "Each formula family carries one-line validity notes; tables of distinctions double as misconception checks.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Consistent conventions, linked from every chapter, with concise validity caveats (reference-comparison line 36).",
+     "The six-distinctions table is an excellent compact misconception list."
+    ],
+    "issues": [
+     "Not every formula lists dimensions, domain, or convention translations to other textbooks (review request).",
+     "Omits later-chapter formulas (Schwarzschild, Friedmann, quadrupole, ADM constraints, Raychaudhuri, T_H)."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md row 'Appendix B'; docs/reference-comparison.md line 36."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Turn into searchable formula cards in the knowledge vault (formula, conventions, units, assumptions, source lesson), extended with the application formulas from Ch. 17-22 and a convention-translation note (MTW/Carroll/Wald sign tables). Keep the six distinctions as tutor misconception probes.",
+    "effort": "small"
+   },
+   "size": "194 lines, about 640 words"
+  },
+  {
+   "id": "manuscript-chapter-appendix-c-glossary",
+   "kind": "manuscript-chapter",
+   "title": "Appendix C. A plain-language glossary",
+   "paths": [
+    "book.md:9301-9348"
+   ],
+   "topics": [
+    "affine parameter",
+    "atlas",
+    "boundary condition",
+    "causal curve",
+    "coordinate chart",
+    "Christoffel symbols",
+    "connection",
+    "constraint",
+    "covector",
+    "covariant derivative",
+    "diffeomorphism",
+    "effective field theory",
+    "Einstein tensor",
+    "equivalence principle",
+    "event horizon",
+    "extrinsic curvature",
+    "gauge freedom",
+    "geodesic",
+    "geodesic deviation",
+    "global hyperbolicity",
+    "holonomy",
+    "Killing vector",
+    "lapse function",
+    "Lie derivative",
+    "manifold",
+    "metric tensor",
+    "nonmetricity",
+    "null vector",
+    "on-shell and off-shell",
+    "orthonormal frame",
+    "parallel transport",
+    "proper acceleration",
+    "proper time",
+    "Ricci tensor",
+    "Riemann tensor",
+    "Ricci scalar",
+    "shift vector",
+    "stress-energy tensor",
+    "tangent space",
+    "tensor",
+    "tetrad",
+    "torsion",
+    "Weyl tensor",
+    "worldline"
+   ],
+   "teaches": "About 45 one-sentence plain-language definitions of core GR terms, each written to avoid a specific confusion (e.g. Christoffel coefficients 'are not tensor components'; covector vs gradient needs the metric; Lie derivative distinct from the covariant derivative).",
+   "pedagogy": "An alphabetical table; definitions embed the key distinction rather than just a formula.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Accurate, concise, misconception-aware definitions."
+    ],
+    "issues": [
+     "No links to occurrences or prerequisites; no alternate-convention notes (review).",
+     "Missing many part-3 terms (Schwarzschild radius, ISCO, photon sphere, Friedmann equations, redshift, strain, quadrupole, Raychaudhuri, trapped surface, Cauchy horizon, surface gravity, Hawking temperature).",
+     "The review asks to repair glossary/parser consistency before expanding."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md row 'Appendix C'."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Use the definitions as seed text for grbook's concept registry (one entry per term, with a first-teaching lesson, prerequisites and alternate conventions). Add the missing application terms, generating those from the chapter text.",
+    "effort": "small"
+   },
+   "size": "51 lines, about 850 words, about 45 terms"
+  },
+  {
+   "id": "manuscript-chapter-appendix-d-further-reading",
+   "kind": "manuscript-chapter",
+   "title": "Appendix D. Where to go next (lecture notes, next subjects, and 35 cited sources)",
+   "paths": [
+    "book.md:9352-9418"
+   ],
+   "topics": [
+    "general relativity textbooks",
+    "numerical relativity",
+    "relativistic astrophysics",
+    "gravitational radiation theory",
+    "quantum field theory in curved spacetime",
+    "effective field theory",
+    "Hamiltonian general relativity",
+    "history of general relativity"
+   ],
+   "teaches": "Two recommended free lecture-note sets (Tong, Carroll) with a convention-comparison warning. A question-to-subject routing table (8 rows). A consolidated list of the 35 sources linked at point of use: history (Janssen-Renn, Norton), Tong chapters, Carroll, Will's tests review, Isaacson, the GW150914 discovery paper, Riess 1998, Gourgoulhon 3+1, Choquet-Bruhat-Geroch, Chrusciel-Costa, Dadhich-Pons, Penrose 1965, Wald, Donoghue (x2), Solomon-Trodden, Deser, Lovelock revisited, Martin, LVK GWTC-5.0, and others. Ends with the 'explain Einstein's equation without a rubber sheet' challenge.",
+   "pedagogy": "Routing by the question that bothers the reader; a statement that a citation does not mean every interpretation is settled.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "Primary and author-written sources chosen for each specific claim; a verified current citation (GWTC-5.0).",
+     "The question-routing table is a nice onboarding pattern for advanced learners."
+    ],
+    "issues": [
+     "No dates of last link check or per-source note on which claims it supports (review request).",
+     "Some URLs are fragile (Caltech NED mirror, Pitt PDF); no DOIs for several."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md row 'Appendix D'; docs/reference-comparison.md line 35."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Import the 35 sources into the grbook knowledge vault source ledger with DOI/arXiv IDs, the claims each supports (cross-referenced from the section assets above), and a last-verified date. Keep the question-routing table as an 'after this course' page and the final challenge as a voice-tutor capstone prompt.",
+    "effort": "small"
+   },
+   "size": "71 lines, about 770 words, 35 sources"
+  },
+  {
+   "id": "practice-set-appendix-e-index-practice",
+   "kind": "practice-set",
+   "title": "Appendix E. Index practice and three extra calculations",
+   "paths": [
+    "book.md:9423-9479"
+   ],
+   "topics": [
+    "Einstein summation convention",
+    "free and dummy indices",
+    "index raising and lowering",
+    "inverse metric",
+    "Kronecker delta",
+    "symmetric-antisymmetric contraction",
+    "scalar field cosmology",
+    "stiff matter",
+    "equation of state parameter",
+    "oscillating scalar field",
+    "trace-reversed Einstein equation",
+    "n-dimensional gravity",
+    "active gravitational mass",
+    "light deflection"
+   ],
+   "teaches": "E.1: a six-row index-reading checklist (free indices match, dummies twice, rename whole pairs, matrix inverse, raise with the metric, trace knows dimension) plus a symmetric-antisymmetric contraction proof. E.2: a homogeneous scalar field is stiff (w=1, epsilon proportional to a^-6) when V=0, and dust-like when a massive field oscillates fast, via cycle averaging. E.3: trace reversal in n dimensions, R_mn=kappa(T-T g/(n-2))+2Lambda g/(n-2), and why n=2 is special. E.4: the epsilon+3p focusing source (radiation twice dust) is a different factor of two from solar light bending; pressure does not double a sealed photon box's mass.",
+   "pedagogy": "Problems with solutions hidden in checkpoint details ('Work it out, then reveal the solution'); E.4 is framed as a misconception discriminator.",
+   "interaction": null,
+   "physics_model": "Canonical homogeneous scalar field in FLRW; n-dimensional Einstein equation.",
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "The checklist is compact and targeted; E.4 is described by the review as 'an excellent model for misconception assessment'.",
+     "Uses hidden reveals, unlike Appendix A."
+    ],
+    "issues": [
+     "The index checklist sits at the end of the book but is needed in Ch. 2.",
+     "E.2 needs field/ODE preparation it doesn't reference (review)."
+    ],
+    "evidence": "Read in full; docs/comprehensive-course-review-2026-09-09.md row 'Appendix E'; docs/reference-comparison.md lines 37, 39, 47 and 65."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Move E.1 into the first index-notation lesson as an interactive 'lint my expression' checker. Place E.2 after the Friedmann/scalar-field lessons with a phase-averaging animation. Place E.3 with trace reversal. Use E.4 as a standard misconception assessment item in both the cosmology and light-bending lessons.",
+    "effort": "small"
+   },
+   "size": "57 lines, about 620 words; 1 checklist, 3 problems"
+  },
+  {
+   "id": "curriculum-structure-chapter-guides-17-24",
+   "kind": "curriculum-structure",
+   "title": "Chapter guides 17-24 (question, deck, payoff, takeaway, check/answer)",
+   "paths": [
+    "content/guides.json#17-24",
+    "scripts/build-site.mjs (guides rendered in chapter headers)",
+    "content/curriculum.mjs (prerequisites, routes, skills)"
+   ],
+   "topics": [
+    "Schwarzschild metric",
+    "event horizon",
+    "photon sphere",
+    "innermost stable circular orbit",
+    "gravitational waves",
+    "strain",
+    "quadrupole radiation",
+    "Friedmann equations",
+    "acceleration equation",
+    "ADM formalism",
+    "degrees of freedom",
+    "tetrad",
+    "Cartan structure equations",
+    "singularity theorems",
+    "Hawking temperature",
+    "effective field theory",
+    "Rindler coordinates"
+   ],
+   "teaches": "One learning contract per chapter. 17: horizons as causal boundaries; check that 2m, 3m, 6m differ. 18: detector strain as relative geometry; check that spherical breathing doesn't radiate. 19: expansion rate vs acceleration; check whether positive pressure accelerates. 20: constraints vs gauge; check 12-4-4=4. 21: coframes; check plane vs sphere curvature form. 22: focusing plus global assumptions; check that caustic is not singularity. 23: EFT predictivity; check nonrenormalizable is not nonpredictive. 24: metric-to-measurement workflow; check that Rindler clock rates differ without curvature. curriculum.mjs gives prerequisites (17 needs [3,7,12,16], 18 [3,9,12], 19 [11,12,15], 20 [15,18,19], 21 [7,8,14,15], 22 [17,18,21], 23 [12,19,22], 24 [10,16,17,18,19]) and routes: core is 0-19 plus 24; horizons is 0-19 plus 21, 22. Chapters 20-23 are labelled 'OPTIONAL DEEPER TRAIL'.",
+   "pedagogy": "Question-first framing with a single exit-ticket check and model answer per chapter. The answers are precise and misconception-targeted.",
+   "interaction": null,
+   "physics_model": null,
+   "screenshots": [],
+   "quality": {
+    "status": "solid",
+    "strengths": [
+     "All eight check answers are correct and each targets a core misconception.",
+     "The prerequisite graph is validated for route closure (content/course.mjs validation)."
+    ],
+    "issues": [
+     "One check per chapter is far too little for 2,500-3,500-word chapters.",
+     "The chapter-level dependency graph cannot detect section-level prerequisite gaps (comprehensive review on content/course.mjs:6).",
+     "The core route skips 20-23, which leaves the Ch. 24 capstone thin.",
+     "The 'OPTIONAL DEEPER TRAIL' label is hardcoded in scripts/build-site.mjs:199 for chapters 20-23, independently of content/curriculum.mjs routes; the 'horizons' route requires Ch. 21 and 22 yet the page still calls them optional. Route status and display labels came from two sources that disagreed."
+    ],
+    "evidence": "Read guides.json entries 17-24 in full; content/curriculum.mjs lines 5-12; scripts/build-site.mjs chapter label; docs/comprehensive-course-review-2026-09-09.md line 158."
+   },
+   "reuse": {
+    "verdict": "adapt",
+    "notes": "Carry each question/payoff/takeaway into grbook lesson front-matter, and use each check/answer as a voice-tutor exit question with a rubric. Expand to 3-5 checks per lesson (predict, calculate, diagnose). Rebuild prerequisites at concept level in the registry rather than as chapter numbers.",
+    "effort": "small"
+   },
+   "size": "8 JSON entries, about 7 fields each"
+  }
+ ]
+}

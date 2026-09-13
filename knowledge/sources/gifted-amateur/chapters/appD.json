@@ -1,0 +1,3246 @@
+{
+  "book": "gifted-amateur",
+  "unit_id": "appD",
+  "title": "Embedding",
+  "part": null,
+  "printed_pages": [
+    581,
+    586
+  ],
+  "pdf_pages": [
+    598,
+    603
+  ],
+  "one_line_summary": "A short appendix that teaches two recipes for the induced metric of a surface sitting in flat space (parametric 'method I' and implicit-surface 'method II'), checks them on the circle and 2-sphere, runs the logic backwards to draw a picture of the Einstein-Rosen bridge, shows that the hyperbolic plane refuses to fit in ordinary 3-space, and rescues it by mounting hyperboloids in a flat space with one minus sign.",
+  "role_in_book": "The main text insists that spacetime must be described from the inside, with no higher-dimensional container (Chapters 7, 11 and Appendix C). This appendix is the practical counterweight: a toolkit for turning a line element into a picture, or a picture into a line element, used as a visual crutch rather than as physics. Chapter 5 points here as the second way (besides light cones) to visualize a metric; Chapter 16 leans on it for the k = +1 sphere and k = -1 hyperboloid Robertson-Walker spaces; Chapters 18, 19 and 49 reuse the hyperboloid-in-Minkowski construction for de Sitter and anti-de Sitter spacetime; Exercise 23.5 embeds Flamm's paraboloid; and Chapter 27 returns to the wormhole with Kruskal coordinates. It is placed at the back so the main line of argument never depends on embedding.",
+  "assumed_background": [
+    {
+      "topic": "Line element ds^2 = g_{mu nu} dx^mu dx^nu and reading metric components off it",
+      "source": "earlier-in-this-book",
+      "where": "GA ch3, ch5 §5.1"
+    },
+    {
+      "topic": "Einstein summation convention for repeated indices",
+      "source": "earlier-in-this-book",
+      "where": "GA ch2, ch4"
+    },
+    {
+      "topic": "Chain rule for partial derivatives and total differentials",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Spherical polar and cylindrical polar coordinates in 3D",
+      "source": "undergrad-calculus",
+      "where": "GA ch3 §3.1"
+    },
+    {
+      "topic": "Hyperbolic functions and the identity cosh^2 - sinh^2 = 1",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Solving a separable first-order ODE by direct integration",
+      "source": "undergrad-calculus",
+      "where": null
+    },
+    {
+      "topic": "Minkowski metric with signature (-,+,+,+) and the meaning of a minus sign in a line element",
+      "source": "earlier-in-this-book",
+      "where": "GA ch1, ch2"
+    },
+    {
+      "topic": "Intrinsic versus extrinsic curvature; beings confined to a surface",
+      "source": "earlier-in-this-book",
+      "where": "GA ch7 §7.1, ch11 opening"
+    },
+    {
+      "topic": "Rindler metric -x^2 dt^2 + dx^2 for accelerated observers (for Exercise D.5)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch5 §5.3"
+    },
+    {
+      "topic": "Schwarzschild radius r_S = 2GM/c^2 (helps recognise the Example D.2 metric, though not required)",
+      "source": "earlier-in-this-book",
+      "where": "GA ch21"
+    },
+    {
+      "topic": "Notion of topology as connectivity independent of distances",
+      "source": "advanced-math",
+      "where": "GA appC"
+    }
+  ],
+  "learning_objectives": [
+    "Reader can explain why GR does not assume spacetime lives inside a bigger flat space, yet still finds embeddings useful for two jobs: computing an induced metric and visualizing a given metric.",
+    "Reader can derive g_{mu nu} = sum_alpha (dX^alpha/dx^mu)(dX^alpha/dx^nu) from the flat line element by the chain rule (method I).",
+    "Reader can find an induced metric by eliminating one embedding coordinate with the surface equation and then picking adapted coordinates (method II).",
+    "Reader can compute the induced metrics of a circle of radius a, the unit 2-sphere, a paraboloid, a torus and the 3-sphere.",
+    "Reader can recognise that two different-looking line elements (d theta^2 + sin^2 theta d phi^2 and dr^2/(1-r^2) + r^2 d phi^2) describe the same geometry via r = sin theta.",
+    "Reader can embed a rotationally symmetric 2D metric as a surface of revolution by fixing the circumference with (r cos phi, r sin phi) and solving an ODE for the height Z(r).",
+    "Reader can reproduce the Einstein-Rosen bridge embedding Z^2 = 4 r_S (r - r_S) and describe the throat and two asymptotically flat sheets.",
+    "Reader can state that a metric fixes local geometry but not global topology, using the two wormhole gluings of Fig. D.5.",
+    "Reader can show why the surface-of-revolution ansatz for the hyperbolic metric d chi^2 + sinh^2 chi d phi^2 in R^3 demands an imaginary slope, and explain the geometric reason (circumference grows too fast).",
+    "Reader can embed the hyperbolic plane as the two-sheet hyperboloid X^2 + Y^2 - W^2 = -1 in pseudo-Euclidean space and verify the induced metric.",
+    "Reader can compute the induced metric on the one-sheet hyperboloid, notice that it is Lorentzian, and avoid misreading its sphere-like r-form as a sphere.",
+    "Reader can generalize method I to a Minkowski ambient space using eta_{alpha beta} and recover the Rindler metric from T = x sinh t, X = x cosh t."
+  ],
+  "teaching_approach": {
+    "summary": "Recipe-first and example-driven. After a one-page philosophical framing (a beetle confined to a bowl), the appendix hands the reader two mechanical procedures and immediately runs each on the same simple objects so the answers can be compared. It then reverses direction (metric to picture) with one physically loaded example, the wormhole, and deliberately stages a failure (hyperbolic space) so the reader learns the limits of the method and the fix of changing the signature of the ambient space. Pictures are schematic sketches; the real content is in short boxed calculations, with generalizations pushed into five exercises.",
+    "style_tags": [
+      "example-driven",
+      "computational-recipe",
+      "diagram-driven",
+      "conversational-informal",
+      "geometric-first"
+    ],
+    "narrative_arc": [
+      "Motivating tension: we see a bowl's curvature because it sits in 3D space, but there is no evidence spacetime sits in anything, so geometry must be done by a confined geometer; embedding is kept only as a calculational and visual aid.",
+      "Start with the easier direction: an object already placed in flat R^N, whose metric in its own coordinates is the induced metric.",
+      "Method I: write the embedding coordinates as functions of object coordinates, expand dX^alpha by the chain rule, and read off g_{mu nu} as a sum of products of derivatives.",
+      "Method II: use the surface equation to eliminate one embedding coordinate, then guess convenient object coordinates.",
+      "Check both methods on the circle (1D in R^2) and the unit 2-sphere (2D in R^3); reconcile the different-looking method-II form through r = sin theta.",
+      "Reverse the problem: given a line element, find a surface with that metric. Use a surface-of-revolution ansatz on the Einstein-Rosen bridge metric and solve for Z(r).",
+      "Interpret the picture: two flat sheets joined by a throat; stress that the metric says nothing about topology, so the throat could join distant regions or separate universes; note negative energy would be needed to build one.",
+      "Stage a failure: the same ansatz for the constant-negative-curvature metric d chi^2 + sinh^2 chi d phi^2 gives an imaginary dZ/d chi.",
+      "Two escapes: embed only part of the surface (Exercise D.4, with Minding's theorem), or change the ambient space to pseudo-Euclidean dX^2 + dY^2 - dW^2.",
+      "Two-sheet hyperboloid reproduces the hyperbolic metric; one-sheet hyperboloid gives -d chi^2 + cosh^2 chi d theta^2, rewritten in a sphere-like form with a warning not to read it as a sphere; pointer to cosmology.",
+      "One-bullet summary, then exercises generalize: paraboloid, 3-sphere, torus, partial hyperbolic embedding, and Rindler coordinates in Minkowski space."
+    ],
+    "signature_moves": [
+      "Solve every example twice (method I and method II) so that agreement of the two answers is the built-in check.",
+      "Treat an apparently different line element as a coordinate puzzle: find the substitution (r = sin theta, cosh chi = r) that maps one form to the other.",
+      "Use a cylindrically symmetric ansatz (r cos phi, r sin phi, Z(r)) that automatically satisfies the angular metric component, leaving a single ODE for the profile.",
+      "Show the failure of the method explicitly (square root of a negative number) before offering the fix, so the limitation is earned rather than asserted.",
+      "Rescue a failed embedding by flipping one sign in the ambient metric, turning an impossible Euclidean embedding into a natural hyperboloid.",
+      "Pair a geometric picture with an explicit disclaimer: the embedding shows geometry, not topology, and a sphere-like formula is not a sphere.",
+      "Push generalizations (3-sphere, torus, Minkowski ambient metric with eta) into exercises with hints rather than the main text."
+    ]
+  },
+  "sections": [
+    {
+      "number": null,
+      "title": "Opening: the confined geometer and why embed at all",
+      "printed_page": 581,
+      "pdf_page": 598,
+      "summary": "Opens with Einstein's image of a blind beetle on a curved branch. Everyday curvature (a bowl) is visible because the object sits in 3D Euclidean space, but nothing suggests spacetime sits inside a larger flat space, so adding one would be unwarranted structure. We are like a beetle unable to leave the bowl, whose length measurements use only two coordinates. Embedding is nonetheless kept for two jobs: deriving a curved space's metric in the insider's coordinates, and visualizing a given metric. The induced metric is defined as the metric expressed in the object's own coordinates after relating them to Euclidean ones. Margin notes cite Zee as the source of the treatment and mention Nash's embedding theorems.",
+      "concepts": [
+        "embedding",
+        "intrinsic description of geometry",
+        "induced metric",
+        "Nash embedding theorem",
+        "Euclidean line element in R^N"
+      ],
+      "key_moves": [
+        "Contrast an embedded bowl with spacetime, which has no known container, to justify an intrinsic description.",
+        "Keep embedding for two limited purposes: metric from shape, and picture from metric.",
+        "Name the object coordinates (internal) versus the embedding coordinates (Euclidean) and define the induced metric.",
+        "Recall the Pythagorean line element in R^3 (D.1) as the starting point."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Two methods for the induced metric",
+      "printed_page": 582,
+      "pdf_page": 599,
+      "summary": "Generalizes the flat line element to N dimensions and considers a D-dimensional object in R^N. Method I applies when each embedding coordinate is an explicit function of the object coordinates: the chain rule turns the sum of squared dX^alpha into a quadratic form in dx^mu whose coefficients are the induced metric components (D.5). Method II applies when the shape is given as an equation in the embedding coordinates, such as Z = f(X, Y): the equation eliminates one coordinate from the flat line element, and then a good choice of object coordinates tidies the result.",
+      "concepts": [
+        "induced metric",
+        "method I (parametric embedding)",
+        "method II (implicit-surface elimination)",
+        "Euclidean line element in R^N",
+        "embedding coordinates versus object coordinates"
+      ],
+      "key_moves": [
+        "Write the Euclidean interval as a sum over alpha of (dX^alpha)^2 (D.2).",
+        "Expand dX^alpha = (dX^alpha/dx^mu) dx^mu (D.3) and substitute (D.4).",
+        "Compare with ds^2 = g_{mu nu} dx^mu dx^nu to read off g_{mu nu} (D.5).",
+        "For method II, use the constraint Z = f(X, Y) to remove dZ, then choose adapted coordinates."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Example D.1: circle and 2-sphere, both methods",
+      "printed_page": 582,
+      "pdf_page": 599,
+      "summary": "Part (a) embeds a circle of radius a in the plane. Method I with X = a cos theta, Y = a sin theta gives g_theta theta = a^2. Method II writes the circle as Y = sqrt(a^2 - X^2), expresses ds^2 in terms of dX, and recovers a^2 d theta^2 after X = a cos theta. Part (b) embeds the unit 2-sphere in R^3: method I with the usual spherical parametrization gives d theta^2 + sin^2 theta d phi^2 with no cross term. Method II eliminates Z using X^2 + Y^2 + Z^2 = 1, switches to cylindrical (r, phi), and obtains dr^2/(1 - r^2) + r^2 d phi^2, which matches after r = sin theta.",
+      "concepts": [
+        "circle metric",
+        "2-sphere metric",
+        "method I (parametric embedding)",
+        "method II (implicit-surface elimination)",
+        "coordinate transformation of a line element"
+      ],
+      "key_moves": [
+        "Differentiate the parametrization and sum squares: sin^2 + cos^2 collapses the circle to a^2.",
+        "In method II, factor dX^2 out of dX^2 + dY^2 and insert the slope of the graph.",
+        "For the sphere, compute g_theta theta, g_phi phi and g_theta phi separately.",
+        "Eliminate Z via Z dZ = -(X dX + Y dY), then exploit cylindrical symmetry.",
+        "Reconcile the two sphere forms by r = sin theta, so dr^2/(1 - r^2) = d theta^2."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Example D.2: visualizing the Einstein-Rosen bridge",
+      "printed_page": 584,
+      "pdf_page": 601,
+      "summary": "Turns to the reverse task of drawing a surface whose metric is given. For the 2D metric r dr^2/(r - r_S) + r^2 d phi^2, method I requires the derivative sums to match g_rr and g_phi phi. The trial embedding (r cos, r sin, Z(r)) takes care of the angular part automatically and leaves 1 + (dZ/dr)^2 = r/(r - r_S), solved by Z^2 = 4 r_S (r - r_S). Revolving this sideways parabola gives two asymptotically flat sheets joined by a narrow throat. Because a metric encodes local geometry but not topology, the throat could join two remote places in one universe (a possible shortcut) or two separate universes; a margin note adds that building one would need negative energy, like the Alcubierre drive.",
+      "concepts": [
+        "embedding diagram",
+        "Einstein-Rosen bridge",
+        "Flamm's paraboloid",
+        "surface-of-revolution ansatz",
+        "wormhole throat",
+        "asymptotic flatness",
+        "geometry versus topology",
+        "traversable wormhole and negative energy"
+      ],
+      "key_moves": [
+        "Write the two method-I conditions as equations for unknown embedding functions (D.20).",
+        "Choose X^1, X^2 as r cos and r sin so the circumference condition holds identically.",
+        "Reduce the radial condition to an ODE for Z(r) (D.21) and integrate to a parabola.",
+        "Use both signs of the square root to obtain upper and lower sheets meeting at r = r_S.",
+        "Separate what the metric fixes (local distances) from what it leaves open (global connectivity)."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Example D.3: the hyperbolic plane will not fit in R^3",
+      "printed_page": 584,
+      "pdf_page": 601,
+      "summary": "Presents hyperbolic space, d chi^2 + sinh^2 chi d phi^2, as the key example of a surface that resists Euclidean embedding. With the symmetric trial X = sinh chi cos phi, Y = sinh chi sin phi, the angular condition forces Z to be independent of phi, but the radial condition demands (dZ/d chi)^2 = 1 - cosh^2 chi = -sinh^2 chi, which has no real solution. The attempt fails.",
+      "concepts": [
+        "hyperbolic plane",
+        "non-embeddability of the hyperbolic plane in R^3",
+        "surface-of-revolution ansatz",
+        "method I (parametric embedding)"
+      ],
+      "key_moves": [
+        "Reuse the cylindrically symmetric ansatz with circumference radius sinh chi.",
+        "Show dZ/d phi = 0 from the angular condition.",
+        "Show the radial condition needs a negative square, since the horizontal part alone already contributes cosh^2 chi > 1."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Pseudo-Euclidean rescue and Example D.4: hyperboloids",
+      "printed_page": 585,
+      "pdf_page": 602,
+      "summary": "Declares the Euclidean embedding impossible and offers two ways out: embed only a piece (Exercise D.4) or use a flat ambient space with metric dX^2 + dY^2 - dW^2. Part (a): the two-sheet hyperboloid X^2 + Y^2 - W^2 = -1, parametrized with sinh and cosh, has exactly the hyperbolic metric as its induced metric (Fig. D.6). Part (b): the one-sheet hyperboloid X^2 + Y^2 - W^2 = 1 gives -d chi^2 + cosh^2 chi d theta^2; with cosh chi = r this becomes dr^2/(1 - r^2) + r^2 d theta^2, formally the 2-sphere expression, obtainable directly with W = sqrt(r^2 - 1). The authors warn that the surface is not a sphere: eliminating W leaves concentric circles with distances encoded between them, and r = sin theta cannot satisfy r^2 - W^2 = 1 while r = cosh chi can. Chapter 18 is cited for cosmological uses.",
+      "concepts": [
+        "pseudo-Euclidean space",
+        "two-sheet hyperboloid",
+        "one-sheet hyperboloid",
+        "hyperbolic plane",
+        "Lorentzian induced metric",
+        "partial embedding",
+        "coordinate transformation of a line element"
+      ],
+      "key_moves": [
+        "Change the ambient signature by giving W a minus sign (D.26).",
+        "Parametrize the two-sheet hyperboloid so that the surface equation holds identically (D.27).",
+        "Let the minus sign on dW^2 cancel the excess cosh^2 chi that broke the Euclidean attempt (D.28).",
+        "Repeat for the one-sheet hyperboloid and find the sign of the d chi^2 term flips (D.30).",
+        "Substitute cosh chi = r to produce a sphere-like form and caution against a literal reading (D.31, D.32)."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Chapter summary",
+      "printed_page": 585,
+      "pdf_page": 602,
+      "summary": "A single bullet: embedding lets one visualize a space with a metric by placing it inside a flat space of higher dimension. The summary omits the induced-metric recipes, the failure case and the pseudo-Euclidean fix, which the tutor should restore.",
+      "concepts": [
+        "embedding",
+        "embedding diagram"
+      ],
+      "key_moves": [
+        "Restate the purpose of embedding as visualization."
+      ]
+    },
+    {
+      "number": null,
+      "title": "Exercises D.1-D.5",
+      "printed_page": 586,
+      "pdf_page": 603,
+      "summary": "Five exercises extend the recipes: a paraboloid by method II, the 3-sphere in R^4, the torus by method I, a partial Euclidean embedding of a different constant-negative-curvature metric d chi^2 + cosh^2 chi d phi^2 justified by Minding's theorem, and Rindler coordinates embedded in 2D Minkowski space using the eta-weighted version of eqn D.5. Figures of the paraboloid and torus accompany the problems.",
+      "concepts": [
+        "paraboloid induced metric",
+        "3-sphere metric",
+        "torus induced metric",
+        "partial embedding",
+        "Minding's theorem",
+        "induced metric in a pseudo-Euclidean ambient space",
+        "Rindler coordinates as an embedding"
+      ],
+      "key_moves": [
+        "Paraboloid: dZ = a(X dX + Y dY) = a r dr, so g_rr = 1 + a^2 r^2.",
+        "3-sphere: eliminate W, get dr^2/(1 - r^2) + r^2 d Omega_2^2, then r = sin psi.",
+        "Torus: parametrize by two angles before applying method I.",
+        "Hyperbolic collar: the same ansatz works while sinh chi < 1.",
+        "Rindler: weight products of derivatives by eta_{alpha beta} to get -x^2 dt^2 + dx^2."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "name": "embedding",
+      "aliases": [
+        "isometric embedding",
+        "mounting a space in a higher-dimensional space"
+      ],
+      "kind": "definition",
+      "definition": "Placing a D-dimensional space inside a higher-dimensional flat space by a smooth, one-to-one map such that distances measured along the placed surface with the ambient metric equal the distances given by the space's own metric.",
+      "how_introduced": "Motivated by everyday objects such as a bowl, whose curvature we notice because it sits in 3D space; then demoted from a physical claim about spacetime to a tool for computing and drawing metrics.",
+      "depth": "core",
+      "prerequisites": [
+        "metric tensor",
+        "Euclidean line element in R^N"
+      ],
+      "locators": [
+        {
+          "pdf_page": 598,
+          "printed_page": 581,
+          "section": null
+        },
+        {
+          "pdf_page": 599,
+          "printed_page": 582,
+          "section": null
+        },
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "X^\\alpha = X^\\alpha(x^1,\\dots,x^D),\\ \\alpha = 1,\\dots,N"
+      ],
+      "notes": "The book uses 'embed' loosely for both isometric embeddings and partial or local ones; strictly, several examples are local immersions of patches."
+    },
+    {
+      "name": "intrinsic description of geometry",
+      "aliases": [
+        "confined geometer viewpoint",
+        "beetle on the bowl"
+      ],
+      "kind": "principle",
+      "definition": "Geometry of a space should be expressed using only coordinates and measurements available to an observer who cannot leave that space, without assuming any higher-dimensional container.",
+      "how_introduced": "Einstein's blind-beetle epigraph and a beetle stuck on a bowl; the authors argue no evidence supports spacetime sitting in a bigger flat space, so adding one would be unnecessary structure.",
+      "depth": "developed",
+      "prerequisites": [
+        "embedding"
+      ],
+      "locators": [
+        {
+          "pdf_page": 598,
+          "printed_page": 581,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Revisits the insider theme of GA ch7 and ch11; Appendix C makes it rigorous through manifolds."
+    },
+    {
+      "name": "induced metric",
+      "aliases": [
+        "pullback metric",
+        "first fundamental form (for surfaces)"
+      ],
+      "kind": "definition",
+      "definition": "The metric a submanifold inherits from its ambient space: its components in the object coordinates are obtained by substituting the embedding functions into the ambient line element.",
+      "how_introduced": "Introduced as the easier half of the embedding problem: an object already sitting in R^N has a metric in its own coordinates obtained by relating those to the Euclidean ones; computed by two methods.",
+      "depth": "core",
+      "prerequisites": [
+        "embedding",
+        "metric tensor",
+        "chain rule for partial derivatives"
+      ],
+      "locators": [
+        {
+          "pdf_page": 598,
+          "printed_page": 581,
+          "section": null
+        },
+        {
+          "pdf_page": 599,
+          "printed_page": 582,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "g_{\\mu\\nu}=\\sum_{\\alpha}\\frac{\\partial X^{\\alpha}}{\\partial x^{\\mu}}\\frac{\\partial X^{\\alpha}}{\\partial x^{\\nu}}",
+        "g_{\\mu\\nu}=\\eta_{\\alpha\\beta}\\frac{\\partial X^{\\alpha}}{\\partial x^{\\mu}}\\frac{\\partial X^{\\beta}}{\\partial x^{\\nu}}"
+      ],
+      "notes": "Chapter 30 Exercise 30.7 and Chapter 49 §49.2 (string world sheet) reuse the same construction."
+    },
+    {
+      "name": "embedding coordinates versus object coordinates",
+      "aliases": [
+        "Euclidean coordinates X^alpha",
+        "internal coordinates x^mu"
+      ],
+      "kind": "convention",
+      "definition": "Two coordinate systems in play: N ambient Cartesian coordinates X^alpha labelling points of the flat container, and D coordinates x^mu that an inhabitant of the surface uses to label points within it.",
+      "how_introduced": "Set up in the opening and at the start of method I; the circle uses theta, the sphere (theta, phi), the wormhole (r, phi).",
+      "depth": "introduced",
+      "prerequisites": [
+        "embedding"
+      ],
+      "locators": [
+        {
+          "pdf_page": 598,
+          "printed_page": 581,
+          "section": null
+        },
+        {
+          "pdf_page": 599,
+          "printed_page": 582,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "Euclidean line element in R^N",
+      "aliases": [
+        "flat N-dimensional metric"
+      ],
+      "kind": "definition",
+      "definition": "In N-dimensional Euclidean space with Cartesian coordinates the squared distance between neighbouring points is the sum of the squares of the coordinate differences.",
+      "how_introduced": "Recalled for R^3 and generalized to R^N as the starting point of both methods.",
+      "depth": "revisited",
+      "prerequisites": [
+        "metric tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 598,
+          "printed_page": 581,
+          "section": null
+        },
+        {
+          "pdf_page": 599,
+          "printed_page": 582,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=\\sum_{\\alpha=1}^{N}(\\mathrm{d}X^\\alpha)^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "method I (parametric embedding)",
+      "aliases": [
+        "method I",
+        "Jacobian method for the induced metric"
+      ],
+      "kind": "technique",
+      "definition": "When each ambient coordinate is known as a function of the object coordinates, the induced metric component g_{mu nu} equals the sum over ambient directions of the product of derivatives of X^alpha with respect to x^mu and x^nu.",
+      "how_introduced": "Derived by expanding dX^alpha with the chain rule inside the flat line element and matching to g_{mu nu} dx^mu dx^nu; applied to circle, sphere, wormhole, hyperbolic surface, torus.",
+      "depth": "core",
+      "prerequisites": [
+        "induced metric",
+        "chain rule for partial derivatives",
+        "Einstein summation convention"
+      ],
+      "locators": [
+        {
+          "pdf_page": 599,
+          "printed_page": 582,
+          "section": null
+        },
+        {
+          "pdf_page": 600,
+          "printed_page": 583,
+          "section": null
+        },
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "g_{\\mu\\nu}=\\sum_{\\alpha}\\frac{\\partial X^{\\alpha}}{\\partial x^{\\mu}}\\frac{\\partial X^{\\alpha}}{\\partial x^{\\nu}}"
+      ],
+      "notes": "Used in reverse (unknown X^alpha, known g) it becomes a set of nonlinear PDEs; symmetry ansatzes reduce them to ODEs."
+    },
+    {
+      "name": "method II (implicit-surface elimination)",
+      "aliases": [
+        "method II"
+      ],
+      "kind": "technique",
+      "definition": "When the object is given by an equation among the ambient coordinates, differentiate that equation to express one differential in terms of the others, substitute into the flat line element, and then change to convenient object coordinates.",
+      "how_introduced": "Described after method I and demonstrated on the circle (graph Y of X) and sphere (eliminating Z, then cylindrical coordinates); Exercises D.1 and D.2 practise it.",
+      "depth": "core",
+      "prerequisites": [
+        "induced metric",
+        "total differential",
+        "coordinate transformation of a line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 599,
+          "printed_page": 582,
+          "section": null
+        },
+        {
+          "pdf_page": 600,
+          "printed_page": 583,
+          "section": null
+        },
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=\\mathrm{d}X^2+\\mathrm{d}Y^2+\\left(\\frac{\\partial f}{\\partial X}\\mathrm{d}X+\\frac{\\partial f}{\\partial Y}\\mathrm{d}Y\\right)^2\\ \\text{for } Z=f(X,Y)"
+      ],
+      "notes": "Solving the constraint for one coordinate (a square root) only covers one branch, e.g. the upper semicircle or one hemisphere."
+    },
+    {
+      "name": "metric tensor",
+      "aliases": [
+        "line element",
+        "g_{mu nu}"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A symmetric tensor field that assigns squared lengths to infinitesimal displacements, ds^2 = g_{mu nu} dx^mu dx^nu, and so fixes all local distances and angles in a space.",
+      "how_introduced": "Assumed from earlier chapters and used as the target that the embedding reproduces.",
+      "depth": "revisited",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 599,
+          "printed_page": 582,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=g_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu"
+      ],
+      "notes": null
+    },
+    {
+      "name": "coordinate transformation of a line element",
+      "aliases": [
+        "reparametrization",
+        "change of variables in ds^2"
+      ],
+      "kind": "operation",
+      "definition": "Substituting new coordinates and their differentials into a line element produces a different-looking expression for the same geometry; two metrics are the same geometry if some substitution maps one to the other.",
+      "how_introduced": "Arises when method II gives the sphere as dr^2/(1-r^2) + r^2 d phi^2 and r = sin theta turns it into the method-I form; reused with cosh chi = r for the one-sheet hyperboloid.",
+      "depth": "developed",
+      "prerequisites": [
+        "metric tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 600,
+          "printed_page": 583,
+          "section": null
+        },
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "r=\\sin\\theta\\ \\Rightarrow\\ \\frac{\\mathrm{d}r^2}{1-r^2}=\\mathrm{d}\\theta^2"
+      ],
+      "notes": "The substitution must also respect the allowed range: r = sin theta needs r <= 1, which is why it fails on the one-sheet hyperboloid where r >= 1."
+    },
+    {
+      "name": "circle metric",
+      "aliases": [
+        "1D induced metric of a circle"
+      ],
+      "kind": "solution-or-model",
+      "definition": "A circle of radius a in the plane, labelled by angle theta, has induced line element a^2 d theta^2: proper length is a times the angle.",
+      "how_introduced": "First warm-up of Example D.1 by both methods.",
+      "depth": "introduced",
+      "prerequisites": [
+        "method I (parametric embedding)",
+        "method II (implicit-surface elimination)"
+      ],
+      "locators": [
+        {
+          "pdf_page": 599,
+          "printed_page": 582,
+          "section": null
+        },
+        {
+          "pdf_page": 600,
+          "printed_page": 583,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=a^2\\mathrm{d}\\theta^2"
+      ],
+      "notes": "A 1D space has no intrinsic curvature; the circle's curvature is purely extrinsic, a point worth making even though the book does not."
+    },
+    {
+      "name": "2-sphere metric",
+      "aliases": [
+        "unit sphere line element",
+        "round metric on S^2"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The unit sphere in R^3 carries the induced line element d theta^2 + sin^2 theta d phi^2, equivalently dr^2/(1 - r^2) + r^2 d phi^2 with r = sin theta the distance from the axis.",
+      "how_introduced": "Example D.1(b) computes it by method I from spherical parametrization and by method II via cylindrical coordinates.",
+      "depth": "developed",
+      "prerequisites": [
+        "method I (parametric embedding)",
+        "method II (implicit-surface elimination)",
+        "coordinate transformation of a line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 600,
+          "printed_page": 583,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=\\mathrm{d}\\theta^2+\\sin^2\\theta\\,\\mathrm{d}\\phi^2",
+        "\\mathrm{d}s^2=\\frac{\\mathrm{d}r^2}{1-r^2}+r^2\\mathrm{d}\\phi^2"
+      ],
+      "notes": "The r-form is the template for the k = +1 Robertson-Walker spatial metric in GA ch16."
+    },
+    {
+      "name": "3-sphere metric",
+      "aliases": [
+        "S^3 line element",
+        "d Omega_3^2"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The unit 3-sphere X^2 + Y^2 + Z^2 + W^2 = 1 in R^4 has induced metric dr^2/(1 - r^2) + r^2 d Omega_2^2, or d psi^2 + sin^2 psi d Omega_2^2 with r = sin psi.",
+      "how_introduced": "Exercise D.2, solved by method II in Appendix E by analogy with the 2-sphere.",
+      "depth": "introduced",
+      "prerequisites": [
+        "2-sphere metric",
+        "method II (implicit-surface elimination)"
+      ],
+      "locators": [
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}\\Omega_3^2=\\mathrm{d}\\psi^2+\\sin^2\\psi\\,\\mathrm{d}\\Omega_2^2"
+      ],
+      "notes": "Spatial section of the closed (k = +1) universe in GA ch16."
+    },
+    {
+      "name": "embedding diagram",
+      "aliases": [
+        "visualizing a metric by embedding",
+        "rubber-sheet-style picture"
+      ],
+      "kind": "technique",
+      "definition": "A picture of a 2D slice of a curved space drawn as a surface in flat 3D space whose induced metric equals the slice's metric; only distances measured along the surface are meaningful, and the extra direction has no physical meaning.",
+      "how_introduced": "Introduced as the reverse problem (metric given, shape wanted), illustrated by the Einstein-Rosen bridge; Chapter 5 cites it as one of two ways to picture a metric.",
+      "depth": "core",
+      "prerequisites": [
+        "embedding",
+        "induced metric",
+        "surface-of-revolution ansatz"
+      ],
+      "locators": [
+        {
+          "pdf_page": 600,
+          "printed_page": 583,
+          "section": null
+        },
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "The book does not say that the wormhole metric is a constant-time equatorial slice of Schwarzschild, nor that the Z direction is unphysical; tutors should add both."
+    },
+    {
+      "name": "surface-of-revolution ansatz",
+      "aliases": [
+        "cylindrically symmetric trial embedding"
+      ],
+      "kind": "technique",
+      "definition": "For a metric of the form g_uu(u) du^2 + R(u)^2 d phi^2, try X = R cos phi, Y = R sin phi, Z = Z(u); the angular condition then holds automatically and the radial condition becomes (dR/du)^2 + (dZ/du)^2 = g_uu, an ODE for Z that has real solutions only where (dR/du)^2 <= g_uu.",
+      "how_introduced": "Used for the wormhole (success), the hyperbolic plane (failure), and the cosh-type hyperbolic metric in Exercise D.4 (partial success).",
+      "depth": "developed",
+      "prerequisites": [
+        "method I (parametric embedding)"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        },
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\left(\\frac{\\mathrm{d}R}{\\mathrm{d}u}\\right)^2+\\left(\\frac{\\mathrm{d}Z}{\\mathrm{d}u}\\right)^2=g_{uu}"
+      ],
+      "notes": "The general criterion |dR/du| <= sqrt(g_uu) is not stated in the book but unifies all three cases."
+    },
+    {
+      "name": "Einstein-Rosen bridge",
+      "aliases": [
+        "wormhole",
+        "Schwarzschild wormhole"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The geometry of a spatial slice of the maximally extended Schwarzschild solution, with 2D line element r dr^2/(r - r_S) + r^2 d phi^2 for r >= r_S, which joins two asymptotically flat regions through a throat of circumference 2 pi r_S.",
+      "how_introduced": "Example D.2 presents the metric with r_S simply called a constant length and embeds it to show a throat between two flat sheets.",
+      "depth": "developed",
+      "prerequisites": [
+        "embedding diagram",
+        "surface-of-revolution ansatz",
+        "Schwarzschild radius"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=\\frac{r\\,\\mathrm{d}r^2}{r-r_{\\mathrm S}}+r^2\\mathrm{d}\\phi^2"
+      ],
+      "notes": "Equals the t = const, theta = pi/2 slice of Schwarzschild with r_S = 2GM/c^2. GA ch27 §27.2 shows it is not traversable."
+    },
+    {
+      "name": "Flamm's paraboloid",
+      "aliases": [
+        "embedding of the Schwarzschild spatial slice"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The surface of revolution Z^2 = 4 r_S (r - r_S) in R^3, whose induced metric is the equatorial spatial Schwarzschild metric; its profile is a parabola lying on its side with vertex at r = r_S.",
+      "how_introduced": "Obtained in Example D.2 by integrating 1 + (dZ/dr)^2 = r/(r - r_S); named Flamm's paraboloid only later, in GA Exercise 23.5.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Einstein-Rosen bridge",
+        "surface-of-revolution ansatz"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "Z(r)=\\pm\\left[4r_{\\mathrm S}(r-r_{\\mathrm S})\\right]^{1/2}"
+      ],
+      "notes": "Slope dZ/dr = sqrt(r_S/(r - r_S)) is vertical at the throat and tends to zero far away, but Z itself grows like sqrt(r); the sheets never become literal planes. Gaussian curvature is -r_S/(2 r^3) (own addition)."
+    },
+    {
+      "name": "wormhole throat",
+      "aliases": [
+        "neck of the wormhole",
+        "minimal circumference surface"
+      ],
+      "kind": "definition",
+      "definition": "The narrowest part of a wormhole geometry, where the circumferential radius reaches its minimum (r = r_S for the Einstein-Rosen bridge) and the two sheets meet.",
+      "how_introduced": "Visible in Figs. D.3 and D.4 as the vertex of the parabola and the neck of the tube.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Einstein-Rosen bridge"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "r_{\\min}=r_{\\mathrm S}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "asymptotic flatness",
+      "aliases": [
+        "asymptotically flat region"
+      ],
+      "kind": "definition",
+      "definition": "A region of a space or spacetime is asymptotically flat if its geometry approaches flat space at large distances from the central structure.",
+      "how_introduced": "Margin note naming the far regions of the wormhole sheets.",
+      "depth": "mention",
+      "prerequisites": [
+        "metric tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": null
+    },
+    {
+      "name": "geometry versus topology",
+      "aliases": [
+        "local metric does not fix global shape",
+        "topology of spacetime"
+      ],
+      "kind": "principle",
+      "definition": "A metric specifies distances and curvature locally, but the same local geometry can be glued together in different global ways, so connectivity and large-scale shape (topology) are extra information.",
+      "how_introduced": "Drawn from the wormhole: the throat could link distant points of one universe (Fig. D.5a) or appear as a handle on one sheet (Fig. D.5b), or join separate universes.",
+      "depth": "developed",
+      "prerequisites": [
+        "metric tensor",
+        "Einstein-Rosen bridge"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "The sphere versus flat-torus or plane versus cylinder pairs are simpler illustrations a tutor can add."
+    },
+    {
+      "name": "traversable wormhole and negative energy",
+      "aliases": [
+        "wormhole shortcut"
+      ],
+      "kind": "phenomenon",
+      "definition": "A wormhole that travellers could actually pass through, possibly as a shortcut between distant regions; known constructions require matter with negative energy density.",
+      "how_introduced": "Speculative shortcut and 'another universe' suggestions in Example D.2, with a margin note comparing the energy requirement to the Alcubierre warp drive of Chapter 5.",
+      "depth": "mention",
+      "prerequisites": [
+        "Einstein-Rosen bridge",
+        "geometry versus topology"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "The Schwarzschild bridge itself is not traversable (GA ch27 §27.2); the appendix leaves this implicit."
+    },
+    {
+      "name": "hyperbolic plane",
+      "aliases": [
+        "hyperbolic space (2D)",
+        "surface of constant negative curvature"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The complete 2D space of constant negative Gaussian curvature -1, with line element d chi^2 + sinh^2 chi d phi^2, in which the circumference of a circle of radius chi is 2 pi sinh chi and grows exponentially.",
+      "how_introduced": "Example D.3 introduces it as the most important non-embeddable surface; Example D.4(a) realizes it as a two-sheet hyperboloid.",
+      "depth": "developed",
+      "prerequisites": [
+        "metric tensor",
+        "Gaussian curvature"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        },
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=\\mathrm{d}\\chi^2+\\sinh^2\\chi\\,\\mathrm{d}\\phi^2"
+      ],
+      "notes": "Spatial geometry of the k = -1 open universe (GA ch16 §16.2); the Poincaré disc picture appears in GA Fig. 16.5."
+    },
+    {
+      "name": "non-embeddability of the hyperbolic plane in R^3",
+      "aliases": [
+        "Hilbert's theorem (not named in the book)"
+      ],
+      "kind": "theorem",
+      "definition": "The complete hyperbolic plane admits no smooth isometric embedding (or even immersion) into Euclidean 3-space, although pieces of it can be embedded and the whole can be embedded in higher-dimensional Euclidean spaces.",
+      "how_introduced": "Shown heuristically in Example D.3: the symmetric ansatz requires (dZ/d chi)^2 = -sinh^2 chi; the text then asserts the embedding is impossible.",
+      "depth": "developed",
+      "prerequisites": [
+        "hyperbolic plane",
+        "surface-of-revolution ansatz"
+      ],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        },
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\frac{\\partial Z}{\\partial\\chi}=(1-\\cosh^2\\chi)^{1/2}=(-\\sinh^2\\chi)^{1/2}"
+      ],
+      "notes": "If one ansatz fails, that proves nothing in general. The general result is Hilbert's 1901 theorem: no complete surface of constant negative curvature can be immersed in R^3 with C^2 regularity. The Nash-Kuiper theorem does allow C^1 (non-smooth) isometric embeddings, so 'impossible' means impossible for smooth ones. Nash's theorem (margin note 2) guarantees a smooth embedding in some higher-dimensional R^N."
+    },
+    {
+      "name": "partial embedding",
+      "aliases": [
+        "embedding a patch",
+        "local embedding"
+      ],
+      "kind": "technique",
+      "definition": "Embedding only a bounded region of a space isometrically when the whole cannot be embedded, e.g. the band 0 <= chi <= arcsinh 1 of the metric d chi^2 + cosh^2 chi d phi^2 in R^3.",
+      "how_introduced": "Offered as the first way out after Example D.3 and worked in Exercise D.4.",
+      "depth": "introduced",
+      "prerequisites": [
+        "surface-of-revolution ansatz",
+        "non-embeddability of the hyperbolic plane in R^3"
+      ],
+      "locators": [
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        },
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\frac{\\partial Z}{\\partial\\chi}=(1-\\sinh^2\\chi)^{1/2},\\quad 0\\le\\chi\\le\\sinh^{-1}1"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Minding's theorem",
+      "aliases": [],
+      "kind": "theorem",
+      "definition": "Any two surfaces with the same constant Gaussian curvature are locally isometric: small patches of one can be mapped onto the other preserving all distances.",
+      "how_introduced": "Quoted in Exercise D.4 to justify treating the cosh-form metric as representative of hyperbolic geometry.",
+      "depth": "introduced",
+      "prerequisites": [
+        "Gaussian curvature",
+        "hyperbolic plane"
+      ],
+      "locators": [
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Local only: d chi^2 + cosh^2 chi d phi^2 with periodic phi is a hyperbolic annulus (a quotient), not globally the hyperbolic plane."
+    },
+    {
+      "name": "Gaussian curvature",
+      "aliases": [
+        "intrinsic curvature of a surface",
+        "constant negative curvature"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The intrinsic curvature K of a 2D surface, determined by its metric alone; for ds^2 = d chi^2 + f(chi)^2 d phi^2 it equals -f''/f, giving +1 for sin, 0 for linear f and -1 for sinh or cosh.",
+      "how_introduced": "Mentioned only in passing (constant negative curvature in Exercise D.4); relied on implicitly when grouping sphere and hyperbolic examples.",
+      "depth": "mention",
+      "prerequisites": [
+        "metric tensor"
+      ],
+      "locators": [
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "K=-\\frac{f''(\\chi)}{f(\\chi)}\\ \\text{for}\\ \\mathrm{d}s^2=\\mathrm{d}\\chi^2+f^2\\mathrm{d}\\phi^2"
+      ],
+      "notes": "Formula K = -f''/f is supplied here for tutors; the book develops Gaussian curvature in GA ch30."
+    },
+    {
+      "name": "pseudo-Euclidean space",
+      "aliases": [
+        "flat space with indefinite metric",
+        "(2+1)-dimensional Minkowski space"
+      ],
+      "kind": "mathematical-object",
+      "definition": "A flat space whose line element has at least one minus sign in Cartesian coordinates, such as dX^2 + dY^2 - dW^2; with one negative direction it is Minkowski space.",
+      "how_introduced": "Offered as the more satisfying alternative host after the hyperbolic plane fails in R^3.",
+      "depth": "developed",
+      "prerequisites": [
+        "Euclidean line element in R^N",
+        "Minkowski metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=\\mathrm{d}X^2+\\mathrm{d}Y^2-\\mathrm{d}W^2"
+      ],
+      "notes": "Consistent with the book's (-,+,+,+) signature, W plays the role of time."
+    },
+    {
+      "name": "two-sheet hyperboloid",
+      "aliases": [
+        "hyperboloid of two sheets",
+        "hyperboloid model of the hyperbolic plane"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The surface X^2 + Y^2 - W^2 = -1 in pseudo-Euclidean 3-space; each sheet (the book draws W >= 1) inherits the positive-definite hyperbolic metric d chi^2 + sinh^2 chi d theta^2.",
+      "how_introduced": "Example D.4(a) parametrizes it with sinh and cosh and shows the minus sign on dW^2 cancels the excess that defeated the Euclidean attempt.",
+      "depth": "developed",
+      "prerequisites": [
+        "pseudo-Euclidean space",
+        "hyperbolic plane",
+        "method I (parametric embedding)"
+      ],
+      "locators": [
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "X=\\sinh\\chi\\cos\\theta,\\ Y=\\sinh\\chi\\sin\\theta,\\ W=\\cosh\\chi"
+      ],
+      "notes": "Its upper sheet is the set of unit future timelike vectors (velocity space), which is why the Lorentzian ambient metric induces a Euclidean-signature metric on it."
+    },
+    {
+      "name": "one-sheet hyperboloid",
+      "aliases": [
+        "hyperboloid of one sheet",
+        "2D de Sitter space (not named in the book)"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The surface X^2 + Y^2 - W^2 = +1 in pseudo-Euclidean 3-space, whose induced metric -d chi^2 + cosh^2 chi d theta^2 is Lorentzian: it is 2D de Sitter spacetime.",
+      "how_introduced": "Example D.4(b) computes the metric, rewrites it with cosh chi = r in a sphere-like form, and warns that the surface is not a sphere.",
+      "depth": "introduced",
+      "prerequisites": [
+        "pseudo-Euclidean space",
+        "Lorentzian induced metric",
+        "coordinate transformation of a line element"
+      ],
+      "locators": [
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=-\\mathrm{d}\\chi^2+\\cosh^2\\chi\\,\\mathrm{d}\\theta^2",
+        "\\mathrm{d}s^2=\\frac{\\mathrm{d}r^2}{1-r^2}+r^2\\mathrm{d}\\theta^2,\\ r\\ge1"
+      ],
+      "notes": "GA ch18 exercises and ch19 §19.2 build de Sitter spacetime from the 4D analogue; ch49 §49.7 does anti-de Sitter."
+    },
+    {
+      "name": "Lorentzian induced metric",
+      "aliases": [
+        "signature of an induced metric"
+      ],
+      "kind": "definition",
+      "definition": "If the ambient flat space has an indefinite metric, a surface inside it can inherit a positive-definite metric (every tangent direction spacelike), a Lorentzian one (some tangent directions timelike), or a degenerate one (where a tangent plane touches the light cone).",
+      "how_introduced": "Implicit in Example D.4: the two-sheet hyperboloid gets a positive-definite metric while the one-sheet hyperboloid gets -d chi^2 + ...; the sign change is visible in the formulas but not discussed.",
+      "depth": "introduced",
+      "prerequisites": [
+        "pseudo-Euclidean space",
+        "induced metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Name supplied here; the book does not comment on the signature."
+    },
+    {
+      "name": "induced metric in a pseudo-Euclidean ambient space",
+      "aliases": [
+        "method I with eta"
+      ],
+      "kind": "technique",
+      "definition": "Method I generalized to a flat ambient space with metric eta_{alpha beta}: g_{mu nu} = eta_{alpha beta} (dX^alpha/dx^mu)(dX^beta/dx^nu).",
+      "how_introduced": "Pointed to by a margin note in Example D.4 and given as the hint to Exercise D.5.",
+      "depth": "introduced",
+      "prerequisites": [
+        "method I (parametric embedding)",
+        "Minkowski metric"
+      ],
+      "locators": [
+        {
+          "pdf_page": 602,
+          "printed_page": 585,
+          "section": null
+        },
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "g_{\\mu\\nu}=\\eta_{\\alpha\\beta}\\frac{\\partial X^{\\alpha}}{\\partial x^{\\mu}}\\frac{\\partial X^{\\beta}}{\\partial x^{\\nu}}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Rindler coordinates as an embedding",
+      "aliases": [
+        "Rindler wedge parametrization"
+      ],
+      "kind": "solution-or-model",
+      "definition": "The map T = x sinh t, X = x cosh t from coordinates (t, x) into 2D Minkowski space induces the Rindler metric -x^2 dt^2 + dx^2, covering the wedge X > |T|.",
+      "how_introduced": "Exercise D.5, using the eta-weighted induced-metric formula; answer given in Appendix E.",
+      "depth": "introduced",
+      "prerequisites": [
+        "induced metric in a pseudo-Euclidean ambient space"
+      ],
+      "locators": [
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=-x^2\\mathrm{d}t^2+\\mathrm{d}x^2"
+      ],
+      "notes": "Connects to GA ch5 §5.2, ch26 and ch27 where Rindler space is used as a model horizon."
+    },
+    {
+      "name": "paraboloid induced metric",
+      "aliases": [],
+      "kind": "solution-or-model",
+      "definition": "The paraboloid Z = (a/2)(X^2 + Y^2) has induced line element (1 + a^2 r^2) dr^2 + r^2 d theta^2 in cylindrical coordinates.",
+      "how_introduced": "Exercise D.1 by method II.",
+      "depth": "introduced",
+      "prerequisites": [
+        "method II (implicit-surface elimination)"
+      ],
+      "locators": [
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=(1+a^2r^2)\\mathrm{d}r^2+r^2\\mathrm{d}\\theta^2"
+      ],
+      "notes": null
+    },
+    {
+      "name": "torus induced metric",
+      "aliases": [
+        "doughnut metric"
+      ],
+      "kind": "solution-or-model",
+      "definition": "A torus with tube radius a and centre-circle radius c, parametrized by X = (c + a cos v) cos u, Y = (c + a cos v) sin u, Z = a sin v, has induced line element (c + a cos v)^2 du^2 + a^2 dv^2.",
+      "how_introduced": "Exercise D.3 by method I after parametrizing the implicit surface equation.",
+      "depth": "introduced",
+      "prerequisites": [
+        "method I (parametric embedding)"
+      ],
+      "locators": [
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\mathrm{d}s^2=(c+a\\cos v)^2\\mathrm{d}u^2+a^2\\mathrm{d}v^2"
+      ],
+      "notes": "Appendix E prints the second term as a dv^2; it should be a^2 dv^2."
+    },
+    {
+      "name": "Nash embedding theorem",
+      "aliases": [
+        "Nash embedding theorems"
+      ],
+      "kind": "theorem",
+      "definition": "Every Riemannian manifold can be isometrically embedded in a Euclidean space of sufficiently high dimension.",
+      "how_introduced": "Margin note on John Nash accompanying the remark about how many extra dimensions an embedding needs.",
+      "depth": "mention",
+      "prerequisites": [
+        "embedding"
+      ],
+      "locators": [
+        {
+          "pdf_page": 598,
+          "printed_page": 581,
+          "section": null
+        }
+      ],
+      "formulas": [],
+      "notes": "Guarantees existence in some R^N but not in D + 1 dimensions; applies to positive-definite metrics, not directly to Lorentzian spacetimes."
+    },
+    {
+      "name": "Minkowski metric",
+      "aliases": [
+        "eta_{alpha beta}"
+      ],
+      "kind": "mathematical-object",
+      "definition": "The flat spacetime metric, in this book diag(-1, +1, +1, +1) in inertial coordinates.",
+      "how_introduced": "Assumed; appears as the ambient metric in Exercise D.5 and implicitly in D.26.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 603,
+          "printed_page": 586,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "\\eta_{\\alpha\\beta}=\\mathrm{diag}(-1,1)\\ \\text{in 2D}"
+      ],
+      "notes": null
+    },
+    {
+      "name": "Schwarzschild radius",
+      "aliases": [
+        "r_S"
+      ],
+      "kind": "physical-quantity",
+      "definition": "The length r_S = 2GM/c^2 that sets the scale of the Schwarzschild geometry of a mass M.",
+      "how_introduced": "Appears in Example D.2 only as an unexplained constant length in the wormhole metric.",
+      "depth": "mention",
+      "prerequisites": [],
+      "locators": [
+        {
+          "pdf_page": 601,
+          "printed_page": 584,
+          "section": null
+        }
+      ],
+      "formulas": [
+        "r_{\\mathrm S}=\\frac{2GM}{c^2}"
+      ],
+      "notes": "Identification supplied here; the appendix does not make it."
+    }
+  ],
+  "key_equations": [
+    {
+      "label": "(D.1)",
+      "name": "Euclidean 3-space line element",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}X^2+\\mathrm{d}Y^2+\\mathrm{d}Z^2",
+      "meaning": "Pythagorean squared distance between neighbouring points in R^3; the ambient metric for 2D embeddings.",
+      "symbols": "X, Y, Z Cartesian coordinates",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.2)",
+      "name": "Euclidean N-space line element",
+      "latex": "\\mathrm{d}s^2=\\sum_{\\alpha=1}^{N}(\\mathrm{d}X^\\alpha)^2",
+      "meaning": "Flat metric in N dimensions; the host for a D-dimensional object.",
+      "symbols": "X^alpha ambient Cartesian coordinates, N ambient dimension",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.3)",
+      "name": "Chain rule for embedding coordinates",
+      "latex": "X^\\alpha+\\mathrm{d}X^\\alpha=X^\\alpha+\\frac{\\partial X^\\alpha}{\\partial x^\\mu}\\mathrm{d}x^\\mu",
+      "meaning": "A small step dx^mu within the object moves the ambient point by the Jacobian times the step.",
+      "symbols": "x^mu object coordinates (mu = 1..D)",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.4)",
+      "name": "Substituting into the flat metric",
+      "latex": "\\mathrm{d}s^2=\\sum_\\alpha(\\mathrm{d}X^\\alpha)^2=\\sum_\\alpha\\frac{\\partial X^\\alpha}{\\partial x^\\mu}\\mathrm{d}x^\\mu\\frac{\\partial X^\\alpha}{\\partial x^\\nu}\\mathrm{d}x^\\nu=g_{\\mu\\nu}\\mathrm{d}x^\\mu\\mathrm{d}x^\\nu",
+      "meaning": "Rewrites ambient distance as a quadratic form in object displacements.",
+      "symbols": "Summation over mu, nu implied; explicit sum over alpha",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.5)",
+      "name": "Induced metric (method I)",
+      "latex": "g_{\\mu\\nu}=\\sum_{\\alpha}\\frac{\\partial X^{\\alpha}}{\\partial x^{\\mu}}\\frac{\\partial X^{\\alpha}}{\\partial x^{\\nu}}",
+      "meaning": "Metric components on the object are sums of products of the embedding Jacobian; the core formula of the appendix.",
+      "symbols": "g_{mu nu} induced metric; dX^alpha/dx^mu Jacobian of the embedding",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.6)",
+      "name": "Circle parametrization",
+      "latex": "X=a\\cos\\theta,\\quad Y=a\\sin\\theta",
+      "meaning": "Embedding of a circle of radius a in R^2.",
+      "symbols": "a radius, theta object coordinate",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.7)",
+      "name": null,
+      "latex": "\\frac{\\partial X}{\\partial\\theta}=-a\\sin\\theta,\\quad\\frac{\\partial Y}{\\partial\\theta}=a\\cos\\theta",
+      "meaning": "Jacobian of the circle embedding.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.8)",
+      "name": null,
+      "latex": "g_{\\theta\\theta}=a^2\\sin^2\\theta+a^2\\cos^2\\theta=a^2",
+      "meaning": "Single induced metric component of the circle.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.9)",
+      "name": "Circle line element",
+      "latex": "\\mathrm{d}s^2=g_{\\theta\\theta}\\,\\mathrm{d}\\theta\\,\\mathrm{d}\\theta=a^2\\mathrm{d}\\theta^2",
+      "meaning": "Arc length is radius times angle.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.10)",
+      "name": "Method II for a planar curve",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}X^2+\\mathrm{d}Y^2=\\mathrm{d}X^2\\left[1+\\left(\\frac{\\partial Y}{\\partial X}\\right)^2\\right]",
+      "meaning": "Arc length of a graph Y(X) in the plane.",
+      "symbols": "The partial derivative is really an ordinary derivative here",
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.11)",
+      "name": null,
+      "latex": "\\frac{\\partial Y}{\\partial X}=\\frac{-X}{(a^2-X^2)^{1/2}}",
+      "meaning": "Slope of the upper semicircle Y = sqrt(a^2 - X^2).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.12)",
+      "name": null,
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}X^2\\left(1+\\frac{X^2}{a^2-X^2}\\right)",
+      "meaning": "Circle metric in the X coordinate; singular at X = +-a where the graph is vertical.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.13)",
+      "name": null,
+      "latex": "\\mathrm{d}s^2=a^2\\mathrm{d}\\theta^2",
+      "meaning": "Method II agrees with method I after X = a cos theta.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Unit sphere parametrization",
+      "latex": "(X,Y,Z)=(\\sin\\theta\\cos\\phi,\\ \\sin\\theta\\sin\\phi,\\ \\cos\\theta)",
+      "meaning": "Method-I embedding of the unit 2-sphere.",
+      "symbols": "theta polar angle, phi azimuth",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.14)",
+      "name": null,
+      "latex": "g_{\\theta\\theta}=\\left(\\frac{\\partial X}{\\partial\\theta}\\right)^2+\\left(\\frac{\\partial Y}{\\partial\\theta}\\right)^2+\\left(\\frac{\\partial Z}{\\partial\\theta}\\right)^2=\\cos^2\\theta\\cos^2\\phi+\\cos^2\\theta\\sin^2\\phi+\\sin^2\\theta=1",
+      "meaning": "Polar component of the sphere metric.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.15)",
+      "name": null,
+      "latex": "g_{\\phi\\phi}=\\left(\\frac{\\partial X}{\\partial\\phi}\\right)^2+\\left(\\frac{\\partial Y}{\\partial\\phi}\\right)^2+\\left(\\frac{\\partial Z}{\\partial\\phi}\\right)^2=\\sin^2\\theta\\sin^2\\phi+\\sin^2\\theta\\cos^2\\phi=\\sin^2\\theta",
+      "meaning": "Azimuthal component; circles of latitude shrink toward the poles. The printed first line carries a premature '= sin^2 theta'.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.16)",
+      "name": "2-sphere line element",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}\\theta^2+\\sin^2\\theta\\,\\mathrm{d}\\phi^2",
+      "meaning": "Induced metric of the unit sphere, with g_theta phi = 0.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.17)",
+      "name": "Sphere after eliminating Z",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}X^2+\\mathrm{d}Y^2+\\frac{(X\\,\\mathrm{d}X+Y\\,\\mathrm{d}Y)^2}{1-X^2-Y^2}",
+      "meaning": "Method II: dZ eliminated using Z dZ = -(X dX + Y dY).",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.18)",
+      "name": "Sphere in cylindrical form",
+      "latex": "\\mathrm{d}s^2=\\frac{\\mathrm{d}r^2}{1-r^2}+r^2\\mathrm{d}\\phi^2",
+      "meaning": "Same sphere with r the distance from the axis; matches D.16 via r = sin theta. The book writes X = r cos theta but the result uses phi.",
+      "symbols": "r cylindrical radius, 0 <= r < 1",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Reconciling substitution",
+      "latex": "r=\\sin\\theta,\\quad \\mathrm{d}r^2=\\cos^2\\theta\\,\\mathrm{d}\\theta^2\\ \\Rightarrow\\ \\frac{\\mathrm{d}r^2}{1-r^2}=\\mathrm{d}\\theta^2",
+      "meaning": "Shows D.18 and D.16 are the same geometry.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.19)",
+      "name": "Einstein-Rosen bridge 2D metric",
+      "latex": "\\mathrm{d}s^2=\\frac{r\\,\\mathrm{d}r^2}{r-r_{\\mathrm S}}+r^2\\mathrm{d}\\phi^2",
+      "meaning": "Metric to be visualized; equivalently dr^2/(1 - r_S/r) + r^2 d phi^2, the equatorial constant-time Schwarzschild slice.",
+      "symbols": "r_S constant length (Schwarzschild radius), r >= r_S",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.20)",
+      "name": "Method-I conditions for the wormhole",
+      "latex": "\\sum_{i=1}^{3}\\left(\\frac{\\partial X^i}{\\partial r}\\right)^2=g_{rr}=\\frac{r}{r-r_{\\mathrm S}},\\qquad \\sum_{i=1}^{3}\\left(\\frac{\\partial X^i}{\\partial \\phi}\\right)^2=g_{\\phi\\phi}=r^2",
+      "meaning": "Equations that unknown embedding functions must satisfy; printed with theta instead of phi in the second derivative.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Surface-of-revolution trial embedding",
+      "latex": "(X^1,X^2,X^3)=(r\\cos\\phi,\\ r\\sin\\phi,\\ Z(r))",
+      "meaning": "Satisfies the angular condition identically, leaving one ODE.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.21)",
+      "name": "Profile ODE",
+      "latex": "1+\\left(\\frac{\\mathrm{d}Z}{\\mathrm{d}r}\\right)^2=\\frac{r}{r-r_{\\mathrm S}}",
+      "meaning": "Radial condition for the height of the embedded surface.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Flamm's paraboloid profile",
+      "latex": "Z(r)^2=4r_{\\mathrm S}(r-r_{\\mathrm S}),\\quad Z(r)=\\pm\\left[4r_{\\mathrm S}(r-r_{\\mathrm S})\\right]^{1/2}",
+      "meaning": "Solution of D.21; revolving it gives the wormhole surface with throat at r = r_S and two sheets from the two signs.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.22)",
+      "name": "Hyperbolic plane metric",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}\\chi^2+\\sinh^2\\chi\\,\\mathrm{d}\\phi^2",
+      "meaning": "Constant negative curvature (K = -1) surface; circumference grows as sinh chi.",
+      "symbols": "chi geodesic radial distance",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.23)",
+      "name": "Method-I conditions for hyperbolic space",
+      "latex": "1=\\left(\\frac{\\partial X}{\\partial\\chi}\\right)^2+\\left(\\frac{\\partial Y}{\\partial\\chi}\\right)^2+\\left(\\frac{\\partial Z}{\\partial\\chi}\\right)^2,\\qquad \\sinh^2\\chi=\\left(\\frac{\\partial X}{\\partial\\phi}\\right)^2+\\left(\\frac{\\partial Y}{\\partial\\phi}\\right)^2+\\left(\\frac{\\partial Z}{\\partial\\phi}\\right)^2",
+      "meaning": "Requirements on an embedding in R^3.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.24)",
+      "name": null,
+      "latex": "X=\\sinh\\chi\\cos\\phi,\\quad Y=\\sinh\\chi\\sin\\phi",
+      "meaning": "Cylindrically symmetric trial.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.25)",
+      "name": "Embedding obstruction",
+      "latex": "\\frac{\\partial Z}{\\partial\\chi}=(1-\\cosh^2\\chi)^{1/2}=(-\\sinh^2\\chi)^{1/2}",
+      "meaning": "No real solution for chi > 0: the horizontal motion alone already exceeds the allowed length, so the R^3 embedding of this form fails.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.26)",
+      "name": "Pseudo-Euclidean ambient metric",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}X^2+\\mathrm{d}Y^2-\\mathrm{d}W^2",
+      "meaning": "Flat (2+1) space with one negative direction, used to host hyperbolic surfaces.",
+      "symbols": "W the negative-sign (timelike) coordinate",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Two-sheet hyperboloid",
+      "latex": "X^2+Y^2-W^2=-1",
+      "meaning": "Surface realizing the hyperbolic plane.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.27)",
+      "name": null,
+      "latex": "X=\\sinh\\chi\\cos\\theta,\\quad Y=\\sinh\\chi\\sin\\theta,\\quad W=\\cosh\\chi",
+      "meaning": "Parametrization of the upper sheet.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.28)",
+      "name": "Hyperbolic metric recovered",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}X^2+\\mathrm{d}Y^2-\\mathrm{d}W^2=\\mathrm{d}\\chi^2+\\sinh^2\\chi\\,\\mathrm{d}\\theta^2",
+      "meaning": "The minus sign subtracts sinh^2 chi d chi^2, turning cosh^2 chi into 1: the embedding works.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "One-sheet hyperboloid",
+      "latex": "X^2+Y^2-W^2=1",
+      "meaning": "Second hyperboloid of Example D.4.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.29)",
+      "name": null,
+      "latex": "X=\\cosh\\chi\\cos\\theta,\\quad Y=\\cosh\\chi\\sin\\theta,\\quad W=\\sinh\\chi",
+      "meaning": "Parametrization of the one-sheet hyperboloid.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.30)",
+      "name": "One-sheet hyperboloid metric",
+      "latex": "\\mathrm{d}s^2=-\\mathrm{d}\\chi^2+\\cosh^2\\chi\\,\\mathrm{d}\\theta^2",
+      "meaning": "Lorentzian induced metric (2D de Sitter), chi acting as time.",
+      "symbols": null,
+      "importance": "central",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.31)",
+      "name": "Sphere-like rewrite",
+      "latex": "\\mathrm{d}s^2=\\frac{\\mathrm{d}r^2}{1-r^2}+r^2\\mathrm{d}\\theta^2\\quad(\\cosh\\chi=r,\\ r\\ge1)",
+      "meaning": "Formally identical to D.18, but with r >= 1 the dr^2 coefficient is negative, so it is not a sphere.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.32)",
+      "name": null,
+      "latex": "X=r\\cos\\theta,\\quad Y=r\\sin\\theta,\\quad W=(r^2-1)^{1/2}",
+      "meaning": "Direct parametrization yielding D.31.",
+      "symbols": null,
+      "importance": "derivation-step",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.33)",
+      "name": "Paraboloid surface",
+      "latex": "Z=\\frac{a}{2}(X^2+Y^2)",
+      "meaning": "Surface of Exercise D.1.",
+      "symbols": "a curvature parameter",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.34)",
+      "name": "Paraboloid induced metric",
+      "latex": "\\mathrm{d}s^2=(1+a^2r^2)\\mathrm{d}r^2+r^2\\mathrm{d}\\theta^2",
+      "meaning": "Target result of Exercise D.1.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "3-sphere induced metric (Exercise D.2 answer)",
+      "latex": "\\mathrm{d}s^2=\\frac{\\mathrm{d}r^2}{1-r^2}+r^2\\mathrm{d}\\Omega_2^2=\\mathrm{d}\\psi^2+\\sin^2\\psi\\,\\mathrm{d}\\Omega_2^2",
+      "meaning": "Method II for X^2+Y^2+Z^2+W^2=1; the answer is printed in Appendix E.",
+      "symbols": "dOmega_2^2 = d theta^2 + sin^2 theta d phi^2; r = sin psi",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.35)",
+      "name": "Torus surface",
+      "latex": "\\left[c-(X^2+Y^2)^{1/2}\\right]^2+Z^2=a^2",
+      "meaning": "Implicit equation of a torus with tube radius a centred on a circle of radius c.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "label": null,
+      "name": "Torus induced metric (Exercise D.3 answer, corrected)",
+      "latex": "\\mathrm{d}s^2=(c+a\\cos v)^2\\mathrm{d}u^2+a^2\\mathrm{d}v^2",
+      "meaning": "From X = (c + a cos v) cos u, Y = (c + a cos v) sin u, Z = a sin v; Appendix E prints a dv^2 by mistake.",
+      "symbols": "u around the symmetry axis, v around the tube",
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.36)",
+      "name": "Alternative hyperbolic metric",
+      "latex": "\\mathrm{d}s^2=\\mathrm{d}\\chi^2+\\cosh^2\\chi\\,\\mathrm{d}\\phi^2",
+      "meaning": "Also has K = -1; used for a partial embedding.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.37)",
+      "name": "Partial-embedding slope",
+      "latex": "\\frac{\\partial Z}{\\partial\\chi}=(1-\\sinh^2\\chi)^{1/2}",
+      "meaning": "Real for sinh chi <= 1, i.e. chi up to arcsinh 1 (about 0.881).",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.38)",
+      "name": "Rindler embedding in Minkowski space",
+      "latex": "T=x\\sinh t,\\quad X=x\\cosh t",
+      "meaning": "Maps Rindler coordinates into the right wedge of 2D Minkowski space.",
+      "symbols": null,
+      "importance": "supporting",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "label": "(D.39)",
+      "name": "Induced metric with an indefinite ambient metric",
+      "latex": "g_{\\mu\\nu}=\\eta_{\\alpha\\beta}\\frac{\\partial X^\\alpha}{\\partial x^\\mu}\\frac{\\partial X^\\beta}{\\partial x^\\nu}",
+      "meaning": "Generalization of D.5 to a Minkowski host; for Exercise D.5 it gives -x^2 dt^2 + dx^2.",
+      "symbols": "eta_{alpha beta} = diag(-1, 1) for (T, X)",
+      "importance": "central",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    }
+  ],
+  "figures": [
+    {
+      "label": "Fig. D.1",
+      "image_path": "gifted-amateur/pages/page-599/img-379.jpeg",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      },
+      "caption_paraphrase": "A circle sitting in the flat plane R^2.",
+      "visual_description": "Two perpendicular arrowed axes meet at the lower left; the vertical one carries the label R^2 near its top. A plain unlabelled circle floats in the quadrant, well away from the origin. No radius, angle or coordinate marks are drawn.",
+      "what_it_teaches": "Sets the scene for Example D.1(a): a 1D object whose points are labelled by one internal coordinate while living in a 2D container.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "embedding",
+        "circle metric",
+        "embedding coordinates versus object coordinates"
+      ],
+      "redesign": {
+        "idea": "Dual-coordinate circle explorer: the circle with a draggable point labelled both by theta (object coordinate) and by (X, Y) (embedding coordinates), plus a toggle between method I and method II views.",
+        "interaction": "Learner drags the point and a small step d theta; readouts show dX, dY, their squares, and ds = a d theta. In method II mode only the upper semicircle is highlighted as the graph Y(X) and the factor 1 + (dY/dX)^2 is plotted, visibly blowing up near X = +-a while ds stays finite.",
+        "form": "interactive-2d",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. D.2",
+      "image_path": "gifted-amateur/pages/page-600/img-380.jpeg",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      },
+      "caption_paraphrase": "The unit 2-sphere placed in R^3.",
+      "visual_description": "Three arrowed axes radiate from a corner in perspective (one vertical labelled R^3, one toward the lower right, one emerging to the right from behind the sphere). A grey-shaded solid ball with a small double white highlight arc sits in the middle; no grid lines or coordinate labels.",
+      "what_it_teaches": "Provides the picture behind Example D.1(b): a 2D surface described by (theta, phi) inside 3D Cartesian space.",
+      "figure_type": "geometric-construction",
+      "concepts": [
+        "2-sphere metric",
+        "embedding",
+        "method I (parametric embedding)"
+      ],
+      "redesign": {
+        "idea": "Sphere with switchable coordinate grids: spherical (theta, phi) and cylindrical (r, phi) projected from the equatorial plane, with a small coordinate cell whose side lengths are annotated.",
+        "interaction": "Learner drags a coordinate cell over the sphere; side lengths d theta and sin theta d phi update. Switching to cylindrical mode shows the same cell's radial side as dr/sqrt(1 - r^2), growing near the equator; a toggle reveals that Z = +sqrt(1 - r^2) covers only the northern hemisphere, and a slider animates r = sin theta mapping one grid to the other.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. D.3",
+      "image_path": "gifted-amateur/pages/page-601/img-381.jpeg",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "caption_paraphrase": "The height function Z(r) of the embedded wormhole, both signs of the square root.",
+      "visual_description": "A graph with vertical axis labelled Z(r) and horizontal axis r. A parabola lies on its side, opening to the right, with its vertex on the r axis at a point marked r_S by a dotted tick. The upper branch rises and the lower branch falls symmetrically; nothing is drawn for r < r_S.",
+      "what_it_teaches": "Shows that the embedding profile exists only for r >= r_S, has a vertical tangent at the throat, and has two mirror branches that become the two sheets.",
+      "figure_type": "function-plot",
+      "concepts": [
+        "Flamm's paraboloid",
+        "wormhole throat",
+        "Einstein-Rosen bridge"
+      ],
+      "redesign": {
+        "idea": "Linked profile plot: Z(r) beside g_rr(r) = r/(r - r_S) and the slope dZ/dr, with a sweep line tying them together and a button that revolves the profile into 3D.",
+        "interaction": "Learner moves a vertical cursor in r; readouts show g_rr, dZ/dr and the proper radial length element sqrt(g_rr) dr. Changing r_S rescales the curve. Pressing revolve animates the curve sweeping round the vertical axis to form the surface of Fig. D.4.",
+        "form": "interactive-plot",
+        "priority": "medium"
+      }
+    },
+    {
+      "label": "Fig. D.4",
+      "image_path": "gifted-amateur/pages/page-601/img-382.jpeg",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "caption_paraphrase": "The wormhole surface drawn in R^3.",
+      "visual_description": "Hand-sketched perspective drawing of two horizontal gridded square sheets, one above the other, labelled R^3 at upper right. The upper sheet sinks into a funnel whose mouth is outlined by a dotted ring; the funnel narrows into a vertical tube with grid lines running along it, pinches at a waist, and flares out into the lower sheet. Grid lines bend smoothly into the funnel on both sheets.",
+      "what_it_teaches": "Gives the visual meaning of the Einstein-Rosen metric: two asymptotically flat regions joined by a throat of minimum circumference.",
+      "figure_type": "embedding-diagram",
+      "concepts": [
+        "embedding diagram",
+        "Einstein-Rosen bridge",
+        "wormhole throat",
+        "asymptotic flatness"
+      ],
+      "redesign": {
+        "idea": "Live Flamm-paraboloid builder: the surface generated from Z = +-sqrt(4 r_S (r - r_S)) with a draggable ring of constant r and a geodesic ruler along the surface.",
+        "interaction": "Learner drags the ring: readouts compare circumference 2 pi r with proper radial distance from the throat measured along the surface, showing extra radial distance near the throat. A slider for r_S resizes the throat. A toggle overlays an honest-scale profile versus the book's stylized flat sheets, and a caption badge reminds that the vertical direction is not physical space.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. D.5",
+      "image_path": "gifted-amateur/pages/page-601/img-383.jpeg",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "caption_paraphrase": "Two topologically equivalent ways the wormhole could connect space: (a) a folded sheet whose two faraway parts are joined by a tube; (b) a single flat sheet with a handle.",
+      "visual_description": "Panel (a): a gridded sheet bent back on itself into a C shape, its upper and lower parts parallel; a hole in the upper part leads into a tube that reaches the lower part inside the fold. Panel (b): a flat gridded sheet with two holes, joined beneath the sheet by a U-shaped gridded tube, like a handle.",
+      "what_it_teaches": "The same local throat geometry can be glued into space in different global ways, so the metric alone does not decide whether a wormhole is a shortcut within one universe or a bridge between two.",
+      "figure_type": "embedding-diagram",
+      "concepts": [
+        "geometry versus topology",
+        "Einstein-Rosen bridge",
+        "traversable wormhole and negative energy"
+      ],
+      "redesign": {
+        "idea": "Topology morph: a continuous animation between the folded-sheet picture and the handle picture, plus a third option of two disconnected sheets, all sharing the identical throat geometry.",
+        "interaction": "Learner scrubs a morph slider and picks two marked points; the app shows path length through the throat versus along the sheet, updating as the fold separation changes. A switch selects 'one universe' versus 'two universes' gluing while a panel shows the unchanged local metric, emphasising that only topology changed.",
+        "form": "animated-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. D.6",
+      "image_path": "gifted-amateur/pages/page-602/img-384.jpeg",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      },
+      "caption_paraphrase": "One sheet of the two-sheet hyperboloid in pseudo-Euclidean space.",
+      "visual_description": "Axes X (to the right), Y (receding) and W (vertical) meet at an origin. An upward-opening bowl with a dotted elliptical rim is drawn above the X-Y plane; its lowest point lies on the W axis, and a small double-headed arrow labelled 1 marks that height above the plane via a dashed line. Two curved arrows labelled chi run up the bowl's surface from the vertex. The lower sheet is not shown.",
+      "what_it_teaches": "Visualizes the hyperbolic plane as the surface W = sqrt(1 + X^2 + Y^2), with chi measured along the surface from the vertex, in a space where W carries a minus sign.",
+      "figure_type": "embedding-diagram",
+      "concepts": [
+        "two-sheet hyperboloid",
+        "pseudo-Euclidean space",
+        "hyperbolic plane"
+      ],
+      "redesign": {
+        "idea": "Hyperboloid inside a faint light cone in (X, Y, W) space, linked to a Poincaré-disc projection and a comparison panel of Euclidean versus Minkowski lengths.",
+        "interaction": "Learner drags a point up the sheet: displayed chi (Minkowski arc length) grows slowly while the Euclidean-looking length in the picture grows faster, and the circle through the point has circumference 2 pi sinh chi. A second panel projects from (0, 0, -1) onto the disc so geodesics become arcs meeting the boundary at right angles, matching GA Fig. 16.5. A toggle adds the one-sheet hyperboloid outside the cone.",
+        "form": "interactive-3d",
+        "priority": "high"
+      }
+    },
+    {
+      "label": "Fig. D.7",
+      "image_path": "gifted-amateur/pages/page-603/img-385.jpeg",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      },
+      "caption_paraphrase": "A paraboloidal bowl placed in R^3 for Exercise D.1.",
+      "visual_description": "Axes labelled x, y, z with R^3 at top right. A bowl with stippled inner face and plain shaded outer face sits above the origin, cut off by a horizontal elliptical rim; no grid lines or dimension marks.",
+      "what_it_teaches": "Pictures the surface whose induced metric (1 + a^2 r^2) dr^2 + r^2 d theta^2 the reader must derive by method II.",
+      "figure_type": "curve-or-surface",
+      "concepts": [
+        "paraboloid induced metric",
+        "method II (implicit-surface elimination)"
+      ],
+      "redesign": {
+        "idea": "Paraboloid with polar coordinate grid and a curvature slider, shown next to the Flamm paraboloid to contrast Z quadratic in r with r quadratic in Z.",
+        "interaction": "Learner changes a; radial grid spacing on the surface stretches as g_rr = 1 + a^2 r^2 grows, with a live readout of proper distance from the bottom to a chosen ring versus its coordinate r.",
+        "form": "interactive-3d",
+        "priority": "low"
+      }
+    },
+    {
+      "label": "Fig. D.8",
+      "image_path": "gifted-amateur/pages/page-603/img-386.jpeg",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      },
+      "caption_paraphrase": "A torus placed in R^3 for Exercise D.3.",
+      "visual_description": "Axes labelled x, y, z with R^3 at top right. A thick doughnut with curved meridian lines drawn around its tube and a darker central hole; no parameters marked.",
+      "what_it_teaches": "Pictures the torus whose induced metric the reader derives by method I after parametrizing with two angles.",
+      "figure_type": "curve-or-surface",
+      "concepts": [
+        "torus induced metric",
+        "method I (parametric embedding)"
+      ],
+      "redesign": {
+        "idea": "Torus with sliders for c and a, coloured by the metric factor (c + a cos v)^2 and by Gaussian curvature sign.",
+        "interaction": "Learner adjusts c and a and moves a point around the tube angle v; readouts show g_uu and g_vv and the local curvature (positive outside, negative inside), illustrating that one embedded surface can carry both signs.",
+        "form": "interactive-3d",
+        "priority": "low"
+      }
+    }
+  ],
+  "worked_examples": [
+    {
+      "label": "Example D.1(a)",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      },
+      "problem": "Find the induced line element of a circle of radius a in the plane using both methods.",
+      "method": "Method I: parametrize by the angle, differentiate, sum squares of derivatives. Method II: treat the upper semicircle as a graph Y(X), write arc length with 1 + (dY/dX)^2, then substitute X = a cos theta.",
+      "key_insight": "Both routes must agree; method II passes through a coordinate (X) that is bad at the ends of the semicircle, but the final geometry is the same.",
+      "result": "ds^2 = a^2 d\\theta^2",
+      "concepts": [
+        "circle metric",
+        "method I (parametric embedding)",
+        "method II (implicit-surface elimination)"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example D.1(b)",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      },
+      "problem": "Find the induced metric of the unit 2-sphere in R^3 by both methods and show the answers agree.",
+      "method": "Method I with the spherical parametrization gives g_theta theta, g_phi phi and zero cross term. Method II eliminates Z via the sphere equation, switches to cylindrical coordinates (r, phi), then identifies r = sin theta.",
+      "key_insight": "Different-looking line elements can be the same geometry; the substitution r = sin theta is the bridge, and it previews the Robertson-Walker k = +1 form.",
+      "result": "ds^2 = d\\theta^2 + \\sin^2\\theta d\\phi^2 = dr^2/(1-r^2) + r^2 d\\phi^2",
+      "concepts": [
+        "2-sphere metric",
+        "coordinate transformation of a line element"
+      ],
+      "difficulty": "intro"
+    },
+    {
+      "label": "Example D.2",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "problem": "Visualize the Einstein-Rosen bridge metric r dr^2/(r - r_S) + r^2 d phi^2 by finding a surface in R^3 with that induced metric.",
+      "method": "Write the method-I conditions, adopt the surface-of-revolution trial (r cos phi, r sin phi, Z(r)) to satisfy the angular one, integrate 1 + Z'^2 = r/(r - r_S), and revolve the profile.",
+      "key_insight": "Symmetry turns an embedding PDE problem into one ODE; the two signs of the square root give two sheets joined at a throat, and the picture shows geometry but not topology.",
+      "result": "Z^2 = 4 r_S (r - r_S): two asymptotically flat sheets joined by a throat at r = r_S",
+      "concepts": [
+        "Einstein-Rosen bridge",
+        "Flamm's paraboloid",
+        "surface-of-revolution ansatz",
+        "geometry versus topology"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example D.3",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "problem": "Try to embed the hyperbolic metric d chi^2 + sinh^2 chi d phi^2 in R^3.",
+      "method": "Use the symmetric trial X = sinh chi cos phi, Y = sinh chi sin phi, deduce Z depends only on chi, then solve the radial condition for dZ/d chi.",
+      "key_insight": "The horizontal part of the trial already contributes cosh^2 chi to the radial length, more than the metric allows, so the vertical slope would have to be imaginary.",
+      "result": "(dZ/d chi)^2 = -sinh^2 chi: no real embedding of this form",
+      "concepts": [
+        "hyperbolic plane",
+        "non-embeddability of the hyperbolic plane in R^3"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example D.4(a)",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      },
+      "problem": "Show the two-sheet hyperboloid X^2 + Y^2 - W^2 = -1 in pseudo-Euclidean space carries the hyperbolic metric.",
+      "method": "Parametrize with X = sinh chi cos theta, Y = sinh chi sin theta, W = cosh chi (which satisfies the surface equation), differentiate and substitute into dX^2 + dY^2 - dW^2.",
+      "key_insight": "The single sign flip in the ambient metric subtracts exactly the excess sinh^2 chi d chi^2 that broke the Euclidean attempt.",
+      "result": "ds^2 = d\\chi^2 + \\sinh^2\\chi d\\theta^2",
+      "concepts": [
+        "two-sheet hyperboloid",
+        "pseudo-Euclidean space",
+        "hyperbolic plane"
+      ],
+      "difficulty": "standard"
+    },
+    {
+      "label": "Example D.4(b)",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      },
+      "problem": "Find the induced metric of the one-sheet hyperboloid X^2 + Y^2 - W^2 = 1 and interpret its alternative form.",
+      "method": "Parametrize with cosh and sinh swapped, obtain -d chi^2 + cosh^2 chi d theta^2, substitute cosh chi = r, and cross-check by the direct choice W = sqrt(r^2 - 1).",
+      "key_insight": "A sphere-like formula is not a sphere: r >= 1 here so r = sin theta is unavailable, and the metric is actually Lorentzian.",
+      "result": "ds^2 = -d\\chi^2 + \\cosh^2\\chi d\\theta^2 = dr^2/(1-r^2) + r^2 d\\theta^2 with r >= 1",
+      "concepts": [
+        "one-sheet hyperboloid",
+        "Lorentzian induced metric",
+        "coordinate transformation of a line element"
+      ],
+      "difficulty": "challenging"
+    }
+  ],
+  "analogies_and_intuitions": [
+    {
+      "analogy": "A blind beetle crawling on a curved branch cannot see that its track bends (Einstein epigraph).",
+      "target_concept": "intrinsic description of geometry",
+      "how_used": "Frames the whole appendix: an observer inside a space has no outside view, yet the curvature is real and can be uncovered by thought.",
+      "limits": "A beetle's path on a branch can be curved extrinsically without intrinsic curvature; the image does not by itself separate the two notions.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": "Beetle's-eye view: a first-person camera constrained to a surface, with a button that pulls the camera out to reveal the embedding."
+    },
+    {
+      "analogy": "A beetle trapped on the surface of a bowl only has two coordinates with which to measure distances.",
+      "target_concept": "embedding coordinates versus object coordinates",
+      "how_used": "Motivates distinguishing the 3 ambient coordinates of the bowl from the 2 internal coordinates the beetle would use, which is exactly the split method I formalizes.",
+      "limits": "A bowl really does sit in 3D space; spacetime has no known container, so the analogy illustrates the mathematics rather than a physical fact.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      },
+      "effectiveness": "strong",
+      "app_idea": "Toggle a bowl between 'outside view' (X, Y, Z readouts) and 'beetle view' (only r, theta readouts) while the beetle walks."
+    },
+    {
+      "analogy": "Slicing a surface into concentric circles and recording how far apart neighbouring circles are.",
+      "target_concept": "coordinate transformation of a line element",
+      "how_used": "Explains why the one-sheet hyperboloid can be written in a sphere-like form: eliminating W leaves a family of circles, and the metric only stores the spacing between them, not the shape of the original surface.",
+      "limits": "The slicing picture hides the sign of the radial term, so it can obscure that the metric is Lorentzian.",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": "Stack of rings whose radii and separations are read from a line element; the learner stacks rings for sphere and hyperboloid and sees they cannot be assembled into the same shape."
+    },
+    {
+      "analogy": "The name wormhole, which the authors tie to the narrow hole running down the middle of the embedded surface (the fruit-worm tunnel image is the usual etymology, not spelled out in the book).",
+      "target_concept": "Einstein-Rosen bridge",
+      "how_used": "A one-line aside giving an everyday reading of the embedding picture: a narrow passage connecting two regions.",
+      "limits": "The hole and the vertical direction exist only in the picture; nothing in the physical space corresponds to a tunnel outside it, and the Schwarzschild bridge cannot be traversed.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "effectiveness": "weak",
+      "app_idea": null
+    },
+    {
+      "analogy": "Folding a sheet of paper so two distant points lie on top of each other, then punching a tube between them.",
+      "target_concept": "geometry versus topology",
+      "how_used": "Fig. D.5(a) shows how a throat could shorten the trip between regions far apart along the sheet, and (b) shows the same connectivity redrawn as a handle.",
+      "limits": "Folding suggests the ambient space matters; in GR only the intrinsic connectivity counts, and the fold separation is not a physical distance.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "effectiveness": "useful",
+      "app_idea": "Fold-and-punch sandbox: learner folds a gridded sheet, inserts a throat, then unfolds to the handle picture while path lengths are displayed."
+    },
+    {
+      "analogy": "Comparing wormhole construction to the Alcubierre warp drive: both need negative energy.",
+      "target_concept": "traversable wormhole and negative energy",
+      "how_used": "Signals that the shortcut idea is speculative and tied to exotic matter, linking back to Chapter 5.",
+      "limits": "Only a pointer; no energy condition or field-equation argument is given.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "effectiveness": "weak",
+      "app_idea": null
+    },
+    {
+      "analogy": "Circumference grows faster than radius allows: the hyperbolic plane has too much room to fit in flat 3D space.",
+      "target_concept": "non-embeddability of the hyperbolic plane in R^3",
+      "how_used": "Intuition behind D.25 (implicit in the book): with circumference radius sinh chi, the horizontal spread per unit radial distance is cosh chi > 1, leaving no length budget for the vertical direction.",
+      "limits": "Explains failure of the rotationally symmetric ansatz; the full impossibility needs Hilbert's theorem.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "effectiveness": "strong",
+      "app_idea": "Crochet-style ruffle simulator: a disc whose ring circumferences follow 2 pi sinh chi, forced to ruffle when pushed into 3D."
+    }
+  ],
+  "misconceptions_addressed": [
+    {
+      "misconception": "Curved spacetime must actually be bent inside some higher-dimensional flat space.",
+      "correction": "GR describes curvature intrinsically; embedding is a drawing aid with no evidence of physical reality, and adding a container would be surplus structure.",
+      "why_tempting": "Every curved thing we see (bowls, balls, branches) is curved inside 3D space, and rubber-sheet pictures reinforce this.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      },
+      "concepts": [
+        "intrinsic description of geometry",
+        "embedding"
+      ]
+    },
+    {
+      "misconception": "If two line elements look different, they describe different spaces.",
+      "correction": "Coordinate changes alter the appearance of a metric; d theta^2 + sin^2 theta d phi^2 and dr^2/(1-r^2) + r^2 d phi^2 are the same sphere via r = sin theta.",
+      "why_tempting": "Learners compare formulas symbol by symbol rather than asking whether a substitution links them.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      },
+      "concepts": [
+        "coordinate transformation of a line element",
+        "2-sphere metric"
+      ]
+    },
+    {
+      "misconception": "If a line element has the same form as the sphere's, the space is a sphere.",
+      "correction": "The one-sheet hyperboloid can be written as dr^2/(1-r^2) + r^2 d theta^2 but with r >= 1, making it Lorentzian and incompatible with r = sin theta; form alone does not fix the geometry, ranges and signs matter.",
+      "why_tempting": "Pattern-matching on a memorized formula feels like recognition.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      },
+      "concepts": [
+        "one-sheet hyperboloid",
+        "coordinate transformation of a line element"
+      ]
+    },
+    {
+      "misconception": "A metric tells you the full shape of a space, including how its regions are connected.",
+      "correction": "A metric fixes local distances and curvature only; global topology is extra, so the same wormhole throat could link one universe to itself or join two universes.",
+      "why_tempting": "In everyday Euclidean settings topology is never in question, so it goes unnoticed as separate data.",
+      "explicit_in_book": true,
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "concepts": [
+        "geometry versus topology"
+      ]
+    },
+    {
+      "misconception": "The vertical direction and the hole in a wormhole embedding diagram are real places one could move into.",
+      "correction": "Only distances along the surface are meaningful; the third axis is a device to make the induced metric match, and there is no 'outside' or 'inside' of the throat in physical space.",
+      "why_tempting": "The picture is drawn in 3D and looks like a funnel one could fall into, much like rubber-sheet gravity demos.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "concepts": [
+        "embedding diagram",
+        "Einstein-Rosen bridge"
+      ]
+    },
+    {
+      "misconception": "The embedding diagram of the wormhole is a picture of spacetime.",
+      "correction": "It shows a 2D spatial slice (constant time, equatorial plane) of the geometry; time is not represented, even though the text itself calls the result spacetime.",
+      "why_tempting": "The book's own wording says the rotated curve generates a spacetime, and 'wormhole spacetime' is a common phrase.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "concepts": [
+        "embedding diagram",
+        "Einstein-Rosen bridge"
+      ]
+    },
+    {
+      "misconception": "The Einstein-Rosen bridge is a usable shortcut between distant regions.",
+      "correction": "The Schwarzschild bridge pinches off before anything can cross (no timelike or null path connects the two regions, GA ch27 §27.2); traversable wormholes require negative energy, as the margin note hints.",
+      "why_tempting": "The appendix speaks of a potential shortcut and of visiting another universe, and science fiction does the rest.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "concepts": [
+        "Einstein-Rosen bridge",
+        "traversable wormhole and negative energy"
+      ]
+    },
+    {
+      "misconception": "When one embedding ansatz fails, the space is proven impossible to embed, or is not a legitimate geometry.",
+      "correction": "Failure of a symmetric trial is only evidence; the impossibility of embedding the full hyperbolic plane in R^3 is a separate theorem (Hilbert), patches can be embedded (Exercise D.4), and higher-dimensional or pseudo-Euclidean hosts work.",
+      "why_tempting": "The text passes from 'this equation has no real solutions' straight to 'this embedding is indeed impossible'.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "concepts": [
+        "non-embeddability of the hyperbolic plane in R^3",
+        "partial embedding"
+      ]
+    },
+    {
+      "misconception": "Any D-dimensional space fits into a flat space with just one extra dimension.",
+      "correction": "The 2-sphere does, but the hyperbolic plane does not fit in R^3; Nash's theorems guarantee embedding only in some sufficiently high dimension.",
+      "why_tempting": "Surfaces in R^3 are the only examples most learners have seen; the book's phrasing about needing one more dimension is also ambiguous.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      },
+      "concepts": [
+        "embedding",
+        "Nash embedding theorem"
+      ]
+    },
+    {
+      "misconception": "A surface inside Minkowski-like space always inherits a Lorentzian metric.",
+      "correction": "The two-sheet hyperboloid inherits a positive-definite (hyperbolic) metric because all its tangent directions are spacelike; the one-sheet hyperboloid inherits a Lorentzian one.",
+      "why_tempting": "People associate minus signs in the host with time on everything inside it.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      },
+      "concepts": [
+        "Lorentzian induced metric",
+        "two-sheet hyperboloid",
+        "one-sheet hyperboloid"
+      ]
+    },
+    {
+      "misconception": "Arc length on a curve is the change in the Cartesian coordinate you parametrize with.",
+      "correction": "Method II shows ds depends on the slope: near X = +-a on a circle dX is tiny while ds is not, which is why a factor 1 + (dY/dX)^2 appears.",
+      "why_tempting": "Horizontal coordinates look like natural distance measures on a graph.",
+      "explicit_in_book": false,
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      },
+      "concepts": [
+        "method II (implicit-surface elimination)",
+        "circle metric"
+      ]
+    }
+  ],
+  "thought_experiments": [
+    {
+      "name": "Geometer confined to a bowl",
+      "setup": "A beetle (or geometer) lives on a bowl's surface and can measure lengths only with two surface coordinates, never leaving the surface.",
+      "lesson": "Everything needed to describe the geometry must be expressible in those two coordinates; the third dimension is optional scaffolding.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      },
+      "concepts": [
+        "intrinsic description of geometry",
+        "induced metric"
+      ],
+      "visualizable": true,
+      "app_idea": "Measuring game: the learner, restricted to surface readouts, must decide whether a hidden surface is a bowl, a cylinder or a plane."
+    },
+    {
+      "name": "Explorer through the wormhole throat",
+      "setup": "A traveller enters the throat of the embedded wormhole, either emerging far away in the same universe (if the path through the throat is shorter than along the sheet) or in a separate universe.",
+      "lesson": "The local geometry of the throat does not settle which outcome occurs; that depends on topology, and traversability requires exotic negative energy.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "concepts": [
+        "geometry versus topology",
+        "traversable wormhole and negative energy",
+        "Einstein-Rosen bridge"
+      ],
+      "visualizable": true,
+      "app_idea": "Route planner on the folded-sheet wormhole comparing path lengths, with a warning panel on why the Schwarzschild bridge closes before crossing."
+    }
+  ],
+  "historical_notes": [
+    {
+      "people": [
+        "Albert Einstein"
+      ],
+      "year": null,
+      "event": "Epigraph attributed to Einstein comparing himself to a beetle that notices the curvature a blind beetle on a branch does not.",
+      "significance": "Sets the insider-versus-outsider theme of curvature for the appendix.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "John Nash",
+        "Sylvia Nasar"
+      ],
+      "year": null,
+      "event": "Margin biography of Nash (1928-2015), noted for economics and for embedding theorems showing any Riemannian manifold fits isometrically in some Euclidean space; recommends Nasar's biography over the film of the same name.",
+      "significance": "Shows embedding is always possible in principle, which bounds how seriously to take failures in low dimensions.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "Ferdinand Minding"
+      ],
+      "year": null,
+      "event": "Minding (1806-1885) credited with the theorem that constant-curvature surfaces share the same local geometry.",
+      "significance": "Justifies using a partially embeddable cosh-form metric as representative of hyperbolic geometry in Exercise D.4.",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "people": [
+        "Albert Einstein",
+        "Nathan Rosen"
+      ],
+      "year": null,
+      "event": "The wormhole metric is presented under the name Einstein-Rosen bridge (the book gives no date or history).",
+      "significance": "Connects the embedding exercise to a named object revisited with Kruskal coordinates in Chapter 27.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    }
+  ],
+  "applications_and_observations": [
+    {
+      "topic": "Wormholes as possible shortcuts or links to other universes",
+      "kind": "astrophysical-system",
+      "details": "Speculative interpretation of the embedded Einstein-Rosen geometry: if the route through the throat is shorter than along the sheet, distant regions could be linked; construction would require negative energy. No observational evidence is discussed.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "topic": "Scale of the Schwarzschild throat for a solar-mass object (own estimate)",
+      "kind": "numerical-estimate",
+      "details": "Own estimate, not in the book: plugging a solar mass into r_S = 2GM/c^2 sets the throat size of the Example D.2 geometry. The embedding height reaches Z = 2 r_S at r = 2 r_S and 6 r_S at r = 10 r_S, where the slope has dropped to 1/3.",
+      "key_numbers": "r_S about 2.95 km; throat circumference 2 pi r_S about 18.6 km; dZ/dr = 1/3 at r = 10 r_S",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "topic": "Extent of the partial Euclidean embedding in Exercise D.4",
+      "kind": "numerical-estimate",
+      "details": "The cosh-form hyperbolic metric can be embedded as a surface of revolution only while sinh chi <= 1. The decimal value is our evaluation of the book's arcsinh 1.",
+      "key_numbers": "chi_max = arcsinh 1 = ln(1 + sqrt 2) about 0.881; circumference radius grows from 1 to sqrt 2 over this band",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "topic": "Hyperbolic and hyperboloid spaces in cosmology",
+      "kind": "observation",
+      "details": "The authors point to Chapter 18 for cosmological use of the hyperboloid spaces: the two-sheet hyperboloid is the spatial geometry of an open (k = -1) universe, and hyperboloids in Minkowski space model de Sitter spacetime.",
+      "key_numbers": null,
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "topic": "Accelerated observers via Rindler coordinates",
+      "kind": "technology",
+      "details": "Exercise D.5 treats uniformly accelerated observers' coordinates as an embedding of a 2D patch into Minkowski space, recovering the Rindler metric used for horizon physics later in the book.",
+      "key_numbers": "Induced metric -x^2 dt^2 + dx^2",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    }
+  ],
+  "notation_and_conventions": [
+    {
+      "item": "Embedding versus object coordinates",
+      "convention": "Capital X^alpha (alpha = 1..N) for ambient Cartesian coordinates, lower-case x^mu (mu = 1..D) for coordinates on the embedded object; D is the object dimension, N the ambient dimension.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "item": "Summation in the induced-metric formula",
+      "convention": "An explicit sum sign over alpha is written in D.4 and D.5 because both alpha indices sit upstairs with a Euclidean (Kronecker) ambient metric; mu and nu use the summation convention.",
+      "notes": "D.39 restores index balance with eta_{alpha beta}, after which the explicit sum is unnecessary.",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "item": "Method I and method II",
+      "convention": "Book-specific names: method I = induced metric from an explicit parametrization X^alpha(x^mu); method II = eliminate a coordinate using the surface equation, then choose coordinates.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "item": "Pseudo-Euclidean ambient metric",
+      "convention": "dX^2 + dY^2 - dW^2, with W the negative direction; consistent with the book-wide (-,+,+,+) signature where the timelike coordinate carries the minus sign.",
+      "notes": "Exercise D.5 uses eta = diag(-1, 1) for (T, X).",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "item": "Metric signature",
+      "convention": "Book-wide (-,+,+,+); Euclidean examples use all plus signs; the one-sheet hyperboloid metric -d chi^2 + ... inherits the minus from W.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "item": "Angle labels theta and phi",
+      "convention": "Used inconsistently: in Example D.1(b) theta is first the polar angle, then briefly the cylindrical angle (X = r cos theta) while the result uses phi; in D.20 derivatives are taken with respect to theta but the component is g_phi phi; Example D.4 switches the azimuth to theta.",
+      "notes": "Tutors should fix one symbol for the azimuth (phi) throughout.",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "item": "r_S and chi",
+      "convention": "r_S is a constant length in the wormhole metric (the Schwarzschild radius, not named as such); chi is the geodesic radial coordinate on hyperbolic surfaces and hyperboloids.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "item": "Partial versus total derivatives",
+      "convention": "Partial-derivative symbols are used even for single-variable functions such as Y(X), Z(r) and Z(chi).",
+      "notes": "Harmless but can confuse beginners about what is held fixed.",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "item": "Unit sphere metric shorthand",
+      "convention": "Appendix E answer to Exercise D.2 writes d Omega_2^2 = d theta^2 + sin^2 theta d phi^2 and d Omega_3^2 = d psi^2 + sin^2 psi d Omega_2^2.",
+      "notes": null,
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    }
+  ],
+  "margin_notes": [
+    {
+      "summary": "The appendix's treatment follows Zee's textbook, recommended for more detail.",
+      "type": "reference",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "summary": "Biography of John Nash: best known for Nobel-recognized economics, but also proved embedding theorems stating every Riemannian manifold fits isometrically into some Euclidean space; Nasar's biography praised and distinguished from the loosely related film.",
+      "type": "biography",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "summary": "The far-out flat regions of the wormhole surface are called asymptotically flat.",
+      "type": "clarification",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "summary": "Making a wormhole, like the Alcubierre warp drive of Chapter 5, would need negative energy.",
+      "type": "backward-pointer",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "summary": "Embedding just a portion of the hyperbolic surface is worked in Exercise D.4.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "summary": "Exercise D.5 shows how method I generalizes to an ambient space with a minus sign in its metric.",
+      "type": "forward-pointer",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    }
+  ],
+  "exercises": {
+    "count_estimate": 5,
+    "pdf_pages": [
+      603
+    ],
+    "skills_practiced": [
+      "applying method II to a surface given as a graph and converting to polar coordinates",
+      "generalizing the 2-sphere computation to the 3-sphere in R^4",
+      "parametrizing an implicit surface (torus) and applying method I",
+      "finding the range where a surface-of-revolution embedding has real solutions",
+      "using Minding's theorem to relate different constant-curvature line elements",
+      "computing an induced metric in a Minkowski ambient space with eta",
+      "recognising the Rindler metric as a patch of flat spacetime"
+    ],
+    "notable": [
+      {
+        "number": "D.1",
+        "summary": "Derive the polar-coordinate induced metric of a paraboloid of revolution by eliminating the height coordinate.",
+        "skills": [
+          "method II",
+          "polar substitution X dX + Y dY = r dr"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Cleanest one-line method-II practice; contrasts nicely with Flamm's paraboloid where r, not Z, is quadratic.",
+        "pdf_page": 603
+      },
+      {
+        "number": "D.2",
+        "summary": "Find the induced metric on the unit 3-sphere in four-dimensional Euclidean space by method II.",
+        "skills": [
+          "method II in higher dimension",
+          "recognising d Omega_2",
+          "substitution r = sin psi"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Produces the spatial geometry of the closed Robertson-Walker universe used in GA ch16; answer in Appendix E.",
+        "pdf_page": 603
+      },
+      {
+        "number": "D.3",
+        "summary": "Obtain the induced metric of a torus specified by its implicit equation, using method I after choosing two angular parameters.",
+        "skills": [
+          "parametrizing an implicit surface",
+          "method I"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Requires inventing the parametrization the problem does not supply; Appendix E's printed answer drops a factor of a on the dv^2 term.",
+        "pdf_page": 603
+      },
+      {
+        "number": "D.4",
+        "summary": "Embed part of a surface of constant negative curvature written in cosh form, find where the embedding slope is real, and connect it to hyperbolic geometry through Minding's theorem.",
+        "skills": [
+          "surface-of-revolution ansatz",
+          "range analysis",
+          "local isometry of constant-curvature surfaces"
+        ],
+        "difficulty": "standard",
+        "why_notable": "Turns the failure of Example D.3 into a partial success and introduces the idea that local geometry is shared by all equal-curvature surfaces. No answer in Appendix E.",
+        "pdf_page": 603
+      },
+      {
+        "number": "D.5",
+        "summary": "Compute the metric induced on Rindler coordinates by their hyperbolic embedding in two-dimensional Minkowski space, using the eta-weighted formula.",
+        "skills": [
+          "method I with eta",
+          "hyperbolic identities",
+          "recognising Rindler space"
+        ],
+        "difficulty": "intro",
+        "why_notable": "Bridges embedding to spacetime physics: shows an apparently curved-looking metric is just flat spacetime in accelerated coordinates.",
+        "pdf_page": 603
+      }
+    ],
+    "solutions": "Appendix E answers D.1, D.2, D.3 and D.5 but not D.4. The D.3 answer has typos: its final metric (E.474) has a dv^2 where a^2 dv^2 is correct, and one derivative in E.473 is labelled dY/dy instead of dY/du."
+  },
+  "difficulty": {
+    "math_level": 2,
+    "conceptual_level": 3,
+    "novice_friendliness": 4,
+    "notes": "The calculations are chain-rule and trigonometric or hyperbolic identities, well within undergraduate calculus. Conceptual load rises in the second half: the reverse embedding problem, geometry versus topology, a pseudo-Euclidean host, and a Lorentzian induced metric presented without comment. Symbol slips (theta and phi swapping, a D.1 reference that should be D.2) and the terse 'embedding is impossible' claim can trip novices, and the wormhole is never identified as a Schwarzschild slice."
+  },
+  "cross_references": [
+    {
+      "direction": "backward",
+      "target": "GA ch5 §5.2-§5.3",
+      "reason": "Footnote 10 in §5.2 names embedding a slice as one of two ways to picture a metric and sends readers here; the Alcubierre warp drive (margin note 4) and Rindler spacetime (Exercise D.5) both appear in §5.3.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch7 §7.1",
+      "reason": "Figure 7.2 uses a sphere embedded in R^3 to show why parallelism must be defined intrinsically, the same insider-versus-embedding tension this appendix opens with.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch11 (opening)",
+      "reason": "The chapter's opening paragraph, just before §11.1, says we are stuck inside spacetime and cannot step out to see it embedded, which motivates intrinsic curvature.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch16 §16.1",
+      "reason": "Robertson-Walker spaces are compared with the 2-spaces of this appendix; the r = sin chi and r = sinh chi substitutions are borrowed from here.",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch16 §16.2",
+      "reason": "The k = +1 space is embedded as a 3-sphere in R^4 and the k = -1 space as a two-sheet hyperboloid in Minkowski space, generalizing Examples D.1(b) and D.4(a).",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch18 Exercises 18.5-18.8",
+      "reason": "Explicitly cited in Example D.4(b); de Sitter universes built as hyperboloids in Minkowski space using the method from Appendix D.",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch19 §19.1",
+      "reason": "A margin note realizes a cylinder-shaped spacetime by embedding a cylinder in (2+1)- and (4+1)-dimensional Minkowski space, referring to this appendix.",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch21",
+      "reason": "Source of the Schwarzschild metric whose equatorial constant-time slice is the Example D.2 wormhole metric with r_S = 2GM/c^2.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch23 Exercise 23.5",
+      "reason": "Embeds the Schwarzschild slice as Flamm's paraboloid with a hint pointing to this appendix; Appendix E adds that rubber-sheet slices can mislead about gravity.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch27 §27.2",
+      "reason": "Kruskal extension revisits the wormhole and shows the two asymptotic regions cannot be connected by timelike or null paths, correcting any impression that the bridge is a usable shortcut.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch30 §30.5",
+      "reason": "Intrinsic versus extrinsic curvature of embedded surfaces, Gauss's equation, and in Exercise 30.7 an induced metric on a hypersurface.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch49 §49.2",
+      "reason": "The induced metric on a string world sheet is the same pullback construction as eqn D.5.",
+      "locator": {
+        "pdf_page": 599,
+        "printed_page": 582,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA ch49 §49.7",
+      "reason": "De Sitter and anti-de Sitter spacetimes as hyperboloids in flat spaces with one or two timelike directions, eliminated by 'the embedding routine from Appendix D'.",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "direction": "backward",
+      "target": "GA appC",
+      "reason": "Appendix C argues for intrinsic manifolds rather than embeddings; this appendix supplies the embedding tools for visualization.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "direction": "external",
+      "target": "A. Zee, Einstein Gravity in a Nutshell (Princeton, 2013)",
+      "reason": "Stated source of the appendix's approach and recommended for further details.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "direction": "external",
+      "target": "S. Nasar, A Beautiful Mind (biography of John Nash)",
+      "reason": "Recommended in the Nash margin note.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "direction": "external",
+      "target": "J. Nash, isometric embedding theorems (1950s)",
+      "reason": "Mentioned as guaranteeing that any Riemannian manifold embeds in some Euclidean space.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    }
+  ],
+  "teaching_gems": [
+    {
+      "gem": "Frame embedding as two opposite tasks: shape to metric (induced metric) and metric to shape (embedding diagram), doing the easy direction first.",
+      "why_effective": "Learners build confidence computing metrics of familiar shapes before facing the underdetermined inverse problem, and they see the same formula used both ways.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      },
+      "app_idea": "Two-way toggle: 'I have a surface' (pick a shape, get ds^2) versus 'I have a metric' (type ds^2, the app searches for a surface of revolution), sharing one 3D viewport."
+    },
+    {
+      "gem": "Solve the same object by two independent methods and require the answers to agree, reconciling different-looking results with a coordinate substitution.",
+      "why_effective": "Agreement is a self-check, and the reconciliation step (r = sin theta) teaches that metrics are only defined up to coordinate changes.",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      },
+      "app_idea": "Side-by-side derivation panes for method I and II with a substitution slider that morphs one line element into the other symbol by symbol."
+    },
+    {
+      "gem": "Choose the angular embedding functions so the circumference condition is automatic, reducing embedding to a single ODE for the height profile.",
+      "why_effective": "Symmetry turns a scary PDE problem into integration, and the same trick handles wormholes, spheres and hyperbolic surfaces.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "app_idea": "Profile builder: user specifies R(u) and g_uu; the app integrates dZ/du live, draws the surface of revolution and shades red where no real slope exists."
+    },
+    {
+      "gem": "Stage a deliberate failure: show the hyperbolic metric needs an imaginary slope before explaining why and how to escape.",
+      "why_effective": "A visible contradiction is memorable and motivates both partial embeddings and a change of ambient signature.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "app_idea": "Length-budget bar: for each chi, a bar shows the radial length allowed by the metric versus the horizontal length already used by the circumference; the vertical slope is the leftover, which goes negative for sinh-form metrics."
+    },
+    {
+      "gem": "Rescue a failed embedding by flipping one sign in the host metric, so the hyperbolic plane becomes an ordinary-looking hyperboloid.",
+      "why_effective": "Shows students that 'flat space' can have indefinite signature and connects hyperbolic geometry to Minkowski velocity space and cosmology.",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      },
+      "app_idea": "Sign switch on the ambient metric: with + the hyperboloid's measured arc lengths mismatch the target metric; with - they match, displayed as a live residual."
+    },
+    {
+      "gem": "Use two topologically equivalent drawings of the same wormhole to separate local geometry from global topology.",
+      "why_effective": "The comparison is visual and immediate, and it inoculates against assuming a metric determines connectivity.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      },
+      "app_idea": "Morphing animation between folded-sheet and handle views with fixed throat metric and a topology selector including disconnected universes."
+    },
+    {
+      "gem": "Warn explicitly that a sphere-like line element on the one-sheet hyperboloid does not make it a sphere, checking coordinate ranges against the defining equation.",
+      "why_effective": "Trains the habit of checking domains and signs, not just formula shapes.",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      },
+      "app_idea": "Formula-matching quiz where each candidate surface's r-range and sign of g_rr must be set before the app accepts a match."
+    },
+    {
+      "gem": "Partial embedding plus Minding's theorem: embed a band of a constant-negative-curvature surface and argue it represents hyperbolic geometry locally.",
+      "why_effective": "Gives a tangible 3D object for negative curvature and introduces local isometry without heavy machinery.",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      },
+      "app_idea": "Interactive collar surface for d chi^2 + cosh^2 chi d phi^2 that grows until chi = arcsinh 1, with patches that can be dragged onto a Poincaré disc to show local match."
+    }
+  ],
+  "gaps_and_pitfalls": [
+    {
+      "issue": "The opening says an embedding needs more than one extra dimension, yet the 2-sphere embeds in R^3 with exactly one extra; the intended claim is presumably 'at least one', and in general many more may be needed.",
+      "impact_on_learner": "Confusion about dimension counting and about why the hyperbolic plane fails in R^3.",
+      "suggestion": "State: at least one extra dimension is needed; D + 1 suffices for some spaces (spheres) but not all; Nash guarantees some finite N.",
+      "locator": {
+        "pdf_page": 598,
+        "printed_page": 581,
+        "section": null
+      }
+    },
+    {
+      "issue": "Footnote 2 says any Riemannian manifold can be embedded in Euclidean space, while the text later says some surfaces cannot be embedded in Euclidean space.",
+      "impact_on_learner": "Apparent contradiction.",
+      "suggestion": "Qualify both: embedding in R^3 can fail (hyperbolic plane), but higher-dimensional Euclidean embeddings always exist.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "issue": "'This embedding is indeed impossible' follows only from the failure of one rotationally symmetric ansatz; the general impossibility (Hilbert's theorem for the complete hyperbolic plane in R^3) is neither proved nor named.",
+      "impact_on_learner": "Learners may think any failed guess proves impossibility.",
+      "suggestion": "Name Hilbert's theorem, explain the length-budget intuition, and note pieces embed (Exercise D.4, the pseudosphere).",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "issue": "The Example D.2 metric is never identified as the constant-time equatorial slice of the Schwarzschild geometry, and r_S is just called a constant length.",
+      "impact_on_learner": "Readers miss the connection to black holes and Flamm's paraboloid (only named in Exercise 23.5).",
+      "suggestion": "Derive it from the Schwarzschild metric with dt = 0 and theta = pi/2, and name Flamm's paraboloid.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "issue": "The text says the revolved profile 'generates the spacetime' and calls the sheets flat spacetime, although the picture is of a 2D spatial slice.",
+      "impact_on_learner": "Reinforces confusion between space and spacetime pictures and the rubber-sheet misconception.",
+      "suggestion": "Say 'spatial slice' explicitly, stress that time is suppressed and that the vertical axis has no physical meaning.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "issue": "The wormhole is described as a potential shortcut or route to another universe without saying that the Schwarzschild bridge is not traversable.",
+      "impact_on_learner": "Learners leave with a science-fiction impression that Chapter 27 later has to undo.",
+      "suggestion": "Add a note that no timelike path crosses the Schwarzschild throat (GA ch27 §27.2) and that traversable wormholes need negative energy.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "issue": "The induced metric of the one-sheet hyperboloid is Lorentzian (2D de Sitter), but the book presents its r-form as 'simply the metric for the 2-sphere' without mentioning signature.",
+      "impact_on_learner": "Learners may think the formal match is real and miss the de Sitter connection used in Chapters 18, 19 and 49.",
+      "suggestion": "Point out r >= 1 makes the dr^2 coefficient negative, and identify the surface as 2D de Sitter spacetime with chi as time.",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    },
+    {
+      "issue": "Symbol slips: D.4 cites D.1 rather than D.2; D.15 has a stray '= sin^2 theta' on its first line; D.18's derivation writes X = r cos theta but the result uses phi; D.20 differentiates with respect to theta while the component is g_phi phi.",
+      "impact_on_learner": "Beginners tracking indices lose confidence or copy the errors.",
+      "suggestion": "Use phi consistently for the azimuth and reference the N-dimensional D.2.",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "issue": "Method II's square-root elimination (Y = +sqrt(a^2 - X^2), Z = +sqrt(1 - X^2 - Y^2)) covers only one branch, and the coordinate X is singular at the ends; the book does not comment.",
+      "impact_on_learner": "Learners may think method II describes the whole circle or sphere.",
+      "suggestion": "Highlight the branch covered and the coordinate singularity where the graph becomes vertical.",
+      "locator": {
+        "pdf_page": 600,
+        "printed_page": 583,
+        "section": null
+      }
+    },
+    {
+      "issue": "Fig. D.4 draws the far regions as literally flat planes and exaggerates the tube length; the true profile keeps rising as sqrt(r) with slope tending to zero.",
+      "impact_on_learner": "Misleading intuition about how quickly the geometry becomes flat.",
+      "suggestion": "Render the exact profile to scale alongside the stylized sketch.",
+      "locator": {
+        "pdf_page": 601,
+        "printed_page": 584,
+        "section": null
+      }
+    },
+    {
+      "issue": "Exercise D.4 calls the space 'hyperbolic spacetime' and presents Minding's theorem without stressing it is local; the cosh-form metric with periodic phi is a hyperbolic annulus, not globally the hyperbolic plane.",
+      "impact_on_learner": "Blurs space versus spacetime and local versus global geometry, just after the book emphasised topology.",
+      "suggestion": "Say 'space', and add that equal constant curvature guarantees local, not global, equivalence.",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "issue": "Exercise D.3 supplies the torus as an implicit equation but asks for method I, leaving the parametrization to the reader; Appendix E's answer prints a dv^2 instead of a^2 dv^2.",
+      "impact_on_learner": "Stuck students or wrong answers accepted as correct.",
+      "suggestion": "Give the parametrization as a hint and correct the printed answer.",
+      "locator": {
+        "pdf_page": 603,
+        "printed_page": 586,
+        "section": null
+      }
+    },
+    {
+      "issue": "Gaussian curvature of the embedded examples is never computed, so the link between embedding shape and intrinsic curvature (positive sphere, negative hyperboloid, both signs on a torus, negative Flamm paraboloid) is left implicit.",
+      "impact_on_learner": "Embedding feels like pure drawing rather than a window on curvature.",
+      "suggestion": "Add K = -f''/f for metrics d chi^2 + f^2 d phi^2 and tabulate K for each example; point to GA ch30.",
+      "locator": null
+    },
+    {
+      "issue": "The one-bullet chapter summary omits the induced-metric recipes, the pseudo-Euclidean fix and the topology caveat.",
+      "impact_on_learner": "Revision from the summary alone misses most of the content.",
+      "suggestion": "Use a fuller summary: two methods, reverse problem, failure in R^3, hyperboloids, geometry versus topology.",
+      "locator": {
+        "pdf_page": 602,
+        "printed_page": 585,
+        "section": null
+      }
+    }
+  ],
+  "tutor_notes": [
+    "Open with: 'How do you know a bowl is curved, and how would a beetle that can never leave it find out?' Then ask whether spacetime has a 'bowl' around it; steer to the idea that embeddings are pictures, not physics.",
+    "Teach method I first with the circle: have the learner write X(theta), Y(theta), differentiate, and sum squares before showing the general formula D.5; then generalize to the sphere.",
+    "Check understanding by asking the learner to predict g_theta phi for the sphere before computing it, and to explain why it vanishes (orthogonal coordinate lines).",
+    "When method II gives dr^2/(1 - r^2) + r^2 d phi^2, pause and ask 'is this a different surface?' Let them find r = sin theta themselves; mention this exact form reappears for the closed universe in Chapter 16.",
+    "For the wormhole, first tell the learner it is the Schwarzschild spatial slice at fixed time in the equatorial plane; then set up the surface-of-revolution ansatz and let them solve for Z(r).",
+    "Immediately after the wormhole picture, ask 'what does the vertical direction represent?' Correct answer: nothing physical, only distances along the surface matter. Follow with 'can you travel through it?' and point to Chapter 27 for why not.",
+    "Use Fig. D.5 to separate geometry from topology with a simpler example first: a flat sheet versus a cylinder have the same local metric but different connectivity.",
+    "Before showing D.25, ask the learner to compute how much radial length the horizontal motion alone uses when the circle radius is sinh chi; the length-budget argument makes the failure intuitive.",
+    "When introducing dX^2 + dY^2 - dW^2, connect it to Minkowski space with W as time and the book's (-,+,+,+) signature; ask why the upper hyperboloid sheet is a natural home for hyperbolic geometry (all its tangents are spacelike).",
+    "For the one-sheet hyperboloid, insist on checking the range r >= 1 and the sign of the dr^2 coefficient; reveal it is 2D de Sitter spacetime if the learner is heading toward cosmology.",
+    "Common learner questions: 'Does spacetime really live in higher dimensions?' (no evidence; Kaluza-Klein and string ideas in Chapters 48-49 are separate speculation); 'Why not always embed in more dimensions?' (possible by Nash, but pictures stop being drawable); 'Is Flamm's paraboloid a picture of gravity pulling things down?' (no: it shows only spatial geometry at fixed time, and the Appendix E answer to Exercise 23.5, citing Zee, warns that such slices mislead about the origin of gravitational effects).",
+    "Pace: novices can do Examples D.1 and D.2 in one sitting; hold Examples D.3-D.4 and Exercises D.4-D.5 for learners comfortable with hyperbolic functions and Minkowski signature."
+  ],
+  "verification": {
+    "verdict": "fixed",
+    "fixes": [
+      "Section 'Example D.2' locator moved from pdf 600/printed 583 to pdf 601/printed 584, where the example box begins (only the one-sentence lead-in is on p.583).",
+      "Assumed-background pointers corrected: the Rindler metric is introduced in GA §5.3 (not §5.2); the 'cannot lift ourselves out of spacetime' passage is the Chapter 11 opening, before §11.1.",
+      "Cross-references fixed: the ch5 entry wrongly put Alcubierre and Rindler in §5.2 (both are in §5.3); the ch11 entry pointed to §11.1, but the passage it means is the chapter opening.",
+      "Hyperbolic non-embeddability note made precise: Hilbert's theorem is about C^2 immersions, and Nash-Kuiper C^1 embeddings exist, so the book's 'impossible' should be read as 'impossible for smooth embeddings'.",
+      "Lorentzian induced metric definition now includes the degenerate (null tangent plane) case, not just the two signatures.",
+      "Exercise solutions note checked against Appendix E: the a dv^2 typo in E.474 is confirmed, and a second typo (dY/dy in E.473) was added."
+    ],
+    "residual_concerns": [
+      "All locators set 'section' to null because the appendix has no numbered sections. Example-level placement is carried by the section titles instead.",
+      "The ch18 cross-reference cites Exercises 18.5-18.8. Only 18.5 was confirmed to mention Appendix D; the rest of that range was not checked one by one.",
+      "Cross-references to later chapters are marked 'backward' because those chapters come before this appendix in print, even though conceptually they build on it."
+    ],
+    "coverage": {
+      "toc_sections": 0,
+      "sections": 8,
+      "inventory_figures": 8,
+      "figures": 8,
+      "inventory_examples": 0,
+      "worked_examples": 6,
+      "concepts": 36,
+      "key_equations": 47,
+      "locators_checked": 24,
+      "locators_wrong": 1,
+      "pages_rendered": 4
+    }
+  }
+}

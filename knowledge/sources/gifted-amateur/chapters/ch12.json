@@ -1,0 +1,4017 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch12",
+ "title": "The energy-momentum tensor",
+ "part": "II: Curvature and general relativity",
+ "printed_pages": [
+  131,
+  140
+ ],
+ "pdf_pages": [
+  148,
+  157
+ ],
+ "one_line_summary": "Revisits the energy-momentum tensor as the matter side of Einstein's equation: reads off energy density, momentum density, energy flux and stress by feeding an observer's velocity into its slots, builds the perfect-fluid and point-particle tensors, rehearses local conservation with a scalar current, upgrades the flat-space law to the covariant constraint div T = 0, and warns that in curved spacetime this is not a global energy-conservation law because parallel observers (Killing symmetry) are generally missing.",
+ "role_in_book": "Second half of the set-up for the field equation in Part II. Chapter 11 supplied the geometric left-hand side (Riemann, Ricci); this chapter supplies the physical right-hand side and, crucially, the constraint div T = 0 that Chapter 13 immediately uses to reject the naive guess R^{mu nu} = kappa T^{mu nu} and force the Einstein tensor. It spirals back to the dust tensor T = p (x) J first met in Chapter 4, extends it to perfect fluids that are then used throughout cosmology (Part III) and stellar structure (Part IV), and plants seeds for Killing vectors (Ch. 33, Part IV), covariant derivatives of general tensors (Part V), fluid dynamics (Ch. 39) and field-theoretic energy-momentum tensors (Ch. 40).",
+ "assumed_background": [
+  {
+   "topic": "Dust energy-momentum tensor as outer product of a momentum 1-form and a number-current 1-form; slot-machine view of tensors",
+   "source": "earlier-in-this-book",
+   "where": "GA ch4 §4.5"
+  },
+  {
+   "topic": "Minkowski metric with signature (-,+,+,+), raising and lowering indices, 4-velocity normalization u.u = -1",
+   "source": "earlier-in-this-book",
+   "where": "GA ch1-ch4"
+  },
+  {
+   "topic": "Number density growing by gamma under length contraction",
+   "source": "earlier-in-this-book",
+   "where": "GA ch2 Fig. 2.7"
+  },
+  {
+   "topic": "Orthonormal observer frames and hatted indices",
+   "source": "earlier-in-this-book",
+   "where": "GA ch10"
+  },
+  {
+   "topic": "Covariant derivative of vectors, connection coefficients, comma and semicolon notation",
+   "source": "earlier-in-this-book",
+   "where": "GA ch7, ch9"
+  },
+  {
+   "topic": "Local inertial frames, equivalence principle and the general-covariance upgrade argument",
+   "source": "earlier-in-this-book",
+   "where": "GA ch6; ch8 Example 8.8"
+  },
+  {
+   "topic": "Path dependence of parallel transport in curved space; curvature as the left-hand side of the field equation",
+   "source": "earlier-in-this-book",
+   "where": "GA ch7, ch11"
+  },
+  {
+   "topic": "Continuity equation for charge and the 3D divergence theorem",
+   "source": "electromagnetism",
+   "where": null
+  },
+  {
+   "topic": "Pressure as force per unit area; momentum flux in fluids",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Photon-gas thermodynamics: energy density equals three times pressure",
+   "source": "thermodynamics-statistical",
+   "where": null
+  },
+  {
+   "topic": "Dirac delta function, change of variables inside a delta function",
+   "source": "undergrad-calculus",
+   "where": "mathematical methods course"
+  },
+  {
+   "topic": "Symmetric matrices, tensor (outer) products, trace",
+   "source": "linear-algebra",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "Reader can extract energy density, momentum density and energy flux measured by any observer by inserting that observer's 4-velocity (and a unit spatial vector) into the slots of T.",
+  "Reader can state the physical meaning of each block of T^{mu nu} in an observer's orthonormal frame (energy density, momentum density = energy flux, momentum flux = stress) and explain why spatial components also act as force per unit area.",
+  "Reader can track the sign changes when raising hatted indices with eta (time-space components flip, time-time and space-space do not).",
+  "Reader can build the perfect-fluid tensor diag(rho, p, p, p) in the rest frame, decompose it into u (x) u and projector pieces, and write the frame-independent form in which the fluid velocity outer product carries rho + p and the metric carries p.",
+  "Reader can compute the trace T = -rho + 3p and use it to show that radiation (rho = 3p) has a traceless energy-momentum tensor.",
+  "Reader can write the energy-momentum tensor of a uniformly moving dust swarm with factors of c and gamma, and explain the gamma factors.",
+  "Reader can represent a point particle's rest-mass density, mass current and energy-momentum tensor as proper-time integrals of a 4D delta function, evaluate the time integral to expose the 1/u^0 factor, and insert 1/sqrt(-g) for curved spacetime.",
+  "Reader can distinguish local from global conservation, derive the continuity equation's integral form, and express total flux through a closed 3-surface as the integral of J^mu dSigma_mu.",
+  "Reader can unpack d_mu T^{mu nu} = 0 into energy and momentum conservation equations and upgrade it to T^{mu nu}_{;mu} = 0 using a local inertial frame (comma goes to semicolon).",
+  "Reader can take the covariant divergence of the perfect-fluid tensor using the Leibniz rule and metric compatibility, obtaining the fluid's equation of motion in tensor form.",
+  "Reader can explain why div T = 0 does not give global energy conservation in curved spacetime: defining an energy current needs a velocity field whose symmetrized covariant derivative vanishes (Killing's equation), which generic spacetimes lack."
+ ],
+ "teaching_approach": {
+  "summary": "A short, component-heavy chapter that treats T as an old friend from Part I and systematically answers two questions: what are its components for matter we care about, and what constraint does it obey? Each construction is done first in the simplest frame (rest frame, flat space, LIF), recast as a manifestly covariant tensor statement, and then promoted to curved spacetime by eta -> g or comma -> semicolon. Conservation of T is rehearsed on the simpler scalar-charge current before being applied to the tensor, and the chapter ends with an unusually candid caveat that the resulting law is not energy conservation in the everyday sense, supported by a two-line calculation that lands on Killing's equation. Heavier proofs are pushed into margin notes, exercises and later chapters.",
+  "style_tags": [
+   "spiral-revisit",
+   "components-first",
+   "example-driven",
+   "physical-motivation-first",
+   "analogy-driven",
+   "conversational-informal"
+  ],
+  "narrative_arc": [
+   "Motivating question: curvature is on the left of the field equation; what quantity sits on the right and what property must it have?",
+   "Recall T from Chapter 4 (momentum 1-form times number-current 1-form) and give the slot recipe: one velocity gives minus the momentum density, two give energy density.",
+   "Interpret orthonormal-frame components: energy density, momentum density/energy flux, momentum flux that doubles as stress; summarize in a block-matrix cartoon.",
+   "Model 1, perfect fluid: write diag(rho, p, p, p) at rest, split it into u (x) u and projector pieces, state the covariant form, check with the trace (radiation is traceless), and promote eta -> g.",
+   "Model 2, particles: moving dust swarm matrix with c restored; then delta functions along world lines for rest-mass density, mass current and T, with the 1/u^0 length-contraction factor and 1/sqrt(-g) in curved spacetime.",
+   "Conservation rehearsal with a scalar current: charge, continuity equation, local versus global conservation, flux through flat then curved 3-surfaces, closed-boundary integral over a 4-volume.",
+   "Transfer to T: d_mu T^{mu nu} = 0 in flat spacetime, unpacked into energy and momentum equations.",
+   "Upgrade: in a LIF partial and covariant derivatives agree, so the covariant law T^{mu nu}_{;mu} = 0 holds everywhere; apply it to the perfect fluid via the Leibniz rule to obtain the fluid equation of motion.",
+   "Critical check: define energy via E = -p(u) and parallel observers; show flat-space energy-current conservation needs u^nu_{,mu} = 0; in curved spacetime the analogous requirement is Killing's equation, which generally fails.",
+   "Resolution: gravity and matter exchange energy, so div T = 0 is a local (approximate) conservation statement and a vital constraint; hand T and its constraint to Chapter 13."
+  ],
+  "signature_moves": [
+   "Treat T as a slot machine: everything an observer measures comes from inserting that observer's velocity (and unit spatial vectors) into the slots.",
+   "Build a tensor where it is diagonal and obvious, then reverse-engineer the matrix as a combination of tensor products (u (x) u and eta + u (x) u) so it becomes frame-independent.",
+   "Use the trace as an instant sanity check that also delivers physics (radiation is traceless).",
+   "Rehearse a conservation law on a scalar charge current before attempting the tensor version, and move from a flat box-shaped 3-surface to arbitrary closed hypersurfaces.",
+   "Promote flat-space laws to curved spacetime by a named rule (eta -> g, comma goes to semicolon) justified by the local inertial frame argument already used in Example 8.8.",
+   "Represent point particles with delta functions on world lines, explaining the resulting gamma factor through length contraction rather than algebra alone.",
+   "Deliberately undercut an attractive interpretation (div T = 0 as energy conservation) with a short explicit calculation, then give the physical reason (gravity does work on matter).",
+   "Temporarily restore c to make component meanings dimensionally transparent, then drop it again.",
+   "Park proofs in margin notes with pointers (Part V for tensor covariant derivatives, Appendix C for diffeomorphism invariance, Ehlers-Geroch for the geodesic principle)."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Chapter opening: the matter side of the field equation",
+   "printed_page": 131,
+   "pdf_page": 148,
+   "summary": "Frames the chapter as supplying the physical right-hand side of Einstein's equation after Chapter 11 gave the curvature side. A margin equation states the field equation in words (curvature equals energy content), and the authors announce that the energy-momentum tensor field and its constraint div T = 0 are what Chapter 13 needs.",
+   "concepts": [
+    "Einstein field equation (schematic)",
+    "energy-momentum tensor",
+    "covariant conservation law for the energy-momentum tensor"
+   ],
+   "key_moves": [
+    "Field equation previewed in words as eqn (12.1)",
+    "T(x) announced as a tensor field giving energy-momentum content at each event",
+    "div T = 0 flagged as the essential property"
+   ]
+  },
+  {
+   "number": "12.1",
+   "title": "Another look at the energy-momentum tensor",
+   "printed_page": 131,
+   "pdf_page": 148,
+   "summary": "Recalls that T can be viewed as a current of momentum and writes its (0,2) form, which is symmetric. A slot recipe follows: inserting an observer's 4-velocity gives minus the 4-momentum density 1-form; adding a unit spatial vector picks a component; inserting the velocity twice gives the energy density. Components in the observer's orthonormal frame are then interpreted: the time-time entry is energy density, time-space entries are momentum density (equivalently energy flux), space-space entries are the flux of i-momentum across a surface with normal e_j, which, since momentum transfer per unit time is force, is also a stress. Margin notes connect to the dust picture T = p (x) J and track sign changes when raising hatted indices. Fig. 12.1 and the block cartoon Fig. 12.2 summarize.",
+   "concepts": [
+    "energy-momentum tensor",
+    "symmetry of the energy-momentum tensor",
+    "slot recipe for observer-measured energy and momentum",
+    "orthonormal-frame components of the energy-momentum tensor",
+    "stress as momentum flux",
+    "raising and lowering orthonormal-frame indices",
+    "dust energy-momentum tensor as an outer product"
+   ],
+   "key_moves": [
+    "T = T_{mu nu} omega^mu (x) omega^nu with T_{mu nu} = T_{nu mu} (12.2)",
+    "T( , u) = -(momentum density), T(a, u) = -(its a-component), T(u, u) = energy density (12.4)-(12.6)",
+    "With u = e_0 in the observer frame: T_00 energy density, T_i0 = -T^{i0} minus momentum density (12.8)-(12.9)",
+    "Spatial components read two ways: i-momentum flux through surface with normal e_j, or i-force (per area) across that surface (12.10)-(12.11)",
+    "Margin: raising both hatted indices flips sign only for mixed time-space components (12.7)"
+   ]
+  },
+  {
+   "number": "12.2",
+   "title": "Example energy-momentum tensors",
+   "printed_page": 132,
+   "pdf_page": 149,
+   "summary": "Argues that gravity acts on scales where matter is effectively continuous, so fluids are the natural model. Defines a perfect fluid (rest-frame energy density rho and isotropic pressure p, no viscosity or shear) and, in a margin note, dust (p = 0) and the equation of state. In the rest frame T is diag(rho, p, p, p); this matrix is decomposed using u (x) u = diag(1,0,0,0) and eta, giving T = (rho + p) u (x) u + p eta. The trace is -rho + 3p, so a photon gas is traceless (linked in a margin note to massless excitations and scale invariance). The equivalence principle then upgrades eta to g, giving the general-coordinate perfect-fluid tensor with indices up or down.",
+   "concepts": [
+    "perfect fluid",
+    "pressure",
+    "dust",
+    "equation of state",
+    "total energy density versus rest-mass density",
+    "perfect-fluid energy-momentum tensor",
+    "spatial projection tensor",
+    "trace of the energy-momentum tensor",
+    "radiation equation of state",
+    "traceless energy-momentum tensor and massless fields",
+    "valid tensor equation",
+    "principle of general covariance"
+   ],
+   "key_moves": [
+    "Rest-frame matrix diag(rho, p, p, p) (12.12) from energy density plus pressure as normal force per area",
+    "u_mu = (-1,0,0,0) so (u (x) u) = diag(1,0,0,0) (12.14)",
+    "Split: rho(u (x) u) + p[eta + u (x) u] (12.15); both sides carry matching lower indices so it is a tensor equation",
+    "T = (rho + p) u (x) u + p eta (12.16)-(12.17)",
+    "Trace: T = -(rho + p) + 4p = -rho + 3p, zero for radiation (12.18)",
+    "Swapping eta for g yields the curved-spacetime fluid tensor (12.19), usable with indices up or down"
+   ]
+  },
+  {
+   "number": "12.3",
+   "title": "Classical particles",
+   "printed_page": 134,
+   "pdf_page": 151,
+   "summary": "Treats point-like matter. First a uniform swarm of dust moving in the x-y plane: with c restored, T^{00} = n m gamma c^2, T^{0i} = n m gamma c v^i, T^{ij} = n m gamma v^i v^j, assembled into a symmetric matrix. Then a field-theory style description: a particle's rest-mass density is m times the proper-time integral of a 4D delta function along its world line. Changing the integration variable to coordinate time gives (m/u^0) times a 3D delta, the 1/u^0 = 1/gamma reflecting length contraction. The same construction gives the mass current (and, in a margin note, the charge current) and the point-particle energy-momentum tensor, a pressureless version of the fluid tensor. In curved spacetime each delta is divided by sqrt(-g) so it becomes a scalar.",
+   "concepts": [
+    "energy-momentum tensor of a moving dust swarm",
+    "world-line delta-function representation of a point particle",
+    "four-dimensional Dirac delta function",
+    "mass current",
+    "four-current",
+    "invariant volume element",
+    "length contraction of number density",
+    "dust"
+   ],
+   "key_moves": [
+    "Component-by-component construction of moving-dust T^{mu nu} (12.20)",
+    "rho_0(x) = m int dtau delta^(4)[x - z(tau)] (12.21)-(12.22)",
+    "Variable change tau -> z^0 exposes 1/u^0 and leaves a 3D delta locating the particle (12.23)",
+    "Mass current and T^{alpha beta} as integrals weighted by u^alpha and u^alpha u^beta (12.25)-(12.26); charge current in margin (12.24)",
+    "Curved spacetime: divide delta by sqrt(-g) (12.27)"
+   ]
+  },
+  {
+   "number": "12.4",
+   "title": "Conservation laws",
+   "printed_page": 136,
+   "pdf_page": 153,
+   "summary": "Builds conservation laws in two stages. First a scalar charge with 4-current J = (rho, J-vector): total charge as a volume integral, the continuity equation d_mu J^mu = 0 as local conservation, contrasted with merely global conservation. Flux is then counted through a flat 3-surface of extent a x b x tau, generalized to J^alpha Sigma_alpha and to curved 3-surfaces, and finally to a closed boundary of a 4-volume where the net flux vanishes (Fig. 12.3). The same logic applies to baryon number and rest-mass currents. Second, for 4-momentum: d_mu T^{mu nu} = 0, whose nu = 0 and nu = i parts are energy and momentum conservation. In a local inertial frame connection coefficients vanish, so the law holds with semicolons, and general covariance gives T^{mu nu}_{;mu} = 0, i.e. div T = 0 (margin gives the two-connection-term formula). The divergence of the perfect-fluid tensor is expanded with the Leibniz rule and metric compatibility into the fluid's equation of motion.",
+   "concepts": [
+    "four-current",
+    "conserved charge",
+    "continuity equation",
+    "local versus global conservation",
+    "hypersurface element and flux through a 3-surface",
+    "spacetime divergence theorem for a conserved current",
+    "local conservation of energy-momentum in flat spacetime",
+    "local inertial frame",
+    "comma-goes-to-semicolon rule",
+    "covariant conservation law for the energy-momentum tensor",
+    "covariant derivative of a rank-2 tensor",
+    "Leibniz rule for the covariant derivative",
+    "metric compatibility",
+    "relativistic perfect-fluid equations of motion"
+   ],
+   "key_moves": [
+    "Q = int rho d^3x (12.28); integral form -dQ/dt = flux out (12.29)",
+    "d rho/dt + div J = 0, i.e. d_mu J^mu = 0 (12.30)-(12.31)",
+    "Charge through box-shaped 3-surface: J^z Sigma_z -> J^alpha Sigma_alpha -> int J^mu dSigma_mu",
+    "Closed boundary: oint J^mu dSigma_mu = 0 (12.32), charge in through the past face leaves through the future face",
+    "d_mu T^{mu nu} = 0 (12.33); nu = 0 energy, nu = i momentum (Example 12.8)",
+    "LIF: comma = semicolon (12.34)-(12.35), promote to T^{mu nu}_{;mu} = 0 (12.36), div T = 0 (12.38)",
+    "Perfect fluid divergence expanded (12.39)-(12.41)"
+   ]
+  },
+  {
+   "number": null,
+   "title": "Is div T = 0 energy conservation? (closing part of §12.4)",
+   "printed_page": 138,
+   "pdf_page": 155,
+   "summary": "Questions the natural reading of div T = 0 as energy conservation. Energy is observer-dependent (E = -p(u) for a co-located observer), so assigning energy to a distant object needs a family of parallel observers, u^nu_{,mu} = 0 (Fig. 12.4). For dust, the energy current M^mu = -T^{mu nu} u_nu is conserved in flat spacetime exactly because u is constant. In curved spacetime the same step needs the symmetrized covariant derivative of u to vanish, which is Killing's equation and fails in general because parallelism depends on path; a margin note adds that summing T^{mu nu} dSigma_nu over a closed surface would require adding vectors from different tangent spaces. Physically, gravity and matter do work on each other, so only approximate local conservation survives. Margin notes call div T = 0 a conservation law by slight abuse of language, cite diffeomorphism invariance as its origin, and connect it to the geodesic principle. The two-bullet chapter summary closes the unit.",
+   "concepts": [
+    "observer-measured energy",
+    "family of parallel observers",
+    "energy current vector",
+    "path dependence of parallel transport",
+    "Killing's equation",
+    "non-existence of global energy conservation in curved spacetime",
+    "diffeomorphism invariance as origin of the conservation law",
+    "geodesic principle from energy-momentum conservation",
+    "energy conditions"
+   ],
+   "key_moves": [
+    "E = -p(u) needs a local observer; distant energies need parallel observers u^nu_{,mu} = 0 (12.42)",
+    "Dust: -T(u,u) = E J(u), energy current M^mu = -T^{mu nu} u_nu (12.43)-(12.44)",
+    "d_mu M^mu = -T^{mu nu} u_{nu,mu} after using d_mu T^{mu nu} = 0 (12.45)",
+    "Curved: need (T^{mu nu} u_nu)_{;mu} = 0, and symmetry of T reduces the condition to u_{nu;mu} + u_{mu;nu} = 0 (12.46)-(12.47)",
+    "Physical reading: gravity-matter energy exchange; approximate local conservation over small regions"
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "energy-momentum tensor",
+   "aliases": [
+    "stress-energy tensor",
+    "T(x)",
+    "energy-momentum tensor field"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A symmetric rank-2 tensor field whose contraction with observer velocities and spatial unit vectors gives the energy density, momentum density, energy flux and stress of matter and fields at each event; it is the source term in Einstein's equation.",
+   "how_introduced": "Presented as the right-hand-side counterpart of curvature, recalled from Chapter 4 as a momentum current, and written in (0,2) component form with a symmetry statement.",
+   "depth": "core",
+   "prerequisites": [
+    "tensor as a linear map on vectors and 1-forms",
+    "4-momentum",
+    "number-current 4-vector",
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 148,
+     "printed_page": 131,
+     "section": "12.1"
+    },
+    {
+     "pdf_page": 149,
+     "printed_page": 132,
+     "section": "12.1"
+    }
+   ],
+   "formulas": [
+    "\\mathbf{T}(x)=T_{\\mu\\nu}(x)\\,\\boldsymbol{\\omega}^\\mu\\otimes\\boldsymbol{\\omega}^\\nu",
+    "T_{\\mu\\nu}=T_{\\nu\\mu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "dust energy-momentum tensor as an outer product",
+   "aliases": [
+    "T = p (x) J",
+    "swarm-of-particles picture"
+   ],
+   "kind": "solution-or-model",
+   "definition": "For non-interacting particles all moving together, T equals the outer product of the momentum 1-form carried by each particle and the number-current 1-form, so T( , u) is minus the momentum density and T(u, ) minus the energy flux seen by observer u.",
+   "how_introduced": "Recalled in a margin note from Chapter 4 as the intuitive anchor for the general tensor.",
+   "depth": "revisited",
+   "prerequisites": [
+    "momentum 1-form",
+    "number-current 4-vector",
+    "tensor product"
+   ],
+   "locators": [
+    {
+     "pdf_page": 148,
+     "printed_page": 131,
+     "section": "12.1"
+    },
+    {
+     "pdf_page": 155,
+     "printed_page": 138,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\mathbf{T}(\\;,\\;)=\\tilde{\\mathbf{p}}(\\;)\\otimes\\tilde{\\mathbf{J}}(\\;)"
+   ],
+   "notes": "Example 12.10 writes the product in the opposite order; symmetry makes this harmless."
+  },
+  {
+   "name": "symmetry of the energy-momentum tensor",
+   "aliases": [
+    "T_{mu nu} = T_{nu mu}"
+   ],
+   "kind": "identity",
+   "definition": "The energy-momentum tensor is symmetric, so its two slots are interchangeable; physically momentum density equals energy flux (with c = 1) and the stress tensor is symmetric.",
+   "how_introduced": "Asserted when the (0,2) form is written; used to say it does not matter which slot receives the velocity, and later to simplify divergences and reduce u_{nu;mu} = 0 to Killing's equation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 148,
+     "printed_page": 131,
+     "section": "12.1"
+    },
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "T_{\\mu\\nu}=T_{\\nu\\mu}"
+   ],
+   "notes": "The book asserts rather than derives symmetry; the dust model makes it plausible."
+  },
+  {
+   "name": "slot recipe for observer-measured energy and momentum",
+   "aliases": [
+    "filling the slots of T",
+    "slot machine"
+   ],
+   "kind": "technique",
+   "definition": "To obtain what an observer with 4-velocity u measures, feed u into one slot of T to get minus the 4-momentum density 1-form, feed a unit spatial vector a into the other slot to pick out a component, or feed u into both slots to get the energy density.",
+   "how_introduced": "Given as a recipe right after the tensor is written, reusing the Part I idea that tensors are machines with slots.",
+   "depth": "developed",
+   "prerequisites": [
+    "energy-momentum tensor",
+    "4-velocity",
+    "1-form"
+   ],
+   "locators": [
+    {
+     "pdf_page": 148,
+     "printed_page": 131,
+     "section": "12.1"
+    },
+    {
+     "pdf_page": 149,
+     "printed_page": 132,
+     "section": "12.1"
+    }
+   ],
+   "formulas": [
+    "\\mathbf{T}(\\;,\\mathbf{u})=-(\\text{momentum density})",
+    "\\mathbf{T}(\\mathbf{u},\\mathbf{u})=\\text{energy density}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "orthonormal-frame components of the energy-momentum tensor",
+   "aliases": [
+    "block structure of T^{mu nu}",
+    "Fig. 12.2 cartoon"
+   ],
+   "kind": "physical-quantity",
+   "definition": "In an observer's orthonormal frame (u = e_0), T^{00} is energy density, T^{0i} = T^{i0} is momentum density or equivalently energy flux along i, and T^{ij} is the flux of i-momentum across a surface with normal e_j.",
+   "how_introduced": "Derived by substituting basis vectors into the slot recipe and summarized in a block-matrix cartoon.",
+   "depth": "core",
+   "prerequisites": [
+    "slot recipe for observer-measured energy and momentum",
+    "orthonormal frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 149,
+     "printed_page": 132,
+     "section": "12.1"
+    }
+   ],
+   "formulas": [
+    "T_{\\hat0\\hat0}=T^{\\hat0\\hat0}=\\text{energy density}",
+    "T_{\\hat i\\hat 0}=-T^{\\hat i\\hat0}",
+    "T_{\\hat i\\hat j}=T^{\\hat i\\hat j}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "stress as momentum flux",
+   "aliases": [
+    "stress tensor",
+    "force across a surface"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The spatial components T^{ij} give the rate at which i-momentum crosses unit area with normal along j; since momentum transfer per unit time is force, they are equally the i-component of force per unit area on that surface, with pressure on the diagonal and shear stress off it.",
+   "how_introduced": "Offered as a second reading of the spatial components (Fig. 12.1) and then used to identify the diagonal entries of a fluid at rest with its pressure.",
+   "depth": "developed",
+   "prerequisites": [
+    "orthonormal-frame components of the energy-momentum tensor",
+    "pressure"
+   ],
+   "locators": [
+    {
+     "pdf_page": 149,
+     "printed_page": 132,
+     "section": "12.1"
+    },
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "T^{\\hat i\\hat j}=\\text{flux of } p^{\\hat i}\\text{ across surface with normal } \\mathbf{e}_{\\hat j}"
+   ],
+   "notes": "The printed wording says 'force'; strictly it is force per unit area."
+  },
+  {
+   "name": "raising and lowering orthonormal-frame indices",
+   "aliases": [
+    "sign flips with eta"
+   ],
+   "kind": "technique",
+   "definition": "In an orthonormal frame indices are raised with eta^{mu nu} = diag(-1,1,1,1), so each raised time index contributes a factor -1: T^{00} = T_{00}, T^{0i} = -T_{0i}, T^{ij} = T_{ij}.",
+   "how_introduced": "Explained in a margin note so the reader can move between T_{mu nu} and T^{mu nu} interpretations.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Minkowski metric",
+    "orthonormal frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 149,
+     "printed_page": 132,
+     "section": "12.1"
+    }
+   ],
+   "formulas": [
+    "T^{\\hat0\\hat0}=T_{\\hat0\\hat0},\\; T^{\\hat0\\hat i}=-T_{\\hat0\\hat i},\\; T^{\\hat i\\hat j}=T_{\\hat i\\hat j}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "perfect fluid",
+   "aliases": [
+    "ideal fluid"
+   ],
+   "kind": "solution-or-model",
+   "definition": "Continuous matter characterized in its local rest frame by an energy density rho and an isotropic pressure p only, with no viscosity, shear stress or heat conduction.",
+   "how_introduced": "Motivated by gravity acting on large scales where matter is effectively continuous; presented as the continuum generalization of the particle matter used so far.",
+   "depth": "core",
+   "prerequisites": [
+    "pressure",
+    "energy density",
+    "rest frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "T_{\\hat\\mu\\hat\\nu}=\\mathrm{diag}(\\rho,p,p,p)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "dust",
+   "aliases": [
+    "pressureless matter",
+    "p = 0 fluid"
+   ],
+   "kind": "solution-or-model",
+   "definition": "A perfect fluid with zero pressure and no internal energy, so its energy density equals its rest-mass density and T^{mu nu} = rho_0 u^mu u^nu.",
+   "how_introduced": "Defined in a margin note as the no-internal-energy limit of a perfect fluid; used in the moving swarm example, point particles and the energy-current argument.",
+   "depth": "developed",
+   "prerequisites": [
+    "perfect fluid",
+    "rest-mass density"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 151,
+     "printed_page": 134,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 155,
+     "printed_page": 138,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "T^{\\mu\\nu}=\\rho_0u^\\mu u^\\nu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "pressure",
+   "aliases": [
+    "isotropic pressure"
+   ],
+   "kind": "physical-quantity",
+   "definition": "Normal force per unit area exerted across any surface in the fluid's rest frame, the same in every direction for a perfect fluid; it appears on the spatial diagonal of T.",
+   "how_introduced": "Identified with the diagonal spatial entries via the force-across-a-surface reading; a margin note warns against confusing p with momentum.",
+   "depth": "introduced",
+   "prerequisites": [
+    "stress as momentum flux"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "T^{\\hat i\\hat i}=T_{\\hat i\\hat i}=p"
+   ],
+   "notes": null
+  },
+  {
+   "name": "equation of state",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "The relation between a fluid's pressure and its energy density, p = p(rho) (possibly with other state variables), which closes the fluid equations.",
+   "how_introduced": "Named in a margin note and illustrated by the photon gas rho = 3p.",
+   "depth": "introduced",
+   "prerequisites": [
+    "perfect fluid",
+    "pressure"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "p=p(\\rho)",
+    "\\rho=3p\\;(\\text{radiation})"
+   ],
+   "notes": null
+  },
+  {
+   "name": "total energy density versus rest-mass density",
+   "aliases": [
+    "rho vs rho_0"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The rho in the fluid tensor is total rest-frame energy density, the rest-mass density rho_0 plus internal energy density from thermal motion and interactions; the two coincide only for dust.",
+   "how_introduced": "Clarified in a margin note next to the perfect-fluid definition.",
+   "depth": "introduced",
+   "prerequisites": [
+    "perfect fluid",
+    "dust"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "\\rho=\\rho_0+\\rho_{\\text{internal}}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "perfect-fluid energy-momentum tensor",
+   "aliases": [
+    "fluid stress-energy tensor"
+   ],
+   "kind": "solution-or-model",
+   "definition": "The symmetric tensor equal to (rho + p) times the outer product of the fluid 4-velocity with itself, plus p times the metric (signature -,+,+,+); it reduces to diag(rho, p, p, p) in the fluid rest frame and holds with all indices lowered or all raised.",
+   "how_introduced": "Built as diag(rho, p, p, p) in the rest frame, decomposed into u (x) u and a spatial projector, recognized as a tensor equation, then upgraded from eta to g via the equivalence principle.",
+   "depth": "core",
+   "prerequisites": [
+    "perfect fluid",
+    "tensor product",
+    "valid tensor equation",
+    "principle of general covariance",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 151,
+     "printed_page": 134,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "T_{\\mu\\nu}=(\\rho+p)u_\\mu u_\\nu+p\\,g_{\\mu\\nu}",
+    "T^{\\mu\\nu}=(\\rho+p)u^\\mu u^\\nu+p\\,g^{\\mu\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "spatial projection tensor",
+   "aliases": [
+    "h = eta + u (x) u",
+    "projector orthogonal to u"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The tensor h_{mu nu} = g_{mu nu} + u_mu u_nu, which annihilates the observer's velocity and acts as the metric on the 3-space orthogonal to it; in the rest frame it is diag(0,1,1,1).",
+   "how_introduced": "Appears unnamed as the bracket multiplying p in the decomposition of the rest-frame fluid matrix.",
+   "depth": "mention",
+   "prerequisites": [
+    "Minkowski metric",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "h_{\\mu\\nu}=\\eta_{\\mu\\nu}+u_\\mu u_\\nu"
+   ],
+   "notes": "The name is ours; the book does not introduce it."
+  },
+  {
+   "name": "trace of the energy-momentum tensor",
+   "aliases": [
+    "T = T^mu_mu"
+   ],
+   "kind": "operation",
+   "definition": "The scalar T = g^{mu nu} T_{mu nu}; for a perfect fluid it equals -rho + 3p because u_mu u^mu = -1 and the metric trace is 4.",
+   "how_introduced": "Computed as a short example immediately after the fluid tensor is obtained.",
+   "depth": "developed",
+   "prerequisites": [
+    "perfect-fluid energy-momentum tensor",
+    "raising and lowering orthonormal-frame indices"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "T=T_{\\hat\\mu\\hat\\nu}\\eta^{\\hat\\mu\\hat\\nu}=-\\rho+3p"
+   ],
+   "notes": null
+  },
+  {
+   "name": "radiation equation of state",
+   "aliases": [
+    "photon gas",
+    "rho = 3p"
+   ],
+   "kind": "law",
+   "definition": "For a gas of photons (or any ultra-relativistic matter) the pressure is one third of the energy density, which makes the trace of its energy-momentum tensor vanish.",
+   "how_introduced": "Imported from thermodynamics as the payoff of the trace calculation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "trace of the energy-momentum tensor",
+    "equation of state"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "\\rho=3p\\Rightarrow T=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "traceless energy-momentum tensor and massless fields",
+   "aliases": [
+    "scale invariance"
+   ],
+   "kind": "principle",
+   "definition": "A field whose energy-momentum tensor has zero trace is expected to have massless quanta, as for the electromagnetic field and photons; the vanishing trace is tied to scale invariance.",
+   "how_introduced": "Margin note after the photon-gas trace result, pointing to Zee's book.",
+   "depth": "mention",
+   "prerequisites": [
+    "trace of the energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [
+    "T^\\mu{}_\\mu=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "valid tensor equation",
+   "aliases": [
+    "manifestly covariant equation"
+   ],
+   "kind": "principle",
+   "definition": "An equation whose two sides are tensors of the same type with matching free indices; if it holds in one frame it holds in all frames.",
+   "how_introduced": "Used in a margin note to certify the fluid decomposition, since both sides carry the same pair of lower indices.",
+   "depth": "revisited",
+   "prerequisites": [
+    "tensor transformation law"
+   ],
+   "locators": [
+    {
+     "pdf_page": 150,
+     "printed_page": 133,
+     "section": "12.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "principle of general covariance",
+   "aliases": [
+    "general covariance upgrade",
+    "equivalence principle upgrade"
+   ],
+   "kind": "principle",
+   "definition": "A tensor equation valid in flat spacetime or in a local inertial frame remains valid in curved spacetime once eta is replaced by g and partial derivatives by covariant ones.",
+   "how_introduced": "Invoked twice: to turn the flat fluid tensor into the curved-space version and to upgrade d_mu T^{mu nu} = 0.",
+   "depth": "revisited",
+   "prerequisites": [
+    "valid tensor equation",
+    "local inertial frame",
+    "equivalence principle"
+   ],
+   "locators": [
+    {
+     "pdf_page": 151,
+     "printed_page": 134,
+     "section": "12.2"
+    },
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\eta_{\\mu\\nu}\\to g_{\\mu\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "comma-goes-to-semicolon rule",
+   "aliases": [
+    "minimal coupling",
+    "eta -> g swap"
+   ],
+   "kind": "technique",
+   "definition": "The practical recipe that converts a flat-spacetime tensor law into its curved-spacetime form by replacing partial derivatives (commas) with covariant derivatives (semicolons) and eta with g.",
+   "how_introduced": "Named after the LIF argument that turns T^{mu nu}_{,mu} = 0 into T^{mu nu}_{;mu} = 0.",
+   "depth": "developed",
+   "prerequisites": [
+    "principle of general covariance",
+    "covariant derivative of a rank-2 tensor",
+    "local inertial frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "T^{\\mu\\nu}{}_{,\\mu}=0\\;\\to\\;T^{\\mu\\nu}{}_{;\\mu}=0"
+   ],
+   "notes": "The rule can be ambiguous when second derivatives or curvature couplings are involved; not an issue here."
+  },
+  {
+   "name": "energy-momentum tensor of a moving dust swarm",
+   "aliases": [],
+   "kind": "solution-or-model",
+   "definition": "For n particles per unit volume (lab frame) of rest mass m all moving with velocity v, T^{mu nu} = n m gamma times a symmetric matrix with entries c^2, c v^i and v^i v^j.",
+   "how_introduced": "Constructed entry by entry with factors of c restored, reading energy density, momentum density and momentum flux for a swarm moving in the x-y plane.",
+   "depth": "developed",
+   "prerequisites": [
+    "dust",
+    "orthonormal-frame components of the energy-momentum tensor",
+    "length contraction of number density"
+   ],
+   "locators": [
+    {
+     "pdf_page": 151,
+     "printed_page": 134,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "T^{00}=nm\\gamma c^2,\\;T^{0i}=nm\\gamma c v^i,\\;T^{ij}=nm\\gamma v^iv^j"
+   ],
+   "notes": "Consistent with rho_0 u^mu u^nu only if n is the lab-frame density gamma n_0."
+  },
+  {
+   "name": "world-line delta-function representation of a point particle",
+   "aliases": [
+    "delta-function source"
+   ],
+   "kind": "technique",
+   "definition": "A point particle of mass m on world line z(tau) has density fields written as proper-time integrals of a 4D delta function, which is non-zero only on the world line; integrating over coordinate time leaves a 3D delta at the particle's position divided by u^0.",
+   "how_introduced": "Introduced to treat particles with field-theory tools, starting from the rest-mass density and checked by an explicit change of variables.",
+   "depth": "developed",
+   "prerequisites": [
+    "four-dimensional Dirac delta function",
+    "proper time",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 151,
+     "printed_page": 134,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 152,
+     "printed_page": 135,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "\\rho_0(x)=m\\int d\\tau\\,\\delta^{(4)}[x-z(\\tau)]",
+    "\\rho_0(x)=\\frac{m}{u^0}\\delta^{(3)}[\\vec x-\\vec z(\\tau)]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "four-dimensional Dirac delta function",
+   "aliases": [
+    "delta^(4)"
+   ],
+   "kind": "mathematical-object",
+   "definition": "In Cartesian coordinates, the product of four one-dimensional delta functions, one per coordinate; divided by sqrt(-g) it becomes a scalar in curved spacetime.",
+   "how_introduced": "Defined as a product to make the world-line integral concrete.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Dirac delta function"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 135,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "\\delta^{(4)}[x-z]=\\prod_{\\mu=0}^{3}\\delta[x^\\mu-z^\\mu]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "invariant volume element",
+   "aliases": [
+    "sqrt(-g) d^4x"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The coordinate-independent 4-volume element sqrt(-g) d^4x, where g is the determinant of the metric components; it makes delta^(4)/sqrt(-g) a scalar.",
+   "how_introduced": "Recalled in Example 12.6 to transplant the particle densities and T into curved spacetime.",
+   "depth": "revisited",
+   "prerequisites": [
+    "metric tensor",
+    "Jacobian of coordinate transformations"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 135,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "\\sqrt{-g}\\,d^4x"
+   ],
+   "notes": null
+  },
+  {
+   "name": "mass current",
+   "aliases": [
+    "rest-mass current",
+    "J_m"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The 4-vector J_m = rho_0 u describing how rest mass flows; for a particle it is m times the proper-time integral of u^alpha times the 4D delta function.",
+   "how_introduced": "Written after the density, with a margin note giving the analogous charge current.",
+   "depth": "introduced",
+   "prerequisites": [
+    "world-line delta-function representation of a point particle",
+    "four-current"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 135,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 153,
+     "printed_page": 136,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "J_m^\\alpha(x)=m\\int d\\tau\\,u^\\alpha\\delta^{(4)}[x-z(\\tau)]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "four-current",
+   "aliases": [
+    "current 4-vector",
+    "charge current",
+    "number current",
+    "baryon-number current"
+   ],
+   "kind": "physical-quantity",
+   "definition": "A 4-vector J^mu = (rho, J-vector) whose time component is the density of a conserved scalar quantity (charge, particle number, baryon number) and whose spatial part is its flux per unit area per unit time.",
+   "how_introduced": "Used as the simple rehearsal object for conservation laws before tackling T; examples include electric charge, baryon number and rest mass.",
+   "depth": "developed",
+   "prerequisites": [
+    "4-vector",
+    "flux"
+   ],
+   "locators": [
+    {
+     "pdf_page": 152,
+     "printed_page": 135,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 153,
+     "printed_page": 136,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "J^\\mu=(\\rho,\\vec J)",
+    "J_q^\\alpha(x)=q\\int d\\tau\\,u^\\alpha\\delta^{(4)}[x-z(\\tau)]"
+   ],
+   "notes": null
+  },
+  {
+   "name": "conserved charge",
+   "aliases": [
+    "total charge Q"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The integral of the density J^0 over a spatial volume, Q = int rho d^3x, whose change equals the net flux through the volume's boundary.",
+   "how_introduced": "Defined at the start of the conservation example.",
+   "depth": "introduced",
+   "prerequisites": [
+    "four-current"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 136,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "Q=\\int_V d^3x\\,\\rho"
+   ],
+   "notes": null
+  },
+  {
+   "name": "continuity equation",
+   "aliases": [
+    "local conservation law",
+    "vanishing divergence of J"
+   ],
+   "kind": "law",
+   "definition": "The statement that a current's 4-divergence vanishes, d rho/dt + div J = 0 or d_mu J^mu = 0, so the density at a point changes only because of flow through its surroundings.",
+   "how_introduced": "Stated for the charge current and linked to its integral form via the divergence theorem in a margin note.",
+   "depth": "core",
+   "prerequisites": [
+    "four-current",
+    "divergence theorem"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 136,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\partial_t\\rho+\\vec\\nabla\\cdot\\vec J=0",
+    "\\partial_\\mu J^\\mu=J^\\mu{}_{,\\mu}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "local versus global conservation",
+   "aliases": [],
+   "kind": "definition",
+   "definition": "Local conservation forbids a quantity from vanishing in one place and reappearing elsewhere without flowing in between (continuity equation); global conservation only demands the total stays fixed.",
+   "how_introduced": "Explained in words immediately after the continuity equation.",
+   "depth": "developed",
+   "prerequisites": [
+    "continuity equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 136,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [],
+   "notes": "In relativity only local conservation is meaningful, since distant simultaneity is frame-dependent; the book does not add this point."
+  },
+  {
+   "name": "hypersurface element and flux through a 3-surface",
+   "aliases": [
+    "dSigma_mu",
+    "surface 4-vector"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A 3-surface in spacetime is represented by a normal 4-vector (or covector) Sigma_mu whose size is its 3-volume; the charge crossing it is J^mu Sigma_mu for a flat piece and int J^mu dSigma_mu for a curved one.",
+   "how_introduced": "Built from a box-shaped 3-surface a x b x tau in the xyt hyperplane, then generalized to any orientation and to curved 3-surfaces.",
+   "depth": "developed",
+   "prerequisites": [
+    "four-current",
+    "orientation of a surface"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 136,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\int J^\\mu\\,d\\Sigma_\\mu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "spacetime divergence theorem for a conserved current",
+   "aliases": [
+    "global charge conservation law",
+    "Gauss theorem in 4D"
+   ],
+   "kind": "theorem",
+   "definition": "For a divergence-free current the total flux through the closed 3-boundary of any 4-volume vanishes: what enters through the past part of the boundary leaves through the future part.",
+   "how_introduced": "Obtained by integrating the local flux over a closed hypersurface (Fig. 12.3), with a margin interpretation in terms of past and future faces.",
+   "depth": "developed",
+   "prerequisites": [
+    "hypersurface element and flux through a 3-surface",
+    "continuity equation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 136,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\oint_{\\partial\\mathcal V}J^\\mu\\,d\\Sigma_\\mu=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "local conservation of energy-momentum in flat spacetime",
+   "aliases": [
+    "d_mu T^{mu nu} = 0"
+   ],
+   "kind": "law",
+   "definition": "In inertial coordinates, T^{mu nu}_{,mu} = 0: the nu = 0 component is the energy continuity equation and the nu = i components are momentum continuity equations.",
+   "how_introduced": "Proposed by analogy with the current J, with T carrying one extra index because the conserved quantity is a 4-vector; unpacked in Example 12.8.",
+   "depth": "core",
+   "prerequisites": [
+    "continuity equation",
+    "orthonormal-frame components of the energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 153,
+     "printed_page": 136,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\partial_\\mu T^{\\mu\\nu}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant conservation law for the energy-momentum tensor",
+   "aliases": [
+    "div T = 0",
+    "nabla . T = 0",
+    "vanishing divergence of T"
+   ],
+   "kind": "law",
+   "definition": "T^{mu nu}_{;mu} = 0 in any coordinates on curved spacetime; it expresses local energy-momentum conservation in each local inertial frame and is the key constraint on the source of Einstein's equation, though not a global conservation law.",
+   "how_introduced": "Derived by writing the flat law in a local inertial frame where connection coefficients vanish, replacing commas by semicolons, and removing hats.",
+   "depth": "core",
+   "prerequisites": [
+    "local conservation of energy-momentum in flat spacetime",
+    "local inertial frame",
+    "comma-goes-to-semicolon rule",
+    "covariant derivative of a rank-2 tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 148,
+     "printed_page": 131,
+     "section": null
+    },
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "T^{\\mu\\nu}{}_{;\\mu}=0",
+    "\\nabla\\cdot\\mathbf{T}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "covariant derivative of a rank-2 tensor",
+   "aliases": [],
+   "kind": "operation",
+   "definition": "For a (2,0) tensor, each upper index gets its own connection term: T^{mu nu}_{;alpha} = d_alpha T^{mu nu} + Gamma^mu_{alpha beta} T^{beta nu} + Gamma^nu_{alpha beta} T^{mu beta}; contracting alpha with mu gives the divergence.",
+   "how_introduced": "Quoted without derivation in a margin note, with a promise of full treatment in Part V.",
+   "depth": "introduced",
+   "prerequisites": [
+    "covariant derivative",
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "T^{\\mu\\nu}{}_{;\\mu}=\\partial_\\mu T^{\\mu\\nu}+\\Gamma^\\mu{}_{\\mu\\alpha}T^{\\alpha\\nu}+\\Gamma^\\nu{}_{\\mu\\alpha}T^{\\mu\\alpha}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "local inertial frame",
+   "aliases": [
+    "LIF"
+   ],
+   "kind": "definition",
+   "definition": "Coordinates around an event in which the metric is Minkowskian and its first derivatives, hence the connection coefficients, vanish at that event, so partial and covariant derivatives coincide there.",
+   "how_introduced": "Recalled as the bridge that lets a flat-space derivative law be read as a covariant one.",
+   "depth": "revisited",
+   "prerequisites": [
+    "equivalence principle",
+    "connection coefficients"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "\\Gamma^\\mu{}_{\\alpha\\beta}(P)=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Leibniz rule for the covariant derivative",
+   "aliases": [
+    "product rule"
+   ],
+   "kind": "identity",
+   "definition": "The covariant derivative of a product of tensors obeys the product rule, which lets the divergence of (rho + p) u^mu u^nu + p g^{mu nu} be taken term by term.",
+   "how_introduced": "Invoked in Example 12.9 for the perfect fluid and in Examples 12.10-12.11 for the energy current.",
+   "depth": "revisited",
+   "prerequisites": [
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 155,
+     "printed_page": 138,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "metric compatibility",
+   "aliases": [
+    "g^{mu nu}_{;mu} = 0",
+    "covariant constancy of the metric"
+   ],
+   "kind": "identity",
+   "definition": "The covariant derivative of the metric vanishes, so g can be moved through covariant derivatives; for scalars the covariant derivative reduces to the partial derivative.",
+   "how_introduced": "Recalled in a margin note to kill the p g^{mu nu}_{;nu} term.",
+   "depth": "revisited",
+   "prerequisites": [
+    "covariant derivative",
+    "metric tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "g^{\\mu\\nu}{}_{;\\mu}=0",
+    "f_{;\\mu}=f_{,\\mu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "relativistic perfect-fluid equations of motion",
+   "aliases": [
+    "relativistic Euler equation",
+    "fluid equation from div T = 0"
+   ],
+   "kind": "law",
+   "definition": "Setting the covariant divergence of the perfect-fluid tensor to zero gives an energy equation along u and an acceleration equation (rho + p) nabla_u u = -(projected gradient of p); for constant pressure and conserved rest mass it reduces to geodesic motion.",
+   "how_introduced": "Obtained in Example 12.9 by Leibniz expansion; interpretation deferred to Chapter 39.",
+   "depth": "introduced",
+   "prerequisites": [
+    "perfect-fluid energy-momentum tensor",
+    "covariant conservation law for the energy-momentum tensor",
+    "Leibniz rule for the covariant derivative",
+    "metric compatibility"
+   ],
+   "locators": [
+    {
+     "pdf_page": 154,
+     "printed_page": 137,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 155,
+     "printed_page": 138,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "0=[\\nabla_u\\rho+\\nabla_u p+(\\rho+p)(\\nabla\\cdot u)]u+(\\rho+p)\\nabla_u u+\\nabla p"
+   ],
+   "notes": "The book stops at the tensor expression; splitting into parallel and perpendicular parts is left to later chapters."
+  },
+  {
+   "name": "observer-measured energy",
+   "aliases": [
+    "E = -p(u)"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The energy of an object with momentum 1-form p, as measured by an observer with 4-velocity u located at the object, is E = -p(u); it is observer-dependent and only locally defined.",
+   "how_introduced": "Recalled at the start of the discussion of whether div T = 0 means energy conservation.",
+   "depth": "revisited",
+   "prerequisites": [
+    "momentum 1-form",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 155,
+     "printed_page": 138,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "E=-\\tilde{\\mathbf p}(\\mathbf u)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "family of parallel observers",
+   "aliases": [
+    "parallel velocity field",
+    "inertial observer congruence"
+   ],
+   "kind": "definition",
+   "definition": "A velocity field u(x) filling spacetime whose world lines are mutually parallel, in flat spacetime u^nu_{,mu} = 0, allowing energies measured at different places to be compared as if by one observer.",
+   "how_introduced": "Introduced to define energy of distant objects (Fig. 12.4) and shown to be what the flat-space energy-current conservation requires.",
+   "depth": "developed",
+   "prerequisites": [
+    "observer-measured energy",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 155,
+     "printed_page": 138,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "u^\\nu{}_{,\\mu}=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "energy current vector",
+   "aliases": [
+    "M^mu",
+    "energy current 1-form M = E J"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The vector M^mu = -T^{mu nu} u_nu giving the flow of energy relative to a family of observers u; for dust it equals E J^mu.",
+   "how_introduced": "Built in Example 12.10 from the dust tensor to test whether energy conservation follows from vanishing divergence of T.",
+   "depth": "introduced",
+   "prerequisites": [
+    "energy-momentum tensor",
+    "family of parallel observers"
+   ],
+   "locators": [
+    {
+     "pdf_page": 155,
+     "printed_page": 138,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "M^\\mu=-T^{\\mu\\nu}u_\\nu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "path dependence of parallel transport",
+   "aliases": [
+    "no global parallelism in curved spacetime"
+   ],
+   "kind": "phenomenon",
+   "definition": "In curved spacetime transporting a vector between two events gives a result that depends on the path, so there is no unique way to call distant velocities parallel or to add vectors living in different tangent spaces.",
+   "how_introduced": "Recalled to explain why the family of parallel observers cannot be defined globally, and in a margin note on summing momentum over a closed surface.",
+   "depth": "revisited",
+   "prerequisites": [
+    "parallel transport",
+    "Riemann curvature tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Killing's equation",
+   "aliases": [
+    "Killing condition"
+   ],
+   "kind": "law",
+   "definition": "The condition xi_{nu;mu} + xi_{mu;nu} = 0 on a vector field; its solutions (Killing vectors) generate symmetries of the metric and make -T^{mu nu} xi_nu a conserved current.",
+   "how_introduced": "Emerges in Example 12.11 as the requirement for the energy current to be covariantly conserved, with a pointer to Chapter 33.",
+   "depth": "introduced",
+   "prerequisites": [
+    "covariant derivative",
+    "symmetry of the energy-momentum tensor",
+    "energy current vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [
+    "u_{\\nu;\\mu}+u_{\\mu;\\nu}=0"
+   ],
+   "notes": "The book writes the condition for the observer velocity field; standard treatments apply it to a Killing vector that need not be a unit 4-velocity."
+  },
+  {
+   "name": "non-existence of global energy conservation in curved spacetime",
+   "aliases": [
+    "energy exchange between gravity and matter"
+   ],
+   "kind": "principle",
+   "definition": "Because generic spacetimes have no timelike Killing vector, div T = 0 does not integrate to a conserved total matter energy; gravity and matter exchange energy, and conservation holds only approximately over small regions.",
+   "how_introduced": "Concluded from Example 12.11 and explained physically by the mutual work between the gravitational field and matter.",
+   "depth": "developed",
+   "prerequisites": [
+    "Killing's equation",
+    "covariant conservation law for the energy-momentum tensor",
+    "path dependence of parallel transport"
+   ],
+   "locators": [
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "geodesic principle from energy-momentum conservation",
+   "aliases": [
+    "geodesic principle"
+   ],
+   "kind": "principle",
+   "definition": "Free massive point particles follow timelike geodesics; this can be derived from div T = 0 (the body exchanges no energy-momentum with its surroundings) together with an energy condition.",
+   "how_introduced": "Margin note citing Ehlers-Geroch and Weatherall; realized in Exercises 12.2 and 12.4 and flagged in the note that fluid motion reduces to geodesics for constant pressure.",
+   "depth": "mention",
+   "prerequisites": [
+    "covariant conservation law for the energy-momentum tensor",
+    "geodesic equation",
+    "energy conditions"
+   ],
+   "locators": [
+    {
+     "pdf_page": 155,
+     "printed_page": 138,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    },
+    {
+     "pdf_page": 157,
+     "printed_page": 140,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "diffeomorphism invariance as origin of the conservation law",
+   "aliases": [],
+   "kind": "theorem",
+   "definition": "div T = 0 can be derived from the invariance of the (matter) action under smooth coordinate reshufflings of the manifold, rather than postulated.",
+   "how_introduced": "Margin note pointing to Appendix C.",
+   "depth": "mention",
+   "prerequisites": [
+    "covariant conservation law for the energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "energy conditions",
+   "aliases": [
+    "dominant energy condition"
+   ],
+   "kind": "principle",
+   "definition": "Physical requirements on T such as non-negative energy density for every observer and non-spacelike energy flow.",
+   "how_introduced": "Mentioned in the margin note on the geodesic principle with a pointer to Chapter 13.",
+   "depth": "mention",
+   "prerequisites": [
+    "energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 156,
+     "printed_page": 139,
+     "section": "12.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Einstein field equation (schematic)",
+   "aliases": [
+    "curvature = energy content"
+   ],
+   "kind": "law",
+   "definition": "The coming field equation relates a curvature tensor built from the metric to the energy-momentum tensor of matter.",
+   "how_introduced": "Stated in words in the opening margin note as the target of Chapter 13.",
+   "depth": "mention",
+   "prerequisites": [
+    "Ricci tensor",
+    "energy-momentum tensor"
+   ],
+   "locators": [
+    {
+     "pdf_page": 148,
+     "printed_page": 131,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\text{curvature}=\\text{energy content}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "length contraction of number density",
+   "aliases": [
+    "gamma factor in densities"
+   ],
+   "kind": "phenomenon",
+   "definition": "A moving collection of particles is length-contracted along its motion, so its density in the lab frame is gamma times its rest-frame value; this is the origin of the u^0 factors in particle densities.",
+   "how_introduced": "Invoked to interpret the 1/u^0 factor in the delta-function density, pointing back to Fig. 2.7.",
+   "depth": "revisited",
+   "prerequisites": [
+    "Lorentz factor",
+    "length contraction"
+   ],
+   "locators": [
+    {
+     "pdf_page": 151,
+     "printed_page": 134,
+     "section": "12.3"
+    },
+    {
+     "pdf_page": 152,
+     "printed_page": 135,
+     "section": "12.3"
+    }
+   ],
+   "formulas": [
+    "n=\\gamma n_0"
+   ],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(12.1)",
+   "name": "Field equation in words",
+   "latex": "\\text{Curvature of spacetime}=\\text{Energy density of matter fields}",
+   "meaning": "Preview of Einstein's equation: geometry on the left, matter content on the right.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": null
+   }
+  },
+  {
+   "label": "(12.2)",
+   "name": "(0,2) energy-momentum tensor",
+   "latex": "\\mathbf{T}(x)=T_{\\mu\\nu}(x)\\,\\boldsymbol{\\omega}^{\\mu}\\otimes\\boldsymbol{\\omega}^{\\nu},\\qquad T_{\\mu\\nu}=T_{\\nu\\mu}",
+   "meaning": "Component expansion of the symmetric tensor field on the basis 1-forms.",
+   "symbols": "omega^mu basis 1-forms; T_{mu nu} components",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.3)",
+   "name": "Dust tensor as outer product",
+   "latex": "\\mathbf{T}(\\;,\\;)=\\tilde{\\mathbf{p}}(\\;)\\otimes\\tilde{\\mathbf{J}}(\\;)",
+   "meaning": "For a swarm of particles T is the momentum 1-form times the number-current 1-form.",
+   "symbols": "p momentum 1-form; J number-current 1-form",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.4)",
+   "name": "One velocity in a slot",
+   "latex": "\\mathbf{T}(\\;,\\mathbf{u})=-\\left(\\text{4-momentum density in the observer's rest frame}\\right)",
+   "meaning": "Feeding the observer's velocity gives minus the momentum density as a 1-form.",
+   "symbols": "u observer 4-velocity",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.5)",
+   "name": "Velocity plus a direction",
+   "latex": "\\mathbf{T}(\\mathbf{a},\\mathbf{u})=-\\left(\\text{4-momentum density component along }\\mathbf{a}\\right)",
+   "meaning": "Adding a unit displacement vector selects one component of that density.",
+   "symbols": "a unit displacement vector",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.6)",
+   "name": "Energy density",
+   "latex": "\\mathbf{T}(\\mathbf{u},\\mathbf{u})=\\text{energy density in the observer's rest frame}",
+   "meaning": "Both slots filled with u give the energy density the observer measures.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.7)",
+   "name": "Raising hatted indices",
+   "latex": "T^{\\hat0\\hat0}=T_{\\hat0\\hat0},\\quad T^{\\hat0\\hat i}=-T_{\\hat0\\hat i},\\quad T^{\\hat i\\hat j}=T_{\\hat i\\hat j}",
+   "meaning": "Each raised time index brings a factor -1 from eta, so only mixed components change sign.",
+   "symbols": "hats: orthonormal-frame indices",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.8)",
+   "name": null,
+   "latex": "\\mathbf{T}(\\mathbf{e}_{\\hat0},\\mathbf{e}_{\\hat0})=T_{\\hat0\\hat0}=T^{\\hat0\\hat0}=\\text{energy density}",
+   "meaning": "Time-time component in the observer's orthonormal frame (u = e_0).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.9)",
+   "name": null,
+   "latex": "\\mathbf{T}(\\mathbf{e}_{\\hat i},\\mathbf{e}_{\\hat0})=T_{\\hat i\\hat0}=-T^{\\hat i\\hat0}=-\\left(i\\text{th component of 4-momentum density}\\right)",
+   "meaning": "Mixed components: momentum density, equivalently energy flux along i.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.10)",
+   "name": null,
+   "latex": "\\mathbf{T}(\\mathbf{e}_{\\hat i},\\mathbf{e}_{\\hat j})=T_{\\hat i\\hat j}=T^{\\hat i\\hat j}=\\left(i\\text{th component of momentum flux across a surface parallel to }\\boldsymbol{\\omega}^{\\hat j}\\right)",
+   "meaning": "Spatial components as momentum flux through a surface with normal e_j (Fig. 12.1).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.11)",
+   "name": null,
+   "latex": "T_{\\hat i\\hat j}=T^{\\hat i\\hat j}=\\left(i\\text{th component of force across a surface parallel to }\\boldsymbol{\\omega}^{\\hat j}\\right)",
+   "meaning": "Same components read as stress, because momentum transferred per unit time is force.",
+   "symbols": "Force here means force per unit area.",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Block structure of T (Fig. 12.2)",
+   "latex": "T^{\\hat\\mu\\hat\\nu}=\\begin{pmatrix}\\text{energy density}&\\text{momentum density along }\\hat\\nu\\\\\\text{energy flux along }\\hat\\mu&\\hat\\nu\\text{-momentum flux along }\\hat\\mu\\end{pmatrix}",
+   "meaning": "Schematic 1+3 block decomposition of the components.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "label": "(12.12)",
+   "name": "Perfect fluid at rest",
+   "latex": "T_{\\hat\\mu\\hat\\nu}=\\begin{pmatrix}\\rho&0&0&0\\\\0&p&0&0\\\\0&0&p&0\\\\0&0&0&p\\end{pmatrix}",
+   "meaning": "Rest-frame fluid: energy density and isotropic pressure only.",
+   "symbols": "rho total energy density; p pressure",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.13)-(12.14)",
+   "name": null,
+   "latex": "(\\tilde{\\mathbf u}\\otimes\\tilde{\\mathbf u})_{\\hat\\mu\\hat\\nu}=u_{\\hat\\mu}u_{\\hat\\nu}=\\mathrm{diag}(1,0,0,0),\\quad u_{\\hat\\mu}=(-1,0,0,0)",
+   "meaning": "The velocity outer product isolates the time-time slot in the rest frame.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.15)",
+   "name": "Decomposition",
+   "latex": "T_{\\hat\\mu\\hat\\nu}=\\rho(\\tilde{\\mathbf u}\\otimes\\tilde{\\mathbf u})_{\\hat\\mu\\hat\\nu}+p\\left[\\eta_{\\hat\\mu\\hat\\nu}+(\\tilde{\\mathbf u}\\otimes\\tilde{\\mathbf u})_{\\hat\\mu\\hat\\nu}\\right]",
+   "meaning": "Rest-frame matrix rewritten with tensors, so the equation holds in all frames.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.16)",
+   "name": "Perfect fluid tensor, flat",
+   "latex": "\\mathbf{T}(\\;,\\;)=(\\rho+p)\\,\\tilde{\\mathbf u}(\\;)\\otimes\\tilde{\\mathbf u}(\\;)+p\\,\\boldsymbol\\eta(\\;,\\;)",
+   "meaning": "Frame-independent flat-spacetime perfect-fluid tensor.",
+   "symbols": "u fluid velocity 1-form",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.17)",
+   "name": null,
+   "latex": "T_{\\hat\\mu\\hat\\nu}=(\\rho+p)u_{\\hat\\mu}u_{\\hat\\nu}+p\\,\\eta_{\\hat\\mu\\hat\\nu}",
+   "meaning": "Components of (12.16).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.18)",
+   "name": "Trace",
+   "latex": "T=T^{\\hat\\nu}{}_{\\hat\\nu}=T_{\\hat\\mu\\hat\\nu}\\eta^{\\hat\\mu\\hat\\nu}=-(\\rho+p)+4p=-\\rho+3p",
+   "meaning": "Scalar trace; vanishes for radiation with rho = 3p.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.19)",
+   "name": "Perfect fluid tensor, curved",
+   "latex": "\\mathbf T=(\\rho+p)\\,\\tilde{\\mathbf u}\\otimes\\tilde{\\mathbf u}+p\\,\\mathbf g,\\qquad T_{\\mu\\nu}=(\\rho+p)u_\\mu u_\\nu+p\\,g_{\\mu\\nu}",
+   "meaning": "General-coordinate form after replacing eta by g.",
+   "symbols": "g metric",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "(2,0) perfect fluid tensor",
+   "latex": "T^{\\mu\\nu}=(\\rho+p)u^\\mu u^\\nu+p\\,g^{\\mu\\nu}",
+   "meaning": "Index-raised version used in divergence calculations.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.2"
+   }
+  },
+  {
+   "label": "(12.20)",
+   "name": "Moving dust swarm",
+   "latex": "T^{\\mu\\nu}=nm\\gamma\\begin{pmatrix}c^2&v^xc&v^yc&0\\\\v^xc&(v^x)^2&v^xv^y&0\\\\v^yc&v^xv^y&(v^y)^2&0\\\\0&0&0&0\\end{pmatrix}",
+   "meaning": "Energy density, momentum density and momentum flux for uniformly moving dust with c restored.",
+   "symbols": "n number density (lab frame); m rest mass; v velocity",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.21)",
+   "name": "Rest-mass density of a particle",
+   "latex": "\\rho_0(x)=m\\int d\\tau\\,\\delta^{(4)}[x-z(\\tau)]",
+   "meaning": "Delta function picks out the particle's world line.",
+   "symbols": "z^mu(tau) world line; tau proper time",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.22)",
+   "name": "4D delta",
+   "latex": "\\delta^{(4)}[x-z(\\tau)]=\\delta[x^0-z^0(\\tau)]\\,\\delta[x^1-z^1(\\tau)]\\,\\delta[x^2-z^2(\\tau)]\\,\\delta[x^3-z^3(\\tau)]",
+   "meaning": "Cartesian definition as a product of 1D deltas.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.23)",
+   "name": null,
+   "latex": "\\rho_0(x)=m\\int dz^0\\,\\frac{\\delta^{(3)}[\\vec x-\\vec z]\\,\\delta[t-z^0(\\tau)]}{u^0}=\\frac{m}{u^0}\\,\\delta^{(3)}[\\vec x-\\vec z(\\tau)]",
+   "meaning": "Integrating out time leaves a 3D delta with 1/u^0 = 1/gamma from length contraction; tau solves z^0(tau) = t.",
+   "symbols": "u^0 = dz^0/dtau",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.24)",
+   "name": "Charge current of a particle",
+   "latex": "J_q^\\alpha(x)=q\\int d\\tau\\,u^\\alpha\\,\\delta^{(4)}[x-z(\\tau)]",
+   "meaning": "Charge 4-current for a point charge.",
+   "symbols": "q scalar charge",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.25)",
+   "name": "Mass current of a particle",
+   "latex": "J_m^\\alpha(x)=m\\int d\\tau\\,u^\\alpha\\,\\delta^{(4)}[x-z(\\tau)]",
+   "meaning": "Rest-mass 4-current, the particle version of rho_0 u.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.26)",
+   "name": "Point-particle energy-momentum tensor",
+   "latex": "T^{\\alpha\\beta}(x)=m\\int d\\tau\\,u^\\alpha u^\\beta\\,\\delta^{(4)}[x-z(\\tau)]",
+   "meaning": "Flat-space T for a free particle, the pressureless fluid tensor concentrated on a world line.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.27)",
+   "name": "Curved-spacetime particle densities",
+   "latex": "\\rho_0=m\\int d\\tau\\frac{\\delta^{(4)}[x-z]}{\\sqrt{-g}},\\quad J_m^\\alpha=m\\int d\\tau\\,u^\\alpha\\frac{\\delta^{(4)}[x-z]}{\\sqrt{-g}},\\quad T^{\\alpha\\beta}=m\\int d\\tau\\,u^\\alpha u^\\beta\\frac{\\delta^{(4)}[x-z]}{\\sqrt{-g}}",
+   "meaning": "Dividing by sqrt(-g) turns the delta function into a scalar.",
+   "symbols": "g determinant of g_{mu nu}",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "label": "(12.28)",
+   "name": "Total charge",
+   "latex": "Q=\\int_V d^3x\\,\\rho",
+   "meaning": "Charge in a spatial volume.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.29)",
+   "name": "Integral conservation",
+   "latex": "-\\frac{\\partial Q}{\\partial t}=\\oint_S\\vec J\\cdot d\\vec S",
+   "meaning": "Loss of charge equals outward flux (from the divergence theorem).",
+   "symbols": "S boundary of V",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.30)",
+   "name": "Continuity equation",
+   "latex": "\\frac{\\partial\\rho}{\\partial t}+\\vec\\nabla\\cdot\\vec J=0",
+   "meaning": "Local conservation of charge in 3+1 form.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.31)",
+   "name": "Covariant continuity",
+   "latex": "\\partial_\\mu J^\\mu=0\\quad\\Longleftrightarrow\\quad J^\\mu{}_{,\\mu}=0",
+   "meaning": "Four-divergence form. The reading copy garbles the second form; the rendered page shows J^mu_{,mu} = 0.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Flux through a 3-surface",
+   "latex": "J^z\\Sigma_z\\;\\to\\;J^\\alpha\\Sigma_\\alpha\\;\\to\\;\\int J^\\mu\\,d\\Sigma_\\mu",
+   "meaning": "Charge crossing a box-shaped, arbitrarily oriented flat, then curved 3-surface.",
+   "symbols": "Sigma_mu normal 4-vector with magnitude the 3-volume",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.32)",
+   "name": "Global conservation",
+   "latex": "\\oint_{\\partial\\mathcal V}J^\\mu\\,d\\Sigma_\\mu=0",
+   "meaning": "Zero net flux through any closed boundary of a 4-volume.",
+   "symbols": "partial V closed 3-surface",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.33)",
+   "name": "Energy-momentum conservation, flat",
+   "latex": "\\text{(i) }\\partial_\\mu T^{\\mu\\nu}=0,\\quad\\text{(ii) }T^{\\mu\\nu}{}_{,\\mu}=0,\\quad\\text{(iii) }\\nabla\\cdot\\mathbf T=0",
+   "meaning": "Three notations for local conservation of 4-momentum.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Example 12.8 unpacking (dust)",
+   "latex": "\\frac{\\partial\\rho}{\\partial t}+\\vec\\nabla\\cdot(\\rho\\vec v)=0,\\qquad \\frac{\\partial(\\rho v^i)}{\\partial t}+\\vec\\nabla\\cdot(\\rho v^i\\vec v)=0",
+   "meaning": "nu = 0 gives energy conservation; nu = i gives momentum conservation. The substitution T^{0i} = rho v^i, T^{ij} = rho v^i v^j is exact for pressureless dust at any speed provided rho is the lab-frame energy density (gamma^2 rho_0); with pressure an extra p delta^{ij} term appears.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.34)",
+   "name": null,
+   "latex": "T^{\\hat\\mu\\hat\\nu}{}_{,\\hat\\mu}=0",
+   "meaning": "Conservation measured in a local inertial frame.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.35)",
+   "name": null,
+   "latex": "T^{\\hat\\mu\\hat\\nu}{}_{;\\hat\\mu}=0",
+   "meaning": "Same statement with covariant derivative, valid since Gamma vanishes at the point.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.36)",
+   "name": "Covariant conservation",
+   "latex": "T^{\\mu\\nu}{}_{;\\mu}=0",
+   "meaning": "Curved-spacetime law obtained by removing hats (comma goes to semicolon).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.37)",
+   "name": "Explicit covariant divergence",
+   "latex": "T^{\\mu\\nu}{}_{;\\mu}=\\frac{\\partial T^{\\mu\\nu}}{\\partial x^\\mu}+\\Gamma^\\mu{}_{\\mu\\alpha}T^{\\alpha\\nu}+\\Gamma^\\nu{}_{\\mu\\alpha}T^{\\mu\\alpha}",
+   "meaning": "One connection term per upper index.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.38)",
+   "name": null,
+   "latex": "\\nabla\\cdot\\mathbf T=0",
+   "meaning": "Index-free statement of the constraint on the source of Einstein's equation.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Scalar derivative and metric compatibility",
+   "latex": "f_{;\\mu}=f_{,\\mu},\\qquad g^{\\mu\\nu}{}_{;\\mu}=0",
+   "meaning": "Facts used to simplify the fluid divergence.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.39)",
+   "name": null,
+   "latex": "T^{\\mu\\nu}{}_{;\\nu}=(\\rho+p)_{;\\nu}u^\\mu u^\\nu+(\\rho+p)u^\\mu{}_{;\\nu}u^\\nu+(\\rho+p)u^\\mu u^\\nu{}_{;\\nu}+p_{;\\nu}g^{\\mu\\nu}+p\\,g^{\\mu\\nu}{}_{;\\nu}",
+   "meaning": "Leibniz expansion of the perfect-fluid divergence.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.40)",
+   "name": null,
+   "latex": "0=\\left[(\\rho+p)_{,\\nu}u^\\nu+(\\rho+p)u^\\nu{}_{;\\nu}\\right]u^\\mu+(\\rho+p)u^\\nu u^\\mu{}_{;\\nu}+p_{,\\nu}g^{\\mu\\nu}",
+   "meaning": "After using scalar derivatives and metric compatibility.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.41)",
+   "name": "Perfect-fluid equation of motion",
+   "latex": "0=\\nabla\\cdot\\mathbf T=\\left[\\nabla_{\\mathbf u}\\rho+\\nabla_{\\mathbf u}p+(\\rho+p)(\\nabla\\cdot\\mathbf u)\\right]\\mathbf u+(\\rho+p)\\nabla_{\\mathbf u}\\mathbf u+\\nabla p",
+   "meaning": "Tensor form of fluid dynamics: part along u is energy balance, part orthogonal is acceleration driven by pressure gradients.",
+   "symbols": "nabla_u directional covariant derivative; nabla p gradient vector",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Energy measured by an observer",
+   "latex": "E=-\\tilde{\\mathbf p}(\\mathbf u)",
+   "meaning": "Energy of an object as measured by a co-located observer.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.42)",
+   "name": "Parallel observers",
+   "latex": "u^\\nu{}_{,\\mu}=0",
+   "meaning": "Velocity field of a family of parallel inertial observers in flat spacetime.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.43)",
+   "name": null,
+   "latex": "-\\mathbf T(\\mathbf u,\\mathbf u)=-T_{\\mu\\nu}u^\\mu u^\\nu=E\\,\\tilde{\\mathbf J}(\\mathbf u)",
+   "meaning": "Dust relation used to define the energy current. Since J(u) = -n, this quantity is minus the energy density En, so calling it the energy density clashes in sign with (12.6).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.44)",
+   "name": "Energy current",
+   "latex": "M^\\mu=-T^{\\mu\\nu}u_\\nu",
+   "meaning": "Components of the energy current vector relative to observers u.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.45)",
+   "name": null,
+   "latex": "0=(-T^{\\mu\\nu}u_\\nu)_{,\\mu}=-(T^{\\mu\\nu}{}_{,\\mu})u_\\nu-T^{\\mu\\nu}u_{\\nu,\\mu}=-T^{\\mu\\nu}u_{\\nu,\\mu}",
+   "meaning": "Energy-current conservation requires the velocity field's gradient to drop out.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.46)",
+   "name": null,
+   "latex": "(T^{\\mu\\nu}u_\\nu)_{;\\mu}=0",
+   "meaning": "Curved-spacetime version of the requirement.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.47)",
+   "name": "Killing's equation",
+   "latex": "u_{\\nu;\\mu}+u_{\\mu;\\nu}=0",
+   "meaning": "Only the symmetrized derivative matters because T is symmetric; generic spacetimes admit no such field, so no global energy conservation.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Global momentum conservation (margin)",
+   "latex": "\\oint_{\\partial\\mathcal V}T^{\\mu\\nu}\\,d\\Sigma_\\nu=0",
+   "meaning": "Would require adding 4-vectors from different tangent spaces, which is ill-defined in curved spacetime.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "label": "(12.48)",
+   "name": null,
+   "latex": "T_{tt}=\\rho,\\quad T_{ii}=p\\;(i=x,y,z)",
+   "meaning": "Cartesian fluid tensor to be transformed to spherical polars (Exercise 12.1).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  },
+  {
+   "label": "(12.49)",
+   "name": null,
+   "latex": "0=\\nabla\\cdot\\mathbf T=u^\\mu(\\rho_0u^\\nu)_{;\\nu}+\\rho_0u^\\nu u^\\mu{}_{;\\nu}",
+   "meaning": "Dust divergence; with rest-mass conservation it gives geodesic motion (Exercise 12.2).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  },
+  {
+   "label": "(12.50)",
+   "name": null,
+   "latex": "T^{\\mu\\nu}(x)=\\int d\\tau\\,\\frac{m}{\\sqrt{-g}}\\frac{dz^\\mu}{d\\tau}\\frac{dz^\\nu}{d\\tau}\\,\\delta^{(4)}[x-z(\\tau)]",
+   "meaning": "Single-particle energy-momentum tensor (Exercise 12.3).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  },
+  {
+   "label": "(12.51)",
+   "name": "Delta of a function",
+   "latex": "\\int dx\\,\\delta[f(x)]\\,g(x)=\\sum_a\\frac{g(x_a)}{|f'(x_a)|}",
+   "meaning": "Change-of-variables identity over the roots x_a of f.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  },
+  {
+   "label": "(12.52)-(12.53)",
+   "name": "Swarm momentum density and current",
+   "latex": "T^{\\alpha0}(x)=\\sum_n p_n^\\alpha(\\tau_n)\\,\\delta^{(3)}[\\vec x-\\vec z_n(\\tau_n)],\\qquad T^{\\alpha i}(x)=\\sum_n p_n^\\alpha(\\tau_n)\\frac{dz_n^i(\\tau_n)}{dt}\\,\\delta^{(3)}[\\vec x-\\vec z_n(\\tau_n)]",
+   "meaning": "Many-particle momentum density and momentum current obtained from the world-line integral (Exercise 12.3a,b).",
+   "symbols": "n particle label; tau_n solves z_n^0(tau_n) = t",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  },
+  {
+   "label": "(12.54)",
+   "name": "Swarm tensor",
+   "latex": "T^{\\alpha\\beta}(x)=\\sum_n\\frac{p_n^\\alpha(\\tau_n)\\,p_n^\\beta(\\tau_n)}{E_n(\\tau_n)}\\,\\delta^{(3)}[\\vec x-\\vec z_n(\\tau_n)]",
+   "meaning": "Energy-momentum tensor of many particles at coordinate time t (Exercise 12.3c).",
+   "symbols": "n particle label; tau_n solves z_n^0(tau_n) = t",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  },
+  {
+   "label": "(12.55)-(12.57)",
+   "name": "Dust (1,1) tensor as an eigenproblem",
+   "latex": "\\mathbf T(\\;,\\;)=\\mathbf p\\otimes\\tilde{\\mathbf J},\\qquad \\mathbf T(\\;,\\mathbf v)=\\alpha\\,\\mathbf v,\\qquad \\mathbf T(\\;,\\mathbf e_i)=p\\,\\mathbf e_i",
+   "meaning": "Set-up for Exercise 12.5: velocity is one eigenvector, the three orthogonal directions share a degenerate eigenvalue p.",
+   "symbols": "v fluid velocity; e_i spatial vectors orthogonal to v",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  },
+  {
+   "label": "(12.58)-(12.59)",
+   "name": null,
+   "latex": "\\mathbf T(\\tilde{\\mathbf Y},\\mathbf X)=-X^{\\hat0}Y_{\\hat0}(\\rho+p)+X^{\\hat\\mu}Y_{\\hat\\mu}\\,p,\\qquad T_{\\mu\\nu}=(\\rho+p)v_\\mu v_\\nu+p\\,g_{\\mu\\nu}",
+   "meaning": "Eigenvector route to the perfect-fluid tensor (Exercise 12.5).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 12.1",
+   "image_path": "gifted-amateur/pages/page-149/img-86.jpeg",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   },
+   "caption_paraphrase": "Momentum component i streams through a surface whose normal points along e_j; the rate per area is T^{ij}.",
+   "visual_description": "Line drawing of a flat sheet shown in perspective as a parallelogram. Three long straight arrows pierce it obliquely from below, arrowheads above the sheet. Short arrow segments labelled p with a hatted i sit alongside the long arrows, three under the sheet and two over it, marking the momentum component being carried. At the right end of the sheet a small basis pair is drawn: e_j (hatted) rises perpendicular to the sheet from a right-angle marker, and e_i (hatted) points off sideways. Static schematic, no numbers.",
+   "what_it_teaches": "The spatial components of T count the flow of one momentum component through a surface oriented by another direction, so T^{ij} has two independent directional roles and doubles as force per area.",
+   "figure_type": "schematic",
+   "concepts": [
+    "stress as momentum flux",
+    "orthonormal-frame components of the energy-momentum tensor"
+   ],
+   "redesign": {
+    "idea": "3D flux counter: a translucent surface patch in a stream of particles, each carrying a momentum arrow. The learner picks the surface normal (x, y or z) and which momentum component to tally; a live counter accumulates momentum crossing per unit area per unit time and displays the matching T^{ij} next to the formula n m gamma v^i v^j.",
+    "interaction": "Drag the particle velocity vector and density; rotate the patch normal among axes; toggle between 'momentum flux' and 'force per area' labels; switch on a random thermal spread to see diagonal pressure appear with zero net velocity.",
+    "form": "interactive-3d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 12.2",
+   "image_path": null,
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   },
+   "caption_paraphrase": "Cartoon of what each entry of T means in an observer's orthonormal frame.",
+   "visual_description": "Recovered from the rendered page (not exported as an image). A large 4 x 4 matrix labelled T with hatted indices mu nu, with column headers nu = 0,1,2,3 across the top and row headers mu = 0,1,2,3 down the left. Each entry is a grey rectangle. A thick horizontal rule below row 0 and a thick vertical rule right of column 0 split it into blocks: top-left cell 'energy density'; rest of top row 'momentum density along nu'; rest of first column 'energy flux in mu direction'; lower-right 3 x 3 block 'nu component of momentum flux along mu direction'.",
+   "what_it_teaches": "The 1+3 block anatomy of T: one energy density, three momentum densities, three energy fluxes (equal to them by symmetry), and a symmetric 3 x 3 stress block.",
+   "figure_type": "table",
+   "concepts": [
+    "orthonormal-frame components of the energy-momentum tensor",
+    "symmetry of the energy-momentum tensor",
+    "stress as momentum flux"
+   ],
+   "redesign": {
+    "idea": "Living T-matrix explorer: a 4 x 4 grid whose cells show numeric values and light up with their physical meaning on hover. A source menu (dust at rest, moving dust, perfect fluid, radiation, uniform electric field) fills the grid; a boost slider transforms it so the learner watches energy density leak into momentum density and flux cells, while invariants (trace, T_{mu nu}T^{mu nu}) stay fixed.",
+    "interaction": "Hover cells for meaning; choose matter model; drag boost velocity and direction; pressure slider for the fluid; symmetric partner cells highlight together.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 12.3",
+   "image_path": "gifted-amateur/pages/page-153/img-87.jpeg",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "caption_paraphrase": "A spacetime region with a closed boundary made of many small oriented surface elements; a current flows in and out, and the net outflow is zero for a conserved current.",
+   "visual_description": "Hand-drawn irregular blob labelled with a script V, its outline labelled partial V. Small arrows point outward all round the outline, one labelled dSigma. Long bold curved arrows labelled J cross the outline: a cluster enters through the lower and lower-left edge, and others leave through the top and right edge. A short patch of hatching lines the inside of the lower-left boundary. The 4-volume is drawn as a 2D region.",
+   "what_it_teaches": "Global conservation as zero net flux: integrate J dotted into outward surface elements over the whole closed boundary; current entering must leave.",
+   "figure_type": "vector-or-tensor-field",
+   "concepts": [
+    "spacetime divergence theorem for a conserved current",
+    "hypersurface element and flux through a 3-surface",
+    "four-current"
+   ],
+   "redesign": {
+    "idea": "Spacetime flux ledger in a 1+1 diagram: charged particles drawn as world lines (and optionally a smooth current field) pass through a region the learner sketches. Boundary normals are shown with correct orientation on past and future faces; a ledger tallies inflow on the past boundary and outflow on the future boundary, summing to zero. A 'violate conservation' toggle makes particles pop into existence inside, and the ledger goes non-zero while the local divergence map lights up there.",
+    "interaction": "Draw or resize the region; add particles with chosen velocities; toggle creation events; toggle between spacelike-slice counting (Q at two times) and closed-boundary counting.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Fig. 12.4",
+   "image_path": "gifted-amateur/pages/page-155/img-88.jpeg",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   },
+   "caption_paraphrase": "World lines of three observers in flat spacetime who share the same velocity.",
+   "visual_description": "Spacetime diagram with a vertical t axis and a horizontal x axis, both arrowed. Three straight parallel lines rise to the upper right with equal slopes, starting on the x axis at the origin and at two points further right. No light cone or scale is drawn.",
+   "what_it_teaches": "In flat spacetime a family of observers with identical velocity (parallel world lines, constant u) lets energies measured at different places be compared, which is what energy conservation silently assumes.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "family of parallel observers",
+    "observer-measured energy",
+    "path dependence of parallel transport"
+   ],
+   "redesign": {
+    "idea": "Parallel-observers test bench: left panel a flat 1+1 diagram where the learner lays down observers with one velocity slider and sees identical measured energies for a test particle. Right panel a curved 2D surface (sphere or saddle as a spatial analogue) where the learner tries to transport one observer's velocity to a distant spot along two different paths; the arrows arrive misaligned, and the 'energy of distant object' readout gives two different values.",
+    "interaction": "Drag observers and velocity in flat panel; in curved panel draw two transport paths and compare arrival angles; a curvature slider shrinks the discrepancy toward zero for small regions.",
+    "form": "interactive-3d",
+    "priority": "medium"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Example 12.1",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   },
+   "problem": "Identify the physical meaning of each component T_{mu nu} = T(e_mu, e_nu) in an observer's orthonormal frame.",
+   "method": "Set u = e_0 in the slot recipe, substitute basis vectors, and raise hatted indices with eta (margin note) to compare upper and lower components. The spatial reading is cross-checked with the dust form T_ij = p(e_i) J(e_j) = p_i J_j, then reinterpreted as force because momentum per unit time is force.",
+   "key_insight": "Two time slots give energy density; one gives momentum density (equal to energy flux); none gives momentum flux, which is also stress because momentum per unit time is force.",
+   "result": "T_00 = energy density; T_i0 = -T^{i0} = minus momentum density; T_ij = T^ij = i-momentum flux across the surface with normal e_j.",
+   "concepts": [
+    "orthonormal-frame components of the energy-momentum tensor",
+    "stress as momentum flux",
+    "raising and lowering orthonormal-frame indices"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 12.2",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   },
+   "problem": "Construct the energy-momentum tensor of a perfect fluid, starting in its local rest frame.",
+   "method": "Fill the rest-frame matrix with rho and isotropic pressure p; compute the velocity outer product diag(1,0,0,0); split the matrix into a rho part and a p part expressed via u (x) u and eta; note both sides have matching lower indices.",
+   "key_insight": "A diagonal matrix in one special frame becomes a frame-independent tensor once it is written using the fluid velocity and the metric.",
+   "result": "T = (rho + p) u (x) u + p eta, components T_{mu nu} = (rho + p) u_mu u_nu + p eta_{mu nu}.",
+   "concepts": [
+    "perfect fluid",
+    "perfect-fluid energy-momentum tensor",
+    "spatial projection tensor",
+    "valid tensor equation"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 12.3",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   },
+   "problem": "Find the trace of the perfect-fluid tensor and apply it to a photon gas.",
+   "method": "Contract with eta, using u_mu u^mu = -1 and eta^{mu nu} eta_{mu nu} = 4.",
+   "key_insight": "With (-,+,+,+) signature the energy density enters the trace with a minus sign; radiation's rho = 3p makes the trace vanish, tied to masslessness.",
+   "result": "T = -rho + 3p; T = 0 for a photon gas.",
+   "concepts": [
+    "trace of the energy-momentum tensor",
+    "radiation equation of state",
+    "traceless energy-momentum tensor and massless fields"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 12.4",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.3"
+   },
+   "problem": "Write the energy-momentum tensor for a swarm of identical non-interacting dust particles moving with common velocity in the x-y plane.",
+   "method": "Restore c; read off energy density, momentum density and momentum flux from the particle density, rest mass, gamma and velocity components; assemble the symmetric matrix.",
+   "key_insight": "Every entry is n m gamma times a product of two 'velocity' components (c for time), which is the component version of rho_0 u^mu u^nu.",
+   "result": "T^{mu nu} = n m gamma [[c^2, v^x c, v^y c, 0], [v^x c, (v^x)^2, v^x v^y, 0], [v^y c, v^x v^y, (v^y)^2, 0], [0,0,0,0]].",
+   "concepts": [
+    "energy-momentum tensor of a moving dust swarm",
+    "dust",
+    "length contraction of number density"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 12.5",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   },
+   "problem": "Show how the proper-time delta-function integral for a particle's rest-mass density reduces to an ordinary density at a given time.",
+   "method": "Change integration variable from tau to z^0 using dtau = dz^0/u^0, split the 4D delta into a time delta and a 3D delta, and integrate out the time delta.",
+   "key_insight": "The leftover 1/u^0 = 1/gamma is length contraction in disguise: the scalar rest density is smaller than the naive lab count.",
+   "result": "rho_0(x) = (m/u^0) delta^(3)[x - z(tau)] with tau fixed by z^0(tau) = t.",
+   "concepts": [
+    "world-line delta-function representation of a point particle",
+    "four-dimensional Dirac delta function",
+    "length contraction of number density"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 12.6",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   },
+   "problem": "Generalize the point-particle rest-mass density, mass current and energy-momentum tensor to curved spacetime.",
+   "method": "Use sqrt(-g) d^4x as the invariant volume element, so delta^(4)/sqrt(-g) is a scalar, and insert it into each integral.",
+   "key_insight": "Delta functions are densities; a factor of 1/sqrt(-g) converts them into scalars fit for tensor equations.",
+   "result": "Each of rho_0, J_m^alpha and T^{alpha beta} acquires 1/sqrt(-g) inside the proper-time integral (12.27).",
+   "concepts": [
+    "invariant volume element",
+    "world-line delta-function representation of a point particle",
+    "mass current"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 12.7",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "problem": "Formulate local and global conservation for a scalar charge described by a 4-current.",
+   "method": "Define Q as a volume integral; state the continuity equation and its 4-divergence form; count charge through a box-shaped 3-surface a x b x tau, generalize to J^alpha Sigma_alpha and to curved 3-surfaces; integrate over the closed boundary of a 4-volume.",
+   "key_insight": "Conservation in spacetime is a statement about flux through closed hypersurfaces: what enters through the past boundary must exit through the future boundary.",
+   "result": "d_mu J^mu = 0 locally and oint J^mu dSigma_mu = 0 globally; same structure for baryon number and rest mass.",
+   "concepts": [
+    "four-current",
+    "continuity equation",
+    "local versus global conservation",
+    "hypersurface element and flux through a 3-surface",
+    "spacetime divergence theorem for a conserved current"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 12.8",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   },
+   "problem": "Justify reading d_mu T^{mu nu} = 0 as conservation of energy and of momentum.",
+   "method": "Set nu = 0 and nu = i separately and substitute dust-like components T^{00} = rho, T^{0i} = rho v^i, T^{ij} = rho v^i v^j.",
+   "key_insight": "Each value of the free index is a separate continuity equation; the tensor law bundles four conservation laws.",
+   "result": "nu = 0: d rho/dt + div(rho v) = 0 (energy); nu = i: d(rho v^i)/dt + div(rho v^i v) = 0 (momentum).",
+   "concepts": [
+    "local conservation of energy-momentum in flat spacetime",
+    "continuity equation"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   },
+   "problem": "Upgrade the flat-spacetime conservation law to curved spacetime (prose argument between Examples 12.8 and 12.9).",
+   "method": "Write the law in a local inertial frame; note connection coefficients vanish at the point so commas equal semicolons; recognize a tensor equation and remove the hats.",
+   "key_insight": "Any tensor law involving first derivatives that holds in a LIF holds everywhere with covariant derivatives; this is the comma-goes-to-semicolon rule.",
+   "result": "T^{mu nu}_{;mu} = 0, i.e. div T = 0, with explicit connection terms in (12.37).",
+   "concepts": [
+    "comma-goes-to-semicolon rule",
+    "local inertial frame",
+    "covariant conservation law for the energy-momentum tensor"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 12.9",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   },
+   "problem": "Take the covariant divergence of the perfect-fluid energy-momentum tensor.",
+   "method": "Apply the Leibniz rule to each factor of (rho + p) u^mu u^nu + p g^{mu nu}; use f_{;mu} = f_{,mu} for scalars and g^{mu nu}_{;mu} = 0; regroup and translate into index-free directional derivatives.",
+   "key_insight": "Conservation of T is not an extra law bolted onto fluids: it is the fluid's equation of motion (energy balance along u and pressure-driven acceleration across u).",
+   "result": "0 = [nabla_u rho + nabla_u p + (rho + p) div u] u + (rho + p) nabla_u u + grad p (12.41).",
+   "concepts": [
+    "relativistic perfect-fluid equations of motion",
+    "Leibniz rule for the covariant derivative",
+    "metric compatibility"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 12.10",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   },
+   "problem": "Show that in flat spacetime a conserved energy current for dust needs a family of parallel observers.",
+   "method": "Form the energy current M^mu = -T^{mu nu} u_nu from the dust tensor; take its divergence with the Leibniz rule and use d_mu T^{mu nu} = 0; demand the leftover term vanish.",
+   "key_insight": "Energy is observer-relative, so whether its current is conserved depends on the observer field chosen; a constant (parallel) velocity field is enough to guarantee it.",
+   "result": "d_mu M^mu = -T^{mu nu} u_{nu,mu}, which vanishes if u^nu_{,mu} = 0.",
+   "concepts": [
+    "energy current vector",
+    "family of parallel observers",
+    "observer-measured energy"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 12.11",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   },
+   "problem": "Repeat the energy-current argument in curved spacetime.",
+   "method": "Replace commas by semicolons: require (T^{mu nu} u_nu)_{;mu} = 0; with div T = 0 the requirement falls on the velocity field; symmetry of T means only the symmetric part of u_{nu;mu} must vanish.",
+   "key_insight": "The condition is Killing's equation, which generic curved spacetimes do not satisfy, so div T = 0 does not imply a globally conserved energy.",
+   "result": "u_{nu;mu} + u_{mu;nu} = 0 (12.47).",
+   "concepts": [
+    "Killing's equation",
+    "non-existence of global energy conservation in curved spacetime",
+    "path dependence of parallel transport"
+   ],
+   "difficulty": "challenging"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Tensor as a slot machine: insert the observer's velocity and out come the measured quantities",
+   "target_concept": "slot recipe for observer-measured energy and momentum",
+   "how_used": "Every physical reading of T is produced by choosing what to feed into the two slots: u once for momentum density, u twice for energy density, u and a unit vector for a component.",
+   "limits": "Hides the sign conventions (minus signs from signature) and the requirement that u and a are normalized and orthogonal.",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Drag-and-drop slot machine: learner drags u, e_x, e_y into two slots of a T machine and the output (number or 1-form arrow) appears with its physical label."
+  },
+  {
+   "analogy": "Swarm of particles each carrying momentum through space",
+   "target_concept": "dust energy-momentum tensor as an outer product",
+   "how_used": "T = p (x) J is read as 'momentum per particle times particle flow', making T( , u) a momentum density and T(u, ) an energy flux.",
+   "limits": "Only literally true for a single-velocity cold swarm; fluids with pressure and fields have T that is not a single outer product.",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": null
+  },
+  {
+   "analogy": "Momentum flowing per unit time across a surface is a force on that surface",
+   "target_concept": "stress as momentum flux",
+   "how_used": "Gives the spatial block a second, mechanical reading and lets pressure be placed on the diagonal of the fluid tensor.",
+   "limits": "The book's wording omits 'per unit area'; microscopic transport (kinetic pressure) versus contact forces is not discussed.",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Gas-in-a-box animation where molecules bouncing off a wall deposit momentum; the running momentum-per-area-per-time equals the pressure entry T^{xx}."
+  },
+  {
+   "analogy": "Electric charge conservation as a rehearsal for energy-momentum conservation",
+   "target_concept": "local conservation of energy-momentum in flat spacetime",
+   "how_used": "The continuity equation for a scalar density is built first; conservation of the four components of momentum is then the same statement with one extra index.",
+   "limits": "Unlike charge, energy-momentum conservation does not survive as a global law in curved spacetime.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Split-screen: left a charge density map obeying continuity, right four synchronized density maps (energy and three momenta), each with its own flux arrows."
+  },
+  {
+   "analogy": "What enters through the past part of a boundary exits through the future part",
+   "target_concept": "spacetime divergence theorem for a conserved current",
+   "how_used": "Margin interpretation of the closed-hypersurface integral, turning a formal flux integral into a bookkeeping of world lines entering and leaving a region.",
+   "limits": "Orientation of dSigma on spacelike versus timelike boundary pieces is subtle and not worked out.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": null
+  },
+  {
+   "analogy": "Length contraction crowds particles together",
+   "target_concept": "world-line delta-function representation of a point particle",
+   "how_used": "Explains the 1/u^0 factor that appears when the proper-time delta integral is reduced to a 3D density.",
+   "limits": "The factor's direction (divide by gamma for rest density, multiply for lab counts) is easy to get backwards.",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Adding up arrows that live in different places",
+   "target_concept": "path dependence of parallel transport",
+   "how_used": "Margin note: totalling momentum over a closed surface means carrying many 4-vectors to one point, which is ambiguous when transport depends on path.",
+   "limits": "Requires a prior feel for tangent spaces and holonomy from Chapters 7 and 11.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   },
+   "effectiveness": "strong",
+   "app_idea": "On a sphere, the learner collects arrows from around a loop to the north pole along two routes and sees two different vector sums."
+  },
+  {
+   "analogy": "Gravity and matter doing work on each other",
+   "target_concept": "non-existence of global energy conservation in curved spacetime",
+   "how_used": "Physical reason offered for why matter energy alone need not be conserved: it can be exchanged with the gravitational field.",
+   "limits": "Suggests a gravitational field energy that could be added to restore conservation, which in GR has no local, covariant definition.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "div T = 0 means total energy is conserved in curved spacetime, just as in flat spacetime.",
+   "correction": "It is a local statement valid in each local inertial frame. A conserved total energy needs a Killing vector field, which a generic spacetime lacks; gravity and matter exchange energy.",
+   "why_tempting": "In flat spacetime the identical-looking equation does imply global energy conservation, and the book itself calls it a conservation law.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   },
+   "concepts": [
+    "covariant conservation law for the energy-momentum tensor",
+    "Killing's equation",
+    "non-existence of global energy conservation in curved spacetime"
+   ]
+  },
+  {
+   "misconception": "The p in the fluid tensor is momentum.",
+   "correction": "It is pressure, an isotropic stress; momentum appears only in the off-diagonal time-space entries.",
+   "why_tempting": "The same letter was used for 4-momentum throughout earlier chapters.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   },
+   "concepts": [
+    "pressure",
+    "perfect-fluid energy-momentum tensor"
+   ]
+  },
+  {
+   "misconception": "rho in the perfect-fluid tensor is the rest-mass density.",
+   "correction": "rho is total rest-frame energy density, including internal energy; it equals rest-mass density only for dust.",
+   "why_tempting": "Newtonian fluid mechanics uses rho for mass density, and dust examples blur the distinction.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   },
+   "concepts": [
+    "total energy density versus rest-mass density",
+    "dust"
+   ]
+  },
+  {
+   "misconception": "Upper and lower orthonormal components of T are always equal.",
+   "correction": "Raising with eta flips the sign of each time index, so mixed time-space components change sign while 00 and ij components do not.",
+   "why_tempting": "In an orthonormal frame the metric looks almost like the identity.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   },
+   "concepts": [
+    "raising and lowering orthonormal-frame indices"
+   ]
+  },
+  {
+   "misconception": "The spatial components of T only describe momentum being carried along by moving matter.",
+   "correction": "They are also stresses: forces per area across surfaces, including pressure in a fluid at rest where nothing flows on average.",
+   "why_tempting": "The dust picture has T^{ij} = rho v^i v^j, which vanishes for matter at rest.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   },
+   "concepts": [
+    "stress as momentum flux",
+    "pressure"
+   ]
+  },
+  {
+   "misconception": "The trace of the fluid tensor is rho + 3p (sum of diagonal entries).",
+   "correction": "The trace uses the metric: T = g^{mu nu} T_{mu nu} = -rho + 3p in signature (-,+,+,+).",
+   "why_tempting": "Matrix trace habits from linear algebra ignore the metric.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   },
+   "concepts": [
+    "trace of the energy-momentum tensor"
+   ]
+  },
+  {
+   "misconception": "A traceless energy-momentum tensor means the matter carries no energy.",
+   "correction": "Radiation has positive energy density; the trace vanishes because pressure contributes +3p against -rho.",
+   "why_tempting": "Zero is read as 'nothing there'.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   },
+   "concepts": [
+    "radiation equation of state",
+    "trace of the energy-momentum tensor"
+   ]
+  },
+  {
+   "misconception": "A particle's density field is simply m times a 3D delta function in every frame.",
+   "correction": "The scalar rest-mass density is (m/u^0) times the 3D delta; lab-frame mass counts and energy densities carry extra gamma factors.",
+   "why_tempting": "Non-relativistically a point particle is just m delta^(3).",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   },
+   "concepts": [
+    "world-line delta-function representation of a point particle",
+    "length contraction of number density"
+   ]
+  },
+  {
+   "misconception": "Global conservation of a charge is as physically good as local conservation.",
+   "correction": "Local conservation forbids disappearance here and reappearance elsewhere; in relativity a purely global law is not even frame-independent because distant simultaneity is relative.",
+   "why_tempting": "Totals are what we usually quote, and the global integral seems to capture 'conservation'.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "concepts": [
+    "local versus global conservation",
+    "continuity equation"
+   ]
+  },
+  {
+   "misconception": "Ordinary divergence d_mu T^{mu nu} = 0 holds in any coordinates.",
+   "correction": "It holds only in inertial coordinates; in general coordinates (even curvilinear flat ones) connection terms are needed: T^{mu nu}_{;mu} = 0.",
+   "why_tempting": "The flat law looks coordinate-free when written as div T = 0. The book itself only contrasts flat spacetime with curved spacetime and never mentions curvilinear coordinates on flat spacetime.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   },
+   "concepts": [
+    "comma-goes-to-semicolon rule",
+    "covariant derivative of a rank-2 tensor"
+   ]
+  },
+  {
+   "misconception": "Any family of freely falling observers can serve as the parallel reference needed for energy conservation.",
+   "correction": "The velocity field must satisfy Killing's equation, which is not generally true in curved spacetime. (The book states only that velocity fields in curved spacetime generally fail Killing's equation; the free-fall framing is ours.)",
+   "why_tempting": "Freely falling observers are locally inertial, so they seem as good as flat-space inertial observers.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   },
+   "concepts": [
+    "Killing's equation",
+    "family of parallel observers"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Counting charge through a box in spacetime",
+   "setup": "A flat 3-surface of spatial size a by b, perpendicular to z, persisting for a time tau; count the charge that crosses it.",
+   "lesson": "The crossed charge is J^z times the 3-volume; generalizing the orientation gives J^alpha Sigma_alpha, and curved surfaces give an integral.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "concepts": [
+    "hypersurface element and flux through a 3-surface",
+    "four-current"
+   ],
+   "visualizable": true,
+   "app_idea": "Extruded rectangle in 2+1 spacetime with charges passing through; learner tilts it from timelike to spacelike and sees flux switch from 'current through a wall' to 'charge present at an instant'."
+  },
+  {
+   "name": "Charge that vanishes here and reappears there",
+   "setup": "Imagine a charge disappearing at one location and instantly reappearing far away, keeping the total fixed.",
+   "lesson": "Such a process satisfies global but not local conservation; the continuity equation rules it out.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "concepts": [
+    "local versus global conservation"
+   ],
+   "visualizable": true,
+   "app_idea": "Two frames of a 1+1 diagram showing the jump; boosting reveals a moment where the charge exists twice or nowhere."
+  },
+  {
+   "name": "Closed 4-volume ledger",
+   "setup": "Enclose a region of spacetime with a closed 3-surface and tally current crossing each patch with its outward normal.",
+   "lesson": "Net flux is zero: charge entering the past face exits the future face.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "concepts": [
+    "spacetime divergence theorem for a conserved current"
+   ],
+   "visualizable": true,
+   "app_idea": null
+  },
+  {
+   "name": "Measuring the energy of a distant object",
+   "setup": "An observer wants the energy of a faraway object; energy is defined only for an observer present at the object, so a stand-in observer with 'the same' velocity is used.",
+   "lesson": "In flat spacetime parallel observers make this unambiguous; in curved spacetime 'same velocity' depends on the transport path, so no global energy is defined.",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   },
+   "concepts": [
+    "observer-measured energy",
+    "family of parallel observers",
+    "path dependence of parallel transport"
+   ],
+   "visualizable": true,
+   "app_idea": "See the Fig. 12.4 redesign: compare transported velocities along two paths on a curved surface."
+  },
+  {
+   "name": "Totalling momentum over a closed surface in curved spacetime",
+   "setup": "Try to add the momentum flux 4-vectors from every patch of a closed boundary to test global momentum conservation.",
+   "lesson": "The vectors live in different tangent spaces; bringing them together is path-dependent, so the sum is not well defined.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   },
+   "concepts": [
+    "path dependence of parallel transport",
+    "non-existence of global energy conservation in curved spacetime"
+   ],
+   "visualizable": true,
+   "app_idea": null
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Jürgen Ehlers",
+    "Robert Geroch"
+   ],
+   "year": "2004",
+   "event": "Published a proof that small bodies obeying the conservation law and an energy condition follow geodesics (Ann. Phys. 309, 232).",
+   "significance": "Shows the geodesic principle need not be a separate postulate once T is covariantly conserved.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "people": [
+    "James Owen Weatherall"
+   ],
+   "year": "2011",
+   "event": "Wrote a philosophical assessment of the status of the geodesic principle (Stud. Hist. Phil. Mod. Phys. 42, 276).",
+   "significance": "Pointer for readers interested in the ongoing debate about what GR assumes versus derives.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Why fluids model gravitating matter",
+   "kind": "astrophysical-system",
+   "details": "Gravity matters on scales so large that individual particles blur into a continuum, which is why the book models gravitating matter as fluids (and dust) for the cosmology and stellar chapters that follow.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.2"
+   }
+  },
+  {
+   "topic": "Radiation: traceless energy-momentum tensor",
+   "kind": "observation",
+   "details": "Photon gas thermodynamics gives rho = 3p, so T = 0; the electromagnetic field's massless photons fit the rule that traceless T accompanies massless excitations.",
+   "key_numbers": "rho = 3p; T = -rho + 3p = 0",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "topic": "Size of pressure relative to energy density (our estimate)",
+   "kind": "numerical-estimate",
+   "details": "Our own estimate, not in the book, to justify treating ordinary matter as dust: compare p with rho c^2. Water at atmospheric pressure has p ~ 1e5 Pa against rho c^2 ~ 9e19 J/m^3. The solar core has p ~ 2.5e16 Pa against rho c^2 ~ 1.4e22 J/m^3. Neutron-star cores reach p/(rho c^2) of order 0.1 or more, where pressure matters gravitationally.",
+   "key_numbers": "p/(rho c^2): water ~1e-15; solar core ~2e-6; neutron star core ~0.1-0.3; radiation 1/3",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "topic": "Conserved currents beyond electric charge",
+   "kind": "observation",
+   "details": "Baryon number flux and rest-mass flux obey the same closed-surface conservation law as charge, the basis for using rest-mass conservation alongside div T = 0 in fluid problems (Exercise 12.2).",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "topic": "Dust tensor with c restored (our numerical illustration)",
+   "kind": "numerical-estimate",
+   "details": "Our own illustration: for dust moving at v = 0.6c along x (gamma = 1.25), T^{0x}/T^{00} = v/c = 0.6 and T^{xx}/T^{00} = (v/c)^2 = 0.36, showing how motion shifts weight from energy density into flux and stress entries.",
+   "key_numbers": "gamma = 1.25; ratios 1 : 0.6 : 0.36",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.3"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Metric signature",
+   "convention": "(-,+,+,+); in a rest frame u_mu = (-1,0,0,0) and u_mu u^mu = -1.",
+   "notes": "Responsible for the minus signs in the slot recipe and for T = -rho + 3p.",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "item": "Hatted indices",
+   "convention": "Components in an observer's orthonormal frame (local measurement frame), raised and lowered with eta.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "item": "Comma and semicolon",
+   "convention": "T^{mu nu}_{,mu} is a partial derivative, T^{mu nu}_{;mu} a covariant derivative; div T = 0 is shorthand for either, depending on context.",
+   "notes": "The contracted derivative index is written on the first index in (12.36) and on the second in (12.39); symmetry makes them equal.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "item": "Empty-slot notation",
+   "convention": "T( , ), u( ) show how many vector arguments a tensor or 1-form takes; tilde marks 1-forms.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  },
+  {
+   "item": "Units",
+   "convention": "c = 1 by default; c restored temporarily in Example 12.4 and a margin note on J^mu = (rho c, J).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.3"
+   }
+  },
+  {
+   "item": "Density symbols",
+   "convention": "rho total energy density, rho_0 rest-mass density, p pressure (not momentum), n number density; the charge density in a 4-current is also written rho.",
+   "notes": "rho is overloaded between charge density (§12.4) and energy density (§12.2).",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "item": "Currents",
+   "convention": "J number or charge current, J_m mass current, J_q charge current, M energy current, N baryon-number current.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "item": "Hypersurface elements",
+   "convention": "dSigma_mu is a normal 4-vector surface element; partial V is the closed boundary of a 4-volume V.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "item": "World lines and delta functions",
+   "convention": "z^mu(tau) is a particle world line parametrized by proper time; delta^(4) is the Cartesian product of four 1D deltas, divided by sqrt(-g) in curved spacetime.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "item": "Margin equation numbering",
+   "convention": "Equations in margin notes get numbers in the main sequence (12.1, 12.3, 12.7, 12.24, 12.29, 12.37), so numbers can appear out of order on a page.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "States the expected field equation in words, curvature on one side and matter energy content on the other, promising justification next chapter.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": null
+   }
+  },
+  {
+   "summary": "Recalls the Chapter 4 description of T as momentum 1-form times number-current 1-form for dust, and reads T( , u) as minus momentum density and T(u, ) as minus energy flux, equal by symmetry.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  },
+  {
+   "summary": "Explains that hatted components refer to the observer's orthonormal frame and lists how raising both indices with eta changes signs.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "summary": "Points to Chapter 40 for a systematic field-theory construction of T.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.2"
+   }
+  },
+  {
+   "summary": "Warns not to confuse pressure p with momentum.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "summary": "Distinguishes total energy density from rest-mass density, defines dust (no internal energy, zero pressure) and perfect fluid (isotropic pressure, no viscosity or shear), and names the equation of state.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "summary": "Reminds that matching index positions on both sides make an equation manifestly covariant.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "summary": "Links a traceless T to massless excitations and scale invariance, citing Zee's book.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "summary": "Recalls that a particle's velocity is the tangent dz/dtau to its world line.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.3"
+   }
+  },
+  {
+   "summary": "Gives the charge current of a point charge as the analogue of the mass current.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "summary": "Restores c in the current 4-vector and notes the spatial part has units of charge density times velocity.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Derives the integral conservation law -dQ/dt = flux through the boundary using the divergence theorem.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Notes that a 3-surface in spacetime can be oriented, like a 2-surface in space.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Interprets the closed-boundary integral: charge entering via the past boundary must leave via the future boundary.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Refers to Example 8.8 for the same local-inertial-frame argument.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Admits covariant derivatives of higher-rank tensors have not been developed (Part V) and quotes the explicit divergence formula with two connection terms.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Notes symmetry of T makes the choice of divergence index irrelevant, and recalls that scalar covariant derivatives are partial derivatives and the metric is covariantly constant.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "The fluid equation reduces to the geodesic equation for constant pressure and conserved mass density; see exercises and Chapter 39.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Reminds the reader that geometrically an observer's velocity is the tangent vector to that observer's world line.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Global momentum conservation would need summing 4-vectors from different tangent spaces, which is ill-defined in curved spacetime.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Special spacetimes satisfying Killing's equation are studied from Part IV onwards.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Calling div T = 0 a conservation law is a slight abuse of language; it follows from diffeomorphism invariance (Appendix C) and remains a vital constraint.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "summary": "Connects div T = 0 plus an energy condition to the geodesic principle, citing Ehlers-Geroch (2004) for a proof and Weatherall (2011) on the debate.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 5,
+  "pdf_pages": [
+   157
+  ],
+  "skills_practiced": [
+   "transforming tensor components between Cartesian and spherical polar coordinates",
+   "expanding covariant divergences with the Leibniz rule",
+   "deriving geodesic motion from conservation of T for dust and point particles",
+   "manipulating delta functions of functions and proper-time integrals",
+   "building a many-particle energy-momentum tensor",
+   "eigenvalue characterization of a (1,1) tensor and reconstructing the perfect-fluid form"
+  ],
+  "notable": [
+   {
+    "number": "12.1",
+    "summary": "Take the rest-frame fluid tensor with rho and p on the Cartesian diagonal and rewrite its components in spherical polar coordinates.",
+    "skills": [
+     "tensor transformation law",
+     "Jacobians"
+    ],
+    "difficulty": "intro",
+    "why_notable": "Shows that coordinate components differ from physical ones (T_rr = p, T_theta theta = p r^2, T_phi phi = p r^2 sin^2 theta) while the physics is unchanged, a useful warm-up before spherically symmetric problems.",
+    "pdf_page": 157
+   },
+   {
+    "number": "12.2",
+    "summary": "For dust, argue that the rest-mass current is divergence-free, expand div T, and combine the two to show dust particles move on geodesics.",
+    "skills": [
+     "Leibniz rule",
+     "projection along and orthogonal to u",
+     "geodesic equation"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Makes concrete the chapter's claim that conservation of T encodes free fall.",
+    "pdf_page": 157
+   },
+   {
+    "number": "12.3",
+    "summary": "Starting from the proper-time integral for a single particle's T and the rule for a delta function of a function, derive momentum density, momentum current and the full tensor for a swarm, each expressed with 3D deltas at coordinate time t.",
+    "skills": [
+     "delta-function identities",
+     "changing from proper to coordinate time",
+     "4-momentum bookkeeping"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Connects the covariant world-line formalism to the familiar sum over particles with p^alpha p^beta / E weighting.",
+    "pdf_page": 157
+   },
+   {
+    "number": "12.4",
+    "summary": "Apply div T = 0 to the single-particle tensor and recover the geodesic equation.",
+    "skills": [
+     "distributional derivatives",
+     "integration by parts along a world line"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "A compact demonstration of the geodesic principle mentioned in the closing margin note.",
+    "pdf_page": 157
+   },
+   {
+    "number": "12.5",
+    "summary": "Treat a (1,1) dust tensor as a linear map: find the eigenvalue for the velocity eigenvector, assume three degenerate spatial eigenvalues p by isotropy, write T acting on arbitrary arguments, and deduce the covariant perfect-fluid form (following Ludvigsen).",
+    "skills": [
+     "eigen-decomposition of tensors",
+     "isotropy arguments",
+     "index gymnastics"
+    ],
+    "difficulty": "standard",
+    "why_notable": "An alternative, basis-free route to the perfect-fluid tensor: energy density is the timelike eigenvalue and pressure the spacelike one.",
+    "pdf_page": 157
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 3,
+  "conceptual_level": 3,
+  "novice_friendliness": 3,
+  "notes": "Sections 12.1-12.2 are gentle once slot notation and the metric signature are comfortable. Section 12.3's delta-function manipulations and the curved-space sqrt(-g) factor are a step up for readers without a mathematical-methods background. Section 12.4 mixes a clear charge-current rehearsal with a terse closing argument (energy currents, Killing's equation) whose logic is compressed and has a few loose statements, and covariant derivatives of rank-2 tensors are used before they are developed (deferred to Part V)."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch4 §4.5",
+   "reason": "Energy-momentum tensor first built for dust as momentum 1-form times number current; slot-machine view of tensors.",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch11",
+   "reason": "Curvature (Riemann, Ricci) provides the left-hand side that T will be equated to.",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch10",
+   "reason": "Orthonormal observer frames and hatted components used to interpret T.",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch2 Fig. 2.7",
+   "reason": "Length contraction raising particle density, invoked to explain the 1/u^0 factor.",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch6",
+   "reason": "Equivalence principle used to replace eta by g in the fluid tensor.",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch8 Example 8.8",
+   "reason": "Same local-inertial-frame plus general-covariance argument, there used for nabla_p p = 0.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch7",
+   "reason": "Covariant derivative and path-dependent parallel transport behind the curved-space conservation law and the loss of global parallelism.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch13 §13.3",
+   "reason": "div T = 0 is used to reject the naive guess R^{mu nu} = kappa T^{mu nu}; energy conditions discussed on printed p.145.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch33",
+   "reason": "Killing's equation treated in detail.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA Part IV",
+   "reason": "Spacetimes with Killing symmetries and their conserved quantities.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA Part V",
+   "reason": "Covariant derivatives of general tensors, needed to justify the formula for the divergence of T.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch39",
+   "reason": "Fluid dynamics from the divergence of the perfect-fluid tensor; reduction to geodesics.",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch40",
+   "reason": "Systematic construction of energy-momentum tensors from fields.",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.2"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA appC",
+   "reason": "div T = 0 derived from diffeomorphism invariance.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "A. Zee, Einstein Gravity in a Nutshell (the text only says 'the book by Zee')",
+   "reason": "Vanishing trace of T and scale invariance.",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "J. Ehlers and R. Geroch, Ann. Phys. 309, 232 (2004)",
+   "reason": "Proof of the geodesic principle from conservation plus an energy condition.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "J. O. Weatherall, Stud. Hist. Phil. Mod. Phys. 42, 276 (2011)",
+   "reason": "Discussion of the status of the geodesic principle.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "M. Ludvigsen, General Relativity: A Geometric Approach (the text only says 'the book by Ludvigsen')",
+   "reason": "Eigenvector approach to the perfect-fluid tensor in Exercise 12.5.",
+   "locator": {
+    "pdf_page": 157,
+    "printed_page": 140,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Read every physical quantity out of T by choosing what to feed its slots: the observer's velocity once, twice, or with a unit direction.",
+   "why_effective": "Turns an abstract symmetric tensor into an operational measuring device tied to a specific observer, and makes frame dependence obvious.",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   },
+   "app_idea": "Slot-machine widget with draggable vectors (u, e_x, e_y, e_z) and a matter-model selector; outputs appear with units and physical labels, and changing u shows the same T giving different readings."
+  },
+  {
+   "gem": "Write the fluid tensor as a diagonal matrix in the rest frame, then peel it into a u (x) u piece and a projector piece to get a frame-independent formula.",
+   "why_effective": "The learner sees where each term of (rho + p) u u + p g comes from rather than memorizing it, and the rest-frame check is built in.",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   },
+   "app_idea": "Animated matrix split: diag(rho,p,p,p) separates into rho diag(1,0,0,0) + p diag(0,1,1,1), the pieces morph into tensor symbols, then a boost slider shows all three matrices transforming together."
+  },
+  {
+   "gem": "Use the trace as a one-line diagnostic: -rho + 3p, which vanishes exactly for radiation.",
+   "why_effective": "Cheap calculation, memorable physics, and a sign check on the metric convention.",
+   "locator": {
+    "pdf_page": 150,
+    "printed_page": 133,
+    "section": "12.2"
+   },
+   "app_idea": "Equation-of-state slider w = p/rho from 0 (dust) to 1/3 (radiation) to 1 (stiff) with a trace meter and a gauge showing which matter types sit where."
+  },
+  {
+   "gem": "Rehearse conservation with a scalar current (charge) before the tensor, then add one index.",
+   "why_effective": "The continuity equation and flux picture are familiar from electromagnetism, so the new content is only the extra index.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "app_idea": "Toggle between a single density-and-flux panel for charge and a four-panel view for energy and momentum components, each obeying its own continuity equation."
+  },
+  {
+   "gem": "Build flux through spacetime surfaces from a box of size a x b x tau up to arbitrary closed hypersurfaces.",
+   "why_effective": "Grounds dSigma_mu in a concrete counting exercise and makes the closed-boundary law intuitive via past-in, future-out.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   },
+   "app_idea": "See Fig. 12.3 redesign: region-drawing flux ledger in a 1+1 diagram."
+  },
+  {
+   "gem": "Put a point particle into field language with a delta function along its world line and let length contraction explain the leftover 1/gamma.",
+   "why_effective": "Links particle and continuum descriptions and gives a physical reason for an algebraic factor.",
+   "locator": {
+    "pdf_page": 152,
+    "printed_page": 135,
+    "section": "12.3"
+   },
+   "app_idea": "Moving particle smeared into a narrow Gaussian; learner boosts it and watches the lab-frame blob contract and brighten while the integrated rest mass and the energy (gamma m) readouts behave differently."
+  },
+  {
+   "gem": "Undercut 'div T = 0 means energy conservation' with a two-line calculation: the energy current is conserved only if the observer field has vanishing symmetrized gradient (Killing).",
+   "why_effective": "Honest about a common oversimplification and connects it to symmetry, preparing Killing vectors and conserved quantities for orbits.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   },
+   "app_idea": "Observer-field sandbox: learner chooses a velocity field on a 2D spacetime (flat, expanding universe, static star); the app computes the symmetrized gradient and shows where the energy current has sources."
+  },
+  {
+   "gem": "Comma goes to semicolon: justify a curved-spacetime law by noting that connection coefficients vanish at a point in a local inertial frame.",
+   "why_effective": "One reusable argument that upgrades many flat-space laws, already rehearsed for geodesics.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   },
+   "app_idea": "Zoom animation on a curved surface: as the learner zooms into a point the grid becomes Cartesian and Gamma readouts drop to zero, so the partial-derivative law and covariant law read identically there."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Eqn 12.43 calls -T(u,u) the energy density, but by (12.6) T(u,u) is the energy density; since J(u) = -n, E J(u) is actually -En.",
+   "impact_on_learner": "Sign confusion when checking the dust energy current against earlier results.",
+   "suggestion": "Present T(u,u) = En as energy density and M^mu = -T^{mu nu} u_nu = E J^mu as the energy current, noting M^0 = En in the observer frame.",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "Example 12.11 says u_{nu;mu} = 0 can be 'rewritten' as Killing's equation; in fact symmetry of T means only the symmetrized derivative must vanish, a weaker condition. Also the standard result uses a Killing vector that need not be a normalized observer velocity.",
+   "impact_on_learner": "May think Killing's equation is equivalent to covariantly constant velocity, or that Killing vectors must be 4-velocities.",
+   "suggestion": "Show that contracting symmetric T with the gradient of u keeps only the symmetrized gradient, conclude the Killing condition is sufficient, and state the general theorem with a Killing vector xi (e.g. the static time translation of Schwarzschild).",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "Example 12.10 says u^nu_{,mu} = 0 is required. It is only sufficient: because T is symmetric, only the symmetrized gradient u_{(nu,mu)} must vanish, which in flat spacetime also allows boost and rotation generators (not unit 4-velocity fields).",
+   "impact_on_learner": "Learners may think constant velocity is the unique route to a conserved energy current, and then find the Killing condition in Example 12.11 an unexplained weakening.",
+   "suggestion": "State the flat-space condition as u_{nu,mu} + u_{mu,nu} = 0 from the start, show constant u satisfies it, so Example 12.11 becomes a literal comma-to-semicolon replay.",
+   "locator": {
+    "pdf_page": 155,
+    "printed_page": 138,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "Example 12.8's unpacked equations use T^{0i} = rho v^i and T^{ij} = rho v^i v^j without saying they are the dust (pressureless) components, with rho the lab-frame energy density rather than the rest-frame one; a fluid with pressure gives a pressure-gradient term (relativistic Euler equation).",
+   "impact_on_learner": "Believes momentum conservation for fluids has no pressure force term.",
+   "suggestion": "Redo the nu = i equation with the perfect-fluid tensor to show d_t(rho v^i) + d_j(rho v^i v^j + p delta^{ij}) = 0.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "Example 12.4 does not say whether n is measured in the lab or rest frame; the given components require the lab-frame density n = gamma n_0.",
+   "impact_on_learner": "Using rest-frame density gives the wrong power of gamma.",
+   "suggestion": "State n = gamma n_0 and show the equivalence with rho_0 u^mu u^nu = n_0 m gamma^2 (c, v)(c, v).",
+   "locator": {
+    "pdf_page": 151,
+    "printed_page": 134,
+    "section": "12.3"
+   }
+  },
+  {
+   "issue": "The rest-mass flux is written rho_0(1, u) with rho_0 the rest-mass density; if rho_0 is the rest-frame value the 4-current is rho_0 gamma(1, u).",
+   "impact_on_learner": "Minor inconsistency with J_m = rho_0 u.",
+   "suggestion": "Write the mass current as rho_0 u^mu and note its low-speed limit.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "Equations 12.11 and the pressure identification in Example 12.2 speak of 'force' across a surface when force per unit area is meant.",
+   "impact_on_learner": "Dimensional confusion between force and pressure.",
+   "suggestion": "Always say stress = force per unit area and check units with c restored.",
+   "locator": {
+    "pdf_page": 149,
+    "printed_page": 132,
+    "section": "12.1"
+   }
+  },
+  {
+   "issue": "The local-versus-global discussion does not mention that a purely global conservation law is incompatible with relativity of simultaneity.",
+   "impact_on_learner": "Misses the strongest physical reason relativistic conservation laws must be local.",
+   "suggestion": "Add a boosted-frame picture: a charge vanishing at A and appearing at B simultaneously in one frame is absent or duplicated in another.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "The covariant divergence of a rank-2 tensor is used (and the Leibniz rule applied to it) before the general covariant derivative is developed; the formula is only quoted in a margin note.",
+   "impact_on_learner": "Students may apply one connection term instead of one per index.",
+   "suggestion": "Give a short derivation from T^{mu nu} = sum of V^mu W^nu products, or verify with polar coordinates in flat space.",
+   "locator": {
+    "pdf_page": 154,
+    "printed_page": 137,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "Symmetry of T is asserted, not motivated beyond the dust example, yet it is used repeatedly (slot interchange, choice of divergence index, Killing reduction).",
+   "impact_on_learner": "Unclear whether symmetry is physics or convention.",
+   "suggestion": "Link symmetry to equality of momentum density and energy flux (E = mc^2 flow) and to angular momentum conservation.",
+   "locator": {
+    "pdf_page": 148,
+    "printed_page": 131,
+    "section": "12.1"
+   }
+  },
+  {
+   "issue": "The chapter summary has only two bullets and omits the perfect-fluid tensor, particle tensors, the trace result and the energy-conservation caveat.",
+   "impact_on_learner": "Revision from the summary misses core results used in Chapters 13 onward.",
+   "suggestion": "Provide a fuller summary card: slot recipe, block anatomy, fluid tensor, trace, div T = 0, Killing caveat.",
+   "locator": {
+    "pdf_page": 156,
+    "printed_page": 139,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "The raw reading copy garbles eqn 12.31 as J_mu^mu = 0; the printed page shows J^mu_{,mu} = 0.",
+   "impact_on_learner": "Anyone using the text export may think a trace is meant.",
+   "suggestion": "Use the corrected form in all app content.",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  },
+  {
+   "issue": "rho is used for total energy density in §12.2 and for charge density in §12.4, and p for both pressure and momentum.",
+   "impact_on_learner": "Symbol clashes when the two sections are combined in Example 12.8.",
+   "suggestion": "Use distinct symbols in app materials (e.g. rho_q for charge density, P for pressure).",
+   "locator": {
+    "pdf_page": 153,
+    "printed_page": 136,
+    "section": "12.4"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with: 'Einstein's equation says curvature equals something. What should that something describe, and what property must it have if the left side automatically satisfies an identity?' Let the learner propose energy density, then push to momentum and stress.",
+  "Before any formulas, check that the learner can compute an observer's measured energy E = -p(u) for a particle; the slot recipe for T is the density version of the same move.",
+  "Suggested order: slot recipe -> block anatomy of T (energy, momentum, stress) -> fluid at rest -> covariant fluid tensor -> trace and radiation -> moving dust with c -> conservation of charge -> conservation of T -> covariant upgrade -> fluid equation -> energy conservation caveat.",
+  "Check understanding: ask what T^{0x} means physically and why it equals T^{x0}; then ask what T^{xx} is for a gas at rest (pressure) even though nothing flows on average.",
+  "Check signs: have the learner compute the trace in (-,+,+,+) and explain why radiation is traceless. If they get rho + 3p, revisit index raising with the metric.",
+  "For the delta-function section, first show a non-relativistic particle as m delta^(3), then ask why a moving particle's scalar rest density should have 1/gamma. Connect to length contraction before doing the tau -> t change of variables.",
+  "Use the box-shaped 3-surface a x b x tau to ground dSigma_mu. Ask: if the box is tilted to lie entirely at one instant, what does the flux through it count? (The charge present then.)",
+  "Common learner question: 'If div T = 0, why isn't energy conserved in an expanding universe?' Answer: energy needs a time-translation symmetry (a timelike Killing vector); FRW has none, so e.g. photon energy redshifts away without a global bookkeeping.",
+  "Common learner question: 'Why does the conservation law need semicolons if physics is local?' Answer: in a LIF it is just partial derivatives; the semicolon form is the same statement in arbitrary coordinates.",
+  "Flag to advanced learners that Killing's equation is a condition on a vector field, not necessarily a normalized 4-velocity, and that Chapter 13 uses div T = 0 to require a divergence-free curvature tensor (the Einstein tensor).",
+  "For learners heading to astrophysics, give the ratio p/(rho c^2) for ordinary matter versus neutron stars to explain when dust suffices and when pressure matters gravitationally."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Fig. 12.1 visual description corrected against the image: three long crossing arrows with five short p-hat-i segments (not five crossing arrows).",
+   "Fig. 12.3 description: removed exact arrow counts that did not match the image.",
+   "Example 12.8: removed the incorrect claim that the unpacked equations need low speeds; they are exact for dust once rho is the lab-frame energy density.",
+   "Rewrote the 'why fluids' application, which tracked the source sentence closely.",
+   "Two misconceptions whose framing is ours, not the book's, now say explicit_in_book = false.",
+   "Added missing margin note 19 (velocity as world-line tangent), p.138.",
+   "Example 12.1 method now records the book's dust cross-check T_ij = p_i J_j.",
+   "Added a pitfall: in Example 12.10 u^nu_{,mu} = 0 is sufficient, not necessary; the key insight no longer says 'only'.",
+   "Exercise 12.1 note: removed an unsupported claim about later use; gave the explicit transformed components.",
+   "Added key equations (12.52)-(12.53) and (12.55)-(12.57) from the exercises."
+  ],
+  "residual_concerns": [
+   "Chapter split into 6 dossier sections (opening and a separate 'is div T = 0 energy conservation?' part of 12.4) versus 4 TOC sections; intentional for teaching clarity.",
+   "The book's own loose statements (sign of 'energy density' in eqn 12.43, 'force' for force per area, u_{nu;mu}=0 'rewritten' as Killing's equation, rho_0(1,u) mass flux) are flagged in gaps_and_pitfalls rather than silently corrected.",
+   "Fig. 12.2 has no exported image; its description comes from the rendered page 149."
+  ],
+  "coverage": {
+   "toc_sections": 4,
+   "sections": 6,
+   "inventory_figures": 4,
+   "figures": 4,
+   "inventory_examples": 11,
+   "worked_examples": 12,
+   "concepts": 49,
+   "key_equations": 61,
+   "locators_checked": 40,
+   "locators_wrong": 0,
+   "pages_rendered": 4
+  }
+ }
+}

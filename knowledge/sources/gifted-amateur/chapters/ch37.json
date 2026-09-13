@@ -1,0 +1,3314 @@
+{
+ "book": "gifted-amateur",
+ "unit_id": "ch37",
+ "title": "Duality and the volume form",
+ "part": "V: Geometry",
+ "printed_pages": [
+  386,
+  396
+ ],
+ "pdf_pages": [
+  403,
+  413
+ ],
+ "one_line_summary": "Motivates the Hodge star by showing that a flux 2-form and a fluid velocity vector carry the same three numbers, builds the volume form from Levi-Civita components with a sqrt|g| factor and a signature-dependent sign rule, defines the star in both directions (multivector to form and form to multivector), tabulates duals in Euclidean 3-space and Minkowski spacetime, and then cashes the machinery in for signed areas, boost-invariant 4-volumes, the invariant element sqrt(-g) d^4x, the 3-volume 1-form sigma = omega( , A, B, C) and flux elements J^mu d sigma_mu.",
+ "role_in_book": "Part V rebuilds geometry index-free: Chapter 32 introduced p-forms and p-vectors, Chapters 33-36 added exterior and Lie derivatives, the connection, curvature and Cartan's method. This chapter adds the one remaining piece of exterior algebra that needs a metric: duality through the volume form. It revisits two early results in the new language, the sqrt(-g) volume element of Chapter 5 and the observer read-out rules E = -p(u), n = -J(u) of Chapter 4 (now joined by V = sigma(u)), and it supplies the tools that Chapter 38 needs to integrate forms over chains, that Chapter 42 needs for the geometrical (dual Faraday) form of Maxwell's equations, and that Chapter 43 needs for charge conservation and the Bianchi identity. The authors explicitly allow the formal Section 37.2 to be skipped on first reading, keeping the chapter usable as a reference.",
+ "assumed_background": [
+  {
+   "topic": "Wedge product, p-forms and p-vectors with the 1/p! component convention",
+   "source": "earlier-in-this-book",
+   "where": "GA ch32 §32.1-32.3"
+  },
+  {
+   "topic": "Pairing a 2-form with a bivector to get a number (Example 32.6) and the parallelogram area as a determinant",
+   "source": "earlier-in-this-book",
+   "where": "GA ch32 §32.3"
+  },
+  {
+   "topic": "Vertical-bar (ordered index) summation notation",
+   "source": "earlier-in-this-book",
+   "where": "GA ch32 §32.2"
+  },
+  {
+   "topic": "Orthonormal frames, hatted indices and the (-+++) Minkowski metric",
+   "source": "earlier-in-this-book",
+   "where": "GA ch10 §10.3"
+  },
+  {
+   "topic": "Metric determinant and the invariant volume element sqrt(-g) d^4x",
+   "source": "earlier-in-this-book",
+   "where": "GA ch5 §5.4"
+  },
+  {
+   "topic": "Tensors as slot machines; raising and lowering indices with the metric",
+   "source": "earlier-in-this-book",
+   "where": "GA ch4, ch31"
+  },
+  {
+   "topic": "Observer measurement rules E = -p(u) and n = -J(u); particle current and energy-momentum tensor",
+   "source": "earlier-in-this-book",
+   "where": "GA ch4 §4.2, §4.5; ch12"
+  },
+  {
+   "topic": "Exterior derivative, Lie derivative and congruences (for Exercises 37.5-37.6)",
+   "source": "earlier-in-this-book",
+   "where": "GA ch33"
+  },
+  {
+   "topic": "Covariant derivative and metric compatibility (for Exercise 37.5)",
+   "source": "earlier-in-this-book",
+   "where": "GA ch34 §34.4"
+  },
+  {
+   "topic": "Determinants, permutation parity and the Levi-Civita symbol",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Cross product, triple product, flux of a vector field through a surface, curl in curvilinear coordinates",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Polar-coordinate line element of the flat plane",
+   "source": "undergrad-calculus",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "Reader can explain, using fluid flux through a parallelogram, why a 2-form in three dimensions and a vector with the same three components encode the same physics.",
+  "Reader can state the degree bookkeeping of the Hodge star in n dimensions: a q-vector goes to an (n-q)-form and a p-form goes to an (n-p)-vector.",
+  "Reader can write the volume form in an orthonormal frame (Levi-Civita components) and in a coordinate basis (with sqrt((-1)^s g)), and verify it for polar coordinates.",
+  "Reader can apply the Minkowski sign convention epsilon_0123 = +1, epsilon^0123 = -1 and the normalization omega^{1...n} = (-1)^s / omega_{1...n}.",
+  "Reader can compute the dual of a basis bivector or basis 2-form by component contraction with the volume tensor, in 3D Euclidean space and 4D Minkowski spacetime.",
+  "Reader can show that the ordinary cross product is the dual of the wedge of two 1-forms, and explain why the construction is special to three dimensions.",
+  "Reader can use the double-dual rule ⋆⋆ = (-1)^{s+p(n-p)} to predict when ⋆⋆ = +1 or -1.",
+  "Reader can compute signed areas, 3-volumes and 4-volumes by filling the slots of the volume form, and recognise these as duals of multivectors.",
+  "Reader can build the 3-volume 1-form sigma( ) = omega( , A, B, C), extract its components for spacelike and timelike boxes, and obtain the observer-measured volume V = sigma(u).",
+  "Reader can write invariant integration elements sqrt(-g) d^4x and sqrt(-g) u^0 d^3x, and interpret J^mu d sigma_mu as either the content of a box or the flux through a moving face."
+ ],
+ "teaching_approach": {
+  "summary": "A short, formula-dense chapter framed by an epigraph that ironically warns against index-heavy calculation. It opens with a concrete physical puzzle (a flux 2-form and a velocity vector built from identical numbers) to motivate duality, then gives the component recipe for the Hodge star via the volume form and drills it with one-basis-element examples. A margin table of ready-made duals lets readers skip the machinery. The payoff section returns to geometry: volumes are the volume form with every slot filled, and the 3-volume 1-form is the volume form with one slot left open for an observer's velocity, echoing the slot-machine measurement rules from Chapter 4.",
+  "style_tags": [
+   "physical-motivation-first",
+   "components-first",
+   "example-driven",
+   "computational-recipe",
+   "spiral-revisit",
+   "conversational-informal"
+  ],
+  "narrative_arc": [
+   "Epigraph (Cartan) and announcement: some tensors of different type carry identical information; the map between them is duality, done with the Hodge star.",
+   "Motivating puzzle: a 3-component 2-form F and a vector u with the same components; resolve it with fluid flux through a parallelogram, which equals both F(a,b) and <S,u>.",
+   "Dimension counting: in n dimensions duality trades degree q for n-q; the 3D case is why the cross product exists; Section 37.2 flagged as skippable.",
+   "Build the tool: candidate volume 4-form from wedged orthonormal 1-forms, sign fixed through the Levi-Civita tensor with epsilon_0123 = +1 and epsilon^0123 = -1.",
+   "Generalize to coordinates with sqrt((-1)^s g) and check on the polar-coordinate plane in both orthonormal and coordinate bases.",
+   "Define the multivector-to-form dual (lower-index volume tensor) and drill it on e2 wedge e3 in 3D.",
+   "Define the inverse form-to-multivector dual with the upper-index volume tensor normalized by (-1)^s n!, drill it on dx2 wedge dx3 and on a Minkowski 2-form B dy wedge dz.",
+   "Recover the cross product as a dual; collect margin tables of duals and the double-dual sign rule (proof deferred to Exercise 37.4).",
+   "Payoff: parallelogram area as omega(u,v) and as the dual of u wedge v; 4-volume as a 4x4 determinant; sqrt(-g) d^4x from an infinitesimal coordinate box.",
+   "Define the 3-volume 1-form as minus the dual of a trivector, show it equals the volume form with one open slot, and check a rest-frame box.",
+   "Extend to timelike hypersurfaces by sweeping a face through proper time, note the surprising minus sign and its orientation explanation.",
+   "Integration elements: proper 3-volume sqrt(-g) u^0 d^3x and J^mu d sigma_mu as box content or face flux; forward pointers to Chapters 38, 42, 43.",
+   "Exercises push the ideas into energy-momentum flux, particle counting, curl, the double-dual proof, divergence from the Lie derivative of the volume form, and dust-current conservation."
+  ],
+  "signature_moves": [
+   "Uses a physical flux computation to exhibit a dual pair before any definition is given, so duality arrives as an observed coincidence that needs explaining.",
+   "Marks the formal section as optional and places a lookup table of common duals in the margin, separating using the star from deriving it.",
+   "Every definition is tested on a single basis element with Kronecker-delta components, so each index contraction collapses to one or two Levi-Civita values.",
+   "Familiar results are unmasked as duals: the cross product, the determinant formula for area, and sqrt(-g) d^4x.",
+   "Slot-machine reading of volume: fill all four slots of the volume form for a 4-volume, leave one open to get a 1-form that an observer's velocity turns into a measured 3-volume.",
+   "Sign conventions (epsilon^0123 = -1, the (-1)^s normalization, hypersurface normal orientations) are pinned down and justified in margin notes rather than left implicit.",
+   "Constructs a timelike 3-volume by letting a spatial face move for a proper time, turning an abstract hypersurface into a swept slab."
+  ]
+ },
+ "sections": [
+  {
+   "number": null,
+   "title": "Chapter opening: tensors that carry the same information",
+   "printed_page": 386,
+   "pdf_page": 403,
+   "summary": "An epigraph from Élie Cartan cautions that index gymnastics can hide simple geometry. The authors announce the goal: a unique map between antisymmetric (0,p) forms and antisymmetric (q,0) multivectors, called duality and effected by the Hodge star, with the promised payoff of a tensorial way to encode volumes. A boxed pointer says the material feeds geometrical electromagnetism (Chapter 42) and the Bianchi identity (Chapter 43).",
+   "concepts": [
+    "duality between forms and multivectors",
+    "Hodge star operator",
+    "p-form",
+    "p-vector"
+   ],
+   "key_moves": [
+    "Frame duality as re-expressing the same physical content in a differently shaped tensor.",
+    "Promise that the formalism leads to a volume-encoding tensor."
+   ]
+  },
+  {
+   "number": "37.1",
+   "title": "Motivation: 2-forms and flux",
+   "printed_page": 386,
+   "pdf_page": 403,
+   "summary": "In Euclidean 3-space a 2-form F with components F^1, F^2, F^3 on dy^dz, dz^dx, dx^dy is compared with the vector u = F^i e_i. Treating u as fluid velocity, Example 37.1 computes the flux through a parallelogram with edges a and b component by component via u.(a x b) and shows it equals F(a,b); rearranging the bivector a^b into a 1-form S gives the same flux as <S,u>. So (F, a^b) and (u, S) are dual pairs. The section closes with the degree rule for duals in three dimensions and a note that the cross product is the dual of a bivector.",
+   "concepts": [
+    "flux 2-form",
+    "duality between forms and multivectors",
+    "pairing of forms with multivectors",
+    "cross product as a Hodge dual",
+    "p-vector"
+   ],
+   "key_moves": [
+    "Compute flux of a single-component velocity via the triple product and rewrite it as a wedge of 1-forms acting on a and b.",
+    "Superpose the three components to prove flux = F(a,b).",
+    "Rearrange the three independent bivector components of a^b into a 1-form S so that flux = <S,u>.",
+    "Generalize: q-forms map to (3-q)-vectors and p-vectors to (3-p)-forms in 3D; (n-q) in general (margin)."
+   ]
+  },
+  {
+   "number": "37.2",
+   "title": "Hodge star operation",
+   "printed_page": 387,
+   "pdf_page": 404,
+   "summary": "The volume form is built as the wedge of the four orthonormal basis 1-forms, with components equal to the Levi-Civita symbol. Example 37.2 fixes the orientation by epsilon(e0,e1,e2,e3) = +1 and notes that raising all indices in Minkowski space flips the sign. In a general coordinate basis the volume form acquires sqrt((-1)^s g), checked on the polar plane in Example 37.3, where the orthonormal components are epsilon_ij and the coordinate components are r epsilon_ij. The dual of an antisymmetric (q,0) tensor T is then defined as the p-form (p = n - q) whose components are the volume tensor contracted with T in its first q slots, divided by q!. Example 37.4 applies it to e2^e3 in 3D and finds dx^1.",
+   "concepts": [
+    "volume form",
+    "Levi-Civita symbol",
+    "Levi-Civita tensor sign convention in Minkowski spacetime",
+    "metric determinant factor in the volume form",
+    "signature count s",
+    "Hodge star operator",
+    "orthonormal frame"
+   ],
+   "key_moves": [
+    "Wedge the orthonormal basis 1-forms to get a candidate volume form; recognise the ordering ambiguity as a sign choice.",
+    "Fix epsilon_0123 = +1 and deduce epsilon^0123 = -1 by raising the time index.",
+    "Insert sqrt((-1)^s g) so the coordinate-basis expression equals the orthonormal one.",
+    "Verify with omega = dr ^ r dtheta and compare components in both bases.",
+    "Define A_{mu...} = (1/q!) omega_{alpha...kappa mu...} T^{alpha...kappa} and evaluate it on a single basis bivector."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Form-to-multivector dual, tables of duals and the double-dual sign",
+   "printed_page": 390,
+   "pdf_page": 407,
+   "summary": "The inverse map needs an all-upper version of the volume tensor, normalized so that its full contraction with the lower version is (-1)^s n!, which gives omega^{0123} = -1/sqrt(-g) in spacetime. The dual of a p-form B is the (n-p)-vector with components (1/p!) omega^{mu...alpha...} B_{mu...}. Examples show dx2^dx3 maps to e1 in 3D, that B dy^dz maps to B e_x^e_t in Minkowski spacetime, and that the cross product is the dual of the wedge of two 1-forms. Margin tables list all 3D and 4D basis duals and note ⋆⋆ = +1 in 3D and -1 for 4D 2-forms; the general rule ⋆⋆ = (-1)^{s+p(n-p)} is quoted with proof left to the exercises. The text also reassures the reader that, despite the fussy general definition, duals are easy to take in Minkowski coordinates where the volume form's components are just the Levi-Civita symbol, and it signals that most later uses will be in Minkowski space.",
+   "concepts": [
+    "contravariant volume tensor normalization",
+    "Hodge star operator",
+    "cross product as a Hodge dual",
+    "double-dual sign rule",
+    "generalized Kronecker delta and epsilon-epsilon identity"
+   ],
+   "key_moves": [
+    "Normalize omega^{...} omega_{...} = (-1)^s n! so indices of the volume tensor can be raised with the metric.",
+    "Define S^{alpha...} = (1/p!) omega^{mu...alpha...} B_{mu...} and apply it to basis 2-forms.",
+    "In Minkowski space use epsilon^{2301} = -1 to get M^{01} = -B and so B e_x ^ e_t.",
+    "Contract epsilon^{mu nu i} with u_mu v_nu - v_mu u_nu to rebuild u x v.",
+    "Tabulate duals and read off ⋆⋆ = +1 (3D) and -1 (4D 2-forms), then state the general sign."
+   ]
+  },
+  {
+   "number": "37.3",
+   "title": "Volume forms",
+   "printed_page": 392,
+   "pdf_page": 409,
+   "summary": "Returning to geometry, the parallelogram area in the plane (Fig. 37.1) is written three ways: as a determinant, as the volume 2-form evaluated on the edge vectors, and as the dual of the bivector u^v (Example 37.9). The same logic makes the 4-volume of a spacetime parallelepiped the fully filled volume 4-form, which in Minkowski components is the determinant of the four edge vectors, and equally the dual of their tetravector; Example 37.10 evaluates the coordinate volume form on an infinitesimal box to get dV = sqrt(-g) d^4x.",
+   "concepts": [
+    "signed area as volume-form evaluation",
+    "4-volume of a parallelepiped",
+    "invariant spacetime volume element",
+    "orientation (signed volume)",
+    "volume form"
+   ],
+   "key_moves": [
+    "Identify the 2D determinant formula with omega(u,v) where omega = dx ^ dy.",
+    "Show the dual of u^v in 2D is a 0-form equal to the same area.",
+    "Lift to four dimensions: fill four slots, or dualize A^B^C^D.",
+    "Evaluate sqrt(-g) dx0^dx1^dx2^dx3 on coordinate edge vectors to get the integration measure."
+   ]
+  },
+  {
+   "number": null,
+   "title": "The 3-volume 1-form and integration elements",
+   "printed_page": 393,
+   "pdf_page": 410,
+   "summary": "The 3-volume 1-form is defined as minus the dual of a trivector A^B^C and shown to equal the volume 4-form with its first slot left empty, with components epsilon_{mu alpha beta gamma} A^alpha B^beta C^gamma. A rest-frame box has only sigma_0 = dx dy dz (Example 37.11), and inserting an observer's velocity gives the measured volume V = sigma(u). A face swept for proper time along u gives a timelike 3-volume with sigma_1 = -dy dz d tau, whose sign is explained by flux orientation (Example 37.12). In a coordinate frame the proper 3-volume element is sqrt(-g) u^0 d^3x (Example 37.13), and J^mu d sigma_mu counts current content in a box or flux through a face over a time dt (Example 37.14).",
+   "concepts": [
+    "3-volume 1-form",
+    "observer-measured 3-volume",
+    "spacelike and timelike hypersurfaces",
+    "orientation of hypersurface normals",
+    "proper 3-volume element",
+    "current flux through a hypersurface"
+   ],
+   "key_moves": [
+    "Define sigma = -⋆(A^B^C) and identify it with omega( , A, B, C).",
+    "Check a rest-frame box: only the time component survives and equals the Euclidean volume.",
+    "Promote to V = omega(u, A, B, C) = sigma(u) for an observer with 4-velocity u.",
+    "Sweep a spatial face along u d tau to build a timelike volume; use epsilon_1230 = -1 for the sign.",
+    "Contract d sigma with u in a coordinate frame to get sqrt(-g) u^0 d^3x; contract with J to get charge in a box or flux through a wall."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Chapter summary and exercises",
+   "printed_page": 395,
+   "pdf_page": 412,
+   "summary": "The summary lists three points: the Hodge star maps between forms and multivectors, duality lets the volume tensor compute volumes, and the observer-measured 3-volume is sigma(u) = omega(u, A, B, C). Six exercises follow on energy-momentum flux through a box, particle counting with a permeable box, the curl in curvilinear and orthonormal frames, proof of the double-dual sign, divergence as the Lie derivative of the volume form, and conservation of a dust current.",
+   "concepts": [
+    "3-volume 1-form",
+    "divergence from the Lie derivative of the volume form",
+    "particle number in a box as a volume-form evaluation",
+    "curl as a Hodge dual in curvilinear coordinates",
+    "double-dual sign rule"
+   ],
+   "key_moves": [
+    "Relate sigma to the velocity 1-form: sigma = -V u.",
+    "Count particles as N = omega(J, A, B, C).",
+    "Derive divergence from L_v omega = -theta_v omega and conservation of J from constant particle number."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "duality between forms and multivectors",
+   "aliases": [
+    "duality",
+    "duality transformation",
+    "dual tensor"
+   ],
+   "kind": "definition",
+   "definition": "A metric-dependent, one-to-one correspondence between totally antisymmetric tensors of complementary degree in n dimensions: an antisymmetric (q,0) tensor corresponds to an antisymmetric (0,n-q) tensor and vice versa, the two carrying the same number of independent components and the same geometric content.",
+   "how_introduced": "Posed as a puzzle: a 3D 2-form and a vector share their components; fluid flux through a parallelogram shows both give the same physical number, so they are declared dual.",
+   "depth": "core",
+   "prerequisites": [
+    "p-form",
+    "p-vector",
+    "volume form"
+   ],
+   "locators": [
+    {
+     "pdf_page": 403,
+     "printed_page": 386,
+     "section": null
+    },
+    {
+     "pdf_page": 404,
+     "printed_page": 387,
+     "section": "37.1"
+    }
+   ],
+   "formulas": [
+    "\\binom{n}{q} = \\binom{n}{n-q}"
+   ],
+   "notes": "The binomial-coefficient identity is our own addition explaining why the component counts match; the book counts components only for n = 3."
+  },
+  {
+   "name": "Hodge star operator",
+   "aliases": [
+    "Hodge star",
+    "star operator",
+    "Hodge dual",
+    "⋆"
+   ],
+   "kind": "operation",
+   "definition": "The linear map ⋆ that sends an antisymmetric q-vector T to the (n-q)-form with components (1/q!) omega_{alpha...kappa mu...} T^{alpha...kappa}, and a p-form B to the (n-p)-vector with components (1/p!) omega^{mu...alpha...} B_{mu...}, where omega is the volume tensor.",
+   "how_introduced": "Defined in boxed component formulas after the volume form is built, then exercised on single basis bivectors and basis 2-forms in 3D Euclidean and 4D Minkowski space; results collected in a margin table.",
+   "depth": "core",
+   "prerequisites": [
+    "volume form",
+    "contravariant volume tensor normalization",
+    "p-form",
+    "p-vector",
+    "wedge product"
+   ],
+   "locators": [
+    {
+     "pdf_page": 406,
+     "printed_page": 389,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 407,
+     "printed_page": 390,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 408,
+     "printed_page": 391,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "\\star T = \\frac{A_{\\mu\\dots\\omega}}{p!}\\,\\omega^{\\mu}\\wedge\\dots\\wedge\\omega^{\\omega},\\quad A_{\\mu\\dots\\omega}=\\frac{1}{q!}\\,\\omega_{\\alpha\\dots\\kappa\\mu\\dots\\omega}T^{\\alpha\\dots\\kappa}",
+    "\\star\\tilde B = \\frac{S^{\\alpha\\dots\\kappa}}{q!}\\,e_\\alpha\\wedge\\dots\\wedge e_\\kappa,\\quad S^{\\alpha\\dots\\kappa}=\\frac{1}{p!}\\,\\omega^{\\mu\\dots\\omega\\alpha\\dots\\kappa}B_{\\mu\\dots\\omega}"
+   ],
+   "notes": "Unlike most mathematics texts, this book's star maps forms to multivectors and back rather than forms to forms; the input occupies the first slots of the volume tensor."
+  },
+  {
+   "name": "volume form",
+   "aliases": [
+    "volume n-form",
+    "volume 4-form",
+    "volume tensor",
+    "omega-tilde"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The totally antisymmetric n-form equal to the wedge of an oriented orthonormal basis of 1-forms; in coordinates it is sqrt(|g|) dx^1 ^ ... ^ dx^n, and fed n vectors it returns the signed n-volume of the parallelepiped they span.",
+   "how_introduced": "Introduced as the tool needed to define duality, first as a candidate wedge of orthonormal basis 1-forms with an ordering ambiguity, then fixed by a Levi-Civita sign convention, then given a metric-determinant factor for coordinate bases; later reinterpreted as the device that measures areas and volumes.",
+   "depth": "core",
+   "prerequisites": [
+    "wedge product",
+    "p-form",
+    "Levi-Civita symbol",
+    "orthonormal frame",
+    "metric determinant factor in the volume form"
+   ],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 406,
+     "printed_page": 389,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 409,
+     "printed_page": 392,
+     "section": "37.3"
+    },
+    {
+     "pdf_page": 410,
+     "printed_page": 393,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "\\tilde\\omega = \\omega^{\\hat0}\\wedge\\omega^{\\hat1}\\wedge\\omega^{\\hat2}\\wedge\\omega^{\\hat3}",
+    "\\tilde\\omega = \\sqrt{(-1)^s g}\\,dx^0\\wedge dx^1\\wedge\\dots",
+    "\\omega_{\\mu\\nu\\alpha\\beta}=\\sqrt{-g}\\,\\varepsilon_{\\mu\\nu\\alpha\\beta}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Levi-Civita symbol",
+   "aliases": [
+    "permutation symbol",
+    "alternating symbol",
+    "epsilon symbol"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The array epsilon_{i1...in} equal to +1 when its indices are an even permutation of the reference order, -1 for an odd permutation, and 0 if any index repeats.",
+   "how_introduced": "Appears as the components of the volume form in an orthonormal basis; its permutation rule is stated in Example 37.2 and used in every dual computation.",
+   "depth": "developed",
+   "prerequisites": [
+    "permutation parity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "\\varepsilon_{\\mu\\nu\\alpha\\beta}=\\begin{cases}0&\\text{repeated index}\\\\+1&\\text{even permutation of }0123\\\\-1&\\text{odd permutation}\\end{cases}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Levi-Civita tensor sign convention in Minkowski spacetime",
+   "aliases": [
+    "epsilon_0123 = +1 convention",
+    "orientation choice"
+   ],
+   "kind": "convention",
+   "definition": "In an orthonormal Lorentzian frame the lower-index components satisfy epsilon_0123 = +1, and raising all four indices with the (-+++) metric introduces one minus sign, so epsilon^0123 = -1.",
+   "how_introduced": "Resolves the sign ambiguity of the candidate volume form by fixing the value of the Levi-Civita tensor on the ordered basis (e0,e1,e2,e3).",
+   "depth": "developed",
+   "prerequisites": [
+    "Levi-Civita symbol",
+    "orthonormal frame",
+    "raising and lowering indices"
+   ],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 407,
+     "printed_page": 390,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "\\varepsilon(e_0,e_1,e_2,e_3)=\\varepsilon_{0123}=1",
+    "\\varepsilon^{0123}=-\\varepsilon_{0123}=-1"
+   ],
+   "notes": "Both choices of overall orientation are legitimate; conventions differ between books (some set epsilon^0123 = +1)."
+  },
+  {
+   "name": "metric determinant factor in the volume form",
+   "aliases": [
+    "sqrt(-g) factor",
+    "sqrt|g|"
+   ],
+   "kind": "identity",
+   "definition": "In a coordinate basis the volume form is sqrt((-1)^s g) dx^0 ^ ... so that its components are sqrt(|g|) times the Levi-Civita symbol; the factor compensates for non-unit, non-orthogonal coordinate basis vectors.",
+   "how_introduced": "Stated for general metric spaces and checked on polar coordinates, where sqrt(g) = r converts dr ^ dtheta into the same 2-form as the orthonormal wedge.",
+   "depth": "developed",
+   "prerequisites": [
+    "volume form",
+    "signature count s"
+   ],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 406,
+     "printed_page": 389,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "\\tilde\\omega=\\sqrt{(-1)^s g}\\,dx^0\\wedge\\dots",
+    "\\omega_{ij}=r\\,\\varepsilon_{ij}\\ \\text{(polar coordinate basis)}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "signature count s",
+   "aliases": [
+    "number of negative signs in the signature"
+   ],
+   "kind": "convention",
+   "definition": "The integer s equal to the number of negative eigenvalues of the metric (s = 0 for Euclidean space, s = 1 for (-+++) spacetime); it enters sqrt((-1)^s g), the upper volume tensor normalization and the double-dual sign.",
+   "how_introduced": "Introduced with the coordinate volume form so that the square root is taken of a positive number; reused in the normalization and ⋆⋆ rules.",
+   "depth": "introduced",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 407,
+     "printed_page": 390,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 409,
+     "printed_page": 392,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "(-1)^s g = |g|"
+   ],
+   "notes": null
+  },
+  {
+   "name": "contravariant volume tensor normalization",
+   "aliases": [
+    "upper-index volume tensor",
+    "n-vector version of the volume form"
+   ],
+   "kind": "convention",
+   "definition": "The all-upper components of the volume tensor are fixed by requiring their full contraction with the lower components to equal (-1)^s n!, equivalently omega^{1...n} = (-1)^s / omega_{1...n}; this is what raising all indices with the metric gives.",
+   "how_introduced": "Needed to define the inverse (form to multivector) dual; justified in a margin note as the convention most GR texts use because it lets the volume tensor's indices be moved with the metric.",
+   "depth": "developed",
+   "prerequisites": [
+    "volume form",
+    "signature count s",
+    "raising and lowering indices"
+   ],
+   "locators": [
+    {
+     "pdf_page": 407,
+     "printed_page": 390,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "\\omega^{\\alpha\\dots\\kappa}\\omega_{\\alpha\\dots\\kappa}=(-1)^s n!",
+    "\\omega^{\\mu\\nu\\alpha\\beta}=\\frac{1}{\\sqrt{-g}}\\varepsilon^{\\mu\\nu\\alpha\\beta}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "p-form",
+   "aliases": [
+    "differential p-form",
+    "antisymmetric (0,p) tensor"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A totally antisymmetric tensor with p down slots, expandable as (1/p!) B_{mu...} omega^mu ^ ... in basis 1-forms.",
+   "how_introduced": "Recalled from Chapter 32 as one side of the duality map.",
+   "depth": "revisited",
+   "prerequisites": [
+    "wedge product"
+   ],
+   "locators": [
+    {
+     "pdf_page": 403,
+     "printed_page": 386,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\tilde B=\\frac{1}{p!}B_{\\mu\\dots\\omega}\\,\\omega^\\mu\\wedge\\dots\\wedge\\omega^\\omega"
+   ],
+   "notes": null
+  },
+  {
+   "name": "p-vector",
+   "aliases": [
+    "multivector",
+    "bivector",
+    "trivector",
+    "tetravector",
+    "q-vector",
+    "antisymmetric (q,0) tensor"
+   ],
+   "kind": "mathematical-object",
+   "definition": "A totally antisymmetric tensor with q up slots, built by wedging vectors; a bivector u^v represents an oriented area element and a trivector an oriented 3-volume element.",
+   "how_introduced": "Recalled in a margin note from Chapter 32 as the other side of the duality; bivectors, trivectors and tetravectors then represent the edges of areas and volumes in Section 37.3.",
+   "depth": "revisited",
+   "prerequisites": [
+    "wedge product"
+   ],
+   "locators": [
+    {
+     "pdf_page": 403,
+     "printed_page": 386,
+     "section": null
+    },
+    {
+     "pdf_page": 404,
+     "printed_page": 387,
+     "section": "37.1"
+    },
+    {
+     "pdf_page": 409,
+     "printed_page": 392,
+     "section": "37.3"
+    },
+    {
+     "pdf_page": 410,
+     "printed_page": 393,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "(u\\wedge v)^{\\mu\\nu}=u^\\mu v^\\nu-v^\\mu u^\\nu"
+   ],
+   "notes": null
+  },
+  {
+   "name": "wedge product",
+   "aliases": [
+    "exterior product"
+   ],
+   "kind": "operation",
+   "definition": "The antisymmetrized tensor product, e.g. sigma ^ tau = sigma ⊗ tau - tau ⊗ sigma, used to build forms from 1-forms and multivectors from vectors.",
+   "how_introduced": "Used throughout without re-derivation; the 2-slot expansion is written out in Examples 37.3, 37.4 and 37.6.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 406,
+     "printed_page": 389,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "\\sigma\\wedge\\tau=\\sigma\\otimes\\tau-\\tau\\otimes\\sigma"
+   ],
+   "notes": null
+  },
+  {
+   "name": "flux 2-form",
+   "aliases": [
+    "2-form as flux density"
+   ],
+   "kind": "physical-quantity",
+   "definition": "A 2-form F in 3D whose value on two edge vectors a, b equals the rate at which a flow crosses the oriented parallelogram they span; its components match those of the flow's velocity vector.",
+   "how_introduced": "Built in Example 37.1 by computing u.(a x b) one component at a time and recognising each term as a wedge of coordinate 1-forms evaluated on a and b.",
+   "depth": "introduced",
+   "prerequisites": [
+    "p-form",
+    "cross product"
+   ],
+   "locators": [
+    {
+     "pdf_page": 403,
+     "printed_page": 386,
+     "section": "37.1"
+    },
+    {
+     "pdf_page": 404,
+     "printed_page": 387,
+     "section": "37.1"
+    }
+   ],
+   "formulas": [
+    "\\text{Flux of }u\\text{ through }A=\\tilde F(a,b)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "pairing of forms with multivectors",
+   "aliases": [
+    "inner product of a p-form and a p-vector",
+    "<F, a^b>"
+   ],
+   "kind": "operation",
+   "definition": "The scalar obtained by feeding a p-vector to a p-form, normalized so a basis p-form paired with the matching basis p-vector gives 1; in 3D the flux can be written either as <F, a^b> or as <S, u>.",
+   "how_introduced": "Recalled from Example 32.6 to express the flux, then contrasted with the dual pairing of the velocity vector with the 1-form built from a^b.",
+   "depth": "revisited",
+   "prerequisites": [
+    "p-form",
+    "p-vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 404,
+     "printed_page": 387,
+     "section": "37.1"
+    }
+   ],
+   "formulas": [
+    "\\tilde F(a,b)=\\langle\\tilde F,a\\wedge b\\rangle=\\langle\\tilde S,u\\rangle"
+   ],
+   "notes": null
+  },
+  {
+   "name": "cross product as a Hodge dual",
+   "aliases": [
+    "cross product",
+    "a x b as dual of a^b"
+   ],
+   "kind": "identity",
+   "definition": "In Euclidean 3-space the vector a x b is the Hodge dual of the bivector (or of the 2-form made from the corresponding 1-forms), which is why a product of two vectors can itself be a vector only in three dimensions.",
+   "how_introduced": "Previewed in a margin note in Section 37.1 and proved component by component in Example 37.8.",
+   "depth": "developed",
+   "prerequisites": [
+    "Hodge star operator",
+    "wedge product",
+    "Levi-Civita symbol"
+   ],
+   "locators": [
+    {
+     "pdf_page": 404,
+     "printed_page": 387,
+     "section": "37.1"
+    },
+    {
+     "pdf_page": 408,
+     "printed_page": 391,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "t^i=\\tfrac{1}{2}\\varepsilon^{\\mu\\nu i}(u_\\mu v_\\nu-v_\\mu u_\\nu),\\quad t=u\\times v"
+   ],
+   "notes": "In 4D the dual of a 2-form is a bivector, not a vector, so there is no cross product of two 4-vectors."
+  },
+  {
+   "name": "double-dual sign rule",
+   "aliases": [
+    "⋆⋆ identity",
+    "star-star rule"
+   ],
+   "kind": "identity",
+   "definition": "Applying the Hodge star twice returns the original tensor up to a sign: ⋆⋆B = (-1)^{s+p(n-p)} B for a p-form and ⋆⋆T = (-1)^{s+q(n-q)} T for a q-vector.",
+   "how_introduced": "Read off from margin tables (⋆⋆ = +1 in 3D Euclidean space, -1 for 2-forms in Minkowski space), then stated in general with proof set as Exercise 37.4.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Hodge star operator",
+    "signature count s"
+   ],
+   "locators": [
+    {
+     "pdf_page": 408,
+     "printed_page": 391,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 409,
+     "printed_page": 392,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 413,
+     "printed_page": 396,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\star\\star\\tilde B=(-1)^{s+p(n-p)}\\tilde B"
+   ],
+   "notes": null
+  },
+  {
+   "name": "generalized Kronecker delta and epsilon-epsilon identity",
+   "aliases": [
+    "contraction of two Levi-Civita symbols"
+   ],
+   "kind": "identity",
+   "definition": "A product of a lower and an upper Levi-Civita symbol equals, up to normalization and a factor (-1)^s, the generalized Kronecker delta, the antisymmetrized product of ordinary deltas.",
+   "how_introduced": "Quoted without proof in a margin note beside Example 37.2.",
+   "depth": "mention",
+   "prerequisites": [
+    "Levi-Civita symbol"
+   ],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "\\varepsilon_{ij\\dots k}\\varepsilon^{lm\\dots r}=M!\\,\\delta^{lm\\dots r}_{ij\\dots k}"
+   ],
+   "notes": "As printed the identity omits (-1)^s for Lorentzian signature and the M! depends on how the generalized delta is normalized; see gaps_and_pitfalls."
+  },
+  {
+   "name": "orthonormal frame",
+   "aliases": [
+    "orthonormal basis",
+    "local frame",
+    "hatted basis"
+   ],
+   "kind": "definition",
+   "definition": "A basis whose vectors are mutually orthogonal with unit norm, so the metric components take the form diag(-1,1,1,1) and measurements made in it are physical.",
+   "how_introduced": "Recalled in a margin note as the frame in which the volume form has pure Levi-Civita components.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 406,
+     "printed_page": 389,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "g=-\\omega^{\\hat0}\\otimes\\omega^{\\hat0}+\\omega^{\\hat1}\\otimes\\omega^{\\hat1}+\\omega^{\\hat2}\\otimes\\omega^{\\hat2}+\\omega^{\\hat3}\\otimes\\omega^{\\hat3}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "orientation (signed volume)",
+   "aliases": [
+    "oriented area",
+    "handedness of the ordering"
+   ],
+   "kind": "definition",
+   "definition": "The sign attached to an ordered set of edge vectors by the volume form: swapping any two edges reverses the sign of the computed area or volume, so volume forms measure oriented rather than absolute size.",
+   "how_introduced": "Implicit in the ordering ambiguity of the candidate volume form (margin note 6), in the determinant area formula, and in the unexpected minus sign of Example 37.12.",
+   "depth": "introduced",
+   "prerequisites": [
+    "volume form",
+    "Levi-Civita symbol"
+   ],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    },
+    {
+     "pdf_page": 409,
+     "printed_page": 392,
+     "section": "37.3"
+    },
+    {
+     "pdf_page": 411,
+     "printed_page": 394,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "\\tilde\\omega(u,v)=-\\tilde\\omega(v,u)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "signed area as volume-form evaluation",
+   "aliases": [
+    "area as dual of a bivector",
+    "parallelogram area"
+   ],
+   "kind": "identity",
+   "definition": "In the Euclidean plane the area of the parallelogram with edges u and v equals omega(u,v) = epsilon_{mu nu} u^mu v^nu, the determinant of their components, and also the 0-form dual of the bivector u^v.",
+   "how_introduced": "Revisits the Chapter 32 parallelogram (Fig. 37.1) and makes two observations: the area is the 2D volume form filled with the edges, and it is the dual of their wedge (Example 37.9).",
+   "depth": "developed",
+   "prerequisites": [
+    "volume form",
+    "Hodge star operator",
+    "p-vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 409,
+     "printed_page": 392,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "\\text{Area}=\\varepsilon_{\\mu\\nu}u^\\mu v^\\nu=\\tilde\\omega(u,v)=\\star(u\\wedge v)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "4-volume of a parallelepiped",
+   "aliases": [
+    "spacetime 4-volume",
+    "determinant 4-volume"
+   ],
+   "kind": "identity",
+   "definition": "The signed 4-volume of the spacetime parallelepiped with edges A, B, C, D: the volume 4-form fed all four edges, which in an orthonormal Minkowski frame reduces to the determinant of the 4x4 matrix whose rows are the edge components, and which also equals the Hodge dual of the tetravector A^B^C^D.",
+   "how_introduced": "Obtained by direct analogy with the planar area.",
+   "depth": "developed",
+   "prerequisites": [
+    "volume form",
+    "signed area as volume-form evaluation"
+   ],
+   "locators": [
+    {
+     "pdf_page": 409,
+     "printed_page": 392,
+     "section": "37.3"
+    },
+    {
+     "pdf_page": 410,
+     "printed_page": 393,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "\\mathcal V=\\varepsilon_{\\mu\\nu\\alpha\\beta}A^\\mu B^\\nu C^\\alpha D^\\beta=\\star(A\\wedge B\\wedge C\\wedge D)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "invariant spacetime volume element",
+   "aliases": [
+    "sqrt(-g) d^4x",
+    "4-volume element"
+   ],
+   "kind": "identity",
+   "definition": "The coordinate-invariant measure for integrating over spacetime, dV = sqrt(-g) dx^0 dx^1 dx^2 dx^3, obtained by evaluating the coordinate volume form on an infinitesimal coordinate box.",
+   "how_introduced": "Example 37.10 feeds the edge vectors dx^mu e_mu into sqrt(-g) dx^0 ^ ... ^ dx^3.",
+   "depth": "revisited",
+   "prerequisites": [
+    "metric determinant factor in the volume form",
+    "4-volume of a parallelepiped"
+   ],
+   "locators": [
+    {
+     "pdf_page": 410,
+     "printed_page": 393,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "\\mathrm d\\mathcal V=\\sqrt{-g}\\,\\mathrm d^4x"
+   ],
+   "notes": "First met in GA ch5 §5.4 via the Jacobian; here it falls out of the volume form."
+  },
+  {
+   "name": "3-volume 1-form",
+   "aliases": [
+    "volume 1-form",
+    "sigma-tilde",
+    "hypersurface element 1-form"
+   ],
+   "kind": "mathematical-object",
+   "definition": "For three vectors A, B, C in 4D spacetime, the 1-form sigma( ) = omega( , A, B, C), equal to minus the Hodge dual of the trivector A^B^C, whose components epsilon_{mu alpha beta gamma} A^alpha B^beta C^gamma encode the oriented 3-volume of the hypersurface element they span.",
+   "how_introduced": "Motivated as a dual of a trivector, with the minus sign justified by agreement with the volume form having its first slot left open; checked on a rest-frame box and a swept face.",
+   "depth": "core",
+   "prerequisites": [
+    "volume form",
+    "Hodge star operator",
+    "p-vector",
+    "orientation (signed volume)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 410,
+     "printed_page": 393,
+     "section": "37.3"
+    },
+    {
+     "pdf_page": 411,
+     "printed_page": 394,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "\\tilde\\sigma=-\\star(A\\wedge B\\wedge C)",
+    "\\tilde\\sigma(\\,)=\\tilde\\omega(\\,,A,B,C)",
+    "\\sigma_\\mu=\\varepsilon_{\\mu\\alpha\\beta\\gamma}A^\\alpha B^\\beta C^\\gamma"
+   ],
+   "notes": null
+  },
+  {
+   "name": "observer-measured 3-volume",
+   "aliases": [
+    "V = sigma(u)"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The spatial volume of a parallelepiped with edges A, B, C as measured by an observer with 4-velocity u, given by V = omega(u, A, B, C) = sigma(u).",
+   "how_introduced": "Rest-frame argument (u = e0) generalized, and placed alongside the earlier read-out rules for energy and number density in a margin note.",
+   "depth": "developed",
+   "prerequisites": [
+    "3-volume 1-form",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 411,
+     "printed_page": 394,
+     "section": "37.3"
+    },
+    {
+     "pdf_page": 412,
+     "printed_page": 395,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "V=\\tilde\\omega(u,A,B,C)=\\tilde\\sigma(u)"
+   ],
+   "notes": "Unlike E = -p(u) and n = -J(u), this read-out carries no minus sign; Exercise 37.1 shows sigma = -V u (index lowered)."
+  },
+  {
+   "name": "spacelike and timelike hypersurfaces",
+   "aliases": [
+    "3D slices of spacetime"
+   ],
+   "kind": "definition",
+   "definition": "A spacelike hypersurface (e.g. a constant-time slice) has a timelike normal; a timelike hypersurface (e.g. a surface of constant x) has a spacelike normal and contains a time direction.",
+   "how_introduced": "Margin note 10 explains the two kinds; the time component of sigma measures spacelike 3-volumes and the spatial components timelike ones.",
+   "depth": "introduced",
+   "prerequisites": [
+    "3-volume 1-form"
+   ],
+   "locators": [
+    {
+     "pdf_page": 410,
+     "printed_page": 393,
+     "section": "37.3"
+    },
+    {
+     "pdf_page": 411,
+     "printed_page": 394,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "orientation of hypersurface normals",
+   "aliases": [
+    "outward versus inward normal convention",
+    "flux sign convention"
+   ],
+   "kind": "convention",
+   "definition": "With this book's definitions, spacelike hypersurfaces carry outward timelike normals and timelike hypersurfaces carry inward spacelike normals, which accounts for the minus signs in spatial components of sigma.",
+   "how_introduced": "Offered in margin note 12 as two explanations of the negative sigma_1 in Example 37.12: dust seen from a moving surface flows toward it, and a normal-vector analogy with dS = n dS.",
+   "depth": "introduced",
+   "prerequisites": [
+    "spacelike and timelike hypersurfaces",
+    "orientation (signed volume)"
+   ],
+   "locators": [
+    {
+     "pdf_page": 411,
+     "printed_page": 394,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [],
+   "notes": "Flagged as important for choosing orientations in later integration chapters."
+  },
+  {
+   "name": "proper 3-volume element",
+   "aliases": [
+    "invariant 3-volume element",
+    "sqrt(-g) u^0 d^3x"
+   ],
+   "kind": "identity",
+   "definition": "The spatial volume element measured by an observer with 4-velocity u in a coordinate frame, dV = d sigma(u) = sqrt(-g) u^0 dx^1 dx^2 dx^3; for a static observer in a diagonal metric u^0 = (-g_tt)^{-1/2} removes the time part of the determinant.",
+   "how_introduced": "Example 37.13 builds d sigma from an infinitesimal coordinate box and inserts the velocity; margin note 13 supplies u^0 for a static observer.",
+   "depth": "developed",
+   "prerequisites": [
+    "3-volume 1-form",
+    "metric determinant factor in the volume form",
+    "4-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 411,
+     "printed_page": 394,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "\\mathrm dV=\\sqrt{-g}\\,u^0\\,\\mathrm dx^1\\mathrm dx^2\\mathrm dx^3",
+    "u^0=(-g_{tt})^{-1/2}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "current flux through a hypersurface",
+   "aliases": [
+    "J^mu d sigma_mu",
+    "flux integrand"
+   ],
+   "kind": "identity",
+   "definition": "Contracting a current vector with the hypersurface 1-form, J^mu d sigma_mu = d sigma(J), gives the amount of the conserved quantity in a spatial element (time component) or crossing a timelike wall in a time interval (spatial components).",
+   "how_introduced": "Example 37.14 evaluates the J^0 and J^1 contributions for a coordinate box and a face swept through time.",
+   "depth": "introduced",
+   "prerequisites": [
+    "3-volume 1-form",
+    "spacelike and timelike hypersurfaces"
+   ],
+   "locators": [
+    {
+     "pdf_page": 411,
+     "printed_page": 394,
+     "section": "37.3"
+    },
+    {
+     "pdf_page": 412,
+     "printed_page": 395,
+     "section": "37.3"
+    }
+   ],
+   "formulas": [
+    "J^0\\mathrm d\\sigma_0=\\sqrt{-g}\\,J^0\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz",
+    "J^1\\mathrm d\\sigma_1=-\\sqrt{-g}\\,J^1\\mathrm dy\\,\\mathrm dz\\,\\mathrm dt"
+   ],
+   "notes": null
+  },
+  {
+   "name": "bar notation for ordered sums",
+   "aliases": [
+    "vertical-bar indices"
+   ],
+   "kind": "convention",
+   "definition": "Indices enclosed in vertical bars are summed only over strictly increasing values, which removes the 1/p! from form expansions.",
+   "how_introduced": "Used to rewrite the volume form expansion without the 1/4!.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 405,
+     "printed_page": 388,
+     "section": "37.2"
+    }
+   ],
+   "formulas": [
+    "\\frac{1}{4!}\\varepsilon_{\\mu\\nu\\alpha\\beta}\\omega^\\mu\\wedge\\omega^\\nu\\wedge\\omega^\\alpha\\wedge\\omega^\\beta=\\varepsilon_{|\\mu\\nu\\alpha\\beta|}\\omega^\\mu\\wedge\\omega^\\nu\\wedge\\omega^\\alpha\\wedge\\omega^\\beta"
+   ],
+   "notes": null
+  },
+  {
+   "name": "particle number in a box as a volume-form evaluation",
+   "aliases": [
+    "N = omega(J, A, B, C)"
+   ],
+   "kind": "identity",
+   "definition": "The number of particles inside a box with edges A, B, C carried by an observer equals the volume form evaluated on the particle current and the three edges.",
+   "how_introduced": "Set as Exercise 37.2 after decomposing the current along the observer's velocity and the box edges.",
+   "depth": "introduced",
+   "prerequisites": [
+    "3-volume 1-form",
+    "current flux through a hypersurface"
+   ],
+   "locators": [
+    {
+     "pdf_page": 412,
+     "printed_page": 395,
+     "section": null
+    },
+    {
+     "pdf_page": 413,
+     "printed_page": 396,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "N=\\tilde\\omega(J,A,B,C)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "divergence from the Lie derivative of the volume form",
+   "aliases": [
+    "theta_v",
+    "volume expansion rate"
+   ],
+   "kind": "identity",
+   "definition": "The rate at which the flow of a vector field v changes volumes is encoded in the Lie derivative of the volume form, which is proportional to the volume form itself with coefficient equal to the covariant divergence of v.",
+   "how_introduced": "Exercise 37.5 defines theta_v through L_v omega = -theta_v omega and guides the reader to theta_v = -v^mu_{;mu}; Exercise 37.6 applies it to a dust congruence to derive current conservation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "volume form",
+    "Lie derivative",
+    "covariant derivative"
+   ],
+   "locators": [
+    {
+     "pdf_page": 413,
+     "printed_page": 396,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\mathcal L_v\\tilde\\omega=-\\theta_v\\tilde\\omega",
+    "\\theta_v=-\\nabla\\cdot v"
+   ],
+   "notes": "Standard form is L_v omega = (div v) omega; the book's theta_v is minus the divergence. Exercise 37.5's intermediate eqn 37.70 carries a sign that conflicts with 37.71 (see gaps)."
+  },
+  {
+   "name": "covariant constancy of the volume form",
+   "aliases": [
+    "nabla omega = 0"
+   ],
+   "kind": "identity",
+   "definition": "With a metric-compatible connection the volume form is parallel, nabla omega = 0, so its components can be pulled through covariant derivatives.",
+   "how_introduced": "Requested in Exercise 37.5(a) as a stepping stone to the divergence formula.",
+   "depth": "mention",
+   "prerequisites": [
+    "volume form",
+    "metric compatibility of the connection"
+   ],
+   "locators": [
+    {
+     "pdf_page": 413,
+     "printed_page": 396,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\nabla_\\mu\\tilde\\omega=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "curl as a Hodge dual in curvilinear coordinates",
+   "aliases": [
+    "curl via star d"
+   ],
+   "kind": "identity",
+   "definition": "The curl of a 3D vector field is the vector dual of the exterior derivative of the associated 1-form, which in coordinates brings a 1/sqrt(g) factor and in orthonormal frames the scale factors sqrt(g_ii).",
+   "how_introduced": "Exercise 37.3 asks for the first component in coordinates and in an orthonormal frame.",
+   "depth": "mention",
+   "prerequisites": [
+    "Hodge star operator",
+    "exterior derivative",
+    "metric determinant factor in the volume form"
+   ],
+   "locators": [
+    {
+     "pdf_page": 413,
+     "printed_page": 396,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "(\\nabla\\times v)^1=\\frac{1}{\\sqrt g}\\left(\\frac{\\partial V_3}{\\partial x^2}-\\frac{\\partial V_2}{\\partial x^3}\\right)"
+   ],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(37.1)",
+   "name": "3D 2-form with three components",
+   "latex": "\\tilde F(\\,,\\,)=F^1\\,dy\\wedge dz+F^2\\,dz\\wedge dx+F^3\\,dx\\wedge dy",
+   "meaning": "A general 2-form in Euclidean 3-space has exactly three independent components, one per coordinate plane.",
+   "symbols": "F^i components; dx, dy, dz coordinate 1-forms",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": "37.1"
+   }
+  },
+  {
+   "label": "(37.2)",
+   "name": "Vector built from the same components",
+   "latex": "u(\\,)=F^1e_x+F^2e_y+F^3e_z",
+   "meaning": "The candidate dual vector, later identified as ⋆F.",
+   "symbols": "e_i Cartesian basis vectors",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": "37.1"
+   }
+  },
+  {
+   "label": "(37.3)",
+   "name": "Flux as a 2-form evaluation",
+   "latex": "(\\text{Flux of }u\\text{ through }A)=\\tilde F(a,b)",
+   "meaning": "Feeding the edges of a parallelogram to the 2-form gives the rate of fluid crossing it.",
+   "symbols": "a, b edge vectors of the area A",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "label": "(37.4)",
+   "name": "Flux expanded",
+   "latex": "F^1(dy\\wedge dz)(a,b)+F^2(dz\\wedge dx)(a,b)+F^3(dx\\wedge dy)(a,b)=\\tilde F(a,b),\\quad (dx\\wedge dy)(a,b)=a^xb^y-b^xa^y",
+   "meaning": "Summing the component-wise triple products u.(a x b) reproduces F(a,b).",
+   "symbols": "Book writes each term as F^3 dx(a) ^ dy(b), an abuse of notation for (dx ^ dy)(a,b).",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "label": "(37.5)",
+   "name": "1-form dual to the bivector a^b",
+   "latex": "\\tilde S=(a^yb^z-b^ya^z)\\,\\omega^x+(a^zb^x-b^za^x)\\,\\omega^y+(a^xb^y-b^xa^y)\\,\\omega^z,\\qquad \\text{Flux}=\\langle\\tilde S,u\\rangle",
+   "meaning": "The three bivector components (a^b)^{yz}, (a^b)^{zx}, (a^b)^{xy} rearranged as a 1-form give the same flux when paired with u.",
+   "symbols": "omega^i basis 1-forms. The reading copy's (a^b)^{yx} is an OCR slip; the print has yz.",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "label": "(37.6)",
+   "name": "Candidate volume 4-form",
+   "latex": "\\tilde\\omega=\\omega^{\\hat\\mu}\\wedge\\omega^{\\hat\\nu}\\wedge\\omega^{\\hat\\alpha}\\wedge\\omega^{\\hat\\beta}",
+   "meaning": "Wedging the four orthonormal basis 1-forms gives a 4-form whose overall sign depends on the ordering chosen.",
+   "symbols": "hats denote orthonormal-frame indices",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.7)",
+   "name": "Orientation choice",
+   "latex": "\\varepsilon(e_0,e_1,e_2,e_3)=\\varepsilon_{0123}=1",
+   "meaning": "Fixes the sign of the Levi-Civita tensor on the standard ordered basis.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.8)",
+   "name": "Epsilon-epsilon contraction (margin)",
+   "latex": "\\varepsilon_{ij\\dots k}\\,\\varepsilon^{lm\\dots r}=M!\\,\\delta^{lm\\dots r}_{ij\\dots k}",
+   "meaning": "Product of lower and upper Levi-Civita symbols as a generalized Kronecker delta.",
+   "symbols": "M number of indices. Valid in Euclidean signature only if delta is the normalized antisymmetrizer; in general a factor (-1)^s is needed, and with a ±1-valued generalized delta the M! should be absent.",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.9)",
+   "name": "Levi-Civita components",
+   "latex": "\\varepsilon_{\\mu\\nu\\alpha\\beta}=\\begin{cases}0&\\text{unless all different}\\\\+1&\\text{even permutations of }0,1,2,3\\\\-1&\\text{odd permutations}\\end{cases}",
+   "meaning": "Permutation rule for the lower-index components.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.10)",
+   "name": "Raised Levi-Civita in Minkowski",
+   "latex": "\\varepsilon^{0123}=-\\varepsilon_{0123}=-1",
+   "meaning": "Raising all indices with the Minkowski metric introduces a single minus sign from the time index.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.11)",
+   "name": "Volume 4-form with fixed sign",
+   "latex": "\\tilde\\omega=\\frac{1}{4!}\\varepsilon_{\\mu\\nu\\alpha\\beta}\\,\\omega^{\\hat\\mu}\\wedge\\omega^{\\hat\\nu}\\wedge\\omega^{\\hat\\alpha}\\wedge\\omega^{\\hat\\beta}=\\varepsilon_{|\\mu\\nu\\alpha\\beta|}\\,\\omega^{\\hat\\mu}\\wedge\\omega^{\\hat\\nu}\\wedge\\omega^{\\hat\\alpha}\\wedge\\omega^{\\hat\\beta}=\\omega^{\\hat0}\\wedge\\omega^{\\hat1}\\wedge\\omega^{\\hat2}\\wedge\\omega^{\\hat3}",
+   "meaning": "In an orthonormal frame the volume form is the ordered wedge of the basis 1-forms.",
+   "symbols": "bars restrict the sum to increasing indices",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.12)",
+   "name": "Volume form in a coordinate basis",
+   "latex": "\\tilde\\omega=\\sqrt{(-1)^s g}\\;dx^0\\wedge dx^1\\wedge\\dots\\wedge dx^{n-1}",
+   "meaning": "The coordinate expression needs the square root of the absolute metric determinant.",
+   "symbols": "g determinant of g_{mu nu}; s number of minus signs in the signature. Book writes the last index as n, which would give n+1 coordinates.",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.13)-(37.14)",
+   "name": "Polar-plane volume form",
+   "latex": "\\omega^{\\hat r}=dr,\\quad\\omega^{\\hat\\theta}=r\\,d\\theta,\\qquad \\tilde\\omega=\\omega^{\\hat r}\\wedge\\omega^{\\hat\\theta}=r\\,dr\\wedge d\\theta",
+   "meaning": "Orthonormal 1-forms for ds^2 = dr^2 + r^2 dtheta^2 and the resulting area 2-form.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.15)-(37.17)",
+   "name": "Components of the polar volume form",
+   "latex": "\\omega_{\\hat r\\hat\\theta}=1,\\ \\omega_{\\hat\\theta\\hat r}=-1\\ \\Rightarrow\\ \\omega_{\\hat i\\hat j}=\\varepsilon_{ij};\\qquad \\omega_{ij}=\\sqrt g\\,\\varepsilon_{ij}=r\\,\\varepsilon_{ij}\\ \\text{(coordinate basis)}",
+   "meaning": "The same 2-form has Levi-Civita components in the orthonormal basis and r times Levi-Civita in the coordinate basis.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.18)",
+   "name": "Dual of a q-vector",
+   "latex": "\\tilde A=\\star T=\\frac{A_{\\mu\\dots\\omega}}{p!}\\,\\omega^\\mu\\wedge\\dots\\wedge\\omega^\\omega,\\qquad p=n-q",
+   "meaning": "The Hodge star turns an antisymmetric (q,0) tensor into a p-form of complementary degree.",
+   "symbols": "omega^mu basis 1-forms (the index label omega is unrelated to the volume form)",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.19)",
+   "name": "Components of the dual form",
+   "latex": "A_{\\mu\\dots\\omega}=\\frac{1}{q!}\\,\\omega_{\\alpha\\dots\\kappa\\mu\\dots\\omega}\\,T^{\\alpha\\dots\\kappa}",
+   "meaning": "Contract the multivector into the first q slots of the lower-index volume tensor.",
+   "symbols": "omega_{...} volume tensor components",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.20)-(37.22)",
+   "name": "Dual of e2^e3 in 3D",
+   "latex": "T^{\\alpha\\beta}=\\delta^\\alpha_2\\delta^\\beta_3-\\delta^\\alpha_3\\delta^\\beta_2,\\quad A_\\mu=\\tfrac12(\\varepsilon_{23\\mu}-\\varepsilon_{32\\mu}),\\quad A_1=\\tfrac12(\\varepsilon_{231}-\\varepsilon_{321})=1\\ \\Rightarrow\\ \\star(e_2\\wedge e_3)=dx^1",
+   "meaning": "Worked contraction showing a basis bivector maps to the perpendicular basis 1-form.",
+   "symbols": "Book's closing sentence prints ⋆(e_y ^ e_x) = dx; the calculation gives ⋆(e_y ^ e_z) = dx.",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.23)",
+   "name": "Normalization of the upper volume tensor",
+   "latex": "\\omega^{\\alpha\\dots\\kappa}\\,\\omega_{\\alpha\\dots\\kappa}=(-1)^s\\,n!,\\qquad \\omega^{12\\dots n}=\\frac{(-1)^s}{\\omega_{12\\dots n}}",
+   "meaning": "Fixes the all-upper components so they agree with raising indices by the metric.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.24)",
+   "name": "Upper volume tensor in an orthonormal Lorentzian frame",
+   "latex": "\\omega^{\\alpha\\beta\\dots\\kappa}=\\varepsilon^{\\alpha\\beta\\dots\\kappa},\\qquad \\varepsilon^{\\alpha\\dots\\kappa}\\varepsilon_{\\alpha\\dots\\kappa}=-n!",
+   "meaning": "With s = 1, the full contraction is negative.",
+   "symbols": "Book writes the left side with fixed indices 123...n where a full contraction is meant.",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.25)",
+   "name": "Volume tensor components in curved spacetime",
+   "latex": "\\omega_{\\mu\\nu\\alpha\\beta}=\\sqrt{-g}\\,\\varepsilon_{\\mu\\nu\\alpha\\beta},\\qquad \\omega^{\\mu\\nu\\alpha\\beta}=\\frac{1}{\\sqrt{-g}}\\,\\varepsilon^{\\mu\\nu\\alpha\\beta}",
+   "meaning": "Lower components scale with sqrt(-g), upper with its inverse; epsilon^0123 = -1.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.26)",
+   "name": "Dual of a p-form",
+   "latex": "S=\\star\\tilde B=\\frac{S^{\\alpha\\dots\\kappa}}{q!}\\,e_\\alpha\\wedge\\dots\\wedge e_\\kappa,\\qquad q=n-p",
+   "meaning": "The inverse map sends a p-form to an antisymmetric (n-p)-vector.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.27)",
+   "name": "Components of the dual multivector",
+   "latex": "S^{\\alpha\\dots\\kappa}=\\frac{1}{p!}\\,\\omega^{\\mu\\dots\\omega\\alpha\\dots\\kappa}\\,B_{\\mu\\dots\\omega}",
+   "meaning": "Contract the form into the first p slots of the upper-index volume tensor.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.28)-(37.30)",
+   "name": "Dual of dx2^dx3 in 3D",
+   "latex": "A_{\\mu\\nu}=\\delta^2_\\mu\\delta^3_\\nu-\\delta^3_\\mu\\delta^2_\\nu,\\quad S^\\alpha=\\tfrac{1}{2!}\\varepsilon^{\\mu\\nu\\alpha}A_{\\mu\\nu},\\quad S^1=\\tfrac12(\\varepsilon^{231}-\\varepsilon^{321})=1\\ \\Rightarrow\\ \\star(dy\\wedge dz)=e_x",
+   "meaning": "Basis 2-form maps to the perpendicular basis vector.",
+   "symbols": "Printed 37.29 has omega^{mu nu i} on the left; the free index should be alpha.",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.35)-(37.37)",
+   "name": "Dual of B dy^dz in Minkowski space",
+   "latex": "M_{23}=-M_{32}=B,\\quad M^{\\alpha\\beta}=\\tfrac{1}{2}\\varepsilon^{\\mu\\nu\\alpha\\beta}M_{\\mu\\nu}=B\\,\\varepsilon^{23\\alpha\\beta},\\quad M=B\\,e_x\\wedge e_t",
+   "meaning": "In 4D a purely spatial 2-form (magnetic-field-like) dualizes to a time-space bivector.",
+   "symbols": "epsilon^{2301} = -1 gives M^{01} = -B",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.38)-(37.40)",
+   "name": "Cross product as a dual",
+   "latex": "t^1=\\tfrac{1}{2!}\\varepsilon^{\\mu\\nu1}(u_\\mu v_\\nu-v_\\mu u_\\nu)=u_2v_3-u_3v_2,\\quad t^2=u_3v_1-u_1v_3,\\quad t^3=u_1v_2-u_2v_1,\\qquad t=u\\times v",
+   "meaning": "The dual of the wedge of two 1-forms in Euclidean 3-space is the familiar cross product.",
+   "symbols": "Printed 37.39 gives t^2 = u_1 v_3 - v_1 u_3, which has the wrong sign; the version here is correct.",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.31)-(37.32)",
+   "name": "3D dual table (margin)",
+   "latex": "\\star e_x=dy\\wedge dz,\\ \\star e_y=dz\\wedge dx,\\ \\star e_z=dx\\wedge dy;\\qquad \\star(dy\\wedge dz)=e_x,\\ \\star(dz\\wedge dx)=e_y,\\ \\star(dx\\wedge dy)=e_z;\\qquad \\star\\star=1",
+   "meaning": "Lookup table for Euclidean 3-space.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.33)",
+   "name": "Minkowski duals of 2-forms (margin)",
+   "latex": "\\star(dx\\wedge dt)=e_y\\wedge e_z,\\ \\star(dy\\wedge dt)=e_z\\wedge e_x,\\ \\star(dz\\wedge dt)=e_x\\wedge e_y,\\ \\star(dy\\wedge dz)=e_x\\wedge e_t,\\ \\star(dz\\wedge dx)=e_y\\wedge e_t,\\ \\star(dx\\wedge dy)=e_z\\wedge e_t",
+   "meaning": "Time-space 2-forms become space-space bivectors and vice versa; the pattern behind electric-magnetic duality.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.34)",
+   "name": "Minkowski duals of bivectors (margin)",
+   "latex": "\\star(e_y\\wedge e_z)=-dx\\wedge dt,\\ \\star(e_z\\wedge e_x)=-dy\\wedge dt,\\ \\star(e_x\\wedge e_y)=-dz\\wedge dt,\\ \\star(e_x\\wedge e_t)=-dy\\wedge dz,\\ \\star(e_y\\wedge e_t)=-dz\\wedge dx,\\ \\star(e_z\\wedge e_t)=-dx\\wedge dy;\\qquad \\star\\star=-1",
+   "meaning": "Going back picks up a minus sign, so ⋆⋆ = -1 on 2-forms in spacetime.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.41)",
+   "name": "Double-dual sign",
+   "latex": "\\star\\star\\tilde B=(-1)^{s+p(n-p)}\\tilde B,\\qquad \\star\\star T=(-1)^{s+q(n-q)}T",
+   "meaning": "Dualizing twice returns the original up to a sign set by signature and degree.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.2"
+   }
+  },
+  {
+   "label": "(37.42)",
+   "name": "Parallelogram area as determinant",
+   "latex": "\\text{Area}=\\begin{vmatrix}u^x&u^y\\\\v^x&v^y\\end{vmatrix}=u^xv^y-v^xu^y=\\varepsilon_{\\mu\\nu}u^\\mu v^\\nu",
+   "meaning": "Signed area of the parallelogram spanned by u and v.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.43)",
+   "name": "Area from the 2D volume form",
+   "latex": "\\text{Area}=\\tilde\\omega(u,v),\\qquad\\tilde\\omega=dx\\wedge dy",
+   "meaning": "The planar volume form filled with the edge vectors outputs the area.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.44)-(37.45)",
+   "name": "Area as dual of a bivector",
+   "latex": "\\text{Area}=\\star(u\\wedge v)=\\tfrac12\\varepsilon_{\\mu\\nu}(u^\\mu v^\\nu-v^\\mu u^\\nu)=\\varepsilon_{\\mu\\nu}u^\\mu v^\\nu",
+   "meaning": "In two dimensions a bivector dualizes to a number, the enclosed area.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.46)",
+   "name": "4-volume as determinant",
+   "latex": "\\mathcal V=\\varepsilon_{\\mu\\nu\\alpha\\beta}A^\\mu B^\\nu C^\\alpha D^\\beta=\\det\\begin{pmatrix}A^0&A^1&A^2&A^3\\\\B^0&B^1&B^2&B^3\\\\C^0&C^1&C^2&C^3\\\\D^0&D^1&D^2&D^3\\end{pmatrix}",
+   "meaning": "The volume 4-form evaluated on four edge vectors gives the 4-volume of the spacetime parallelepiped.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.47)-(37.48)",
+   "name": "Invariant 4-volume element",
+   "latex": "\\tilde\\omega=\\sqrt{-g}\\,dx^0\\wedge dx^1\\wedge dx^2\\wedge dx^3,\\qquad \\mathrm d\\mathcal V=\\sqrt{-g}\\,\\mathrm dx^0\\mathrm dx^1\\mathrm dx^2\\mathrm dx^3=\\sqrt{-g}\\,\\mathrm d^4x",
+   "meaning": "Evaluating the coordinate volume form on an infinitesimal coordinate box gives the integration measure.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.49)",
+   "name": "4-volume as dual of a tetravector",
+   "latex": "\\mathcal V=\\star(A\\wedge B\\wedge C\\wedge D)",
+   "meaning": "Same 4-volume via duality.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.50)",
+   "name": "Definition of the 3-volume 1-form",
+   "latex": "\\tilde\\sigma=-\\star(A\\wedge B\\wedge C)",
+   "meaning": "The 1-form encoding the oriented 3-volume spanned by A, B, C; the minus sign aligns it with the next equation.",
+   "symbols": "Sign: ⋆ puts the trivector in the first three slots, and moving the free index from last to first slot costs three transpositions.",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.51)-(37.52)",
+   "name": "3-volume 1-form as a partly filled volume form",
+   "latex": "\\tilde\\sigma(\\,)=\\tilde\\omega(\\,,A,B,C),\\qquad \\sigma_\\mu=\\tilde\\omega(e_\\mu,A,B,C)=\\varepsilon_{\\mu\\alpha\\beta\\gamma}A^\\alpha B^\\beta C^\\gamma",
+   "meaning": "Leave the first slot of the volume form open to get a 1-form waiting for a direction (e.g. an observer's velocity).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.53)",
+   "name": "Rest-frame box",
+   "latex": "\\sigma_0=\\tilde\\omega(e_0,\\delta x\\,e_1,\\delta y\\,e_2,\\delta z\\,e_3)=\\varepsilon_{0123}\\,\\delta x\\,\\delta y\\,\\delta z=\\delta x\\,\\delta y\\,\\delta z",
+   "meaning": "Only the time component survives and equals the ordinary volume.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.54)",
+   "name": "Observer-measured 3-volume",
+   "latex": "V=\\tilde\\omega(u,A,B,C)=\\tilde\\sigma(u)",
+   "meaning": "An observer with 4-velocity u measures the box volume by inserting u into the 3-volume 1-form.",
+   "symbols": "u observer 4-velocity",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.55)-(37.56)",
+   "name": "Face swept through proper time",
+   "latex": "\\tilde\\sigma(\\,)=\\tilde\\omega(\\,,\\delta y\\,e_2,\\delta z\\,e_3,u\\,\\delta\\tau),\\qquad \\sigma_1=\\varepsilon_{1230}\\,\\delta y\\,\\delta z\\,\\delta\\tau=-\\delta y\\,\\delta z\\,\\delta\\tau,\\ \\sigma_0=\\sigma_2=\\sigma_3=0",
+   "meaning": "A spatial face moving along u for a proper time sweeps a timelike 3-volume whose only component is spatial and negative.",
+   "symbols": "epsilon_1230 = -1 (odd cyclic permutation)",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.58)-(37.59)",
+   "name": "Proper 3-volume element",
+   "latex": "\\mathrm d\\tilde\\sigma(\\,)=\\sqrt{-g}\\,\\varepsilon_{0123}\\,dx^0(\\,)\\,\\mathrm dx^1\\mathrm dx^2\\mathrm dx^3,\\qquad \\mathrm dV=\\mathrm d\\tilde\\sigma(u)=\\sqrt{-g}\\,u^0\\,\\mathrm dx^1\\mathrm dx^2\\mathrm dx^3",
+   "meaning": "The invariant spatial volume element measured by an observer with velocity u.",
+   "symbols": "margin: u^0 = (-g_tt)^{-1/2} for a static observer in a diagonal metric",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": null,
+   "name": "Flux integrand",
+   "latex": "J^\\mu\\,\\mathrm d\\sigma_\\mu=\\mathrm d\\tilde\\sigma(J)",
+   "meaning": "The 3-volume 1-form is always contracted with a vector such as a current.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.60)-(37.61)",
+   "name": "Box content and face flux",
+   "latex": "J^0\\mathrm d\\sigma_0=\\sqrt{-g}\\,J^0\\,\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz,\\qquad J^1\\mathrm d\\sigma_1=\\sqrt{-g}\\,J^1\\varepsilon_{1230}\\,\\mathrm dx^2\\mathrm dx^3\\mathrm dx^0=-\\sqrt{-g}\\,J^1\\,\\mathrm dy\\,\\mathrm dz\\,\\mathrm dt",
+   "meaning": "Time component counts charge in a spatial box; spatial component counts flux through a face during dt.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": "37.3"
+   }
+  },
+  {
+   "label": "(37.62)",
+   "name": "Momentum through a box (Exercise 37.1)",
+   "latex": "T(\\,,\\tilde\\sigma)=\\text{momentum crossing from the negative to the positive side of the box},\\qquad \\tilde\\sigma=-V\\tilde u",
+   "meaning": "Inserting the 3-volume 1-form into the energy-momentum tensor gives momentum flow; for an observer-carried box sigma is proportional to the velocity 1-form.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": null
+   }
+  },
+  {
+   "label": "(37.63)-(37.64)",
+   "name": "Particles in a permeable box (Exercise 37.2)",
+   "latex": "J=nu+aA+bB+\\gamma C,\\qquad N=\\tilde\\omega(J,A,B,C)",
+   "meaning": "Decompose the current along the observer velocity and the box edges; only the u part survives in the volume form.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": null
+   }
+  },
+  {
+   "label": "(37.65)-(37.66)",
+   "name": "Curl in curvilinear coordinates (Exercise 37.3)",
+   "latex": "(\\nabla\\times v)^1=\\frac{1}{\\sqrt g}\\left(\\frac{\\partial V_3}{\\partial x^2}-\\frac{\\partial V_2}{\\partial x^3}\\right),\\qquad (\\nabla\\times v)^{\\hat1}=\\left(\\frac{g_{11}}{g}\\right)^{1/2}\\left[\\frac{\\partial}{\\partial x^2}\\left(g_{33}^{1/2}v^{\\hat3}\\right)-\\frac{\\partial}{\\partial x^3}\\left(g_{22}^{1/2}v^{\\hat2}\\right)\\right]",
+   "meaning": "Curl as the dual of the exterior derivative of the associated 1-form, in coordinate and orthonormal components.",
+   "symbols": "Printed 37.66 has the two derivative terms in the opposite order, contradicting 37.65 and the standard formula; the version here is corrected.",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  },
+  {
+   "label": "(37.68)-(37.71)",
+   "name": "Divergence from the volume form (Exercise 37.5)",
+   "latex": "\\mathcal L_v\\tilde\\omega=-\\theta_v\\tilde\\omega,\\qquad \\nabla_\\mu\\tilde\\omega=0,\\qquad (\\mathcal L_v\\tilde\\omega)_{\\mu\\nu\\alpha\\beta}=\\omega_{\\sigma\\nu\\alpha\\beta}v^\\sigma{}_{;\\mu}+\\omega_{\\mu\\sigma\\alpha\\beta}v^\\sigma{}_{;\\nu}+\\omega_{\\mu\\nu\\sigma\\beta}v^\\sigma{}_{;\\alpha}+\\omega_{\\mu\\nu\\alpha\\sigma}v^\\sigma{}_{;\\beta},\\qquad \\theta_v=-v^\\mu{}_{;\\mu}",
+   "meaning": "The Lie derivative of the volume form is the volume form times the divergence.",
+   "symbols": "Printed 37.70 has an overall minus on the left, which would flip the sign of 37.71; the standard Lie-derivative formula for lower indices has plus signs as shown here.",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  },
+  {
+   "label": "(37.72)-(37.75)",
+   "name": "Dust-current conservation (Exercise 37.6)",
+   "latex": "\\mathcal L_JJ=\\mathcal L_JA=\\mathcal L_JB=\\mathcal L_JC=0,\\quad \\chi=\\tilde\\omega(J,A,B,C),\\quad \\mathcal L_J\\chi=-\\theta_J\\chi=0\\ \\Rightarrow\\ \\nabla\\cdot J=0",
+   "meaning": "A box dragged along a dust congruence keeps its particle count, forcing the current to be divergence-free.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Fig. 37.1",
+   "image_path": "gifted-amateur/pages/page-409/img-279.jpeg",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   },
+   "caption_paraphrase": "A parallelogram whose two sides are the vectors u and v.",
+   "visual_description": "Line drawing of a parallelogram. From a common corner at lower left, a bold arrow labelled v runs horizontally to the right along the bottom edge, and a bold arrow labelled u rises steeply up and to the left. The two remaining sides (top edge and right slanted edge) are dotted, completing the parallelogram. No axes, shading or numbers are drawn.",
+   "what_it_teaches": "Anchors the claim that the area of the parallelogram is the determinant of the edge components, equivalently the planar volume form filled with u and v, or the dual of the bivector u^v. Because u leans left of v, the drawing also shows (implicitly) that the ordered pair (u, v) is clockwise, so omega(u,v) is negative and the formula gives a signed area.",
+   "figure_type": "geometric-construction",
+   "concepts": [
+    "signed area as volume-form evaluation",
+    "orientation (signed volume)",
+    "p-vector",
+    "volume form"
+   ],
+   "redesign": {
+    "idea": "Oriented-area playground that ties three readings of the same number together: determinant, volume form with slots filled, and Hodge dual of the bivector, then lifts to 3D and to a Lorentz-boosted 4-volume.",
+    "interaction": "Learner drags the tips of u and v; the parallelogram fills blue when omega(u,v) > 0 and orange when negative, with a circular arrow showing the u-to-v sense. Live readouts show u^x v^y - v^x u^y, epsilon_{mu nu} u^mu v^nu, and ⋆(u^v). A swap button exchanges slots and flips the sign; a degenerate warning appears when the vectors align. A mode switch adds a third vector for a 3D parallelepiped, and a spacetime mode lets the learner boost a 1+1 box with a rapidity slider to see the determinant stay fixed while the shape shears.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "Example 37.1",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   },
+   "problem": "Show that the flux of a fluid with velocity components F^i through a parallelogram with edges a and b equals the 2-form F evaluated on (a, b), and that the same number arises from pairing u with a 1-form built from a^b.",
+   "method": "Switch on one velocity component at a time, write the flux as a triple product with a x b, expand into a^x b^y - b^x a^y and recognise the dx, dy wedge acting on a and b; superpose. Then list the three independent components of a^b and use them as the components of a 1-form S.",
+   "key_insight": "Two different pairs of objects, (2-form, bivector) and (vector, 1-form), compute the same physical flux; this coincidence is what duality formalizes.",
+   "result": "Flux = F(a,b) = <F, a^b> = <S, u>.",
+   "concepts": [
+    "flux 2-form",
+    "duality between forms and multivectors",
+    "pairing of forms with multivectors",
+    "cross product as a Hodge dual"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 37.2",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   },
+   "problem": "Fix the overall sign of the volume 4-form and state the Levi-Civita tensor components with indices down and up in Minkowski spacetime.",
+   "method": "Declare the tensor's value on the ordered basis (e0,e1,e2,e3) to be +1, extend by antisymmetry, raise all indices with the Minkowski metric, and rewrite the volume form with 1/4! or with barred ordered indices.",
+   "key_insight": "Treating epsilon as tensor components means index position matters: one time index raised gives epsilon^0123 = -1.",
+   "result": "epsilon_0123 = +1 and epsilon^0123 = -1; the text right after the example uses this to write the volume form as omega^0 ^ omega^1 ^ omega^2 ^ omega^3 (eqn 37.11).",
+   "concepts": [
+    "Levi-Civita symbol",
+    "Levi-Civita tensor sign convention in Minkowski spacetime",
+    "volume form"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 37.3",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   },
+   "problem": "Find the volume form of the flat plane in polar coordinates and its components in the orthonormal and coordinate bases.",
+   "method": "Take orthonormal 1-forms dr and r dtheta, wedge them, evaluate the wedge on pairs of orthonormal basis vectors; then redo it with coordinate 1-forms and the factor sqrt(det g) = r.",
+   "key_insight": "The area 2-form is a single geometric object; only its components change between bases, and the sqrt(g) factor is what keeps the coordinate version consistent.",
+   "result": "omega = r dr ^ dtheta; components epsilon_ij (orthonormal) and r epsilon_ij (coordinate).",
+   "concepts": [
+    "volume form",
+    "metric determinant factor in the volume form",
+    "orthonormal frame"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 37.4",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   },
+   "problem": "Compute the dual of the basis bivector e2^e3 in Euclidean 3-space.",
+   "method": "Write the bivector components as a difference of Kronecker-delta products, contract with epsilon_{alpha beta mu} and divide by 2!, then evaluate for each mu.",
+   "key_insight": "A basis bivector (an oriented area element in the yz-plane) dualizes to the 1-form dx whose surfaces are parallel to that plane.",
+   "result": "⋆(e2^e3) = dx^1, the only non-zero component being A_1 = 1 (the book's summary line misprints the bivector as e_y ^ e_x).",
+   "concepts": [
+    "Hodge star operator",
+    "Levi-Civita symbol",
+    "p-vector"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 37.5",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   },
+   "problem": "Give the all-upper volume tensor components in an orthonormal frame with one negative signature entry, and (in the text that follows) their coordinate-frame form in (3+1)-dimensional spacetime.",
+   "method": "Inside the example: apply omega^{...} omega_{...} = (-1)^s n! with s = 1, so the upper components are just epsilon^{...} and their full contraction with the lower ones is -n!. Immediately after the boxed example, the text combines this with the coordinate components sqrt(-g) epsilon to get the 1/sqrt(-g) factor on the upper version.",
+   "key_insight": "The upper components carry the inverse square-root factor and the extra Lorentzian minus sign.",
+   "result": "omega_{mu nu alpha beta} = sqrt(-g) epsilon_{mu nu alpha beta}; omega^{mu nu alpha beta} = epsilon^{mu nu alpha beta}/sqrt(-g) with epsilon^0123 = -1.",
+   "concepts": [
+    "contravariant volume tensor normalization",
+    "metric determinant factor in the volume form",
+    "signature count s"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 37.6",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   },
+   "problem": "Compute the vector dual to the basis 2-form dx^2 ^ dx^3 in flat 3-space.",
+   "method": "Expand the 2-form's components with Kronecker deltas, contract with epsilon^{mu nu alpha} and divide by 2!.",
+   "key_insight": "The inverse dual mirrors Example 37.4: an area 2-form maps to the normal basis vector.",
+   "result": "⋆(dy ^ dz) = e_x.",
+   "concepts": [
+    "Hodge star operator",
+    "Levi-Civita symbol"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 37.7",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   },
+   "problem": "Find the dual of the 2-form B dy ^ dz in 4D Minkowski spacetime.",
+   "method": "Components M_23 = -M_32 = B; contract with epsilon^{mu nu alpha beta}/2 to get B epsilon^{23 alpha beta}; use epsilon^{2301} = -1 to find M^{01} = -B and assemble the bivector.",
+   "key_insight": "In spacetime the dual of a purely spatial 2-form is a bivector with one time leg; the magnetic-like and electric-like parts of a 2-form swap under duality.",
+   "result": "⋆(B dy ^ dz) = B e_x ^ e_t.",
+   "concepts": [
+    "Hodge star operator",
+    "Levi-Civita tensor sign convention in Minkowski spacetime"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 37.8",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   },
+   "problem": "Show that the dual of the 2-form u ^ v (built from 1-forms) in Euclidean 3-space is the cross product.",
+   "method": "Write components w_ij = u_i v_j - u_j v_i, contract with epsilon^{mu nu i}/2! for each free index, and note index position is irrelevant in Euclidean Cartesian components.",
+   "key_insight": "The cross product is not a primitive operation but the Hodge dual of an oriented area; this explains why it only exists in three dimensions.",
+   "result": "t = u x v with t^1 = u_2 v_3 - u_3 v_2, t^2 = u_3 v_1 - u_1 v_3, t^3 = u_1 v_2 - u_2 v_1 (printed t^2 has the opposite sign).",
+   "concepts": [
+    "cross product as a Hodge dual",
+    "Hodge star operator"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 37.9",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   },
+   "problem": "Verify that, in the Euclidean plane, taking the Hodge star of the bivector u^v built from a parallelogram's two edges yields the same number as the determinant area formula.",
+   "method": "Bivector components u^mu v^nu - v^mu u^nu contracted with epsilon_{mu nu}/2 collapse to epsilon_{mu nu} u^mu v^nu.",
+   "key_insight": "In two dimensions a bivector's dual is a 0-form, and that number is the area.",
+   "result": "Area = ⋆(u ^ v) = epsilon_{mu nu} u^mu v^nu.",
+   "concepts": [
+    "signed area as volume-form evaluation",
+    "Hodge star operator"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": null,
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   },
+   "problem": "Express the 4-volume of the spacetime parallelepiped with edges A, B, C, D in components.",
+   "method": "Fill all four slots of the volume 4-form and expand with the Levi-Civita symbol; recognise the sum as the Leibniz formula for a determinant.",
+   "key_insight": "Spacetime 4-volume is just a 4x4 determinant of edge components and is equally the dual of the tetravector.",
+   "result": "V = epsilon_{mu nu alpha beta} A^mu B^nu C^alpha D^beta = det[A;B;C;D] = ⋆(A ^ B ^ C ^ D) (eqns 37.46, 37.49).",
+   "concepts": [
+    "4-volume of a parallelepiped",
+    "volume form"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 37.10",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   },
+   "problem": "Derive the invariant 4-volume integration element in a general coordinate system.",
+   "method": "Evaluate sqrt(-g) dx^0 ^ dx^1 ^ dx^2 ^ dx^3 on the coordinate edge vectors dx^mu e_mu.",
+   "key_insight": "The familiar sqrt(-g) d^4x is simply the volume form applied to an infinitesimal coordinate box.",
+   "result": "dV = sqrt(-g) d^4x.",
+   "concepts": [
+    "invariant spacetime volume element",
+    "volume form"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 37.11",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   },
+   "problem": "Find the 3-volume 1-form components for a cuboid box at rest in Minkowski spacetime with edges dx e1, dy e2, dz e3.",
+   "method": "Insert each basis vector into the empty slot of omega( , dx e1, dy e2, dz e3); only e0 gives a non-repeated index set.",
+   "key_insight": "A box at rest has a purely timelike-normal hypersurface element, and its time component is the ordinary volume.",
+   "result": "sigma_0 = dx dy dz, other components zero.",
+   "concepts": [
+    "3-volume 1-form",
+    "spacelike and timelike hypersurfaces"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Example 37.12",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "problem": "Compute the 3-volume 1-form of the timelike slab swept out when a face with edges dy e2, dz e3 moves with velocity u for proper time d tau.",
+   "method": "Use u d tau as the third edge, go to the rest frame u = e0, and evaluate each component; only sigma_1 survives with epsilon_1230 = -1.",
+   "key_insight": "Hypersurfaces containing a time direction have spatial normal components, and the sign conventions make sigma_1 negative even for a right-handed choice of edges.",
+   "result": "sigma_1 = -dy dz d tau, others zero; the sign is explained by flux orientation in margin note 12.",
+   "concepts": [
+    "3-volume 1-form",
+    "spacelike and timelike hypersurfaces",
+    "orientation of hypersurface normals"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 37.13",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "problem": "Obtain the proper 3-volume element measured by an observer with 4-velocity u in a general coordinate frame.",
+   "method": "Build d sigma from the coordinate volume form with spatial coordinate edges, leaving dx^0( ) open; insert u so dx^0(u) = u^0; use u^0 = (-g_tt)^{-1/2} for a static observer in a diagonal metric.",
+   "key_insight": "The factor u^0 divides the time part of the metric out of sqrt(-g), leaving the spatial proper volume.",
+   "result": "dV = sqrt(-g) u^0 dx^1 dx^2 dx^3.",
+   "concepts": [
+    "proper 3-volume element",
+    "3-volume 1-form",
+    "metric determinant factor in the volume form"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Example 37.14",
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": "37.3"
+   },
+   "problem": "Interpret the contributions J^0 d sigma_0 and J^1 d sigma_1 of a current through different integration hypersurfaces.",
+   "method": "Evaluate d sigma for a spatial box and for a face with edges along e2, e3 swept through coordinate time, using epsilon_0123 = +1 and epsilon_1230 = -1.",
+   "key_insight": "The same integrand J^mu d sigma_mu counts charge in a box on a spacelike slice and flux through a wall on a timelike slice; the choice of hypersurface decides which.",
+   "result": "J^0 d sigma_0 = sqrt(-g) J^0 dx dy dz; J^1 d sigma_1 = -sqrt(-g) J^1 dy dz dt.",
+   "concepts": [
+    "current flux through a hypersurface",
+    "3-volume 1-form",
+    "spacelike and timelike hypersurfaces"
+   ],
+   "difficulty": "standard"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "Water pouring through a window frame",
+   "target_concept": "duality between forms and multivectors",
+   "how_used": "The flow rate through a parallelogram can be computed either from a 2-form acting on the window's edges or from the velocity vector paired with a 1-form built from the edges; both give the same number, so the two descriptions must be equivalent.",
+   "limits": "Works cleanly only in 3D Euclidean space where the dual of a 2-form is a vector; in spacetime the dual of a 2-form is a bivector with no fluid-velocity picture.",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": "37.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "3D scene with arrow field and a draggable, resizable window; three gauges (F(a,b), u.(a x b), <S,u>) move in lockstep as the learner tilts the window or rotates the flow."
+  },
+  {
+   "analogy": "Slot machine with one slot left open",
+   "target_concept": "3-volume 1-form",
+   "how_used": "Filling every slot of the volume form gives a 4-volume; filling three with box edges leaves a 1-form that outputs the measured volume when an observer drops in their velocity, mirroring how energy and number density were read off earlier.",
+   "limits": "Hides the sign bookkeeping: E and n come with minus signs while V does not, and spatial components of sigma can be negative.",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Four-slot machine graphic: learner drags edge vectors into slots; with one slot empty the machine displays the 1-form components, and dropping in a 4-velocity outputs V."
+  },
+  {
+   "analogy": "The cross product unmasked",
+   "target_concept": "cross product as a Hodge dual",
+   "how_used": "The ordinary cross product, familiar to every reader, is revealed as the dual of an oriented area, explaining why vector calculus in 3D works so neatly.",
+   "limits": "Readers may over-generalize and look for a 4D cross product; the dual of a 4D 2-form is a bivector.",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Dimension slider n = 2, 3, 4 showing what ⋆(u ^ v) is (number, vector, bivector) with a rendered glyph for each."
+  },
+  {
+   "analogy": "Area as a determinant of edges",
+   "target_concept": "signed area as volume-form evaluation",
+   "how_used": "The school determinant formula for parallelogram area is reread as the planar volume form with both slots filled, then lifted to 4D.",
+   "limits": "The determinant is signed; everyday area is not.",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Drag-the-edges parallelogram with colour-coded sign (see Fig. 37.1 redesign)."
+  },
+  {
+   "analogy": "A moving surface sweeping out a slab",
+   "target_concept": "spacelike and timelike hypersurfaces",
+   "how_used": "A 2D face that moves for a proper time traces a 3D region containing a time direction, giving an intuitive picture of a timelike 3-volume.",
+   "limits": "Requires comfort drawing 2+1 spacetime diagrams; the swept slab's volume has units of area times time.",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "2+1 spacetime diagram where a line segment (a face in 2D space) is dragged upward in time to extrude a sheet; its normal arrow and sigma components update."
+  },
+  {
+   "analogy": "Dust hitting a moving windscreen",
+   "target_concept": "orientation of hypersurface normals",
+   "how_used": "A surface moving through dust sees particles streaming toward it, which with outward-positive flux explains the minus sign in sigma_1.",
+   "limits": "Only a heuristic for the sign; the precise statement is the inward/outward normal convention.",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Normal-vector area element dS = n dS",
+   "target_concept": "3-volume 1-form",
+   "how_used": "Just as a 2D surface element is characterized by its normal, 3D hypersurfaces in spacetime are characterized by the direction of their normal, which is what sigma encodes.",
+   "limits": "In Lorentzian geometry normals can be timelike or spacelike, and null hypersurfaces have normals lying within them.",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "The Hodge dual of a 2-form is always a vector.",
+   "correction": "The output degree is n minus the input degree; a 2-form gives a vector only in 3D, a bivector in 4D, and a number would need n = 2.",
+   "why_tempting": "The motivating example and the cross product both live in 3D.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   },
+   "concepts": [
+    "Hodge star operator",
+    "duality between forms and multivectors"
+   ]
+  },
+  {
+   "misconception": "The cross product of two vectors is a genuine vector in any number of dimensions.",
+   "correction": "It is the dual of a bivector and is a vector only because n - 2 = 1 in three dimensions.",
+   "why_tempting": "It is taught early as a basic vector operation without mentioning dimension.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   },
+   "concepts": [
+    "cross product as a Hodge dual"
+   ]
+  },
+  {
+   "misconception": "Applying the Hodge star twice always gives back the original tensor.",
+   "correction": "⋆⋆ = (-1)^{s+p(n-p)}; for 2-forms in Minkowski spacetime ⋆⋆ = -1.",
+   "why_tempting": "In Euclidean 3D, the most familiar setting, ⋆⋆ = +1.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   },
+   "concepts": [
+    "double-dual sign rule"
+   ]
+  },
+  {
+   "misconception": "The upper-index Levi-Civita components equal the lower-index ones.",
+   "correction": "In Minkowski spacetime raising all indices introduces a factor -1: epsilon^0123 = -1 when epsilon_0123 = +1.",
+   "why_tempting": "In Euclidean Cartesian coordinates index position makes no difference, and many readers meet epsilon only there.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   },
+   "concepts": [
+    "Levi-Civita tensor sign convention in Minkowski spacetime"
+   ]
+  },
+  {
+   "misconception": "The components of the volume form are always just the Levi-Civita symbol.",
+   "correction": "Only in an orthonormal basis; in a coordinate basis they carry sqrt(|g|), e.g. r epsilon_ij in polar coordinates.",
+   "why_tempting": "The first definition is given in an orthonormal frame.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   },
+   "concepts": [
+    "metric determinant factor in the volume form",
+    "volume form"
+   ]
+  },
+  {
+   "misconception": "d^4x on its own is a coordinate-invariant integration measure.",
+   "correction": "The invariant element is sqrt(-g) d^4x, the volume form evaluated on a coordinate box.",
+   "why_tempting": "Flat-space Cartesian integrals never show the factor.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   },
+   "concepts": [
+    "invariant spacetime volume element"
+   ]
+  },
+  {
+   "misconception": "A 3-volume in spacetime always means a region of space at one instant.",
+   "correction": "The time component of sigma describes spacelike slices, but its spatial components describe timelike hypersurfaces such as a face swept through time.",
+   "why_tempting": "Everyday volume is spatial.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "concepts": [
+    "spacelike and timelike hypersurfaces",
+    "3-volume 1-form"
+   ]
+  },
+  {
+   "misconception": "Choosing edges in a right-handed order guarantees positive components of the 3-volume 1-form.",
+   "correction": "Example 37.12 gives sigma_1 = -dy dz d tau; the sign reflects hypersurface normal orientation conventions.",
+   "why_tempting": "Right-handed ordering gives positive volumes in ordinary 3D.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "concepts": [
+    "orientation of hypersurface normals"
+   ]
+  },
+  {
+   "misconception": "The area given by the determinant formula is always positive.",
+   "correction": "The volume form returns an oriented area; swapping the edge order flips its sign. For Fig. 37.1 as drawn, omega(u,v) is negative.",
+   "why_tempting": "Area is taught as a positive quantity and the figure's label says just Area.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   },
+   "concepts": [
+    "orientation (signed volume)",
+    "signed area as volume-form evaluation"
+   ]
+  },
+  {
+   "misconception": "The Hodge star, like the wedge product and exterior derivative, needs no metric.",
+   "correction": "The star requires the volume form (with sqrt|g|) and index raising, so it depends on the metric and on an orientation choice.",
+   "why_tempting": "It appears in the forms chapters of Part V alongside metric-free operations.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   },
+   "concepts": [
+    "Hodge star operator",
+    "metric determinant factor in the volume form"
+   ]
+  },
+  {
+   "misconception": "The Levi-Civita symbol is itself a tensor in any coordinates.",
+   "correction": "Only sqrt(|g|) epsilon_{...} (lower) and epsilon^{...}/sqrt(|g|) (upper) transform as tensor components; the bare symbol is a density.",
+   "why_tempting": "The book treats epsilon as tensor components in orthonormal Minkowski frames where the factor is 1.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   },
+   "concepts": [
+    "Levi-Civita symbol",
+    "metric determinant factor in the volume form"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Fluid through a parallelogram window",
+   "setup": "A fluid with uniform velocity u crosses a parallelogram with edges a and b in Euclidean 3-space.",
+   "lesson": "The flux can be computed either with a 2-form on the edges or with the velocity paired with a 1-form from the edges, revealing duality.",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   },
+   "concepts": [
+    "flux 2-form",
+    "duality between forms and multivectors"
+   ],
+   "visualizable": true,
+   "app_idea": "Particles streaming through a draggable window with a live counter comparing all three flux formulas."
+  },
+  {
+   "name": "Observer carrying a permeable box through dust",
+   "setup": "An observer with 4-velocity u carries a box with edges A, B, C through a stream of particles with current J.",
+   "lesson": "The observer's measured volume is sigma(u) and the particle count is omega(J, A, B, C); dragging the box along the dust flow and demanding a fixed count yields current conservation.",
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": null
+   },
+   "concepts": [
+    "observer-measured 3-volume",
+    "particle number in a box as a volume-form evaluation",
+    "divergence from the Lie derivative of the volume form"
+   ],
+   "visualizable": true,
+   "app_idea": "Side-by-side frames: dust worldlines crossing a moving box in a 2+1 diagram, with counters for N computed two ways as the box velocity changes."
+  },
+  {
+   "name": "Surface sweeping through spacetime",
+   "setup": "A face with edges dy e2 and dz e3 moves with velocity u for proper time d tau.",
+   "lesson": "The swept region is a timelike 3-volume whose 1-form has only a spatial component, negative by the orientation convention.",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "concepts": [
+    "spacelike and timelike hypersurfaces",
+    "orientation of hypersurface normals"
+   ],
+   "visualizable": true,
+   "app_idea": "Extrude a square upward along a tilted worldline in a 2+1 diagram and display the normal and sigma components."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Élie Cartan",
+    "Gregorio Ricci-Curbastro",
+    "Tullio Levi-Civita"
+   ],
+   "year": null,
+   "event": "Chapter epigraph in which Cartan warns that formal index manipulation in the Ricci and Levi-Civita calculus can obscure simple geometry.",
+   "significance": "Sets the tone for Part V's index-free agenda, somewhat ironically preceding a component-heavy chapter.",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": null
+   }
+  },
+  {
+   "people": [
+    "W. V. D. Hodge",
+    "Michael Atiyah",
+    "Daniel Pedoe"
+   ],
+   "year": null,
+   "event": "Margin biography of Hodge (1903-1975), namesake of the star operator; Atiyah was his doctoral student, and his three-volume Methods of Algebraic Geometry with Pedoe (1910-1998) used the component notation Cartan criticized.",
+   "significance": "Gives a human anchor for the operator's name and a gentle joke linking back to the epigraph.",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": null
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Proper volume of a spherical shell around a static mass (own estimate)",
+   "kind": "numerical-estimate",
+   "details": "Applying dV = sqrt(-g) u^0 d^3x to the Schwarzschild metric for a static observer (u^0 = (1-2M/r)^{-1/2}, sqrt(-g) = r^2 sin theta) gives dV = (1-2M/r)^{-1/2} r^2 sin theta dr dtheta dphi, so a thin shell holds more proper volume than 4 pi r^2 dr. This worked number is our own illustration of Example 37.13, not in the book.",
+   "key_numbers": "Enhancement factor about 1.41 at r = 4M and about 1.73 at r = 3M (G = c = 1).",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "topic": "Boost invariance of a 4-volume (own estimate)",
+   "kind": "numerical-estimate",
+   "details": "Taking the four edges of a unit hypercube and boosting them with speed beta multiplies the component matrix by a Lorentz matrix of determinant gamma^2(1 - beta^2) = 1, so the 4-volume from eqn 37.46 is unchanged even though the box is sheared. Our own check of the determinant formula.",
+   "key_numbers": "beta = 0.6: gamma = 1.25, det = 1.5625 x 0.64 = 1.",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "topic": "Flux of a uniform flow through a tilted window (own estimate)",
+   "kind": "numerical-estimate",
+   "details": "For u = 2 e_z (m/s) and a window with edges a = e_x (1 m), b = e_y cos(30°) + e_z sin(30°) (1 m), F(a,b) with only F^3 = 2 gives 2 (a^x b^y - b^x a^y) = 2 cos 30° ≈ 1.73 m^3/s, matching u.(a x b). Illustrates Example 37.1 numerically; numbers are ours.",
+   "key_numbers": "Flux ≈ 1.73 m^3 s^-1.",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "topic": "Charge content and wall flux as integration of J^mu d sigma_mu",
+   "kind": "observation",
+   "details": "The hypersurface 1-form turns a conserved current into either the charge in a spatial box (time component) or the amount crossing a wall in a time interval (spatial component), the bookkeeping later used for conservation laws and Stokes' theorem.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": "37.3"
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Metric signature and s",
+   "convention": "Spacetime signature (-+++); s denotes the number of minus signs (s = 1 for spacetime, s = 0 for Euclidean space).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "item": "Levi-Civita orientation",
+   "convention": "epsilon_0123 = +1 and hence epsilon^0123 = -1 in Minkowski spacetime; in Euclidean 3D epsilon_123 = epsilon^123 = +1.",
+   "notes": "Some texts (e.g. those setting epsilon^0123 = +1) differ by an overall sign in every dual.",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "item": "Volume form symbol",
+   "convention": "omega with a tilde denotes the volume form; its components are omega_{...} and omega^{...}; plain bold omega^mu are basis 1-forms.",
+   "notes": "The letter omega is overloaded: volume form, basis 1-forms, and even a dummy index label in eqns 37.18-37.19.",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  },
+  {
+   "item": "Coordinate volume form",
+   "convention": "omega = sqrt((-1)^s g) dx^0 ^ ... with g the metric determinant.",
+   "notes": "Book writes the last coordinate as x^n, which counts n+1 coordinates; read it as x^{n-1}.",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "item": "Upper volume tensor normalization",
+   "convention": "omega^{alpha...kappa} omega_{alpha...kappa} = (-1)^s n!, equivalently omega^{1...n} = (-1)^s/omega_{1...n}, so indices can be moved with the metric.",
+   "notes": "Described by the authors as the common GR convention.",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "item": "Direction of the Hodge star",
+   "convention": "⋆ maps q-vectors to (n-q)-forms and p-forms to (n-p)-vectors; the input's indices contract into the FIRST slots of the volume tensor, with 1/q! or 1/p!.",
+   "notes": "Many mathematics and physics texts define ⋆ from forms to forms and contract into the last slots; signs can differ when comparing.",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  },
+  {
+   "item": "Wedge normalization",
+   "convention": "Wedge products carry no 1/p!: (u ^ v)^{mu nu} = u^mu v^nu - v^mu u^nu; forms are expanded with 1/p! or with barred ordered indices.",
+   "notes": "Inherited from Chapter 32.",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   }
+  },
+  {
+   "item": "3-volume 1-form sign",
+   "convention": "sigma = -⋆(A ^ B ^ C) = omega( , A, B, C); observer-measured volume V = sigma(u) with no minus sign.",
+   "notes": "Contrast with E = -p(u) and n = -J(u).",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "item": "Hypersurface normals",
+   "convention": "Spacelike hypersurfaces: outward timelike normals; timelike hypersurfaces: inward spacelike normals.",
+   "notes": "Stated to matter for orientations in later integration chapters.",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "item": "Empty-slot notation",
+   "convention": "Blank argument positions such as F( , ) or sigma( ) show unfilled slots; the reading copy sometimes renders these as a dot.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": "37.1"
+   }
+  },
+  {
+   "item": "Informal component notation",
+   "convention": "Expressions like dx(a) ^ dy(b) and omega^r(e_r) ⊗ omega^theta(e_theta) are used loosely to mean (dx ^ dy)(a, b) and ordinary products of numbers.",
+   "notes": "A notational shortcut, not a literal wedge or tensor product of numbers.",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "item": "Divergence symbol in exercises",
+   "convention": "theta_v is defined by L_v omega = -theta_v omega, so theta_v = -div v.",
+   "notes": "Opposite sign to the usual expansion scalar theta = div u.",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Boxed pointer: this chapter is groundwork for geometrical electromagnetism (Chapter 42) and the Bianchi identity (Chapter 43).",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": null
+   }
+  },
+  {
+   "summary": "Reminder from Chapter 32 that wedging N vectors gives an antisymmetric (N,0) tensor called an N-vector.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": null
+   }
+  },
+  {
+   "summary": "Biography of W. V. D. Hodge (1903-1975): supervisor of Michael Atiyah; co-author with Daniel Pedoe of Methods of Algebraic Geometry, which used the index notation Cartan's epigraph criticizes.",
+   "type": "biography",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": null
+   }
+  },
+  {
+   "summary": "General degree rule: in n dimensions the star sends q-forms to (n-q)-vectors and p-vectors to (n-p)-forms.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "summary": "Three-dimensional Euclidean space is special because bivectors dualize to vectors, which is why the cross product exists and vector calculus is so tidy there.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "summary": "Recalls that an orthonormal basis is a local measurement frame and writes the spacetime metric in orthonormal 1-forms with signature (-+++).",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "summary": "The wedge of basis 1-forms is only a candidate volume form because the ordering, hence the sign, is not yet fixed.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "summary": "Quotes the epsilon-epsilon contraction identity with M indices in terms of a generalized Kronecker delta (eqn 37.8).",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "summary": "Notes the polar-coordinate plane has no negative signature entries (s = 0).",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "summary": "Justifies the (-1)^s normalization of the upper volume tensor as the usual GR convention that keeps its indices movable with the metric.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "summary": "Lookup table of duals: basis vectors and 2-forms in Euclidean 3D (⋆⋆ = 1) and all six basis 2-forms and bivectors in Minkowski spacetime (⋆⋆ = -1).",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   }
+  },
+  {
+   "summary": "A 3-volume in spacetime is a hypersurface: spacelike ones (constant time) have timelike normals, timelike ones (constant spatial coordinate) have spacelike normals.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "summary": "Collects the observer read-out rules E = -p(u) and n = -J(u) and adds the new one V = sigma(u).",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "summary": "Two ways to understand the negative sigma_1: dust approaching a moving surface gives inward flux, or equivalently spacelike hypersurfaces take outward normals and timelike ones inward normals; this orientation choice matters for later integrals.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "summary": "For a static observer in a diagonal metric u^0 = (-g_tt)^{-1/2}, which strips the time part out of sqrt(-g) in the proper volume element.",
+   "type": "technical-detail",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 6,
+  "pdf_pages": [
+   412,
+   413
+  ],
+  "skills_practiced": [
+   "relating the 3-volume 1-form to an observer's velocity 1-form",
+   "extracting momentum and energy flux by inserting sigma into the energy-momentum tensor",
+   "decomposing a current along an observer frame and counting particles with the volume form",
+   "computing curl in curvilinear and orthonormal frames via duality",
+   "proving the double-dual sign by Levi-Civita index manipulation",
+   "computing Lie derivatives of the volume form and relating them to covariant divergence",
+   "using Lie dragging along a dust congruence to derive a conservation law"
+  ],
+  "notable": [
+   {
+    "number": "37.1",
+    "summary": "For a box carried by an observer, show the 3-volume 1-form is minus the box volume times the velocity 1-form, then use the energy-momentum tensor with sigma inserted to express the momentum and total energy in the box.",
+    "skills": [
+     "3-volume 1-form",
+     "energy-momentum tensor contractions"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Connects the new volume 1-form to Chapter 4's physical reading of the energy-momentum tensor.",
+    "pdf_page": 412
+   },
+   {
+    "number": "37.2",
+    "summary": "An observer's permeable box admits a particle current; justify decomposing the current along the velocity and the three edges, prove the particle number is the volume form evaluated on current and edges, and find the condition for two differently moving boxes to capture the same number.",
+    "skills": [
+     "frame decomposition",
+     "antisymmetry of the volume form"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Shows antisymmetry killing all but the density term, a clean physical use of the volume form.",
+    "pdf_page": 412
+   },
+   {
+    "number": "37.3",
+    "summary": "Derive the first component of the curl in a general 3D coordinate system with a metric, then its orthonormal-frame version with scale factors.",
+    "skills": [
+     "Hodge dual in curvilinear coordinates",
+     "orthonormal frame components"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Recovers the textbook curvilinear curl formula from duality; note printed 37.66 has the derivative terms reversed.",
+    "pdf_page": 413
+   },
+   {
+    "number": "37.4",
+    "summary": "Prove the double-dual sign rule for p-forms and q-vectors, following a proof in Schutz's 1980 geometry book, starting with a concrete case such as n = 4, p = 2.",
+    "skills": [
+     "Levi-Civita index gymnastics",
+     "permutation parity"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Supplies the proof of eqn 37.41 that the chapter only quotes.",
+    "pdf_page": 413
+   },
+   {
+    "number": "37.5",
+    "summary": "Define a divergence via the Lie derivative of the volume form, show the volume form is covariantly constant, write the Lie derivative in covariant components, and conclude the divergence is the contracted covariant derivative.",
+    "skills": [
+     "Lie derivative of forms",
+     "covariant derivative",
+     "metric compatibility"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Links volume change under a flow to the divergence, a key idea for expansion of congruences; the printed signs in 37.70-37.71 are mutually inconsistent.",
+    "pdf_page": 413
+   },
+   {
+    "number": "37.6",
+    "summary": "For a uniform dust congruence, argue why the current and box edges are Lie dragged, show the particle-count scalar obeys a Lie-derivative equation with the divergence, and use constancy of particle number to prove the current is divergence-free (pointing to Ludvigsen).",
+    "skills": [
+     "Lie dragging",
+     "congruences",
+     "conservation laws"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "A geometric derivation of particle-number conservation that ties together Chapters 33, 34 and 37.",
+    "pdf_page": 413
+   }
+  ],
+  "solutions": "GA Appendix E (pdf pp. 604-630) gives brief answers to 37.1 (momentum -V T(., u) and energy V T(u, u)), 37.2 (N = nV, and boxes agree if primed edges differ from unprimed ones by multiples of J), 37.5 (parts a and c only) and 37.6; no answers for 37.3 or 37.4. The 37.5(a) answer's step equating the covariant derivative of the volume form with d omega contracted on a basis vector is not a valid identity."
+ },
+ "difficulty": {
+  "math_level": 3,
+  "conceptual_level": 3,
+  "novice_friendliness": 2,
+  "notes": "Mathematically the chapter is mostly index contraction with permutation signs rather than analysis, but correctness hinges on several interacting conventions (slot order, epsilon^0123 = -1, (-1)^s, 1/p! factors, star direction) that the reader must keep straight. Section 37.1 and the margin tables are friendly; Section 37.2 is terse and admits it can be skipped; Section 37.3's timelike hypersurface signs are explained only by margin heuristics. Several printed slips (Example 37.4 summary, t^2 in Example 37.8, index in 37.29, sign in 37.66 and 37.70) will trip careful readers checking the algebra."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "GA ch32 §32.3",
+   "reason": "Pairing a 2-form with a bivector (Example 32.6) and the parallelogram area as a determinant, both reused here.",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch32 §32.2",
+   "reason": "Definition of p-vectors, 1/p! expansion and barred ordered-index notation.",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch10 §10.3",
+   "reason": "Orthonormal frames in which the volume form has Levi-Civita components.",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch5 §5.4",
+   "reason": "Invariant volume element sqrt(-g) d^4x, rederived from the volume form in Example 37.10.",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch4 §4.2",
+   "reason": "Observer read-out rules E = -p(u) and n = -J(u), extended by V = sigma(u).",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch4 §4.5",
+   "reason": "Energy-momentum tensor as momentum flux, used in Exercise 37.1.",
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch33 §33.3-33.4",
+   "reason": "Lie derivatives of vectors and tensors and congruences, needed for Exercises 37.5 and 37.6.",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "GA ch34 §34.4",
+   "reason": "Metric compatibility of the connection, the real reason the volume form is covariantly constant (Exercise 37.5).",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch38",
+   "reason": "Next chapter integrates forms over chains and proves Stokes' theorem using the 3-volume 1-form and volume form.",
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": "37.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch42 §42.4",
+   "reason": "Geometrical electromagnetism uses the dual of the Faraday 2-form (the Minkowski dual tables here).",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "GA ch43",
+   "reason": "Charge conservation and the Bianchi identity rely on duality and hypersurface integration.",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "B. F. Schutz, Geometrical Methods of Mathematical Physics (1980)",
+   "reason": "Source of the double-dual sign proof suggested in Exercise 37.4.",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "M. Ludvigsen, General Relativity: A Geometric Approach",
+   "reason": "Recommended discussion of the dust-congruence conservation argument in Exercise 37.6.",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  },
+  {
+   "direction": "external",
+   "target": "W. V. D. Hodge and D. Pedoe, Methods of Algebraic Geometry",
+   "reason": "Mentioned in Hodge's biography margin note.",
+   "locator": {
+    "pdf_page": 403,
+    "printed_page": 386,
+    "section": null
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Present the same flux number computed two ways, (2-form on a bivector) and (vector with a 1-form), before defining duality.",
+   "why_effective": "Learners see a concrete coincidence that demands an explanation, so the abstract star arrives as the answer rather than a definition to memorize.",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   },
+   "app_idea": "Interactive 3D window in a uniform flow: rotate the window and the flow; three synchronized readouts and a 'why are these equal?' prompt that unfolds the component algebra step by step."
+  },
+  {
+   "gem": "Unmask the cross product as the dual of an oriented area and explain why it only exists in 3D.",
+   "why_effective": "Recasts the most familiar vector operation, giving learners an instant, memorable reason duality matters and why 4D physics uses bivectors (like the Faraday tensor) instead.",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   },
+   "app_idea": "Dimension slider (2, 3, 4) that shows u ^ v as a shaded parallelogram and its dual as a scalar, an arrow, or a second complementary plane in a 4D projection."
+  },
+  {
+   "gem": "Volumes by slot filling: all slots filled gives a volume, one slot left open gives a 1-form that an observer's velocity turns into a measured volume.",
+   "why_effective": "Reuses the Chapter 4 slot-machine metaphor, so the 3-volume 1-form feels like a natural sibling of p(u) and J(u).",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   },
+   "app_idea": "Drag-and-drop four-slot machine with vector tokens; empty slot displays sigma_mu components; dropping in different 4-velocities shows V changing (including Lorentz contraction for a moving observer)."
+  },
+  {
+   "gem": "Polar-coordinate check: the same area 2-form has components epsilon_ij in the orthonormal basis and r epsilon_ij in the coordinate basis.",
+   "why_effective": "A two-line, fully concrete example that makes the sqrt(g) factor visible and dispels the idea that components are the object.",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   },
+   "app_idea": "Polar grid where the learner hovers a cell dr by dtheta; the cell's true area r dr dtheta is compared with the naive dr dtheta as r grows."
+  },
+  {
+   "gem": "Build a timelike 3-volume by sweeping a face through proper time.",
+   "why_effective": "Converts the abstract notion of a timelike hypersurface into a motion picture, preparing learners for flux integrals over walls in spacetime.",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   },
+   "app_idea": "2+1 spacetime diagram extruding a moving segment into a sheet, with the normal vector coloured by type (timelike/spacelike) and sigma components shown with signs."
+  },
+  {
+   "gem": "Margin lookup tables of Minkowski duals that make ⋆⋆ = -1 for 2-forms visible at a glance.",
+   "why_effective": "Lets learners use duality immediately (e.g. for electromagnetism) and discover the sign rule by pattern before seeing the general formula.",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   },
+   "app_idea": "Dual calculator: learner picks a basis 2-form or bivector, the app shows the epsilon contraction step by step, applies ⋆ twice, and highlights the returning sign; a signature toggle switches Euclidean and Lorentzian."
+  },
+  {
+   "gem": "One integrand J^mu d sigma_mu reads as charge in a box or flux through a wall, depending on the hypersurface chosen.",
+   "why_effective": "Unifies content and flux as two faces of one spacetime object, the idea behind conservation laws and Stokes' theorem in the next chapters.",
+   "locator": {
+    "pdf_page": 412,
+    "printed_page": 395,
+    "section": "37.3"
+   },
+   "app_idea": "Spacetime diagram with particle worldlines and a movable 3-volume (horizontal slab or vertical wall); a counter shows J^mu d sigma_mu and switches meaning as the learner rotates the hypersurface."
+  },
+  {
+   "gem": "Spacetime 4-volume as a 4x4 determinant of edge components.",
+   "why_effective": "Turns an exotic quantity into an operation learners already trust, and makes boost invariance a one-line consequence of det(Lambda) = 1.",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   },
+   "app_idea": "1+1 version: drag two edge vectors of a spacetime parallelogram, then apply a boost slider; the shape shears along light-cone directions while the area readout stays fixed."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Example 37.4's closing line prints ⋆(e_y ^ e_x) = dx, but the calculation is for e_2 ^ e_3, i.e. ⋆(e_y ^ e_z) = dx.",
+   "impact_on_learner": "A careful reader checking the result will think they have misunderstood the definition.",
+   "suggestion": "State the corrected result and note that e_y ^ e_x = -e_x ^ e_y would dualize to -dz.",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "issue": "Eqn 37.39 gives t^2 = u_1 v_3 - v_1 u_3, the negative of the y-component of u x v.",
+   "impact_on_learner": "Learners verifying the cross-product identity get a sign mismatch and may doubt the Levi-Civita contraction.",
+   "suggestion": "Use t^2 = (1/2) epsilon^{mu nu 2} w_{mu nu} = u_3 v_1 - u_1 v_3; have learners find the slip as a check exercise.",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   }
+  },
+  {
+   "issue": "Eqn 37.29 writes omega^{mu nu i} where the free index should be alpha.",
+   "impact_on_learner": "Minor confusion about which index is free.",
+   "suggestion": "Replace i with alpha when presenting the calculation.",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "issue": "Margin identity 37.8, epsilon_{i...k} epsilon^{l...r} = M! delta, omits the (-1)^s factor needed in Lorentzian signature, and the M! is correct only if the generalized delta is the normalized antisymmetrizer, not the ±1-valued delta of Chapter 32.",
+   "impact_on_learner": "Using it in Minkowski space gives wrong signs, e.g. epsilon_{mu nu alpha beta} epsilon^{mu nu alpha beta} = -24, not +24.",
+   "suggestion": "Teach epsilon_{i...k} epsilon^{l...r} = (-1)^s delta^{l...r}_{i...k} with a ±1 generalized delta, and the full contraction (-1)^s n!.",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "issue": "Eqn 37.12 and the phrase about (x^0, ..., x^n) coordinates run indices from 0 to n in an n-dimensional space.",
+   "impact_on_learner": "Off-by-one confusion about how many 1-forms are wedged.",
+   "suggestion": "Write dx^0 ^ ... ^ dx^{n-1} (or 1 to n).",
+   "locator": {
+    "pdf_page": 405,
+    "printed_page": 388,
+    "section": "37.2"
+   }
+  },
+  {
+   "issue": "Example 37.5 writes omega^{123...n} omega_{123...n} = -n! with fixed indices, where a full contraction over all index values is meant (a single fixed-index product equals -1).",
+   "impact_on_learner": "Learners may think a single component product equals -n!.",
+   "suggestion": "Write the summed contraction explicitly and separately note omega^{0123} omega_{0123} = -1.",
+   "locator": {
+    "pdf_page": 407,
+    "printed_page": 390,
+    "section": "37.2"
+   }
+  },
+  {
+   "issue": "The minus sign in sigma = -⋆(A ^ B ^ C) is justified only as fitting nicely with the volume form.",
+   "impact_on_learner": "The sign looks arbitrary, and learners cannot reconstruct it.",
+   "suggestion": "Show that ⋆ puts the trivector in the first three slots, and moving the free slot from last to first position is three transpositions, giving epsilon_{alpha beta gamma mu} = -epsilon_{mu alpha beta gamma}.",
+   "locator": {
+    "pdf_page": 410,
+    "printed_page": 393,
+    "section": "37.3"
+   }
+  },
+  {
+   "issue": "The Hodge star is defined as a map between forms and multivectors, with the input filling the first slots; most other GR and geometry texts define ⋆ from p-forms to (n-p)-forms, often contracting into the last slots.",
+   "impact_on_learner": "Learners cross-reading other sources (e.g. for electromagnetism) meet different signs for ⋆F and ⋆⋆.",
+   "suggestion": "Explicitly compare with the form-to-form convention and show that the two differ by index raising and possibly a sign (-1)^{p(n-p)}.",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  },
+  {
+   "issue": "Fig. 37.1 is labelled as giving the area, but with u leaning left of v the determinant in eqn 37.42 is negative for the drawn configuration.",
+   "impact_on_learner": "Learners plugging in coordinates from the figure get a negative area and suspect an error.",
+   "suggestion": "Introduce oriented area explicitly and discuss what changes when the edge order is swapped.",
+   "locator": {
+    "pdf_page": 409,
+    "printed_page": 392,
+    "section": "37.3"
+   }
+  },
+  {
+   "issue": "The margin states ⋆⋆ = -1 in Minkowski space without saying this holds for 2-forms and bivectors only.",
+   "impact_on_learner": "Learners may apply -1 to 1-forms or 3-forms, where ⋆⋆ = +1 in 4D Lorentzian signature.",
+   "suggestion": "Always quote the general rule (-1)^{s+p(n-p)} next to the table.",
+   "locator": {
+    "pdf_page": 408,
+    "printed_page": 391,
+    "section": "37.2"
+   }
+  },
+  {
+   "issue": "Printed eqn 37.66 orders the derivative terms opposite to eqn 37.65 and to the standard curvilinear curl, giving the wrong overall sign.",
+   "impact_on_learner": "Readers attempting Exercise 37.3(b) cannot reach the printed target.",
+   "suggestion": "Use (g_11/g)^{1/2}[d_2(g_33^{1/2} v^3) - d_3(g_22^{1/2} v^2)] and check against spherical coordinates.",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  },
+  {
+   "issue": "Exercise 37.5 asks to deduce nabla omega = 0 from d omega = 0, but d of a top-degree form vanishes identically for any n-form and cannot imply covariant constancy; the result actually follows from metric compatibility. Also, eqn 37.70's overall minus sign contradicts eqn 37.71 (Appendix E reaches 37.71 only by silently dropping that minus), and theta_v is called the divergence while equalling minus the divergence.",
+   "impact_on_learner": "A diligent solver hits an unprovable step and a sign contradiction, and the appendix answer does not resolve either.",
+   "suggestion": "Derive nabla omega = 0 from nabla g = 0 (omega components are sqrt|g| epsilon), use the standard formula (L_v omega)_{mu...} = omega_{sigma...} v^sigma_{;mu} + ..., and conclude L_v omega = (div v) omega.",
+   "locator": {
+    "pdf_page": 413,
+    "printed_page": 396,
+    "section": null
+   }
+  },
+  {
+   "issue": "Notation such as F^3 dx(a) ^ dy(b) and products of numbers written with ⊗ (eqns 37.4, 37.15, 37.20) are loose.",
+   "impact_on_learner": "Novices may think a wedge or tensor product of real numbers is a meaningful operation.",
+   "suggestion": "Write (dx ^ dy)(a, b) = dx(a) dy(b) - dy(a) dx(b) explicitly.",
+   "locator": {
+    "pdf_page": 404,
+    "printed_page": 387,
+    "section": "37.1"
+   }
+  },
+  {
+   "issue": "Example 37.13 builds d sigma from a coordinate box and then inserts an arbitrary u, without clarifying whose box is being measured and in what sense the result is the observer's proper volume.",
+   "impact_on_learner": "Learners confuse the coordinate box, the observer's rest frame and the box's rest frame.",
+   "suggestion": "Work the static-observer Schwarzschild case explicitly (dV = (1-2M/r)^{-1/2} r^2 sin theta dr dtheta dphi) and discuss a boosted observer separately.",
+   "locator": {
+    "pdf_page": 411,
+    "printed_page": 394,
+    "section": "37.3"
+   }
+  },
+  {
+   "issue": "The symbol omega is used for the volume form, the basis 1-forms and a dummy index in eqns 37.18-37.19.",
+   "impact_on_learner": "Visual overload makes the defining formulas hard to parse.",
+   "suggestion": "In teaching materials use a distinct symbol (e.g. epsilon or vol) for the volume form and avoid omega as an index label.",
+   "locator": {
+    "pdf_page": 406,
+    "printed_page": 389,
+    "section": "37.2"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Opening question: 'In 3D, a 2-form and a vector both have three components. Are they secretly the same thing? How would you test that physically?' Steer toward flux through a window.",
+  "Order of explanation: flux coincidence -> degree counting (q to n-q) -> cross product as a dual -> volume form in an orthonormal frame -> sign conventions -> star in components -> tables and ⋆⋆ -> areas and volumes -> 3-volume 1-form -> J^mu d sigma_mu.",
+  "For learners who only need to use duality (e.g. heading to electromagnetism), let them skip Section 37.2 and work from the margin tables plus the general ⋆⋆ sign, as the authors suggest.",
+  "Before any component calculation, have the learner state three conventions aloud: epsilon_0123 = +1 (so epsilon^0123 = -1), input fills the first slots, and wedge products carry no 1/p!.",
+  "Check for understanding: ask for ⋆(e_x ^ e_y) in 3D (answer dz) and ⋆(dx ^ dt) in Minkowski (answer e_y ^ e_z); then ask what ⋆ of the answer is and why the sign differs.",
+  "Check for understanding: 'Why is there no cross product of two 4-vectors?' Expected: the dual of a 2-form in 4D is a bivector, not a vector.",
+  "Check for understanding: give u = (-1, 2), v = (3, 0) and ask for omega(u,v) and omega(v,u); discuss the sign as orientation.",
+  "When introducing sigma, recall E = -p(u) and n = -J(u) from Chapter 4 and ask the learner to guess the rule for volume before revealing V = sigma(u).",
+  "Common learner question: 'Where does sqrt(-g) come from?' Answer by the polar-coordinate example: non-unit coordinate basis vectors make dr ^ dtheta measure the wrong area; sqrt(g) = r fixes it.",
+  "Common learner question: 'Why is sigma_1 negative for a face I built right-handedly?' Explain with epsilon_1230 = -1 and the inward-normal convention for timelike hypersurfaces, then the dust-hitting-a-moving-surface picture.",
+  "Warn about the printed slips (Example 37.4 summary line, t^2 in 37.39, 37.66, 37.70) so learners who catch them feel confirmed rather than confused.",
+  "Bridge forward: tell the learner that J^mu d sigma_mu is exactly the integrand of conservation laws, and that Chapter 38 will turn it into Stokes' theorem."
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Rewrote Example 37.9 'problem' field, which followed the book's closing sentence too closely (8-word overlap).",
+   "Example 37.5: the problem and method had credited the coordinate-frame relations (eqn 37.25) to the example itself. They now say the boxed example covers only the orthonormal s = 1 case, and that 37.25 comes in the text right after it.",
+   "Example 37.2 result: noted that the volume-form expression (eqn 37.11) comes in the main text after the boxed example, not inside it.",
+   "applications_and_observations: changed the kind of the J^mu d sigma_mu entry from 'data-analysis' (wrong; no data is involved) to 'observation'.",
+   "Section 'Form-to-multivector dual...': added the book's remark that duals are simple to compute in Minkowski coordinates and its signal that most later work is in Minkowski space."
+  ],
+  "residual_concerns": [
+   "The dossier flags several printed slips and gives corrected versions: Example 37.4's closing line (e_y^e_x should be e_y^e_z), t^2 in eqn 37.39, the free index in 37.29, the reversed terms in 37.66 and the minus sign in 37.70. Each was checked against page renders (404, 407-408, 413) and by independent calculation. Learners comparing with the printed book will see the differences.",
+   "The claim that Exercise 37.5(a)'s route (d omega = 0 implies nabla omega = 0) is invalid, and the critique of the Appendix E step, are the reviewer's physics judgement. The appendix text was read (appE.md, answers to 37.1, 37.2, 37.5, 37.6), but the appendix pages were not rendered.",
+   "Tables of duals (37.31-37.34) were spot-checked by recomputing a few entries (star e_x, star(e_y^e_z), star(dx^dt), Example 37.7), not every entry."
+  ],
+  "coverage": {
+   "toc_sections": 3,
+   "sections": 7,
+   "inventory_figures": 1,
+   "figures": 1,
+   "inventory_examples": 14,
+   "worked_examples": 15,
+   "concepts": 32,
+   "key_equations": 48,
+   "locators_checked": 220,
+   "locators_wrong": 0,
+   "pages_rendered": 7
+  }
+ }
+}

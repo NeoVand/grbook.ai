@@ -1,0 +1,66 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Legacy asset inventory",
+	"description": "Inventory of reusable material from the earlier 'General Relativity, From the Inside Out' project (our own work, reusable verbatim). One file per inventory group.",
+	"type": "object",
+	"required": ["group", "summary", "assets"],
+	"additionalProperties": false,
+	"properties": {
+		"group": { "type": "string" },
+		"summary": { "type": "string", "minLength": 40 },
+		"lessons_learned": { "type": "array", "items": { "type": "string" } },
+		"assets": { "type": "array", "items": { "$ref": "#/definitions/asset" }, "minItems": 1 }
+	},
+	"definitions": {
+		"asset": {
+			"type": "object",
+			"required": ["id", "kind", "title", "paths", "topics", "teaches", "quality", "reuse"],
+			"additionalProperties": false,
+			"properties": {
+				"id": { "type": "string", "description": "Stable kebab-case id, prefixed by kind, e.g. lab-parallel-transport" },
+				"kind": {
+					"enum": ["manuscript-chapter", "manuscript-section", "lesson", "practice-set", "curriculum-structure", "lab", "scene-3d", "figure", "historical-image", "engine-or-tool", "app-code", "review-doc", "design-doc"]
+				},
+				"title": { "type": "string" },
+				"paths": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Repo-relative paths in general-relativity, with #anchors or line ranges when useful" },
+				"topics": { "type": "array", "items": { "type": "string" }, "description": "Standard GR topic/concept names this asset covers" },
+				"teaches": { "type": "string", "description": "What a learner gets from it, concretely" },
+				"pedagogy": { "type": ["string", "null"], "description": "Teaching approach, sequencing, analogies, checks" },
+				"interaction": {
+					"type": ["object", "null"],
+					"additionalProperties": false,
+					"properties": {
+						"controls": { "type": "array", "items": { "type": "string" } },
+						"what_updates": { "type": "string" },
+						"readouts": { "type": "array", "items": { "type": "string" } },
+						"rendering": { "type": "string", "description": "three.js, SVG, canvas, KaTeX labels, etc." }
+					}
+				},
+				"physics_model": { "type": ["string", "null"], "description": "Equations or numerical method, units, assumptions, and how it is validated" },
+				"screenshots": { "type": "array", "items": { "type": "string" } },
+				"quality": {
+					"type": "object",
+					"required": ["status", "strengths", "issues"],
+					"additionalProperties": false,
+					"properties": {
+						"status": { "enum": ["polished", "solid", "partial", "rough", "broken-or-stale"] },
+						"strengths": { "type": "array", "items": { "type": "string" } },
+						"issues": { "type": "array", "items": { "type": "string" } },
+						"evidence": { "type": ["string", "null"], "description": "Review doc, test, or ledger entry supporting the assessment" }
+					}
+				},
+				"reuse": {
+					"type": "object",
+					"required": ["verdict", "notes"],
+					"additionalProperties": false,
+					"properties": {
+						"verdict": { "enum": ["reuse-as-is", "adapt", "reimagine", "reference-only", "drop"] },
+						"notes": { "type": "string" },
+						"effort": { "enum": ["small", "medium", "large", null] }
+					}
+				},
+				"size": { "type": ["string", "null"] }
+			}
+		}
+	}
+}

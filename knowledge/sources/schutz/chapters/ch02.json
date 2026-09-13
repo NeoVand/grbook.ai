@@ -1,0 +1,4368 @@
+{
+ "book": "schutz",
+ "unit_id": "ch02",
+ "title": "Vector analysis in special relativity",
+ "part": null,
+ "printed_pages": [
+  33,
+  55
+ ],
+ "pdf_pages": [
+  51,
+  73
+ ],
+ "one_line_summary": "Builds the four-vector toolkit of special relativity (component transformation law, index notation, basis vectors and their inverse transformation, Minkowski scalar product) and uses it to define four-velocity, four-momentum and four-acceleration, state four-momentum conservation, and treat photons, the Doppler shift and massless particles.",
+ "role_in_book": "Chapter 1 gave the physics of special relativity through spacetime diagrams, the invariant interval and the Lorentz transformation. This chapter converts that physics into vector language and, above all, installs the index machinery (summation convention, dummy and free indices, barred indices for other frames, Lambda matrices, eta) that every later chapter relies on. It deliberately treats vectors provisionally (components that transform like coordinates) and flags eta as a future metric tensor, setting up Chapter 3's one-forms and tensors, Chapter 4's fluid four-vectors and conservation laws on hypersurfaces, and the curved-manifold redefinition of vectors in Chapters 5-6. The kinematic results (U.U = -1, U.a = 0, E = -p.U_obs, null photon momentum) are used without re-derivation throughout the GR chapters.",
+ "assumed_background": [
+  {
+   "topic": "Invariant interval and its classification into timelike, spacelike and null",
+   "source": "earlier-in-this-book",
+   "where": "SCH ch1 §1.6 (Eq. 1.1)"
+  },
+  {
+   "topic": "Proper time along a timelike world line",
+   "source": "earlier-in-this-book",
+   "where": "SCH ch1 §1.8 (Eq. 1.9)"
+  },
+  {
+   "topic": "Lorentz transformation for a boost along x",
+   "source": "earlier-in-this-book",
+   "where": "SCH ch1 §1.9 (Eq. 1.12)"
+  },
+  {
+   "topic": "Spacetime diagrams of two observers, tilted axes, relativity of simultaneity",
+   "source": "earlier-in-this-book",
+   "where": "SCH ch1 §1.4-1.5 (Figure 1.5)"
+  },
+  {
+   "topic": "Geometrized units with c = 1 so velocities are dimensionless and energy, momentum and mass share units",
+   "source": "earlier-in-this-book",
+   "where": "SCH ch1 §1.3"
+  },
+  {
+   "topic": "Second postulate: light speed is the same in every inertial frame",
+   "source": "earlier-in-this-book",
+   "where": "SCH ch1 §1.1"
+  },
+  {
+   "topic": "Einstein velocity-addition law (re-derived in Exercise 2.16)",
+   "source": "earlier-in-this-book",
+   "where": "SCH ch1 §1.10"
+  },
+  {
+   "topic": "Euclidean vectors as arrows with components, bases, linear combinations",
+   "source": "school-math",
+   "where": null
+  },
+  {
+   "topic": "Matrix multiplication, inverse matrices, identity matrix, linear independence",
+   "source": "linear-algebra",
+   "where": null
+  },
+  {
+   "topic": "Derivatives along a curve and the product rule",
+   "source": "undergrad-calculus",
+   "where": null
+  },
+  {
+   "topic": "Newtonian momentum, kinetic energy, conservation laws in collisions",
+   "source": "undergrad-mechanics",
+   "where": null
+  },
+  {
+   "topic": "Photon energy E = h nu",
+   "source": "quantum-mechanics",
+   "where": "quoted in §2.7"
+  },
+  {
+   "topic": "Taylor expansion to low order (Newtonian limit of gamma)",
+   "source": "undergrad-calculus",
+   "where": null
+  }
+ ],
+ "learning_objectives": [
+  "Reader can distinguish a four-vector (a frame-independent arrow) from its frame-dependent components and read the notation A ->_O (A^0, A^1, A^2, A^3).",
+  "Reader can apply the Einstein summation convention, identify free and dummy indices, rename them legally, and split a Greek sum into its time part plus a Latin spatial sum.",
+  "Reader can transform vector components between frames with A^alpha-bar = Lambda^alpha-bar_beta A^beta, writing down the 4x4 boost matrix for motion along x.",
+  "Reader can derive the basis-vector transformation law e_alpha = Lambda^beta-bar_alpha e_beta-bar from the frame independence of A^alpha e_alpha, and explain why it differs from the component law.",
+  "Reader can show that the inverse Lorentz transformation is the boost with reversed velocity, Lambda^nu_beta-bar(-v) Lambda^beta-bar_alpha(v) = delta^nu_alpha, and apply the rule that a Lambda's velocity is the motion of its upper-index frame as seen from its lower-index frame.",
+  "Reader can define four-velocity as the time basis vector of the (momentarily comoving) rest frame, compute its components gamma(1, v), and verify U.U = -1 and U = dx/dtau.",
+  "Reader can form four-momentum p = mU, identify p^0 as energy and recover rest energy plus Newtonian kinetic energy at low speed.",
+  "Reader can state four-momentum conservation and explain why frame-dependent 'before/after' bookkeeping for spacelike-separated collisions still gives one total vector.",
+  "Reader can compute Minkowski magnitudes and scalar products, classify vectors as timelike, spacelike or null, and prove invariance of the scalar product from invariance of magnitudes.",
+  "Reader can recognize Minkowski-orthogonal vectors on a spacetime diagram (mirror images about a light line) and explain why a null vector is orthogonal to itself.",
+  "Reader can show that four-acceleration is orthogonal to four-velocity and has only spatial components in the MCRF.",
+  "Reader can use p.p = -m^2 to get E^2 = m^2 + p^2 and compute the energy measured by any observer as -p.U_obs without changing frames.",
+  "Reader can explain why photons have no four-velocity or rest frame, build a null photon four-momentum, and derive the relativistic Doppler formula by boosting it.",
+  "Reader can argue that massive particles never reach light speed while massless particles always travel at it."
+ ],
+ "teaching_approach": {
+  "summary": "A compact, notation-building chapter that alternates between index algebra and geometric pictures. Vectors are defined provisionally by how their components transform, yet the text insists at every step that the vector itself is a frame-free arrow and supplies diagrams (tilted bases, MCRF basis on a curved world line, orthogonal but non-perpendicular arrows) to keep that picture alive. Physical four-vectors are defined by what they look like in a privileged frame (rest frame, MCRF, observer's own frame) and then carried to other frames by Lorentz transformation or replaced by invariant dot products. Derivations are spelled out slowly with explicit coaching on dummy-index relabelling; the voice is conversational and first-person, and it repeatedly promises that the index positions and eta will be justified in later chapters.",
+  "style_tags": [
+   "geometric-first",
+   "components-first",
+   "derivation-heavy",
+   "diagram-driven",
+   "physical-motivation-first",
+   "conversational-informal"
+  ],
+  "narrative_arc": [
+   "Provisional definition: a vector is anything whose components transform like coordinate differences; the displacement between two events is the prototype.",
+   "Notation toolkit: frame-labelled 'has components' arrow, bars on indices (not on the vector) for a new frame, Lambda matrix, Einstein summation, dummy versus free indices, Greek versus Latin ranges.",
+   "Vector algebra: component-wise addition and scaling, basis vectors of a frame, expansion A = A^alpha e_alpha.",
+   "Derive, rather than postulate, the basis transformation law from the frame independence of A, then check it on an explicit x-boost and draw both bases in one diagram (Figure 2.1).",
+   "Inverse transformations: argue physically that reversing the velocity undoes a boost, and show algebraically that the two Lambda matrices multiply to the Kronecker delta.",
+   "Physical vectors: four-velocity as e_0 of the rest frame, extended to accelerated motion with the MCRF (Figure 2.2); four-momentum p = mU with a low-speed check that justifies the names velocity, momentum, energy.",
+   "Postulate conservation of total four-momentum, then confront the simultaneity puzzle for spacelike-separated collisions (Figure 2.3) and resolve it; define the CM frame.",
+   "Geometry: magnitude by analogy with the interval, scalar product and its invariance via the polarization identity, timelike/spacelike/null classes, orthogonality that is not perpendicularity (Figure 2.4), eta as a generalized Kronecker delta.",
+   "Applications: U = dx/dtau (Figure 2.5), four-acceleration orthogonal to U, E^2 = m^2 + p^2, and observer-measured energy as the invariant -p.U_obs.",
+   "Photons: null world lines forbid a four-velocity, null four-momentum with |p| = E, Doppler shift from a boost plus E = h nu, massless particles and the unreachable light speed for massive ones.",
+   "Exercises extend to boost composition and non-symmetric products, uniform acceleration and relativistic rockets, particle reactions, Compton and inverse-Compton scattering, and orthonormality of boosted bases."
+  ],
+  "signature_moves": [
+   "Separating object from representation typographically: an arrow over the symbol for the vector, a labelled arrow 'has components in frame O' for its components, and bars on indices so the vector symbol never changes between frames.",
+   "Defining a physical four-vector by its trivially simple form in a special frame (U = e_0 of the rest frame or MCRF; p^0 = E in the observer's frame) and letting the transformation law do the rest.",
+   "Extracting a law from an identity valid for an arbitrary vector: relabel dummy indices until the arbitrary components factor out, then set each coefficient to zero.",
+   "Proving invariance by bootstrapping from a known invariant (magnitudes are invariant, so the cross term in (A+B)^2 must be too) instead of grinding matrix algebra.",
+   "Naming justified by the Newtonian limit: spatial components of U and p reduce to v and mv, and p^0 to m plus kinetic energy.",
+   "Explicit bookkeeping rule for Lambda: its velocity argument is how fast the frame named by the upper index moves as seen from the frame named by the lower index.",
+   "Steering the reader toward invariant scalar expressions (-p.U_obs) and later testing the payoff in an exercise that compares with brute-force transformation.",
+   "Anticipatory honesty: tells the reader that index positions, eta, and the definition of a vector will all be revisited more satisfactorily later."
+  ]
+ },
+ "sections": [
+  {
+   "number": "2.1",
+   "title": "Definition of a vector",
+   "printed_page": 33,
+   "pdf_page": 51,
+   "summary": "Adopts the Euclidean-style working definition of a vector as a set of components that change under a frame change exactly as coordinate differences do. The displacement between two events is the model case. The section introduces the notation that separates a vector from its components, writes the Lorentz transformation as a linear sum with coefficients Lambda, and uses it to motivate the summation convention, dummy and free indices, and the Greek/Latin index ranges. A general vector is then any four same-dimensioned numbers in one frame plus this transformation rule; addition and scalar multiplication work component-wise. Footnotes (recovered from the page renders) call the frame change a passive transformation and introduce the terms four-vector and three-vector.",
+   "concepts": [
+    "four-vector",
+    "displacement vector",
+    "vector as a geometric object",
+    "passive transformation",
+    "Lorentz transformation matrix",
+    "Einstein summation convention",
+    "dummy index",
+    "free index",
+    "Greek and Latin index ranges",
+    "vector space operations on four-vectors"
+   ],
+   "key_moves": [
+    "Write the displacement's components in O and in O-bar, putting the bar on the index because the vector itself is unchanged.",
+    "Rewrite the boost formula for the time component as a sum of four coefficients times components, and generalize to all components (Eq. 2.3).",
+    "Drop the sigma using the summation convention (Eq. 2.4), with examples of what does and does not sum.",
+    "Show dummy indices may be renamed but not to a Latin index, giving the split in Eq. 2.5.",
+    "Show a free index represents four equations and must be renamed consistently on both sides.",
+    "Define a general vector by components in one frame plus the rule A^alpha-bar = Lambda^alpha-bar_beta A^beta (Eqs. 2.6-2.7); note all components must share dimensions."
+   ]
+  },
+  {
+   "number": "2.2",
+   "title": "Vector algebra",
+   "printed_page": 36,
+   "pdf_page": 54,
+   "summary": "Defines the four basis vectors of a frame by their components, expresses any vector as a linear combination of them, and derives how the basis vectors of one frame are written in terms of another's. A worked x-boost computes both new components of a sample vector and the old basis in terms of the new, and Figure 2.1 draws both bases from the moving observer's viewpoint. The section notes that pure-boost matrices are symmetric, then treats inverse transformations: reversing the velocity undoes a boost, and the product of the two matrices is the Kronecker delta, which also inverts the component law.",
+   "concepts": [
+    "basis vectors of an inertial frame",
+    "Kronecker delta",
+    "transformation law for basis vectors",
+    "inverse Lorentz transformation",
+    "symmetry of pure boost matrices",
+    "matrix multiplication as index contraction"
+   ],
+   "key_moves": [
+    "Define e_alpha by (e_alpha)^beta = delta_alpha^beta and show A = A^alpha e_alpha (Eqs. 2.9-2.11).",
+    "Insist the same vector equals A^alpha-bar e_alpha-bar in O-bar, stressing that barred and unbarred indices are not interchangeable (Eq. 2.12).",
+    "Substitute the component law, reorder the finite sums, relabel dummy indices to factor out arbitrary A^alpha, and conclude e_alpha = Lambda^beta-bar_alpha e_beta-bar (Eq. 2.13).",
+    "Worked boost: components of (5,0,0,2) become (5 gamma, -5v gamma, 0, 2); e_0 = gamma e_0-bar - v gamma e_1-bar, e_1 = -v gamma e_0-bar + gamma e_1-bar.",
+    "Draw both bases in O-bar's diagram (Figure 2.1) and note the boost matrix is symmetric, a property of all pure boosts.",
+    "Make the velocity dependence explicit, argue the reverse transformation uses -v (Eqs. 2.14-2.15), substitute to get an identity in O's basis alone (Eq. 2.16), and read off Lambda(-v) Lambda(v) = delta (Eq. 2.18).",
+    "Apply the inverse to components, recovering A^nu from A^beta-bar."
+   ]
+  },
+  {
+   "number": "2.3",
+   "title": "The four-velocity",
+   "printed_page": 41,
+   "pdf_page": 59,
+   "summary": "Generalizes the Galilean velocity (tangent to a path) to the four-velocity: a tangent to the world line whose length is one unit of the particle's own time, which makes it the time basis vector of the particle's inertial rest frame. For accelerated particles the momentarily comoving reference frame (MCRF) supplies the rest frame at each event; MCRFs at an event are unique up to spatial rotation. Figure 2.2 shows the MCRF basis at one event of a curved world line.",
+   "concepts": [
+    "four-velocity",
+    "three-velocity",
+    "momentarily comoving reference frame"
+   ],
+   "key_moves": [
+    "Define U as a unit-time-length tangent to the world line.",
+    "Observe that in the rest frame this is exactly e_0, giving an equivalent definition.",
+    "Introduce the MCRF for accelerated motion and note the rotational ambiguity is harmless.",
+    "Define U of an accelerated particle as e_0 of its MCRF at that event (Figure 2.2)."
+   ]
+  },
+  {
+   "number": "2.4",
+   "title": "The four-momentum and its conservation",
+   "printed_page": 42,
+   "pdf_page": 60,
+   "summary": "Defines four-momentum as rest mass times four-velocity, names its time component the energy and its spatial components the momentum, and checks the names by boosting from the rest frame and expanding at low speed. Conservation of the total four-momentum of interacting particles is postulated as the natural relativistic generalization of Newtonian energy and momentum conservation, with the striking prediction that rest mass can be converted to heat. The text then worries about what 'at a given time' means when collisions are spacelike separated (Figure 2.3) and shows every observer's slice yields the same total vector. The centre-of-momentum frame is defined.",
+   "concepts": [
+    "four-momentum",
+    "rest mass",
+    "relativistic energy",
+    "conservation of four-momentum",
+    "mass–energy conversion",
+    "hypersurface of constant time",
+    "centre of momentum frame",
+    "relativity of simultaneity"
+   ],
+   "key_moves": [
+    "Define p = mU with components (E, p^1, p^2, p^3) (Eqs. 2.19-2.20).",
+    "Example: U^alpha = Lambda^alpha_0-bar from the rest frame gives U = gamma(1, v, 0, 0) and p = m gamma(1, v, 0, 0) (Eq. 2.21).",
+    "Expand E = m gamma at small v to get m + mv^2/2.",
+    "Postulate conservation of summed four-momentum (Eq. 2.22) as an extra, experimentally supported law.",
+    "Use Figure 2.3 to show observers tally different sets of particles on their constant-time slices, but local conservation at each collision makes the total vector identical.",
+    "Define the CM frame as the frame where the total spatial momentum vanishes (Eq. 2.23)."
+   ]
+  },
+  {
+   "number": "2.5",
+   "title": "Scalar product",
+   "printed_page": 44,
+   "pdf_page": 62,
+   "summary": "Defines the magnitude of a vector by the interval formula, guaranteed invariant because components transform like coordinate differences, and classifies vectors as spacelike, null or timelike, warning that a null vector is not the zero vector. The scalar product is defined in one frame and proven frame independent from invariance of magnitudes. Orthogonality is defined by a vanishing dot product; examples show the basis of any frame is an orthonormal tetrad summarized by eta, that a moving frame's basis vectors are orthogonal though not perpendicular on the diagram (Figure 2.4), and that U.U = -1.",
+   "concepts": [
+    "magnitude of a four-vector",
+    "timelike, spacelike and null vectors",
+    "null vector versus zero vector",
+    "scalar product of four-vectors",
+    "Lorentz invariance of the scalar product",
+    "orthogonality in Minkowski spacetime",
+    "orthonormal tetrad",
+    "Minkowski metric components",
+    "normalization of four-velocity"
+   ],
+   "key_moves": [
+    "Define A^2 with a minus sign on the time component and note invariance is automatic (Eqs. 2.24-2.25).",
+    "Classify by sign; stress null is not zero because the form is indefinite.",
+    "Define A.B (Eq. 2.26) and prove invariance via (A+B)^2 = A^2 + B^2 + 2A.B.",
+    "Note orthogonal vectors need not look perpendicular and null vectors are self-orthogonal.",
+    "Compute e_alpha.e_beta = eta_alpha-beta (Eq. 2.27) and flag eta as the future metric tensor.",
+    "Apply to O-bar's basis in O's diagram with the equal-angles-to-the-light-line rule (Figure 2.4).",
+    "Conclude U.U = -1 since U is some frame's e_0 (Eq. 2.28)."
+   ]
+  },
+  {
+   "number": "2.6",
+   "title": "Applications",
+   "printed_page": 46,
+   "pdf_page": 64,
+   "summary": "Uses the scalar product to recast earlier results. The interval is the magnitude of the infinitesimal displacement and proper time is its negative; dx/dtau is a unit timelike tangent equal to e_0 of the MCRF, so U = dx/dtau (Figure 2.5). Differentiating U.U = -1 shows the four-acceleration dU/dtau is orthogonal to U and purely spatial in the MCRF. For momentum, p.p = -m^2 gives E^2 = m^2 + p^2, and the energy any observer measures is -p.U_obs, a frame-independent recipe.",
+   "concepts": [
+    "invariant interval",
+    "proper time",
+    "four-velocity",
+    "four-acceleration",
+    "energy–momentum relation",
+    "energy measured by an observer",
+    "normalization of four-velocity"
+   ],
+   "key_moves": [
+    "Identify ds^2 = dx.dx and dtau^2 = -dx.dx (Eqs. 2.29-2.30).",
+    "Show dx/dtau has magnitude -1 and equals (1,0,0,0) in the MCRF, hence U = dx/dtau (Eq. 2.31).",
+    "Differentiate U.U = -1 to get U.dU/dtau = 0 and define a with U.a = 0 (Eq. 2.32).",
+    "Compute p.p = -m^2 and expand to E^2 = m^2 + sum (p^i)^2 (Eqs. 2.33-2.34).",
+    "Evaluate p.U_obs in the observer's frame where U_obs = e_0-bar to get E-bar = -p.U_obs (Eq. 2.35)."
+   ]
+  },
+  {
+   "number": "2.7",
+   "title": "Photons",
+   "printed_page": 48,
+   "pdf_page": 66,
+   "summary": "Photons travel on null lines, so proper time vanishes, no unit tangent exists, and there is no MCRF: the four-velocity is undefined, though tangent vectors like dx still exist. A photon's four-momentum is fixed by its energy and nullness, so its spatial momentum equals its energy. With E = h nu, a single boost gives the relativistic Doppler formula. Null four-momentum is equivalent to zero rest mass; the photon is the only known massless particle (neutrinos are light but massive, and the graviton is not yet a well-defined notion). Massive particles have p/E below one at any energy and so always possess a rest frame.",
+   "concepts": [
+    "absence of photon four-velocity",
+    "photon four-momentum",
+    "Planck relation",
+    "relativistic Doppler shift",
+    "zero rest-mass particles",
+    "light speed as an unreachable limit for massive particles",
+    "graviton"
+   ],
+   "key_moves": [
+    "From dx.dx = 0 infer dtau = 0, so Eq. 2.31 fails; restate via the second postulate (no frame where light is at rest) (Eq. 2.36).",
+    "Set p^0 = E and demand a null vector along x to get p^x = E (Eq. 2.37).",
+    "Boost p along x and use E = h nu in both frames to get nu-bar/nu = sqrt((1-v)/(1+v)) (Eqs. 2.38-2.39).",
+    "Show m^2 = -p.p = 0 for photons and that null momentum and zero mass imply each other (Eq. 2.40).",
+    "For m not zero, p^1/p^0 = sqrt(1 - m^2/(p^0)^2) < 1, so the frame moving at p^1/p^0 is a rest frame."
+   ]
+  },
+  {
+   "number": "2.8",
+   "title": "Bibliography",
+   "printed_page": 49,
+   "pdf_page": 67,
+   "summary": "A two-sentence pointer noting that relativistic kinematics and particle dynamics have only been sampled, that particle physics furnishes the sharpest tests of special relativity, and recommending Hagedorn (1963) and Wiedemann (2007).",
+   "concepts": [],
+   "key_moves": [
+    "Points to particle-physics kinematics texts for further study."
+   ]
+  },
+  {
+   "number": null,
+   "title": "Exercises",
+   "printed_page": 50,
+   "pdf_page": 68,
+   "summary": "Thirty-five exercises (2.1-2.35, ending on printed p.55). Early ones drill index manipulation and component transformations; middle ones address inverse and composed boosts, four-velocity from three-velocity, velocity addition, classification and orthogonality proofs; later ones cover uniform acceleration and a relativistic rocket trip, particle reactions and CM frames, Doppler shifts at an angle, energy needed to approach light speed, heat adding inertia, invariant energy measurement, radiation pressure on a mirror, Compton scattering and inverse-Compton upscattering of the microwave background, and orthonormality of a boosted basis.",
+   "concepts": [
+    "composition of Lorentz boosts",
+    "uniform acceleration",
+    "Compton scattering",
+    "velocity addition from four-velocity",
+    "transverse Doppler shift",
+    "linear independence"
+   ],
+   "key_moves": [
+    "Practice summation and index renaming with explicit number arrays.",
+    "Compose two non-collinear boosts and interpret the non-symmetric product.",
+    "Model a constantly accelerating rocket and compute proper time to the Galactic centre.",
+    "Apply four-momentum conservation to forbid single-photon pair annihilation and to derive the Compton formula.",
+    "Compare brute-force frame transformation with the invariant -p.U_obs shortcut."
+   ]
+  }
+ ],
+ "concepts": [
+  {
+   "name": "four-vector",
+   "aliases": [
+    "vector (Schutz ch2 working definition)",
+    "general vector",
+    "contravariant vector"
+   ],
+   "kind": "definition",
+   "definition": "An object in Minkowski spacetime given by four components in one inertial frame, whose components in any other inertial frame are obtained by applying the same Lorentz transformation that acts on coordinate differences; the four components must share one physical dimension because a boost mixes them.",
+   "how_introduced": "Stated as a provisional definition borrowed from Euclidean geometry, with the displacement between events as the prototype; after the index notation is built, any four numbers in one frame plus the rule A^alpha-bar = Lambda^alpha-bar_beta A^beta define a vector. The author promises a better definition later.",
+   "depth": "core",
+   "prerequisites": [
+    "Lorentz transformation",
+    "displacement vector",
+    "inertial frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 51,
+     "printed_page": 33,
+     "section": "2.1"
+    },
+    {
+     "pdf_page": 53,
+     "printed_page": 35,
+     "section": "2.1"
+    },
+    {
+     "pdf_page": 54,
+     "printed_page": 36,
+     "section": "2.1"
+    }
+   ],
+   "formulas": [
+    "\\vec A \\underset{\\mathcal O}{\\to} (A^0,A^1,A^2,A^3)=\\{A^\\alpha\\}",
+    "A^{\\bar\\alpha}=\\Lambda^{\\bar\\alpha}{}_{\\beta}A^{\\beta}"
+   ],
+   "notes": "Footnote 2 (on printed p.35, dropped by the export) introduces the words four-vector and three-vector and the convention of arrows for four-vectors and boldface for three-vectors."
+  },
+  {
+   "name": "displacement vector",
+   "aliases": [
+    "separation vector",
+    "Delta x"
+   ],
+   "kind": "definition",
+   "definition": "The four-vector running from one event to another; its components in a frame are the coordinate differences (Delta t, Delta x, Delta y, Delta z), and its infinitesimal version dx is tangent to a world line.",
+   "how_introduced": "Opens the chapter as the typical vector whose transformation law is literally the Lorentz transformation of coordinate differences; reappears in §2.6 as the infinitesimal step dx whose magnitude is the interval.",
+   "depth": "introduced",
+   "prerequisites": [
+    "event",
+    "inertial frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 51,
+     "printed_page": 33,
+     "section": "2.1"
+    },
+    {
+     "pdf_page": 64,
+     "printed_page": 46,
+     "section": "2.6"
+    }
+   ],
+   "formulas": [
+    "\\Delta\\vec x \\underset{\\mathcal O}{\\to} (\\Delta t,\\Delta x,\\Delta y,\\Delta z)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "vector as a geometric object",
+   "aliases": [
+    "frame independence of vectors",
+    "vector versus components"
+   ],
+   "kind": "principle",
+   "definition": "A vector is a single frame-independent entity (picturable as an arrow between events); its components are coordinate-dependent numbers obtained by referring it to a particular frame's basis, so a frame change alters components but never the vector.",
+   "how_introduced": "Enforced through notation: an arrow marks the vector, a labelled arrow means 'has components in frame O', and bars go on indices instead of the vector symbol. Reinforced by A^alpha e_alpha = A^alpha-bar e_alpha-bar: different pieces, same sum.",
+   "depth": "core",
+   "prerequisites": [
+    "four-vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 51,
+     "printed_page": 33,
+     "section": "2.1"
+    },
+    {
+     "pdf_page": 52,
+     "printed_page": 34,
+     "section": "2.1"
+    },
+    {
+     "pdf_page": 55,
+     "printed_page": 37,
+     "section": "2.2"
+    }
+   ],
+   "formulas": [
+    "A^{\\alpha}\\vec e_{\\alpha}=A^{\\bar\\alpha}\\vec e_{\\bar\\alpha}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "passive transformation",
+   "aliases": [
+    "change of coordinates (passive view)"
+   ],
+   "kind": "definition",
+   "definition": "A change of description in which the coordinates, and hence the components, change while the vector itself stays fixed, as opposed to an active transformation that moves or rotates the vector.",
+   "how_introduced": "Footnote 1 on printed p.34 (missing from the export, recovered from the render) ties the frame change of components to this linear-algebra term.",
+   "depth": "mention",
+   "prerequisites": [
+    "vector as a geometric object"
+   ],
+   "locators": [
+    {
+     "pdf_page": 52,
+     "printed_page": 34,
+     "section": "2.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Lorentz transformation matrix",
+   "aliases": [
+    "Lambda^alpha-bar_beta",
+    "boost matrix",
+    "transformation matrix"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The 4x4 array Lambda^alpha-bar_beta of numbers that converts a vector's components in frame O into its components in frame O-bar; for a boost of speed v along x its t-x block has gamma on the diagonal and -v gamma off the diagonal, with 1 for the y and z entries.",
+   "how_introduced": "Read off by writing Chapter 1's boost formula for Delta t-bar as a linear sum with four coefficients, then generalizing to all components (16 numbers); written out as a matrix in the first worked example.",
+   "depth": "core",
+   "prerequisites": [
+    "Lorentz transformation",
+    "Einstein summation convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 52,
+     "printed_page": 34,
+     "section": "2.1"
+    },
+    {
+     "pdf_page": 56,
+     "printed_page": 38,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 57,
+     "printed_page": 39,
+     "section": "2.2"
+    }
+   ],
+   "formulas": [
+    "\\Delta x^{\\bar\\alpha}=\\Lambda^{\\bar\\alpha}{}_{\\beta}\\,\\Delta x^{\\beta}",
+    "[\\Lambda^{\\bar\\beta}{}_{\\alpha}]=\\begin{pmatrix}\\gamma&-v\\gamma&0&0\\\\-v\\gamma&\\gamma&0&0\\\\0&0&1&0\\\\0&0&0&1\\end{pmatrix}"
+   ],
+   "notes": "Why one index is up and one down is explicitly deferred to the differential-geometry chapters."
+  },
+  {
+   "name": "Einstein summation convention",
+   "aliases": [
+    "summation convention",
+    "repeated-index convention"
+   ],
+   "kind": "convention",
+   "definition": "When an index letter appears once as a superscript and once as a subscript in the same term, a sum over all values of that index is understood; repeated indices at the same level, or different letters, imply no sum.",
+   "how_introduced": "Introduced to abbreviate the Lorentz transformation sum, illustrated with pairs of expressions that do and do not sum.",
+   "depth": "core",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 52,
+     "printed_page": 34,
+     "section": "2.1"
+    }
+   ],
+   "formulas": [
+    "A_\\alpha B^\\alpha\\equiv\\sum_{\\alpha=0}^{3}A_\\alpha B^\\alpha"
+   ],
+   "notes": null
+  },
+  {
+   "name": "dummy index",
+   "aliases": [
+    "summed index",
+    "contracted index"
+   ],
+   "kind": "convention",
+   "definition": "An index that is summed over within a term; its letter carries no meaning and may be changed to any other letter with the same range without altering the expression.",
+   "how_introduced": "Shown by rewriting Eq. 2.4 with a different summed letter, with the single restriction that a Greek dummy cannot become Latin; later the relabelling of dummies is singled out as the decisive trick in deriving the basis transformation law.",
+   "depth": "developed",
+   "prerequisites": [
+    "Einstein summation convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 53,
+     "printed_page": 35,
+     "section": "2.1"
+    },
+    {
+     "pdf_page": 55,
+     "printed_page": 37,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 56,
+     "printed_page": 38,
+     "section": "2.2"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "free index",
+   "aliases": [
+    "unsummed index"
+   ],
+   "kind": "convention",
+   "definition": "An index that is not summed; an equation carrying free indices stands for one equation per value of each, and a free index must bear the same name in every term, being renamed everywhere at once if at all.",
+   "how_introduced": "Eq. 2.4 is read as four equations; a consistent renaming is contrasted with an illegal one that renames only the left-hand side.",
+   "depth": "developed",
+   "prerequisites": [
+    "Einstein summation convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 53,
+     "printed_page": 35,
+     "section": "2.1"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "Greek and Latin index ranges",
+   "aliases": [
+    "spatial indices",
+    "space-time index split"
+   ],
+   "kind": "convention",
+   "definition": "Greek indices take the values 0, 1, 2, 3 and Latin indices only 1, 2, 3, so a sum on a Greek index equals its 0 term plus the corresponding Latin (spatial) sum.",
+   "how_introduced": "Introduced as the one forbidden dummy relabelling and captured in Eq. 2.5.",
+   "depth": "introduced",
+   "prerequisites": [
+    "dummy index"
+   ],
+   "locators": [
+    {
+     "pdf_page": 53,
+     "printed_page": 35,
+     "section": "2.1"
+    }
+   ],
+   "formulas": [
+    "\\Lambda^{\\bar\\alpha}{}_{\\beta}\\Delta x^{\\beta}=\\Lambda^{\\bar\\alpha}{}_{0}\\Delta x^{0}+\\Lambda^{\\bar\\alpha}{}_{i}\\Delta x^{i}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "vector space operations on four-vectors",
+   "aliases": [
+    "parallelogram rule",
+    "linear combination"
+   ],
+   "kind": "operation",
+   "definition": "Four-vectors add component by component and scale by real numbers, the results again being four-vectors; the set of four-vectors is therefore a four-dimensional real vector space.",
+   "how_introduced": "Stated via components in one frame (Eq. 2.8), noting that because the transformation is linear these operations commute with frame changes.",
+   "depth": "introduced",
+   "prerequisites": [
+    "four-vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 54,
+     "printed_page": 36,
+     "section": "2.1"
+    }
+   ],
+   "formulas": [
+    "\\vec A+\\vec B\\underset{\\mathcal O}{\\to}(A^0+B^0,\\dots,A^3+B^3),\\quad \\mu\\vec A\\underset{\\mathcal O}{\\to}(\\mu A^0,\\dots,\\mu A^3)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "basis vectors of an inertial frame",
+   "aliases": [
+    "frame basis",
+    "e_alpha"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The four vectors e_0, e_1, e_2, e_3 of an inertial frame whose components in that same frame are the columns of the identity matrix; each points along one coordinate axis, and every vector is the combination A^alpha e_alpha of them with its components as coefficients.",
+   "how_introduced": "Defined by their components in their own frame; the text notes e_0-bar differs from e_0 because they belong to different frames and that the basis index must be written low to use the summation convention.",
+   "depth": "core",
+   "prerequisites": [
+    "four-vector",
+    "Kronecker delta"
+   ],
+   "locators": [
+    {
+     "pdf_page": 54,
+     "printed_page": 36,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 55,
+     "printed_page": 37,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 57,
+     "printed_page": 39,
+     "section": "2.2"
+    }
+   ],
+   "formulas": [
+    "(\\vec e_\\alpha)^{\\beta}=\\delta_\\alpha{}^{\\beta}",
+    "\\vec A=A^\\alpha\\vec e_\\alpha"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Kronecker delta",
+   "aliases": [
+    "delta^beta_alpha",
+    "identity matrix"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The symbol delta^beta_alpha equal to 1 when its indices coincide and 0 otherwise; as a matrix it is the identity, and summing it against a vector index just renames that index.",
+   "how_introduced": "Packages the components of the basis vectors (Eq. 2.10) and reappears as the identity matrix that certifies Lambda(-v) as the inverse of Lambda(v).",
+   "depth": "introduced",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 54,
+     "printed_page": 36,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 58,
+     "printed_page": 40,
+     "section": "2.2"
+    }
+   ],
+   "formulas": [
+    "\\delta^{\\nu}{}_{\\alpha}A^{\\alpha}=A^{\\nu}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "transformation law for basis vectors",
+   "aliases": [
+    "basis change law"
+   ],
+   "kind": "theorem",
+   "definition": "The basis of frame O is expressed through that of O-bar as e_alpha = Lambda^beta-bar_alpha e_beta-bar, summing over the matrix's upper index; this is the inverse pattern to the component law, which is exactly what keeps A^alpha e_alpha unchanged.",
+   "how_introduced": "Derived by demanding that A^alpha e_alpha equal A^alpha-bar e_alpha-bar for every vector, substituting the component law, relabelling dummy indices so the arbitrary components factor out, and setting each bracket to zero; checked on an x-boost and drawn in Figure 2.1.",
+   "depth": "core",
+   "prerequisites": [
+    "basis vectors of an inertial frame",
+    "dummy index",
+    "Lorentz transformation matrix",
+    "vector as a geometric object"
+   ],
+   "locators": [
+    {
+     "pdf_page": 55,
+     "printed_page": 37,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 56,
+     "printed_page": 38,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 57,
+     "printed_page": 39,
+     "section": "2.2"
+    }
+   ],
+   "formulas": [
+    "\\vec e_\\alpha=\\Lambda^{\\bar\\beta}{}_{\\alpha}\\vec e_{\\bar\\beta}",
+    "\\vec e_0=\\gamma\\vec e_{\\bar 0}-v\\gamma\\vec e_{\\bar 1}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "inverse Lorentz transformation",
+   "aliases": [
+    "Lambda(-v)",
+    "reverse boost"
+   ],
+   "kind": "identity",
+   "definition": "The matrix taking components from O-bar back to O is the same boost with the velocity reversed, and the two matrices multiply to the identity: Lambda^nu_beta-bar(-v) Lambda^beta-bar_alpha(v) = delta^nu_alpha.",
+   "how_introduced": "Physical argument first (O moves at -v relative to O-bar, Eq. 2.15); then substitution into Eq. 2.14 produces a relation among O's basis vectors alone that is only consistent if the matrix product is the Kronecker delta; finally applied to components.",
+   "depth": "developed",
+   "prerequisites": [
+    "transformation law for basis vectors",
+    "Kronecker delta",
+    "matrix multiplication as index contraction"
+   ],
+   "locators": [
+    {
+     "pdf_page": 57,
+     "printed_page": 39,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 58,
+     "printed_page": 40,
+     "section": "2.2"
+    }
+   ],
+   "formulas": [
+    "\\Lambda^{\\nu}{}_{\\bar\\beta}(-\\boldsymbol v)\\,\\Lambda^{\\bar\\beta}{}_{\\alpha}(\\boldsymbol v)=\\delta^{\\nu}{}_{\\alpha}",
+    "A^{\\nu}=\\Lambda^{\\nu}{}_{\\bar\\beta}(-\\boldsymbol v)A^{\\bar\\beta}"
+   ],
+   "notes": "Bookkeeping rule given in the text: a Lambda's velocity argument describes how the frame carrying its upper index moves when viewed from the frame carrying its lower index."
+  },
+  {
+   "name": "matrix multiplication as index contraction",
+   "aliases": [
+    "index form of matrix product"
+   ],
+   "kind": "technique",
+   "definition": "A sum over an index shared by two arrays, such as Lambda^nu_beta-bar Lambda^beta-bar_alpha, is precisely the row-times-column rule of matrix multiplication, so index expressions can be checked as matrix products.",
+   "how_introduced": "Pointed out when Eq. 2.18 is identified as a statement that two matrices are inverse; used again in Exercise 2.13 for composed boosts.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Einstein summation convention"
+   ],
+   "locators": [
+    {
+     "pdf_page": 58,
+     "printed_page": 40,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 69,
+     "printed_page": 51,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "symmetry of pure boost matrices",
+   "aliases": [
+    "symmetric boost matrix"
+   ],
+   "kind": "theorem",
+   "definition": "The Lorentz matrix of a pure boost, in any direction and with no relative rotation of spatial axes, equals its own transpose; a Lorentz matrix that is not symmetric therefore includes a rotation.",
+   "how_introduced": "Noticed in the x-boost example and asserted for general directions; Exercise 2.13 has the reader compose two perpendicular boosts, find a non-symmetric and order-dependent product, and interpret it.",
+   "depth": "introduced",
+   "prerequisites": [
+    "Lorentz transformation matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 56,
+     "printed_page": 38,
+     "section": "2.2"
+    },
+    {
+     "pdf_page": 69,
+     "printed_page": 51,
+     "section": null
+    },
+    {
+     "pdf_page": 70,
+     "printed_page": 52,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": "The book does not name the resulting rotation (Thomas-Wigner rotation)."
+  },
+  {
+   "name": "four-velocity",
+   "aliases": [
+    "U",
+    "world-line tangent of unit length"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The unit timelike vector tangent to a particle's world line, equal to the time basis vector of its rest frame or MCRF and to dx/dtau; for three-velocity v its components are gamma(1, v) and it always satisfies U.U = -1.",
+   "how_introduced": "Generalizes the Galilean velocity as a path tangent: tangent to the world line and one unit of the particle's own time long, hence e_0 of its rest frame; accelerated particles use the MCRF; §2.6 shows it equals dx/dtau.",
+   "depth": "core",
+   "prerequisites": [
+    "world line",
+    "basis vectors of an inertial frame",
+    "momentarily comoving reference frame",
+    "proper time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 59,
+     "printed_page": 41,
+     "section": "2.3"
+    },
+    {
+     "pdf_page": 60,
+     "printed_page": 42,
+     "section": "2.4"
+    },
+    {
+     "pdf_page": 63,
+     "printed_page": 45,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 65,
+     "printed_page": 47,
+     "section": "2.6"
+    }
+   ],
+   "formulas": [
+    "\\vec U=(\\vec e_0)_{\\rm MCRF}=\\frac{d\\vec x}{d\\tau}",
+    "\\vec U\\underset{\\mathcal O}{\\to}\\gamma(1,v,0,0)",
+    "\\vec U\\cdot\\vec U=-1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "three-velocity",
+   "aliases": [
+    "ordinary velocity",
+    "v"
+   ],
+   "kind": "physical-quantity",
+   "definition": "A particle's ordinary velocity dx/dt measured in a chosen frame; the spatial components of the four-velocity equal gamma times it, so they approach it at low speed.",
+   "how_introduced": "Named to contrast with four-velocity; the link is shown in the worked example leading to Eq. 2.21 and in Exercise 2.15.",
+   "depth": "introduced",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 59,
+     "printed_page": 41,
+     "section": "2.3"
+    },
+    {
+     "pdf_page": 60,
+     "printed_page": 42,
+     "section": "2.4"
+    },
+    {
+     "pdf_page": 70,
+     "printed_page": 52,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "U^{i}=\\gamma v^{i},\\quad v^i=U^i/U^0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "momentarily comoving reference frame",
+   "aliases": [
+    "MCRF",
+    "instantaneous rest frame"
+   ],
+   "kind": "definition",
+   "definition": "For a particle at a given event, an inertial frame moving with the particle's instantaneous velocity so that the particle is momentarily at rest in it; it ceases to be comoving an instant later if the particle accelerates, and is unique only up to spatial rotations.",
+   "how_introduced": "Needed because an accelerated particle has no single inertial rest frame; Figure 2.2 draws the MCRF basis at one event on a curved world line, with its time basis vector tangent to the curve.",
+   "depth": "core",
+   "prerequisites": [
+    "inertial frame",
+    "world line"
+   ],
+   "locators": [
+    {
+     "pdf_page": 59,
+     "printed_page": 41,
+     "section": "2.3"
+    },
+    {
+     "pdf_page": 64,
+     "printed_page": 46,
+     "section": "2.6"
+    },
+    {
+     "pdf_page": 65,
+     "printed_page": 47,
+     "section": "2.6"
+    }
+   ],
+   "formulas": [],
+   "notes": "Becomes the workhorse for fluid elements in Chapter 4."
+  },
+  {
+   "name": "rest mass",
+   "aliases": [
+    "invariant mass",
+    "m"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The mass of a particle measured in its own rest frame; a Lorentz scalar that equals the square root of -p.p and vanishes for photons.",
+   "how_introduced": "Introduced in passing in the definition p = mU; recovered invariantly from p.p = -m^2 in §2.6 and shown to be zero for null momenta in §2.7.",
+   "depth": "developed",
+   "prerequisites": [
+    "four-momentum"
+   ],
+   "locators": [
+    {
+     "pdf_page": 60,
+     "printed_page": 42,
+     "section": "2.4"
+    },
+    {
+     "pdf_page": 65,
+     "printed_page": 47,
+     "section": "2.6"
+    },
+    {
+     "pdf_page": 67,
+     "printed_page": 49,
+     "section": "2.7"
+    }
+   ],
+   "formulas": [
+    "m^2=-\\vec p\\cdot\\vec p"
+   ],
+   "notes": null
+  },
+  {
+   "name": "four-momentum",
+   "aliases": [
+    "energy-momentum four-vector",
+    "p"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The four-vector p = mU of a massive particle (a null vector for a photon) whose time component in a frame is the particle's energy there and whose spatial components are its momentum there.",
+   "how_introduced": "Defined as rest mass times four-velocity; components for motion along x obtained by transforming from the rest frame (Eq. 2.21), with names justified by the low-speed limit.",
+   "depth": "core",
+   "prerequisites": [
+    "four-velocity",
+    "rest mass"
+   ],
+   "locators": [
+    {
+     "pdf_page": 60,
+     "printed_page": 42,
+     "section": "2.4"
+    },
+    {
+     "pdf_page": 65,
+     "printed_page": 47,
+     "section": "2.6"
+    },
+    {
+     "pdf_page": 66,
+     "printed_page": 48,
+     "section": "2.7"
+    }
+   ],
+   "formulas": [
+    "\\vec p=m\\vec U",
+    "\\vec p\\underset{\\mathcal O}{\\to}(E,p^1,p^2,p^3)",
+    "p^\\alpha=m\\gamma(1,v,0,0)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "relativistic energy",
+   "aliases": [
+    "p^0",
+    "total energy",
+    "E"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The time component E = p^0 = gamma m of four-momentum in a given frame; it includes the rest-mass energy m and approaches m + mv^2/2 at low speed.",
+   "how_introduced": "Named as the zeroth component and justified by a binomial expansion showing rest energy plus the Galilean kinetic energy.",
+   "depth": "developed",
+   "prerequisites": [
+    "four-momentum"
+   ],
+   "locators": [
+    {
+     "pdf_page": 60,
+     "printed_page": 42,
+     "section": "2.4"
+    }
+   ],
+   "formulas": [
+    "E=p^0=m(1-v^2)^{-1/2}\\simeq m+\\tfrac12 mv^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "conservation of four-momentum",
+   "aliases": [
+    "energy-momentum conservation"
+   ],
+   "kind": "law",
+   "definition": "In any interaction the vector sum of the four-momenta of all particles is the same before and after; equivalently energy (including rest mass) and every momentum component are conserved in every inertial frame.",
+   "how_introduced": "Postulated because its components reduce to the Newtonian conservation laws; described as an extra postulate among many possible generalizations, selected by experiment. The 'before/after' ambiguity for spacelike-separated collisions is raised and resolved using Figure 2.3.",
+   "depth": "core",
+   "prerequisites": [
+    "four-momentum",
+    "relativity of simultaneity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 60,
+     "printed_page": 42,
+     "section": "2.4"
+    },
+    {
+     "pdf_page": 61,
+     "printed_page": 43,
+     "section": "2.4"
+    }
+   ],
+   "formulas": [
+    "\\vec p_{\\rm tot}=\\sum_i\\vec p_{(i)}\\ \\text{unchanged by interactions}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "mass–energy conversion",
+   "aliases": [
+    "rest-mass energy release",
+    "heat adds inertia"
+   ],
+   "kind": "phenomenon",
+   "definition": "Because conserved energy includes rest mass, the total rest mass of a system can decrease in a reaction with the difference emerging as kinetic energy or heat; conversely adding heat to a body raises its rest mass.",
+   "how_introduced": "Cited as one of the notable new predictions of four-momentum conservation with nuclear power as the everyday case; Exercise 2.27 runs it in reverse with a heated body.",
+   "depth": "introduced",
+   "prerequisites": [
+    "conservation of four-momentum",
+    "relativistic energy"
+   ],
+   "locators": [
+    {
+     "pdf_page": 61,
+     "printed_page": 43,
+     "section": "2.4"
+    },
+    {
+     "pdf_page": 72,
+     "printed_page": 54,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "relativity of simultaneity",
+   "aliases": [
+    "frame-dependent time ordering"
+   ],
+   "kind": "phenomenon",
+   "definition": "Events simultaneous in one inertial frame need not be simultaneous in another, and spacelike-separated events can occur in either order depending on the frame.",
+   "how_introduced": "Recalled from Chapter 1 to pose the puzzle of which particles to include when totalling momentum 'at one time' (Figure 2.3).",
+   "depth": "revisited",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 61,
+     "printed_page": 43,
+     "section": "2.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "hypersurface of constant time",
+   "aliases": [
+    "constant-time slice",
+    "simultaneity hypersurface"
+   ],
+   "kind": "definition",
+   "definition": "The three-dimensional set of events that a given inertial observer regards as simultaneous (t = const); different observers' slices are tilted with respect to each other in spacetime.",
+   "how_introduced": "Introduced while explaining that any observer may choose a slice, total the momenta crossing it, and obtain the same vector because each collision conserves momentum locally; flagged as a structure that returns with later conservation laws.",
+   "depth": "introduced",
+   "prerequisites": [
+    "relativity of simultaneity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 61,
+     "printed_page": 43,
+     "section": "2.4"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "centre of momentum frame",
+   "aliases": [
+    "CM frame",
+    "zero-momentum frame"
+   ],
+   "kind": "definition",
+   "definition": "An inertial frame in which the total spatial momentum of a system is zero, so the total four-momentum has only a time component equal to the total energy; any frame at rest relative to it also qualifies.",
+   "how_introduced": "Defined by its component form right after the conservation discussion, with the remark that like MCRFs it is fixed only up to spatial orientation.",
+   "depth": "introduced",
+   "prerequisites": [
+    "conservation of four-momentum"
+   ],
+   "locators": [
+    {
+     "pdf_page": 61,
+     "printed_page": 43,
+     "section": "2.4"
+    },
+    {
+     "pdf_page": 71,
+     "printed_page": 53,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\sum_i\\vec p_{(i)}\\underset{\\rm CM}{\\to}(E_{\\rm total},0,0,0)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "magnitude of a four-vector",
+   "aliases": [
+    "squared norm",
+    "A^2",
+    "norm squared"
+   ],
+   "kind": "definition",
+   "definition": "The Lorentz-invariant number obtained by subtracting the squared time component from the sum of the three squared spatial components (A.A with the Minkowski signs); it may be positive, zero or negative, and Schutz calls this signed quantity itself the magnitude rather than taking a square root.",
+   "how_introduced": "Defined by analogy with the interval; invariance needs no proof because components were defined to transform like coordinate differences.",
+   "depth": "core",
+   "prerequisites": [
+    "invariant interval",
+    "four-vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 62,
+     "printed_page": 44,
+     "section": "2.5"
+    }
+   ],
+   "formulas": [
+    "\\vec A^2=-(A^0)^2+(A^1)^2+(A^2)^2+(A^3)^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "timelike, spacelike and null vectors",
+   "aliases": [
+    "causal character",
+    "lightlike vector"
+   ],
+   "kind": "definition",
+   "definition": "A vector is spacelike if its magnitude is positive, null if its magnitude is zero while its components are not all zero, and timelike if its magnitude is negative; the label is the same in every frame.",
+   "how_introduced": "Carried over directly from the names for intervals in Chapter 1.",
+   "depth": "core",
+   "prerequisites": [
+    "magnitude of a four-vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 62,
+     "printed_page": 44,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 72,
+     "printed_page": 54,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "null vector versus zero vector",
+   "aliases": [
+    "self-orthogonal vector"
+   ],
+   "kind": "definition",
+   "definition": "A null vector has zero magnitude but non-vanishing components (it points along the light cone) and is orthogonal to itself; the zero vector has every component zero. Only for a positive-definite inner product does zero magnitude force the zero vector.",
+   "how_introduced": "Emphasized immediately after the classification and again in the discussion of orthogonality and photon momenta.",
+   "depth": "developed",
+   "prerequisites": [
+    "timelike, spacelike and null vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 62,
+     "printed_page": 44,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 66,
+     "printed_page": 48,
+     "section": "2.7"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "scalar product of four-vectors",
+   "aliases": [
+    "Minkowski inner product",
+    "dot product"
+   ],
+   "kind": "operation",
+   "definition": "The frame-independent, bilinear and symmetric number formed from two vectors by multiplying matching components, giving the time-time product a minus sign and the three space-space products plus signs; with both vectors equal it reduces to the magnitude.",
+   "how_introduced": "Defined in one frame and then proved invariant using only the invariance of magnitudes; its linearity properties are left to Exercise 2.34.",
+   "depth": "core",
+   "prerequisites": [
+    "magnitude of a four-vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 62,
+     "printed_page": 44,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 73,
+     "printed_page": 55,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\vec A\\cdot\\vec B=-A^0B^0+A^1B^1+A^2B^2+A^3B^3=\\eta_{\\alpha\\beta}A^\\alpha B^\\beta"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Lorentz invariance of the scalar product",
+   "aliases": [
+    "polarization argument"
+   ],
+   "kind": "theorem",
+   "definition": "The scalar product takes the same value whichever inertial frame's components are used, because (A+B)^2 = A^2 + B^2 + 2A.B and each magnitude is already invariant.",
+   "how_introduced": "A three-line proof built entirely on invariance of magnitudes, avoiding explicit matrix computation.",
+   "depth": "developed",
+   "prerequisites": [
+    "magnitude of a four-vector",
+    "scalar product of four-vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 62,
+     "printed_page": 44,
+     "section": "2.5"
+    }
+   ],
+   "formulas": [
+    "(\\vec A+\\vec B)^2=\\vec A^2+\\vec B^2+2\\vec A\\cdot\\vec B"
+   ],
+   "notes": null
+  },
+  {
+   "name": "orthogonality in Minkowski spacetime",
+   "aliases": [
+    "Minkowski orthogonality"
+   ],
+   "kind": "definition",
+   "definition": "Two vectors are orthogonal when their scalar product vanishes. In a t-x spacetime diagram such a pair appears as mirror images across a 45-degree light line rather than at a right angle, and a null vector is orthogonal to itself.",
+   "how_introduced": "Defined algebraically, then visualized with the basis vectors of a moving frame drawn in the rest frame's diagram (Figure 2.4) and summarized by the equal-angles-with-the-light-ray rule.",
+   "depth": "core",
+   "prerequisites": [
+    "scalar product of four-vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 62,
+     "printed_page": 44,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 63,
+     "printed_page": 45,
+     "section": "2.5"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "orthonormal tetrad",
+   "aliases": [
+    "orthonormal basis",
+    "Lorentz frame basis"
+   ],
+   "kind": "mathematical-object",
+   "definition": "Four mutually orthogonal vectors, one timelike of magnitude -1 and three spacelike of magnitude +1; the basis of every inertial frame is such a tetrad.",
+   "how_introduced": "Found by computing the dot products of a frame's basis vectors; Exercise 2.35 asks the reader to confirm that a boosted basis still satisfies the same relations.",
+   "depth": "developed",
+   "prerequisites": [
+    "orthogonality in Minkowski spacetime",
+    "basis vectors of an inertial frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 62,
+     "printed_page": 44,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 63,
+     "printed_page": 45,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 73,
+     "printed_page": 55,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\vec e_\\alpha\\cdot\\vec e_\\beta=\\eta_{\\alpha\\beta}"
+   ],
+   "notes": "A timelike vector counts as unit when its magnitude is -1."
+  },
+  {
+   "name": "Minkowski metric components",
+   "aliases": [
+    "eta_alpha-beta",
+    "eta"
+   ],
+   "kind": "mathematical-object",
+   "definition": "The numbers eta_alpha-beta = e_alpha.e_beta, forming diag(-1, 1, 1, 1) in any inertial basis, so that A.B = eta_alpha-beta A^alpha B^beta.",
+   "how_introduced": "Presented as a Kronecker-delta-like symbol with -1 in the time slot, explicitly flagged as the metric tensor to be developed later.",
+   "depth": "introduced",
+   "prerequisites": [
+    "orthonormal tetrad"
+   ],
+   "locators": [
+    {
+     "pdf_page": 63,
+     "printed_page": 45,
+     "section": "2.5"
+    }
+   ],
+   "formulas": [
+    "\\eta_{\\alpha\\beta}={\\rm diag}(-1,1,1,1)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "normalization of four-velocity",
+   "aliases": [
+    "U.U = -1"
+   ],
+   "kind": "identity",
+   "definition": "Every four-velocity has scalar product -1 with itself, because it is the time basis vector of some inertial frame.",
+   "how_introduced": "Obtained as an example of orthonormality (Eq. 2.28) and re-derived from dx/dtau in §2.6; differentiating it yields the orthogonality of four-acceleration.",
+   "depth": "core",
+   "prerequisites": [
+    "four-velocity",
+    "orthonormal tetrad"
+   ],
+   "locators": [
+    {
+     "pdf_page": 63,
+     "printed_page": 45,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 64,
+     "printed_page": 46,
+     "section": "2.6"
+    }
+   ],
+   "formulas": [
+    "\\vec U\\cdot\\vec U=-1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "invariant interval",
+   "aliases": [
+    "spacetime interval",
+    "ds^2"
+   ],
+   "kind": "definition",
+   "definition": "The frame-independent separation ds^2 = -dt^2 + dx^2 + dy^2 + dz^2 between nearby events, now recognized as the magnitude of the displacement vector.",
+   "how_introduced": "Recalled from Chapter 1 (Eq. 1.1) and rewritten as dx.dx.",
+   "depth": "revisited",
+   "prerequisites": [
+    "displacement vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 62,
+     "printed_page": 44,
+     "section": "2.5"
+    },
+    {
+     "pdf_page": 64,
+     "printed_page": 46,
+     "section": "2.6"
+    }
+   ],
+   "formulas": [
+    "ds^2=d\\vec x\\cdot d\\vec x"
+   ],
+   "notes": null
+  },
+  {
+   "name": "proper time",
+   "aliases": [
+    "tau",
+    "wristwatch time"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The time recorded by a clock moving along a timelike world line, given for an infinitesimal step by dtau^2 = -dx.dx.",
+   "how_introduced": "Recalled from Chapter 1 (Eq. 1.9), restated with the scalar product, and used to parametrize world lines so that dx/dtau is unit.",
+   "depth": "revisited",
+   "prerequisites": [
+    "invariant interval"
+   ],
+   "locators": [
+    {
+     "pdf_page": 64,
+     "printed_page": 46,
+     "section": "2.6"
+    },
+    {
+     "pdf_page": 71,
+     "printed_page": 53,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "(d\\tau)^2=-d\\vec x\\cdot d\\vec x"
+   ],
+   "notes": null
+  },
+  {
+   "name": "four-acceleration",
+   "aliases": [
+    "a",
+    "acceleration four-vector"
+   ],
+   "kind": "physical-quantity",
+   "definition": "The derivative a = dU/dtau of four-velocity with respect to proper time; it is always orthogonal to U, so in the MCRF it has zero time component and spatial components equal to the acceleration the particle itself measures.",
+   "how_introduced": "Differentiating U.U = -1 gives U.dU/dtau = 0; since U is purely temporal in the MCRF, the derivative must be purely spatial there. The name is justified in Exercise 2.19.",
+   "depth": "developed",
+   "prerequisites": [
+    "four-velocity",
+    "normalization of four-velocity",
+    "proper time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 65,
+     "printed_page": 47,
+     "section": "2.6"
+    },
+    {
+     "pdf_page": 70,
+     "printed_page": 52,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\vec a=\\frac{d\\vec U}{d\\tau},\\quad \\vec U\\cdot\\vec a=0",
+    "\\vec a\\underset{\\rm MCRF}{\\to}(0,a^1,a^2,a^3)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "energy–momentum relation",
+   "aliases": [
+    "mass-shell relation",
+    "E^2 = m^2 + p^2"
+   ],
+   "kind": "identity",
+   "definition": "For any particle E^2 = m^2 + |p|^2 in units with c = 1; it is the component form of p.p = -m^2 and holds with m = 0 for photons.",
+   "how_introduced": "Two lines: scale U.U = -1 by m^2, then expand the dot product in components.",
+   "depth": "core",
+   "prerequisites": [
+    "four-momentum",
+    "normalization of four-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 65,
+     "printed_page": 47,
+     "section": "2.6"
+    }
+   ],
+   "formulas": [
+    "\\vec p\\cdot\\vec p=-m^2",
+    "E^2=m^2+\\sum_i (p^i)^2"
+   ],
+   "notes": null
+  },
+  {
+   "name": "energy measured by an observer",
+   "aliases": [
+    "-p.U_obs",
+    "observer-measured energy"
+   ],
+   "kind": "identity",
+   "definition": "An observer with four-velocity U_obs assigns a particle of four-momentum p the energy E-bar = -p.U_obs; being a scalar, it can be evaluated with components in any frame.",
+   "how_introduced": "Since U_obs is the observer's own time basis vector, the dot product picks out the time component of p in the observer's frame; the text advises using such invariant forms in calculations, and Exercise 2.30 compares this route with explicit transformation.",
+   "depth": "core",
+   "prerequisites": [
+    "scalar product of four-vectors",
+    "four-momentum",
+    "four-velocity"
+   ],
+   "locators": [
+    {
+     "pdf_page": 65,
+     "printed_page": 47,
+     "section": "2.6"
+    },
+    {
+     "pdf_page": 66,
+     "printed_page": 48,
+     "section": "2.6"
+    },
+    {
+     "pdf_page": 72,
+     "printed_page": 54,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\bar E=-\\vec p\\cdot\\vec U_{\\rm obs}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "absence of photon four-velocity",
+   "aliases": [
+    "no rest frame for light",
+    "no MCRF for a photon"
+   ],
+   "kind": "principle",
+   "definition": "A photon has no four-velocity: its world line is null, so dtau = 0 and no tangent of unit magnitude exists, and by the second postulate there is no inertial frame in which light is at rest. Tangent vectors of zero magnitude, such as dx, still exist.",
+   "how_introduced": "Argued twice, from the failure of U = dx/dtau and from the second postulate, with a careful note that the problem is normalization, not tangency.",
+   "depth": "developed",
+   "prerequisites": [
+    "four-velocity",
+    "null vector versus zero vector",
+    "momentarily comoving reference frame"
+   ],
+   "locators": [
+    {
+     "pdf_page": 66,
+     "printed_page": 48,
+     "section": "2.7"
+    }
+   ],
+   "formulas": [
+    "d\\vec x\\cdot d\\vec x=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "photon four-momentum",
+   "aliases": [
+    "null four-momentum"
+   ],
+   "kind": "physical-quantity",
+   "definition": "A photon's four-momentum is a null vector parallel to its world line; its time component is the energy E and its spatial momentum has magnitude E, so for motion along x it is (E, E, 0, 0).",
+   "how_introduced": "Constructed by combining p^0 = E with the requirement of being parallel to a null world line, hence null.",
+   "depth": "core",
+   "prerequisites": [
+    "four-momentum",
+    "null vector versus zero vector"
+   ],
+   "locators": [
+    {
+     "pdf_page": 66,
+     "printed_page": 48,
+     "section": "2.7"
+    },
+    {
+     "pdf_page": 67,
+     "printed_page": 49,
+     "section": "2.7"
+    }
+   ],
+   "formulas": [
+    "\\vec p\\underset{\\mathcal O}{\\to}(E,E,0,0),\\quad \\vec p\\cdot\\vec p=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Planck relation",
+   "aliases": [
+    "E = h nu"
+   ],
+   "kind": "law",
+   "definition": "A photon's energy equals Planck's constant times its frequency.",
+   "how_introduced": "Quoted from quantum mechanics as the bridge from four-momentum to frequency.",
+   "depth": "mention",
+   "prerequisites": [],
+   "locators": [
+    {
+     "pdf_page": 66,
+     "printed_page": 48,
+     "section": "2.7"
+    }
+   ],
+   "formulas": [
+    "E=h\\nu"
+   ],
+   "notes": "The printed unit for h is J s^-1; it should be J s."
+  },
+  {
+   "name": "relativistic Doppler shift",
+   "aliases": [
+    "Doppler formula for photons"
+   ],
+   "kind": "phenomenon",
+   "definition": "Light's frequency depends on the frame: an observer moving at speed v along a photon's direction of travel measures nu-bar/nu = sqrt((1-v)/(1+v)); for a photon at angle theta to the boost direction nu-bar/nu = (1 - v cos theta)/sqrt(1-v^2).",
+   "how_introduced": "Two lines: Lorentz-transform the photon's four-momentum and apply E = h nu in each frame; generalized to arbitrary angle in Exercise 2.25, which also asks for a derivation from -p.U_obs.",
+   "depth": "developed",
+   "prerequisites": [
+    "photon four-momentum",
+    "Planck relation",
+    "Lorentz transformation matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 67,
+     "printed_page": 49,
+     "section": "2.7"
+    },
+    {
+     "pdf_page": 71,
+     "printed_page": 53,
+     "section": null
+    },
+    {
+     "pdf_page": 72,
+     "printed_page": 54,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\bar\\nu/\\nu=\\sqrt{(1-v)/(1+v)}",
+    "\\bar\\nu/\\nu=(1-v\\cos\\theta)/\\sqrt{1-v^2}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "transverse Doppler shift",
+   "aliases": [
+    "time-dilation Doppler shift"
+   ],
+   "kind": "phenomenon",
+   "definition": "The frequency change that survives when the photon moves perpendicular to the relative velocity as described in the original frame, a pure time-dilation effect.",
+   "how_introduced": "Exercise 2.25(b), which also asks at what angle the shift vanishes.",
+   "depth": "mention",
+   "prerequisites": [
+    "relativistic Doppler shift"
+   ],
+   "locators": [
+    {
+     "pdf_page": 71,
+     "printed_page": 53,
+     "section": null
+    },
+    {
+     "pdf_page": 72,
+     "printed_page": 54,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\bar\\nu/\\nu=1/\\sqrt{1-v^2}\\ (\\theta=\\pi/2)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "zero rest-mass particles",
+   "aliases": [
+    "massless particles"
+   ],
+   "kind": "definition",
+   "definition": "Particles whose four-momentum is null, equivalently whose rest mass is zero; they always move at light speed and have no rest frame. The photon is the only confirmed example; neutrinos are very light but massive.",
+   "how_introduced": "Deduced from m^2 = -p.p = 0 for photons and stated as a two-way equivalence.",
+   "depth": "developed",
+   "prerequisites": [
+    "photon four-momentum",
+    "rest mass"
+   ],
+   "locators": [
+    {
+     "pdf_page": 67,
+     "printed_page": 49,
+     "section": "2.7"
+    }
+   ],
+   "formulas": [
+    "m^2=-\\vec p\\cdot\\vec p=0"
+   ],
+   "notes": null
+  },
+  {
+   "name": "light speed as an unreachable limit for massive particles",
+   "aliases": [
+    "no massive particle reaches c"
+   ],
+   "kind": "theorem",
+   "definition": "For m not zero, p^1/p^0 = sqrt(1 - m^2/E^2) is below 1 at every finite energy, so a massive particle never attains light speed and always has a rest frame moving at velocity p/E.",
+   "how_introduced": "Argued from p.p = -m^2 alongside the observation that the energy would have to diverge; Exercise 2.26 quantifies the diverging energy cost.",
+   "depth": "developed",
+   "prerequisites": [
+    "energy–momentum relation",
+    "zero rest-mass particles"
+   ],
+   "locators": [
+    {
+     "pdf_page": 67,
+     "printed_page": 49,
+     "section": "2.7"
+    },
+    {
+     "pdf_page": 72,
+     "printed_page": 54,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "p^1/p^0=[1-m^2/(p^0)^2]^{1/2}<1"
+   ],
+   "notes": null
+  },
+  {
+   "name": "graviton",
+   "aliases": [
+    "quantum of gravitational waves"
+   ],
+   "kind": "definition",
+   "definition": "The hypothetical massless quantum associated with gravitational waves; the text cautions it is not yet well defined because no satisfactory quantum theory of gravity exists.",
+   "how_introduced": "A parenthetical aside in the list of massless particles, noting that gravitational waves also move at light speed.",
+   "depth": "mention",
+   "prerequisites": [
+    "zero rest-mass particles"
+   ],
+   "locators": [
+    {
+     "pdf_page": 67,
+     "printed_page": 49,
+     "section": "2.7"
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  },
+  {
+   "name": "composition of Lorentz boosts",
+   "aliases": [
+    "successive boosts",
+    "Thomas-Wigner rotation (not named in book)"
+   ],
+   "kind": "theorem",
+   "definition": "The transformation between frames related by two successive boosts is the matrix product of the individual Lorentz matrices; for non-collinear boosts the product is non-symmetric and order-dependent, meaning it contains a spatial rotation in addition to a boost.",
+   "how_introduced": "Exercise 2.13 with speeds 0.6 along x then 0.8 along the intermediate frame's y axis, asking for invariance checks and interpretation of the asymmetry and non-commutativity.",
+   "depth": "mention",
+   "prerequisites": [
+    "Lorentz transformation matrix",
+    "symmetry of pure boost matrices"
+   ],
+   "locators": [
+    {
+     "pdf_page": 69,
+     "printed_page": 51,
+     "section": null
+    },
+    {
+     "pdf_page": 70,
+     "printed_page": 52,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\Lambda^{\\bar{\\bar\\alpha}}{}_{\\mu}=\\Lambda^{\\bar{\\bar\\alpha}}{}_{\\bar\\gamma}(\\boldsymbol v')\\,\\Lambda^{\\bar\\gamma}{}_{\\mu}(\\boldsymbol v)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "uniform acceleration",
+   "aliases": [
+    "hyperbolic motion",
+    "constant proper acceleration"
+   ],
+   "kind": "solution-or-model",
+   "definition": "Motion whose four-acceleration has constant magnitude and fixed spatial direction, so the acceleration felt in each MCRF never changes; the world line is a hyperbola such as t = a sinh(tau/a), x = a cosh(tau/a) with proper acceleration 1/a.",
+   "how_introduced": "Exercises 2.19 (a rocket at about one Earth gravity, including a trip to the Galactic centre) and 2.21 (the hyperbolic world line parametrized by proper time).",
+   "depth": "mention",
+   "prerequisites": [
+    "four-acceleration",
+    "proper time"
+   ],
+   "locators": [
+    {
+     "pdf_page": 70,
+     "printed_page": 52,
+     "section": null
+    },
+    {
+     "pdf_page": 71,
+     "printed_page": 53,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "t=a\\sinh(\\lambda/a),\\ x=a\\cosh(\\lambda/a)"
+   ],
+   "notes": null
+  },
+  {
+   "name": "Compton scattering",
+   "aliases": [
+    "photon-charge scattering"
+   ],
+   "kind": "phenomenon",
+   "definition": "Scattering of a photon from a charged particle initially at rest, after which the photon's frequency obeys 1/nu_f = 1/nu_i + h(1 - cos theta)/m (c = 1), a direct consequence of four-momentum conservation.",
+   "how_introduced": "Exercise 2.32 derives the formula; Exercise 2.33 applies it in the rest frame of an ultra-energetic cosmic-ray proton scattering a microwave-background photon.",
+   "depth": "mention",
+   "prerequisites": [
+    "conservation of four-momentum",
+    "photon four-momentum"
+   ],
+   "locators": [
+    {
+     "pdf_page": 72,
+     "printed_page": 54,
+     "section": null
+    },
+    {
+     "pdf_page": 73,
+     "printed_page": 55,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "\\frac{1}{\\nu_f}=\\frac{1}{\\nu_i}+h\\frac{1-\\cos\\theta}{m}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "velocity addition from four-velocity",
+   "aliases": [
+    "Einstein velocity addition (four-vector route)"
+   ],
+   "kind": "technique",
+   "definition": "Boosting a particle's four-velocity and taking the ratio of spatial to time components in the new frame reproduces the relativistic velocity-addition law.",
+   "how_introduced": "Exercise 2.16, revisiting Chapter 1's result with the new machinery.",
+   "depth": "mention",
+   "prerequisites": [
+    "four-velocity",
+    "Lorentz transformation matrix"
+   ],
+   "locators": [
+    {
+     "pdf_page": 70,
+     "printed_page": 52,
+     "section": null
+    }
+   ],
+   "formulas": [
+    "W'=\\frac{W+v}{1+Wv}"
+   ],
+   "notes": null
+  },
+  {
+   "name": "linear independence",
+   "aliases": [
+    "linearly independent set"
+   ],
+   "kind": "definition",
+   "definition": "A set of vectors is linearly independent if the only linear combination of them giving the zero vector has all coefficients zero.",
+   "how_introduced": "Defined in Exercise 2.5, which asks for a proof that a frame's basis is independent.",
+   "depth": "mention",
+   "prerequisites": [
+    "vector space operations on four-vectors"
+   ],
+   "locators": [
+    {
+     "pdf_page": 68,
+     "printed_page": 50,
+     "section": null
+    }
+   ],
+   "formulas": [],
+   "notes": null
+  }
+ ],
+ "key_equations": [
+  {
+   "label": "(2.1)",
+   "name": "Displacement components",
+   "latex": "\\Delta\\vec x\\underset{\\mathcal O}{\\to}(\\Delta t,\\Delta x,\\Delta y,\\Delta z)",
+   "meaning": "The separation vector between two events has the coordinate differences as its components in frame O.",
+   "symbols": "labelled arrow = has components in frame O",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": "(2.2)",
+   "name": "Compact component notation",
+   "latex": "\\Delta\\vec x\\underset{\\mathcal O}{\\to}\\{\\Delta x^{\\alpha}\\},\\qquad \\Delta\\vec x\\underset{\\bar{\\mathcal O}}{\\to}\\{\\Delta x^{\\bar\\alpha}\\}",
+   "meaning": "Braces denote the full set of four components; a bar on the index, not on the vector, signals components in another frame.",
+   "symbols": "alpha = 0..3",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": null,
+   "name": "Boost of the time component",
+   "latex": "\\Delta x^{\\bar 0}=\\frac{\\Delta x^{0}}{\\sqrt{1-v^{2}}}-\\frac{v\\,\\Delta x^{1}}{\\sqrt{1-v^{2}}}",
+   "meaning": "Chapter 1's Lorentz transformation written as a linear combination, revealing the coefficients Lambda^0-bar_beta = (gamma, -v gamma, 0, 0).",
+   "symbols": "v boost speed along x",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": "(2.3)",
+   "name": "Lorentz transformation with explicit sum",
+   "latex": "\\Delta x^{\\bar\\alpha}=\\sum_{\\beta=0}^{3}\\Lambda^{\\bar\\alpha}{}_{\\beta}\\,\\Delta x^{\\beta}",
+   "meaning": "Every new component is a fixed linear combination of the old ones; the 16 coefficients form the Lorentz matrix.",
+   "symbols": "Lambda Lorentz transformation matrix",
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": "(2.4)",
+   "name": "Lorentz transformation (summation convention)",
+   "latex": "\\Delta x^{\\bar\\alpha}=\\Lambda^{\\bar\\alpha}{}_{\\beta}\\,\\Delta x^{\\beta}",
+   "meaning": "Same statement with the sum implied by the repeated upper/lower index beta; alpha-bar is free, so this is four equations.",
+   "symbols": "beta dummy, alpha-bar free",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": "(2.5)",
+   "name": "Greek sum split into time and space",
+   "latex": "\\Lambda^{\\bar\\alpha}{}_{\\beta}\\Delta x^{\\beta}=\\Lambda^{\\bar\\alpha}{}_{0}\\Delta x^{0}+\\Lambda^{\\bar\\alpha}{}_{i}\\Delta x^{i}",
+   "meaning": "A sum on a Greek index equals the 0 term plus a sum on a Latin index running 1..3, which is why a Greek dummy may not be renamed Latin.",
+   "symbols": "i = 1,2,3",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 53,
+    "printed_page": 35,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": "(2.6)",
+   "name": "Vector given by components",
+   "latex": "\\vec A\\underset{\\mathcal O}{\\to}(A^0,A^1,A^2,A^3)=\\{A^\\alpha\\}",
+   "meaning": "A general vector is specified by four numbers in one frame.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 53,
+    "printed_page": 35,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": "(2.7)",
+   "name": "Component transformation law",
+   "latex": "A^{\\bar\\alpha}=\\Lambda^{\\bar\\alpha}{}_{\\beta}A^{\\beta}",
+   "meaning": "Defining property of a four-vector: its components change exactly as coordinate differences do.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 53,
+    "printed_page": 35,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": "(2.8)",
+   "name": "Vector addition and scaling",
+   "latex": "\\vec A+\\vec B\\underset{\\mathcal O}{\\to}(A^0+B^0,\\,A^1+B^1,\\,A^2+B^2,\\,A^3+B^3),\\qquad \\mu\\vec A\\underset{\\mathcal O}{\\to}(\\mu A^0,\\mu A^1,\\mu A^2,\\mu A^3)",
+   "meaning": "Four-vectors form a vector space with component-wise operations.",
+   "symbols": "mu real number",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 54,
+    "printed_page": 36,
+    "section": "2.1"
+   }
+  },
+  {
+   "label": "(2.9)",
+   "name": "Basis vectors of O",
+   "latex": "\\vec e_0\\underset{\\mathcal O}{\\to}(1,0,0,0),\\ \\vec e_1\\underset{\\mathcal O}{\\to}(0,1,0,0),\\ \\vec e_2\\underset{\\mathcal O}{\\to}(0,0,1,0),\\ \\vec e_3\\underset{\\mathcal O}{\\to}(0,0,0,1)",
+   "meaning": "Each basis vector of a frame has a single unit component in that frame.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 54,
+    "printed_page": 36,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.10)",
+   "name": "Basis components as Kronecker delta",
+   "latex": "(\\vec e_\\alpha)^{\\beta}=\\delta_\\alpha{}^{\\beta}",
+   "meaning": "Compact form of Eq. 2.9.",
+   "symbols": "delta Kronecker delta",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 54,
+    "printed_page": 36,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.11)",
+   "name": "Expansion in a basis",
+   "latex": "\\vec A=A^{0}\\vec e_0+A^1\\vec e_1+A^2\\vec e_2+A^3\\vec e_3=A^{\\alpha}\\vec e_{\\alpha}",
+   "meaning": "Components are the coefficients of the vector along the frame's basis vectors.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 54,
+    "printed_page": 36,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.12)",
+   "name": "Frame independence of the expansion",
+   "latex": "A^{\\alpha}\\vec e_{\\alpha}=A^{\\bar\\alpha}\\vec e_{\\bar\\alpha}",
+   "meaning": "Different component sets and different bases combine to the same vector; barred and unbarred indices are not interchangeable.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 55,
+    "printed_page": 37,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Intermediate step with factored components",
+   "latex": "A^{\\alpha}\\left(\\Lambda^{\\bar\\beta}{}_{\\alpha}\\vec e_{\\bar\\beta}-\\vec e_{\\alpha}\\right)=0",
+   "meaning": "After relabelling dummies, the arbitrary components multiply a bracket that must therefore vanish for each alpha.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 55,
+    "printed_page": 37,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.13)",
+   "name": "Basis transformation law",
+   "latex": "\\vec e_{\\alpha}=\\Lambda^{\\bar\\beta}{}_{\\alpha}\\,\\vec e_{\\bar\\beta}",
+   "meaning": "Old basis vectors as combinations of new ones; note the sum is on the upper index of Lambda, unlike the component law.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 55,
+    "printed_page": 37,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Boost matrix along x",
+   "latex": "[\\Lambda^{\\bar\\beta}{}_{\\alpha}]=\\begin{pmatrix}\\gamma&-v\\gamma&0&0\\\\-v\\gamma&\\gamma&0&0\\\\0&0&1&0\\\\0&0&0&1\\end{pmatrix},\\qquad \\gamma:=\\frac{1}{\\sqrt{1-v^{2}}}",
+   "meaning": "Explicit Lorentz matrix for O-bar moving at v along x relative to O; symmetric, as for every pure boost.",
+   "symbols": "gamma Lorentz factor",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 56,
+    "printed_page": 38,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Boosted components of the sample vector",
+   "latex": "\\vec A\\underset{\\mathcal O}{\\to}(5,0,0,2)\\ \\Rightarrow\\ \\vec A\\underset{\\bar{\\mathcal O}}{\\to}(5\\gamma,-5v\\gamma,0,2)",
+   "meaning": "Worked numerical application of Eq. 2.7.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 56,
+    "printed_page": 38,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "O's basis in terms of O-bar's",
+   "latex": "\\vec e_0=\\gamma\\vec e_{\\bar 0}-v\\gamma\\vec e_{\\bar 1},\\quad \\vec e_1=-v\\gamma\\vec e_{\\bar 0}+\\gamma\\vec e_{\\bar 1},\\quad \\vec e_2=\\vec e_{\\bar 2},\\quad \\vec e_3=\\vec e_{\\bar 3}",
+   "meaning": "Application of Eq. 2.13; these are the arrows drawn in Figure 2.1.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 56,
+    "printed_page": 38,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.14)",
+   "name": "Basis law with velocity shown",
+   "latex": "\\vec e_{\\alpha}=\\Lambda^{\\bar\\beta}{}_{\\alpha}(\\boldsymbol v)\\,\\vec e_{\\bar\\beta}",
+   "meaning": "Makes explicit that Lambda depends only on the relative velocity.",
+   "symbols": "v velocity of O-bar relative to O",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 57,
+    "printed_page": 39,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.15)",
+   "name": "Reverse basis law",
+   "latex": "\\vec e_{\\bar\\mu}=\\Lambda^{\\nu}{}_{\\bar\\mu}(-\\boldsymbol v)\\,\\vec e_{\\nu}",
+   "meaning": "Swapping the roles of the frames reverses the velocity; Lambda is always built from the upper-index frame's velocity relative to the lower-index frame.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 57,
+    "printed_page": 39,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.16)",
+   "name": "Substitution giving an identity in O's basis",
+   "latex": "\\vec e_{\\alpha}=\\Lambda^{\\bar\\beta}{}_{\\alpha}(\\boldsymbol v)\\,\\Lambda^{\\nu}{}_{\\bar\\beta}(-\\boldsymbol v)\\,\\vec e_{\\nu}",
+   "meaning": "Only O's basis appears, so the combined coefficient must reproduce e_alpha.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 58,
+    "printed_page": 40,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.17)",
+   "name": "Coefficient of e_nu",
+   "latex": "\\sum_{\\bar\\beta}\\Lambda^{\\bar\\beta}{}_{\\alpha}(\\boldsymbol v)\\,\\Lambda^{\\nu}{}_{\\bar\\beta}(-\\boldsymbol v)",
+   "meaning": "Must equal 1 when nu = alpha and 0 otherwise.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 58,
+    "printed_page": 40,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.18)",
+   "name": "Inverse of a boost",
+   "latex": "\\Lambda^{\\nu}{}_{\\bar\\beta}(-\\boldsymbol v)\\,\\Lambda^{\\bar\\beta}{}_{\\alpha}(\\boldsymbol v)=\\delta^{\\nu}{}_{\\alpha}",
+   "meaning": "The boost with reversed velocity is the matrix inverse of the original boost.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 58,
+    "printed_page": 40,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": null,
+   "name": "Inverse component law",
+   "latex": "A^{\\nu}=\\Lambda^{\\nu}{}_{\\bar\\beta}(-\\boldsymbol v)\\,A^{\\bar\\beta}",
+   "meaning": "Components in O are recovered from those in O-bar with the reversed boost.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 58,
+    "printed_page": 40,
+    "section": "2.2"
+   }
+  },
+  {
+   "label": "(2.19)",
+   "name": "Four-momentum",
+   "latex": "\\vec p=m\\vec U",
+   "meaning": "Rest mass times four-velocity.",
+   "symbols": "m rest mass",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "label": "(2.20)",
+   "name": "Four-momentum components",
+   "latex": "\\vec p\\underset{\\mathcal O}{\\to}(E,p^1,p^2,p^3)",
+   "meaning": "Time component is the energy in O; spatial components are the momentum in O.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "label": "(2.21)",
+   "name": "Four-velocity from the rest frame",
+   "latex": "U^{\\alpha}=\\Lambda^{\\alpha}{}_{\\bar\\beta}(\\vec e_{\\bar 0})^{\\bar\\beta}=\\Lambda^{\\alpha}{}_{\\bar 0},\\qquad p^{\\alpha}=m\\Lambda^{\\alpha}{}_{\\bar 0}",
+   "meaning": "The four-velocity's components in O are the first column of the transformation from the rest frame O-bar to O.",
+   "symbols": "O-bar rest frame of the particle",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Components for motion along x",
+   "latex": "U^{\\alpha}=\\left(\\gamma,\\ v\\gamma,\\ 0,\\ 0\\right),\\qquad p^{\\alpha}=\\left(m\\gamma,\\ mv\\gamma,\\ 0,\\ 0\\right)",
+   "meaning": "Evaluated form of Eq. 2.21; the matrix used carries velocity -v (O relative to O-bar), which makes the x entry positive.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "label": null,
+   "name": "Low-speed energy",
+   "latex": "E:=p^{0}=m(1-v^{2})^{-1/2}\\simeq m+\\tfrac12 mv^{2}",
+   "meaning": "Rest energy plus Newtonian kinetic energy.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "label": "(2.22)",
+   "name": "Total four-momentum",
+   "latex": "\\vec p:=\\sum_{\\text{all particles }(i)}\\vec p_{(i)}",
+   "meaning": "The conserved quantity: the same before and after every interaction.",
+   "symbols": "(i) particle label, not an index",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "label": "(2.23)",
+   "name": "Centre-of-momentum frame",
+   "latex": "\\sum_i\\vec p_{(i)}\\underset{\\rm CM}{\\to}(E_{\\rm total},0,0,0)",
+   "meaning": "Defines the frame with zero total spatial momentum.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   }
+  },
+  {
+   "label": "(2.24)",
+   "name": "Magnitude of a vector",
+   "latex": "\\vec A^{2}=-(A^0)^2+(A^1)^2+(A^2)^2+(A^3)^2",
+   "meaning": "Signed squared norm modelled on the interval.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   }
+  },
+  {
+   "label": "(2.25)",
+   "name": "Invariance of magnitude",
+   "latex": "-(A^0)^2+(A^1)^2+(A^2)^2+(A^3)^2=-(A^{\\bar 0})^2+(A^{\\bar 1})^2+(A^{\\bar 2})^2+(A^{\\bar 3})^2",
+   "meaning": "Guaranteed because components transform like coordinate differences, whose interval is invariant. (The export drops the bars on the right side; confirmed and restored from the page 62 render.)",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   }
+  },
+  {
+   "label": "(2.26)",
+   "name": "Scalar product",
+   "latex": "\\vec A\\cdot\\vec B=-A^0B^0+A^1B^1+A^2B^2+A^3B^3",
+   "meaning": "Minkowski inner product; invariant under Lorentz transformations.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   }
+  },
+  {
+   "label": null,
+   "name": "Polarization identity",
+   "latex": "(\\vec A+\\vec B)\\cdot(\\vec A+\\vec B)=\\vec A^2+\\vec B^2+2\\vec A\\cdot\\vec B",
+   "meaning": "Key step in the invariance proof: every term but the cross term is known to be invariant.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   }
+  },
+  {
+   "label": "(2.27)",
+   "name": "Orthonormality of a frame basis",
+   "latex": "\\vec e_{\\alpha}\\cdot\\vec e_{\\beta}=\\eta_{\\alpha\\beta},\\qquad \\eta={\\rm diag}(-1,1,1,1)",
+   "meaning": "Basis vectors of any inertial frame form an orthonormal tetrad; eta will become the metric tensor.",
+   "symbols": "eta Minkowski metric components",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   }
+  },
+  {
+   "label": "(2.28)",
+   "name": "Normalization of four-velocity",
+   "latex": "\\vec U\\cdot\\vec U=-1",
+   "meaning": "Four-velocity is a unit timelike vector.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   }
+  },
+  {
+   "label": "(2.29)",
+   "name": "Interval as a magnitude",
+   "latex": "ds^{2}=d\\vec x\\cdot d\\vec x",
+   "meaning": "The Chapter 1 interval is the magnitude of the infinitesimal displacement.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 64,
+    "printed_page": 46,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": "(2.30)",
+   "name": "Proper time",
+   "latex": "(d\\tau)^{2}=-d\\vec x\\cdot d\\vec x",
+   "meaning": "Proper time along a timelike world line in scalar-product form.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 64,
+    "printed_page": 46,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": null,
+   "name": "Unit tangent",
+   "latex": "\\frac{d\\vec x}{d\\tau}\\cdot\\frac{d\\vec x}{d\\tau}=\\frac{d\\vec x\\cdot d\\vec x}{(d\\tau)^2}=-1,\\qquad \\frac{d\\vec x}{d\\tau}\\underset{\\rm MCRF}{\\to}(1,0,0,0)",
+   "meaning": "dx/dtau is a unit timelike tangent equal to e_0 of the MCRF.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 64,
+    "printed_page": 46,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": "(2.31)",
+   "name": "Four-velocity as a derivative",
+   "latex": "\\vec U=d\\vec x/d\\tau",
+   "meaning": "Operational formula for four-velocity along any timelike world line.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": null,
+   "name": "Derivative of the normalization",
+   "latex": "\\frac{d}{d\\tau}(\\vec U\\cdot\\vec U)=2\\vec U\\cdot\\frac{d\\vec U}{d\\tau}=0",
+   "meaning": "Constant norm forces the derivative to be orthogonal to U (proved in components in Exercise 2.29).",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": "(2.32)",
+   "name": "Four-acceleration",
+   "latex": "\\vec a=\\frac{d\\vec U}{d\\tau},\\qquad \\vec U\\cdot\\vec a=0",
+   "meaning": "Four-acceleration is orthogonal to four-velocity, hence purely spatial in the MCRF.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": "(2.33)",
+   "name": "Mass shell",
+   "latex": "\\vec p\\cdot\\vec p=m^{2}\\vec U\\cdot\\vec U=-m^{2}",
+   "meaning": "Four-momentum magnitude fixes the rest mass.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": "(2.34)",
+   "name": "Energy-momentum relation",
+   "latex": "E^{2}=m^{2}+\\sum_{i=1}^{3}(p^{i})^{2}",
+   "meaning": "Total energy in terms of rest mass and momentum (c = 1).",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": "(2.35)",
+   "name": "Energy measured by an observer",
+   "latex": "-\\vec p\\cdot\\vec U_{\\rm obs}=\\bar E",
+   "meaning": "Invariant expression for the energy a given observer measures, computable in any frame.",
+   "symbols": "U_obs observer four-velocity; E-bar energy in the observer's frame",
+   "importance": "central",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.6"
+   }
+  },
+  {
+   "label": "(2.36)",
+   "name": "Null photon path",
+   "latex": "d\\vec x\\cdot d\\vec x=0",
+   "meaning": "Photon world lines are null, so dtau = 0 and no four-velocity exists.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   }
+  },
+  {
+   "label": "(2.37)",
+   "name": "Null photon momentum",
+   "latex": "\\vec p\\cdot\\vec p=-E^{2}+E^{2}=0",
+   "meaning": "A photon moving along x with energy E has p^x = E.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   }
+  },
+  {
+   "label": "(2.38)",
+   "name": "Planck relation",
+   "latex": "E=h\\nu",
+   "meaning": "Photon energy from frequency; the text prints h = 6.6256e-34 with units J s^-1, a misprint for J s.",
+   "symbols": "h Planck constant, nu frequency",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Boosted photon energy",
+   "latex": "\\bar E=\\frac{E}{\\sqrt{1-v^2}}-\\frac{p^{x}v}{\\sqrt{1-v^2}}=\\frac{h\\nu(1-v)}{\\sqrt{1-v^2}}",
+   "meaning": "Lorentz-transform the time component of the photon four-momentum.",
+   "symbols": null,
+   "importance": "derivation-step",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  },
+  {
+   "label": "(2.39)",
+   "name": "Relativistic Doppler shift (collinear)",
+   "latex": "\\frac{\\bar\\nu}{\\nu}=\\frac{1-v}{\\sqrt{1-v^{2}}}=\\sqrt{\\frac{1-v}{1+v}}",
+   "meaning": "Frequency measured by an observer receding along the photon's direction at speed v.",
+   "symbols": null,
+   "importance": "central",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  },
+  {
+   "label": "(2.40)",
+   "name": "Photon rest mass",
+   "latex": "m^{2}=-\\vec p\\cdot\\vec p=0",
+   "meaning": "Null momentum is equivalent to zero rest mass.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  },
+  {
+   "label": null,
+   "name": "Speed of a massive particle from its momentum",
+   "latex": "\\frac{p^{1}}{p^{0}}=\\left[1-\\frac{m^{2}}{(p^{0})^{2}}\\right]^{1/2}<1",
+   "meaning": "Velocity p/E of a massive particle stays below light speed at any finite energy.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  },
+  {
+   "label": "(2.41)",
+   "name": "Composition of boosts (Exercise 2.13)",
+   "latex": "\\Lambda^{\\bar{\\bar\\alpha}}{}_{\\mu}=\\Lambda^{\\bar{\\bar\\alpha}}{}_{\\bar\\gamma}(\\boldsymbol v')\\,\\Lambda^{\\bar\\gamma}{}_{\\mu}(\\boldsymbol v)",
+   "meaning": "Successive transformations multiply as matrices.",
+   "symbols": "double bar = third frame",
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 69,
+    "printed_page": 51,
+    "section": null
+   }
+  },
+  {
+   "label": "(2.42)",
+   "name": "Doppler shift at an angle (Exercise 2.25)",
+   "latex": "\\frac{\\bar\\nu}{\\nu}=\\frac{1-v\\cos\\theta}{\\sqrt{1-v^{2}}}",
+   "meaning": "General Doppler formula; theta measured from O's x axis; at theta = pi/2 gives the transverse shift.",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 71,
+    "printed_page": 53,
+    "section": null
+   }
+  },
+  {
+   "label": "(2.43)",
+   "name": "Compton formula (Exercise 2.32)",
+   "latex": "\\frac{1}{\\nu_{f}}=\\frac{1}{\\nu_{i}}+h\\left(\\frac{1-\\cos\\theta}{m}\\right)",
+   "meaning": "Frequency of a photon scattered through angle theta by a charge initially at rest (c = 1).",
+   "symbols": null,
+   "importance": "supporting",
+   "locator": {
+    "pdf_page": 72,
+    "printed_page": 54,
+    "section": null
+   }
+  }
+ ],
+ "figures": [
+  {
+   "label": "Figure 2.1",
+   "image_path": "schutz/pages/page-57/img-22.jpeg",
+   "locator": {
+    "pdf_page": 57,
+    "printed_page": 39,
+    "section": "2.2"
+   },
+   "caption_paraphrase": "The basis vectors of both frames drawn in the spacetime diagram of the moving observer O-bar.",
+   "visual_description": "O-bar's axes are drawn rectangular: a vertical line labelled t-bar and a horizontal line labelled x-bar crossing at the origin, with short arrows e_0-bar pointing up the t-bar axis and e_1-bar pointing right along the x-bar axis. O's axes are two tilted straight lines through the same origin: the t axis leans up and to the left of vertical (and continues below the origin to the lower right), carrying an arrow e_0 pointing up-left; the x axis slopes down to the right below horizontal (continuing up-left above the origin), carrying an arrow e_1 pointing down-right. The two tilted axes are mirror images across the 45-degree line running from upper left to lower right, and the arrows e_0 and e_1 are visibly longer on the page than e_0-bar and e_1-bar.",
+   "what_it_teaches": "The algebraic basis law e_alpha = Lambda^beta-bar_alpha e_beta-bar does exactly what geometry demands: each frame's basis vectors lie along that frame's own axes. Because O moves in the negative x-bar direction relative to O-bar, O's axes tilt toward the upper-left/lower-right light line, and Euclidean arrow length on the page is not Minkowski length.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "basis vectors of an inertial frame",
+    "transformation law for basis vectors",
+    "vector as a geometric object"
+   ],
+   "redesign": {
+    "idea": "Two-frame basis explorer: both frames' axes and basis arrows on one diagram, with unit hyperbolae t^2 - x^2 = 1 and x^2 - t^2 = 1 drawn so every basis-vector tip visibly lands on them, plus a draggable test vector decomposed into parallelograms along each basis.",
+    "interaction": "Learner drags a velocity slider (-0.95 to 0.95) and toggles which observer is drawn with rectangular axes; they drag the tip of vector A anywhere. Live panels show A's components in both frames, the Lambda matrix with the entries used highlighted row-wise for components and column-wise for basis vectors, and the invariant A^2 that never changes.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Figure 2.2",
+   "image_path": "schutz/pages/page-59/img-23.jpeg",
+   "locator": {
+    "pdf_page": 59,
+    "printed_page": 41,
+    "section": "2.3"
+   },
+   "caption_paraphrase": "At event A on an accelerated world line, the four-velocity coincides with the time basis vector of the momentarily comoving frame, shown together with that frame's spatial basis vector.",
+   "visual_description": "Axes t (vertical) and x (horizontal). A single curved world line starts below the x axis, rises nearly vertically, and bends steadily to the right as it climbs, showing a particle accelerating in +x. A dot marks event A on the upper part of the curve. Two arrows leave A: one tangent to the curve pointing up and to the right, labelled e_0-bar = U, and a second shallower arrow pointing to the right and slightly upward, labelled e_1-bar. The two arrows lean toward each other, symmetric about the 45-degree direction.",
+   "what_it_teaches": "An accelerated particle has a different inertial rest frame at each event; the MCRF basis at A has its time vector along the world line's tangent (the four-velocity) and its space vector along that frame's line of simultaneity, tilted correspondingly.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "momentarily comoving reference frame",
+    "four-velocity",
+    "orthogonality in Minkowski spacetime"
+   ],
+   "redesign": {
+    "idea": "MCRF slider along an accelerated world line: an event marker rides a chosen world line (hyperbolic, sinusoidal wobble, or learner-sketched), carrying a small orthonormal basis, a light cone and the MCRF's own straight world line and simultaneity line.",
+    "interaction": "Learner drags the marker or scrubs proper time; the MCRF basis rotates hyperbolically, the straight inertial world line of the current MCRF peels away from the curve, and readouts show v, gamma, U components and the check U.U = -1. A 'freeze MCRF' button leaves ghost frames behind to compare successive rest frames.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Figure 2.3",
+   "image_path": "schutz/pages/page-61/img-24.jpeg",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   },
+   "caption_paraphrase": "With several collisions, the set of momentum arrows an observer adds up at one instant is observer-dependent, but their resultant is a single four-vector whose components in different frames are related by a Lorentz transformation. (In the export the caption is split off from the figure and appears as a normal paragraph after the label.)",
+   "visual_description": "Axes t (vertical) and x (horizontal) meet at the origin, with a second pair of lines from the origin: a steep one labelled t-bar and a shallow one labelled x-bar, the axes of a frame moving in +x. To the right, two collision events are marked. Event A lies just below the x axis: one particle world line comes up to it from a dot far below, and two arrows leave it, one up-left and one up-right. Event B lies just above the x axis but below the x-bar line: two world lines arrive from dots at lower left and lower right and cross there, continuing as arrows up-right and up-left. Both events are below the x-bar line, while A is below and B above the x line.",
+   "what_it_teaches": "On O's slice t = 0 the particles counted are those after A and before B; on O-bar's slice t-bar = 0 they are those after both. Because each collision conserves four-momentum locally, both tallies give the same total vector, so conservation does not depend on a choice of simultaneity.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "conservation of four-momentum",
+    "hypersurface of constant time",
+    "relativity of simultaneity"
+   ],
+   "redesign": {
+    "idea": "Who is counted when: two spacelike-separated collisions with the actual momentum arrows, a sweepable simultaneity slice, and a side panel adding the momenta of every world-line segment the slice currently cuts.",
+    "interaction": "Learner sets the observer velocity (tilting the slice) and its time offset. Segments crossing the slice light up; the side panel shows those four-momenta added head-to-tail in a (p^x, E) plane. The individual arrows change as the slice tilts past A or B, but the resultant arrow stays fixed; a toggle breaks conservation at B to show the totals then disagree between observers.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Figure 2.4",
+   "image_path": "schutz/pages/page-63/img-25.jpeg",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   },
+   "caption_paraphrase": "In O's diagram the basis vectors of a moving frame do not look perpendicular, but their Minkowski scalar product is zero.",
+   "visual_description": "Axes t (vertical, arrowed) and x (horizontal, arrowed) of frame O. From the origin two arrows point into the first quadrant: a steep one labelled e_0-bar rising up and to the right, and a shallower one labelled e_1-bar pointing to the right and upward. The angle between them is clearly acute, and they sit symmetrically on either side of the (undrawn) 45-degree line.",
+   "what_it_teaches": "Orthogonality in spacetime is not Euclidean perpendicularity: vectors are orthogonal when they make equal angles with a light ray's 45-degree line, so as the boost speed grows they close in on the light line and a null vector is orthogonal to itself.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "orthogonality in Minkowski spacetime",
+    "orthonormal tetrad",
+    "null vector versus zero vector"
+   ],
+   "redesign": {
+    "idea": "Minkowski protractor: the learner draws any vector and the app instantly draws its Minkowski-orthogonal partner as the reflection across the light line, alongside its Euclidean perpendicular for contrast.",
+    "interaction": "Drag a vector's tip; readouts show both the Euclidean angle between the pair and their Minkowski dot product (always zero for the reflected partner). Dragging toward the light cone makes the vector and its partner converge onto the null line, where the vector becomes its own partner; a toggle switches the dot-product sign convention to show the Euclidean case.",
+    "form": "interactive-2d",
+    "priority": "high"
+   }
+  },
+  {
+   "label": "Figure 2.5",
+   "image_path": "schutz/pages/page-64/img-26.jpeg",
+   "locator": {
+    "pdf_page": 64,
+    "printed_page": 46,
+    "section": "2.6"
+   },
+   "caption_paraphrase": "The infinitesimal displacement along a world line is a vector tangent to it.",
+   "visual_description": "Axes t (vertical, arrowed) and x (horizontal, arrowed). A curved world line crosses the x axis to the right of the origin, climbs steeply and bends gradually to the right. From a point partway up the curve a short straight arrow labelled dx leaves along the tangent, pointing up and slightly right, separating a little from the curve near its tip.",
+   "what_it_teaches": "The displacement between neighbouring events on a world line becomes tangent in the infinitesimal limit; dividing it by dtau gives a unit tangent, the four-velocity.",
+   "figure_type": "spacetime-diagram",
+   "concepts": [
+    "displacement vector",
+    "four-velocity",
+    "proper time"
+   ],
+   "redesign": {
+    "idea": "Secant-to-tangent zoom: two events on a world line joined by a displacement arrow, with the arrow rescaled by the proper time between them.",
+    "interaction": "Learner drags the second event toward the first (or uses a shrink slider); the secant arrow Delta x turns into the tangent while Delta tau and the rescaled arrow Delta x / Delta tau are shown, the latter converging to a vector whose tip sits on the unit hyperbola centred at the base event.",
+    "form": "animated-2d",
+    "priority": "medium"
+   }
+  }
+ ],
+ "worked_examples": [
+  {
+   "label": "An example (boost of components and basis)",
+   "locator": {
+    "pdf_page": 56,
+    "printed_page": 38,
+    "section": "2.2"
+   },
+   "problem": "O-bar moves at speed v along x relative to O. Find the O-bar components of a vector with O components (5, 0, 0, 2), and express O's basis vectors in terms of O-bar's.",
+   "method": "Write the x-boost matrix with gamma; apply the component law row by row; apply the basis law e_alpha = Lambda^beta-bar_alpha e_beta-bar, which reads down a column; sketch the result in O-bar's diagram.",
+   "key_insight": "The same matrix is used in two different index patterns for components and for basis vectors, and the resulting basis vectors of O lie along O's tilted axes as seen by O-bar; y and z parts are untouched and the matrix is symmetric.",
+   "result": "A -> (5 gamma, -5 v gamma, 0, 2) in O-bar; e_0 = gamma e_0-bar - v gamma e_1-bar, e_1 = -v gamma e_0-bar + gamma e_1-bar, e_2 = e_2-bar, e_3 = e_3-bar.",
+   "concepts": [
+    "Lorentz transformation matrix",
+    "transformation law for basis vectors",
+    "symmetry of pure boost matrices"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Derivation of the basis transformation law",
+   "locator": {
+    "pdf_page": 55,
+    "printed_page": 37,
+    "section": "2.2"
+   },
+   "problem": "Given the component law, find how the basis vectors of O are related to those of O-bar.",
+   "method": "Equate A^alpha e_alpha with A^alpha-bar e_alpha-bar; insert A^alpha-bar = Lambda^alpha-bar_beta A^beta; reorder the finite sums; rename beta to alpha and alpha-bar to beta-bar; factor out A^alpha; use arbitrariness of A to set the bracket to zero.",
+   "key_insight": "Relabelling dummy indices is what lets the arbitrary components be isolated; arbitrariness of A turns one vector equation into a law for each basis vector.",
+   "result": "e_alpha = Lambda^beta-bar_alpha e_beta-bar (Eq. 2.13).",
+   "concepts": [
+    "dummy index",
+    "vector as a geometric object",
+    "transformation law for basis vectors"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Inverse transformation from reversed velocity",
+   "locator": {
+    "pdf_page": 58,
+    "printed_page": 40,
+    "section": "2.2"
+   },
+   "problem": "Show that the Lorentz matrix with velocity -v is the inverse of that with v, and invert the component law.",
+   "method": "Write e_alpha in terms of e_beta-bar with Lambda(v) and e_beta-bar in terms of e_nu with Lambda(-v); substitute to express e_alpha through O's own basis; demand the coefficient be 1 for nu = alpha and 0 otherwise; multiply the component law by Lambda(-v) and contract.",
+   "key_insight": "An equation that mentions only one frame's basis must be an identity, which pins down a matrix product as the Kronecker delta; summing on a shared index is matrix multiplication.",
+   "result": "Lambda^nu_beta-bar(-v) Lambda^beta-bar_alpha(v) = delta^nu_alpha and A^nu = Lambda^nu_beta-bar(-v) A^beta-bar.",
+   "concepts": [
+    "inverse Lorentz transformation",
+    "Kronecker delta",
+    "matrix multiplication as index contraction"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "An example (four-velocity and four-momentum of a moving particle)",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   },
+   "problem": "A particle of rest mass m moves at speed v along x of frame O. Find its four-velocity and four-momentum components, and interpret p^0 at low speed.",
+   "method": "In the rest frame O-bar, U = e_0-bar and p = mU; transform to O so U^alpha is the first column of Lambda from O-bar to O; expand gamma for small v.",
+   "key_insight": "Defining a physical vector by its trivial form in the rest frame lets the transformation law generate its components anywhere; the low-speed limit validates the names velocity, momentum and energy.",
+   "result": "U = (gamma, v gamma, 0, 0), p = (m gamma, m v gamma, 0, 0); E = m gamma which is approximately m + m v^2/2.",
+   "concepts": [
+    "four-velocity",
+    "four-momentum",
+    "relativistic energy"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Invariance of the scalar product",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   },
+   "problem": "Prove that A.B defined in one frame has the same value in every frame.",
+   "method": "Note A.A and B.B are invariant magnitudes, as is (A+B).(A+B); expand the latter into A^2 + B^2 + 2A.B and conclude the cross term is invariant.",
+   "key_insight": "Invariance of a bilinear form follows from invariance of its quadratic form, so no matrix algebra is needed.",
+   "result": "A.B is a Lorentz scalar.",
+   "concepts": [
+    "Lorentz invariance of the scalar product",
+    "magnitude of a four-vector"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Examples: orthonormal bases and U.U = -1",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   },
+   "problem": "Evaluate the scalar products of a frame's basis vectors, check the result for a moving frame's basis drawn in O's diagram, and deduce the norm of any four-velocity.",
+   "method": "Use component definitions in the frame's own coordinates to get eta; since the argument works in any frame, the moving basis is also orthonormal although the arrows look non-perpendicular (Figure 2.4); a four-velocity is a time basis vector.",
+   "key_insight": "Orthonormality is frame independent, but its picture is not Euclidean: equal angles to the light line replace right angles.",
+   "result": "e_alpha.e_beta = eta_alpha-beta; e_0-bar.e_1-bar = 0; U.U = -1.",
+   "concepts": [
+    "orthonormal tetrad",
+    "orthogonality in Minkowski spacetime",
+    "normalization of four-velocity"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Four-velocity and four-acceleration as derivatives",
+   "locator": {
+    "pdf_page": 64,
+    "printed_page": 46,
+    "section": "2.6"
+   },
+   "problem": "Show that dx/dtau is the four-velocity and that the four-acceleration dU/dtau is orthogonal to it.",
+   "method": "Compute the magnitude of dx/dtau using dtau^2 = -dx.dx; evaluate it in the MCRF where dtau = dt; then differentiate U.U = -1 with the product rule and read off components in the MCRF.",
+   "key_insight": "A vector of constant magnitude has a derivative orthogonal to itself, and in the MCRF being orthogonal to U means having no time component. (The comparison with uniform circular motion in the plane is a tutoring analogy, not something the book draws.)",
+   "result": "U = dx/dtau; a = dU/dtau with U.a = 0 and a = (0, a^1, a^2, a^3) in the MCRF.",
+   "concepts": [
+    "four-velocity",
+    "four-acceleration",
+    "proper time"
+   ],
+   "difficulty": "standard"
+  },
+  {
+   "label": "Energy-momentum relation and observer energy",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   },
+   "problem": "Relate a particle's energy to its momentum and rest mass, and find the energy measured by an arbitrary observer.",
+   "method": "Compute p.p = m^2 U.U = -m^2 and expand in components; for an observer, note U_obs is that observer's e_0-bar and evaluate p.e_0-bar in the observer's frame.",
+   "key_insight": "A frame-specific quantity (energy relative to an observer) can be written as an invariant scalar product, which is then computable in whatever frame is convenient.",
+   "result": "E^2 = m^2 + |p|^2; E-bar = -p.U_obs.",
+   "concepts": [
+    "energy–momentum relation",
+    "energy measured by an observer"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Photon momentum and the Doppler shift",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   },
+   "problem": "A photon of frequency nu travels along x in O. Find its frequency in O-bar moving at v along x.",
+   "method": "Build p = (E, E, 0, 0) with E = h nu; apply the boost to the time component; set the result equal to h nu-bar.",
+   "key_insight": "Once light has a four-momentum, the Doppler effect is just a Lorentz transformation plus E = h nu.",
+   "result": "nu-bar/nu = (1-v)/sqrt(1-v^2) = sqrt((1-v)/(1+v)); for example v = 0.6 halves the frequency (dossier's own illustration).",
+   "concepts": [
+    "photon four-momentum",
+    "relativistic Doppler shift",
+    "Planck relation"
+   ],
+   "difficulty": "intro"
+  },
+  {
+   "label": "Why massive particles stay below light speed",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   },
+   "problem": "Show that no amount of energy brings a massive particle to v = 1, while a massless one always moves at v = 1.",
+   "method": "From p.p = -m^2 for motion along x, write p^1/p^0 = sqrt(1 - m^2/(p^0)^2); compare with p^1/p^0 = 1 for a null momentum; identify the frame moving at p^1/p^0 as a rest frame.",
+   "key_insight": "The ratio p/E is the velocity; the mass term keeps it strictly below 1 for any finite E, and a rest frame exists exactly when m is not zero.",
+   "result": "v = p/E < 1 for m > 0; v = 1 and no rest frame for m = 0.",
+   "concepts": [
+    "light speed as an unreachable limit for massive particles",
+    "zero rest-mass particles"
+   ],
+   "difficulty": "intro"
+  }
+ ],
+ "analogies_and_intuitions": [
+  {
+   "analogy": "A Euclidean arrow keeps its identity when the coordinate axes are rotated; only its components change.",
+   "target_concept": "vector as a geometric object",
+   "how_used": "The chapter opens by importing this Euclidean picture and then enforces it with notation: the vector symbol never gets a bar, only its indices do. Footnote 1 names it a passive transformation.",
+   "limits": "In spacetime the 'rotation' is a boost that tilts axes toward the light line and stretches arrows on the page, so Euclidean length and angle intuition fails even though the object-versus-components idea survives.",
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Split screen: a 2D Euclidean rotation and a Minkowski boost applied to the same arrow, with component readouts changing and the arrow fixed in both panels."
+  },
+  {
+   "analogy": "Galilean velocity is a tangent to a particle's spatial path; four-velocity is a tangent to its world line in spacetime.",
+   "target_concept": "four-velocity",
+   "how_used": "Motivates the definition of U and its length condition (one unit of the particle's own time).",
+   "limits": "Galilean velocity can have any length; four-velocity is fixed at unit timelike norm and so cannot encode speed through its length, only through its tilt.",
+   "locator": {
+    "pdf_page": 59,
+    "printed_page": 41,
+    "section": "2.3"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Morph a 3D path with velocity arrows into a world line with four-velocity arrows whose tips all lie on the unit hyperbola."
+  },
+  {
+   "analogy": "The magnitude of a vector is built exactly like the interval between two events.",
+   "target_concept": "magnitude of a four-vector",
+   "how_used": "Gives invariance for free, since components transform like coordinate differences.",
+   "limits": "The resulting 'length' can be negative or zero for nonzero vectors, unlike any Euclidean length.",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   },
+   "effectiveness": "strong",
+   "app_idea": null
+  },
+  {
+   "analogy": "eta is a Kronecker delta with a minus sign in the time slot.",
+   "target_concept": "Minkowski metric components",
+   "how_used": "Lets the reader handle eta by familiar rules before it is recognized as a tensor.",
+   "limits": "Unlike delta, eta has two lower indices and changes form in non-inertial or non-orthonormal bases; the analogy hides its geometric role as the metric.",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "Summing over a shared index between two Lambdas is ordinary row-times-column matrix multiplication.",
+   "target_concept": "matrix multiplication as index contraction",
+   "how_used": "Translates Eq. 2.18 into the familiar statement that one matrix is the inverse of another.",
+   "limits": "Index notation is more general: it tracks which index is summed and handles objects with more than two indices where matrix pictures break down.",
+   "locator": {
+    "pdf_page": 58,
+    "printed_page": 40,
+    "section": "2.2"
+   },
+   "effectiveness": "useful",
+   "app_idea": "Hover over an index expression to highlight the corresponding row and column in two matrices and the resulting entry."
+  },
+  {
+   "analogy": "Orthogonal vectors on a spacetime diagram are mirror images across the 45-degree light line.",
+   "target_concept": "orthogonality in Minkowski spacetime",
+   "how_used": "Offers a drawing rule that replaces right angles for the t-x plane, explaining Figure 2.4 and the self-orthogonality of null vectors.",
+   "limits": "Valid as stated only for vectors lying in one t-x plane of the diagram; in more dimensions or with other orientations it must be generalized.",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   },
+   "effectiveness": "strong",
+   "app_idea": "Mirror tool: reflecting any drawn vector across the light line produces its orthogonal partner, with a live dot-product meter."
+  },
+  {
+   "analogy": "Each observer takes a snapshot slice of spacetime and adds up the momenta of whatever particles cross it.",
+   "target_concept": "hypersurface of constant time",
+   "how_used": "Frames the question of when to total momenta and shows the answer is slice independent if every collision conserves momentum.",
+   "limits": "The snapshot picture only works when all interactions are local events; with extended fields or curved spacetime the bookkeeping needs fluxes through boundaries (developed in Chapter 4).",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   },
+   "effectiveness": "useful",
+   "app_idea": null
+  },
+  {
+   "analogy": "The CM frame is to a system of particles what the MCRF is to a single particle.",
+   "target_concept": "centre of momentum frame",
+   "how_used": "The definition explicitly echoes the MCRF remark that any frame at rest relative to it also qualifies.",
+   "limits": "A CM frame exists only for a timelike total momentum; a lone photon, or photons all moving the same way, has none.",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   },
+   "effectiveness": "weak",
+   "app_idea": null
+  }
+ ],
+ "misconceptions_addressed": [
+  {
+   "misconception": "Transforming to another frame produces a different vector, so it should get a new symbol.",
+   "correction": "The vector is the same geometric object; only its components change, which is why the bar goes on the index.",
+   "why_tempting": "Components are what we compute with, and they do change.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   },
+   "concepts": [
+    "vector as a geometric object"
+   ]
+  },
+  {
+   "misconception": "A dummy Greek index can be renamed to any letter, including a Latin one.",
+   "correction": "Latin indices run only over 1-3, so replacing a Greek dummy by a Latin one drops the time term.",
+   "why_tempting": "The rule 'dummy names are arbitrary' sounds unconditional.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 53,
+    "printed_page": 35,
+    "section": "2.1"
+   },
+   "concepts": [
+    "dummy index",
+    "Greek and Latin index ranges"
+   ]
+  },
+  {
+   "misconception": "A free index can be renamed on one side of an equation only.",
+   "correction": "A free index must be renamed consistently in every term, otherwise the equation no longer links matching components.",
+   "why_tempting": "Renaming dummies is local to a term, and learners overgeneralize.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 53,
+    "printed_page": 35,
+    "section": "2.1"
+   },
+   "concepts": [
+    "free index"
+   ]
+  },
+  {
+   "misconception": "A^alpha e_alpha and A^alpha-bar e_alpha-bar differ only by relabelling dummy indices.",
+   "correction": "Barred and unbarred indices refer to different frames; the component sets and the basis sets both differ, and only the sums agree.",
+   "why_tempting": "Both look like a sum over a repeated index.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 55,
+    "printed_page": 37,
+    "section": "2.2"
+   },
+   "concepts": [
+    "vector as a geometric object",
+    "basis vectors of an inertial frame"
+   ]
+  },
+  {
+   "misconception": "Basis vectors transform with the same law as components.",
+   "correction": "The basis law e_alpha = Lambda^beta-bar_alpha e_beta-bar uses the matrix the other way round, precisely so that component and basis changes cancel in A^alpha e_alpha.",
+   "why_tempting": "Both involve the same Lambda and look superficially alike.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 55,
+    "printed_page": 37,
+    "section": "2.2"
+   },
+   "concepts": [
+    "transformation law for basis vectors"
+   ]
+  },
+  {
+   "misconception": "The inverse transformation needs a fresh matrix inversion, or the sign of v in a given Lambda is arbitrary.",
+   "correction": "The inverse is the same boost with -v, and each Lambda's velocity is the motion of its upper-index frame as judged from its lower-index frame.",
+   "why_tempting": "Two frames and two directions of transformation make sign bookkeeping confusing.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 57,
+    "printed_page": 39,
+    "section": "2.2"
+   },
+   "concepts": [
+    "inverse Lorentz transformation"
+   ]
+  },
+  {
+   "misconception": "Any quadruple of physical quantities, such as (1, v_x, v_y, v_z) or (t, E, p, m), is automatically a four-vector.",
+   "correction": "Four numbers in one frame define a four-vector only when their values in every other frame are, by definition, given by the Lorentz rule; physically measured quantities must be checked to transform that way, and all components must share dimensions.",
+   "why_tempting": "The text remarks that any four same-dimensioned numbers make a vector, which is true as a definition but not a license to assemble arbitrary physical quantities.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 54,
+    "printed_page": 36,
+    "section": "2.1"
+   },
+   "concepts": [
+    "four-vector"
+   ]
+  },
+  {
+   "misconception": "A particle has a unique momentarily comoving frame.",
+   "correction": "At a given event there are infinitely many MCRFs, all with the same velocity, differing by spatial rotations; the ambiguity rarely matters.",
+   "why_tempting": "'The' rest frame sounds definite.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 59,
+    "printed_page": 41,
+    "section": "2.3"
+   },
+   "concepts": [
+    "momentarily comoving reference frame"
+   ]
+  },
+  {
+   "misconception": "Rest mass is separately conserved in collisions, as in Newtonian mechanics.",
+   "correction": "Only total four-momentum is conserved; rest mass counts as energy and can be turned into kinetic energy and heat, as in nuclear reactors.",
+   "why_tempting": "Newtonian physics treats mass conservation and energy conservation as independent laws.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   },
+   "concepts": [
+    "mass–energy conversion",
+    "conservation of four-momentum"
+   ]
+  },
+  {
+   "misconception": "Since observers disagree on which collisions have happened 'by now', they must disagree about the total momentum.",
+   "correction": "Each collision conserves four-momentum locally, so the total over any observer's constant-time slice is the same vector; only its components differ.",
+   "why_tempting": "Relativity of simultaneity really does change which particles are counted.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   },
+   "concepts": [
+    "conservation of four-momentum",
+    "hypersurface of constant time"
+   ]
+  },
+  {
+   "misconception": "A vector with zero magnitude must be the zero vector, and magnitudes are never negative.",
+   "correction": "The Minkowski magnitude is indefinite: timelike vectors have negative magnitude, and null vectors have zero magnitude with nonzero components.",
+   "why_tempting": "Every inner product met before (Euclidean) is positive definite.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   },
+   "concepts": [
+    "null vector versus zero vector",
+    "magnitude of a four-vector"
+   ]
+  },
+  {
+   "misconception": "Orthogonal vectors must appear at right angles on a spacetime diagram.",
+   "correction": "Minkowski orthogonality shows up as symmetry about the light line; a moving frame's basis vectors look acutely angled yet are orthogonal, and a null vector is orthogonal to itself.",
+   "why_tempting": "Paper diagrams are Euclidean, so our eyes measure Euclidean angles.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   },
+   "concepts": [
+    "orthogonality in Minkowski spacetime"
+   ]
+  },
+  {
+   "misconception": "Photons have a four-velocity like other particles, just with speed 1.",
+   "correction": "Null world lines have dtau = 0 and no unit tangent, and light has no rest frame, so four-velocity is undefined; tangent vectors like dx or p still exist.",
+   "why_tempting": "Photons obviously move and have a direction.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   },
+   "concepts": [
+    "absence of photon four-velocity"
+   ]
+  },
+  {
+   "misconception": "Four-momentum, like four-velocity, is a unit vector.",
+   "correction": "p = mU has magnitude -m^2, and for photons it is null; its components carry energy and momentum, not a normalization.",
+   "why_tempting": "p is defined as a multiple of the unit vector U.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   },
+   "concepts": [
+    "four-momentum",
+    "photon four-momentum"
+   ]
+  },
+  {
+   "misconception": "With enough energy a massive particle can reach the speed of light.",
+   "correction": "Its velocity p/E = sqrt(1 - m^2/E^2) stays below 1 for every finite energy, and it always keeps a rest frame.",
+   "why_tempting": "Accelerator particles get arbitrarily close to c, and classical intuition says more push means more speed without bound.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   },
+   "concepts": [
+    "light speed as an unreachable limit for massive particles"
+   ]
+  },
+  {
+   "misconception": "Neutrinos (and gravitons) are established massless particles alongside the photon.",
+   "correction": "Neutrinos have small but nonzero masses; the graviton is not a well-defined notion without a quantum theory of gravity.",
+   "why_tempting": "Older textbooks listed neutrinos as massless, and gravitational waves do travel at light speed.",
+   "explicit_in_book": true,
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   },
+   "concepts": [
+    "zero rest-mass particles",
+    "graviton"
+   ]
+  },
+  {
+   "misconception": "The four-acceleration has zero time component in every frame.",
+   "correction": "Only in the MCRF is it purely spatial; in general frames U.a = 0 couples its time and space components.",
+   "why_tempting": "The chapter shows its components only in the MCRF.",
+   "explicit_in_book": false,
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   },
+   "concepts": [
+    "four-acceleration"
+   ]
+  }
+ ],
+ "thought_experiments": [
+  {
+   "name": "Two collisions seen from two slices",
+   "setup": "Two unrelated collisions A and B occur at spacelike-separated events. Observer O's t = 0 slice passes after A but before B; a moving observer O-bar's slice passes after both; some third frame reverses their order.",
+   "lesson": "The sets of particles counted differ between observers, but because momentum is conserved at each collision, every observer's total is the same four-vector.",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   },
+   "concepts": [
+    "conservation of four-momentum",
+    "hypersurface of constant time",
+    "relativity of simultaneity"
+   ],
+   "visualizable": true,
+   "app_idea": "See the Figure 2.3 redesign: a tilting slice with a live momentum-sum panel."
+  },
+  {
+   "name": "Chasing a photon",
+   "setup": "Try to find an inertial frame in which a photon is at rest, or to normalize its world-line tangent to unit length.",
+   "lesson": "Neither is possible: the second postulate forbids the frame and a null tangent cannot be normalized, so photons have no four-velocity.",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   },
+   "concepts": [
+    "absence of photon four-velocity"
+   ],
+   "visualizable": true,
+   "app_idea": "Boost slider applied to a photon's world line: the line stays at 45 degrees for every boost while a massive particle's world line can be made vertical."
+  },
+  {
+   "name": "Pumping energy into a massive particle",
+   "setup": "Keep adding energy to a particle of rest mass m moving along x and track p^1/p^0.",
+   "lesson": "The ratio creeps toward but never reaches 1; the particle always has a rest frame, unlike a photon.",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   },
+   "concepts": [
+    "light speed as an unreachable limit for massive particles"
+   ],
+   "visualizable": true,
+   "app_idea": "Energy dial with a plot of v = p/E versus E/m approaching the asymptote 1, and the particle's mass hyperbola in the (p, E) plane."
+  },
+  {
+   "name": "Hot body versus cold body",
+   "setup": "Exercise 2.27: two identical 10 kg bodies, one given 100 J of heat, are pushed by equal forces.",
+   "lesson": "Added internal energy adds inertia, so the heated body accelerates very slightly less.",
+   "locator": {
+    "pdf_page": 72,
+    "printed_page": 54,
+    "section": null
+   },
+   "concepts": [
+    "mass–energy conversion"
+   ],
+   "visualizable": false,
+   "app_idea": null
+  },
+  {
+   "name": "One-g rocket to the Galactic centre",
+   "setup": "Exercise 2.19: a rocket keeps a constant proper acceleration of about 10 m/s^2 from rest and travels about 2e20 m.",
+   "lesson": "Coordinate speed saturates below light speed while proper time grows only logarithmically with distance, so the crew ages far less than the travel time seen from Earth.",
+   "locator": {
+    "pdf_page": 70,
+    "printed_page": 52,
+    "section": null
+   },
+   "concepts": [
+    "uniform acceleration",
+    "proper time",
+    "four-acceleration"
+   ],
+   "visualizable": true,
+   "app_idea": "Dual clocks and a hyperbolic world line: Earth time, ship time and distance advance together with a slider for proper acceleration."
+  }
+ ],
+ "historical_notes": [
+  {
+   "people": [
+    "Albert Einstein"
+   ],
+   "year": null,
+   "event": "The implied-sum rule for repeated upper and lower indices is named after Einstein.",
+   "significance": "The convention adopted here is used on nearly every later page of the book.",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "people": [
+    "Max Planck"
+   ],
+   "year": null,
+   "event": "Photon energy proportional to frequency, E = h nu, is imported from quantum theory to connect four-momentum with frequency.",
+   "significance": "Lets the Doppler shift follow from a single Lorentz transformation.",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   }
+  },
+  {
+   "people": [
+    "Arthur H. Compton"
+   ],
+   "year": null,
+   "event": "Exercise 2.32 names the scattering of photons by charged particles after Compton and asks for its frequency formula from four-momentum conservation.",
+   "significance": "A classic experimental confirmation that photons carry relativistic four-momentum.",
+   "locator": {
+    "pdf_page": 72,
+    "printed_page": 54,
+    "section": null
+   }
+  },
+  {
+   "people": [],
+   "year": null,
+   "event": "The text states that neutrinos are very light but not massless and that the graviton is not yet a well-defined concept.",
+   "significance": "Reflects the modern (post neutrino-oscillation) particle picture, correcting the older habit of listing neutrinos among massless particles.",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  }
+ ],
+ "applications_and_observations": [
+  {
+   "topic": "Nuclear power as conversion of rest mass",
+   "kind": "technology",
+   "details": "Cited as everyday evidence that energy conservation must include rest mass, which can be reduced with the difference released as heat.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   }
+  },
+  {
+   "topic": "Particle physics as the sharpest test of special relativity",
+   "kind": "experiment",
+   "details": "The bibliography notes that relativistic kinematics underlies particle physics, which provides the most stringent tests of the theory.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.8"
+   }
+  },
+  {
+   "topic": "Neutrino mass and massless particles",
+   "kind": "observation",
+   "details": "The photon is the only known particle with zero rest mass; neutrinos are very light but have mass.",
+   "key_numbers": null,
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  },
+  {
+   "topic": "Planck's constant",
+   "kind": "numerical-estimate",
+   "details": "Value quoted with E = h nu for the Doppler discussion; the printed unit J s^-1 should read J s.",
+   "key_numbers": "h = 6.6256e-34 J s (modern value 6.62607015e-34 J s)",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   }
+  },
+  {
+   "topic": "Collinear Doppler factor (dossier's own illustration)",
+   "kind": "numerical-estimate",
+   "details": "Plugging numbers into Eq. 2.39 shows how quickly the shift grows with receding speed.",
+   "key_numbers": "Own estimate: v = 0.6 gives nu-bar/nu = 0.5; v = 0.8 gives 1/3.",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  },
+  {
+   "topic": "Relativistic rocket at one Earth gravity (Exercise 2.19)",
+   "kind": "numerical-estimate",
+   "details": "Constant proper acceleration 10 m/s^2 from rest; speed after coordinate time t, time to reach v = 0.999, and proper time for a trip to the Galactic centre.",
+   "key_numbers": "Own estimate (accelerating the whole way): c/g is about 0.95 yr; reaching v = 0.999 takes about 21 yr of Earth time but about 3.6 yr of ship time; covering 2e20 m takes about 10 yr of ship time.",
+   "locator": {
+    "pdf_page": 70,
+    "printed_page": 52,
+    "section": null
+   }
+  },
+  {
+   "topic": "Inverse-Compton upscattering of the microwave background (Exercise 2.33)",
+   "kind": "numerical-estimate",
+   "details": "A 2e-4 eV background photon scatters off a cosmic-ray proton of 1e18 eV (gamma about 1e9) in the solar frame; the exercise asks for the maximum outgoing photon energy using the Compton formula in the proton frame.",
+   "key_numbers": "Own estimate: head-on back-scatter gives roughly 4 gamma^2 times 2e-4 eV, about 8e14 eV, i.e. a very-high-energy gamma ray; proton recoil in its rest frame is negligible (photon energy there about 0.4 MeV versus 938 MeV).",
+   "locator": {
+    "pdf_page": 72,
+    "printed_page": 54,
+    "section": null
+   }
+  },
+  {
+   "topic": "Heated body gains inertia (Exercise 2.27)",
+   "kind": "numerical-estimate",
+   "details": "100 J of heat added to a 10 kg body.",
+   "key_numbers": "Own estimate: mass increase 100 J / c^2 = 1.1e-15 kg, a fractional change of about 1.1e-16 in acceleration under equal force.",
+   "locator": {
+    "pdf_page": 72,
+    "printed_page": 54,
+    "section": null
+   }
+  },
+  {
+   "topic": "Cosmic-ray energy measured aboard a rocket (Exercise 2.30)",
+   "kind": "numerical-estimate",
+   "details": "Rocket four-velocity (2,1,1,1) and cosmic-ray four-momentum (300, 299, 0, 0) x 1e-27 kg; energy seen by passengers via -P.U.",
+   "key_numbers": "Own estimate: -P.U = (300 x 2 - 299 x 1) x 1e-27 kg = 3.01e-25 kg, about 2.7e-8 J (roughly 170 GeV).",
+   "locator": {
+    "pdf_page": 72,
+    "printed_page": 54,
+    "section": null
+   }
+  },
+  {
+   "topic": "Where the Newtonian energy approximation fails (Exercise 2.23)",
+   "kind": "numerical-estimate",
+   "details": "Next term in the expansion of E is 3mv^4/8; the exercise asks when it reaches half the kinetic term.",
+   "key_numbers": "Own estimate: |v| = sqrt(2/3), about 0.82.",
+   "locator": {
+    "pdf_page": 71,
+    "printed_page": 53,
+    "section": null
+   }
+  }
+ ],
+ "notation_and_conventions": [
+  {
+   "item": "Four-vectors and three-vectors",
+   "convention": "An arrow over a symbol marks a four-vector (x-arrow has nothing to do with the coordinate x); boldface marks a three-vector; 'vector' means four-vector unless stated.",
+   "notes": "Boldface convention is in footnote 2, dropped by the export.",
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   }
+  },
+  {
+   "item": "'Has components' arrow",
+   "convention": "A ->_O (A^0, A^1, A^2, A^3) means 'A has these components in frame O'; it is not an equality between a vector and numbers.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   }
+  },
+  {
+   "item": "Component order",
+   "convention": "Components listed as (t, x, y, z), i.e. indices 0, 1, 2, 3.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   }
+  },
+  {
+   "item": "Barred indices",
+   "convention": "A bar on an index (A^alpha-bar, e_alpha-bar) refers to frame O-bar; the vector symbol itself is never barred. A double bar denotes a third frame in the exercises.",
+   "notes": "The export often renders the bar as a tilde; the printed book uses bars.",
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   }
+  },
+  {
+   "item": "Index ranges",
+   "convention": "Greek indices 0-3; Latin indices 1-3.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 53,
+    "printed_page": 35,
+    "section": "2.1"
+   }
+  },
+  {
+   "item": "Summation convention",
+   "convention": "Repeated index, once up and once down, is summed; basis vectors carry lower indices so A^alpha e_alpha sums.",
+   "notes": "Index positions are justified only in later chapters.",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "item": "Lambda index placement and velocity argument",
+   "convention": "Lambda^alpha-bar_beta takes O components to O-bar components; the argument v of Lambda(v) is the motion of the frame on the upper index as measured from the frame on the lower index.",
+   "notes": "In Eq. 2.21 Lambda^alpha_0-bar therefore carries the velocity of O relative to the rest frame.",
+   "locator": {
+    "pdf_page": 57,
+    "printed_page": 39,
+    "section": "2.2"
+   }
+  },
+  {
+   "item": "Lorentz factor",
+   "convention": "gamma := 1/sqrt(1 - v^2).",
+   "notes": null,
+   "locator": {
+    "pdf_page": 56,
+    "printed_page": 38,
+    "section": "2.2"
+   }
+  },
+  {
+   "item": "Units",
+   "convention": "c = 1 inherited from Chapter 1; speeds are dimensionless, and energy, momentum and mass share units (the exercises quote four-momenta in kg).",
+   "notes": "G is not needed in this chapter.",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "item": "Metric signature",
+   "convention": "Scalar product and eta use signature (-, +, +, +): eta_00 = -1, eta_ii = +1.",
+   "notes": "Consequently timelike vectors have negative magnitude and unit timelike vectors have magnitude -1.",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   }
+  },
+  {
+   "item": "Magnitude",
+   "convention": "The word 'magnitude' and the symbol A^2 denote the signed quantity A.A itself, not a square root.",
+   "notes": "Differs from the Euclidean habit of calling |A| the magnitude.",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   }
+  },
+  {
+   "item": "Energy and momentum components",
+   "convention": "p^0 = E, spatial momentum p^i; for photons p^x, p^y, p^z are used; E-bar denotes energy in the observer's frame.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "item": "Particle labels",
+   "convention": "Parenthesized subscripts such as p_(i) label particles and are not tensor indices, so no summation is implied by them.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "item": "Abbreviations",
+   "convention": "MCRF = momentarily comoving reference frame; CM = centre of momentum; U_obs = four-velocity of an observer.",
+   "notes": null,
+   "locator": {
+    "pdf_page": 59,
+    "printed_page": 41,
+    "section": "2.3"
+   }
+  }
+ ],
+ "margin_notes": [
+  {
+   "summary": "Footnote 1 (lost in the export, read from the render): changing frames in this way is the linear-algebra notion of a passive transformation, where only the coordinate description changes and the arrow stays fixed.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "summary": "Footnote 2 (lost in the export, read from the render): introduces the name four-vector, contrasts it with the three-vectors of elementary physics, says 'vector' will mean four-vector by default, and fixes the typography: arrows for four-vectors, boldface for three-vectors.",
+   "type": "clarification",
+   "locator": {
+    "pdf_page": 53,
+    "printed_page": 35,
+    "section": "2.1"
+   }
+  },
+  {
+   "summary": "Opening promise that a more satisfactory definition of vector will come later (realized as tangent vectors to curves on manifolds).",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   }
+  },
+  {
+   "summary": "Reason for writing one Lambda index up and one down is deferred to differential geometry.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "summary": "Reader is told to compare Figure 2.1 with Chapter 1's Figure 1.5(b), the same two frames drawn from the moving observer's viewpoint.",
+   "type": "backward-pointer",
+   "locator": {
+    "pdf_page": 56,
+    "printed_page": 38,
+    "section": "2.2"
+   }
+  },
+  {
+   "summary": "Exercise 2.11 is recommended for mastering which velocity sign goes into each Lambda.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 57,
+    "printed_page": 39,
+    "section": "2.2"
+   }
+  },
+  {
+   "summary": "Parenthetical caution that an accelerated particle has infinitely many MCRFs at an event, related by spatial rotations.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 59,
+    "printed_page": 41,
+    "section": "2.3"
+   }
+  },
+  {
+   "summary": "Warning that the reasoning about totals on constant-time hypersurfaces will recur with later conservation laws.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   }
+  },
+  {
+   "summary": "eta is announced as the metric tensor, to be treated properly later.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   }
+  },
+  {
+   "summary": "Exercise 2.19 is cited as the justification for calling dU/dtau an acceleration.",
+   "type": "forward-pointer",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   }
+  },
+  {
+   "summary": "Aside that the graviton is sometimes listed as massless but is not yet well defined without quantum gravity; neutrinos are light but massive.",
+   "type": "caution",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  },
+  {
+   "summary": "Bibliography: Hagedorn (1963) and Wiedemann (2007) for relativistic kinematics and particle dynamics.",
+   "type": "reference",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.8"
+   }
+  }
+ ],
+ "exercises": {
+  "count_estimate": 35,
+  "pdf_pages": [
+   68,
+   69,
+   70,
+   71,
+   72,
+   73
+  ],
+  "skills_practiced": [
+   "evaluating index expressions with explicit number arrays",
+   "identifying and renaming free and dummy indices",
+   "transforming components between frames and checking invariance of magnitudes and dot products",
+   "writing inverse and composed Lorentz matrices and interpreting non-symmetric products",
+   "drawing basis vectors of moving frames on spacetime diagrams",
+   "computing four-velocity and four-acceleration for given world lines",
+   "relating three-velocity, four-velocity and velocity addition",
+   "classifying vectors and proving orthogonality results",
+   "applying four-momentum conservation to reactions, CM frames and Compton scattering",
+   "Doppler shifts at arbitrary angle, including the transverse shift",
+   "using invariant scalar products (-p.U_obs) instead of explicit boosts",
+   "order-of-magnitude estimates in relativistic astrophysics and space travel"
+  ],
+  "notable": [
+   {
+    "number": "2.13",
+    "summary": "Compose a boost of 0.6 along x with a boost of 0.8 along the intermediate frame's y axis, verify the product preserves the interval, then explain why the result is not symmetric and why reversing the order gives a different matrix.",
+    "skills": [
+     "matrix product of boosts",
+     "interval invariance check",
+     "physical interpretation of non-commuting boosts"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "The only place the chapter hints that two non-collinear boosts include a rotation (Thomas-Wigner), which matters for spin precession and gyroscopes later.",
+    "pdf_page": 69
+   },
+   {
+    "number": "2.19",
+    "summary": "Define uniform acceleration via the four-acceleration, show it matches a constant felt acceleration, and follow a 10 m/s^2 rocket: speed and distance versus time, time to reach 0.999, proper time elapsed, and ageing on a trip to the Galactic centre.",
+    "skills": [
+     "hyperbolic motion",
+     "proper-time integration",
+     "unit conversion with c = 1"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Turns abstract four-acceleration into the classic relativistic rocket, with dramatic numbers and a direct link to Rindler observers used later.",
+    "pdf_page": 70
+   },
+   {
+    "number": "2.21",
+    "summary": "Analyse the world line t = a sinh(lambda/a), x = a cosh(lambda/a): show lambda is proper time, the four-acceleration is uniform, and interpret the constant a.",
+    "skills": [
+     "parametrized world lines",
+     "four-velocity and acceleration components",
+     "hyperbolae as uniformly accelerated paths"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Supplies the uniformly accelerated world line that Exercise 5.21 builds on when constructing an accelerated observer's coordinates.",
+    "pdf_page": 71
+   },
+   {
+    "number": "2.24",
+    "summary": "Use four-momentum conservation to prove an electron-positron pair cannot annihilate into one photon, while two photons are allowed.",
+    "skills": [
+     "CM-frame reasoning",
+     "null versus timelike total momentum"
+    ],
+    "difficulty": "standard",
+    "why_notable": "A crisp demonstration that invariant magnitudes forbid reactions without any detailed dynamics.",
+    "pdf_page": 71
+   },
+   {
+    "number": "2.25",
+    "summary": "Derive the Doppler formula for a photon travelling at an angle, identify the transverse Doppler shift, find the angle of zero shift, and rederive it with -p.U_obs.",
+    "skills": [
+     "boosting null momenta",
+     "invariant energy formula",
+     "angle dependence of Doppler shift"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Generalizes Eq. 2.39 and exposes time dilation hidden in the Doppler effect.",
+    "pdf_page": 71
+   },
+   {
+    "number": "2.30",
+    "summary": "Compute the energy of a cosmic ray measured by rocket passengers both by constructing the boost to the rocket's frame and via -P.U, then compare the effort.",
+    "skills": [
+     "general boost construction",
+     "invariant scalar products"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Makes the reader feel the payoff of the chapter's advice to use invariant expressions.",
+    "pdf_page": 72
+   },
+   {
+    "number": "2.33",
+    "summary": "Apply the Compton formula in the rest frame of a 1e18 eV cosmic-ray proton to a microwave-background photon and find the maximum photon energy back in the solar frame, naming its band.",
+    "skills": [
+     "frame hopping",
+     "Compton kinematics",
+     "astrophysical order-of-magnitude reasoning"
+    ],
+    "difficulty": "challenging",
+    "why_notable": "Links chapter kinematics to inverse-Compton production of high-energy gamma rays in astrophysics.",
+    "pdf_page": 72
+   },
+   {
+    "number": "2.35",
+    "summary": "Check that the basis vectors produced by the reversed-velocity transformation of Eq. 2.15 still satisfy e-bar_alpha . e-bar_beta = eta_alpha-beta.",
+    "skills": [
+     "basis transformation",
+     "orthonormality check"
+    ],
+    "difficulty": "standard",
+    "why_notable": "Confirms that boosts carry orthonormal tetrads to orthonormal tetrads, the property that defines Lorentz transformations.",
+    "pdf_page": 73
+   }
+  ],
+  "solutions": null
+ },
+ "difficulty": {
+  "math_level": 2,
+  "conceptual_level": 3,
+  "novice_friendliness": 4,
+  "notes": "Mathematically light (linear combinations, matrix products, a product-rule derivative), but the index gymnastics are new to most readers and the frame-labelling of Lambda matrices is a genuine source of sign errors. Conceptually the hardest ideas are object-versus-components, indefinite orthogonality, and conservation independent of simultaneity. Explanations are slow and explicit, with many small examples; the text is terse only on the provisional nature of the vector definition and on four-acceleration in general frames. Export issues: footnotes 1-2 are missing from the reading copy, the Figure 2.3 caption is detached from its figure and appears as an ordinary paragraph, and bars are often transcribed as tildes or dropped (e.g. the right side of Eq. 2.25)."
+ },
+ "cross_references": [
+  {
+   "direction": "backward",
+   "target": "SCH ch1 §1.6",
+   "reason": "Invariant interval (Eq. 1.1) is the model for the magnitude of a vector and reappears as ds^2 = dx.dx.",
+   "locator": {
+    "pdf_page": 64,
+    "printed_page": 46,
+    "section": "2.6"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "SCH ch1 §1.8",
+   "reason": "Proper time definition (Eq. 1.9) rewritten as dtau^2 = -dx.dx.",
+   "locator": {
+    "pdf_page": 64,
+    "printed_page": 46,
+    "section": "2.6"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "SCH ch1 §1.9",
+   "reason": "Lorentz transformation (Eq. 1.12) supplies the Lambda coefficients; Exercise 2.11 starts from it.",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "SCH ch1 §1.5",
+   "reason": "Figure 1.5(b), the two frames drawn from O-bar's viewpoint, is the axis picture behind Figure 2.1.",
+   "locator": {
+    "pdf_page": 56,
+    "printed_page": 38,
+    "section": "2.2"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "SCH ch1 §1.1",
+   "reason": "Second postulate used to show light has no rest frame and hence no four-velocity.",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   }
+  },
+  {
+   "direction": "backward",
+   "target": "SCH ch1 §1.10",
+   "reason": "Velocity-addition law rederived with four-velocities in Exercise 2.16.",
+   "locator": {
+    "pdf_page": 70,
+    "printed_page": 52,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch3 §3.1",
+   "reason": "eta_alpha-beta is promoted to the metric tensor g, a machine taking two vectors to their scalar product.",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch3 §3.3",
+   "reason": "One-forms and lower indices explain why Lambda and basis vectors carry the index positions introduced here.",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch4 §4.3",
+   "reason": "The observer-energy formula Eq. 2.35 is recast with one-forms so the awkward minus sign disappears, and Exercise 4.4 reuses the same pattern (-N.U_obs) for number density.",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.6"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch4 §4.9",
+   "reason": "Conservation laws over constant-time hypersurfaces return as Gauss' law for particle number and energy-momentum.",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch4 §4.1",
+   "reason": "Each fluid element is assigned an MCRF in the sense of §2.3, and scalars such as number density are defined in it; four-velocity then builds the number-flux vector of §4.2.",
+   "locator": {
+    "pdf_page": 59,
+    "printed_page": 41,
+    "section": "2.3"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch5 §5.1",
+   "reason": "The photon Doppler formula underlies the gravitational-redshift argument, and the hyperbolic world line of Exercise 2.21 is the starting point of Exercise 5.21 on accelerated observers.",
+   "locator": {
+    "pdf_page": 71,
+    "printed_page": 53,
+    "section": null
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch6 §6.1",
+   "reason": "The promised better definition of a vector: tangent vectors to curves on a manifold, with components dx^alpha/dlambda.",
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch7 §7.4",
+   "reason": "Four-momentum and the mass-shell condition p.p = -m^2 are carried into curved spacetime, where the chapter asks which momentum components stay conserved along geodesics.",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   }
+  },
+  {
+   "direction": "forward",
+   "target": "SCH ch9 §9.2",
+   "reason": "Gravitational waves travel at light speed, prompting the chapter's aside about gravitons.",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Hagedorn (1963), Relativistic Kinematics",
+   "reason": "Recommended for relativistic kinematics and particle dynamics beyond this chapter.",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.8"
+   }
+  },
+  {
+   "direction": "external",
+   "target": "Wiedemann (2007), Particle Accelerator Physics",
+   "reason": "Recommended for relativistic particle dynamics in accelerators.",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.8"
+   }
+  }
+ ],
+ "teaching_gems": [
+  {
+   "gem": "Typographic separation of a vector from its components: the vector symbol never changes between frames, only the labelled 'has components' arrow and the bars on indices do.",
+   "why_effective": "Learners absorb the geometric-object idea through every line they write, not through a one-time definition, which prevents the common belief that a boost makes a new vector.",
+   "locator": {
+    "pdf_page": 51,
+    "printed_page": 33,
+    "section": "2.1"
+   },
+   "app_idea": "Notation-aware equation editor in the course: typing a barred vector symbol triggers a gentle tutor hint and the rendered arrow stays identical across frame tabs while component tables change."
+  },
+  {
+   "gem": "Derive the basis transformation law from A^alpha e_alpha = A^alpha-bar e_alpha-bar by relabelling dummy indices and exploiting the arbitrariness of A.",
+   "why_effective": "Shows index notation as a reasoning engine, and explains why components and basis vectors must transform oppositely so that the vector stays put.",
+   "locator": {
+    "pdf_page": 55,
+    "printed_page": 37,
+    "section": "2.2"
+   },
+   "app_idea": "Step-through derivation widget where learners drag index letters to relabel dummies, with illegal moves (Latin replacement, unmatched free indices) flagged and explained."
+  },
+  {
+   "gem": "Define four-velocity as the time basis vector of the rest frame or MCRF, then prove it equals dx/dtau.",
+   "why_effective": "Gives both a picture (a frame's time arrow riding along the world line) and a formula, and immediately explains U.U = -1 without computation.",
+   "locator": {
+    "pdf_page": 59,
+    "printed_page": 41,
+    "section": "2.3"
+   },
+   "app_idea": "Figure 2.2 redesign: drag along a world line with the MCRF basis attached and a dx/dtau arrow overlaid to show they coincide."
+  },
+  {
+   "gem": "Invariance of the dot product from invariance of magnitudes via (A+B)^2 = A^2 + B^2 + 2A.B.",
+   "why_effective": "A three-line proof that transfers to any bilinear form and avoids opaque matrix algebra.",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   },
+   "app_idea": "Three draggable vectors A, B, A+B in two frames with live magnitudes; the cross term is computed from them and shown to agree across frames."
+  },
+  {
+   "gem": "Orthogonal means mirror-symmetric about the light line; a null vector is orthogonal to itself.",
+   "why_effective": "Replaces the misleading right-angle intuition with a drawable rule that also explains why boosted axes close like scissors toward the light cone.",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   },
+   "app_idea": "Figure 2.4 redesign: Minkowski protractor with Euclidean comparison and self-orthogonality at the light cone."
+  },
+  {
+   "gem": "Differentiate U.U = -1 to show four-acceleration is orthogonal to four-velocity.",
+   "why_effective": "Echoes the Euclidean fact that constant-speed circular motion has acceleration perpendicular to velocity, and lands a structural result in two lines.",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   },
+   "app_idea": "Side-by-side: circular motion in the plane with v perpendicular to a, and hyperbolic motion in spacetime with U and a mirror-symmetric about the light line."
+  },
+  {
+   "gem": "Energy measured by an observer is -p.U_obs, computable in any frame.",
+   "why_effective": "Teaches the habit of writing observables as scalars built from the observer's four-velocity, a technique that carries straight into curved spacetime where there is no global frame to boost into.",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.6"
+   },
+   "app_idea": "Observer picker: several observers with different four-velocities watch one particle; each observer's energy is shown both by boosting components and by the dot product, with matching numbers."
+  },
+  {
+   "gem": "Resolve the 'before or after the collision' simultaneity puzzle by local conservation at each event.",
+   "why_effective": "Confronts a real worry that careful students raise and establishes conservation as a statement about spacetime rather than about a preferred time.",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   },
+   "app_idea": "Figure 2.3 redesign with a tilting simultaneity slice and a running momentum sum."
+  },
+  {
+   "gem": "Doppler shift in two lines from boosting a null four-momentum and applying E = h nu.",
+   "why_effective": "Demonstrates the efficiency of four-vector thinking compared with wave-crest or clock-signal derivations.",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   },
+   "app_idea": "Photon four-momentum arrow in a (p^x, E) plane under a boost slider, with a colour bar showing the frequency change and the ratio sqrt((1-v)/(1+v))."
+  }
+ ],
+ "gaps_and_pitfalls": [
+  {
+   "issue": "Planck's constant is printed with units J s^-1 instead of J s.",
+   "impact_on_learner": "Dimensional-analysis checks on E = h nu fail or mislead.",
+   "suggestion": "State the correct unit J s and the exact SI value 6.62607015e-34 J s.",
+   "locator": {
+    "pdf_page": 66,
+    "printed_page": 48,
+    "section": "2.7"
+   }
+  },
+  {
+   "issue": "Exercise 2.1 lists C_33 twice with conflicting values (-3 and 0).",
+   "impact_on_learner": "Learners cannot know which value to use and may think they misunderstand the notation.",
+   "suggestion": "Flag the duplication and choose one value (or note both answers) in any adapted version of the exercise.",
+   "locator": {
+    "pdf_page": 68,
+    "printed_page": 50,
+    "section": null
+   }
+  },
+  {
+   "issue": "The reading-copy export drops footnotes 1-2, detaches the Figure 2.3 caption so it reads like body text, and transcribes many bars as tildes or drops them entirely (e.g. the barred right side of Eq. 2.25).",
+   "impact_on_learner": "Anything built only from the export will miss the passive-transformation remark and the four-vector/three-vector/boldface terminology, may treat the Figure 2.3 caption as a separate argument, and may misread frame labels.",
+   "suggestion": "Use this dossier's recovered content; treat tildes in the export as bars.",
+   "locator": {
+    "pdf_page": 52,
+    "printed_page": 34,
+    "section": "2.1"
+   }
+  },
+  {
+   "issue": "The sign convention for Lambda is easy to get wrong: in Eq. 2.21 the matrix from the rest frame to O carries velocity -v, which is why U^1 = +v gamma, but this is left implicit.",
+   "impact_on_learner": "Students often obtain U^1 = -v gamma and conclude the book is wrong or that they misunderstand four-velocity.",
+   "suggestion": "Always check a boost by transforming the rest-frame e_0: the result must point in the direction of motion. Make the 'upper-index frame relative to lower-index frame' rule an explicit checklist item.",
+   "locator": {
+    "pdf_page": 60,
+    "printed_page": 42,
+    "section": "2.4"
+   }
+  },
+  {
+   "issue": "Calling any four same-dimensioned numbers a vector is correct as a definition but invites treating arbitrary physical quadruples as four-vectors.",
+   "impact_on_learner": "Learners may build 'four-vectors' such as (1, v) or (E, x) that do not transform by Lorentz matrices.",
+   "suggestion": "Pair the definition with counterexamples and the test 'does this quantity in every frame equal Lambda applied to its values in one frame?'.",
+   "locator": {
+    "pdf_page": 54,
+    "printed_page": 36,
+    "section": "2.1"
+   }
+  },
+  {
+   "issue": "Conservation of four-momentum is simply postulated; no argument from collisions, symmetry or the principle of relativity is offered.",
+   "impact_on_learner": "Its status can feel arbitrary, and learners do not see why mass-energy equivalence is forced rather than chosen.",
+   "suggestion": "Supplement with a symmetric elastic-collision argument viewed from two frames, or a brief pointer to translation symmetry, while keeping Schutz's point that experiment is the final arbiter.",
+   "locator": {
+    "pdf_page": 61,
+    "printed_page": 43,
+    "section": "2.4"
+   }
+  },
+  {
+   "issue": "The equal-angles-to-the-light-line orthogonality rule is stated without its restriction to vectors in a single t-x plane or a proof.",
+   "impact_on_learner": "Learners may misapply it to vectors with y or z components or doubt it without seeing why it works.",
+   "suggestion": "Show the two-line proof for (a, b) and (b, a) in the t-x plane and note the generalization needs the full dot product.",
+   "locator": {
+    "pdf_page": 63,
+    "printed_page": 45,
+    "section": "2.5"
+   }
+  },
+  {
+   "issue": "Using 'magnitude' and A^2 for the signed quantity A.A clashes with the usual meaning of magnitude as a non-negative length.",
+   "impact_on_learner": "Confusion when later texts or the same book speak of |A| or take square roots of magnitudes of timelike vectors.",
+   "suggestion": "Say 'squared norm' or 'norm-squared' in the app and reserve |A| = sqrt(|A.A|) for lengths and durations.",
+   "locator": {
+    "pdf_page": 62,
+    "printed_page": 44,
+    "section": "2.5"
+   }
+  },
+  {
+   "issue": "The clock hypothesis (an accelerated clock ticks at the rate of its MCRF) is used implicitly when defining four-velocity and proper time for accelerated world lines.",
+   "impact_on_learner": "Learners may not realize this is a physical assumption supported by experiment (e.g. muon storage rings) rather than a mathematical identity.",
+   "suggestion": "Name the assumption when introducing MCRFs and cite the experimental support.",
+   "locator": {
+    "pdf_page": 59,
+    "printed_page": 41,
+    "section": "2.3"
+   }
+  },
+  {
+   "issue": "Four-acceleration is analysed only in the MCRF; its components in a general frame and its relation to three-acceleration are left to Exercise 2.19.",
+   "impact_on_learner": "Learners may believe a^0 always vanishes or struggle to compute a from a given x(t).",
+   "suggestion": "Add a worked example for straight-line motion in the lab frame showing a = gamma^4 (dv/dt)(v, 1, 0, 0) and checking U.a = 0.",
+   "locator": {
+    "pdf_page": 65,
+    "printed_page": 47,
+    "section": "2.6"
+   }
+  },
+  {
+   "issue": "The Doppler derivation does fix the geometry (photon along +x, O-bar moving at +v along x), but the text never says whether the result is a redshift or a blueshift or what changes for an approaching observer.",
+   "impact_on_learner": "Blue and red shift get swapped in applications.",
+   "suggestion": "Say explicitly that O-bar is moving the same way as the photon, so for v > 0 it measures a lower frequency (redshift), and get the approaching case by replacing v with -v.",
+   "locator": {
+    "pdf_page": 67,
+    "printed_page": 49,
+    "section": "2.7"
+   }
+  }
+ ],
+ "tutor_notes": [
+  "Open with: 'If you rotate your graph paper, does the arrow you drew change?' Then ask what should replace rotation in spacetime. This sets up the object-versus-components distinction before any indices appear.",
+  "Teach notation in this order: frame-labelled component arrow, bars on indices, Lambda as a table of 16 numbers, summation convention, dummy versus free indices. Check each with a one-line relabelling quiz before moving on.",
+  "Before deriving Eq. 2.13, have the learner predict whether basis vectors should transform with Lambda or with its inverse, using the requirement that A itself must not change.",
+  "When learners get sign errors with boosts, have them transform e_0 of the moving frame into the lab frame: the spatial component must have the sign of the motion. Reinforce the rule: read the velocity in a Lambda as 'how the upper-index observer moves, seen by the lower-index observer'.",
+  "Present four-velocity first as the moving frame's time arrow (e_0 of the MCRF), then as dx/dtau, then compute gamma(1, v). Ask: 'Why is every four-velocity the same length?'",
+  "Check understanding of Minkowski orthogonality with a drawing task: sketch a vector at 30 degrees from the t axis and draw its orthogonal partner. Then ask what happens at 45 degrees.",
+  "Common question: 'If observers disagree about simultaneity, how can total momentum be conserved?' Walk through Figure 2.3: local conservation at each collision makes the slice irrelevant.",
+  "Common question: 'Does a photon experience zero time / have a rest frame?' Answer with dtau = 0, the absence of a unit tangent and the second postulate, and caution against talk of a photon's point of view.",
+  "Encourage the invariant route for observer quantities: whenever a problem says 'as measured by', look for a dot product with that observer's four-velocity. Exercise 2.30 is a good confidence builder.",
+  "For advanced learners, preview that eta becomes the metric tensor (ch3), that the minus-dot-product-with-U_obs pattern returns for fluid number density (ch4), and that four-momentum and p.p = -m^2 carry over to curved spacetime (ch7); for beginners, keep to t-x diagrams and numeric boosts with v = 0.6 (gamma = 1.25).",
+  "Quick checks: Is (3, 3, 0, 0) timelike, spacelike or null? Can two timelike vectors be orthogonal? What is -p.U for a particle at rest in the observer's frame? Why can't an electron-positron pair annihilate into a single photon?"
+ ],
+ "verification": {
+  "verdict": "fixed",
+  "fixes": [
+   "Exercises section summary, orthonormal-tetrad concept, Exercise 2.35 entry, difficulty notes and export gap all said Exercise 2.35 was missing from the export. It is present (checked against the page 73 render); the false claim is removed everywhere.",
+   "Figure 2.3 caption paraphrase: removed the false claim that the export contains only the label (the caption text is present but detached as a body paragraph) and reworded it further from the printed caption.",
+   "Figure 2.5 figure_type changed from curve-or-surface to spacetime-diagram (it is a world line drawn on t-x axes).",
+   "Footnote 1 and 2 margin notes reworded to move further from the source wording (content verified on renders of pdf pages 52-53).",
+   "Doppler gap entry corrected: it claimed the book leaves the direction of motion unspecified, but the book states it (O-bar moves along +x, the photon's direction). The real gap is that red- versus blueshift is never discussed.",
+   "Four-acceleration worked example: the circular-motion comparison was presented as the book's insight; it is now labelled as a tutoring analogy.",
+   "Verified against renders and kept as correct: the Planck-constant unit misprint (J s^-1 printed on p.48), the doubled C_33 entry in Exercise 2.1 (printed on p.50), the Eq. 2.25 bars, and the 0.8 boost along the intermediate frame's y axis in Exercise 2.13 (p.51).",
+   "Verified the numerical estimates the dossier adds itself (Exercises 2.19, 2.23, 2.27, 2.30, 2.33; Doppler factors at v = 0.6 and 0.8) and the forward cross-references (ch3 §3.1/3.3, ch4 §4.1/4.3/4.9, ch5 Exercise 5.21, ch6 §6.1, ch7 §7.4, ch9 §9.2) against the TOC and the later reading copies."
+  ],
+  "residual_concerns": [
+   "Several historical notes (Einstein's name on the summation convention, Compton as experimental confirmation) and parts of the gap and tutor entries add context beyond what the book says; each is framed as commentary, not as a claim about the text.",
+   "Section 2.8 gets only a brief entry because the book's bibliography is two sentences long."
+  ],
+  "coverage": {
+   "toc_sections": 8,
+   "sections": 9,
+   "inventory_figures": 5,
+   "figures": 5,
+   "inventory_examples": 0,
+   "worked_examples": 10,
+   "concepts": 54,
+   "key_equations": 56,
+   "locators_checked": 293,
+   "locators_wrong": 0,
+   "pages_rendered": 8
+  }
+ }
+}

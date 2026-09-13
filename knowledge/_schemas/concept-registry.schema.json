@@ -1,0 +1,88 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Concept registry for one domain",
+	"description": "Canonical concepts of one domain, merged across the three source books and the legacy project. Ids are permanent: the course, tutor functions, and learner model reference them.",
+	"type": "object",
+	"required": ["domain", "title", "scope", "concepts"],
+	"additionalProperties": false,
+	"properties": {
+		"domain": { "type": "string", "description": "kebab-case domain id, e.g. curvature" },
+		"title": { "type": "string" },
+		"scope": { "type": "string", "minLength": 40 },
+		"concepts": { "type": "array", "items": { "$ref": "#/definitions/concept" }, "minItems": 1 },
+		"out_of_scope_candidates": {
+			"type": "array",
+			"description": "Candidate names received but assigned elsewhere, with the domain they belong to",
+			"items": {
+				"type": "object",
+				"required": ["name", "belongs_to"],
+				"additionalProperties": false,
+				"properties": { "name": { "type": "string" }, "belongs_to": { "type": "string" }, "note": { "type": ["string", "null"] } }
+			}
+		}
+	},
+	"definitions": {
+		"concept": {
+			"type": "object",
+			"required": ["id", "title", "aliases", "kind", "tier", "summary", "prerequisites", "sources", "merged_from"],
+			"additionalProperties": false,
+			"properties": {
+				"id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+				"title": { "type": "string" },
+				"aliases": { "type": "array", "items": { "type": "string" } },
+				"kind": {
+					"enum": [
+						"definition",
+						"principle",
+						"law",
+						"theorem",
+						"identity",
+						"mathematical-object",
+						"operation",
+						"technique",
+						"physical-quantity",
+						"phenomenon",
+						"solution-or-model",
+						"experiment-or-observation",
+						"convention",
+						"historical-idea"
+					]
+				},
+				"tier": {
+					"enum": ["prerequisite", "foundation", "core", "advanced", "frontier"],
+					"description": "prerequisite: background from outside GR; foundation: needed before curvature; core: central GR; advanced: beyond a first course; frontier: research-level context"
+				},
+				"summary": { "type": "string", "minLength": 30, "description": "One or two tutor-ready sentences, original wording" },
+				"prerequisites": { "type": "array", "items": { "type": "string" }, "description": "Concept ids (any domain) that must be understood first; direct prerequisites only" },
+				"related": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": ["id", "relation"],
+						"additionalProperties": false,
+						"properties": {
+							"id": { "type": "string" },
+							"relation": { "enum": ["generalizes", "special-case-of", "part-of", "has-part", "contrasts-with", "equivalent-to", "applies", "motivates", "analogous-to"] }
+						}
+					}
+				},
+				"sources": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": ["book", "unit", "depth", "names"],
+						"additionalProperties": false,
+						"properties": {
+							"book": { "enum": ["schutz", "gifted-amateur", "dinverno", "legacy"] },
+							"unit": { "type": "string" },
+							"depth": { "enum": ["mention", "introduced", "developed", "core", "revisited"] },
+							"names": { "type": "array", "items": { "type": "string" } }
+						}
+					}
+				},
+				"merged_from": { "type": "array", "items": { "type": "string" }, "description": "Candidate names folded into this concept" },
+				"notes": { "type": ["string", "null"] }
+			}
+		}
+	}
+}

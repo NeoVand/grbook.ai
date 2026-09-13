@@ -1,0 +1,432 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Chapter dossier",
+	"description": "Structured, original-language analysis of one unit (chapter, appendix, front matter) of a source textbook. Summaries are in our own words; equations may be transcribed; quotations are at most one sentence and rare.",
+	"type": "object",
+	"required": [
+		"book",
+		"unit_id",
+		"title",
+		"printed_pages",
+		"pdf_pages",
+		"one_line_summary",
+		"role_in_book",
+		"assumed_background",
+		"learning_objectives",
+		"teaching_approach",
+		"sections",
+		"concepts",
+		"key_equations",
+		"figures",
+		"worked_examples",
+		"analogies_and_intuitions",
+		"misconceptions_addressed",
+		"thought_experiments",
+		"historical_notes",
+		"applications_and_observations",
+		"notation_and_conventions",
+		"margin_notes",
+		"exercises",
+		"difficulty",
+		"cross_references",
+		"teaching_gems",
+		"gaps_and_pitfalls",
+		"tutor_notes"
+	],
+	"additionalProperties": false,
+	"properties": {
+		"book": { "enum": ["schutz", "gifted-amateur", "dinverno"] },
+		"unit_id": { "type": "string", "minLength": 2 },
+		"title": { "type": "string", "minLength": 1 },
+		"part": { "type": ["string", "null"] },
+		"printed_pages": { "type": "array", "items": { "type": ["integer", "null"] } },
+		"pdf_pages": { "type": "array", "items": { "type": "integer" } },
+		"one_line_summary": { "type": "string", "minLength": 20 },
+		"role_in_book": { "type": "string", "minLength": 40 },
+		"assumed_background": { "type": "array", "items": { "$ref": "#/definitions/background" } },
+		"learning_objectives": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+		"teaching_approach": { "$ref": "#/definitions/teaching_approach" },
+		"sections": { "type": "array", "items": { "$ref": "#/definitions/section" } },
+		"concepts": { "type": "array", "items": { "$ref": "#/definitions/concept" } },
+		"key_equations": { "type": "array", "items": { "$ref": "#/definitions/equation" } },
+		"figures": { "type": "array", "items": { "$ref": "#/definitions/figure" } },
+		"worked_examples": { "type": "array", "items": { "$ref": "#/definitions/worked_example" } },
+		"analogies_and_intuitions": { "type": "array", "items": { "$ref": "#/definitions/analogy" } },
+		"misconceptions_addressed": { "type": "array", "items": { "$ref": "#/definitions/misconception" } },
+		"thought_experiments": { "type": "array", "items": { "$ref": "#/definitions/thought_experiment" } },
+		"historical_notes": { "type": "array", "items": { "$ref": "#/definitions/historical_note" } },
+		"applications_and_observations": { "type": "array", "items": { "$ref": "#/definitions/application" } },
+		"notation_and_conventions": { "type": "array", "items": { "$ref": "#/definitions/notation" } },
+		"margin_notes": { "type": "array", "items": { "$ref": "#/definitions/margin_note" } },
+		"exercises": { "$ref": "#/definitions/exercises" },
+		"difficulty": { "$ref": "#/definitions/difficulty" },
+		"cross_references": { "type": "array", "items": { "$ref": "#/definitions/cross_reference" } },
+		"teaching_gems": { "type": "array", "items": { "$ref": "#/definitions/teaching_gem" } },
+		"gaps_and_pitfalls": { "type": "array", "items": { "$ref": "#/definitions/gap" } },
+		"tutor_notes": { "type": "array", "items": { "type": "string" } },
+		"verification": { "$ref": "#/definitions/verification" }
+	},
+	"definitions": {
+		"locator": {
+			"type": "object",
+			"required": ["pdf_page"],
+			"additionalProperties": false,
+			"properties": {
+				"pdf_page": { "type": "integer" },
+				"printed_page": { "type": ["integer", "null"] },
+				"section": { "type": ["string", "null"] }
+			}
+		},
+		"background": {
+			"type": "object",
+			"required": ["topic", "source"],
+			"additionalProperties": false,
+			"properties": {
+				"topic": { "type": "string" },
+				"source": {
+					"enum": [
+						"earlier-in-this-book",
+						"school-math",
+						"undergrad-calculus",
+						"linear-algebra",
+						"undergrad-mechanics",
+						"electromagnetism",
+						"thermodynamics-statistical",
+						"quantum-mechanics",
+						"astronomy",
+						"advanced-math",
+						"other"
+					]
+				},
+				"where": { "type": ["string", "null"] }
+			}
+		},
+		"teaching_approach": {
+			"type": "object",
+			"required": ["summary", "style_tags", "narrative_arc", "signature_moves"],
+			"additionalProperties": false,
+			"properties": {
+				"summary": { "type": "string", "minLength": 40 },
+				"style_tags": {
+					"type": "array",
+					"items": {
+						"enum": [
+							"geometric-first",
+							"components-first",
+							"index-free-abstract",
+							"physical-motivation-first",
+							"axiomatic-mathematical",
+							"historical-narrative",
+							"example-driven",
+							"analogy-driven",
+							"thought-experiment",
+							"derivation-heavy",
+							"observational-astrophysics",
+							"computational-recipe",
+							"diagram-driven",
+							"spiral-revisit",
+							"conversational-informal",
+							"survey-overview"
+						]
+					}
+				},
+				"narrative_arc": { "type": "array", "items": { "type": "string" } },
+				"signature_moves": { "type": "array", "items": { "type": "string" } }
+			}
+		},
+		"section": {
+			"type": "object",
+			"required": ["number", "title", "pdf_page", "summary", "concepts", "key_moves"],
+			"additionalProperties": false,
+			"properties": {
+				"number": { "type": ["string", "null"] },
+				"title": { "type": "string" },
+				"printed_page": { "type": ["integer", "null"] },
+				"pdf_page": { "type": "integer" },
+				"summary": { "type": "string", "minLength": 20 },
+				"concepts": { "type": "array", "items": { "type": "string" } },
+				"key_moves": { "type": "array", "items": { "type": "string" } }
+			}
+		},
+		"concept": {
+			"type": "object",
+			"required": ["name", "aliases", "kind", "definition", "how_introduced", "depth", "prerequisites", "locators", "formulas"],
+			"additionalProperties": false,
+			"properties": {
+				"name": { "type": "string" },
+				"aliases": { "type": "array", "items": { "type": "string" } },
+				"kind": {
+					"enum": [
+						"definition",
+						"principle",
+						"law",
+						"theorem",
+						"identity",
+						"mathematical-object",
+						"operation",
+						"technique",
+						"physical-quantity",
+						"phenomenon",
+						"solution-or-model",
+						"experiment-or-observation",
+						"convention",
+						"historical-idea"
+					]
+				},
+				"definition": { "type": "string", "minLength": 15 },
+				"how_introduced": { "type": "string" },
+				"depth": { "enum": ["mention", "introduced", "developed", "core", "revisited"] },
+				"prerequisites": { "type": "array", "items": { "type": "string" } },
+				"locators": { "type": "array", "items": { "$ref": "#/definitions/locator" }, "minItems": 1 },
+				"formulas": { "type": "array", "items": { "type": "string" } },
+				"notes": { "type": ["string", "null"] }
+			}
+		},
+		"equation": {
+			"type": "object",
+			"required": ["label", "latex", "meaning", "importance", "locator"],
+			"additionalProperties": false,
+			"properties": {
+				"label": { "type": ["string", "null"] },
+				"name": { "type": ["string", "null"] },
+				"latex": { "type": "string" },
+				"meaning": { "type": "string" },
+				"symbols": { "type": ["string", "null"] },
+				"importance": { "enum": ["central", "supporting", "derivation-step"] },
+				"locator": { "$ref": "#/definitions/locator" }
+			}
+		},
+		"figure": {
+			"type": "object",
+			"required": ["label", "image_path", "locator", "caption_paraphrase", "visual_description", "what_it_teaches", "figure_type", "concepts", "redesign"],
+			"additionalProperties": false,
+			"properties": {
+				"label": { "type": ["string", "null"] },
+				"image_path": { "type": ["string", "null"] },
+				"locator": { "$ref": "#/definitions/locator" },
+				"caption_paraphrase": { "type": "string" },
+				"visual_description": { "type": "string", "minLength": 20 },
+				"what_it_teaches": { "type": "string" },
+				"figure_type": {
+					"enum": [
+						"spacetime-diagram",
+						"penrose-diagram",
+						"embedding-diagram",
+						"geometric-construction",
+						"vector-or-tensor-field",
+						"curve-or-surface",
+						"orbit-or-trajectory",
+						"potential-plot",
+						"function-plot",
+						"schematic",
+						"apparatus-or-experiment",
+						"astronomical-image",
+						"observational-data",
+						"table",
+						"portrait-or-historical",
+						"cartoon-or-analogy",
+						"other"
+					]
+				},
+				"concepts": { "type": "array", "items": { "type": "string" } },
+				"redesign": {
+					"type": "object",
+					"required": ["idea", "interaction", "form", "priority"],
+					"additionalProperties": false,
+					"properties": {
+						"idea": { "type": "string" },
+						"interaction": { "type": "string" },
+						"form": { "enum": ["static-2d", "animated-2d", "interactive-2d", "interactive-3d", "animated-3d", "interactive-plot", "not-worth-redesigning"] },
+						"priority": { "enum": ["high", "medium", "low"] }
+					}
+				}
+			}
+		},
+		"worked_example": {
+			"type": "object",
+			"required": ["label", "locator", "problem", "method", "key_insight", "concepts", "difficulty"],
+			"additionalProperties": false,
+			"properties": {
+				"label": { "type": ["string", "null"] },
+				"locator": { "$ref": "#/definitions/locator" },
+				"problem": { "type": "string" },
+				"method": { "type": "string" },
+				"key_insight": { "type": "string" },
+				"result": { "type": ["string", "null"] },
+				"concepts": { "type": "array", "items": { "type": "string" } },
+				"difficulty": { "enum": ["intro", "standard", "challenging"] }
+			}
+		},
+		"analogy": {
+			"type": "object",
+			"required": ["analogy", "target_concept", "how_used", "limits", "locator", "effectiveness"],
+			"additionalProperties": false,
+			"properties": {
+				"analogy": { "type": "string" },
+				"target_concept": { "type": "string" },
+				"how_used": { "type": "string" },
+				"limits": { "type": "string" },
+				"locator": { "$ref": "#/definitions/locator" },
+				"effectiveness": { "enum": ["strong", "useful", "weak"] },
+				"app_idea": { "type": ["string", "null"] }
+			}
+		},
+		"misconception": {
+			"type": "object",
+			"required": ["misconception", "correction", "why_tempting", "locator", "concepts"],
+			"additionalProperties": false,
+			"properties": {
+				"misconception": { "type": "string" },
+				"correction": { "type": "string" },
+				"why_tempting": { "type": "string" },
+				"explicit_in_book": { "type": "boolean" },
+				"locator": { "$ref": "#/definitions/locator" },
+				"concepts": { "type": "array", "items": { "type": "string" } }
+			}
+		},
+		"thought_experiment": {
+			"type": "object",
+			"required": ["name", "setup", "lesson", "locator", "concepts", "visualizable"],
+			"additionalProperties": false,
+			"properties": {
+				"name": { "type": "string" },
+				"setup": { "type": "string" },
+				"lesson": { "type": "string" },
+				"locator": { "$ref": "#/definitions/locator" },
+				"concepts": { "type": "array", "items": { "type": "string" } },
+				"visualizable": { "type": "boolean" },
+				"app_idea": { "type": ["string", "null"] }
+			}
+		},
+		"historical_note": {
+			"type": "object",
+			"required": ["people", "year", "event", "significance", "locator"],
+			"additionalProperties": false,
+			"properties": {
+				"people": { "type": "array", "items": { "type": "string" } },
+				"year": { "type": ["string", "null"] },
+				"event": { "type": "string" },
+				"significance": { "type": "string" },
+				"locator": { "$ref": "#/definitions/locator" }
+			}
+		},
+		"application": {
+			"type": "object",
+			"required": ["topic", "kind", "details", "locator"],
+			"additionalProperties": false,
+			"properties": {
+				"topic": { "type": "string" },
+				"kind": { "enum": ["observation", "experiment", "technology", "astrophysical-system", "numerical-estimate", "detection-event", "data-analysis"] },
+				"details": { "type": "string" },
+				"key_numbers": { "type": ["string", "null"] },
+				"locator": { "$ref": "#/definitions/locator" }
+			}
+		},
+		"notation": {
+			"type": "object",
+			"required": ["item", "convention", "locator"],
+			"additionalProperties": false,
+			"properties": {
+				"item": { "type": "string" },
+				"convention": { "type": "string" },
+				"notes": { "type": ["string", "null"] },
+				"locator": { "$ref": "#/definitions/locator" }
+			}
+		},
+		"margin_note": {
+			"type": "object",
+			"required": ["summary", "type", "locator"],
+			"additionalProperties": false,
+			"properties": {
+				"summary": { "type": "string" },
+				"type": { "enum": ["biography", "clarification", "forward-pointer", "backward-pointer", "caution", "historical", "technical-detail", "humor-or-aside", "reference"] },
+				"locator": { "$ref": "#/definitions/locator" }
+			}
+		},
+		"exercises": {
+			"type": "object",
+			"required": ["count_estimate", "pdf_pages", "skills_practiced", "notable"],
+			"additionalProperties": false,
+			"properties": {
+				"count_estimate": { "type": "integer", "minimum": 0 },
+				"pdf_pages": { "type": "array", "items": { "type": "integer" } },
+				"skills_practiced": { "type": "array", "items": { "type": "string" } },
+				"notable": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": ["number", "summary", "skills", "difficulty", "why_notable"],
+						"additionalProperties": false,
+						"properties": {
+							"number": { "type": "string" },
+							"summary": { "type": "string" },
+							"skills": { "type": "array", "items": { "type": "string" } },
+							"difficulty": { "enum": ["intro", "standard", "challenging"] },
+							"why_notable": { "type": "string" },
+							"pdf_page": { "type": ["integer", "null"] }
+						}
+					}
+				},
+				"solutions": { "type": ["string", "null"] }
+			}
+		},
+		"difficulty": {
+			"type": "object",
+			"required": ["math_level", "conceptual_level", "novice_friendliness", "notes"],
+			"additionalProperties": false,
+			"properties": {
+				"math_level": { "type": "integer", "minimum": 1, "maximum": 5 },
+				"conceptual_level": { "type": "integer", "minimum": 1, "maximum": 5 },
+				"novice_friendliness": { "type": "integer", "minimum": 1, "maximum": 5 },
+				"notes": { "type": "string" }
+			}
+		},
+		"cross_reference": {
+			"type": "object",
+			"required": ["direction", "target", "reason"],
+			"additionalProperties": false,
+			"properties": {
+				"direction": { "enum": ["backward", "forward", "external"] },
+				"target": { "type": "string" },
+				"reason": { "type": "string" },
+				"locator": { "anyOf": [{ "$ref": "#/definitions/locator" }, { "type": "null" }] }
+			}
+		},
+		"teaching_gem": {
+			"type": "object",
+			"required": ["gem", "why_effective", "locator", "app_idea"],
+			"additionalProperties": false,
+			"properties": {
+				"gem": { "type": "string" },
+				"why_effective": { "type": "string" },
+				"locator": { "$ref": "#/definitions/locator" },
+				"app_idea": { "type": "string" }
+			}
+		},
+		"gap": {
+			"type": "object",
+			"required": ["issue", "impact_on_learner", "suggestion"],
+			"additionalProperties": false,
+			"properties": {
+				"issue": { "type": "string" },
+				"impact_on_learner": { "type": "string" },
+				"suggestion": { "type": "string" },
+				"locator": { "anyOf": [{ "$ref": "#/definitions/locator" }, { "type": "null" }] }
+			}
+		},
+		"verification": {
+			"type": "object",
+			"required": ["verdict", "fixes", "residual_concerns", "coverage"],
+			"additionalProperties": false,
+			"properties": {
+				"verdict": { "enum": ["accurate", "fixed", "needs-attention"] },
+				"fixes": { "type": "array", "items": { "type": "string" } },
+				"residual_concerns": { "type": "array", "items": { "type": "string" } },
+				"coverage": {
+					"type": "object",
+					"additionalProperties": { "type": ["integer", "string"] }
+				}
+			}
+		}
+	}
+}
