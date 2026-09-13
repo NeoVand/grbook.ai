@@ -25,7 +25,9 @@ def normalize(name):
 	words = []
 	for w in re.findall(r'[A-Za-z0-9+]+', s):
 		# Singularize ordinary lowercase plurals; leave proper names such as "Brans" or "Rindler" alone.
-		if w.islower() and len(w) > 4 and w.endswith('s') and not w.endswith(('ss', 'is', 'us', 'ics')):
+		if w.islower() and len(w) > 4 and w.endswith('ies'):
+			w = w[:-3] + 'y'
+		elif w.islower() and len(w) > 4 and w.endswith('s') and not w.endswith(('ss', 'is', 'us', 'ics')):
 			w = w[:-1]
 		words.append(w.lower())
 	return ' '.join(words)
@@ -68,13 +70,10 @@ def main(argv):
 				)
 
 	uf = UnionFind()
+	# Cluster by normalized name only. Unioning on aliases chained unrelated concepts together (e.g. "metric
+	# tensor" absorbing "Einstein tensor"); synonyms are merged by the canonicalization agents, who see aliases.
 	for i, m in enumerate(mentions):
-		key = normalize(m['name'])
-		uf.union(f'm{i}', f'n:{key}')
-		for a in m['aliases']:
-			ak = normalize(a)
-			if len(ak.split()) >= 2:
-				uf.union(f'm{i}', f'n:{ak}')
+		uf.union(f'm{i}', f'n:{normalize(m["name"])}')
 
 	clusters = defaultdict(list)
 	for i, m in enumerate(mentions):

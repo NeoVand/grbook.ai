@@ -14,7 +14,17 @@ const KB = `${ROOT}/knowledge`
 const T = `${KB}/_tools`
 const CLUSTERS = (args && args.cluster_count) || 0
 const BATCH = (args && args.batch_size) || 300
+const MAX_AGENTS = Math.min((args && args.max_agents) || 5, 5) // user's pacing rule: at most 5 agents in flight
 if (!CLUSTERS) throw new Error('args.cluster_count is required (run collect_concept_candidates.py first)')
+
+/** Runs thunks at most `limit` at a time, preserving result order; failed thunks resolve to null. */
+async function limited(thunks, limit = MAX_AGENTS) {
+  const results = []
+  for (let i = 0; i < thunks.length; i += limit) {
+    results.push(...(await parallel(thunks.slice(i, i + limit))))
+  }
+  return results
+}
 
 const CONTEXT = `CONTEXT: grbook.ai is an AI-centred general relativity course for learners of any starting level, with a live voice tutor and interactive 2D/3D demos. Its knowledge vault (${KB}) holds verified teaching dossiers for every unit of three textbooks (Schutz 3rd ed. = SCH, Blundell & Lancaster "Gifted Amateur" = GA, d'Inverno & Vickers 2nd ed. = DIV) plus an inventory of the user's earlier course (${KB}/sources/legacy/). We are now building the canonical CONCEPT REGISTRY: the union of what the three books teach, as permanent concept ids that the course, the tutor's retrieval functions, and the learner model will reference. Candidate concepts were extracted mechanically from the dossiers into clusters of mentions (${KB}/_build/concept-candidates.json, ${CLUSTERS} clusters).
 TOOLS:
@@ -51,7 +61,7 @@ log(`Taxonomy: ${domainIds.length} domains: ${domainIds.join(', ')}`)
 phase('Assign')
 const starts = []
 for (let s = 0; s < CLUSTERS; s += BATCH) starts.push(s)
-await parallel(starts.map((s) => () => agent(`${CONTEXT}
+await limited(starts.map((s) => () => agent(`${CONTEXT}
 
 TASK: Assign candidate clusters ${s} to ${Math.min(s + BATCH, CLUSTERS) - 1} to domains.
 Read the taxonomy ${KB}/concepts/_taxonomy.json (scope, includes, excludes). Print the clusters with --compact --start ${s} --end ${s + BATCH}; use --detail for any cluster whose meaning is unclear from its names.
@@ -72,7 +82,7 @@ TASK: Merge and complete the cluster assignments.
 log(`Assignments: ${merged.counts.map((c) => `${c.domain}=${c.count}`).join(', ')}`)
 
 phase('Canonicalize')
-const canon = await parallel(domainIds.map((d) => () => agent(`${CONTEXT}
+const canon = await limited(domainIds.map((d) => () => agent(`${CONTEXT}
 
 TASK: Canonicalize the concepts of domain "${d}".
 Read the taxonomy entry for "${d}" in ${KB}/concepts/_taxonomy.json and the full domain list (so you know where out-of-scope items belong). Print your candidates with: python3 ${T}/print_clusters.py --domain ${d} --secondary   (read all of it; it may be long). Use concept_evidence.py when you need more context.
