@@ -24,9 +24,18 @@ Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and ru
    judged the standard ready for a pilot. The novice reader's and physicist's remaining findings are fixed and
    numerically re-verified. The novice and physics reviewers are now running once over the holonomy exemplar
    (`review_only` mode), so the exemplar carries a real, filled review record.
-2. **Mixed pilot.** Eight concepts across tiers and domains (`_meta/pilot-mixed-args.json`), run through
-   `gr-concept-notes-v2.js`. Measure how consistent the notes are, how many stumbles and errors the reviews catch,
-   and the tokens used per concept. Then report to the owner before scaling.
+2. **Mixed pilot: done, awaiting the owner's go before scaling.** Eight concepts across tiers and domains
+   (`_meta/pilot-mixed-args.json`) ran through `gr-concept-notes-v2.js` in 87 minutes with 24 agents and no failures.
+   - All 8 notes are physics-reviewed and validate OK. Registry prerequisites for their domains are synced.
+   - Novice reviews logged 24–30 stumbles per note; physics reviews fixed 2–9 errors per note and verified every
+     reference (4–19 per note).
+   - `pilot_rubric.py` over the 8 notes plus holonomy: total length 86–95% of the tier cap (spread 4%); entry 99% and
+     tutoring 100% of cap in every note; working 78% and formal 59% on average. Every objective is evidenced at its
+     own rung.
+   - Cost: 5.9 million subagent tokens, about 740 thousand per concept.
+   - Convention gaps the writers reported are now rows in `notation/course-conventions.md`.
+   - Open process issues: writers treat caps as targets; physics fixes change entry text after the novice review
+     without a revision bump or re-read.
 3. **Domain by domain.** Notes, then that domain's visuals. Curvature goes first because 14 of its concepts have older
    drafts to mine; the remaining domains follow taxonomy order.
 

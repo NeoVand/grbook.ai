@@ -401,6 +401,9 @@ def format_warnings():
 def common_lints(d):
 	warns = []
 	for path, s in strings(d, NOTE_SKIP):
+		# Research papers by authors who also wrote textbooks may be cited; names are linted in prose only.
+		if re.search(r'\.(authors|more_authors)\[', path):
+			continue
 		for rx in BOOKISH:
 			m = rx.search(s)
 			if m:
