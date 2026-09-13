@@ -19,8 +19,11 @@ Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and ru
 
 ## Now
 
-1. **Standard v2 revision.** Four independent critics (a novice reader, a GR physicist, a book author and a tutor
-   engineer) found the first v2 standard not ready. The revision is committed. Their recheck is running.
+1. **Standard v2.** Two rounds of independent critique by four critics (a novice reader, a GR physicist, a book author
+   and a tutor engineer) are done, and every fix is applied and committed. In the recheck, the author and the engineer
+   judged the standard ready for a pilot. The novice reader's and physicist's remaining findings are fixed and
+   numerically re-verified. The novice and physics reviewers are now running once over the holonomy exemplar
+   (`review_only` mode), so the exemplar carries a real, filled review record.
 2. **Mixed pilot.** Eight concepts across tiers and domains (`_meta/pilot-mixed-args.json`), run through
    `gr-concept-notes-v2.js`. Measure how consistent the notes are, how many stumbles and errors the reviews catch,
    and the tokens used per concept. Then report to the owner before scaling.
