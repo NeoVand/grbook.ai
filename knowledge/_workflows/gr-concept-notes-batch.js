@@ -89,12 +89,17 @@ ${QUALITY}
 Return the summary object.`
 }
 
-const results = await pipeline(
-  batches,
-  (b, _, i) => agent(writePrompt(b), { label: `write:${b.domain}:${i}`, phase: 'Write', schema: WRITE_SCHEMA }),
-  (w, b, i) => agent(reviewPrompt(b, w), { label: `review:${b.domain}:${i}`, phase: 'Review', schema: REVIEW_SCHEMA, effort: 'high' })
-    .then((r) => ({ domain: b.domain, ids: b.ids, write: w, review: r })),
-)
+// User's pacing rule: at most 5 agents in flight. Each batch runs write then review; up to 5 batches at a time.
+const MAX_AGENTS = Math.min((args && args.max_agents) || 5, 5)
+const chain = (b, i) =>
+  agent(writePrompt(b), { label: `write:${b.domain}:${i}`, phase: 'Write', schema: WRITE_SCHEMA })
+    .then((w) => agent(reviewPrompt(b, w), { label: `review:${b.domain}:${i}`, phase: 'Review', schema: REVIEW_SCHEMA, effort: 'high' })
+      .then((r) => ({ domain: b.domain, ids: b.ids, write: w, review: r })))
+const results = []
+for (let i = 0; i < batches.length; i += MAX_AGENTS) {
+  results.push(...(await parallel(batches.slice(i, i + MAX_AGENTS).map((b, j) => () => chain(b, i + j)))))
+  log(`${Math.min(i + MAX_AGENTS, batches.length)}/${batches.length} batches finished`)
+}
 const failed = batches.filter((b, i) => !results[i]).map((b) => `${b.domain}: ${b.ids.join(', ')}`)
 if (failed.length) log(`Batches without reviewed notes: ${failed.join(' | ')}`)
 return {
