@@ -7,7 +7,7 @@ tagline: "The full table of how space and time curve at each place"
 domain: "curvature"
 tier: "core"
 status: "physics-reviewed"
-revision: 2
+revision: 3
 updated: "2026-09-13"
 aliases: ["Riemann tensor", "curvature tensor", "Riemann-Christoffel tensor"]
 prerequisites: ["parallel-transport", "path-dependence-of-parallel-transport", "tidal-force", "christoffel-symbols", "covariant-derivative", "tensor", "newtonian-tidal-tensor", "lie-bracket", "levi-civita-connection"]
@@ -19,14 +19,14 @@ visuals: ["tilt-a-tiny-loop-at-one-point", "falling-ring-of-crumbs", "shrink-the
 
 *The full table of how space and time curve at each place*
 
-`riemann-curvature-tensor` · curvature · core · physics-reviewed (revision 2)
+`riemann-curvature-tensor` · curvature · core · physics-reviewed (revision 3)
 
 **Needs:** [[parallel-transport]] (entry) · [[path-dependence-of-parallel-transport]] (entry) · [[tidal-force]] (entry) · [[christoffel-symbols]] (working) · [[covariant-derivative]] (working) · [[tensor]] (working) · [[newtonian-tidal-tensor]] (working) · [[lie-bracket]] (formal) · [[levi-civita-connection]] (formal)  
 **Opens:** [[symmetries-of-the-riemann-tensor]] · [[number-of-independent-riemann-components]] · [[ricci-tensor]] · [[geodesic-deviation-equation]] · [[flatness-criterion]] · [[ricci-identity]] · [[riemann-tensor-in-normal-coordinates]] · [[weyl-tensor]] · [[kretschmann-scalar]] · [[linearized-riemann-tensor]] · [[curvature-sign-conventions]] · [[bianchi-identity]]  
 **Related:** [[holonomy]] · [[nonzero-christoffel-symbols-in-flat-space]] · [[gaussian-curvature]] · [[local-flatness-theorem]] · [[gauge-field-strength]] · [[curvature-2-form]]  
 **Visuals:** ★ [[tilt-a-tiny-loop-at-one-point]] · [[falling-ring-of-crumbs]] · [[shrink-the-loop-to-find-riemann]] · [[four-terms-that-cancel]] · [[twenty-of-256-slots]]
 
-> Carry an arrow around a tiny loop without letting it swing. The Riemann curvature tensor records how the arrow comes back changed, for every tilt of the loop and every starting direction. In a space with three or more directions, one number is not always enough, so it is a table kept at every place. The same table sets how neighbouring falling objects drift together or apart.
+> Carry an arrow around a tiny loop without letting it swing. The Riemann curvature tensor records how the arrow comes back changed, for every tilt of the loop and every starting direction. In a space with three or more directions, one number is not always enough to describe the curving at a place. So the Riemann curvature tensor is a table kept at every place. The same table sets how neighbouring falling objects drift together or apart.
 
 ## You will be able to
 
@@ -58,25 +58,25 @@ So at that spot, one number describes how curved the ball is: the turn divided b
 
 The space around you has three directions: ahead, sideways and up. At one spot, a tiny square loop could lie level like the bottom of a box, or stand upright like its front or its side. These are three tilts of the loop. The arrow test works here too, if the arrow never swings any way at all, not even up or down.
 
-A curved space with three directions can give different answers for different tilts. Picture a made-up building whose floors are not flat slabs. Each floor is the whole surface of a huge ball, and every floor is an exact copy of the same ball. The floors are close together. A lift joins each spot to the matching spot on the next floor.
+A curved space with three directions can give different answers for different tilts. Picture a made-up building whose floors are not flat slabs. Each floor is the whole surface of a huge ball, and every floor is an exact copy of the same ball. A short lift ride joins each spot to the matching spot on the next floor.
 
 Start at one spot with a fresh arrow pressed against the floor. A tiny loop along the floor brings the arrow back turned, because the floor is a ball's surface. Now walk an upright loop: ride the lift up one floor, walk a short way ahead without steering, ride down, and walk the same distance back.
 
-Every floor is an exact copy, so after each lift ride the arrow points toward the copy of whatever it pointed toward before. The walk ahead and the walk back are the same stretch on identical floors, in opposite directions. So the arrow comes back matching its start.
+Every floor is an exact copy, so after each lift ride the arrow points toward the copy of whatever it pointed toward before. The walk ahead and the walk back are the same stretch on identical floors, in opposite directions. The walk back undoes the walk ahead, so the arrow comes back matching its start.
 
-Same spot, two tilts, two answers. The starting direction matters too: an arrow pointing along the lift shaft comes back from the floor loop matching its start, because every spot's lift shaft is alike. So one number cannot describe the curving at a spot here. You need a table.
+The starting direction matters too: an arrow pointing along the lift shaft comes back from the floor loop matching its start, because every spot's lift shaft is alike. So one number cannot describe the curving at a spot here. You need a table.
 
 For each tilt of a tiny loop and each starting direction of the arrow, the table lists how the arrow comes back changed, divided by the loop's area. Walking the other way round gives the opposite change, so one way round is enough. This table is called the Riemann curvature tensor.
 
-Each tilt is a pair of directions, like two edges of the box, so three directions give three tilts. To meet a friend you name a place and a time, so time counts as a fourth direction, and four directions give six pairs. Nobody can walk a loop backward in time, but falling objects measure entries for tilts that include time.
+Each tilt is a pair of directions, like two edges of the box, so three directions give three tilts.
 
-Earth's ground is nearly a ball. A loop around one square kilometre of it turns an arrow by about 1.4 millionths of a degree, the angle across a hair's width from 3 kilometres away. The curving of space and time near Earth is roughly a billion times weaker still.
+Earth's ground is nearly a ball. A loop around one square kilometre of it turns an arrow by about 1.4 millionths of a degree, the angle across a hair's width from 3 kilometres away.
 
-**Try it:** Write ahead, sideways, up and time on four slips of paper. List every pair of slips you can pick up together. You should find six pairs, so a tiny loop in space and time can be tilted in six basic ways.
+**Try it:** Hold a closed cardboard box. With a finger, trace a small square on its bottom, then on its front, then on its side. Each square runs along a different pair of the box's edge directions, so you should find three tilts.
 
 **Takeaway:** At one spot, a curved space can turn an arrow differently for loops at different tilts, so describing its curving can take a whole table: the Riemann curvature tensor.
 
-*What this leaves out:* The building world is made up to isolate one idea. In spacetime the change the table records can go beyond a turn. Many entries repeat others or follow from them, so fewer different numbers are needed: twenty in spacetime.
+*What this leaves out:* The building world is made up to isolate one idea. Many entries repeat others or follow from them, so fewer different numbers are needed.
 
 *Builds on:* [[parallel-transport]], [[path-dependence-of-parallel-transport]]<br>*Visuals:* [[tilt-a-tiny-loop-at-one-point]]<br>*See:* `worked_examples/multi-storey-ball-world`
 
@@ -84,7 +84,7 @@ Earth's ground is nearly a ball. A loop around one square kilometre of it turns 
 
 *What can two falling balls tell us about the curving of space and time?*
 
-**Recap:** The Riemann curvature tensor is a table kept at every place. For each tilt of a tiny loop and each starting direction of an arrow, it lists how the arrow comes back changed after being carried around the loop without swinging. Tilts are pairs of directions, and time counts as a direction.
+**Recap:** The Riemann curvature tensor is a table kept at every place. For each tilt of a tiny loop and each starting direction of an arrow, it lists how the arrow comes back changed after being carried around the loop without swinging. Tilts are pairs of directions, like the bottom, front and side of a box. Earth's ground is nearly a ball: a loop around one square kilometre of it turns an arrow by about 1.4 millionths of a degree.
 
 Hang two steel balls side by side, one metre apart, at the top of a tall tube with the air pumped out. A single catch lets both go at once. They fall freely: nothing but gravity acts on them.
 
@@ -92,19 +92,25 @@ Each ball falls toward the centre of Earth. Like two spokes of a wheel, their pa
 
 How much? Between two spokes, the gap is in proportion to the distance from the centre, here 6,371 kilometres. A 100-metre fall shrinks that distance by 100 parts in 6,371,000, and the one-metre gap by the same fraction. That is 16 thousandths of a millimetre, about a fifth of a hair's width. So nobody notices it.
 
-Now hang the balls one under the other, a metre apart. The lower ball is nearer the centre by one part in 6,371,000. Gravity weakens with the square of distance, so its pull is stronger by about two parts: squaring doubles a tiny excess, as 1.001 times 1.001 is about 1.002. The side-by-side pulls only lean together by one part. So this gap grows twice as fast, by 31 thousandths of a millimetre over the same fall.
+Now hang the balls one under the other, a metre apart. The lower ball is nearer the centre by one part in 6,371,000. Gravity weakens with the square of distance, so its pull is stronger by about two parts: squaring doubles a tiny excess, as 1.001 times 1.001 is about 1.002. The side-by-side pulls lean toward each other by only one part in 6,371,000. So the one-under-the-other gap grows twice as fast, by 31 thousandths of a millimetre over the same fall.
 
 This pattern is called tidal drift: falling objects spread apart along the line toward Earth's centre and draw together across it. Inside a freely falling lift you would float, yet two crumbs floating beside you would still drift. Falling removes the feeling of weight, not this drift.
 
-Why is this drift curving? On a flat floor, two people who set off side by side, facing the same way, and walk without steering stay the same distance apart. On a ball, two such walkers leaving the equator toward the North Pole draw together and meet there. On a saddle, which curves the opposite way, they spread apart.
+Why does this drift count as curving? On a flat floor, two people who set off side by side, facing the same way, and walk without steering stay the same distance apart. On a ball, two such walkers leaving the equator toward the North Pole draw together and meet there. On a saddle, which curves the opposite way, they spread apart.
 
-Each moment of a falling ball's trip has a place and a time, so its path runs through a world with four directions. This world of space and time together is called spacetime. Nothing pushes or steers a falling ball, so its path through spacetime is a walk without steering.
+Each moment of a falling ball's trip has a place and a time, so its path runs through a world with four directions. This world of space and time together is called spacetime. No floor, rope or air pushes a falling ball, and in spacetime gravity is not counted as a push, which we take on trust here. So its path through spacetime is a walk without steering.
+
+Four directions make six pairs, and so six tilts. Nobody can walk a loop backward in time, but by watching falling objects you can measure entries for tilts that include time.
 
 Both balls start at rest, so their paths set off side by side, like the walkers. The side-by-side pair then draws together, as on the ball, and the other pair spreads apart, as on the saddle. The Riemann curvature tensor records both, in entries for two tilts: time with sideways, and time with the line toward Earth's centre.
 
+The curving of spacetime near Earth is roughly a billion times weaker than the curving of Earth's ground.
+
+**Try it:** Write ahead, sideways, up and time on four slips of paper. List every pair of slips you can pick up together. You should find six pairs, so a tiny loop in spacetime can be tilted in six basic ways.
+
 **Takeaway:** Near Earth, balls falling side by side drift together, and balls falling one under the other drift apart; this tidal drift shows spacetime's curving, and the Riemann tensor records it.
 
-*What this leaves out:* We treated Earth as a perfect ball that does not spin, and ignored the pull of the two balls on each other. The drift numbers come from Newton's gravity, which is extremely accurate near Earth.
+*What this leaves out:* We treated Earth as a perfect ball that does not spin, and ignored the pull of the two balls on each other. The drift numbers come from Newton's gravity, which is extremely accurate near Earth. In spacetime the change the table records can go beyond a turn. Many entries repeat others or follow from them, so only twenty different numbers are needed.
 
 *Continues:* `ways_in/a-table-of-turns`<br>*Builds on:* [[tidal-force]]<br>*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `problems/tower-drop`
 
@@ -597,7 +603,7 @@ With the course gauge derivative $D_\mu = \partial_\mu - i(q/\hbar)A_\mu$, $[D_\
 
 ## Checks
 
-1. **Entry · predict** `checks/two-tilts-in-the-building`. Picture a made-up building whose floors are not flat slabs: each floor is the whole surface of the same huge ball, copied exactly, with the floors close together. A lift joins each spot to the matching spot on the next floor. At one spot, a fresh cardboard arrow is pressed against the floor. You carry it, never letting it swing, around two tiny loops. Loop A runs along the floor. Loop B rides the lift up one floor, walks a short way ahead without steering, rides the lift down, and walks the same distance back to the start. Which loop brings the arrow back turned?
+1. **Entry · predict** `checks/two-tilts-in-the-building`. Picture a made-up building whose floors are not flat slabs: each floor is the whole surface of the same huge ball, copied exactly. A short lift ride joins each spot to the matching spot on the next floor. At one spot, a fresh cardboard arrow is pressed against the floor. You carry it, never letting it swing, around two tiny loops. Loop A runs along the floor. Loop B rides the lift up one floor, walks a short way ahead without steering, rides the lift down, and walks the same distance back to the start. Which loop brings the arrow back turned?
    - **Hints:** What kind of surface is each floor? / What does the walk back do to whatever the walk out did?
    - **Answer:** Loop A. The floor is a ball's surface, so a tiny loop along it brings the arrow back turned. On loop B, every floor is an exact copy, so after each lift ride the arrow points toward the copy of whatever it pointed toward before. The walk ahead and the walk back are the same stretch on identical floors, in opposite directions, so the walk back undoes the walk ahead. So loop B brings the arrow back matching its start. Two tilts at one spot give two answers, so one number cannot describe the curving there.
    - **Must contain:** Loop A turns the arrow; Loop B brings it back matching its start; One spot needs different answers for different tilts
@@ -712,7 +718,7 @@ With the course gauge derivative $D_\mu = \partial_\mu - i(q/\hbar)A_\mu$, $[D_\
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 3)
 
 **Retell attempt:** If you carry an arrow around a tiny loop on a ball without letting it swing, it comes back turned, and bigger loops turn it more, so one number tells how curved the ball is. Our space has three directions, so a loop can be tilted like the bottom or sides of a box. Then there is a building where every floor is a ball, which I could not really picture, and a loop on the floor turns the arrow but a loop that uses the lift does not, so you need a table, the Riemann tensor. I don't get how time is a direction, or how you walk a loop in time. Earth's ground turns an arrow a millionth of a degree or so per square kilometre, which I think is why we don't notice gravity? Separately, two balls dropped side by side get closer, and balls one above the other get further apart, twice as much, but I'm not sure why twice. Floating in a falling lift doesn't stop crumbs drifting. Somehow falling is a walk through spacetime and that drift is the curving, but I'd have to take that on trust.
 
@@ -771,9 +777,30 @@ With the course gauge derivative $D_\mu = \partial_\mu - i(q/\hbar)A_\mu$, $[D_\
 - The prerequisite notes parallel-transport and tidal-force do not exist yet, and path-dependence-of-parallel-transport is still in the old schema, so their entry glossaries could not be aligned with this note.
 - The writer's reported open items are unchanged by this review: five proposed visuals, references unverified with DOIs to add, the transverse-traceless form of the gravitational-wave curvature, and the GW150914 and black-hole tidal numbers.
 
+**Re-read** (2026-09-13, revision 3): 10 stumbles in 15 changed passages
+
+- “In a space with three or more directions, one number is not always enough, so it is a table kept at every place.”: 'It' is two sentences away from its noun, and 'one number' is the nearer candidate; 'enough' does not say enough for what.
+- “Each floor is the whole surface of a huge ball, and every floor is an exact copy of the same ball. The floors are close together.”: Physics edit: 'close together' makes the reader picture balls nested inside each other, which contradicts every floor being an exact copy, so the building has to be reread.
+- “each floor is the whole surface of the same huge ball, copied exactly, with the floors close together. A lift joins each spot to the matching spot on the next floor.”: Physics edit in the check two-tilts-in-the-building: the same nested-balls picture as in the way.
+- “The walk ahead and the walk back are the same stretch on identical floors, in opposite directions. So the arrow comes back matching its start.”: Step taken on trust: why walking the same stretch in the opposite direction cancels is left to the reader; the check's answer says it, the way does not.
+- “Nobody can walk a loop backward in time, but falling objects measure entries for tilts that include time.”: Physics edit: objects do not measure anything, so the measurer is missing, and 'entries' has lost its noun.
+- “To meet a friend you name a place and a time, so time counts as a fourth direction, and four directions give six pairs. ... The curving of space and time near Earth is roughly a billion times weaker still.”: Rule 17: the way's question is why one spot needs a table, and time as a fourth direction is a second new idea on top of the building. 'Falling side by side' introduces the same idea again with a different reason, so the reader meets it twice.
+- “The side-by-side pulls only lean together by one part.”: What leans, and one part of what, must be guessed from the sentence before.
+- “So this gap grows twice as fast, by 31 thousandths of a millimetre over the same fall.”: 'This gap' follows a sentence about the side-by-side pair, so it points to the wrong gap.
+- “Why is this drift curving?”: Reads as asking whether the drift itself bends, one word in two senses.
+- “Nothing pushes or steers a falling ball, so its path through spacetime is a walk without steering.”: Contradicts the way's own 'nothing but gravity acts on them': the reader objects that gravity pulls the ball, and the step is not flagged as taken on trust.
+- Fix: Read the whole entry rung sentence by sentence as the novice persona, then the conform-stage diff: note_diff.py --git f1c17823a98adff1266a0b17acc56ca04edd303c reports 0 learner-visible strings differ, so the physics-review edits made within revision 2 (Earth number, floors close together, 'measure entries', 'Near Earth' takeaway, tidal-drift glossary) were read in place. The Earth number, the takeaway and the glossary read cleanly.
+- Fix: Summary: named the Riemann curvature tensor instead of 'it', and said what one number is not enough for.
+- Fix: Building, in 'A table of turns for tiny loops' and in checks/two-tilts-in-the-building: 'The floors are close together. A lift joins...' became 'A short lift ride joins...', which keeps the floors close without inviting nested balls.
+- Fix: Loop B: added 'The walk back undoes the walk ahead' as the link to the arrow matching its start.
+- Fix: Rule 17: moved time as a direction out of 'A table of turns for tiny loops'. Its six-pairs statement, the loops-in-time sentence (now with 'you' as the measurer), the billion comparison (now 'weaker than the curving of Earth's ground'), the slips-of-paper try_it (now 'in spacetime'), and the simplifies sentences about spacetime and twenty numbers now sit in 'Falling side by side'. Removed the duplicate meet-a-friend reason, since that way already says each moment of the trip has a place and a time. The table way gets a new box try_it for its three tilts, and the falling way's recap restates the box tilts and the ground's 1.4 millionths of a degree in place of 'time counts as a direction'.
+- Fix: Falling way: named the pulls' one part in 6,371,000 and the one-under-the-other gap, reworded 'Why is this drift curving?', and scoped 'Nothing pushes or steers' as no floor, rope or air plus gravity not counted as a push, taken on trust.
+- Fix: Budget: entry explanations are at exactly 1,000 words. To make room, dropped the recap line 'Same spot, two tilts, two answers.' and shortened my own additions ('Four directions make six pairs, and so six tilts.').
+- Fix: Bumped the revision to 3. Every sentence keeps its claim; the physics diff check should confirm the moved sentences, the new box try_it, and 'in spacetime gravity is not counted as a push'.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 3)
 
 **Verification**
 
@@ -835,3 +862,19 @@ With the course gauge derivative $D_\mu = \partial_\mu - i(q/\hbar)A_\mu$, $[D_\
 - Five visuals remain proposals with sketches only.
 - The entry "falling side by side" relates converging falling pairs to the ball. In Lorentzian geometry the sectional curvature of the corresponding timelike plane has the opposite sign; working or formal ways that introduce sectional curvature should flag this, so learners do not carry "converge means positive" into spacetime.
 - Entry explanations are 979 of 1,000 words.
+
+**Diff check** (2026-09-13, revision 3)
+
+- Summary split: 'one number is not always enough to describe the curving at a place. So the Riemann curvature tensor is a table kept at every place.': Compared with the old sentence; tried a surface (one independent component), three dimensions (six) and four dimensions (twenty). → Claims the same as before, true for every what-if; 'not always' keeps the flat-space and two-dimensional cases true.
+- Building world: 'A short lift ride joins each spot to the matching spot on the next floor' replaces 'The floors are close together' in the way and in checks/two-tilts-in-the-building.: Product metric a^2(dtheta^2 + sin^2 theta dphi^2) + dz^2: a short ride means a small z-step, so loop B is still a tiny loop. → Keeps the tiny-loop condition the earlier physics fix added. Correct.
+- 'The walk back undoes the walk ahead, so the arrow comes back matching its start.': Transport around loop B is T^-1 (walk back on the lower floor) composed with the copy (ride down), T (walk ahead on the upper floor) and the copy (ride up); no Christoffel symbol carries a z index, so the rides copy components. → Composition is the identity, exactly, for any start direction. Correct; the check answer says the same.
+- New box try_it: squares on the bottom, front and side of a closed box run along three different pairs of edge directions, giving three tilts.: C(3,2) = 3 with python3; top and back duplicate bottom and front, so the three named faces are the three distinct coordinate tilts. → Correct and doable; consistent with 'three directions give three tilts' and checks/count-the-tilts.
+- 'The side-by-side pulls lean toward each other by only one part in 6,371,000. So the one-under-the-other gap grows twice as fast, by 31 thousandths of a millimetre over the same fall.': python3, GM = 3.986004e14 m^3/s^2, R = 6.371e6 m: the pull directions differ by 1/6,371,000 of a radian, so the sideways relative pull is g/6,371,000, against 2g/6,371,000 for the vertical pair; 100 m fall takes 4.513 s; drifts 1/2 (GM/R^3) d t^2 and twice that. → 1.5696e-5 m and 3.1392e-5 m, so 16 and 31 thousandths of a millimetre; the factor two is correct. Correct.
+- 'No floor, rope or air pushes a falling ball, and in spacetime gravity is not counted as a push, which we take on trust here. So its path through spacetime is a walk without steering.': Checked against general relativity (free-fall worldlines are geodesics, zero four-acceleration) and against 'nothing but gravity acts on them' in the same way; tried a ball in air (the tube is evacuated) and a ball on a rope. → True within the stated scope, consistent with the way, and honestly marked as taken on trust. It removes the old contradiction.
+- 'Four directions make six pairs, and so six tilts.' and the slips try_it 'six basic ways'.: python3 C(4,2) = 6; the note defines a tilt as a pair of directions, as the table way does for three. → Correct within the note's definition, consistent with checks/count-the-tilts.
+- 'Nobody can walk a loop backward in time, but by watching falling objects you can measure entries for tilts that include time.': Geodesic deviation in the course sign convention reads R^i_0j0 from relative acceleration of free-fall neighbours. → Correct; now names the measurer and still says 'entries', not the whole table.
+- 'The curving of spacetime near Earth is roughly a billion times weaker than the curving of Earth's ground.': python3: 1/R^2 = 2.464e-14 m^-2 against the tidal entries GM/(R^3 c^2) = 1.715e-23 and 2GM/(R^3 c^2) = 3.430e-23 m^-2 with x^0 = ct. → Ratios 1.44e9 and 0.72e9; the comparison is now explicit and correct.
+- Recap: 'Tilts are pairs of directions, like the bottom, front and side of a box.' and 'a loop around one square kilometre of it turns an arrow by about 1.4 millionths of a degree'.: python3: 1e6/R^2 radians in degrees. → 1.4116e-6 degrees. Correct, and matches the table way.
+- Simplifies moved: table way 'fewer different numbers are needed'; falling way 'In spacetime the change the table records can go beyond a turn' and 'only twenty different numbers are needed'.: Independent components n^2(n^2-1)/12: 6 in three dimensions, 20 in four; Lorentzian holonomy includes boosts, while three-dimensional Riemannian holonomy is rotations. → Correct in each way's scope; moving the spacetime lines out of the space-only way makes the table way's simplifies more accurate.
+- Falling way ball and saddle comparison after the move.: Conventions row on sectional curvature sign: a tides-to-ball comparison must compare behaviour, not the sign of K. → Unchanged text still compares behaviour only. Consistent.
+- Fix: None. All 9 changed learner-visible strings are accurate; no learner-visible text changed in this check.

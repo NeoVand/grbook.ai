@@ -7,7 +7,7 @@ tagline: "How something changes when one number it depends on changes and the re
 domain: "mathematical-methods"
 tier: "prerequisite"
 status: "physics-reviewed"
-revision: 2
+revision: 3
 updated: "2026-09-13"
 aliases: ["partial differentiation"]
 prerequisites: []
@@ -19,20 +19,20 @@ visuals: ["slice-a-hill-along-a-grid-line", "thermometer-on-a-post-and-a-bike"]
 
 *How something changes when one number it depends on changes and the rest stay fixed*
 
-`partial-derivative` · mathematical-methods · prerequisite · physics-reviewed (revision 2)
+`partial-derivative` · mathematical-methods · prerequisite · physics-reviewed (revision 3)
 
 **Needs:** nothing beyond everyday experience  
 **Opens:** [[chain-rule]] · [[gradient]] · [[taylor-series]] · [[jacobian-determinant]] · [[commuting-vector-fields]]  
 **Related:** [[convective-derivative]]  
 **Visuals:** ★ [[slice-a-hill-along-a-grid-line]] · [[thermometer-on-a-post-and-a-bike]]
 
-> Stand on a smooth hillside where a straight fence meets a straight hedge at a right angle. Walk parallel to the fence, so that only your distance from the hedge changes. The height you gain per metre, as the step gets very short, settles on a slope called a partial derivative. Walking parallel to the hedge gives a second one, and the two can differ: a path can be level while the ground across it is steep.
+> Stand on a smooth hillside where a straight fence meets a straight hedge at a right angle. Walk parallel to the fence, so that only your distance from the hedge changes. Measure the height you gain per metre over shorter and shorter steps, and the number settles on a slope called a partial derivative. Walking parallel to the hedge gives a second one, and the two can differ: a path can be level while the ground across it is steep.
 
 ## You will be able to
 
 **Entry**
 - Find the slope for each of the two distances that pin down your place on a hillside. `objectives/find-two-slopes` ← `checks/level-path-on-a-hillside`, `problems/slopes-from-a-height-map`
-- Predict how fast a thermometer on a post and a moving thermometer rise. `objectives/say-what-stays-fixed` ← `checks/rider-heading-to-the-sea`
+- Predict how fast the readings of a thermometer on a post and of a moving thermometer change. `objectives/say-what-stays-fixed` ← `checks/rider-heading-to-the-sea`
 
 **Working**
 - Compute partial derivatives and use them to estimate small changes. `objectives/compute-partials` ← `checks/cylinder-volume-slopes`, `problems/a-travelling-wave`
@@ -58,7 +58,7 @@ Now go back to your spot and walk parallel to the hedge, moving away from the fe
 
 One spot therefore has two slopes, one for each number that pins down your place. Each slope answers one question: how much does your height change per metre when one number grows and the other stays fixed? A slope like this is called a partial derivative. Derivative is the mathematicians' word for a rate of change, such as height gained per metre. The word partial means that only part of what pins down your place is changing.
 
-On a curving hill, the slope over 10 metres can differ from the slope over 1 metre. Suppose the ground beside the fence curves gently upward. You climb 2 metres over 10 metres, 18.2 centimetres over 1 metre, and 1.802 centimetres over 10 centimetres. Those slopes are 2 in 10, 1.82 in 10 and 1.802 in 10. As the step gets shorter, they settle on 1.8 in 10. On smooth ground the slopes settle like this, and the partial derivative at your spot is the settled number.
+On a curving hill, the slope over 10 metres can differ from the slope over 1 metre. Suppose the ground along your walk curves gently upward. You climb 2 metres over 10 metres, 18.2 centimetres over 1 metre, and 1.802 centimetres over 10 centimetres. Those slopes are 2 in 10, 1.82 in 10 and 1.802 in 10. For example, 18.2 centimetres in 100 centimetres is the same as 1.82 in 10. As the step gets shorter, they settle on 1.8 in 10. On smooth ground the slopes settle like this, and the partial derivative at your spot is the settled number. So the 2 in 10 from your first walk was a close estimate of the partial derivative, not the partial derivative itself.
 
 The two slopes can be very different. Picture a level path cut along a steep hillside, parallel to the fence. The slope along the path is zero, while the ground rises sharply at right angles to the path. So one number cannot say how steep the ground is at a spot. You need a slope for each number that pins down your place.
 
@@ -66,7 +66,7 @@ You meet slopes like this on roads. In many countries, a road sign reading 10 pe
 
 Many quantities depend on several numbers at once. The temperature of the air, for example, depends on where you are and on the time. Partial derivatives describe how such quantities change, one number at a time. The laws of heat, waves and gravity in this course are written with them.
 
-**Try it:** Lay a hardback book flat on a table, and slide two other books under one of its short edges, so that the cover makes a ramp. With a ruler, measure the height of the cover above the table at the two corners of the raised edge. The heights match, so the slope along the raised edge is zero. Now measure the height at two points 10 centimetres apart on a long edge. For a book 25 centimetres long raised by 5 centimetres, they differ by about 2 centimetres, a slope of about 2 in 10. One spot on the cover has a zero slope one way and a steep slope the other way.
+**Try it:** Lay a hardback book on a table, and slide two other books under one of its short edges, so that the cover makes a ramp. With a ruler, measure the height of the cover above the table at the two corners of the raised edge. The heights match, so the slope along the raised edge is zero. Now measure the height at two points 10 centimetres apart on a long edge. For a book 25 centimetres long raised by 5 centimetres, they differ by about 2 centimetres, a slope of about 2 in 10. One spot on the cover has a zero slope one way and a steep slope the other way.
 
 **Takeaway:** A partial derivative is the slope you measure when one of the numbers that pin down your place changes and the others stay fixed.
 
@@ -76,7 +76,7 @@ Many quantities depend on several numbers at once. The temperature of the air, f
 
 *When the temperature depends on both place and time, what does "how fast it rises" mean?*
 
-**Recap:** A partial derivative is how fast something changes when one of the numbers it depends on changes and all the others stay fixed. On a hillside, your height depends on two distances, so each spot has two slopes.
+**Recap:** A partial derivative is the rate at which something changes when one of the numbers it depends on changes and all the others stay fixed. On a hillside, your height depends on two distances, so each spot has two slopes.
 
 On a sunny morning, the temperature of the air depends on two things: where you are, and what time it is. Take a straight road that runs inland from the sea. To keep the numbers simple, suppose two steady rules hold all morning.
 
@@ -94,7 +94,7 @@ Many laws of physics, such as the laws of heat and of waves, are written as chan
 
 **Takeaway:** The rise per hour of a thermometer on a post is a partial derivative, with the place fixed; a thermometer that moves can rise at a different rate.
 
-*What this leaves out:* Real temperatures do not change at steady rates. For them, adding the two effects works well only over short times and short distances.
+*What this leaves out:* Real temperatures do not change at steady rates. For them, adding the change at a fixed place and the change caused by the motion works well only over short times and short distances.
 
 *Continues:* `ways_in/walk-one-grid-line-on-a-hill`<br>*Visuals:* [[thermometer-on-a-post-and-a-bike]]<br>*See:* `checks/rider-heading-to-the-sea`
 
@@ -191,7 +191,7 @@ On a manifold with a chart $(x^1, \dots, x^n)$, the operators $\partial/\partial
 | --- | --- | --- | --- |
 | slope | — | Height gained per metre moved, measured level. Climbing 2 metres over 10 metres is a slope of 2 in 10; going down gives a minus sign. | — |
 | input | — | One of the numbers a quantity depends on. | — |
-| partial derivative | — | The rate of change, as the step gets very short, when one number something depends on changes and the others stay fixed. | [[partial-derivative]] |
+| partial derivative | — | The rate of change when one number something depends on changes and the others stay fixed, measured over shorter and shorter steps until it settles. | [[partial-derivative]] |
 
 ## Key equations
 
@@ -365,14 +365,14 @@ For $f(x,t) = \sin(kx - \omega t)$ with constants $k$ and $\omega$, compute $\pa
 
 ## Checks
 
-1. **Entry · predict** `checks/level-path-on-a-hillside`. A level path runs along a smooth hillside, like the fence on the hill. Walking along the path, your height does not change. Walking 10 metres away from the path at a right angle, measured level as on a map, you climb 3 metres. Roughly what are the two slopes where you stand on the path? Is the ground under your feet level?
+1. **Entry · predict** `checks/level-path-on-a-hillside`. A level path runs along a smooth hillside. Walking along the path, your height does not change. Walking 10 metres away from the path at a right angle, measured level as on a map, you climb 3 metres. Roughly what are the two slopes where you stand on the path? Is the ground under your feet level?
    - **Hints:** Take each direction separately.
    - **Answer:** Along the path the slope is zero, because your height does not change along it. Away from the path it is about 3 in 10, because you climb 3 metres for every 10. Level ground has zero slope in every direction, and one slope here is not zero, so the ground is not level.
    - **Must contain:** Zero along the path; About 3 in 10 away from it; Not level
    - **Numeric:** slope along the path = 0 1 (signed, ±0.01); slope away from the path = 0.3 1 (signed, ±0.02)
    - **Targets:** `level-one-way-means-level`
    - **Visual:** [[slice-a-hill-along-a-grid-line]]
-2. **Entry · predict** `checks/rider-heading-to-the-sea`. A straight road runs inland from the sea. On a sunny morning, the air at every place along it warms steadily by 2 degrees Celsius each hour. At any one moment, the air is 1 degree cooler for every 10 kilometres closer to the sea. At 9 o'clock a cyclist riding toward the sea at 20 kilometres per hour passes a thermometer on a post, and both thermometers read the same. How much does each reading rise by 10 o'clock?
+2. **Entry · predict** `checks/rider-heading-to-the-sea`. A straight road runs inland from the sea. On a sunny morning, the air at every place along it warms steadily by 2 degrees Celsius each hour. At any one moment, the air is 1 degree cooler for every 10 kilometres closer to the sea. At 9 o'clock a cyclist carrying a thermometer rides toward the sea at 20 kilometres per hour. She passes a thermometer on a post, and both thermometers read the same. How much does each reading change by 10 o'clock?
    - **Hints:** How much cooler is air 20 kilometres nearer the sea?
    - **Answer:** The post's reading rises 2 degrees, because its place stays fixed. By 10 o'clock the cyclist is 20 kilometres closer to the sea, twice 10, where the air at that moment is 2 degrees cooler than at the post. So her reading changes by 2 minus 2, which is zero.
    - **Must contain:** Post: up 2 degrees; Cyclist: no change; Only the post's place is fixed
@@ -429,7 +429,7 @@ For $f(x,t) = \sin(kx - \omega t)$ with constants $k$ and $\omega$, compute $\pa
 **Switching levels**
 
 - To working when: asks for a formula. Go to the limit definition and the cylinder check. *Uses:* `ways_in/freeze-the-other-inputs`, `checks/cylinder-volume-slopes`
-- To formal when: asks whether partial derivatives guarantee smoothness. Show the function that jumps along the diagonal. *Uses:* `ways_in/when-partials-are-not-enough`, `checks/axes-hide-a-jump`
+- To formal when: asks whether partial derivatives guarantee smoothness. Show the diagonal jump. *Uses:* `ways_in/when-partials-are-not-enough`, `checks/axes-hide-a-jump`
 
 **Pronunciations:** ∂ → partial; Schwarz → SHVARTS; Clairaut → kleh-ROH
 
@@ -437,7 +437,7 @@ For $f(x,t) = \sin(kx - \omega t)$ with constants $k$ and $\omega$, compute $\pa
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 3)
 
 **Retell attempt:** On a hill there is a fence and a hedge, and your place is fixed by how far you are from each. If you walk along the fence the ground goes up 2 metres every 10 metres, a slope of 2 in 10, and along the hedge it goes down, minus 1 in 10. Each of those slopes is a partial derivative, and it is called partial because only part of your position changes. I did not get what 'settles on one number' means, why I measure 'level, as a map does', or how I walk along the hedge when I am not standing next to it. I also don't know what a derivative is. With temperature, a thermometer on a post goes up 2 degrees an hour, but a cyclist riding inland goes up 4, because she also moves into warmer air. I did not see why 'different things stay fixed' for her, since nothing seems to stay fixed for her, or why the two effects just add.
 
@@ -492,9 +492,31 @@ For $f(x,t) = \sin(kx - \omega t)$ with constants $k$ and $\omega$, compute $\pa
 - The writer's reports still stand: there is no conventions row for held-fixed subscripts or the order of mixed derivatives, no ordinary-derivative concept in the registry, and the Laplace 1816 reference is unverified.
 - The entry checks give numeric temperature changes in K, as differences of degrees Celsius. This is correct, but a display should say 'degrees'.
 
+**Re-read** (2026-09-13, revision 3): 11 stumbles in 14 changed passages
+
+- “The height you gain per metre, as the step gets very short, settles on a slope called a partial derivative.”: The summary never says what 'the step' is, and the physics edit makes 'the height' the thing that settles on a slope, so the sentence has to be reread.
+- “The rate of change, as the step gets very short, when one number something depends on changes and the others stay fixed.”: The glossary entry is read on its own, so 'the step' has no referent, and the inserted clause splits the definition in two.
+- “Suppose the ground beside the fence curves gently upward.”: 'Beside the fence' brings back the old 'alongside' problem: your walk runs parallel to the fence, at a distance from it.
+- “You climb 2 metres over 10 metres, 18.2 centimetres over 1 metre, and 1.802 centimetres over 10 centimetres. Those slopes are 2 in 10, 1.82 in 10 and 1.802 in 10.”: Step taken on trust: turning 18.2 centimetres over 1 metre into 1.82 in 10 needs a change of units the reader is not shown.
+- “A slope like this is called a partial derivative. ... the partial derivative at your spot is the settled number.”: The reader first learns that the 2 in 10 slope is a partial derivative, then that the partial derivative is 1.8 in 10. Is the 2 in 10 a partial derivative or not? The link between the two paragraphs is left to the reader.
+- “Lay a hardback book flat on a table”: 'Flat' describes a position here, and the next step tilts the book, so the word seems to be contradicted at once.
+- “A partial derivative is how fast something changes when”: 'How fast' suggests per second. The hill way removed it for that reason, but the recap brings it back.
+- “For them, adding the two effects works well only over short times and short distances.”: The explanation no longer names 'the two effects', so the reader cannot tell which two are meant.
+- “A level path runs along a smooth hillside, like the fence on the hill.”: In the hill way, walking parallel to the fence climbed 2 in 10, so 'like the fence' suggests the fence is level, or makes the reader wonder how a path is like a fence.
+- “a cyclist riding toward the sea at 20 kilometres per hour passes a thermometer on a post, and both thermometers read the same. How much does each reading rise by 10 o'clock?”: The cyclist's thermometer is never introduced, so 'both thermometers' has no second noun. 'Rise' also hints at the answer when one reading does not change.
+- “Predict how fast a thermometer on a post and a moving thermometer rise.”: Thermometers do not rise; their readings do.
+- Fix: Summary and partial-derivative glossary entry: reworded the physics review's 'as the step gets very short' as 'over shorter and shorter steps ... settles', keeping the claim that the partial derivative is the settled value.
+- Fix: Hill way: 'beside the fence' became 'along your walk'; added one sentence showing 18.2 cm in 100 cm as 1.82 in 10, and one making explicit that the 2 in 10 over 10 metres is a close estimate of the partial derivative. Entry explanations grew by about 35 words, which stays within the 1,000-word cap.
+- Fix: Try-it: removed 'flat' from the resting book.
+- Fix: Thermometer way: the recap says 'the rate at which' instead of 'how fast', and simplifies names the two changes that are added.
+- Fix: Entry checks: removed the misleading fence comparison from level-path-on-a-hillside; rider-heading-to-the-sea now introduces the cyclist's thermometer and asks how each reading changes. Objective say-what-stays-fixed says 'readings'. Nothing was dropped; the tutoring total stays within its cap.
+- Fix: To stay within the tutoring cap of 1,200 after the entry-check wording, shortened the formal level-switch move, which only the tutor sees, from 'Show the function that jumps along the diagonal.' to 'Show the diagonal jump.'
+- Fix: The conform-stage diff against f1c17823 was empty, so there was nothing further to read.
+- Fix: Not changed: the first sentence, 'A slope like this is called a partial derivative', names the 10-metre slope loosely. The added estimate sentence resolves it without changing its claim. Bumped the revision to 3.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 3)
 
 **Verification**
 
@@ -548,3 +570,18 @@ For $f(x,t) = \sin(kx - \omega t)$ with constants $k$ and $\omega$, compute $\pa
 - The physics fixes change learner-visible entry text (summary, glossary, simplifies). Revision kept at 2 so both reviews cover the same text; an editor may prefer a quick novice re-read of those sentences.
 - The proposed visual ids still say 'grid-line'; the narration of slice-a-hill-along-a-grid-line should use fence, hedge and 'parallel to' and keep the fence at a right angle to the hedge.
 - Budgets remain tight; check the validator counts before any addition.
+
+**Diff check** (2026-09-13, revision 3)
+
+- Summary: measuring the height gained per metre over shorter and shorter steps, walking parallel to the fence, settles on a slope called a partial derivative.: Compared with the revision 2 wording ('as the step gets very short, settles on'); tried a sharp ridge, walking back toward the hedge, and an oblique fence. → Same claim, true. The summary already scopes to a smooth hillside with a right angle. Walking toward the hedge gives minus the slope per metre of growing distance, which is still the partial derivative for that direction of measurement, so nothing false.
+- Glossary partial-derivative: the rate of change when one number changes and the others stay fixed, measured over shorter and shorter steps until it settles.: Compared with the revision 2 definition; checked that 'settles' matches the hill way's use for the limit. → Same claim as before, true wherever the limit exists; the hill way scopes settling to smooth ground.
+- Hill way: on ground along your walk that curves gently upward, 2 m over 10 m, 18.2 cm over 1 m and 1.802 cm over 10 cm give 2, 1.82 and 1.802 in 10, settling on 1.8 in 10; 18.2 cm in 100 cm is 1.82 in 10.: python3 with h(s) = 0.18 s + 0.002 s squared at s = 10, 1, 0.1 and 0.001 m; 18.2/100 = 1.82/10 = 0.182. Checked that upward curving (steepening) ground gives longer-step slopes above the settled value. → Correct: 2.0, 1.82, 1.802, 1.80002 in 10, limit 1.8; the unit conversion is exact; 'along your walk' is the right place for the curving ground.
+- Hill way: 'So the 2 in 10 from your first walk was a close estimate of the partial derivative, not the partial derivative itself.': Checked against the curving-ground supposition it follows from: 2 in 10 over 10 m is also the first walk's number, and the settled value at your spot is 1.8 in 10. python3: relative difference (0.2 - 0.18)/0.18 = 11 percent. Tried the what-if of an evenly sloping hillside, where the 10-metre slope equals the partial derivative. → True within its stated scope: the paragraph opens 'On a curving hill' and the sentence follows from 'Suppose the ground along your walk curves gently upward'. An 11 percent overestimate is fairly called a close estimate. On an evenly sloping hillside the sentence would not apply, but the paragraph does not claim that case.
+- Try-it: 'Lay a hardback book on a table' with 'flat' removed.: Reread the setup and the measured result. → No change to the geometry; the zero slope along the raised edge and about 2 in 10 along the long edge still hold.
+- Thermometer way recap: a partial derivative is the rate at which something changes when one number changes and all the others stay fixed.: Compared with 'how fast something changes when'. → Same claim, true; 'rate' now covers per metre and per hour.
+- Thermometer way simplifies: adding the change at a fixed place and the change caused by the motion works well only over short times and short distances, for real temperatures that do not change at steady rates.: python3 with a non-steady field T = 2t + 0.1x + 0.05t squared + 0.01xt (degrees Celsius, hours, km inland) for the rider toward the sea: rate-based sum 2 - 0.1 x 20 = 0, exact change -0.15. Also checked the names against the explanation's final paragraph ('the change caused by its motion'). → True: with changes estimated from rates, the sum is exact for steady rates and only approximate for non-steady ones, and the error shrinks with the interval. The rewording names the same two changes the old 'two effects' meant.
+- Objective say-what-stays-fixed: predict how fast the readings of a thermometer on a post and of a moving thermometer change.: Checked that the evidencing check asks for each reading's change in one hour. → Consistent and true.
+- Check level-path-on-a-hillside without the fence comparison: along a level path the slope is zero; 10 m away at a right angle, measured level, a 3 m climb gives about 3 in 10; the ground is not level.: Hand arithmetic 3/10; checked that the removed phrase carried no information the answer used, and that a curved level path still has zero slope along its direction at your spot. → Correct; numeric 0 (abs_tol 0.01) and 0.3 (abs_tol 0.02) unchanged and sensible.
+- Check rider-heading-to-the-sea as reworded: at 9 o'clock a cyclist carrying a thermometer rides toward the sea at 20 km/h, passes a post thermometer and both read the same; post changes by +2, cyclist by 0 by 10 o'clock.: python3 with T = 2t + 0.1x (x km inland): post T(0,1) - T(0,0) = 2, rider T(-20,1) - T(0,0) = 0. Tried the reading where she passes the post at a later moment: her change from 9 to 10 is still 0 and the post's still 2. Checked that 'change' instead of 'rise' matches signed numeric values 2 and 0 K. → Correct. The sentence order places the passing at 9 o'clock, which the answer's '20 kilometres closer to the sea' step uses; the numeric answers do not depend on it.
+- Formal level switch move: 'Show the diagonal jump.': Checked against the formal way and check axes-hide-a-jump: f = xy/(x squared + y squared) is 0 on the axes and 1/2 on the rest of the line y = x. → Accurate shorthand for the tutor.
+- Fix: None needed; no learner-visible text changed, and the revision stays at 3.

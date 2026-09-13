@@ -20,7 +20,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 # Bookkeeping, internal fields, author sketches, and id-valued references (presets, tours, check addresses) are not prose.
-SKIP = {'review', 'provenance', 'retired_ids', 'updated', 'revision', 'status', 'schema_version', 'sketch', 'starting_material', 'preset', 'tour', 'check', 'for_concept'}
+SKIP = {
+	'review', 'provenance', 'retired_ids', 'updated', 'revision', 'status', 'schema_version', 'sketch', 'starting_material',
+	'preset', 'tour', 'check', 'for_concept', 'uses', 'refs', 'assumes', 'continues', 'targets', 'diagnosed_by',
+	'evidenced_by', 'justified_by', 'invites', 'misconception', 'concept',
+}
 REF_META = {'authors', 'more_authors', 'year', 'venue', 'doi', 'arxiv', 'kind', 'verified'}
 # Top-level fields and tutor moves that an entry reader meets or the tutor speaks at any level.
 ENTRY_FIELDS = {'title', 'tagline', 'summary', 'aliases', 'glossary', 'pronunciations', 'opening_questions', 'if_stuck', 'voice_notes'}

@@ -7,7 +7,7 @@ tagline: "How a changing spread of mass sets the size of gravitational waves"
 domain: "gravitational-waves"
 tier: "core"
 status: "physics-reviewed"
-revision: 2
+revision: 5
 updated: "2026-09-13"
 aliases: ["Einstein quadrupole formula", "quadrupole approximation", "quadrupole formula for the wave field"]
 prerequisites: ["absence-of-monopole-and-dipole-radiation", "gravitational-wave-strain", "long-wavelength-approximation", "tensor-virial-identity", "gravitational-wave-polarization", "keplers-third-law"]
@@ -19,14 +19,14 @@ visuals: ["two-stars-and-a-distant-ring", "spinning-shapes-with-a-spread-meter",
 
 *How a changing spread of mass sets the size of gravitational waves*
 
-`quadrupole-formula` · gravitational-waves · core · physics-reviewed (revision 2)
+`quadrupole-formula` · gravitational-waves · core · physics-reviewed (revision 5)
 
 **Needs:** [[absence-of-monopole-and-dipole-radiation]] (entry) · [[gravitational-wave-strain]] (entry) · [[long-wavelength-approximation]] (working) · [[tensor-virial-identity]] (working) · [[gravitational-wave-polarization]] (working) · [[keplers-third-law]] (working)  
 **Opens:** [[transverse-traceless-projection]] · [[quadrupole-luminosity-formula]] · [[orbital-inclination]] · [[gravitational-wave-amplitude-estimate]] · [[continuous-gravitational-waves]]  
 **Related:** [[reduced-quadrupole-moment]] · [[spherically-symmetric-sources-do-not-radiate]] · [[mass-and-current-multipole-moments]] · [[retarded-potential]] · [[post-newtonian-approximation]] · [[hulse-taylor-binary-pulsar]] · [[gw150914]]  
 **Visuals:** ★ [[two-stars-and-a-distant-ring]] · [[spinning-shapes-with-a-spread-meter]] · [[light-delay-across-a-small-source]] · [[strain-pattern-around-a-spinning-pair]]
 
-> Two stars circling each other keep changing how their mass is spread out, more along one direction than another. That changing spread sends out gravitational waves. The quadrupole formula gives the size of those waves far away: the same change made quicker makes bigger waves, and twice as far away the waves are half as big. A perfectly round ball that swells and shrinks evenly sends out none, because its spread changes equally in every direction.
+> Two stars circling each other keep changing how their mass is spread out, and not equally in every direction. That changing spread sends out gravitational waves. The quadrupole formula gives the size of those waves far away: the same change made quicker makes bigger waves, and twice as far away the waves are half as big. A perfectly round ball that swells and shrinks evenly sends out none, because its spread changes equally in every direction.
 
 ## You will be able to
 
@@ -43,44 +43,35 @@ visuals: ["two-stars-and-a-distant-ring", "spinning-shapes-with-a-spread-meter",
 **Formal**
 - State the hypotheses of the formula and explain why it holds for slow, wide binaries of neutron stars or black holes. `objectives/justify-for-compact-binaries` ← `checks/compact-binary-validity`
 - Prove that the transverse-traceless projector removes any trace, and relate different definitions of the mass moment. `objectives/prove-trace-drops-out` ← `problems/projector-removes-trace`
+- Apply the transverse-traceless projector to find a source's polarizations in any direction, and explain why some directions receive no wave. `objectives/project-in-any-direction` ← `checks/axial-oscillator-pattern`
 
 ## Ways in
 
 ### 1. A spinning pair keeps changing its spread · entry · picture
 
-*What about two circling stars makes gravitational waves, and what sets their size far away?*
+*What about two circling stars makes gravitational waves?*
 
-Lay a pencil flat on a table and spin it about its middle. Picture the same motion in space, with two equal stars as the pencil's ends. The stars circle each other around the point midway between them, so the pair spins like the pencil.
+Lay a pencil flat on a table and spin it about its middle. Picture the same motion in space, with two equal stars in place of the pencil's ends. The stars circle each other around the point midway between them, so the pair spins like the pencil.
 
 A pair like this sends out gravitational waves. A gravitational wave is a ripple that travels outward at the speed of light. Across its direction of travel, it stretches distances along one line while it squeezes them along the line at right angles.
 
 Picture an L of two equal arms, with free-floating mirrors at their ends. Laser light sent along each arm measures its length. When the arms line up with the stretching and squeezing, a passing wave makes one arm longer and the other shorter. The difference between their lengths, as a fraction of one arm's length, is called the strain. A strain of one part in a million would make two arms, each one kilometre long, differ by one millimetre.
 
-A ripple needs something that rises and falls. The pair's total mass does not, so it cannot make one. The pair's balance point is called its centre of mass. Nothing outside pushes on the pair, so its centre of mass drifts, if at all, almost perfectly steadily in a fixed direction. A steady drift does not rise and fall either.
+A ripple needs something that rises and falls. The pair's total mass does not, so it cannot make one. The pair's balance point is called its centre of mass. Nothing outside pushes on the pair, so its centre of mass stays put or drifts almost perfectly steadily in a fixed direction. A steady drift does not rise and fall either.
 
 What does rise and fall is how the mass is spread out. Draw a line through the centre of mass, lying in the plane where the stars circle. When the stars line up along your line, the mass is spread far along it. A quarter turn later, the stars lie across your line. Each star now sits beside the centre, not out along your line, so the spread along it is zero. After half a turn, the stars line up along your line again. So the spread along your line rises and falls twice for every turn of the pair.
 
-The waves repeat as often as the spread does, twice per turn, and the strain rises and falls with them. A pair circling 50 times per second sends waves that repeat 100 times per second.
+The waves repeat as often as the spread does, twice per turn.
 
 This measure of how far the mass is spread along each direction, around its centre of mass, is called the mass quadrupole.
 
-The quadrupole formula uses the mass quadrupole to find the strain far from a source whose parts move much slower than light. The spread changes at some rate, like a speed. That rate itself keeps changing, the way a car's speed changes as it speeds up and slows down. The strain is set by how fast that rate changes.
-
-A steel bar spinning flat about its middle has a spread that rises and falls like the pair's. Spin it twice as fast. Its spread swings as far in half the time, so the rate of change doubles. That doubled rate also rises and falls in half the time, so it changes four times as fast, and the strain grows four times. The same stars can circle faster only by moving closer together, so their strain grows by less.
-
-Twice as far away, the strain is half as big. The wave's energy is shared over a sphere, and a sphere twice as wide has four times the area. So each square metre gets a quarter of the energy. For waves that repeat equally fast, the energy grows as the square of the strain, as a spring stretched twice as far stores four times the energy. So the strain falls to a half.
-
-In 2015, detectors with 4-kilometre arms measured waves from two black holes circling each other more than a billion light-years away. Shortly before the black holes merged, the formula gives a strain of nearly one part in a thousand billion billion, close to the size measured. The black holes were then moving at a third of light speed relative to each other, too fast for more than a rough estimate.
-
-Everyday objects are too light and slow. Picture a steel bar of 10 tonnes and 10 metres spinning flat about its middle five times per second. Along its spin axis at the Moon's distance, its strain would have forty-four zeros after the decimal point before the first digit. So nobody notices gravitational waves in daily life.
-
 **Try it:** Draw a line on paper. Hold a pen flat just over the line, with the pen's middle over the line, and turn the pen slowly through one full turn. Count the moments when the pen lies exactly along the line. You should count two, half a turn apart. So the spread along the line peaks twice per turn, and so do the waves.
 
-**Takeaway:** A circling pair makes gravitational waves because its spread of mass along a line rises and falls twice per turn. Faster spinning gives a bigger strain, and twice as far away the strain is half as big.
+**Takeaway:** A circling pair makes gravitational waves because its spread of mass along a line rises and falls twice per turn.
 
-*What this leaves out:* The formula needs the source to be much smaller than its wavelength, the distance its waves travel while they repeat once. While a pair's waves repeat once, each star travels half a lap, about the pair's width. So the source is small enough when the stars move much slower than light. You must also be many wavelengths away. Within about a sixth of a wavelength, the ordinary pull of the moving stars stretches and squeezes more than the waves do. Farther out, that pull fades much faster than the waves. Finer details of a shape add much weaker waves that the formula leaves out.
+*What this leaves out:* Finer details of a shape add much weaker waves that the mass quadrupole leaves out.
 
-*Builds on:* [[absence-of-monopole-and-dipole-radiation]], [[gravitational-wave-strain]]<br>*Visuals:* [[two-stars-and-a-distant-ring]]<br>*See:* `checks/faster-bar`, `checks/twice-as-far`
+*Builds on:* [[absence-of-monopole-and-dipole-radiation]], [[gravitational-wave-strain]]<br>*Visuals:* [[two-stars-and-a-distant-ring]]<br>*See:* `checks/faster-bar`
 
 ### 2. Moving is not enough · entry · contrast
 
@@ -94,23 +85,47 @@ Picture a perfectly round balloon of gas in space that swells and shrinks over a
 
 A perfectly even wheel, the same all the way around, looks the same at every moment as it spins, so no waves go out. A tumbling bar is different: like the pair, it sends out waves.
 
-A spinning square of four equal weights is a trap. Its two diagonals are like two equal bars crossed at a right angle. As the square turns, one bar's spread along a line rises exactly as much as the other's falls. Check it with weights 1 metre from the centre, adding up squared distances along the line. A diagonal along the line gives 1 plus 1, which is 2. A side along the line puts all four weights about 0.71 metres out, which also gives 2. So the quadrupole formula gives no waves.
+A spinning square of four equal weights is a trap. Its two diagonals are like two equal bars crossed at a right angle. As the square turns, one bar's spread along a line rises exactly as much as the other's falls. Check it with weights 1 metre from the centre, adding up squared distances along the line. A diagonal along the line gives 1 plus 1 from its two ends, and 0 from the two weights beside the centre, which is 2. A side along the line puts all four weights about 0.71 metres out. Because 0.71 times 0.71 is about a half, the four also give 2. So the quadrupole formula gives no waves.
 
 Yet after an eighth of a turn the square looks different, so it does send out waves, far weaker ones that the formula leaves out.
 
 **Try it:** Draw a line on paper. Lay a coin and a pencil on it, each with its middle on the line, and the pencil along the line. Give each a quarter turn, flat on the paper, about its middle. The coin covers the line as before, but the pencil now lies across it. Only the pencil's spread along the line changed, so a spinning pencil shape sends out waves and a perfectly even spinning coin does not.
 
-**Takeaway:** Motion by itself is not enough. An evenly swelling round balloon or an even spinning wheel sends out no gravitational waves, while a tumbling bar or a circling pair does, because its spread changes differently along different directions.
+**Takeaway:** Motion by itself is not enough. An evenly swelling round balloon or an even spinning wheel sends out no gravitational waves. A tumbling bar or a circling pair does, because its spread changes differently along different directions.
 
 *What this leaves out:* Real balloons and wheels are never perfectly even, so their small bumps send out extremely weak waves. A perfectly round balloon and a perfectly even wheel send out none at all.
 
 *Continues:* `ways_in/a-spinning-pair-changes-its-shape`<br>*Visuals:* [[spinning-shapes-with-a-spread-meter]]<br>*See:* `checks/breathing-balloon`, `problems/rank-the-sources`
 
-### 3. From the retarded integral to the formula · working · calculation
+### 3. Faster spin, farther detector · entry · calculation
+
+*What happens to the strain with faster spin or a farther detector?*
+
+**Recap:** A gravitational wave passing two equal arms at right angles, lined up with its stretching and squeezing, makes one longer and the other shorter. The strain is the difference in their lengths, as a fraction of one arm's length. The mass quadrupole measures how far a source's mass is spread along each direction around its centre. A circling pair's spread along a line peaks twice per turn.
+
+A steel bar spinning flat about its middle has a spread that rises and falls like the pair's.
+
+The quadrupole formula uses the mass quadrupole to find the strain far from a source whose parts move much slower than light. The spread changes at some rate, like a speed. That rate itself keeps changing, the way a car's speed changes as it speeds up and slows down. The strain is set by how fast that rate changes.
+
+Spin the bar twice as fast. Its spread swings as far in half the time, so the rate of change doubles. That doubled rate also rises and falls in half the time, so it changes four times as fast, and the strain grows four times. The same stars can circle faster only by moving closer together, which shrinks their spread, so their strain grows by less.
+
+Twice as far away, the strain is half as big. The wave's energy is shared over a sphere, and a sphere twice as wide has four times the area. So each square metre gets a quarter of the energy. For waves that repeat equally fast, the energy grows as the square of the strain, as a spring stretched twice as far stores four times the energy. So the strain falls to a half.
+
+In 2015, detectors with 4-kilometre arms measured waves from two black holes circling each other more than a billion light-years away. Shortly before the black holes merged, the formula gives a strain of nearly one part in a thousand billion billion, close to the size measured. The black holes were then moving at a third of light speed relative to each other, too fast for more than a rough estimate.
+
+Picture such a bar, 10 metres long with a mass of 10 tonnes, spinning five times per second. Along its spin axis at the Moon's distance, its strain would have forty-four zeros after the decimal point before the first digit. So nobody notices gravitational waves in daily life.
+
+**Takeaway:** Faster spinning gives a bigger strain, and twice as far away the strain is half as big.
+
+*What this leaves out:* The formula needs the source to be much smaller than its wavelength, the distance its waves travel while they repeat once. While a pair's waves repeat once, each star travels half a lap, about the pair's width. In that time the waves travel one wavelength, at light speed. So the source is small enough when the stars move much slower than light. You must also be many wavelengths away. Within about a sixth of a wavelength, the ordinary pull of the moving stars stretches and squeezes more than the waves do. Farther out, that pull fades much faster than the waves.
+
+*Continues:* `ways_in/a-spinning-pair-changes-its-shape`<br>*Builds on:* [[gravitational-wave-strain]]<br>*Visuals:* [[two-stars-and-a-distant-ring]]<br>*See:* `checks/faster-bar`, `checks/twice-as-far`
+
+### 4. From the retarded integral to the formula · working · calculation
 
 *How does the quadrupole formula follow from the linearized field equations, and where does each assumption enter?*
 
-"A spinning pair keeps changing its spread" made three claims: the strain follows the second time derivative of how the mass is spread, it falls as $1/r$, and it carries a tiny prefactor. All three come out of the linearized field equations. In Lorenz gauge, with the course conventions, $\Box\bar h_{\mu\nu} = -16\pi G T_{\mu\nu}/c^4$, and the solution with only outgoing waves is the retarded integral
+"Faster spin, farther detector" made three claims: the strain follows the second time derivative of how the mass is spread, it falls as $1/r$, and it carries a tiny prefactor. All three come out of the linearized field equations. In Lorenz gauge, with the course conventions, $\Box\bar h_{\mu\nu} = -16\pi G T_{\mu\nu}/c^4$, and the solution with only outgoing waves is the retarded integral
 
 $$\bar h_{\mu\nu}(t,\mathbf x) = \frac{4G}{c^4}\int\frac{T_{\mu\nu}\big(t - |\mathbf x - \mathbf y|/c,\ \mathbf y\big)}{|\mathbf x - \mathbf y|}\,d^3y.$$
 
@@ -135,9 +150,9 @@ Read the result one feature at a time.
 
 *What this leaves out:* Assumes linearized gravity and flat-space conservation of the matter's stress-energy. The way "Hypotheses, gauge, and self-gravitating sources" explains why the result survives for sources bound by their own gravity.
 
-*Continues:* `ways_in/a-spinning-pair-changes-its-shape`<br>*Builds on:* [[long-wavelength-approximation]], [[tensor-virial-identity]]<br>*Visuals:* [[light-delay-across-a-small-source]]<br>*See:* `derivations/quadrupole-formula-from-retarded-integral`, `checks/near-zone-detector`
+*Continues:* `ways_in/faster-spin-farther-detector`<br>*Builds on:* [[long-wavelength-approximation]], [[tensor-virial-identity]]<br>*Visuals:* [[light-delay-across-a-small-source]]<br>*See:* `derivations/quadrupole-formula-from-retarded-integral`, `checks/near-zone-detector`
 
-### 4. What a distant detector records · working · operational
+### 5. What a distant detector records · working · operational
 
 *Which strain does a detector far from a circling binary record, and how does it depend on the viewing direction?*
 
@@ -166,7 +181,7 @@ For black holes of 36 and 29 solar masses at 410 Mpc, where $1$ Mpc $= 3.086\tim
 
 *Continues:* `ways_in/from-retarded-integral-to-formula`<br>*Builds on:* [[gravitational-wave-polarization]], [[keplers-third-law]]<br>*Visuals:* [[strain-pattern-around-a-spinning-pair]]<br>*See:* `derivations/binary-polarizations`, `worked_examples/strain-from-a-black-hole-pair`, `observations/gw150914`, `observations/hulse-taylor-orbital-decay`
 
-### 5. Hypotheses, gauge, and self-gravitating sources · formal · structure
+### 6. Hypotheses, gauge, and self-gravitating sources · formal · structure
 
 *Under exactly what hypotheses does the quadrupole formula hold, and why does it apply to binaries bound by their own gravity?*
 
@@ -194,7 +209,7 @@ where $t_{\mathrm{LL}}$ is the Landau–Lifshitz pseudotensor and $t_{\mathrm H}
 
 *What this leaves out:* Omits spins, eccentricity and the construction of the matched expansions, and quotes the orders of the corrections without derivation.
 
-*Continues:* `ways_in/from-retarded-integral-to-formula`<br>*See:* `checks/compact-binary-validity`, `problems/projector-removes-trace`, `checks/spinning-square`, `observations/hulse-taylor-orbital-decay`
+*Continues:* `ways_in/from-retarded-integral-to-formula`<br>*See:* `checks/compact-binary-validity`, `problems/projector-removes-trace`, `checks/axial-oscillator-pattern`, `checks/spinning-square`, `observations/hulse-taylor-orbital-decay`
 
 ## Glossary
 
@@ -376,14 +391,14 @@ A uniform steel rod of mass $1.0\times10^4$ kg and length 10 m spins at 5 revolu
 
 ### `spinning-star-with-a-mountain` · working · difficulty 3 · calculation
 
-A neutron star spins at $\nu = 100$ Hz about its body $z$ axis, which points at a detector 1 kpc away ($1$ kpc $= 3.086\times10^{19}$ m). Its rigid-body moments of inertia about the body axes are $J_1$, $J_2$ and $J_3 = 1.0\times10^{38}$ kg m², with $\epsilon = (J_2 - J_1)/J_3 = 1.0\times10^{-6}$. Find the wave frequency and the strain amplitude, taking care to convert moments of inertia into second mass moments.
+A neutron star spins at $f_{\rm s} = 100$ Hz about its body $z$ axis, which points at a detector 1 kpc away ($1$ kpc $= 3.086\times10^{19}$ m). Its rigid-body moments of inertia about the body axes are $J_1$, $J_2$ and $J_3 = 1.0\times10^{38}$ kg m², with $\epsilon = (J_2 - J_1)/J_3 = 1.0\times10^{-6}$. Find the wave frequency and the strain amplitude, taking care to convert moments of inertia into second mass moments.
 
 **Hints**
 
 1. In the body frame, $J_2 - J_1 = \int\rho\,(x^2 - y^2)\,d^3y$.
 2. The body-frame difference of the mass moments rotates like a binary's, at twice the spin angular frequency.
 
-**Answer:** The waves have frequency $2\nu = 200$ Hz and amplitude $h_0 = 4G\Omega^2\epsilon J_3/(c^4 r) \approx 4.2\times10^{-26}$, with $\Omega = 2\pi\nu$, circularly polarized along the spin axis.
+**Answer:** The waves have frequency $2f_{\rm s} = 200$ Hz and amplitude $h_0 = 4G\Omega^2\epsilon J_3/(c^4 r) \approx 4.2\times10^{-26}$, with $\Omega = 2\pi f_{\rm s}$, circularly polarized along the spin axis.
 
 **Must contain:** J two minus J one equals the body-frame difference of mass moments; Waves at twice the spin frequency, 200 hertz; Strain about four times ten to the minus twenty-six
 
@@ -392,9 +407,9 @@ A neutron star spins at $\nu = 100$ Hz about its body $z$ axis, which points at 
 **Solution**
 
 1. $J_1 = \int\rho(y^2 + z^2)$ and $J_2 = \int\rho(x^2 + z^2)$, so $J_2 - J_1 = \int\rho(x^2 - y^2) = I_{xx} - I_{yy}$ in the body frame, and $I_{xy} = 0$ there for principal axes.
-2. Rotating at $\Omega = 2\pi\nu$, the detector-frame moments are $I_{xx} - I_{yy} = \epsilon J_3\cos 2\Omega t$ and $I_{xy} = \tfrac12\epsilon J_3\sin 2\Omega t$, plus constants.
+2. Rotating at $\Omega = 2\pi f_{\rm s}$, the detector-frame moments are $I_{xx} - I_{yy} = \epsilon J_3\cos 2\Omega t$ and $I_{xy} = \tfrac12\epsilon J_3\sin 2\Omega t$, plus constants.
 3. Along $z$, $h_+ = \tfrac12(\bar h_{xx} - \bar h_{yy}) = (G/c^4 r)(\ddot I_{xx} - \ddot I_{yy}) = -(4G\Omega^2\epsilon J_3/c^4 r)\cos 2\Omega t_r$.
-4. $h_\times = \bar h_{xy} = (2G/c^4 r)\ddot I_{xy} = -(4G\Omega^2\epsilon J_3/c^4 r)\sin 2\Omega t_r$: circular polarization at $2\nu = 200$ Hz.
+4. $h_\times = \bar h_{xy} = (2G/c^4 r)\ddot I_{xy} = -(4G\Omega^2\epsilon J_3/c^4 r)\sin 2\Omega t_r$: circular polarization at $2f_{\rm s} = 200$ Hz.
 5. $h_0 = 4(6.674\times10^{-11})(3.95\times10^5)(1.0\times10^{32})/\big[(8.08\times10^{33})(3.086\times10^{19})\big] = 4.2\times10^{-26}$.
 6. Using the full tensor $J_{ij}$ in place of $I_{ij}$ would flip the sign of the wave; only the difference $J_2 - J_1$ carries over directly.
 
@@ -431,24 +446,10 @@ Let $\mathbf n$ be a unit vector, $P_{ij} = \delta_{ij} - n_in_j$, and $\Lambda_
 
 1. **Count the repeats** (entry). Ask how many times the waves repeat per turn, then have the learner turn a pen over a line and count. *Why:* Finding the doubled rate fixes attention on the spread of mass. *Predict:* For each full turn of the pair, how many times do its waves repeat? *Visual:* [[two-stars-and-a-distant-ring]] *Uses:* `ways_in/a-spinning-pair-changes-its-shape`, `opening_questions/how-many-repeats`
 2. **Sort moving shapes** (entry). Run the balloon, wheel, tumbling bar and spinning square through the spread test. *Why:* Contrast cases break the belief that any motion radiates. *Predict:* Does a perfectly round balloon that swells and shrinks send out gravitational waves? *Visual:* [[spinning-shapes-with-a-spread-meter]] *Uses:* `ways_in/shapes-that-stay-silent`, `checks/breathing-balloon`, `problems/rank-the-sources`
-3. **Weigh speed and distance** (entry). Pose the faster-bar and twice-as-far checks before revealing answers. *Why:* Learners often get both scalings wrong. *Predict:* Twice as far away, how big is the strain? *Uses:* `checks/faster-bar`, `checks/twice-as-far`
+3. **Weigh speed and distance** (entry). Pose the faster-bar and twice-as-far checks before revealing answers. *Why:* Learners often get both scalings wrong. *Predict:* Twice as far away, how big is the strain? *Uses:* `ways_in/faster-spin-farther-detector`, `checks/faster-bar`, `checks/twice-as-far`
 4. **Build the formula** (working). Take the retarded integral through each step, then test the wave-zone condition on a nearby sensor. *Why:* Learners see which assumption each factor rests on. *Visual:* [[light-delay-across-a-small-source]] *Uses:* `ways_in/from-retarded-integral-to-formula`, `derivations/quadrupole-formula-from-retarded-integral`, `checks/near-zone-detector`
 5. **Point a detector at a binary** (working). Derive the binary polarizations, compare face-on with edge-on, and estimate a real signal. *Why:* It connects the formula to what instruments record. *Predict:* Seen from within the plane of the orbit, will both polarizations appear? *Visual:* [[strain-pattern-around-a-spinning-pair]] *Uses:* `ways_in/what-a-distant-detector-records`, `derivations/binary-polarizations`, `checks/edge-on-components`, `worked_examples/strain-from-a-black-hole-pair`
 6. **Mark the limits** (formal). State the hypotheses, answer the self-gravitating objection, and locate the breakdown near merger. *Why:* It prevents overtrusting the formula at merger and distrusting it for pulsars. *Uses:* `ways_in/hypotheses-and-self-gravitating-sources`, `checks/compact-binary-validity`, `checks/how-slow-is-slow`
-
-## Analogies
-
-### Radio waves from a small antenna · working
-
-A radio antenna much shorter than its wavelength radiates through its oscillating electric dipole moment $\mathbf p$. Far away its radiation field is $\mathbf E = -\frac{\mu_0}{4\pi r}\,\ddot{\mathbf p}_\perp(t - r/c)$, with $\ddot{\mathbf p}_\perp$ the part transverse to the line of sight. The gravitational field has the same anatomy: a constant over $r$, a second time derivative of a source moment at the retarded time, and a transverse projection. The signs differ in this form, so compare structure, not signs.
-
-| In the analogy | Stands for |
-| --- | --- |
-| electric dipole moment $\mathbf p$ | second mass moment $I_{ij}$ |
-| $\mu_0/4\pi r$ | $2G/c^4 r$ |
-| transverse part $\ddot{\mathbf p}_\perp$ | transverse-traceless part of $\ddot I_{ij}$ |
-
-*Limits:* Charges have two signs, so a dipole can oscillate at fixed total charge. The mass dipole is total mass times the centre-of-mass position, which cannot accelerate for an isolated source, so gravity starts at the quadrupole, the channel weaker than the dipole by about $v/c$ in amplitude. The gravitational field is a tensor that stretches and squeezes.
 
 ## Misconceptions
 
@@ -486,7 +487,7 @@ A radio antenna much shorter than its wavelength radiates through its oscillatin
 
 - **Why it is tempting:** The formula hands over a full three-by-three array.
 - **What is true:** Only the transverse part with its trace removed moves free masses relative to each other.
-- **Exposed by:** `checks/edge-on-components`
+- **Exposed by:** `checks/edge-on-components`, `checks/axial-oscillator-pattern`
 
 ### “The quadrupole formula describes the whole signal of a binary, right through the merger.” · working · `good-through-merger`
 
@@ -510,7 +511,7 @@ A radio antenna much shorter than its wavelength radiates through its oscillatin
    - **Visual:** [[spinning-shapes-with-a-spread-meter]]
 2. **Entry · numeric** `checks/faster-bar`. A steel bar spins flat about its middle 5 times per second. A detector far away, on the line of the bar's spin axis, measures its gravitational waves. The bar is sped up to 10 times per second, and the detector stays put. How many times per second do the waves now repeat? By how many times does the largest strain grow?
    - **Hints:** After half a turn, does the bar look any different? / What happens to the rate of change of the spread, and to how fast that rate changes?
-   - **Answer:** The waves repeat 20 times per second, and the largest strain grows 4 times. The bar looks the same after half a turn. So its spread along a line rises and falls twice per turn, 20 times each second. At twice the spin, the spread swings as far in half the time, so its rate of change doubles. That doubled rate also rises and falls in half the time. So it changes 4 times as fast, and the strain grows 4 times.
+   - **Answer:** The waves repeat 20 times per second, and the largest strain grows 4 times. The bar looks the same after half a turn. So its spread along a line rises and falls twice per turn, 20 times each second, and the waves repeat as often as the spread. At twice the spin, the spread swings as far in half the time, so its rate of change doubles. That doubled rate also rises and falls in half the time. So it changes 4 times as fast, and the strain grows 4 times.
    - **Must contain:** Twice per turn gives 20 repeats each second; The rate doubles and repeats twice as often; The strain grows 4 times
    - **Numeric:** repeats per second = 20 Hz (magnitude, ±0.5); strain ratio = 4 1 (magnitude, ±0.1)
    - **Targets:** `waves-repeat-once-per-turn`
@@ -562,6 +563,12 @@ A radio antenna much shorter than its wavelength radiates through its oscillatin
    - **Answer:** Set $G = c = 1$. Conservation: bound matter obeys $\nabla_\nu T^{\mu\nu} = 0$, and $\partial_\nu T^{\nu j} = -\rho\,\partial_j\Phi$ is as large as the stresses the virial step uses. In harmonic coordinates Einstein's equations read exactly $\Box\mathfrak h^{\mu\nu} = -16\pi\tau^{\mu\nu}$ with $\partial_\nu\tau^{\mu\nu} = 0$, where $\tau$ adds the Landau–Lifshitz pseudotensor and a gauge term to the matter; its virial identity includes the gravitational stresses and returns the same formula with the Newtonian $I_{ij}$. Strong internal gravity: the hypotheses concern the orbit, and for non-spinning bodies internal structure enters the motion and far field only at high post-Newtonian order. With $v \approx 0.0015$ the corrections are small, and PSR B1913+16 agrees with the predicted orbital decay to about 0.2 percent.
    - **Must contain:** Flat-space conservation fails for bound matter; The pseudotensor is conserved exactly and gives the same formula; Internal gravity enters only at high post-Newtonian order; Pulsar timing agrees to 0.2 percent
    - **Targets:** `needs-weak-internal-gravity`
+11. **Formal · derive** `checks/axial-oscillator-pattern`. Set $G = c = 1$. Two equal masses on a spring oscillate along the $z$ axis about their centre of mass, so the only nonzero mass moment is $I_{zz}(t)$. With $h^{\mathrm{TT}}_{ij} = (2/r)\Lambda_{ij,kl}\ddot I_{kl}$, $\mathbf p = \hat{\boldsymbol\theta}$ and $\mathbf q = \hat{\boldsymbol\phi}$, find $h_+$ and $h_\times$ at polar angle $\theta$, and the amplitude at $\theta = 30^\circ$ divided by that at $\theta = 90^\circ$. A student notes that $\bar h_{zz} \neq 0$ on the $z$ axis and predicts a signal there. Evaluate.
+   - **Hints:** Split $\hat{\mathbf z}$ into its parts along $\mathbf n$ and along $\hat{\boldsymbol\theta}$.
+   - **Answer:** Write $\hat{\mathbf z} = \cos\theta\,\mathbf n - \sin\theta\,\hat{\boldsymbol\theta}$, so $P_{ik}\hat z_k = -\sin\theta\,\hat\theta_i$ and $P_{kl}\hat z_k\hat z_l = \sin^2\theta$. Because $P_{ij} = \hat\theta_i\hat\theta_j + \hat\phi_i\hat\phi_j$, $\Lambda_{ij,kl}\hat z_k\hat z_l = \sin^2\theta\,\hat\theta_i\hat\theta_j - \tfrac12\sin^2\theta\,P_{ij} = \tfrac12\sin^2\theta\,e^+_{ij}$. So $h_+ = (\sin^2\theta/r)\,\ddot I_{zz}(t - r)$ and $h_\times = 0$, as reflection through the plane containing $\hat{\mathbf z}$ and $\mathbf n$ requires. The ratio is $\sin^2 30^\circ = 0.25$. On the axis $\sin\theta = 0$: $\bar h_{zz}$ has both indices along $\mathbf n$, $\Lambda$ removes it, and it moves no free masses relative to each other, so the student is wrong.
+   - **Must contain:** Only plus polarization, proportional to sine squared theta; The ratio is 0.25; Along the axis the field is longitudinal, and a detector there records nothing
+   - **Numeric:** amplitude at 30 degrees over amplitude at 90 degrees = 0.25 1 (magnitude, ±0.01)
+   - **Targets:** `every-component-stretches`
 
 ## Notation traps
 
@@ -593,10 +600,8 @@ A radio antenna much shorter than its wavelength radiates through its oscillatin
 
 **Common questions**
 
-- *Why are gravitational waves so weak?* (entry) Gravity is by far the weakest force between everyday objects. The formula also divides by the speed of light four times over. Only huge masses moving at a good fraction of light speed, like black holes about to merge, make waves big enough to measure. *Uses:* `ways_in/a-spinning-pair-changes-its-shape`, `problems/lab-rod`
+- *Why are gravitational waves so weak?* (entry) Gravity is by far the weakest force between everyday objects. The formula also divides by the speed of light four times over. Only huge masses moving at a good fraction of light speed, like black holes about to merge, make waves big enough to measure. *Uses:* `ways_in/faster-spin-farther-detector`, `problems/lab-rod`
 - *Does Earth circling the Sun send out gravitational waves?* (entry) Yes. Earth and the Sun are a circling pair, so their waves repeat twice a year. The waves are extremely weak, because Earth moves at only about one ten-thousandth of light speed, and the strain depends on the square of that fraction. *Uses:* `ways_in/a-spinning-pair-changes-its-shape`
-- *Why does the formula use the second time derivative of the mass moment?* (working) The spatial field is sourced by stresses, and conservation turns the integrated stresses into half of $\ddot I_{ij}$. A constant $\ddot I_{ij}$, as for a mass drifting at steady velocity, gives an unchanging field; only a time-varying one radiates. *Uses:* `derivations/quadrupole-formula-from-retarded-integral`
-- *Is the quadrupole formula gauge invariant?* (formal) $\bar h_{ij}$ is not. In the wave zone a gauge change adds only terms carrying $\mathbf n$ or $\delta_{ij}$, which the projector removes, so $h^{\mathrm{TT}}_{ij}$ is invariant at this order and fixes the curvature $R_{0i0j} = -\tfrac12\ddot h^{\mathrm{TT}}_{ij}$. *Uses:* `ways_in/hypotheses-and-self-gravitating-sources`
 
 **Switching levels**
 
@@ -624,7 +629,7 @@ A radio antenna much shorter than its wavelength radiates through its oscillatin
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 4)
 
 **Retell attempt:** Two stars going round each other are like a spinning pencil, and they make gravitational waves, which stretch space one way and squeeze it the other way. It isn't their mass or their drifting along that does it. It's how their mass is spread along a line, which goes up and down twice every turn, so the waves come twice per turn. The formula says the strain depends on how fast the rate of change is changing, which I didn't really get, and somehow a bar spun twice as fast gives four times the strain. I'm not sure whether that's true for the stars too. Twice as far away it's half, not a quarter, because of energy and squares. A round balloon swelling doesn't make waves, but I didn't see why a spinning square doesn't when it moves too, or why a skater pulling in her arms makes weaker waves when she spins faster. Everyday waves are tiny: forty-four zeros.
 
@@ -684,9 +689,30 @@ A radio antenna much shorter than its wavelength radiates through its oscillatin
 - The flagship visual's proposed sketch still promises a tilted view at half size; that is fine for the working rung, but a tour for entry readers should not state the factor without the reason the working way gives.
 - The id of the first entry way, a-spinning-pair-changes-its-shape, no longer matches its title. The note is unpublished, so the id can still be renamed before publication if the editor prefers.
 
+**Re-read** (2026-09-13, revision 4): 11 stumbles in 18 changed passages
+
+- “What about two circling stars makes gravitational waves, and what sets their size far away?”: Rule 17: one entry way held two new ideas. It explained why the pair radiates at all (the spread rises and falls twice per turn), then how big the strain is: a rate of a rate, four times the strain at twice the spin, and energy shared over a sphere. Its takeaway was two unrelated sentences.
+- “Picture the same motion in space, with two equal stars as the pencil's ends.”: Squeezed to fit the budget: 'stars as the pencil's ends' reads as if the stars were part of a pencil.
+- “so its centre of mass drifts, if at all, almost perfectly steadily in a fixed direction.”: Three stacked qualifiers ('if at all', 'almost', 'perfectly') in one clause; the reader rereads to find the verb.
+- “The same stars can circle faster only by moving closer together, so their strain grows by less.”: Missing step: why moving closer makes the strain grow less is left to the reader.
+- “While a pair's waves repeat once, each star travels half a lap, about the pair's width. So the source is small enough when the stars move much slower than light.”: Missing link: nothing says the waves cover a whole wavelength at light speed in that time, so 'slower than light' does not follow.
+- “Picture a steel bar of 10 tonnes and 10 metres spinning flat about its middle five times per second.”: Squeezed: 'a bar of 10 tonnes and 10 metres' does not say which number is mass and which is length.
+- “A diagonal along the line gives 1 plus 1, which is 2.”: The square has four weights, but only two are counted; the reader cannot tell what happened to the other two.
+- “A side along the line puts all four weights about 0.71 metres out, which also gives 2.”: Arithmetic step taken on trust: four weights at 0.71 metres giving 2 needs 0.71 times 0.71 to be about a half.
+- “An evenly swelling round balloon or an even spinning wheel sends out no gravitational waves, while a tumbling bar or a circling pair does, because its spread changes differently along different directions.”: 'its' has four candidates in the same sentence, including the balloon and the wheel.
+- “Two stars circling each other keep changing how their mass is spread out, more along one direction than another.”: 'more along one direction than another' can be read as describing the spread at one moment rather than the change, which is what the balloon sentence contrasts with.
+- “So its spread along a line rises and falls twice per turn, 20 times each second.”: Check faster-bar: the answer counts the spread's repeats but never says the waves repeat with it, so the '20 times per second' for the waves is a missing link.
+- Fix: Split the first entry way. 'A spinning pair keeps changing its spread' (id kept) now answers 'What about two circling stars makes gravitational waves?' and ends at the mass quadrupole. Its takeaway is the twice-per-turn sentence; its simplifies keeps the scope sentence about finer details, now 'that the mass quadrupole leaves out'; its refs are checks/faster-bar.
+- Fix: Added the entry way faster-spin-farther-detector ('Faster spin, farther detector', kind calculation, continues the first way, placed after 'Moving is not enough' to follow the teaching arc). It holds the formula, spinning-bar, twice-as-far, 2015 and everyday-bar paragraphs unchanged except as listed in the stumbles. Its first sentence refers back to the pair; its recap restates the strain, the mass quadrupole, and the circling pair's twice-per-turn spread, so 'like the pair's' stands alone when the way is retrieved by itself; its takeaway is the old second takeaway sentence; its simplifies is the old validity text; it cites two-stars-and-a-distant-ring and refs checks/faster-bar and checks/twice-as-far.
+- Fix: Working way 'From the retarded integral to the formula' now quotes 'Faster spin, farther detector', where its three claims live, and continues that way. The teaching-arc step weigh-speed-and-distance and the common question why-so-weak now use ways_in/faster-spin-farther-detector.
+- Fix: Applied the wording rewrites listed in the stumbles: summary, the pencil-ends sentence, the centre-of-mass drift, closer stars, the validity link, the everyday bar, the square's count, the second way's takeaway, and the faster-bar answer.
+- Fix: Budget (entry explanations capped at 1000; the fixes needed about 45 words): dropped 'A pair circling 50 times per second sends waves that repeat 100 times per second.' (the try-it and the faster-bar check make the same count), 'Everyday objects are too light and slow.' (the bar's forty-four zeros make the point), and the clause 'and the strain rises and falls with them' in the first way (the new way ties the strain to the changing spread). Extras capped at 800: the new question and recap were written with short sentences rather than dropping an item. Entry now 1000, extras 799, tutoring 3289.
+- Fix: Conform-stage changes at working rung read as a second-year student: f_s for spin frequency reads cleanly; removing the antenna analogy and the why-second-derivative question leaves no gap, because the working way answers the second-derivative question and the related link retarded-potential keeps the electromagnetic parallel. No stumbles there.
+- Fix: Revision bumped from 3 to 4; status kept. A physics diff check should cover the entry changes, especially the new sentence 'In that time the waves travel one wavelength, at light speed' and the square's 0.71 times 0.71 step.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 5)
 
 **Verification**
 
@@ -759,3 +785,16 @@ A radio antenna much shorter than its wavelength radiates through its oscillatin
 - Registry prerequisites differ from the note (added gravitational-wave-strain, gravitational-wave-polarization, keplers-third-law); run sync_registry.py. None of the prerequisite notes exists yet, so glossary alignment is still open.
 - The entry comparison with GW150914 ('close to the size measured') uses a face-on estimate at 35 Hz against the peak strain near merger; the order of magnitude is right, but the early-inspiral recorded amplitude was below the peak. The working way phrases it as 'the same order', which is the safer wording.
 - The first entry way's id a-spinning-pair-changes-its-shape no longer matches its title; rename before publication if desired.
+
+**Diff check** (2026-09-13, revision 5)
+
+- Formal check axial-oscillator-pattern: z-hat = cos(theta) n - sin(theta) theta-hat, P z = -sin(theta) theta-hat, z.P.z = sin^2(theta), Lambda_{ij,kl} z_k z_l = (1/2) sin^2(theta) e+_ij with p = theta-hat, q = phi-hat; h_+ = sin^2(theta) Iddot_zz(t-r)/r, h_x = 0; ratio at 30 over 90 degrees 0.25; on the axis h-bar_zz is longitudinal and removed by Lambda.: Re-derived by hand in course conventions; python3 built P and Lambda at five (theta, phi) pairs including theta near 0 and 90 degrees, compared with (1/2) sin^2 theta e+, contracted with e-cross, and checked theta-hat x phi-hat = n. Side check: integrated the sin^4 pattern over the sphere and compared with P = (1/5) Qdddot_ij Qdddot_ij. → Correct: residuals below 1e-16, cross contraction zero, triad right-handed, ratio 0.25 within abs_tol 0.01, power coefficient 2/15 matches the conventions formula. Reflection through the plane of z-hat and n flips e-cross, so h_x = 0 is required. One key point said the field 'records nothing'; reworded so a detector records.
+- Objective project-in-any-direction and the new diagnosed_by/targets link to every-component-stretches.: Compared the objective's two skills with what the check asks; checked the misconception's correction against the on-axis result. → Consistent: the check applies Lambda in a general direction and shows the axis receives no wave; the correction ('only the transverse part with its trace removed moves free masses') is what the check demonstrates.
+- Problem spinning-star-with-a-mountain with f_s replacing nu: frequency 2 f_s = 200 Hz, Omega = 2 pi f_s, h_0 = 4 G Omega^2 epsilon J_3/(c^4 r) = 4.2e-26, circular along the spin axis.: Re-derived the rotated moments (I_xx - I_yy = epsilon J_3 cos 2 Omega t, I_xy = (1/2) epsilon J_3 sin 2 Omega t), h_+ and h_x along z; python3 for h_0. → Correct: h_0 = 4.227e-26 within rel_tol 0.05; f_s agrees with the conventions frequency row and does not clash with the wave frequency f used in the working way.
+- Entry: 'In that time the waves travel one wavelength, at light speed', inside the scope 'while a pair's waves repeat once, each star travels half a lap, about the pair's width', so small source means v << c.: Wave period T = half the orbital period; lambda = cT by definition; each equal star moves pi a/2 = v T, so a/lambda = (2/pi)(v/c); python3. → Correct; half a lap is 1.57 times the width, which 'about' covers.
+- Entry square count: diagonal along the line gives 1 + 1 + 0 + 0 = 2; side along the line puts four weights 0.71 m out, 0.71 x 0.71 about a half, so 2.: Squared projections onto the line for weights 1 m from the centre; python3. → Correct: exact projection 1/sqrt 2 gives 2; the rounded 0.71 gives 2.02, covered by 'about'. The two weights on the other diagonal project to 0, matching 'beside the centre' as used in the first way.
+- Entry first way: centre of mass 'stays put or drifts almost perfectly steadily'; 'The waves repeat as often as the spread does, twice per turn'; simplifies 'Finer details of a shape add much weaker waves that the mass quadrupole leaves out'.: Counterexamples: merger recoil (zero for equal non-spinning stars by symmetry, beyond quadrupole order otherwise); higher multipoles at other frequencies (current quadrupole and mass octupole scale with the mass difference and vanish for equal stars; l = 4 radiates at two and four times per turn); frame of rest versus steady drift. → True and no stronger than the old wording ('drifts, if at all'). 'Twice per turn' holds for the dominant quadrupole waves, and the simplifies correctly scopes the weaker waves the mass quadrupole misses. Replacing 'the formula' by 'the mass quadrupole' is accurate, since the mass quadrupole measures only the spread.
+- Entry new way faster-spin-farther-detector: moved sentences unchanged in claim; 'which shrinks their spread' added to the fixed-mass pair; everyday bar '10 metres long with a mass of 10 tonnes, spinning five times per second' gives forty-four zeros at the Moon's distance along the spin axis; recap statements about strain, the mass quadrupole and the twice-per-turn peak.: Kepler a proportional to omega^(-2/3), so the spread a^2 shrinks and h grows by 2^(2/3) = 1.587 rather than 4; rod h = 4 G omega^2 (M L^2/12)/(c^4 r) with python3; wave-zone check r/lambda; recap compared with the first way and the working detector relation (arm changes +-(1/2)h l). → Correct: rod h = 7.08e-45 (44 zeros), r = 12.8 wavelengths so wave zone; steel cross-section about 0.36 m wide changes I by about 0.1 percent. Recap true; its 'along a line' is read, like the first way's takeaway, as a line in the pair's plane.
+- Summary 'and not equally in every direction'; faster-bar answer 'the waves repeat as often as the spread'; takeaway of 'Moving is not enough' split in two; working way now quotes 'Faster spin, farther detector' for its three claims.: What-ifs on the summary (balloon, wheel, pair seen from the axis); checked that the quoted way states the second-derivative dependence, the halving with distance and the tiny size; compared the split takeaway with the old sentence. → All true and claim-preserving; the quoted way contains all three claims.
+- Removed analogy antenna-dipole-radiation and common questions why-second-derivative and gauge-invariance leave no dangling or contradicted statements.: Searched the note for remaining references; confirmed the working way and derivation still give the conservation argument, and the formal way still gives the gauge argument and R_0i0j. → No gaps; the validator reports no broken addresses.
+- Fix: checks/axial-oscillator-pattern key point 'Along the axis the field is longitudinal and records nothing' became 'Along the axis the field is longitudinal, and a detector there records nothing', so the measurer is a detector, not the field.

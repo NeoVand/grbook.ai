@@ -7,7 +7,7 @@ tagline: "Why a clock moving past your clocks counts less time than they do"
 domain: "special-relativity"
 tier: "foundation"
 status: "physics-reviewed"
-revision: 2
+revision: 5
 updated: "2026-09-13"
 aliases: ["moving clocks run slow", "reciprocity of time dilation", "kinematic time dilation"]
 prerequisites: ["invariance-of-the-speed-of-light", "principle-of-relativity", "relativity-of-simultaneity", "proper-time", "lorentz-factor", "four-velocity"]
@@ -19,14 +19,14 @@ visuals: ["light-clock-on-a-passing-ship", "one-clock-against-a-line-of-clocks"]
 
 *Why a clock moving past your clocks counts less time than they do*
 
-`time-dilation` · special-relativity · foundation · physics-reviewed (revision 2)
+`time-dilation` · special-relativity · foundation · physics-reviewed (revision 5)
 
 **Needs:** [[invariance-of-the-speed-of-light]] (entry) · [[principle-of-relativity]] (entry) · [[relativity-of-simultaneity]] (entry) · [[proper-time]] (working) · [[lorentz-factor]] (working) · [[four-velocity]] (formal)  
 **Opens:** [[twin-paradox]] · [[atmospheric-muon-time-dilation]] · [[relativistic-doppler-effect]] · [[ives-stilwell-experiment]] · [[gps-relativistic-corrections]]  
 **Related:** [[length-contraction]] · [[clock-hypothesis]] · [[gravitational-time-dilation]]  
 **Visuals:** ★ [[light-clock-on-a-passing-ship]] · [[one-clock-against-a-line-of-clocks]]
 
-> Picture a clock moving past you at a steady speed while you coast steadily. Time it with your synchronized clocks placed along its path. While the moving clock counts one second, your clocks count more than one second. People riding with it notice nothing odd. The stretch is tiny at everyday speeds and has no upper limit as the speed nears light's. While both sides coast steadily, those people find your clocks stretched too.
+> Picture a clock moving past you at a steady speed while you coast steadily. Time it with your synchronized clocks placed along its path. While the moving clock counts one second, your clocks count more than one second. People riding with it notice nothing odd. This stretch is tiny at everyday speeds and has no upper limit as the speed nears light's. While both sides coast steadily, those people find your clocks stretched too.
 
 ## You will be able to
 
@@ -42,6 +42,7 @@ visuals: ["light-clock-on-a-passing-ship", "one-clock-against-a-line-of-clocks"]
 **Formal**
 - Prove that the inner-product factor is at least 1 and that inertial paths have the most proper time. `objectives/prove-factor-at-least-one` ← `problems/reversed-cauchy-schwarz`
 - State why the Lorentz factor does not give the rate ratio of separated clocks in curved spacetime. `objectives/state-limits-of-the-factor` ← `checks/distant-clocks-in-curved-spacetime`
+- Reconcile the mutual stretch by computing where each observer's slices meet a clock. `objectives/locate-reciprocity-on-slices` ← `checks/head-start-from-level-sets`
 
 ## Ways in
 
@@ -55,7 +56,7 @@ Picture a spaceship coasting in a straight line past a space station. Measured w
 
 Inside the ship, the crew builds a clock from two facing mirrors, one on the cabin floor and one on the ceiling, 4 metres away. So the line between them is at right angles to the ship's motion. A flash of light bounces between the mirrors, and each round trip is one tick. This is called a light clock.
 
-Measured by the crew, the flash crosses the 4-metre gap. The station team measures the same gap, since it lies across the motion, but a different path. While the flash crosses, the ship moves forward, so the flash travels on a slant to reach the other mirror. The station team measures the flash at light speed and the ship at 6 tenths of that. So the ship moves 6 tenths as far as the flash.
+Measured by the crew, the flash crosses the 4-metre gap. The station team measures the same 4-metre gap, because the gap lies across the ship's motion. But they measure a different path for the flash. While the flash crosses, the ship moves forward, so the flash travels on a slant to reach the other mirror. The station team measures the flash at light speed and the ship at 6 tenths of that. So the ship moves 6 tenths as far as the flash.
 
 How long is the slant? Try 5 metres. Then the ship moves 3 metres, which is 6 tenths of 5. The 3 metres, the 4-metre gap and the 5-metre slant fit a right-angled triangle, because 3 times 3 plus 4 times 4 is 5 times 5. That is Pythagoras' rule, so 5 metres is right. The trip back is the same.
 
@@ -81,33 +82,43 @@ At everyday speeds the factor is almost exactly 1. Take a ship passing the stati
 
 ### 2. One travelling clock, two station clocks · entry · operational
 
-*How does the station team actually time a passing clock, and how can the crew find the station's clocks stretched too?*
+*How does the station team actually time a passing clock?*
 
-**Recap:** Light has one speed, about 300,000 kilometres per second, for everyone who measures it. Nobody inside a steadily coasting ship or station can find its speed without looking outside. A ship coasts past a station at 6 tenths of light speed. By the station's clocks, each tick of every ship clock takes 1.25 times as long as the ship's own count. This stretch is called time dilation.
+**Recap:** Light has one speed, about 300,000 kilometres per second, for everyone who measures it. A ship coasts past a station at 6 tenths of light speed. By the station's clocks, each tick of every ship clock takes 1.25 times as long as the ship's own count.
 
 A passing clock never stays beside one station clock. So the station team times it with a long line of station clocks along the ship's path, like road markers.
 
-First the team sets the clocks to agree. Long before the ship arrives, a flash leaves clock A, carrying a coded message: clock A's reading as the flash left. At each other clock, a helper sets the clock to that reading plus the light's travel time. The travel time is the distance, measured with station rulers, divided by light's speed. For 300,000 kilometres, that adds 1 second. Clocks set like this are called synchronized.
+First the team sets the clocks to agree. Long before the ship arrives, a flash leaves one of the clocks, clock A, carrying a coded message: clock A's reading as the flash left. At each other clock, a helper sets the clock to that reading plus the light's travel time. The travel time is the distance, measured with station rulers, divided by light's speed. For 300,000 kilometres, that adds 1 second. Clocks set like this are called synchronized.
 
 The ship passes clock A. Side by side, the ship's clock and clock A both read zero. The ship coasts on to clock B, 9 million kilometres further. At 180,000 kilometres per second, that takes 50 seconds. Side by side at clock B, clock B reads 50 seconds and the ship's clock reads 40. Fifty is 1.25 times 40, the light clock's stretch.
 
-No light delay spoils these readings, because each pair was read side by side. A telescope view is different. As a ship approaches, each later flash from it has less distance to travel, so its clock can even look faster than a clock beside you.
+No light delay spoils these readings, because each pair was read side by side.
 
-Turn the timing around. The crew cannot find their speed without looking outside, so the same reasoning works for them. Measured by the crew, the station slides toward the ship's rear at 6 tenths of light speed. So by the crew's own line of synchronized clocks, coasting beside the ship, each tick of a station clock takes 1.25 times as long as that clock's own count.
+**Takeaway:** The station times a passing ship clock with two synchronized station clocks, each read side by side with it.
 
-The crew time station clock B, starting when the ship passes clock A, with a crew clock beside clock B at that moment by crew clocks. Clock B slides back to the ship, arriving when the ship's clock reads 40. So clock B counts 40 divided by 1.25, only 32 seconds. Clock B reads 50 on arrival, so by the crew's clocks it read 18 at the start.
+*Continues:* `ways_in/light-clock-on-a-passing-ship`<br>*Visuals:* [[one-clock-against-a-line-of-clocks]]<br>*See:* `checks/side-by-side-readings`
 
-Why that head start? Measured by the crew, the station's line slides toward the ship's rear, so clock B moved toward the flash from clock A that set it. The flash reached clock B sooner than the station team allowed for, so clock B was set ahead. The head start is 6 tenths of 30 seconds, light's time to cross 9 million kilometres by station measurements.
+### 3. The crew time a station clock · entry · operational
 
-So each side times one of the other side's clocks with two of its own. The teams disagree about which readings on distant clocks happen at the same moment. That is why both stretches hold while both sides coast steadily.
+*How can the crew find the station's clocks stretched too?*
+
+**Recap:** Light has one speed for everyone who measures it. Nobody inside a steadily coasting ship or station can find its speed without looking outside. A station sets a line of clocks to agree, using a flash from clock A and allowing for light's travel time. Such clocks are called synchronized. A ship coasts past the station at 6 tenths of light speed. From station clock A to station clock B, the ship's clock counts 40 seconds and the station's clocks count 50.
+
+Turn around the timing of one travelling clock against two station clocks. The crew cannot find their speed without looking outside, so the same reasoning works for them. Measured by the crew, the station slides toward the ship's rear at 6 tenths of light speed. So by the crew's own line of synchronized clocks, coasting beside the ship, each tick of a station clock takes 1.25 times as long as that clock's own count.
+
+The crew time station clock B from the moment the ship passes clock A. At that moment, by the crew's clocks, one crew clock is beside clock B. Clock B slides back to the ship, arriving when the ship's clock reads 40. So 40 seconds pass by crew clocks, and clock B, stretched 1.25 times, counts 40 divided by 1.25, only 32 seconds. Clock B reads 50 on arrival, so by the crew's clocks it read 18 at the start.
+
+Why that head start? Measured by the crew, the station's line slides toward the ship's rear, so clock B moved toward the flash from clock A that set it. The flash reached clock B sooner than the station team allowed for, so clock B was set ahead. By station measurements, light takes 30 seconds to cross the 9 million kilometres from clock A to clock B. The head start is 6 tenths of those 30 seconds.
+
+The teams disagree about which readings on distant clocks happen at the same moment. That is why both stretches hold while both sides coast steadily.
 
 **Takeaway:** Each side times one of the other side's clocks with two of its own synchronized clocks. The teams disagree about how distant clocks were set, so each finds the other's clocks stretched.
 
 *What this leaves out:* Both stretches hold only while both sides coast steadily. A ship clock that flies out, turns around and comes back returns showing less time than the station clock it left. The two sides are then not alike: only the station coasted steadily the whole time.
 
-*Continues:* `ways_in/light-clock-on-a-passing-ship`<br>*Builds on:* [[relativity-of-simultaneity]]<br>*Visuals:* [[one-clock-against-a-line-of-clocks]]<br>*See:* `checks/each-side-finds-the-other-stretched`
+*Continues:* `ways_in/one-ship-clock-two-station-clocks`<br>*Builds on:* [[principle-of-relativity]], [[relativity-of-simultaneity]]<br>*Visuals:* [[one-clock-against-a-line-of-clocks]]<br>*See:* `checks/each-side-finds-the-other-stretched`
 
-### 3. The Lorentz factor from the light clock · working · calculation
+### 4. The Lorentz factor from the light clock · working · calculation
 
 *What is the exact stretch for any speed, and how large is it for real clocks?*
 
@@ -131,7 +142,7 @@ Real clocks confirm the formula at both extremes. Muons circulating in a storage
 
 *Continues:* `ways_in/light-clock-on-a-passing-ship`<br>*Builds on:* [[proper-time]], [[lorentz-factor]]<br>*See:* `derivations/light-clock-derivation`, `worked_examples/storage-ring-muons`, `observations/muons-in-a-storage-ring`, `observations/aluminium-ion-clocks`
 
-### 4. What a telescope shows is not the stretch · working · contrast
+### 5. What a telescope shows is not the stretch · working · contrast
 
 *Does a clock rushing toward you look slow, and why does a telescope view differ from the measured stretch?*
 
@@ -155,7 +166,7 @@ For flashes sent when the clock is at its nearest point to the watcher, by the s
 
 *Continues:* `ways_in/one-ship-clock-two-station-clocks`<br>*Visuals:* [[one-clock-against-a-line-of-clocks]]<br>*See:* `derivations/received-flash-spacing`, `checks/approach-and-recede`
 
-### 5. The factor as a product of four-velocities · formal · structure
+### 6. The factor as a product of four-velocities · formal · structure
 
 *What is time dilation without coordinates, and where does the statement stop being meaningful?*
 
@@ -169,7 +180,7 @@ Split $u = \gamma(n + V)$ with $\eta(n, V) = 0$. The observer measures the clock
 
 *Theorem (reversed Cauchy–Schwarz inequality).* For future-directed unit timelike vectors $n$ and $u$, $-\eta(n, u) \ge 1$, with equality exactly when $u = n$. So between two ticks, a clock in relative motion records less proper time than the observer's synchronized clocks assign.
 
-Reciprocity is the symmetry $\eta(n, u) = \eta(u, n)$: the time function $t_u$ assigns a clock at rest with $n$ the same factor. The two statements concern different pairs of events, because $t_n$ and $t_u$ have different level sets. In the timing of one travelling clock against two station clocks, the 18-second head start of clock B is the proper time along clock B's world line between the level sets $t_n = 0$ and $t_u = 0$ through the event where the ship passes clock A, restoring $c$.
+Reciprocity is the symmetry $\eta(n, u) = \eta(u, n)$: the time function $t_u$ assigns a clock at rest with $n$ the same factor. The two statements concern different pairs of events, because $t_n$ and $t_u$ have different level sets. When the crew time a station clock, the 18-second head start of clock B is the proper time along clock B's world line between the level sets $t_n = 0$ and $t_u = 0$ through the event where the ship passes clock A, restoring $c$.
 
 For a clock on any timelike world line that obeys the clock hypothesis, $dt_n/d\tau = -\eta(n, u(\tau)) = \gamma(\tau)$, so $\Delta t_n = \int \gamma\,d\tau \ge \Delta\tau$. Comparing world lines between two fixed timelike-separated events instead gives the reverse triangle inequality: in Minkowski spacetime the inertial world line has the greatest proper time, which is the content of the twin effect.
 
@@ -177,9 +188,7 @@ Limits of validity. In Minkowski spacetime, vectors at different events are comp
 
 **Takeaway:** The dilation factor is minus the inner product of two unit four-velocities: at least 1, symmetric in the two observers, and in curved spacetime defined only for clocks at the same event.
 
-*What this leaves out:* Inertial observers; accelerated clocks are covered through the clock hypothesis.
-
-*Continues:* `ways_in/gamma-from-the-light-clock`, `ways_in/one-ship-clock-two-station-clocks`<br>*Builds on:* [[four-velocity]]<br>*See:* `derivations/dot-product-form`, `problems/reversed-cauchy-schwarz`, `checks/distant-clocks-in-curved-spacetime`
+*Continues:* `ways_in/gamma-from-the-light-clock`, `ways_in/crew-time-a-station-clock`<br>*Builds on:* [[four-velocity]]<br>*See:* `derivations/dot-product-form`, `problems/reversed-cauchy-schwarz`, `checks/distant-clocks-in-curved-spacetime`
 
 ## Glossary
 
@@ -187,7 +196,7 @@ Limits of validity. In Minkowski spacetime, vectors at different events are comp
 | --- | --- | --- | --- |
 | light clock | — | A clock made of two facing mirrors with a flash of light bouncing between them; each round trip is one tick. | — |
 | time dilation | time dye-LAY-shun | The stretching of the time between a clock's ticks, when the clock is timed by synchronized clocks that it moves past. | [[time-dilation]] |
-| Lorentz factor | LOR-ents factor | How many times longer each tick of a clock takes, measured by synchronized clocks it moves past, than the clock's own count. | [[lorentz-factor]] |
+| Lorentz factor | LOR-ents factor | How many times as long each tick of a clock lasts by synchronized clocks it moves past, compared with the clock's own count. | [[lorentz-factor]] |
 | synchronized | SIN-kruh-nized | Set to agree by a method that allows for light's travel time between the clocks. | [[clock-synchronization]] |
 
 ## Key equations
@@ -337,9 +346,9 @@ A ship coasts past a space station at 8 tenths of the speed of light, measured b
 **Solution**
 
 1. While light travels 5 metres on its slant, the ship moves 8 tenths as far, 4 metres.
-2. Pythagoras gives the gap: 25 minus 16 is 9, so the gap is 3 metres.
+2. By Pythagoras' rule, the gap times itself is 5 times 5 minus 4 times 4, which is 9, so the gap is 3 metres.
 3. The slant is 5 thirds of the gap, so each tick takes 5 thirds as long by the station's clocks, and 30 minutes becomes 50 minutes.
-4. 50 minutes is 3,000 seconds. The ship covers 240,000 kilometres each second, and 240,000 times 3,000 is 720 million kilometres.
+4. 50 minutes is 3,000 seconds. The ship covers 8 tenths of 300,000 kilometres, or 240,000 kilometres, each second, and 240,000 times 3,000 is 720 million kilometres.
 
 ### `gps-motion-lag` · working · difficulty 2 · estimate
 
@@ -393,25 +402,10 @@ With $c = 1$, prove that future-directed unit timelike vectors $n, u$ satisfy $-
 
 1. **Ask the passing-ship question** (entry). Pose the coasting ship and its light clock, and ask for a prediction. *Why:* A committed guess makes the triangle stick. *Predict:* By the station's clocks, does a tick of the ship's light clock last longer than a tick of an identical station light clock, or not? *Visual:* [[light-clock-on-a-passing-ship]] *Uses:* `ways_in/light-clock-on-a-passing-ship`
 2. **Draw the triangle** (entry). Build the 3-4-5 triangle, then try half light speed. *Why:* Half light speed breaks a common guess. *Uses:* `checks/station-times-the-trip`, `checks/half-light-speed`
-3. **Turn the timing around** (entry). Run the two-clock timing, then let the crew time a station clock. *Why:* The mutual stretch drives most worries about contradiction. *Predict:* When the crew time a station clock with their own clocks, will they find it stretched, squeezed, or normal? *Visual:* [[one-clock-against-a-line-of-clocks]] *Uses:* `ways_in/one-ship-clock-two-station-clocks`, `checks/each-side-finds-the-other-stretched`
+3. **Turn the timing around** (entry). Run the two-clock timing, then let the crew time a station clock. *Why:* The mutual stretch drives most worries about contradiction. *Predict:* When the crew time a station clock with their own clocks, will they find it stretched, squeezed, or normal? *Visual:* [[one-clock-against-a-line-of-clocks]] *Uses:* `ways_in/one-ship-clock-two-station-clocks`, `ways_in/crew-time-a-station-clock`, `checks/each-side-finds-the-other-stretched`
 4. **Derive and size the factor** (working). Derive gamma, then meet it in storage-ring muons and the GPS lag. *Why:* One formula covers both extremes. *Uses:* `derivations/light-clock-derivation`, `worked_examples/storage-ring-muons`, `problems/gps-motion-lag`
 5. **Separate seeing from measuring** (working). Compare received flash spacings with the measured stretch. *Why:* It removes the light-delay illusion. *Uses:* `ways_in/seen-ticks-versus-measured-ticks`, `checks/approach-and-recede`
 6. **Make it invariant** (formal). Write the factor as an inner product, prove it is at least 1, and mark its limits. *Why:* It prepares clock comparisons in curved spacetime. *Uses:* `ways_in/dilation-as-a-dot-product`, `problems/reversed-cauchy-schwarz`, `checks/distant-clocks-in-curved-spacetime`
-
-## Analogies
-
-### Two straight roads crossing at an angle · working
-
-Two cars leave a crossroads on straight roads at angle $\theta$. Each driver measures the other car's progress along their own road, at right angles to it, getting $\cos\theta$ times the other's odometer. Both are right.
-
-| In the analogy | Stands for |
-| --- | --- |
-| each road's direction | each observer's four-velocity |
-| a car's odometer | a clock's proper time |
-| lines at right angles to one's road | one's surfaces of simultaneity |
-| $\cos\theta$ | $\gamma = \cosh\phi$ |
-
-*Limits:* The interval's minus sign turns $\cos\theta \le 1$ into $\cosh\phi \ge 1$, reversing the inequality; the mutual symmetry survives.
 
 ## Misconceptions
 
@@ -431,7 +425,7 @@ Two cars leave a crossroads on straight roads at angle $\theta$. Each driver mea
 
 - **Why it is tempting:** It sounds like each clock is slower than the other.
 - **What is true:** Each side times one clock with two of its own, and the sides disagree about how distant clocks were set. So they compare different pairs of readings.
-- **Exposed by:** `checks/each-side-finds-the-other-stretched`
+- **Exposed by:** `checks/each-side-finds-the-other-stretched`, `checks/head-start-from-level-sets`
 
 ### “The stretch is an illusion caused by light's travel time.” · entry · `just-light-delay`
 
@@ -491,7 +485,7 @@ Two cars leave a crossroads on straight roads at angle $\theta$. Each driver mea
    - **Targets:** `crew-feels-slowed`
 5. **Entry · explain** `checks/each-side-finds-the-other-stretched`. The station times the ship's clock with clocks A and B and finds a stretch of 1.25. The crew time station clock B with two of their own clocks and also find 1.25. Must one team be wrong?
    - **Hints:** Were clocks A and B set to agree, by the crew's measurements?
-   - **Answer:** No. Each team times one clock with two of its own. The station compares the ship's 40 seconds with its own 50. Measured by the crew, clock B moved toward the flash from clock A that set it, so clock B was set 18 seconds ahead. So the crew compare clock B's count from 18 to 50, which is 32 seconds, with their own 40. Both ratios are 1.25.
+   - **Answer:** No. Each team times one clock with two of its own. The station compares the ship's 40 seconds with its own 50. Measured by the crew, clock B moved toward the flash from clock A that set it, so clock B was set ahead. By crew clocks the ship takes 40 seconds to reach clock B. Clock B, stretched 1.25 times, counts only 32 of them, so it read 50 minus 32, or 18, at the start. Both ratios are 1.25.
    - **Must contain:** No, both are right; The teams disagree about how clock B was set
    - **Targets:** `both-cannot-be-stretched`
    - **Visual:** [[one-clock-against-a-line-of-clocks]]
@@ -518,13 +512,18 @@ Two cars leave a crossroads on straight roads at angle $\theta$. Each driver mea
    - **Answer:** False. The clocks keep a constant radar distance, so their relative speed is zero and the Lorentz factor is 1. The measured difference, near $gh/c^2 = 3.6\times10^{-17}$ with the upper clock faster, is gravitational. In curved spacetime $-g(n, u)$ compares four-velocities only at one event; static rates follow $\sqrt{-g_{tt}}$ at each place.
    - **Must contain:** No relative speed; The difference is gravitational
    - **Targets:** `gamma-for-distant-clocks`
+10. **Formal · numeric** `checks/head-start-from-level-sets`. Set $c = 1$. Ship $u = \gamma(n + V)$, $v = 0.6$, passes station $n$ at event $o$. Station clocks read $t_n(p) = -\eta(n, p - o)$, and clock B lies $D = 30$ light-seconds along $e = V/v$. With $t_u(p) = -\eta(u, p - o)$, find B's reading where $t_u = 0$, and the $t_u$ elapsed from there until the ship reaches B.
+   - **Hints:** Evaluate $t_u$ on $o + D\,e + s\,n$.
+   - **Answer:** 18 s and 40 s. Clock B's world line is $p(s) = o + D\,e + s\,n$, with $s$ its reading. Because $\eta(u, n) = -\gamma$ and $\eta(u, e) = \gamma v$, $t_u = \gamma(s - vD)$, which vanishes at $s = vD = 18$ s, not at $s = 0$. The ship reaches B at $s = D/v = 50$ s, so there $t_u = 1.25 \times 32 = 40$ s, the ship's own reading. So each observer's slices pair different events, and both factors of $\gamma$ hold.
+   - **Must contain:** B reads 18 s on the ship's slice; B then counts 32 s while ship time advances 40 s; The slices pair different events
+   - **Numeric:** clock B's reading on the ship's slice through o = 18 s (magnitude, ±1%); ship time elapsed until the ship reaches B = 40 s (magnitude, ±1%)
+   - **Targets:** `both-cannot-be-stretched`
 
 ## Notation traps
 
 | Issue | Course choice | Variants you will meet |
 | --- | --- | --- |
 | Sign of the interval between two ticks of a clock | Signature $(-,+,+,+)$: two ticks of a resting clock have $\Delta s^2 = -c^2\Delta\tau^2$. | With signature $(+,-,-,-)$ the ticks have $\Delta s^2 = +c^2\Delta\tau^2$; the dilation formula is unchanged. |
-| Letter for the Lorentz factor | $\gamma = (1 - v^2/c^2)^{-1/2}$, and proper time is $\tau$. | A few texts write the factor as $\beta$, which most reserve for $v/c$; some write proper time as $T_0$. |
 
 ## Visuals
 
@@ -536,16 +535,13 @@ Two cars leave a crossroads on straight roads at angle $\theta$. Each driver mea
 **Open with**
 
 - A spaceship coasts past a space station at six tenths of light speed. Timed with the station's clocks, does one tick of the ship's light clock last longer than a tick of an identical light clock on the station, shorter, or the same? *(prediction)*
-- Why does nobody notice time dilation on a train or a plane? *(reflection)*
 
 **If the learner is stuck**
 
-- *The learner cannot see why the flash's path is longer for the station.* → Draw the ship at three moments of one crossing and join the flash positions. *Uses:* `ways_in/light-clock-on-a-passing-ship`, `checks/station-times-the-trip`
-- *The learner insists on knowing whose clock is really slow.* → Ask which clocks each team compared, then list the readings. *Uses:* `ways_in/one-ship-clock-two-station-clocks`, `checks/each-side-finds-the-other-stretched`
+- *The learner insists on knowing whose clock is really slow.* → Ask which clocks each team compared, then list the readings. *Uses:* `ways_in/crew-time-a-station-clock`, `checks/each-side-finds-the-other-stretched`
 
 **Common questions**
 
-- *If I flew very fast, would I live longer?* (entry) Not by your own clock, which keeps pace with your heartbeat. But fly away very fast and come back, and more time has passed on the clocks at home than on yours. At eight tenths of light speed, a ten-year trip by the home clocks takes six years by yours. *Uses:* `ways_in/light-clock-on-a-passing-ship`, `checks/round-trip-reunion`
 - *Do astronauts on the International Space Station age differently from people on the ground?* (entry) Very slightly. The International Space Station circles Earth at almost eight kilometres per second. Compared with clocks on the ground, clocks aboard it fall behind by a little under five thousandths of a second every six months. That already includes a smaller, opposite effect of its height, which comes from gravity. *Uses:* `ways_in/light-clock-on-a-passing-ship`
 
 **Switching levels**
@@ -564,7 +560,7 @@ Two cars leave a crossroads on straight roads at angle $\theta$. Each driver mea
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 4)
 
 **Retell attempt:** A spaceship flies past a space station really fast, 6 tenths of light speed. Inside, light bounces between two mirrors 4 metres apart, and that is a clock. The station people say the light goes on a slant because the ship moves, so it travels 5 metres instead of 4. Light has the same speed for everyone, so each tick takes 1.25 times longer by their clocks. That is time dilation, and 1.25 is the Lorentz factor. All the ship's clocks are stretched too, otherwise the crew could tell their speed, and the crew don't notice anything. At plane speeds it's less than a thousandth of a second in 80 years. Then the station uses a line of clocks, and the crew do the same thing back and find the station's clocks stretched, because clock B was set 18 seconds ahead. I didn't get where the 18 came from, why the crew also get 1.25, why the slant is 5 and not some other number, or which way the mirrors face.
 
@@ -618,9 +614,30 @@ Two cars leave a crossroads on straight roads at angle $\theta$. Each driver mea
 - Entry explanations are at 1,000 of 1,000 words and tutoring at 2,198 of 2,200; further additions need cuts elsewhere.
 - If the builder script build_time_dilation.py is re-run, it will overwrite these review edits.
 
+**Re-read** (2026-09-13, revision 4): 11 stumbles in 20 changed passages
+
+- “How does the station team actually time a passing clock, and how can the crew find the station's clocks stretched too?”: Rule 17: the two-clock way asks a beginner to hold two new ideas at once, how a line of distant clocks is set and read, and why the crew find the station's clocks stretched with an 18-second head start. Its own question has two halves.
+- “A telescope view is different. As a ship approaches, each later flash from it has less distance to travel, so its clock can even look faster than a clock beside you.”: A third new idea in the same way (received flash spacing), with a surprise whose reason needs its own picture; the way's question is not about telescopes.
+- “The station team measures the same gap, since it lies across the motion, but a different path.”: Physics-review wording: two ideas in one sentence with a reason wedged in the middle, so 'measures ... a different path' has to be reread.
+- “Long before the ship arrives, a flash leaves clock A”: Clock A is named before the reader is told it is one of the station's line of clocks.
+- “The crew time station clock B, starting when the ship passes clock A, with a crew clock beside clock B at that moment by crew clocks.”: Three clauses and 'clock' five times; the reader rereads to find which clock is where, and 'by crew clocks' dangles.
+- “So clock B counts 40 divided by 1.25, only 32 seconds.”: A step taken on trust: the reader must supply that 40 seconds pass on the crew's clocks and that clock B is the stretched one.
+- “The head start is 6 tenths of 30 seconds, light's time to cross 9 million kilometres by station measurements.”: Physics-review addition squeezed into an appositive: the reader cannot tell at first whether 'by station measurements' belongs to the head start, the 30 seconds or the distance.
+- “The stretch is tiny at everyday speeds”: Summary: 'the stretch' has not been named; the previous sentences speak of clocks counting more than one second.
+- “How many times longer each tick of a clock takes, measured by synchronized clocks it moves past, than the clock's own count.”: Glossary, physics-review wording: the inserted 'measured by' clause separates 'longer' from 'than', so the comparison has to be reread.
+- “so clock B was set 18 seconds ahead. So the crew compare clock B's count from 18 to 50, which is 32 seconds, with their own 40.”: Entry check answer: the 18 seconds is taken on trust and the 32 is derived from it, so the because-chain runs backwards and has a missing link.
+- “Pythagoras gives the gap: 25 minus 16 is 9, so the gap is 3 metres. ... The ship covers 240,000 kilometres each second”: Entry problem solution: where 25 and 16 come from (squaring) is left implicit, and 240,000 kilometres per second is not linked to 8 tenths of light speed.
+- Fix: Split the two-clock way. 'One travelling clock, two station clocks' (id kept) now answers only how the station times a passing clock: question shortened to its first half, recap drops the no-speed-inside fact and the term time dilation (neither is used in that way any more), new takeaway, simplifies set to null, assumes emptied, refs checks/side-by-side-readings.
+- Fix: Added entry way crew-time-a-station-clock ('The crew time a station clock', operational, continues one-ship-clock-two-station-clocks): the reciprocity, 32-second count and head-start paragraphs moved verbatim apart from the stumble rewrites; its first sentence names the timing it turns around; it carries the original takeaway and simplifies (both stretches hold only while both sides coast steadily), a recap restating light speed, the no-speed-inside fact, how the line is synchronized with a flash from clock A, and the 40 and 50 second readings; assumes principle-of-relativity and relativity-of-simultaneity; refs checks/each-side-finds-the-other-stretched; visual one-clock-against-a-line-of-clocks.
+- Fix: Links updated for the split: formal way dilation-as-a-dot-product continues crew-time-a-station-clock and names 'When the crew time a station clock' for the 18-second head start; teaching arc turn-the-timing-around and if-stuck wants-the-real-slow-clock use the new way.
+- Fix: Moved the telescope aside out of the entry two-clock way; the working way seen-ticks-versus-measured-ticks already states it with its reason, and the entry misconception just-light-delay stays diagnosed by side-by-side-readings.
+- Fix: Rewrote the light-clock gap sentence, the clock A introduction, the crew-clock sentence, the 32-second step and the head-start sentence; summary 'The stretch' to 'This stretch'; Lorentz factor glossary definition; each-side check answer chain; half-hour problem solution steps. No number, condition, sign or scope changed.
+- Fix: Budget offsets, to hold entry explanations (1,000), other way fields (650) and tutoring (2,200): dropped the sentence 'So each side times one of the other side's clocks with two of its own.' from the new way's last paragraph (it repeats the takeaway); dropped the opening question why-nobody-notices (the light-clock way's last paragraph answers it with the 80-year airliner number); set the formal way's simplifies to null (its explanation already states inertial observers and the clock hypothesis). No entry sentence or check answer was compressed.
+- Fix: Bumped the revision from 3 to 4; status kept at physics-reviewed; a physics diff check of these changes should follow.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 5)
 
 **Verification**
 
@@ -683,3 +700,22 @@ Two cars leave a crossroads on straight roads at angle $\theta$. Each driver mea
 - Registry prerequisites list only proper-time and lorentz-factor; the note's extra direct prerequisites are acyclic and should be synced with sync_registry.py. The registry id ives-stillwell-experiment misspells Stilwell; ids are permanent, but its title should use the correct spelling.
 - The 'set ahead' reason in the two-clock way is qualitative: it fixes the sign of the head start, while the count 6 tenths of 30 s is given as a rule. A visual toggle for the crew's slice would help.
 - The two proposed visuals are still missing from the catalog; the builder script build_time_dilation.py is stale and must not be re-run.
+
+**Diff check** (2026-09-13, revision 5)
+
+- Formal check head-start-from-level-sets: on B's world line o + D e + s n, t_u = gamma(s - vD) vanishes at s = vD = 18 s; the ship meets B at s = D/v = 50 s, where t_u = 1.25 x 32 = 40 s, the ship's proper time; both ratios are 1.25.: Hand derivation with eta(u,n) = -gamma, eta(u,e) = gamma v in signature (-,+,+,+); python3 with explicit components n = (1,0), e = (0,1), u = gamma(1, v). → s0 = 18.0, t_u(B(50)) = 40.0 = 50/gamma, B counts 32, ratio 1.25. Numeric fields 18 s and 40 s, magnitude, rel_tol 0.01 correct. Sign correct: B lies ahead along e, so it reads ahead on the ship's slice. Error: the question never fixed the zero of the station clocks, so 'B's reading' was undetermined (any station time origin shifts it); the answer assumed t_n(p) = -eta(n, p - o). Fixed.
+- Formal objective locate-reciprocity-on-slices and misconception both-cannot-be-stretched diagnosed_by the new check.: Read against the check and the formal way's reciprocity paragraph. → Consistent: the check computes where the ship's slice meets clock B and shows the two gammas relate different event pairs; targets and diagnosed_by agree.
+- Entry way crew-time-a-station-clock: station slides toward the ship's rear at 0.6c by crew measurement; crew line of synchronized clocks finds each station tick 1.25 times as long; one crew clock beside B at the start by crew clocks; B reaches the ship when the ship's clock reads 40; 40 / 1.25 = 32; 50 - 32 = 18.: Lorentz transformation t' = gamma(t - v x / c^2) of the events 'ship passes A' (0,0) and 'ship meets B' (50 s, 9 million km); python3. → t' = 40 s at the meeting; on the crew slice t' = 0 through 'ship passes A', B's reading is v D / c^2 = 18 s; B counts 32 s. Correct, and every duration names its measurer.
+- Re-read split of the head-start sentence: 'By station measurements, light takes 30 seconds to cross the 9 million kilometres from clock A to clock B. The head start is 6 tenths of those 30 seconds.': Compared with the physics-review wording and with v D / c^2, D measured by the station. → Same claim as before; the station scope now attaches to the 30 s and the distance, which is what makes 0.6 x 30 = 18 true (the crew-measured 7.2 million km would give 14.4 s). 9e6 / 3e5 = 30. Correct.
+- 'Measured by the crew, ... clock B moved toward the flash from clock A that set it, so clock B was set ahead' (way and entry check).: Direction check in the crew frame: the flash runs from A toward B along the ship's motion while the station moves toward the ship's rear. → B moves toward the flash, the flash arrives early by crew clocks, and B, set to A's reading plus 30 s, is ahead on the crew slice. Sign correct.
+- Entry check each-side-finds-the-other-stretched, reworded chain: by crew clocks the ship takes 40 s to reach B; B, stretched 1.25 times, counts 32 of them; so it read 50 - 32 = 18 at the start.: Worked forward from the crew's 40 s, as the new chain does; checked the measurer of 'at the start'. → Correct. The chain now derives 18 instead of assuming it. 'At the start' is scoped by the preceding 'By crew clocks' and the opening 'Measured by the crew'; by station clocks B read 0 then, which the answer does not contradict.
+- Recap and takeaway of crew-time-a-station-clock, the simplifies moved from one-ship-clock-two-station-clocks, and assumes principle-of-relativity and relativity-of-simultaneity.: Read against the explanation; round-trip scope checked with the round-trip-reunion numbers (10 yr station, 6 yr ship). → Unchanged claims, moved verbatim; the mutual stretch stays scoped to steady coasting in the explanation itself, so the entry prose is true without simplifies. Both assumes ids are entry prerequisites.
+- One-ship-clock-two-station-clocks after the split: new question and takeaway ('two synchronized station clocks, each read side by side with it'), recap without the no-speed-inside fact and the term time dilation, telescope aside removed, refs side-by-side-readings, assumes emptied, simplifies null.: Checked each remaining sentence for a dependence on the removed material, and the removed telescope claim against the working way seen-ticks-versus-measured-ticks (gamma(1 - v/c) = 0.5 at 0.6c). → Correct. The way no longer uses simultaneity of distant events beyond the synchronization it describes, and the telescope claim survives with its reason at the working rung.
+- Light-clock gap sentence split: 'The station team measures the same 4-metre gap, because the gap lies across the ship's motion. But they measure a different path for the flash.': Compared with the previous wording. → Same claim (transverse lengths agree). Correct.
+- Glossary Lorentz factor: 'How many times as long each tick of a clock lasts by synchronized clocks it moves past, compared with the clock's own count.' Summary 'This stretch'.: Compared with the previous wording; first what-if at v = 0 gives 1. → Equivalent claims. Correct.
+- Problem half-hour-at-eight-tenths solution steps: gap squared = 5 x 5 - 4 x 4 = 9, gap 3 m; 8 tenths of 300,000 km = 240,000 km per second; 240,000 x 3,000 = 720 million km.: python3. → 9, 240,000, 7.2e8. Correct.
+- Formal way dilation-as-a-dot-product: head-start sentence now opens 'When the crew time a station clock'; continues crew-time-a-station-clock; simplifies removed.: Read against the explanation, which states inertial observers and the clock hypothesis. → Same claim; no hypothesis lost.
+- Removed items: analogy roads-crossing-at-an-angle, notation trap letter-for-the-factor, common question would-i-live-longer, opening question why-nobody-notices; teaching arc and if-stuck uses repointed.: grep for dangling addresses across concepts and visuals; checked that the conventions row for gamma and tau is still honoured without the trap. → No dangling references; all uses resolve. Removal introduces no false statement.
+- Fix: checks/head-start-from-level-sets question: added 'Station clocks read $t_n(p) = -\eta(n, p - o)$, and' so clock B's reading is defined; question_spoken gained 'Station clocks read zero on the station's slice through o, and' and 'along the ship's path' (was 'along its path', where 'its' could mean B's).
+- Fix: Budget offset for tutoring (2,217 to 2,189 of 2,200): dropped the if-stuck move cannot-see-the-slant, whose drawing repeats the light-clock way's slant paragraph, its try-it and the flagship visual's split view.
+- Fix: Revision bumped from 4 to 5; review.physics.reviewed_revision set to 5; the novice stage now lags by one revision, only for the formal check question (graduate rung) and the removed if-stuck move.

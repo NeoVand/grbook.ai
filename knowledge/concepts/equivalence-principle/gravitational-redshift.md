@@ -7,7 +7,7 @@ tagline: "Why light sent up to a higher detector arrives with a lower frequency"
 domain: "equivalence-principle"
 tier: "foundation"
 status: "physics-reviewed"
-revision: 2
+revision: 3
 updated: "2026-09-13"
 aliases: ["Einstein shift", "gravitational frequency shift"]
 prerequisites: ["equivalence-of-gravity-and-acceleration", "relativistic-doppler-effect", "mass-energy-equivalence", "newtonian-gravitational-potential", "energy-measured-by-an-observer", "conserved-quantity-from-killing-vector", "rindler-coordinates"]
@@ -19,7 +19,7 @@ visuals: ["lamp-and-detector-in-a-rocket", "drop-a-lump-send-up-light", "two-clo
 
 *Why light sent up to a higher detector arrives with a lower frequency*
 
-`gravitational-redshift` · equivalence-principle · foundation · physics-reviewed (revision 2)
+`gravitational-redshift` · equivalence-principle · foundation · physics-reviewed (revision 3)
 
 **Needs:** [[equivalence-of-gravity-and-acceleration]] (entry) · [[relativistic-doppler-effect]] (entry) · [[mass-energy-equivalence]] (entry) · [[newtonian-gravitational-potential]] (working) · [[energy-measured-by-an-observer]] (formal) · [[conserved-quantity-from-killing-vector]] (formal) · [[rindler-coordinates]] (formal)  
 **Opens:** [[gravitational-time-dilation]] · [[schilds-redshift-argument]] · [[pound-rebka-experiment]] · [[surface-redshift]]  
@@ -61,29 +61,23 @@ Light is a wave, and a steady beam is a long train of wave crests. Imagine a per
 
 The detector is a perfect counter too, with its own clock. Does it count the same number of crests arriving each second?
 
-First imagine the room is the cabin of a rocket far out in empty space, with its nose beyond the ceiling. Its engine keeps it speeding up toward its nose, gaining about 10 metres per second of speed every second. The floor presses on your feet, as the ground does at home.
+First imagine the room is the cabin of a rocket far out in empty space, with its nose beyond the ceiling. Its engine keeps it speeding up toward its nose, gaining about 10 metres per second of speed every second.
 
-Measure speeds from a space station drifting beside the rocket. At the moment a crest leaves the lamp, the station moves along with the rocket, so the lamp is at rest compared with the station. The crest needs a tiny moment to reach the ceiling, and meanwhile the rocket speeds up a little. So the detector catches the crest while moving away from the station.
+For each crest, measure speeds from a space station drifting beside the rocket. At the moment the crest leaves the lamp, the station moves along with the rocket, so the lamp is at rest compared with the station. The crest needs a tiny moment to reach the ceiling, and meanwhile the rocket speeds up a little. So the detector catches the crest while moving away from the station.
 
-A receiver moving away from a source of waves meets the crests less often. This is called the Doppler effect. It is why a siren sounds lower once the ambulance has passed you. The same happens for every crest, so the detector counts fewer crests each second than the lamp sends.
+A receiver moving away from a source of waves meets the crests less often, and one moving toward it meets them more often. This is called the Doppler effect. The same happens for every crest, so the detector counts fewer crests each second than the lamp sends.
 
 By the equivalence of gravity and acceleration, in a small closed room no experiment can tell this rocket cabin from a room resting on the ground on Earth. Counting crests is an experiment. So on Earth too, light sent from the floor to the ceiling arrives with fewer crests each second. This is called gravitational redshift.
 
 Red is the lowest-frequency colour we see, so any shift to a lower frequency is called a redshift, even when the colour does not visibly change.
 
-Now put the lamp on the ceiling and the detector on the floor. While a crest travels down, the rocket speeds up, so the floor meets it moving toward the station. So light sent down arrives with a higher frequency. This is called a blueshift.
+Put the lamp on the ceiling and the detector on the floor. While a crest travels down, the rocket speeds up, so the floor meets it moving toward the station. So light sent down arrives with a higher frequency. This is called a blueshift.
 
-A detector at the lamp's height, even across the room, counts no shift. While a crest crosses the room, the detector speeds up across the crest's path, not along it.
+A detector at the lamp's height, even across the room, counts no shift. While a crest crosses the room, the detector speeds up across the crest's path, so it moves neither toward the crests nor away from them.
 
-A clock beside a lamp counts the same number of crests each second, on the floor or on the ceiling. By the equivalence of gravity and acceleration, a small room anywhere near the ground works like the same rocket cabin, so a lamp and clock side by side cannot tell their height.
+The change is tiny. Near the ground on Earth, each metre of height lowers the frequency by about one part in ten million billion. That is because light crosses one metre in a three-hundred-millionth of a second, so the ceiling gains only about a ten-million-billionth of light's speed.
 
-Do the missing crests pile up? No. Nothing in the room changes from moment to moment, so every crest makes the same trip. What differs is the clocks. While the same crests pass, the ceiling clock ticks off more seconds than the floor clock, so it counts fewer crests in each second. This is called gravitational time dilation.
-
-The light does not slow down, either. Anyone who measures the speed of passing light, with a ruler and clock beside them, gets about 300,000 kilometres per second, at any height.
-
-The change is tiny. Near the ground on Earth, each metre of height lowers the frequency by about one part in ten million billion. That is because light crosses one metre in a three-hundred-millionth of a second, so the ceiling gains only about a ten-million-billionth of light's speed. The best clocks can detect it: in 2010, two showed it when one was raised by about 30 centimetres.
-
-**Try it:** Stand safely beside a road and listen to a car passing at a steady speed. As it comes toward you, its engine sounds higher-pitched. As it drives away, the sound is lower. That change is the Doppler effect the rocket uses. For light crossing a rocket cabin, the change is far too small to see.
+**Try it:** Stand safely beside a road and listen to a car passing at a steady speed. As it comes toward you, its engine sounds higher-pitched. As it drives away, the sound is lower. That change is the Doppler effect the rocket uses.
 
 **Takeaway:** Counted on each one's own clock, a detector fixed higher up gets fewer crests each second than a lamp below sends; light sent down arrives with more.
 
@@ -91,7 +85,25 @@ The change is tiny. Near the ground on Earth, each metre of height lowers the fr
 
 *Builds on:* [[relativistic-doppler-effect]], [[equivalence-of-gravity-and-acceleration]]<br>*Visuals:* [[lamp-and-detector-in-a-rocket]]
 
-### 2. A machine that cannot work · entry · contrast
+### 2. Where the missing crests go · entry · operational
+
+*Where do the crests go that the ceiling detector does not count?*
+
+**Recap:** The equivalence of gravity and acceleration: in a small closed room, no experiment can tell a room resting on Earth from a rocket speeding up at the rate things fall.
+
+Counted on each one's own clock, the ceiling detector in "Light climbing in a rocket" gets fewer crests each second than the floor lamp sends.
+
+A clock beside a lamp counts the same number of crests each second, on the floor or on the ceiling. By the equivalence of gravity and acceleration, a small room anywhere near the ground works like the same rocket cabin, so a lamp and clock side by side cannot tell their height.
+
+The light does not slow down, either. Anyone who measures the speed of passing light, with a ruler and clock beside them, gets about 300,000 kilometres per second, at any height.
+
+Do the missing crests pile up? No. Nothing in the room changes from moment to moment, so every crest makes the same trip. What differs is the clocks. While the same crests pass, the ceiling clock ticks off more seconds than the floor clock, so it counts fewer crests in each second. This is called gravitational time dilation.
+
+**Takeaway:** No crests pile up; the clock higher up ticks off more seconds while the same crests pass.
+
+*Continues:* `ways_in/light-climbing-in-a-rocket`<br>*Builds on:* [[equivalence-of-gravity-and-acceleration]]<br>*Visuals:* [[lamp-and-detector-in-a-rocket]]
+
+### 3. A machine that cannot work · entry · contrast
 
 *Why would light that kept its frequency while climbing let a tower make energy from nothing?*
 
@@ -107,9 +119,9 @@ Now suppose light kept its frequency while climbing. Light comes in tiny packets
 
 Then the top machine would make a lump slightly heavier than the one you dropped. You could keep the extra as energy and drop a lump like the first. The tower would make energy from nothing, round after round.
 
-Every careful measurement finds that energy is never created from nothing. If climbing light lost less energy than the lump gained by falling, the tower would make energy. If it lost more, the machine run backwards, sending light down, would. So climbing light loses exactly the energy the lump gained, and arrives with a lower frequency.
+Every careful measurement finds that energy is never created from nothing. If climbing light lost less energy than the lump gained by falling, the tower would make energy. If it lost more, the tower run backwards would make energy, because light sent down would gain more than lifting a lump cost. So climbing light loses exactly the energy the lump gained, and arrives with a lower frequency.
 
-A lump falling one metre near the ground gains about one part in ten million billion of the energy locked in its mass. So light climbing one metre loses that fraction of its frequency, the same size the rocket gives. Light sent down gains energy and arrives with a higher frequency.
+A lump falling one metre near the ground gains about one part in ten million billion of the energy locked in its mass. So light climbing one metre loses that fraction of its frequency, the same size the rocket gives.
 
 **Try it:** Use a calculator. A one-kilogram bag of sugar dropped one metre gains about 10 joules, the unit of energy. The energy locked in its mass is about 90 million billion joules. Divide 10 by that: you get about one ten-million-billionth.
 
@@ -119,7 +131,7 @@ A lump falling one metre near the ground gains about one part in ten million bil
 
 *Continues:* `ways_in/light-climbing-in-a-rocket`<br>*Builds on:* [[mass-energy-equivalence]]<br>*Visuals:* [[drop-a-lump-send-up-light]]
 
-### 3. Putting numbers on the rocket · working · calculation
+### 4. Putting numbers on the rocket · working · calculation
 
 *How large is the shift, and how does it depend on height and on the gravitational potential?*
 
@@ -145,7 +157,7 @@ Near Earth's surface $g/c^2 = 1.09\times10^{-16}$ per metre, so a 22.5 m climb g
 
 *Continues:* `ways_in/light-climbing-in-a-rocket`<br>*Builds on:* [[relativistic-doppler-effect]], [[equivalence-of-gravity-and-acceleration]], [[newtonian-gravitational-potential]]<br>*Visuals:* [[lamp-and-detector-in-a-rocket]]<br>*See:* `derivations/shift-from-doppler-in-a-rocket`, `worked_examples/light-from-the-sun`
 
-### 4. Energy bookkeeping with symbols · working · calculation
+### 5. Energy bookkeeping with symbols · working · calculation
 
 *What exactly does energy conservation require of light climbing in a uniform field?*
 
@@ -157,11 +169,9 @@ This agrees with "Putting numbers on the rocket" without any accelerating frame.
 
 **Takeaway:** Energy conservation with E equals m c squared and E equals h f forces the same first-order fraction, g H over c squared, as if light of energy E had weight.
 
-*What this leaves out:* Treats the converters as ideal and the ground as absorbing momentum but no energy.
-
 *Continues:* `ways_in/a-machine-that-cannot-work`<br>*Builds on:* [[mass-energy-equivalence]]<br>*Visuals:* [[drop-a-lump-send-up-light]]<br>*See:* `derivations/shift-from-energy-conservation`
 
-### 5. Measuring the shift: resonance and clocks · working · operational
+### 6. Measuring the shift: resonance and clocks · working · operational
 
 *How do experiments measure a frequency shift of a few parts in a million billion, and who counts what?*
 
@@ -179,7 +189,7 @@ The shift in "Putting numbers on the rocket" is only $2.46\times10^{-15}$ for a 
 
 *Continues:* `ways_in/putting-numbers-on-the-rocket`<br>*See:* `observations/pound-rebka-tower`, `observations/optical-clocks-33-centimetres`, `checks/detector-let-go-at-the-top`
 
-### 6. Exact ratio from a time symmetry · formal · structure
+### 7. Exact ratio from a time symmetry · formal · structure
 
 *What is the exact redshift law, what does it assume, and what does it not show?*
 
@@ -450,7 +460,7 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 
 1. **Entry · predict** `checks/light-sent-down`. In a room resting on Earth, a lamp on the ceiling sends light down to a detector on the floor. Both are fixed. Counted on its own clock, does the detector get more crests each second than a clock beside the lamp counts leaving it, fewer, or the same?
    - **Hints:** While a crest travels down, does the floor move toward the station or away?
-   - **Answer:** More. Picture the room as a rocket cabin speeding up toward the ceiling. Measure speeds from a drifting station moving with the lamp as a crest leaves. While the crest travels down, the rocket speeds up, so the floor meets it moving toward the station. A detector moving toward a source meets crests more often. By the equivalence of gravity and acceleration, Earth gives the same count.
+   - **Answer:** More. Picture the room as a rocket cabin speeding up toward the ceiling. Measure speeds from a drifting station moving with the lamp as a crest leaves. While the crest travels down, the rocket speeds up, so the floor meets it moving toward the station. A detector moving toward a source meets crests more often. By the equivalence of gravity and acceleration, a detector on Earth also counts more.
    - **Must contain:** More crests each second; The floor meets each crest moving toward the station
    - **Targets:** `redshift-whichever-way`
    - **Visual:** [[lamp-and-detector-in-a-rocket]]
@@ -519,13 +529,13 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 
 **Common questions**
 
-- *Does the light lose energy on the way up, like a ball thrown up?* (entry) Counted by detectors held still at each height, yes: each packet of light arrives with slightly less energy, the fraction a lump gains by falling that far. Unlike a ball, light does not slow down. *Uses:* `ways_in/a-machine-that-cannot-work`, `checks/lamps-and-light-at-the-ceiling`
-- *Does a clock at my head disagree with a clock at my feet?* (entry) Yes, when the two are compared by sending light between them. The clock at head height ticks faster, by about two parts in ten million billion. Over eighty years that adds up to about half a millionth of a second. *Uses:* `ways_in/light-climbing-in-a-rocket`, `checks/where-do-the-crests-go`
+- *Does the light lose energy on the way up, like a ball thrown up?* (entry) Counted by detectors held still at each height, yes: each packet of light arrives with slightly less energy, by the fraction a lump gains by falling that far. Unlike a ball, light does not slow down. *Uses:* `ways_in/a-machine-that-cannot-work`, `checks/lamps-and-light-at-the-ceiling`
+- *Does a clock at my head disagree with a clock at my feet?* (entry) Yes, when the two are compared by sending light between them. The clock at head height ticks faster, by about two parts in ten million billion. Over eighty years that adds up to about half a millionth of a second. *Uses:* `ways_in/where-the-missing-crests-go`, `checks/where-do-the-crests-go`
 - *Is gravitational redshift just a Doppler shift?* (working) In the rocket, an inertial observer calls it a Doppler shift. In a lab at rest on Earth, the same counts appear as clocks at different potentials. The lapse ratio states the result in either description. *Uses:* `ways_in/putting-numbers-on-the-rocket`, `ways_in/exact-ratio-from-a-time-symmetry`
 
 **Switching levels**
 
-- To working when: asks how big the shift is; uses g, c or potential. Go to the first-order law and the Sun example. *Uses:* `ways_in/putting-numbers-on-the-rocket`, `worked_examples/light-from-the-sun`
+- To working when: asks how big the shift is. Go to the first-order law and the Sun example. *Uses:* `ways_in/putting-numbers-on-the-rocket`, `worked_examples/light-from-the-sun`
 - To formal when: asks whether the formula is exact; asks about curvature. Derive the lapse ratio and test it on the flat rocket. *Uses:* `ways_in/exact-ratio-from-a-time-symmetry`, `checks/rocket-a-light-year-long`
 
 **Pronunciations:** Mössbauer → MERSS-bow-er; Pound–Rebka → POUND REB-kuh; Rindler → RIND-ler
@@ -539,7 +549,7 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 3)
 
 **Retell attempt:** If a lamp on the floor shines up to a detector on the ceiling, the detector counts fewer wave crests each second, so the light gets 'redshifted'. You see it by pretending the room is a rocket speeding up: by the time a crest reaches the ceiling, the ceiling is going faster, so it is like the detector running away from the light, the way a siren drops after the ambulance passes. Gravity and acceleration can't be told apart, so it happens on Earth too, and light going down gets bluer. The tower machine says the same thing: if light kept its energy going up, you could make energy for free, so it must lose what a falling lump gains. It is one part in ten million billion per metre, so nobody notices. I'm not sure which way the rocket is going, what the ceiling is 'moving away from', why the room is 'tall' but also 'small', why a lamp next to a clock counts normally, where the missing two crests a second go, or why light comes in packets and where the per-metre number comes from.
 
@@ -593,9 +603,25 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 - None of the entry prerequisites (relativistic-doppler-effect, equivalence-of-gravity-and-acceleration, mass-energy-equivalence) has a v2 note, so recaps and glossary could not be aligned with their entry ways. The new glossary concept link 'photon' should be checked against the registry id when that note is written.
 - The two ways in are genuinely different routes (a Doppler picture and an energy contradiction), and the working, operational and formal ways each open by naming the way they continue. No index notation appears below the formal rung.
 
+**Re-read** (2026-09-13, revision 3): 7 stumbles in 16 changed passages
+
+- “Measure speeds from a space station drifting beside the rocket. At the moment a crest leaves the lamp, the station moves along with the rocket, so the lamp is at rest compared with the station.”: The rocket keeps speeding up, so one drifting station moves along with it at only one moment. When the way then says 'The same happens for every crest', the reader cannot picture which station later crests are measured from.
+- “While a crest travels down, the rocket speeds up, so the floor meets it moving toward the station. So light sent down arrives with a higher frequency.”: A step taken on trust. The explanation only says that a receiver moving away meets crests less often; 'moving closer raises it' appears only in the recap, which the book hides from a reader arriving in sequence.
+- “While a crest crosses the room, the detector speeds up across the crest's path, not along it.”: Physics-review sentence. The reader is not told why speeding up across the path means no shift; the link to the Doppler rule (toward or away) is missing.
+- “Do the missing crests pile up? No. ... This is called gravitational time dilation. / The light does not slow down, either. / A clock beside a lamp counts the same number of crests each second, on the floor or on the ceiling.”: Rule 17: after the rocket argument, the same way asks the beginner to take in a second new idea, that clocks at two heights tick at different rates (with a new term), together with what stays the same at each height. The way's question is only whether the ceiling counts as many crests.
+- “If it lost more, the machine run backwards, sending light down, would.”: The sentence ends on 'would' and leaves the reader to supply 'make energy'. It also hides the step that makes the backwards machine win: light sent down gains what climbing light loses, and that would beat the cost of lifting a lump.
+- “By the equivalence of gravity and acceleration, Earth gives the same count.”: The question offers 'more, fewer, or the same', so 'the same count' reads as the answer 'the same' rather than 'the same as the rocket'.
+- “each packet of light arrives with slightly less energy, the fraction a lump gains by falling that far.”: 'the fraction' dangles: the listener cannot tell whether it is the energy lost or a separate amount.
+- Fix: Split the rocket way (rule 17): the paragraphs on a lamp and clock at any height, the speed of light, and the missing crests moved unchanged into a new entry way 'where-the-missing-crests-go' (kind operational, continues light-climbing-in-a-rocket, recap restating the equivalence rule, visual lamp-and-detector-in-a-rocket). Common question head-older-than-feet now uses the new way.
+- Fix: Rocket way: one drifting station per crest; the Doppler 'moving toward' half now in the explanation; the equal-height sentence gains its link to the Doppler rule.
+- Fix: Tower way: the backwards-machine sentence now names what it makes and why. Physics diff check: this makes explicit that light sent down gains what climbing light loses (static field), which the physics review had accepted as implicit.
+- Fix: Check light-sent-down and common question does-light-get-tired: wording fixes only.
+- Fix: Budget, to absorb the new way at entry 1,000 and extras under 650, dropped the lowest-value items rather than compressing: the rocket way's siren sentence (its try_it already gives the passing-car test), 'The floor presses on your feet, as the ground does at home.', the 2010 clock sentence (kept at working rung in observation optical-clocks-33-centimetres), the tower way's closing 'Light sent down gains energy and arrives with a higher frequency.' (stated in the rocket way), the rocket try_it's last sentence 'For light crossing a rocket cabin, the change is far too small to see.', the working way energy-bookkeeping-with-symbols' simplifies (the same caveat is in derivation shift-from-energy-conservation step 2), and the working level-switch signal 'uses g, c or potential'.
+- Fix: Bumped the revision to 3.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 3)
 
 **Verification**
 
@@ -660,3 +686,16 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 - Four prerequisites (conserved-quantity-from-killing-vector, energy-measured-by-an-observer, newtonian-gravitational-potential, rindler-coordinates) exist in the registry but are not in this concept's registry prerequisite list; none depends on gravitational-redshift, so no cycle. sync_registry.py should apply them.
 - Budgets are at their caps: entry explanations 999 of 1,000, tutoring 2,199 of 2,200, links at 300.
 - The tower way's 'exactly' relies on the downward trip being the upward trip reversed; this is true in a static field and acceptable at entry, but a future edit should not remove 'run backwards'.
+
+**Diff check** (2026-09-13, revision 3)
+
+- Rocket way: 'For each crest, measure speeds from a space station drifting beside the rocket. At the moment the crest leaves the lamp, the station moves along with the rocket...': Compared with the old wording and the instantaneous rest frame of the lamp at each emission. → Accurate, and sharper than before: 'for each crest' makes clear that a new momentarily co-moving station goes with each emission.
+- Rocket way: 'A receiver moving away from a source of waves meets the crests less often, and one moving toward it meets them more often.': Checked sense and conditions against the relativistic Doppler law for a source at rest and a receiver moving along the line of the waves. → Accurate. Motion along the line is implied by 'away' and 'toward'. The added clause supports the blueshift paragraph.
+- Rocket way: 'While a crest crosses the room, the detector speeds up across the crest's path, so it moves neither toward the crests nor away from them.': Station-frame calculation for a detector at the lamp's height: receiver velocity gt upward, beam tilted up by about gt/(2c) to meet it, observed ratio gamma(1 - beta.n) computed with python3 for t = 1e-8, 1e-3 and 1 s. Cross-checked against equal lapse at equal height. → Ratio minus 1 is 0 to machine precision. The small along-path component (second order) is cancelled exactly by time dilation, so at entry the sentence claims the same as the accepted 'not along it' and is equally true.
+- Rocket way removals: the siren sentence, 'The floor presses on your feet...', the 2010 clock sentence, and the try_it line 'far too small to see'.: Checked each for scope caveats a reader needs and for claims other parts depend on. → No caveat lost. The size is still stated ('The change is tiny', with the per-metre number). The 2010 result is still in observation optical-clocks-33-centimetres. The simplifies on heights much smaller than Earth's radius is kept.
+- New entry way where-the-missing-crests-go: opener, lamp and clock at any height, the speed of light at any height, no pile-up, the ceiling clock ticking off more seconds, gravitational time dilation, recap, takeaway and question.: Compared the moved paragraphs word for word with revision 2. Checked the new opener, recap and takeaway against the rocket way, local position invariance, stationarity of the rocket cabin and a static field (each crest has the same coordinate travel time), and the check where-do-the-crests-go (f_e/f_r = 1 + gH/c^2). → Accurate. The paragraphs are unchanged. 'Counted on each one's own clock' names both measurers. The recap restates the equivalence rule as the rocket way does. The takeaway matches the explanation and the check. Common question head-older-than-feet (about 1.9e-16 for 1.7 m; about 4.7e-7 s over 80 years) fits the new way.
+- Tower way: 'If it lost more, the tower run backwards would make energy, because light sent down would gain more than lifting a lump cost.': Ran the backward cycle: a lump of mass m becomes light at the top, and light sent down comes back with ratio 1/(1 - e) if climbing loses a fraction e. At the bottom, remake mass m, keep m c^2 e, and lift the lump for m g H. Checked with python3 for e = 2gH/c^2 over H = 1 m. → Accurate for a static field, where the downward trip reverses the upward one (the premise of the earlier concern, and 'run backwards' is kept). Gain 2.2e-16 exceeds lift cost 1.1e-16 per unit rest energy, so a net gain follows whenever e > gH/c^2. The dropped closing blueshift sentence is still stated in the rocket way and in check light-sent-down.
+- Working way energy-bookkeeping-with-symbols: the simplifies about ideal converters and ground momentum was removed.: Checked where the caveat still appears. → Not lost. Derivation shift-from-energy-conservation step 2 says the massive ground takes the momentum but negligible energy. The entry tower way's simplifies names imaginary machines and ground pushes, and the working text says 'to first order'.
+- Check light-sent-down answer: 'a detector on Earth also counts more'.: Checked sense against the rocket blueshift and against f_floor/f_ceiling = 1 + gH/c^2 in a static field. → Accurate, and more precise than the old 'gives the same count', which could be misread as 'no shift'.
+- Common question does-light-get-tired: 'by the fraction a lump gains by falling that far'.: Compared with the old sentence. → Grammar only. Same claim, still true for detectors held still at each height.
+- Level-switching signal 'uses g, c or potential' removed.: Checked for physics content. → No physics content. Nothing to verify.

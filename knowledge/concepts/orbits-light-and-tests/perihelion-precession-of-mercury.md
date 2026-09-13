@@ -7,7 +7,7 @@ tagline: "The tiny turning of Mercury's orbit left over after Newton's law and t
 domain: "orbits-light-and-tests"
 tier: "core"
 status: "physics-reviewed"
-revision: 2
+revision: 5
 updated: "2026-09-13"
 aliases: ["Mercury anomaly", "anomalous perihelion advance of Mercury", "Mercury perihelion problem"]
 prerequisites: ["perihelion-precession", "birkhoff-theorem"]
@@ -19,7 +19,7 @@ visuals: ["orbit-with-creeping-perihelion-markers", "stacked-bars-of-mercurys-pe
 
 *The tiny turning of Mercury's orbit left over after Newton's law and the planets*
 
-`perihelion-precession-of-mercury` · orbits-light-and-tests · core · physics-reviewed (revision 2)
+`perihelion-precession-of-mercury` · orbits-light-and-tests · core · physics-reviewed (revision 5)
 
 **Needs:** [[perihelion-precession]] (entry) · [[birkhoff-theorem]] (formal)  
 **Opens:** [[classical-tests-of-general-relativity]] · [[ppn-parameter-beta]] · [[binary-pulsar-periastron-advance]]  
@@ -59,17 +59,17 @@ Mercury's perihelion does not stay put. Compared with the distant stars, each ne
 
 The turning is far too slow to count in whole degrees. So astronomers split one degree into 3600 equal parts. Each part is called an arcsecond. It is an angle, not a time, named like the minutes and seconds of an hour.
 
-Astronomers measure the creep against very distant stars. They cross the night sky as Earth spins, but they keep almost the same pattern among themselves for centuries. Measured that way, Mercury's perihelion creeps about 575 arcseconds each century. Most of that has an ordinary cause. Venus, Jupiter, Earth and the other planets pull on Mercury too. Those extra pulls stop Mercury from repeating exactly the same oval. Working carefully with Newton's law, astronomers found that the planets' pulls explain about 532 arcseconds per century.
+Astronomers measure the creep against very distant stars. Those stars cross the night sky as Earth spins, but they keep almost the same pattern among themselves for centuries. Measured that way, Mercury's perihelion creeps about 575 arcseconds each century. Most of that has an ordinary cause. Venus, Jupiter, Earth and the other planets pull on Mercury too. Those extra pulls stop Mercury from repeating exactly the same oval. Working carefully with Newton's law, astronomers found that the planets' pulls explain about 532 arcseconds per century.
 
 That left about 43 arcseconds per century that nobody could explain. The French astronomer Urbain Le Verrier pinned down such a gap in 1859, and later measurements settled it at about 43. He suggested that an unseen planet, closer to the Sun than Mercury, was adding its own pull. People named it Vulcan. Its size and distance could be chosen to fit the gap, so matching the gap proved little. Astronomers searched for it for decades but never found it. They looked hardest during total eclipses of the Sun, when the Moon blocks the Sun's glare.
 
-In November 1915, Albert Einstein used his new theory of gravity to work out Mercury's orbit. This theory is called general relativity. In this theory the Sun's gravity differs very slightly from Newton's law, and the difference grows closer to the Sun. Like the planets' pulls, that difference spoils the perfect repeat, and it makes the perihelion creep an extra 43 arcseconds per century. Einstein had nothing to adjust. The number came only from the Sun's mass, the speed of light and Mercury's orbit, all measured beforehand. Today's measurements agree with that number to within a small fraction of one per cent.
+In November 1915, Albert Einstein used his new theory of gravity to work out Mercury's orbit. This theory is called general relativity. In this theory the Sun's gravity differs very slightly from Newton's law, and the difference is larger closer to the Sun. Like the planets' pulls, that difference spoils the perfect repeat, and it makes the perihelion creep an extra 43 arcseconds per century. Einstein had nothing to adjust. The number came only from the Sun's mass, the speed of light and Mercury's orbit, all measured beforehand. Today's measurements agree with that number to within a small fraction of one per cent.
 
 General relativity gives every planet's perihelion a little extra creep. Of all the planets, Mercury gets the most because it is closest to the Sun. It also goes around the Sun more often than any other planet, so its extra creep adds up fastest. For Venus the extra is about 9 arcseconds per century, and for Earth about 4.
 
 How small is 43 arcseconds? It is the width of a coin 2 centimetres across, seen from about 100 metres away. At that rate the extra creep would need about 3 million years to add up to one full turn. That is why nobody could notice it without centuries of careful records.
 
-**Try it:** Cut an oval from card and mark a dot inside it, near one end, for the Sun. Push a pin through the dot into a sheet of paper on a cork board. Trace around the card. Turn the card about ten degrees around the pin, measured with a protractor, and trace again. Repeat ten times, always turning the same way. The traced ovals fan out like petals, and their closest points to the pin march around it in the direction you turned. On each trip, Mercury's whole creep turns its orbit about 26,000 times less than one of your ten-degree steps.
+**Try it:** Cut an oval from card and mark a dot inside it, near one end, for the Sun. Push a pin through the dot into a sheet of paper on a cork board. Trace around the card. Turn the card about ten degrees around the pin, measured with a protractor, and trace again. Repeat ten times, always turning the same way. The traced ovals fan out like petals, and their closest points to the pin march around it in the direction you turned. On each trip, Mercury's whole creep turns its orbit by only about one 26,000th of one of your ten-degree steps.
 
 **Takeaway:** Newton's law with the pulls of the other planets explains most of Mercury's perihelion creep, but not the last 43 arcseconds per century, which general relativity predicts.
 
@@ -89,11 +89,11 @@ One clue comes 13 or 14 times each century. On those days Mercury passes exactly
 
 Mercury overtakes Earth about every 116 days, so why are transits so rare? Mercury's orbit is tilted a little compared with Earth's. On most passes, seen from Earth, Mercury goes just beside the Sun's face instead of across it.
 
-Astronomers time the moments when the black dot touches the edge of the Sun, using clocks on Earth. Mercury moves fastest near its perihelion and slowest at the far end of its oval. So the moment Mercury reaches the line between Earth and the Sun depends on which way the oval points. If the oval had turned a little more, or a little less, the dot would arrive a little earlier or a little later. People have timed transits since 1631. Over centuries, comparing those moments with the timings an oval that never turned would give records how the oval turns.
+Astronomers time the moments when the black dot touches the edge of the Sun, using clocks on Earth. Mercury moves fastest near its perihelion and slowest at the far end of its oval. So the moment Mercury reaches the line between Earth and the Sun depends on which way the oval points. If the oval had turned a little more, or a little less, the dot would arrive a little earlier or a little later. People have timed transits since 1631. Over centuries, astronomers compared those moments with the timings an oval that never turned would give. The differences record how the oval turns.
 
 Today the clues are far better. Radar sends radio pulses from Earth to Mercury and times the echoes. Radio waves travel at the speed of light. Each pulse travels out and back. So an echo that returns one millionth of a second later means Mercury is 150 metres further away. From 2011 to 2015, the MESSENGER spacecraft went around Mercury, and timing its radio signals pinned down Mercury's orbit very precisely.
 
-Every measurement also needs reference directions that do not drift. Astronomers use very distant stars, and today even more distant galaxies. Earth spins around an imaginary line through its two poles, and that line slowly swings around in a circle, like the wobble of a tilted spinning top. One circle takes about 26,000 years. So directions tied to that wobbling line drift about 5000 arcseconds per century, and older tables measured from them. Measured from those directions, Mercury's perihelion seems to creep about 5600 arcseconds per century. Against the distant stars it creeps about 575, and that is the number the puzzle is about.
+Every measurement also needs reference directions that do not drift. Astronomers use very distant stars. Older tables measured from directions tied to Earth's spin. Earth spins around an imaginary line through its two poles, and that line slowly swings around in a circle, like the wobble of a tilted spinning top. One circle takes about 25,800 years. So directions tied to that line drift about 5025 arcseconds per century. Measured from those directions, Mercury's perihelion seems to creep about 5600 arcseconds per century. Against the distant stars it creeps about 575, and that is the number the puzzle is about.
 
 **Takeaway:** Transits, radar echoes and spacecraft signals, timed with clocks on Earth, show how Mercury's orbit turns against the distant stars.
 
@@ -182,6 +182,12 @@ Set $G = c = 1$. The $42.98''$ per century of "From one formula to 43 arcseconds
 - *An invariant observable.* For a bound equatorial geodesic the azimuth swept per radial period is $\Phi = 2\int_{u_a}^{u_p} du/\sqrt{F(u)}$, where $F(u) = (du/d\phi)^2$ and $u_a$, $u_p$ are its roots at aphelion and perihelion. $\Phi/2\pi$ is the ratio of azimuthal to radial frequency, independent of how time or the radial coordinate is labelled. The elements $a$ and $e$ change at relative order $M/p$ under such relabelling, which changes $\Phi - 2\pi$ only at order $(M/p)^2$.
 - *Linear superposition.* The planets advance the perihelion by about $10^{-6}$ of a turn per orbit and relativity by about $8\times10^{-8}$, so their secular rates add, with cross terms far below current precision.
 - *A non-rotating reference.* Rates refer to a frame tied to distant quasars; converting from equinox-of-date longitudes is purely kinematic.
+
+In Schwarzschild spacetime the integral for $\Phi$ can be evaluated to first order without solving the orbit. With $E$ and $L$ the conserved energy and angular momentum per unit mass, $F(u) = 2Mu^3 - u^2 + 2Mu/L^2 + (E^2-1)/L^2$. This cubic has three roots $u_a < u_p < u_3$, and its $u^2$ coefficient fixes their sum, $u_a + u_p + u_3 = 1/2M$. Hence $F$ factors as
+
+$$F(u) = (u - u_a)(u_p - u)\,[1 - 2M(u + u_a + u_p)].$$
+
+To first order in $Mu_p$, $1/\sqrt{F}$ is $[1 + M(u + u_a + u_p)]/\sqrt{(u-u_a)(u_p-u)}$. Over $[u_a, u_p]$, $\int du/\sqrt{(u-u_a)(u_p-u)} = \pi$ and $\int u\,du/\sqrt{(u-u_a)(u_p-u)} = \pi(u_a+u_p)/2$. So $\Phi = 2\pi + 3\pi M(u_a + u_p)$, and defining $p$ and $e$ by $u_p = (1+e)/p$ and $u_a = (1-e)/p$ in areal radius gives $\Phi - 2\pi = 6\pi M/p$. The neglected terms are smaller by a further factor of order $M/p$, which is $2.7\times10^{-8}$ for Mercury. The expansion fails in strong fields: as $u_p$ approaches $u_3$, at $p = (6 + 2e)M$, $\Phi$ grows without bound.
 
 A wider family of metric theories describes the static weak field by two post-Newtonian parameters: $\gamma$, the spatial curvature produced by unit mass, and $\beta$, the nonlinearity of $g_{tt}$. In isotropic coordinates, with signature $(-,+,+,+)$,
 
@@ -491,7 +497,7 @@ Imagine checking a year of bank statements. Your pay, your rent and every shop r
 ### “Mercury's perihelion really creeps about 5600 arcseconds per century.” · entry · `the-creep-is-5600`
 
 - **Why it is tempting:** Older tables quote that total.
-- **What is true:** That total is measured from directions tied to Earth's wobbling spin, which drift about 5000 arcseconds per century by themselves. Against distant stars the creep is about 575.
+- **What is true:** That total is measured from directions tied to Earth's wobbling spin, which drift about 5025 arcseconds per century by themselves. Against distant stars the creep is about 575.
 - **Exposed by:** `checks/two-tables-disagree`
 
 ### “The Sun's rotation flattens it, and that flattening could produce most of the 43 arcseconds per century.” · working · `flattened-sun-could-do-it`
@@ -529,7 +535,7 @@ Imagine checking a year of bank statements. Your pay, your rent and every shop r
    - **Visual:** [[stacked-bars-of-mercurys-perihelion-budget]]
 2. **Entry · explain** `checks/vulcan-or-relativity`. In the 1800s, some astronomers thought an unseen planet, closer to the Sun than Mercury, caused Mercury's leftover creep of about 43 arcseconds per century. They named it Vulcan. In 1915 general relativity explained the same leftover. Give two reasons why the second explanation was more convincing.
    - **Hints:** Could the size of Vulcan be chosen to fit? / What did Einstein have to choose?
-   - **Answer:** First, nobody found Vulcan, even after decades of searching, including during total eclipses of the Sun. Second, a hidden planet can be given whatever size and distance make the numbers work, so matching 43 would prove little. General relativity had nothing to adjust, because its 43 came from the Sun's mass and Mercury's orbit alone. A theory that could have given a different number, but gave the right one, passed a real test.
+   - **Answer:** First, nobody found Vulcan, even after decades of searching, including during total eclipses of the Sun. Second, a hidden planet can be given whatever size and distance make the numbers work, so matching 43 would prove little. General relativity had nothing to adjust, because its 43 came only from the Sun's mass, the speed of light and Mercury's orbit. A theory that could have given a different number, but gave the right one, passed a real test.
    - **Must contain:** Vulcan was never found; A hidden planet can be sized to fit anything; Relativity had nothing to adjust
    - **Targets:** `a-hidden-planet-fits-as-well`
 3. **Entry · predict** `checks/earths-extra-creep`. General relativity gives Mercury's perihelion an extra creep of about 43 arcseconds per century. Does it give Earth's perihelion an extra creep too? If so, is Earth's extra creep bigger or smaller than Mercury's?
@@ -540,7 +546,7 @@ Imagine checking a year of bank statements. Your pay, your rent and every shop r
    - **Targets:** `only-mercury-feels-it`
 4. **Entry · explain** `checks/two-tables-disagree`. An old table says Mercury's perihelion creeps about 5600 arcseconds per century. A modern table says about 575. Does one of the tables have to be wrong?
    - **Hints:** What is each table measuring the creep against?
-   - **Answer:** No. A creep has to be measured against some direction. The old table measures from directions tied to the imaginary line Earth spins around. That line swings slowly around in a circle, like a tilted spinning top's wobble, so those directions drift about 5000 arcseconds per century by themselves. The modern table measures against the distant stars, which removes that drift and leaves about 575. So the two tables use different references, and the leftover 43 is part of the 575.
+   - **Answer:** No. A creep has to be measured against some direction. The old table measures from directions tied to the imaginary line Earth spins around. That line swings slowly around in a circle, like a tilted spinning top's wobble, so those directions drift about 5025 arcseconds per century by themselves. The modern table measures against the distant stars, which removes that drift and leaves about 575. So the two tables use different references, and the leftover 43 is part of the 575.
    - **Must contain:** Neither table has to be wrong; The old number includes the drift of directions tied to Earth's wobbling spin; Against the distant stars the creep is about 575
    - **Targets:** `the-creep-is-5600`
 5. **Working · numeric** `checks/flattened-sun-needed`. The Sun's flattening adds $3\pi J_2(R_\odot/p)^2$ per orbit to Mercury's advance, for an orbit in the Sun's equatorial plane. With $R_\odot = 6.957\times10^8$ m, $p = 5.546\times10^{10}$ m and 415.2 orbits per century, what $J_2$ would supply the whole $42.98''$ per century? How does it compare with the helioseismic $J_2 \approx 2.2\times10^{-7}$?
@@ -584,7 +590,7 @@ Imagine checking a year of bank statements. Your pay, your rent and every shop r
 
 **Open with**
 
-- Picture a planet going around the Sun on a stretched oval, with nothing else in the universe pulling on it. After each trip, does its closest point to the Sun land in exactly the same spot, or a little further around? *(prediction)*
+- Picture a planet pulled only by the Sun, exactly as Newton's law says, going around on a stretched oval. After each trip, does its closest point to the Sun land in exactly the same spot, or a little further around? *(prediction)*
 - Measured against the distant stars, Mercury's orbit turns about five hundred and seventy-five arcseconds each century. How much of that turning do you think needed Einstein's theory to explain? *(prediction)*
 
 **If the learner is stuck**
@@ -596,11 +602,11 @@ Imagine checking a year of bank statements. Your pay, your rent and every shop r
 
 **Common questions**
 
-- *Does this mean Newton's law of gravity is wrong?* (entry) Newton's law is an excellent approximation when gravity is weak and speeds are far below the speed of light, which covers almost everything in the solar system. Mercury shows where it starts to fall short. General relativity agrees with Newton's law in that everyday range and adds tiny corrections that grow closer to the Sun. For Mercury those corrections add up to about forty-three arcseconds per century. *Uses:* `ways_in/the-leftover-that-would-not-go-away`
+- *Does this mean Newton's law of gravity is wrong?* (entry) Newton's law is an excellent approximation when gravity is weak and speeds are far below the speed of light, which covers almost everything in the solar system. Mercury shows where it starts to fall short. General relativity agrees with Newton's law in that everyday range and adds tiny corrections that are larger closer to the Sun. For Mercury those corrections add up to about forty-three arcseconds per century. *Uses:* `ways_in/the-leftover-that-would-not-go-away`
 - *Why is Mercury the famous one, if every planet gets an extra creep?* (entry) Mercury is closest to the Sun, where the difference from Newton's law is largest. It also goes around most often, so its extra creep adds up fastest. Its orbit is the most stretched of all the planets, which makes its closest point easy to locate. A circle has no single closest point, and Venus's orbit is nearly a circle, so its closest point is hard to pin down. *Uses:* `checks/earths-extra-creep`, `problems/venus-and-earth`
 - *Did Einstein predict the leftover before anyone had measured it?* (entry) No. The leftover had been known since 1859. Einstein explained it in 1915 with nothing he could adjust, so a wrong theory would have given a different number. The bending of starlight by the Sun, measured in 1919, tested a number worked out before the measurement. *Uses:* `ways_in/the-leftover-that-would-not-go-away`
 - *Why does the formula contain a times one minus e squared rather than a alone?* (working) $p = a(1-e^2)$ is the semi-latus rectum, fixed by the angular momentum through $h^2 = GMp$. The relativistic term in the orbit equation is smaller than the Newtonian one by a factor of order $GM/(c^2p)$, so $p$, not $a$, sets the size. A more eccentric orbit with the same $a$ dips closer to the Sun and advances more. *Uses:* `key_equations/advance-per-orbit`
-- *If a and e depend on coordinates, is the advance itself coordinate independent?* (formal) Yes. The azimuth swept per radial period is $2\pi$ times a ratio of frequencies, so relabelling time or radius cannot change it; it only shifts $a$ and $e$, which moves the formula at order $(M/p)^2$. *Uses:* `ways_in/what-the-prediction-assumes`
+- *If a and e depend on coordinates, is the advance itself coordinate independent?* (formal) Yes. The azimuth swept per radial period is $2\pi$ times a ratio of frequencies, so relabelling time or radius cannot change it. *Uses:* `ways_in/what-the-prediction-assumes`
 
 **Switching levels**
 
@@ -629,7 +635,7 @@ Imagine checking a year of bank statements. Your pay, your rent and every shop r
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 4)
 
 **Retell attempt:** Mercury goes around the Sun every 88 days on a stretched oval, and its closest point creeps forward a bit each trip, so the oval turns. They measure it in arcseconds, which I think are tiny, maybe a kind of second? Against the stars it's 575 a century. The other planets pull on Mercury and explain 532, which leaves 43. Le Verrier said a hidden planet Vulcan did it, but nobody found it. Einstein's general relativity gave 43 with nothing to adjust, though I don't see why the Sun's mass isn't something he could choose. Earth gets 4 and Venus 9. It's like a coin at 100 metres. They measure it by timing Mercury crossing the Sun, and with radar and a spacecraft. Old tables say 5600 because Earth's spin line wobbles. I don't get why a Sun-only orbit repeats exactly, why being a bit different from Newton makes the oval turn, why the stars count as not moving when they cross the sky every night, or how timing a dot shows which way the oval points.
 
@@ -683,9 +689,24 @@ Imagine checking a year of bank statements. Your pay, your rent and every shop r
 - The writer's convention questions (symbol and sense of the advance, reference frame for quoted rates, PPN parameters) remain open for course-conventions.md; this review did not change them.
 - All three visuals are proposals; the flagship sketch's 'magnification slider' must be labelled so the entry reader does not think the orbit really turns that fast.
 
+**Re-read** (2026-09-13, revision 4): 8 stumbles in 14 changed passages
+
+- “Astronomers measure the creep against very distant stars. They cross the night sky as Earth spins”: Rule 11: 'They' could be the astronomers or the stars, and astronomers are the subject of the previous sentence.
+- “and the difference grows closer to the Sun”: 'Grows closer' reads as the difference moving toward the Sun, not getting larger near it.
+- “Mercury's whole creep turns its orbit about 26,000 times less than one of your ten-degree steps”: '26,000 times less' is a phrase a beginner has to reread: less by 26,000, or divided by 26,000?
+- “Over centuries, comparing those moments with the timings an oval that never turned would give records how the oval turns.”: Garden-path sentence: 'give records' reads as one phrase, so the reader rereads to find the verb, and nobody is doing the comparing.
+- “Astronomers use very distant stars, and today even more distant galaxies. Earth spins around an imaginary line through its two poles”: Missing step: after naming the stars as the reference, the paragraph jumps to Earth's spin without saying why, and only its last clause ('and older tables measured from them') reveals that older tables used other directions. The clause reads as squeezed on.
+- “Picture a planet going around the Sun on a stretched oval, with nothing else in the universe pulling on it. After each trip, does its closest point to the Sun land in exactly the same spot, or a little further around?”: Rule 16: the opening question does not name its setting. The teaching arc expects 'the same spot', which holds for Newton's law, but a learner who has heard of relativity could answer 'a little further around' and be right.
+- “General relativity had nothing to adjust, because its 43 came from the Sun's mass and Mercury's orbit alone.”: The entry way lists the Sun's mass, the speed of light and Mercury's orbit, so 'alone' in the Vulcan check answer contradicts what the reader just read.
+- “those directions drift about 5000 arcseconds per century by themselves. The modern table measures against the distant stars, which removes that drift and leaves about 575.”: A reader who subtracts gets 5600 minus 5000 = 600, not 575, and wonders where 25 went. The same arithmetic appears in the second entry way and the misconception the-creep-is-5600.
+- Fix: Bumped revision 3 to 4. Changed entry text only: 5 learner-visible strings (two entry explanations, the first way's try_it, opening question lone-planet-repeat, common question is-newton-wrong). No claim, number, condition or sense changed.
+- Fix: Second entry way: split the transit-comparison sentence into two, and moved 'older tables measured from' into its own sentence before the Earth's-spin explanation so the wobble paragraph has an explicit link. The 26,000-year wobble stays in this way, because the way's question is how the creep is measured and the reference direction is part of that answer.
+- Fix: Budget: entry explanations were at 994 of 1,000, and the fixes needed words, so the low-value clause 'and today even more distant galaxies' was dropped from the second entry way (entry now 996). The opening question was reworded two words shorter so the one-word common-question fix keeps tutoring at 3,300.
+- Fix: Validator: only the expected warning that review.physics covers an older revision remains.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 5)
 
 **Verification**
 
@@ -740,3 +761,19 @@ Imagine checking a year of bank statements. Your pay, your rent and every shop r
 - The registry lists only perihelion-precession as a prerequisite, while the note adds birkhoff-theorem (it exists in other registries); run sync_registry.py.
 - The Nordstrom numeric answer carries a modulo of 1,296,000 arcseconds because the validator requires one for signed angles; for a rate per century this is only a formality.
 - The formal way calls the conversion from equinox-of-date longitudes purely kinematic. That is true of the coordinate rotation, but the adopted precession constant includes the relativistic geodetic precession of Earth's orbit, about 1.9 arcseconds per century. The simplification is acceptable; a later edit could mention it.
+
+**Diff check** (2026-09-13, revision 5)
+
+- Formal way: with u = 1/r, F(u) = (du/dphi)^2 = 2Mu^3 - u^2 + 2Mu/L^2 + (E^2-1)/L^2 for Schwarzschild geodesics, E and L per unit mass.: Derived by hand from (dr/dtau)^2 = E^2 - (1-2M/r)(1+L^2/r^2) and dphi/dtau = L/r^2 in the course Schwarzschild metric with G = c = 1. → Correct.
+- Root sum u_a + u_p + u_3 = 1/2M and the factorization F = (u-u_a)(u_p-u)[1 - 2M(u+u_a+u_p)], positive between the aphelion and perihelion roots.: Vieta on the cubic; sign analysis with leading coefficient 2M > 0; python3 with constructed roots (M = 0.2, u_a = 0.05, u_p = 0.12), recovering L^2 and E^2 from the coefficients and comparing both sides at three points. → u^2 coefficient -1 reproduced; both sides agree to 1e-16.
+- First-order expansion, the integrals pi and pi(u_a+u_p)/2, Phi = 2pi + 3pi M(u_a+u_p) = 2pi + 6pi M/p; neglected terms smaller by a factor of order M/p, 2.7e-8 for Mercury.: Hand algebra; python3 midpoint quadrature of 2 integral du/sqrt(F) with the substitution u = mean - half-width cos chi at M/p = 1e-3 and 1e-4 (e = 0.2); M = GM_sun/c^2 = 1476.6 m and p = a(1-e^2) with a = 5.7909e10 m, e = 0.20563. → Relative residual 4.53 M/p and 4.51 M/p, matching the known second-order coefficient (18+e^2)/4; M/p = 2.66e-8, which rounds to 2.7e-8.
+- Strong-field failure: as u_p approaches u_3, at p = (6+2e)M, Phi grows without bound.: With u_p = (1+e)/p and u_a = (1-e)/p, setting u_p = u_3 = 1/2M - u_a - u_p gives p = 2M(3+e); python3 quadrature for e = 0.2 at p/M = 7, 6.6, 6.45, 6.41, 6.401. → Phi/2pi = 2.73, 3.69, 4.96, 6.43, 8.51, a logarithmic divergence at 6.4M. Correct, but the result needs e defined by the roots, which the text did not do; fixed.
+- Entry rewordings: 'Those stars cross the night sky'; 'the difference is larger closer to the Sun' and 'corrections that are larger closer to the Sun'; transit comparison split into two sentences; 'Older tables measured from directions tied to Earth's spin'; opening question naming a planet pulled only by the Sun as Newton's law says.: Read in context against the pre-reread snapshot; first what-ifs (the Sun's gravity at larger distance, stars with high proper motion, the planet's own pull on the Sun in Newton's two-body problem, the equinox as a direction set by the spin axis and Earth's orbit). → Each claims the same as before or something equally true. Both the absolute and fractional departures from Newton are larger closer to the Sun; the two-body Newtonian orbit is closed, so the opening question's expected answer holds.
+- Try-it: the whole creep per trip is about one 26,000th of a ten-degree step.: python3: 36,000 arcseconds divided by 575/415.2. → 25,995; correct.
+- Second entry way, check two-tables-disagree and misconception the-creep-is-5600: a 26,000-year wobble drifts reference directions about 5000 arcseconds per century, against totals of 5600 and 575.: python3: 1,296,000 arcseconds over the period; compared with the general precession in longitude (about 5029 today, 5025.6 in the classical budget) and the working way's 5025. → 26,000 years gives 4985, true as 'about 5000' but 5600 - 5000 does not give 575 and disagrees with the working way's 5025. The precession period is about 25,770 years; 25,800 years gives 5023. Changed to 'about 25,800 years' and 'about 5025' in all three places, so the entry subtraction is exact and matches the working rung.
+- Check vulcan-or-relativity answer: the 43 came from the Sun's mass and Mercury's orbit alone (flagged by the re-read).: Compared with the advance formula 6 pi GM/[c^2 a(1-e^2)] and the first entry way's list of inputs. → 'Alone' omits the speed of light, which the formula needs and the entry way lists; fixed.
+- Fix: Formal way what-the-prediction-assumes: 'defining $p$ by $2/p = u_a + u_p$ in areal radius' became 'defining $p$ and $e$ by $u_p = (1+e)/p$ and $u_a = (1-e)/p$ in areal radius', because the separatrix $p = (6+2e)M$ holds only for $e$ defined by the roots.
+- Fix: Second entry way: 'One circle takes about 26,000 years. So directions tied to that line drift about 5000 arcseconds per century.' became 'about 25,800 years' and 'about 5025 arcseconds per century'. Same drift number changed in check two-tables-disagree and misconception the-creep-is-5600.
+- Fix: Check vulcan-or-relativity: 'because its 43 came from the Sun's mass and Mercury's orbit alone' became 'because its 43 came only from the Sun's mass, the speed of light and Mercury's orbit'.
+- Fix: Budget: tutoring was at its 3,300 cap, so the formal common question is-it-coordinate-free lost its closing clause about a and e shifting at order (M/p)^2, which the formal way's invariant-observable bullet already states.
+- Fix: Bumped revision 4 to 5; the novice stage now lags one revision.
