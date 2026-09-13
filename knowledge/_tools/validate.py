@@ -1044,11 +1044,20 @@ def visual_warnings(d, path):
 	for img in d['provenance']['figure_images']:
 		if not (SRC / img).exists():
 			warns.append(f'provenance figure image "{img}" does not exist under book-sources/')
+	# Reviews mirror concept notes: a novice reading of what the visual says, and a physics review of its model and claims.
+	review = d.get('review') or {}
 	if d['status'] in ('specified', 'prototype', 'built', 'published'):
-		if not d.get('review'):
-			warns.append(f'status "{d["status"]}" requires a review')
-		elif d['review']['reviewed_revision'] != d['revision']:
-			warns.append(f'review covers revision {d["review"]["reviewed_revision"]}, but the visual is at revision {d["revision"]}')
+		if 'physics' not in review:
+			warns.append(f'status "{d["status"]}" requires review.physics')
+		elif review['physics']['verdict'] == 'needs-attention':
+			warns.append(f'status "{d["status"]}" is not allowed with a physics verdict of needs-attention')
+		if any(t['rung'] == 'entry' for t in d['tours']) and 'novice' not in review:
+			warns.append(f'status "{d["status"]}" requires review.novice, because a tour speaks to entry readers')
+	for stage, r in review.items():
+		if r['reviewed_revision'] != d['revision'] and d['status'] != 'proposed':
+			warns.append(f'review.{stage} covers revision {r["reviewed_revision"]}, but the visual is at revision {d["revision"]}; review again')
+	if 'physics' in review and not review['physics']['verification']:
+		warns.append('review.physics.verification must record what was checked and how')
 	warns += format_warnings()
 	warns += common_lints(d)
 	warns += copy_warnings(d, units)

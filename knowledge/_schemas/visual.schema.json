@@ -281,23 +281,68 @@
 		"review": {
 			"type": "object",
 			"x-audience": "internal",
-			"required": ["verdict", "date", "reviewed_revision", "verification", "fixes", "concerns"],
+			"description": "Mirrors concept notes: a novice reading of what the visual says, and a physics review of its model, tests and claims",
 			"additionalProperties": false,
 			"properties": {
-				"verdict": { "enum": ["accurate", "fixed", "needs-attention"] },
-				"date": { "$ref": "#/definitions/date" },
-				"reviewed_revision": { "type": "integer", "minimum": 1 },
-				"verification": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"required": ["claim", "method", "result"],
-						"additionalProperties": false,
-						"properties": { "claim": { "type": "string" }, "method": { "type": "string" }, "result": { "type": "string" } }
+				"novice": {
+					"type": "object",
+					"required": ["verdict", "date", "reviewed_revision", "retell_attempt", "stumbles", "fixes", "concerns"],
+					"additionalProperties": false,
+					"properties": {
+						"verdict": { "enum": ["accurate", "fixed", "needs-attention"] },
+						"date": { "$ref": "#/definitions/date" },
+						"reviewed_revision": { "type": "integer", "minimum": 1 },
+						"retell_attempt": { "type": "string", "description": "What the persona would say back after the entry tour, before fixes" },
+						"stumbles": { "type": "array", "items": { "$ref": "#/definitions/stumble" } },
+						"fixes": { "type": "array", "items": { "type": "string" } },
+						"concerns": { "type": "array", "items": { "type": "string" } },
+						"rereads": {
+							"type": "array",
+							"description": "Later readings of spoken or displayed text that another stage changed after this review",
+							"items": {
+								"type": "object",
+								"required": ["date", "revision", "read", "stumbles", "fixes"],
+								"additionalProperties": false,
+								"properties": {
+									"date": { "$ref": "#/definitions/date" },
+									"revision": { "type": "integer", "minimum": 1 },
+									"read": { "type": "array", "items": { "type": "string" } },
+									"stumbles": { "type": "array", "items": { "$ref": "#/definitions/stumble" } },
+									"fixes": { "type": "array", "items": { "type": "string" } }
+								}
+							}
+						}
 					}
 				},
-				"fixes": { "type": "array", "items": { "type": "string" } },
-				"concerns": { "type": "array", "items": { "type": "string" } }
+				"physics": {
+					"type": "object",
+					"required": ["verdict", "date", "reviewed_revision", "verification", "counterexamples", "fixes", "concerns"],
+					"additionalProperties": false,
+					"properties": {
+						"verdict": { "enum": ["accurate", "fixed", "needs-attention"] },
+						"date": { "$ref": "#/definitions/date" },
+						"reviewed_revision": { "type": "integer", "minimum": 1 },
+						"verification": { "type": "array", "items": { "$ref": "#/definitions/verification" } },
+						"counterexamples": { "type": "array", "items": { "type": "string" }, "description": "States tried against the model and the claims, and the outcome" },
+						"fixes": { "type": "array", "items": { "type": "string" } },
+						"concerns": { "type": "array", "items": { "type": "string" } },
+						"diff_checks": {
+							"type": "array",
+							"description": "Later accuracy checks of text that another stage changed after this review",
+							"items": {
+								"type": "object",
+								"required": ["date", "revision", "verification", "fixes"],
+								"additionalProperties": false,
+								"properties": {
+									"date": { "$ref": "#/definitions/date" },
+									"revision": { "type": "integer", "minimum": 1 },
+									"verification": { "type": "array", "items": { "$ref": "#/definitions/verification" } },
+									"fixes": { "type": "array", "items": { "type": "string" } }
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	},
@@ -307,6 +352,18 @@
 		"kebab": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
 		"date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
 		"item_id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 60 },
+		"stumble": {
+			"type": "object",
+			"required": ["quote", "problem", "rewrite"],
+			"additionalProperties": false,
+			"properties": { "quote": { "type": "string" }, "problem": { "type": "string" }, "rewrite": { "type": "string" } }
+		},
+		"verification": {
+			"type": "object",
+			"required": ["claim", "method", "result"],
+			"additionalProperties": false,
+			"properties": { "claim": { "type": "string" }, "method": { "type": "string" }, "result": { "type": "string" } }
+		},
 		"constraint": {
 			"type": ["object", "null"],
 			"description": "Available only when every listed param has one of the listed values, e.g. {\"surface\": [\"tube\", \"cone\"]}"

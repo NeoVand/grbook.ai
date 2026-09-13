@@ -64,8 +64,11 @@ These are not started; do them after the standard settles.
      `conform` is true, a full entry re-read, and a diff check of everything changed since `base_rev`).
    - Re-run both commands until the summary says 0 pending. `lagging_novice` in the result lists notes whose final
      physics fix changed text after the last re-read; an editor reads those sentences.
-2. **Build the domain's visuals.** Run `knowledge/_workflows/gr-visuals-v2.js` with `{"domain": "<id>"}`. It plans
-   canonical ids, writes catalog entries, and reviews them.
+2. **Build the domain's visuals.** Run `knowledge/_workflows/gr-visuals-v2.js` with
+   `{"domain": "<id>", "date": "<today>", "snap_dir": "<scratch dir>"}`. It plans canonical ids, then takes each
+   visual through a writer, a novice reading of its tours and speech, and a physics review that recomputes every test.
+   Changed speech gets a re-read, and a changed re-read gets a diff check, as for notes. Reviewed entries become
+   `specified`.
 3. **Sync and check.** Run these commands in order:
    - `python3 knowledge/_tools/sync_registry.py --domain <id> --write`
    - `python3 knowledge/_tools/check_registry.py`

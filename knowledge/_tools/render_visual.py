@@ -112,9 +112,19 @@ def render(d):
 			o += ['Earlier course assets: ' + ', '.join(f'`{x}`' for x in s['legacy_assets']), '']
 		if s.get('notes'):
 			o += [s['notes'], '']
-	r = d.get('review')
-	if r:
-		o += ['## Review', '', f"**Verdict:** {r['verdict']} ({r['date']}, revision {r['reviewed_revision']})", '', *(f"- Verified: {v['claim']}: {v['method']} → {v['result']}" for v in r['verification']), *(f'- Fixed: {x}' for x in r['fixes']), *(f'- Concern: {x}' for x in r['concerns']), '']
+	review = d.get('review') or {}
+	nov, phy = review.get('novice'), review.get('physics')
+	if nov:
+		o += ['## Review: novice', '', f"**Verdict:** {nov['verdict']} ({nov['date']}, revision {nov['reviewed_revision']})", '', f"**Retell attempt:** {nov['retell_attempt']}", '']
+		o += [*(f"- Stumble: “{s['quote']}”: {s['problem']}" for s in nov['stumbles']), *(f'- Fixed: {x}' for x in nov['fixes']), *(f'- Concern: {x}' for x in nov['concerns']), '']
+		for rr in nov.get('rereads', []):
+			o += [f"**Re-read** ({rr['date']}, revision {rr['revision']})", '', *(f"- Stumble: “{s['quote']}”: {s['problem']}" for s in rr['stumbles']), *(f'- Fixed: {x}' for x in rr['fixes']), '']
+	if phy:
+		o += ['## Review: physics', '', f"**Verdict:** {phy['verdict']} ({phy['date']}, revision {phy['reviewed_revision']})", '']
+		o += [*(f"- Verified: {v['claim']}: {v['method']} → {v['result']}" for v in phy['verification']), *(f'- Counterexample: {x}' for x in phy['counterexamples'])]
+		o += [*(f'- Fixed: {x}' for x in phy['fixes']), *(f'- Concern: {x}' for x in phy['concerns']), '']
+		for dc in phy.get('diff_checks', []):
+			o += [f"**Diff check** ({dc['date']}, revision {dc['revision']})", '', *(f"- Verified: {v['claim']}: {v['method']} → {v['result']}" for v in dc['verification']), *(f'- Fixed: {x}' for x in dc['fixes']), '']
 	return '\n'.join(o)
 
 
