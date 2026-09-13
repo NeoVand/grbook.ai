@@ -279,6 +279,8 @@ MIN_PROBLEMS = {'prerequisite': 1, 'foundation': 2, 'core': 3, 'advanced': 3, 'f
 MIN_FORMAL_CHECKS = 2
 # Caps are ceilings. A draft stays within this share of every cap, so reviewers can add explicit steps without squeezing.
 DRAFT_HEADROOM = 0.8
+# A review may take a part up to 10% past its cap, only for the stumble and accuracy fixes it records.
+REVIEW_ALLOWANCE = 1.1
 
 
 @lru_cache(maxsize=None)
@@ -812,26 +814,25 @@ def concept_warnings(d, path):
 	warns += format_warnings()
 
 	counts, budget = part_counts(d), TIER_BUDGETS[tier]
+	draft = status == 'draft'
 
-	def headroom(n, cap, label):
-		room = int(cap * DRAFT_HEADROOM)
-		if status == 'draft' and n > room:
-			warns.append(f'{label}: {n} words; a draft stays within {room}, 80% of the {tier} cap of {cap}, so reviewers can add explicit steps without squeezing')
+	def over(n, cap, label, advice=''):
+		limit = int(cap * (DRAFT_HEADROOM if draft else REVIEW_ALLOWANCE))
+		if n <= limit:
+			return
+		if draft:
+			warns.append(f'{label}: {n} words; a draft stays within {limit}, 80% of the {tier} cap of {cap}, so reviewers can add explicit steps without squeezing')
+		else:
+			warns.append(f'{label}: {n} words, over {limit} (the {tier} cap of {cap} plus the 10% allowance for fixes a review records){advice}')
 
 	for part in ('entry', 'working', 'formal', 'research'):
 		lo, hi = budget[part]
-		n = counts[part]
-		if n > hi:
-			warns.append(f'{part} way explanations: {n} words, over the {tier} cap of {hi}')
-		elif part in required and n < lo:
-			warns.append(f'{part} way explanations: {n} words, under the {tier} minimum of {lo}')
+		if part in required and counts[part] < lo:
+			warns.append(f'{part} way explanations: {counts[part]} words, under the {tier} minimum of {lo}')
 		else:
-			headroom(n, hi, f'{part} way explanations')
+			over(counts[part], hi, f'{part} way explanations')
 	for part in ('extras', 'support', 'tutoring', 'links', 'total'):
-		if counts[part] > budget[part]:
-			warns.append(f'{part}: {counts[part]} words, over the {tier} cap of {budget[part]}; drop or shorten the lowest-value item, never compress the entry rung or a check answer')
-		else:
-			headroom(counts[part], budget[part], part)
+		over(counts[part], budget[part], part, '; drop or shorten the lowest-value item, never compress the entry rung or a check answer')
 
 	units = provenance_units(d['provenance'], warns)
 	for a in d['provenance']['legacy_assets']:

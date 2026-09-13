@@ -2,12 +2,13 @@ export const meta = {
   name: 'gr-concept-notes-v2',
   description: 'Write concept notes on the depth ladder, then a novice review, an adversarial physics review, and re-checks of any text changed afterwards (max 5 agents in flight)',
   phases: [
-    { title: 'Conform', detail: 'bring an existing note up to the current standard (mode conform)' },
+    { title: 'Conform', detail: 'bring an existing note up to the current standard, or apply editor items (mode conform)' },
     { title: 'Write', detail: 'one agent per batch writes schema v2 notes from the evidence' },
     { title: 'Novice review', detail: 'a beginner-reader reviewer records a retelling and stumbles, then fixes the entry rung and the ladder' },
     { title: 'Physics review', detail: 'an adversarial physicist re-derives, recomputes, tries counterexamples, verifies references, and fixes' },
     { title: 'Re-read', detail: 'the novice reader reads text changed after the novice review' },
     { title: 'Diff check', detail: 'the physicist checks text changed after the physics review' },
+    { title: 'Sign-off', detail: 'the novice reader reads the diff check changes without editing' },
   ],
 }
 
@@ -17,7 +18,8 @@ const T = `${KB}/_tools`
 const batches = (args && args.batches) || []
 const DATE = (args && args.date) || 'unknown-date'
 // mode "write" (default): write, novice, physics, then re-checks. "review_only": the note exists; skip the writer.
-// "conform": bring reviewed notes up to a changed standard: conform edit (when batch.conform), full novice re-read, diff check against base_rev.
+// "conform": bring reviewed notes up to a changed standard or apply editor items. Batch fields: conform (run the editor),
+// items (editor tasks), reread_scope ("full" entry rung, the default, or "changes"), reread_from (snapshot to diff from).
 const MODE = (args && args.mode) || (args && args.review_only ? 'review_only' : 'write')
 const SNAP = args && args.snap_dir
 const BASE = (args && args.base_rev) || 'HEAD'
@@ -52,7 +54,7 @@ BINDING DOCUMENTS (read them completely before starting; re-read the relevant se
 - Exemplar note: ${KB}/concepts/curvature/holonomy.json. It sets the bar, especially its entry ways, checks, and the ids linking objectives, checks, and misconceptions.
 - Exemplar visual: ${KB}/visuals/carry-an-arrow-around-a-loop.json
 
-BUDGETS: caps are ceilings, not targets (guide section 9). Never compress sentences to fit a cap. When a fix needs words and a part is at its cap, drop or shorten the lowest-value item and say which in your fixes.
+BUDGETS (guide section 9): caps are ceilings, not targets. A draft stays within 80% of every cap. A review may take a part up to 10% past its cap, only for the stumble and accuracy fixes it records. Never compress sentences to fit; beyond that, drop or shorten the lowest-value item and say which in your fixes.
 
 TOOLS:
 - Registry entry: python3 -c "import json,glob; [print(json.dumps(c, indent=1)) for f in glob.glob('${KB}/concepts/*/_registry.json') for c in json.load(open(f))['concepts'] if c['id']=='<ID>']"
@@ -105,6 +107,7 @@ const REVIEW_SCHEMA = {
 }
 
 const note = (b) => `${KB}/concepts/${b.domain}/<ID>.json`
+const PERSONA = 'a curious 16-year-old with school algebra and geometry, no calculus, and no physics beyond everyday experience, who knows only the entry rungs of the prerequisites. For working-rung text, read as a strong second-year undergraduate climbing the ladder.'
 
 const writePrompt = (b) => `${CONTEXT}
 
@@ -185,51 +188,73 @@ Return the summary object, with errors_fixed per note and learner_changes = the 
 
 const conformPrompt = (b) => `${CONTEXT}
 
-TASK: You are an EDITOR with a GR physicist's standards, bringing reviewed notes up to a changed standard. Domain "${b.domain}": ${b.ids.join(', ')}.
-What changed: tiers that require a formal rung now need at least two formal checks and one formal problem; formal way minimums are foundation 300 and core, advanced and frontier 400 words; drafts keep budget headroom (not your concern: these notes are reviewed); and novice contract rule 17 (one idea per entry way) is new, which a re-read handles after you.
+TASK: You are an EDITOR with a GR physicist's standards and a teacher's ear, bringing reviewed notes up to the current standard. Domain "${b.domain}": ${b.ids.join(', ')}.
+${
+  b.items && b.items.length
+    ? `EDITOR ITEMS. Earlier reviews found these but could not apply them, because they change a claim or a cap blocked them. Apply each one under the novice and accuracy contracts, or explain in major_issues why you did not:
+${b.items.map((x, i) => `${i + 1}. ${x}`).join('\n')}
+`
+    : ''
+}The current standard: tiers that require a formal rung need at least two formal checks and one formal problem; formal way minimums are foundation 300 and core, advanced and frontier 400 words; novice contract rule 17 gives each entry way one idea; a review may take a part up to 10% past its cap only for fixes it records.
 For each note ${note(b)}:
+0. Run mkdir -p ${SNAP} and copy the note to ${SNAP}/<ID>.before-conform.json.
 1. Validate it and read the guide sections that its warnings name.
-2. Fix every warning except warnings about review revisions. Add real graduate-level substance, never padding: a precise definition, hypotheses, a result with a proof sketch, limits of validity, or a standard computation. New checks and problems evidence an objective at their own rung (add a formal objective when needed), follow the check and problem rules, give numeric answers where they apply, and target real misconceptions. Derive every equation in course conventions and compute every number with python3. Stay within every cap; if a part is full, drop or shorten the lowest-value item.
-3. Do not edit entry-rung text unless a warning requires it.
-4. If you changed learner-visible text, bump revision by exactly 1. Keep the status. Do not edit review. The warnings that review.novice and review.physics cover an older revision are expected, because a re-read and a physics diff check follow. Render.
-Return the summary object with verdict "fixed" when you edited and "accurate" otherwise, edited per note, and major_issues listing exactly what you added or changed.`
+2. Fix every warning except warnings about review revisions. Add real graduate-level substance, never padding: a precise definition, hypotheses, a result with a proof sketch, limits of validity, or a standard computation. New checks and problems evidence an objective at their own rung (add a formal objective when needed), follow the check and problem rules, give numeric answers where they apply, and target real misconceptions. Derive every equation in course conventions and compute every number with python3.
+3. Apply the editor items, if any. Keep every entry sentence simple and true: an accurate simple sentence, never a jargon-heavy one, with any number computed in python3. Apart from the items and warnings, do not edit entry-rung text. If an item touches a visual in ${KB}/visuals/, edit only the named lines, bump that visual's revision, validate and render it.
+4. Record every change in major_issues. If you changed learner-visible text, bump revision by exactly 1. Keep the status. Do not edit review. The warnings that review.novice and review.physics cover an older revision are expected, because a re-read and a physics diff check follow. Render.
+Return the summary object with verdict "fixed" when you edited and "accurate" otherwise, and edited per note.`
+
+const rereadScope = (b) => {
+  if (MODE !== 'conform')
+    return `   - Run python3 ${T}/note_diff.py ${SNAP}/<ID>.before-physics.json ${note(b)} --rungs entry,working. Read each changed sentence inside its paragraph and field. Read nothing else closely.`
+  if (b.reread_scope === 'changes')
+    return `   - Run python3 ${T}/note_diff.py ${b.reread_from ? b.reread_from : `--git ${BASE}`} ${note(b)} --rungs entry,working. It lists every change a novice reader has not yet read. Read each changed sentence inside its paragraph and field. Read nothing else closely.`
+  return `   - This note's entry text was edited by its physics review without a novice re-read. Read the whole entry rung again, sentence by sentence, exactly as the novice review does (guide section 11): summary and tagline, every field of each entry way, glossary, entry objectives, checks, misconceptions, analogies, problems and observations, opening questions and entry common questions.
+   - Then run python3 ${T}/note_diff.py --git ${BASE} ${note(b)} and read every change the conform stage made at entry and working rung.`
+}
 
 const rereadPrompt = (b, ids, prior) => `${CONTEXT}
 
 TASK: You are the NOVICE-READER REVIEWER doing a RE-READ (writing guide section 8, lifecycle step 5) for domain "${b.domain}": ${ids.join(', ')}. The previous stage reported: ${JSON.stringify(prior || {})}
 For each note ${note(b)}:
 1. Run mkdir -p ${SNAP} and copy the note to ${SNAP}/<ID>.before-reread.json before editing.
-2. Adopt the novice persona strictly: a curious 16-year-old with school algebra and geometry, no calculus, and no physics beyond everyday experience, who knows only the entry rungs of the prerequisites. For working-rung text, read as a strong second-year undergraduate climbing the ladder.
+2. Adopt the novice persona strictly: ${PERSONA}
 3. Scope:
-${
-  MODE === 'conform'
-    ? `   - This note's entry text was edited by its physics review without a novice re-read. Read the whole entry rung again, sentence by sentence, exactly as the novice review does (guide section 11): summary and tagline, every field of each entry way, glossary, entry objectives, checks, misconceptions, analogies, problems and observations, opening questions and entry common questions.
-   - Then run python3 ${T}/note_diff.py --git ${BASE} ${note(b)} and read every change the conform stage made at entry and working rung.`
-    : `   - Run python3 ${T}/note_diff.py ${SNAP}/<ID>.before-physics.json ${note(b)} --rungs entry,working. Read each changed sentence inside its paragraph and field. Read nothing else closely.`
-}
+${rereadScope(b)}
 4. Record every stumble as {quote, problem, rewrite}, using the novice review's stumble list, including a way that asks the reader to hold two new ideas at once (rule 17) and wording squeezed to fit a budget.
 5. Fix wording only. Never change what a sentence claims: its numbers, conditions, scope, signs, or sense. ${
-  MODE === 'conform'
+  MODE === 'conform' && b.reread_scope !== 'changes'
     ? 'You may split an overloaded entry way into two entry ways, or move its second idea into a working way, as long as every sentence keeps its claim and the ids, questions, takeaways and continues links stay valid. '
     : ''
-}If clarity needs a different claim, leave the sentence and describe the proposal in major_issues. Never compress other sentences to make room; drop or shorten the lowest-value item instead and say which.
+}If clarity needs a different claim, leave the sentence and describe the proposal in major_issues. You may use the 10% review allowance for fixes you record; beyond it, drop or shorten the lowest-value item and say which.
 6. Append {date "${DATE}", revision, read (the note_diff paths or field paths you read), stumbles, fixes} to review.novice.rereads. If you changed learner-visible text, bump revision by exactly 1 first. Set that entry's revision and review.novice.reviewed_revision to the note's revision. Keep the status. If you edited, the warning that review.physics covers an older revision is expected, because a physics diff check follows; fix every other warning. Render.
 Return the summary object with, per note, verdict ("fixed" if you edited, else "accurate"), stumbles, and edited.`
 
 const diffcheckPrompt = (b, ids, prior) => `${CONTEXT}
 
-TASK: You are the ADVERSARIAL PHYSICS REVIEWER doing a DIFF CHECK (writing guide section 8, lifecycle step 5) for domain "${b.domain}": ${ids.join(', ')}. The previous stage reported: ${JSON.stringify(prior || {})}
+TASK: You are the ADVERSARIAL PHYSICS REVIEWER doing a DIFF CHECK (writing guide section 8, lifecycle step 5) for domain "${b.domain}": ${ids.join(', ')}. The previous stages reported: ${JSON.stringify(prior || {})}
 For each note ${note(b)}:
+0. Run mkdir -p ${SNAP} and copy the note to ${SNAP}/<ID>.before-diffcheck.json before editing.
 1. List the changes: ${
   MODE === 'conform'
-    ? `python3 ${T}/note_diff.py --git ${BASE} ${note(b)}. This covers the conform editor's additions and the re-read's rewording.`
+    ? `python3 ${T}/note_diff.py --git ${BASE} ${note(b)}. This covers the editor's changes and the re-read's rewording.`
     : `python3 ${T}/note_diff.py ${SNAP}/<ID>.before-reread.json ${note(b)}.`
 }
 2. Check every changed or added sentence in context, as the physics review does: true within its stated scope at its rung; conditions on universal sentences; sense and branch; frames, observers and measurers; consistent with the rest of the note and with course conventions. Try the first what-ifs and the domain's standard counterexamples on every changed general sentence. A reworded sentence must claim exactly what the old one did, or something equally true.
 3. For every new or changed equation, derivation, check, problem, worked example or observation: re-derive it in course conventions, recompute with python3, work it to its final answer, and check numeric fields and tolerances. Verify any new reference with WebSearch before setting verified true.
 4. Fix errors with the simplest true wording. Never compress other sentences to make room.
-5. If you changed learner-visible text, bump revision by exactly 1 and list in major_issues exactly which sentences you changed, because the novice stage will then lag one revision. Append {date "${DATE}", revision, verification (claim, method, result for each item checked), fixes} to review.physics.diff_checks. Set review.physics.reviewed_revision to the note's revision. Validate until OK (apart from the novice-revision warning if you edited), then render.
+5. If you changed learner-visible text, bump revision by exactly 1 and list in major_issues exactly which sentences you changed, because a novice sign-off follows. Append {date "${DATE}", revision, verification (claim, method, result for each item checked), fixes} to review.physics.diff_checks. Set review.physics.reviewed_revision to the note's revision. Validate until OK (apart from the novice-revision warning if you edited), then render.
 Return the summary object with, per note, verdict, errors_fixed, and edited.`
+
+const signoffPrompt = (b, ids, prior) => `${CONTEXT}
+
+TASK: You are the NOVICE-READER REVIEWER giving a SIGN-OFF (writing guide section 8, lifecycle step 5) for domain "${b.domain}": ${ids.join(', ')}. The physics diff check changed a few sentences after the last re-read. It reported: ${JSON.stringify(prior || {})}
+For each note ${note(b)}:
+1. Run python3 ${T}/note_diff.py ${SNAP}/<ID>.before-diffcheck.json ${note(b)}. Read each changed sentence inside its paragraph and field as ${PERSONA} For formal or research text, check only that the wording is unambiguous.
+2. Do not edit any learner-visible text. Your only edit is the review record.
+3. If every changed sentence reads clearly, append {date "${DATE}", revision (the note's revision), read, stumbles: [], fixes: []} to review.novice.rereads and set review.novice.reviewed_revision to the note's revision. Validate (it should report OK) and render. Verdict "accurate".
+4. Otherwise append the same entry with the stumbles and their proposed rewrites, leave review.novice.reviewed_revision unchanged, render, and put each stumble with its rewrite in major_issues for an editor. Verdict "needs-attention".
+Return the summary object with, per note, verdict, stumbles, and edited false.`
 
 // Each concept's novice review releases the batches that list it in "after", so pictures and terms connect.
 const noviceDone = {}
@@ -276,6 +301,11 @@ async function runBatch(b) {
       )
       if (!out.diffcheck) return ((out.stopped = 'diff check'), out)
     }
+    const signIds = items(out.diffcheck).filter((x) => x.edited).map((x) => x.id)
+    if (signIds.length) {
+      out.signoff = await slot(6, () => agent(signoffPrompt(b, signIds, out.diffcheck), { label: `signoff:${tag}`, phase: 'Sign-off', schema: REVIEW_SCHEMA, effort: 'high' }))
+      if (!out.signoff) return ((out.stopped = 'sign-off'), out)
+    }
     return out
   } finally {
     b.ids.forEach((id) => release[id]())
@@ -295,12 +325,21 @@ return {
   mode: MODE,
   finished: done.filter((r) => !r.stopped).flatMap((r) => r.ids),
   stopped,
-  lagging_novice: done.flatMap((r) => items(r.diffcheck).filter((x) => x.edited).map((x) => `${r.domain}/${x.id}`)),
-  stages: [...tagged('conform', 'conform'), ...tagged('novice', 'novice'), ...tagged('physics', 'physics'), ...tagged('reread', 're-read'), ...tagged('diffcheck', 'diff check')],
+  needs_editor: done.flatMap((r) => items(r.signoff).filter((x) => x.verdict !== 'accurate').map((x) => `${r.domain}/${x.id}`)),
+  stages: [
+    ...tagged('conform', 'conform'),
+    ...tagged('write', 'write'),
+    ...tagged('novice', 'novice'),
+    ...tagged('physics', 'physics'),
+    ...tagged('reread', 're-read'),
+    ...tagged('diffcheck', 'diff check'),
+    ...tagged('signoff', 'sign-off'),
+  ],
   writer_problems: done.flatMap((r) => ((r.write && r.write.problems) || []).map((m) => `${r.domain}: ${m}`)),
   conform_issues: issues('conform'),
   novice_issues: issues('novice'),
   physics_issues: issues('physics'),
   reread_issues: issues('reread'),
   diffcheck_issues: issues('diffcheck'),
+  signoff_issues: issues('signoff'),
 }

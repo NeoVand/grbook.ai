@@ -354,6 +354,8 @@ id to `retired_ids`, so stored learner evidence still resolves.
      recorded in `review.novice.rereads`.
    - When that re-read changes text, a physics diff check covers exactly those changes and is recorded in
      `review.physics.diff_checks`.
+   - When the diff check changes text, a novice sign-off reads exactly those changes without editing. It signs the
+     revision, or records the stumbles with proposed rewrites for an editor, so the loop always ends.
    - Each sets its stage's `reviewed_revision` to the revision it signed.
    - `python3 knowledge/_tools/note_diff.py <before.json> <after.json>` (or `--git <rev> <note.json>`) lists the
      changed learner-visible sentences with their rungs.
@@ -372,9 +374,12 @@ problems, which the learner model and the tutor depend on.
 - **Caps are ceilings, not targets.** Write what each rung needs, then stop. The pilot showed that notes filled to
   every cap get dense: reviewers add the explicit steps a beginner needs, then squeeze other sentences to fit.
 - **Drafts leave headroom.** A draft stays within 80% of every cap, so reviewers have room for explicit steps.
-- **Never compress to fit.** When a clarity or accuracy fix needs words and a part is at its cap, drop or shorten the
-  lowest-value item: a check that tests the same skill as another, a common question a way already answers, a second
-  analogy. Never compress entry sentences or check answers, and say in the review's fixes what you dropped.
+- **Reviews have a small allowance.** A review may take a part up to 10% past its cap, and only for the stumble and
+  accuracy fixes it records. Pilot re-reads were blocked from adding a missing step or glossary entry by notes that
+  already sat at their caps.
+- **Never compress to fit.** Beyond the allowance, drop or shorten the lowest-value item: a check that tests the same
+  skill as another, a common question a way already answers, a second analogy. Never compress entry sentences or
+  check answers, and say in the review's fixes what you dropped.
 - **The formal rung carries graduate readers.** Tiers that require it need at least two formal checks and one formal
   problem, and a formal way with real substance: precise definitions, hypotheses, results with proof sketches, and
   limits of validity.
