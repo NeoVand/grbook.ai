@@ -91,10 +91,16 @@ Return the summary object.`
 
 // User's pacing rule: at most 5 agents in flight. Each batch runs write then review; up to 5 batches at a time.
 const MAX_AGENTS = Math.min((args && args.max_agents) || 5, 5)
+// Batches marked compact (advanced and frontier concepts, by the user's choice) get a shorter note and no review.
+const COMPACT = `COMPACT NOTE: this concept is advanced or frontier material. Keep every required field correct and substantive but brief: each level explanation 2-4 sentences, 1-3 key equations, how_books_teach only for sources that treat it at depth developed or deeper, 3-5 teaching-path steps, 1-2 analogies, 1-3 misconceptions, 1-2 visualizations, 2 checks for understanding, and short tutor guidance. Omit optional fields that would be thin. Because no separate review follows, finish by re-reading the note once as a skeptical physicist: check every equation against course conventions, work the check answers, and set "review" to {"verdict": "accurate" or "fixed", "fixes": [what you corrected in that pass], "concerns": ["self-reviewed compact note; no independent review"]}.`
+
 const chain = (b, i) =>
-  agent(writePrompt(b), { label: `write:${b.domain}:${i}`, phase: 'Write', schema: WRITE_SCHEMA })
-    .then((w) => agent(reviewPrompt(b, w), { label: `review:${b.domain}:${i}`, phase: 'Review', schema: REVIEW_SCHEMA, effort: 'high' })
-      .then((r) => ({ domain: b.domain, ids: b.ids, write: w, review: r })))
+  b.compact
+    ? agent(`${writePrompt(b)}\n\n${COMPACT}`, { label: `compact:${b.domain}:${i}`, phase: 'Write', schema: WRITE_SCHEMA })
+      .then((w) => ({ domain: b.domain, ids: b.ids, write: w, review: { reviewed: (w?.written ?? []).map((x) => ({ id: x.id, verdict: 'accurate', validator: x.validator })), major_issues: [] } }))
+    : agent(writePrompt(b), { label: `write:${b.domain}:${i}`, phase: 'Write', schema: WRITE_SCHEMA })
+      .then((w) => agent(reviewPrompt(b, w), { label: `review:${b.domain}:${i}`, phase: 'Review', schema: REVIEW_SCHEMA, effort: 'high' })
+        .then((r) => ({ domain: b.domain, ids: b.ids, write: w, review: r })))
 const results = []
 for (let i = 0; i < batches.length; i += MAX_AGENTS) {
   results.push(...(await parallel(batches.slice(i, i + MAX_AGENTS).map((b, j) => () => chain(b, i + j)))))

@@ -39,9 +39,14 @@ def main(argv):
 			pending['small' if c['tier'] in SMALL else 'large'].append(c['id'])
 		for kind, size in (('small', 3), ('large', 5)):
 			ids = pending[kind]
-			batches += [{'domain': domain, 'ids': ids[i : i + size]} for i in range(0, len(ids), size)]
-	agents = 2 * len(batches)
-	print(f'{total} concepts, {done} with reviewed notes, {len(batches)} batches to run ({agents} agents), {-(-len(batches) // per_run)} runs')
+			# Advanced and frontier concepts get compact, self-reviewed notes (one agent, no separate review).
+			batches += [{'domain': domain, 'ids': ids[i : i + size], 'compact': kind == 'large'} for i in range(0, len(ids), size)]
+	agents = sum(1 if b['compact'] else 2 for b in batches)
+	compact = sum(1 for b in batches if b['compact'])
+	print(
+		f'{total} concepts, {done} with reviewed notes, {len(batches)} batches to run '
+		f'({len(batches) - compact} full, {compact} compact; {agents} agents), {-(-len(batches) // per_run)} runs'
+	)
 	for i in range(0, len(batches), per_run):
 		print(json.dumps({'name': f'concept-notes-{i // per_run + 1}', 'max_agents': 5, 'batches': batches[i : i + per_run]}))
 	return 0
