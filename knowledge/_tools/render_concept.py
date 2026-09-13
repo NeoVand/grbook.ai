@@ -236,11 +236,17 @@ def render(d):
 		o += ['## Review: novice', '', f"**Verdict:** {nov['verdict']} ({nov['date']}, revision {nov['reviewed_revision']})", '', f"**Retell attempt:** {nov['retell_attempt']}", '']
 		o += [f"**Stumbles ({len(nov['stumbles'])})**", '', *(f"- “{s['quote']}”: {s['problem']}" for s in nov['stumbles']), '']
 		o += ['**Fixes**', '', *(f'- {x}' for x in nov['fixes'] or ['none']), '', '**Concerns**', '', *(f'- {x}' for x in nov['concerns'] or ['none']), '']
+		for rr in nov.get('rereads', []):
+			o += [f"**Re-read** ({rr['date']}, revision {rr['revision']}): {len(rr['stumbles'])} stumbles in {len(rr['read'])} changed passages", '']
+			o += [*(f"- “{s['quote']}”: {s['problem']}" for s in rr['stumbles']), *(f'- Fix: {x}' for x in rr['fixes']), '']
 	if phy:
 		o += ['## Review: physics', '', f"**Verdict:** {phy['verdict']} ({phy['date']}, revision {phy['reviewed_revision']})", '']
 		o += ['**Verification**', '', *(f"- {v['claim']}: {v['method']} → {v['result']}" for v in phy['verification']), '']
 		o += ['**Counterexamples tried**', '', *(f'- {x}' for x in phy['counterexamples'] or ['none']), '']
 		o += ['**Fixes**', '', *(f'- {x}' for x in phy['fixes'] or ['none']), '', '**Concerns**', '', *(f'- {x}' for x in phy['concerns'] or ['none']), '']
+		for dc in phy.get('diff_checks', []):
+			o += [f"**Diff check** ({dc['date']}, revision {dc['revision']})", '']
+			o += [*(f"- {v['claim']}: {v['method']} → {v['result']}" for v in dc['verification']), *(f'- Fix: {x}' for x in dc['fixes']), '']
 	return '\n'.join(o)
 
 

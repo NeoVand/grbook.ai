@@ -151,6 +151,10 @@ don't know.
     - They use specific numbers.
     - The answer is a chain of because-steps with no missing link.
     - An opening question names its setting, so an answer that is right in everyday life is never marked wrong.
+17. **Give each entry way one idea.** An entry way answers its own `question` with one picture and one chain of
+    reasons. If the reader must also take in a second new idea (how distant clocks are set, why the other side finds
+    the same stretch), give that idea its own entry way and question, or move it to the working rung. A way that
+    asks a beginner to hold two new ideas at once is a stumble, however short its sentences are.
 
 **Before:** "Parallel transport around a closed curve induces a rotation proportional to the enclosed Gaussian
 curvature."
@@ -344,8 +348,17 @@ id to `retired_ids`, so stored learner evidence still resolves.
 3. The physics reviewer sets `physics-reviewed`, but only with a verdict of `accurate` or `fixed`. A verdict of
    `needs-attention` leaves the status at `novice-reviewed`.
 4. Each review records `reviewed_revision`.
-5. An editor sets `published`. The runtime serves only published notes.
-6. Any learner-visible change bumps the revision and requires fresh reviews.
+5. **Any learner-visible change bumps the revision,** including a reviewer's own fixes after the other review has
+   signed off. The changed text then gets the other lens, and only that text:
+   - When the physics review changes text a learner meets, a novice re-read covers exactly those changes and is
+     recorded in `review.novice.rereads`.
+   - When that re-read changes text, a physics diff check covers exactly those changes and is recorded in
+     `review.physics.diff_checks`.
+   - Each sets its stage's `reviewed_revision` to the revision it signed.
+   - `python3 knowledge/_tools/note_diff.py <before.json> <after.json>` (or `--git <rev> <note.json>`) lists the
+     changed learner-visible sentences with their rungs.
+6. An editor sets `published` only when both stages cover the current revision. The runtime serves only published
+   notes.
 
 Every schema_version bump ships a migration script in `knowledge/_tools`, and loaders accept the current and
 previous versions.
@@ -353,14 +366,24 @@ previous versions.
 ## 9. Length budgets
 
 Word counts exclude ids, enum values and reference metadata. The validator warns above each cap and below each
-minimum. Never cut the entry rung to meet a budget; cut repetition first. Only about a quarter of a full core note is
-explanation prose; most of the rest is gradable checks and problems, which the learner model and the tutor depend on.
+minimum. Only about a quarter of a full core note is explanation prose; most of the rest is gradable checks and
+problems, which the learner model and the tutor depend on.
+
+- **Caps are ceilings, not targets.** Write what each rung needs, then stop. The pilot showed that notes filled to
+  every cap get dense: reviewers add the explicit steps a beginner needs, then squeeze other sentences to fit.
+- **Drafts leave headroom.** A draft stays within 80% of every cap, so reviewers have room for explicit steps.
+- **Never compress to fit.** When a clarity or accuracy fix needs words and a part is at its cap, drop or shorten the
+  lowest-value item: a check that tests the same skill as another, a common question a way already answers, a second
+  analogy. Never compress entry sentences or check answers, and say in the review's fixes what you dropped.
+- **The formal rung carries graduate readers.** Tiers that require it need at least two formal checks and one formal
+  problem, and a formal way with real substance: precise definitions, hypotheses, results with proof sketches, and
+  limits of validity.
 
 | Part | Prerequisite | Foundation | Core | Advanced | Frontier |
 | --- | --- | --- | --- | --- | --- |
 | Entry way explanations | 400–1,000 | 400–1,000 | 400–1,000 | 150–400 | 150–300 |
 | Working way explanations | 300–900 | 300–900 | 300–1,000 | 300–1,000 | 0–1,000 |
-| Formal way explanations | 0–300 | 250–600 | 250–900 | 250–1,100 | 250–1,100 |
+| Formal way explanations | 0–300 | 300–600 | 400–900 | 400–1,100 | 400–1,100 |
 | Research way explanations | 0 | 0 | 0–400 | 250–900 | 250–900 |
 | Other way fields (question, gist, recap, try_it, takeaway, picture, simplifies) | 450 | 650 | 800 | 800 | 800 |
 | Equations, derivations, examples, problems, observations | 900 | 1,500 | 2,300 | 2,500 | 2,500 |
@@ -412,6 +435,8 @@ the exemplar shows.
      - every direction or measurement without a reference;
      - every word used in two senses;
      - every false first what-if;
+     - every way that asks the reader to hold two new ideas at once (rule 17);
+     - every sentence squeezed to fit a budget;
      - every wording-trap warning from the validator.
    - **Fix and check the ladder.** Rewrite until the contract holds, then climb the ladder as a stronger student and
      add bridges where there is a jump.

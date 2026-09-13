@@ -269,12 +269,16 @@ TIER_RUNGS = {
 }
 TIER_BUDGETS = {
 	'prerequisite': dict(entry=(400, 1000), working=(300, 900), formal=(0, 300), research=(0, 0), extras=450, support=900, tutoring=1200, links=200, total=5000),
-	'foundation': dict(entry=(400, 1000), working=(300, 900), formal=(250, 600), research=(0, 0), extras=650, support=1500, tutoring=2200, links=300, total=7000),
-	'core': dict(entry=(400, 1000), working=(300, 1000), formal=(250, 900), research=(0, 400), extras=800, support=2300, tutoring=3300, links=900, total=9500),
-	'advanced': dict(entry=(150, 400), working=(300, 1000), formal=(250, 1100), research=(250, 900), extras=800, support=2500, tutoring=3500, links=1000, total=10500),
-	'frontier': dict(entry=(150, 300), working=(0, 1000), formal=(250, 1100), research=(250, 900), extras=800, support=2500, tutoring=3500, links=1000, total=10500),
+	'foundation': dict(entry=(400, 1000), working=(300, 900), formal=(300, 600), research=(0, 0), extras=650, support=1500, tutoring=2200, links=300, total=7000),
+	'core': dict(entry=(400, 1000), working=(300, 1000), formal=(400, 900), research=(0, 400), extras=800, support=2300, tutoring=3300, links=900, total=9500),
+	'advanced': dict(entry=(150, 400), working=(300, 1000), formal=(400, 1100), research=(250, 900), extras=800, support=2500, tutoring=3500, links=1000, total=10500),
+	'frontier': dict(entry=(150, 300), working=(0, 1000), formal=(400, 1100), research=(250, 900), extras=800, support=2500, tutoring=3500, links=1000, total=10500),
 }
 MIN_PROBLEMS = {'prerequisite': 1, 'foundation': 2, 'core': 3, 'advanced': 3, 'frontier': 3}
+# Tiers that require a formal rung need this many formal checks and at least one formal problem.
+MIN_FORMAL_CHECKS = 2
+# Caps are ceilings. A draft stays within this share of every cap, so reviewers can add explicit steps without squeezing.
+DRAFT_HEADROOM = 0.8
 
 
 @lru_cache(maxsize=None)
@@ -719,6 +723,12 @@ def concept_warnings(d, path):
 			warns.append(f'common_questions/{q["id"]}: entry answers are spoken; no math')
 	if len(d['problems']) < MIN_PROBLEMS[tier]:
 		warns.append(f'{tier} notes need at least {MIN_PROBLEMS[tier]} problems')
+	if 'formal' in required:
+		formal_checks = sum(1 for c in d['checks'] if c['rung'] == 'formal')
+		if formal_checks < MIN_FORMAL_CHECKS:
+			warns.append(f'{tier} notes need at least {MIN_FORMAL_CHECKS} formal checks (have {formal_checks}); the formal rung carries graduate readers')
+		if not any(x['rung'] == 'formal' for x in d['problems']):
+			warns.append(f'{tier} notes need at least one formal problem')
 	if len(d['problems']) > 1 and len({x['rung'] for x in d['problems']}) < 2:
 		warns.append('problems must span at least two rungs')
 	if tier in ('foundation', 'core') and not d['worked_examples']:
@@ -802,6 +812,12 @@ def concept_warnings(d, path):
 	warns += format_warnings()
 
 	counts, budget = part_counts(d), TIER_BUDGETS[tier]
+
+	def headroom(n, cap, label):
+		room = int(cap * DRAFT_HEADROOM)
+		if status == 'draft' and n > room:
+			warns.append(f'{label}: {n} words; a draft stays within {room}, 80% of the {tier} cap of {cap}, so reviewers can add explicit steps without squeezing')
+
 	for part in ('entry', 'working', 'formal', 'research'):
 		lo, hi = budget[part]
 		n = counts[part]
@@ -809,9 +825,13 @@ def concept_warnings(d, path):
 			warns.append(f'{part} way explanations: {n} words, over the {tier} cap of {hi}')
 		elif part in required and n < lo:
 			warns.append(f'{part} way explanations: {n} words, under the {tier} minimum of {lo}')
+		else:
+			headroom(n, hi, f'{part} way explanations')
 	for part in ('extras', 'support', 'tutoring', 'links', 'total'):
 		if counts[part] > budget[part]:
-			warns.append(f'{part}: {counts[part]} words, over the {tier} cap of {budget[part]}; cut repetition first, never the entry rung')
+			warns.append(f'{part}: {counts[part]} words, over the {tier} cap of {budget[part]}; drop or shorten the lowest-value item, never compress the entry rung or a check answer')
+		else:
+			headroom(counts[part], budget[part], part)
 
 	units = provenance_units(d['provenance'], warns)
 	for a in d['provenance']['legacy_assets']:

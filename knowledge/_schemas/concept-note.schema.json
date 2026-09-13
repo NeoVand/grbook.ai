@@ -541,6 +541,30 @@
 				"date": { "$ref": "#/definitions/date" },
 				"reviewed_revision": { "type": "integer", "minimum": 1 },
 				"retell_attempt": { "type": "string", "description": "The persona's retelling after one reading, before fixes" },
+				"rereads": {
+					"type": "array",
+					"description": "Later novice readings of learner-visible text that another stage changed after this review",
+					"items": {
+						"type": "object",
+						"required": ["date", "revision", "read", "stumbles", "fixes"],
+						"additionalProperties": false,
+						"properties": {
+							"date": { "$ref": "#/definitions/date" },
+							"revision": { "type": "integer", "minimum": 1, "description": "The note revision after this re-read" },
+							"read": { "type": "array", "items": { "type": "string" }, "description": "Paths of the changed text that was read, as note_diff.py prints them" },
+							"stumbles": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"required": ["quote", "problem", "rewrite"],
+									"additionalProperties": false,
+									"properties": { "quote": { "type": "string" }, "problem": { "type": "string" }, "rewrite": { "type": "string" } }
+								}
+							},
+							"fixes": { "type": "array", "items": { "type": "string" } }
+						}
+					}
+				},
 				"stumbles": {
 					"type": "array",
 					"items": {
@@ -572,6 +596,29 @@
 					}
 				},
 				"counterexamples": { "type": "array", "items": { "type": "string" }, "description": "Standard counterexamples tried against the note's general statements, and the outcome" },
+				"diff_checks": {
+					"type": "array",
+					"description": "Later accuracy checks of learner-visible text that another stage changed after this review",
+					"items": {
+						"type": "object",
+						"required": ["date", "revision", "verification", "fixes"],
+						"additionalProperties": false,
+						"properties": {
+							"date": { "$ref": "#/definitions/date" },
+							"revision": { "type": "integer", "minimum": 1, "description": "The note revision after this check" },
+							"verification": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"required": ["claim", "method", "result"],
+									"additionalProperties": false,
+									"properties": { "claim": { "type": "string" }, "method": { "type": "string" }, "result": { "type": "string" } }
+								}
+							},
+							"fixes": { "type": "array", "items": { "type": "string" } }
+						}
+					}
+				},
 				"fixes": { "type": "array", "items": { "type": "string" } },
 				"concerns": { "type": "array", "items": { "type": "string" } }
 			}

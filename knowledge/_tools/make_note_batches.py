@@ -25,7 +25,7 @@ def reviewed(note):
 
 
 def main(argv):
-	size = int(argv[argv.index('--per-batch') + 1]) if '--per-batch' in argv else 4
+	size = int(argv[argv.index('--per-batch') + 1]) if '--per-batch' in argv else 1
 	only = argv[argv.index('--domain') + 1] if '--domain' in argv else None
 	taxonomy = json.loads((CONCEPTS / '_taxonomy.json').read_text())
 	domains = [d['id'] for d in sorted(taxonomy['domains'], key=lambda d: d['order']) if not only or d['id'] == only]
@@ -40,10 +40,16 @@ def main(argv):
 			else:
 				pending.append(c['id'])
 		if pending:
-			batches = [{'domain': domain, 'ids': pending[i : i + size]} for i in range(0, len(pending), size)]
+			prereqs = {c['id']: c['prerequisites'] for c in concepts}
+			batches = []
+			for i in range(0, len(pending), size):
+				ids = pending[i : i + size]
+				# A batch starts after the novice review of its pending in-domain prerequisites, so pictures and terms connect.
+				after = sorted({p for x in ids for p in prereqs[x] if p in pending and p not in ids})
+				batches.append({'domain': domain, 'ids': ids, 'after': after})
 			runs.append({'name': f'notes-{domain}', 'max_agents': 5, 'batches': batches})
 	batches = sum(len(r['batches']) for r in runs)
-	print(f'{total} concepts, {done} reviewed, {total - done} pending in {batches} batches ({3 * batches} agents), {len(runs)} domain runs')
+	print(f'{total} concepts, {done} reviewed, {total - done} pending in {batches} batches ({3 * batches} to {5 * batches} agents), {len(runs)} domain runs')
 	for r in runs:
 		print(json.dumps(r))
 	return 0

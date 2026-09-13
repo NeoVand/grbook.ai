@@ -11,7 +11,7 @@ revision: 2
 updated: "2026-09-13"
 aliases: ["moving clocks run slow", "reciprocity of time dilation", "kinematic time dilation"]
 prerequisites: ["invariance-of-the-speed-of-light", "principle-of-relativity", "relativity-of-simultaneity", "proper-time", "lorentz-factor", "four-velocity"]
-leads_to: ["twin-paradox", "atmospheric-muon-time-dilation", "relativistic-doppler-effect", "ives-stillwell-experiment", "gps-relativistic-corrections"]
+leads_to: ["twin-paradox", "atmospheric-muon-time-dilation", "relativistic-doppler-effect", "ives-stilwell-experiment", "gps-relativistic-corrections"]
 visuals: ["light-clock-on-a-passing-ship", "one-clock-against-a-line-of-clocks"]
 ---
 
@@ -22,7 +22,7 @@ visuals: ["light-clock-on-a-passing-ship", "one-clock-against-a-line-of-clocks"]
 `time-dilation` · special-relativity · foundation · physics-reviewed (revision 2)
 
 **Needs:** [[invariance-of-the-speed-of-light]] (entry) · [[principle-of-relativity]] (entry) · [[relativity-of-simultaneity]] (entry) · [[proper-time]] (working) · [[lorentz-factor]] (working) · [[four-velocity]] (formal)  
-**Opens:** [[twin-paradox]] · [[atmospheric-muon-time-dilation]] · [[relativistic-doppler-effect]] · [[ives-stillwell-experiment]] · [[gps-relativistic-corrections]]  
+**Opens:** [[twin-paradox]] · [[atmospheric-muon-time-dilation]] · [[relativistic-doppler-effect]] · [[ives-stilwell-experiment]] · [[gps-relativistic-corrections]]  
 **Related:** [[length-contraction]] · [[clock-hypothesis]] · [[gravitational-time-dilation]]  
 **Visuals:** ★ [[light-clock-on-a-passing-ship]] · [[one-clock-against-a-line-of-clocks]]
 

@@ -54,10 +54,16 @@ These are not started; do them after the standard settles.
 ## Resume
 
 1. **Write the notes for a domain.**
-   - Run `python3 knowledge/_tools/make_note_batches.py --domain <id>`. It prints a summary line, then one args object.
-   - Run `knowledge/_workflows/gr-concept-notes-v2.js` with that args object. Each batch of 4 concepts goes through a
-     writer, a novice-reader review and a physics review.
-   - Re-run both commands until the summary says 0 pending.
+   - Run `python3 knowledge/_tools/make_note_batches.py --domain <id>`. It prints a summary line, then one args object
+     with one concept per batch; `after` lists the in-domain prerequisites whose novice review a batch waits for.
+   - Run `knowledge/_workflows/gr-concept-notes-v2.js` with that args object plus `date` and `snap_dir` (a scratch
+     directory outside the repository). Each concept goes through a writer, a novice-reader review and a physics
+     review. When the physics review changes entry or working text, a novice re-read covers those changes; when the
+     re-read changes text, a physics diff check covers them.
+   - `mode: "conform"` with `base_rev` brings already reviewed notes up to a changed standard (a conform edit where
+     `conform` is true, a full entry re-read, and a diff check of everything changed since `base_rev`).
+   - Re-run both commands until the summary says 0 pending. `lagging_novice` in the result lists notes whose final
+     physics fix changed text after the last re-read; an editor reads those sentences.
 2. **Build the domain's visuals.** Run `knowledge/_workflows/gr-visuals-v2.js` with `{"domain": "<id>"}`. It plans
    canonical ids, writes catalog entries, and reviews them.
 3. **Sync and check.** Run these commands in order:
