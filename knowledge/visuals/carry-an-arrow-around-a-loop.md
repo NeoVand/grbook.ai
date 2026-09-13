@@ -6,7 +6,7 @@ title: "Carry an arrow around a loop"
 kind: "interactive-3d"
 priority: "flagship"
 status: "proposed"
-revision: 2
+revision: 3
 rungs: ["entry", "working"]
 serves: ["parallel-transport", "path-dependence-of-parallel-transport", "holonomy", "gaussian-curvature", "angular-excess", "intrinsic-versus-extrinsic-curvature", "curvature-of-the-two-sphere", "flatness-criterion"]
 builds_on: ["slide-an-arrow-along-a-path"]
@@ -102,7 +102,7 @@ Labels: North Pole, equator, start, return, quarter turn, flat sheet. Aspect 2:1
    Describe: The arrow waits at the North Pole, pointing along the first side of the path.
 3. `first-stretch` (entry, await none) state: preset="octant", progress=0; animate progress → 0.33 over 4 s  
    *The arrow travels to the equator, pointing along the path.*  
-   Say: “On the first stretch, the arrow points straight ahead of me.”  
+   Say: “On the first stretch, the arrow points ahead of me.”  
    Describe: The arrow moves from the North Pole to the equator, pointing along the path the whole way.
 4. `first-corner` (entry, await none) state: preset="octant", progress=0.33; animate progress → 0.67 over 5 s  
    *At the corner the path heads along the equator; the arrow keeps its direction and points to the walker's right.*  
@@ -110,7 +110,7 @@ Labels: North Pole, equator, start, return, quarter turn, flat sheet. Aspect 2:1
    Describe: The path now runs along the equator. The arrow points to the right of the direction of travel.
 5. `second-corner` (entry, await none) state: preset="octant", progress=0.67; animate progress → 1 over 4 s  
    *At the second corner the path heads back to the pole; the arrow points behind the walker.*  
-   Say: “At the next corner, I turn left again. Now the arrow points straight behind me, all the way back to the North Pole.”  
+   Say: “At the next corner, I turn left again. Now the arrow points behind me, all the way back to the North Pole.”  
    Describe: The path heads back to the North Pole. The arrow points backward along the path until it arrives.
 6. `compare-at-home` (entry, await none) state: preset="octant", progress=1  
    *Inset at the pole: grey dashed start arrow and solid orange returned arrow, a right angle apart; the turn readout shows 90 degrees.*  
@@ -122,7 +122,7 @@ Labels: North Pole, equator, start, return, quarter turn, flat sheet. Aspect 2:1
    Describe: A square path on a flat floor. The start arrow and the returned arrow point the same way. The readout says 0 degrees.
 8. `tube-control` (entry, await none) state: preset="tube-unrolled", progress=1; evidences `holonomy/checks/loop-around-a-tube`  
    *Loop around the tube, with the unrolled sheet beside it; arrow copies on the sheet all point the same way.*  
-   Say: “A rolled-up tube looks curved, but a loop around it brings the arrow back matching its start. Look at the unrolled sheet. Nothing stretched, and the arrow slides straight across the flat paper.”  
+   Say: “A rolled-up tube looks curved, but a loop around it brings the arrow back matching its start. Look at the unrolled sheet. Nothing stretched, and the arrow slides across the flat paper without swinging.”  
    Describe: A tube with a loop around it, and beside it the same paper laid flat. On the flat paper the loop is a straight line and every arrow copy points the same way.
 9. `half-the-patch` (working, await none) state: preset="octant-half-area", progress=1  
    *A smaller triangle fencing off half the area; the turn readout shows 45 degrees.*  
