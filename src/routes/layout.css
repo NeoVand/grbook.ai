@@ -3,10 +3,49 @@
 @import "shadcn-svelte/tailwind.css";
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/geist";
+@import "katex/dist/katex.min.css";
 
 @custom-variant dark (&:is(.dark *));
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+/* Semantic mathematics colours, carried over from the legacy course (light, then dark). One colour, one role. */
+:root {
+	--math-riemann: #6340a7;
+	--math-ricci: #7650ad;
+	--math-einstein: #553398;
+	--math-connection: #275dc5;
+	--math-velocity: #a93458;
+	--math-density: #986000;
+	--math-pressure: #a14c22;
+	--math-volume: #33754c;
+	--math-coframe: #25774d;
+}
+
+.dark {
+	--math-riemann: #c3a7ff;
+	--math-ricci: #bc9be9;
+	--math-einstein: #bda8ee;
+	--math-connection: #91b8ff;
+	--math-velocity: #ffa6bf;
+	--math-density: #f1c572;
+	--math-pressure: #f1af8b;
+	--math-volume: #9ad7a6;
+	--math-coframe: #8fd9b3;
+}
+
+@layer components {
+	.narration-word-active {
+		border-radius: 0.2rem;
+		background-color: color-mix(in oklch, var(--math-density) 28%, transparent);
+	}
+	::highlight(tutor) {
+		background-color: color-mix(in oklch, var(--math-connection) 30%, transparent);
+	}
+	.math-display .katex-display {
+		margin: 0.25rem 0;
+	}
+}
 
 :root {
 	--background: oklch(1 0 0);

@@ -16,5 +16,9 @@ export const variables = defineEnvVars({
 	GITHUB_CLIENT_SECRET: {
 		description:
 			'GitHub OAuth client secret. See [Better Auth GitHub provider](https://www.better-auth.com/docs/authentication/github).'
+	},
+	CREDENTIALS_ENCRYPTION_KEY: {
+		description:
+			"At least 32 random characters used to encrypt users' OpenAI and ElevenLabs keys at rest (AES-256-GCM). Changing it makes stored keys unreadable."
 	}
 });
