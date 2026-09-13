@@ -19,8 +19,25 @@ Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and ru
 
 ## Now
 
-Concept notes, domain by domain, followed by that domain's visuals. Curvature goes first as the v2 pilot, because 14
-of its concepts have older drafts to mine. After curvature, the domains follow taxonomy order.
+1. **Standard v2 revision.** Four independent critics (a novice reader, a GR physicist, a book author and a tutor
+   engineer) found the first v2 standard not ready. The revision is committed. Their recheck is running.
+2. **Mixed pilot.** Eight concepts across tiers and domains (`_meta/pilot-mixed-args.json`), run through
+   `gr-concept-notes-v2.js`. Measure how consistent the notes are, how many stumbles and errors the reviews catch,
+   and the tokens used per concept. Then report to the owner before scaling.
+3. **Domain by domain.** Notes, then that domain's visuals. Curvature goes first because 14 of its concepts have older
+   drafts to mine; the remaining domains follow taxonomy order.
+
+## App follow-ups from the engineer critique
+
+These are not started; do them after the standard settles.
+
+- **Tutor tools** move from book units to vault addresses: `get_concept(id, rung, parts)`, `get_item(address)`,
+  `get_next_steps`, `find_misconception`, `open_visual`, `set_visual_state` and `play_tour_beat`.
+- **Learner evidence** keys on addresses and records rung, outcome and content revision. `conceptState` is keyed by
+  (user, concept, rung).
+- **The vault compiler** strips `provenance`, `starting_material` and review concerns. A build test fails if any
+  book id reaches runtime JSON.
+- **Reader pages** move from book units to concepts and lessons.
 
 ## Resume
 
