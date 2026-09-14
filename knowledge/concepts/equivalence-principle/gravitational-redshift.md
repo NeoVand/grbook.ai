@@ -7,7 +7,7 @@ tagline: "Why light sent up to a higher detector arrives with a lower frequency"
 domain: "equivalence-principle"
 tier: "foundation"
 status: "physics-reviewed"
-revision: 3
+revision: 5
 updated: "2026-09-13"
 aliases: ["Einstein shift", "gravitational frequency shift"]
 prerequisites: ["equivalence-of-gravity-and-acceleration", "relativistic-doppler-effect", "mass-energy-equivalence", "newtonian-gravitational-potential", "energy-measured-by-an-observer", "conserved-quantity-from-killing-vector", "rindler-coordinates"]
@@ -19,7 +19,7 @@ visuals: ["lamp-and-detector-in-a-rocket", "drop-a-lump-send-up-light", "two-clo
 
 *Why light sent up to a higher detector arrives with a lower frequency*
 
-`gravitational-redshift` · equivalence-principle · foundation · physics-reviewed (revision 3)
+`gravitational-redshift` · equivalence-principle · foundation · physics-reviewed (revision 5)
 
 **Needs:** [[equivalence-of-gravity-and-acceleration]] (entry) · [[relativistic-doppler-effect]] (entry) · [[mass-energy-equivalence]] (entry) · [[newtonian-gravitational-potential]] (working) · [[energy-measured-by-an-observer]] (formal) · [[conserved-quantity-from-killing-vector]] (formal) · [[rindler-coordinates]] (formal)  
 **Opens:** [[gravitational-time-dilation]] · [[schilds-redshift-argument]] · [[pound-rebka-experiment]] · [[surface-redshift]]  
@@ -408,9 +408,10 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 
 1. **Ask for a prediction** (entry). Pose the lamp-and-detector question before any argument. *Why:* A committed guess makes the argument an answer. *Predict:* Will the ceiling detector count more crests each second than the lamp sends, fewer, or the same? *Uses:* `ways_in/light-climbing-in-a-rocket`
 2. **Run the rocket, then turn the room around** (entry). Walk a crest through the rocket, carry it to Earth, then send light down. *Why:* The downward case exposes 'gravity always reddens'. *Visual:* [[lamp-and-detector-in-a-rocket]] *Uses:* `ways_in/light-climbing-in-a-rocket`, `checks/light-sent-down`
-3. **Show that energy forces it** (entry). Build the tower machine and let the learner find the free energy. *Why:* A second, independent reason. *Visual:* [[drop-a-lump-send-up-light]] *Uses:* `ways_in/a-machine-that-cannot-work`, `problems/a-heavier-lump-each-round`
-4. **Put numbers on it and ask who counts** (working). Derive the first-order law, measure it, then drop the detector. *Why:* Ties one formula to experiments and receivers. *Uses:* `ways_in/putting-numbers-on-the-rocket`, `ways_in/measuring-the-shift`, `checks/detector-let-go-at-the-top`
-5. **State the exact law and its limits** (formal). Derive the lapse ratio and apply it to a flat accelerating rocket. *Why:* Redshift needs a time symmetry, not curvature. *Visual:* [[two-clocks-trading-crests]] *Uses:* `ways_in/exact-ratio-from-a-time-symmetry`, `checks/rocket-a-light-year-long`
+3. **Ask where the missing crests go** (entry). Ask whether the missing crests pile up, then compare the floor and ceiling clocks. *Why:* It traces the lower count to the floor and ceiling clocks, not to lost crests. *Predict:* Do the missing crests, the ones the ceiling detector does not count, pile up somewhere in the room? *Visual:* [[lamp-and-detector-in-a-rocket]] *Uses:* `ways_in/where-the-missing-crests-go`, `checks/lamps-and-light-at-the-ceiling`
+4. **Show that energy forces it** (entry). Build the tower machine and let the learner find the free energy. *Why:* A second, independent reason. *Visual:* [[drop-a-lump-send-up-light]] *Uses:* `ways_in/a-machine-that-cannot-work`, `problems/a-heavier-lump-each-round`
+5. **Put numbers on it and ask who counts** (working). Derive the first-order law, measure it, then drop the detector. *Why:* Ties one formula to experiments and receivers. *Uses:* `ways_in/putting-numbers-on-the-rocket`, `ways_in/measuring-the-shift`, `checks/detector-let-go-at-the-top`
+6. **State the exact law and its limits** (formal). Derive the lapse ratio and apply it to a flat accelerating rocket. *Why:* Redshift needs a time symmetry, not curvature. *Visual:* [[two-clocks-trading-crests]] *Uses:* `ways_in/exact-ratio-from-a-time-symmetry`, `checks/rocket-a-light-year-long`
 
 ## Misconceptions
 
@@ -511,7 +512,7 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 
 ## Visuals
 
-- ★ [[lamp-and-detector-in-a-rocket]] (flagship): The rocket argument, carried to Earth. *Sketch:* A rocket cabin beside a room on Earth, each with lamp and detector. Speeds are measured from a station drifting with the lamp at each emission. Change acceleration, height or beam direction, or drop the detector; crest strips and shift readouts match in both rooms.
+- ★ [[lamp-and-detector-in-a-rocket]] (flagship): The rocket argument, carried to Earth. *Sketch:* A rocket cabin beside a room on Earth, each with lamp and detector. Speeds are measured from a station drifting with the lamp at each emission. Change acceleration, height or beam direction, or drop the detector; crest strips and shift readouts match in both rooms. Timed from its own drifting station, each crest makes the same trip, so none pile up, while the ceiling clock ticks off more seconds for the same crests.
 - [[drop-a-lump-send-up-light]] (core): The energy argument as a machine. *Sketch:* A lump falls, becomes climbing light, and becomes a lump again, with an energy bar. A switch that keeps the light's frequency makes an energy counter grow every round.
 - [[two-clocks-trading-crests]] (supporting): The exact lapse ratio on a spacetime diagram. *Sketch:* Two static world lines, crest world lines drawn as time translates, ticks spaced by proper time. Toggle a flat rocket or a star; the ratio matches the lapses, and the rocket's curvature stays zero.
 
@@ -531,7 +532,7 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 
 - *Does the light lose energy on the way up, like a ball thrown up?* (entry) Counted by detectors held still at each height, yes: each packet of light arrives with slightly less energy, by the fraction a lump gains by falling that far. Unlike a ball, light does not slow down. *Uses:* `ways_in/a-machine-that-cannot-work`, `checks/lamps-and-light-at-the-ceiling`
 - *Does a clock at my head disagree with a clock at my feet?* (entry) Yes, when the two are compared by sending light between them. The clock at head height ticks faster, by about two parts in ten million billion. Over eighty years that adds up to about half a millionth of a second. *Uses:* `ways_in/where-the-missing-crests-go`, `checks/where-do-the-crests-go`
-- *Is gravitational redshift just a Doppler shift?* (working) In the rocket, an inertial observer calls it a Doppler shift. In a lab at rest on Earth, the same counts appear as clocks at different potentials. The lapse ratio states the result in either description. *Uses:* `ways_in/putting-numbers-on-the-rocket`, `ways_in/exact-ratio-from-a-time-symmetry`
+- *Is gravitational redshift just a Doppler shift?* (working) In the rocket, an inertial observer calls it a Doppler shift. In a lab at rest on Earth, the same counts appear as clocks at different potentials. The lapse ratio states the result in either description. *Uses:* `ways_in/putting-numbers-on-the-rocket`, `ways_in/where-the-missing-crests-go`, `ways_in/exact-ratio-from-a-time-symmetry`
 
 **Switching levels**
 
@@ -549,7 +550,7 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 3)
+**Verdict:** fixed (2026-09-13, revision 5)
 
 **Retell attempt:** If a lamp on the floor shines up to a detector on the ceiling, the detector counts fewer wave crests each second, so the light gets 'redshifted'. You see it by pretending the room is a rocket speeding up: by the time a crest reaches the ceiling, the ceiling is going faster, so it is like the detector running away from the light, the way a siren drops after the ambulance passes. Gravity and acceleration can't be told apart, so it happens on Earth too, and light going down gets bluer. The tower machine says the same thing: if light kept its energy going up, you could make energy for free, so it must lose what a falling lump gains. It is one part in ten million billion per metre, so nobody notices. I'm not sure which way the rocket is going, what the ceiling is 'moving away from', why the room is 'tall' but also 'small', why a lamp next to a clock counts normally, where the missing two crests a second go, or why light comes in packets and where the per-metre number comes from.
 
@@ -619,9 +620,18 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 - Fix: Budget, to absorb the new way at entry 1,000 and extras under 650, dropped the lowest-value items rather than compressing: the rocket way's siren sentence (its try_it already gives the passing-car test), 'The floor presses on your feet, as the ground does at home.', the 2010 clock sentence (kept at working rung in observation optical-clocks-33-centimetres), the tower way's closing 'Light sent down gains energy and arrives with a higher frequency.' (stated in the rocket way), the rocket try_it's last sentence 'For light crossing a rocket cabin, the change is far too small to see.', the working way energy-bookkeeping-with-symbols' simplifies (the same caveat is in derivation shift-from-energy-conservation step 2), and the working level-switch signal 'uses g, c or potential'.
 - Fix: Bumped the revision to 3.
 
+**Re-read** (2026-09-13, revision 5): 3 stumbles in 6 changed passages
+
+- “Ask whether the uncounted crests pile up, then compare the floor and ceiling clocks.”: Rule 5: the step says 'missing crests', the move says 'uncounted crests', and the way they use says 'missing crests'. The spoken move offers a second name for one idea.
+- “Do the crests the ceiling detector does not count pile up somewhere in the room?”: Spoken aloud, 'the crests the ceiling detector does not count pile up' runs two verbs together, so the listener has to reread to find where the question's verb starts. It also drops the step's name 'missing crests'.
+- “It turns a count of crests into clocks that disagree.”: 'Clocks that disagree' does not say what they disagree about, and 'turns a count into clocks' is a figure of speech the tutor cannot say back plainly. The way's point is that the lower count comes from the clocks, not from lost crests.
+- Fix: Teaching-arc step ask-where-the-crests-go: 'uncounted crests' became 'missing crests' in move and predict; predict reordered so its verb is clear; why reworded to name what the clocks explain. Claims unchanged: no crests pile up, and the ceiling clock accounts for the lower count, as the way states.
+- Fix: Step title unchanged. Tutoring grows by a few words, inside the 10% review allowance; nothing dropped.
+- Fix: Bumped the revision to 5.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 3)
+**Verdict:** fixed (2026-09-13, revision 5)
 
 **Verification**
 
@@ -699,3 +709,13 @@ In coordinates where a stationary metric does not depend on $t$, an emitter and 
 - Check light-sent-down answer: 'a detector on Earth also counts more'.: Checked sense against the rocket blueshift and against f_floor/f_ceiling = 1 + gH/c^2 in a static field. → Accurate, and more precise than the old 'gives the same count', which could be misread as 'no shift'.
 - Common question does-light-get-tired: 'by the fraction a lump gains by falling that far'.: Compared with the old sentence. → Grammar only. Same claim, still true for detectors held still at each height.
 - Level-switching signal 'uses g, c or potential' removed.: Checked for physics content. → No physics content. Nothing to verify.
+
+**Diff check** (2026-09-13, revision 5)
+
+- Teaching-arc step ask-where-the-crests-go, step: 'Ask where the missing crests go'.: Read against ways_in/where-the-missing-crests-go, whose question and explanation use 'missing crests' for the crests the ceiling detector does not count. → Accurate. It names a question, makes no claim, and uses the way's term.
+- Move: 'Ask whether the missing crests pile up, then compare the floor and ceiling clocks.': Checked that the move leads to the way's answer (no pile-up; the clocks differ) and that the comparison is well defined: proper time at the ceiling between receptions against proper time at the floor between emissions, for the same crests. → Accurate. Both clocks are at rest in the room, and the comparison uses the same crests, so it does not depend on frame.
+- Why: 'It traces the lower count to the floor and ceiling clocks, not to lost crests.' (It replaces 'It turns a count of crests into clocks that disagree.'): Exact Rindler calculation for a rocket cabin: floor at x0 = c^2/g, ceiling at x1 = x0 + H. A crest emitted at floor proper time tau_e has x - ct = x0 exp(-g tau_e/c), and it reaches the ceiling at tau_r = (x1/c)[ln(x1/x0) + g tau_e/c]. Tested against the inertial (Doppler) description and against a static field on Earth. → Accurate, and it claims the same as the old wording, only more precisely. tau_r - (x1/x0) tau_e is constant, so every crest makes the same trip and none are lost. dtau_r/dtau_e = x1/x0 = 1 + gH/c^2 exactly (3.3e-16 for H = 3 m), so the lower count per second is fully accounted for by the clocks. In the drifting station's description the same proper-time ratio shows up as a Doppler shift, so the sentence holds in either description.
+- Predict: 'Do the missing crests, the ones the ceiling detector does not count, pile up somewhere in the room?': Checked that the question has a definite true answer at entry within the setup: a steady lamp in a static room, or a uniformly accelerating cabin. → Accurate. The answer is no, as the way and check where-do-the-crests-go state. The rewording keeps the old question's meaning.
+- Step uses and visual: ways_in/where-the-missing-crests-go, checks/lamps-and-light-at-the-ceiling, visual lamp-and-detector-in-a-rocket.: Read the check and the way. Checked that the check's claims (a lamp and clock side by side agree at any height; light that climbed is counted lower; local light speed is c) support comparing the clocks. → Consistent. The check does not itself test pile-up. At working rung that is done by check where-do-the-crests-go, which targets misconception missing-crests-pile-up.
+- Visual sketch sentence, not learner-visible: 'Timed from its own drifting station, each crest makes the same trip, so none pile up, while the ceiling clock ticks off more seconds for the same crests.': Used the same Rindler calculation. The cabin's boost symmetry makes each crest's trip identical in its own momentarily co-moving frame (to first order, travel time H/c, and the ceiling gains gH/c). → Accurate for the rocket cabin, and by equivalence for the room on Earth.
+- Common question is-it-really-doppler now uses ways_in/where-the-missing-crests-go.: Compared the answer's 'clocks at different potentials' with the way's gravitational time dilation paragraph. → The link fits. The answer text is unchanged.

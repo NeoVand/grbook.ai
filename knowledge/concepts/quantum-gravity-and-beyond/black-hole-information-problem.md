@@ -7,7 +7,7 @@ tagline: "Where the information in a black hole goes when the hole evaporates"
 domain: "quantum-gravity-and-beyond"
 tier: "frontier"
 status: "physics-reviewed"
-revision: 3
+revision: 5
 updated: "2026-09-13"
 aliases: ["information loss paradox", "black hole information paradox", "information paradox"]
 prerequisites: ["black-hole-evaporation", "unitarity-of-quantum-evolution", "bekenstein-hawking-entropy", "quantum-field-theory-in-curved-spacetime", "penrose-diagram-of-evaporating-black-hole"]
@@ -19,14 +19,14 @@ visuals: ["library-hole-and-rock-hole", "page-curve-of-an-evaporating-hole", "pa
 
 *Where the information in a black hole goes when the hole evaporates*
 
-`black-hole-information-problem` · quantum-gravity-and-beyond · frontier · physics-reviewed (revision 3)
+`black-hole-information-problem` · quantum-gravity-and-beyond · frontier · physics-reviewed (revision 5)
 
 **Needs:** [[black-hole-evaporation]] (entry) · [[unitarity-of-quantum-evolution]] (entry) · [[bekenstein-hawking-entropy]] (working) · [[quantum-field-theory-in-curved-spacetime]] (formal) · [[penrose-diagram-of-evaporating-black-hole]] (formal)  
 **Opens:** [[holographic-principle]] · [[ads-cft-correspondence]] · [[quantum-gravity]]  
 **Related:** [[generalized-second-law]] · [[hawking-radiation]] · [[planck-mass]] · [[euclidean-quantum-gravity]]  
 **Visuals:** ★ [[library-hole-and-rock-hole]] · [[page-curve-of-an-evaporating-hole]] · [[pairs-on-a-nice-slice]] · [[one-late-quantum-two-partners]]
 
-> The quantum rules say that, for anything sealed off from everything else, information is never destroyed, only scrambled. In cold, empty space a black hole evaporates by giving off Hawking radiation. In the simplest calculation, that radiation depends only on the hole's mass, spin and electric charge. So if the hole evaporates completely, the information about what fell in seems destroyed. How this clash is resolved is still open.
+> The quantum rules say that, for anything sealed off from everything else, information is never destroyed, only scrambled. In cold, empty space a black hole evaporates by giving off Hawking radiation. In the simplest calculation, that radiation depends only on the hole's mass, spin and electric charge, not on the details of what fell in. So if the hole evaporates completely, the information about what fell in seems destroyed. How this clash is resolved is still open.
 
 ## You will be able to
 
@@ -54,7 +54,7 @@ visuals: ["library-hole-and-rock-hole", "page-curve-of-an-evaporating-hole", "pa
 
 *What happens to the information about everything that falls into a black hole once the hole evaporates?*
 
-**Recap:** A black hole is a region where gravity is so strong that nothing that enters, not even light, comes back out. Its edge is called the horizon. A black hole gives off a faint glow, called Hawking radiation. Measured from far away, a hole without spin or electric charge is colder the heavier it is. Spin or charge makes a hole colder still. In cold, empty space the glow carries away energy, and energy has mass, so the hole slowly gets lighter. This is called evaporation. The quantum rules are the laws of atoms and light. A thing's state is its complete description at one moment. For anything sealed off, these rules work both ways in time: its state at one moment settles its state at all others.
+**Recap:** A black hole is a region where gravity is so strong that nothing that enters, not even light, comes back out. Its edge is called the horizon. A black hole gives off a faint glow called Hawking radiation. Measured from far away, a hole without spin or electric charge is colder the heavier it is. At the same mass, spin or charge makes a hole colder. In cold, empty space the glow carries away energy. Energy has mass, so the hole gets lighter. This is called evaporation. The quantum rules are the laws of atoms and light. A thing's state is its complete description at one moment. For anything sealed off, these rules work both ways in time: its state at one moment settles its state at all others.
 
 Write a secret letter and burn it. The words look destroyed, but the quantum rules say they are not. Every different secret leaves the smoke, ash, heat and light arranged a little differently. The rules work backwards too, so someone tracking every piece could recover the words. Physicists call such details information.
 
@@ -566,7 +566,7 @@ A secret-sharing scheme splits a message into many shares, so that any group of 
 
 ## Visuals
 
-- ★ [[library-hole-and-rock-hole]] (flagship): Entry picture: two holes with matching mass give off the same Hawking radiation and evaporate, with separate tallies for energy and information. *Sketch:* Two holes side by side, one formed from a collapsing library and one from rock, with equal mass, spin and electric charge. Both emit identical Hawking radiation; spectrum readouts overlay exactly. An energy tally balances for both; an information tally shows which books went in and nothing matching coming out. A final switch shows the three ways out: faint links drawn between emitted pieces, a tiny leftover, or a broken tally.
+- ★ [[library-hole-and-rock-hole]] (flagship): Entry picture: two holes with matching mass, spin and electric charge give off the same Hawking radiation and evaporate, with separate tallies for energy and information. *Sketch:* Two holes side by side, one formed from a collapsing library and one from rock, with equal mass, spin and electric charge. Both emit identical Hawking radiation; spectrum readouts overlay exactly. An energy tally balances for both; an information tally shows which books went in and nothing matching coming out. A final switch shows the three ways out: faint links drawn between emitted pieces, a tiny leftover, or a broken tally.
 - [[page-curve-of-an-evaporating-hole]] (core): The entropy bookkeeping: Hawking curve, black-hole entropy and the Page curve. *Sketch:* Entropy against time as a fraction of the lifetime: $S_{\rm BH}$ falling as $(1-t/\tau)^{2/3}$, Hawking's entropy rising as $\beta$ times the entropy lost, and the Page curve as their minimum. Sliders for $\beta$ from 1 to 1.6 and the starting mass; readouts for the Page time, the mass fraction and the horizon radius there. A research overlay labels the no-island and island branches.
 - [[pairs-on-a-nice-slice]] (core): Where the partners live and why the final state is mixed. *Sketch:* Penrose diagram of collapse and complete evaporation. Outgoing quanta and their interior partners are linked dots; a draggable nice slice crosses the horizon far from the singularity, and a counter shows how many links the horizon cuts. After evaporation the slice meets only outside dots whose links end nowhere.
 - [[one-late-quantum-two-partners]] (supporting): The monogamy argument for an old black hole. *Sketch:* Three discs for $R$, $b$ and $c$ with entropy readouts. A slider shares $b$'s entanglement between $c$ and $R$; readouts of $S(bc)$ and $S(Rb) - S(R)$ show that the first cannot be zero while the second is negative.
@@ -620,7 +620,7 @@ A secret-sharing scheme splits a message into many shares, so that any group of 
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 3)
+**Verdict:** fixed (2026-09-13, revision 5)
 
 **Retell attempt:** If you burn a letter, the quantum rules say the words are not really gone, just scrambled into smoke and light, and someone could in theory work them back out. A black hole gives off Hawking radiation and slowly shrinks. That radiation only depends on a few numbers like the mass, so a hole made of letters and a hole made of rocks glow the same, and once the hole is gone the information about the letters seems gone, which the rules do not allow. Maybe the radiation has hidden quantum links called entanglement, maybe something tiny is left over, or maybe the quantum rules break, and nobody knows yet. We cannot watch it happen because space's microwaves are warmer than the hole, so it grows. I was not sure what a 'state' is, what the other numbers are, why the rules for sealed-off things apply when radiation is leaving the hole, why 'why it is forbidden' follows, how hidden links fit with the radiation being the same, and how a hole can both shrink and grow.
 
@@ -697,9 +697,16 @@ A secret-sharing scheme splits a message into many shares, so that any group of 
 - Fix: Summary unchanged: adding 'not on what fell in' breaks the 450-character summary limit, and no sentence there is low-value enough to drop, so the missing link is reported instead of compressed.
 - Fix: Bumped the revision to 3.
 
+**Re-read** (2026-09-13, revision 5): 1 stumbles in 2 changed passages
+
+- “In the simplest calculation, that radiation depends only on the hole's mass, spin and electric charge, not on what fell in.”: False first what-if: a reader who throws more rocks into the hole knows its mass grows, so what fell in does change the radiation; 'not on what fell in' seems to contradict 'depends on mass' in the same sentence.
+- Fix: Summary: 'not on what fell in' became 'not on the details of what fell in', so the clause no longer seems to contradict the dependence on mass. The claim is unchanged; the summary is now 470 of 500 characters.
+- Fix: Recap read without a stumble: 'At the same mass, spin or charge makes a hole colder' names its comparison, and the split sentences 'the glow carries away energy. Energy has mass, so the hole gets lighter.' read as one explicit chain. No sentence there reads as squeezed after 'slowly' was cut. Not changed.
+- Fix: Bumped the revision to 5.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 3)
+**Verdict:** fixed (2026-09-13, revision 5)
 
 **Verification**
 
@@ -772,3 +779,10 @@ A secret-sharing scheme splits a message into many shares, so that any group of 
 - Removed common question did-hawking-think-it-was-lost.: Searched the vault for the id; confirmed history/hawking-1976 still states the 1976 argument that complete evaporation turns a pure state into a mixed one. → No remaining links to the id; no physics content lost that another item does not carry.
 - Fix: No learner-visible text changed, so the revision stays at 3.
 - Fix: Author-facing visual proposal library-hole-and-rock-hole: the sketch said the two holes match only in mass; it now says mass, spin and electric charge, matching the opening question and checks/letter-and-rocks. The role still says 'matching mass'; note_diff counts the role as learner-visible, so it was left for an editor rather than bumping the revision.
+
+**Diff check** (2026-09-13, revision 5)
+
+- Summary: in the simplest calculation Hawking radiation depends only on mass, spin and electric charge, not on the details of what fell in.: Checked against the no-hair result: the semiclassical spectrum on a Kerr-Newman background is fixed by M, J and Q (temperature, horizon angular velocity, electric potential and greybody factors). Tried the what-if 'more rock raises M': that changes the three numbers, not the details, so 'details' keeps the sentence consistent. Compared with the old wording. → True within the stated scope ('the simplest calculation'). It claims what the old sentence did and says the consequence outright. It matches the explanation, the letter-and-rocks check and the takeaway.
+- Visual role: two holes with matching mass, spin and electric charge give off the same Hawking radiation.: Same no-hair check. Compared with the sketch and checks/letter-and-rocks, which both fix all three numbers. → True, and more accurate than the old 'matching mass', which on its own did not fix the spectrum. Consistent with the sketch.
+- Recap: at the same mass, spin or charge makes a hole colder.: Kerr-Newman with G=c=hbar=k_B=1: T = (r+ - r-)/(4 pi (r+^2 + a^2)), r± = M ± sqrt(M^2 - a^2 - Q^2). In python3 at M=1, swept a over [0, sqrt(1-Q^2)] for Q in {0,0.3,0.6,0.9} and Q over [0, sqrt(1-a^2)] for a in {0,0.3,0.6,0.9}. Also checked the Schwarzschild limit T=1/(8 pi M). → T decreases monotonically in both a and Q at fixed M on every sweep. T(1,0,0)=0.039789=1/(8 pi), T(1,0.5,0)=0.036932, T(1,0,0.5)=0.039584, extremal T=0. True as stated, and it now names what it is compared with.
+- Recap: in cold, empty space the glow carries away energy. Energy has mass, so the hole gets lighter.: Compared with the old single sentence. Checked that the environmental condition still governs the chain (it opens the step right before), and checked it against the explanation's last paragraph, where a Sun-mass hole in the 2.7-degree microwave background grows. Checked that removing 'slowly' does not change a claim anything else depends on. → The claim is the same as before. Emission removes energy, and hence mass, and in cold, empty space nothing comes back in to offset it. There is no contradiction with the growing Sun-mass hole, which sits in warmer surroundings. Removing 'slowly' removes no claim that any other part relies on.

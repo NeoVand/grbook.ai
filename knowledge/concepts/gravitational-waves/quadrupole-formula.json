@@ -6,7 +6,7 @@
 	"domain": "gravitational-waves",
 	"tier": "core",
 	"status": "physics-reviewed",
-	"revision": 5,
+	"revision": 6,
 	"updated": "2026-09-13",
 	"aliases": [
 		"Einstein quadrupole formula",
@@ -163,7 +163,7 @@
 				"a-spinning-pair-changes-its-shape"
 			],
 			"gist": null,
-			"recap": "A gravitational wave passing two equal arms at right angles, lined up with its stretching and squeezing, makes one longer and the other shorter. The strain is the difference in their lengths, as a fraction of one arm's length. The mass quadrupole measures how far a source's mass is spread along each direction around its centre. A circling pair's spread along a line peaks twice per turn.",
+			"recap": "A gravitational wave passing two equal arms at right angles, lined up with its stretching and squeezing, makes one longer and the other shorter. The strain is the difference in their lengths, as a fraction of one arm's length. The mass quadrupole measures how far a source's mass is spread along each direction around its centre. A circling pair's spread along a line through its centre, in the plane where the two stars circle, peaks twice per turn.",
 			"explanation": "A steel bar spinning flat about its middle has a spread that rises and falls like the pair's.\n\nThe quadrupole formula uses the mass quadrupole to find the strain far from a source whose parts move much slower than light. The spread changes at some rate, like a speed. That rate itself keeps changing, the way a car's speed changes as it speeds up and slows down. The strain is set by how fast that rate changes.\n\nSpin the bar twice as fast. Its spread swings as far in half the time, so the rate of change doubles. That doubled rate also rises and falls in half the time, so it changes four times as fast, and the strain grows four times. The same stars can circle faster only by moving closer together, which shrinks their spread, so their strain grows by less.\n\nTwice as far away, the strain is half as big. The wave's energy is shared over a sphere, and a sphere twice as wide has four times the area. So each square metre gets a quarter of the energy. For waves that repeat equally fast, the energy grows as the square of the strain, as a spring stretched twice as far stores four times the energy. So the strain falls to a half.\n\nIn 2015, detectors with 4-kilometre arms measured waves from two black holes circling each other more than a billion light-years away. Shortly before the black holes merged, the formula gives a strain of nearly one part in a thousand billion billion, close to the size measured. The black holes were then moving at a third of light speed relative to each other, too fast for more than a rough estimate.\n\nPicture such a bar, 10 metres long with a mass of 10 tonnes, spinning five times per second. Along its spin axis at the Moon's distance, its strain would have forty-four zeros after the decimal point before the first digit. So nobody notices gravitational waves in daily life.",
 			"try_it": null,
 			"takeaway": "Faster spinning gives a bigger strain, and twice as far away the strain is half as big.",
@@ -1757,7 +1757,7 @@
 		"novice": {
 			"verdict": "fixed",
 			"date": "2026-09-13",
-			"reviewed_revision": 4,
+			"reviewed_revision": 6,
 			"retell_attempt": "Two stars going round each other are like a spinning pencil, and they make gravitational waves, which stretch space one way and squeeze it the other way. It isn't their mass or their drifting along that does it. It's how their mass is spread along a line, which goes up and down twice every turn, so the waves come twice per turn. The formula says the strain depends on how fast the rate of change is changing, which I didn't really get, and somehow a bar spun twice as fast gives four times the strain. I'm not sure whether that's true for the stars too. Twice as far away it's half, not a quarter, because of energy and squares. A round balloon swelling doesn't make waves, but I didn't see why a spinning square doesn't when it moves too, or why a skater pulling in her arms makes weaker waves when she spins faster. Everyday waves are tiny: forty-four zeros.",
 			"stumbles": [
 				{
@@ -2022,13 +2022,24 @@
 						"Conform-stage changes at working rung read as a second-year student: f_s for spin frequency reads cleanly; removing the antenna analogy and the why-second-derivative question leaves no gap, because the working way answers the second-derivative question and the related link retarded-potential keeps the electromagnetic parallel. No stumbles there.",
 						"Revision bumped from 3 to 4; status kept. A physics diff check should cover the entry changes, especially the new sentence 'In that time the waves travel one wavelength, at light speed' and the square's 0.71 times 0.71 step."
 					]
+				},
+				{
+					"date": "2026-09-13",
+					"revision": 6,
+					"read": [
+						"note_diff snapshots/conform-pilot/quadrupole-formula.before-diffcheck.json -> current, --rungs entry,working: $.ways_in[faster-spin-farther-detector].recap (read inside the recap and the way's opening paragraph)"
+					],
+					"stumbles": [],
+					"fixes": [
+						"No change. Read as the entry persona, the scoped recap sentence ('through its centre, in the plane where the two stars circle') uses only school-geometry words (line, centre, plane), 'its' can only mean the pair, and the scoping matches the tumbling-rock answer, so the steel bar's 'like the pair's' in the next paragraph still lands. The 22-word sentence is within rule 2 and not squeezed; no second new idea is added. Revision stays 6."
+					]
 				}
 			]
 		},
 		"physics": {
 			"verdict": "fixed",
 			"date": "2026-09-13",
-			"reviewed_revision": 5,
+			"reviewed_revision": 6,
 			"verification": [
 				{
 					"claim": "Retarded solution h-bar_{mu nu} = (4G/c^4) int T_{mu nu}(ret)/|x-y| of Box h-bar = -16 pi G T/c^4, and its static-limit sign check.",
@@ -2286,6 +2297,25 @@
 					],
 					"fixes": [
 						"checks/axial-oscillator-pattern key point 'Along the axis the field is longitudinal and records nothing' became 'Along the axis the field is longitudinal, and a detector there records nothing', so the measurer is a detector, not the field."
+					]
+				},
+				{
+					"date": "2026-09-13",
+					"revision": 6,
+					"verification": [
+						{
+							"claim": "Entry recap of ways_in/faster-spin-farther-detector: a circling pair's spread along a line through its centre, in the plane where the two stars circle, peaks twice per turn.",
+							"method": "Hand algebra for masses m1, m2 on a circular orbit about the centre of mass: spread along an in-plane unit direction u at angle phi is m1 r1^2 cos^2 + m2 r2^2 cos^2 = mu a^2 cos^2(wt - phi). Checked with python3 for unequal masses (3:1) at two in-plane directions, the spin axis, and a tilted line.",
+							"result": "True for every in-plane line through the centre and for unequal masses: two peaks per turn, maximum mu a^2 when the stars lie on the line, zero when they lie across it. Along the spin axis the spread is zero at all times, so the new scope removes the only false case of the old unscoped wording. Lines tilted out of the plane also peak twice (amplitude reduced by sin^2), so the scoped claim is narrower than the full truth but correct. Consistent with the continued way's 'your line' picture, the definition 'around its centre', the tumbling-rock scoping, and the explanation's 'same stars'."
+						},
+						{
+							"claim": "The reworded recap claims exactly what the old one did, or something equally true.",
+							"method": "Compared old and new sentences against the what-ifs: line along the spin axis, line not through the centre, unequal masses, trace-free versus full second moment.",
+							"result": "The new sentence claims strictly less than the old one and every claim it keeps is true; the trace-free moment mu a^2 (cos^2 - 1/3) also peaks twice. No equation, check, problem or number changed."
+						}
+					],
+					"fixes": [
+						"No change needed."
 					]
 				}
 			]

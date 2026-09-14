@@ -6,7 +6,7 @@ title: "Carry an arrow around a loop"
 kind: "interactive-3d"
 priority: "flagship"
 status: "proposed"
-revision: 3
+revision: 4
 rungs: ["entry", "working"]
 serves: ["parallel-transport", "path-dependence-of-parallel-transport", "holonomy", "gaussian-curvature", "angular-excess", "intrinsic-versus-extrinsic-curvature", "curvature-of-the-two-sphere", "flatness-criterion"]
 builds_on: ["slide-an-arrow-along-a-path"]
@@ -126,7 +126,7 @@ Labels: North Pole, equator, start, return, quarter turn, flat sheet. Aspect 2:1
    Describe: A tube with a loop around it, and beside it the same paper laid flat. On the flat paper the loop is a straight line and every arrow copy points the same way.
 9. `half-the-patch` (working, await none) state: preset="octant-half-area", progress=1  
    *A smaller triangle fencing off half the area; the turn readout shows 45 degrees.*  
-   Say: “Now the loop fences off half as much of the ball on my left. The turn is half as big, an eighth of a turn instead of a quarter.”  
+   Say: “Now the piece of the ball on my left is half as big as before. So the turn is half as big, an eighth of a turn instead of a quarter.”  
    Describe: A smaller triangle on the ball. The readout says 45 degrees to the left.
 
 ## Design rules

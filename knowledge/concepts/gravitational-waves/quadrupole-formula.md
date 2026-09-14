@@ -7,7 +7,7 @@ tagline: "How a changing spread of mass sets the size of gravitational waves"
 domain: "gravitational-waves"
 tier: "core"
 status: "physics-reviewed"
-revision: 5
+revision: 6
 updated: "2026-09-13"
 aliases: ["Einstein quadrupole formula", "quadrupole approximation", "quadrupole formula for the wave field"]
 prerequisites: ["absence-of-monopole-and-dipole-radiation", "gravitational-wave-strain", "long-wavelength-approximation", "tensor-virial-identity", "gravitational-wave-polarization", "keplers-third-law"]
@@ -19,7 +19,7 @@ visuals: ["two-stars-and-a-distant-ring", "spinning-shapes-with-a-spread-meter",
 
 *How a changing spread of mass sets the size of gravitational waves*
 
-`quadrupole-formula` · gravitational-waves · core · physics-reviewed (revision 5)
+`quadrupole-formula` · gravitational-waves · core · physics-reviewed (revision 6)
 
 **Needs:** [[absence-of-monopole-and-dipole-radiation]] (entry) · [[gravitational-wave-strain]] (entry) · [[long-wavelength-approximation]] (working) · [[tensor-virial-identity]] (working) · [[gravitational-wave-polarization]] (working) · [[keplers-third-law]] (working)  
 **Opens:** [[transverse-traceless-projection]] · [[quadrupole-luminosity-formula]] · [[orbital-inclination]] · [[gravitational-wave-amplitude-estimate]] · [[continuous-gravitational-waves]]  
@@ -101,7 +101,7 @@ Yet after an eighth of a turn the square looks different, so it does send out wa
 
 *What happens to the strain with faster spin or a farther detector?*
 
-**Recap:** A gravitational wave passing two equal arms at right angles, lined up with its stretching and squeezing, makes one longer and the other shorter. The strain is the difference in their lengths, as a fraction of one arm's length. The mass quadrupole measures how far a source's mass is spread along each direction around its centre. A circling pair's spread along a line peaks twice per turn.
+**Recap:** A gravitational wave passing two equal arms at right angles, lined up with its stretching and squeezing, makes one longer and the other shorter. The strain is the difference in their lengths, as a fraction of one arm's length. The mass quadrupole measures how far a source's mass is spread along each direction around its centre. A circling pair's spread along a line through its centre, in the plane where the two stars circle, peaks twice per turn.
 
 A steel bar spinning flat about its middle has a spread that rises and falls like the pair's.
 
@@ -629,7 +629,7 @@ Let $\mathbf n$ be a unit vector, $P_{ij} = \delta_{ij} - n_in_j$, and $\Lambda_
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 4)
+**Verdict:** fixed (2026-09-13, revision 6)
 
 **Retell attempt:** Two stars going round each other are like a spinning pencil, and they make gravitational waves, which stretch space one way and squeeze it the other way. It isn't their mass or their drifting along that does it. It's how their mass is spread along a line, which goes up and down twice every turn, so the waves come twice per turn. The formula says the strain depends on how fast the rate of change is changing, which I didn't really get, and somehow a bar spun twice as fast gives four times the strain. I'm not sure whether that's true for the stars too. Twice as far away it's half, not a quarter, because of energy and squares. A round balloon swelling doesn't make waves, but I didn't see why a spinning square doesn't when it moves too, or why a skater pulling in her arms makes weaker waves when she spins faster. Everyday waves are tiny: forty-four zeros.
 
@@ -710,9 +710,13 @@ Let $\mathbf n$ be a unit vector, $P_{ij} = \delta_{ij} - n_in_j$, and $\Lambda_
 - Fix: Conform-stage changes at working rung read as a second-year student: f_s for spin frequency reads cleanly; removing the antenna analogy and the why-second-derivative question leaves no gap, because the working way answers the second-derivative question and the related link retarded-potential keeps the electromagnetic parallel. No stumbles there.
 - Fix: Revision bumped from 3 to 4; status kept. A physics diff check should cover the entry changes, especially the new sentence 'In that time the waves travel one wavelength, at light speed' and the square's 0.71 times 0.71 step.
 
+**Re-read** (2026-09-13, revision 6): 0 stumbles in 1 changed passages
+
+- Fix: No change. Read as the entry persona, the scoped recap sentence ('through its centre, in the plane where the two stars circle') uses only school-geometry words (line, centre, plane), 'its' can only mean the pair, and the scoping matches the tumbling-rock answer, so the steel bar's 'like the pair's' in the next paragraph still lands. The 22-word sentence is within rule 2 and not squeezed; no second new idea is added. Revision stays 6.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 5)
+**Verdict:** fixed (2026-09-13, revision 6)
 
 **Verification**
 
@@ -798,3 +802,9 @@ Let $\mathbf n$ be a unit vector, $P_{ij} = \delta_{ij} - n_in_j$, and $\Lambda_
 - Summary 'and not equally in every direction'; faster-bar answer 'the waves repeat as often as the spread'; takeaway of 'Moving is not enough' split in two; working way now quotes 'Faster spin, farther detector' for its three claims.: What-ifs on the summary (balloon, wheel, pair seen from the axis); checked that the quoted way states the second-derivative dependence, the halving with distance and the tiny size; compared the split takeaway with the old sentence. → All true and claim-preserving; the quoted way contains all three claims.
 - Removed analogy antenna-dipole-radiation and common questions why-second-derivative and gauge-invariance leave no dangling or contradicted statements.: Searched the note for remaining references; confirmed the working way and derivation still give the conservation argument, and the formal way still gives the gauge argument and R_0i0j. → No gaps; the validator reports no broken addresses.
 - Fix: checks/axial-oscillator-pattern key point 'Along the axis the field is longitudinal and records nothing' became 'Along the axis the field is longitudinal, and a detector there records nothing', so the measurer is a detector, not the field.
+
+**Diff check** (2026-09-13, revision 6)
+
+- Entry recap of ways_in/faster-spin-farther-detector: a circling pair's spread along a line through its centre, in the plane where the two stars circle, peaks twice per turn.: Hand algebra for masses m1, m2 on a circular orbit about the centre of mass: spread along an in-plane unit direction u at angle phi is m1 r1^2 cos^2 + m2 r2^2 cos^2 = mu a^2 cos^2(wt - phi). Checked with python3 for unequal masses (3:1) at two in-plane directions, the spin axis, and a tilted line. → True for every in-plane line through the centre and for unequal masses: two peaks per turn, maximum mu a^2 when the stars lie on the line, zero when they lie across it. Along the spin axis the spread is zero at all times, so the new scope removes the only false case of the old unscoped wording. Lines tilted out of the plane also peak twice (amplitude reduced by sin^2), so the scoped claim is narrower than the full truth but correct. Consistent with the continued way's 'your line' picture, the definition 'around its centre', the tumbling-rock scoping, and the explanation's 'same stars'.
+- The reworded recap claims exactly what the old one did, or something equally true.: Compared old and new sentences against the what-ifs: line along the spin axis, line not through the centre, unequal masses, trace-free versus full second moment. → The new sentence claims strictly less than the old one and every claim it keeps is true; the trace-free moment mu a^2 (cos^2 - 1/3) also peaks twice. No equation, check, problem or number changed.
+- Fix: No change needed.

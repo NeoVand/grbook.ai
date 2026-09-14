@@ -7,7 +7,7 @@ tagline: "Why a clock moving past your clocks counts less time than they do"
 domain: "special-relativity"
 tier: "foundation"
 status: "physics-reviewed"
-revision: 5
+revision: 7
 updated: "2026-09-13"
 aliases: ["moving clocks run slow", "reciprocity of time dilation", "kinematic time dilation"]
 prerequisites: ["invariance-of-the-speed-of-light", "principle-of-relativity", "relativity-of-simultaneity", "proper-time", "lorentz-factor", "four-velocity"]
@@ -19,7 +19,7 @@ visuals: ["light-clock-on-a-passing-ship", "one-clock-against-a-line-of-clocks"]
 
 *Why a clock moving past your clocks counts less time than they do*
 
-`time-dilation` · special-relativity · foundation · physics-reviewed (revision 5)
+`time-dilation` · special-relativity · foundation · physics-reviewed (revision 7)
 
 **Needs:** [[invariance-of-the-speed-of-light]] (entry) · [[principle-of-relativity]] (entry) · [[relativity-of-simultaneity]] (entry) · [[proper-time]] (working) · [[lorentz-factor]] (working) · [[four-velocity]] (formal)  
 **Opens:** [[twin-paradox]] · [[atmospheric-muon-time-dilation]] · [[relativistic-doppler-effect]] · [[ives-stilwell-experiment]] · [[gps-relativistic-corrections]]  
@@ -485,7 +485,7 @@ With $c = 1$, prove that future-directed unit timelike vectors $n, u$ satisfy $-
    - **Targets:** `crew-feels-slowed`
 5. **Entry · explain** `checks/each-side-finds-the-other-stretched`. The station times the ship's clock with clocks A and B and finds a stretch of 1.25. The crew time station clock B with two of their own clocks and also find 1.25. Must one team be wrong?
    - **Hints:** Were clocks A and B set to agree, by the crew's measurements?
-   - **Answer:** No. Each team times one clock with two of its own. The station compares the ship's 40 seconds with its own 50. Measured by the crew, clock B moved toward the flash from clock A that set it, so clock B was set ahead. By crew clocks the ship takes 40 seconds to reach clock B. Clock B, stretched 1.25 times, counts only 32 of them, so it read 50 minus 32, or 18, at the start. Both ratios are 1.25.
+   - **Answer:** No. Each team times one clock with two of its own. The station compares the ship's 40 seconds with its own 50. Measured by the crew, clock B moved toward the flash from clock A that set it, so clock B was set ahead. By crew clocks the ship takes 40 seconds to reach clock B. Clock B, stretched 1.25 times, counts only 32 of them. Clock B reads 50 on arrival, so when the ship passed clock A, by crew clocks, clock B read 50 minus 32, or 18. The station's 50 divided by 40 and the crew's 40 divided by 32 both equal 1.25.
    - **Must contain:** No, both are right; The teams disagree about how clock B was set
    - **Targets:** `both-cannot-be-stretched`
    - **Visual:** [[one-clock-against-a-line-of-clocks]]
@@ -560,7 +560,7 @@ With $c = 1$, prove that future-directed unit timelike vectors $n, u$ satisfy $-
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 4)
+**Verdict:** fixed (2026-09-13, revision 7)
 
 **Retell attempt:** A spaceship flies past a space station really fast, 6 tenths of light speed. Inside, light bounces between two mirrors 4 metres apart, and that is a clock. The station people say the light goes on a slant because the ship moves, so it travels 5 metres instead of 4. Light has the same speed for everyone, so each tick takes 1.25 times longer by their clocks. That is time dilation, and 1.25 is the Lorentz factor. All the ship's clocks are stretched too, otherwise the crew could tell their speed, and the crew don't notice anything. At plane speeds it's less than a thousandth of a second in 80 years. Then the station uses a line of clocks, and the crew do the same thing back and find the station's clocks stretched, because clock B was set 18 seconds ahead. I didn't get where the 18 came from, why the crew also get 1.25, why the slant is 5 and not some other number, or which way the mirrors face.
 
@@ -635,9 +635,17 @@ With $c = 1$, prove that future-directed unit timelike vectors $n, u$ satisfy $-
 - Fix: Budget offsets, to hold entry explanations (1,000), other way fields (650) and tutoring (2,200): dropped the sentence 'So each side times one of the other side's clocks with two of its own.' from the new way's last paragraph (it repeats the takeaway); dropped the opening question why-nobody-notices (the light-clock way's last paragraph answers it with the 80-year airliner number); set the formal way's simplifies to null (its explanation already states inertial observers and the clock hypothesis). No entry sentence or check answer was compressed.
 - Fix: Bumped the revision from 3 to 4; status kept at physics-reviewed; a physics diff check of these changes should follow.
 
+**Re-read** (2026-09-13, revision 7): 2 stumbles in 3 changed passages
+
+- “Clock B, stretched 1.25 times, counts only 32 of them, so at the start, by crew clocks, it read 50 minus 32, or 18.”: Step taken on trust: the answer never says that 50 is clock B's reading when the ship arrives, so the reader must go back to the way to see why 32 is taken from 50. 'At the start' also leaves the reader to work out which moment is meant.
+- “Both ratios are 1.25.”: 'Both ratios' asks the reader to rebuild which two numbers are divided; the crew's 40 and 32 were never shown as a ratio.
+- Fix: checks/each-side-finds-the-other-stretched answer: split the head-start sentence, stated that clock B reads 50 on arrival (as the way crew-time-a-station-clock says), named the start as the moment the ship passed clock A, and named the two ratios. No number, measurer, sign or scope changed.
+- Fix: Removed if-stuck move cannot-see-the-slant: no learner-visible text to read; the light-clock way's slant paragraph, its try-it and the flagship visual still cover that stumble, so no stumble recorded.
+- Fix: Tutoring words rise by about 16 over the 2,200 cap, inside the 10% review allowance, only for these recorded fixes. Revision bumped from 6 to 7; status kept at physics-reviewed; a physics diff check of the check answer should follow.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 5)
+**Verdict:** fixed (2026-09-13, revision 7)
 
 **Verification**
 
@@ -719,3 +727,12 @@ With $c = 1$, prove that future-directed unit timelike vectors $n, u$ satisfy $-
 - Fix: checks/head-start-from-level-sets question: added 'Station clocks read $t_n(p) = -\eta(n, p - o)$, and' so clock B's reading is defined; question_spoken gained 'Station clocks read zero on the station's slice through o, and' and 'along the ship's path' (was 'along its path', where 'its' could mean B's).
 - Fix: Budget offset for tutoring (2,217 to 2,189 of 2,200): dropped the if-stuck move cannot-see-the-slant, whose drawing repeats the light-clock way's slant paragraph, its try-it and the flagship visual's split view.
 - Fix: Revision bumped from 4 to 5; review.physics.reviewed_revision set to 5; the novice stage now lags by one revision, only for the formal check question (graduate rung) and the removed if-stuck move.
+
+**Diff check** (2026-09-13, revision 7)
+
+- Entry check each-side-finds-the-other-stretched, new sentence 'Clock B, stretched 1.25 times, counts only 32 of them.': Read with the preceding 'By crew clocks the ship takes 40 seconds to reach clock B'; python3 with gamma = 1.25 at 0.6c. → 40 / 1.25 = 32. 'Them' refers to the crew's 40 seconds, the only candidate. Same claim as the first half of the old sentence. Correct.
+- New sentence 'Clock B reads 50 on arrival, so when the ship passed clock A, by crew clocks, clock B read 50 minus 32, or 18.': Lorentz transformation t' = gamma(t - v x/c^2) with ship passes A at (0, 0) and ship meets B at (50 s, 9 million km); python3. Checked that 50 is B's own side-by-side reading (way one-ship-clock-two-station-clocks) and that 'when the ship passed clock A, by crew clocks' names the crew slice t' = 0 through that event. → The meeting is at t' = 40 s; the crew slice t' = 0 meets B at station time v D/c^2 = 18 s, and B counts 50 - 18 = 32 s up to the meeting. The event 'B reads 18' has t' = 0.0. The measurer is attached to the simultaneity, which is where it is needed; by station clocks B read 0 then, which the sentence does not contradict. Same claim as the old 'at the start', now with the moment named. Correct.
+- New sentence 'The station's 50 divided by 40 and the crew's 40 divided by 32 both equal 1.25.' (was 'Both ratios are 1.25.'): python3; checked each ratio is 'measuring team's elapsed time over the other side's clock count'. → 50/40 = 1.25 (station time over ship clock count), 40/32 = 1.25 (crew time over clock B's count); the two ratios compare different event pairs, consistent with the formal check head-start-from-level-sets. Correct.
+- First what-ifs on the chain: slower and faster ships.: python3 at 0.1c and 0.8c over the same 9 million km, repeating the chain (station time, ship count, head start v D/c^2, B count, both ratios). → 0.1c: 300 s, 298.50 s, head start 3 s, B counts 297 s, both ratios 1.00504. 0.8c: 37.5 s, 22.5 s, head start 24 s, B counts 13.5 s, both ratios 5/3. The reasoning holds at every speed; the answer's numbers are stated only for 0.6c. No change needed.
+- Consistency with the rest of the note.: Compared with ways_in/crew-time-a-station-clock, key_points, hints, targets, and misconception both-cannot-be-stretched. → Same numbers, sign (B set ahead) and measurers as the way; key_points and targets unchanged and still met.
+- Fix: None. The re-read's rewording of the check answer claims exactly what the revision-6 wording did, with the moment and the two ratios named. No learner-visible text changed, so the revision stays at 7 and no novice sign-off is needed.

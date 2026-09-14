@@ -3,11 +3,11 @@ type: "concept"
 schema_version: 2
 id: "hawking-radiation"
 title: "Hawking radiation"
-tagline: "Why quantum physics makes black holes glow, and why heavier ones glow colder"
+tagline: "Quantum physics makes black holes glow; without spin or charge, heavier ones glow colder"
 domain: "quantum-gravity-and-beyond"
 tier: "advanced"
 status: "physics-reviewed"
-revision: 4
+revision: 7
 updated: "2026-09-13"
 aliases: ["Hawking effect", "Hawking emission", "black-hole radiance"]
 prerequisites: ["horizon-pair-creation-picture", "black-body-spectrum", "gravitational-redshift", "unruh-effect", "surface-gravity", "quantum-field-theory-in-curved-spacetime"]
@@ -17,9 +17,9 @@ visuals: ["thermometer-beside-a-black-hole", "vacuum-pairs-near-a-horizon", "ray
 
 # Hawking radiation
 
-*Why quantum physics makes black holes glow, and why heavier ones glow colder*
+*Quantum physics makes black holes glow; without spin or charge, heavier ones glow colder*
 
-`hawking-radiation` · quantum-gravity-and-beyond · advanced · physics-reviewed (revision 4)
+`hawking-radiation` · quantum-gravity-and-beyond · advanced · physics-reviewed (revision 7)
 
 **Needs:** [[horizon-pair-creation-picture]] (entry) · [[black-body-spectrum]] (entry) · [[gravitational-redshift]] (working) · [[unruh-effect]] (working) · [[surface-gravity]] (formal) · [[quantum-field-theory-in-curved-spacetime]] (formal)  
 **Opens:** [[hawking-temperature]] · [[black-hole-evaporation]] · [[black-hole-thermodynamics]] · [[black-hole-information-problem]] · [[primordial-black-hole]]  
@@ -59,11 +59,11 @@ In a dark room, a mug of hot water shows no light, yet a palm beside it feels wa
 
 A black hole is a region where gravity is so strong that nothing that enters, not even light, can come back out. Its edge is called the event horizon.
 
-In 1974 Stephen Hawking found that quantum physics makes a black hole glow faintly after all. In the pair picture, one member of a pair of particles near the horizon can cross the horizon before the pair vanishes. The other can then escape. The escaping particles form a faint glow, made outside the horizon. This glow is called Hawking radiation.
+Stephen Hawking found that quantum physics makes a black hole glow faintly after all. In the pair picture, one member of a pair of particles near the horizon can cross the horizon before the pair vanishes. The other can then escape. The escaping particles form a faint glow, made outside the horizon. This glow is called Hawking radiation.
 
 The glow carries energy away, and energy has mass. Counted from far away, the partner that fell in brings in negative energy. Take this on trust for now. So a hole alone in dark, empty space slowly gets lighter.
 
-**Try it:** Fill a mug with hot tap water, and wrap half of its side in kitchen foil, shiny side out. Turn off the room light: the mug gives off no light you can see. Hold your palm a few centimetres beside the bare half, not above it and not touching. You feel warmth. Now hold your palm at the same distance beside the foil half. It feels noticeably cooler, although the water behind the foil is just as hot. Shiny foil gives off very little glow, so much of the warmth you felt beside the bare half was the mug's invisible glow.
+**Try it:** Fill a mug with hot tap water, and wrap half of its side in kitchen foil, shiny side out. Turn off the room light: the mug gives off no light you can see. Hold your palm a few centimetres beside the bare half, not above it and not touching. You feel warmth. Now hold your palm at the same distance beside the foil half. It feels noticeably cooler, although the water behind the foil is just as hot. Both halves warm the nearby air about equally, but shiny foil gives off very little glow. So a large part of the warmth you felt beside the bare half was the mug's invisible glow.
 
 **Takeaway:** Quantum physics makes a black hole glow faintly, and the glow's energy comes out of the hole's mass.
 
@@ -91,13 +91,15 @@ A hole with the Sun's mass is about 6 kilometres across. Its glow is about 60 bi
 
 *Why has nobody detected the glow of a real black hole?*
 
-**Recap:** Hawking radiation is the faint glow a black hole gives off because of quantum physics. Measured from far away, a hole with the Sun's mass, without spin or charge, glows at about 60 billionths of a degree above absolute zero, the coldest possible temperature. Any heavier hole glows more coldly than that. An object takes in more glow from warmer surroundings than it gives off, as a cold stone warms in sunshine.
+**Recap:** Hawking radiation is the faint glow a black hole gives off because of quantum physics. Measured from far away, a hole with the Sun's mass and no spin or charge glows at about 60 billionths of a degree above absolute zero, the coldest possible temperature. Any heavier hole glows more coldly than that hole. An object takes in more glow from warmer surroundings than it gives off, as a cold stone warms in sunshine.
 
 The early universe was a hot, glowing gas. Its glow cooled as the universe expanded, but still arrives from every direction. This leftover glow is called the cosmic microwave background. It is about 2.7 degrees above absolute zero, more than 40 million times warmer than a Sun-mass hole's glow.
 
 So a Sun-mass hole takes in more glow than it gives off. Energy has mass, so the hole grows.
 
 Every black hole found so far is heavier than the Sun, so its glow is even colder. That faint, cold glow is lost in the warmer leftover glow, so nobody has detected Hawking radiation from a real black hole. Only a hole lighter than about six tenths of the Moon's mass would glow warmer than the leftover glow.
+
+Even without the leftover glow, a Sun-mass hole with no spin or charge glows far too faintly to detect from Earth. Light comes in tiny packets. In 50 years, the hole gives off less energy than one packet of green light carries.
 
 **Takeaway:** Every known black hole glows far more coldly than the leftover glow from the early universe, so it takes in more than it gives off, and its Hawking radiation stays hidden.
 
@@ -224,6 +226,7 @@ Experiments now test the kinematics. Water flowing over an obstacle in a flume s
 | quantum physics | KWON-tum | The physics of atoms, light and other very small things. In it, energy comes in tiny packets and empty space is never perfectly still. | — |
 | pair of particles | — | Two particles that appear together in empty space for a brief moment and then vanish again, as quantum physics allows. The member that falls into a black hole is the partner. | [[vacuum-fluctuations]] |
 | Hawking radiation | HAW-king ray-dee-AY-shun | The faint glow that quantum physics predicts a black hole gives off. It carries energy away from the hole. | [[hawking-radiation]] |
+| pair picture | — | A cartoon of how a black hole glows: one member of a pair of particles near the horizon crosses the horizon, and the other escapes. It helps you imagine the glow, but it is not the calculation that predicts the glow. | [[horizon-pair-creation-picture]] |
 | absolute zero | — | The coldest possible temperature, about 273 degrees Celsius below the freezing point of water. Temperatures here count upward from it, in Celsius-sized degrees. | — |
 | cosmic microwave background | — | The faint glow left over from the hot early universe, called the leftover glow for short. It arrives from every direction at about 2.7 degrees above absolute zero. | [[cosmic-microwave-background]] |
 
@@ -562,7 +565,7 @@ In spontaneous parametric down-conversion, a laser pumping a nonlinear crystal t
    - **Answer:** No. Nothing that crosses the horizon ever comes back out, and quantum physics does not change that. The glow is made in the space around the hole, outside the horizon. There, one member of a pair of particles crosses the horizon, and the other escapes. So the glow never was behind the horizon.
    - **Must contain:** No; Nothing comes back out through the horizon; The glow is made outside the horizon while partners fall in
    - **Targets:** `glow-escapes-from-behind-the-horizon`
-4. **Entry · predict** `checks/real-hole-in-todays-sky`. A black hole with ten times the Sun's mass sits in today's universe, far from any star or gas. The leftover glow from the early universe reaches it from every direction at about 2.7 degrees above absolute zero. Is the hole shrinking because of its Hawking radiation, or growing?
+4. **Entry · predict** `checks/real-hole-in-todays-sky`. A black hole with ten times the Sun's mass sits in today's universe, far from any star or gas. The hole does not spin or have electric charge. The leftover glow from the early universe reaches it from every direction at about 2.7 degrees above absolute zero. Is the hole shrinking because of its Hawking radiation, or growing?
    - **Hints:** Which is warmer, the hole's glow or the leftover glow?
    - **Answer:** Growing. A hole ten times heavier than the Sun glows at a tenth of 60 billionths of a degree, about 6 billionths. The leftover glow is hundreds of millions of times warmer. An object takes in more glow from warmer surroundings than it gives off. So the hole gains energy, and energy has mass, so it grows.
    - **Must contain:** Growing; The hole glows far more coldly than the sky; It takes in more glow than it gives off
@@ -661,7 +664,7 @@ In spontaneous parametric down-conversion, a laser pumping a nonlinear crystal t
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 3)
+**Verdict:** fixed (2026-09-13, revision 7)
 
 **Retell attempt:** Hot things give off light you can't see, like a mug of tea. A black hole traps everything, even light, so it should be black. But Hawking found that quantum physics makes it glow anyway: little pairs of particles keep popping up near it, one falls in and the other gets away, and the ones that get away are the glow. Somehow the glow takes energy out of the hole, so it gets lighter, though I don't get that, since half of each pair fell in. Weirdly, bigger black holes are colder, and I don't know why. One with the Sun's mass is 6 kilometres wide and glows at 60 billionths of a degree. I'm not sure how a thermometer far away would read that. Then it says the pair thing is only a cartoon because the waves are longer than the hole, so I don't know what really happens. In space there is leftover glow from the early universe that is warmer, so real black holes soak it up and grow, which is maybe one reason nobody has seen the glow. Only one lighter than about half the Moon, a tenth of a millimetre wide, would shrink. (Compared with the takeaways: the three main claims came through, but there was no reason for heavier-is-colder, a gap in how the hole loses mass, and an impossible thermometer.)
 
@@ -733,9 +736,25 @@ In spontaneous parametric down-conversion, a laser pumping a nonlinear crystal t
 - Fix: continues: colder-than-the-sky now climbs from both entry ways; temperature-from-a-hovering-thermometer now continues mass-and-temperature, and its first sentence names that way instead of 'A black hole that glows'. Teaching arc mass-sets-temperature uses the new way.
 - Fix: Bumped revision to 3.
 
+**Re-read** (2026-09-13, revision 6): 5 stumbles in 9 changed passages
+
+- “So much of the warmth you felt beside the bare half was the mug's invisible glow.”: Reread: 'So much of the warmth' first reads as an exclamation, 'so much warmth!', before it resolves into 'so, much of the warmth'.
+- “Both halves warm the nearby air about equally, but shiny foil gives off very little glow.”: Step taken on trust: a reader who thinks foil keeps heat in expects the foil half to warm the air less, and nothing says why the two halves warm the air about equally.
+- “Any heavier hole glows more coldly than that.”: Reread: 'that' could be the 60 billionths of a degree, absolute zero, or 'the coldest possible temperature', and 'more coldly than the coldest possible temperature' makes no sense. The sentence before it is also crowded, with the new spin clause set off by commas next to the absolute-zero comma.
+- “It helps to picture the glow, but it is not the calculation that predicts the glow.”: One word in two senses: the entry is named 'pair picture', a noun, and the definition then uses 'picture' as a verb.
+- “In 50 years, the hole gives off less energy than one packet of green light carries.”: Step taken on trust: the reader has only met 'light comes in tiny packets' and does not know that packet size depends on colour, so 'green' looks arbitrary and the reader stops to wonder whether it matters.
+- Fix: a-black-hole-that-glows try_it: 'So much of the warmth' -> 'So a large part of the warmth' (same claim).
+- Fix: colder-than-the-sky recap: 'mass, without spin or charge, glows' -> 'mass and no spin or charge glows'; 'more coldly than that.' -> 'more coldly than that hole.' (same scope and comparison).
+- Fix: glossary pair-picture: 'It helps to picture the glow' -> 'It helps you imagine the glow'.
+- Fix: Two stumbles not applied because they would add claims: the foil-and-air reason, and packet size by colour. Both are proposed in the stage summary.
+- Fix: Budgets: other way fields 805 -> 809 of 800 (within the 880 allowance), objectives-to-glossary part unchanged at 3549 of 3500 (within 3850), entry explanations unchanged at 440. Bumped revision 5 -> 6; status kept at physics-reviewed.
+
+**Re-read** (2026-09-13, revision 7): 0 stumbles in 3 changed passages
+
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 4)
+**Verdict:** fixed (2026-09-13, revision 7)
 
 **Verification**
 
@@ -796,7 +815,7 @@ In spontaneous parametric down-conversion, a laser pumping a nonlinear crystal t
 - Registry prerequisites still differ for quantum-field-theory-in-curved-spacetime, surface-gravity and unruh-effect; run sync_registry.py.
 - The working check energy-of-the-partner uses Killing vectors, which no working-rung prerequisite introduces; consider a one-sentence gloss or making surface-gravity needed at working.
 - Prerequisite notes horizon-pair-creation-picture and black-body-spectrum do not exist yet, so the entry recaps are unaligned.
-- Entry "That is why nobody has detected Hawking radiation from a real black hole" leaves out the extreme faintness (about 2e-28 W, from the computed greybody power for a solar-mass hole); true as a simplification, but the entry budget is at its cap.
+- Resolved at revision 7: the colder-than-the-sky entry way now states the extreme faintness (less energy in 50 years than one green-light packet, for a Sun-mass hole with no spin or charge).
 - Three proposed visuals (thermometer-beside-a-black-hole, vacuum-pairs-near-a-horizon, rays-peeling-off-a-forming-horizon) still need catalog entries.
 
 **Diff check** (2026-09-13, revision 4)
@@ -813,3 +832,17 @@ In spontaneous parametric down-conversion, a laser pumping a nonlinear crystal t
 - Fix: colder-than-the-sky recap: 'Heavier holes glow more coldly.' became 'Any heavier hole glows more coldly than that.'
 - Fix: Budget: other way fields were at 798 of 800, so dropped the lowest-value item, the a-black-hole-that-glows simplifies sentence 'Besides light, the glow includes other kinds of particles.' (no objective or check uses it; at a Sun-mass hole the other kind is essentially only gravitons).
 - Fix: Revision bumped to 4; the novice review now lags one revision.
+
+**Diff check** (2026-09-13, revision 7)
+
+- Tagline: 'Quantum physics makes black holes glow; without spin or charge, heavier ones glow colder'.: k_BT_H = hbar c^3/8 pi G M for Schwarzschild; counterexamples: fixed-J or fixed-Q near-extremal holes (T rises with M), extremal holes (T = 0, but superradiant and charged-particle emission remain). → True as scoped; the scope binds the comparison, which is the only clause that needs it. Correct.
+- Check real-hole-in-todays-sky now states 'The hole does not spin or have electric charge.'; answer 'Growing', about 6 billionths of a degree, leftover glow hundreds of millions of times warmer.: python: T_H(10 M_sun) = 6.17e-9 K, 2.7255/6.17e-9 = 4.42e8; CMB absorption through the capture area 27 pi (GM/c^2)^2 far exceeds emission. → Correct; the added scope matches the answer's numbers and spin or charge would only lower T, so the answer holds either way.
+- Glossary pair-picture: one member of a pair near the horizon crosses, the other escapes; it helps you imagine the glow but is not the calculation that predicts it.: Consistency with the a-black-hole-that-glows simplifies field, the mass-and-temperature sentence on waves tens of kilometres long, and the working and formal ways (Bogoliubov calculation). → Accurate and consistent; the re-read's verb change ('imagine' for 'picture') keeps the claim.
+- try_it: 'Both halves warm the nearby air about equally, but shiny foil gives off very little glow. So a large part of the warmth you felt beside the bare half was the mug's invisible glow.': python heat balance: water 55 C, ceramic wall 5 mm (k = 1.5 W/mK), air 20 C, h = 6 W/m^2K; bare emissivity 0.9, foil 0.05 with a 0.3 mm air gap. What-ifs: foil reflects the palm's own glow back; warm air rises rather than flowing sideways. → Surface 53.6 C vs 52.0 C; convection 202 vs 192 W/m^2 (about equal), radiation 205 vs 11 W/m^2. Beside the wall, outside the roughly 1 cm boundary layer, radiation dominates what the palm feels; the reflected palm glow only narrows the difference. True. 'So a large part' claims the same as the old 'so much'.
+- colder-than-the-sky recap reworded: 'a hole with the Sun's mass and no spin or charge glows at about 60 billionths ...'; 'Any heavier hole glows more coldly than that hole.': Compared with the revision-4 wording; Kerr-Newman T at most Schwarzschild T of the same mass (scan from the revision-4 diff check). → Same claims; 'that hole' removes the ambiguity without changing the comparison. Correct for every spin and charge of the heavier hole.
+- colder-than-the-sky new paragraph: a Sun-mass hole's glow is far too faint to detect from Earth even without the CMB; light comes in packets; in 50 years the hole gives off less energy than one packet of green light carries.: python, CODATA constants, GM_sun = 1.32712e20: E(550 nm) = 3.61e-19 J (450 nm 4.41e-19, 700 nm 2.84e-19). Power: photons plus gravitons with greybody factors 3.75e-5 hbar c^6/G^2M^2 = 1.63e-28 W (70 years per green packet); black body over horizon area 9.0e-29 W (127 years); over capture area 1.52e-28 W (75 years); earlier 2e-28 W estimate (57 years). Counterexample by spin: Page, Phys. Rev. D 14, 3260 (1976), confirmed by WebSearch (APS/ADS abstract), gives power increases with spin up to 107.5 for photons and 26380 for gravitons, about 2000 times in total at maximal spin (a green packet in about 10 days). Counterexample by charge: a Sun-mass hole with Q above about 2e-6 of extremal has a horizon field above the Schwinger field, so its charged-particle emission far exceeds this. Observer: a hovering observer near the horizon measures a hot Tolman-shifted glow, so 'from Earth' is needed. → True for a Sun-mass hole with no spin or charge under every model (margin 1.1 to 2.5). False for a rapidly spinning or noticeably charged Sun-mass hole, and the paragraph did not state the scope (its 'Sun-mass hole' was scoped only by the recap and the previous way). Fixed by scoping the paragraph's first sentence, which 'the hole' then refers to. The faintness sentence remains true for spinning holes too.
+- Fix: colder-than-the-sky explanation: 'Even without the leftover glow, a Sun-mass hole's glow would be far too faint to detect from Earth.' became 'Even without the leftover glow, a Sun-mass hole with no spin or charge glows far too faintly to detect from Earth.' A spinning Sun-mass hole can give off up to about 2000 times more power (Page 1976), so the next sentence's 50-year bound needs this scope.
+- Fix: Budget: entry explanations were at the 440-word allowance, so the lowest-value item was shortened: 'In 1974 Stephen Hawking found' became 'Stephen Hawking found' in a-black-hole-that-glows; the year stays in the history entry hawking-1974.
+- Fix: Concern about the missing faintness at entry marked resolved.
+- Fix: Not applied (not errors; left for an editor): the re-read's proposals to give a reason for 'Both halves warm the nearby air about equally' (the premise is true, see verification) and to add 'Bluer light comes in bigger packets.'
+- Fix: Revision bumped 6 to 7; the novice sign-off now lags one revision.

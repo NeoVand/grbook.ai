@@ -7,7 +7,7 @@ tagline: "How an arrow carried around a loop can come back turned"
 domain: "curvature"
 tier: "core"
 status: "physics-reviewed"
-revision: 5
+revision: 7
 updated: "2026-09-13"
 aliases: ["holonomy of parallel transport", "loop holonomy"]
 prerequisites: ["path-dependence-of-parallel-transport", "gaussian-curvature", "angular-excess", "riemann-curvature-tensor", "levi-civita-connection", "lie-bracket"]
@@ -19,7 +19,7 @@ visuals: ["carry-an-arrow-around-a-loop", "shrink-the-loop-to-find-riemann", "pa
 
 *How an arrow carried around a loop can come back turned*
 
-`holonomy` · curvature · core · physics-reviewed (revision 5)
+`holonomy` · curvature · core · physics-reviewed (revision 7)
 
 **Needs:** [[path-dependence-of-parallel-transport]] (entry) · [[gaussian-curvature]] (working) · [[angular-excess]] (working) · [[riemann-curvature-tensor]] (working) · [[levi-civita-connection]] (formal) · [[lie-bracket]] (formal)  
 **Opens:** [[flatness-criterion]] · [[riemann-curvature-operator]] · [[bianchi-identity]] · [[gauge-field-strength]] · [[cosmic-string]] · [[geodetic-precession]]  
@@ -89,9 +89,9 @@ First, one trip turns every arrow by the same amount, because two arrows taped t
 
 Second, walking the loop the other way plays the trip backwards, so the arrow comes back turned by the same amount the other way.
 
-Third, take a loop on a smooth, round ball that never crosses itself. The loop cuts the ball into two pieces, and the turn depends only on what fraction of the ball is in the piece on your left. The turn toward your left, in full turns, is twice that fraction. Whole turns bring the arrow back matching its start. The North Pole loop keeps one eighth of the ball on your left, so its turn is a quarter turn, toward your left.
+Third, take a loop on a smooth, round ball that never crosses itself. The loop cuts the ball into two pieces, and the turn depends only on what fraction of the ball is in the piece on your left. The turn toward your left, in full turns, is twice that fraction. Twice a fraction bigger than one half is more than a full turn. Whole turns bring the arrow back matching its start, so only the part left over shows. The North Pole loop keeps one eighth of the ball on your left, so its turn is a quarter turn, toward your left.
 
-On Earth, a loop whose piece on your left covers 10,000 square kilometres, about the size of Lebanon, turns the arrow by only one seventieth of a degree. That is about the angle a hair's width makes at 30 centimetres. So nobody notices it in daily life.
+Earth's whole surface is about 510 million square kilometres. On Earth, take a loop whose piece on your left covers 10,000 square kilometres, about the size of Lebanon. That piece is one part in 51,000 of Earth's surface. So the arrow turns by twice that, two parts in 51,000 of a full turn. A full turn is 360 degrees, so the turn is 720 degrees divided by 51,000. That is only about one seventieth of a degree. That is about the angle a hair's width makes at 30 centimetres. So nobody notices it in daily life.
 
 **Takeaway:** On a smooth, round ball, a loop that never crosses itself turns the arrow toward your left, in full turns, by twice the fraction of the ball on your left.
 
@@ -498,8 +498,8 @@ On a sphere of radius $a$, compute the holonomy of the circle at colatitude $\th
 
 ## Teaching arc
 
-1. **Ask the insider question** (entry). Ask how someone who can never leave a ball, or look at it from above, could find out that it is curved. *Why:* It frames holonomy as a test made without leaving, the only kind available for the universe. *Uses:* `ways_in/walk-a-loop-on-a-ball`
-2. **Show one surprise and two controls** (entry). Run the North Pole walk after a prediction, then the square on a flat floor and the loop around a tube. *Why:* The controls rule out the corners and mere bending as explanations. *Predict:* When the arrow gets back to the North Pole, will it point the way it did when you set off? *Visual:* [[carry-an-arrow-around-a-loop]] (preset `octant`, tour `holonomy-first-walk`) *Uses:* `checks/octant-walk-prediction`, `checks/square-on-a-floor`, `ways_in/bent-is-not-curved`
+1. **Ask the insider question** (entry). Ask how someone who can never leave a ball, or look at it from outside, could find out that it is curved. *Why:* It frames holonomy as a test made without leaving, the only kind available for the universe. *Uses:* `ways_in/walk-a-loop-on-a-ball`
+2. **Show one surprise and two controls** (entry). Run the North Pole walk after a prediction, and explain its quarter turn as twice one eighth, the fraction of the ball on the walker's left. Then run the square on a flat floor and the loop around a tube. *Why:* The controls rule out the corners and mere bending as explanations. *Predict:* When the arrow gets back to the North Pole, will it point the way it did when you set off? *Visual:* [[carry-an-arrow-around-a-loop]] (preset `octant`, tour `holonomy-first-walk`) *Uses:* `checks/octant-walk-prediction`, `ways_in/the-ball-on-your-left`, `checks/square-on-a-floor`, `ways_in/bent-is-not-curved`
 3. **Discover the area rule** (working). Resize and reverse the loop, and tabulate the turn against area over radius squared. *Why:* Learners find proportionality, the sign flip, and the role of the radius themselves. *Predict:* If the loop fences off half as much of the ball, what happens to the turn? *Visual:* [[carry-an-arrow-around-a-loop]] (preset `octant-half-area`) *Uses:* `ways_in/turn-equals-enclosed-curving`, `checks/triangle-on-a-big-sphere`
 4. **Shrink the loop to reach the Riemann tensor** (working). Derive the small-loop law and read off each feature. *Why:* Each feature of the formula explains a slot of the Riemann tensor. *Predict:* If you swap the order of the two edges, what happens to the change in the vector? *Visual:* [[shrink-the-loop-to-find-riemann]] *Uses:* `ways_in/shrink-the-loop-to-find-riemann`, `derivations/small-loop-law-from-transport`, `problems/small-loop-cell-other-vector`
 5. **Measure it in orbit** (working). Connect the arrow rule to a freely falling gyroscope and Gravity Probe B. *Why:* It turns a geometric picture into a measurement of the space around Earth. *Uses:* `ways_in/a-gyroscope-measures-it`, `observations/gravity-probe-b-geodetic`
@@ -662,7 +662,7 @@ In the course convention a charged quantum field carried around a loop is multip
 **Common questions**
 
 - *If I never let the arrow swing, where does the turn come from?* (entry) At every step the arrow obeys the rule. What differs is the ground. A triangle on a flat floor has inside angles adding up to half a turn. The North Pole loop is a triangle with three right angles, adding up to three quarters of a turn. That extra quarter turn measures the curving of the piece of ball on your left, and it equals the arrow's turn exactly. The next level explains why. *Uses:* `ways_in/walk-a-loop-on-a-ball`, `checks/square-on-a-floor`, `ways_in/the-ball-on-your-left`
-- *Why does this matter for gravity?* (entry) We live inside space and time, and nobody can look at them from outside. So tests made without leaving are the only way to find their curving. A spinning gyroscope that nothing twists is like the arrow that never swings. Carried around Earth in orbit, a gyroscope comes back slightly turned, adding up to about five millionths of a full turn each year. Split in the usual way, about two thirds of that turn comes from the curving of space around Earth, and the rest from the gyroscope's motion through Earth's gravity. A space experiment called Gravity Probe B measured it. *Uses:* `ways_in/a-gyroscope-measures-it`, `observations/gravity-probe-b-geodetic`
+- *Why does this matter for gravity?* (entry) General relativity, the theory of gravity Einstein worked out, describes gravity as the curving of space and time. We live inside space and time, and nobody can look at them from outside. So tests made without leaving are the only way to find their curving. A spinning gyroscope that nothing twists is like the arrow that never swings. Carried around Earth in orbit, a gyroscope comes back slightly turned, adding up to about five millionths of a full turn each year. Split in the usual way, about two thirds of that turn comes from the curving of space around Earth, and the rest from the gyroscope's motion through Earth's gravity. A space experiment called Gravity Probe B measured it. *Uses:* `ways_in/a-gyroscope-measures-it`, `observations/gravity-probe-b-geodetic`
 - *Does a bigger ball give a bigger turn?* (entry) It depends on what you keep the same. For a triangle with the same corner angles, no: on a bigger ball the triangle is bigger, and the turn stays the same. For a small loop of the same size in kilometres, a bigger ball gives a smaller turn, because a bigger ball curves more gently. *Uses:* `checks/triangle-on-a-big-sphere`
 
 **Switching levels**
@@ -691,7 +691,7 @@ In the course convention a charged quantum field carried around a loop is multip
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 4)
+**Verdict:** fixed (2026-09-13, revision 7)
 
 **Retell attempt:** You walk a loop on a ball holding a cardboard arrow flat on the ground and you never let it swing. On a table it comes back the same, but on the ball, going from the North Pole down to the equator, along, and back, it comes back pointing a quarter turn off, so the ball is curved. I'm not sure why the two paths are a right angle apart at the pole, or what counts as 'straight' when the ground is round. A paper tube looks curved but the arrow comes back the same because you can unroll it. Walking backwards turns it the other way, and bigger patches give bigger turns, but I'm not sure which patch counts on a ball. On Earth it's tiny.
 
@@ -764,9 +764,21 @@ In the course convention a charged quantum field carried around a loop is multip
 - Fix: Tube try-it, swing glossary entry, equator-walk solution and the where-does-the-turn-come-from answer reworded as the stumbles record; that answer now also uses the new way.
 - Fix: Bumped the revision to 4.
 
+**Re-read** (2026-09-13, revision 7): 5 stumbles in 6 changed passages
+
+- “The turn toward your left, in full turns, is twice that fraction. Whole turns bring the arrow back matching its start.”: Rule 3: the reader is not told why whole turns come up. Twice a fraction is less than one full turn for small pieces, so the second sentence reads as a step taken on trust.
+- “That piece is one fifty-one thousandth of Earth's surface. So the arrow turns by two fifty-one thousandths of a full turn.”: 'Two fifty-one thousandths' can be heard as two hundred fifty-one thousandths or as 2 and 51 thousandths; the fraction words are hard to parse, read or spoken.
+- “A full turn is 360 degrees, so that is only about one seventieth of a degree.”: Rule 9: the count the reader should check skips its arithmetic step, and 'that' has two candidates, the piece and the turn.
+- “read its quarter turn as twice the one eighth of the ball on the walker's left”: Spoken move: 'twice the one eighth of the ball' is clumsy and 'read' is ambiguous next to the demo's readout.
+- “General relativity, the theory of gravity Einstein found,”: 'Found' suggests the theory was lying somewhere to be discovered, and a listener may stumble on it.
+- Fix: Applied all five rewrites. No claim changed: the fraction rule, the whole-turns discount, 10,000 of 510 million square kilometres (1 part in 51,000), 720 divided by 51,000 = 0.01412 degrees = about 1/70.8 degree (checked in python3), and the sense toward the walker's left are as before.
+- Fix: insider-question move ('from outside') and the ball-on-your-left takeaway ('toward your left') read cleanly; no change.
+- Fix: Budget: entry-way explanations rise by about 30 words, inside the 10% review allowance, used only for the recorded fixes; nothing dropped.
+- Fix: Bumped the revision to 7.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 5)
+**Verdict:** fixed (2026-09-13, revision 7)
 
 **Verification**
 
@@ -854,3 +866,12 @@ In the course convention a charged quantum field carried around a loop is multip
 - Working way turn-equals-enclosed-curving: continues and first sentence now point to the-ball-on-your-left.: Checked that the named way contains the North Pole loop, the one eighth fraction and the twice-the-fraction rule the sentence cites; pi/2 = 2 pi / 4. → Accurate and continuous.
 - Fix: the-ball-on-your-left explanation: 'The turn, in full turns, is twice that fraction, and whole turns bring the arrow back matching its start.' became two sentences, 'The turn toward your left, in full turns, is twice that fraction. Whole turns bring the arrow back matching its start.', so the rule states its sense and gives a quarter turn right for the reversed loop; split in two to keep the average sentence length at 20 words or fewer, with no wording dropped.
 - Fix: the-ball-on-your-left takeaway: added 'toward your left' for the same reason. Nothing was dropped; entry explanations rise by four words and other way fields by three, both under their caps.
+
+**Diff check** (2026-09-13, revision 7)
+
+- teaching_arc[insider-question].move: 'or look at it from outside' replaces 'or look at it from above'.: Compared with the old sentence and with the walk-a-loop-on-a-ball explanation, which says 'look at the ball from outside'. → Accurate. It makes the same claim, and it removes 'above', which has no meaning on a ball.
+- teaching_arc[walk-with-controls].move: explain the North Pole walk's quarter turn as twice one eighth, the fraction of the ball on the walker's left.: Set up the walk: head away from the pole along meridian 0, turn left onto the equator heading east, then turn left onto meridian 90 degrees. The piece on the walker's left is the northern octant between longitudes 0 and 90 degrees, one eighth of the sphere. Local Gauss-Bonnet with K = 1/a^2 gives a turn of A/a^2 = 4 pi (1/8) = pi/2, which is 2 x 1/8 = 1/4 turn toward the walker's left. python3: 2/8 = 0.25. → Accurate, and it agrees with ways_in/the-ball-on-your-left, which the move now lists in uses. The sense (toward the left) is stated in that linked way.
+- tutor_moves.common_questions[why-it-matters-for-gravity].answer, new first sentence: 'General relativity, the theory of gravity Einstein worked out, describes gravity as the curving of space and time.': Checked the scope and the rubber-sheet trap. The sentence says what the theory describes, not that gravity is only the bending of space. It names space and time together. The answer's later split (two thirds from the curving of space, one third from the motion through Earth's gravity) matches ways_in/a-gyroscope-measures-it. Rechecked the answer's unchanged number: 6.6 arcseconds per year / (360 x 3600) = 5.09 millionths of a turn. → Accurate at the entry rung. Einstein's formulation of general relativity (1915) is the standard attribution. 'Space and time' is the entry wording for spacetime.
+- ways_in[the-ball-on-your-left].explanation: 'Twice a fraction bigger than one half is more than a full turn. Whole turns bring the arrow back matching its start, so only the part left over shows.': Checked arithmetic and branch. If f > 1/2 then 2f > 1 turn. A rotation is defined modulo 2 pi, so whole turns act as the identity. What-ifs: equator f = 1/2 gives exactly 1 turn, which matches (consistent with problems/equator-walk). Reversed octant f = 7/8 gives 1.75 turns left, and the part left over is 0.75 turn left, the same rotation as 0.25 turn right, matching the conventions row (7 pi/2 = -pi/2). → Accurate. The sentence explains the wrap without claiming a particular branch, and every branch it allows is the same rotation.
+- ways_in[the-ball-on-your-left].explanation: Earth's surface is about 510 million square kilometres. A loop whose left piece covers 10,000 square kilometres (about Lebanon) is one part in 51,000 of it, so the arrow turns by two parts in 51,000 of a full turn, 720 degrees divided by 51,000, about one seventieth of a degree.: python3: 510e6 / 1e4 = 51,000. 2/51,000 x 360 = 720/51,000 = 0.014118 degrees = 1/70.83 degree. With Earth's area 510.07 million square kilometres: 0.014116 degrees = 1/70.84 degree. Lebanon is about 10,450 square kilometres. The piece is far less than half the ball, so no wrap applies, and the sense is toward the left, as the rule sentence of this way states. Earth treated as a smooth round ball, within the way's stated scope; oblateness changes the result by well under 1 percent. The unchanged hair comparison: 2.46e-4 rad x 300 mm = 0.074 mm, within the typical width of a human hair. → Accurate. Every step is a count the reader can check, and it matches the old one-seventieth claim.
+- Visual carry-an-arrow-around-a-loop, tour holonomy-first-walk, beat half-the-patch say (changed in the same editor pass): 'Now the piece of the ball on my left is half as big as before. So the turn is half as big, an eighth of a turn instead of a quarter.': Preset octant-half-area has area-fraction 0.5 of the octant triangle, so the ball fraction is 1/16, the turn is 2/16 = 1/8 turn = 45 degrees (python3), and the beat's show and describe lines give 45 degrees to the left. → Accurate and consistent with the preset readout.
