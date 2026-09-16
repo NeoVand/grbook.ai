@@ -192,6 +192,7 @@ ${b.items.map((x, i) => `${i + 1}. ${x}`).join('\n')}
 Return the summary object with verdict "fixed" when you edited and "accurate" otherwise, and edited per note.`
 
 const checkScope = (b) => {
+  if (b.reread_from) return `python3 ${T}/note_diff.py ${b.reread_from} ${note(b)}, which lists every change no reviewer has read yet.`
   if (MODE !== 'conform') return `python3 ${T}/note_diff.py ${SNAP}/<ID>.before-physics.json ${note(b)} --rungs entry,working, which lists what the physics review changed after the novice review.`
   if (b.reread_scope === 'changes') return `python3 ${T}/note_diff.py ${b.reread_from ? b.reread_from : `--git ${BASE}`} ${note(b)}, which lists every change no reviewer has read yet.`
   return `the whole entry rung, read sentence by sentence as the novice review does (its entry text was changed by a physics review without a novice re-read), plus python3 ${T}/note_diff.py --git ${BASE} ${note(b)} for changes at other rungs.`
@@ -225,7 +226,11 @@ async function runBatch(b) {
     const deps = (b.after || []).filter((id) => noviceDone[id] && !b.ids.includes(id))
     if (deps.length) await Promise.all(deps.map((id) => noviceDone[id]))
     let prior = null
-    if (MODE === 'write') {
+    // batch.start: "write" (default in write mode), "novice" (the note exists), "physics" (already novice-reviewed),
+    // or "postcheck" (both reviews done; only text changed after them needs the other lens).
+    const start = b.start || (MODE === 'write' ? 'write' : 'novice')
+    if (start !== 'write') b.ids.forEach((id) => release[id]())
+    if (MODE === 'write' && start === 'write') {
       out.write = await slot(1, () => agent(writePrompt(b), { label: `write:${tag}`, phase: 'Write', schema: WRITE_SCHEMA }))
       if (!out.write) return ((out.stopped = 'write'), out)
       prior = out.write
@@ -236,9 +241,8 @@ async function runBatch(b) {
       prior = out.conform
     }
     let checkIds = b.ids
-    if (MODE !== 'conform') {
-      // batch.start = "physics" skips the novice review for a note that is already novice-reviewed.
-      if (b.start !== 'physics') {
+    if (MODE !== 'conform' && start !== 'postcheck') {
+      if (start !== 'physics') {
         out.novice = await slot(2, () => agent(novicePrompt(b, prior), { label: `novice:${tag}`, phase: 'Novice review', schema: REVIEW_SCHEMA, effort: 'high' }))
         b.ids.forEach((id) => release[id]())
         if (!out.novice) return ((out.stopped = 'novice'), out)
