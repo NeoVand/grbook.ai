@@ -1,14 +1,12 @@
 export const meta = {
   name: 'gr-concept-notes-v2',
-  description: 'Write concept notes on the depth ladder, then a novice review, an adversarial physics review, and re-checks of any text changed afterwards (max 5 agents in flight)',
+  description: 'Write concept notes on the depth ladder, then a novice review, an adversarial physics review, and one post-review check of any text changed afterwards (max 5 agents in flight)',
   phases: [
     { title: 'Conform', detail: 'bring an existing note up to the current standard, or apply editor items (mode conform)' },
     { title: 'Write', detail: 'one agent per batch writes schema v2 notes from the evidence' },
     { title: 'Novice review', detail: 'a beginner-reader reviewer records a retelling and stumbles, then fixes the entry rung and the ladder' },
     { title: 'Physics review', detail: 'an adversarial physicist re-derives, recomputes, tries counterexamples, verifies references, and fixes' },
-    { title: 'Re-read', detail: 'the novice reader reads text changed after the novice review' },
-    { title: 'Diff check', detail: 'the physicist checks text changed after the physics review' },
-    { title: 'Sign-off', detail: 'the novice reader reads the diff check changes without editing' },
+    { title: 'Post-review check', detail: 'one agent reads the text changed after the reviews with the novice lens, then the physics lens, and signs' },
   ],
 }
 
@@ -17,9 +15,10 @@ const KB = `${ROOT}/knowledge`
 const T = `${KB}/_tools`
 const batches = (args && args.batches) || []
 const DATE = (args && args.date) || 'unknown-date'
-// mode "write" (default): write, novice, physics, then re-checks. "review_only": the note exists; skip the writer.
-// "conform": bring reviewed notes up to a changed standard or apply editor items. Batch fields: conform (run the editor),
-// items (editor tasks), reread_scope ("full" entry rung, the default, or "changes"), reread_from (snapshot to diff from).
+// mode "write" (default): write, novice, physics, then a post-review check when the physics review changed
+// entry or working text. "review_only": the note exists; skip the writer. "conform": bring reviewed notes up to a
+// changed standard or apply editor items. Batch fields: conform (run the editor), items (editor tasks),
+// reread_scope ("full" entry rung, the default, or "changes"), reread_from (snapshot to diff from).
 const MODE = (args && args.mode) || (args && args.review_only ? 'review_only' : 'write')
 const SNAP = args && args.snap_dir
 const BASE = (args && args.base_rev) || 'HEAD'
@@ -45,30 +44,34 @@ async function slot(priority, fn) {
   }
 }
 
+// Every agent's context is expensive: each tool result stays in context for every later call. The rules below
+// keep contexts small. Measured on the curvature run, writers cost more than the three review stages together.
 const CONTEXT = `CONTEXT: grbook.ai is a general relativity book and interactive learning experience with a live voice AI tutor, narration, and 2D/3D demos, for learners from zero to research level. Its knowledge vault (${KB}) holds one concept note per registry concept plus a network of visuals. The tutor teaches from these notes live, and authors write the book from them, so every sentence must be understandable at its rung and every statement must be correct. Today's date: ${DATE}.
 
-BINDING DOCUMENTS (read them completely before starting; re-read the relevant section whenever a validator warning surprises you):
-- Writing guide: ${KB}/_meta/writing-guide.md. It covers: books as teachers only; who sees each field; the depth ladder; the novice contract; the accuracy contract; text formats; ids and addresses; field rules and the lifecycle; length budgets; visuals; reviews.
-- Schema: ${KB}/_schemas/concept-note.schema.json
+BINDING DOCUMENTS. Read these four completely, once, before starting:
+- Standard card: ${KB}/_meta/standard-card.md (the condensed writing guide; binding).
 - Course conventions: ${KB}/notation/course-conventions.md. If a note needs a choice this file does not make, report it in your summary instead of inventing one.
-- Exemplar note: ${KB}/concepts/curvature/holonomy.json. It sets the bar, especially its entry ways, checks, and the ids linking objectives, checks, and misconceptions.
-- Exemplar visual: ${KB}/visuals/carry-an-arrow-around-a-loop.json
+- Exemplar excerpt: ${KB}/_meta/exemplar-excerpt.json (every field of the holonomy exemplar, one to three items per list; it shows the shape and the bar). Do not read the full exemplar.
+- Schema: ${KB}/_schemas/concept-note.schema.json.
+Open the full guide ${KB}/_meta/writing-guide.md only at the section a validator warning names or when a card rule is unclear, and read only that section (grep for the heading, then sed -n a line range).
 
-BUDGETS (guide section 9): caps are ceilings, not targets. A draft stays within 80% of every cap. A review may take a part up to 10% past its cap, only for the stumble and accuracy fixes it records. Never compress sentences to fit; beyond that, drop or shorten the lowest-value item and say which in your fixes.
+KEEP YOUR CONTEXT SMALL (this matters as much as the work):
+- Never read another concept note in full. Use python3 ${T}/note_digest.py <id> [...] for prerequisites and neighbours (a few hundred words each).
+- Never read a source chapter or dossier in full. To check one equation or argument, grep ${ROOT}/book-sources/_chapters/<book>/<unit>.md for it and read at most 40 lines around the hit.
+- Read your own note once. Fix it with targeted Edit calls, never by rewriting the whole file, and never through a builder script.
+- Run the validator with its output piped through head -60. Render once, at the end, and do not read the rendered file.
+- Do not re-read files you have already read.
 
 TOOLS:
 - Registry entry: python3 -c "import json,glob; [print(json.dumps(c, indent=1)) for f in glob.glob('${KB}/concepts/*/_registry.json') for c in json.load(open(f))['concepts'] if c['id']=='<ID>']"
-- Study evidence: python3 ${T}/concept_evidence.py --id <ID>. These are internal notes on how three textbooks and the author's earlier course teach the idea, with book locators. Learn from them; never mention or copy them.
-- More detail when needed:
-  - dossiers: ${KB}/sources/<book>/chapters/<unit>.json
-  - source reading copies, for checking an equation or argument: ${ROOT}/book-sources/_chapters/<book>/<unit>.md
-  - legacy assets: ${KB}/sources/legacy/*.json
-- Notes already written: ${KB}/concepts/<domain>/<id>.json. Read the prerequisites' notes when they exist, so glossaries, pictures, and ladders connect.
+- Study evidence: python3 ${T}/concept_evidence.py --id <ID>. Internal notes on how three textbooks and the author's earlier course teach the idea, with book locators. Learn from them; never mention or copy them.
+- Legacy assets when the evidence names one: ${KB}/sources/legacy/<id>.json
+- Note digests: python3 ${T}/note_digest.py <id> [...]
 - Visuals: python3 ${T}/visual_ids.py [--grep <word>] lists catalog ids with their presets and proposed ids. Reuse an id before inventing one. Use a preset only if the catalog entry declares it.
-- Numbers: python3 (sympy is not installed; use plain python or careful hand algebra).
-- Changed text: python3 ${T}/note_diff.py <before.json> <after.json> [--rungs entry,working], or python3 ${T}/note_diff.py --git <rev> <note.json>. It prints the learner-visible sentences that differ, tagged by rung.
-- Snapshots: ${SNAP} (run mkdir -p first). Copy a note there before your stage edits it when your task says so.
-- Validate: python3 ${T}/validate.py concept ${KB}/concepts/<domain>/<ID>.json. Fix every error and warning unless your task names a warning as expected; "note:" lines are information.
+- Numbers: python3 (no numpy or sympy; plain python or careful hand algebra).
+- Changed text: python3 ${T}/note_diff.py <before.json> <after.json> [--rungs entry,working], or --git <rev> <note.json>. It prints the learner-visible sentences that differ, tagged by rung.
+- Snapshots: ${SNAP} (run mkdir -p first).
+- Validate: python3 ${T}/validate.py concept ${KB}/concepts/<domain>/<ID>.json | head -60. Fix every error and warning unless your task names a warning as expected; "note:" lines are information.
 - Render: python3 ${T}/render_concept.py ${KB}/concepts/<domain>/<ID>.json`
 
 const WRITE_SCHEMA = {
@@ -113,10 +116,10 @@ const writePrompt = (b) => `${CONTEXT}
 
 TASK: Write schema v2 concept notes for domain "${b.domain}", in this order (learning order): ${b.ids.join(', ')}.
 For each id:
-1. Print the registry entry and run concept_evidence.py; read all of the evidence. Read the notes of the concept's prerequisites if they exist. If a file already exists at ${note(b)} without "schema_version": 2, treat it as an older book-centred draft: mine it for content, but rebuild the note completely.
+1. Print the registry entry and run concept_evidence.py; read the evidence. Run note_digest.py on the prerequisites and on leads_to and related ids that have notes, so pictures, terms and ladders connect. If a file already exists at ${note(b)} without "schema_version": 2, it is an older book-centred draft: skim it once for content, then rebuild the note completely.
 2. Plan before writing. Answer each of these:
    - What concrete situation opens the entry rung?
-   - Which distinct ways in exist, of at least two kinds, each answering its own question? Each entry way carries one idea (novice contract rule 17).
+   - Which distinct ways in exist, of at least two kinds, each answering its own question? Each entry way carries one idea (card rule 17).
    - What can a learner do at each rung (the objectives)?
    - Which checks and problems prove it?
    - Which misconceptions do learners really have, and which check exposes each one?
@@ -124,22 +127,16 @@ For each id:
    - Which visuals serve it? Search visual_ids.py first.
    - What does the formal rung need for a graduate student: precise definitions, hypotheses, results with proof sketches, limits of validity? Tiers that require a formal rung need at least two formal checks and one formal problem.
    - Which research connections are real, and for which are you certain of the references?
-3. Write ${note(b)} following the guide exactly:
-   - the novice contract on every entry-rung field (section 2 of the guide lists them);
-   - the accuracy contract everywhere;
-   - text formats per field;
-   - permanent ids, linked by id;
-   - length budgets: a draft stays within 80% of every cap, which the validator checks. Write what each rung needs and stop.
-   Set status "draft", revision 1, and updated "${DATE}". Every reference gets "verified": false.
-4. Derive every equation in course conventions. Compute every number with python3. Work every check, example, and problem to its final answer. Try the first what-ifs (guide section 4, rule 13) and the counterexamples (section 5, rule 10) against every general sentence.
-5. Validate and fix until OK. Render.
+3. Derive every equation in course conventions and compute every number with python3 before writing. Work every check, example and problem to its final answer. Try the first what-ifs (card section 4, rule 13) and the counterexamples (section 5) against every general sentence.
+4. Write ${note(b)} in one Write call, following the card exactly: the novice contract on every entry-rung field; the accuracy contract everywhere; text formats per field; permanent ids linked by id; a draft stays within 80% of every cap (the validator checks). Set status "draft", revision 1, updated "${DATE}". Every reference gets "verified": false.
+5. Validate; fix with targeted Edit calls until OK. Render once.
 Return the summary object.`
 
 const novicePrompt = (b, w) => `${CONTEXT}
 
-TASK: You are the NOVICE-READER REVIEWER (writing guide section 11, review 1) for domain "${b.domain}": ${b.ids.join(', ')}. The previous stage reported: ${JSON.stringify(w || {})}
+TASK: You are the NOVICE-READER REVIEWER (card section 11, review 1) for domain "${b.domain}": ${b.ids.join(', ')}. The previous stage reported: ${JSON.stringify(w || {})}
 For each note ${note(b)}:
-1. Adopt the persona strictly. You are a curious 16-year-old with school algebra and geometry, no calculus, and no physics beyond everyday experience. You know only the entry rungs of this concept's prerequisites; read those notes' entry ways if they exist.
+1. Adopt the persona strictly. You are a curious 16-year-old with school algebra and geometry, no calculus, and no physics beyond everyday experience. You know only the entry rungs of this concept's prerequisites: run note_digest.py on them and use the digests' takeaways and glossary as what you know.
 2. Read only what an entry reader meets, sentence by sentence: the summary and tagline, then every field of each entry way, the glossary, entry objectives, entry checks, entry misconceptions, entry analogies, entry problems, entry observations, opening questions, and entry common questions.
 3. BEFORE changing anything, write retell_attempt: what this reader would say back after one reading. Compare it with each entry way's takeaway.
 4. Record every stumble as {quote, problem, rewrite}. Stumbles include:
@@ -156,34 +153,25 @@ For each note ${note(b)}:
    - a missing everyday number;
    - a way that asks you to hold two new ideas at once (rule 17): give the second idea its own entry way, or move it to the working rung;
    - wording squeezed to fit a budget.
-5. Rewrite the JSON until the novice contract holds. Keep the physics exactly right. If a simpler wording might become false, keep the precise statement and add a sentence that explains it. Never compress other sentences to make room.
-6. Read as a stronger student climbing the ladder.
-   - Each non-entry way's first sentence refers back to the way it continues.
-   - No idea, symbol, or notation is used before its rung allows it; index notation at working requires the index-notation prerequisite.
-   - Add bridges wherever there is a jump.
-   Check that the ways in are genuinely different routes.
-7. If you changed learner-visible text, bump revision by exactly 1. Set status "novice-reviewed". Add review.novice with verdict, date "${DATE}", reviewed_revision (the note's revision), retell_attempt, stumbles, fixes, and concerns. Do not touch review.physics. Validate until OK, then render.
+5. Rewrite until the novice contract holds, with targeted Edit calls. Keep the physics exactly right. If a simpler wording might become false, keep the precise statement and add a sentence that explains it. Never compress other sentences to make room; use the 10% review allowance, then drop the lowest-value item and say which.
+6. Read as a stronger student climbing the ladder: each non-entry way's first sentence refers back to the way it continues; no idea, symbol or notation is used before its rung allows it (index notation at working requires the index-notation prerequisite); add bridges where there is a jump; the ways are genuinely different routes.
+7. If you changed learner-visible text, bump revision by exactly 1. Set status "novice-reviewed". Add review.novice with verdict, date "${DATE}", reviewed_revision (the note's revision), retell_attempt, stumbles, fixes, and concerns. Do not touch review.physics. Validate until OK, then render once.
 Return the summary object, with stumbles counted per note.`
 
 const physicsPrompt = (b, n) => `${CONTEXT}
 
-TASK: You are the ADVERSARIAL PHYSICS REVIEWER (writing guide section 11, review 2): a meticulous GR physicist and differential geometer acting as a referee. Domain "${b.domain}": ${b.ids.join(', ')}. The novice reviewer reported: ${JSON.stringify(n || {})}
+TASK: You are the ADVERSARIAL PHYSICS REVIEWER (card section 11, review 2): a meticulous GR physicist and differential geometer acting as a referee. Domain "${b.domain}": ${b.ids.join(', ')}. The novice reviewer reported: ${JSON.stringify(n || {})}
 For each note ${note(b)}:
 0. Before editing, run mkdir -p ${SNAP} and copy the note to ${SNAP}/<ID>.before-physics.json.
 1. Validate it.
 2. Re-derive every key equation and every derivation step in course conventions. Check signs (signature, Riemann, Ricci, Einstein equation, gauge coupling), index placement, factors of 2 and pi, and the G, c, and hbar factors in SI results.
-3. Recompute every number with python3. Work every check, worked example, and problem to its final answer, and check each numeric field and tolerance.
+3. Recompute every number with python3, in one or two scripts rather than many small runs. Work every check, worked example, and problem to its final answer, and check each numeric field and tolerance.
 4. Check the conditions of every universal sentence at every rung, including the friendly entry sentences and the novice reviewer's rewrites. Check the sense and branch of every angle, phase, or rotation. Check every "equals" and "differs by" claim, and every analogy that relates quantities, with signs, numerically where possible. A false simplification becomes an equally simple true sentence, never a jargon-heavy one.
-5. Try the standard counterexamples of the domain against each general statement (guide section 5, rule 10), and record them.
-6. Verify every reference (authors, year, title, venue, doi or arxiv) with WebSearch or another reliable record. Set "verified": true only when confirmed. Correct details you can confirm. Remove references you cannot confirm. Check history claims for scope: what exactly was first, and in what setting.
-7. Check structure:
-   - Prerequisites are direct and acyclic, and assumes and justified_by are consistent.
-   - The formal rung is graduate level, with at least two formal checks and one formal problem where the tier requires a formal rung; the research rung and horizon are accurate and current.
-   - Observations are real, with correct numbers.
-   - Visual ids and presets exist or are proposed with sketches.
-   - Nothing mentions or copies the source books.
+5. Try the standard counterexamples of the domain against each general statement (card section 5), and record them.
+6. Verify every reference with one WebSearch each (authors, year, title, venue, doi or arxiv); do not fetch pages. Set "verified": true only when confirmed. Correct details you can confirm. Remove references you cannot confirm. Check history claims for scope: what exactly was first, and in what setting.
+7. Check structure: prerequisites are direct and acyclic, and assumes and justified_by are consistent; the formal rung is graduate level, with at least two formal checks and one formal problem where the tier requires a formal rung; the research rung and horizon are accurate and current; observations are real, with correct numbers; visual ids and presets exist or are proposed with sketches; nothing mentions or copies the source books.
 8. Set status "physics-reviewed" (only with a verdict of accurate or fixed). Add review.physics with verdict, date "${DATE}", verification (claim, method, result for each equation, number, analogy relation, and reference checked), counterexamples, fixes, and concerns.
-9. Run python3 ${T}/note_diff.py ${SNAP}/<ID>.before-physics.json ${note(b)} --rungs entry,working. If it lists any change, bump revision by exactly 1. Set review.physics.reviewed_revision to the note's revision. A novice re-read of exactly those changes follows, so the one warning that review.novice covers an older revision is expected; fix every other warning. Render.
+9. Run python3 ${T}/note_diff.py ${SNAP}/<ID>.before-physics.json ${note(b)} --rungs entry,working. If it lists any change, bump revision by exactly 1. Set review.physics.reviewed_revision to the note's revision. A post-review check of exactly those changes follows, so the one warning that review.novice covers an older revision is expected; fix every other warning. Render once.
 Return the summary object, with errors_fixed per note and learner_changes = the number of changed strings note_diff.py listed (0 if none).`
 
 const conformPrompt = (b) => `${CONTEXT}
@@ -195,66 +183,34 @@ ${
 ${b.items.map((x, i) => `${i + 1}. ${x}`).join('\n')}
 `
     : ''
-}The current standard: tiers that require a formal rung need at least two formal checks and one formal problem; formal way minimums are foundation 300 and core, advanced and frontier 400 words; novice contract rule 17 gives each entry way one idea; a review may take a part up to 10% past its cap only for fixes it records.
-For each note ${note(b)}:
+}For each note ${note(b)}:
 0. Run mkdir -p ${SNAP} and copy the note to ${SNAP}/<ID>.before-conform.json.
-1. Validate it and read the guide sections that its warnings name.
-2. Fix every warning except warnings about review revisions. Add real graduate-level substance, never padding: a precise definition, hypotheses, a result with a proof sketch, limits of validity, or a standard computation. New checks and problems evidence an objective at their own rung (add a formal objective when needed), follow the check and problem rules, give numeric answers where they apply, and target real misconceptions. Derive every equation in course conventions and compute every number with python3.
-3. Apply the editor items, if any. Keep every entry sentence simple and true: an accurate simple sentence, never a jargon-heavy one, with any number computed in python3. Apart from the items and warnings, do not edit entry-rung text. If an item touches a visual in ${KB}/visuals/, edit only the named lines, bump that visual's revision, validate and render it.
-4. Record every change in major_issues. If you changed learner-visible text, bump revision by exactly 1. Keep the status. Do not edit review. The warnings that review.novice and review.physics cover an older revision are expected, because a re-read and a physics diff check follow. Render.
+1. Validate it and read the card (or guide) section its warnings name.
+2. Fix every warning except warnings about review revisions. Add real graduate-level substance, never padding. New checks and problems evidence an objective at their own rung, follow the check and problem rules, give numeric answers where they apply, and target real misconceptions. Derive every equation in course conventions and compute every number with python3.
+3. Apply the editor items, if any. Keep every entry sentence simple and true. Apart from the items and warnings, do not edit entry-rung text. If an item touches a visual in ${KB}/visuals/, edit only the named lines, bump that visual's revision, validate and render it.
+4. Record every change in major_issues. If you changed learner-visible text, bump revision by exactly 1. Keep the status. Do not edit review. The warnings that review.novice and review.physics cover an older revision are expected, because a post-review check follows. Render once.
 Return the summary object with verdict "fixed" when you edited and "accurate" otherwise, and edited per note.`
 
-const rereadScope = (b) => {
-  if (MODE !== 'conform')
-    return `   - Run python3 ${T}/note_diff.py ${SNAP}/<ID>.before-physics.json ${note(b)} --rungs entry,working. Read each changed sentence inside its paragraph and field. Read nothing else closely.`
-  if (b.reread_scope === 'changes')
-    return `   - Run python3 ${T}/note_diff.py ${b.reread_from ? b.reread_from : `--git ${BASE}`} ${note(b)} --rungs entry,working. It lists every change a novice reader has not yet read. Read each changed sentence inside its paragraph and field. Read nothing else closely.`
-  return `   - This note's entry text was edited by its physics review without a novice re-read. Read the whole entry rung again, sentence by sentence, exactly as the novice review does (guide section 11): summary and tagline, every field of each entry way, glossary, entry objectives, checks, misconceptions, analogies, problems and observations, opening questions and entry common questions.
-   - Then run python3 ${T}/note_diff.py --git ${BASE} ${note(b)} and read every change the conform stage made at entry and working rung.`
+const checkScope = (b) => {
+  if (MODE !== 'conform') return `python3 ${T}/note_diff.py ${SNAP}/<ID>.before-physics.json ${note(b)} --rungs entry,working, which lists what the physics review changed after the novice review.`
+  if (b.reread_scope === 'changes') return `python3 ${T}/note_diff.py ${b.reread_from ? b.reread_from : `--git ${BASE}`} ${note(b)}, which lists every change no reviewer has read yet.`
+  return `the whole entry rung, read sentence by sentence as the novice review does (its entry text was changed by a physics review without a novice re-read), plus python3 ${T}/note_diff.py --git ${BASE} ${note(b)} for changes at other rungs.`
 }
 
-const rereadPrompt = (b, ids, prior) => `${CONTEXT}
+const postcheckPrompt = (b, ids, prior) => `${CONTEXT}
 
-TASK: You are the NOVICE-READER REVIEWER doing a RE-READ (writing guide section 8, lifecycle step 5) for domain "${b.domain}": ${ids.join(', ')}. The previous stage reported: ${JSON.stringify(prior || {})}
+TASK: You are the POST-REVIEW CHECKER (card section 8, lifecycle) for domain "${b.domain}": ${ids.join(', ')}. Text changed after a review must get the other lens. You apply both lenses in turn to exactly the changed text. The previous stage reported: ${JSON.stringify(prior || {})}
 For each note ${note(b)}:
-1. Run mkdir -p ${SNAP} and copy the note to ${SNAP}/<ID>.before-reread.json before editing.
-2. Adopt the novice persona strictly: ${PERSONA}
-3. Scope:
-${rereadScope(b)}
-4. Record every stumble as {quote, problem, rewrite}, using the novice review's stumble list, including a way that asks the reader to hold two new ideas at once (rule 17) and wording squeezed to fit a budget.
-5. Fix wording only. Never change what a sentence claims: its numbers, conditions, scope, signs, or sense. ${
+1. Run mkdir -p ${SNAP} and copy the note to ${SNAP}/<ID>.before-postcheck.json.
+2. Scope: ${checkScope(b)} Read each changed sentence inside its paragraph and field. Read nothing else closely.
+3. NOVICE PASS. Adopt the persona strictly: ${PERSONA} Record every stumble as {quote, problem, rewrite} (the novice review's list, including rule 17 and wording squeezed to fit a budget). Fix wording only, with targeted Edit calls; never change what a sentence claims. ${
   MODE === 'conform' && b.reread_scope !== 'changes'
-    ? 'You may split an overloaded entry way into two entry ways, or move its second idea into a working way, as long as every sentence keeps its claim and the ids, questions, takeaways and continues links stay valid. '
+    ? 'You may split an overloaded entry way into two, or move its second idea into a working way, as long as every sentence keeps its claim and the ids, questions, takeaways and continues links stay valid. '
     : ''
-}If clarity needs a different claim, leave the sentence and describe the proposal in major_issues. You may use the 10% review allowance for fixes you record; beyond it, drop or shorten the lowest-value item and say which.
-6. Append {date "${DATE}", revision, read (the note_diff paths or field paths you read), stumbles, fixes} to review.novice.rereads. If you changed learner-visible text, bump revision by exactly 1 first. Set that entry's revision and review.novice.reviewed_revision to the note's revision. Keep the status. If you edited, the warning that review.physics covers an older revision is expected, because a physics diff check follows; fix every other warning. Render.
-Return the summary object with, per note, verdict ("fixed" if you edited, else "accurate"), stumbles, and edited.`
-
-const diffcheckPrompt = (b, ids, prior) => `${CONTEXT}
-
-TASK: You are the ADVERSARIAL PHYSICS REVIEWER doing a DIFF CHECK (writing guide section 8, lifecycle step 5) for domain "${b.domain}": ${ids.join(', ')}. The previous stages reported: ${JSON.stringify(prior || {})}
-For each note ${note(b)}:
-0. Run mkdir -p ${SNAP} and copy the note to ${SNAP}/<ID>.before-diffcheck.json before editing.
-1. List the changes: ${
-  MODE === 'conform'
-    ? `python3 ${T}/note_diff.py --git ${BASE} ${note(b)}. This covers the editor's changes and the re-read's rewording.`
-    : `python3 ${T}/note_diff.py ${SNAP}/<ID>.before-reread.json ${note(b)}.`
-}
-2. Check every changed or added sentence in context, as the physics review does: true within its stated scope at its rung; conditions on universal sentences; sense and branch; frames, observers and measurers; consistent with the rest of the note and with course conventions. Try the first what-ifs and the domain's standard counterexamples on every changed general sentence. A reworded sentence must claim exactly what the old one did, or something equally true.
-3. For every new or changed equation, derivation, check, problem, worked example or observation: re-derive it in course conventions, recompute with python3, work it to its final answer, and check numeric fields and tolerances. Verify any new reference with WebSearch before setting verified true.
-4. Fix errors with the simplest true wording. Never compress other sentences to make room.
-5. If you changed learner-visible text, bump revision by exactly 1 and list in major_issues exactly which sentences you changed, because a novice sign-off follows. Append {date "${DATE}", revision, verification (claim, method, result for each item checked), fixes} to review.physics.diff_checks. Set review.physics.reviewed_revision to the note's revision. Validate until OK (apart from the novice-revision warning if you edited), then render.
-Return the summary object with, per note, verdict, errors_fixed, and edited.`
-
-const signoffPrompt = (b, ids, prior) => `${CONTEXT}
-
-TASK: You are the NOVICE-READER REVIEWER giving a SIGN-OFF (writing guide section 8, lifecycle step 5) for domain "${b.domain}": ${ids.join(', ')}. The physics diff check changed a few sentences after the last re-read. It reported: ${JSON.stringify(prior || {})}
-For each note ${note(b)}:
-1. Run python3 ${T}/note_diff.py ${SNAP}/<ID>.before-diffcheck.json ${note(b)}. Read each changed sentence inside its paragraph and field as ${PERSONA} For formal or research text, check only that the wording is unambiguous.
-2. Do not edit any learner-visible text. Your only edit is the review record.
-3. If every changed sentence reads clearly, append {date "${DATE}", revision (the note's revision), read, stumbles: [], fixes: []} to review.novice.rereads and set review.novice.reviewed_revision to the note's revision. Validate (it should report OK) and render. Verdict "accurate".
-4. Otherwise append the same entry with the stumbles and their proposed rewrites, leave review.novice.reviewed_revision unchanged, render, and put each stumble with its rewrite in major_issues for an editor. Verdict "needs-attention".
-Return the summary object with, per note, verdict, stumbles, and edited false.`
+}If clarity needs a different claim, leave the sentence and put the proposal in major_issues. Use the 10% review allowance; beyond it, drop the lowest-value item and say which.
+4. PHYSICS PASS. Now as the adversarial physicist, check every changed or added sentence, including your own rewrites: true within its stated scope at its rung; conditions on universal sentences; sense and branch; frames and measurers; consistent with the note and with course conventions. Try the first what-ifs and the domain's counterexamples on every changed general sentence. Re-derive and recompute (python3) any new or changed equation, number, check, problem, example or observation; verify any new reference with one WebSearch. Fix errors with the simplest true wording. Then read your physics fixes once more as the novice; if one still stumbles, fix its wording and check the claim again.
+5. Record: if you changed learner-visible text, bump revision by exactly 1. Append {date "${DATE}", revision, read (the paths you read), stumbles, fixes} to review.novice.rereads and {date "${DATE}", revision, verification (claim, method, result per item checked), fixes} to review.physics.diff_checks. Set review.novice.reviewed_revision and review.physics.reviewed_revision to the note's revision. Keep the status. Validate until OK, then render once.
+Return the summary object with, per note, verdict ("fixed" if you edited, else "accurate"), stumbles, errors_fixed, and edited.`
 
 // Each concept's novice review releases the batches that list it in "after", so pictures and terms connect.
 const noviceDone = {}
@@ -279,7 +235,7 @@ async function runBatch(b) {
       if (!out.conform) return ((out.stopped = 'conform'), out)
       prior = out.conform
     }
-    let rereadIds = b.ids
+    let checkIds = b.ids
     if (MODE !== 'conform') {
       out.novice = await slot(2, () => agent(novicePrompt(b, prior), { label: `novice:${tag}`, phase: 'Novice review', schema: REVIEW_SCHEMA, effort: 'high' }))
       b.ids.forEach((id) => release[id]())
@@ -287,24 +243,11 @@ async function runBatch(b) {
       out.physics = await slot(3, () => agent(physicsPrompt(b, out.novice), { label: `physics:${tag}`, phase: 'Physics review', schema: REVIEW_SCHEMA, effort: 'high' }))
       if (!out.physics) return ((out.stopped = 'physics'), out)
       prior = out.physics
-      rereadIds = items(out.physics).filter((x) => (x.learner_changes || 0) > 0).map((x) => x.id)
+      checkIds = items(out.physics).filter((x) => (x.learner_changes || 0) > 0).map((x) => x.id)
     }
-    if (rereadIds.length) {
-      out.reread = await slot(4, () => agent(rereadPrompt(b, rereadIds, prior), { label: `reread:${tag}`, phase: 'Re-read', schema: REVIEW_SCHEMA, effort: 'high' }))
-      if (!out.reread) return ((out.stopped = 're-read'), out)
-    }
-    const checkIds = new Set(items(out.reread).filter((x) => x.edited).map((x) => x.id))
-    if (MODE === 'conform' && out.conform) items(out.conform).filter((x) => x.edited).forEach((x) => checkIds.add(x.id))
-    if (checkIds.size) {
-      out.diffcheck = await slot(5, () =>
-        agent(diffcheckPrompt(b, [...checkIds], { conform: out.conform || null, reread: out.reread || null }), { label: `diffcheck:${tag}`, phase: 'Diff check', schema: REVIEW_SCHEMA, effort: 'high' }),
-      )
-      if (!out.diffcheck) return ((out.stopped = 'diff check'), out)
-    }
-    const signIds = items(out.diffcheck).filter((x) => x.edited).map((x) => x.id)
-    if (signIds.length) {
-      out.signoff = await slot(6, () => agent(signoffPrompt(b, signIds, out.diffcheck), { label: `signoff:${tag}`, phase: 'Sign-off', schema: REVIEW_SCHEMA, effort: 'high' }))
-      if (!out.signoff) return ((out.stopped = 'sign-off'), out)
+    if (checkIds.length) {
+      out.postcheck = await slot(4, () => agent(postcheckPrompt(b, checkIds, prior), { label: `postcheck:${tag}`, phase: 'Post-review check', schema: REVIEW_SCHEMA, effort: 'medium' }))
+      if (!out.postcheck) return ((out.stopped = 'post-review check'), out)
     }
     return out
   } finally {
@@ -325,21 +268,10 @@ return {
   mode: MODE,
   finished: done.filter((r) => !r.stopped).flatMap((r) => r.ids),
   stopped,
-  needs_editor: done.flatMap((r) => items(r.signoff).filter((x) => x.verdict !== 'accurate').map((x) => `${r.domain}/${x.id}`)),
-  stages: [
-    ...tagged('conform', 'conform'),
-    ...tagged('write', 'write'),
-    ...tagged('novice', 'novice'),
-    ...tagged('physics', 'physics'),
-    ...tagged('reread', 're-read'),
-    ...tagged('diffcheck', 'diff check'),
-    ...tagged('signoff', 'sign-off'),
-  ],
+  stages: [...tagged('conform', 'conform'), ...tagged('write', 'write'), ...tagged('novice', 'novice'), ...tagged('physics', 'physics'), ...tagged('postcheck', 'post-review check')],
   writer_problems: done.flatMap((r) => ((r.write && r.write.problems) || []).map((m) => `${r.domain}: ${m}`)),
   conform_issues: issues('conform'),
   novice_issues: issues('novice'),
   physics_issues: issues('physics'),
-  reread_issues: issues('reread'),
-  diffcheck_issues: issues('diffcheck'),
-  signoff_issues: issues('signoff'),
+  postcheck_issues: issues('postcheck'),
 }

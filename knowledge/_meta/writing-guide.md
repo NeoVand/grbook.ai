@@ -350,13 +350,12 @@ id to `retired_ids`, so stored learner evidence still resolves.
 4. Each review records `reviewed_revision`.
 5. **Any learner-visible change bumps the revision,** including a reviewer's own fixes after the other review has
    signed off. The changed text then gets the other lens, and only that text:
-   - When the physics review changes text a learner meets, a novice re-read covers exactly those changes and is
-     recorded in `review.novice.rereads`.
-   - When that re-read changes text, a physics diff check covers exactly those changes and is recorded in
-     `review.physics.diff_checks`.
-   - When the diff check changes text, a novice sign-off reads exactly those changes without editing. It signs the
-     revision, or records the stumbles with proposed rewrites for an editor, so the loop always ends.
-   - Each sets its stage's `reviewed_revision` to the revision it signed.
+   - When the physics review changes text a learner meets, one post-review check reads exactly those changes with
+     the novice lens (wording fixes only), then the physics lens (every changed sentence, including its own
+     rewrites), then the novice lens once more on its physics fixes. It records the novice pass in
+     `review.novice.rereads` and the physics pass in `review.physics.diff_checks`, and sets both stages'
+     `reviewed_revision` to the revision it signed. A claim it cannot fix by wording goes to an editor as a proposal.
+   - One agent does both passes because the changed text is small; the independent reviews stay independent.
    - `python3 knowledge/_tools/note_diff.py <before.json> <after.json>` (or `--git <rev> <note.json>`) lists the
      changed learner-visible sentences with their rungs.
 6. An editor sets `published` only when both stages cover the current revision. The runtime serves only published
