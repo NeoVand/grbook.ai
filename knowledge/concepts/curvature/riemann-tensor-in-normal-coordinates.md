@@ -1,348 +1,699 @@
 ---
 type: "concept"
+schema_version: 2
 id: "riemann-tensor-in-normal-coordinates"
 title: "Riemann tensor in normal coordinates"
+tagline: "The curving that is left over after the best possible map around one spot"
 domain: "curvature"
 tier: "core"
-aliases: ["Riemann tensor in a local inertial frame", "metric expansion in Riemann normal coordinates", "curvature as irreducible second derivatives of the metric", "g = eta - (1/3) R x x"]
-prerequisites: ["riemann-curvature-tensor", "local-flatness-theorem", "riemann-normal-coordinates", "christoffel-symbols-from-the-metric"]
-leads_to: ["symmetries-of-the-riemann-tensor", "cyclic-identity", "number-of-independent-riemann-components", "bianchi-identity", "linearized-riemann-tensor"]
-sources: ["gifted-amateur:ch11", "gifted-amateur:ch35", "legacy:manuscript-section-10-normal-coordinates-and-counting", "legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature", "schutz:ch06"]
-review: "fixed"
+status: "physics-reviewed"
+revision: 7
+updated: "2026-09-13"
+aliases: ["Riemann tensor in a local inertial frame", "metric expansion in Riemann normal coordinates", "curvature as irremovable second derivatives of the metric"]
+prerequisites: ["riemann-curvature-tensor", "tidal-force", "local-flatness-theorem", "christoffel-symbols-from-the-metric", "covariance-of-tensor-equations", "riemann-normal-coordinates"]
+leads_to: ["symmetries-of-the-riemann-tensor", "number-of-independent-riemann-components", "bianchi-identity", "linearized-riemann-tensor", "relativistic-tidal-tensor"]
+visuals: ["straight-walks-from-one-spot", "falling-ring-of-crumbs", "four-terms-that-cancel"]
 ---
 
 # Riemann tensor in normal coordinates
 
-> Choose coordinates that make spacetime look as flat as possible at one event: the metric equals Minkowski there and its first derivatives vanish. At that event the all-lower Riemann tensor is simply half of a four-term, sign-alternating combination of second derivatives of the metric, and in Riemann normal coordinates the metric nearby reads eta minus one third of Riemann times the displacement twice. The metric's value and slope are coordinate artefacts; the twenty curvature numbers are what no choice of coordinates can remove.
+*The curving that is left over after the best possible map around one spot*
 
-## Explanations by level
+`riemann-tensor-in-normal-coordinates` · curvature · core · physics-reviewed (revision 7)
 
-### Intuition
+**Needs:** [[riemann-curvature-tensor]] (entry) · [[tidal-force]] (entry) · [[local-flatness-theorem]] (working) · [[christoffel-symbols-from-the-metric]] (working) · [[covariance-of-tensor-equations]] (working) · [[riemann-normal-coordinates]] (working)  
+**Opens:** [[symmetries-of-the-riemann-tensor]] · [[number-of-independent-riemann-components]] · [[bianchi-identity]] · [[linearized-riemann-tensor]] · [[relativistic-tidal-tensor]]  
+**Related:** [[local-inertial-frame]] · [[geodesic-coordinates]] · [[circumference-to-radius-test]] · [[geodesic-deviation-equation]] · [[newtonian-tidal-tensor]]  
+**Visuals:** ★ [[straight-walks-from-one-spot]] · [[falling-ring-of-crumbs]] · [[four-terms-that-cancel]]
 
-Picture making a paper map of your neighbourhood on a round planet, centred on your front door. You can draw it so that, right at your door, distances are exactly correct, and even so that the error does not start growing as you take your first steps away. What you cannot do is keep the error away for good: a little further out the map starts to lie, and the lie grows like the square of the distance from the door. The pattern of that square-law error is the curvature. Spacetime works the same way. A freely falling laboratory removes the value and the slope of gravity at one event, which is why free fall feels weightless, but tidal stretching creeps back in quadratically, and that leftover is the Riemann tensor. What is simplified: a map of a surface has only space directions and a single curvature number, while spacetime includes time and needs twenty numbers; and the statement is about one event, not a whole region.
+> Stand on a huge ball and walk straight out from one spot in every direction. Draw each walk on a flat map at its true length, and mark where each one ends. Near the spot the map is almost perfect, but the circle through the marks is shorter on the ground than on the map. No flat map can remove that shortfall, because it is the ball's curving. A room falling freely near Earth is similar: nothing at its centre shows gravity, but crumbs away from its centre drift a little.
 
-**Picture to hold:** Straight rays fanned out from a point on a globe: small circles drawn around the point come out slightly shorter than 2 π r, with no error at first order and a shortfall growing like r cubed.
+## You will be able to
 
-**Assumes:** [[local-inertial-frame]], [[tidal-force]], [[curvature]]
+**Entry**
+- Explain how a map made by walking straight out from one spot is exact at that spot and along each walk, and how its circles go wrong on a ball. `objectives/explain-the-walkers-map` ← `problems/twice-as-far`
+- Explain why no flat map can remove the short circles of a ball. `objectives/explain-why-no-map-removes-it` ← `checks/a-cleverer-map-maker`
+- Predict what a freely falling room removes from gravity and which drift it leaves. `objectives/predict-the-falling-room` ← `checks/crumbs-in-a-falling-room`
 
-### Working
+**Working**
+- Derive the lowered Riemann tensor from second derivatives of the metric where its first derivatives vanish, and state where that formula holds. `objectives/derive-four-term-formula` ← `checks/four-terms-in-polar-coordinates`, `checks/is-the-sphere-flat-near-the-origin`
+- Use the normal-coordinate metric to compute circle lengths near a point. `objectives/use-normal-coordinate-metric` ← `problems/circles-from-the-expansion`
 
-Step 1: by the local flatness theorem, at an event P choose coordinates with g_μν(P) = η_μν and ∂_λ g_μν(P) = 0, so every Christoffel symbol vanishes at P. Step 2: in the Riemann tensor the Γ-Γ terms then drop out and only derivatives of Γ remain, R^ρ_σμν = ∂_μ Γ^ρ_νσ - ∂_ν Γ^ρ_μσ at P. Step 3: differentiate the Christoffel formula; because first derivatives of g vanish at P only second derivatives survive. Lowering the first index and using the symmetry of g and of mixed partials gives R_αβμν = (1/2)(∂_β ∂_μ g_αν - ∂_β ∂_ν g_αμ + ∂_α ∂_ν g_βμ - ∂_α ∂_μ g_βν). This holds only at P and only in such coordinates, because the right side is built from partial derivatives; in general coordinates extra terms g_ρσ(Γ^ρ_βμ Γ^σ_αν - Γ^ρ_βν Γ^σ_αμ) appear. Its value is that the index symmetries of Riemann can be read off by inspection. Step 4: Riemann normal coordinates are a specific way to achieve Step 1: shoot a geodesic from P with initial tangent X and label its point at unit affine parameter by the components X^μ. Then g_μν(x) = η_μν - (1/3) R_μανβ(P) x^α x^β + O(x^3): no linear term, and the first correction is curvature. Step 5: counting confirms the picture. In four dimensions the metric has 10 values, 40 first derivatives and 100 second derivatives at P; a coordinate change supplies 16, 40 and 80 adjustable Taylor coefficients at the matching orders. The 6 spare numbers at zeroth order are Lorentz transformations, first order is matched exactly, and 100 - 80 = 20 second derivatives are true geometry: the independent components of Riemann.
+**Formal**
+- Prove that coordinates removing the metric's second derivatives at a point exist exactly when the curvature vanishes there. `objectives/state-when-second-derivatives-vanish` ← `checks/when-second-derivatives-can-vanish`
+- Decide which results found in normal coordinates hold in all coordinates, and state where normal coordinates exist. `objectives/judge-scope-of-normal-coordinates` ← `checks/which-results-carry-over`, `checks/how-far-normal-coordinates-reach`
+- Derive the curvature correction to the volume of a small geodesic ball. `objectives/derive-volume-of-small-balls` ← `problems/volume-of-a-small-ball`
 
-**Picture to hold:** A Taylor-coefficient ledger for the metric at P: value and slope columns fully cancelled by coordinate freedom, the curvature column left with exactly twenty entries.
+## Ways in
 
-**Assumes:** [[local-flatness-theorem]], [[christoffel-symbols-from-the-metric]], [[riemann-curvature-tensor]], [[riemann-normal-coordinates]], [[taylor-series]]
+### 1. A map drawn from one spot · entry · picture
 
-### Formal
+*How closely can a flat map match a ball around one spot?*
 
-Let (M, g) be a pseudo-Riemannian manifold with its Levi-Civita connection and p in M. (a) If coordinates satisfy Γ^ρ_μν(p) = 0, equivalently ∂_λ g_μν(p) = 0 by metric compatibility, then at p R_αβμν = (1/2)(g_αν,βμ - g_αμ,βν + g_βμ,αν - g_βν,αμ), with R_αβμν = g_αλ R^λ_βμν and commas denoting partial derivatives; g(p) itself need not be η. In arbitrary coordinates the exact expression adds g_ρσ(Γ^ρ_βμ Γ^σ_αν - Γ^ρ_βν Γ^σ_αμ). (b) Given an orthonormal basis e_a of T_pM, the exponential map exp_p is a diffeomorphism from a star-shaped neighbourhood of 0 in T_pM onto a normal neighbourhood U of p, and x^μ(exp_p(X^a e_a)) = X^μ defines Riemann normal coordinates. Radial curves x^μ = λ X^μ are geodesics, so Γ^ρ_μν(x) x^μ x^ν = 0 throughout U. This gives Γ(p) = 0, ∂_(α Γ^ρ_μν)(p) = 0 (symmetrized over all three lower indices), and, solving with the Riemann definition, ∂_α Γ^ρ_μν(p) = -(1/3)(R^ρ_μνα + R^ρ_νμα). Differentiating ∂_λ g_μν = g_μβ Γ^β_λν + g_νβ Γ^β_λμ once at p yields ∂_α ∂_β g_μν(p) = -(1/3)(R_μανβ + R_μβνα), hence g_μν(x) = η_μν - (1/3) R_μανβ(p) x^α x^β + O(|x|^3). (c) The normal neighbourhood is limited by the injectivity of exp_p (conjugate and cut points), and only geodesics through p are straight coordinate lines. (d) Counting: in n dimensions the metric's second derivatives at p number [n(n+1)/2]^2 and the third derivatives of a coordinate change number n * n(n+1)(n+2)/6; their difference is n^2(n^2-1)/12, which equals the number of algebraically independent Riemann components (20 for n = 4). The zeroth-order surplus n^2 - n(n+1)/2 = n(n-1)/2 is the dimension of the Lorentz (or rotation) group. Neither the four-term formula nor the expansion is a tensor equation; only statements about R itself may be promoted to other coordinates.
+**Recap:** Walking straight means walking without ever steering left or right. On a ball, the equator and the lines from the North Pole to the equator are straight walks.
 
-**Picture to hold:** The exponential map wrapping the flat tangent space onto a neighbourhood of p, exact along radial lines and distorted at second order transverse to them.
+Stand at your front door on a huge, smooth ball, and make a flat map of the ground around you. On the paper, draw a dot for your door. Hold the paper with its top edge away from you, and let that top edge stand for the way your door faces.
 
-**Assumes:** [[riemann-normal-coordinates]], [[levi-civita-connection]], [[metric-compatibility]], [[conjugate-point]], [[covariance-of-tensor-equations]]
+Pick a direction, walk straight for some distance, and stop. Measure the angle between your walk and the way your door faces, and note which side you walked on, left or right. On the paper, draw a line from the door's dot at that same angle from the top edge, on the same side. Make the line as long as your walk, to scale, say 1 centimetre for each kilometre. Mark its end. In your imagination, do this for every direction and every distance, keeping each walk much shorter than the distance around the ball.
 
-## Prerequisites
+On a ball, the map is correct along every straight walk out from the door, because you drew each walk at its true length.
 
-- [[riemann-curvature-tensor]] — The formula evaluates this tensor's component definition in special coordinates.
-- [[local-flatness-theorem]] — Guarantees coordinates with Minkowski metric and vanishing first derivatives at the event, which kills the Γ-Γ terms.
-- [[riemann-normal-coordinates]] — The metric expansion with the minus one third coefficient refers to this specific geodesic construction.
-- [[christoffel-symbols-from-the-metric]] — Converting derivatives of Γ into second derivatives of the metric uses the Christoffel formula.
+Sideways, from one walk across to the next, the map goes wrong. Walk straight 10 kilometres in every direction and mark where you stop. On the map, those marks form a circle 20 kilometres across. A circle's length is about 3.14 times its width, so this one is about 62.8 kilometres around. Now lay a measuring tape along the marks on the ground. On a ball as big as Earth, the tape reads about 26 millimetres less.
 
-## Leads to
+Why is the ground circle short? On a flat field, straight walks that leave one spot in different directions spread apart in step with the distance walked. On a ball they spread apart more slowly, and far enough out they come together again. Suppose your door is at the North Pole, and walk straight in every direction until you reach the equator. Each walk covers a quarter of the way around the ball. The equator goes all the way around, so it is four times as long as your walk, not about 6.28 times, as on a flat field.
 
-- [[symmetries-of-the-riemann-tensor]] — The four-term formula makes pair antisymmetry and pair exchange visible by inspection.
-- [[cyclic-identity]] — Adding the three cyclic permutations of the four-term formula cancels every second derivative in pairs.
-- [[number-of-independent-riemann-components]] — The twenty irreducible second derivatives of the metric match the twenty independent Riemann components.
-- [[bianchi-identity]] — The differential Bianchi identity is most easily proved at the origin of normal coordinates.
-- [[linearized-riemann-tensor]] — In weak fields the same four-term combination of second derivatives appears with the metric perturbation in place of g.
+Walk 20 kilometres instead of 10, and the fraction by which the circle is short becomes 2 times 2, or four times, as big. For short walks like these, that fraction grows as the square of the distance.
 
-## Related
+The same square rule works for circles closer to your door. A circle 10 times smaller falls short by a fraction 100 times smaller. So near the door the error fades away fast, and in that sense the map is exact at the door.
 
-- [[local-inertial-frame]] — The physical face of the same construction: free fall removes gravity to first order, never tides.
-- [[geodesic-coordinates]] — d'Inverno's quadratic coordinate change that makes Γ vanish at a point, sufficient for the four-term formula.
-- [[einstein-equivalence-principle]] — The expansion states precisely how far local physics can look special-relativistic.
-- [[newtonian-tidal-tensor]] — Newtonian analogue: the potential's value and gradient are removable, its second derivatives are the tides.
-- [[geodesic-deviation-equation]] — An alternative derivation of the minus one third coefficient uses deviation of the radial geodesics.
-- [[covariance-of-tensor-equations]] — Explains which results found in these coordinates may be promoted to all coordinates.
+Labelling each place by the direction and the length of the straight walk that reaches it is called using normal coordinates.
+
+**Try it:** Hold one end of a 10-centimetre string against a spot on a basketball, which is about 24 centimetres across. Keep the string pulled tight and pressed against the ball, and trace a circle with a pen at its other end. Measure the circle with a second string. You should find about 56 centimetres, not the 62.8 centimetres a flat table gives, so about 7 centimetres short. Repeat with a 5-centimetre string. Expect about 30.5 centimetres instead of 31.4, under 1 centimetre short. Compared with each circle's flat length, the second shortfall is about four times smaller.
+
+**Takeaway:** A map made by walking straight out from one spot is almost perfect near that spot. On a ball its circles are too short on the ground, and for short walks the fraction by which each circle is short grows as the square of the distance.
+
+*What this leaves out:* On a saddle-shaped surface the ground circles come out too long instead of too short.
+
+*Visuals:* [[straight-walks-from-one-spot]]<br>*See:* `problems/twice-as-far`
+
+### 2. No map can hide the short circles · entry · contrast
+
+*Could a cleverer map remove the error, or is the error the ball's curving?*
+
+**Recap:** Walking straight means walking without ever steering left or right. Walk straight 10 kilometres in every direction from a spot on a ball as big as Earth, and mark where you stop. A map that draws each walk at its true length, to scale, shows the marks as a circle 62.8 kilometres around. A tape laid along the marks on the ground reads about 26 millimetres less.
+
+Could a cleverer way of drawing give a flat map of the ground around your door with no error? Suppose some flat map kept every distance correct, to scale. Here the distance between two places means the length of the shortest route between them, measured with a tape along the ground. On this map, the places 10 kilometres from your door would all sit 10 kilometres from the door's dot, to scale. So on the map they would form a circle about 62.8 kilometres around.
+
+Now go around the ground circle through those places in many short hops, from each place to the next. Every hop is correct on the map, so the hops add up to the same total on the ground as on the paper. That means the ground circle would also be 62.8 kilometres long.
+
+But the tape on the ground reads about 26 millimetres less. The tape measures the ground itself, and no way of drawing changes the ground. So no flat map of that patch keeps every distance correct. A smaller patch gives the same answer, with a smaller circle and a smaller shortfall.
+
+A paper tube is different, although it looks curved. Unrolled, it is a flat sheet with nothing stretched, so small circles on the tube are not short, as this way's try-it shows.
+
+On a ball, the short circles are built into the ground. The shortfall that no flat map removes is the ball's curving.
+
+**Try it:** Roll a sheet of printer paper into a tube about 9 centimetres across, so its longer edge wraps all the way around, and tape it. Hold one end of a 3-centimetre string against a spot on the tube. Keep the string pulled tight against the paper, and trace a circle with a pen at its other end. Untape and unroll the sheet. You find a flat circle 6 centimetres across and about 18.8 centimetres around, just as if you had drawn it on the flat sheet.
+
+**Takeaway:** No flat map of a patch of a ball keeps every distance correct, because a tape finds the short circles; that leftover error is the ball's curving.
+
+*Continues:* `ways_in/a-map-drawn-from-one-spot`<br>*Visuals:* [[straight-walks-from-one-spot]]<br>*See:* `checks/a-cleverer-map-maker`
+
+### 3. A falling room works like the map from one spot · entry · operational
+
+*What does a freely falling room remove from gravity, and what does it leave?*
+
+**Recap:** A map drawn by walking straight out from one spot on a ball is almost perfect near that spot. Farther out its circles are too short on the ground, and no flat map removes that shortfall. Tidal drift: near Earth, neighbouring objects falling freely drift slowly together when side by side. They drift apart when one is under the other. The Riemann curvature tensor is a table that records how space and time are curved at each place, and so records this drift.
+
+Picture a room falling freely down a deep shaft on Earth, with the air pumped out. You float inside it, and so do crumbs you let go of. You and the crumbs float because the room, you and the crumbs all fall together at the same rate.
+
+Let go of a crumb at the room's centre, at rest relative to the room. It stays at the room's centre, as your ruler and watch confirm. So at the room's centre, nothing you measure shows any pull of gravity.
+
+Your ruler and watch label each place in the room and each moment, the way the paper labels places around your door. So the falling room works like the map drawn from one spot. Farther from the door and the room's centre, something small shows: an error on the map, and gravity in the room.
+
+Let go of a second crumb 1 metre to the side of the room's centre, at rest relative to the room, with neither crumb nearer Earth than the other. The second crumb drifts slowly toward the room's centre. The reason is that everything falls toward Earth's centre. Like two spokes of a wheel, that crumb's line of fall and the room's line of fall lead to the same point, so they draw together.
+
+How much? The room starts its fall at rest in the shaft, so in 10 seconds it drops about 490 metres. Earth's centre is about 6,371,000 metres away. So the gap between the two spokes shrinks by 490 parts in 6,371,000, and the 1-metre gap shrinks by that fraction: about 8 hundredths of a millimetre.
+
+This leftover drift is tidal drift. Near Earth, no way of falling freely makes it vanish, because crumbs in different places fall toward Earth's centre along different lines. Tidal drift is the part of gravity that the Riemann curvature tensor records: the curving of space and time.
+
+In a small room and a short fall, the drift is too tiny to notice. In its first second the room drops about 4.9 metres. So a crumb 1 metre from the room's centre drifts less than a thousandth of a millimetre. That is why floating in a small falling room feels just like floating in empty space far from any planet.
+
+**Takeaway:** A room falling freely near Earth shows no gravity at its centre, but crumbs farther out drift a little. That drift is the curving of space and time, and no way of falling removes it, just as no flat map removes a ball's short circles.
+
+*What this leaves out:* Treats Earth as a smooth round ball that does not spin, and ignores the crumbs' pull on each other.
+
+*Continues:* `ways_in/no-map-can-hide-the-short-circles`<br>*Builds on:* [[tidal-force]]<br>*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `checks/crumbs-in-a-falling-room`
+
+### 4. Only second derivatives survive · working · calculation
+
+*What is the Riemann tensor at a point where coordinates remove the metric's value and first derivatives?*
+
+In "No map can hide the short circles", the map drawn from one spot kept a leftover error that no flat map removes, and "A map drawn from one spot" showed that error fading toward the door as the square of the distance, so the map is exact at the door. In the language of a metric, exact at a point $P$ means $g_{\mu\nu}(P) = \eta_{\mu\nu}$, and an error with no part growing in step with distance means $\partial_\lambda g_{\mu\nu}(P) = 0$. The local flatness theorem, taken on trust here, guarantees such coordinates around any event of a spacetime with signature $(-,+,+,+)$. Call them locally inertial at $P$.
+
+Every Christoffel symbol is built from first derivatives of $g$, so all of them vanish at $P$. The products of Christoffel symbols in the Riemann tensor drop out there, leaving
+
+$$R^\rho{}_{\sigma\mu\nu}(P) = \partial_\mu\Gamma^\rho{}_{\nu\sigma} - \partial_\nu\Gamma^\rho{}_{\mu\sigma}.$$
+
+The derivatives of $\Gamma$ still contain second derivatives of $g$. The derivation "The lowered Riemann tensor from the metric" lowers the first index in any coordinates and then sets $\partial g(P) = 0$, which gives
+
+$$R_{\alpha\beta\mu\nu}(P) = \tfrac12\big(\partial_\beta\partial_\mu g_{\alpha\nu} - \partial_\beta\partial_\nu g_{\alpha\mu} + \partial_\alpha\partial_\nu g_{\beta\mu} - \partial_\alpha\partial_\mu g_{\beta\nu}\big).$$
+
+Only $\partial g(P) = 0$ is used; $g(P)$ need not equal $\eta$. Three consequences follow.
+
+- At $P$ the curvature is a combination of second derivatives of the metric alone, the metric's version of the ball's square-law error.
+- The symmetries can be read off term by term: the tensor changes sign when $\alpha$ and $\beta$ swap, or $\mu$ and $\nu$; it is unchanged when the pair $\alpha\beta$ trades places with the pair $\mu\nu$; and its cyclic sum over the last three indices vanishes because mixed partial derivatives commute and the metric is symmetric. These relate components of one tensor at one point, so they hold in every coordinate system.
+- The four-term formula itself is not a tensor equation. In general coordinates the exact result adds $g_{\rho\sigma}\big(\Gamma^\rho{}_{\beta\mu}\Gamma^\sigma{}_{\alpha\nu} - \Gamma^\rho{}_{\beta\nu}\Gamma^\sigma{}_{\alpha\mu}\big)$. For the flat plane in polar coordinates the four second derivatives give $R_{r\phi r\phi} = -1$ at $r = 1$, the products give $+1$, and the true value is $0$.
+
+For a freely falling observer this is the equivalence principle made quantitative: the value and first derivatives of the metric, which carry the uniform part of gravity, can be removed at one event, but the combinations of second derivatives that make up the Riemann tensor cannot.
+
+**Takeaway:** Where the metric's first derivatives vanish, the lowered Riemann tensor is half a signed sum of four second derivatives of the metric; the formula holds only there, but the symmetries it shows hold everywhere.
+
+*What this leaves out:* Uses the torsion-free, metric-compatible connection of general relativity.
+
+*Continues:* `ways_in/no-map-can-hide-the-short-circles`, `ways_in/a-map-drawn-from-one-spot`<br>*Builds on:* [[local-flatness-theorem]], [[christoffel-symbols-from-the-metric]], [[covariance-of-tensor-equations]]<br>*Visuals:* [[four-terms-that-cancel]]<br>*See:* `derivations/lowered-riemann-from-the-metric`, `checks/four-terms-in-polar-coordinates`
+
+### 5. The metric near a point · working · calculation
+
+*How does the metric depart from Minkowski form near the origin of Riemann normal coordinates?*
+
+The four second derivatives of "Only second derivatives survive" are not fixed by locally inertial coordinates alone, because a cubic change of coordinates alters them without touching $R(P)$. Riemann normal coordinates, the map drawn from one spot made precise, fix them. Choose an orthonormal basis $e_\mu$ at $P$. Follow the geodesic that leaves $P$ with tangent $v^\mu e_\mu$ for unit affine parameter, and give the event it reaches the coordinates $x^\mu = v^\mu$. The straight walks from the door become the straight coordinate lines through the origin. Near $P$,
+
+$$g_{\mu\nu}(x) = \eta_{\mu\nu} - \tfrac13 R_{\mu\alpha\nu\beta}(P)\,x^\alpha x^\beta + O(x^3),$$
+
+taken on trust here; the derivation "The one third from radial geodesics" proves it. Read it one feature at a time.
+
+- There is no linear term, so $\Gamma(P) = 0$ and the four-term formula applies. Differentiating twice gives $\partial_\alpha\partial_\beta g_{\mu\nu}(P) = -\tfrac13(R_{\mu\alpha\nu\beta} + R_{\mu\beta\nu\alpha})$, and inserting that into the four-term formula returns $R_{\alpha\beta\mu\nu}$, using the symmetries.
+- Radial lengths are exact to this order: $R_{\mu\alpha\nu\beta}x^\alpha x^\beta x^\nu = 0$ by antisymmetry in the last pair, so $g_{\mu\nu}x^\nu = \eta_{\mu\nu}x^\nu$, like the walks drawn at their true length.
+- Transverse lengths change. On a surface with Gaussian curvature $K$, a unit vector $w$ perpendicular to $x$ has $g(w,w) = 1 - \tfrac13 K|x|^2$, so circles of radius $r$ have circumference $2\pi r(1 - Kr^2/6)$ to this order. Positive $K$ gives the short circles of a ball.
+
+The expansion also says how far a freely falling laboratory looks special-relativistic. With $x^0 = ct$, a region of size $L$ departs from Minkowski form by a fraction of order $|R|L^2/3$, where $|R|$ is the largest orthonormal component. Near Earth's surface $|R| \approx 2GM/(r^3c^2) = 3.4\times10^{-23}\ \mathrm{m^{-2}}$, so departures reach one part in $10^{15}$ only at $L \approx 9$ km. A time interval $T$ enters as the length $cT$, so the same departure is reached after about $3\times10^{-5}$ s.
+
+**Takeaway:** In Riemann normal coordinates the metric is Minkowskian at the origin, has no linear term, and departs at second order by minus one third of the Riemann tensor contracted twice with the displacement.
+
+*What this leaves out:* Leading order in the distance from the origin; higher orders involve derivatives of the curvature.
+
+*Continues:* `ways_in/only-second-derivatives-survive`, `ways_in/a-map-drawn-from-one-spot`<br>*Builds on:* [[riemann-normal-coordinates]]<br>*Visuals:* [[straight-walks-from-one-spot]]<br>*See:* `worked_examples/sphere-in-normal-coordinates`, `problems/circles-from-the-expansion`
+
+### 6. Normal coordinates, precisely · formal · structure
+
+*What exactly are normal coordinates, what does the expansion theorem assert, and where does it fail?*
+
+The metric expansion quoted in "The metric near a point" is a theorem about the exponential map. Let $(M,g)$ be a smooth pseudo-Riemannian manifold of dimension $n$ with its Levi-Civita connection, and $p \in M$. For $v \in T_pM$ let $\gamma_v$ be the geodesic with $\gamma_v(0) = p$ and $\dot\gamma_v(0) = v$, and set $\exp_p(v) = \gamma_v(1)$ where it is defined. Since $d(\exp_p)_0$ is the identity, the inverse function theorem makes $\exp_p$ a diffeomorphism from a star-shaped open neighbourhood $V$ of $0$ onto an open set $U \ni p$, a normal neighbourhood. An orthonormal basis $e_\mu$ of $T_pM$ defines Riemann normal coordinates on $U$ by $x^\mu(\exp_p(v^\nu e_\nu)) = v^\mu$, unique up to a linear orthogonal or Lorentz transformation.
+
+Theorem. In normal coordinates: (i) $g_{\mu\nu}(0) = \eta_{\mu\nu}$ and $\Gamma^\rho{}_{\mu\nu}(0) = 0$; (ii) $\partial_\alpha\Gamma^\rho{}_{\mu\nu}(0) = -\tfrac13(R^\rho{}_{\mu\nu\alpha} + R^\rho{}_{\nu\mu\alpha})$; (iii) $\partial_\alpha\partial_\beta g_{\mu\nu}(0) = -\tfrac13(R_{\mu\alpha\nu\beta} + R_{\mu\beta\nu\alpha})$, so $g_{\mu\nu} = \eta_{\mu\nu} - \tfrac13 R_{\mu\alpha\nu\beta}x^\alpha x^\beta + O(|x|^3)$; (iv) $g_{\mu\nu}(x)x^\nu = \eta_{\mu\nu}x^\nu$ on all of $U$, the Gauss lemma.
+
+Proof sketch. Each radial curve $\lambda \mapsto \lambda v$ is a geodesic, so $\Gamma^\rho{}_{\mu\nu}(\lambda v)v^\mu v^\nu = 0$ for all $v$ and small $\lambda$. At $\lambda = 0$ this gives (i). Its $\lambda$-derivative says that $\partial_\alpha\Gamma^\rho{}_{\mu\nu}(0)$ has no part symmetric in all three lower indices. At $0$ the Riemann tensor is $\partial_\mu\Gamma^\rho{}_{\nu\sigma} - \partial_\nu\Gamma^\rho{}_{\mu\sigma}$, and adding two index permutations of it isolates (ii), as the derivation "The one third from radial geodesics" shows. Differentiating metric compatibility once gives (iii), and Taylor's theorem the expansion. Part (iv) follows from the first variation of the geodesic energy along the radial lines.
+
+Consequences.
+
+- In normal coordinates the second-order Taylor data of $g$ at $p$ are fixed by $R(p)$. Every higher coefficient is a universal polynomial in $R$ and its covariant derivatives at $p$.
+- Merely locally inertial coordinates keep the cubic freedom $x^\mu \mapsto x^\mu + \tfrac16 C^\mu{}_{\alpha\beta\gamma}x^\alpha x^\beta x^\gamma$, which changes $\partial\partial g(p)$ but not $R(p)$. Normal coordinates spend it on the symmetric condition in the proof. Counting that freedom leaves $n^2(n^2-1)/12$ curvature numbers.
+- Neither (ii), (iii) nor the four-term formula is a tensor equation. Only relations among tensors at $p$, such as the Riemann symmetries, may be carried to other coordinates.
+
+Limits.
+
+- Only geodesics through $p$ are coordinate lines $x^\mu = \lambda v^\mu$ with affine parameter $\lambda$. If every geodesic near $p$ had the form $x^\mu = x_0^\mu + \lambda v^\mu$, $\Gamma$ would vanish on an open set and so would $R$. Straightness alone is not enough: in the gnomonic chart of a sphere every great circle is a straight line, but not traversed at constant coordinate speed.
+- $U$ cannot extend past the first conjugate point along a radial geodesic, where $\exp_p$ stops being a local diffeomorphism, and global topology can end it sooner, as on a flat torus. On a Riemannian manifold with sectional curvature at most $k > 0$, conjugate points lie at distance at least $\pi/\sqrt{k}$; on a sphere of radius $a$, normal coordinates cover the open disc of radius $\pi a$.
+- With a Lorentzian metric the construction includes timelike and null directions and the theorem holds unchanged, but the coordinates are centred on an event, not on a worldline.
+
+**Takeaway:** Normal coordinates come from the exponential map; in them the metric's second derivatives at the origin are minus one third of curvature combinations, and they vanish exactly when the curvature vanishes there.
+
+*Picture:* The tangent space at p, with straight rays from its origin, wrapped onto the manifold by the exponential map: exact along each ray, stretched or squeezed across neighbouring rays at second order, and folding over at the first conjugate point.
+
+*What this leaves out:* Assumes a smooth metric and the Levi-Civita connection; for a connection with torsion, normal coordinates remove only the symmetric part of the connection at the origin.
+
+*Continues:* `ways_in/the-metric-near-a-point`<br>*Builds on:* [[riemann-normal-coordinates]], [[levi-civita-connection]]<br>*See:* `derivations/one-third-from-radial-geodesics`, `checks/when-second-derivatives-can-vanish`, `checks/which-results-carry-over`, `checks/how-far-normal-coordinates-reach`, `riemann-curvature-tensor/derivations/count-what-coordinates-cannot-remove`
+
+## Glossary
+
+| Term | Say | In plain words | Concept |
+| --- | --- | --- | --- |
+| walk straight | — | To walk without ever steering left or right. On a ball, the equator and the lines from the North Pole to the equator are straight walks. | [[geodesic]] |
+| normal coordinates | — | A way of labelling places around one spot. Each place gets the direction you set off in and the length of the straight walk that reaches it. Normal is only part of the name; it does not mean ordinary. | [[riemann-normal-coordinates]] |
+| fall freely | — | To move with nothing but gravity acting: no air pushing, and no floor or rope holding you. | [[free-fall]] |
+| tidal drift | — | The slow drift of neighbouring objects falling freely near a round planet: apart when one is under the other, and together when they are side by side. | [[tidal-force]] |
+| Riemann curvature tensor | REE-mahn | A table kept at every place that records how space, or space and time, is curved there. It sets how an arrow carried around a tiny loop comes back changed, and how falling objects drift. | [[riemann-curvature-tensor]] |
 
 ## Key equations
 
-### Locally inertial coordinates at P
+### Locally inertial coordinates at a point · working
 
 $$
-g_{\mu\nu}(P)=\eta_{\mu\nu},\qquad \partial_\lambda g_{\mu\nu}(P)=0\ \Longrightarrow\ \Gamma^\rho{}_{\mu\nu}(P)=0
+g_{\mu\nu}(P) = \eta_{\mu\nu},\qquad \partial_\lambda g_{\mu\nu}(P) = 0\quad\Longrightarrow\quad \Gamma^\rho{}_{\mu\nu}(P) = 0
 $$
 
-The metric's value and first derivatives at one event can always be made Minkowskian; the connection then vanishes there, although its derivatives generally do not. *(SCH ch06 §6.2 p.145; GA ch11 Example 11.5; DIV ch06 §6.6 p.95)*
+At any one event, coordinates can make the metric Minkowskian with vanishing first derivatives, and then every Christoffel symbol vanishes there.
 
-**Convention:** d'Inverno's geodesic coordinates impose only Γ(P) = 0, without normalizing the metric; that is enough for the curvature formula below.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $P$ | the chosen event | the point P |
+| $\eta_{\mu\nu}$ | Minkowski metric, $\mathrm{diag}(-1,1,1,1)$ | the Minkowski metric |
+| $\Gamma^\rho{}_{\mu\nu}$ | Christoffel symbols, derivative index first | the Christoffel symbols |
 
-### Riemann at the origin of such coordinates
+**Holds when:** Smooth metric of signature $(-,+,+,+)$; holds at the single event $P$, not in a neighbourhood.  
+**Say it:** “At P the metric equals the Minkowski metric and its first derivatives vanish, so every Christoffel symbol vanishes at P.”  
+**Justified by:** `local-flatness-theorem`
 
-$$
-R^\rho{}_{\sigma\mu\nu}(P)=\partial_\mu\Gamma^\rho{}_{\nu\sigma}-\partial_\nu\Gamma^\rho{}_{\mu\sigma}
-$$
-
-With Γ zero at P the quadratic terms of the Riemann tensor vanish and only the variation of the connection is left. *(SCH ch06 §6.5 p.158)*
-
-### Lowered Riemann as second derivatives of the metric
-
-$$
-R_{\alpha\beta\mu\nu}(P)=\tfrac12\left(\partial_\beta\partial_\mu g_{\alpha\nu}-\partial_\beta\partial_\nu g_{\alpha\mu}+\partial_\alpha\partial_\nu g_{\beta\mu}-\partial_\alpha\partial_\mu g_{\beta\nu}\right)
-$$
-
-At P, in coordinates with vanishing first metric derivatives, curvature is half a signed sum of four second derivatives; its index symmetries are visible at a glance. Not a tensor equation. *(SCH ch06 §6.5 p.158; GA ch11 §11.4 p.126; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
-
-**Convention:** Identical to Schutz eq. 6.68 and Gifted Amateur eqn 11.23 (MTW sign). With d'Inverno's signature (+,-,-,-) both sides change sign together, so the form is the same.
-
-### Lowered Riemann in arbitrary coordinates
+### Riemann tensor from second derivatives of the metric · working
 
 $$
-R_{\alpha\beta\mu\nu}=\tfrac12\left(g_{\alpha\nu,\beta\mu}-g_{\alpha\mu,\beta\nu}+g_{\beta\mu,\alpha\nu}-g_{\beta\nu,\alpha\mu}\right)+g_{\rho\sigma}\left(\Gamma^\rho{}_{\beta\mu}\Gamma^\sigma{}_{\alpha\nu}-\Gamma^\rho{}_{\beta\nu}\Gamma^\sigma{}_{\alpha\mu}\right)
+R_{\alpha\beta\mu\nu}(P) = \tfrac12\big(\partial_\beta\partial_\mu g_{\alpha\nu} - \partial_\beta\partial_\nu g_{\alpha\mu} + \partial_\alpha\partial_\nu g_{\beta\mu} - \partial_\alpha\partial_\mu g_{\beta\nu}\big)
 $$
 
-The general expression; the connection-squared correction is what the special coordinates remove. Checks: it gives zero for the polar-coordinate plane (-1 from the derivatives, +1 from the Γ terms) and sin^2 θ for R_θφθφ on the unit sphere. *(GA ch11 §11.4 p.126)*
+Where the metric's first derivatives vanish, the lowered Riemann tensor is half a signed sum of four second derivatives of the metric.
 
-### Riemann normal coordinates
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $R_{\alpha\beta\mu\nu}$ | Riemann tensor with its first index lowered, $g_{\alpha\rho}R^\rho{}_{\beta\mu\nu}$ | the all-lower Riemann tensor |
+| $\partial_\beta\partial_\mu g_{\alpha\nu}$ | a second partial derivative of a metric component at $P$ | a second derivative of the metric |
 
-$$
-x^\mu\big(\exp_P(\lambda\,u)\big)=\lambda\,u^\mu
-$$
+**Holds when:** Only at $P$, and only in coordinates with $\partial_\lambda g_{\mu\nu}(P) = 0$; not a tensor equation.  
+**Say it:** “At P, the all-lower Riemann tensor is one half of four second derivatives of the metric, with alternating signs.”  
+**Justified by:** `derivations/lowered-riemann-from-the-metric`
 
-Travel an affine distance λ along the geodesic leaving P with initial tangent u (components in an orthonormal basis at P); that event gets coordinates λ u^μ. *(GA ch35 §35.2 p.367; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-
-**Convention:** Gifted Amateur writes ζ^α = λ u^α with origin O; the course writes x^μ with origin P.
-
-### Metric expansion in normal coordinates
-
-$$
-g_{\mu\nu}(x)=\eta_{\mu\nu}-\tfrac13\,R_{\mu\alpha\nu\beta}(P)\,x^\alpha x^\beta+O(x^3)
-$$
-
-Minkowskian at P, no linear correction, and the leading departure is fixed by the curvature at P. On a unit sphere it predicts geodesic circles of circumference 2 π r (1 - r^2/6). *(GA ch35 §35.2 p.368; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-
-### Derivatives of the connection and metric at P
+### Lowered Riemann tensor in any coordinates · working
 
 $$
-\partial_\alpha\Gamma^\rho{}_{\mu\nu}(P)=-\tfrac13\left(R^\rho{}_{\mu\nu\alpha}+R^\rho{}_{\nu\mu\alpha}\right),\qquad \partial_\alpha\partial_\beta g_{\mu\nu}(P)=-\tfrac13\left(R_{\mu\alpha\nu\beta}+R_{\mu\beta\nu\alpha}\right)
+R_{\alpha\beta\mu\nu} = \tfrac12\big(\partial_\beta\partial_\mu g_{\alpha\nu} - \partial_\beta\partial_\nu g_{\alpha\mu} + \partial_\alpha\partial_\nu g_{\beta\mu} - \partial_\alpha\partial_\mu g_{\beta\nu}\big) + g_{\rho\sigma}\big(\Gamma^\rho{}_{\beta\mu}\Gamma^\sigma{}_{\alpha\nu} - \Gamma^\rho{}_{\beta\nu}\Gamma^\sigma{}_{\alpha\mu}\big)
 $$
 
-In normal coordinates every first derivative of Γ and every second derivative of the metric at P is determined by curvature; the Taylor factor one half and the two equal terms combine into the minus one third of the expansion. *(GA ch35 Exercise 35.4 p.373; legacy:manuscript-section-10-normal-coordinates-and-counting)*
+The general expression; the products of Christoffel symbols are what locally inertial coordinates remove at one point.
 
-**Convention:** Gifted Amateur Exercise 35.4 obtains these via geodesic deviation of the radial geodesics; its Γ has the derivative index first, as in the course.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $g_{\rho\sigma}$ | metric components | the metric |
 
-### Counting curvature through coordinate freedom
+**Holds when:** Any coordinates; Levi-Civita connection.  
+**Say it:** “The all-lower Riemann tensor is the four second-derivative terms plus the metric contracted with two products of Christoffel symbols.”  
+**Justified by:** `derivations/lowered-riemann-from-the-metric`
+
+### Metric in Riemann normal coordinates · working
 
 $$
-\underbrace{\big[\tfrac{n(n+1)}{2}\big]^2}_{\partial\partial g}-\underbrace{n\cdot\tfrac{n(n+1)(n+2)}{6}}_{\partial^3 x}=\frac{n^2(n^2-1)}{12}\ \xrightarrow{\ n=4\ }\ 100-80=20
+g_{\mu\nu}(x) = \eta_{\mu\nu} - \tfrac13 R_{\mu\alpha\nu\beta}(P)\,x^\alpha x^\beta + O(x^3)
 $$
 
-Second derivatives of the metric that no coordinate change can remove number exactly as many as the independent Riemann components. *(SCH ch06 §6.2 p.149; legacy:manuscript-section-10-normal-coordinates-and-counting)*
+Near the origin of normal coordinates the metric departs from Minkowski form first at second order, by an amount fixed by the curvature at the origin.
 
-## Conventions across the books
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $x^\alpha$ | Riemann normal coordinates of the event, with origin $P$ | the normal coordinates |
+| $R_{\mu\alpha\nu\beta}(P)$ | all-lower Riemann tensor at the origin, orthonormal components | the Riemann tensor at P |
 
-| Issue | Schutz | Gifted Amateur | d'Inverno | Course choice |
-| --- | --- | --- | --- | --- |
-| Sign and slot order of the Riemann tensor in the second-derivative formula | R_αβμν = (1/2)(g_αν,βμ - g_αμ,βν + g_βμ,αν - g_βν,αμ) at P (eq. 6.68), MTW sign. | Same four-term expression in hatted local-inertial-frame components (eqn 11.23), with the general-coordinate version including Γ-Γ terms in a margin note. | Does not display the four-term formula; uses geodesic coordinates to prove the Riemann identities. Its Riemann definition matches MTW's index convention. | Use the four-term formula exactly as written in Schutz and Gifted Amateur, always labelled 'at P, in coordinates with vanishing first metric derivatives'. |
-| Metric signature and its effect on lowered components | (-,+,+,+); η = diag(-1, 1, 1, 1). | (-,+,+,+). | (+,-,-,-). Lowered components R_abcd change sign relative to the course for the same geometry, but R^a_bcd does not, and both the four-term formula and g = η - (1/3) R x x keep their form because both sides flip together. | (-,+,+,+). When quoting d'Inverno's lowered components, flip their sign; formulas relating R_αβμν to metric derivatives need no change. |
-| Names and construction of the special coordinates | 'Local inertial frame' or 'local Lorentz frame': g = η and first derivatives zero at P, justified by the Taylor counting argument; no explicit geodesic construction. | 'Local inertial frame' with hatted indices in ch11; 'Riemann normal coordinates' ζ^α = λ u^α built from geodesics and an orthonormal frame in ch35, with hats dropped in Example 35.4 and Exercise 35.4. | 'Geodesic coordinates': x'^a = x^a + (1/2) Q^a_bc x^b x^c with Q = Γ(P), making Γ vanish at P without normalizing the metric; equations valid only in such coordinates carry a starred equals sign. | 'Locally inertial coordinates at P' means g(P) = η and d g(P) = 0; 'Riemann normal coordinates' means the exponential-map construction, which additionally fixes the symmetrized derivatives of Γ and gives the minus one third expansion. Coordinate-specific equations are flagged in words. |
-| Christoffel index order in derivative-of-Γ formulas | Derivative index last on Γ (V^α_;β = V^α_,β + Γ^α_μβ V^μ). | Derivative index first in ch35 (∇_μ e_ν = Γ^α_μν e_α), which is how Exercise 35.4 is written. | Derivative index last. | Derivative index first. For the symmetric Levi-Civita connection every formula here is unchanged, but the order matters when matching printed index strings term by term. |
+**Holds when:** Riemann normal coordinates built from an orthonormal basis at $P$; valid near $P$ inside a normal neighbourhood; course sign conventions.  
+**Say it:** “The metric equals the Minkowski metric minus one third of the Riemann tensor contracted twice with the position, plus third-order terms.”  
+**Justified by:** `stated`
 
-## How the sources teach it
+### Derivatives at the origin of normal coordinates · formal
 
-### schutz
+$$
+\partial_\alpha\Gamma^\rho{}_{\mu\nu}(0) = -\tfrac13\big(R^\rho{}_{\mu\nu\alpha} + R^\rho{}_{\nu\mu\alpha}\big),\qquad \partial_\alpha\partial_\beta g_{\mu\nu}(0) = -\tfrac13\big(R_{\mu\alpha\nu\beta} + R_{\mu\beta\nu\alpha}\big)
+$$
 
-**Route:** In §6.2 asks whether coordinates can make the metric Minkowskian with zero first and second derivatives at a point, and answers by counting Taylor coefficients (16 vs 10, 40 vs 40, 80 vs 100): the 20 unremovable second derivatives are declared real geometry. In §6.5, after defining Riemann by loop transport, evaluates it in a local inertial frame, differentiates the Christoffel formula, lowers an index to get the four-term formula, reads off the symmetries, and notes that the component count is again 20.
+In normal coordinates every first derivative of the connection and every second derivative of the metric at the origin is fixed by the curvature there.
 
-**Representation:** Taylor expansions and counting; component formulas in a special frame; explicit remarks on which equations can be promoted.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $\partial_\alpha\Gamma^\rho{}_{\mu\nu}(0)$ | first derivative of the connection at the origin | the derivative of the connection at the origin |
 
-**Strengths:** Predicts the number twenty before the Riemann tensor exists and then pays it off, giving curvature a clear meaning as irremovable second-derivative information. Warns explicitly that the partial-derivative formula is not a tensor equation.
+**Holds when:** Riemann normal coordinates; Levi-Civita connection; not a tensor equation.  
+**Say it:** “At the origin, the derivative of the connection is minus one third of two Riemann terms, and the second derivative of the metric is minus one third of two Riemann terms.”  
+**Justified by:** `derivations/one-third-from-radial-geodesics`
 
-**Weaknesses:** The counting argument is a plausibility argument (independence of the conditions is assumed) and no explicit coordinate construction or metric expansion is given. A printed index slip in the intermediate formula can stall careful readers. *(SCH ch06 §6.2 p.148; SCH ch06 §6.2 p.149; SCH ch06 §6.5 p.158; SCH ch06 §6.5 p.159)*
+## Derivations
 
-### gifted-amateur
+### The lowered Riemann tensor from the metric · working
 
-**Route:** Ch11 Example 11.5 invokes the local flatness theorem to reduce Riemann to derivatives of the connection and then to four second derivatives of the metric, with a margin note giving the general-coordinate formula for reassurance. Ch35 Example 35.4 builds normal coordinates first in the flat plane (a numerical point on a ray) and then with geodesics, quotes the metric expansion, and leaves the derivation of the minus one third to an eight-part guided exercise based on geodesic deviation.
+**Goal:** Express $R_{\alpha\beta\mu\nu}$ through the metric in any coordinates, then at a point where $\partial g = 0$.
 
-**Representation:** Hatted frame components, a three-panel geometric construction figure, and a guided exercise.
+1. Lower the first index, $R_{\alpha\beta\mu\nu} = g_{\alpha\rho}R^\rho{}_{\beta\mu\nu}$, and write $\Gamma_{\alpha\nu\beta} \equiv g_{\alpha\rho}\Gamma^\rho{}_{\nu\beta} = \tfrac12(\partial_\nu g_{\alpha\beta} + \partial_\beta g_{\alpha\nu} - \partial_\alpha g_{\nu\beta})$.
+2. Move the metric inside the derivative: $g_{\alpha\rho}\partial_\mu\Gamma^\rho{}_{\nu\beta} = \partial_\mu\Gamma_{\alpha\nu\beta} - (\partial_\mu g_{\alpha\rho})\Gamma^\rho{}_{\nu\beta}$.
+3. Metric compatibility, $\nabla_\mu g_{\alpha\rho} = 0$, gives $\partial_\mu g_{\alpha\rho} = \Gamma_{\alpha\mu\rho} + \Gamma_{\rho\mu\alpha}$.
+4. The piece $-\Gamma_{\alpha\mu\rho}\Gamma^\rho{}_{\nu\beta}$ cancels the lowered product term $g_{\alpha\rho}\Gamma^\rho{}_{\mu\lambda}\Gamma^\lambda{}_{\nu\beta} = \Gamma_{\alpha\mu\lambda}\Gamma^\lambda{}_{\nu\beta}$, leaving $-\Gamma_{\rho\mu\alpha}\Gamma^\rho{}_{\nu\beta}$.
+5. The same happens with $\mu$ and $\nu$ exchanged, so $R_{\alpha\beta\mu\nu} = \partial_\mu\Gamma_{\alpha\nu\beta} - \partial_\nu\Gamma_{\alpha\mu\beta} + g_{\rho\sigma}(\Gamma^\rho{}_{\beta\mu}\Gamma^\sigma{}_{\alpha\nu} - \Gamma^\rho{}_{\beta\nu}\Gamma^\sigma{}_{\alpha\mu})$, using the symmetry of $\Gamma$ in its lower indices.
+6. Expand $\partial_\mu\Gamma_{\alpha\nu\beta} - \partial_\nu\Gamma_{\alpha\mu\beta}$. The two $\partial_\mu\partial_\nu g_{\alpha\beta}$ pieces cancel because partial derivatives commute, leaving $\tfrac12(\partial_\beta\partial_\mu g_{\alpha\nu} - \partial_\beta\partial_\nu g_{\alpha\mu} + \partial_\alpha\partial_\nu g_{\beta\mu} - \partial_\alpha\partial_\mu g_{\beta\nu})$.
+7. At a point $P$ where $\partial_\lambda g_{\mu\nu} = 0$, every $\Gamma$ vanishes, so the product term drops out.
 
-**Strengths:** Shows the construction with a picture and a concrete number; derives the coefficient from tidal physics rather than pure algebra; the general-coordinate formula prevents over-promotion.
+**Result:** In any coordinates $R_{\alpha\beta\mu\nu}$ is the four second-derivative terms plus $g_{\rho\sigma}(\Gamma^\rho{}_{\beta\mu}\Gamma^\sigma{}_{\alpha\nu} - \Gamma^\rho{}_{\beta\nu}\Gamma^\sigma{}_{\alpha\mu})$; at a point where $\partial g = 0$, only the four terms remain.
 
-**Weaknesses:** Describes the result as a flat frame, which invites the belief that the neighbourhood is flat. The expansion is quoted before it is justified, symbols are overloaded in the exercise, and the size of the normal neighbourhood is not discussed. *(GA ch11 Example 11.5; GA ch11 §11.4 p.126; GA ch35 Example 35.4; GA ch35 §35.2 p.368; GA ch35 Exercise 35.4 p.373)*
+### The one third from radial geodesics · formal
 
-### legacy
+**Goal:** Show that in Riemann normal coordinates $\partial_\alpha\Gamma^\rho{}_{\mu\nu}(0) = -\tfrac13(R^\rho{}_{\mu\nu\alpha} + R^\rho{}_{\nu\mu\alpha})$ and $g_{\mu\nu} = \eta_{\mu\nu} - \tfrac13R_{\mu\alpha\nu\beta}x^\alpha x^\beta + O(|x|^3)$.
 
-**Route:** §8.5 constructs Γ-free coordinates explicitly with the quadratic change x' = x + (1/2) Γ(0) x x, checks the symmetries with the second-derivative formula and promotes them. §10.6 defines Riemann normal coordinates via the exponential map, boxes the minus one third expansion with an optional derivation, contrasts Fermi coordinates along a worldline, and states the laboratory-size condition. §10.10 repeats the Taylor-coefficient count.
+1. The curve $x^\mu(\lambda) = \lambda v^\mu$ is an affinely parametrized geodesic for every $v$, so the geodesic equation gives $\Gamma^\rho{}_{\mu\nu}(\lambda v)\,v^\mu v^\nu = 0$.
+2. At $\lambda = 0$, $\Gamma^\rho{}_{\mu\nu}(0)v^\mu v^\nu = 0$ for all $v$, and $\Gamma$ is symmetric in $\mu\nu$, so $\Gamma^\rho{}_{\mu\nu}(0) = 0$.
+3. Differentiate in $\lambda$ at $0$: $A_{\alpha\mu\nu}v^\alpha v^\mu v^\nu = 0$ with $A_{\alpha\mu\nu} \equiv \partial_\alpha\Gamma^\rho{}_{\mu\nu}(0)$ (index $\rho$ suppressed), so $A_{\alpha\mu\nu} + A_{\mu\nu\alpha} + A_{\nu\alpha\mu} = 0$.
+4. With $\Gamma(0) = 0$, $R^\rho{}_{\sigma\mu\nu}(0) = A_{\mu\nu\sigma} - A_{\nu\mu\sigma}$. Hence $R^\rho{}_{\mu\nu\alpha} = A_{\nu\alpha\mu} - A_{\alpha\nu\mu}$ and $R^\rho{}_{\nu\mu\alpha} = A_{\mu\alpha\nu} - A_{\alpha\mu\nu}$.
+5. Add them, using $A_{\alpha\nu\mu} = A_{\alpha\mu\nu}$, $A_{\mu\alpha\nu} = A_{\mu\nu\alpha}$ and the cyclic condition $A_{\nu\alpha\mu} + A_{\mu\nu\alpha} = -A_{\alpha\mu\nu}$: the sum is $-3A_{\alpha\mu\nu}$.
+6. Metric compatibility gives $\partial_\beta g_{\mu\nu} = g_{\nu\sigma}\Gamma^\sigma{}_{\beta\mu} + g_{\mu\sigma}\Gamma^\sigma{}_{\beta\nu}$. Differentiate at $0$, where $\Gamma = 0$ and $g = \eta$: $\partial_\alpha\partial_\beta g_{\mu\nu} = -\tfrac13(R_{\nu\beta\mu\alpha} + R_{\nu\mu\beta\alpha} + R_{\mu\beta\nu\alpha} + R_{\mu\nu\beta\alpha})$.
+7. The second and fourth terms cancel by antisymmetry in the first pair, and pair exchange turns $R_{\nu\beta\mu\alpha}$ into $R_{\mu\alpha\nu\beta}$, so $\partial_\alpha\partial_\beta g_{\mu\nu}(0) = -\tfrac13(R_{\mu\alpha\nu\beta} + R_{\mu\beta\nu\alpha})$.
+8. Taylor's theorem with $g(0) = \eta$ and $\partial g(0) = 0$ gives $g_{\mu\nu} = \eta_{\mu\nu} + \tfrac12\partial_\alpha\partial_\beta g_{\mu\nu}(0)x^\alpha x^\beta + O(|x|^3)$; the two curvature terms are equal after contraction with $x^\alpha x^\beta$.
 
-**Representation:** Course-convention components, explicit coordinate transformation, boxed expansion, verbal limits of the equivalence principle.
-
-**Strengths:** The construction is shown rather than assumed; it is honest that the neighbourhood is not flat and that only radial geodesics become straight lines; it distinguishes event-centred from worldline-centred coordinates.
-
-**Weaknesses:** Graduate-level density on a novice path; the derivation of the coefficient sits in a disclosure that narration skips; there is no picture of geodesic rays or grid distortion. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-
-## Recommended teaching path
-
-1. **Ask what is real in the metric** — Pose the question: at one event, which features of the metric are genuine geometry and which are just a choice of labels? Recall that free fall removes gravity locally, so the value and slope of the metric should be removable. *Why:* Frames the whole topic as separating coordinate artefacts from invariant content, which is the idea the learner needs to keep. *(SCH ch06 §6.2 p.149; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-2. **Count the freedom** — Build the Taylor ledger together: 10, 40, 100 metric numbers against 16, 40, 80 coordinate numbers. Interpret the 6 spare as Lorentz transformations and the 20 missing as curvature. *Why:* Arithmetic the learner can check gives the number twenty a meaning before any tensor algebra. *(SCH ch06 §6.2 p.148)*
-3. **See normal coordinates on a globe** — Use the normal-coordinate map demo: rays from a point on a sphere define the coordinates; show that metric errors start at second order and that small circles fall short of 2 π r by a cubic amount. *Why:* A picture of 'flat to first order, curved at second' anchors both the formula and its limits. *(GA ch35 Example 35.4; GA ch35 Fig. 35.2(c) p.367; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-4. **Derive the four-term formula** — At P set Γ = 0, keep only derivatives of Γ in Riemann, substitute the differentiated Christoffel formula, lower the index and simplify. Immediately label the result as valid only at P in these coordinates, and show the general formula with Γ-Γ terms. *Why:* The derivation is short and exposes why curvature is second-derivative information; the label blocks the most common promotion error. *(SCH ch06 §6.5 p.158; GA ch11 Example 11.5; DIV ch06 §6.6 p.95)*
-5. **Check on the unit sphere** — Give the normal-coordinate metric of the unit sphere to second order, g_11 = 1 - y^2/3, g_22 = 1 - x^2/3, g_12 = xy/3, and have the learner compute R_1212 = 1 from the four-term formula. Contrast with applying the formula naively in polar coordinates on the flat plane, where it wrongly gives -1. *Why:* One success and one instructive failure make both the formula and its conditions stick. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature; GA ch11 §11.4 p.126)*
-6. **State and justify the expansion** — Present g = η - (1/3) R x x, explain that there is no linear term, and outline where the one third comes from: radial lines must be geodesics, which fixes the symmetrized derivative of Γ. Offer the geodesic-deviation derivation as an extended exercise. *Why:* Learners see that the coefficient is forced by the construction, not a convention. *(GA ch35 Exercise 35.4 p.373; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-7. **Apply it** — Read off the Riemann symmetries from the four-term formula, then turn to physics: how large a freely falling laboratory can be before tides show (roughly |R| L^2 much less than 1, plus small curvature gradients), and why accelerometers cannot see curvature but pairs of free particles can. *Why:* Connects the local algebra to the symmetries lesson and to the operational meaning of the equivalence principle. *(SCH ch06 §6.5 p.158; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-
-## Analogies
-
-- **A map centred on your front door** (intuition): A map that keeps true distance and bearing from its centre (the azimuthal equidistant projection) is exactly normal coordinates on a globe. Right at the centre it is perfect, nearby its errors start only at second order, and circles drawn around the centre represent real circles whose true circumference is a little shorter than the map suggests. *Limits:* It shows a two-dimensional space with one curvature number and no time direction; spacetime normal coordinates carry twenty curvature components and include timelike directions. The projection also breaks down at the antipode, the analogue of the normal neighbourhood ending at conjugate points. *(GA ch35 Example 35.4)*
-- **A stiff board against a curved hill** (intuition): You can always place a board so it touches a hillside at one point and matches its tilt, but no board matches its bending. Position and slope are removable by placement; the second-order shape is not. *Limits:* The hill's bending is extrinsic: it describes how the surface sits in the surrounding space. The Riemann tensor is intrinsic and can be measured without leaving the surface. A rolled-up sheet of paper is visibly bent yet has zero Riemann curvature, because its inner geometry is unchanged: an ant on it measures flat triangles. So the board shows that shape at second order cannot be placed away, but whether a surface looks bent from outside is the wrong test of curvature. Also, in spacetime coordinate freedom does absorb most second derivatives of the metric (80 of 100 in four dimensions), which the rigid-board picture does not capture.
-- **Newtonian potential, force and tides** (working): In Newtonian gravity the potential's value is arbitrary and its gradient can be cancelled by falling freely, but its second derivatives, the tidal tensor, cannot be removed. The metric plays the potential's role, and Riemann plays the tidal tensor's. *Limits:* The Newtonian tidal tensor is a symmetric 3-by-3 matrix; Riemann has twenty components, including parts with no Newtonian counterpart. The correspondence R_0i0j with second derivatives of the potential holds only in the weak-field, slow-motion limit. *(SCH ch06 §6.2 p.149)*
-
-## Misconceptions
-
-- **In a local inertial frame, or in Riemann normal coordinates, spacetime is flat in a small neighbourhood.** — Only the metric's value and first derivatives are Minkowskian, and only at the single event P. The second derivatives equal minus one third of curvature combinations and cannot be removed, so tidal effects remain. *Why tempting:* Phrases like 'locally flat' and 'the frame is flat with vanishing connection' are common paraphrases of the equivalence principle. *Diagnostic:* In Riemann normal coordinates centred on a point of a unit sphere, what is the second derivative of g_22 with respect to x^1 twice at the origin? *(GA ch35 §35.2 p.368; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-- **Gravity or curvature shows up in the first derivatives of the metric, so nonzero Christoffel symbols prove spacetime is curved.** — First derivatives, and hence Christoffel symbols, can always be removed at a point by a coordinate choice. Curvature lives in the second derivatives that survive; flat space in polar coordinates has nonzero Christoffel symbols. *Why tempting:* Newtonian gravitational acceleration is the first derivative of the potential, and the geodesic equation's 'force' term is a Christoffel symbol. *Diagnostic:* The flat plane in polar coordinates has Γ^r_θθ = -r. Is the plane curved? Which quantity would settle the question? *(SCH ch06 §6.2 p.149; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
-- **Anything proved in a local inertial frame, including the four-term second-derivative formula, holds in every coordinate system.** — Only genuine tensor equations can be promoted. Relations among components of R (such as its symmetries) are tensor equations; the formula expressing R through partial derivatives of g, and the statement Γ = 0, hold only at P in those coordinates. *Why tempting:* The course repeatedly computes in a special frame and then promotes the result, so the step starts to feel automatic. *Diagnostic:* Which of these may be used in Schwarzschild coordinates: R_αβμν = -R_βαμν; R_αβμν = (1/2)(second derivatives of g); Γ^ρ_μν = 0? *(SCH ch06 §6.5 p.158; GA ch11 §11.4 p.126)*
-- **With enough cleverness a coordinate change could also remove the second derivatives of the metric at a point.** — At second order a coordinate change offers 80 adjustable numbers in four dimensions but the metric has 100 second derivatives; 20 combinations always remain, and they are the Riemann components. One can make Γ vanish along a whole curve, but not make curvature vanish. *Why tempting:* The first two orders work out so neatly (with numbers to spare at zeroth order) that it seems the pattern should continue. *Diagnostic:* How many third derivatives of the coordinate transformation can you choose at P in four dimensions, and how many second derivatives of the metric would you need to set to zero? *(SCH ch06 §6.2 p.149; legacy:manuscript-section-10-normal-coordinates-and-counting)*
-- **In Riemann normal coordinates every geodesic near P is a straight coordinate line.** — Only the geodesics passing through P are straight lines through the origin. Others curve in these coordinates; if all geodesics were straight, curvature would have been erased. *Why tempting:* The construction is phrased as 'geodesics become straight lines', and Γ vanishes at the origin. *Diagnostic:* In normal coordinates centred at P on a sphere, is the great circle that passes a short distance from P, but not through it, a straight line on the coordinate chart? *(legacy:manuscript-section-10-normal-coordinates-and-counting)*
-
-## Visualizations
-
-### Normal-coordinate map of a curved surface · interactive-3d · high priority
-
-Build Riemann normal coordinates live on a surface of constant curvature and show that the metric is exact at the origin, has no linear error, and departs quadratically as the minus one third formula predicts.
-
-**Interaction:** The learner picks a surface (sphere, flat plane, hyperbolic) and a curvature K, sets the origin, and sees geodesic rays fan out. A side panel shows the flat (x^1, x^2) chart coloured by the exact g_ij - δ_ij, a second colouring shows the prediction -(K/3)(r^2 δ_ij - x_i x_j), and a third shows their difference. Hovering a chart point draws its geodesic on the surface; a circle tool compares true circumference with 2 π r.
-
-**Model:** Exact normal-coordinate metric of a constant-curvature surface: ds^2 = dr^2 + S_K(r)^2 dphi^2 with S_K = sin(sqrt(K) r)/sqrt(K) (sinh for K < 0, r for K = 0). In Cartesian normal coordinates g_ij = xhat_i xhat_j + (S_K/r)^2 (δ_ij - xhat_i xhat_j), which expands to δ_ij - (K/3)(r^2 δ_ij - x_i x_j) + O(r^4); circumference 2 π S_K(r) = 2 π r (1 - K r^2/6 + ...).
-
-**Inspired by:** GA ch35 Fig. 35.2(c) p.367; GA ch35 Fig. 35.2(a) p.367; legacy:manuscript-section-10-normal-coordinates-and-counting
-
-**Legacy assets:** manuscript-section-10-normal-coordinates-and-counting
-
-### Taylor-coefficient budget · interactive-2d · medium priority
-
-A ledger comparing, order by order, the metric's Taylor coefficients at a point with the coordinate transformation's adjustable coefficients, so the twenty curvature numbers appear as an unavoidable shortfall.
-
-**Interaction:** A dimension selector (n = 2 to 5) updates three rows of paired bars: order 0 (metric values vs Jacobian entries), order 1 (first derivatives vs second derivatives of the map) and order 2 (second derivatives vs third derivatives). Surplus at order 0 is labelled rotations and boosts; the order-2 shortfall is labelled curvature and linked to the Riemann tile board.
-
-**Model:** Counts: metric values n(n+1)/2, first derivatives n * n(n+1)/2, second derivatives [n(n+1)/2]^2; coordinate freedom n^2, n * n(n+1)/2, n * n(n+1)(n+2)/6. Surplus n(n-1)/2 at order 0, zero at order 1, shortfall n^2(n^2-1)/12 at order 2 (1, 6, 20, 50 for n = 2 to 5).
-
-**Inspired by:** SCH ch06 §6.2 p.148; legacy:manuscript-section-10-normal-coordinates-and-counting
-
-**Legacy assets:** manuscript-section-10-normal-coordinates-and-counting, lab-riemann-independent-components
-
-### Kill Gamma, keep R · interactive-2d · medium priority
-
-Show on a concrete 2D metric that a quadratic coordinate change can drive the Christoffel symbols at a point to zero while the curvature readout does not move, and that the four-term formula becomes valid exactly when the connection vanishes.
-
-**Interaction:** The learner chooses a metric (sphere in latitude-longitude, polar plane, a paraboloid) and a point, then drags sliders for the coefficients Q of x' = x + (1/2) Q x x while the coordinate grid warps. Live readouts show Γ at the point, R_1212 from the full formula (constant), and R_1212 from the four-term formula, which matches only when Q equals Γ.
-
-**Model:** Transformation of the connection at the origin under x' = x + (1/2) Q x x: Γ'(P) = Γ(P) - Q. Curvature from the exact general-coordinate expression with Γ-Γ terms; four-term formula evaluated in the new coordinates.
-
-**Inspired by:** DIV ch06 §6.6 p.95; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature
-
-**Legacy assets:** manuscript-section-8-4-8-6-flatness-count-sphere-curvature
-
-### How big can a free-fall lab be? · animated-3d · low priority
-
-A freely falling box near a massive body in which residual tidal displacements grow with box size, making the second-order limit of local inertial frames tangible.
-
-**Interaction:** The learner sets the central mass, orbital radius, box size L and experiment duration; test particles inside drift apart; a readout compares tidal displacement (about R L T^2) with an adjustable measurement precision and flags when the lab stops being inertial.
-
-**Model:** Newtonian-limit tidal field around a point mass: radial stretching 2GM/r^3 and transverse squeezing GM/r^3 applied to particle offsets, matching R_0i0j in the weak-field limit.
-
-**Inspired by:** legacy:manuscript-section-10-normal-coordinates-and-counting
-
-**Legacy assets:** manuscript-chapter-10-tides-geodesic-deviation
+**Result:** $\partial_\alpha\Gamma^\rho{}_{\mu\nu}(0) = -\tfrac13(R^\rho{}_{\mu\nu\alpha} + R^\rho{}_{\nu\mu\alpha})$ and $g_{\mu\nu}(x) = \eta_{\mu\nu} - \tfrac13R_{\mu\alpha\nu\beta}(0)x^\alpha x^\beta + O(|x|^3)$.
 
 ## Worked examples
 
-- **Local flatness by counting** (working): Taylor-expands the coordinate transformation and the metric and compares adjustable numbers with conditions order by order, leaving 20 second-derivative combinations as geometry. *(SCH ch06 §6.2 p.148)*
-- **Riemann components at a point** (working): Differentiates the Christoffel formula in a local inertial frame, drops Γ-squared terms, lowers an index and reaches the four-term formula with its symmetries. *(SCH ch06 §6.5 p.158)*
-- **A form of Riemann that shows its symmetries** (working): The same reduction phrased through the local flatness theorem, with the general-coordinate formula supplied for comparison. *(GA ch11 Example 11.5)*
-- **Constructing Riemann normal coordinates** (working): Labels points by distance along rays times unit direction in the flat plane, then replaces rays with geodesics from an orthonormal frame, giving vanishing connection at the origin. *(GA ch35 Example 35.4)*
-- **Explicit Gamma-free chart and symmetry check** (working): The quadratic change x' = x + (1/2) Γ(0) x x cancels the connection at a point; the second-derivative formula then verifies the symmetries in course conventions. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
-- **Deriving the minus one third** (formal): Radial geodesics force the symmetrized derivative of Γ to vanish; solving with the Riemann definition and differentiating metric compatibility yields the expansion coefficient. *(legacy:manuscript-section-10-normal-coordinates-and-counting)*
+### A sphere in normal coordinates · working
 
-## Exercises
+**Problem:** On a sphere of radius $a$, polar coordinates centred on a point $P$, with $r$ the distance walked along a great circle from $P$, give $ds^2 = dr^2 + a^2\sin^2(r/a)\,d\phi^2$. Write the metric in the normal coordinates $x = r\cos\phi$, $y = r\sin\phi$ to second order, and compare with the normal-coordinate expansion.
 
-- (intro) Verify the counts of independent first, second and third derivatives used in the local-flatness argument. *Skill:* Counting components of arrays symmetric in several indices *(SCH ch06 Exercise 6.4 p.166)*
-- (standard) Derive the pair symmetries and cyclic identity from the four-term formula and count the independent components. *Skill:* Reading symmetries from a local-frame formula; counting with index pairs *(SCH ch06 Exercise 6.18 p.167)*
-- (standard) Prove the differential Bianchi identity at a point, taking care not to differentiate a formula that holds only at that point. *Skill:* Using normal coordinates correctly beyond first order *(SCH ch06 Exercise 6.23 p.167)*
-- (challenging) For a weak-field metric, construct first-order local inertial coordinates at a point and find their acceleration relative to the original coordinates. *Skill:* Building local inertial frames explicitly *(SCH ch06 Exercise 6.36 p.168)*
-- (challenging) Guided eight-part derivation of the normal-coordinate metric expansion from geodesic deviation of radial geodesics. *Skill:* Taylor expansion of the connection and metric; geodesic deviation *(GA ch35 Exercise 35.4 p.373)*
-- (intro) Explain in words why Christoffel symbols can vanish at a point in normal coordinates while the Riemann tensor does not. *Skill:* Separating coordinate artefacts from curvature *(legacy:practice-set-appendix-a-thirty-exercises)*
+1. Each point is labelled by the direction $\phi$ and the length $r$ of the geodesic reaching it, so $(x, y)$ are Riemann normal coordinates with an orthonormal basis at $P$.
+2. Since $dx^2 + dy^2 = dr^2 + r^2d\phi^2$, $ds^2 = dx^2 + dy^2 - \big(r^2 - a^2\sin^2(r/a)\big)d\phi^2$.
+3. Expand: $a^2\sin^2(r/a) = r^2 - r^4/(3a^2) + O(r^6)$, so the bracket is $r^4/(3a^2)$.
+4. Use $r^2\,d\phi = x\,dy - y\,dx$: the correction is $-(x\,dy - y\,dx)^2/(3a^2)$.
+5. Read off $g_{xx} = 1 - y^2/(3a^2)$, $g_{yy} = 1 - x^2/(3a^2)$ and $g_{xy} = xy/(3a^2)$.
+6. In two dimensions the only independent component is $R_{xyxy} = K = 1/a^2$, with $R_{xyyx} = -K$. The expansion gives $g_{xx} = 1 - \tfrac13R_{xyxy}y^2$ and $g_{xy} = -\tfrac13R_{xyyx}\,yx = +xy/(3a^2)$, matching.
 
-## Checks for understanding
+**Answer:** $g_{xx} = 1 - y^2/3a^2$, $g_{yy} = 1 - x^2/3a^2$, $g_{xy} = xy/3a^2$, exactly the expansion with $R_{xyxy} = 1/a^2$.
 
-- **Q (intuition):** A friend says: 'Inside a freely falling elevator gravity disappears, so spacetime inside the elevator is flat.' What is right and what is wrong about this?
-  - **A:** Right: at the elevator's centre and to first order in distance, free fall makes the metric Minkowskian, so no uniform gravitational field is felt. Wrong: second derivatives of the metric cannot be removed. The metric's departure from Minkowski grows with the square of the distance from the centre, in proportion to the curvature, so particles released at rest across the elevator slowly drift apart or together (tides). Spacetime is not flat in any region unless the Riemann tensor vanishes there. *(targets: In a local inertial frame, or in Riemann normal coordinates, spacetime is flat in a small neighbourhood.)*
-- **Q (working):** Near the origin of normal coordinates on a unit sphere the metric is g_11 = 1 - y^2/3, g_22 = 1 - x^2/3, g_12 = xy/3 (up to fourth order). Use R_1212 = (1/2)(d_2 d_1 g_12 - d_2 d_2 g_11 + d_1 d_2 g_21 - d_1 d_1 g_22) to find R_1212 at the origin.
-  - **A:** d_1 d_2 g_12 = 1/3 (twice, since g_12 = g_21), d_2 d_2 g_11 = -2/3 and d_1 d_1 g_22 = -2/3. So R_1212 = (1/2)(1/3 + 2/3 + 1/3 + 2/3) = 1, matching Gaussian curvature K = 1 of the unit sphere with the course sign convention.
-- **Q (working):** Apply the four-term formula to the flat plane in polar coordinates, ds^2 = dr^2 + r^2 dtheta^2, to compute R_r θ r θ. What do you get, why is it wrong, and how does the full formula fix it?
-  - **A:** Only g_θθ = r^2 has a nonzero second derivative, ∂_r ∂_r g_θθ = 2, which enters with a minus sign: the formula gives (1/2)(-2) = -1. It is wrong because polar coordinates do not have vanishing first metric derivatives (Γ^θ_r θ = 1/r, Γ^r_θθ = -r are nonzero). The general formula adds g_ρσ(Γ^ρ_θ r Γ^σ_r θ - Γ^ρ_θθ Γ^σ_r r) = g_θθ (1/r)^2 - 0 = +1, so R_r θ r θ = -1 + 1 = 0, as flatness demands. *(targets: Anything proved in a local inertial frame, including the four-term second-derivative formula, holds in every coordinate system.)*
-- **Q (formal):** Repeat the coefficient count in three dimensions: how many second derivatives of the metric, how many third derivatives of a coordinate change, and how many curvature components remain?
-  - **A:** The metric has 6 components, so 6 x 6 = 36 second derivatives. A coordinate change has 3 functions, each with 10 independent third derivatives, giving 30. The shortfall is 36 - 30 = 6, which equals n^2(n^2 - 1)/12 = 9 x 8/12 = 6, the number of independent Riemann components in three dimensions (the same as the six components of the Ricci tensor there). *(targets: With enough cleverness a coordinate change could also remove the second derivatives of the metric at a point.)*
-- **Q (formal):** From g_μν = η_μν - (1/3) R_μανβ x^α x^β, show that the circumference of a small geodesic circle of radius r on a surface of Gaussian curvature K is 2 π r (1 - K r^2/6). Use R_abcd = K(g_ac g_bd - g_ad g_bc).
-  - **A:** At the origin R_i a j b x^a x^b = K(δ_ij r^2 - x_i x_j). Along the circle the tangent t = (-sin φ, cos φ) is perpendicular to x, so g_ij t^i t^j = 1 - (K/3)(r^2 - 0) = 1 - K r^2/3. The circumference is the integral of r sqrt(1 - K r^2/3) dphi, about 2 π r (1 - K r^2/6). No linear correction appears, and the cubic shortfall measures K.
+**Takeaway:** The whole second-order departure of the sphere's metric from flat is one number, $K = 1/a^2$, entering through the angular part that makes circles short.
 
-## Applications
+## Problems
 
-- **Limits of the equivalence principle**: The expansion quantifies how large and how long an experiment can be before a freely falling laboratory reveals curvature: roughly when |R| L^2 is no longer negligible, with extra care if curvature varies across the region. Key numbers: Near Earth's surface GM/r^3 is about 1.5e-6 s^-2, so two masses 1 m apart drift by about 1 micrometre in 1 s. *(legacy:manuscript-section-10-normal-coordinates-and-counting)*
-- **Proving curvature identities**: Normal coordinates turn the symmetries, the cyclic identity and the differential Bianchi identity into short checks with partial derivatives at one point, which are then promoted as tensor equations. *(SCH ch06 §6.5 p.158; legacy:manuscript-section-09-bianchi-einstein-tensor)*
-- **Weak-field and gravitational-wave curvature**: The linearized Riemann tensor has the same four-term second-derivative structure with the metric perturbation h in place of g, which is why it is gauge invariant at first order. *(SCH ch06 §6.5 p.158)*
+### `twice-as-far` · entry · difficulty 2 · estimate
 
-## Tutor guidance
+On a ball as big as Earth, walking straight 10 kilometres in every direction from a spot marks a circle. On the ground it is about 26 millimetres shorter than on the map drawn from those walks. For walks much shorter than the distance around the ball, the fraction by which the circle is short grows as the square of the distance. About how short is the circle 20 kilometres out? And 50 kilometres out?
 
-**Opening questions**
+**Hints**
 
-- If you are falling freely, which parts of gravity can you no longer feel, and which can you still detect?
-- Can you choose coordinates at a point where all Christoffel symbols vanish? Does that make the space flat?
-- On a globe, if you draw a small circle of radius r around a point, is its circumference more or less than 2 π r?
+1. At 20 kilometres, how many times bigger is the fraction?
+2. How many times longer is the circle itself?
+3. Multiply the two.
+
+**Answer:** About 21 centimetres short at 20 kilometres, and about 3.2 metres short at 50 kilometres.
+
+**Must contain:** Doubling the distance makes the fraction four times bigger; The circle is also twice as long, so the shortfall is eight times bigger; Five times the distance gives 125 times the shortfall
+
+**Numeric:** shortfall at 20 kilometres = 0.206 m (magnitude, ±5%); shortfall at 50 kilometres = 3.22 m (magnitude, ±5%)
+
+**Solution**
+
+1. At 20 kilometres the distance is twice as big, so the fraction is four times bigger. The circle is also twice as long.
+2. So the shortfall is 4 times 2, which is 8 times bigger: 8 times 26 millimetres is about 208 millimetres, or 21 centimetres.
+3. At 50 kilometres the distance is five times bigger. The fraction is 25 times bigger and the circle 5 times longer, so the shortfall is 125 times bigger.
+4. 125 times 26 millimetres is about 3,250 millimetres, about 3.2 metres.
+
+### `circles-from-the-expansion` · working · difficulty 2 · calculation
+
+On a surface with Gaussian curvature $K$ at $P$, the normal-coordinate metric is $g_{ij} = \delta_{ij} - \tfrac13R_{ikjl}x^kx^l$ with $R_{xyxy} = K$. Show that the circle of radius $r$ about $P$ has circumference $2\pi r(1 - Kr^2/6)$ to leading order. Apply it to a basketball of radius 12 cm with $r = 10$ cm, and compare with the exact $2\pi a\sin(r/a)$.
+
+**Hints**
+
+1. Take a unit vector $w$ tangent to the circle at $x$, so $w\cdot x = 0$.
+2. In two dimensions $R_{ikjl}w^ix^kw^jx^l = K\big(|w|^2|x|^2 - (w\cdot x)^2\big)$.
+
+**Answer:** $C = 2\pi r(1 - Kr^2/6)$. For the basketball it predicts 55.6 cm against the exact 55.8 cm, a shortfall of 7.3 cm against 7.0 cm.
+
+**Must contain:** A tangent unit vector has squared length one minus K r squared over three; Its square root gives one minus K r squared over six; The leading-order formula is within half a percent for the basketball
+
+**Numeric:** circumference from the expansion = 55.56 cm (magnitude, ±0.5%); exact circumference = 55.81 cm (magnitude, ±0.5%)
+
+**Solution**
+
+1. At the point $x$ on the circle, take a unit vector $w$ with $w\cdot x = 0$. Then $g_{ij}w^iw^j = 1 - \tfrac13R_{ikjl}w^ix^kw^jx^l = 1 - \tfrac13Kr^2$.
+2. A coordinate step $r\,d\phi$ along the circle therefore has length $r\,d\phi\sqrt{1 - Kr^2/3} = r\,d\phi(1 - Kr^2/6) + O(r^5)$.
+3. Integrating over $\phi$ from $0$ to $2\pi$ gives $C = 2\pi r(1 - Kr^2/6)$.
+4. Basketball: $K = 1/(12\ \mathrm{cm})^2$, so $Kr^2/6 = 100/864 = 0.1157$ and $C = 62.83 \times 0.8843 = 55.56$ cm.
+5. Exact: $2\pi(12)\sin(10/12) = 55.81$ cm. The shortfalls are 7.27 cm and 7.02 cm; the next term is of order $(Kr^2)^2$.
+
+### `volume-of-a-small-ball` · formal · difficulty 3 · proof
+
+On a Riemannian manifold of dimension $n$, show that in normal coordinates $\sqrt{\det g} = 1 - \tfrac16R_{\alpha\beta}x^\alpha x^\beta + O(|x|^3)$, with $R_{\alpha\beta} = R^\rho{}_{\alpha\rho\beta}$. Deduce that a geodesic ball of small radius $r$ has volume $\omega_nr^n\big(1 - \frac{R\,r^2}{6(n+2)} + O(r^3)\big)$, where $\omega_n$ is the volume of the Euclidean unit ball, and check the result for a round 2-sphere.
+
+**Hints**
+
+1. For small $h$, $\det(\delta + h) = 1 + \mathrm{tr}\,h + O(h^2)$.
+2. By symmetry, $\int_{|x|<r} x^\alpha x^\beta\,d^nx = \delta^{\alpha\beta}\,\omega_n r^{n+2}/(n+2)$.
+3. The geodesic ball of radius $r$ is the coordinate ball $|x| < r$, by the Gauss lemma.
+
+**Answer:** $\sqrt{\det g} = 1 - \tfrac16R_{\alpha\beta}x^\alpha x^\beta$, and integrating over $|x| < r$ gives $V = \omega_nr^n(1 - Rr^2/(6(n+2)))$. On a sphere of radius $a$, $R = 2/a^2$ and $n = 2$ give $\pi r^2(1 - r^2/12a^2)$, the expansion of the exact $2\pi a^2(1 - \cos(r/a))$.
+
+**Must contain:** The trace of the metric correction is minus one third of the Ricci tensor contracted with x x; The square root halves it, giving minus one sixth; The angular average of x x brings in the Ricci scalar over n plus two; Positive Ricci scalar makes small balls smaller than flat ones
+
+**Solution**
+
+1. Write $g_{\alpha\beta} = \delta_{\alpha\beta} + h_{\alpha\beta}$ with $h_{\alpha\beta} = -\tfrac13R_{\alpha\mu\beta\nu}x^\mu x^\nu$.
+2. $\mathrm{tr}\,h = \delta^{\alpha\beta}h_{\alpha\beta} = -\tfrac13R^\alpha{}_{\mu\alpha\nu}x^\mu x^\nu = -\tfrac13R_{\mu\nu}x^\mu x^\nu$, with indices raised by $\delta$ at this order.
+3. $\sqrt{\det g} = 1 + \tfrac12\mathrm{tr}\,h + O(|x|^3) = 1 - \tfrac16R_{\mu\nu}x^\mu x^\nu + O(|x|^3)$.
+4. By the Gauss lemma the geodesic distance from $p$ is $|x|$, so the geodesic ball is $|x| < r$.
+5. $\int_{|x|<r}|x|^2d^nx = n\omega_n r^{n+2}/(n+2)$, and isotropy gives $\int x^\mu x^\nu d^nx = \delta^{\mu\nu}\omega_nr^{n+2}/(n+2)$.
+6. So $V = \omega_nr^n - \tfrac16R\,\omega_nr^{n+2}/(n+2) + O(r^{n+3})$.
+7. Sphere of radius $a$: $R = 2/a^2$ and $n = 2$ give $\pi r^2(1 - r^2/12a^2)$. The exact area $2\pi a^2(1 - \cos(r/a)) = \pi r^2 - \pi r^4/12a^2 + O(r^6)$ agrees. For the unit 3-sphere, $R = 6$ gives $\tfrac43\pi r^3(1 - r^2/5)$, matching $2\pi(r - \sin r\cos r)$.
+
+## Observations
+
+- **The vertical gradient of Earth's gravity, measured by comparing two freely falling clouds of atoms** (measured, working). Each atom cloud falls freely. In coordinates locally inertial at the cloud, $g_{\mu\nu} = \eta_{\mu\nu}$ and $\partial_\lambda g_{\mu\nu} = 0$ there, so the uniform part of gravity does not show. The instrument measures what is left: the relative acceleration per unit height of two clouds, $-c^2R^z{}_{0z0}$, the second-order part of gravity that no choice of freely falling frame removes. Earth's rotation and shape change the value slightly. *Numbers:* For a spherical Earth $2GM/r^3 = 3.08\times10^{-6}\ \mathrm{s^{-2}}$, so $R^z{}_{0z0} = -3.43\times10^{-23}\ \mathrm{m^{-2}}$ at the surface; the standard free-air gradient is $3.086\times10^{-6}\ \mathrm{s^{-2}}$. *Reference:* M. J. Snadden, J. M. McGuirk, P. Bouyer, K. G. Haritos, M. A. Kasevich (1998), *Measurement of the Earth's Gravity Gradient with an Atom Interferometer-Based Gravity Gradiometer*, Physical Review Letters 81, 971–974, doi:10.1103/PhysRevLett.81.971
+
+## Teaching arc
+
+1. **Draw a map from one spot** (entry). Build the map from straight walks on a ball, then ask for a prediction about the circle reached by walking from the North Pole to the equator. *Why:* The equator makes the short circles undeniable before any small numbers appear. *Predict:* Walking straight from the North Pole to the equator in every direction, will the circle you reach be longer or shorter than on a flat field? *Visual:* [[straight-walks-from-one-spot]] *Uses:* `ways_in/a-map-drawn-from-one-spot`, `problems/twice-as-far`
+2. **Try to fix the map** (entry). Let the learner propose a cleverer map, then run the tape argument. *Why:* Separating drawing errors from ground errors is what makes the leftover mean curving. *Predict:* Could a cleverer map-maker draw ten kilometres around her door on Earth with every distance correct? *Uses:* `ways_in/no-map-can-hide-the-short-circles`, `checks/a-cleverer-map-maker`
+3. **Fall with the room** (entry). Carry the map idea to a freely falling room: nothing shows gravity at its centre, but crumbs farther out drift a little. *Why:* It turns the picture into the equivalence principle and its limit. *Predict:* In a falling room, will a crumb two metres from the centre stay put, drift like the one at one metre, or drift twice as far? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/a-falling-room-is-the-best-map`, `checks/crumbs-in-a-falling-room`
+4. **Set the connection to zero at a point** (working). Derive the four-term formula and run the polar plane where it fails, then state the minus one third expansion and work the sphere. *Why:* The success and the failure together fix both the formula and its condition. *Predict:* Applied to the flat plane in polar coordinates, will the four-term formula give zero? *Visual:* [[four-terms-that-cancel]] *Uses:* `ways_in/only-second-derivatives-survive`, `checks/four-terms-in-polar-coordinates`, `ways_in/the-metric-near-a-point`, `worked_examples/sphere-in-normal-coordinates`
+5. **Prove the expansion and mark its limits** (formal). Prove the one third from radial geodesics, then ask when second derivatives can vanish and how far the coordinates reach. *Why:* Graduate readers need the hypotheses and the failure modes, not only the formula. *Uses:* `ways_in/normal-coordinates-precisely`, `derivations/one-third-from-radial-geodesics`, `checks/when-second-derivatives-can-vanish`, `checks/how-far-normal-coordinates-reach`
+
+## Misconceptions
+
+### “With a clever enough map, a small piece of a ball could be drawn with every distance correct.” · entry · `a-cleverer-map-could-fix-it`
+
+- **Why it is tempting:** Small pieces of a ball look flat, and badly drawn maps can always be improved.
+- **What is true:** Any map with every distance correct would show the circle around its centre at full length, but a tape on the ground finds it short. The shortfall belongs to the ground, so no drawing removes it.
+- **Exposed by:** `checks/a-cleverer-map-maker`
+
+### “Inside a small falling room nothing drifts at all, so it is exactly like empty space.” · entry · `small-falling-room-is-empty-space`
+
+- **Why it is tempting:** Everything floats, and the drift is far too small to see.
+- **What is true:** Only at the room's centre does nothing show gravity; crumbs away from the centre drift, more the farther out they are. A small room and a short fall make the drift tiny, but near Earth the drift is never exactly zero.
+- **Exposed by:** `checks/crumbs-in-a-falling-room`
+
+### “If the metric is Minkowskian with zero first derivatives at a point, spacetime is flat around that point.” · working · `inertial-at-a-point-means-flat-nearby`
+
+- **Why it is tempting:** Such coordinates are often described as making spacetime locally flat.
+- **What is true:** Only the value and first derivatives are fixed, and only at that point. The second derivatives are fixed by the Riemann tensor, which no choice of coordinates removes.
+- **Exposed by:** `checks/is-the-sphere-flat-near-the-origin`
+
+### “The Riemann tensor is always half of four second derivatives of the metric, in any coordinates.” · working · `four-term-formula-works-everywhere`
+
+- **Why it is tempting:** The formula is derived once and then quoted without its condition.
+- **What is true:** It needs vanishing first derivatives of the metric at the point. Elsewhere products of Christoffel symbols contribute, as the flat plane in polar coordinates shows.
+- **Exposed by:** `checks/four-terms-in-polar-coordinates`, `checks/which-results-carry-over`
+
+### “With enough cleverness, coordinates could also remove the metric's second derivatives at any point.” · formal · `second-derivatives-removable-with-effort`
+
+- **Why it is tempting:** The value and the first derivatives can always be removed, so the pattern seems to continue.
+- **What is true:** At a point where they vanish together with the first derivatives, the four-term formula forces the curvature to vanish. So this is possible exactly where the Riemann tensor is zero.
+- **Exposed by:** `checks/when-second-derivatives-can-vanish`
+
+### “Anything proved in normal coordinates holds in every coordinate system.” · formal · `special-coordinate-results-hold-everywhere`
+
+- **Why it is tempting:** Results found in special coordinates are routinely promoted to all coordinates.
+- **What is true:** Only relations among tensors can be promoted. Statements about Christoffel symbols or partial derivatives of the metric hold only in the coordinates where they were found.
+- **Exposed by:** `checks/which-results-carry-over`
+
+## Checks
+
+1. **Entry · evaluate-claim** `checks/a-cleverer-map-maker`. A map-maker on Earth says: "I can draw a flat map of everything within 10 kilometres of my door with every distance correct, to scale. I just need a cleverer method than straight walks." A distance here means the length of the shortest route between two places, measured with a tape along the ground. Treat Earth as a smooth ball. Is she correct?
+   - **Hints:** Where would her map put the places 10 kilometres from the door? / What does a tape along the ground circle read?
+   - **Answer:** No. Suppose her map kept every distance correct. The places 10 kilometres from her door would sit 10 kilometres from the door's dot, to scale, so on the map they form a circle 62.8 kilometres around. Go around the ground circle through those places in many short hops. Each hop is correct on the map, so the hops add up to the same total on the ground: 62.8 kilometres. But a tape laid along the ground circle reads about 26 millimetres less. The tape measures the ground, and no way of drawing changes the ground. So no flat map of that patch can keep every distance correct.
+   - **Must contain:** She is wrong; A map with every distance correct would show the circle at 62.8 kilometres, and short hops add up to the same length on the ground; The ground circle is shorter, and drawing cannot change the ground
+   - **Targets:** `a-cleverer-map-could-fix-it`
+2. **Entry · predict** `checks/crumbs-in-a-falling-room`. A room starts at rest in a deep shaft on Earth and falls freely, with the air pumped out. You let go of three crumbs, each at rest relative to the room. One is at the room's centre. The others are 1 metre and 2 metres to the side of the room's centre, all three at the same distance from Earth's centre. You watch for 10 seconds and measure the drifts with an instrument that reads hundredths of a millimetre. Which crumbs move relative to the room's centre, and how do their drifts compare?
+   - **Hints:** Toward which point does each crumb fall? / In 10 seconds the room drops about 490 metres, and Earth's centre is about 6,371,000 metres away. By what fraction does each gap shrink?
+   - **Answer:** The centre crumb stays at the room's centre, because it falls exactly as the room's centre does. The two side crumbs drift toward the room's centre, because everything falls toward Earth's centre, and like spokes of a wheel their lines of fall lead to the same point. In 10 seconds the room drops about 490 metres, which is 490 parts in 6,371,000 of the way to Earth's centre. So each gap shrinks by that fraction. The crumb 1 metre out drifts about 8 hundredths of a millimetre. The crumb 2 metres out drifts twice as far, about 15 hundredths of a millimetre. So falling removes gravity only at the room's centre, and farther out a small drift remains.
+   - **Must contain:** The centre crumb stays put; The side crumbs drift toward the centre; Twice as far out means twice the drift
+   - **Numeric:** drift of the crumb 1 metre out = 7.7e-05 m (magnitude, ±10%); drift of the crumb 2 metres out = 0.000154 m (magnitude, ±10%)
+   - **Targets:** `small-falling-room-is-empty-space`
+   - **Visual:** [[falling-ring-of-crumbs]]
+3. **Working · evaluate-claim** `checks/is-the-sphere-flat-near-the-origin`. The worked example "A sphere in normal coordinates" found $g_{xx} = 1 - y^2/3a^2$, $g_{yy} = 1 - x^2/3a^2$ and $g_{xy} = xy/3a^2$ near a point of a sphere of radius $a$. A classmate says the sphere is flat near the origin, because there $g_{ij} = \delta_{ij}$ and its first derivatives vanish. Find $R_{xyxy}$ at the origin with the four-term formula and evaluate the claim.
+   - **Hints:** Each metric component has only one nonzero second derivative. / Mind the minus signs in front of the second and fourth terms.
+   - **Answer:** With $\alpha = \mu = x$ and $\beta = \nu = y$, $R_{xyxy} = \tfrac12(\partial_y\partial_x g_{xy} - \partial_y\partial_y g_{xx} + \partial_x\partial_y g_{yx} - \partial_x\partial_x g_{yy})$. The terms are $1/3a^2$, $+2/3a^2$, $1/3a^2$ and $+2/3a^2$, so $R_{xyxy} = \tfrac12\cdot 2/a^2 = 1/a^2$. The first derivatives vanish at the origin, so the formula applies, and the curvature is not zero. The classmate confuses vanishing first derivatives with flatness: the second derivatives carry the curvature, and circles around the origin are short.
+   - **Must contain:** R x y x y equals one over a squared; The four-term formula applies because the first derivatives vanish; Vanishing first derivatives do not make the surface flat
+   - **Numeric:** R x y x y times a squared = 1 1 (signed, ±0.01)
+   - **Targets:** `inertial-at-a-point-means-flat-nearby`
+4. **Working · numeric** `checks/four-terms-in-polar-coordinates`. Apply the four-term formula to the flat plane in polar coordinates, $ds^2 = dr^2 + r^2d\phi^2$, at $r = 1$. What does it give for $R_{r\phi r\phi}$? What is the true value, and where does the difference come from?
+   - **Hints:** Which metric component depends on $r$? / Does $\partial_r g_{\phi\phi}$ vanish at $r = 1$?
+   - **Answer:** Only $\partial_r\partial_r g_{\phi\phi} = 2$ is nonzero, and it enters with a minus sign, so the formula gives $\tfrac12(-2) = -1$. The true value is $0$, because the plane is flat. The formula needs $\partial g = 0$ at the point, but $\partial_r g_{\phi\phi} = 2r \neq 0$. The general expression adds $g_{\rho\sigma}(\Gamma^\rho{}_{\phi r}\Gamma^\sigma{}_{r\phi} - \Gamma^\rho{}_{\phi\phi}\Gamma^\sigma{}_{rr}) = r^2(1/r)(1/r) = +1$, since $\Gamma^\phi{}_{r\phi} = 1/r$ and $\Gamma^\sigma{}_{rr} = 0$. The sum is $0$.
+   - **Must contain:** The four terms alone give minus one; The first derivatives of the metric do not vanish in polar coordinates; The Christoffel products add plus one, for a true value of zero
+   - **Numeric:** four-term value = -1 1 (signed, ±0.01); true value of R r phi r phi = 0 1 (signed, ±1e-06)
+   - **Targets:** `four-term-formula-works-everywhere`
+   - **Visual:** [[four-terms-that-cancel]]
+5. **Formal · derive** `checks/when-second-derivatives-can-vanish`. Prove that at a point $p$ there are coordinates with $\partial_\lambda g_{\mu\nu}(p) = 0$ and $\partial_\kappa\partial_\lambda g_{\mu\nu}(p) = 0$ if and only if $R_{\alpha\beta\mu\nu}(p) = 0$. Does $R = 0$ at the single point $p$ make the metric flat near $p$?
+   - **Hints:** For the forward direction, which formula applies when $\partial g(p) = 0$? / For the converse, use the normal-coordinate derivatives.
+   - **Answer:** If both sets of derivatives vanish, the four-term formula applies because $\partial g(p) = 0$, and every term is a second derivative, so $R(p) = 0$ in those coordinates and hence in all. Conversely, if $R(p) = 0$, Riemann normal coordinates give $\partial g(p) = 0$ and $\partial_\alpha\partial_\beta g_{\mu\nu}(p) = -\tfrac13(R_{\mu\alpha\nu\beta} + R_{\mu\beta\nu\alpha}) = 0$. A zero at one point is not flatness: the higher-order terms involve covariant derivatives of $R$ at $p$, which need not vanish. On a surface of revolution whose curvature near its pole is $K = r^2/b^4$, with $r$ the geodesic distance and $b$ a constant length, $K(p) = 0$, yet circles of radius $r$ are short by the fraction $r^4/20b^4$.
+   - **Must contain:** Vanishing second derivatives force R to vanish through the four-term formula; If R vanishes, normal coordinates remove the second derivatives; A zero of R at one point says nothing about higher orders
+   - **Targets:** `second-derivatives-removable-with-effort`
+6. **Formal · choice** `checks/which-results-carry-over`. Each statement was established in Riemann normal coordinates at $p$. Which may be used at $p$ in Schwarzschild coordinates? (a) $R_{\alpha\beta\mu\nu} = -R_{\beta\alpha\mu\nu}$; (b) $R_{\alpha\beta\mu\nu} = \tfrac12(\partial_\beta\partial_\mu g_{\alpha\nu} - \partial_\beta\partial_\nu g_{\alpha\mu} + \partial_\alpha\partial_\nu g_{\beta\mu} - \partial_\alpha\partial_\mu g_{\beta\nu})$; (c) $\Gamma^\rho{}_{\mu\nu} = 0$; (d) $R_{\alpha\beta\mu\nu} + R_{\alpha\mu\nu\beta} + R_{\alpha\nu\beta\mu} = 0$.
+   - **Hints:** Which statements contain only tensors?
+   - **Answer:** Only (a) and (d). Each relates components of one tensor at $p$, and a relation of the form tensor equals zero holds in every basis. Statement (b) equates a tensor with partial derivatives of the metric, which are not tensor components; in Schwarzschild coordinates the Christoffel products contribute. Statement (c) is false there, since $\Gamma^r{}_{tt} \neq 0$.
+   - **Must contain:** a and d carry over; b and c hold only in coordinates adapted to p; Only relations among tensors may be promoted
+   - **Targets:** `special-coordinate-results-hold-everywhere`, `four-term-formula-works-everywhere`
+7. **Formal · explain** `checks/how-far-normal-coordinates-reach`. On a sphere of radius $a$, normal coordinates about $p$ are polar coordinates $(r, \phi)$ with $r$ the geodesic distance from $p$. For which $r$ do they form a chart, and why does the chart end there? At $r = \pi a/2$, compare the true ratio of circumference to $2\pi r$ with the second-order prediction $1 - r^2/6a^2$.
+   - **Hints:** Where does $\sin(r/a)$ first vanish again?
+   - **Answer:** They form a chart for $0 \le r < \pi a$, the open disc in $T_pM$. At $r = \pi a$ every radial geodesic reaches the antipode, a conjugate point where $g_{\phi\phi} = a^2\sin^2(r/a)$ vanishes and $\exp_p$ is no longer a local diffeomorphism, so a whole circle of the tangent space maps to one point. At $r = \pi a/2$ the true ratio is $\sin(\pi/2)/(\pi/2) = 2/\pi = 0.637$, while $1 - r^2/6a^2 = 1 - \pi^2/24 = 0.589$. The expansion is a statement about $r \ll a$, not about the whole chart.
+   - **Must contain:** The chart is the open disc of radius pi a; The antipode is a conjugate point where the angular metric vanishes; At a quarter of a great circle the second-order prediction is off by about eight percent
+   - **Numeric:** true ratio at a quarter circle = 0.637 1 (magnitude, ±1%); second-order prediction = 0.589 1 (magnitude, ±1%)
+
+## Notation traps
+
+| Issue | Course choice | Variants you will meet |
+| --- | --- | --- |
+| Sign of the curvature term in the normal-coordinate metric | With the course Riemann tensor, $g_{\mu\nu} = \eta_{\mu\nu} - \tfrac13R_{\mu\alpha\nu\beta}x^\alpha x^\beta$, and a sphere has $R_{xyxy} = +1/a^2$, so its circles are short. | Texts that define the Riemann tensor with the opposite overall sign write $+\tfrac13$. Changing the signature flips both $\eta_{\mu\nu}$ and $R_{\mu\alpha\nu\beta}$ and leaves the form unchanged. Calibrate with the sphere. |
+| Index order in second-derivative formulas written with commas | Working rung: $\partial_\beta\partial_\mu g_{\alpha\nu}$. Formal and research rungs may write $g_{\alpha\nu,\mu\beta} = \partial_\beta\partial_\mu g_{\alpha\nu}$, indices applied left to right. | Many texts write the four-term formula with commas, such as $g_{\alpha\nu,\beta\mu}$. For partial derivatives of a smooth metric the order does not change the value, but with semicolons it does. |
+
+## Visuals
+
+- ★ [[straight-walks-from-one-spot]] (flagship): The entry picture made measurable: straight walks from one spot, the flat map drawn from them, and circles whose ground length falls short. *Sketch:* Split view: geodesics fanned from a draggable spot on a ball, saddle, flat field or tube, beside the flat map where they are straight rays. Dragging the walking distance $r$ updates the ground and map lengths of the circle and the fraction short, with $Kr^2/6$ beside it: the fraction quadruples when $r$ doubles, stays zero on the tube, turns negative on the saddle, and the map folds past the antipode.
+- [[falling-ring-of-crumbs]] (core): Shows what a freely falling room removes, gravity at its centre, and the drift it leaves farther out. *Sketch:* A ring of freely falling crumbs near a mass stretches along the line to the centre and squeezes across it, while the centre crumb stays put. Sliders for mass and distance; readouts of the tidal entries.
+- [[four-terms-that-cancel]] (supporting): Shows the Christoffel products that the four-term formula leaves out when the metric's first derivatives do not vanish. *Sketch:* Pick a metric and a point, such as the plane in polar coordinates or a sphere in normal coordinates. Each lowered Riemann component splits into its four second-derivative terms and its Christoffel products, with numbers; the products vanish only where the metric's first derivatives do.
+
+## Tutor moves
+
+**Open with**
+
+- Picture Earth as a smooth ball. Friends set off from the North Pole in every direction, and each walks straight until reaching the equator. On a flat field, the circle they reach would be about six point two eight times as long as each walk. Will the equator be longer, shorter or the same? *(prediction)*
+- Inside a room falling freely down a deep shaft, everything floats. Has gravity gone completely, or is some of it still there? *(reflection)*
+
+**If the learner is stuck**
+
+- *The learner does not see how the map is built.* → Build it for three directions only, ahead, left and right, and two distances, then join the marks. *Uses:* `ways_in/a-map-drawn-from-one-spot`
+- *The learner thinks a better drawing could lengthen the ground circle.* → Ask whether a tape laid on the ground measures the paper or the ground. *Uses:* `checks/a-cleverer-map-maker`
 
 **Common questions**
 
-- *Why is there a factor one half in the four-term formula?* — It comes straight from the one half in the Christoffel formula; differentiating Γ once and lowering the index keeps that factor, and the symmetric terms pair up without doubling it.
-- *Where does the minus one third come from?* — In normal coordinates the radial lines must be geodesics, which forces the fully symmetrized derivative of Γ to vanish. Solving that condition together with the Riemann definition gives derivatives of Γ equal to minus one third of two Riemann terms; the one half from Taylor's formula and two equal terms then combine into minus one third.
-- *Is a local inertial frame the same thing as Riemann normal coordinates?* — Every Riemann normal coordinate system is locally inertial at its origin, but not conversely. Any coordinates with g = η and zero first derivatives at P are locally inertial and give the four-term formula; the minus one third expansion needs the extra normal-coordinate conditions.
-- *Can I compute curvature in practice with the four-term formula?* — Only if you already have coordinates with vanishing first metric derivatives at the point. Usually it is easier to compute Christoffel symbols and use the general Riemann formula, then use the four-term formula for proofs.
-- *Why exactly twenty?* — In four dimensions the metric has 100 second derivatives at a point and a coordinate change can adjust only 80 of them; the 20 left over match the independent components allowed by the Riemann symmetries.
-- *What about Fermi coordinates?* — They extend the idea along a whole free-fall worldline instead of a single event: the metric is Minkowskian with zero first derivatives all along the worldline, and curvature appears quadratically in the transverse distance, for example g_00 = -1 - R_0i0j x^i x^j.
+- *What does a map of a ball have to do with gravity?* (entry) A room falling freely works like a map drawn around one spot. Its ruler and watch label places and moments, and at its centre nothing shows gravity, just as the map is almost perfect near its starting spot. Farther out, crumbs drift a little, just as circles on a ball come out short. Near Earth, that leftover is what Einstein's theory calls the curving of space and time, and no way of falling removes it. *Uses:* `ways_in/a-falling-room-is-the-best-map`
 
-**Pitfalls when explaining**
+**Switching levels**
 
-- Never say the neighbourhood is flat; say the metric is Minkowskian to first order at one event.
-- Label every coordinate-specific equation in speech ('at P, in these coordinates') before using it.
-- Do not differentiate the four-term formula to get identities that need third derivatives; it holds only at P, so derivatives of it are meaningless.
-- Keep 'locally inertial coordinates' (value and slope fixed) distinct from 'Riemann normal coordinates' (geodesic construction); the minus one third belongs to the latter.
-- In spacetime the geodesic rays include timelike and null directions and the 'distance' is an affine parameter; do not describe the construction purely in terms of spatial lengths.
-- When quoting d'Inverno's lowered Riemann components, remember the sign flip from the opposite signature.
+- To working when: asks how to compute the curvature from the metric; uses Christoffel symbols. Derive the four-term formula and run the polar-plane failure. *Uses:* `ways_in/only-second-derivatives-survive`, `checks/four-terms-in-polar-coordinates`
+- To formal when: asks why the coefficient is one third; asks where normal coordinates exist. Present the exponential map, the theorem with its proof sketch, and the conjugate-point limit. *Uses:* `ways_in/normal-coordinates-precisely`, `checks/how-far-normal-coordinates-reach`
+- To research when: asks about higher orders; asks about coordinates along a whole worldline. Open the research horizon on covariant expansions and Fermi coordinates. *Uses:* `research_horizon/covariant-expansions`, `research_horizon/fermi-normal-coordinates`
 
-**When to show a demo**
+**Pronunciations:** Riemann → REE-mahn; Christoffel → kris-TOFF-el; Levi-Civita → LEH-vee CHEE-vee-tah; Veblen → VEB-len; gnomonic → no-MON-ik
 
-- When the learner claims a freely falling lab is flat, open the normal-coordinate map, grow the region, and watch the metric error colour in quadratically.
-- When deriving the four-term formula, use 'Kill Γ, keep R' to show that the formula's validity switches on exactly when the Christoffel symbols at the point reach zero.
-- When introducing the number twenty, run the Taylor-coefficient budget with the dimension selector before revealing Riemann's symmetries.
+## History
 
-**Saying it aloud:** Say the expansion in words first: 'near the chosen event the metric starts out exactly Minkowskian, has no correction linear in distance, and its first correction is minus one third of the curvature times the displacement taken twice.' Then: 'g mu nu equals eta mu nu minus one third R mu alpha nu beta, x alpha, x beta.' For the four-term formula say 'at that event, all-lower Riemann is one half of a signed sum of four second derivatives of the metric,' and only read index strings if the learner is writing them down. Always add 'only at that point, only in those coordinates.'
+- **Bernhard Riemann (1854).** In his 1854 habilitation lecture, published in 1868, described the line element near a point, in coordinates built from geodesics, as the Euclidean form plus second-order terms whose coefficients measure the curvature of each surface direction through the point. Bernhard Riemann (1868), *Ueber die Hypothesen, welche der Geometrie zu Grunde liegen*, Abhandlungen der Königlichen Gesellschaft der Wissenschaften zu Göttingen 13, 133–150
+- **Oswald Veblen (1922).** Defined normal coordinates for a general symmetric affine connection, built from the paths through a point, and used them to study the connection's invariants. Oswald Veblen (1922), *Normal Coordinates for the Geometry of Paths*, Proceedings of the National Academy of Sciences 8, 192–197, doi:10.1073/pnas.8.7.192
 
-## Sources
+## Research horizon
 
-- schutz ch06 (core): p.145 §6.2, p.149 §6.2, p.158 §6.5, p.159 §6.5
-- gifted-amateur ch11 (developed): p.126 §11.4
-- gifted-amateur ch35 (developed): p.367 §35.2, p.368 §35.2, p.373
-- legacy manuscript-section-10-normal-coordinates-and-counting (developed)
-- legacy manuscript-section-8-4-8-6-flatness-count-sphere-curvature (developed)
+- **Covariant expansions beyond second order.** The normal-coordinate expansion continues to every order, with coefficients built from the Riemann tensor, its covariant derivatives and their products at the origin; closed formulas for these coefficients exist. The same data appear in Synge's world function and in the local expansions of Green's functions used for self-force calculations and heat-kernel coefficients. Ulf Müller, Christian Schubert, Anton E. M. van de Ven (1999), *A closed formula for the Riemann normal coordinate expansion*, General Relativity and Gravitation 31, 1759–1768, arXiv:gr-qc/9712092; Eric Poisson, Adam Pound, Ian Vega (2011), *The motion of point particles in curved spacetime*, Living Reviews in Relativity 14, 7, doi:10.12942/lrr-2011-7
+- **Fermi normal coordinates along a worldline.** Normal coordinates are centred on one event. Fermi normal coordinates are centred on a whole geodesic worldline: the connection vanishes all along it, and with $G = c = 1$ the metric begins $g_{00} = -1 - R_{0i0j}x^ix^j$, so the tidal field enters at second order in distance for all time. They describe the tidal environment of a small body, such as a star or black hole moving through an external field. F. K. Manasse, Charles W. Misner (1963), *Fermi normal coordinates and some basic concepts in differential geometry*, Journal of Mathematical Physics 4, 735–745, doi:10.1063/1.1724316
+- **Quantum fields in curved spacetime.** Expanding the metric in normal coordinates about a point turns a field's propagator into a flat-space momentum integral corrected order by order in curvature. This local momentum-space method organizes the short-distance behaviour of quantum fields and the curvature terms needed for renormalization. T. S. Bunch, Leonard Parker (1979), *Feynman propagator in curved spacetime: A momentum-space representation*, Physical Review D 20, 2499–2510, doi:10.1103/PhysRevD.20.2499
 
-## Review
+## Review: novice
 
-**Verdict:** fixed
+**Verdict:** fixed (2026-09-13, revision 7)
+
+**Retell attempt:** I stand at my front door on a huge ball and draw every straight walk on paper at its true length. I got stuck on the drawing rule: I know the angle my walk makes with the way the door faces, but not which side of the paper's top edge the line goes on, so I could draw a mirror image and never know. Walk 10 kilometres out in every direction, mark where you stop, and on the paper the marks make a circle 62.8 kilometres round, while a tape on the ground reads about 26 millimetres less, and the shortfall grows as the square of the distance. I kept tripping on the word right: I am told never to steer left or right, and then that a map keeps every distance right, and for a moment I thought a correct map was one drawn to the right. The square also works toward your door I had to read twice, and I could not tell what was growing when it says it grows as the square of the distance. No cleverer map fixes the shortfall, because a tape measures the ground and not the paper, and a paper tube is different because it unrolls flat, though I could not tell which way to roll the sheet to get a tube 9 centimetres across. Then a falling room: a crumb let go at the centre stays there, and a crumb a metre out drifts about 8 hundredths of a millimetre toward the centre in 10 seconds. I did not know what at rest meant there, because the whole room is falling fast, and level with it left me guessing what was level with what. The last line says a small falling room feels like empty space, far from any planet, and I first read that as the room being far from any planet, which it is not. The last takeaway has four commas and I gave up and read it again.
+
+**Stumbles (16)**
+
+- “On the paper, draw a line from the door's dot at the same angle from the top edge as your walk made with the way your door faces.”: One 28-word sentence carries two angles at once, and the angle has no side: the same angle can be drawn on either side of the top edge, so the reader can build a mirror image of the map and not know it. The paper is also never given an orientation, so left and right on the paper mean nothing yet.
+- “Suppose some flat map kept every distance right, to scale.”: The note uses right in two senses: a direction in 'without ever steering left or right', and correct in 'every distance right', 'the map is right along every straight walk', 'Every hop is right on the map' and 'Is she right?'. On first reading I took a right distance to mean one drawn to the right.
+- “It grows as the square of the distance.”: The sentence before it names two things, the fraction by which the circle is short and the circle, so 'It' has two candidates.
+- “The square also works toward your door: a circle 10 times smaller is short by a fraction 100 times smaller.”: A square law does not 'work toward' a place, so I reread the clause looking for a missing word before I saw that it meant smaller circles.
+- “Suppose your door is at the North Pole, and walk straight to the equator in every direction. The circle you reach is the equator.”: The first sentence starts as a supposition and ends as an order, and the second sentence only repeats what the first already said, so I reread it looking for new information.
+- “On a ball its circles are too short on the ground, and for short walks the fraction short grows as the square of the distance.”: 'the fraction short' is squeezed; a fraction cannot be short, and the reader has to unpack it into the fraction by which the circle is short.
+- “Roll a sheet of printer paper the long way into a tube about 9 centimetres across, and tape it.”: A rule the reader cannot follow. 'The long way' points two ways, and rolling so that the long edge runs along the tube gives a tube about 7 centimetres across, not 9, so the reader who picks the natural reading gets the wrong tube.
+- “Hold one end of a 10-centimetre string on a spot of a basketball, which is about 24 centimetres across.”: 'on a spot of a basketball' is not how you hold a string against a ball; I read it twice to check it did not mean a marked spot printed on the ball.
+- “Let go of a crumb at rest at the room's centre.”: 'at rest' with no reference. The room is falling at high speed relative to the shaft, so at rest can only mean at rest relative to the room, and the check says so while the way does not.
+- “Let go of a crumb at rest 1 metre to the side of the room's centre, level with it.”: 'level with it' leaves 'it' to be guessed, and 'level' is never tied to anything the reader can see, although the whole result depends on the two crumbs being side by side rather than one under the other.
+- “In 10 seconds, anything falling freely drops about 490 metres.”: A general sentence that fails the first what-if: a crumb thrown downwards falls freely and drops further. The 490 metres needs the starting state.
+- “That is why a small falling room feels like empty space, far from any planet.”: The comma makes 'far from any planet' read as describing the room, which is in a shaft on Earth. I read the sentence as a contradiction before I found the other reading.
+- “That leftover, like a ball's short circles, is curving, of space and time, that no way of falling removes.”: Four commas around two insertions hide the main clause; I had to read it twice to find that the leftover is the curving.
+- “Near the spot the map is almost perfect, but the circles you reach are shorter on the ground than on the map.”: No circle has been named yet: the summary has only drawn lines, so 'the circles you reach' arrives with nothing to point at.
+- “You watch for 10 seconds and measure with a ruler.”: The drifts the check asks for are 8 and 15 hundredths of a millimetre, which no ruler reads, so the check asks for something the reader could not do.
+- “A small room and a short fall make the drift tiny, but near Earth never exactly zero.”: The second half has no subject or verb, so spoken aloud it lands as a fragment and the reader has to carry 'the drift is' across the comma.
 
 **Fixes**
 
-- Rewrote the limits of the stiff-board analogy. The old text said a rolled sheet has zero Riemann curvature 'because coordinate freedom at second order removes most, but not all' second derivatives, which is a non sequitur. It now says the sheet is intrinsically flat (extrinsic bending is not Riemann curvature) and states separately that coordinate freedom absorbs 80 of the 100 second derivatives.
+- A map drawn from one spot: gave the paper an orientation (top edge away from you) and split the drawing rule into measuring the angle, noting the side walked on, and drawing at that angle on the same side; changed 'the map is right' to 'the map is correct'; merged the North Pole sentences; replaced the ambiguous 'It grows' with 'That fraction grows'; rewrote 'The square also works toward your door' as 'The same square rule works for circles closer to your door'. Takeaway now says 'the fraction by which each circle is short'. Try-it holds the string against a spot on the ball.
+- No map can hide the short circles: 'right' meaning correct became 'correct' in the explanation and takeaway. The paper-tube try-it now says the longer edge wraps all the way around, so the tube really is about 9 centimetres across, and the string is held against a spot on the tube.
+- A falling room works like the map from one spot: both crumbs are now released at rest relative to the room; the side crumb is a 'second crumb' with neither crumb nearer Earth than the other, and the following sentences say 'the second crumb' and 'that crumb's line of fall'; both drop distances now say 'starts at rest'; the closing sentence compares floating in the room with floating in empty space; the takeaway is two plain clauses instead of four commas.
+- Summary: the walks now end in marks, and the shortfall belongs to 'the circle through the marks'.
+- Checks, misconceptions and teaching arc: 'right' meaning correct became 'correct' throughout; crumbs-in-a-falling-room now measures with an instrument that reads hundredths of a millimetre; the small-falling-room correction is a full sentence.
+- Budget: entry way explanations were already at 1,100 words, the review ceiling, so the added steps were paid for by dropping two sentences. Dropped from 'A map drawn from one spot': 'The circle is also twice as long, so the tape comes up about 21 centimetres short, eight times the 26 millimetres', because problems/twice-as-far asks for exactly that number and the explanation was giving away its answer. Dropped from the falling-room way: 'A crumb 2 metres out drifts twice as far, because the same fraction of a gap twice as big is twice as much', because checks/crumbs-in-a-falling-room asks for that comparison and the fraction rule it needs is still stated one sentence earlier. Also dropped the falling-room sentence 'The map is almost perfect near the door, and nothing shows gravity at the room's centre', which repeated that way's own recap, and folded its two places into 'Farther from the door and the room's centre'. Entry explanations now stand at 1,097 words.
+- Ladder: reread the working and formal ways as a stronger student. Each one's first sentence still names the way it climbs from, index and component notation appears only at working and above, and no new jump appeared, so no working or formal text was changed.
 
 **Concerns**
 
-- Independently re-checked: the four-term formula against Schutz eq. 6.68 and GA eqn 11.23; the general-coordinate formula (GA eqn 11.22) on the polar plane (−1 + 1 = 0) and the unit sphere (−cos 2θ + cos²θ = sin²θ); the sphere normal-coordinate metric and R_1212 = 1; ∂Γ = −(1/3)(R + R), checked by substituting back into the Riemann definition with the cyclic identity; ∂∂g = −(1/3)(R_μανβ + R_μβνα); the counts 100 − 80 = 20, 36 − 30 = 6, 1 and 50 for n = 2 and 5; the circumference 2πr(1 − Kr²/6); the Fermi form g_00 = −1 − R_0i0j x^i x^j; the Earth tidal numbers; and the connection shift Γ' = Γ − Q under x' = x + ½Qxx. No other errors found.
-- d'Inverno is cited for geodesic coordinates (DIV ch06 §6.6 p.95) but is not a registry source for this concept, so there is no d'Inverno how_books_teach entry. Its treatment is covered in the conventions table.
-- The prerequisite christoffel-symbols-from-the-metric goes beyond the registry prerequisites, and the writer did not edit the registry.
+- Entry way explanations stand at 1,097 words against a 1,000-word cap and a 1,100-word review ceiling. Any further entry addition has to drop something first.
+- The 26 millimetres at 10 kilometres and the square law are still taken on trust at entry, apart from the basketball try-it; there is no entry-level reason for the square.
+- checks/crumbs-in-a-falling-room now carries the 'twice as far out, twice the drift' step on its own, since the sentence stating it was dropped from the way. The way still states that the gap shrinks by a fixed fraction, which is what the check needs, but the physics reviewer should confirm the step is fairly prepared.
+- The drop-distance sentences now say 'anything that starts at rest and falls freely'; the spokes count that follows is unchanged and should be confirmed to still read correctly with that wording.
+- The paper-tube try-it now fixes the roll by which edge wraps around; on both A4 and US Letter this gives a tube between 8.9 and 9.5 centimetres across, quoted as about 9 centimetres.
+- The notes for tidal-force, local-flatness-theorem and riemann-normal-coordinates still do not exist, so the entry recaps could not be checked against their entry ways.
+- review.novice.rereads still holds the re-read recorded in the revision 4 round; it was kept so that review.physics.diff_checks keeps its counterpart, and it does not describe revision 5.
+- All 17 changed learner-visible strings are at the entry rung, so the physics diff check on this revision is entry-only.
+
+**Re-read** (2026-09-13, revision 4): 2 stumbles in 4 changed passages
+
+- “the metric is Minkowskian with vanishing first derivatives there”: 'Minkowskian' appears nowhere else the learner reads; the way this observation climbs from states the same condition as $g_{\mu\nu}(P) = \eta_{\mu\nu}$ and $\partial_\lambda g_{\mu\nu}(P) = 0$, so the reader must translate between two names for one idea.
+- “and the uniform pull of gravity does not show.”: The way "Only second derivatives survive" calls this 'the uniform part of gravity'; 'pull' here is a second word for the same idea, and the sentence chains three clauses with 'so' and 'and', inviting a reread.
+- Fix: Rewrote the first sentence of observation atom-gradiometer-second-order-gravity as two sentences: the locally inertial condition is written with $\eta_{\mu\nu}$ and $\partial_\lambda g_{\mu\nu} = 0$, matching the working way, and 'uniform pull' became 'uniform part'. The claim is unchanged.
+- Fix: Teaching arc fall-with-the-room and the changed sentences of way only-second-derivatives-survive read cleanly at their rungs; no change.
+
+**Re-read** (2026-09-13, revision 7): 4 stumbles in 6 changed passages
+
+- “The others are 1 metre and 2 metres to the side of the room's centre, with no crumb nearer Earth than another.”: The setting arrives as a ban rather than a picture. With three crumbs I had to test every pair against 'no crumb nearer Earth than another' before I could draw them, and 'nearer Earth' names the planet while the answer measures everything from Earth's centre.
+- “The room starts at rest in the shaft, so in 10 seconds it drops about 490 metres.”: The way opens with a room already falling, so 'starts at rest' three paragraphs later made me go back and check whether this was the same room. It also leaves me to guess when the 10 seconds begin, and the 490 metres depends on that.
+- “For short walks, that fraction grows as the square of the distance.”: I had just read that a walk from the North Pole to the equator gives four, not about 6.28, so I wanted to know how short a short walk is before I trusted the square rule. Nothing in the sentence says what the walk is short compared with.
+- “In its first second the room drops about 4.9 metres. So a crumb 1 metre from the room's centre drifts less than a thousandth of a millimetre.”: The 'So' asks me to divide 4.9 by 6,371,000 in my head. The recipe is given for the 10-second fall, but here I had to fetch it back and redo the arithmetic to see where a thousandth of a millimetre comes from.
+- Fix: checks/crumbs-in-a-falling-room, question: 'with no crumb nearer Earth than another' became 'all three at the same distance from Earth's centre'. Same configuration, stated as a picture instead of a ban, and measured from the same point the answer's spokes lead to. The way a-falling-room-is-the-best-map keeps 'with neither crumb nearer Earth than the other', which is easy to picture with two crumbs and is not part of this re-read.
+- Fix: ways_in/a-falling-room-is-the-best-map, explanation: 'The room starts at rest in the shaft' became 'The room starts its fall at rest in the shaft', so the sentence marks the moment the fall begins and the 10 seconds have a start. The measurer (the shaft), the rest condition and the 490 metres are unchanged.
+- Fix: ways_in/a-map-drawn-from-one-spot, explanation: 'For short walks' became 'For short walks like these', pointing at the 10 and 20 kilometre walks in the same paragraph. The scope word is unchanged; it now has an example the reader can hold.
+- Fix: Left unfixed for budget: the fourth stumble, the missing arithmetic step from 4.9 metres to less than a thousandth of a millimetre. Entry way explanations stand at 1,100 words, exactly the review ceiling, and its rewrite costs about 20 more. It is the lowest-value fix of the four, because the same fraction recipe is spelled out for the 10-second fall in the same way.
+- Fix: checks/crumbs-in-a-falling-room answer and hints[1] ('In 10 seconds the room drops about 490 metres') read cleanly: the question now says the room starts at rest, so the 10 seconds and the 490 metres match. No change.
+
+## Review: physics
+
+**Verdict:** fixed (2026-09-13, revision 7)
+
+**Verification**
+
+- Lowered Riemann in any coordinates with the note's exact index placement: R_abmn = 1/2(d_b d_m g_an - d_b d_n g_am + d_a d_n g_bm - d_a d_m g_bn) + g_rs(Gamma^r_bm Gamma^s_an - Gamma^r_bn Gamma^s_am), reducing to the four terms where dg(P) = 0.: Independent python re-check this round: random smooth non-flat 3D metric, central finite differences for dg, ddg, Gamma and dGamma at a generic point; R^r_smn built from the course Riemann row, lowered with g, and compared with the note's expression for all 81 components. → Agrees to 2.6e-10 (finite-difference noise). The four terms alone differ from the true value by up to 0.038 at that point, so the stated condition dg(P) = 0 is necessary, as the note says.
+- The normal-coordinate second derivatives d_a d_b g_mn(0) = -1/3(R_manb + R_mbna) reproduce R_abmn through the four-term formula, and the -1/3 coefficient and index order are right.: python: random rank-4 array projected onto the Riemann symmetries (antisymmetry in each pair, pair exchange, first Bianchi; symmetry residual 1.1e-16), then inserted into the four-term formula for all 256 components in n = 4. → Returns R_abmn to 1.1e-16. Coefficient, index order and signs correct in course conventions.
+- Worked example sphere-in-normal-coordinates: g_xx = 1 - y^2/3a^2, g_yy = 1 - x^2/3a^2, g_xy = +xy/3a^2, matching -1/3 R_manb x^a x^b with R_xyxy = +1/a^2.: python: exact sphere metric in normal coordinates, g_ij = x_i x_j/r^2 + (a sin(r/a)/r)^2 (delta_ij - x_i x_j/r^2) with a = 1.7, evaluated at (0.01, 0) and (0.007, -0.004) against the quoted components. → Agrees to order x^4 (differences about 5e-11 at |x| = 0.008), including the positive sign of g_xy. Sphere sign consistent with the conventions row R = +2/a^2.
+- Check is-the-sphere-flat-near-the-origin: terms 1/3a^2, +2/3a^2, 1/3a^2, +2/3a^2 and R_xyxy = 1/a^2; check four-terms-in-polar-coordinates: four terms -1, Christoffel products +1, true value 0.: Hand evaluation of the four-term formula on both metrics, with Gamma^phi_r phi = 1/r, Gamma^r_phi phi = -r, Gamma^s_rr = 0; the polar case is also covered by the generic finite-difference test above. → Both correct; numeric fields (1 with abs_tol 0.01; -1 and 0) and tolerances fine.
+- Entry numbers on an Earth-sized ball: map circle 62.8 km at 10 km walks, ground circle about 26 mm shorter; 21 cm at 20 km; 3.2 m at 50 km; North Pole to equator gives four times the walk, not about 6.28 times.: python: 2 pi r - 2 pi a sin(r/a) with a = 6371 km; ratios of shortfalls; exact quarter-circumference count. → 25.8 mm, 206 mm, 3.22 m; ratios 8.000 and 125.0, exactly the eight- and 125-fold reasoning of problem twice-as-far (numeric fields 0.206 m and 3.22 m, rel_tol 0.05, correct); equator exactly 4.
+- Revision-5 sentence 'That fraction grows as the square of the distance' in way a-map-drawn-from-one-spot.: Tried the way's own largest what-if, the walk from the North Pole to the equator (r = pi a/2): compared the square law r^2/6a^2 with the exact fraction 1 - sin(r/a)/(r/a). → Square law 0.411 against the true 0.363, 13 percent high, so the unscoped sentence was false for the case described two paragraphs earlier. Now reads 'For short walks, that fraction grows as the square of the distance'; at 10-50 km the square law matches the exact fraction to better than one part in a million.
+- Basketball try-it: 24 cm across, 10 cm string gives about 56 cm (about 7 cm short of 62.8), 5 cm string about 30.5 cm (under 1 cm short), and the second shortfall is about four times smaller as a fraction.: python: 2 pi a sin(r/a) with a = 12 cm. → 55.81 cm (7.02 short) and 30.51 cm (0.90 short); fractions 0.1118 and 0.0287, ratio 3.90. Correct as 'about four times'.
+- Revision-5 paper-tube try-it: a printer sheet rolled so its longer edge wraps all the way around gives a tube about 9 cm across, and a 3 cm taut string traces a flat circle 6 cm across, about 18.8 cm around.: python: long edge as the tube's circumference for A4 (297 mm) and US Letter (279.4 mm); checked that the circle does not wrap (3 cm against a half-circumference of 14.0-14.9 cm), so geodesic distance on the cylinder equals unrolled flat distance. → Diameter 9.45 cm (A4) and 8.89 cm (US Letter), both about 9 cm; circle 6 cm across and 18.85 cm around. The wording is now followable: the discarded 'long way' reading wraps the short edge and gives 6.7-6.9 cm, as the novice reviewer said.
+- Falling-room count with the revision-5 release conditions: both crumbs let go at rest relative to the room, neither nearer Earth than the other; the 1-metre crumb drifts about 8 hundredths of a millimetre in 10 s, the 2-metre crumb about 15 hundredths, and the first second gives under a thousandth of a millimetre.: python: drop 0.5 g t^2 = 490.3 m in 10 s and 4.90 m in 1 s; similar-triangles drift d times drop over 6,371,000 m; compared with the exact linearized transverse solution x0(1 - cos(omega t)) with omega^2 = GM/r^3. → 7.69e-5 m geometric against 7.71e-5 m exact for the 1-metre crumb, 1.54e-4 m for the 2-metre crumb, 7.7e-7 m in the first second. Check numerics 7.7e-5 m and 1.54e-4 m with rel_tol 0.1 correct. Because the room starts at rest in the shaft, 'at rest relative to the room' at release is also at rest in the shaft, so each crumb falls radially from rest and the spokes count is exact in the note's Newtonian spherical idealization.
+- The step the novice review left to this stage: 'twice as far out, twice the drift' in check crumbs-in-a-falling-room, prepared only by the way's statement that the gap shrinks by a fixed fraction.: Exact Newtonian radial infall from rest at equal radii: both crumbs reach the same radius r - drop at the same moment, so the transverse gap scales by (r - drop)/r whatever its size; also checked against the linearized transverse tidal equation, which is linear in the separation. → Drift is exactly proportional to the distance from the room's centre, so the check's chain (each gap shrinks by that fraction, so a 2-metre gap loses twice as much) is complete from what the way states. Concern cleared; no text needed.
+- Revision-5 wording 'anything that starts at rest and falls freely drops about 490 metres' (and 4.9 metres in the first second).: Tried the universal sentence outside the way's setting (free fall from rest near the Moon and far from any mass) and checked which body's drop the spokes count actually uses. → False as a universal claim (81 m in 10 s near the Moon; nothing at all far from a mass), and it also left 'at rest' without a frame while the count needs the room itself to start at rest. Replaced by statements about the room, with 'at rest in the shaft' naming the frame; the numbers are unchanged.
+- Setup of check crumbs-in-a-falling-room: the side crumbs were '1 metre to the side of the room's centre, level with it'.: Compared the two configurations with python: side by side at equal distance from Earth's centre, the gap shrinks by drop/r; directly above or below, the gap grows by about twice drop/r. → The check's answer holds only for the side-by-side case, and 'level with it' neither named what is level nor excluded the other case. The statement now says no crumb is nearer Earth than another, matching the way; answer, key points and numerics unchanged.
+- Working way: |R| about 2GM/(r^3 c^2) = 3.4e-23 m^-2 near Earth's surface, a fractional departure |R|L^2/3 of one part in 1e15 at L about 9 km, or about 3e-5 s.: python with GM = 3.986e14 m^3/s^2 and r = 6.371e6 m; Schwarzschild orthonormal components -2M/r^3, M/r^3 confirm 2GM/r^3 c^2 is the largest. → 3.43e-23 m^-2; 9.3e-16 at 9 km and 1e-15 at 9.35 km; cT = 9.35 km gives T = 3.1e-5 s. Correct.
+- Observation atom-gradiometer-second-order-gravity: relative acceleration per unit height -c^2 R^z_0z0 = 2GM/r^3 = 3.08e-6 s^-2, R^z_0z0 = -3.43e-23 m^-2, free-air gradient 3.086e-6 s^-2.: Course geodesic-deviation row with u^0 = c, radial separation (vertical pairs separate); python. → 3.083e-6 s^-2 and -3.43e-23 m^-2; sign correct in course conventions; the quoted standard free-air gradient 3.086e-6 s^-2 (0.3086 mGal per metre) is right.
+- Formal problem volume-of-a-small-ball and the formal checks: sqrt(det g) = 1 - R_ab x^a x^b/6, V = omega_n r^n(1 - R r^2/(6(n+2))); surface with K = r^2/b^4 whose circles are short by r^4/20b^4; chart 0 <= r < pi a with true ratio 0.637 against the prediction 0.589 at r = pi a/2.: Hand trace and isotropic integral; python for the unit 3-sphere at r = 0.1 against 2 pi(r - sin r cos r), the sphere series against 2 pi a^2(1 - cos(r/a)), the Jacobi equation f'' = -K f, and the ratio at a quarter circle. → 3-sphere 4.180421e-3 exact against 4.180413e-3 series; sphere series pi r^2(1 - r^2/12a^2) matches; f = r - r^5/20b^4 solves the Jacobi equation, giving the r^4/20b^4 shortfall; 0.6366 against 0.5887, 7.5 percent below the true ratio, quoted as about eight percent. All correct.
+- Formal way counting: the cubic freedom leaves n^2(n^2-1)/12 curvature numbers.: [n(n+1)/2]^2 - n^2(n+1)(n+2)/6 evaluated for n = 2 and n = 4. → 1 and 20, matching n^2(n^2-1)/12. Correct.
+- References: Snadden, McGuirk, Bouyer, Haritos, Kasevich 1998 PRL 81, 971-974, doi 10.1103/PhysRevLett.81.971; Veblen 1922 PNAS 8, 192-197, doi 10.1073/pnas.8.7.192; Manasse and Misner 1963 JMP 4, 735-745, doi 10.1063/1.1724316; Mueller, Schubert, van de Ven 1999 GRG 31, 1759-1768, gr-qc/9712092; Riemann 1868 Abh. Ges. Wiss. Goettingen 13, 133-150; Poisson, Pound, Vega 2011 Living Rev. Rel. 14, 7; Bunch and Parker 1979 PRD 20, 2499-2510.: WebSearch this round against the APS, PNAS, AIP and arXiv/OSTI records for the first four; the remaining three were confirmed in the previous round against Living Reviews, APS and the archive scan of the Abhandlungen. → All confirmed; authors, year, title, venue, pages and identifiers as recorded, so verified stays true. PNAS prints Veblen's title with a diaeresis ('Coordinates'); the plain spelling is kept.
+
+**Counterexamples tried**
+
+- Walk to the equator, against the square law: the true fraction short is 0.363 while the square law gives 0.411, so the square-law sentence is now scoped to short walks; the takeaway already was.
+- Saddle (negative K): circles come out long; the entry simplifies says so, and the summary and takeaways are scoped to a ball.
+- Walks longer than half the way around the ball: 2 pi a sin(r/a) is shorter than 2 pi r for every r > 0, so 'too short' stays true; the map rule is scoped to walks much shorter than the distance around.
+- Paper tube (bent but flat): small circles unroll to flat circles; a circle wrapping the tube is excluded by the 3 cm string against a 28 cm circumference.
+- Polar coordinates on the flat plane: the four-term formula gives -1 against a true 0; used as check four-terms-in-polar-coordinates and confirmed numerically for a generic metric.
+- Free fall away from Earth's surface (near the Moon, or far from any mass): 'anything that starts at rest and falls freely drops about 490 metres' fails; the sentences now speak about the room in the shaft.
+- Crumb directly under the room's centre instead of beside it: the gap grows by about twice the fraction instead of shrinking, so the check's statement now rules it out explicitly.
+- Room already moving when the crumbs are let go: a side crumb at rest relative to the room would share the room's velocity vector, which is not radial for it, adding a drift the spokes count does not include; the way and the check now say the room starts at rest in the shaft.
+- Curvature zero at one point but not nearby (K = r^2/b^4): R(p) = 0 permits removing the second derivatives at p without flatness; in the formal check.
+- Gnomonic chart of a sphere: all geodesics are straight lines but not affinely parametrized, so straight coordinate lines do not force Gamma = 0 on an open set; in the formal way.
+- Flat torus: the normal chart ends at the cut locus before any conjugate point; in the formal way.
+- Antipode of a sphere: conjugate point where exp_p fails, so the chart is the open disc of radius pi a.
+- Deep shaft below the surface: the transverse tidal geometry g x/r is independent of how g varies with depth, so the spokes count holds a few hundred metres down.
+- Different free-fall trajectory (an orbit instead of a drop): tidal drift persists, consistent with 'no way of falling freely makes it vanish' near Earth.
+- Signature flip and opposite Riemann sign: handled in the notation trap; under g -> -g the lowered Riemann and eta flip together, leaving the expansion's form unchanged.
+- Torsionful connection: normal coordinates remove only the symmetric part of the connection; in the formal simplifies.
+
+**Fixes**
+
+- Way a-map-drawn-from-one-spot: 'That fraction grows as the square of the distance' now reads 'For short walks, that fraction grows as the square of the distance'. Unscoped, it was false for the walk to the equator that the same way describes (0.411 predicted against 0.363 true).
+- Way a-falling-room-is-the-best-map: the two universal sentences 'anything that starts at rest and falls freely drops about 490 metres' and '... about 4.9 metres' are now about the room, which is what the count uses: 'The room starts at rest in the shaft, so in 10 seconds it drops about 490 metres' and 'In its first second the room drops about 4.9 metres'. This gives the rest state its frame, makes the room's own start explicit (the spokes count needs it), and drops a claim that is false away from Earth's surface. Numbers unchanged.
+- Check crumbs-in-a-falling-room: the room now 'starts at rest in a deep shaft on Earth and falls freely'; the side crumbs are 'The others are 1 metre and 2 metres to the side of the room's centre, with no crumb nearer Earth than another', replacing 'level with it', which left 'it' unnamed and did not exclude the crumb-underneath case, where the gap grows instead of shrinking. The answer and the second hint say 'the room drops about 490 metres'. Answer chain, key points, numerics and tolerances unchanged.
+- Revision bumped to 6 for these five learner-visible entry strings. No equation, number, tolerance, visual or reference changed. Entry way explanations stand at 1,096 words, one fewer than before (the scope added in one way was paid for in the other).
+
+**Concerns**
+
+- Entry way explanations are at 1,096 words against the 1,000-word cap and the 1,100-word review ceiling, inherited from the novice round. Any further entry addition has to drop something first.
+- tidal-force is listed as a direct prerequisite but is already a registry prerequisite of riemann-curvature-tensor, so it is not strictly direct; the falling-room way's 'assumes' would still be satisfied through riemann-curvature-tensor. christoffel-symbols-from-the-metric and covariance-of-tensor-equations are genuine additions not in the registry. An editor or sync_registry.py should settle this.
+- The notes for tidal-force, local-flatness-theorem and riemann-normal-coordinates still do not exist, so the entry recaps and glossary wording could not be matched to their entry ways.
+- The three visuals (straight-walks-from-one-spot, falling-ring-of-crumbs, four-terms-that-cancel) are proposals with sketches, not yet in knowledge/visuals/.
+- The falling-room entry way still has no working-rung way climbing from it; only the atom-gradiometer observation connects it to R^z_0z0.
+- The check's drifts are the Newtonian similar-triangles values (7.69e-5 m and 1.54e-4 m); the exact linearized tidal values are 0.2 percent larger, well inside the 10 percent tolerance.
+- The entry falling room ignores Earth's rotation, as its simplifies says. Over a 490 metre drop the room is deflected sideways by about a quarter of a metre relative to the shaft, which moves room and crumbs together and does not change the drift relative to the room's centre at the precision quoted.
+- The whole curvature note set is still uncommitted, so this reviewed text exists only in the working tree.
+
+**Diff check** (2026-09-13, revision 4)
+
+- Observation atom-gradiometer-second-order-gravity, connection: 'Each atom cloud falls freely. In coordinates locally inertial at the cloud, g_mn = eta_mn and d_l g_mn = 0 there, so the uniform part of gravity does not show.': Compared with the physics-reviewed revision-3 sentence and with way only-second-derivatives-survive, which defines locally inertial at P as g(P) = eta and dg(P) = 0 and says the value and first derivatives carry the uniform part of gravity. Checked scope: 'there' restricts both conditions to the cloud's event, so the sentence does not claim the gradient vanishes; the following sentence still names the relative acceleration -c^2 R^z_0z0 as the leftover second-order part. Tried the what-if of two clouds at different heights: each has its own locally inertial chart, and no single chart removes both accelerations, consistent with the note. Notation d_lambda g_mu nu matches the working way; signature (-,+,+,+) with eta as course conventions set. → Correct and claims exactly what the revision-3 sentence claimed ('Minkowskian' = eta_mn, 'uniform pull' = 'uniform part'). No equation, number, tolerance or reference changed, so nothing to recompute.
+
+**Diff check** (2026-09-13, revision 7)
+
+- checks/crumbs-in-a-falling-room, question: 'The others are 1 metre and 2 metres to the side of the room's centre, all three at the same distance from Earth's centre.' (was 'with no crumb nearer Earth than another').: Compared the two wordings as conditions on the starting configuration: 'no crumb nearer Earth than another' and 'all three at the same distance from Earth's centre' both pin the three crumbs to one sphere about Earth's centre, so the displacements are purely transverse; for points outside the surface, nearer Earth and nearer Earth's centre order the same way. Checked that the new measuring point is the point the answer's spokes lead to (Earth's centre), so question and answer now use one reference. Checked consistency with '1 metre and 2 metres to the side': placing the side crumbs on the sphere through the room's centre satisfies both clauses exactly, and the chord reading differs radially by only r*(1-cos(x/r)) = 7.8e-8 m at 1 m and 3.1e-7 m at 2 m, far under the stated instrument resolution of 1e-5 m. Tried the counterexample the condition excludes: a crumb directly above or below the room's centre drifts away, not toward it, so the condition is load-bearing and is still stated. → Meaning unchanged and correct; the answer's 'like spokes of a wheel' picture and its convergence sense still follow from the stated configuration.
+- checks/crumbs-in-a-falling-room re-worked end to end because its question changed: drift about 8 hundredths of a millimetre at 1 metre out, about 15 at 2 metres out, numeric 7.7e-5 m and 1.54e-4 m, magnitude, rel_tol 0.1.: Two independent routes with python3. Similar triangles as the answer argues: fall h = g t^2/2 = 9.81*100/2 = 490.5 m, fraction h/R = 490.5/6.371e6 = 7.699e-5, times 1 m and 2 m. Tidal route: transverse relative acceleration GM x/r^3 = (g/R) x, so drift = (g/R) x t^2/2 = 7.699e-5 m at x = 1 m. Checked the neglected effects: g rises by 2h/R = 1.5e-4 over the fall (about 0.05 m in 490) and the shaft depth shifts R by the same order, both inside 'about'. → Both routes give 7.699e-5 m and 1.540e-4 m, i.e. 7.7 and 15.4 hundredths of a millimetre, matching 'about 8' and 'about 15', the numeric values and the 10 per cent tolerance, and readable on an instrument reading hundredths of a millimetre. Hints, key points and targets unchanged and consistent.
+- ways_in/a-falling-room-is-the-best-map: 'The room starts its fall at rest in the shaft, so in 10 seconds it drops about 490 metres.' (was 'The room starts at rest in the shaft').: Recomputed the drop from rest with python3: g t^2/2 = 490.5 m in 10 s. Checked that the added words change only the moment named, not the condition or its measurer: rest is still measured relative to the shaft, and the clause now marks t = 0 for the 10 seconds. Checked the paragraph that follows still divides 490 by 6,371,000 to get the 1-metre gap's shrink, which the same free-fall-from-rest start supplies. → True as stated and claims exactly what the earlier sentence claimed, with the start of the 10 seconds made explicit; 490.5 m rounds to the quoted 490.
+- ways_in/a-map-drawn-from-one-spot: 'For short walks like these, that fraction grows as the square of the distance.' (was 'For short walks').: On a sphere of radius a, a circle of geodesic radius s has circumference 2*pi*a*sin(s/a), so the fractional shortfall is 1 - sin(x)/x = x^2/6 - x^4/120 + ... with x = s/a. Computed with python3 for the paragraph's own walks on an Earth-sized ball: at 10 km the shortfall is 4.1061e-7 against x^2/6 = 4.1061e-7, and at 20 km it is 1.64245e-6 against 1.64246e-6, so the square law holds to 5e-7 relative; the ratio between the two is 3.9999985, matching the preceding sentence's 'four times'. Pushed the scope word: at 1,000 km the square law is still right to 1.2e-3, and the paragraph's own long-walk case, pole to equator, is explicitly excluded by 'short'. Checked that 'like these' points only at the 10 and 20 kilometre walks named in the same paragraph, and that 'that fraction' still refers to the fractional shortfall named in the sentence before. → The scope word 'short walks' is unchanged, so the claim is untouched; the added anchor is accurate for the walks it names. The saddle case is already scoped by the way's simplifies, and there the same square law holds with the circles too long.

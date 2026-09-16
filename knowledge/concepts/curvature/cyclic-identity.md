@@ -1,312 +1,657 @@
 ---
 type: "concept"
+schema_version: 2
 id: "cyclic-identity"
 title: "Cyclic (first Bianchi) identity"
+tagline: "Why three arrow changes around a cube corner add up to nothing"
 domain: "curvature"
 tier: "core"
-aliases: ["first Bianchi identity", "algebraic Bianchi identity", "R^a_[bcd] = 0"]
+status: "physics-reviewed"
+revision: 6
+updated: "2026-09-13"
+aliases: ["first Bianchi identity", "algebraic Bianchi identity"]
 prerequisites: ["symmetries-of-the-riemann-tensor", "torsion-free-connection"]
 leads_to: ["number-of-independent-riemann-components", "weyl-tensor", "killing-vector-ricci-identity", "sectional-curvature"]
-sources: ["dinverno:ch06", "gifted-amateur:ch11", "gifted-amateur:ch35", "legacy:lab-riemann-independent-components", "schutz:ch06"]
-review: "fixed"
+visuals: ["three-trips-at-a-cube-corner", "two-routes-that-meet", "twenty-of-256-slots"]
 ---
 
 # Cyclic (first Bianchi) identity
 
-> Hold the first index of the Riemann tensor fixed and run the other three through their three cyclic orders: the three components always add up to zero. This is automatic for any connection without torsion, and once the pair symmetries are in place it only says something new when all four indices are different, which in four dimensions removes exactly one component and leaves twenty.
+*Why three arrow changes around a cube corner add up to nothing*
 
-## Explanations by level
+`cyclic-identity` · curvature · core · physics-reviewed (revision 6)
 
-### Intuition
+**Needs:** [[symmetries-of-the-riemann-tensor]] (entry) · [[torsion-free-connection]] (entry)  
+**Opens:** [[number-of-independent-riemann-components]] · [[weyl-tensor]] · [[killing-vector-ricci-identity]] · [[sectional-curvature]]  
+**Related:** [[bianchi-identity]] · [[torsion-tensor]] · [[ricci-identity]] · [[cartan-first-structure-equation]] · [[ricci-tensor]]  
+**Visuals:** ★ [[three-trips-at-a-cube-corner]] · [[two-routes-that-meet]] · [[twenty-of-256-slots]]
 
-Think of curvature as a rule that says how much a tiny loop turns a direction you carry around it. Now take a tiny box and look at one corner, where three edges meet. Each pair of edges makes a face, and the third edge is left over. Carry the left-over edge direction around its face, and do this for all three faces, always going round in the same cyclic order. The cyclic identity says the three small changes cancel exactly. It holds because, in the geometry used by general relativity, tiny parallelograms close up (no torsion). The simplification here: the identity is a statement about the curvature numbers at one point, not something you would measure with a single experiment, and in the count of curvature numbers for four-dimensional spacetime it removes just one of the twenty-one that the other symmetries leave, although it is also used behind the scenes in several later results.
+> At a corner of a tiny cube in a curved space, point an arrow along each edge in turn. Carry it around the face made by the other two edges, never letting it swing. When the arrow and the edges move one place around a ring of the three directions, the three changes add up to nothing in every space general relativity uses. In ordinary space this fourth rule of the curvature table adds nothing new. In space and time it cuts 21 different numbers to 20.
 
-**Picture to hold:** Three faces of a small box meeting at a corner; around each face you carry the direction of the edge that is not part of that face, and the three turn-changes sum to nothing.
+## You will be able to
 
-**Assumes:** [[holonomy]], [[torsion-free-connection]]
+**Entry**
+- Explain what the cyclic identity says about three arrows carried around the three faces at a corner of a tiny cube. `objectives/explain-three-trips` ← `checks/third-trip-at-a-cube-corner`
+- Explain why the cyclic identity relies on tiny four-sided walks that close up. `objectives/explain-walks-must-close` ← `checks/a-space-with-twist`
+- Use the cyclic identity to count the different numbers the curvature table needs in space, in space and time, and with more directions. `objectives/count-new-links` ← `checks/fourth-rule-in-space`, `problems/five-direction-world`
 
-### Working
+**Working**
+- Use the cyclic identity in the course slot order to find one component from two others. `objectives/use-the-cycle-in-components` ← `checks/three-entries-and-a-wrong-sum`
+- Decide which index patterns make the cyclic identity a new condition. `objectives/decide-when-it-is-new` ← `problems/twenty-in-an-observers-frame`
+- Distinguish the cyclic identity from the second Bianchi identity. `objectives/distinguish-from-second-bianchi` ← `checks/one-event-or-a-neighbourhood`
 
-With the course convention the Riemann tensor R^ρ_σμν has the transported vector in slot σ and the loop directions in slots μ and ν. The identity is R^ρ_σμν + R^ρ_μνσ + R^ρ_νσμ = 0, compactly R^ρ_[σμν] = 0. Two quick proofs. (1) From the definition: the derivative terms pair up as ∂_μΓ^ρ_νσ against ∂_μΓ^ρ_σν, and so on, and cancel because the Christoffel symbols are symmetric in their lower indices; the six quadratic terms cancel in pairs for the same reason. No metric is used, so any torsion-free connection obeys it. (2) In normal coordinates at a point P the lowered tensor is R_ρσμν = ½(∂_σ∂_μ g_ρν − ∂_σ∂_ν g_ρμ + ∂_ρ∂_ν g_σμ − ∂_ρ∂_μ g_σν); cycling σ, μ, ν gives twelve terms that cancel in pairs by symmetry of g and of mixed partials, and since both sides are tensors the result holds in every coordinate system. When does it matter? If two of the four indices coincide, the pair symmetries already force the cyclic sum to vanish, so it is a genuinely new condition only for four distinct index values. In four dimensions that is the single relation R_0123 + R_0231 + R_0312 = 0 (equivalently R_0123 − R_0213 + R_0312 = 0), which takes the pair-symmetry count of 21 down to 20. Unlike the pair symmetries, which identify components up to sign, this is a linear relation among three different components.
+**Formal**
+- Derive the cyclic sum of the curvature with torsion, and compute it in an example. `objectives/derive-with-torsion` ← `checks/a-lopsided-connection`
+- Prove that, given the pair symmetries, the cyclic identity removes exactly the totally antisymmetric part, and count what remains. `objectives/prove-what-it-removes` ← `checks/the-dual-trace`, `problems/the-cyclic-sum-map`
 
-**Picture to hold:** An index wheel: the first slot is pinned, the other three slots rotate one click at a time, and the three readings sum to zero.
+## Ways in
 
-**Assumes:** [[symmetries-of-the-riemann-tensor]], [[riemann-tensor-in-normal-coordinates]], [[torsion-free-connection]]
+### 1. Three trips at a cube corner · entry · picture
 
-### Formal
+*What does the fourth rule of the curvature table say about three arrows at a corner of a tiny cube?*
 
-Let ∇ be an affine connection with torsion T(u,v) = ∇_u v − ∇_v u − [u,v] and curvature operator R(u,v) = [∇_u, ∇_v] − ∇_[u,v]. For all vector fields u, v, w the first Bianchi identity reads 𝔖 R(u,v)w = 𝔖 [T(T(u,v),w) + (∇_u T)(v,w)], where 𝔖 is the sum over cyclic permutations of (u,v,w). For a torsion-free connection the right side vanishes and R(u,v)w + R(v,w)u + R(w,u)v = 0; the proof expands the left side, uses ∇_v w − ∇_w v = [v,w], and reduces it to the Jacobi identity of the Lie bracket. In components, with R(e_μ,e_ν)e_σ = R^ρ_σμν e_ρ, this is R^ρ_[σμν] = 0. For the Levi-Civita connection, lowering the index and combining with antisymmetry in each pair and pair exchange gives the equivalent statements R_ρ[σμν] = 0 and R_[ρσμν] = 0: the space of tensors with the pair symmetries, Sym²(Λ²V) of dimension M(M+1)/2 with M = n(n−1)/2, splits as the algebraic curvature tensors plus Λ⁴V, and the cyclic identity removes the Λ⁴V part of dimension C(n,4). In four dimensions this is the single scalar condition ε^ρσμν R_ρσμν = 0. In the language of forms, the torsion-free first structure equation dθ^a + ω^a_b ∧ θ^b = 0, differentiated once, gives Ω^a_b ∧ θ^b = 0. The identity is algebraic and pointwise; it should not be confused with the differential Bianchi identity ∇_[λ R_ρσ]μν = 0.
+**Recap:** The arrow test: carry an arrow around a tiny loop, a path that ends where it began, and never let it swing any way at all. In a curved space, most tiny loops bring the arrow back changed. A loop's tilt is set by the two directions its sides run along, like the bottom, front or side of a box. The curvature table, called the Riemann curvature tensor, lists how the arrow comes back changed, divided by the loop's area, for each tilt and each starting direction of the arrow. Three rules already tie its entries together.
 
-**Assumes:** [[torsion-tensor]], [[riemann-curvature-operator]], [[symmetries-of-the-riemann-tensor]], [[lie-bracket]]
+Picture a tiny sugar cube floating in a curved space. Imagine yourself shrunk down and standing at one of its corners. Three edges meet there: one runs ahead of you, one to your left, and one up from your feet past your head.
 
-## Prerequisites
+Each face at that corner has two of those edges as its sides, and the third edge sticks out of it. The bottom face has the ahead and left edges, and the up edge sticks out of it.
 
-- [[symmetries-of-the-riemann-tensor]] — The identity is only meaningful, and its reach (four distinct indices) only visible, once antisymmetry in each pair and pair exchange are known.
-- [[torsion-free-connection]] — The identity holds exactly because the connection is symmetric in its lower indices; with torsion extra terms appear.
+Now make three trips, each around one face. Each trip uses a fresh arrow as long as an edge, carried without ever swinging. On each trip you walk once around the face, starting along the first named edge, then turning into the second edge's direction.
 
-## Leads to
+- Trip one: point the arrow up, and carry it around the bottom face, walking the ahead edge first and the left edge second.
+- Trip two: point the arrow ahead, and carry it around the face with the left and up edges, walking the left edge first and the up edge second.
+- Trip three: point the arrow left, and carry it around the face with the up and ahead edges, walking the up edge first and the ahead edge second.
 
-- [[number-of-independent-riemann-components]] — It supplies the final constraint that turns 21 into 20 in four dimensions and C(n,4) constraints in n dimensions.
-- [[weyl-tensor]] — The Weyl tensor inherits the cyclic identity, which is part of what makes it a legitimate curvature-like tensor.
-- [[killing-vector-ricci-identity]] — The formula expressing second derivatives of a Killing vector through curvature is derived with the cyclic identity.
-- [[sectional-curvature]] — Recovering the whole Riemann tensor from sectional curvatures of all planes relies on the cyclic identity.
+Put the three directions on a ring: ahead, then left, then up, then ahead again. From one trip to the next, the arrow's direction, the first edge and the second edge each move one place along that ring. For example, trip one's up arrow becomes trip two's ahead arrow, because ahead follows up on the ring.
 
-## Related
+Each arrow can come back changed a little. Its tip has then taken a tiny step from where it started. Lay the three tiny steps tip to tail, starting each step where the one before it ended.
 
-- [[bianchi-identity]] — The differential (second) Bianchi identity is a different, derivative statement; learners often mix the two names.
-- [[torsion-tensor]] — With torsion the cyclic sum equals torsion terms instead of zero.
-- [[cartan-first-structure-equation]] — Differentiating the torsion-free structure equation gives the forms version Ω^a_b ∧ θ^b = 0.
-- [[maxwell-equations-in-differential-forms]] — The electromagnetic cyclic identity dF = 0 is automatic for the same kind of reason: it follows from how the field is built.
-- [[riemann-tensor-in-normal-coordinates]] — The quickest proof reads the identity off the second-derivative form of Riemann at a point.
+The rule is that the three steps bring you back to where you began. In other words, the three changes add up to nothing. This rule is called the cyclic identity, because the directions move around a ring.
+
+The balance is a surprise, since each trip has its own arrow and its own face. Take it on trust for now. Its reason is that tiny four-sided walks close up, as "Walks that close" explains, and they do in every space general relativity uses.
+
+Three rules already tie the curvature table's entries together, so the cyclic identity is the table's fourth rule.
+
+Near Earth the changes are far too small to notice. Just above Earth's surface, a cube a kilometre on each side still counts as tiny, because Earth's curving hardly differs across it. Such a cube changes each arrow's direction by at most about 1.5 millionths of a billionth of a degree.
+
+**Takeaway:** At a corner of a tiny cube, three arrows go around its three faces. From trip to trip the arrow and the two edges move one place around a ring of directions. The three changes add up to nothing in every space general relativity uses.
+
+*What this leaves out:* The rule is exact for the tiny loops the curvature table describes; for bigger faces the changes balance only nearly. The Earth number describes the space around Earth at one moment, for someone at rest relative to Earth.
+
+*Builds on:* [[symmetries-of-the-riemann-tensor]]<br>*Visuals:* [[three-trips-at-a-cube-corner]]<br>*See:* `checks/third-trip-at-a-cube-corner`
+
+### 2. Walks that close · entry · contrast
+
+*Does the fourth rule hold in every curved space, or does it need something more?*
+
+**Recap:** The cyclic identity: at a corner of a tiny cube, point an arrow along each edge in turn. Carry it around the face made by the other two edges, never letting it swing. When the arrow and the edges move one place around a ring of the three directions, the three changes add up to nothing. The curvature table divides each change by the loop's area.
+
+Stand at a spot on a flat floor, on a huge ball, or in some other space. Hold two short arrows of equal length: one points ahead of you and one points to your left.
+
+Route one: walk along the ahead arrow to its tip, carrying the left arrow without letting it swing. Then walk on for the left arrow's length, in the direction the carried left arrow points.
+
+Route two: swap the jobs. Walk along the left arrow to its tip, carrying the ahead arrow. Then walk on for the ahead arrow's length, in the direction the carried ahead arrow points.
+
+Together the two routes make a four-sided walk: out along one, back along the other. It closes up exactly when the two routes end at the same spot.
+
+On a flat floor the routes trace the four sides of a parallelogram, so the walk closes up. On a ball the routes end a tiny gap apart. Halve both arrows, and the area between the routes becomes a quarter as big, while the gap becomes about an eighth as big. So the gap shrinks faster than the area.
+
+The curvature table divides each change by a loop's area, so a gap matters only if it keeps pace with the area. On the ball it does not, and the walk counts as closing up. General relativity's rule for carrying arrows gives this in every space it uses.
+
+A space can be imagined where the gap does keep pace: halving both arrows makes it about a quarter as big. That kind of gap is called twist.
+
+Now return to the three trips. Each trip's change splits into two pieces, so the trips give six pieces. The six cancel in pairs, and each pair cancels only because four-sided walks close up. Take this splitting on trust here; the working rung writes it out.
+
+In a space with twist the pieces need not cancel. There the three changes can fail to add up to nothing.
+
+**Takeaway:** The three changes cancel because tiny four-sided walks close up; in a space with twist they need not cancel.
+
+*What this leaves out:* The eighth and the quarter are reached more and more closely as the arrows get shorter. A ball's gap need not be exactly an eighth for arrows of any given length.
+
+*Continues:* `ways_in/three-trips-at-a-cube-corner`<br>*Builds on:* [[torsion-free-connection]]<br>*Visuals:* [[two-routes-that-meet]]<br>*See:* `checks/a-space-with-twist`, `ways_in/the-identity-in-components`
+
+### 3. When the fourth rule cuts the count · entry · calculation
+
+*When does the fourth rule cut the number of different numbers the curvature table needs?*
+
+**Recap:** Filling one entry of the curvature table takes four choices of direction: the loop's first and second sides, the arrow's starting direction, and the direction its lean is read in. A lean is how far the arrow's tip has moved toward that direction. A lean read along the arrow's own direction counts as zero. Three rules tie the entries: walking a loop the other way flips the change, the lean rule, and the mirror rule. They leave 6 different numbers in space and 21 in space and time.
+
+In "Three trips at a cube corner", three tiny steps laid tip to tail bring you back to the start. So their parts toward any one direction add up to zero. Whatever the first two steps move you toward that direction, the third moves you back.
+
+In table language, each such part is an entry. The direction a lean is read in is called the reading direction. The cyclic identity keeps the reading direction fixed. The other three choices, the arrow's direction and the loop's two sides, move one place around the ring, and then one place more. That gives three entries, and they add up to zero.
+
+In space there are only three directions, so the reading direction repeats one of the three that move. Take up as the reading direction. The up arrow's lean toward up counts as zero, so the rule says the other two leans toward up cancel. The three earlier rules already force that; take this on trust here, since the working rung checks it. Any other reading direction works the same way. So in space the fourth rule adds nothing new, and 6 numbers remain.
+
+Space and time have four directions: ahead, left, up and time. Now all four choices can differ. Let time be the reading direction, and move ahead, left and up around the ring. Take on trust that the earlier rules do not tie those three entries together. The fourth rule ties them, so any two fix the third, and 21 numbers become 20.
+
+Now choose ahead, left or up as the reading direction instead, with the other three directions on the ring. Each choice gives that same link again, once the earlier rules are used. So each group of four different directions adds exactly one link.
+
+**Takeaway:** The fourth rule adds a link only when all four directions differ: none in space, and one in space and time, which cuts 21 numbers to 20.
+
+*Continues:* `ways_in/three-trips-at-a-cube-corner`<br>*Builds on:* [[symmetries-of-the-riemann-tensor]]<br>*Visuals:* [[twenty-of-256-slots]]<br>*See:* `checks/fourth-rule-in-space`, `problems/five-direction-world`, `ways_in/the-identity-in-components`
+
+### 4. The identity in components · working · calculation
+
+*What is the cyclic identity in components, and which property of the connection proves it?*
+
+The three trips of "Three trips at a cube corner" become components through the small-loop law, taken on trust here,
+
+$$\Delta V^\rho = -R^\rho{}_{\sigma\mu\nu}V^\sigma a^\mu b^\nu,$$
+
+where slot $\sigma$ takes the carried vector, $\mu$ and $\nu$ the edges in walking order, and $\rho$ the component read. Label ahead, left and up as coordinate directions 1, 2 and 3, with basis vectors orthonormal at the corner. The trips then change the arrows by $-R^\rho{}_{312}$, $-R^\rho{}_{123}$ and $-R^\rho{}_{231}$ times the face's area and the arrow's length, and these add to zero for every $\rho$. In general, for any torsion-free connection,
+
+$$R^\rho{}_{\sigma\mu\nu} + R^\rho{}_{\mu\nu\sigma} + R^\rho{}_{\nu\sigma\mu} = 0.$$
+
+The derivation "Twelve terms cancel in pairs" proves it from the component formula. The three cyclic copies hold six derivative terms and six products, which cancel in pairs, and each cancellation swaps the lower indices of one Christoffel symbol. So the proof uses $\Gamma^\lambda{}_{\mu\nu} = \Gamma^\lambda{}_{\nu\mu}$ and no metric. With torsion $T^\lambda{}_{\mu\nu} = \Gamma^\lambda{}_{\mu\nu} - \Gamma^\lambda{}_{\nu\mu}$, each pair leaves a torsion term. The same symmetry closes the four-sided walk of "Walks that close": a step $a$ changes a carried vector $b$ by $-\Gamma^\lambda{}_{\mu\nu}a^\mu b^\nu$, and the two routes meet when that change is symmetric in $a$ and $b$.
+
+When is the identity a new condition?
+
+- If two of $\sigma, \mu, \nu$ coincide, antisymmetry in the last pair alone makes the sum vanish, for every connection. So for a general torsion-free connection only distinct $\sigma, \mu, \nu$ matter, which needs three or more dimensions.
+- For the Levi-Civita connection, lower $\rho$. If $\rho$ equals one of the other three indices, the pair antisymmetries and pair exchange already give zero: for example, $R_{1123} + R_{1231} + R_{1312} = 0 + R_{1231} - R_{1231}$, since $R_{1312} = R_{1213} = -R_{1231}$. So a new condition needs four distinct indices, and each set of four gives one, $\binom{n}{4}$ in all.
+
+In four dimensions the one new condition is
+
+$$R_{0123} + R_{0231} + R_{0312} = 0,$$
+
+which turns the 21 numbers left by the pair rules into 20. Unlike those rules, which equate two components up to sign, it links three different components. The pair-exchange rule itself follows from this identity and the two antisymmetries.
+
+**Takeaway:** For any torsion-free connection the Riemann tensor summed over cyclic orders of its last three slots vanishes; for Levi-Civita this is a new condition only when all four indices differ.
+
+*Continues:* `ways_in/three-trips-at-a-cube-corner`, `ways_in/walks-that-close`<br>*Builds on:* [[riemann-curvature-tensor]], [[torsion-free-connection]], [[symmetric-and-antisymmetric-tensors]]<br>*See:* `derivations/twelve-terms-cancel-in-pairs`, `worked_examples/a-symmetric-connection-passes`, `checks/three-entries-and-a-wrong-sum`
+
+### 5. The link in an observer's frame · working · structure
+
+*Among the curvature components a freely falling observer lists, which ones does the cyclic identity tie together?*
+
+"When the fourth rule cuts the count" found one new link in space and time, among entries read toward time. Make that precise in an observer's orthonormal frame, with $e_{\hat 0}$ along the observer's four-velocity and $e_{\hat 1}, e_{\hat 2}, e_{\hat 3}$ spatial. Sort the lowered components by how many indices are $\hat 0$; the pair antisymmetries allow at most one in each pair.
+
+- Two: $R_{\hat 0\hat i\hat 0\hat j}$. Pair exchange makes this $3\times3$ matrix symmetric, so it holds 6 numbers, the ones that set the tidal drift of particles at rest in the frame.
+- One: $R_{\hat 0\hat i\hat j\hat k}$, with 3 values of $\hat i$ and 3 pairs $\hat j\hat k$, 9 numbers. Every other component with one $\hat 0$ equals one of these up to sign.
+- None: $R_{\hat i\hat j\hat k\hat l}$, which has the symmetries of a curvature tensor in three dimensions, 6 numbers.
+
+That makes 21. Package the set with one $\hat 0$ as $B_{\hat i\hat l} = \tfrac12\epsilon_{\hat l\hat j\hat k}R_{\hat 0\hat i\hat j\hat k}$, summed over $\hat j$ and $\hat k$, with $\epsilon_{\hat 1\hat 2\hat 3} = +1$. Its trace is
+
+$$\mathrm{tr}\,B = R_{\hat 0\hat 1\hat 2\hat 3} + R_{\hat 0\hat 2\hat 3\hat 1} + R_{\hat 0\hat 3\hat 1\hat 2},$$
+
+the one new cyclic sum. So the cyclic identity says exactly that $B$ is traceless, and $6 + 8 + 6 = 20$.
+
+The antisymmetric part of $B$ is the frame's time–space Ricci components, $R_{\hat 0\hat j} = \epsilon_{\hat j\hat i\hat l}B_{\hat i\hat l}$. In vacuum the Ricci tensor vanishes, so $B$ is symmetric and traceless, with 5 numbers. For an observer at rest outside a non-rotating star, $B = 0$. It is not zero for an observer in circular orbit around the star, or at rest near a rotating body.
+
+**Takeaway:** In an observer's frame the cyclic identity makes the matrix of one-time-index components traceless, so 6 tidal, 8 mixed and 6 spatial numbers make 20.
+
+*What this leaves out:* The split into the three sets depends on the observer; the total of 20 does not.
+
+*Continues:* `ways_in/when-the-fourth-rule-cuts-the-count`, `ways_in/the-identity-in-components`<br>*Builds on:* [[riemann-curvature-tensor]], [[symmetries-of-the-riemann-tensor]]<br>*See:* `problems/twenty-in-an-observers-frame`
+
+### 6. The first Bianchi identity for any connection · formal · structure
+
+*What does the cyclic sum of the curvature equal for a connection with torsion, and what exactly does the identity remove from a curvature tensor?*
+
+The cancellation in "The identity in components" used only $\Gamma^\lambda{}_{\mu\nu} = \Gamma^\lambda{}_{\nu\mu}$. Without coordinates, let $\nabla$ be a connection on the tangent bundle of an $n$-manifold, with torsion $T(X,Y) = \nabla_XY - \nabla_YX - [X,Y]$ and curvature $\mathcal R(X,Y) = \nabla_X\nabla_Y - \nabla_Y\nabla_X - \nabla_{[X,Y]}$, so that $\mathcal R(\partial_\mu,\partial_\nu)\partial_\sigma = R^\rho{}_{\sigma\mu\nu}\partial_\rho$. Write $\mathfrak S$ for the sum over the cyclic orders of $(X,Y,Z)$.
+
+*Theorem (first Bianchi identity).* For all vector fields,
+
+$$\mathfrak S\,\mathcal R(X,Y)Z = \mathfrak S\,\big[T(T(X,Y),Z) + (\nabla_XT)(Y,Z)\big].$$
+
+*Proof sketch.* Group the second-derivative terms as $\mathfrak S\,\nabla_X(\nabla_YZ - \nabla_ZY)$ and write each difference as $[Y,Z] + T(Y,Z)$. The bracket terms combine with $-\mathfrak S\,\nabla_{[Y,Z]}X$, and the Jacobi identity removes $\mathfrak S\,[X,[Y,Z]]$. The Leibniz rule and cyclic relabelling gather the remaining torsion terms into the right side, as the derivation "The cyclic sum from the Jacobi identity" shows. For $T = 0$ the sum vanishes. The statement is pointwise and algebraic in $\mathcal R$. It makes sense only because $Z$ lies in the same bundle as $X$ and $Y$: a connection on another vector bundle, such as a gauge field, has a second Bianchi identity but no first.
+
+*The metric case.* For the Levi-Civita connection set $R_{\rho\sigma\mu\nu} = g_{\rho\lambda}R^\lambda{}_{\sigma\mu\nu}$. At a point, tensors with both pair antisymmetries and pair exchange form $\mathrm{Sym}^2(\Lambda^2)$, of dimension $N(N+1)/2$ with $N = n(n-1)/2$. The cyclic sum $b(R)_{\rho\sigma\mu\nu} = R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu}$ maps this space into $\Lambda^4$: $b(R)$ is antisymmetric in its last three indices by construction, and pair exchange makes it antisymmetric in the first two as well. On a totally antisymmetric tensor every cyclic order is an even permutation, so $b$ multiplies $\Lambda^4$ by 3. So
+
+$$\mathrm{Sym}^2(\Lambda^2) = \ker b \oplus \Lambda^4,\qquad \dim\ker b = \frac{N(N+1)}{2} - \binom{n}{4} = \frac{n^2(n^2-1)}{12}.$$
+
+Given the pair symmetries, the cyclic identity is therefore equivalent to the vanishing of the totally antisymmetric part of $R_{\rho\sigma\mu\nu}$. The kernel, the space of algebraic curvature tensors, carries the irreducible representation of $GL(n)$ with Young diagram $(2,2)$. In four dimensions $\Lambda^4$ is one-dimensional, and the identity is the single condition $\epsilon^{\rho\sigma\mu\nu}R_{\rho\sigma\mu\nu} = 0$, whose left side is $8\epsilon^{0123}(R_{0123} + R_{0231} + R_{0312})$. Because the identity is linear, it holds in every basis and is unchanged when $g \to -g$.
+
+*Forms.* With a coframe $\theta^a$ and connection one-forms $\omega^a{}_b$, the torsion two-form is $\Theta^a = d\theta^a + \omega^a{}_b\wedge\theta^b$ and the curvature two-form is $\Omega^a{}_b = d\omega^a{}_b + \omega^a{}_c\wedge\omega^c{}_b$. One more exterior derivative gives $d\Theta^a + \omega^a{}_b\wedge\Theta^b = \Omega^a{}_b\wedge\theta^b$, so zero torsion gives $\Omega^a{}_b\wedge\theta^b = 0$, the identity in forms.
+
+*Limits.*
+
+- A torsion-free connection that preserves no metric keeps the identity, but its trace $R^\lambda{}_{\lambda\mu\nu}$ need not vanish: contracting the identity gives $R_{\mu\nu} - R_{\nu\mu} = R^\lambda{}_{\lambda\mu\nu}$, and the curvature has $n^2(n^2-1)/3$ independent components, 80 in four dimensions.
+- A metric connection with torsion, as in Einstein–Cartan theory, loses the identity and pair exchange in general, leaving 36 components in four dimensions.
+- For Levi-Civita, the proof that sectional curvatures determine $R_{\rho\sigma\mu\nu}$ uses the identity.
+
+**Takeaway:** For any connection the cyclic sum of the curvature is built from torsion and its derivative; for Levi-Civita the identity removes exactly the totally antisymmetric part, one number in four dimensions.
+
+*What this leaves out:* Connections on the tangent bundle, smooth enough for two derivatives.
+
+*Continues:* `ways_in/the-identity-in-components`<br>*Builds on:* [[torsion-tensor]], [[lie-bracket]], [[levi-civita-connection]]<br>*See:* `derivations/cyclic-sum-from-the-jacobi-identity`, `checks/a-lopsided-connection`, `checks/the-dual-trace`, `problems/the-cyclic-sum-map`
+
+## Glossary
+
+| Term | Say | In plain words | Concept |
+| --- | --- | --- | --- |
+| loop | — | A path that ends exactly where it began. | — |
+| swing | — | To move a carried arrow so that it points a different way, in any direction at all. A carried arrow never swings. | — |
+| tilt | — | A pair of directions at a spot, like the bottom, front or side of a box. A loop's tilt is set by the two directions its sides run along. An arrow's tilt is set by its starting direction and the direction its lean is read in. | — |
+| lean | — | The distance an arrow's tip has moved toward a chosen direction, called the reading direction. A tip that has moved away from that direction leans away. | — |
+| reading direction | — | The direction an arrow's lean is read in, for one entry of the curvature table. | — |
+| Riemann curvature tensor | REE-mahn | A table kept at every spot. For each tilt of a tiny loop and each starting direction of an arrow, it lists how the arrow comes back changed, divided by the loop's area. | [[riemann-curvature-tensor]] |
+| lean rule | — | Of two equal arrows at right angles carried around a tiny loop, one leans toward the other as far as the other leans away. | [[symmetries-of-the-riemann-tensor]] |
+| mirror rule | — | Swapping a loop's tilt with the arrow's tilt leaves an entry of the curvature table unchanged. | [[symmetries-of-the-riemann-tensor]] |
+| cyclic identity | SIK-lik eye-DEN-tih-tee | The fourth rule of the curvature table. At a corner of a tiny cube, point an arrow along each edge in turn and carry it around the face made by the other two edges. When the directions move one place around a ring from trip to trip, the three changes add up to nothing, wherever there is no twist. | [[cyclic-identity]] |
+| twist | — | A gap between the ends of two short routes: along a first arrow and then a carried second arrow, or the other way round. It counts as twist when the gap keeps pace with the area between the routes. General relativity allows no twist. | [[torsion-tensor]] |
 
 ## Key equations
 
-### Cyclic identity (mixed components)
+### Cyclic identity · working
 
 $$
-R^\rho{}_{\sigma\mu\nu} + R^\rho{}_{\mu\nu\sigma} + R^\rho{}_{\nu\sigma\mu} = 0 \quad\Longleftrightarrow\quad R^\rho{}_{[\sigma\mu\nu]} = 0
+R^\rho{}_{\sigma\mu\nu} + R^\rho{}_{\mu\nu\sigma} + R^\rho{}_{\nu\sigma\mu} = 0
 $$
 
-With the upper index fixed, summing over the three cyclic orders of the lower indices gives zero; true for any torsion-free connection. *(SCH ch06 §6.5 p.158; GA ch11 §11.4 p.126; DIV ch06 §6.12 p.106)*
+With the component index fixed, the Riemann tensor summed over the three cyclic orders of its vector slot and two edge slots vanishes.
 
-**Convention:** Course slot order: sigma is the transported vector, mu and nu the loop directions. Schutz, Blundell-Lancaster and d'Inverno use the same slots and sign, so their forms translate by renaming only.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $R^\rho{}_{\sigma\mu\nu}$ | Riemann tensor in the course slot order: $\rho$ the component read, $\sigma$ the carried vector, $\mu\nu$ the loop edges | R upper rho, lower sigma mu nu |
 
-### Cyclic identity (all indices lowered)
+**Holds when:** Torsion-free connection, with or without a metric; any basis.  
+**Say it:** “R upper rho lower sigma mu nu, plus R upper rho lower mu nu sigma, plus R upper rho lower nu sigma mu, equals zero.”  
+**Justified by:** `derivations/twelve-terms-cancel-in-pairs`
 
-$$
-R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu} = 0 \quad\Longleftrightarrow\quad R_{[\rho\sigma\mu\nu]} = 0
-$$
-
-The same identity with the first index lowered; together with the pair symmetries it is equivalent to the vanishing of the totally antisymmetric part. *(SCH ch06 §6.5 p.158; GA ch35 §35.3 p.369; DIV ch06 §6.12 p.106)*
-
-**Convention:** Equivalence with the total antisymmetrization uses the pair symmetries, so it needs the metric (Levi-Civita) connection.
-
-### Riemann tensor in normal coordinates (proof tool)
-
-$$
-R_{\rho\sigma\mu\nu}\big|_P = \tfrac12\left(\partial_\sigma\partial_\mu g_{\rho\nu} - \partial_\sigma\partial_\nu g_{\rho\mu} + \partial_\rho\partial_\nu g_{\sigma\mu} - \partial_\rho\partial_\mu g_{\sigma\nu}\right)
-$$
-
-Where the Christoffel symbols vanish, curvature is four second derivatives of the metric; cycling the last three indices makes the twelve terms cancel in pairs. *(SCH ch06 §6.5 p.158; GA ch11 Example 11.5; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
-
-**Convention:** Valid only in coordinates with Gamma = 0 at P; the cyclic identity derived from it is a tensor equation and holds everywhere.
-
-### The one new relation in four dimensions
+### The new link in four dimensions · working
 
 $$
 R_{0123} + R_{0231} + R_{0312} = 0
 $$
 
-After the pair symmetries, the only components with four distinct indices are these three (up to sign); the identity ties them, reducing 21 to 20. *(SCH ch06 Ex 6.18 p.167; legacy:lab-riemann-independent-components)*
+The only condition the cyclic identity adds to the pair rules in four dimensions: it links three components whose four indices all differ.
 
-**Convention:** The legacy lab writes it as R_0123 - R_0213 + R_0312 = 0, which is the same relation because R_0213 = -R_0231.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $R_{0123}$ | a component of the lowered Riemann tensor, indices labelled 0 to 3 in any basis | R zero one two three |
 
-### Index-free form
+**Holds when:** Levi-Civita connection; all indices lowered; any basis.  
+**Say it:** “R zero one two three plus R zero two three one plus R zero three one two equals zero.”  
+**Justified by:** `derivations/twelve-terms-cancel-in-pairs`
 
-$$
-\mathcal{R}(u,v)w + \mathcal{R}(v,w)u + \mathcal{R}(w,u)v = 0, \qquad \mathcal{R}(u,v) = [\nabla_u,\nabla_v] - \nabla_{[u,v]}
-$$
-
-Carry each of three directions around the small loop spanned by the other two, in cyclic order; the three changes cancel. *(legacy:manuscript-chapter-08-curvature-holonomy)*
-
-**Convention:** Components: R(e_mu, e_nu) e_sigma = R^rho_{sigma mu nu} e_rho.
-
-### First Bianchi identity with torsion (formal)
+### First Bianchi identity with torsion · formal
 
 $$
-\mathfrak{S}_{u,v,w}\, \mathcal{R}(u,v)w = \mathfrak{S}_{u,v,w}\left[T(T(u,v),w) + (\nabla_u T)(v,w)\right]
+\mathfrak{S}_{X,Y,Z}\,\mathcal{R}(X,Y)Z = \mathfrak{S}_{X,Y,Z}\big[T(T(X,Y),Z) + (\nabla_X T)(Y,Z)\big]
 $$
 
-For a general connection the cyclic sum is built from the torsion and its derivative; setting T = 0 recovers the course identity.
+For any connection on the tangent bundle, the cyclic sum of the curvature is built from the torsion and its covariant derivative.
 
-**Convention:** T(u,v) = nabla_u v - nabla_v u - [u,v]; the cyclic symbol sums over the three cyclic orders of (u,v,w). None of the three books treats torsion here.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $\mathfrak{S}_{X,Y,Z}$ | sum over the three cyclic orders of $X, Y, Z$ | the cyclic sum over X, Y, Z |
+| $\mathcal{R}(X,Y)$ | curvature operator $\nabla_X\nabla_Y - \nabla_Y\nabla_X - \nabla_{[X,Y]}$ | the curvature of X and Y |
+| $T$ | torsion, $T(X,Y) = \nabla_XY - \nabla_YX - [X,Y]$ | the torsion |
 
-## Conventions across the books
+**Holds when:** Any affine connection on the tangent bundle; pointwise; for $T = 0$ the right side vanishes.  
+**Say it:** “The cyclic sum of the curvature of X and Y acting on Z equals the cyclic sum of the torsion of the torsion, plus the covariant derivative of the torsion.”  
+**Justified by:** `derivations/cyclic-sum-from-the-jacobi-identity`
 
-| Issue | Schutz | Gifted Amateur | d'Inverno | Course choice |
-| --- | --- | --- | --- | --- |
-| Riemann slot order and overall sign (decides which three indices are cycled) | R^α_βμν = Γ^α_βν,μ − Γ^α_βμ,ν + Γ^α_σμ Γ^σ_βν − Γ^α_σν Γ^σ_βμ; slot β is the transported vector (MTW convention). Cyclic sum over the last three lower indices. | Same slots and sign as MTW (GA ch11 §11.3, ch35 §35.1): second slot takes the vector, last two the loop directions. | R^a_bcd = ∂_c Γ^a_bd − ∂_d Γ^a_bc + ..., with [∇_c, ∇_d] X^a = R^a_bcd X^b; same slots as MTW. | R^ρ_σμν with [∇_μ, ∇_ν] V^ρ = R^ρ_σμν V^σ; the identity cycles σ, μ, ν. A book that put the transported index last would cycle the first three lower indices instead; always check before copying the pattern. |
-| Written form of the identity | All indices lowered: R_αβμν + R_ανβμ + R_αμνβ = 0 (Eq. 6.70), listed next to the pair symmetries (6.69). | All indices lowered: R_αβγδ + R_αδβγ + R_αγδβ = 0 (Eqs. 11.25, 35.31, 35.33). | Mixed, with the identity sign: R^a_bcd + R^a_dbc + R^a_cdb ≡ 0 (6.79), bracket form R^a_[bcd] ≡ 0 (Exercise 6.24); a lowered version appears with the pair symmetries after (6.82). | State it as R^ρ_[σμν] = 0 and write it out as R^ρ_σμν + R^ρ_μνσ + R^ρ_νσμ = 0; use the plain equals sign and say in words that it holds for every torsion-free connection. |
-| Name | 'Cyclic identity'; the name 'Bianchi identities' is kept for the differential identities of §6.6. | 'Cyclic identity' (no Bianchi name in ch11 or ch35); 'Bianchi identity' is the differential identity of ch13 (Eq. 13.27). | Stated as an unnamed identity (6.79) derived from the symmetry of the connection; 'Bianchi identities' means the differential identities (6.83). | Call it the cyclic identity, with alias first (algebraic) Bianchi identity; 'Bianchi identity' on its own always means the differential one. |
-| Lower-index order of the Christoffel symbols (invisible without torsion) | Derivative index last: V^α_;β = V^α_,β + Γ^α_μβ V^μ. | Derivative index first: ∇_μ e_ν = Γ^α_μν e_α (GA ch35 §35.2). | Derivative index last: ∇_c X^a = ∂_c X^a + Γ^a_bc X^b. | Derivative index first, ∇_μ V^ν = ∂_μ V^ν + Γ^ν_μλ V^λ. For the symmetric connections of GR the order does not matter; it matters only when torsion terms are added to the identity. |
-| Metric signature (sign of the lowered tensor) | (−,+,+,+). | (−,+,+,+). | (+,−,−,−); flipping the metric flips the sign of R_abcd but not of R^a_bcd. | (−,+,+,+). The identity is linear and homogeneous, so a signature change never affects it. |
+## Derivations
 
-## How the sources teach it
+### Twelve terms cancel in pairs · working
 
-### schutz
+**Goal:** Show that $R^\rho{}_{\sigma\mu\nu} + R^\rho{}_{\mu\nu\sigma} + R^\rho{}_{\nu\sigma\mu}$ vanishes when $\Gamma^\lambda{}_{\mu\nu} = \Gamma^\lambda{}_{\nu\mu}$, and find what remains otherwise.
 
-**Route:** After defining Riemann from a small loop, Schutz goes to a locally inertial frame, writes the lowered tensor as four second derivatives of the metric (6.68), and reads off the pair symmetries and the cyclic identity by inspection. He argues that as tensor equations proved in one frame they hold in all, then states that together they leave 20 components, matching the 20 second derivatives no coordinate change can remove.
+1. Start from the course formula $R^\rho{}_{\sigma\mu\nu} = \partial_\mu\Gamma^\rho{}_{\nu\sigma} - \partial_\nu\Gamma^\rho{}_{\mu\sigma} + \Gamma^\rho{}_{\mu\lambda}\Gamma^\lambda{}_{\nu\sigma} - \Gamma^\rho{}_{\nu\lambda}\Gamma^\lambda{}_{\mu\sigma}$.
+2. Replace $(\sigma,\mu,\nu)$ by $(\mu,\nu,\sigma)$ and by $(\nu,\sigma,\mu)$. The three copies hold six derivative terms: $\partial_\mu\Gamma^\rho{}_{\nu\sigma} - \partial_\nu\Gamma^\rho{}_{\mu\sigma} + \partial_\nu\Gamma^\rho{}_{\sigma\mu} - \partial_\sigma\Gamma^\rho{}_{\nu\mu} + \partial_\sigma\Gamma^\rho{}_{\mu\nu} - \partial_\mu\Gamma^\rho{}_{\sigma\nu}$.
+3. Pair the first with the sixth, the second with the third, and the fourth with the fifth. With $T^\lambda{}_{\mu\nu} = \Gamma^\lambda{}_{\mu\nu} - \Gamma^\lambda{}_{\nu\mu}$ they give $\partial_\mu T^\rho{}_{\nu\sigma} + \partial_\nu T^\rho{}_{\sigma\mu} + \partial_\sigma T^\rho{}_{\mu\nu}$.
+4. The six product terms are $\Gamma^\rho{}_{\mu\lambda}\Gamma^\lambda{}_{\nu\sigma} - \Gamma^\rho{}_{\nu\lambda}\Gamma^\lambda{}_{\mu\sigma} + \Gamma^\rho{}_{\nu\lambda}\Gamma^\lambda{}_{\sigma\mu} - \Gamma^\rho{}_{\sigma\lambda}\Gamma^\lambda{}_{\nu\mu} + \Gamma^\rho{}_{\sigma\lambda}\Gamma^\lambda{}_{\mu\nu} - \Gamma^\rho{}_{\mu\lambda}\Gamma^\lambda{}_{\sigma\nu}$.
+5. Pair them the same way: they give $\Gamma^\rho{}_{\mu\lambda}T^\lambda{}_{\nu\sigma} + \Gamma^\rho{}_{\nu\lambda}T^\lambda{}_{\sigma\mu} + \Gamma^\rho{}_{\sigma\lambda}T^\lambda{}_{\mu\nu}$.
+6. For a torsion-free connection every $T^\lambda{}_{\mu\nu}$ vanishes, so both groups vanish. No metric was used.
+7. Lowering $\rho$ with a metric is linear, so the lowered sum vanishes too; with $\rho\sigma\mu\nu = 0123$ it reads $R_{0123} + R_{0231} + R_{0312} = 0$.
 
-**Representation:** Component formulas in locally flat coordinates; verification and the count left to Exercise 6.18.
+**Result:** $R^\rho{}_{\sigma\mu\nu} + R^\rho{}_{\mu\nu\sigma} + R^\rho{}_{\nu\sigma\mu} = \partial_\mu T^\rho{}_{\nu\sigma} + \Gamma^\rho{}_{\mu\lambda}T^\lambda{}_{\nu\sigma}$ plus its two cyclic copies, which is zero for every torsion-free connection.
 
-**Strengths:** Very economical: one formula makes every algebraic symmetry visible, and the link to the local-flatness count gives the identity a purpose.
+### The cyclic sum from the Jacobi identity · formal
 
-**Weaknesses:** No geometric meaning and no statement that the identity rests on zero torsion. It does not show which index patterns make the identity trivial; that is buried in the exercise. *(SCH ch06 §6.5 p.158; SCH ch06 §6.5 p.159; SCH ch06 Ex 6.18 p.167)*
+**Goal:** Prove $\mathfrak S\,\mathcal R(X,Y)Z = \mathfrak S\,[T(T(X,Y),Z) + (\nabla_XT)(Y,Z)]$ for any connection on the tangent bundle.
 
-### gifted-amateur
+1. Write $\mathfrak S\,\mathcal R(X,Y)Z = \mathfrak S(\nabla_X\nabla_YZ - \nabla_Y\nabla_XZ) - \mathfrak S\,\nabla_{[X,Y]}Z$.
+2. Relabel cyclically: $\mathfrak S\,\nabla_Y\nabla_XZ = \mathfrak S\,\nabla_X\nabla_ZY$. The first sum becomes $\mathfrak S\,\nabla_X(\nabla_YZ - \nabla_ZY) = \mathfrak S\,\nabla_X\big([Y,Z] + T(Y,Z)\big)$.
+3. Relabel $\mathfrak S\,\nabla_{[X,Y]}Z = \mathfrak S\,\nabla_{[Y,Z]}X$. Then $\mathfrak S(\nabla_X[Y,Z] - \nabla_{[Y,Z]}X) = \mathfrak S\big([X,[Y,Z]] + T(X,[Y,Z])\big)$, and the Jacobi identity removes $\mathfrak S\,[X,[Y,Z]]$.
+4. By the Leibniz rule, $\nabla_X\big(T(Y,Z)\big) = (\nabla_XT)(Y,Z) + T(\nabla_XY,Z) + T(Y,\nabla_XZ)$.
+5. Relabel and use the antisymmetry of $T$: $\mathfrak S\,T(Y,\nabla_XZ) = -\mathfrak S\,T(\nabla_YX,Z)$ and $\mathfrak S\,T(X,[Y,Z]) = -\mathfrak S\,T([X,Y],Z)$.
+6. The torsion terms other than $\nabla T$ collect into $\mathfrak S\,T(\nabla_XY - \nabla_YX - [X,Y], Z) = \mathfrak S\,T(T(X,Y),Z)$.
 
-**Route:** Chapter 11 uses the local-inertial-frame formula for Riemann (Example 11.5), lists the pair symmetries with a spoken rule for sign changes, and adds the cyclic identity as something one can check. Chapter 35 recalls it as the source of the constraints subtracted in the general-n component count, noting that only four distinct indices give a new condition.
-
-**Representation:** Component formulas, a margin note on the 256 naive components, and a combinatorial argument in Example 35.6.
-
-**Strengths:** Gentle entry, and the ch35 remark about distinct indices is exactly the insight learners need for counting.
-
-**Weaknesses:** The check is not written out, the torsion-free assumption is left implicit, and the later count does not explain why each set of four indices gives exactly one independent relation. *(GA ch11 §11.4 p.126; GA ch11 Example 11.5; GA ch35 §35.3 p.369; GA ch35 Example 35.6)*
-
-### dinverno
-
-**Route:** Section 6.12 derives the identity (6.79) from the symmetry of the connection before any index is lowered, then uses geodesic coordinates for pair exchange and deduces first-pair antisymmetry. It collects all four algebraic identities in (6.82) and states the n^2(n^2−1)/12 count. Exercise 6.24 asks for the proof and the bracket form. The identity returns for the Weyl tensor and in the Killing-vector identity.
-
-**Representation:** Index calculus with the triple-bar identity sign and antisymmetrization brackets.
-
-**Strengths:** Makes clear which property needs only a torsion-free connection (cyclic identity, last-pair antisymmetry) and which needs the metric (pair exchange, first-pair antisymmetry). The bracket notation prepares for forms.
-
-**Weaknesses:** Terse: the proof is an exercise and there is no picture or count of how many relations the identity actually imposes. *(DIV ch06 §6.12 p.106; DIV ch06 Ex 6.24 p.110; DIV ch07 Ex 7.15; DIV ch23 §23.7 p.472)*
-
-### legacy
-
-**Route:** Chapter 8 proves the Riemann symmetries in explicitly constructed Γ = 0 coordinates. The three-phase component lab then pairs the indices into a 6x6 grid, matches mirror entries to reach 21, and in phase 3 highlights the single cyclic relation that brings the count to 20.
-
-**Representation:** Interactive tile grid with named components and sign rules; a static pair-matrix figure.
-
-**Strengths:** Makes the cyclic relation a visible, located object in the component grid and separates it clearly from the pair symmetries. Conventions are verified exhaustively over all 256 index choices.
-
-**Weaknesses:** Numbering gaps and inconsistent colours in phase 3. The static figure does not locate the cyclic relation. There is no geometric reading and no dimension selector. *(legacy:lab-riemann-independent-components; legacy:figure-curvature-count; legacy:manuscript-chapter-08-curvature-holonomy)*
-
-## Recommended teaching path
-
-1. **Pose the leftover question** — After the pair symmetries, show the three components with indices 0,1,2,3 in different arrangements, R_0123, R_0231, R_0312, and ask whether all three are free numbers. *Why:* Gives the identity a job before it is stated, and focuses attention on the only index pattern where it matters. *(SCH ch06 Ex 6.18 p.167; GA ch35 Example 35.6)*
-2. **Picture the three faces** — Draw a small box corner: transport each edge direction around the face made by the other two, in cyclic order, and assert the three changes cancel when there is no torsion. *Why:* Connects the identity to the loop meaning of curvature that the learner already holds, so it is not just index juggling. *(legacy:manuscript-chapter-08-curvature-holonomy)*
-3. **Prove it the quick way** — In normal coordinates write the four-term second-derivative form and let the learner cancel the twelve terms of the cyclic sum pair by pair; stress that a tensor equation true in one chart is true in all. *Why:* A short, checkable derivation that reuses the tool already used for the pair symmetries. *(SCH ch06 §6.5 p.158; GA ch11 Example 11.5)*
-4. **Locate the real assumption** — Redo the proof straight from the Christoffel definition, showing each cancellation uses Γ^ρ_μν = Γ^ρ_νμ and no metric; mention that torsion would leave extra terms. *Why:* Prevents the belief that the identity is a property of all connections, and separates it from the pair symmetries that need the metric. *(DIV ch06 §6.12 p.106; DIV ch06 Ex 6.24 p.110)*
-5. **Check which index patterns matter** — Have the learner test a repeated-index case (for example R_1123 + R_1231 + R_1312) and see it vanish by pair symmetries alone, then contrast with four distinct indices. *Why:* Establishes that the identity adds one condition per set of four distinct indices, the fact the component count needs. *(GA ch35 §35.3 p.369; legacy:lab-riemann-independent-components)*
-6. **Cash it in** — Use it to go from 21 to 20 in four dimensions and to C(n,4) constraints in n dimensions, and note the four-dimensional form ε^ρσμν R_ρσμν = 0; preview its later use for Killing vectors and the Weyl tensor. *Why:* Shows the identity's consequences immediately so it is remembered as useful rather than decorative. *(SCH ch06 §6.5 p.159; DIV ch07 Ex 7.15; DIV ch23 §23.7 p.472)*
-
-## Analogies
-
-- **The Jacobi identity for cross products** (working): For ordinary vectors, a×(b×c) + b×(c×a) + c×(a×b) = 0: a cyclic sum of a two-slot operation acting on the third vector vanishes. The cyclic identity has the same shape, with the curvature of the plane spanned by two directions acting on the third, and its proof in index-free form literally reduces to the Jacobi identity of the Lie bracket. *Limits:* The cross product is an algebraic operation on fixed vectors in flat 3-space; curvature is a tensor field defined through derivatives, exists in any dimension and depends on the connection. The analogy explains the pattern, not why it holds.
-- **Three faces of a small box** (intuition): At a corner of a tiny box, carry each edge direction around the face formed by the other two edges, going round in cyclic order. The three changes produced by curvature cancel. Tiny parallelograms closing up (no torsion) is what makes this bookkeeping come out even. *Limits:* Only meaningful for infinitesimal loops of matching size at one point, and the individual changes are not separately measurable in the picture. With torsion the faces do not close and the cancellation fails. *(legacy:manuscript-chapter-08-curvature-holonomy)*
-- **The homogeneous Maxwell equations are automatic** (working): If the field strength comes from a potential, the cyclic sum of its derivatives vanishes without any physics input. Likewise the cyclic sum of Riemann vanishes automatically because Riemann is built from a symmetric connection. Both are identities that follow from how the object is constructed. *Limits:* The electromagnetic identity involves derivatives, and in the gauge-theory dictionary it corresponds to the differential Bianchi identity, not to this algebraic one. Use it only to convey 'true by construction'. *(GA ch42 §42.2 p.456)*
-
-## Misconceptions
-
-- **The cyclic identity and the Bianchi identity are the same thing.** — The cyclic identity is algebraic, involves no derivatives and holds pointwise. The (second) Bianchi identity is a differential statement, a cyclic sum of covariant derivatives of Riemann, and is the one that leads to the divergence-free Einstein tensor. *Why tempting:* Both are cyclic sums that vanish and some texts call both 'Bianchi identities'. *Diagnostic:* Which of the two identities would still hold if you only knew the Riemann tensor at a single point, with no information about its neighbourhood? *(SCH ch06 §6.5 p.158; GA ch13 §13.3 p.146; DIV ch06 §6.12 p.106)*
-- **Any sum of three index rearrangements works, for example R_0123 + R_0213 + R_0312 = 0.** — Only the cyclic orders of the last three indices are summed: (123), (231), (312). The arrangement 213 is an odd permutation, and R_0213 = −R_0231, so the proposed sum equals −2R_0231, which need not vanish. *Why tempting:* The indices look similar and an unnoticed transposition changes a sign. *Diagnostic:* Rewrite R_0123 + R_0213 + R_0312 using only the three cyclic arrangements. Is it zero? *(legacy:lab-riemann-independent-components)*
-- **The cyclic identity follows from the pair symmetries and adds no information.** — It is independent of them. It is automatic when two indices coincide, but for four distinct indices it is a genuine new linear relation, removing C(n,4) components: one in four dimensions. *Why tempting:* In every low-dimensional or repeated-index example the identity checks out trivially, and in three dimensions it imposes nothing. *Diagnostic:* In three dimensions the cyclic identity removes no components, but in four it removes one. What property of the index values explains the difference? *(GA ch35 §35.3 p.369; SCH ch06 Ex 6.18 p.167)*
-- **The cyclic identity is a symmetry that makes components equal up to sign, like the pair symmetries.** — Pair symmetries identify components in pairs; the cyclic identity is a linear relation among three different components, so it lets one be expressed as a combination of the other two. *Why tempting:* It is listed together with the symmetries and all are loosely called 'symmetries'. *Diagnostic:* If R_0123 = 2 and R_0231 = 5 at some point, what is R_0312, and is it simply ± one of the others? *(legacy:lab-riemann-independent-components; GA ch11 §11.4 p.126)*
-- **Every connection satisfies the cyclic identity.** — It requires zero torsion. For a connection with torsion the cyclic sum equals terms built from the torsion and its covariant derivative. *Why tempting:* General relativity always uses the torsion-free Levi-Civita connection, so the assumption is never visible. *Diagnostic:* In the proof from the Christoffel formula, which single property of Γ is used to cancel every term? *(DIV ch06 §6.12 p.106)*
-
-## Visualizations
-
-### Index wheel on a live curvature tensor · interactive-2d · high priority
-
-A ring with the first index pinned and three rotating slots; each click lights the corresponding tile in a 6x6 pair grid of a real Riemann tensor, shows its signed value, and keeps a running cyclic sum that always returns to zero.
-
-**Interaction:** Choose the four index values (including repeats); rotate the wheel; press 'new random geometry'; toggle 'add torsion' to see the sum become nonzero; toggle 'wrong permutation' to see the sign error from swapping two slots.
-
-**Model:** Draw random second derivatives of a 4D metric at a point and build R_ρσμν from the normal-coordinate formula; for the torsion toggle build R^ρ_σμν from a connection with an antisymmetric part using the course definition. Sums are exact in floating point.
-
-**Inspired by:** SCH ch06 §6.5 p.158; GA ch11 Example 11.5; legacy:lab-riemann-independent-components
-
-**Legacy assets:** lab-riemann-independent-components, figure-curvature-count
-
-### Twelve terms cancelling · animated-2d · medium priority
-
-The cyclic sum written in normal coordinates appears as twelve coloured second-derivative chips; matching chips (equal by symmetry of g or of mixed partials) glide together and annihilate.
-
-**Interaction:** Step through cancellations one at a time or let them play; tap a chip to see which symmetry justifies its partner.
-
-**Model:** Symbolic: the three copies of the four-term formula with σ, μ, ν cycled; pairing rules g_ab = g_ba and ∂_a∂_b = ∂_b∂_a.
-
-**Inspired by:** SCH ch06 Ex 6.18 p.167; DIV ch06 Ex 6.24 p.110
-
-### Three faces of a box · interactive-3d · medium priority
-
-A small cube in a curved 3D space; for each face adjacent to a chosen corner, the leftover edge vector is parallel transported around the face and its change drawn as a short red arrow at the corner. The three red arrows add head-to-tail to zero.
-
-**Interaction:** Rotate the cube, change its orientation relative to the curvature, and switch between a torsion-free connection and one with torsion (the arrows then fail to close).
-
-**Model:** Constant-curvature 3-space or a random algebraic curvature tensor; changes computed to leading order as −R(u,v)w ε² for each face.
-
-**Inspired by:** legacy:manuscript-chapter-08-curvature-holonomy
-
-**Legacy assets:** manuscript-chapter-08-curvature-holonomy
+**Result:** $\mathfrak S\,\mathcal R(X,Y)Z = \mathfrak S\,[T(T(X,Y),Z) + (\nabla_XT)(Y,Z)]$; for $T = 0$ the cyclic sum vanishes.
 
 ## Worked examples
 
-- **Riemann symmetries from the locally inertial form** (working): Lowered Riemann as four second derivatives of the metric at a point, from which the pair symmetries and the cyclic identity are read off and promoted to all frames. *(SCH ch06 §6.5 p.158)*
-- **Example 11.5: a form of Riemann that shows its symmetries** (working): The same local-inertial-frame route, with a spoken rule for the sign changes and the cyclic identity stated as checkable. *(GA ch11 Example 11.5)*
-- **Cyclic identity from a symmetric connection** (formal): The identity stated for R^a_bcd before lowering, as a consequence of the symmetry of the connection, with the bracket form R^a_[bcd] = 0. *(DIV ch06 §6.12 p.106)*
-- **Example 35.6: the cyclic constraints in the component count** (working): The identity used as C(n,4) constraints, relevant only for four distinct indices. *(GA ch35 Example 35.6)*
+### A symmetric connection passes the test · working
 
-## Exercises
+**Problem:** On $\mathbb R^3$ with coordinates $(x, y, z)$, take the torsion-free connection whose only nonzero symbols are $\Gamma^x{}_{yz} = \Gamma^x{}_{zy} = x$. Compute the three components $R^x{}_{zxy}$, $R^x{}_{xyz}$ and $R^x{}_{yzx}$ of one cyclic sum, and add them.
 
-- (standard) Derive the pair symmetries and the cyclic identity from the locally inertial form of Riemann, then show the cyclic identity adds exactly one relation beyond the pair symmetries in four dimensions. *Skill:* Index manipulation and constraint counting *(SCH ch06 Ex 6.18 p.167)*
-- (standard) Prove the cyclic identity and pair exchange symmetry using geodesic coordinates, and show the cyclic identity is equivalent to the vanishing of the antisymmetrized lower indices. *Skill:* Proofs with special coordinates and antisymmetrization brackets *(DIV ch06 Ex 6.24 p.110)*
-- (challenging) Use the cyclic identity to show that second covariant derivatives of a Killing vector are determined by the curvature acting on the vector. *Skill:* Applying the identity in a derivation *(DIV ch07 Ex 7.15)*
+1. Every nonzero symbol has upper index $x$ and lower indices $y$ and $z$. In a product $\Gamma^\rho{}_{\mu\lambda}\Gamma^\lambda{}_{\nu\sigma}$ the second factor needs $\lambda = x$, and then the first factor has a lower $x$ and vanishes. So only derivative terms survive, and only $\partial_x$ of a symbol is nonzero.
+2. $R^x{}_{zxy} = \partial_x\Gamma^x{}_{yz} - \partial_y\Gamma^x{}_{xz} = 1 - 0 = 1$.
+3. $R^x{}_{xyz} = \partial_y\Gamma^x{}_{zx} - \partial_z\Gamma^x{}_{yx} = 0$.
+4. $R^x{}_{yzx} = \partial_z\Gamma^x{}_{xy} - \partial_x\Gamma^x{}_{zy} = 0 - 1 = -1$.
 
-## Checks for understanding
+**Answer:** $1 + 0 - 1 = 0$. The curvature is not zero, yet the cyclic sum vanishes.
 
-- **Q (intuition):** Why does the cyclic identity remove no components in three dimensions, but one in four?
-  - **A:** The identity is automatically satisfied whenever two of the four indices coincide, because the pair symmetries already force the cyclic sum to zero. A new condition appears only for four distinct index values. In three dimensions there are no four distinct values, so nothing is removed; in four there is exactly one set {0,1,2,3}, so one component is removed (21 → 20). *(targets: The cyclic identity follows from the pair symmetries and adds no information.)*
-- **Q (working):** A classmate writes the four-dimensional cyclic identity as R_0123 + R_0213 + R_0312 = 0. Is this right?
-  - **A:** No. The cyclic orders of (1,2,3) are (1,2,3), (2,3,1), (3,1,2), so the identity is R_0123 + R_0231 + R_0312 = 0. Because R_0213 = −R_0231 (antisymmetry in the last pair), the classmate's sum equals (R_0123 + R_0231 + R_0312) − 2R_0231 = −2R_0231, which is generally nonzero. A correct alternative form is R_0123 − R_0213 + R_0312 = 0. *(targets: Any sum of three index rearrangements works, for example R_0123 + R_0213 + R_0312 = 0.)*
-- **Q (working):** Show that R_1123 + R_1231 + R_1312 = 0 follows from the pair symmetries alone.
-  - **A:** R_1123 = 0 because the first pair is antisymmetric and both indices are 1. By pair exchange R_1312 = R_1213, and by antisymmetry in the last pair R_1213 = −R_1231. So the sum is 0 + R_1231 − R_1231 = 0, without using the cyclic identity.
-- **Q (formal):** Using R^ρ_σμν = ∂_μΓ^ρ_νσ − ∂_νΓ^ρ_μσ + Γ^ρ_μλΓ^λ_νσ − Γ^ρ_νλΓ^λ_μσ, show that the cyclic sum over (σ,μ,ν) vanishes when Γ is symmetric in its lower indices. Where would the proof fail with torsion?
-  - **A:** The three cyclic copies contribute derivative terms ∂_μΓ^ρ_νσ − ∂_νΓ^ρ_μσ + ∂_νΓ^ρ_σμ − ∂_σΓ^ρ_νμ + ∂_σΓ^ρ_μν − ∂_μΓ^ρ_σν. Pair ∂_μΓ^ρ_νσ with −∂_μΓ^ρ_σν, −∂_νΓ^ρ_μσ with ∂_νΓ^ρ_σμ, and −∂_σΓ^ρ_νμ with ∂_σΓ^ρ_μν: each pair cancels if Γ^ρ_ab = Γ^ρ_ba. The quadratic terms Γ^ρ_μλΓ^λ_νσ − Γ^ρ_νλΓ^λ_μσ + Γ^ρ_νλΓ^λ_σμ − Γ^ρ_σλΓ^λ_νμ + Γ^ρ_σλΓ^λ_μν − Γ^ρ_μλΓ^λ_σν cancel in the same way (first with sixth, second with third, fourth with fifth). With torsion the lower indices cannot be swapped, each pair leaves a difference proportional to the torsion, and the sum becomes torsion terms instead of zero. *(targets: Every connection satisfies the cyclic identity.)*
-- **Q (formal):** In four dimensions, show that given the pair symmetries the cyclic identity is equivalent to ε^ρσμν R_ρσμν = 0.
-  - **A:** Only components with four distinct indices survive the contraction. Each is related by the pair symmetries to one of R_0123, R_0231, R_0312, and each class has 8 members. A swap within a pair flips both the permutation parity and the component's sign, and a pair exchange is an even permutation leaving the component unchanged, so all 8 members of a class contribute with the same sign. (0231) and (0312) are 3-cycles of (0123), so they are even too. Hence ε^ρσμν R_ρσμν = 8 ε^0123 (R_0123 + R_0231 + R_0312), which vanishes exactly when the cyclic identity holds.
+**Takeaway:** The $+1$ comes from $\Gamma^x{}_{yz}$ and the $-1$ from $\Gamma^x{}_{zy}$: the sum cancels because the two symbols are equal.
 
-## Tutor guidance
+## Problems
 
-**Opening questions**
+### `five-direction-world` · entry · difficulty 1 · calculation
 
-- After the pair symmetries, which Riemann components in four dimensions still have all four indices different?
-- If curvature is a rule for how a small loop turns a carried direction, what might three loops around a box corner have to do with each other?
-- Do you remember which property of the Christoffel symbols comes from 'no torsion'?
+A made-up world has five directions. There the three earlier rules leave 55 different numbers in the curvature table. The fourth rule adds one link for each group of four different directions, and each link fixes one number from the others. How many different numbers remain?
+
+**Hints**
+
+1. A group of four out of the five directions is set by the one direction it leaves out.
+
+**Answer:** 50.
+
+**Must contain:** There are five groups of four directions; Each group removes one number; 55 minus 5 leaves 50
+
+**Numeric:** different numbers = 50 1 (magnitude, ±0.5)
+
+**Solution**
+
+1. Choosing four of the five directions is the same as choosing which one to leave out, so there are 5 groups.
+2. Each group adds one link, and each link fixes one number from the others, so 5 numbers are removed.
+3. 55 minus 5 leaves 50.
+
+### `twenty-in-an-observers-frame` · working · difficulty 2 · derivation
+
+In an observer's orthonormal frame, define $B_{\hat i\hat l} = \tfrac12\epsilon_{\hat l\hat j\hat k}R_{\hat 0\hat i\hat j\hat k}$, summed over $\hat j$ and $\hat k$, with $\epsilon_{\hat 1\hat 2\hat 3} = +1$. Show that $B$ contains every component with exactly one index $\hat 0$, up to sign, that its trace is the four-dimensional cyclic sum, and that the lowered Riemann tensor has $6 + 8 + 6 = 20$ independent components.
+
+**Hints**
+
+1. Invert the definition: $R_{\hat 0\hat i\hat j\hat k} = \epsilon_{\hat l\hat j\hat k}B_{\hat i\hat l}$.
+2. In $\epsilon_{\hat i\hat j\hat k}R_{\hat 0\hat i\hat j\hat k}$, an odd ordering of 123 flips both the sign of $\epsilon$ and the order of the last pair.
+
+**Answer:** Components with two indices $\hat 0$ form the symmetric $R_{\hat 0\hat i\hat 0\hat j}$, 6 numbers; those with none have the symmetries of a three-dimensional curvature tensor, 6 numbers; those with one are the 9 entries of $B$, whose trace $R_{\hat 0\hat 1\hat 2\hat 3} + R_{\hat 0\hat 2\hat 3\hat 1} + R_{\hat 0\hat 3\hat 1\hat 2}$ the cyclic identity sets to zero. So $6 + 8 + 6 = 20$.
+
+**Must contain:** Each index pair holds at most one time index; B inverts to give every component with one time index; The trace of B is the four-dimensional cyclic sum; Twenty independent components
+
+**Numeric:** independent components = 20 1 (magnitude, ±0.5)
+
+**Solution**
+
+1. Each pair holds at most one $\hat 0$. With two, $R_{\hat 0\hat i\hat 0\hat j}$ is symmetric by pair exchange: 6 numbers. With none, $R_{\hat i\hat j\hat k\hat l}$ has the symmetries of a curvature tensor in three dimensions: 6 numbers.
+2. With one, the antisymmetries and pair exchange turn every component into $\pm R_{\hat 0\hat i\hat j\hat k}$, with 3 choices of $\hat i$ and 3 of the pair $\hat j\hat k$. And $\epsilon_{\hat l\hat j\hat k}B_{\hat i\hat l} = \tfrac12(R_{\hat 0\hat i\hat j\hat k} - R_{\hat 0\hat i\hat k\hat j}) = R_{\hat 0\hat i\hat j\hat k}$, so all 9 are in $B$.
+3. $\mathrm{tr}\,B = \tfrac12\epsilon_{\hat i\hat j\hat k}R_{\hat 0\hat i\hat j\hat k}$. The three even orderings of 123 give the cyclic sum, and each odd ordering gives the same term again after swapping its last pair, so $\mathrm{tr}\,B = R_{\hat 0\hat 1\hat 2\hat 3} + R_{\hat 0\hat 2\hat 3\hat 1} + R_{\hat 0\hat 3\hat 1\hat 2}$.
+4. The cyclic identity sets $\mathrm{tr}\,B = 0$ and no other rule restricts $B$, so it holds 8 numbers, and $6 + 8 + 6 = 20 = n^2(n^2-1)/12$ for $n = 4$.
+
+### `the-cyclic-sum-map` · formal · difficulty 3 · proof
+
+Let $R_{\rho\sigma\mu\nu}$ on an $n$-dimensional space be antisymmetric in $\rho\sigma$ and in $\mu\nu$ and symmetric under exchange of the pairs. Define $b(R)_{\rho\sigma\mu\nu} = R_{\rho\sigma\mu\nu} + R_{\rho\mu\nu\sigma} + R_{\rho\nu\sigma\mu}$. Show that $b(R)$ is totally antisymmetric and that $b$ multiplies totally antisymmetric tensors by 3. Conclude that the tensors obeying the cyclic identity form a space of dimension $n^2(n^2-1)/12$.
+
+**Hints**
+
+1. Show antisymmetry in $\mu\nu$ first; invariance under cycling $\sigma\mu\nu$ then gives antisymmetry in all three.
+2. For antisymmetry in $\rho\sigma$, rewrite two of the three terms with pair exchange.
+3. A linear map onto a space has a kernel whose dimension is the difference of the dimensions.
+
+**Answer:** $b$ maps the pair-symmetric tensors onto the totally antisymmetric ones, so its kernel has dimension $N(N+1)/2 - \binom{n}{4}$ with $N = n(n-1)/2$, which equals $n^2(n^2-1)/12$: 1, 6 and 20 for $n = 2, 3, 4$.
+
+**Must contain:** The cyclic sum is antisymmetric in its last three indices; Pair exchange makes it antisymmetric in the first two as well; A totally antisymmetric tensor is returned times three; The kernel dimension is the pair-symmetric dimension minus n choose 4
+
+**Solution**
+
+1. Swapping $\mu$ and $\nu$ gives $R_{\rho\sigma\nu\mu} + R_{\rho\nu\mu\sigma} + R_{\rho\mu\sigma\nu} = -(R_{\rho\sigma\mu\nu} + R_{\rho\nu\sigma\mu} + R_{\rho\mu\nu\sigma})$, so $b(R)$ is antisymmetric in $\mu\nu$. It is unchanged by cycling $\sigma\mu\nu$, so it is antisymmetric in all three.
+2. Swap $\rho$ and $\sigma$. $R_{\sigma\rho\mu\nu} = -R_{\rho\sigma\mu\nu}$, $R_{\sigma\mu\nu\rho} = R_{\nu\rho\sigma\mu} = -R_{\rho\nu\sigma\mu}$ and $R_{\sigma\nu\rho\mu} = R_{\rho\mu\sigma\nu} = -R_{\rho\mu\nu\sigma}$. So $b(R)_{\sigma\rho\mu\nu} = -b(R)_{\rho\sigma\mu\nu}$, and $b(R)$ is totally antisymmetric.
+3. A totally antisymmetric $\omega$ has the pair symmetries, and each cyclic order of three indices is an even permutation, so $b(\omega) = 3\omega$. Hence $b$ maps onto $\Lambda^4$, of dimension $\binom{n}{4}$.
+4. The pair-symmetric tensors are symmetric bilinear forms on the $N = n(n-1)/2$ index pairs, of dimension $N(N+1)/2$, so $\dim\ker b = N(N+1)/2 - \binom{n}{4}$.
+5. Expanding, $\tfrac{n(n-1)}{4}\big(\tfrac{n(n-1)}{2} + 1\big) - \tfrac{n(n-1)(n-2)(n-3)}{24} = \tfrac{n^2(n^2-1)}{12}$, giving 1, 6, 20 and 50 for $n = 2, 3, 4, 5$.
+
+## Teaching arc
+
+1. **Predict the third trip** (entry). Run two of the three trips, ask where the third arrow's tip returns, then lay the changes tip to tail. *Why:* It shows the identity as a balance before any index appears. *Predict:* After two trips, can you say where the third arrow's tip will come back? *Visual:* [[three-trips-at-a-cube-corner]] *Uses:* `ways_in/three-trips-at-a-cube-corner`, `checks/third-trip-at-a-cube-corner`
+2. **Ask what the balance needs** (entry). Walk the two routes, then ask whether the balance survives in a space with twist. *Why:* It locates the one assumption the identity rests on: zero twist. *Predict:* If the two routes ended a small gap apart, would the three changes still add up to nothing? *Visual:* [[two-routes-that-meet]] *Uses:* `ways_in/walks-that-close`, `checks/a-space-with-twist`
+3. **Count where it bites** (entry). Count what the rule removes in space, in space and time, and in a five-direction world. *Why:* The rule matters only when four different directions exist. *Predict:* Will a fourth true rule shrink the six numbers of ordinary space? *Visual:* [[twenty-of-256-slots]] *Uses:* `ways_in/when-the-fourth-rule-cuts-the-count`, `checks/fourth-rule-in-space`, `problems/five-direction-world`
+4. **Cancel the terms** (working). Work the symmetric example, then cancel the twelve terms and correct a wrong reordering. *Why:* The example shows the pairing the general proof repeats. *Uses:* `worked_examples/a-symmetric-connection-passes`, `derivations/twelve-terms-cancel-in-pairs`, `checks/three-entries-and-a-wrong-sum`
+5. **Restore the torsion** (formal). Keep torsion in the operator proof, test the lopsided connection, and find what the identity removes. *Why:* It separates what needs zero torsion from what needs a metric. *Uses:* `ways_in/first-bianchi-for-any-connection`, `checks/a-lopsided-connection`, `problems/the-cyclic-sum-map`
+
+## Misconceptions
+
+### “Three different arrows carried around three different faces have nothing to do with each other.” · entry · `three-trips-are-unrelated`
+
+- **Why it is tempting:** Each trip has its own arrow, its own face and its own order of edges.
+- **What is true:** The trips take the directions in turn around a ring, and in any space without twist their changes add up to nothing.
+- **Exposed by:** `checks/third-trip-at-a-cube-corner`
+
+### “The fourth rule removes one more number in ordinary space too, leaving five.” · entry · `rule-cuts-the-space-count`
+
+- **Why it is tempting:** Each earlier rule cut the count.
+- **What is true:** In space every entry repeats a direction, and there the other rules already make the three changes add up to nothing. A new link needs four different directions, as in space and time.
+- **Exposed by:** `checks/fourth-rule-in-space`
+
+### “The fourth rule is just a fact about the table, so it holds in any space at all.” · entry · `holds-in-every-space`
+
+- **Why it is tempting:** General relativity never allows twist, so the condition never shows.
+- **What is true:** The three changes are guaranteed to add up to nothing only where tiny four-sided walks close up. In a space with twist the three changes can fail to add up to nothing.
+- **Exposed by:** `checks/a-space-with-twist`, `checks/a-lopsided-connection`
+
+### “Any three rearrangements of the last three indices add up to zero.” · working · `any-three-orders-will-do`
+
+- **Why it is tempting:** The index strings look alike.
+- **What is true:** Only the three cyclic orders enter. An odd reordering flips the sign of its term, so the sum changes.
+- **Exposed by:** `checks/three-entries-and-a-wrong-sum`
+
+### “The first and second Bianchi identities say the same thing.” · working · `same-as-the-second-bianchi-identity`
+
+- **Why it is tempting:** Both are cyclic sums that vanish, and they share a name.
+- **What is true:** The cyclic identity is algebraic and holds at one event. The second involves derivatives of the curvature, so it needs the curvature nearby.
+- **Exposed by:** `checks/one-event-or-a-neighbourhood`
+
+## Checks
+
+1. **Entry · predict** `checks/third-trip-at-a-cube-corner`. A tiny cube floats in a curved space with no twist, like the spaces of general relativity. You stand at one corner, with its edges running ahead of you, to your left, and up from your feet. Each trip below uses a fresh arrow, carried without ever swinging. It walks once around the face, starting along the first named edge, then turning into the second edge's direction. Trip one carries an up-pointing arrow around the bottom face, walking the ahead edge first and the left edge second. Its tip comes back 3 thousandths of a millimetre toward ahead, and not at all toward left. Trip two carries an ahead-pointing arrow around the face with the left and up edges, walking left first and up second. Its tip comes back 2 thousandths of a millimetre toward up, and not at all toward left. Trip three carries a left-pointing arrow around the last face, walking up first and ahead second. Where does its tip come back?
+   - **Hints:** Which third step leads back to the start?
+   - **Answer:** Its tip comes back 3 thousandths of a millimetre backward, opposite to ahead, and 2 thousandths of a millimetre down, opposite to up. From trip to trip, the arrow and the two edges move one place around the ring ahead, left, up. So the cyclic identity applies, and the three changes add up to nothing. A lean read along an arrow's own direction counts as zero, so trip one's up-pointing arrow has no step toward up, and trip two's ahead-pointing arrow has none toward ahead. Laid tip to tail, the first two steps go 3 thousandths toward ahead and 2 thousandths toward up. So the third step must lead back by the same amounts: 3 thousandths backward and 2 thousandths down. Neither of the first two steps has a part toward left, so the third has none either.
+   - **Must contain:** The three changes add up to nothing; 3 thousandths of a millimetre backward, opposite to ahead; 2 thousandths of a millimetre down, opposite to up
+   - **Numeric:** step backward, opposite to ahead = 0.003 mm (magnitude, ±5%); step down, opposite to up = 0.002 mm (magnitude, ±5%)
+   - **Targets:** `three-trips-are-unrelated`
+   - **Visual:** [[three-trips-at-a-cube-corner]]
+2. **Entry · explain** `checks/fourth-rule-in-space`. In space there are three directions. There the three earlier rules leave 6 different numbers in the curvature table: walking a loop the other way flips the change, the lean rule, and the mirror rule. A friend says the fourth rule, the cyclic identity, removes one more, leaving 5. In space and time, with four directions, the other rules leave 21. Is your friend right about space? How many numbers remain in space and time?
+   - **Hints:** In space, can all four choices of direction be different?
+   - **Answer:** No: 6 numbers remain in space, and 20 in space and time. The fourth rule keeps the reading direction fixed and moves the other three choices around a ring. In space there are only three directions, so the reading direction repeats one of the three that move. For such entries the three earlier rules already make the sum zero. So the fourth rule adds no new link, and 6 numbers remain. In space and time, the reading direction can be time while ahead, left and up move around the ring. The other rules do not tie those three entries together, so the fourth rule adds one link, and 21 becomes 20.
+   - **Must contain:** Six numbers remain in space; In space a direction always repeats, so nothing new is added; Twenty numbers remain in space and time
+   - **Numeric:** numbers in space = 6 1 (magnitude, ±0.5); numbers in space and time = 20 1 (magnitude, ±0.5)
+   - **Targets:** `rule-cuts-the-space-count`
+   - **Visual:** [[twenty-of-256-slots]]
+3. **Entry · evaluate-claim** `checks/a-space-with-twist`. A friend says: "The cyclic identity is a fact about the curvature table, so it holds in every curved space." In a made-up space, two short routes end a small gap apart. One walks along a short ahead arrow, then along a carried left arrow. The other walks along the left arrow, then along a carried ahead arrow. Halving both arrows makes the gap about a quarter as big, so the gap keeps pace with the area between the routes. Evaluate your friend's claim.
+   - **Hints:** What does the pairing of the pieces rely on?
+   - **Answer:** The claim is too strong. The three trips' changes split into six pieces that cancel in pairs. Each pair cancels only because four-sided walks close up, with the two routes ending at the same spot. Here the gap keeps pace with the area between the routes, so it is twist, and the walks do not close up. Then the pieces need not cancel, and the three changes can fail to add up to nothing. The rule does hold in every space without twist, including the spaces of general relativity.
+   - **Must contain:** The cancellation needs the two routes to end together; With a gap the pieces need not cancel; The rule holds wherever there is no twist
+   - **Targets:** `holds-in-every-space`
+   - **Visual:** [[two-routes-that-meet]]
+4. **Working · numeric** `checks/three-entries-and-a-wrong-sum`. At an event, in an orthonormal frame, $R_{\hat 0\hat 1\hat 2\hat 3} = 3.0\times10^{-27}\ \mathrm{m^{-2}}$ and $R_{\hat 0\hat 2\hat 3\hat 1} = -1.0\times10^{-27}\ \mathrm{m^{-2}}$. Find $R_{\hat 0\hat 3\hat 1\hat 2}$. A classmate instead sets $R_{\hat 0\hat 1\hat 2\hat 3} + R_{\hat 0\hat 2\hat 1\hat 3} + R_{\hat 0\hat 3\hat 1\hat 2} = 0$. What does she get, and is either value plus or minus one of the given components?
+   - **Hints:** List the three cyclic orders of 1, 2 and 3. / Rewrite the classmate's middle term with last-pair antisymmetry.
+   - **Answer:** The cyclic orders of 123 are 123, 231 and 312, so $R_{\hat 0\hat 3\hat 1\hat 2} = -(3.0 - 1.0)\times10^{-27} = -2.0\times10^{-27}\ \mathrm{m^{-2}}$. The classmate's 213 is an odd reordering. Antisymmetry in the last pair gives $R_{\hat 0\hat 2\hat 1\hat 3} = -R_{\hat 0\hat 2\hat 3\hat 1} = +1.0\times10^{-27}\ \mathrm{m^{-2}}$, so she gets $-4.0\times10^{-27}\ \mathrm{m^{-2}}$, which differs from the correct value by $2R_{\hat 0\hat 2\hat 3\hat 1}$. Neither value is plus or minus a given component, because the identity links three components rather than pairing two.
+   - **Must contain:** Only the orders 123, 231 and 312 enter; Minus two times ten to the minus twenty-seven per square metre; The odd order 213 gives minus four instead; Three components are linked, not two
+   - **Numeric:** R zero three one two = -2e-27 m^-2 (signed, ±2%); classmate's value = -4e-27 m^-2 (signed, ±2%)
+   - **Targets:** `any-three-orders-will-do`
+5. **Working · explain** `checks/one-event-or-a-neighbourhood`. Two identities are both called Bianchi identities: the cyclic identity, and the second Bianchi identity, a cyclic sum of covariant derivatives of the Riemann tensor. You know every Riemann component at a single event and nothing else. Which identity can you test? Which one turns 21 numbers into 20, and which one leads to the divergence-free Einstein tensor?
+   - **Hints:** Which of the two contains a derivative?
+   - **Answer:** Only the cyclic identity, because it contains no derivatives: it is an algebraic condition on the components at one event, and for the Levi-Civita connection it is the relation that turns 21 numbers into 20. The second Bianchi identity contains covariant derivatives of the Riemann tensor, so testing it needs the curvature in a neighbourhood of the event. Contracted twice, it gives $\nabla^\mu G_{\mu\nu} = 0$.
+   - **Must contain:** Only the cyclic identity can be tested at one event; It turns 21 into 20; The second identity needs the curvature nearby and gives the divergence-free Einstein tensor
+   - **Targets:** `same-as-the-second-bianchi-identity`
+6. **Formal · derive** `checks/a-lopsided-connection`. On $\mathbb R^3$ with coordinates $(x,y,z)$, take the connection whose only nonzero coefficient is $\Gamma^x{}_{yz} = ax$, with $a$ constant and the derivative index first, $\nabla_\mu\partial_\nu = \Gamma^\lambda{}_{\mu\nu}\partial_\lambda$. Find its torsion, compute $R^x{}_{zxy} + R^x{}_{xyz} + R^x{}_{yzx}$, and check the result against the first Bianchi identity with torsion.
+   - **Hints:** Why do products of coefficients vanish here?
+   - **Answer:** The torsion is $T^x{}_{yz} = -T^x{}_{zy} = ax$. Every product of coefficients vanishes, because a nonzero coefficient needs upper index $x$ and lower indices $y, z$. So $R^x{}_{zxy} = \partial_x\Gamma^x{}_{yz} - \partial_y\Gamma^x{}_{xz} = a$, $R^x{}_{xyz} = \partial_y\Gamma^x{}_{zx} - \partial_z\Gamma^x{}_{yx} = 0$ and $R^x{}_{yzx} = \partial_z\Gamma^x{}_{xy} - \partial_x\Gamma^x{}_{zy} = 0$, since $\Gamma^x{}_{zy} = 0$. The cyclic sum is $a$. On the right side, $T(T(\partial_\mu,\partial_\nu),\partial_\sigma)$ needs a torsion component with a lower $x$, which vanishes. The derivative term $(\nabla_xT)^x{}_{yz} = \partial_x(ax) = a$, because each correction contains a coefficient with a lower $x$, and $(\nabla_yT)^x{}_{zx}$ and $(\nabla_zT)^x{}_{xy}$ vanish. Both sides equal $a$: here the torsion's change along $x$ breaks the cyclic identity.
+   - **Must contain:** The torsion is a times x; The cyclic sum is a; The right side is a, from the torsion derivative
+   - **Targets:** `holds-in-every-space`
+7. **Formal · derive** `checks/the-dual-trace`. In four dimensions, let $R_{\rho\sigma\mu\nu}$ have both pair antisymmetries and pair exchange. Show that $\epsilon^{\rho\sigma\mu\nu}R_{\rho\sigma\mu\nu} = 8\,\epsilon^{0123}(R_{0123} + R_{0231} + R_{0312})$, so that the cyclic identity is equivalent to the vanishing of this contraction.
+   - **Hints:** Group the orderings by the index paired with 0.
+   - **Answer:** Only the 24 orderings of 0123 contribute. Swapping the indices within a pair flips the signs of both $\epsilon$ and $R$, and exchanging the pairs is an even reordering that leaves $R$ unchanged. So each ordering contributes the same as one of 0123, 0231 and 0312, which are told apart by the index paired with 0, with 8 orderings in each class. The orderings 0231 and 0312 are even, so $\epsilon^{0231} = \epsilon^{0312} = \epsilon^{0123}$, which gives the factor $8\epsilon^{0123}$. Given the pair rules, the cyclic identity in four dimensions is the single condition $R_{0123} + R_{0231} + R_{0312} = 0$, so the two statements are equivalent.
+   - **Must contain:** Only orderings of four distinct indices contribute; Three classes of eight, set by the index paired with zero; The factor is eight epsilon upper zero one two three
+
+## Notation traps
+
+| Issue | Course choice | Variants you will meet |
+| --- | --- | --- |
+| Which three indices the cyclic identity cycles | Slots of $R^\rho{}_{\sigma\mu\nu}$: $\rho$ the component read, $\sigma$ the carried vector, $\mu\nu$ the loop edges, with $[\nabla_\mu,\nabla_\nu]V^\rho = R^\rho{}_{\sigma\mu\nu}V^\sigma$. The identity cycles $\sigma\mu\nu$ with $\rho$ fixed. | Some texts put the carried vector's index last and cycle the first three lower indices. Translate the slot jobs before copying a pattern. |
+
+## Visuals
+
+- ★ [[three-trips-at-a-cube-corner]] (flagship): The entry picture: three trips around the faces at a cube corner, with the returned changes laid tip to tail. *Sketch:* A small cube at a point of a curved three-dimensional space, chosen from presets: a space whose curving differs by tilt, with the cube turned so its faces are not the tilts of greatest and least curving and the changes are not zero; a round space, where every change is zero however the cube is turned; and flat space. A ring of labels ahead, left, up turns one place per trip while a fresh arrow is carried around each face. Each returned change is drawn at the corner, magnified by a stated factor, and a tip-to-tail panel adds the three and closes. A twist control, marked as not allowed in general relativity, adds a twist that varies from spot to spot, and the tip-to-tail panel no longer closes. A wrong-order toggle walks one face backwards, flipping its change. A space-and-time preset swaps the up edge for a time edge, so the three trips run along time, ahead and left; there the parts of the three changes read toward up are the one link the three earlier rules do not already give, and a toggle shows those rules leaving that part free.
+- [[two-routes-that-meet]] (supporting): Shows the closing four-sided walk that zero twist guarantees. *Sketch:* Two short arrows at a spot on a flat floor, a ball, or a made-up space with twist. Route one walks along the first arrow carrying the second, then along the carried second; route two swaps them. A log-log plot shows the gap between the two ends against the area between the routes as the arrows shrink: on the floor the gap is zero, on the ball it shrinks faster than the area, and with twist it shrinks in proportion to the area.
+- [[twenty-of-256-slots]] (core): Counts what the rules leave, and isolates the cyclic links. *Sketch:* A grid of all index combinations with a dimension selector for 2, 3, 4 and 5. Applying last-pair antisymmetry, first-pair antisymmetry, pair exchange and the cyclic identity in turn greys out zero slots, links partners with signs, and ends at 1, 6, 20 or 50. In the last step the three components linked by each group of four distinct indices light up together.
+
+## Tutor moves
+
+**Open with**
+
+- Picture a tiny sugar cube floating in a curved space. Standing at one corner, you point an arrow along each edge in turn, and carry it around the face made by the other two edges, never letting it swing. Each arrow can come back a little changed. Do you think the three changes have anything to do with each other? *(prediction)*
+
+**If the learner is stuck**
+
+- *The learner loses track of which arrow goes around which face.* → Write ahead, left and up on a ring and move every label one place per trip: first the arrow, then the two sides in walking order. *Uses:* `ways_in/three-trips-at-a-cube-corner`
+- *The learner cycles the wrong indices or copies a pattern from another slot convention.* → Name each slot's job in the course order, then cycle only the carried-vector and edge slots. *Uses:* `notation_traps/which-slots-cycle`, `checks/three-entries-and-a-wrong-sum`
 
 **Common questions**
 
-- *Why is it called the first Bianchi identity if Schutz never calls it that?* — Naming varies. Many modern texts call the algebraic cyclic identity the first Bianchi identity and the derivative identity the second. Schutz and d'Inverno keep 'Bianchi' for the derivative one. In this course we say 'cyclic identity' and treat 'Bianchi identity' alone as the differential one.
-- *Does it hold for the Ricci tensor too?* — Not as such, because Ricci has only two indices. But contracting the upper index of the cyclic identity with the first lower one gives R_μν − R_νμ = R^ρ_ρμν. For the metric connection R^ρ_ρμν vanishes (it is the trace over the antisymmetric first pair), so the Ricci tensor is symmetric. For a torsion-free connection that is not metric, Ricci can have an antisymmetric part equal to that trace.
-- *Why does holding the first index fixed matter?* — In the mixed tensor R^ρ_σμν the upper index plays a different role, so you cycle the three lower slots. For the all-lower tensor with the pair symmetries, cycling any three slots gives an equivalent statement, because the identity is the same as the total antisymmetric part vanishing.
-- *Is there anything physical in it?* — It is a consistency property rather than a measurable law. Its physical footprint is indirect: it makes Ricci symmetric, trims the curvature count to 20, and constrains Killing vectors.
+- *Why is it called cyclic?* (entry) Because the three directions move around a ring. Put ahead, left and up on a circle. From one trip to the next, the arrow's direction and the two edges each move one place around it, so after three trips every direction is back where it began. *Uses:* `ways_in/three-trips-at-a-cube-corner`
+- *Is this the Bianchi identity people talk about?* (entry) Some people call it the first Bianchi identity. The one usually meant by the Bianchi identity is different. It is about how the curvature table changes from one spot to the next, and in general relativity it goes hand in hand with the conservation of energy and momentum. The cyclic identity is about the table at a single spot. *Uses:* `checks/one-event-or-a-neighbourhood`
 
-**Pitfalls when explaining**
+**Switching levels**
 
-- Do not call it a 'symmetry' without saying it is a three-term linear relation; learners then try to pair components.
-- Do not skip the torsion-free assumption, even though GR never relaxes it.
-- Say which slots are cycled in the course convention before writing indices; copying a pattern from a book with different slot order gives a wrong identity.
-- Keep it separate from the differential Bianchi identity in wording and notation.
+- To working when: asks what the rule looks like in indices; uses components or Christoffel symbols. Go to the identity in components and the twelve-term derivation. *Uses:* `ways_in/the-identity-in-components`, `derivations/twelve-terms-cancel-in-pairs`
+- To formal when: asks what happens with torsion; asks why only one condition survives in four dimensions. Open the operator form with torsion and the cyclic sum map. *Uses:* `ways_in/first-bianchi-for-any-connection`, `problems/the-cyclic-sum-map`
+- To research when: asks about first-order gravity, the Immirzi parameter, or decompositions of curvature. Open the research horizon. *Uses:* `research_horizon/holst-term`, `research_horizon/curvature-decompositions`
 
-**When to show a demo**
+**Pronunciations:** Riemann → REE-mahn; Bianchi → bee-AHN-kee; Christoffel → kris-TOFF-el; Levi-Civita → LEH-vee CHEE-vee-tah; Ricci-Curbastro → REE-chee koor-BAHS-tro; Jacobi → yah-KOH-bee; Einstein–Cartan → EYEN-shtine kar-TAHN; Immirzi → ee-MEER-tsee; Nieh–Yan → NYEH YAHN
 
-- When the learner asks whether all 21 remaining components are independent, open the index wheel on the {0,1,2,3} tiles.
-- After the Christoffel proof, flip the torsion toggle to show the sum becoming nonzero.
-- When counting in n dimensions, use the wheel with repeated indices to show the sum vanishing for free.
+## History
 
-**Saying it aloud:** Say: 'R, upper rho, lower sigma mu nu, plus R upper rho lower mu nu sigma, plus R upper rho lower nu sigma mu, equals zero.' Then the compact version: 'antisymmetrize the three lower indices and you get zero.' For the 4D case say 'R zero one two three plus R zero two three one plus R zero three one two is zero', stressing 'two three one' and 'three one two' as the cyclic shifts. Never read brackets aloud as symbols; say 'antisymmetrized over'.
+- **Gregorio Ricci-Curbastro, Tullio Levi-Civita (1900).** Set out the absolute differential calculus, in which relations among curvature components are tensor equations valid in every coordinate system. Gregorio Ricci-Curbastro, Tullio Levi-Civita (1900), *Méthodes de calcul différentiel absolu et leurs applications*, Mathematische Annalen 54, 125–201, doi:10.1007/BF01454201
+- **Élie Cartan (1923).** Developed affine connections with torsion as well as curvature, which he had first announced in a short 1922 note, with structure equations for both. Differentiating the torsion equation gives the cyclic identity with its torsion terms. Élie Cartan (1923), *Sur les variétés à connexion affine et la théorie de la relativité généralisée (première partie)*, Annales scientifiques de l'École Normale Supérieure (3) 40, 325–412, doi:10.24033/asens.751
 
-## Sources
+## Research horizon
 
-- schutz ch06 (developed): p.158 §6.5, p.159 §6.5, p.167 §Exercises
-- gifted-amateur ch11 (introduced): p.126 §11.4
-- gifted-amateur ch35 (revisited): p.369 §35.3, p.370 §35.3
-- dinverno ch06 (developed): p.106 §6.12, p.110 §Exercises
-- legacy lab-riemann-independent-components (introduced)
+- **The Holst term in first-order gravity.** In first-order gravity the coframe $\theta^a$ and the Lorentz connection are independent. Holst added to the action a term proportional to $\theta^a\wedge\theta^b\wedge\Omega_{ab}$, which vanishes when the torsion does, because $\Omega_{ab}\wedge\theta^b = 0$, so the vacuum field equations are unchanged. Its coefficient is the inverse of the Barbero–Immirzi parameter of loop quantum gravity. With fermions the torsion is not zero, and the term can then change the effective interactions. Sören Holst (1996), *Barbero's Hamiltonian derived from a generalized Hilbert-Palatini action*, Physical Review D 53, 5966–5969, doi:10.1103/PhysRevD.53.5966; Alejandro Perez, Carlo Rovelli (2006), *Physical effects of the Immirzi parameter in loop quantum gravity*, Physical Review D 73, 044013, doi:10.1103/PhysRevD.73.044013
+- **Decomposing algebraic curvature tensors.** The kernel of the cyclic sum on pair-symmetric tensors, the space of algebraic curvature tensors, splits under rotations into scalar, trace-free Ricci and Weyl parts. In four Riemannian dimensions the Weyl part splits again into self-dual and anti-self-dual halves. Singer and Thorpe used the resulting block form of the curvature operator on two-forms to characterize four-dimensional Einstein metrics. Isadore M. Singer, John A. Thorpe (1969), *The curvature of 4-dimensional Einstein spaces*, Global Analysis (Papers in Honor of K. Kodaira), University of Tokyo Press and Princeton University Press, 355–365; Arthur L. Besse (1987), *Einstein Manifolds*, Springer, Ergebnisse der Mathematik und ihrer Grenzgebiete (3) 10, doi:10.1007/978-3-540-74311-8
+- **Curvature with torsion.** In Riemann–Cartan geometry, the setting of Einstein–Cartan theory, spin density sources torsion and the cyclic sum of the curvature equals torsion terms. In forms this gives the Nieh–Yan identity, $d(\theta^a\wedge\Theta_a) = \Theta^a\wedge\Theta_a - \theta^a\wedge\theta^b\wedge\Omega_{ab}$, which ties the Holst term to torsion. Friedrich W. Hehl, Paul von der Heyde, G. David Kerlick, James M. Nester (1976), *General relativity with spin and torsion: Foundations and prospects*, Reviews of Modern Physics 48, 393–416, doi:10.1103/RevModPhys.48.393; H. T. Nieh, M. L. Yan (1982), *An identity in Riemann–Cartan geometry*, Journal of Mathematical Physics 23, 373–374, doi:10.1063/1.525379
 
-## Review
+## Review: novice
 
-**Verdict:** fixed
+**Verdict:** fixed (2026-09-13, revision 6)
+
+**Retell attempt:** I am shrunk down at a corner of a tiny sugar cube in a curved space, with edges running ahead of me, to my left, and up past my head. I make three trips, one around each face, each with a fresh arrow I never let swing: the up arrow around the bottom face, the ahead arrow around the left-and-up face, the left arrow around the up-and-ahead face. I got stuck on how to walk a face. It says walk the two named edges in order, but after the first edge I am standing at its far end and the second named edge is not there, so I had to guess that I turn and walk the side running the same way. Each arrow comes back with its tip a tiny step from where it started, and laying the three steps tip to tail brings me back, so the three changes add up to nothing. That is the cyclic identity, the fourth rule. I kept mixing up two kinds of step: the directions move one step around a ring, and the arrow's tip takes a tiny step. In the cube-corner question both appear in one answer and I had to slow down. Then a sentence about three rules making it the fourth rule that I read twice and still found lumpy. It works because tiny four-sided walks close up: walk along one arrow carrying the other, or the other way round, and on a flat floor you land in the same spot, while on a ball you land a gap apart. Halving the arrows shrinks the gap to an eighth while the area goes to a quarter, so the gap does not count. I was told to walk route one and then route two backwards, which on the ball I cannot actually do, because I am not standing where route two ended. If the gap keeps pace with the area it is twist, and then the changes need not cancel. In ordinary space the fourth rule adds nothing new and 6 numbers remain, because the reading direction always repeats one of the three that move. In space and time it links three entries, so 21 becomes 20. I stopped at 'Read toward time', and I still cannot picture an arrow leaning toward time. Near Earth a cube a kilometre across turns an arrow by about 1.5 millionths of a billionth of a degree. Against the takeaways: I could say back that the three changes add up to nothing, that it needs the walks to close up, and the counts 6 and 20. I could not say back how to walk a face, and I was unsure what a step meant each time.
+
+**Stumbles (16)**
+
+- “On each trip you walk the two named edges in the order given, then the face's other two sides back to the corner.”: A rule the reader cannot physically follow. Only the first named edge starts at the corner; after walking it you stand at its far end, where the second named edge is not. The reader has to invent the missing step of turning onto the side that runs the same way.
+- “It walks the two named edges in order, then the face's other two sides back to the corner.”: The cube-corner check repeats the same undoable rule, so a reader answering from the check alone hits it again.
+- “The three rules that already tie the curvature table's entries make the cyclic identity its fourth rule.”: Reread. 'Tie the entries' drops the 'together' the same way's recap uses, the long subject buries the verb, and 'its' could belong to the table or to the cyclic identity.
+- “the arrow's direction, the first edge and the second edge each move one step along that ring”: One word in two senses. 'Step' is also the tiny move of an arrow's tip ('Its tip has then taken a tiny step'), and the two senses meet inside one check answer: 'move one step around the ring ahead, left, up' sits three sentences from 'the first two steps go 3 thousandths toward ahead'.
+- “It is about how the curvature table changes from one place to the next, and in general relativity it goes hand in hand with the conservation of energy and momentum. The cyclic identity is about the table at a single place.”: Once 'place' names a position on the ring, this second sense of 'place' as a position in space collides with it. The note's own word for a position in space is 'spot' ('Stand at a spot on a flat floor').
+- “Walk route one, then route two backwards, and you have made a four-sided walk.”: A rule the reader cannot follow, and it contradicts the way's own lesson. On a ball route two ends a gap away from route one, so you cannot start walking it backwards from where you stand.
+- “When the arrow and the edges move one step around a ring from trip to trip, the three changes add up to nothing in every space general relativity uses.”: In the summary a ring appears with nothing on it. A reader meeting the note here cannot picture the ring, and the summary is spoken.
+- “At a corner of a tiny cube, three arrows go around the three faces, moving one step around a ring from trip to trip.”: The moving attaches to the arrows, but what moves around the ring is the arrow's direction and the two edges walked; the ring's contents are unnamed here too.
+- “Read toward time, and move ahead, left and up around the ring.”: Squeezed. 'Read toward time' leaves out the step that time is being taken as the reading direction, the term defined two paragraphs earlier.
+- “So the cyclic identity applies, and the three changes add up to nothing. Laid tip to tail, the first two steps go 3 thousandths toward ahead and 2 thousandths toward up.”: A link is missing. The question gives trip one's step toward ahead and toward left but not toward up, and trip two's toward up and toward left but not toward ahead. The reader must supply the rule that a lean along the arrow's own direction counts as zero.
+- “The balance is guaranteed only where tiny four-sided walks close.”: A correction is read on its own, and here 'the balance' names something no nearby sentence has said. 'Close' also drops the 'up' the ways use ('four-sided walks close up').
+- “In space every entry repeats a direction, and there the other rules already force the balance.”: Same standalone 'the balance', with nothing in the correction saying what balances.
+- “In it, the three earlier rules of the curvature table leave 55 different numbers in the curvature table.”: Reread: 'the curvature table' twice in one sentence made me check whether two tables were meant.
+- “each link fixes one number from others”: 'From others' is missing 'the'; the problem's own solution says 'from the others', so the two readings disagree.
+- “Do you think the three changes the arrows come back with have anything to do with each other?”: Reread. The relative clause is packed into the question's punchline, and 'the three changes' has not been named yet.
+- “A ring of labels ahead, left, up turns one step per trip”: The flagship visual's sketch keeps the ring sense of 'step', so a built component would speak a word the note no longer uses that way; the same sketch also says 'a twist that varies from place to place'.
 
 **Fixes**
 
-- Common question on Ricci: the old answer said contracting the cyclic identity 'with the metric' makes Ricci symmetric. Replaced it with the correct contraction R_μν − R_νμ = R^ρ_ρμν, which vanishes for the Levi-Civita connection but not for a general torsion-free one.
-- Intuition level: removed the overstatement that the identity's 'only job' is the 21 → 20 reduction, since it is also used for Ricci symmetry, Killing vectors and the Weyl tensor.
+- One word per idea for the ring. 'Step' now means only the tiny move an arrow's tip makes; movement around the ring of directions is 'one place'. Changed in the summary, 'Three trips at a cube corner' (explanation and takeaway), the recap of 'Walks that close', 'When the fourth rule cuts the count', the glossary entry for the cyclic identity, the cube-corner check's answer, the if-stuck move, the 'why is it called cyclic' answer and the flagship visual's sketch. To keep 'place' single-sensed, the Bianchi common question now says 'from one spot to the next' and 'at a single spot', matching the note's existing word for a position in space; the sketch says 'varies from spot to spot'.
+- Made the trips walkable. 'Walk the two named edges in the order given' became 'walk once around the face, starting along the first named edge, then turning into the second edge's direction', in the entry way and in the cube-corner check, so the reader is never told to walk an edge that is not where they are standing.
+- Made the four-sided walk a shape rather than an impossible instruction: 'Together the two routes make a four-sided walk: out along one, back along the other', which no longer asks a reader on a ball to set off from a spot they are not at.
+- Unpacked two squeezed sentences: the fourth-rule sentence in 'Three trips at a cube corner' now reads 'Three rules already tie the curvature table's entries together, so the cyclic identity is the table's fourth rule', and 'Read toward time' became 'Let time be the reading direction'.
+- Named the ring's contents where the reader meets it first: the summary now says 'a ring of the three directions', and the takeaway of 'Three trips at a cube corner' was split into three short sentences that say what moves around the ring.
+- Closed the missing link in the cube-corner check's answer with the zero-lean rule, so the reader can see why trip one's step has no part toward up and trip two's none toward ahead.
+- Replaced the standalone 'the balance' in both entry misconception corrections with 'the three changes add up to nothing', since a correction is read without the sentence that defines it, and restored 'close up'.
+- Tidied the five-direction problem's statement: one mention of the curvature table instead of two, and 'from the others' to agree with its own solution. Rewrote the opening question so the prediction is a short sentence.
+- Ladder climb, no changes needed: each working and formal way opens by naming a way it continues ('The three trips of "Three trips at a cube corner"...', '"When the fourth rule cuts the count" found one new link...', 'The cancellation in "The identity in components"...'); index notation appears first at the working rung; the six ways are picture, contrast, calculation, calculation, structure, structure, so no kind fills more than half and the three entry ways are genuinely different routes.
+- Budget: entry way explanations went from 1,094 to 1,099 words, still inside the 10% review allowance over the 1,000-word cap and entirely for the fixes above (+1 for the fourth-rule sentence, +1 for the four-sided walk, +3 for 'Let time be the reading direction'; the walkable-face rewrite and the whole step-to-place rename are word-neutral). Other parts: extras 645 of 800, support 1,350 of 2,300, tutoring 2,843 of 3,300, links 738 of 900, total 7,416 of 9,500. Nothing was compressed and nothing was dropped.
 
 **Concerns**
 
-- The index-free form cites only a legacy asset, and the torsion version of the identity (Kobayashi-Nomizu Thm III.5.3, checked) has no book ref, because none of the three books treats torsion here.
-- Checked and correct: every equation against SCH (6.68)-(6.70), GA (11.25)/(35.31), DIV (6.40), (6.41), (6.79), (6.82), plus the course Riemann definition; the working of all five checks, including the 12-term Christoffel cancellation and the ε-contraction factor of 8.
-- Ref spot-checks: SCH §6.5 p.158/159, Ex 6.18 p.167, GA §11.4 p.126, Example 35.6 p.369, DIV §6.12 p.106, Ex 6.24 p.110 all match the source copies.
+- Entry way explanations now sit at 1,099 words against a 1,000-word cap plus the 10% review allowance, so there is one word of headroom. Any further entry addition must drop or shorten something and say so.
+- Left in place for want of that headroom: 'The balance is a surprise, since each trip has its own arrow and its own face' in 'Three trips at a cube corner'. It reads safely there because the sentence before it says the three changes add up to nothing, but the noun 'balance' is still a second handle for that idea. Naming the idea in full would cost seven entry words.
+- Status was physics-reviewed at revision 3 and this pass moved it to novice-reviewed at revision 4. Sixteen learner-visible strings differ, all at the entry rung and all wording: no number, scope, condition or claim changed, and the step-to-place rename carries no physics. A physics diff check over exactly those strings should be short, and review.physics was not touched.
+- review.physics.concerns still says 'The novice re-read of the seven changed strings is pending (review.novice covers revision 2)'. That was already stale before this pass, since the re-read is recorded at revision 3 with no stumbles; an editor may drop the line. The rereads entry kept here predates this review and belongs to the revision-3 record.
+- Carried over and still true: 'Let time be the reading direction' rests on a lean toward time, which an entry reader cannot picture and which leans on the prerequisite's tidal-drift way. The wording is now explicit, but a tutor should expect the question.
+- Carried over: 'Walks that close' asks the reader to take on trust that each trip's change splits into two pieces that cancel in pairs. The text says so plainly, and the splitting cannot be pictured at entry, but it is the one place where the entry ladder leans hardest on the working rung.
+- The direct prerequisite torsion-free-connection still has no note, so the entry word 'twist' and the four-sided-walk picture could not be matched to its entry rung. The same holds for torsion-tensor, which owns the glossary term 'twist'.
+- The three visuals are still proposals with sketches. The sketch of three-trips-at-a-cube-corner now carries a space-and-time preset, so the one link that is genuinely new is covered; nothing in the catalog holds params, presets, readouts or tests for any of the three.
+- Raised at revision 4 and now closed by the physics review: the check a-lopsided-connection no longer says 'a torsion that varies from place to place', and the epsilon in 'The link in an observer's frame' and in problems/twenty-in-an-observers-frame carries frame hats like its neighbours.
+- The summary is five sentences where the guide asks for two or three. This pass kept the count and only named the ring inside the existing third sentence, because splitting it would have made the summary longer still.
+
+**Re-read** (2026-09-13, revision 3): 0 stumbles in 7 changed passages
+
+- Fix: No wording changes. The entry Earth number reads plainly with no scientific notation; 'relies on' and 'is guaranteed only where' read without trouble; at the working rung, 'has the symmetries of a three-dimensional curvature tensor' and 'with basis vectors orthonormal at the corner' are clear to a second-year undergraduate.
+
+**Re-read** (2026-09-13, revision 6): 2 stumbles in 6 changed passages
+
+- “That makes 21. Package the middle set as $B_{\hat i\hat l} = \tfrac12\epsilon_{\hat l\hat j\hat k}R_{\hat 0\hat i\hat j\hat k}$, summed over $\hat j$ and $\hat k$, with $\epsilon_{\hat 1\hat 2\hat 3} = +1$.”: Reread. 'The middle set' points by position, so I had to go back to the three bullets and count to find which one it meant. The bullets are labelled by how many indices are $\hat 0$, and the way's own takeaway names this set by its content, so the positional label is the only thing making me count.
+- “The antisymmetric part of $B$ is the frame's mixed Ricci components, $R_{\hat 0\hat j} = \epsilon_{\hat j\hat i\hat l}B_{\hat i\hat l}$.”: 'Mixed components' is the usual name for one index up and one down, so on first reading I took this for $R^{\hat 0}{}_{\hat j}$ and had to look at the equation to see that both indices are down. The intended sense is one time index beside space indices.
+- Fix: Replaced the positional label: 'Package the middle set as' became 'Package the set with one $\hat 0$ as', which names the set the way the bullets above it are sorted. Two words added to a working way that sits far below its cap.
+- Fix: Replaced 'the frame's mixed Ricci components' with 'the frame's time–space Ricci components', so the phrase cannot be read as mixed variance. The takeaway keeps 'mixed' for the eight Riemann numbers, where it is set against 'tidal' and 'spatial' and has no variance reading.
+- Fix: No other change. The six strings the physics review touched differ only by frame hats on the three-index epsilon, and the hats read correctly at the working rung: the conventions give Latin indices the range 1, 2, 3 and orthonormal-frame components hats, $\epsilon_{\hat 1\hat 2\hat 3} = +1$ is stated where the symbol is introduced in both the way and the problem, and the hats now separate this three-index symbol from the four-index $\epsilon^{\rho\sigma\mu\nu}$ of the formal way. Nothing claimed, numbered or scoped was changed.
+
+## Review: physics
+
+**Verdict:** fixed (2026-09-13, revision 6)
+
+**Verification**
+
+- Entry trips map to R^rho_{312}, R^rho_{123}, R^rho_{231}: arrow and edges move one step around the ring ahead(1), left(2), up(3), and each trip walks +a, +b, -a, -b.: Read each trip against the conventions small-loop row Delta V^rho = -R^rho_{sigma mu nu} V^sigma a^mu b^nu with sigma the arrow and mu, nu the edges in walking order; checked (3,1,2) -> (1,2,3) -> (2,3,1) is the cyclic order of (sigma, mu, nu). → Correct. With edges and arrow of length L in a basis orthonormal at the corner, each change is -R L^3, so the tip-to-tail sum closes exactly when the cyclic sum vanishes.
+- Check third-trip-at-a-cube-corner: trips one and two give +3 toward ahead and +2 toward up (thousandths of a mm), none toward left; trip three returns -3 toward ahead, -2 toward up, 0 toward left.: Wrote the data as components: -R_{1312} = 3, R_{2312} = 0, -R_{3123} = 2, R_{2123} = 0, own-direction leans zero. Solved trip three from the cyclic identity and separately from the pair rules alone: -R_{1231} = R_{1312} = -3, -R_{3231} = R_{3123} = -2, R_{2231} = 0. Checked the data are consistent with pair antisymmetry and pair exchange (R_{2123} = -R_{2312} = 0). → Correct; numeric fields (0.003 mm and 0.002 mm, magnitude, 5 percent) agree. As the novice reviewer noted, in three dimensions the same answer follows from the pair rules, which the note says openly.
+- Earth number: just above Earth's surface, a 1 km cube changes each arrow's direction by at most about 2 millionths of a billionth of a degree (space at one moment, observer at rest).: Spatial Schwarzschild slice dl^2 = dr^2/(1-2m/r) + r^2 dOmega^2 has sectional curvatures -m/r^3 (two radial planes) and +2m/r^3 (tangential), Ricci scalar 0. python3 with G = 6.674e-11, M = 5.972e24 kg, c = 2.998e8 m/s, r = 6.371e6 m: m = 4.434 mm, m/r^3 = 1.715e-23 m^-2. For an arrow along the third edge, the change is the off-diagonal part of the curvature operator on face bivectors, whose largest possible size over all cube orientations is (2m - (-m))/(2 r^3) = 1.5 m/r^3 (confirmed by sampling 200,000 orientations: 1.49999). Times 1 km^2: 2.57e-17 rad = 1.47e-15 degrees. The looser bound 2m/r^3 gives 1.97e-15 degrees. A cube aligned with the radial and tangential directions gives zero for all three trips. → The old figure was a true but loose bound (by 33 percent). Fixed to 'about 1.5 millionths of a billionth of a degree', the tight maximum. Size ratio 1 km / 6371 km = 1.6e-4 supports 'hardly differs across it'.
+- Walks that close: on a ball, halving both arrows makes the area a quarter and the gap about an eighth; with twist the gap is about a quarter.: python3 on a unit sphere with exact geodesics and exact transport: gap/L^3 for angle between arrows 90, 60, 30, 5 degrees and length ratios 1, 0.5, 0.2, at L = 0.1, 0.05, 0.025, 0.0125. All twelve cases converge to a nonzero constant (for example 0.7071 at 90 degrees ratio 1, 0.2864 at 60 degrees ratio 0.5, 0.0105 at 5 degrees ratio 0.2), so the gap is third order for every non-parallel pair. With torsion, a second-order expansion of both routes gives gap = -T^lambda_{mu nu} a^mu b^nu, which scales like the area. → Correct in general, not only for equal perpendicular arrows; the novice reviewer's numerical check is confirmed and extended.
+- Working: a step a changes a carried vector b by -Gamma^lambda_{mu nu} a^mu b^nu, and the two routes meet when that change is symmetric in a and b.: Transport dV^lambda/dt = -Gamma^lambda_{mu nu} xdot^mu V^nu from the course covariant derivative; expanded both route endpoints to second order: a + b - Gamma(a,b) - (1/2)Gamma(a,a) - (1/2)Gamma(b,b) versus the same with Gamma(b,a). → Correct; difference is -T(a,b) with T^lambda_{mu nu} = Gamma^lambda_{mu nu} - Gamma^lambda_{nu mu}, matching the formal T(X,Y) = nabla_X Y - nabla_Y X - [X,Y].
+- Derivation twelve-terms-cancel-in-pairs, including the torsion remainder d_mu T^rho_{nu sigma} + Gamma^rho_{mu lambda} T^lambda_{nu sigma} plus cyclic copies.: Wrote the two cyclic copies of the course Riemann formula term by term and checked each of the six pairings. Cross-checked the remainder against the formal identity: the cyclic sum of (nabla_mu T)^rho_{nu sigma} contains -Gamma^lambda_{mu nu}T^rho_{lambda sigma} - Gamma^lambda_{mu sigma}T^rho_{nu lambda}, whose cyclic sum is -T^lambda_{mu nu}T^rho_{lambda sigma}, which the T(T) term cancels. → Correct; the coordinate remainder equals the formal right side.
+- Entry: each trip's change splits into two pieces, six pieces cancelling in pairs.: Grouped R^rho_{sigma mu nu} = A_{mu nu sigma} - A_{nu mu sigma} with A_{mu nu sigma} = d_mu Gamma^rho_{nu sigma} + Gamma^rho_{mu lambda}Gamma^lambda_{nu sigma}; the cyclic sum pairs A_{mu nu sigma} with A_{mu sigma nu}, which differ only by swapping the lower indices of Gamma. → Accurate simplification of the working derivation.
+- Worked example a-symmetric-connection-passes: R^x_{zxy} = 1, R^x_{xyz} = 0, R^x_{yzx} = -1, sum 0.: Hand computation from the course formula; checked all products vanish (a nonzero second factor forces lambda = x, which kills the first). → Correct.
+- Check a-lopsided-connection: T^x_{yz} = ax; cyclic sum a; right side a from (nabla_x T)^x_{yz}.: Hand computation, and operator check R(d_x,d_y)d_z = nabla_x(ax d_x) = a d_x. Checked T(T) terms and Christoffel corrections to nabla T vanish because every coefficient with a lower x is zero. → Correct.
+- Check three-entries-and-a-wrong-sum: R_{0312} = -2.0e-27 m^-2; classmate -4.0e-27 m^-2, differing by 2R_{0231}.: python3: -(3 + (-1)) = -2; classmate uses R_{0213} = -R_{0231} = +1, giving -(3 + 1) = -4; -4 - (-2) = -2 = 2(-1). → Correct; numeric fields and signs agree.
+- Levi-Civita case: the identity is new only for four distinct indices; example R_{1123} + R_{1231} + R_{1312} = 0; binom(n,4) conditions; pair exchange follows from the cyclic identity with the antisymmetries.: Checked all coincidence cases (sigma = mu, mu = nu, sigma = nu for any connection; rho equal to each lower index for Levi-Civita) by hand. → Correct.
+- Observer frame: 6 + 9 + 6 = 21; tr B equals the cyclic sum; R_{0j} = epsilon_{jil} B_{il}; vacuum B symmetric traceless with 5 numbers; B = 0 for a static observer outside a non-rotating star, nonzero in circular orbit or near a rotating body.: python3 with a random pair-symmetric tensor projected to obey the cyclic identity, signature (-,+,+,+): tr B = 0 and R_{0j} (from R_{cd} = R^a_{cad}) equals epsilon_{jil}B_{il} for j = 1, 2, 3 to machine precision. Hand check with epsilon_{jil}epsilon_{lmn} = delta_{jm}delta_{in} - delta_{jn}delta_{im}. Static Schwarzschild frame is time-reversal symmetric, so R_{0ijk} = 0; boosted and Kerr static frames have a nonzero gravitomagnetic part. → Correct. Wording 'the curvature of three dimensions' for R_{ijkl} was imprecise, since by the Gauss equation these components differ from the curvature of the observer's space by extrinsic-curvature terms; now 'has the symmetries of a curvature tensor in three dimensions' in the way, the problem answer and its solution.
+- Formal: b maps Sym^2(Lambda^2) onto Lambda^4 with b = 3 on Lambda^4; dim ker b = N(N+1)/2 - binom(n,4) = n^2(n^2-1)/12; GL(n) Young diagram (2,2); epsilon^{rho sigma mu nu}R_{rho sigma mu nu} = 8 epsilon^{0123}(R_{0123} + R_{0231} + R_{0312}).: Worked problem the-cyclic-sum-map by hand. python3: dimensions 1, 6, 20, 50 for n = 2..5 by both formulas; full epsilon contraction of a random pair-symmetric tensor equals 8 times the cyclic sum (-0.77628 both sides). → Correct.
+- Formal: torsion-free non-metric connection has R_{mu nu} - R_{nu mu} = R^lambda_{lambda mu nu} and n^2(n^2-1)/3 components (80 in 4D); metric connection with torsion has 36; Cartan forms dTheta^a + omega^a_b ^ Theta^b = Omega^a_b ^ theta^b; the operator proof steps.: Contracted rho with mu in the identity; counted n^3(n-1)/2 - n binom(n,3); python3 gives 80 for n = 4; 6 x 6 = 36. Expanded d of the torsion two-form. Checked each cyclic relabelling in cyclic-sum-from-the-jacobi-identity. → Correct.
+- Research horizon: Holst term vanishes when torsion does; Nieh-Yan identity d(theta^a ^ Theta_a) = Theta^a ^ Theta_a - theta^a ^ theta^b ^ Omega_ab.: Expanded both with Omega_ab ^ theta^b = dTheta_a + omega_a^b ^ Theta_b; the omega terms cancel after relabelling. → Identity correct. 'Its coefficient is the Barbero-Immirzi parameter' corrected: the Holst term enters with coefficient 1/gamma.
+- References and history.: Crossref records for 10.1007/BF01454201 (Ricci and Levi-Civita, Math. Ann. 54, 125-201, 1900), 10.1103/PhysRevD.53.5966 (Holst, 53, 5966-5969, 1996), 10.1103/PhysRevD.73.044013 (Perez and Rovelli, 2006), 10.1103/RevModPhys.48.393 (Hehl, von der Heyde, Kerlick, Nester, 48, 393-416, 1976), 10.1063/1.525379 (Nieh and Yan, 23, 373-374, 1982), 10.1007/978-3-540-74311-8 (Besse, Einstein Manifolds, Springer 1987); Numdam record for Cartan, Ann. Sci. ENS (3) 40, 325-412, 1923, doi 10.24033/asens.751; zbMATH record for Singer and Thorpe, Global Analysis (Papers in Honor of K. Kodaira), 355-365, 1969; arXiv abstracts gr-qc/9511026 and gr-qc/0505081. → All eight confirmed and marked verified; DOIs added. Cartan's torsion was first announced in his 1922 Comptes rendus note (vol. 174, 593-595); the 1923 contribution now says he developed it there rather than introduced it.
+- The sixteen learner-visible strings the novice review changed at revision 4 carry no physics change.: note_diff.py against the pre-novice snapshot listed all sixteen; read each against the claim it replaced. Thirteen swap 'one step' for 'one place', 'place' for 'spot', or split a sentence; two restate a rule ('walk once around the face, starting along the first named edge, then turning into the second edge's direction' for 'walk the two named edges in order'; 'Together the two routes make a four-sided walk' for 'walk route one, then route two backwards'); one adds a sentence to the cube-corner check answer. → All sixteen accurate. The walking rule still traces the loop +a, +b, -a, -b of the conventions small-loop row, with the first named edge as a and the second as b, so the components -R^rho_{312}, -R^rho_{123}, -R^rho_{231} are unchanged. The added sentence, 'A lean read along an arrow's own direction counts as zero', is first-pair antisymmetry: R_{3312} = 0 for trip one and R_{1123} = 0 for trip two, which is exactly what the answer needs to get (3, 0, 2) for the first two steps. No number, scope, condition, equation or claim moved.
+- Re-derivation of the first Bianchi identity with torsion, and of the twelve-term coordinate cancellation.: python3 on a random linear connection in four dimensions with nonzero torsion: built R^rho_{sigma mu nu} from the course formula, the cyclic sum, T(T(X,Y),Z) and (nabla_X T)(Y,Z), and compared for all 256 index sets; separately compared the cyclic sum with the derivation's remainder d_mu T^rho_{nu sigma} + Gamma^rho_{mu lambda} T^lambda_{nu sigma} plus cyclic copies. → Both agree to 1e-15. The operator theorem, the derivation's six pairings and the stated remainder are correct.
+- Counts and dual trace: pair rules leave 6, 21, 55; the identity leaves 6, 20, 50; eps^{rho sigma mu nu}R_{rho sigma mu nu} = 8 eps^{0123}(R_{0123} + R_{0231} + R_{0312}); 80 and 36 for the two limit cases.: python3 with a random pair-symmetric tensor: the full 24-term epsilon contraction equals eight times the cyclic sum exactly; in three dimensions the cyclic sum vanishes for every index set from the pair symmetries alone (max 0.0 over 81 sets); N(N+1)/2 - binom(n,4) equals n^2(n^2-1)/12 for n = 2 to 7; n^3(n-1)/2 - n binom(n,3) = 80 at n = 4; binom(4,2)^2 = 36. → All correct, including the entry way's claim that in space the fourth rule adds nothing new.
+- Observer frame: tr B is the cyclic sum, R_{0j} is the antisymmetric part of B, and the split is 6 + 8 + 6 = 20.: python3 with a random pair-symmetric tensor projected onto the cyclic identity, signature (-,+,+,+): tr B and the cyclic sum agree to 1e-16; eps_{jil}B_{il} equals R_{0j} from R_{cd} = R^a_{cad} for j = 1, 2, 3 exactly; the inversion eps_{ljk}B_{il} = R_{0ijk} holds to machine zero. → Correct. The epsilon in these formulas carried unhatted indices beside hatted ones, so the free index l appeared both ways in one equation; hats added throughout the way, the problem statement, its hints and its solution.
+- Earth number: a 1 km cube just above Earth's surface turns an arrow by at most about 1.5 millionths of a billionth of a degree.: python3 with G = 6.67430e-11, M = 5.9722e24 kg, c = 2.99792458e8 m/s, r = 6.371e6 m: m = GM/c^2 = 4.435 mm, m/r^3 = 1.7150e-23 m^-2. The spatial slice has sectional curvatures 2m/r^3 and -m/r^3 twice (three-dimensional Ricci scalar zero, as a static vacuum slice requires). The turn for a face is the part of the curvature operator's column orthogonal to that face's bivector; with eigenvalues (2, -1, -1) times m/r^3 its largest value over orientations is 1.5 m/r^3, resampled over 400,000 orientations (1.4999999). → 2.5726e-17 rad = 1.474e-15 degrees, so 'at most about 1.5 millionths of a billionth of a degree' is right and tight. The loose bound 2m/r^3 would give 1.97e-15. Curvature varies by 3 x 1 km / 6371 km = 0.05 percent across the cube, which supports 'hardly differs'.
+- References and history, re-confirmed.: Crossref records for 10.1007/BF01454201 (Ricci and Levi-Civita, Math. Ann. 54, issue 1-2, 125-201, 1900), 10.24033/asens.751 (Cartan, Ann. Sci. ENS 40, 325-412, 1923) and 10.1007/978-3-540-74311-8 (Besse, Einstein Manifolds, Springer, 1987); catalogue records for Singer and Thorpe in Global Analysis (Papers in Honor of K. Kodaira), Princeton, 355-365, 1969. The four physics DOIs were confirmed in the previous pass. → All eight stand as recorded; no detail changed.
+
+**Counterexamples tried**
+
+- Flat connection with torsion (teleparallel): every curvature change is zero, so the three changes add up to nothing despite twist. It broke the tutor correction 'The balance needs tiny four-sided walks that close' and the objective 'needs'; now 'is guaranteed only where' and 'relies on'. Entry prose already said 'can fail' and 'need not cancel', which survive.
+- Round (constant-curvature) space with an orthonormal cube: R(a,b)c = K(<b,c>a - <a,c>b) makes every trip's change zero in every orientation. It broke the flagship sketch's 'round space with the cube tilted so the changes are not zero'; sketch corrected. The entry prose 'can come back changed' survives.
+- Cube aligned with Earth's radial and tangential directions: all three changes are zero, so the Earth number must be an upper bound; 'at most' survives and the bound is now tight.
+- Parallel arrows in 'Walks that close': area and gap both vanish; the prose uses perpendicular arrows, so no false claim.
+- Two dimensions and repeated indices: the cyclic sum vanishes identically by last-pair antisymmetry for every connection; the working way states this.
+- Three dimensions: the identity adds no condition beyond the pair rules (6 stays 6); consistent with the entry count way, the space check and the formal dimension formula.
+- Gauge connection on a non-tangent bundle: no first identity; the formal way says so.
+- Non-metric torsion-free connection: identity holds but R^lambda_{lambda mu nu} and the antisymmetric Ricci part need not vanish; the formal limits say so.
+- Different observer: the 6/8/6 split changes under boosts but the total 20 does not; the working simplifies says so, and B = 0 for a static observer becomes nonzero for an orbiting one, as stated.
+- Larger cube near Earth: next-order corrections scale as L/r, so 'tiny' for 1 km is justified; simplifies scopes exactness to tiny loops.
+- Torsion varying from place to place with a vanishing cyclic sum: on R^3 with Gamma^x_{yz} = ay and nothing else, the torsion T^x_{yz} = ay changes from place to place, every product of coefficients still vanishes, and python3 over all 81 index sets gives a cyclic sum of exactly zero. This broke the closing sentence of checks/a-lopsided-connection, 'a torsion that varies from place to place breaks the cyclic identity'; it now reads 'here the torsion's change along x breaks the cyclic identity', which is what the worked case shows.
+- Covariantly constant torsion in general: the right side keeps the T(T(X,Y),Z) term, so a torsion that does not vary can also break the identity. The formal way's statement, that the cyclic sum is built from torsion and its derivative, covers both directions; only the check's closing sentence had narrowed it.
+- The novice reviewer's new walking rule against a non-square face: 'turning into the second edge's direction' is parallel transport of the second edge along the first, which is what the small-loop row assumes; for a cube face at a corner of a tiny cube the two give the same loop to the order the curvature table describes.
+
+**Fixes**
+
+- Revision 4 to 5 for the six learner-visible strings listed by note_diff at the entry and working rungs, plus one at the formal rung.
+- checks/a-lopsided-connection answer: 'a torsion that varies from place to place breaks the cyclic identity' became 'here the torsion's change along x breaks the cyclic identity', because a torsion can vary from place to place and still leave a vanishing cyclic sum (Gamma^x_{yz} = ay). This also clears the novice reviewer's second sense of 'place'.
+- the-link-in-an-observers-frame and problems/twenty-in-an-observers-frame (statement, both hints, solution steps 2 and 3): the three-index epsilon now carries frame hats, eps_{hat l hat j hat k} and eps_{hat 1 hat 2 hat 3} = +1, so the index l is not hatted on one side of B_{hat i hat l} = (1/2) eps_{l j k} R_{hat 0 hat i hat j hat k} and bare on the other. Course conventions give orthonormal-frame components hats.
+- visuals[three-trips-at-a-cube-corner].sketch (author-facing, no learner change): added a space-and-time preset that swaps the up edge for a time edge, so the flagship shows the one link the pair rules do not give. It answers the standing concern that the picture stayed in three dimensions, where the identity adds nothing.
+- Nothing dropped. Entry explanations stay at 1,099 words; the working and links parts moved by a few words only.
+
+**Concerns**
+
+- The novice re-read of revision 5 is done and this diff check covers its two changed working-rung sentences, so review.physics now covers revision 6. review.novice covers revision 5; a novice sign-off of the re-read's own wording is the only stage still outstanding, and this check changed no learner-visible text for it to read.
+- The prerequisite torsion-free-connection still has no note, and neither does torsion-tensor, which owns the entry glossary term 'twist'. Until they exist, the entry word 'twist' and the four-sided-walk picture cannot be matched to a prerequisite entry rung.
+- All three visuals are still proposals. The flagship sketch now carries a space-and-time preset, but no catalog entry exists to hold its params, presets, readouts and tests.
+- 'A lean read toward time' at the entry rung is the one place a beginner is asked to picture a direction they cannot walk in. It is accurate, and the way scopes it, but it rests on a prerequisite entry rung that is not written yet.
+- The entry picture 'each pair cancels only because four-sided walks close up' is a faithful reading of the symmetric-Christoffel cancellation, but it is a heuristic link between the second-order gap and the curvature pieces, not a separate theorem.
+
+**Diff check** (2026-09-13, revision 6)
+
+- The re-read changed exactly two learner-visible sentences, both in ways_in/the-link-in-an-observers-frame at the working rung, and no equation.: note_diff.py against the pre-re-read snapshot, then a character comparison of the two LaTeX expressions in those sentences. → Confirmed: one field, two sentences. 'Package the middle set as' became 'Package the set with one $\hat 0$ as', and 'the frame's mixed Ricci components' became 'the frame's time-space Ricci components'. $B_{\hat i\hat l} = \tfrac12\epsilon_{\hat l\hat j\hat k}R_{\hat 0\hat i\hat j\hat k}$, $\epsilon_{\hat 1\hat 2\hat 3} = +1$ and $R_{\hat 0\hat j} = \epsilon_{\hat j\hat i\hat l}B_{\hat i\hat l}$ are byte-identical to the reviewed revision.
+- 'the set with one $\hat 0$' names the same set the old 'the middle set' named, and names it correctly.: Read the three bullets the sentence follows. They are introduced by 'Sort the lowered components by how many indices are $\hat 0$' and labelled 'Two:', 'One:', 'None:'; checked which bullet is second in the list and which components $B$ packages. → Correct and now independent of order. The second bullet is the 'One:' bullet, $R_{\hat 0\hat i\hat j\hat k}$, and those are exactly the components $B_{\hat i\hat l}$ carries, so the new phrase picks out the same nine numbers by their defining property rather than by position in the list.
+- $R_{\hat 0\hat j}$ deserves the name 'time-space Ricci components' in course conventions, and the relation $R_{\hat 0\hat j} = \epsilon_{\hat j\hat i\hat l}B_{\hat i\hat l}$ still holds with that name attached.: Re-derived by hand with $R_{\mu\nu} = R^\rho{}_{\mu\rho\nu}$ and $\eta_{\hat\mu\hat\nu} = \mathrm{diag}(-1,1,1,1)$: $R_{\hat 0\hat j} = -R_{\hat 0\hat i\hat i\hat j}$, and $\epsilon_{\hat j\hat i\hat l}B_{\hat i\hat l} = \tfrac12(R_{\hat 0\hat i\hat j\hat i} - R_{\hat 0\hat i\hat i\hat j}) = -R_{\hat 0\hat i\hat i\hat j}$ by the epsilon-delta identity and the last-pair antisymmetry. Then recomputed with python3 on a random 4x4x4x4 array projected onto the full Riemann symmetries including the cyclic identity. → Both sides agreed to 12 decimal places for all three $\hat j$, with the sign as written; the trace came out zero and matched $R_{\hat 0\hat 1\hat 2\hat 3} + R_{\hat 0\hat 2\hat 3\hat 1} + R_{\hat 0\hat 3\hat 1\hat 2}$. The name is right too: $R_{\hat 0\hat j}$ carries one time index and one space index in the observer's orthonormal frame, and Ricci is symmetric, so the order of the two indices does not qualify the name.
+- Dropping 'mixed' from this sentence does not leave the word stranded or doubled elsewhere in the note.: Searched the note for 'mixed' and for 'time-space' and read every learner-visible hit in context. → One learner-visible use of each remains, and they name different objects: the takeaway's '8 mixed' counts Riemann numbers with one time index, set against 'tidal' and 'spatial'; the explanation's 'time-space' names the Ricci components $R_{\hat 0\hat j}$. No idea now has two words and no word two ideas.
+- The changed explanation still agrees with problems/twenty-in-an-observers-frame, which the re-read did not touch.: Read the problem's statement, hints, answer and four solution steps beside the changed sentences, and re-derived hint 1's inversion $\epsilon_{\hat l\hat j\hat k}B_{\hat i\hat l} = \tfrac12(R_{\hat 0\hat i\hat j\hat k} - R_{\hat 0\hat i\hat k\hat j}) = R_{\hat 0\hat i\hat j\hat k}$. → Consistent. The problem never used 'middle set' or 'mixed', so nothing in it went stale; it names the set as 'exactly one index $\hat 0$', which is the phrasing the explanation has now adopted. Counts agree in both places: 6 + 9 = 21 before the identity, 6 + 8 + 6 = 20 after it.
+- The two rewrites claim no more than the sentences they replaced, and the surrounding scope still holds.: Tried the standard alternatives on the changed sentences: a static observer outside a non-rotating star, an observer in circular orbit, vacuum versus non-vacuum, and a different observer at the same event. → No claim moved. Neither rewrite touches a condition, a sign or a count; both are the same assertions with a clearer noun. The observer dependence stays where it was, in the way's simplifies line, and the vacuum sentence that follows is unchanged and still reads correctly after the new noun.
+- Fix: None. Both changed sentences are accurate as written, so nothing was edited and the revision stands at 6.

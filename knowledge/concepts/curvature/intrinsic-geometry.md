@@ -1,0 +1,608 @@
+---
+type: "concept"
+schema_version: 2
+id: "intrinsic-geometry"
+title: "Intrinsic viewpoint on geometry"
+tagline: "Describing a space using only measurements made without leaving it"
+domain: "curvature"
+tier: "foundation"
+status: "physics-reviewed"
+revision: 5
+updated: "2026-09-13"
+aliases: ["insider viewpoint", "intrinsic description of geometry"]
+prerequisites: ["manifold", "metric-tensor"]
+leads_to: ["intrinsic-versus-extrinsic-curvature", "theorema-egregium"]
+visuals: ["paced-ring-on-a-ball-and-a-plain", "curl-a-page-with-a-triangle"]
+---
+
+# Intrinsic viewpoint on geometry
+
+*Describing a space using only measurements made without leaving it*
+
+`intrinsic-geometry` · curvature · foundation · physics-reviewed (revision 5)
+
+**Needs:** [[manifold]] (formal) · [[metric-tensor]] (working)  
+**Opens:** [[intrinsic-versus-extrinsic-curvature]] · [[theorema-egregium]]  
+**Related:** [[embedding]] · [[circumference-to-radius-test]] · [[holonomy]]  
+**Visuals:** ★ [[paced-ring-on-a-ball-and-a-plain]] · [[curl-a-page-with-a-triangle]]
+
+> An ant that can never leave a ball can still measure distances and angles along its surface. Those measurements alone show that the ball is not a flat plain. A sheet of paper curled into a trough, like half of a pipe, without stretching, gives an ant living on it exactly the same measurements as the flat sheet did. Describing a surface, or space itself, only through such measurements is the intrinsic viewpoint. It is the only viewpoint available for space and time, which nobody can step outside.
+
+## You will be able to
+
+**Entry**
+- Explain why curling a sheet without stretching changes no measurement made along it. `objectives/explain-curling-keeps-measurements` ← `checks/curled-triangle`
+- Use the ring test, with a count, to show that a world is not a flat plain without leaving it. `objectives/use-the-ring-test` ← `checks/ring-on-a-small-moon`, `problems/party-hat-ring`
+- Explain why curved space and time need no extra direction to curve into. `objectives/explain-no-outside-needed` ← `checks/curved-into-what`
+
+**Working**
+- Compute ring lengths from a distance rule and infer a sphere's radius from one ring. `objectives/compute-rings-from-the-distance-rule` ← `problems/find-the-planet-radius`
+- Distinguish the features of a drawing of curved space that carry its geometry from those added for drawing. `objectives/read-drawings-of-space` ← `checks/funnel-drawing`
+
+**Formal**
+- Decide whether a geometric quantity is intrinsic by asking whether every isometry preserves it. `objectives/test-quantities-with-isometries` ← `checks/mean-curvature-under-bending`
+- Show that surfaces looking different in space can be locally isometric, and name a global intrinsic test that separates them. `objectives/separate-local-from-global` ← `checks/plane-or-cylinder`, `problems/catenoid-and-helicoid`
+
+## Ways in
+
+### 1. A world you can never leave · entry · picture
+
+*What can someone who never leaves a surface measure about it?*
+
+Imagine a tiny ant living on a giant, smooth, round ball. She can never leave its surface. She cannot fly off to look at the ball, and she cannot dig into it.
+
+What can she still measure? She can lay a tape measure along the ground, the surface of the ball, between two pebbles. Many routes along the ground join the two pebbles. She takes the length of the shortest route as their distance along the ground.
+
+She can also measure angles. Where two paths cross, she lays a protractor against the ground and reads the angle between the paths. Her protractor is tiny compared with the ball, so it lies snugly against the ground.
+
+Some measurements are out of her reach. Put two pebbles exactly opposite each other on the ball. Seen from outside, a thin rod could join them through the middle of the ball. The ant can never go there, so the rod's length is not one of her measurements. For her, the distance between the pebbles is half of the way around the ball. On Earth, treated as a smooth ball, that is about 20,000 kilometres along the ground, while a rod through the middle would be about 12,700 kilometres long.
+
+Everything she can work out from her distances and angles is called the intrinsic geometry of the surface.
+
+Describing a surface through its intrinsic geometry alone is called the intrinsic viewpoint.
+
+Why care? We are in the ant's position. We live inside space and time, and nobody can step outside them to look. So if space and time are curved, we can find that curving only through measurements made from within, with rulers, clocks and light. Here, curved means curved in a way that such measurements can reveal.
+
+Seen from outside, the ball's surface curves into the room around it, a direction the ant can never go. General relativity, Einstein's theory of gravity, describes gravity as a curving of space and time. It describes that curving entirely through measurements made from within, and it needs no extra direction for space and time to curve into.
+
+**Takeaway:** Someone who can never leave a surface can still measure distances and angles along it, and everything those measurements reveal is the surface's intrinsic geometry.
+
+### 2. Surveyors pace out a ring · entry · operational
+
+*Can someone who never leaves a ball tell it from a flat plain?*
+
+**Recap:** The ant's rule: measure only along the ground, the surface of the ball, with a tape measure and a protractor lying against it. The distance between two places is the length of the shortest route along the ground.
+
+Picture a team of surveyors, people who measure land for a living, on a giant, smooth, round ball. Like the ant, they can never leave the surface, and they measure only along the ground. Can they find out that their world is not a flat plain?
+
+Walking without ever steering left or right is called walking straight. On a ball, your path bends over the curve of the ground, but you never steer, so it counts as straight.
+
+Here is a test built on walking straight. One surveyor stands at a spot, the centre. The others walk straight out from her in many directions, spread evenly all around, each for the same distance. Each walker leaves a mark where she stops. With enough walkers, the marks sit close together and form a ring. Then the team lays a tape along the ground through all the marks, once around the ring, and reads its length. This is called the ring test.
+
+On a flat plain, school geometry gives the answer. The ring is a circle, and the distance walked is its radius. So the ring's length is 2 times pi times the radius, about 6.28 times the radius.
+
+On the ball, the ring comes out shorter than 6.28 times the distance walked. Here is a count you can check on a globe, treating Earth as a smooth ball. Call the centre the North Pole. On a globe, each line running from the North Pole to the equator is a straight walk. The ball on one side of such a line is a mirror image of the ball on the other side, so a walker on it has no reason to steer either way.
+
+Each of these walks reaches the equator after a quarter of the way around Earth, about 10,000 kilometres. So the ring of marks for 10,000 kilometres is the equator, which is about 40,000 kilometres long. On a flat plain, that ring would be about 62,800 kilometres. So the ball's ring is short by more than a third.
+
+Why is it short? The ring's length is the sum of the gaps between neighbouring marks. On a plain, walk twice as far and every gap is twice as wide. On a globe, the lines from the North Pole fan out near the pole, but by the equator they run side by side. So on the ball the gaps grow more slowly than on a plain, and the ring comes out short.
+
+A flat plain never gives a short ring. So the surveyors have found that their world is not a flat plain, using only a tape measure along the ground.
+
+In daily life, the shortfall is far too small to notice. On Earth, a ring paced out 1 kilometre from its centre comes out short by about 0.026 millimetres. That is less than half the width of a typical hair.
+
+**Try it:** Take a full-size basketball, about 75 centimetres around, a soft tape measure and chalk. Make a chalk dot anywhere on the ball: this is the centre. Pressing the tape along the ball, make chalk marks 19 centimetres from the dot, in many directions all around it. Lay the tape through the marks, once around, and read the ring's length: close to 75 centimetres. On flat paper, a ring of radius 19 centimetres would be about 6.28 times 19, or 119 centimetres. So the ball's ring is short by more than a third.
+
+**Takeaway:** Pacing out a ring and measuring it along the ground tells a ball from a flat plain: on a ball the ring is always shorter than 6.28 times the distance walked.
+
+*Continues:* `ways_in/a-world-you-cannot-leave`<br>*Visuals:* [[paced-ring-on-a-ball-and-a-plain]]<br>*See:* `checks/ring-on-a-small-moon`
+
+### 3. A bend only an outsider can see · entry · contrast
+
+*Does curling a sheet of paper change its geometry for someone living on it?*
+
+**Recap:** Intrinsic geometry is everything someone living on a surface can work out from distances and angles measured along it. In the ring test, you walk straight out from a centre, never steering, the same distance in many directions all around. Then you measure the ring of end marks along the ground. On a flat plain it is about 6.28 times the distance walked; on a ball it is shorter.
+
+Draw a triangle on a sheet of paper. An ant living on the paper measures each side along the paper. She measures each corner angle with a paper protractor lying against the paper, so the protractor can bend along with the sheet.
+
+Now lift the sheet and curl it gently into a trough, like half of a pipe. Do not stretch, cut or tape it. Seen from outside, the sheet now looks bent.
+
+The ant measures again, and every side and every angle comes out the same as before. Her tape and protractor lie against the paper, and curling did not stretch or squash the paper anywhere. So no length along the paper changed, and no angle between lines drawn on it changed.
+
+The ring test, or any other measurement she makes along the paper, is built from such lengths and angles. So every one of her measurements comes out the same as on the flat sheet. The curled sheet has the same intrinsic geometry as the flat sheet. For the ant, the two are the same world, and the bend is visible only from outside.
+
+A ball is different. On a ball, a ring comes out shorter than 6.28 times the distance walked, while on flat paper it never does. Curling keeps every ring's length. So flat paper cannot be curled to fit snugly over even a small patch of a ball without stretching. This is why a piece of orange peel tears or stretches when you press it flat.
+
+**Try it:** Take a sheet of printer paper. Draw a triangle on it with sides of 6, 8 and 10 centimetres, with a square corner between the 6 and 8 centimetre sides. With a ruler, measure the gap through the air between the sheet's two long edges: about 21 centimetres. Curl the sheet into a trough, so that the two long edges come toward each other. Measure each side of the triangle again with a soft tape measure laid along the paper: 6, 8 and 10 centimetres, as before. Measure the gap between the long edges again: it shrinks as you curl the sheet more.
+
+**Takeaway:** Curling a sheet without stretching, cutting or taping it changes no measurement along the sheet, so its intrinsic geometry stays that of flat paper.
+
+*What this leaves out:* Taping the two edges together into a tube is a further step. It stretches nothing, so every small piece of the tube keeps the measurements of flat paper. But an ant who walks straight around the tube comes back to where she started, which a straight walk on a flat sheet never does.
+
+*Continues:* `ways_in/a-world-you-cannot-leave`, `ways_in/surveyors-pace-out-a-ring`<br>*Visuals:* [[curl-a-page-with-a-triangle]]<br>*See:* `checks/curled-triangle`, `problems/party-hat-ring`
+
+### 4. The distance rule holds the whole geometry · working · calculation
+
+*How do insiders turn their measurements into calculations?*
+
+The surveyors in "Surveyors pace out a ring" needed only lengths measured along the ground, and insiders can store all such lengths in one formula. Label points with two numbers and record the distance $ds$ between neighbouring points: the line element, or distance rule. On a sphere of radius $a$, label a point by $\theta = \rho/a$, where $\rho$ is its ground distance from the North Pole, and by its longitude $\phi$. The rule, taken here as known, is
+
+$$ds^2 = a^2\left(d\theta^2 + \sin^2\theta\,d\phi^2\right).$$
+
+Nothing in it mentions a surrounding space: $\theta$ and $\phi$ are labels, $ds$ is what a tape along the ground reads, and $a$ is a constant of the rule.
+
+The ring test follows. A straight walk out from the North Pole follows a meridian by mirror symmetry and keeps $\phi$ fixed, so $ds = a\,d\theta$ and the ring's ground radius is $\rho$. Around the ring $\theta$ is fixed, so $ds = a\sin\theta\,d\phi$, and
+
+$$C(\rho) = 2\pi a\sin(\rho/a) = 2\pi\rho\left(1 - \frac{\rho^2}{6a^2} + \dots\right).$$
+
+For Earth as a sphere with $a = 6371$ km, a ring of ground radius 1000 km measures 6257.4 km, 25.8 km short of $2\pi \times 1000$ km. Reading the rule backwards, the measured shortfall of a small ring gives $a^2 \approx \rho^2/[6(1 - C/2\pi\rho)]$ without leaving the surface.
+
+The same rule settles the curled paper of "A bend only an outsider can see". Curling a sheet whose rule is $dx^2 + dy^2$ into a half-pipe and substituting the curled shape into the three-dimensional distance formula returns $dx^2 + dy^2$, as the worked example shows. Every insider result is computed from the rule, so the curl leaves no trace. Conversely, one geometry has many rules: the plane is $dx^2 + dy^2$ in Cartesian labels and $dr^2 + r^2\,d\phi^2$ in polar labels. What is intrinsic is what every rule for the same surface agrees on, such as ring lengths.
+
+**Takeaway:** Every insider measurement follows from the distance rule, so ring lengths, not how a surface sits in space or how its points are labelled, carry its geometry.
+
+*Continues:* `ways_in/surveyors-pace-out-a-ring`, `ways_in/curl-the-page`<br>*Builds on:* [[metric-tensor]]<br>*See:* `derivations/ring-on-a-sphere`, `worked_examples/curled-sheet-keeps-its-rule`
+
+### 5. Rings and rulers around the Sun · working · operational
+
+*How can we, living inside space, measure how the Sun curves it?*
+
+The idea behind the ring test of "The distance rule holds the whole geometry", comparing ring lengths with distances measured between rings, also works in the space around a star, where tests made from inside are the only kind there are. Imagine rings laid out around the Sun in one plane through its centre, and radial rulers between them, all at rest relative to the Sun. To first order in $GM/rc^2$, taking general relativity's weak-field result on trust, space around a static spherical mass $M$ has the distance rule
+
+$$dl^2 = \left(1 + \frac{2GM}{rc^2}\right)\left(dx^2 + dy^2 + dz^2\right),\qquad r^2 = x^2 + y^2 + z^2.$$
+
+A ring at coordinate radius $r$ measures $C = 2\pi r(1 + GM/rc^2) = 2\pi r + 2\pi GM/c^2$. So two rings satisfy $(C_2 - C_1)/2\pi = r_2 - r_1$, while a radial ruler between them reads
+
+$$\int_{r_1}^{r_2}\left(1 + \frac{GM}{rc^2}\right)dr = (r_2 - r_1) + \frac{GM}{c^2}\ln\frac{r_2}{r_1}.$$
+
+In flat space the ruler would read exactly $(C_2 - C_1)/2\pi$. For the Sun, $GM_\odot/c^2 = 1.477$ km, so between the rings of circumference $2\pi R_\odot$ and $4\pi R_\odot$, for which $(C_2 - C_1)/2\pi = R_\odot = 695{,}700$ km, the ruler finds an extra $1.477\ \text{km} \times \ln 2 = 1.02$ km.
+
+Nobody has laid such rulers, but radio signals probe the same geometry. In the parametrized post-Newtonian framework, which gives the weak-field predictions of metric theories of gravity a few adjustable parameters, the factor 2 in the rule becomes $2\gamma$, and general relativity has $\gamma = 1$. Radio tracking of the Cassini spacecraft, whose signals passed close to the Sun, measured $\gamma$ from inside the Solar System and found agreement to about two parts in $10^5$.
+
+**Takeaway:** Rings and rulers around the Sun would show that space there is not flat, and radio tracking of a spacecraft has measured that curving from inside.
+
+*What this leaves out:* Keeps first order in $GM/rc^2$ and treats the Sun as static and spherical. It describes space only; the warping of time, which governs slow motion under gravity, is left out.
+
+*Continues:* `ways_in/the-distance-rule-holds-it-all`<br>*Builds on:* [[metric-tensor]]<br>*See:* `observations/cassini-measures-gamma`, `observations/flatness-of-cosmic-space`
+
+### 6. What isometries cannot change · formal · structure
+
+*What exactly counts as intrinsic, and what does an embedding add?*
+
+In "The distance rule holds the whole geometry", every ring length came from the rule alone. To make that precise, take a smooth manifold $M$ with a metric $g$: Riemannian for a surface or for space at one moment, Lorentzian of signature $(-,+,+,+)$ for spacetime. A diffeomorphism $\phi: M \to N$ is an isometry when $\phi^*h = g$, and a local isometry when this holds near every point. A quantity is intrinsic when it is built from $(M, g)$ alone, so that every isometry carries it to the corresponding quantity of $(N, h)$.
+
+The intrinsic quantities form a chain. Lengths $L[\gamma] = \int\sqrt{|g(\dot\gamma, \dot\gamma)|}\,dt$ and, for Riemannian $g$, the distance $d_g(p,q) = \inf_\gamma L[\gamma]$ come from $g$. The Koszul formula builds the Levi-Civita connection from $g$ and Lie brackets, both natural under diffeomorphisms. So isometries carry geodesics, parallel transport and the Riemann tensor to their counterparts, and in two dimensions they preserve the Gaussian curvature $K$, the theorema egregium. The ring test becomes $K(p) = \lim_{\rho\to0} 3(2\pi\rho - C)/\pi\rho^3$. Conversely, by the Myers–Steenrod theorem a distance-preserving bijection between connected Riemannian manifolds is a smooth isometry, so distances alone determine $g$.
+
+An isometric embedding $\iota: M \to \mathbb{R}^N$, with $\iota^*\delta = g$, adds data that are not intrinsic: normal directions, the second fundamental form, the mean curvature $H$, the average of the principal curvatures. A plane and a cylinder of radius $R$ are locally isometric, with mean curvatures $0$ and $\tfrac{1}{2R}$ in magnitude. Embeddings are plentiful but optional. By Nash's theorem every Riemannian manifold embeds isometrically in some $\mathbb{R}^N$, and every pseudo-Riemannian manifold, spacetime included, embeds isometrically in a flat space of suitable dimension and signature; no embedding is singled out. In low dimension they can fail: by Hilbert's theorem the complete hyperbolic plane has no smooth isometric immersion in $\mathbb{R}^3$. General relativity writes its field equation and matter couplings with $g$, $\nabla$ and curvature, and needs none.
+
+Two limits keep the principle honest. First, local isometry does not fix global structure: the plane, the flat cylinder and the flat torus are locally isometric, yet insiders can tell them apart: the plane has no closed geodesics, the cylinder has them in only one direction, and the torus has finite total area. Second, extrinsic is relative. The extrinsic curvature of a constant-time slice is not intrinsic to the slice, but it is intrinsic to spacetime and carries physical information about how space evolves. The principle rejects an unobserved surrounding space, not the real spacetime around a slice.
+
+**Takeaway:** Intrinsic means preserved by every isometry: lengths, geodesics, the connection and curvature qualify, while normals and mean curvature belong to an optional embedding.
+
+*Continues:* `ways_in/the-distance-rule-holds-it-all`<br>*Builds on:* [[manifold]], [[metric-tensor]]<br>*See:* `key_equations/curvature-from-small-rings`, `checks/mean-curvature-under-bending`, `checks/plane-or-cylinder`, `problems/catenoid-and-helicoid`
+
+## Glossary
+
+| Term | Say | In plain words | Concept |
+| --- | --- | --- | --- |
+| intrinsic geometry | in-TRIN-zik | Everything someone living on a surface can work out from distances and angles measured along it, without ever leaving it. | [[intrinsic-geometry]] |
+| intrinsic viewpoint | in-TRIN-zik | Describing a surface, or space and time, only through measurements made without leaving it. | [[intrinsic-geometry]] |
+| walk straight | — | Walking without ever steering left or right. | [[geodesic]] |
+| ring test | — | Walk straight out the same distance from a centre in many directions all around, then measure the ring of end marks along the ground. On a flat plain the ring is about 6.28 times the distance walked. | [[circumference-to-radius-test]] |
+| general relativity | — | Einstein's theory of gravity, which describes gravity as a curving of space and time found through measurements made from within. | [[general-relativity]] |
+
+## Key equations
+
+### Ring length on a sphere · working
+
+$$
+C(\rho) = 2\pi a\sin(\rho/a) = 2\pi\rho\left(1 - \frac{\rho^2}{6a^2} + \dots\right)
+$$
+
+A ring paced out a ground distance $\rho$ from its centre falls short of $2\pi\rho$, by a fraction $\rho^2/6a^2$ for small rings.
+
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $C$ | length of the ring, measured along the surface | the ring length |
+| $\rho$ | ground radius: distance walked from the centre | rho |
+
+**Holds when:** Sphere of radius $a$; any $0 < \rho < \pi a$; the series needs $\rho \ll a$.  
+**Say it:** “The ring length is two pi a times sine of rho over a, which is two pi rho times one minus rho squared over six a squared, and so on.”  
+**Justified by:** `derivations/ring-on-a-sphere`
+
+### Curvature from small rings · formal
+
+$$
+K(p) = \lim_{\rho \to 0} \frac{3\,\big(2\pi\rho - C(\rho)\big)}{\pi\rho^3}
+$$
+
+The Gaussian curvature at a point is read off from how the lengths of small geodesic circles differ from $2\pi\rho$.
+
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $K(p)$ | Gaussian curvature at $p$, positive on a sphere | K at p |
+| $C(\rho)$ | length of the geodesic circle of radius $\rho$ about $p$ | C of rho |
+
+**Holds when:** Smooth Riemannian surface; $\rho$ below the injectivity radius at $p$.  
+**Say it:** “K at p is the limit, as rho goes to zero, of three times two pi rho minus C, divided by pi rho cubed.”  
+**Justified by:** `stated`
+
+## Derivations
+
+### Ring length from the sphere's distance rule · working
+
+**Goal:** Find the length of a ring of ground radius $\rho$ on a sphere, using only its distance rule.
+
+1. Start from $ds^2 = a^2(d\theta^2 + \sin^2\theta\,d\phi^2)$ with the centre at the North Pole, $\theta = 0$.
+2. A straight walk out from the pole keeps $\phi$ fixed, so $ds = a\,d\theta$ and the walk reaches $\theta_0 = \rho/a$.
+3. On the ring $\theta = \theta_0$ is fixed, so $ds = a\sin\theta_0\,d\phi$.
+4. Integrate over $\phi$ from $0$ to $2\pi$: $C = 2\pi a\sin(\rho/a)$.
+5. Expand $\sin x = x - x^3/6 + \dots$ with $x = \rho/a$: $C = 2\pi\rho(1 - \rho^2/6a^2 + \dots)$.
+6. Check the ring through the equator, $\rho = \pi a/2$: $C = 2\pi a$, while $2\pi\rho = \pi^2 a$, a ratio $2/\pi \approx 0.64$.
+
+**Result:** $C(\rho) = 2\pi a\sin(\rho/a) < 2\pi\rho$ for $0 < \rho < \pi a$.
+
+## Worked examples
+
+### A curled sheet keeps its distance rule · working
+
+**Problem:** A sheet with distance rule $dx^2 + dy^2$ is curled into a half-pipe of radius $R$: $X = R\sin(x/R)$, $Y = y$, $Z = R(1 - \cos(x/R))$ for $0 \le x \le \pi R$. Find the insider's distance rule, and compare the distance between the two edges along the sheet and through the air.
+
+1. Differentiate: $dX = \cos(x/R)\,dx$, $dY = dy$, $dZ = \sin(x/R)\,dx$.
+2. Substitute into $dX^2 + dY^2 + dZ^2$: $(\cos^2 + \sin^2)(x/R)\,dx^2 + dy^2 = dx^2 + dy^2$.
+3. Along the sheet, the edges $x = 0$ and $x = \pi R$ at equal $y$ are $\pi R$ apart.
+4. Through the air they are at $(0, y, 0)$ and $(0, y, 2R)$, so $2R$ apart. For $\pi R = 8$ cm that is $16/\pi = 5.1$ cm.
+
+**Answer:** The rule is $dx^2 + dy^2$, the flat sheet's rule. The edges are $\pi R$ apart along the sheet and $2R$ apart through the air.
+
+**Takeaway:** The curl lives only in the functions placing the sheet in space; the insider's rule, and so every insider measurement, is unchanged.
+
+## Problems
+
+### `party-hat-ring` · entry · difficulty 2 · calculation
+
+Cut a paper disc of radius 20 centimetres into four equal slices, like a pizza, and throw one slice away. Tape the cut edges of the rest together to make a party hat. The centre of the disc becomes the tip of the hat. An ant starts at the tip and walks straight out 10 centimetres along the paper, in many directions all around, then measures the ring of end marks along the paper. How long is the ring? How long would it be on the flat, uncut disc?
+
+**Hints**
+
+1. How long is a ring of radius 10 centimetres on the uncut disc, and what fraction of it is left after one slice of four is thrown away?
+
+**Answer:** About 47.1 centimetres on the hat, against about 62.8 centimetres on the flat, uncut disc. Throwing away a slice removed a quarter of every ring around the tip, which curling alone never does.
+
+**Must contain:** On flat paper the ring is about 62.8 centimetres; The cut leaves three quarters of it, about 47.1 centimetres
+
+**Numeric:** ring length on the hat = 47.12 cm (magnitude, ±2%)
+
+**Solution**
+
+1. On the uncut disc, a ring 10 centimetres from the centre is a circle, about 6.28 times 10, or 62.8 centimetres.
+2. Cutting out a quarter of the disc removes a quarter of that ring, leaving three quarters: 47.1 centimetres.
+3. Taping the cut edges closes the gap in the ring without stretching anything, so the ant measures 47.1 centimetres.
+4. So the ant can find the tip by the ring test, although no paper was stretched. Curling alone keeps every ring's length; throwing away a slice does not.
+
+### `find-the-planet-radius` · working · difficulty 2 · estimate
+
+Surveyors on a smooth round planet pace out a ring of ground radius 200 km and measure its length along the ground as 1248.28 km. First, estimate the planet's radius with the small-ring approximation. Then solve the exact ring-length formula for a sphere numerically, and compare.
+
+**Hints**
+
+1. Compare the ring with $2\pi\rho = 1256.64$ km.
+2. The small-ring formula gives $1 - C/2\pi\rho \approx \rho^2/6a^2$.
+
+**Answer:** About 1001 km from the approximation, and about 1000 km exactly; the approximation is 0.1% high because it drops the next term in $\rho^2/a^2$.
+
+**Must contain:** Small-ring estimate about 1001 km; Exact solution about 1000 km
+
+**Numeric:** planet radius = 1000 km (magnitude, ±1%)
+
+**Solution**
+
+1. $2\pi\rho = 2\pi \times 200 = 1256.64$ km, so $1 - C/2\pi\rho = 1 - 1248.28/1256.64 = 0.00665$.
+2. From $C \approx 2\pi\rho(1 - \rho^2/6a^2)$: $a \approx \rho/\sqrt{6 \times 0.00665} = 200/0.1998 = 1001$ km.
+3. Solving $2\pi a\sin(200/a) = 1248.28$ by bisection gives $a = 1000.2$ km.
+4. The two agree to 0.1%: at $\rho/a = 0.2$ the dropped term is small.
+
+### `catenoid-and-helicoid` · formal · difficulty 3 · derivation
+
+The catenoid $\mathbf X(u,v) = (\cosh u\cos v, \cosh u\sin v, u)$ and the helicoid $\mathbf Y(u,v) = (\sinh u\cos v, \sinh u\sin v, v)$ look nothing alike in $\mathbb{R}^3$. (a) Show that both induce the metric $\cosh^2 u\,(du^2 + dv^2)$. (b) Give an intrinsic measurement that tells the complete catenoid, with $v$ periodic, from the complete helicoid.
+
+**Hints**
+
+1. Compute $\partial_u\mathbf X$, $\partial_v\mathbf X$ and their dot products, and use $\cosh^2 u - \sinh^2 u = 1$.
+2. For a metric $\lambda(u)(du^2 + dv^2)$ the curve $u = u_0$ is a geodesic when $\lambda'(u_0) = 0$.
+
+**Answer:** (a) On both, $|\partial_u|^2 = |\partial_v|^2 = \cosh^2 u$ and $\partial_u\cdot\partial_v = 0$. (b) On the catenoid the waist $u = 0$ is a closed geodesic of length $2\pi$ that cannot be shrunk; on the helicoid the geodesic $u = 0$ is the axis and never returns, and every loop can be shrunk.
+
+**Must contain:** Both surfaces induce cosh squared u times the flat metric; The catenoid has a closed geodesic around its waist; the helicoid has none
+
+**Solution**
+
+1. Catenoid: $\partial_u\mathbf X = (\sinh u\cos v, \sinh u\sin v, 1)$ and $\partial_v\mathbf X = (-\cosh u\sin v, \cosh u\cos v, 0)$, so $|\partial_u\mathbf X|^2 = \sinh^2 u + 1 = \cosh^2 u$, $|\partial_v\mathbf X|^2 = \cosh^2 u$, and the dot product is $0$.
+2. Helicoid: $\partial_u\mathbf Y = (\cosh u\cos v, \cosh u\sin v, 0)$ and $\partial_v\mathbf Y = (-\sinh u\sin v, \sinh u\cos v, 1)$, so $|\partial_u\mathbf Y|^2 = \cosh^2 u$, $|\partial_v\mathbf Y|^2 = \sinh^2 u + 1 = \cosh^2 u$, and the dot product is $0$.
+3. For $\lambda = \cosh^2 u$, $\lambda'(u) = 2\cosh u\sinh u$ vanishes at $u = 0$, so $u = 0$ is a geodesic on both surfaces, with length element $dv$.
+4. On the catenoid $v$ is periodic, so this geodesic is the waist circle and closes after length $2\pi$. The catenoid has the shape of a cylinder, $\mathbb{R}\times S^1$, and the waist goes once around it, so it cannot be shrunk.
+5. On the helicoid $v$ runs over all real numbers, so the geodesic $u = 0$ is the axis and never closes. The map $(u, v) \mapsto \mathbf Y$ is one-to-one on the whole plane, so every loop can be shrunk.
+
+**Targets:** `local-metric-fixes-shape`
+
+## Observations
+
+- **Radio tracking of the Cassini spacecraft as its signals passed close to the Sun in 2002** (measured, working). Tracking stations on Earth, inside the curved space they were probing, measured how the Sun's field changed the radio signals near solar conjunction. The result fixes the post-Newtonian parameter $\gamma$, which sets how strongly a mass curves space: the weak-field spatial rule is $(1 + 2\gamma GM/rc^2)$ times the flat one. General relativity has $\gamma = 1$. *Numbers:* $\gamma - 1 = (2.1 \pm 2.3)\times10^{-5}$. *Reference:* B. Bertotti, L. Iess, P. Tortora (2003), *A test of general relativity using radio links with the Cassini spacecraft*, Nature 425, 374–376, doi:10.1038/nature01997
+- **The curvature of space on the largest scales, from the cosmic microwave background and galaxy surveys** (measured, working). In effect, cosmologists measure a triangle from inside space: patterns of calculable physical size in the early universe span a measured angle on our sky. Curved space would change that angle. The result is quoted as the curvature density parameter $\Omega_K$, zero for flat space; in the usual convention a positive $\Omega_K$ means negatively curved space. *Numbers:* $\Omega_K = 0.001 \pm 0.002$, combining microwave-background and baryon acoustic oscillation data. *Reference:* N. Aghanim, Y. Akrami, M. Ashdown, J. Aumont and others (2020), *Planck 2018 results. VI. Cosmological parameters*, Astronomy & Astrophysics 641, A6, doi:10.1051/0004-6361/201833910
+
+## Teaching arc
+
+1. **Set the insider's rules** (entry). Put the learner in the ant's place and sort measurements into those made along the ground and those that need the outside. *Why:* The principle is a rule about which measurements count. *Uses:* `ways_in/a-world-you-cannot-leave`
+2. **Run the ring test** (entry). Have the learner predict the equator ring on a globe, then count it. *Why:* A surprise found with a tape measure alone shows that insiders can detect their world's shape. *Visual:* [[paced-ring-on-a-ball-and-a-plain]] *Uses:* `ways_in/surveyors-pace-out-a-ring`, `checks/ring-on-a-small-moon`
+3. **Curl the page** (entry). Curl a sheet with a drawn triangle and let the learner remeasure it. *Why:* The control separates what insiders measure from what only looks curved. *Predict:* After the sheet is curled, will the ant's measured triangle change? *Visual:* [[curl-a-page-with-a-triangle]] *Uses:* `ways_in/curl-the-page`, `checks/curled-triangle`
+4. **Compute from the distance rule** (working). Derive the ring length from the sphere's rule, then measure the Sun's curving of space the same way. *Why:* The rule, not the picture, carries the geometry, and gravity is tested this way. *Uses:* `ways_in/the-distance-rule-holds-it-all`, `problems/find-the-planet-radius`, `ways_in/rulers-and-rings-around-the-sun`
+
+## Misconceptions
+
+### “If space is curved, it has to be curved into some extra direction outside it.” · entry · `curving-needs-an-outside`
+
+- **Why it is tempting:** Every curved thing we have seen, like a ball or a bowl, is curved within the room around it.
+- **What is true:** Insiders find curving with measurements made within their world, like the ring test, and those need no extra direction. General relativity describes curved space and time without one.
+- **Exposed by:** `checks/curved-into-what`
+
+### “You can only find out the shape of your world by looking at it from outside.” · entry · `insiders-cannot-tell`
+
+- **Why it is tempting:** Photos of Earth from space make its shape seem like something only an outsider can see.
+- **What is true:** The ring test uses only a tape measure along the ground. On a ball the ring comes out shorter than on a flat plain for the same distance walked.
+- **Exposed by:** `checks/ring-on-a-small-moon`
+
+### “A sheet curled into a trough is curved for an ant living on it.” · entry · `looks-bent-so-curved`
+
+- **Why it is tempting:** Seen from outside, the sheet looks bent.
+- **What is true:** Curling without stretching changes no length or angle along the paper, so the ant measures the same triangle.
+- **Exposed by:** `checks/curled-triangle`
+
+### “In a funnel drawing of space around a star, the depth and the downhill slope show real features of space.” · working · `drawing-shows-real-features`
+
+- **Why it is tempting:** Distances along the drawn surface are right, so the rest of the picture seems right too.
+- **What is true:** Only distances along the drawn surface match space; the depth is added so that a slice of space can be drawn.
+- **Exposed by:** `checks/funnel-drawing`
+
+### “If two spaces agree in every small region, they are the same space.” · formal · `local-metric-fixes-shape`
+
+- **Why it is tempting:** The geometry is defined by the metric, and the metric is local.
+- **What is true:** Local isometry fixes only local geometry. A flat plane and a flat cylinder agree everywhere locally, yet on the cylinder a geodesic returns to its start.
+- **Exposed by:** `checks/plane-or-cylinder`
+
+## Checks
+
+1. **Entry · numeric** `checks/ring-on-a-small-moon`. Picture a small, smooth, round moon. Surveyors who can never leave its surface stand at one spot, the centre. They walk straight out from it for 1,000 kilometres, in many directions all around, and mark where they stop. They measure the ring of marks along the ground: 4,000 kilometres. How long would a ring of radius 1,000 kilometres be on a flat plain? What does the difference tell the surveyors?
+   - **Hints:** On a flat plain, how many times its radius is a ring?
+   - **Answer:** About 6,280 kilometres, because on a flat plain a ring is about 6.28 times its radius. The surveyors measured only 4,000 kilometres, so their ring is short by about 2,280 kilometres, more than a third. A flat plain never gives a short ring, so their world is not a flat plain. They found this with a tape measure along the ground, without leaving the moon.
+   - **Must contain:** A flat ring of radius 1,000 kilometres is about 6,280 kilometres; A short ring shows, without leaving, that the world is not a flat plain
+   - **Numeric:** ring length on a flat plain = 6283 km (magnitude, ±1%)
+   - **Targets:** `insiders-cannot-tell`
+   - **Visual:** [[paced-ring-on-a-ball-and-a-plain]]
+2. **Entry · predict** `checks/curled-triangle`. On a sheet of paper you draw a triangle with sides of 6, 8 and 10 centimetres, with a square corner between the two shorter sides. You curl the sheet into a trough, like half of a pipe. The 8 centimetre side bends around the curve of the trough, and the 6 centimetre side runs along the trough's length. Nothing is stretched, cut or taped. What does an ant living on the paper now measure for the 8 centimetre side and for the square corner? Why?
+   - **Hints:** Where does the ant's tape lie while she measures?
+   - **Answer:** She measures 8 centimetres and a square corner, as before, and the other two sides are 6 and 10 centimetres, as before. Her tape and protractor lie against the paper. Curling did not stretch or squash the paper anywhere, so no length or angle along the paper changed. Only someone outside the paper can see that the sheet now looks bent.
+   - **Must contain:** The ant measures the same lengths and the same square corner; Curling does not stretch or squash the paper
+   - **Numeric:** side measured by the ant = 8 cm (magnitude, ±0.1)
+   - **Targets:** `looks-bent-so-curved`
+   - **Visual:** [[curl-a-page-with-a-triangle]]
+3. **Entry · evaluate-claim** `checks/curved-into-what`. In a science video, someone says: "Einstein's theory of gravity says space is curved. So space must be curved into some extra direction we cannot see." Evaluate the claim, using the surveyors who pace out a ring.
+   - **Hints:** Did the surveyors' ring test ever need to leave the surface?
+   - **Answer:** The first part is right: the theory describes space and time as curved. The second part does not follow. The surveyors' ball does sit in a room, but their ring test never used the room. They found that their world is not a flat plain with only a tape measure along the ground. So their test works the same whether or not an outside direction exists. People inside space could run the same kind of test, laying out a ring with rulers and measuring it. General relativity describes the curving of space and time through measurements made from within, and it uses no extra direction.
+   - **Must contain:** Insider tests like the ring test use no extra direction; General relativity describes curved space and time without one
+   - **Targets:** `curving-needs-an-outside`
+4. **Working · evaluate-claim** `checks/funnel-drawing`. A poster shows the space around a star as a funnel-shaped surface, with a marble rolling toward the centre. The caption says: "The funnel's depth is how far the star pushes space into a fourth direction, and planets orbit because they roll downhill." Evaluate the caption.
+   - **Hints:** Which measurements could someone inside the slice actually make?
+   - **Answer:** In a funnel drawn to scale, only one feature is meaningful: distances measured along the funnel match ruler distances within one slice of space through the star's centre, at one moment. The depth is added so that this two-dimensional slice can be drawn in our three dimensions, and it stands for nothing in space. The drawn marble copies how a real marble rolls on a real funnel, and that marble rolls only because Earth's gravity pulls it down, so the picture uses gravity to explain gravity. And the slice shows only space, while slow planets are steered mainly by the warping of time, which the funnel leaves out.
+   - **Must contain:** Only distances along the surface are meaningful; the depth stands for nothing in space; The marble borrows Earth's gravity, and the warping of time is left out
+   - **Targets:** `drawing-shows-real-features`
+5. **Formal · explain** `checks/mean-curvature-under-bending`. Rolling a flat sheet into a cylinder is a local isometry. Which of these is intrinsic: the Gaussian curvature, the mean curvature, or the geodesic distance between two nearby points? Justify each with the isometry test.
+   - **Hints:** Compute each quantity on the plane and on the cylinder, and compare.
+   - **Answer:** The Gaussian curvature and the geodesic distance are intrinsic; the mean curvature is not. A local isometry preserves $g$, so it preserves lengths of curves, short geodesic distances and, by the theorema egregium, $K$: both surfaces have $K = 0$. The mean curvature is $0$ on the plane and $\tfrac{1}{2R}$ in magnitude on a cylinder of radius $R$, so it depends on the embedding.
+   - **Must contain:** K and geodesic distance are preserved by isometries; Mean curvature is zero on the plane but not on the cylinder
+6. **Formal · explain** `checks/plane-or-cylinder`. A flat plane and a flat cylinder are locally isometric. Can insiders, using only measurements within the surface, tell which one they live on? What does the answer say about local intrinsic data?
+   - **Hints:** Unroll the cylinder onto a strip with its two edges identified.
+   - **Answer:** Yes. On a cylinder of circumference $L$, a geodesic that sets off perpendicular to the cylinder's length runs around it and returns to its starting point, in its starting direction, after length $L$; a geodesic that sets off at any other angle is a helix that never returns, and no geodesic on the plane returns. This test is intrinsic but global. Local isometry fixes curvature and all local geometry, not topology or the global distance function.
+   - **Must contain:** Yes, by a geodesic around the cylinder that closes; Local intrinsic data do not fix global structure
+   - **Targets:** `local-metric-fixes-shape`
+
+## Visuals
+
+- ★ [[paced-ring-on-a-ball-and-a-plain]] (flagship): The ring test, with the outside view that can be hidden. *Sketch:* Walkers leave a centre on a ball, a plain or a curled sheet. A radius slider grows the ring; a notebook panel shows radius, ring length and their ratio. Hiding the outside view leaves only the notebook, which still tells ball from plain but not curled sheet from plain.
+- [[curl-a-page-with-a-triangle]] (core): Curling without stretching keeps every insider measurement. *Sketch:* A slider curls a sheet with a drawn triangle into a trough; the outside view is labelled 'looks bent'. Side and angle readouts along the paper stay fixed; a gap-through-the-air readout, marked outsider only, changes.
+
+## Tutor moves
+
+**Open with**
+
+- Imagine an ant living on a giant smooth ball, who can never leave its surface or look at it from outside. Could she find out that her world is not a flat plain? How? *(prediction)*
+
+**If the learner is stuck**
+
+- *The learner keeps describing a surface by how it sits in the room.* → Hide the outside view of the ring visual and ask what the notebook of measurements alone says. *Uses:* `ways_in/surveyors-pace-out-a-ring`
+
+**Common questions**
+
+- *Why does this matter for gravity?* (entry) General relativity, Einstein's theory of gravity, describes gravity as the curving of space and time. We live inside space and time, and nobody can step outside them to look. So their curving has to be found with measurements made from within, using rulers, clocks and light. In one such measurement, radio signals travelled between Earth and the Cassini spacecraft, on its way to Saturn, passing close to the Sun. Tracking stations on Earth measured how the Sun changed those signals. The result matched the theory's prediction for how much the Sun curves space, to within about two parts in a hundred thousand. *Uses:* `ways_in/a-world-you-cannot-leave`, `observations/cassini-measures-gamma`
+
+**Switching levels**
+
+- To working when: asks how to calculate a ring's length; is comfortable with integrals. Derive the ring length from the sphere's distance rule, then invert it for a planet's radius. *Uses:* `ways_in/the-distance-rule-holds-it-all`, `problems/find-the-planet-radius`
+- To formal when: asks what the same geometry means precisely; knows manifolds and metrics. Define isometries, classify intrinsic quantities, and separate local from global. *Uses:* `ways_in/what-isometries-cannot-change`, `checks/plane-or-cylinder`
+
+**Pronunciations:** Riemann → REE-mahn; Myers–Steenrod → MY-erz STEEN-rod; Koszul → KOH-shool; catenoid → KAT-uh-noyd; helicoid → HEL-ih-koyd; Cassini → kuh-SEE-nee; theorema egregium → thee-oh-RAY-muh eh-GRAY-gee-um
+
+## History
+
+- **Carl Friedrich Gauss (1827).** Studied surfaces through lengths measured on them, and proved that their curvature depends on those lengths alone. Carl Friedrich Gauss (1828), *Disquisitiones generales circa superficies curvas*, Commentationes Societatis Regiae Scientiarum Gottingensis Recentiores 6, 99–146
+- **Bernhard Riemann (1854).** Lecture of 1854, published 1868: geometry of any dimension from a distance rule, with no surrounding space. Bernhard Riemann (1868), *Über die Hypothesen, welche der Geometrie zu Grunde liegen*, Abhandlungen der Königlichen Gesellschaft der Wissenschaften zu Göttingen 13, 133–152
+- **Albert Einstein (1916).** Presented gravity as the intrinsic geometry of spacetime, described by its metric alone. Albert Einstein (1916), *Die Grundlage der allgemeinen Relativitätstheorie*, Annalen der Physik 49, 769–822, doi:10.1002/andp.19163540702
+
+## Review: novice
+
+**Verdict:** fixed (2026-09-13, revision 4)
+
+**Retell attempt:** An ant stuck on a ball can't look at it from outside, but she can measure distances along the ground and angles with a protractor. Everything she gets from those is the intrinsic geometry. Surveyors walk the same distance out in every direction and measure the ring: from the North Pole, 10,000 kilometres gets you to the equator, which is 40,000 kilometres around instead of 62,800, so they know their world isn't flat. I don't see why walking straight from the pole follows the lines on a globe, how you measure a ring that is just a bunch of separate marks, or why the ring comes out short. If you curl paper into a trough the ant measures the same triangle because nothing stretched, so curling doesn't count. Einstein says space and time are curved but not into an extra direction, and I don't really get what 'curve into' means or how you would do a ring test in space.
+
+**Stumbles (29)**
+
+- “A sheet of paper curled into a trough, though, gives an ant living on it exactly the same measurements”: 'Trough' is unexplained in the summary, and 'exactly' needs its condition: curling without stretching.
+- “Describing a space only through such measurements is the intrinsic viewpoint.”: The summary has only talked about a ball and a sheet, then says 'a space'; the reader wonders whether a space is a third thing.
+- “If the tape could follow several routes, she uses the shortest one.”: Reread: a tape does not choose routes, and the rule for distance is left implicit.
+- “She can also lay a protractor against the ground where two paths cross.”: First what-if: a protractor is flat and the ground is round, so how can it lie against the ground?
+- “She can lay a tape measure along the ground”: Two words, 'ground' and 'surface', for one thing, with no link between them.
+- “For her, the distance between the pebbles is half of the way around the ball.”: No everyday number anywhere in the way.
+- “So if space and time are curved, that curving must show up in measurements made from within”: 'Must show up' is stronger than true, and 'curved' is used without saying which sense, while the curled-sheet way uses it for the look from outside.
+- “It uses no extra direction for them to curve into.”: The idea of curving 'into' a direction was never met; the step from the ball in its room is missing. 'In exactly this way' has an unclear 'this'.
+- “Picture a team of surveyors on a giant smooth ball.”: 'Surveyor' may be unfamiliar, and 'smooth' does not mean round: a smooth egg is not a ball.
+- “Walking without ever steering left or right is called walking straight.”: A teenager objects at once that a path over a ball is not straight.
+- “The others walk straight out from her in every direction, each for the same distance. Each leaves a mark where she stops, and the marks form a ring. Then the team measures the ring along the ground.”: A rule the reader cannot follow: a team cannot walk in every direction, and separate marks are not a ring you can lay a tape along.
+- “The ring is a circle, so its length is about 6.28 times its radius, the distance walked.”: 6.28 appears without the link to the school formula.
+- “On the ball, the ring comes out shorter.”: Shorter than what?
+- “Walking straight from the North Pole to the equator takes about 10,000 kilometres, in any direction. So the ring for 10,000 kilometres is the equator”: Two steps taken on trust: why a straight walk from the pole follows a globe's lines, and why 10,000 kilometres.
+- “Why? The straight walks spread apart as they leave the centre, but on a ball the gaps between them grow more slowly than on a plain.”: The link between gaps and ring length is implicit, and 'grow more slowly' is a claim with nothing to check.
+- “Measure along the ball from the ring to the point farthest from it: about a quarter of the ring's length. Multiply that distance by 6.28.”: Try-it is hard to follow: two points are farthest from the chalk ring, the reader is not told that this point is the ring's centre, and no numbers are given.
+- “Seen from outside, the sheet now looks curved.”: One word in two senses: 'curved' names the look from outside here, but curving that insiders measure for space and time.
+- “She measures each corner angle with a protractor lying against the paper.”: First what-if on doing it: a plastic protractor cannot lie against a curled sheet.
+- “The same goes for the ring test, or any other measurement she makes along the paper.”: Step left implicit: why every other measurement is also unchanged.
+- “Curling keeps every ring's length, so no curling of flat paper can make a ball.”: Fails a what-if: paper crumpled around a ball does cover it. Nothing everyday backs the claim.
+- “Then measure the gap through the air between the trough's two edges with a ruler. It shrinks as you curl the sheet more.”: Which edges? And there is no starting value to compare with.
+- “Taping the edges into a tube changes no small piece, but then a straight walk around the tube returns to its start.”: 'Changes no small piece' is unclear, and 'its start' has an ambiguous 'its'.
+- “You curl the sheet into a trough, so that the 8 centimetre side follows the curl.”: Check with an ambiguous starting state: 'follows the curl' could mean around the curve or along the trough.
+- “Their test never used an extra direction, so it works the same whether or not one exists. Curving that shows up in such measurements needs nothing to curve into.”: Two missing links: the surveyors' ball does sit in a room, and the reader is not told how a ring test could work in space rather than on a surface.
+- “Cut a quarter out of a paper disc of radius 20 centimetres, like taking one slice of four ... An ant starts at the tip”: The cut is hard to picture, and the step that the disc's centre becomes the hat's tip is implicit.
+- “Cutting and taping, unlike curling, changes rings around the tip.”: The hat is also curled, so the reader cannot see which step changed the ring.
+- “Radio signals between Earth and a distant spacecraft passed close to the Sun and were measured this way.”: 'This way' suggests a ring test, which the radio measurement was not.
+- “Use the ring test, with a count, to show without leaving that a world is not a flat plain.”: 'Without leaving' dangles; reread.
+- “General relativity, Einstein's theory of gravity”: A technical name used in three entry fields with no glossary entry.
+
+**Fixes**
+
+- Summary: explained 'trough', added the no-stretching condition to 'exactly the same', and said 'a surface, or space itself'.
+- A world you can never leave: made the shortest-route rule explicit, tied 'ground' to 'surface', answered the flat-protractor what-if, added an everyday number (about 20,000 kilometres along the ground against about 12,700 through Earth's middle, checked with python), scoped 'curved' to curving that measurements can reveal, and added the ball curving into its room as the picture for 'an extra direction to curve into'.
+- Surveyors pace out a ring: glossed 'surveyor', said 'round' as well as smooth, answered the round-ground objection to 'straight', made the walk and ring measurement doable with many walkers and a tape through the marks, linked 6.28 to 2 times pi, backed the meridians being straight walks with mirror symmetry and the 10,000 kilometres with a quarter of Earth's circumference, and explained the short ring through the gaps between marks, checkable on a globe. The takeaway now says 'the distance walked' to match the explanation.
+- Rewrote the basketball try-it around a chalk centre and a 19 centimetre radius: python gives a ring of 74.98 centimetres against 119.4 centimetres on flat paper for a ball 75 centimetres around.
+- Curled-page way: 'looks bent' for the outside view throughout the entry fields, a paper protractor, the explicit step from lengths and angles to every measurement, the no-curling claim scoped to a small patch and backed by orange peel, a try-it with named long edges and a starting gap, and a clearer tube warning in simplifies.
+- Checks and problems: the small-moon check walks in many directions all around; the curled-triangle check fixes which side bends; the curved-into-what answer adds the room and a ring test in space; the party-hat problem uses pizza slices, names the tip, and blames the removed slice rather than the taping.
+- Tutor fields: the insiders-cannot-tell correction says 'for the same distance walked'; the gravity common question names Cassini and says what the tracking stations measured.
+- Glossary: added general relativity; the ring-test definition says 'many directions all around'. Objective use-the-ring-test reworded.
+- Ladder: the sphere derivation in 'The distance rule holds the whole geometry' now says a straight walk from the pole follows a meridian by mirror symmetry; 'Rings and rulers around the Sun' now states which rings it compares as (C2 - C1)/2 pi = the solar radius, replacing '695,700 km apart by their circumferences', and glosses the parametrized post-Newtonian framework. Every non-entry way's first sentence already names the way it continues, and the six ways use five different kinds.
+- Dropped, to stay within the 10% review allowance on entry explanations: the sentence that the straight walks from the North Pole draw back together past the equator and meet at the opposite point.
+- Bumped the revision to 2.
+
+**Concerns**
+
+- Entry way explanations are now 1,099 words, at the 1,100 review ceiling for a foundation note; tutoring and way extras are also above 80% of their caps. Any further entry addition needs a cut.
+- The physics reviewer should confirm the new entry numbers and claims: the basketball ring (19 centimetres on a ball 75 centimetres around gives about 75 centimetres), the 20,000 against 12,700 kilometre Earth comparison, 'less than half the width of a typical hair' for 0.026 millimetres, and that no unstretched curling of paper fits a small patch of a ball.
+- The dropped gap-through-the-air part of the curled-triangle check would give a good everyday number (a half pipe from the 8 centimetre side leaves its ends about 5.1 centimetres apart through the air); it was not restored because tutoring is near its cap.
+- No entry notes exist yet for the prerequisites manifold and metric-tensor, so the persona could not check the glossary against their entry rungs.
+- The proposed visuals still need catalog entries; the curl-a-page-with-a-triangle sketch should label the outside view 'looks bent', matching the note.
+
+**Re-read** (2026-09-13, revision 4): 1 stumbles in 2 changed passages
+
+- “The drawn marble would roll only because Earth's gravity pulls a real marble down a real funnel, which uses gravity to explain gravity.”: 'Would roll only because' reads at first as a condition, and 'which' could point back to the funnel instead of to the whole explanation, so the reader rereads to find what uses gravity to explain gravity.
+- Fix: Funnel-drawing check answer: split the marble sentence so the real marble is named first and 'the picture' is the thing that uses gravity to explain gravity; the claim is unchanged.
+- Fix: The looks-bent-so-curved why_tempting change reads cleanly against the belief and correction; no edit.
+- Fix: Bumped the revision to 4.
+
+## Review: physics
+
+**Verdict:** fixed (2026-09-13, revision 5)
+
+**Verification**
+
+- Earth's opposite points: about 20,000 km along the ground against about 12,700 km through the middle.: python with a = 6371 km: pi a and 2a. → 20,015 km and 12,742 km. Correct.
+- Meridians from the North Pole are straight walks by mirror symmetry; the 10,000 km ring is the equator, 40,000 km against 62,800 km flat, short by more than a third.: Reflection through the plane containing a great circle maps the sphere to itself; python ratio. → Symmetry argument correct. 1 - 2/pi = 0.363, more than a third. Correct.
+- On a ball the ring is always shorter than 6.28 times the distance walked (takeaway).: C = 2 pi a |sin(rho/a)| < 2 pi rho for every rho > 0, including walks past the opposite point. → True for all distances; at rho = pi a the ring shrinks to a point. Correct.
+- A 1 km ring on Earth is short by about 0.026 mm, less than half the width of a typical hair.: python, exact and series: 2 pi rho - 2 pi a sin(rho/a); typical hair diameter about 50 to 100 micrometres. → 0.0258 mm, exact and series agree. 26 micrometres is less than half of a typical 60 to 100 micrometre hair. Correct.
+- Basketball try-it: ball 75 cm around, marks 19 cm from the dot, ring close to 75 cm against 119 cm flat, short by more than a third.: python: a = 75/2 pi = 11.94 cm, rho/a = 91.2 degrees, C = 75 sin(19/a); size-7 ball is about 74.9 cm around. → Ring 74.98 cm, flat 119.4 cm, shortfall 37%. Near a great circle C is insensitive to small errors in the 19 cm. Correct.
+- Flat paper cannot be curled to fit snugly over even a small patch of a ball without stretching; orange peel tears or stretches when pressed flat.: Theorema egregium: bending without stretching preserves K and small-ring lengths; the ball has K > 0 on every patch. → Correct, including the entry chain through ring lengths. Crumpling with creases is also length-preserving and does not escape the argument.
+- Curling keeps every side and angle of the drawn triangle; printer paper is about 21 cm across.: Worked example isometry; A4 is 21.0 cm and US letter 21.6 cm across. → Correct.
+- Tube simplifies: a straight walk around the tube returns to its start, which a straight walk on a flat sheet never does.: Geodesics on a flat cylinder versus the plane. → Correct for the walk around the tube; scoped to that walk.
+- Small-moon check: ring 4,000 km at 1,000 km; flat value 6,283 km, short by about 2,280 km.: python; solved 2 pi a sin(1000/a) = 4000. → Flat 6,283 km, shortfall 2,283 km (36%). The data describe a moon of radius 637 km whose ring is its equator, so the scenario is consistent. Numeric 6283 with rel_tol 0.01 correct.
+- Party hat: 47.1 cm on the hat, 62.8 cm flat.: python: 0.75 x 2 pi x 10. → 47.12 and 62.83 cm. Numeric correct.
+- Sphere distance rule, C(rho) = 2 pi a sin(rho/a) and its series, equator ratio 2/pi.: Hand derivation from ds^2 = a^2(dtheta^2 + sin^2 theta dphi^2); python. → Every derivation step correct.
+- Earth ring of ground radius 1000 km measures 6257.4 km, 25.8 km short.: python with a = 6371 km. → 6257.42 km, 25.77 km short. Correct.
+- Inverse relation a^2 = rho^2/[6(1 - C/2 pi rho)].: Invert the series to leading order. → Correct.
+- Planet-radius problem: approximation 1001 km, exact 1000.2 km, 0.1% apart.: python bisection on 2 pi a sin(200/a) = 1248.28. → Fraction 0.006650, estimate 1001.2 km, exact 1000.23 km. Correct; numeric 1000 km at rel_tol 0.01 correct.
+- Half-pipe worked example: induced rule dx^2 + dy^2; edges pi R along the sheet and 2R through the air; 5.1 cm for pi R = 8 cm.: Hand differentiation; endpoint coordinates; python 16/pi. → 5.093 cm. Correct.
+- Weak-field spatial rule dl^2 = (1 + 2GM/rc^2)(dx^2 + dy^2 + dz^2) in isotropic coordinates.: Compared with the conventions weak static field row, g_ij = (1 - 2 Phi/c^2) delta_ij with Phi = -GM/r. → Consistent with course conventions and sign. Correct.
+- Ring circumference 2 pi r + 2 pi GM/c^2 and radial ruler (r2 - r1) + (GM/c^2) ln(r2/r1); extra 1.02 km between rings of circumference 2 pi R_sun and 4 pi R_sun.: Hand integration to first order; python with GM_sun = 1.32712e20 m^3/s^2, including the shift of coordinate radii by GM/c^2. → GM/c^2 = 1.4766 km; extra 1.0235 km, unchanged at this precision when coordinate radii are shifted. Rings lie outside the Sun, where the vacuum rule holds. Correct.
+- PPN: the factor 2 becomes 2 gamma, and Cassini found gamma - 1 = (2.1 +/- 2.3) x 10^-5, agreement to about two parts in 10^5.: Checked the PPN row of the conventions and the published abstract. → Correct. The Doppler measurement is sensitive to (1 + gamma), with the 1 fixed by the Newtonian limit, so it measures the spatial part; the entry common question's 'two parts in a hundred thousand' is the quoted uncertainty.
+- Planck 2018: Omega_K = 0.001 +/- 0.002 with CMB and BAO; positive Omega_K means negative spatial curvature.: Published value 0.0007 +/- 0.0019 (TT,TE,EE+lowE+lensing+BAO); Omega_K = -k c^2/(a H)^2. → Correct after rounding; sign statement correct.
+- Funnel check: distances along the funnel match ruler distances in an equatorial slice at one moment; slow planets are steered mainly by the warping of time.: Flamm embedding of the Schwarzschild t = const equatorial slice; Newtonian limit from g_00. → Correct for a funnel drawn to scale; the wording now says so. The marble sentence said the marble rolls down 'the poster's surface', which is flat; rewritten.
+- Curvature from small rings K = lim 3(2 pi rho - C)/(pi rho^3).: Series C = 2 pi rho(1 - K rho^2/6); python on the unit sphere at rho = 0.01. → Estimate 0.999995. Correct, positive on a sphere as in the conventions.
+- Formal claims: Koszul formula, isometries preserve geodesics, transport and Riemann; Myers-Steenrod; Nash; pseudo-Riemannian embedding into flat space of suitable signature; Hilbert's theorem for smooth immersions of the complete hyperbolic plane.: Checked statements against the standard theorems (Myers-Steenrod 1939, Nash 1956, Clarke 1970, Hilbert 1901). → Correct as stated. Hilbert's theorem is scoped to smooth immersions, which matters because C^1 isometric embeddings exist by Nash-Kuiper.
+- Length formula L = integral of sqrt(g(gamma-dot, gamma-dot)).: Sign check in signature (-,+,+,+). → Imaginary for timelike curves in the Lorentzian case the sentence includes; changed to the absolute value.
+- Mean curvatures 0 and 1/2R for plane and cylinder.: Principal curvatures of a cylinder are 1/R and 0. → 1/2R holds only with H the average of the principal curvatures; the formal way now defines H that way. The conventions file fixes no H.
+- Catenoid and helicoid both induce cosh^2 u (du^2 + dv^2); the waist is a closed non-shrinkable geodesic of length 2 pi, and the helicoid has no closed geodesic.: Hand computation of partials; geodesic condition lambda'(u0) = 0 for conformal metrics; helicoid has K = -1/cosh^4 u < 0 and is simply connected, so Cartan-Hadamard excludes closed geodesics. → Correct.
+- Plane, cylinder and torus separated globally: no closed geodesics, closed geodesics in one direction, finite area.: Geodesics of flat quotients of the plane. → Correct.
+- References: Bertotti, Iess, Tortora 2003; Planck 2018 VI; Gauss 1828; Riemann 1868; Einstein 1916.: Web search of Nature, ADS, A&A, EUDML, Wiley and library records. → All confirmed. Added DOIs 10.1038/nature01997, 10.1051/0004-6361/201833910 and 10.1002/andp.19163540702; corrected Riemann's pages to 133-152. Gauss read the work to the Göttingen society on 8 October 1827 and published it in volume 6 (1828), pages 99-146.
+- History scope: Gauss proved curvature depends on lengths alone; Riemann's 1854 lecture built geometry of any dimension from a distance rule; Einstein 1916 presented gravity as spacetime geometry described by its metric.: Checked against the works. → Correct in scope; the 1916 paper is the first comprehensive presentation, after the November 1915 field-equation papers.
+- Prerequisites and assumes: manifold (formal) and metric-tensor (working) match the registry, are direct, and create no cycle; assumes lists respect needed_for.: Registry lookup; theorema-egregium lists intrinsic-geometry as a prerequisite, not the reverse. → Consistent.
+- Second independent pass: Earth's antipodal pebbles, about 20,000 km along the ground against about 12,700 km through the middle.: python with a = 6371 km: pi a and 2 a. → 20,015 km and 12,742 km. Both entry figures correct.
+- Equator ring: a 10,000 km straight walk from the North Pole reaches the equator, 40,000 km round against about 62,800 km on a flat plain, short by more than a third.: python: quarter meridian pi a / 2; 2 pi a; 2 pi times 10,000; shortfall fraction. → 10,008 km, 40,030 km, 62,832 km, shortfall 36.29 percent. All four entry numbers correct, and 'more than a third' holds.
+- The gap argument: meridians fan out near the pole and run side by side at the equator, so gaps grow more slowly than on a plain and the ring is short.: Gap between two meridians a ground distance rho from the pole is a sin(rho/a) d phi; its rate of growth in rho is cos(rho/a), equal to 1 at the pole and 0 at the equator; a sin(rho/a) < rho for every rho > 0. → Correct, including the 'side by side' wording at the equator, where the gap is stationary. The chain from gaps to a short ring holds at every distance walked.
+- A 1 km ring on Earth is short by about 0.026 mm, less than half the width of a typical hair.: python, exact 2 pi rho - 2 pi a sin(rho/a) and the series pi rho^3 / (3 a^2), a = 6371 km. → 0.02580 mm both ways. Correct for a typical 60 to 100 micrometre hair; marginal only against the thinnest human hair, about 50 micrometres.
+- Basketball try-it: a ball 75 cm around, marks 19 cm from the dot, ring close to 75 cm against about 119 cm on flat paper, short by more than a third.: python: a = 75 / 2 pi = 11.937 cm, rho/a = 91.2 degrees, C = 2 pi a sin(rho/a); checked rho against pi a. → Ring 74.98 cm, flat 119.38 cm, shortfall 37.2 percent. rho = 19 cm is well below pi a = 37.5 cm, so the marks still form one circle. Correct.
+- Ring takeaway: on a ball the ring is always shorter than 6.28 times the distance walked.: C = 2 pi a |sin(rho/a)| against 2 pi rho, split at rho = a: for rho <= a use sin x < x, for rho > a use C <= 2 pi a < 2 pi rho. → True for every distance walked, including walks past the far pole and rho = pi a, where the ring shrinks to a point. The universal survives.
+- Small-moon check: 4,000 km ring at 1,000 km walked; flat value about 6,280 km; the scenario is self-consistent.: python: 2 pi times 1000; bisection on 2 pi a sin(1000/a) = 4000. → Flat 6,283.2 km, shortfall 2,283.2 km (36.3 percent). a = 636.62 km, whose circumference is exactly 4,000 km and whose quarter is exactly 1,000 km, so the ring is the moon's equator. Numeric 6283 km at 1 percent correct.
+- Party hat: 47.1 cm on the hat against 62.8 cm on the flat disc.: python 0.75 x 2 pi x 10 and 2 pi x 10; checked that straight walks from a cone tip are the rulings, so the ring at 10 cm is three quarters of the flat ring. → 47.124 cm and 62.832 cm. Numeric 47.12 cm at 2 percent correct.
+- Sphere ring formula and series, and the equator ratio 2/pi.: Re-derived by hand from ds^2 = a^2 (dtheta^2 + sin^2 theta dphi^2), step by step; python for the numbers. → C = 2 pi a sin(rho/a) = 2 pi rho (1 - rho^2 / 6 a^2 + ...); at rho = pi a / 2 the ratio is 2/pi = 0.6366. Every derivation step correct.
+- Earth ring of ground radius 1000 km measures 6257.4 km, 25.8 km short; and the inverse a^2 = rho^2 / [6 (1 - C / 2 pi rho)].: python; inversion of the series to leading order. → 6257.42 km and 25.77 km short of 6283.19 km. Inverse correct to leading order.
+- Planet-radius problem: about 1001 km from the small-ring formula, about 1000 km exactly, the estimate 0.1 percent high.: python: 1 - C / 2 pi rho, then rho / sqrt(6 x that); bisection on 2 pi a sin(200/a) = 1248.28. → Fraction 0.0066503, estimate 1001.23 km, exact 1000.227 km, ratio 1.0010. All three claims correct; numeric 1000 km at 1 percent correct.
+- Half-pipe worked example: induced rule dx^2 + dy^2, edges pi R apart along the sheet and 2R through the air, 5.1 cm for pi R = 8 cm.: Hand differentiation of X = R sin(x/R), Z = R (1 - cos(x/R)); endpoint coordinates at x = 0 and x = pi R; python 16/pi. → (cos^2 + sin^2)(x/R) dx^2 + dy^2 = dx^2 + dy^2; endpoints (0, y, 0) and (0, y, 2R); 5.093 cm. Correct.
+- Weak-field spatial rule dl^2 = (1 + 2GM/rc^2)(dx^2 + dy^2 + dz^2), and the PPN replacement of 2 by 2 gamma.: Compared with the conventions rows: weak static field g_ij = (1 - 2 Phi / c^2) delta_ij with Phi = -GM/r, and post-Newtonian g_ij = (1 + 2 gamma M / r) delta_ij with gamma = 1 in general relativity. → Identical, with the right sign. The note uses gamma only for the PPN parameter, so the conventions' gamma_PPN rule is not triggered.
+- Rings and rulers around the Sun: C = 2 pi r + 2 pi GM/c^2, (C2 - C1)/2 pi = r2 - r1, ruler (r2 - r1) + (GM/c^2) ln(r2/r1), extra 1.02 km for GM/c^2 = 1.477 km and rings of circumference 2 pi R_sun and 4 pi R_sun.: Hand integration to first order in GM/rc^2; python with GM_sun = 1.32712440018e20 m^3/s^2 and R_sun = 695,700 km, carrying the shift of the coordinate radii by GM/c^2. → GM/c^2 = 1.47663 km; r2 - r1 = R_sun exactly; ln(r2/r1) = 0.693148, which differs from ln 2 by 2 parts in a million; extra 1.0235 km. Correct to the quoted precision.
+- Cassini and Planck numbers.: Read the published abstract and record for each. → Nature 2003 gives gamma = 1 + (2.1 +/- 2.3) x 10^-5, matching the observation and the entry common question's 'two parts in a hundred thousand', which is the quoted uncertainty. Planck 2018 VI gives Omega_K = 0.0007 +/- 0.0019 with CMB plus BAO, matching 0.001 +/- 0.002 after rounding; positive Omega_K means negatively curved space, as stated.
+- Curvature from small rings, K = lim 3 (2 pi rho - C) / (pi rho^3).: From C = 2 pi rho (1 - K rho^2 / 6 + ...), the numerator is pi K rho^3 / 3 at leading order; python on the unit sphere at rho = 0.01. → Estimate 0.999995. The constant 3/pi is right and K is positive on a sphere, as the conventions require.
+- Mean curvature of a cylinder of radius R, quoted as 1/2R in magnitude.: Principal curvatures 1/R and 0, averaged as the formal way defines H. → The value 1/(2R) is right, but the LaTeX '$1/2R$' reads as half of R. Rewritten as a fraction in both places.
+- Closed geodesics on a flat cylinder: the check said a geodesic that sets off around it returns to its starting point after length L.: Lifted the cylinder to the plane: a straight line closes only when its component along the cylinder's length vanishes; at any other angle the geodesic is a helix that comes back to the same circle displaced along the length. → The claim is a universal missing its hypothesis and is false for helical geodesics. Scoped in the answer, matching the formal way's 'closed geodesics in only one direction'.
+- Catenoid and helicoid both induce cosh^2 u (du^2 + dv^2); the catenoid waist is a closed geodesic of length 2 pi and the helicoid has none.: Hand computation of the partial derivatives and their dot products; for a conformal metric lambda(u)(du^2 + dv^2) the curve u = u0 is a geodesic exactly when lambda'(u0) = 0; lambda' = 2 cosh u sinh u. → Both give |d_u|^2 = |d_v|^2 = cosh^2 u with zero dot product; u = 0 is a geodesic on both with length element dv; the catenoid's periodic v closes it at 2 pi, the helicoid's real v never does. Correct.
+- Formal theorems as stated: Koszul, isometries carrying geodesics, transport and Riemann, Myers-Steenrod, Nash, pseudo-Riemannian embedding, Hilbert, and the Lorentzian length integrand.: Checked each statement's hypotheses: Myers-Steenrod needs a distance-preserving bijection of connected manifolds, which the text has; Hilbert is scoped to smooth immersions, which matters because Nash-Kuiper gives C^1 ones; the length integrand takes an absolute value, which the signature (-,+,+,+) row requires for timelike curves. → All correct as written, with their hypotheses present.
+- References, checked again independently of the first pass.: Searched the EUDML, journal and bookseller records. → Riemann 1868, Abhandlungen der Koeniglichen Gesellschaft der Wissenschaften zu Goettingen 13, 133-152, confirmed. Gauss read the work on 8 October 1827 and it appeared in Commentationes 6 (1828), 99-146, confirmed, so the history year 1827 and the work year 1828 are both right. Bertotti, Iess and Tortora 2003, Nature 425, 374-376, doi 10.1038/nature01997, confirmed. Planck 2018 VI, A&A 641, A6, doi and arXiv id confirmed. Einstein 1916, Annalen der Physik 49, 769-822, doi 10.1002/andp.19163540702, confirmed. Every verified flag stands.
+- Structure: prerequisites, assumes, rungs, kinds and counts.: Registry lookup for manifold and metric-tensor; checked that theorema-egregium and intrinsic-versus-extrinsic-curvature list this note rather than the reverse; counted ways, kinds, checks and problems against the foundation tier. → Prerequisites are direct and acyclic; each way's assumes is a prerequisite with needed_for at or below the way's rung; six ways across five kinds with none used more than twice; two formal checks and one formal problem; three problems across three rungs. Consistent.
+
+**Counterexamples tried**
+
+- Paper cone (party hat): a ring around the tip is short though no paper was stretched. The entry claims survive because they concern curling alone, and the problem blames the removed slice.
+- Bent but flat surface (curled sheet, tube): keeps every small-ring length; the tube is caught only by a global walk, which simplifies and the formal way state.
+- Great circle and walks past the opposite point: ring length 2 pi a |sin(rho/a)| stays below 2 pi rho for every distance, so 'always shorter' in the ring takeaway holds, including rings bigger than half the ball.
+- Region bigger than half a closed surface: the basketball ring at 91 degrees is past the great circle and is still short; no entry sentence says 'inside the ring'.
+- Möbius band: flat and locally isometric to the plane, so no ring test detects it; nothing in the note claims local tests detect topology, and the formal way says local isometry does not fix global structure.
+- Hole or crease: crumpling or creasing paper is still length-preserving, so it cannot fit a ball patch either; 'without stretching' covers it.
+- Different slicing: space around the Sun is exactly flat in Painlevé-Gullstrand slicing, and flat FLRW has flat space. The Sun way specifies rulers at rest relative to the Sun, the funnel check says one slice at one moment, and the entry sentences speak of space and time together, so no statement fails.
+- Non-static and strong field: the Sun rule is scoped to first order, static and spherical; the Flamm funnel is exact but used only qualitatively.
+- Lorentzian length: the formal length formula failed for timelike curves; fixed with an absolute value.
+- Helix on a flat cylinder (second pass): a geodesic that sets off around the cylinder at any angle other than perpendicular to its length never returns to its starting point, so the plane-or-cylinder answer's 'a geodesic that sets off around it returns' was false as a universal. Fixed by naming the direction.
+- Flat torus: locally isometric to the plane and carrying closed geodesics in infinitely many directions, so closed geodesics alone do not separate it from the cylinder. The formal way separates it by finite total area instead, which is the right invariant, so the sentence survives.
+- Figure-eight and other non-simple loops: no claim in the note depends on a loop being simple, because every test here uses a geodesic circle about a centre rather than an enclosed region.
+- Weak-field and flat limits: GM/rc^2 to zero returns the flat rule and C = 2 pi r, and a to infinity returns C = 2 pi rho, so both the Sun rule and the sphere rule reduce correctly.
+- Massless probe: the Cassini observation uses light, where the measured combination is (1 + gamma)/2; the observation's wording ties gamma to the spatial part of the rule with the Newtonian 1 fixed, which is correct, so no rewording is needed.
+
+**Fixes**
+
+- Formal way: length integrand now uses |g(gamma-dot, gamma-dot)| since the sentence covers Lorentzian metrics; mean curvature H is defined as the average of the principal curvatures, which the plane-cylinder values 0 and 1/2R require.
+- Funnel check (working): 'In a funnel drawn to scale, only one feature is meaningful'; the marble sentence no longer says it rolls down the poster's surface, and says a real marble on a real funnel is pulled by Earth's gravity.
+- Misconception looks-bent-so-curved: why_tempting says 'looks bent', matching the entry vocabulary.
+- Visual sketch curl-a-page-with-a-triangle: outside view labelled 'looks bent'.
+- References: all five verified; added three DOIs; corrected Riemann's page range to 133-152.
+- Revision bumped to 3 for the learner-visible funnel-check change.
+- Second pass, checks/plane-or-cylinder (formal): the closed-geodesic sentence was a universal without its hypothesis. It now reads that a geodesic setting off perpendicular to the cylinder's length runs around it and returns after length L, while a geodesic at any other angle is a helix that never returns. This matches the formal way's 'closed geodesics in only one direction'.
+- Second pass, formal way what-isometries-cannot-change and checks/mean-curvature-under-bending: the cylinder's mean curvature was written $1/2R$, which reads as half of R. Both now write the fraction one over two R. The value, the average of the principal curvatures 1/R and 0, is unchanged.
+- Second pass: revision bumped to 5 for the three changed formal-rung strings. note_diff at the entry and working rungs lists no change, so the entry persona has nothing to re-read.
+
+**Concerns**
+
+- Course conventions fix no symbol for the spatial line element (the note uses dl^2 for the Sun rule and ds^2 on surfaces) and no definition or sign for the mean curvature H; the note now says 'the average of the principal curvatures' and quotes magnitudes. Both should be added to the conventions file.
+- Entry explanations stand at 1,099 words, at the 1,100 review ceiling; this review added no entry words.
+- The half-pipe gap number (5.1 cm through the air for the 8 cm side) is verified and could return to the curled-triangle check if tutoring budget allows.
+- No notes yet for the prerequisites manifold and metric-tensor; both proposed visuals still lack catalog entries.
+- A novice re-read for revision 3 covers exactly two changed strings: the funnel-drawing check answer (working) and the looks-bent-so-curved why_tempting (entry, spoken).
+- This record is a second, independent physics pass appended to the first. The stage dispatch was stale: the note was already physics-reviewed at revision 4 with a closed novice loop, so nothing was overwritten. The orchestrator should re-check its bookkeeping for this domain.
+- The three fixes are formal-rung only, so review.novice.reviewed_revision stays at 4 while the note is at revision 5. An editor should sign the novice stage forward to revision 5 before publishing, or the loop rule should state that a formal-rung change owes no novice re-read.
+- 'Less than half the width of a typical hair' for 0.0258 mm holds for a typical 60 to 100 micrometre hair but fails against the thinnest human hair, about 50 micrometres. Left as written because entry explanations are at their review ceiling; 'about a third of the width of a typical hair' would be safer if entry words ever free up.
+- In 'Rings and rulers around the Sun' the inner ring, of circumference 2 pi R_sun, sits at coordinate radius R_sun minus 1.48 km, two parts in a million inside the nominal solar radius, so the vacuum rule is used right at the surface. Harmless at the quoted precision, but worth a word if the example is ever tightened.
+
+**Diff check** (2026-09-13, revision 4)
+
+- Funnel-drawing answer (working), reworded: 'The drawn marble copies how a real marble rolls on a real funnel, and that marble rolls only because Earth's gravity pulls it down, so the picture uses gravity to explain gravity.': Compared with the revision-3 sentence claim by claim, read in the context of the question (a marble rolling toward the centre, planets 'roll downhill'), and tried what-ifs: a marble pushed sideways on a funnel with no gravity; which object 'uses gravity to explain gravity'; consistency with the depth sentence and the time-warping sentence that follow. → Same claim as before, now with clearer reference. In the question's scope, rolling toward the centre or downhill, a real marble does so only because gravity pulls it down the slope; with no gravity a pushed marble would only coast along the surface and not fall inward. The subject that uses gravity to explain gravity is now 'the picture', which is the correct target. Consistent with the rest of the answer and its key points. No change needed.

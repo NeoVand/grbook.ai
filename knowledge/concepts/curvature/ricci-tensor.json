@@ -1,622 +1,1852 @@
 {
-	"id": "ricci-tensor",
-	"title": "Ricci tensor",
-	"domain": "curvature",
-	"tier": "core",
-	"aliases": ["R_ab", "R_{mu nu}", "Ric", "Ricci curvature", "volume-changing part of curvature", "trace-free Ricci tensor"],
-	"summary": "The Ricci tensor is what remains when you trace the Riemann tensor over its upper index and its third slot: a symmetric two-index tensor that carries ten of the twenty independent curvature numbers in four dimensions. Physically it is the part of curvature that makes a small ball of freely falling particles begin to shrink or swell, and Einstein's equation ties it directly to the matter at that point. Where it vanishes, as in the empty space around a star, curvature can still stretch and squeeze things without changing their volume.",
-	"levels": {
-		"intuition": {
-			"explanation": "Imagine letting go of a small, round puff of dust inside a spacecraft that is falling freely. Gravity's unevenness, the tides, can do two different things to the puff: it can change its shape, pulling it into an egg, and it can change its volume, making it shrink or swell. The Ricci tensor is the part of curvature that keeps track of volume. Near Earth but outside it, the puff is stretched along the line to Earth's centre and squeezed in the two sideways directions, and the stretch and the squeezes cancel so the volume stays the same: there the Ricci tensor is zero even though gravity is plainly at work. Inside matter, say a puff released in a tunnel through a planet, every direction is squeezed and the volume shrinks; that shrinking is the Ricci tensor, and more matter means faster shrinking. This picture is honest only for a tiny puff that starts at rest and only for the first moments; later, a puff that is being stretched can lose volume too, and exotic ingredients such as dark energy can make a puff swell.",
-			"picture": "A small round dust puff in free fall: outside a planet it becomes an egg of the same volume; inside matter it shrinks evenly in all directions.",
-			"assumes": ["tidal-force", "curvature", "freely-falling-frame"]
-		},
-		"working": {
-			"explanation": "Start from the Riemann tensor R^rho_{sigma mu nu} and set the upper index equal to the third slot, summing: R_{mu nu} = R^rho_{mu rho nu}. The result is symmetric, R_{mu nu} = R_{nu mu}, so in four dimensions it has 10 independent components. You do not get anything new by tracing other slots: the first two indices of R_{rho sigma mu nu} are antisymmetric, so tracing them gives zero, and tracing the upper index with the fourth slot gives minus Ricci. Its meaning comes from geodesic deviation. For an observer with four-velocity u, nearby free particles separate as D^2 xi^mu/d tau^2 = -E^mu_rho xi^rho with tidal tensor E^mu_rho = R^mu_{nu rho sigma} u^nu u^sigma. Tracing the tidal tensor gives E^mu_mu = R_{nu sigma} u^nu u^sigma, and because a volume is a product of three edge lengths, a small ball released at rest has d^2(delta V)/d tau^2 = -R_{mu nu} u^mu u^nu delta V at the moment of release. In the Newtonian limit R_00 is approximately the Laplacian of the potential, nabla^2 Phi = 4 pi G rho, which is Poisson's equation in disguise. Einstein's equation can be written R_{mu nu} = 8 pi G (T_{mu nu} - (1/2) T g_{mu nu}) + Lambda g_{mu nu}, so for a perfect fluid at rest R_{mu nu} u^mu u^nu = 4 pi G (rho + 3p) - Lambda. In vacuum with Lambda = 0, R_{mu nu} = 0, but the Riemann tensor need not vanish; the leftover shape-changing curvature is the Weyl tensor. A quick check: a sphere of radius a has R_{mu nu} = g_{mu nu}/a^2.",
-			"picture": "A 3x3 tidal matrix acting on a small ball: its diagonal entries stretch or squeeze each axis, and their sum (the Ricci trace) sets how fast the volume starts to change.",
-			"assumes": ["riemann-curvature-tensor", "tensor-contraction", "symmetries-of-the-riemann-tensor", "geodesic-deviation-equation", "relativistic-tidal-tensor"]
-		},
-		"formal": {
-			"explanation": "On a manifold with a torsion-free, metric-compatible connection, the Ricci tensor is the (0,2) tensor Ric(Y, X) = tr(Z -> R(Z, X) Y), with R(X, Y)Z = nabla_X nabla_Y Z - nabla_Y nabla_X Z - nabla_[X,Y] Z; in components R_{mu nu} = R^rho_{mu rho nu} = g^{rho lambda} R_{lambda mu rho nu} (course convention, signature (-,+,+,+)). Pair symmetry R_{rho sigma mu nu} = R_{mu nu rho sigma} makes it symmetric; for a general affine connection with torsion or non-metricity it need not be. Every other single contraction of Riemann vanishes or equals plus or minus R_{mu nu}. In n dimensions Ricci has n(n+1)/2 components, Riemann n^2(n^2-1)/12. For n = 2, R_{mu nu} = (R/2) g_{mu nu} and Ricci determines Riemann; for n = 3 Riemann is fixed entirely by Ricci and the metric; for n = 4 the 20 Riemann components split into 10 Ricci and 10 Weyl components, with Riemann = Weyl + terms linear in R_{mu nu}, R and g. The trace-free part S_{mu nu} = R_{mu nu} - (1/n) R g_{mu nu} is distinct from the trace-reversed Einstein tensor G_{mu nu} = R_{mu nu} - (1/2) R g_{mu nu}. The contracted Bianchi identity gives nabla^mu R_{mu nu} = (1/2) nabla_nu R, so Ricci is not divergence-free unless R is constant. Physically, for a timelike geodesic congruence the Raychaudhuri equation d theta/d tau = -theta^2/3 - sigma_{ab} sigma^{ab} + omega_{ab} omega^{ab} - R_{mu nu} u^mu u^nu shows Ricci as the curvature source of focusing; the null version uses R_{mu nu} k^mu k^nu, for which S and R_{mu nu} agree. Via Einstein's equation, R_{mu nu} is algebraically determined by T_{mu nu} and Lambda at each event, so it carries the local, matter-sourced part of curvature, while the Weyl part is governed by differential equations and propagates. Linearized about flat space with g = eta + h, R_{mu nu} = (1/2)(d_alpha d_mu h^alpha_nu + d_alpha d_nu h^alpha_mu - Box h_{mu nu} - d_mu d_nu h). In harmonic coordinates the second-derivative part of the full Ricci tensor is -(1/2) g^{alpha beta} d_alpha d_beta g_{mu nu}, so the vacuum equations R_{mu nu} = 0 become a system of wave equations for the metric components.",
-			"picture": "Riemann as a 20-slot curvature budget split into two ledgers: a 10-entry Ricci ledger settled locally by matter, and a 10-entry Weyl ledger that can carry tides and waves through empty space.",
-			"assumes": ["riemann-curvature-operator", "symmetries-of-the-riemann-tensor", "number-of-independent-riemann-components", "contracted-bianchi-identity", "levi-civita-connection"]
-		}
-	},
-	"prerequisites": [
-		{"id": "riemann-curvature-tensor", "why": "Ricci is a contraction of Riemann; its sign and meaning are inherited from Riemann's definition."},
-		{"id": "tensor-contraction", "why": "Forming Ricci is a single trace of an upper index against a lower one."},
-		{"id": "symmetries-of-the-riemann-tensor", "why": "The symmetries show Ricci is symmetric and essentially the only non-zero contraction."}
-	],
-	"leads_to": [
-		{"id": "ricci-scalar", "why": "Tracing Ricci once more with the inverse metric gives the Ricci scalar."},
-		{"id": "einstein-tensor", "why": "Trace-reversing Ricci gives the divergence-free tensor that sits in Einstein's equation."},
-		{"id": "contracted-bianchi-identity", "why": "Contracting the Bianchi identity relates the divergence of Ricci to the gradient of R."},
-		{"id": "weyl-tensor", "why": "Removing the Ricci part from Riemann leaves the Weyl tensor."},
-		{"id": "ricci-flat-spacetime", "why": "Vacuum spacetimes have vanishing Ricci but can still be curved."},
-		{"id": "volume-preserving-tidal-deformation", "why": "Zero Ricci trace means tides change shape but not the initial volume of a ball."},
-		{"id": "raychaudhuri-equation", "why": "Ricci contracted with the flow velocity is the curvature term that focuses congruences."},
-		{"id": "ricci-focusing-versus-weyl-shear", "why": "For light bundles, Ricci acts like a converging lens and Weyl like an astigmatic one."},
-		{"id": "trace-reversed-einstein-equations", "why": "Einstein's equation can be solved for Ricci directly in terms of T and its trace."},
-		{"id": "vacuum-einstein-equations", "why": "In vacuum with Lambda = 0 the field equations reduce to R_{mu nu} = 0."},
-		{"id": "einstein-space", "why": "Spaces with Ricci proportional to the metric form an important class, including de Sitter."},
-		{"id": "curvature-sign-conventions", "why": "Which slot is traced is one of the three sign choices that differ between books."}
-	],
-	"related": [
-		{"id": "relativistic-tidal-tensor", "why": "Ricci contracted with u twice is the trace of the tidal tensor."},
-		{"id": "newtonian-tidal-tensor", "why": "Its trace is the Laplacian of the potential, the Newtonian shadow of R_00."},
-		{"id": "poisson-equation-for-gravity", "why": "R_00 approximately equals nabla^2 Phi = 4 pi G rho in the weak-field limit."},
-		{"id": "ricci-tensor-field-equation", "why": "The rejected guess R_{mu nu} proportional to T_{mu nu} fails because Ricci is not divergence-free."},
-		{"id": "tidal-derivation-of-vacuum-field-equations", "why": "d'Inverno obtains R_ab = 0 by demanding a trace-free tidal tensor in vacuum."},
-		{"id": "curvature-of-the-flrw-metric", "why": "R_tt = -3 a''/a feeds the acceleration equation of cosmology."},
-		{"id": "palatini-identity", "why": "The variation of Ricci is a total divergence, which simplifies the Einstein-Hilbert variation."},
-		{"id": "linearized-riemann-tensor", "why": "Contracting it gives the linearized Ricci tensor used in gravitational-wave theory."},
-		{"id": "kretschmann-scalar", "why": "Where Ricci vanishes, the Kretschmann scalar still detects curvature."}
-	],
-	"key_equations": [
-		{
-			"name": "Definition and symmetry",
-			"latex": "R_{\\mu\\nu} = R^\\rho{}_{\\mu\\rho\\nu} = g^{\\rho\\lambda}R_{\\lambda\\mu\\rho\\nu},\\qquad R_{\\mu\\nu} = R_{\\nu\\mu}",
-			"meaning": "Trace the upper index of Riemann with its third slot. Symmetry follows from pair symmetry of Riemann, giving 10 independent components in four dimensions.",
-			"convention_note": "Same contraction in Schutz (Eq. 6.91), Gifted Amateur (eqn 11.26) and d'Inverno (6.84). Tracing the fourth slot instead gives minus this tensor.",
-			"refs": ["SCH ch06 §6.6 Eq. 6.91 p.162", "GA ch11 §11.5 eqn 11.26 p.127", "DIV ch06 §6.12 (6.84) p.106"]
-		},
-		{
-			"name": "Ricci as the trace of the tidal tensor",
-			"latex": "\\mathcal{E}^\\mu{}_\\rho = R^\\mu{}_{\\nu\\rho\\sigma}u^\\nu u^\\sigma,\\qquad \\frac{D^2\\xi^\\mu}{d\\tau^2} = -\\mathcal{E}^\\mu{}_\\rho\\,\\xi^\\rho,\\qquad \\mathcal{E}^\\mu{}_\\mu = R_{\\nu\\sigma}u^\\nu u^\\sigma",
-			"meaning": "The tidal tensor maps separation to minus relative acceleration; summing its diagonal gives Ricci contracted twice with the observer's four-velocity.",
-			"convention_note": "d'Inverno's K^a_b equals our E; Gifted Amateur's K^mu_alpha is minus our E, so its trace is -R_{nu beta} u^nu u^beta.",
-			"refs": ["DIV ch10 §10.4 (10.22)-(10.25) p.175", "GA ch35 Example 35.8 eqn 35.40 p.371"]
-		},
-		{
-			"name": "Initial volume acceleration of a small ball",
-			"latex": "\\left.\\frac{d^2\\,\\delta V}{d\\tau^2}\\right|_{\\tau=0} = -R_{\\mu\\nu}u^\\mu u^\\nu\\,\\delta V",
-			"meaning": "A tiny ball of free particles released at rest starts to lose volume at a rate set by Ricci; the trace-free (Weyl) part changes only its shape at this order.",
-			"convention_note": "Valid for an infinitesimal ball with zero initial expansion, shear and rotation; in SI the right side carries c^2 when u.u = -c^2.",
-			"refs": ["GA ch35 Example 35.8 eqn 35.41 p.371", "legacy:manuscript-section-09-ricci-volume-weyl-shape"]
-		},
-		{
-			"name": "Newtonian limit",
-			"latex": "R_{00} \\approx \\nabla^2\\Phi = 4\\pi G\\rho",
-			"meaning": "For weak, static fields the time-time Ricci component is the Laplacian of the Newtonian potential, so the Ricci part of curvature is what Poisson's equation ties to mass density.",
-			"convention_note": "With x^0 = ct the left side is nabla^2 Phi/c^2.",
-			"refs": ["DIV ch10 §10.6 p.182", "legacy:manuscript-section-12-newtonian-limit-and-coupling"]
-		},
-		{
-			"name": "Einstein's equation solved for Ricci",
-			"latex": "R_{\\mu\\nu} = 8\\pi G\\left(T_{\\mu\\nu} - \\tfrac12 T\\,g_{\\mu\\nu}\\right) + \\Lambda g_{\\mu\\nu}",
-			"meaning": "Ricci at an event is fixed algebraically by the matter there; in vacuum with Lambda = 0 it vanishes, while the rest of the curvature need not.",
-			"convention_note": "Course form G + Lambda g = 8 pi G T traced with g^{mu nu} gives R = 4 Lambda - 8 pi G T. Restore c^4 in 8 pi G/c^4.",
-			"refs": ["GA ch13 Example 13.5 p.148", "GA ch14 Example 14.3 p.153"]
-		},
-		{
-			"name": "Focusing by ordinary matter",
-			"latex": "R_{\\mu\\nu}u^\\mu u^\\nu = 4\\pi G(\\rho + 3p) - \\Lambda",
-			"meaning": "For a perfect fluid seen by its rest-frame observer, Ricci focuses free particles when rho + 3p exceeds Lambda/(4 pi G); pressure counts as a source and positive Lambda defocuses.",
-			"convention_note": null,
-			"refs": ["legacy:practice-set-appendix-a-thirty-exercises", "GA ch50 Example 50.1 eqn 50.9 p.549"]
-		},
-		{
-			"name": "Sphere check",
-			"latex": "R_{\\theta\\theta} = 1,\\qquad R_{\\phi\\phi} = \\sin^2\\theta,\\qquad R_{\\mu\\nu} = \\frac{1}{a^2}\\,g_{\\mu\\nu}",
-			"meaning": "For ds^2 = a^2(d theta^2 + sin^2 theta d phi^2) the components do not depend on a, but proportionality to the metric does: in two dimensions Ricci is always half the scalar curvature times the metric.",
-			"convention_note": "Positive values confirm the course Riemann sign and Ricci slot.",
-			"refs": ["GA ch11 Example 11.8 eqn 11.35 p.128", "GA ch36 §36.4 eqn 36.67 p.382"]
-		},
-		{
-			"name": "Contracted Bianchi identity",
-			"latex": "\\nabla_\\mu R^\\mu{}_\\nu = \\tfrac12\\nabla_\\nu R",
-			"meaning": "Ricci is not divergence-free in general, which is why it cannot stand alone opposite a conserved T; its trace-reversed combination can.",
-			"convention_note": null,
-			"refs": ["SCH ch06 §6.6 Eq. 6.97 p.163", "GA ch13 §13.3 eqn 13.29 p.146"]
-		},
-		{
-			"name": "Linearized Ricci tensor",
-			"latex": "R_{\\mu\\nu} = \\tfrac12\\left(\\partial_\\alpha\\partial_\\mu h^\\alpha{}_\\nu + \\partial_\\alpha\\partial_\\nu h^\\alpha{}_\\mu - \\Box h_{\\mu\\nu} - \\partial_\\mu\\partial_\\nu h\\right)",
-			"meaning": "To first order in g = eta + h, Ricci is a sum of second derivatives of the perturbation, the starting point of linearized gravity and gravitational waves.",
-			"convention_note": "d'Inverno writes g = eta + epsilon h and carries epsilon explicitly (21.10); indices raised with eta.",
-			"refs": ["GA ch45 Example 45.1 eqn 45.9 p.487", "DIV ch21 §21.1 (21.10) p.402", "SCH ch08 Ex 8.8 p.198"]
-		}
-	],
-	"conventions": [
-		{
-			"issue": "Which Riemann slots are traced",
-			"schutz": "R_{alpha beta} = R^mu_{alpha mu beta}, first with third (Eq. 6.91 p.162).",
-			"gifted_amateur": "R_{nu beta} = R^mu_{nu mu beta}, upper index with third slot (eqn 11.26 p.127).",
-			"dinverno": "R_ab = R^c_{acb} = g^{cd} R_{dacb}, first with third (6.84 p.106); ch21 writes eta^{cd} R_{cadb}.",
-			"course_choice": "R_{mu nu} = R^rho_{mu rho nu}; all three books agree with the course."
-		},
-		{
-			"issue": "Effect of the metric signature on Ricci components",
-			"schutz": "(-,+,+,+).",
-			"gifted_amateur": "(-,+,+,+).",
-			"dinverno": "(+,-,-,-). Lower-index R_ab components equal the course values for the same geometry, but mixed R^a_b and the scalar R have the opposite sign.",
-			"course_choice": "(-,+,+,+). Compare lower-index components directly with d'Inverno; flip signs of mixed or fully raised traces."
-		},
-		{
-			"issue": "Sign of the tidal matrix whose trace gives Ricci",
-			"schutz": "No named tidal matrix in ch06; deviation written nabla_V nabla_V xi^alpha = R^alpha_{mu nu beta} V^mu V^nu xi^beta (Eq. 6.87 p.162).",
-			"gifted_amateur": "Its tidal matrix K is minus Riemann with the four-velocity placed in the second and fourth slots, so D^2 n = +K n and trace K equals minus R_{nu beta} contracted twice with u (ch35 eqns 35.38-35.40 p.371).",
-			"dinverno": "K^a_b = R^a_{cbd} V^c V^d with D^2 xi + K xi = 0, so trace K = +R_ab V^a V^b (ch10 (10.22)-(10.24) p.175).",
-			"course_choice": "E^mu_rho = R^mu_{nu rho sigma} u^nu u^sigma (d'Inverno's sign), D^2 xi = -E xi, trace E = R_{mu nu} u^mu u^nu. The symbol E avoids clashing with Gaussian curvature K and the Kretschmann scalar."
-		},
-		{
-			"issue": "Trace-free versus trace-reversed Ricci",
-			"schutz": "Only the trace-reversed Einstein tensor G^{alpha beta} = R^{alpha beta} - (1/2) g^{alpha beta} R appears (ch06 §6.6 p.163).",
-			"gifted_amateur": "Einstein tensor with 1/2 (ch13 eqn 13.30 p.146), but ch35 eqn 35.37 writes R_{mu nu} - (1/4) R g_{mu nu}, calls it 'trace-reversed' and labels it G (p.370).",
-			"dinverno": "Einstein tensor G_ab = R_ab - (1/2) g_ab R (6.86 p.106); trace-free Ricci not named in ch06.",
-			"course_choice": "Trace-free Ricci S_{mu nu} = R_{mu nu} - (1/4) R g_{mu nu} (trace zero); trace-reversed Ricci is the Einstein tensor G_{mu nu} = R_{mu nu} - (1/2) R g_{mu nu} (trace -R). For null k both give R_{mu nu} k^mu k^nu."
-		},
-		{
-			"issue": "Symbol and typography",
-			"schutz": "R_{alpha beta}, components only.",
-			"gifted_amateur": "Components R_{mu nu} only, deliberately not given a bold symbol because only the Einstein tensor enters the field equation; notes that other texts write Ri (ch11 §11.5 p.127).",
-			"dinverno": "R_ab with Latin abstract-style indices.",
-			"course_choice": "R_{mu nu} in components; Ric in index-free statements. Never use a bare R for Ricci (R is the scalar)."
-		},
-		{
-			"issue": "Perturbation bookkeeping in the linearized Ricci tensor",
-			"schutz": "g = eta + h, linearized Ricci left to Exercise 8.8 (ch08 p.198).",
-			"gifted_amateur": "g = eta + h with h the trace in eqn 45.9 (ch45 p.487).",
-			"dinverno": "g = eta + epsilon h with an explicit order parameter epsilon (ch21 (21.10) p.402).",
-			"course_choice": "g_{mu nu} = eta_{mu nu} + h_{mu nu} with |h| << 1, h = eta^{mu nu} h_{mu nu}."
-		}
-	],
-	"how_books_teach": [
-		{
-			"source": "schutz",
-			"route": "After deriving Riemann from loop transport and the commutator of covariant derivatives, Schutz differentiates Riemann in a locally inertial frame to get the Bianchi identities, and only then introduces the Ricci tensor as the contraction needed to process them. He argues from the antisymmetries that other contractions are zero or plus or minus Ricci, defines the scalar, contracts the Bianchi identities twice and extracts the divergence-free Einstein tensor. Chapter 8 recalls Ricci as the natural symmetric tensor built from second derivatives of the metric when building the field equations.",
-			"representation": "Components in locally inertial coordinates, index gymnastics with explicit sign bookkeeping, and a short uniqueness argument.",
-			"strengths": "Economical and logically tight: Ricci appears exactly when it is needed, and the path to a divergence-free tensor is short. The uniqueness claim is justified, with a proof set as an exercise.",
-			"weaknesses": "No physical reading of Ricci (volume change, tides, matter) is offered in ch06, no worked Ricci computation is shown, and geodesic deviation is not connected to the trace, so Ricci can feel like an algebraic convenience.",
-			"refs": ["SCH ch06 §6.6 p.162", "SCH ch06 §6.6 p.163", "SCH ch06 Ex 6.25 p.167", "SCH ch08 §8.1 p.184"]
-		},
-		{
-			"source": "gifted-amateur",
-			"route": "Spirals back to Ricci several times. Ch11 opens with Newtonian tides and a volume-conserving stretch, derives Riemann from a loop, lists its symmetries, and introduces Ricci as the simplest rank-two contraction, suggesting it be thought of as an average of Riemann that captures volume shrinkage; it computes the plane and sphere examples. Ch13 recaps Ricci, tries the guess Ricci proportional to T and rejects it with the Bianchi identity, then trace-reverses the correct equation. Ch14 explains volume-preserving tides and gravitational waves from vacuum Ricci-flatness. Ch35 gives the fullest reading: Ricci as the trace of the tidal matrix controlling volume, the Ricci/Weyl split, and Penrose's transparent Sun comparing lens-like focusing with astigmatic distortion. Ch36 computes Ricci by Cartan's method; ch50 meets it again in the convergence of geodesic congruences.",
-			"representation": "Margin notes and analogies (average, lenses), explicit component computations, a volume-from-eigen-lengths argument, and later differential forms.",
-			"strengths": "The physical meaning is stated early and reinforced from several angles; the tidal-trace and lens pictures are memorable and connect directly to observations.",
-			"weaknesses": "'Average' is loose; ch35 calls the trace-free Ricci tensor 'trace-reversed' and labels it G; the transparent-Sun figure suggests Ricci and Weyl act in separate regions; the caveats that volume focusing needs rho + 3p > 0, zero Lambda and an initially comoving ball are missing; the uniqueness of the contraction is not shown.",
-			"refs": ["GA ch11 §11.2 p.123", "GA ch11 §11.5 p.127", "GA ch11 Example 11.8 p.128", "GA ch13 §13.3 p.145", "GA ch14 Example 14.3 p.153", "GA ch35 §35.4 p.370", "GA ch35 Example 35.8 p.371", "GA ch36 Example 36.5 p.382", "GA ch50 Example 50.1 p.548"]
-		},
-		{
-			"source": "dinverno",
-			"route": "Ch06 defines Ricci formally in a list of tensors built from curvature (Ricci, scalar, Einstein), noting symmetry and a sign caution. Ch10 supplies the physics through a principle-driven derivation: the Newtonian deviation matrix is trace-free in vacuum; its relativistic analogue K^a_b = R^a_{cbd} V^c V^d is proposed to be trace-free as well; this gives R_ab V^a V^b = 0 for every timelike V, hence R_ab = 0 by symmetry; the Newtonian correspondence recovers Laplace's equation; a recap asks why Ricci is the only meaningful contraction; and the Einstein tensor is then chosen because matter needs a divergence-free partner.",
-			"representation": "Component definitions, an explicit Newtonian-to-relativistic analogy for the tidal tensor, freely falling frames, and numbered steps with 'why?' prompts.",
-			"strengths": "The clearest derivation of the vacuum field equations from tidal physics; the polarization step from R_ab V^a V^b = 0 to R_ab = 0 is made explicit (with an exercise).",
-			"weaknesses": "Ch06 offers no interpretation at all; the uniqueness of the contraction is left as '(why?)'; the volume picture of the trace is never drawn; a misprinted factor appears in the ch10 recap.",
-			"refs": ["DIV ch06 §6.12 p.106", "DIV ch10 §10.4 p.175", "DIV ch10 §10.6 p.182", "DIV ch10 §10.7 p.183", "DIV ch10 Ex 10.6"]
-		},
-		{
-			"source": "legacy",
-			"route": "The earlier course places Ricci after geodesic deviation. It opens with a hands-on contraction: six orthonormal curvature entries are summed into Ricci components, and a chosen set makes Ricci and the scalar vanish while the Kretschmann scalar does not. It then builds the volume law by multiplying three edge lengths, derives the Riemann = Weyl + Ricci decomposition, and warns which slogans fail. A 3D-style lab compares an isotropic squeeze with a trace-free tide.",
-			"representation": "A curvature table the learner contracts by hand, an edge-length product argument, and a tidal particle cloud with volume and aspect readouts.",
-			"strengths": "Makes 'a trace loses information' concrete, states the initially-comoving-ball caveat explicitly, and shows that a trace-free tide still reduces volume later (V/V0 = 1 - s^4/2).",
-			"weaknesses": "An early rough figure was superseded; conformal and Weyl-invariance material sits at too advanced a level inside the novice section.",
-			"refs": ["legacy:lesson-contract-curvature-by-hand", "legacy:manuscript-section-09-ricci-volume-weyl-shape", "legacy:lab-tidal-cloud-geodesic-deviation", "legacy:manuscript-chapter-09-ricci-weyl-einstein"]
-		}
-	],
-	"recommended_teaching_path": [
-		{
-			"step": "1. Motivating question",
-			"move": "Release a small ball of dust in free fall near Earth and ask: what can gravity's unevenness do to it? Recall the Newtonian tidal matrix, the Hessian of Phi, with eigenvalues (2q, -q, -q) outside a planet, and notice its trace is nabla^2 Phi, zero outside and 4 pi G rho inside matter.",
-			"why": "Starts from something learners can picture and already half know, and plants the idea that the trace is special before any index is contracted.",
-			"inspired_by": ["GA ch11 §11.2 p.123", "DIV ch10 §10.2 p.172", "legacy:figure-tidal-eigenvalues"]
-		},
-		{
-			"step": "2. Picture: shape versus volume",
-			"move": "Run the tidal cloud demo: an isotropic squeeze shrinks a round ball, a trace-free tide makes an egg of unchanged initial volume. Ask the learner to predict before each run.",
-			"why": "Separates the two effects visually so the later contraction has a physical target.",
-			"inspired_by": ["legacy:lab-tidal-cloud-geodesic-deviation", "GA ch35 §35.4 p.371"]
-		},
-		{
-			"step": "3. Formalism: contract the tidal tensor",
-			"move": "Write the relativistic tidal tensor E^mu_rho = R^mu_{nu rho sigma} u^nu u^sigma, take its trace, and name the resulting object R_{mu nu} = R^rho_{mu rho nu}. Show quickly that tracing the first two slots gives zero and tracing the fourth gives minus Ricci, and that pair symmetry makes Ricci symmetric.",
-			"why": "Defining Ricci as the trace of something physical makes the choice of slot feel inevitable rather than arbitrary, and answers the 'why this contraction?' question on the spot.",
-			"inspired_by": ["DIV ch10 §10.4 p.175", "GA ch35 Example 35.8 p.371", "SCH ch06 §6.6 p.162"]
-		},
-		{
-			"step": "4. The volume law with its fine print",
-			"move": "Multiply three edge lengths L_i(1 - E_i tau^2/2) to get delta V(tau)/delta V = 1 - R_{mu nu} u^mu u^nu tau^2/2, then list the conditions: tiny ball, released at rest, first instants only.",
-			"why": "A two-line argument learners can reproduce, with caveats attached before a slogan forms.",
-			"inspired_by": ["legacy:manuscript-section-09-ricci-volume-weyl-shape", "GA ch35 eqn 35.41 p.371"]
-		},
-		{
-			"step": "5. Check: compute it",
-			"move": "Compute Ricci for the polar plane (all zero) and the sphere (R_{mu nu} = g_{mu nu}/a^2). Then use the six-entry orthonormal curvature table to find a set of Riemann components with every Ricci component zero.",
-			"why": "Builds computational fluency and shows directly that a trace can vanish while the tensor does not.",
-			"inspired_by": ["GA ch11 Example 11.7 p.128", "GA ch11 Example 11.8 p.128", "legacy:lesson-contract-curvature-by-hand"]
-		},
-		{
-			"step": "6. Application: matter and vacuum",
-			"move": "Trace-reverse Einstein's equation to R_{mu nu} = 8 pi G (T - (1/2) T g) + Lambda g. Read off R_00 = 4 pi G rho in the Newtonian limit, R_{mu nu} u u = 4 pi G (rho + 3p) - Lambda for a fluid, and R_{mu nu} = 0 in vacuum; explain volume-preserving tides and gravitational waves. Show why Ricci alone cannot equal a conserved T: its divergence is (1/2) nabla R.",
-			"why": "Connects Ricci to the field equation, to Newtonian gravity and to observable tides, and pre-empts the rank-matching guess.",
-			"inspired_by": ["GA ch13 Example 13.5 p.148", "GA ch14 Example 14.3 p.153", "GA ch13 §13.3 p.145", "DIV ch10 §10.6 p.182"]
-		},
-		{
-			"step": "7. Extension: light and focusing",
-			"move": "Introduce the transparent-Sun picture: matter along a ray magnifies images like a converging lens (Ricci), tidal fields distort them into ellipses (Weyl), and both act on every ray to different degrees. Point ahead to the Raychaudhuri equation.",
-			"why": "Links Ricci to lensing observations and to the focusing theorem while correcting the book's regional oversimplification.",
-			"inspired_by": ["GA ch35 Example 35.7 p.370", "GA ch35 Fig. 35.4 p.371", "GA ch50 Example 50.1 p.548"]
-		}
-	],
-	"analogies": [
-		{
-			"analogy": "Ricci as an average of Riemann",
-			"explanation": "Summing curvature over directions lets stretches and squeezes offset each other, so the total can be zero even when the individual pieces are not, just as an average of positive and negative numbers can be zero.",
-			"limits": "It is a trace over specific slots with metric signs, not a statistical average; it discards the Weyl part entirely, which is exactly what survives in vacuum. For the tidal matrix the trace is three times the mean over directions, which is where the analogy is closest.",
-			"level": "intuition",
-			"refs": ["GA ch11 §11.5 p.127", "GA ch35 §35.4 p.370"]
-		},
-		{
-			"analogy": "Converging lens versus astigmatic lens",
-			"explanation": "A bundle of light through matter is focused evenly, enlarging a round image like a magnifying glass (Ricci); tidal curvature focuses in one plane and defocuses in the perpendicular one, turning circles into ellipses (Weyl).",
-			"limits": "Applies to null bundles; the Ricci term for light involves R_{mu nu} k^mu k^nu, not u^mu u^nu. Both effects act along every ray, so inside a real star the image is also somewhat sheared, and there is no actual refraction.",
-			"level": "working",
-			"refs": ["GA ch35 Example 35.7 p.370", "GA ch35 Fig. 35.4 p.371"]
-		},
-		{
-			"analogy": "Kneading dough versus letting it rise or collapse",
-			"explanation": "Kneading reshapes dough without changing how much there is (Weyl-like tides); rising or collapsing changes its volume (Ricci). Two bakers can knead identically while one loaf also sinks.",
-			"limits": "Dough changes volume from its own chemistry; Ricci describes the initial acceleration of relative motion of free particles caused by the matter present, and at later times shape change can feed volume change.",
-			"level": "intuition",
-			"refs": ["legacy:lab-tidal-cloud-geodesic-deviation"]
-		},
-		{
-			"analogy": "An itemised bill and its total",
-			"explanation": "Riemann is the itemised bill of stretches and squeezes along every pair of directions; Ricci contracted with u is the total that decides the net volume change. A bill of +2, -1, -1 totals zero while its items are far from zero.",
-			"limits": "The off-diagonal Ricci components (such as R_0i, tied to momentum density) are not captured by a single total, and the 'items' depend on the observer's frame.",
-			"level": "working",
-			"refs": ["legacy:lesson-contract-curvature-by-hand", "legacy:figure-tidal-eigenvalues"]
-		}
-	],
-	"misconceptions": [
-		{
-			"misconception": "If the Ricci tensor vanishes, spacetime is flat.",
-			"correction": "Ricci-flat means only that the volume-changing part of curvature cancels. The Riemann (Weyl) part can be large: the Schwarzschild exterior and gravitational waves are Ricci-flat yet curved, with Kretschmann scalar 48 M^2/r^6 outside a black hole. Riemann = 0 implies Ricci = 0, not the reverse.",
-			"why_tempting": "The vacuum equation is written R_{mu nu} = 0, and 'curvature equals zero' sounds like flatness.",
-			"diagnostic_question": "Outside Earth, nabla^2 Phi = 0. Do two apples falling side by side above the ground move toward each other?",
-			"refs": ["GA ch11 Ex 11.3 p.130", "GA ch13 §13.4 p.148", "GA ch35 §35.4 p.370", "DIV ch10 §10.4 p.176", "legacy:practice-set-misconception-checks"]
-		},
-		{
-			"misconception": "Since T_{mu nu} has two indices, the field equation should simply be R_{mu nu} proportional to T_{mu nu}.",
-			"correction": "Rank matching is not enough. T is covariantly conserved, but nabla^mu R_{mu nu} = (1/2) nabla_nu R, so the guess would force R, and hence the trace of T, to be constant everywhere. The trace-reversed Einstein tensor is divergence-free identically.",
-			"why_tempting": "It is the simplest symmetric curvature tensor of the right type, and Einstein himself tried it in 1915.",
-			"diagnostic_question": "Take the divergence of R^{mu nu} = kappa T^{mu nu} and use the contracted Bianchi identity. What does it force on the matter distribution?",
-			"refs": ["GA ch13 §13.3 p.145", "SCH ch06 §6.6 p.163", "DIV ch10 §10.8 p.184"]
-		},
-		{
-			"misconception": "Ricci always shrinks volumes, and zero Ricci means volumes never change.",
-			"correction": "The Ricci law gives only the initial second derivative of volume for a tiny ball released at rest. Shear from a trace-free tide reduces volume later (V/V0 = cosh(sqrt2 s) cos^2 s = 1 - s^4/2 + ... in the model lab), and focusing needs rho + 3p > Lambda/(4 pi G); positive Lambda makes balls grow.",
-			"why_tempting": "The slogan 'Ricci = volume change, Weyl = shape change' is taught without its conditions.",
-			"diagnostic_question": "A dust ball starts egg-shaped and already contracting in a Ricci-flat region. Does its volume stay constant?",
-			"refs": ["legacy:manuscript-section-09-ricci-volume-weyl-shape", "legacy:lab-tidal-cloud-geodesic-deviation", "GA ch35 §35.4 p.370"]
-		},
-		{
-			"misconception": "Ricci curvature acts inside matter and Weyl curvature acts outside, in separate regions.",
-			"correction": "Both parts can be present at the same event. Inside a real star, whose density falls outward, the local tidal field has a trace-free (Weyl) part as well as a trace; only an exactly uniform ball has a purely isotropic interior tide. Outside, Ricci vanishes only because T = 0 there (and Lambda = 0). A light ray also accumulates both effects along its whole path, including the stretches outside the star.",
-			"why_tempting": "The transparent-Sun illustration shows circles enlarged inside and ellipses outside.",
-			"diagnostic_question": "For a ray passing through a uniform star near its edge, would you expect its image to be magnified, sheared, or both?",
-			"refs": ["GA ch35 Fig. 35.4 p.371"]
-		},
-		{
-			"misconception": "R_{mu nu} - (1/4) R g_{mu nu} is the trace-reversed Ricci tensor, that is, the Einstein tensor.",
-			"correction": "Subtracting a quarter of the trace gives the trace-free Ricci tensor (trace zero). Trace reversal subtracts half, giving the Einstein tensor with trace -R. For null vectors both reduce to R_{mu nu} k^mu k^nu.",
-			"why_tempting": "Gifted Amateur ch35 uses the name 'trace-reversed' and the symbol G for the quarter version.",
-			"diagnostic_question": "Compute g^{mu nu} of R_{mu nu} - (1/4) R g_{mu nu} and of R_{mu nu} - (1/2) R g_{mu nu} in four dimensions.",
-			"refs": ["GA ch35 §35.4 eqn 35.37 p.370", "GA ch13 §13.3 eqn 13.30 p.146"]
-		},
-		{
-			"misconception": "Tracing a different pair of Riemann indices would give another independent curvature tensor.",
-			"correction": "Antisymmetry in each index pair and pair symmetry make every other single contraction vanish or equal plus or minus Ricci; Ricci is the only independent rank-two contraction.",
-			"why_tempting": "A four-index tensor seems to offer six ways to trace, and books often do not show why the others fail.",
-			"diagnostic_question": "What is g^{rho sigma} R_{rho sigma mu nu}, and how is R^rho_{mu nu rho} related to R_{mu nu}?",
-			"refs": ["SCH ch06 Ex 6.25 p.167", "DIV ch10 §10.7 p.183", "GA ch11 §11.5 p.127"]
-		}
-	],
-	"thought_experiments": [
-		{
-			"name": "A shell of particles around the whole Earth",
-			"setup": "Instead of a small cloud in empty space, release a huge spherical shell of free particles, at rest, that encloses the entire Earth.",
-			"lesson": "Because the shell encloses mass, its enclosed volume does start to shrink: volume change tracks the matter inside, which is exactly what the Ricci part of curvature measures, while a small cloud beside Earth only changes shape.",
-			"refs": ["GA ch11 §11.2 p.123"]
-		},
-		{
-			"name": "The transparent Sun",
-			"setup": "Imagine the Sun were transparent and non-refracting, and look at background stars through it and just beside it.",
-			"lesson": "Rays through the matter are focused evenly, enlarging round images (Ricci focusing); rays passing outside are focused astigmatically into ellipses (Weyl shear).",
-			"refs": ["GA ch35 Example 35.7 p.370", "GA ch35 Fig. 35.4 p.371"]
-		}
-	],
-	"visualizations": [
-		{
-			"title": "Ricci and Weyl tidal cloud",
-			"idea": "A few thousand particles forming a small ball in free fall, evolving under a tidal tensor made of an isotropic Ricci part (set by density, pressure and Lambda) plus a trace-free Weyl part (for example a point mass at distance r). A translucent reference sphere stays fixed for comparison.",
-			"interaction": "Learner sets rho, p and Lambda for the Ricci part and M and r (or a free trace-free matrix) for the Weyl part, then releases the cloud. Live readouts: tidal eigenvalues, their trace R_{mu nu} u^mu u^nu, initial d^2V/dtau^2 divided by V, V/V0 over time, and axis ratio. Presets: 'inside dust', 'outside a planet', 'both', 'dark energy'.",
-			"form": "interactive-3d",
-			"priority": "high",
-			"physics_model": "Geodesic deviation in the observer's local frame, xi'' = -E xi, with E = [(4 pi G/3)(rho + 3p) - Lambda/3] delta_ij + (GM/r^3) diag(-2, 1, 1) in the radial frame; constant-matrix solutions cos or cosh along each eigen-axis; V/V0 is the product of the three principal lengths; tr E = R_{mu nu} u^mu u^nu.",
-			"inspired_by": ["GA ch11 §11.2 p.123", "GA ch35 §35.4 p.371", "GA ch14 Example 14.3 p.153"],
-			"legacy_assets": ["lab-tidal-cloud-geodesic-deviation", "figure-tidal-eigenvalues", "manuscript-section-09-ricci-volume-weyl-shape"]
-		},
-		{
-			"title": "Contract-it-yourself curvature table",
-			"idea": "Six sliders for the independent orthonormal sectional curvature entries of a 4D spacetime (time-space and space-space planes). The panel shows the Ricci diagonal as signed sums, the Ricci scalar and the Kretschmann scalar, with the Weyl remainder.",
-			"interaction": "Learner drags entries A to F; each Ricci component lights up the entries that feed it with their signs. A 'find a vacuum' challenge asks for a non-flat table with every Ricci entry zero; a Schwarzschild preset loads q(-2, 1, 1, -1, -1, 2) and shows Kretschmann 48 q^2.",
-			"form": "interactive-2d",
-			"priority": "high",
-			"physics_model": "R_00 = A + B + C, R_11 = -A + D + E, R_22 = -B + D + F, R_33 = -C + E + F with A = R_0101, B = R_0202, C = R_0303, D = R_1212, E = R_1313, F = R_2323 in an orthonormal frame (diagonal case); R = -R_00 + R_11 + R_22 + R_33; Kretschmann computed from the full component set.",
-			"inspired_by": ["legacy:lesson-contract-curvature-by-hand", "DIV ch06 §6.13 p.107"],
-			"legacy_assets": ["lesson-contract-curvature-by-hand", "engine-independent-curvature-checker"]
-		},
-		{
-			"title": "Transparent-star lensing: magnify or shear",
-			"idea": "A field of background stars behind a translucent, non-refracting star. Each star's image is drawn as its true circle and its lensed outline, with a gauge for convergence (Ricci) and shear (Weyl) along the ray.",
-			"interaction": "Learner drags the star across the field and changes its mass and density profile. Images through the interior grow; images outside become ellipses; near the rim both effects appear. A toggle hides the Weyl contribution to show what the Ricci term alone would do.",
-			"form": "interactive-2d",
-			"priority": "medium",
-			"physics_model": "Weak-field thin-lens optics: convergence proportional to the projected surface density (Ricci term R_{mu nu} k^mu k^nu integrated along the ray) and shear from the tidal field of mass outside the ray; small-image magnification matrix [[1 - kappa - gamma1, -gamma2], [-gamma2, 1 - kappa + gamma1]].",
-			"inspired_by": ["GA ch35 Fig. 35.4 p.371", "GA ch35 Example 35.7 p.370"],
-			"legacy_assets": []
-		},
-		{
-			"title": "Which slots can you trace?",
-			"idea": "The Riemann components of a 2-sphere displayed as a grid of index slots; the learner picks two slots to trace and sees the result.",
-			"interaction": "Click two slots: first-second shows zero with the antisymmetry that kills it highlighted; first-third shows +Ricci; first-fourth shows -Ricci; the display ends with R_{mu nu} = g_{mu nu}/a^2 and a radius slider.",
-			"form": "interactive-2d",
-			"priority": "low",
-			"physics_model": "Exact sphere components R^theta_{phi theta phi} = sin^2 theta, R^phi_{theta phi theta} = 1 and their antisymmetric partners.",
-			"inspired_by": ["SCH ch06 §6.6 p.162", "GA ch11 Example 11.8 p.128"],
-			"legacy_assets": ["manuscript-section-8-4-8-6-flatness-count-sphere-curvature"]
-		}
-	],
-	"worked_examples": [
-		{
-			"title": "Ricci of the polar plane and of the sphere",
-			"what_it_shows": "The plane's Riemann and Ricci components vanish despite non-zero Christoffel symbols; the sphere gives R_{theta theta} = 1, R_{phi phi} = sin^2 theta, proportional to the metric.",
-			"level": "working",
-			"refs": ["GA ch11 Example 11.7 p.128", "GA ch11 Example 11.8 p.128", "legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature"]
-		},
-		{
-			"title": "Ricci controls the change of volume",
-			"what_it_shows": "Choosing separation vectors along eigenvectors of the tidal matrix, the second derivative of a small volume picks up the trace, which is Ricci contracted with the velocity.",
-			"level": "working",
-			"refs": ["GA ch35 Example 35.8 p.371", "legacy:manuscript-section-09-ricci-volume-weyl-shape"]
-		},
-		{
-			"title": "Vacuum field equations from a trace-free tidal tensor",
-			"what_it_shows": "Requiring the relativistic tidal tensor to be trace-free along every timelike geodesic gives R_ab V^a V^b = 0 for all timelike V and hence R_ab = 0; the Newtonian limit returns Laplace's equation.",
-			"level": "working",
-			"refs": ["DIV ch10 §10.4 p.175", "DIV ch10 §10.6 p.182"]
-		},
-		{
-			"title": "Why vacuum tides conserve volume",
-			"what_it_shows": "Local vanishing of T makes Ricci vanish; near a planet one stretch balances two half-size squeezes, and in a gravitational wave one stretch balances one squeeze.",
-			"level": "intuition",
-			"refs": ["GA ch14 Example 14.3 p.153"]
-		},
-		{
-			"title": "A trace that hides curvature",
-			"what_it_shows": "A six-entry orthonormal curvature table with the Schwarzschild pattern q(-2, 1, 1, -1, -1, 2) has every Ricci component and the scalar equal to zero, yet Kretschmann 48 q^2.",
-			"level": "working",
-			"refs": ["legacy:lesson-contract-curvature-by-hand"]
-		},
-		{
-			"title": "Ricci of the expanding universe",
-			"what_it_shows": "In the comoving orthonormal frame R_tt = -3 a''/a and R_ii = a''/a + 2(a'/a)^2 (+ 2k/a^2 when curved); the time-time part feeds the cosmic acceleration equation.",
-			"level": "formal",
-			"refs": ["GA ch15 Example 15.3 p.164", "GA ch36 Example 36.5 p.382", "GA ch16 §16.1 p.171"]
-		},
-		{
-			"title": "Trace-reversing the field equation",
-			"what_it_shows": "Tracing Einstein's equation gives R = -8 pi G T; substituting back isolates Ricci in terms of T and its trace, making vacuum problems transparent.",
-			"level": "working",
-			"refs": ["GA ch13 Example 13.5 p.148"]
-		},
-		{
-			"title": "Linearized Ricci tensor",
-			"what_it_shows": "Dropping Gamma-Gamma terms makes Ricci a combination of second derivatives of the metric perturbation and its trace, the seed of linearized gravity.",
-			"level": "formal",
-			"refs": ["GA ch45 Example 45.1 p.487", "DIV ch21 §21.1 p.402"]
-		},
-		{
-			"title": "Convergence of a geodesic congruence",
-			"what_it_shows": "Reordering covariant derivatives with the Ricci identity introduces exactly the Ricci term that drives convergence along the flow.",
-			"level": "formal",
-			"refs": ["GA ch50 Example 50.1 p.548"]
-		}
-	],
-	"exercises": [
-		{
-			"summary": "Prove that Ricci is the only independent contraction of Riemann and that it is symmetric.",
-			"skill": "Using Riemann symmetries in contractions.",
-			"difficulty": "standard",
-			"refs": ["SCH ch06 Ex 6.25 p.167"]
-		},
-		{
-			"summary": "Using given Schwarzschild Riemann components, show the Ricci tensor vanishes outside a star and explain why it must.",
-			"skill": "Contracting components and interpreting vacuum Ricci-flatness.",
-			"difficulty": "standard",
-			"refs": ["GA ch11 Ex 11.3 p.130"]
-		},
-		{
-			"summary": "Show that a symmetric tensor whose double contraction with every timelike vector vanishes must itself vanish.",
-			"skill": "Polarization argument behind R_ab V^a V^b = 0 implying R_ab = 0.",
-			"difficulty": "standard",
-			"refs": ["DIV ch10 Ex 10.6"]
-		},
-		{
-			"summary": "Write a flat-space vector wave equation with commas, replace commas by semicolons in two orders, and show the versions differ by a Ricci term.",
-			"skill": "Commutator of covariant derivatives and the ambiguity of minimal coupling.",
-			"difficulty": "standard",
-			"refs": ["GA ch35 Ex 35.3 p.372"]
-		},
-		{
-			"summary": "Guided derivation of the linearized Ricci and Einstein tensors, showing the latter is the trace reverse of the former.",
-			"skill": "Linearized curvature and trace reversal.",
-			"difficulty": "standard",
-			"refs": ["SCH ch08 Ex 8.8 p.198"]
-		},
-		{
-			"summary": "For a general time-dependent spherically symmetric metric, compute Christoffel symbols, Riemann, Ricci, scalar and Einstein tensor.",
-			"skill": "The full metric-to-curvature pipeline.",
-			"difficulty": "challenging",
-			"refs": ["DIV ch06 Ex 6.32"]
-		},
-		{
-			"summary": "Compute Riemann, Ricci and scalar curvature for a paraboloid-shaped surface with metric (1 + a^2 r^2) dr^2 + r^2 d theta^2.",
-			"skill": "Contraction on a surface whose curvature varies with position.",
-			"difficulty": "standard",
-			"refs": ["GA ch36 Ex 36.4 p.385"]
-		}
-	],
-	"checks_for_understanding": [
-		{
-			"question": "An astronaut in orbit, far from any matter except Earth below, releases a small round cloud of crumbs at rest relative to her. In the first moments, does the cloud's shape change? Does its volume change? What does that say about the Ricci tensor there, and is spacetime flat there?",
-			"answer": "The shape changes: the cloud stretches along the direction to Earth's centre and squeezes in the two perpendicular directions (tidal eigenvalues 2q, -q, -q with q = GM/r^3). The volume does not change at leading order because the stretch and squeezes cancel, which means R_{mu nu} u^mu u^nu = 0; in fact the full Ricci tensor vanishes in vacuum with Lambda = 0. Spacetime is not flat: the non-zero tides show the Riemann (Weyl) curvature is present.",
-			"level": "intuition",
-			"targets_misconception": "If the Ricci tensor vanishes, spacetime is flat."
-		},
-		{
-			"question": "On a sphere of radius a the only independent Riemann components give R^theta_{phi theta phi} = sin^2 theta and R^phi_{theta phi theta} = 1. Find all Ricci components and show R_{mu nu} = g_{mu nu}/a^2.",
-			"answer": "R_{theta theta} = R^theta_{theta theta theta} + R^phi_{theta phi theta} = 0 + 1 = 1. R_{phi phi} = R^theta_{phi theta phi} + R^phi_{phi phi phi} = sin^2 theta + 0. R_{theta phi} = R^theta_{theta theta phi} + R^phi_{theta phi phi} = 0 by antisymmetry in the last two slots. Since g_{theta theta} = a^2 and g_{phi phi} = a^2 sin^2 theta, R_{mu nu} = g_{mu nu}/a^2.",
-			"level": "working",
-			"targets_misconception": null
-		},
-		{
-			"question": "Inside a uniform ball of dust of density rho (no pressure, Lambda = 0), what is R_{mu nu} u^mu u^nu for an observer at rest, and how fast does a tiny ball of dust released at rest begin to lose volume? Compare with the Newtonian tidal matrix.",
-			"answer": "From the trace-reversed field equation, R_{mu nu} u^mu u^nu = 8 pi G (T_{mu nu} u u - (1/2) T g_{mu nu} u u) = 8 pi G (rho - rho/2) = 4 pi G rho. So d^2 delta V/d tau^2 = -4 pi G rho delta V at release. Newtonian check: inside uniform matter Phi = (2 pi G rho/3) r^2, so the tidal matrix d_i d_j Phi = (4 pi G rho/3) delta_ij, whose trace nabla^2 Phi = 4 pi G rho matches.",
-			"level": "working",
-			"targets_misconception": null
-		},
-		{
-			"question": "Show that g^{rho sigma} R_{rho sigma mu nu} = 0 and R^rho_{mu nu rho} = -R_{mu nu}, and explain why a physicist proposing R_{mu nu} = kappa T_{mu nu} runs into trouble.",
-			"answer": "R_{rho sigma mu nu} is antisymmetric in rho and sigma while g^{rho sigma} is symmetric, so the contraction vanishes. Antisymmetry in the last pair gives R^rho_{mu nu rho} = -R^rho_{mu rho nu} = -R_{mu nu}. For the field equation: nabla^mu T_{mu nu} = 0, but the contracted Bianchi identity gives nabla^mu R_{mu nu} = (1/2) nabla_nu R, so the guess forces nabla_nu R = 0; with R = -kappa T this makes the trace of T constant throughout spacetime, which is not true of real matter distributions.",
-			"level": "formal",
-			"targets_misconception": "Since T_{mu nu} has two indices, the field equation should simply be R_{mu nu} proportional to T_{mu nu}."
-		},
-		{
-			"question": "A cloud of dust in a Ricci-flat region has already been stretched into an elongated, contracting shape by tides. Can its volume change even though Ricci is zero?",
-			"answer": "Yes. The Ricci law fixes only the initial volume acceleration of a ball released at rest with no shear. Once shear has built up, the Raychaudhuri equation's -sigma^2 term drives convergence, so volume decreases later even with R_{mu nu} = 0 (in the constant-tide model V/V0 = 1 - s^4/2 + ...).",
-			"level": "formal",
-			"targets_misconception": "Ricci always shrinks volumes, and zero Ricci means volumes never change."
-		}
-	],
-	"applications": [
-		{
-			"topic": "Vacuum field equations and black holes",
-			"details": "Outside isolated bodies R_{mu nu} = 0 (with Lambda neglected); the Schwarzschild and Kerr metrics are solutions of these ten equations, curved purely through Weyl curvature.",
-			"key_numbers": "Schwarzschild: R_{mu nu} = 0, Kretschmann 48 G^2 M^2/(c^4 r^6)",
-			"refs": ["GA ch11 Ex 11.3 p.130", "legacy:manuscript-section-17-1-schwarzschild-derivation"]
-		},
-		{
-			"topic": "Newtonian gravity as a Ricci statement",
-			"details": "The time-time Ricci component reduces to the Laplacian of the potential, so Poisson's equation is the weak-field limit of R_00 = 4 pi G (rho + 3p) with pressure negligible.",
-			"key_numbers": "R_00 = 4 pi G rho/c^2 for dust with x^0 = ct",
-			"refs": ["DIV ch10 §10.6 p.182", "legacy:manuscript-section-12-newtonian-limit-and-coupling"]
-		},
-		{
-			"topic": "Cosmic acceleration",
-			"details": "For FLRW, R_tt = -3 a''/a and the trace-reversed equation gives a''/a = -(4 pi G/3)(rho + 3p) + Lambda/3: matter and pressure decelerate, Lambda accelerates.",
-			"key_numbers": "Acceleration requires w < -1/3 for a single fluid",
-			"refs": ["GA ch17 §17.1 p.182", "legacy:manuscript-section-19-1-friedmann-derivation"]
-		},
-		{
-			"topic": "Einstein's equation as an evolution problem",
-			"details": "Only spatial metric components appear with second time derivatives in R_{mu nu}, which exposes gauge freedom and constraints; in harmonic gauge R_{mu nu} reduces to a wave operator on g_{mu nu} plus first-derivative terms, the basis of well-posed evolution and numerical relativity.",
-			"key_numbers": null,
-			"refs": ["DIV ch13 §13.6 p.226", "DIV ch13 §13.7 (13.35) p.229"]
-		},
-		{
-			"topic": "Gravitational lensing and focusing theorems",
-			"details": "The null Ricci term R_{mu nu} k^mu k^nu focuses light bundles (convergence); with energy conditions it underpins the focusing theorem used in singularity and area theorems.",
-			"key_numbers": null,
-			"refs": ["GA ch35 Example 35.7 p.370", "DIV ch23 §23.9 (23.44) p.475"]
-		}
-	],
-	"history": [
-		{
-			"people": ["Gregorio Ricci-Curbastro", "Tullio Levi-Civita"],
-			"year": "1900",
-			"note": "Ricci's absolute differential calculus, set out with his student Levi-Civita, supplied the tensor tools and the contraction that now bears Ricci's name.",
-			"refs": ["GA ch11 §11.5 p.127"]
-		},
-		{
-			"people": ["Albert Einstein"],
-			"year": "1915",
-			"note": "In autumn 1915, in the weeks before the final field equations of 25 November, Einstein tried equating a Ricci-type tensor directly to the energy-momentum tensor before arriving at the trace-reversed form.",
-			"refs": ["GA ch13 §13.3 p.145"]
-		}
-	],
-	"tutor_guidance": {
-		"opening_questions": [
-			"If you release a small ball of dust in free fall near Earth, what two different things could tides do to it?",
-			"What is the trace of the Newtonian tidal matrix outside a planet, and what is it inside matter?",
-			"Why might physics prefer a two-index curvature object over the four-index Riemann tensor for a field equation?"
-		],
-		"common_questions": [
-			{
-				"question": "Why this particular contraction and not another one?",
-				"answer": "Because of Riemann's symmetries there is essentially no choice: tracing the first two slots gives zero, tracing the upper index with the fourth slot gives minus Ricci, and the others reduce to these. Physically, tracing the tidal tensor, which is what gives volume change, lands exactly on the first-with-third contraction."
-			},
-			{
-				"question": "If Ricci vanishes outside the Sun, why is there any gravity there?",
-				"answer": "Gravity's measurable effect in a small lab is tidal, and tides come from the full Riemann tensor. Outside the Sun the Ricci part is zero but the Weyl part is not, so tides, orbital precession and light bending all remain; only volume-changing curvature is absent."
-			},
-			{
-				"question": "Is the Ricci tensor really an average of Riemann?",
-				"answer": "Loosely. It is a trace, and for the tidal matrix a trace is three times the average stretch over directions, so positive and negative parts can cancel. But it is not a statistical average and it throws away the Weyl part completely."
-			},
-			{
-				"question": "What do the off-diagonal Ricci components mean?",
-				"answer": "In an observer's frame R_0i is tied through Einstein's equation to momentum density (energy flux) of matter, and R_ij to stresses minus an isotropic trace term. Only the double contraction with u has the simple volume meaning."
-			},
-			{
-				"question": "Why doesn't Ricci alone appear in Einstein's equation?",
-				"answer": "Matter's energy-momentum is conserved, so the geometric side must have zero divergence for every geometry. Ricci's divergence is half the gradient of R, not zero; subtracting (1/2) R g fixes that, giving the Einstein tensor. The equation can still be rewritten with Ricci alone by trace reversal."
-			}
-		],
-		"explaining_pitfalls": [
-			"Do not state 'Ricci = volume change' without the conditions: tiny ball, released at rest, initial instant, and the sign requires rho + 3p above Lambda/(4 pi G).",
-			"Do not say spacetime is flat where Ricci vanishes; always follow a vacuum statement with 'but tides remain'.",
-			"Do not describe Ricci and Weyl as acting in different regions; they superpose at each event.",
-			"Avoid the symbol K for the tidal matrix (it collides with Gaussian curvature and the Kretschmann scalar) and warn that Gifted Amateur's K has the opposite sign to d'Inverno's.",
-			"Do not call R_{mu nu} - (1/4) R g_{mu nu} the Einstein tensor."
-		],
-		"demo_moments": [
-			"Right after the motivating question, open the tidal cloud with the 'outside a planet' preset, then switch to 'inside dust' and let the learner see volume begin to fall.",
-			"When defining the contraction, use the curvature table: let the learner sum entries into Ricci components by hand, then try the 'find a vacuum' challenge.",
-			"When discussing vacuum, load the Schwarzschild preset in the curvature table so Ricci shows zero while Kretschmann does not.",
-			"Before the Raychaudhuri equation, show the transparent-star lensing demo with a ray skimming the rim to display magnification and shear together."
-		],
-		"voice_notes": "Say R_{mu nu} = R^rho_{mu rho nu} as 'R mu nu equals R upper rho, lower mu rho nu: the top index is traced against the third slot'. Say the volume law as 'the second time derivative of a small volume, divided by the volume, is minus Ricci contracted twice with the four-velocity'. Say the trace-reversed equation as 'Ricci equals eight pi G times T minus half the trace of T times the metric, plus Lambda times the metric'. Say E^mu_rho aloud as 'the tidal tensor'."
-	},
-	"sources": [
-		{"source": "schutz", "unit": "ch06", "depth": "core", "locators": [{"pdf_page": 180, "printed_page": 162, "section": "6.6"}, {"pdf_page": 181, "printed_page": 163, "section": "6.6"}]},
-		{"source": "schutz", "unit": "ch08", "depth": "revisited", "locators": [{"pdf_page": 202, "printed_page": 184, "section": "8.1"}]},
-		{"source": "gifted-amateur", "unit": "ch11", "depth": "core", "locators": [{"pdf_page": 144, "printed_page": 127, "section": "11.5"}, {"pdf_page": 145, "printed_page": 128, "section": "11.6"}]},
-		{"source": "gifted-amateur", "unit": "ch13", "depth": "revisited", "locators": [{"pdf_page": 159, "printed_page": 142, "section": "13.1"}, {"pdf_page": 162, "printed_page": 145, "section": "13.3"}, {"pdf_page": 164, "printed_page": 147, "section": "13.4"}]},
-		{"source": "gifted-amateur", "unit": "ch14", "depth": "revisited", "locators": [{"pdf_page": 170, "printed_page": 153, "section": "14.2"}]},
-		{"source": "gifted-amateur", "unit": "ch35", "depth": "core", "locators": [{"pdf_page": 387, "printed_page": 370, "section": "35.4"}, {"pdf_page": 388, "printed_page": 371, "section": "35.4"}, {"pdf_page": 389, "printed_page": 372, "section": null}]},
-		{"source": "gifted-amateur", "unit": "ch36", "depth": "revisited", "locators": [{"pdf_page": 399, "printed_page": 382, "section": "36.4"}, {"pdf_page": 400, "printed_page": 383, "section": "36.4"}]},
-		{"source": "gifted-amateur", "unit": "ch50", "depth": "revisited", "locators": [{"pdf_page": 566, "printed_page": 549, "section": "50.2"}, {"pdf_page": 567, "printed_page": 550, "section": "50.2"}]},
-		{"source": "dinverno", "unit": "ch06", "depth": "core", "locators": [{"pdf_page": 121, "printed_page": 106, "section": "6.12"}]},
-		{"source": "dinverno", "unit": "ch10", "depth": "core", "locators": [{"pdf_page": 190, "printed_page": 175, "section": "10.4"}, {"pdf_page": 198, "printed_page": 183, "section": "10.7"}]},
-		{"source": "legacy", "unit": "manuscript-section-09-ricci-volume-weyl-shape", "depth": "core"},
-		{"source": "legacy", "unit": "lesson-contract-curvature-by-hand", "depth": "developed"},
-		{"source": "legacy", "unit": "lab-tidal-cloud-geodesic-deviation", "depth": "developed"}
-	],
-	"review": {
-	 "verdict": "fixed",
-	 "fixes": [
-	  "Misconception 'Ricci inside, Weyl outside': the correction claimed the Weyl part inside a star is small at the centre and grows toward the rim, which is false for a uniform ball (its Newtonian interior tide is exactly isotropic). Rewrote it: Weyl appears inside a centrally concentrated real star, and a ray accumulates both effects along its whole path.",
-	  "Corrected the GA eqn 50.9 reference to Example 50.1 p.549 (was p.550), checked against the reading copy.",
-	  "Corrected Schutz Eq. 6.87 page to p.162.",
-	  "Added to the formal level the harmonic-gauge principal part of Ricci (wave operator on g), drawn from d'Inverno ch13 evidence that the note had not used, and a matching application entry."
-	 ],
-	 "concerns": [
-	  "Worked and verified: sphere Ricci, uniform-dust R_uu = 4 pi G rho, volume law from edge lengths, V/V0 = cosh(sqrt2 s) cos^2 s = 1 - s^4/2, the A-F orthonormal contraction table and the Schwarzschild pattern (Ricci 0, Kretschmann 48 q^2), Raychaudhuri signs, linearized Ricci in course conventions, the index-free trace definition.",
-	  "Exercise refs DIV Ex 10.6 and DIV Ex 6.32 still lack page numbers.",
-	  "The 1900 date for Ricci and Levi-Civita's memoir is general knowledge; GA ch11 only names Ricci-Curbastro in a margin note."
-	 ]
-	}
+ "schema_version": 2,
+ "id": "ricci-tensor",
+ "title": "Ricci tensor",
+ "tagline": "The total of the tidal drifts in a small falling ball of crumbs",
+ "domain": "curvature",
+ "tier": "core",
+ "status": "physics-reviewed",
+ "revision": 4,
+ "updated": "2026-09-13",
+ "aliases": [
+  "Ricci curvature",
+  "Ricci curvature tensor"
+ ],
+ "summary": "Let go of a small ball of crumbs, at rest in a cabin that falls freely near a planet, with nothing among them. Tidal drift pulls the ball longer along the line toward the planet's centre and narrower across it. Add the drifts along those three directions and they add to zero, so at first the room the ball takes up does not change. Where dust fills the space among the crumbs, the drifts no longer add to zero, and the ball starts to shrink. The Ricci tensor is the table that holds this total.",
+ "objectives": [
+  {
+   "id": "explain-the-total-of-the-drifts",
+   "rung": "entry",
+   "can_do": "Explain why the three tidal drifts in a falling ball of crumbs add up to zero near a planet, with nothing among the crumbs. Say what that zero total means for the room the ball takes up.",
+   "evidenced_by": [
+    "checks/egg-keeps-its-volume",
+    "checks/zero-total-is-not-flat",
+    "problems/missing-drift-near-the-moon"
+   ]
+  },
+  {
+   "id": "predict-shrinking-among-matter",
+   "rung": "entry",
+   "can_do": "Predict how a small ball of crumbs among evenly spread dust starts to shrink, and how that changes with the dust.",
+   "evidenced_by": [
+    "checks/denser-dust-faster"
+   ]
+  },
+  {
+   "id": "compute-ricci-components",
+   "rung": "working",
+   "can_do": "Compute Ricci components from Riemann components, including a table whose Ricci components vanish while its Riemann components do not.",
+   "evidenced_by": [
+    "checks/vacuum-table-with-zero-ricci"
+   ]
+  },
+  {
+   "id": "use-the-initial-volume-law",
+   "rung": "working",
+   "can_do": "Use the initial volume law to estimate how fast a ball of free particles released at rest loses volume.",
+   "evidenced_by": [
+    "problems/water-density-dust-ball"
+   ]
+  },
+  {
+   "id": "relate-ricci-to-matter",
+   "rung": "working",
+   "can_do": "Find the Ricci contraction along an observer's four-velocity from density, pressure and the cosmological constant.",
+   "evidenced_by": [
+    "checks/tunnel-through-the-earth",
+    "problems/accelerating-universe-focusing"
+   ]
+  },
+  {
+   "id": "prove-symmetry-and-uniqueness",
+   "rung": "formal",
+   "can_do": "Prove that the Ricci tensor of the Levi-Civita connection is symmetric and is its only independent single contraction.",
+   "evidenced_by": [
+    "checks/every-trace-is-ricci"
+   ]
+  },
+  {
+   "id": "state-limits-of-the-volume-law",
+   "rung": "formal",
+   "can_do": "State the hypotheses of the initial volume law, and show how shear changes volume where Ricci vanishes.",
+   "evidenced_by": [
+    "checks/sheared-ball-loses-volume"
+   ]
+  },
+  {
+   "id": "prove-observer-traces-fix-ricci",
+   "rung": "formal",
+   "can_do": "Prove that the tidal traces measured by all freely falling observers at an event fix the Ricci tensor there.",
+   "evidenced_by": [
+    "problems/all-observers-zero-trace"
+   ]
+  }
+ ],
+ "ways_in": [
+  {
+   "id": "add-up-the-three-drifts",
+   "title": "Add up the three drifts",
+   "kind": "picture",
+   "rung": "entry",
+   "question": "A small falling ball of crumbs is pulled longer one way and narrower the other two. What single number says whether the room it takes up starts to change?",
+   "continues": [],
+   "gist": null,
+   "recap": "A cabin falls freely when nothing but gravity acts on it: no air pushing, no floor or rope holding it. Let go of crumbs inside such a cabin near a round planet, each at rest relative to the cabin. Compared with a crumb at their centre, they slowly drift. Along the line toward the planet's centre they drift apart. Across that line they drift together, half as far. This is called tidal drift. The Riemann curvature tensor, or curvature table for short, is a table kept at every place that describes the curving there. Some of its entries give these drifts.",
+   "explanation": "Picture a cabin falling freely down a tall tower on Earth, with the air pumped out. You float inside and let go of seven crumbs at once, each at rest relative to the cabin. One sits at the centre. Two sit 1 metre from that centre crumb along the line toward Earth's centre, one on each side of it. Four more sit 1 metre from the centre crumb across that line, two in each of two directions at right angles to each other. The six outer crumbs mark a small ball around the centre crumb. You time them with the cabin's clock and measure them with a ruler fixed to the cabin.\n\nNow watch the six outer crumbs, each compared with the centre crumb. In the first 10 seconds, each crumb along the line drifts away from the centre crumb by about 15 hundredths of a millimetre. Each crumb across the line drifts toward the centre crumb by half as far, 7 and a half hundredths. Both distances are about the width of a hair or two, so nobody notices them.\n\nWhy those two sizes? Gravity weakens with the square of the distance, and squaring doubles a small share: 1.0001 times 1.0001 is just over 1.0002. Earth's centre is 6371 kilometres away, so a step of 1 metre toward it strengthens the pull by 2 parts in 6 371 000. The crumb nearer Earth's centre is pulled that much harder than the centre crumb, and the one farther away that much less. So both of them drift away from the centre crumb. A crumb across the line stays the same distance from Earth's centre, so it is pulled just as hard. But it is pulled toward Earth's centre, not toward the centre crumb. Sitting 1 metre to the side tilts that pull by 1 metre in 6371 kilometres. So 1 part in 6 371 000 of the pull aims toward the centre crumb. That is half the share the crumbs along the line feel, so the drift across the line is half as far.\n\nNow take one crumb in each of three directions at right angles and add their drifts. Count a drift away from the centre crumb as positive, and a drift toward it as negative. The drift along the line is plus 15 hundredths of a millimetre, and the two drifts across that line are minus 7 and a half hundredths each. So the total is zero.\n\nWhy add them? The ball of crumbs grows longer along the line and narrower across it, so it turns into an egg shape. The room a shape takes up is called its volume. For small changes, write each change of length as a fraction of the length it belongs to. Do that for the ball's length and for its two widths. The change in the room the ball takes up is the sum of those three fractions. Every crumb started 1 metre from the centre crumb, so each drift divided by that metre is one of the three fractions. The three fractions add to zero, so at first the room the ball takes up does not change.\n\nThe words \"at first\" matter. Let go of fresh crumbs at any later moment, and their drifts still add to zero. But the crumbs you let go at the start are now moving. They keep stretching the ball along the line toward Earth's centre, and keep narrowing it across that line. Take on trust that this ongoing motion, by itself, slowly shrinks the room the ball takes up. A satellite flying above Earth measured these drifts for four years and found their total zero within its accuracy.\n\nAdding up entries of the curvature table in this way gives a smaller table. It is called the Ricci tensor, and it holds enough numbers to give that total for a cabin moving in any way.",
+   "try_it": "Shape a block of modelling clay 10 centimetres long, 2 centimetres wide and 2 centimetres deep. Press gently along its top and its sides with a flat ruler, pushing clay toward the ends, until it is 11 centimetres long with square sides. Measure its width and depth with a ruler marked in millimetres: each is now about 1.9 centimetres. The length grew by a tenth, and each width shrank by about a twentieth. A tenth minus a twentieth minus a twentieth is zero, and the room the clay takes up never changed.",
+   "takeaway": "Add the tidal drifts of a small falling ball of crumbs along three directions at right angles. That total says whether the room the ball takes up starts to change, and the Ricci tensor is the table that holds that total.",
+   "picture": null,
+   "simplifies": null,
+   "assumes": [
+    "riemann-curvature-tensor",
+    "tidal-force"
+   ],
+   "visuals": [
+    {
+     "id": "falling-ring-of-crumbs",
+     "preset": null,
+     "tour": null
+    }
+   ],
+   "refs": [
+    "checks/egg-keeps-its-volume"
+   ]
+  },
+  {
+   "id": "crumbs-among-dust-draw-together",
+   "title": "Among dust, the ball starts to shrink",
+   "kind": "contrast",
+   "rung": "entry",
+   "question": "What makes the three drifts in a small falling ball of crumbs add up to something other than zero?",
+   "continues": [
+    "add-up-the-three-drifts"
+   ],
+   "gist": null,
+   "recap": "Let go of crumbs in a cabin that falls freely, each at rest relative to the cabin, so that they mark a small ball around a centre crumb. Near a round planet, with nothing among the crumbs, they drift away from the centre crumb along the line toward the planet's centre. Across that line they drift toward the centre crumb, half as far. Take one crumb in each of three directions at right angles and add those drifts, counting a drift away from the centre crumb as positive. The total is zero, so at first the room the ball takes up does not change. The Ricci tensor is the table that holds that total.",
+   "explanation": "Far from any planet, picture a huge round cloud of fine dust, spread evenly. A small ball of crumbs, 4 metres across, sits at the middle of the cloud, with one crumb at its centre. Dust fills the space among the crumbs. Let go of everything at once, every grain and every crumb at rest relative to each other, so all of it falls freely.\n\nThe dust pulls on the crumbs. Two facts about an evenly spread round cloud help here, both taken on trust. All the dust farther from the middle than a crumb pulls that crumb from every side, and those pulls cancel. The dust nearer the middle than a crumb pulls that crumb as if all of that dust sat at the middle.\n\nSo compare a crumb 1 metre from the middle with a crumb 2 metres out. The farther crumb has 8 times as much dust nearer the middle than it, because a ball twice as wide holds 2 times 2 times 2 times as much. That dust pulls from twice as far away, and gravity weakens with the square of distance, so each bit of it pulls 4 times less. Since 8 divided by 4 is 2, the farther crumb is pulled twice as hard.\n\nThe same counting works in every direction. Each crumb is pulled toward the middle in proportion to how far out it sits, so the ball stays round while it starts to shrink. All three drifts now point toward the centre crumb, so their total is not zero.\n\nDenser dust pulls harder. Put twice as much dust in each cubic metre and every drift doubles. Making the cloud wider changes nothing: the extra dust lies farther out than the crumbs, and its pulls cancel. So the total counts only what is there among the crumbs, and nothing farther out. Einstein's theory of gravity ties the Ricci tensor at each place to the matter at that same place.\n\nSuppose the dust is as dense as water. In the first 10 seconds, a crumb 1 metre from the middle drifts toward the middle by 14 thousandths of a millimetre, far too little to see. Yet nothing holds the dust apart, so the whole cloud falls in to its middle in about 35 minutes, however wide it is. A wider cloud pulls its dust harder, but that dust also has farther to fall, and the two changes balance exactly.",
+   "try_it": null,
+   "takeaway": "Dust, water or rock among the crumbs gives each crumb an extra drift toward the centre crumb. So the total is no longer zero, and a falling ball of crumbs starts to shrink. The denser that matter, the bigger the total.",
+   "picture": null,
+   "simplifies": "Einstein's theory also gives empty space itself a tiny total of its own, one that spreads the crumbs apart rather than drawing them together. It beats the matter's total only where each cubic metre holds less mass than about 7 hydrogen atoms.",
+   "assumes": [
+    "tidal-force"
+   ],
+   "visuals": [
+    {
+     "id": "falling-ring-of-crumbs",
+     "preset": null,
+     "tour": null
+    }
+   ],
+   "refs": [
+    "checks/denser-dust-faster"
+   ]
+  },
+  {
+   "id": "the-total-is-a-trace",
+   "title": "The total is a trace of the Riemann tensor",
+   "kind": "calculation",
+   "rung": "working",
+   "question": "Which contraction of the Riemann tensor gives the total of the drifts, and how does that total set the volume of a small ball?",
+   "continues": [
+    "add-up-the-three-drifts"
+   ],
+   "gist": null,
+   "recap": null,
+   "explanation": "The drifts added up in \"Add up the three drifts\" are Riemann components, and their total has a name in index notation. First turn a drift into an acceleration: a particle released at rest that drifts a distance $d$ in a short time $t$ has relative acceleration $2d/t^2$. So 0.154 mm in 10 s, at 1 m from the centre crumb, is $3.08\\times10^{-6}\\ \\mathrm{m\\,s^{-2}}$ per metre of separation.\n\nGive a freely falling observer with four-velocity $u^\\mu$ an orthonormal frame whose spatial axes are held fixed by gyroscopes. Taken on trust here, the geodesic deviation equation gives the separation $\\xi$ of a neighbouring free particle:\n\n$$\\ddot\\xi^{\\hat\\imath} = -E_{ij}\\,\\xi^{\\hat\\jmath},\\qquad E_{ij} = c^2R^{\\hat\\imath}{}_{\\hat 0\\hat\\jmath\\hat 0}.$$\n\nExchanging the index pairs of the lowered Riemann tensor leaves it unchanged, so $E$ is symmetric, with three orthogonal eigen-directions and eigenvalues $\\lambda_i$. A positive $\\lambda_i$ draws that direction inward. The total of the drifts, counted as relative accelerations per unit separation, is therefore $-\\sum_i\\lambda_i$. Since $R^{\\hat 0}{}_{\\hat 0\\hat 0\\hat 0} = 0$, the eigenvalue sum runs over all four frame indices, which turns it into a contraction of the upper index with the third slot:\n\n$$\\sum_i\\lambda_i = c^2R^\\rho{}_{\\hat 0\\rho\\hat 0} = R_{\\mu\\nu}u^\\mu u^\\nu,\\qquad R_{\\mu\\nu} \\equiv R^\\rho{}_{\\mu\\rho\\nu}.$$\n\nThat last definition fixes the Ricci tensor in every basis. Pair exchange makes it symmetric, so in four dimensions it holds 10 independent components. No other single trace is new: the first two lowered slots are antisymmetric, so tracing them gives zero, and tracing the upper index against the fourth slot gives $-R_{\\mu\\nu}$.\n\nNow the volume. Lay the edges of a small box of particles along the eigen-directions, every particle at rest relative to the centre at $\\tau = 0$. Each edge obeys $\\ddot L_i = -\\lambda_iL_i$, so $L_i \\approx L_i(0)\\big(1 - \\tfrac12\\lambda_i\\tau^2\\big)$. The volume is the product of the edges, and small fractional changes add:\n\n$$\\delta V(\\tau) = \\delta V(0)\\Big(1 - \\tfrac12R_{\\mu\\nu}u^\\mu u^\\nu\\,\\tau^2\\Big) + O(\\tau^3).$$\n\nA positive $R_{\\mu\\nu}u^\\mu u^\\nu$ therefore makes the ball start to shrink.\n\nOutside a spherical mass $M$ the eigenvalues are $(GM/r^3)(-2, 1, 1)$, which sum to zero. At Earth's surface that means particles 1 m apart accelerate apart at $3.08\\times10^{-6}\\ \\mathrm{m\\,s^{-2}}$ along the radius and together at $1.54\\times10^{-6}\\ \\mathrm{m\\,s^{-2}}$ across it, so the volume holds to order $\\tau^2$. The Riemann tensor there is not zero, so a vanishing Ricci tensor does not mean flat spacetime.",
+   "try_it": null,
+   "takeaway": "Tracing the Riemann tensor's upper index against its third slot gives the symmetric Ricci tensor; contracted twice with an observer's four-velocity it is the trace of the tides, which sets a small ball's initial volume change.",
+   "picture": null,
+   "simplifies": "Keeps the volume change to second order in proper time, for particles released at rest relative to each other.",
+   "assumes": [
+    "riemann-curvature-tensor",
+    "tensor-contraction",
+    "symmetries-of-the-riemann-tensor"
+   ],
+   "visuals": [],
+   "refs": [
+    "derivations/volume-law-from-deviation",
+    "worked_examples/ricci-tensor-of-a-sphere",
+    "checks/vacuum-table-with-zero-ricci"
+   ]
+  },
+  {
+   "id": "a-gradiometer-reads-the-trace",
+   "title": "A gradiometer reads the trace",
+   "kind": "operational",
+   "rung": "working",
+   "question": "What does a gravity gradiometer measure of the Ricci tensor, and what sets the value it reads?",
+   "continues": [
+    "the-total-is-a-trace",
+    "crumbs-among-dust-draw-together"
+   ],
+   "gist": null,
+   "recap": null,
+   "explanation": "The trace in \"The total is a trace of the Riemann tensor\" can be read by an instrument. A gravity gradiometer carries pairs of accelerometers a short distance apart along three orthogonal axes. Each pair's difference in readings, divided by its separation, gives one entry of the tidal matrix. In a static weak field with Newtonian potential $\\Phi$ that matrix is $c^2R^{\\hat\\imath}{}_{\\hat 0\\hat\\jmath\\hat 0} \\approx \\partial_i\\partial_j\\Phi$, so for an observer at rest, with $x^0 = ct$, its trace and Poisson's equation give\n\n$$c^2R_{00} \\approx \\nabla^2\\Phi = 4\\pi G\\rho.$$\n\nThe sum of the three diagonal gravity gradients therefore measures the mass density at the instrument. In \"Among dust, the ball starts to shrink\" each direction contributes $\\tfrac{4\\pi}{3}G\\rho$, and three of them make this sum. Outside matter the sum is zero, which is Laplace's equation.\n\nOne satellite carried such an instrument for four years, about 255 km above Earth and lower near the end. For a spherical Earth at $r = 6626$ km the gradient along the radius is $-2GM/r^3 = -2.74\\times10^{-6}\\ \\mathrm{s^{-2}}$ and each horizontal gradient is $+1.37\\times10^{-6}\\ \\mathrm{s^{-2}}$. The satellite turns once per orbit, at rate $\\Omega$, and that rotation adds $-2\\Omega^2$ to the raw diagonal sum, which is $-2.74\\times10^{-6}\\ \\mathrm{s^{-2}}$ again because $\\Omega^2 = GM/r^3$ on a circular orbit. With the rotation removed, the measured gradients sum to zero within the instrument's noise, as Laplace's equation requires.\n\nIn full general relativity, Einstein's equation, taken on trust here, ties the Ricci tensor to the matter at the same event. For an observer at rest in a perfect fluid of mass density $\\rho$ and pressure $p$, with cosmological constant $\\Lambda$,\n\n$$R_{\\mu\\nu}u^\\mu u^\\nu = 4\\pi G\\Big(\\rho + \\frac{3p}{c^2}\\Big) - \\Lambda c^2.$$\n\nPressure focuses as well, entering three times over, and a positive $\\Lambda$ defocuses. Today $\\Lambda c^2 \\approx 1\\times10^{-35}\\ \\mathrm{s^{-2}}$, smaller than the tidal gradients near Earth by about 30 orders of magnitude and far below any gradiometer's reach.",
+   "try_it": null,
+   "takeaway": "The diagonal sum of gravity gradients reads the Ricci contraction: four pi G times the local density in a weak field, zero outside matter, with pressure and the cosmological constant added in general relativity.",
+   "picture": null,
+   "simplifies": "Uses a static weak field for the gradiometer relation and a perfect fluid for the matter relation.",
+   "assumes": [
+    "newtonian-tidal-tensor",
+    "poisson-equation-for-gravity"
+   ],
+   "visuals": [],
+   "refs": [
+    "observations/goce-zero-trace",
+    "checks/tunnel-through-the-earth",
+    "problems/accelerating-universe-focusing"
+   ]
+  },
+  {
+   "id": "the-trace-of-the-curvature-operator",
+   "title": "Ricci as a trace, and what it controls",
+   "kind": "structure",
+   "rung": "formal",
+   "question": "What is the Ricci tensor without coordinates, what determines it, and exactly what does it say about volumes?",
+   "continues": [
+    "the-total-is-a-trace"
+   ],
+   "gist": null,
+   "recap": null,
+   "explanation": "The trace in \"The total is a trace of the Riemann tensor\" has a coordinate-free form. Set $G = c = 1$. For a connection $\\nabla$ with curvature operator $\\mathcal R(X,Y)Z = \\nabla_X\\nabla_YZ - \\nabla_Y\\nabla_XZ - \\nabla_{[X,Y]}Z$, define\n\n$$\\mathrm{Ric}(Y,Z) = \\operatorname{tr}\\big(X \\mapsto \\mathcal R(X,Z)Y\\big),$$\n\nwith components $R_{\\sigma\\nu} = R^\\rho{}_{\\sigma\\rho\\nu}$. A trace of a linear map needs no metric, so $\\mathrm{Ric}$ exists for any affine connection. Its symmetry does not come free. Pair exchange $R_{\\rho\\sigma\\mu\\nu} = R_{\\mu\\nu\\rho\\sigma}$ follows from first-pair antisymmetry, which needs $\\nabla g = 0$, together with the cyclic identity, which needs zero torsion. For the Levi-Civita connection $\\mathrm{Ric}$ is symmetric; for a general affine connection it need not be.\n\n*Uniqueness.* For Levi-Civita, every contraction of one pair of Riemann indices is $0$ or $\\pm\\mathrm{Ric}$. The first lowered pair is antisymmetric, so $g^{\\rho\\sigma}R_{\\rho\\sigma\\mu\\nu} = 0$; the last pair is antisymmetric, so tracing the upper index against the fourth slot gives $-R_{\\sigma\\mu}$; pair exchange carries the remaining traces onto these.\n\n*Sectional sums.* On a Riemannian manifold with orthonormal basis $\\{e_1, \\dots, e_n\\}$, $\\mathrm{Ric}(e_1,e_1) = \\sum_{i\\ge2}K(e_1,e_i)$. In spacetime a unit timelike $u$ with orthonormal spatial $e_i$ has $\\mathrm{Ric}(u,u) = -\\sum_iK(u,e_i)$, because the denominator in the course definition of $K$ is negative on timelike planes. The behaviour matches in both cases: positive $\\mathrm{Ric}$ along a geodesic's tangent makes neighbouring geodesics converge on average.\n\n*What fixes it.* A symmetric tensor is determined by its values on the open cone of timelike vectors, by a short polarization argument. So $\\mathrm{Ric} = 0$ at an event exactly when every freely falling observer there measures tides of zero trace.\n\n*Volumes.* In Riemannian normal coordinates at $p$, $\\sqrt{\\det g} = 1 - \\tfrac16R_{ij}x^ix^j + O(x^3)$, so positive Ricci curvature in a direction thins the volume element along it. For a timelike geodesic congruence with $B_{\\mu\\nu} = \\nabla_\\nu u_\\mu$, expansion $\\theta = B^\\mu{}_\\mu$, shear $\\sigma_{\\alpha\\beta}$ and rotation $\\omega_{\\alpha\\beta}$, commuting covariant derivatives gives $u^\\lambda\\nabla_\\lambda B_{\\mu\\nu} = -B_{\\mu\\lambda}B^\\lambda{}_\\nu - R_{\\sigma\\mu\\lambda\\nu}u^\\sigma u^\\lambda$. Its trace is the Raychaudhuri equation,\n\n$$\\frac{d\\theta}{d\\tau} = -\\frac{\\theta^2}{3} - \\sigma_{\\alpha\\beta}\\sigma^{\\alpha\\beta} + \\omega_{\\alpha\\beta}\\omega^{\\alpha\\beta} - R_{\\mu\\nu}u^\\mu u^\\nu,$$\n\nwhere $\\theta = d\\ln\\delta V/d\\tau$. With expansion, shear and rotation all zero at release it returns $\\ddot{\\delta V}/\\delta V = -R_{\\mu\\nu}u^\\mu u^\\nu$, the initial volume law.\n\n*Limits.* That law speaks about one instant. A trace-free tide builds shear, and shear then drives $\\theta$ negative, so even where $\\mathrm{Ric} = 0$ a ball holds its volume only through order $\\tau^3$. The sign of $R_{\\mu\\nu}u^\\mu u^\\nu$ is pure geometry until Einstein's equation sets it to $4\\pi(\\rho + 3p) - \\Lambda$ for an observer at rest in a perfect fluid. With $\\Lambda = 0$ it is non-negative for every observer exactly when the matter obeys the strong energy condition, the input of the timelike focusing theorems.\n\n*Dimension.* In two dimensions $R_{\\mu\\nu} = \\tfrac12Rg_{\\mu\\nu}$, so $\\mathrm{Ric}$ carries the whole Riemann tensor. In three dimensions $\\mathrm{Ric}$ and $g$ still determine it. In four, Riemann's 20 independent components split into the 10 of $\\mathrm{Ric}$ and the 10 of the trace-free Weyl tensor, which $\\mathrm{Ric}$ cannot see.",
+   "try_it": null,
+   "takeaway": "Ricci is the trace of the curvature operator, symmetric for the Levi-Civita connection and fixed by every observer's tidal trace; it sets initial volume change through the Raychaudhuri equation, while shear and Weyl lie beyond it.",
+   "picture": null,
+   "simplifies": "Takes the commutator step of the Raychaudhuri equation from the Ricci identity without writing it out.",
+   "assumes": [
+    "riemann-curvature-operator",
+    "levi-civita-connection"
+   ],
+   "visuals": [],
+   "refs": [
+    "checks/every-trace-is-ricci",
+    "checks/sheared-ball-loses-volume",
+    "problems/all-observers-zero-trace"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "id": "fall-freely",
+   "term": "fall freely",
+   "forms": [
+    "falls freely",
+    "falling freely",
+    "freely falling"
+   ],
+   "say_as": null,
+   "concept": "free-fall",
+   "plain_definition": "To move with nothing but gravity acting: no air pushing, and no floor or rope holding you."
+  },
+  {
+   "id": "tidal-drift",
+   "term": "tidal drift",
+   "forms": [
+    "drift",
+    "drifts",
+    "drifted"
+   ],
+   "say_as": null,
+   "concept": "tidal-force",
+   "plain_definition": "The slow drift of neighbouring freely falling objects apart or together, because gravity pulls them slightly differently. Outside a round planet they drift apart along the line toward its centre and together across it."
+  },
+  {
+   "id": "volume",
+   "term": "volume",
+   "forms": [],
+   "say_as": null,
+   "concept": null,
+   "plain_definition": "The amount of room something takes up."
+  },
+  {
+   "id": "riemann-curvature-tensor",
+   "term": "Riemann curvature tensor",
+   "forms": [
+    "curvature table"
+   ],
+   "say_as": "REE-mahn",
+   "concept": "riemann-curvature-tensor",
+   "plain_definition": "A table kept at every place that describes the curving there. Some of its entries give how crumbs let go in a freely falling cabin drift."
+  },
+  {
+   "id": "ricci-tensor",
+   "term": "Ricci tensor",
+   "forms": [],
+   "say_as": "REE-chee",
+   "concept": "ricci-tensor",
+   "plain_definition": "A smaller table made from the Riemann curvature tensor by adding up entries. For a cabin moving in any way, it gives the total of the drifts of a small ball of crumbs let go at rest there. That total says whether the room the ball takes up starts to change."
+  }
+ ],
+ "pronunciations": [
+  {
+   "written": "Ricci",
+   "spoken": "REE-chee"
+  },
+  {
+   "written": "Riemann",
+   "spoken": "REE-mahn"
+  },
+  {
+   "written": "Ricci-Curbastro",
+   "spoken": "REE-chee koor-BAHS-troh"
+  },
+  {
+   "written": "Levi-Civita",
+   "spoken": "LEH-vee CHEE-vee-tah"
+  },
+  {
+   "written": "Raychaudhuri",
+   "spoken": "ray-CHOWD-hoo-ree"
+  }
+ ],
+ "prerequisites": [
+  {
+   "id": "riemann-curvature-tensor",
+   "why": "The Ricci tensor is a contraction of the Riemann tensor, and tidal drift reads Riemann entries.",
+   "needed_for": "entry"
+  },
+  {
+   "id": "tensor-contraction",
+   "why": "Forming the Ricci tensor is a single trace of an upper index against a lower one.",
+   "needed_for": "working"
+  },
+  {
+   "id": "symmetries-of-the-riemann-tensor",
+   "why": "The Riemann symmetries make the Ricci tensor symmetric and the only independent contraction.",
+   "needed_for": "working"
+  },
+  {
+   "id": "poisson-equation-for-gravity",
+   "why": "In a weak field the time-time Ricci component is the Laplacian of the potential, which Poisson ties to density.",
+   "needed_for": "working"
+  },
+  {
+   "id": "riemann-curvature-operator",
+   "why": "The coordinate-free Ricci tensor is the trace of the curvature operator.",
+   "needed_for": "formal"
+  }
+ ],
+ "leads_to": [
+  {
+   "id": "ricci-scalar",
+   "why": "Tracing the Ricci tensor with the inverse metric gives the Ricci scalar."
+  },
+  {
+   "id": "einstein-tensor",
+   "why": "Subtracting half the Ricci scalar times the metric gives the divergence-free tensor of Einstein's equation."
+  },
+  {
+   "id": "contracted-bianchi-identity",
+   "why": "Contracting the second Bianchi identity fixes the divergence of the Ricci tensor."
+  },
+  {
+   "id": "weyl-tensor",
+   "why": "Removing the Ricci parts from the Riemann tensor leaves the curvature the Ricci tensor cannot see."
+  },
+  {
+   "id": "ricci-flat-spacetime",
+   "why": "Empty space without a cosmological constant has zero Ricci tensor yet can be curved."
+  },
+  {
+   "id": "volume-preserving-tidal-deformation",
+   "why": "Tides with zero trace change a small ball's shape but not its initial volume."
+  },
+  {
+   "id": "raychaudhuri-equation",
+   "why": "The Ricci tensor along a flow is the curvature term that focuses geodesic congruences."
+  },
+  {
+   "id": "relativistic-tidal-tensor",
+   "why": "One observer's tidal matrix has the Ricci contraction as its trace, so that note builds the full matrix on this one."
+  }
+ ],
+ "related": [
+  {
+   "id": "kretschmann-scalar",
+   "relation": "detects curvature where the Ricci tensor vanishes"
+  },
+  {
+   "id": "curvature-sign-conventions",
+   "relation": "which slot is traced is one of the sign choices"
+  },
+  {
+   "id": "vacuum-einstein-equations",
+   "relation": "set the Ricci tensor to zero where there is no matter"
+  },
+  {
+   "id": "ricci-focusing-versus-weyl-shear",
+   "relation": "the Ricci term focuses light bundles like a lens"
+  }
+ ],
+ "key_equations": [
+  {
+   "id": "ricci-contraction",
+   "name": "Ricci tensor as a contraction",
+   "rung": "working",
+   "latex": "R_{\\mu\\nu} = R^\\rho{}_{\\mu\\rho\\nu},\\qquad R_{\\mu\\nu} = R_{\\nu\\mu}",
+   "meaning": "The Ricci tensor is the Riemann tensor with its upper index traced against its third slot; pair exchange makes it symmetric.",
+   "symbols": [
+    {
+     "symbol": "R_{\\mu\\nu}",
+     "meaning": "Ricci tensor",
+     "say": "the Ricci tensor"
+    },
+    {
+     "symbol": "R^\\rho{}_{\\mu\\rho\\nu}",
+     "meaning": "Riemann tensor in the course convention, traced on its first and third indices",
+     "say": "the Riemann tensor, traced"
+    }
+   ],
+   "conditions": "Definition for any connection; symmetry holds for the torsion-free, metric-compatible connection of general relativity.",
+   "say_aloud": "R mu nu is the Riemann tensor with its upper index traced against its third slot, and it is symmetric.",
+   "justified_by": "symmetries-of-the-riemann-tensor"
+  },
+  {
+   "id": "tidal-trace",
+   "name": "Ricci as the trace of the tides",
+   "rung": "working",
+   "latex": "R_{\\mu\\nu}u^\\mu u^\\nu = c^2\\sum_i R^{\\hat\\imath}{}_{\\hat 0\\hat\\imath\\hat 0}",
+   "meaning": "Contracted twice with an observer's four-velocity, the Ricci tensor is the diagonal sum of that observer's tidal matrix.",
+   "symbols": [
+    {
+     "symbol": "u^\\mu",
+     "meaning": "four-velocity of the freely falling observer, with $u_\\mu u^\\mu = -c^2$",
+     "say": "the four-velocity"
+    },
+    {
+     "symbol": "R^{\\hat\\imath}{}_{\\hat 0\\hat\\imath\\hat 0}",
+     "meaning": "Riemann components in the observer's orthonormal frame",
+     "say": "the tidal entries"
+    }
+   ],
+   "conditions": "Orthonormal frame with its time leg along $u/c$; any spacetime.",
+   "say_aloud": "The Ricci tensor contracted twice with the four-velocity equals c squared times the sum of the diagonal tidal entries.",
+   "justified_by": "derivations/volume-law-from-deviation"
+  },
+  {
+   "id": "initial-volume-law",
+   "name": "Initial volume law",
+   "rung": "working",
+   "latex": "\\left.\\frac{d^2\\,\\delta V}{d\\tau^2}\\right|_{\\tau=0} = -R_{\\mu\\nu}u^\\mu u^\\nu\\,\\delta V",
+   "meaning": "A small ball of free particles released at rest starts to lose volume at a rate set by the Ricci tensor along its motion.",
+   "symbols": [
+    {
+     "symbol": "\\delta V",
+     "meaning": "volume of the small ball",
+     "say": "the small volume"
+    },
+    {
+     "symbol": "\\tau",
+     "meaning": "proper time of the central particle",
+     "say": "proper time"
+    }
+   ],
+   "conditions": "Ball small compared with the curvature scale; every particle at rest relative to the centre at $\\tau = 0$; valid at that instant only.",
+   "say_aloud": "The second proper-time derivative of a small volume, at release, is minus the Ricci tensor contracted twice with the four-velocity, times the volume.",
+   "justified_by": "derivations/volume-law-from-deviation"
+  },
+  {
+   "id": "weak-field-ricci",
+   "name": "Weak-field time-time component",
+   "rung": "working",
+   "latex": "R_{00} \\approx \\frac{1}{c^2}\\nabla^2\\Phi = \\frac{4\\pi G\\rho}{c^2}",
+   "meaning": "In a weak static field the time-time Ricci component is the Laplacian of the Newtonian potential, which Poisson's equation sets by the mass density.",
+   "symbols": [
+    {
+     "symbol": "\\Phi",
+     "meaning": "Newtonian potential",
+     "say": "the potential"
+    },
+    {
+     "symbol": "\\rho",
+     "meaning": "mass density at the point",
+     "say": "the density"
+    }
+   ],
+   "conditions": "Static weak field, slow sources, $x^0 = ct$, pressure negligible.",
+   "say_aloud": "R zero zero is about the Laplacian of the potential over c squared, which is four pi G rho over c squared.",
+   "justified_by": "poisson-equation-for-gravity"
+  },
+  {
+   "id": "ricci-from-a-perfect-fluid",
+   "name": "Focusing by a perfect fluid",
+   "rung": "working",
+   "latex": "R_{\\mu\\nu}u^\\mu u^\\nu = 4\\pi G\\left(\\rho + \\frac{3p}{c^2}\\right) - \\Lambda c^2",
+   "meaning": "Einstein's equation sets the Ricci contraction for an observer at rest in a perfect fluid: density and pressure focus, a positive cosmological constant defocuses.",
+   "symbols": [
+    {
+     "symbol": "p",
+     "meaning": "pressure",
+     "say": "the pressure"
+    },
+    {
+     "symbol": "\\Lambda",
+     "meaning": "cosmological constant",
+     "say": "Lambda"
+    }
+   ],
+   "conditions": "Einstein's equation in the course convention, taken on trust; observer at rest in the fluid.",
+   "say_aloud": "The Ricci tensor contracted twice with the fluid four-velocity is four pi G times density plus three pressure over c squared, minus Lambda c squared.",
+   "justified_by": "stated"
+  },
+  {
+   "id": "ricci-as-operator-trace",
+   "name": "Ricci tensor without coordinates",
+   "rung": "formal",
+   "latex": "\\mathrm{Ric}(Y,Z) = \\operatorname{tr}\\big(X \\mapsto \\mathcal R(X,Z)Y\\big)",
+   "meaning": "The Ricci tensor is the trace of the linear map that the curvature operator makes from one vector slot.",
+   "symbols": [
+    {
+     "symbol": "\\mathcal R(X,Z)",
+     "meaning": "curvature operator, $\\nabla_X\\nabla_Z - \\nabla_Z\\nabla_X - \\nabla_{[X,Z]}$",
+     "say": "the curvature operator"
+    },
+    {
+     "symbol": "\\mathrm{Ric}",
+     "meaning": "Ricci tensor",
+     "say": "Ric"
+    }
+   ],
+   "conditions": "Any affine connection; symmetric in $Y, Z$ for the Levi-Civita connection.",
+   "say_aloud": "Ric of Y and Z is the trace of the map sending X to the curvature operator of X and Z acting on Y.",
+   "justified_by": "stated"
+  }
+ ],
+ "derivations": [
+  {
+   "id": "volume-law-from-deviation",
+   "title": "Volume of a small ball from the deviation equation",
+   "rung": "working",
+   "goal": "Show that a small ball of free particles released at rest has $\\delta V(\\tau) = \\delta V(0)\\big(1 - \\tfrac12R_{\\mu\\nu}u^\\mu u^\\nu\\tau^2\\big) + O(\\tau^3)$.",
+   "steps": [
+    "Work in the orthonormal frame of the central particle, with spatial axes held fixed by gyroscopes. The geodesic deviation equation gives $\\ddot\\xi^{\\hat\\imath} = -E_{ij}\\xi^{\\hat\\jmath}$ with $E_{ij} = c^2R^{\\hat\\imath}{}_{\\hat 0\\hat\\jmath\\hat 0}$.",
+    "Pair exchange gives $R_{\\hat\\imath\\hat 0\\hat\\jmath\\hat 0} = R_{\\hat\\jmath\\hat 0\\hat\\imath\\hat 0}$, and raising a spatial index in an orthonormal frame changes no sign, so $E$ is symmetric with orthogonal eigenvectors and eigenvalues $\\lambda_1, \\lambda_2, \\lambda_3$.",
+    "Take a small box with edges $L_i(0)$ along those eigenvectors, every particle at rest relative to the centre at $\\tau = 0$. Along an eigenvector $\\ddot L_i = -\\lambda_iL_i$ with $\\dot L_i(0) = 0$, so $L_i(\\tau) = L_i(0)\\big(1 - \\tfrac12\\lambda_i\\tau^2\\big) + O(\\tau^3)$.",
+    "Multiply the three edges. Products of two $\\tau^2$ terms are of order $\\tau^4$, so $\\delta V(\\tau) = \\delta V(0)\\big(1 - \\tfrac12(\\lambda_1 + \\lambda_2 + \\lambda_3)\\tau^2\\big) + O(\\tau^3)$.",
+    "The eigenvalue sum is the trace, $\\sum_i\\lambda_i = c^2\\sum_iR^{\\hat\\imath}{}_{\\hat 0\\hat\\imath\\hat 0} = c^2R^\\rho{}_{\\hat 0\\rho\\hat 0}$, because $R^{\\hat 0}{}_{\\hat 0\\hat 0\\hat 0} = 0$ by antisymmetry in the last two slots.",
+    "With $u^\\mu = c\\,\\delta^\\mu{}_{\\hat 0}$ in this frame, $c^2R^\\rho{}_{\\hat 0\\rho\\hat 0} = R_{\\mu\\nu}u^\\mu u^\\nu$. Differentiating the volume twice at $\\tau = 0$ then gives $\\ddot{\\delta V}(0) = -R_{\\mu\\nu}u^\\mu u^\\nu\\,\\delta V(0)$."
+   ],
+   "result": "$\\delta V(\\tau) = \\delta V(0)\\big(1 - \\tfrac12R_{\\mu\\nu}u^\\mu u^\\nu\\tau^2\\big) + O(\\tau^3)$ for a small box released at rest; any small ball follows by filling it with such boxes."
+  }
+ ],
+ "worked_examples": [
+  {
+   "id": "ricci-tensor-of-a-sphere",
+   "title": "Ricci tensor of a sphere",
+   "rung": "working",
+   "problem": "A sphere of radius $a$ has metric $ds^2 = a^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)$ and, in the course convention, $R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$. Find every component of $R_{\\mu\\nu}$ and the Ricci scalar.",
+   "steps": [
+    "Lower the index and exchange pairs: $R_{\\theta\\phi\\theta\\phi} = g_{\\theta\\theta}R^\\theta{}_{\\phi\\theta\\phi} = a^2\\sin^2\\theta$, so $R_{\\phi\\theta\\phi\\theta} = a^2\\sin^2\\theta$.",
+    "Raise with $g^{\\phi\\phi} = 1/(a^2\\sin^2\\theta)$: $R^\\phi{}_{\\theta\\phi\\theta} = 1$.",
+    "$R_{\\theta\\theta} = R^\\theta{}_{\\theta\\theta\\theta} + R^\\phi{}_{\\theta\\phi\\theta} = 0 + 1 = 1$, since a component with matching last two slots vanishes.",
+    "$R_{\\phi\\phi} = R^\\theta{}_{\\phi\\theta\\phi} + R^\\phi{}_{\\phi\\phi\\phi} = \\sin^2\\theta$.",
+    "$R_{\\theta\\phi} = R^\\theta{}_{\\theta\\theta\\phi} + R^\\phi{}_{\\theta\\phi\\phi} = 0$: the first term vanishes by antisymmetry in the first lowered pair, the second by antisymmetry in the last pair.",
+    "Compare with the metric: $R_{\\mu\\nu} = g_{\\mu\\nu}/a^2$, and $R = g^{\\mu\\nu}R_{\\mu\\nu} = 2/a^2$."
+   ],
+   "answer": "$R_{\\theta\\theta} = 1$, $R_{\\phi\\phi} = \\sin^2\\theta$, $R_{\\theta\\phi} = 0$, so $R_{\\mu\\nu} = g_{\\mu\\nu}/a^2$ and $R = +2/a^2$.",
+   "takeaway": "The components do not depend on $a$, but their ratio to the metric does; the positive Ricci scalar confirms the slot and sign conventions."
+  }
+ ],
+ "problems": [
+  {
+   "id": "missing-drift-near-the-moon",
+   "rung": "entry",
+   "difficulty": 1,
+   "type": "calculation",
+   "statement": "A cabin falls freely just above the Moon's surface, where there is no air. Crumbs are let go around a centre crumb, each at rest relative to the cabin, and no matter sits among them. In the first 10 seconds, each crumb 1 metre from the centre crumb across the line toward the Moon's centre drifts toward the centre crumb by 47 thousandths of a millimetre. That holds in both directions across that line. How far does a crumb 1 metre out along the line drift in those 10 seconds, and which way?",
+   "statement_spoken": null,
+   "hints": [
+    "What do the three drifts add up to when no matter sits among the crumbs?"
+   ],
+   "answer": "About 94 thousandths of a millimetre, away from the centre crumb.",
+   "key_points": [
+    "With no matter among the crumbs the three drifts add up to zero",
+    "The two drifts across the line add to 94 thousandths toward the centre crumb",
+    "The drift along the line is 94 thousandths outward"
+   ],
+   "numeric": [
+    {
+     "quantity": "drift along the line, positive outward",
+     "value": 0.094,
+     "unit": "mm",
+     "sign": "signed",
+     "abs_tol": null,
+     "rel_tol": 0.05,
+     "modulo": null
+    }
+   ],
+   "solution": [
+    "No matter sits among the crumbs, so the three drifts along directions at right angles add up to zero.",
+    "The two directions across the line give 47 thousandths of a millimetre toward the centre crumb each, which is 94 thousandths toward it in all.",
+    "So the drift along the line is 94 thousandths of a millimetre outward, twice each drift across, the same pattern as near Earth."
+   ],
+   "targets": []
+  },
+  {
+   "id": "water-density-dust-ball",
+   "rung": "working",
+   "difficulty": 2,
+   "type": "estimate",
+   "statement": "A pressureless ball of dust with the density of water, $\\rho = 1000\\ \\mathrm{kg\\,m^{-3}}$, is released at rest far from other matter. Find $R_{\\mu\\nu}u^\\mu u^\\nu$ for a grain at its centre, and use the initial volume law to estimate the fraction of a small central ball's volume lost after 60 s.",
+   "statement_spoken": "A pressureless ball of dust with the density of water, one thousand kilograms per cubic metre, is released at rest far from other matter. Find the Ricci contraction for a grain at its centre, and use the initial volume law to estimate the fraction of a small central ball's volume lost after sixty seconds.",
+   "hints": [
+    "For dust at rest with no cosmological constant, the focusing term is $4\\pi G\\rho$."
+   ],
+   "answer": "$R_{\\mu\\nu}u^\\mu u^\\nu = 8.39\\times10^{-7}\\ \\mathrm{s^{-2}}$, and the volume falls by about $1.5\\times10^{-3}$, or 0.15 per cent, in 60 s.",
+   "key_points": [
+    "R contracted with u twice is 4 pi G rho, 8.39e-7 per second squared",
+    "The volume falls by half of that times t squared, 1.5e-3 after 60 s"
+   ],
+   "numeric": [
+    {
+     "quantity": "fraction of volume lost after 60 s",
+     "value": 0.00151,
+     "unit": "1",
+     "sign": "magnitude",
+     "abs_tol": null,
+     "rel_tol": 0.03,
+     "modulo": null
+    }
+   ],
+   "solution": [
+    "For dust at rest with $\\Lambda = 0$, $R_{\\mu\\nu}u^\\mu u^\\nu = 4\\pi G\\rho = 4\\pi(6.674\\times10^{-11})(1000) = 8.39\\times10^{-7}\\ \\mathrm{s^{-2}}$.",
+    "The volume law gives $\\delta V/\\delta V_0 = 1 - \\tfrac12(8.39\\times10^{-7}\\ \\mathrm{s^{-2}})(60\\ \\mathrm s)^2 = 1 - 1.51\\times10^{-3}$.",
+    "Newtonian check: a grain at radius $r$ starts with $\\ddot r = -\\tfrac{4\\pi}{3}G\\rho\\,r$, so $r \\approx r_0(1 - \\tfrac{2\\pi}{3}G\\rho t^2)$ and $V \\approx V_0(1 - 2\\pi G\\rho t^2)$, the same answer.",
+    "The law gives only the first term at release; the full collapse, in about 35 minutes, needs the nonlinear evolution."
+   ],
+   "targets": []
+  },
+  {
+   "id": "accelerating-universe-focusing",
+   "rung": "working",
+   "difficulty": 2,
+   "type": "calculation",
+   "statement": "For the spatially flat expanding universe $ds^2 = -c^2dt^2 + a(t)^2(dx^2 + dy^2 + dz^2)$, show that a comoving observer has $R_{\\mu\\nu}u^\\mu u^\\nu = -3\\ddot a/a$. Today the Hubble rate is $H_0 = 67.4\\ \\mathrm{km\\,s^{-1}\\,Mpc^{-1}}$ and the deceleration parameter is $q_0 = -\\ddot aa/\\dot a^2 \\approx -0.53$. Find $R_{\\mu\\nu}u^\\mu u^\\nu$ and say what its sign means for free particles momentarily at rest relative to each other.",
+   "statement_spoken": "For the spatially flat expanding universe with scale factor a of t, show that a comoving observer has a Ricci contraction of minus three times a double dot over a. Today the Hubble rate is 67.4 kilometres per second per megaparsec and the deceleration parameter is about minus 0.53. Find that Ricci contraction and say what its sign means for free particles momentarily at rest relative to each other.",
+   "hints": [
+    "With $x^0 = ct$, the nonzero Christoffel symbols are $\\Gamma^0{}_{ij} = a\\dot a\\,\\delta_{ij}/c$ and $\\Gamma^i{}_{0j} = (\\dot a/ac)\\,\\delta^i{}_j$.",
+    "Write $-3\\ddot a/a$ as $3q_0H_0^2$."
+   ],
+   "answer": "$R_{\\mu\\nu}u^\\mu u^\\nu = -3\\ddot a/a = 3q_0H_0^2 \\approx -1.6H_0^2 \\approx -7.6\\times10^{-36}\\ \\mathrm{s^{-2}}$. It is negative, so such particles accelerate apart: the Ricci term defocuses.",
+   "key_points": [
+    "R zero zero equals minus three a double dot over a c squared",
+    "The contraction is 3 q0 H0 squared, about minus 7.6e-36 per second squared",
+    "Negative means defocusing, which ordinary matter alone cannot give"
+   ],
+   "numeric": [
+    {
+     "quantity": "Ricci contraction divided by H0 squared",
+     "value": -1.58,
+     "unit": "1",
+     "sign": "signed",
+     "abs_tol": null,
+     "rel_tol": 0.05,
+     "modulo": null
+    }
+   ],
+   "solution": [
+    "With $x^0 = ct$ and $\\dot a = da/dt$, the nonzero Christoffel symbols are $\\Gamma^0{}_{ij} = a\\dot a\\,\\delta_{ij}/c$ and $\\Gamma^i{}_{0j} = \\Gamma^i{}_{j0} = (\\dot a/ac)\\,\\delta^i{}_j$.",
+    "$R_{00} = R^i{}_{0i0}$, since $R^0{}_{000} = 0$. With $\\Gamma^\\lambda{}_{00} = 0$, the course formula leaves $R^i{}_{0i0} = -\\partial_0\\Gamma^i{}_{i0} - \\Gamma^i{}_{0j}\\Gamma^j{}_{i0}$.",
+    "$\\partial_0\\Gamma^i{}_{i0} = \\tfrac1c\\tfrac{d}{dt}\\big(3\\dot a/ac\\big) = \\tfrac{3}{c^2}\\big(\\ddot a/a - \\dot a^2/a^2\\big)$ and $\\Gamma^i{}_{0j}\\Gamma^j{}_{i0} = 3\\dot a^2/a^2c^2$, so $R_{00} = -3\\ddot a/ac^2$.",
+    "The comoving four-velocity is $u^\\mu = (c, 0, 0, 0)$, so $R_{\\mu\\nu}u^\\mu u^\\nu = c^2R_{00} = -3\\ddot a/a = 3q_0H_0^2$.",
+    "$H_0 = 67.4\\ \\mathrm{km\\,s^{-1}}/(3.0857\\times10^{19}\\ \\mathrm{km}) = 2.18\\times10^{-18}\\ \\mathrm{s^{-1}}$, so $3q_0H_0^2 \\approx -7.6\\times10^{-36}\\ \\mathrm{s^{-2}}$.",
+    "The comoving tidal matrix is $c^2R^{\\hat\\imath}{}_{\\hat 0\\hat\\jmath\\hat 0} = -(\\ddot a/a)\\,\\delta_{ij}$, so with $\\ddot a > 0$ particles at rest relative to each other accelerate apart. Dust alone would give a positive contraction."
+   ],
+   "targets": []
+  },
+  {
+   "id": "all-observers-zero-trace",
+   "rung": "formal",
+   "difficulty": 2,
+   "type": "proof",
+   "statement": "Let $S_{\\mu\\nu}$ be a symmetric tensor at a point of a Lorentzian manifold with $S_{\\mu\\nu}u^\\mu u^\\nu = 0$ for every timelike $u$. Prove $S_{\\mu\\nu} = 0$. Conclude that the tides measured by every freely falling observer at an event have zero trace exactly when $R_{\\mu\\nu} = 0$ there.",
+   "statement_spoken": "Let S be a symmetric tensor at a point of a Lorentzian manifold whose contraction with every timelike vector, taken twice, is zero. Prove that S vanishes, and conclude that every freely falling observer at an event measures tides of zero trace exactly when the Ricci tensor vanishes there.",
+   "hints": [
+    "Perturb a timelike vector by a small multiple of an arbitrary vector.",
+    "A symmetric bilinear form is fixed by its quadratic form."
+   ],
+   "answer": "$S_{\\mu\\nu} = 0$, so Ricci-flatness at an event is the same as every freely falling observer there measuring tides of zero trace.",
+   "key_points": [
+    "Timelike vectors form an open set",
+    "Vanishing of a polynomial in epsilon on an interval kills each coefficient",
+    "Polarization recovers the bilinear form from the quadratic form"
+   ],
+   "numeric": null,
+   "solution": [
+    "Fix a timelike $u$ and any vector $v$. Timelike vectors form an open set, so $u + \\epsilon v$ is timelike for small $|\\epsilon|$.",
+    "Then $0 = S(u + \\epsilon v, u + \\epsilon v) = 2\\epsilon\\,S(u,v) + \\epsilon^2S(v,v)$ for all small $\\epsilon$, using $S(u,u) = 0$ and symmetry.",
+    "A polynomial in $\\epsilon$ that vanishes on an interval has zero coefficients, so $S(u,v) = 0$ and $S(v,v) = 0$ for every $v$.",
+    "Polarization, $S(v,w) = \\tfrac14\\big[S(v+w,v+w) - S(v-w,v-w)\\big]$, then gives $S(v,w) = 0$ for all $v, w$.",
+    "An observer with four-velocity $u$ measures tides whose trace is $R_{\\mu\\nu}u^\\mu u^\\nu$, by the trace formula of \"The total is a trace of the Riemann tensor\". Those traces all vanish exactly when $R_{\\mu\\nu} = 0$."
+   ],
+   "targets": []
+  }
+ ],
+ "observations": [
+  {
+   "id": "goce-zero-trace",
+   "rung": "working",
+   "phenomenon": "Gravity gradients above Earth measured by the GOCE satellite",
+   "connection": "From 2009 to 2013 GOCE carried three orthogonal pairs of accelerometers and measured the tidal matrix $\\partial_i\\partial_j\\Phi$ directly, from about 255 km above Earth and lower near the end. Its diagonal sum is $c^2R_{00}$ for an observer at rest in a weak field, and that vanishes outside matter. With the satellite's once-per-orbit rotation removed, the three measured diagonal gradients sum to zero within the instrument's noise, as Laplace's equation requires, for gradients varying with periods of about 10 to 200 s.",
+   "numbers": "At $r = 6626$ km for a spherical Earth: $-2.74\\times10^{-6}\\ \\mathrm{s^{-2}}$ along the radius and $+1.37\\times10^{-6}\\ \\mathrm{s^{-2}}$ along each horizontal axis, summing to zero; the rotation adds $-2.74\\times10^{-6}\\ \\mathrm{s^{-2}}$ to the raw sum.",
+   "status": "measured",
+   "reference": {
+    "authors": [
+     "Reiner Rummel",
+     "Weiyong Yi",
+     "Claudia Stummer"
+    ],
+    "more_authors": false,
+    "year": 2011,
+    "title": "GOCE gravitational gradiometry",
+    "venue": "Journal of Geodesy 85, 777–790",
+    "doi": "10.1007/s00190-011-0500-0",
+    "arxiv": null,
+    "kind": "paper",
+    "verified": true
+   }
+  },
+  {
+   "id": "accelerating-universe",
+   "rung": "working",
+   "phenomenon": "The accelerating expansion of the universe",
+   "connection": "For comoving observers in a spatially flat expanding universe, $R_{\\mu\\nu}u^\\mu u^\\nu = -3\\ddot a/a$. Supernova distances and the cosmic microwave background give $\\ddot a > 0$ today, so on the largest scales the Ricci term defocuses: free particles momentarily at rest relative to each other accelerate apart. In Einstein's equation that needs a positive cosmological constant, or a component with $\\rho + 3p/c^2 < 0$.",
+   "numbers": "With $H_0 = 67.4\\ \\mathrm{km\\,s^{-1}\\,Mpc^{-1}}$ and density fractions $\\Omega_{\\rm m} = 0.315$ and $\\Omega_\\Lambda = 0.685$: $q_0 = \\Omega_{\\rm m}/2 - \\Omega_\\Lambda = -0.53$ and $R_{\\mu\\nu}u^\\mu u^\\nu = 3q_0H_0^2 \\approx -7.6\\times10^{-36}\\ \\mathrm{s^{-2}}$.",
+   "status": "measured",
+   "reference": {
+    "authors": [
+     "Nabila Aghanim",
+     "Yashar Akrami",
+     "Mark Ashdown",
+     "Jonathan Aumont"
+    ],
+    "more_authors": true,
+    "year": 2020,
+    "title": "Planck 2018 results. VI. Cosmological parameters",
+    "venue": "Astronomy & Astrophysics 641, A6",
+    "doi": "10.1051/0004-6361/201833910",
+    "arxiv": "1807.06209",
+    "kind": "paper",
+    "verified": true
+   }
+  }
+ ],
+ "teaching_arc": [
+  {
+   "id": "predict-the-volume",
+   "rung": "entry",
+   "step": "Predict the volume",
+   "move": "Take a prediction, then add the three drifts and test the box on a calculator.",
+   "why": "The shape changes visibly, so an unchanged volume surprises.",
+   "uses": [
+    "ways_in/add-up-the-three-drifts",
+    "checks/egg-keeps-its-volume"
+   ],
+   "visual": {
+    "id": "falling-ring-of-crumbs",
+    "preset": null,
+    "tour": null
+   },
+   "predict": "Tidal drift pulls the ball longer one way and narrower the other two ways. Does the room it takes up grow, shrink, or stay the same?"
+  },
+  {
+   "id": "fill-the-ball-with-dust",
+   "rung": "entry",
+   "step": "Fill the ball with dust",
+   "move": "Put the same ball at the middle of an even dust cloud, and compare crumbs at two distances.",
+   "why": "It isolates matter among the crumbs as what makes the total nonzero.",
+   "uses": [
+    "ways_in/crumbs-among-dust-draw-together",
+    "checks/denser-dust-faster"
+   ],
+   "visual": {
+    "id": "falling-ring-of-crumbs",
+    "preset": null,
+    "tour": null
+   },
+   "predict": "If dust fills the space among the crumbs, what happens to the ball?"
+  },
+  {
+   "id": "name-the-trace",
+   "rung": "working",
+   "step": "Name the trace",
+   "move": "Take the trace of the tidal matrix and recognize the contraction, then derive the volume law and calibrate the sign on a sphere.",
+   "why": "Defining Ricci as the trace of something measured makes the choice of slots feel forced.",
+   "uses": [
+    "ways_in/the-total-is-a-trace",
+    "derivations/volume-law-from-deviation",
+    "worked_examples/ricci-tensor-of-a-sphere"
+   ],
+   "visual": null,
+   "predict": null
+  },
+  {
+   "id": "zero-ricci-nonzero-tides",
+   "rung": "working",
+   "step": "Zero Ricci, real tides",
+   "move": "Contract the six-entry table with the Schwarzschild pattern, then work the tunnel through a uniform Earth.",
+   "why": "Both show a vanishing trace beside real tides, blocking the flatness slogan.",
+   "uses": [
+    "checks/vacuum-table-with-zero-ricci",
+    "checks/tunnel-through-the-earth"
+   ],
+   "visual": {
+    "id": "six-entry-curvature-table",
+    "preset": null,
+    "tour": null
+   },
+   "predict": "If every Ricci component is zero, must every curvature entry be zero?"
+  },
+  {
+   "id": "mark-the-limits",
+   "rung": "formal",
+   "step": "Mark the limits",
+   "move": "Give the coordinate-free trace, its uniqueness and Raychaudhuri, then run the sheared ball.",
+   "why": "It blocks the slogan that zero Ricci means constant volume for good.",
+   "uses": [
+    "ways_in/the-trace-of-the-curvature-operator",
+    "checks/every-trace-is-ricci",
+    "checks/sheared-ball-loses-volume"
+   ],
+   "visual": null,
+   "predict": "Where the Ricci tensor is zero, does a small ball keep its volume for good?"
+  }
+ ],
+ "analogies": [],
+ "misconceptions": [
+  {
+   "id": "zero-total-means-flat",
+   "rung": "entry",
+   "belief": "If the drifts in a falling ball of crumbs add up to zero, space and time there are flat.",
+   "why_tempting": "A total of zero sounds as though nothing is happening.",
+   "correction": "Every drift can be real while the drifts cancel in the total. Tidal drift near Earth shows that the curvature table is not zero there.",
+   "diagnosed_by": [
+    "zero-total-is-not-flat",
+    "vacuum-table-with-zero-ricci"
+   ]
+  },
+  {
+   "id": "shape-change-means-volume-change",
+   "rung": "entry",
+   "belief": "If tidal drift pulls a ball of crumbs into an egg shape, the room it takes up must change too.",
+   "why_tempting": "Stretching something looks like making it bigger.",
+   "correction": "Written as fractions, the changes in a length and two widths add up. Growing one way and shrinking the other two by half as much leaves the volume the same at first.",
+   "diagnosed_by": [
+    "egg-keeps-its-volume"
+   ]
+  },
+  {
+   "id": "matter-nearby-counts",
+   "rung": "working",
+   "belief": "Inside a planet, even in an empty tunnel, the Ricci tensor cannot be zero: matter surrounds you.",
+   "why_tempting": "The dust picture ties shrinking to matter, and a tunnel lies deep inside it.",
+   "correction": "Through Einstein's equation the Ricci tensor answers only to the matter at that event, and to the cosmological constant. Surrounding rock changes the shape of the tides, not their trace.",
+   "diagnosed_by": [
+    "tunnel-through-the-earth"
+   ]
+  },
+  {
+   "id": "other-traces-give-new-tensors",
+   "rung": "formal",
+   "belief": "Tracing a different pair of Riemann slots gives another independent curvature tensor.",
+   "why_tempting": "A four-index tensor offers six pairs of slots to trace.",
+   "correction": "For the Levi-Civita connection the Riemann symmetries make every other single trace zero, or plus or minus Ricci.",
+   "diagnosed_by": [
+    "every-trace-is-ricci"
+   ]
+  },
+  {
+   "id": "volume-law-holds-forever",
+   "rung": "formal",
+   "belief": "Where the Ricci tensor vanishes, a small ball of free particles keeps its volume for good.",
+   "why_tempting": "The slogan that Ricci changes volume and the rest changes shape is usually stated bare.",
+   "correction": "The law fixes only the initial volume acceleration of a ball released with no expansion, shear or rotation. Shear built up by a trace-free tide reduces the volume later.",
+   "diagnosed_by": [
+    "sheared-ball-loses-volume"
+   ]
+  }
+ ],
+ "checks": [
+  {
+   "id": "egg-keeps-its-volume",
+   "rung": "entry",
+   "format": "predict",
+   "question": "In a cabin falling freely near Earth, crumbs are let go at the corners of a box with 1-metre edges, each crumb at rest relative to the cabin. The box is set square: four of its edges run along the line toward Earth's centre, and the other eight run across that line. After a while, each edge along that line has grown by 2 tenths of a millimetre. Each edge across it has shrunk by 1 tenth of a millimetre. Has the room the box takes up grown, shrunk, or stayed about the same?",
+   "question_spoken": null,
+   "answer": "About the same. For small changes, write each edge's change as a fraction of that edge. The change in the room the box takes up is the sum of the three fractions, one for the length and one for each of the two widths. The edge along the line grew by 2 parts in 10,000, and each edge across it shrank by 1 part in 10,000. So the sum is 2 minus 1 minus 1, which is zero. A calculator agrees: 1.0002 times 0.9999 times 0.9999 is 0.99999997. The box changed shape, but the room it takes up changed by only 3 parts in 100 million.",
+   "key_points": [
+    "The room it takes up stays about the same",
+    "Written as fractions of the edges, the three changes add up",
+    "Plus 2, minus 1, minus 1 gives 0"
+   ],
+   "numeric": [
+    {
+     "quantity": "change in volume",
+     "value": 0,
+     "unit": "percent",
+     "sign": "signed",
+     "abs_tol": 0.005,
+     "rel_tol": null,
+     "modulo": null
+    }
+   ],
+   "hints": [
+    "Write each change as a fraction of 1 metre.",
+    "Add the three fractions, counting a shrinking edge as negative."
+   ],
+   "targets": [
+    "shape-change-means-volume-change"
+   ],
+   "visual": {
+    "id": "falling-ring-of-crumbs",
+    "preset": null,
+    "tour": null
+   }
+  },
+  {
+   "id": "zero-total-is-not-flat",
+   "rung": "entry",
+   "format": "evaluate-claim",
+   "question": "In a cabin falling freely near Earth, a friend lets go of a small ball of crumbs at rest. She says: \"The drifts add up to zero, so space and time here are not curved.\" Is she right?",
+   "question_spoken": null,
+   "answer": "No. The drifts add up to zero, but not one of them is zero. Crumbs along the line toward Earth's centre drift apart, and crumbs across that line drift together. That is tidal drift, and entries of the curvature table give it. Those entries are not zero, so space and time there are curved. The zero total says only this: at first the room the ball takes up does not change, while its shape does.",
+   "key_points": [
+    "She is wrong",
+    "Each drift is real; only the total is zero",
+    "Tidal drift means the curvature table is not zero"
+   ],
+   "numeric": null,
+   "hints": [
+    "Is each drift zero, or only their total?"
+   ],
+   "targets": [
+    "zero-total-means-flat"
+   ],
+   "visual": null
+  },
+  {
+   "id": "denser-dust-faster",
+   "rung": "entry",
+   "format": "numeric",
+   "question": "A small ball of crumbs sits at the middle of a huge round cloud of dust as dense as water, far from any planet, and dust fills the space among the crumbs. Everything is let go at once, every grain and every crumb at rest relative to each other. In the first 10 seconds, a crumb 1 metre from the middle drifts toward the middle by 14 thousandths of a millimetre. How far does a crumb 2 metres out drift in those 10 seconds? How far would the 1-metre crumb drift in dust twice as dense?",
+   "question_spoken": null,
+   "answer": "28 thousandths of a millimetre in both cases. The crumb 2 metres out has 8 times as much dust nearer the middle, because a ball twice as wide holds 2 times 2 times 2 times as much. That dust pulls as if it sat at the middle, twice as far away, so each bit pulls 4 times less. Since 8 divided by 4 is 2, the pull doubles, and the drift with it. Dust twice as dense puts twice as much dust within 1 metre of the middle, so that drift doubles too.",
+   "key_points": [
+    "Both drifts are 28 thousandths of a millimetre",
+    "Twice as far out means 8 times the dust, each bit pulling 4 times less",
+    "Twice the density doubles it"
+   ],
+   "numeric": [
+    {
+     "quantity": "drift of the crumb 2 metres out",
+     "value": 0.028,
+     "unit": "mm",
+     "sign": "magnitude",
+     "abs_tol": null,
+     "rel_tol": 0.05,
+     "modulo": null
+    },
+    {
+     "quantity": "drift of the 1-metre crumb in dust twice as dense",
+     "value": 0.028,
+     "unit": "mm",
+     "sign": "magnitude",
+     "abs_tol": null,
+     "rel_tol": 0.05,
+     "modulo": null
+    }
+   ],
+   "hints": [
+    "How much more dust sits nearer the middle for the crumb twice as far out?"
+   ],
+   "targets": [],
+   "visual": null
+  },
+  {
+   "id": "tunnel-through-the-earth",
+   "rung": "working",
+   "format": "numeric",
+   "question": "Model Earth as a uniform ball of density $\\rho = 5510\\ \\mathrm{kg\\,m^{-3}}$ with a narrow empty tunnel through its centre. Near the centre, free particles are released at rest in the tunnel. Find $R_{\\mu\\nu}u^\\mu u^\\nu$ there, and the relative acceleration of two particles 1 m apart along the tunnel and across it.",
+   "question_spoken": "Model Earth as a uniform ball of density 5510 kilograms per cubic metre, with a narrow empty tunnel through its centre. Free particles are released at rest in the tunnel near the centre. Find the Ricci contraction there, and the relative acceleration of two particles one metre apart along the tunnel and across it.",
+   "answer": "$R_{\\mu\\nu}u^\\mu u^\\nu = 0$, because $\\nabla^2\\Phi = 4\\pi G\\rho = 0$ where the particles sit: the tunnel is empty. The tides are not zero. Superpose a full ball with a cylinder of the same density removed: the ball gives $\\partial_i\\partial_j\\Phi = \\tfrac{4\\pi}{3}G\\rho\\,\\delta_{ij}$ inside it, and a long cylinder gives $2\\pi G\\rho$ across its axis and $0$ along it. So along the tunnel the entry is $\\tfrac{4\\pi}{3}G\\rho = 1.54\\times10^{-6}\\ \\mathrm{s^{-2}}$ and the particles accelerate together at $1.54\\times10^{-6}\\ \\mathrm{m\\,s^{-2}}$; across it the entry is $-\\tfrac{2\\pi}{3}G\\rho$ and they accelerate apart at $0.77\\times10^{-6}\\ \\mathrm{m\\,s^{-2}}$ in each of the two directions. The three add to zero: the surrounding rock changes the shape of the tides, not their trace.",
+   "key_points": [
+    "Zero, because no matter sits where the particles are",
+    "Along the tunnel: together at 1.54e-6 metres per second squared",
+    "Across: apart at half that"
+   ],
+   "numeric": [
+    {
+     "quantity": "relative acceleration along the tunnel, positive apart",
+     "value": -1.54e-06,
+     "unit": "m/s^2",
+     "sign": "signed",
+     "abs_tol": null,
+     "rel_tol": 0.03,
+     "modulo": null
+    },
+    {
+     "quantity": "relative acceleration across the tunnel, positive apart",
+     "value": 7.7e-07,
+     "unit": "m/s^2",
+     "sign": "signed",
+     "abs_tol": null,
+     "rel_tol": 0.03,
+     "modulo": null
+    }
+   ],
+   "hints": [
+    "Where is the density that enters Poisson's equation?",
+    "Treat the tunnel as a full ball minus a long cylinder."
+   ],
+   "targets": [
+    "matter-nearby-counts"
+   ],
+   "visual": null
+  },
+  {
+   "id": "vacuum-table-with-zero-ricci",
+   "rung": "working",
+   "format": "numeric",
+   "question": "In an orthonormal frame $(\\hat t, \\hat r, \\hat\\theta, \\hat\\phi)$, the only independent nonzero Riemann components are $R_{\\hat a\\hat b\\hat a\\hat b}$ for the pairs $tr, t\\theta, t\\phi, r\\theta, r\\phi, \\theta\\phi$, with values $q(-2, 1, 1, -1, -1, 2)$. Find the diagonal Ricci components and the Kretschmann scalar $R_{\\mu\\nu\\rho\\sigma}R^{\\mu\\nu\\rho\\sigma}$ in units of $q^2$.",
+   "question_spoken": "In an orthonormal frame with time, radial and two angular directions, the only independent nonzero Riemann components have a repeated index pair, for the pairs t r, t theta, t phi, r theta, r phi and theta phi, with values q times minus two, one, one, minus one, minus one, two. Find the diagonal Ricci components and the Kretschmann scalar in units of q squared.",
+   "answer": "$R_{\\hat b\\hat d} = \\eta^{\\hat a\\hat c}R_{\\hat a\\hat b\\hat c\\hat d}$, so the time index brings a minus sign. $R_{\\hat t\\hat t} = q(-2 + 1 + 1) = 0$. $R_{\\hat r\\hat r} = -R_{\\hat t\\hat r\\hat t\\hat r} + R_{\\hat\\theta\\hat r\\hat\\theta\\hat r} + R_{\\hat\\phi\\hat r\\hat\\phi\\hat r} = q(2 - 1 - 1) = 0$. Likewise $R_{\\hat\\theta\\hat\\theta} = q(-1 - 1 + 2) = 0$ and $R_{\\hat\\phi\\hat\\phi} = q(-1 - 1 + 2) = 0$; off-diagonal components vanish because no mixed pairs appear. Each pair appears in four index orders, and raising squares the signs, so the Kretschmann scalar is $4q^2(4 + 1 + 1 + 1 + 1 + 4) = 48q^2$: the Ricci tensor vanishes while the Riemann tensor does not. This is the Schwarzschild pattern with $q = GM/c^2r^3$.",
+   "key_points": [
+    "Every Ricci component is zero",
+    "The time index brings a minus sign into the contraction",
+    "The Kretschmann scalar is 48 q squared, so curvature remains"
+   ],
+   "numeric": [
+    {
+     "quantity": "Kretschmann scalar in units of q squared",
+     "value": 48,
+     "unit": "1",
+     "sign": "magnitude",
+     "abs_tol": 0.5,
+     "rel_tol": null,
+     "modulo": null
+    },
+    {
+     "quantity": "each diagonal Ricci component in units of q",
+     "value": 0,
+     "unit": "1",
+     "sign": "signed",
+     "abs_tol": 0.01,
+     "rel_tol": null,
+     "modulo": null
+    }
+   ],
+   "hints": [
+    "Which Riemann components feed $R_{\\hat t\\hat t}$?"
+   ],
+   "targets": [
+    "zero-total-means-flat"
+   ],
+   "visual": {
+    "id": "six-entry-curvature-table",
+    "preset": null,
+    "tour": null
+   }
+  },
+  {
+   "id": "every-trace-is-ricci",
+   "rung": "formal",
+   "format": "derive",
+   "question": "For the Levi-Civita connection, show that every contraction of one pair of indices of the Riemann tensor is zero or $\\pm R_{\\mu\\nu}$, and that $R_{\\mu\\nu}$ is symmetric. Which steps fail for a connection with torsion, or one that does not preserve the metric?",
+   "question_spoken": "For the Levi-Civita connection, show that every contraction of one pair of Riemann indices is zero or plus or minus the Ricci tensor, and that the Ricci tensor is symmetric. Which steps fail for a connection with torsion, or one that does not preserve the metric?",
+   "answer": "Use $R_{\\rho\\sigma\\mu\\nu} = -R_{\\sigma\\rho\\mu\\nu} = -R_{\\rho\\sigma\\nu\\mu} = R_{\\mu\\nu\\rho\\sigma}$. Tracing either antisymmetric pair gives $0$. The upper index with the third slot gives $R_{\\sigma\\nu}$ by definition, and with the fourth gives $R^\\rho{}_{\\sigma\\nu\\rho} = -R_{\\sigma\\nu}$. The second slot against the third gives $-R_{\\rho\\nu}$, and against the fourth $+R_{\\rho\\mu}$. Symmetry: $R_{\\sigma\\nu} = g^{\\rho\\lambda}R_{\\lambda\\sigma\\rho\\nu} = g^{\\rho\\lambda}R_{\\rho\\nu\\lambda\\sigma} = R_{\\nu\\sigma}$. Only last-pair antisymmetry holds for every connection: first-pair antisymmetry needs $\\nabla g = 0$, and pair exchange needs the cyclic identity as well, which needs zero torsion. Without them the other traces are new tensors and Ric can have an antisymmetric part.",
+   "key_points": [
+    "Traces over an antisymmetric pair vanish",
+    "The remaining traces equal plus or minus Ricci",
+    "Symmetry uses pair exchange, which needs metric compatibility and zero torsion"
+   ],
+   "numeric": null,
+   "hints": [
+    "List the antisymmetric index pairs, and the symmetry that swaps the pairs."
+   ],
+   "targets": [
+    "other-traces-give-new-tensors"
+   ],
+   "visual": null
+  },
+  {
+   "id": "sheared-ball-loses-volume",
+   "rung": "formal",
+   "format": "evaluate-claim",
+   "question": "Claim: \"Where $R_{\\mu\\nu} = 0$, a small ball of free particles released at rest keeps its volume while it stays small.\" Test it where the tidal matrix $c^2R^{\\hat\\imath}{}_{\\hat 0\\hat\\jmath\\hat 0}$ along the central worldline is constant, with eigenvalues $(-2, 1, 1)/\\tau_0^2$.",
+   "question_spoken": "Claim: where the Ricci tensor vanishes, a small ball of free particles released at rest keeps its volume while it stays small. Test it where the tidal matrix along the central worldline is constant, with eigenvalues minus two, one and one, divided by tau zero squared.",
+   "answer": "The claim is false. With $s = \\tau/\\tau_0$, the first axis obeys $L'' = 2L$, so $L = L_0\\cosh(\\sqrt2\\,s)$; the other two obey $L'' = -L$, so $L = L_0\\cos s$. Hence $\\delta V/\\delta V_0 = \\cosh(\\sqrt2\\,s)\\cos^2s$, which expands to $1 - \\tfrac12s^4 + O(s^6)$ and equals $0.971$ at $s = 0.5$ and $0.636$ at $s = 1$. The zero trace removes only the $s^2$ term. The tide builds shear, whose $-\\sigma_{\\mu\\nu}\\sigma^{\\mu\\nu}$ term in the Raychaudhuri equation drives the expansion negative. Ricci fixes only the volume acceleration at release, with $\\theta = \\sigma_{\\mu\\nu} = \\omega_{\\mu\\nu} = 0$.",
+   "key_points": [
+    "The claim is false",
+    "Volume ratio is cosh of root two s times cos squared s, or 1 minus s to the fourth over 2",
+    "Shear drives the later loss of volume"
+   ],
+   "numeric": [
+    {
+     "quantity": "volume ratio at s = 1",
+     "value": 0.636,
+     "unit": "1",
+     "sign": "magnitude",
+     "abs_tol": null,
+     "rel_tol": 0.01,
+     "modulo": null
+    }
+   ],
+   "hints": [
+    "Solve each axis separately, with zero initial rate.",
+    "Expand the product of the three lengths to fourth order."
+   ],
+   "targets": [
+    "volume-law-holds-forever"
+   ],
+   "visual": null
+  }
+ ],
+ "notation_traps": [
+  {
+   "id": "which-slot-is-traced",
+   "issue": "Which Riemann slots are traced to form the Ricci tensor",
+   "course_choice": "$R_{\\mu\\nu} = R^\\rho{}_{\\mu\\rho\\nu}$, the upper index against the third slot, so a sphere of radius $a$ has $R_{\\mu\\nu} = g_{\\mu\\nu}/a^2$ and $R = +2/a^2$.",
+   "variants": "Some texts trace the upper index against the fourth slot, or use a Riemann tensor of opposite overall sign; either flips the sign of the Ricci tensor, and the two together cancel. Calibrate on the sphere."
+  },
+  {
+   "id": "trace-free-versus-trace-reversed",
+   "issue": "Subtracting a quarter or a half of the trace",
+   "course_choice": "The Einstein tensor is $G_{\\mu\\nu} = R_{\\mu\\nu} - \\tfrac12Rg_{\\mu\\nu}$, with trace $-R$ in four dimensions. The trace-free part $R_{\\mu\\nu} - \\tfrac14Rg_{\\mu\\nu}$ is written out in full.",
+   "variants": "Some texts call the quarter version trace-reversed, or give it the Einstein tensor's letter. For a null vector $k$ both reduce to $R_{\\mu\\nu}k^\\mu k^\\nu$, which hides the difference in lensing."
+  }
+ ],
+ "visuals": [
+  {
+   "id": "falling-ring-of-crumbs",
+   "role": "The central picture: a small ball of freely falling crumbs whose drifts change its shape near a planet and its volume among dust.",
+   "priority": "flagship",
+   "sketch": "This concept adds a ball mode: crumbs on a small sphere around a centre crumb, a translucent reference sphere, readouts of the three principal drifts, their total and the volume ratio, and a dust switch that fills the ball with matter of adjustable density. A time slider past the first seconds shows a trace-free tide slowly reducing the volume."
+  },
+  {
+   "id": "six-entry-curvature-table",
+   "role": "Shows nonzero curvature entries whose Ricci components all vanish.",
+   "priority": "core",
+   "sketch": "This concept adds Ricci readouts that light up, with signs, the entries feeding each diagonal component, and a challenge to find a table with every Ricci component zero and some entry nonzero; the Schwarzschild preset is one answer."
+  }
+ ],
+ "tutor_moves": {
+  "opening_questions": [
+   {
+    "id": "egg-or-shrink",
+    "question": "Picture a small ball of crumbs floating in a cabin that falls freely near Earth, with nothing but empty space among the crumbs. Tidal drift pulls it longer along the line toward Earth's centre and narrower across that line. Does the room the ball takes up grow, shrink, or stay the same?",
+    "invites": "prediction"
+   }
+  ],
+  "if_stuck": [
+   {
+    "id": "fractions-do-not-add",
+    "symptom": "The learner does not see why small changes of the edges add up to the volume change.",
+    "move": "Multiply out boxes with edges 1.001, 0.9995, 0.9995 and 1.01, 0.995, 0.995, then compare with the summed fractions.",
+    "misconception": "shape-change-means-volume-change",
+    "uses": [
+     "ways_in/add-up-the-three-drifts"
+    ]
+   },
+   {
+    "id": "surrounded-by-matter",
+    "symptom": "The learner insists that matter around the particles must make the trace nonzero.",
+    "move": "Work the tunnel through a uniform Earth: a full ball minus a cylinder, then add the entries.",
+    "misconception": "matter-nearby-counts",
+    "uses": [
+     "checks/tunnel-through-the-earth"
+    ]
+   }
+  ],
+  "common_questions": [
+   {
+    "id": "gravity-with-zero-total",
+    "rung": "entry",
+    "question": "If the drifts add up to zero near Earth, why is there any gravity there?",
+    "answer": "Each crumb still falls toward Earth, pulled by gravity. The zero total is about the drifts between neighbouring crumbs, not about the fall itself. Falling freely takes away the feeling of weight, but not those drifts. Near Earth every drift is real: crumbs along the line toward Earth's centre drift apart, and crumbs across that line drift together. Only their total is zero, so the room the ball takes up does not start to change. Other entries of the curvature table still give how the ball changes shape.",
+    "uses": [
+     "ways_in/add-up-the-three-drifts",
+     "checks/zero-total-is-not-flat"
+    ]
+   }
+  ],
+  "voice_notes": "At the entry rung say \"the drifts add up to zero\", not \"Ricci vanishes\".",
+  "level_switching": [
+   {
+    "to_rung": "working",
+    "signals": [
+     "asks which curvature entries are added",
+     "uses indices"
+    ],
+    "move": "Go to the trace of the tidal matrix, then the table with zero Ricci.",
+    "uses": [
+     "ways_in/the-total-is-a-trace",
+     "checks/vacuum-table-with-zero-ricci"
+    ]
+   },
+   {
+    "to_rung": "formal",
+    "signals": [
+     "asks whether the volume holds for good",
+     "asks for a definition without coordinates"
+    ],
+    "move": "Give the operator trace and the Raychaudhuri equation, then run the sheared ball.",
+    "uses": [
+     "ways_in/the-trace-of-the-curvature-operator",
+     "checks/sheared-ball-loses-volume"
+    ]
+   },
+   {
+    "to_rung": "research",
+    "signals": [
+     "asks about Ricci flow, singularity theorems, or curvature bounds"
+    ],
+    "move": "Open the research horizon.",
+    "uses": [
+     "research_horizon/ricci-flow",
+     "research_horizon/focusing-and-singularities"
+    ]
+   }
+  ]
+ },
+ "history": [
+  {
+   "id": "ricci-and-levi-civita-1900",
+   "people": [
+    "Gregorio Ricci-Curbastro",
+    "Tullio Levi-Civita"
+   ],
+   "year": 1900,
+   "work": {
+    "authors": [
+     "Gregorio Ricci-Curbastro",
+     "Tullio Levi-Civita"
+    ],
+    "more_authors": false,
+    "year": 1900,
+    "title": "Méthodes de calcul différentiel absolu et leurs applications",
+    "venue": "Mathematische Annalen 54, 125–201",
+    "doi": "10.1007/BF01454201",
+    "arxiv": null,
+    "kind": "paper",
+    "verified": true
+   },
+   "contribution": "Set out the absolute differential calculus, the index methods used for the Riemann tensor and its contractions; the contracted curvature tensor carries Ricci's name."
+  },
+  {
+   "id": "einstein-1915",
+   "people": [
+    "Albert Einstein"
+   ],
+   "year": 1915,
+   "work": {
+    "authors": [
+     "Albert Einstein"
+    ],
+    "more_authors": false,
+    "year": 1915,
+    "title": "Die Feldgleichungen der Gravitation",
+    "venue": "Sitzungsberichte der Königlich Preußischen Akademie der Wissenschaften (Berlin), 844–847",
+    "doi": null,
+    "arxiv": null,
+    "kind": "paper",
+    "verified": true
+   },
+   "contribution": "Earlier in November 1915 Einstein set a Ricci-type tensor proportional to the energy-momentum tensor, which forced the trace of that tensor to vanish. This paper of 25 November added the trace term and gave the final field equations."
+  },
+  {
+   "id": "raychaudhuri-1955",
+   "people": [
+    "Amal Kumar Raychaudhuri"
+   ],
+   "year": 1955,
+   "work": {
+    "authors": [
+     "Amal Kumar Raychaudhuri"
+    ],
+    "more_authors": false,
+    "year": 1955,
+    "title": "Relativistic cosmology. I",
+    "venue": "Physical Review 98, 1123–1126",
+    "doi": "10.1103/PhysRev.98.1123",
+    "arxiv": null,
+    "kind": "paper",
+    "verified": true
+   },
+   "contribution": "Derived the evolution equation for the expansion of a family of free-fall worldlines, in which the Ricci tensor along the flow drives focusing."
+  }
+ ],
+ "research_horizon": [
+  {
+   "id": "ricci-flow",
+   "topic": "Ricci flow",
+   "connection": "Hamilton's Ricci flow evolves a Riemannian metric by $\\partial_tg_{ij} = -2R_{ij}$, contracting positively curved directions and smoothing curvature somewhat as heat flow smooths temperature. Perelman's control of its singularities completed the proofs of the Poincaré and geometrization conjectures.",
+   "references": [
+    {
+     "authors": [
+      "Richard S. Hamilton"
+     ],
+     "more_authors": false,
+     "year": 1982,
+     "title": "Three-manifolds with positive Ricci curvature",
+     "venue": "Journal of Differential Geometry 17, 255–306",
+     "doi": "10.4310/jdg/1214436922",
+     "arxiv": null,
+     "kind": "paper",
+     "verified": true
+    },
+    {
+     "authors": [
+      "Grisha Perelman"
+     ],
+     "more_authors": false,
+     "year": 2002,
+     "title": "The entropy formula for the Ricci flow and its geometric applications",
+     "venue": null,
+     "doi": null,
+     "arxiv": "math/0211159",
+     "kind": "paper",
+     "verified": true
+    }
+   ]
+  },
+  {
+   "id": "ricci-bounds-without-smoothness",
+   "topic": "Ricci curvature bounds without smoothness",
+   "connection": "A lower bound on Ricci curvature controls how fast the volume of balls grows, and it can be restated through optimal transport as convexity of an entropy along transport paths. That restatement defines Ricci bounds on non-smooth metric measure spaces, and a Lorentzian version characterizes the strong energy condition.",
+   "references": [
+    {
+     "authors": [
+      "John Lott",
+      "Cédric Villani"
+     ],
+     "more_authors": false,
+     "year": 2009,
+     "title": "Ricci curvature for metric-measure spaces via optimal transport",
+     "venue": "Annals of Mathematics 169, 903–991",
+     "doi": "10.4007/annals.2009.169.903",
+     "arxiv": "math/0412127",
+     "kind": "paper",
+     "verified": true
+    },
+    {
+     "authors": [
+      "Karl-Theodor Sturm"
+     ],
+     "more_authors": false,
+     "year": 2006,
+     "title": "On the geometry of metric measure spaces. I",
+     "venue": "Acta Mathematica 196, 65–131",
+     "doi": "10.1007/s11511-006-0002-8",
+     "arxiv": null,
+     "kind": "paper",
+     "verified": true
+    },
+    {
+     "authors": [
+      "Robert J. McCann"
+     ],
+     "more_authors": false,
+     "year": 2020,
+     "title": "Displacement convexity of Boltzmann's entropy characterizes the strong energy condition from general relativity",
+     "venue": "Cambridge Journal of Mathematics 8(3), 609–681",
+     "doi": "10.4310/CJM.2020.v8.n3.a4",
+     "arxiv": "1808.01536",
+     "kind": "paper",
+     "verified": true
+    }
+   ]
+  },
+  {
+   "id": "focusing-and-singularities",
+   "topic": "Focusing and singularity theorems",
+   "connection": "Where $R_{\\mu\\nu}k^\\mu k^\\nu \\ge 0$ for null $k$, as Einstein's equation gives for matter obeying the null energy condition, the Raychaudhuri equation forces converging light rays leaving a closed trapped surface to focus within a finite affine parameter. Penrose used this to show that a spacetime with a non-compact Cauchy surface and a closed trapped surface is null geodesically incomplete.",
+   "references": [
+    {
+     "authors": [
+      "Roger Penrose"
+     ],
+     "more_authors": false,
+     "year": 1965,
+     "title": "Gravitational collapse and space-time singularities",
+     "venue": "Physical Review Letters 14, 57–59",
+     "doi": "10.1103/PhysRevLett.14.57",
+     "arxiv": null,
+     "kind": "paper",
+     "verified": true
+    }
+   ]
+  }
+ ],
+ "retired_ids": [],
+ "provenance": {
+  "source_units": [
+   "schutz/ch06",
+   "schutz/ch08",
+   "gifted-amateur/ch11",
+   "gifted-amateur/ch13",
+   "gifted-amateur/ch14",
+   "gifted-amateur/ch35",
+   "gifted-amateur/ch36",
+   "gifted-amateur/ch50",
+   "dinverno/ch06",
+   "dinverno/ch10"
+  ],
+  "legacy_assets": [
+   "manuscript-section-09-ricci-volume-weyl-shape",
+   "manuscript-chapter-09-ricci-weyl-einstein",
+   "lesson-contract-curvature-by-hand",
+   "lab-tidal-cloud-geodesic-deviation",
+   "figure-tidal-eigenvalues"
+  ]
+ },
+ "review": {
+  "novice": {
+   "verdict": "fixed",
+   "date": "2026-09-13",
+   "reviewed_revision": 4,
+   "retell_attempt": "Let go of crumbs in a cabin falling freely near Earth and they drift: the ones along the line to Earth's centre spread apart, the ones across it come together by half as much, so the ball turns into an egg. Add the three drifts, plus 15 hundredths and two minus 7 and a halves of a millimetre, and you get zero, so the room the ball takes up does not change at first even though its shape does. That total is what the Ricci tensor keeps. I could not say why the sideways drift is exactly half; I was just handed the two numbers. If dust fills the space among the crumbs the ball shrinks instead, and denser dust shrinks it faster, because a crumb twice as far out has 8 times as much dust pulling from twice as far, and 8 divided by 4 is 2. I got lost where the ball is 2 metres across and then there is a crumb 2 metres out from the middle. And 'at rest' compared with what, the cabin? I also did not know whether 'the room it takes up' and the glossary's 'volume' were the same thing, and in 'Where dust fills the space among the crumbs, they no longer cancel' I first read 'they' as the crumbs.",
+   "stumbles": [
+    {
+     "quote": "Let go of a small ball of crumbs at rest in a cabin falling freely near a planet",
+     "problem": "At rest compared with what? The reader has no measurer for 'at rest', and the whole picture depends on the crumbs starting still in the cabin.",
+     "rewrite": "Let go of a small ball of crumbs, at rest in a cabin that falls freely near a planet, and in the way say 'each at rest relative to the cabin'."
+    },
+    {
+     "quote": "Tidal drift pulls the ball longer one way and narrower the other two.",
+     "problem": "A direction with no reference: which way is 'one way'? The summary is read before any way, so nothing names it.",
+     "rewrite": "Tidal drift pulls the ball longer along the line toward the planet's centre and narrower across it."
+    },
+    {
+     "quote": "Where dust fills the space among the crumbs, they no longer cancel, and the ball starts to shrink.",
+     "problem": "'They' reads first as the crumbs, the nearest plural noun. 'Cancel' is also used later for the dust's pulls cancelling, so one word carries two ideas.",
+     "rewrite": "Where dust fills the space among the crumbs, the drifts no longer add to zero, and the ball starts to shrink. 'Add to zero' is now the only phrase for the total, and 'cancel' is kept for the pulls of the outer dust."
+    },
+    {
+     "quote": "The Ricci tensor is the table that holds these totals.",
+     "problem": "'These totals' is plural, but the reader has met exactly one total, so they hunt for the others.",
+     "rewrite": "The Ricci tensor is the table that holds this total."
+    },
+    {
+     "quote": "Crumbs let go at rest inside such a cabin near a round planet slowly drift.",
+     "problem": "Drift compared with what, and measured by whom? Rule 7 asks for the measurer, and the sibling picture in the vault names the cabin's clock and ruler.",
+     "rewrite": "Let go of crumbs inside such a cabin near a round planet, each at rest relative to the cabin. Compared with a crumb at their centre, they slowly drift. The explanation adds: you time them with the cabin's clock and measure them with a ruler fixed to the cabin."
+    },
+    {
+     "quote": "Two sit 1 metre from it along the line toward Earth's centre. Four more sit 1 metre from it across that line, in two directions at right angles to each other.",
+     "problem": "A rule the reader cannot follow: where exactly do the two go, and how do four crumbs fill two directions? 'It' also has the centre crumb and the centre as candidates.",
+     "rewrite": "Two sit 1 metre from that centre crumb along the line toward Earth's centre, one on each side of it. Four more sit 1 metre from the centre crumb across that line, two in each of two directions at right angles to each other."
+    },
+    {
+     "quote": "Why add them? The ball of crumbs grows longer along the line and narrower across it",
+     "problem": "The reader was given seven crumbs, never a ball, so 'the ball of crumbs' arrives from nowhere.",
+     "rewrite": "Add to the setup: 'The six outer crumbs mark a small ball around the centre crumb.'"
+    },
+    {
+     "quote": "Why those two sizes? The crumb nearer Earth's centre is pulled harder than the centre crumb, and the one farther away is pulled less, so both move away from it.",
+     "problem": "The paragraph promises the two sizes and then explains only the two directions. The factor of two, on which the zero total rests, is a surprise with no reason and no test.",
+     "rewrite": "Give the count: squaring doubles a small share (1.0001 times 1.0001 is 1.0002), so a step of 1 metre toward Earth's centre, out of 6371 kilometres, changes the pull by 2 parts in 6 371 000, while sitting 1 metre to the side tilts the pull so that 1 part in 6 371 000 of it aims toward the centre crumb: half the share, half the drift."
+    },
+    {
+     "quote": "For small changes, the change in the room a shape takes up is the sum of the changes in its length and its two widths, each counted as a fraction of itself.",
+     "problem": "Had to reread: 'each counted as a fraction of itself' packs the whole rule into a trailing clause.",
+     "rewrite": "For small changes, write each change of length as a fraction of the length it belongs to. Do that for the ball's length and for its two widths. The change in the room the ball takes up is the sum of those three fractions."
+    },
+    {
+     "quote": "volume: The amount of room something takes up.",
+     "problem": "The glossary defines a word the entry prose never uses, while the prose says 'the room it takes up' and the check answers and misconception say 'volume'. The reader cannot tell whether they are the same idea.",
+     "rewrite": "Name it once, in its own sentence: 'The room a shape takes up is called its volume.' Then keep 'the room it takes up' in the prose."
+    },
+    {
+     "quote": "Now watch each crumb against the centre crumb. ... each crumb along the line moves away from the centre crumb",
+     "problem": "'Watch against' is not English a beginner can act on, and 'moves away' is a second word for the drift the glossary already names.",
+     "rewrite": "Now watch the six outer crumbs, each compared with the centre crumb ... each crumb along the line drifts away from the centre crumb. The same change was made in the check and the problem."
+    },
+    {
+     "quote": "over much longer times the new shape itself starts to shrink the ball",
+     "problem": "A surprising claim, and the wording lets the reader conclude that the drifts stop adding to zero, which is not what happens.",
+     "rewrite": "Over much longer times the drifts still add to zero, but the egg shape that has built up starts to shrink the ball on its own."
+    },
+    {
+     "quote": "A small ball of crumbs sits at the middle of the cloud, 2 metres across, and dust fills the space among the crumbs. ... So compare a crumb 1 metre from the middle with a crumb 2 metres out.",
+     "problem": "The first what-if a teenager tries: a ball 2 metres across has no crumb 2 metres from its middle, so the comparison is impossible. '2 metres across' also reads at first as the cloud's size.",
+     "rewrite": "A small ball of crumbs, 4 metres across, sits at the middle of the cloud, with one crumb at its centre."
+    },
+    {
+     "quote": "Let go of everything at once, every grain and every crumb at rest, so all of it falls freely.",
+     "problem": "'At rest' again with no reference, in the way where the whole cloud is falling.",
+     "rewrite": "Let go of everything at once, every grain and every crumb at rest relative to each other, so all of it falls freely."
+    },
+    {
+     "quote": "The dust nearer the middle pulls it as if it all sat at the middle.",
+     "problem": "Two 'it's in one sentence, and the nearest noun to the first is 'the middle', not the crumb.",
+     "rewrite": "The dust nearer the middle than a crumb pulls that crumb as if all of that dust sat at the middle."
+    },
+    {
+     "quote": "the whole cloud falls in to its middle in about 35 minutes, however wide it is",
+     "problem": "A surprise with no reason: a teenager objects at once that a wider cloud has farther to fall.",
+     "rewrite": "Add: A wider cloud pulls its dust harder, but that dust also has farther to fall, and the two changes balance exactly."
+    },
+    {
+     "quote": "Einstein's theory also gives empty space itself a tiny outward total, away from the middle.",
+     "problem": "'Outward total' is a phrase the reader has not met; the note's total is a number, and an outward number means nothing yet.",
+     "rewrite": "Einstein's theory also gives empty space itself a tiny total of its own, one that spreads the crumbs apart rather than drawing them together."
+    },
+    {
+     "quote": "all three drifts point inward, so their total is not zero and the ball starts to shrink",
+     "problem": "'Inward' has no reference here, and the sentence promises shrinking for rock, where nothing is falling freely.",
+     "rewrite": "All three drifts point toward the centre crumb. So their total is not zero, and a ball of freely falling crumbs starts to shrink."
+    },
+    {
+     "quote": "crumbs are let go at rest at the corners of a box with 1-metre edges. After a while, each edge along the line toward Earth's centre has grown by 2 tenths of a millimetre.",
+     "problem": "The starting state is ambiguous: nothing says the box is lined up with the line toward Earth's centre, and 'at rest' has no reference.",
+     "rewrite": "Crumbs are let go at the corners of a box with 1-metre edges, each crumb at rest relative to the cabin. The box is set square: four of its edges run along the line toward Earth's centre, and the other eight run across that line."
+    },
+    {
+     "quote": "each crumb 1 metre from the centre crumb across the line toward the Moon's centre moves inward by 47 thousandths of a millimetre",
+     "problem": "'Inward' in a sentence that has just named the Moon's centre reads as 'toward the Moon', which is the wrong direction to picture.",
+     "rewrite": "drifts toward the centre crumb by 47 thousandths of a millimetre. The solution and key points were changed the same way."
+    },
+    {
+     "quote": "Picture a small ball of crumbs floating in a cabin that falls freely near Earth.",
+     "problem": "An opening question must name its setting fully; without 'nothing among the crumbs' a reader who pictures dusty air is marked wrong for a good answer.",
+     "rewrite": "Picture a small ball of crumbs floating in a cabin that falls freely near Earth, with nothing but empty space among the crumbs."
+    },
+    {
+     "quote": "crumbs along the line toward Earth's centre spread apart, and crumbs across that line draw together",
+     "problem": "Two fresh verbs for the drift the note names everywhere else, in the answer the tutor speaks.",
+     "rewrite": "crumbs along the line toward Earth's centre drift apart, and crumbs across that line drift together."
+    }
+   ],
+   "fixes": [
+    "Gave every 'at rest' its reference (relative to the cabin, or relative to each other) in the summary, both entry ways, both entry checks that need it, and the entry problem, and named the measurer once: the cabin's clock and a ruler fixed to the cabin.",
+    "Backed the factor of two in 'Add up the three drifts' with a count the reader can check: squaring doubles a small share (1.0001 times 1.0001 is 1.0002), 1 metre out of 6371 kilometres gives 2 parts in 6 371 000 along the line and 1 part in 6 371 000 across it. Checked against the note's own numbers: 0.154 mm and 0.077 mm in 10 seconds.",
+    "Introduced the small ball explicitly ('The six outer crumbs mark a small ball around the centre crumb'), said where the six crumbs sit, and named 'volume' once as the name for the room a shape takes up, so the glossary entry and the check answers match the prose.",
+    "Rewrote the volume rule as three short steps instead of one clause ending 'as a fraction of itself', in the way, the egg check answer and the matching misconception correction.",
+    "Made the 'Among dust' ball 4 metres across, so the crumb 2 metres from the middle exists, and put its size beside the ball rather than beside the cloud. Added 'dust fills the space among the crumbs' to the dust check, which had dropped it.",
+    "Gave the reasons two surprises were missing: why a wider dust cloud still falls in about 35 minutes, and what 'at first' hides (the drifts keep adding to zero; the egg shape itself shrinks the ball later).",
+    "Settled the vocabulary: 'drift' for every tidal drift (no more 'moves away', 'spread apart', 'draw together'), 'add to zero' for the total and 'cancel' only for the pulls of the outer dust, and 'toward the centre crumb' in place of every bare 'inward'.",
+    "Made the egg check's starting state unambiguous by lining the box up with the line toward Earth's centre, and named the setting in the opening question ('with nothing but empty space among the crumbs').",
+    "Cleared the ambiguous pronouns: 'they no longer cancel' in the summary, 'these totals', 'pulls it as if it all sat at the middle', and 'the Ricci tensor records it'.",
+    "Rewrote the dust way's simplifies so the cosmological-constant limit is stated in words the entry reader has met, keeping the 7 hydrogen atoms per cubic metre number.",
+    "Ladder: no change was needed. Each non-entry way's first sentence already names the way it continues by title, the working way bridges back to the entry count of three drifts, and no index notation appears below the working rung. The gradiometer way's link back to 'Among dust, the ball starts to shrink' still reads correctly after the 4-metre change, because it quotes only the per-direction share.",
+    "Nothing was dropped. Entry way explanations grew from 795 to 1,044 words, 44 past the 1,000 core cap and inside the 10% review allowance; every added word is one of the fixes recorded here, and the largest single addition is the factor-of-two count."
+   ],
+   "concerns": [
+    "Entry way explanations sit at 1,044 words against a 1,000 cap. If an editor wants them under the cap, the lowest-value sentence is 'Near a planet, with nothing among the crumbs, the total comes out zero as closely as anyone can measure', which the satellite sentence right after it already carries.",
+    "For the physics reviewer, three new entry claims: that squaring doubles a small share so the radial share is 2 parts in 6 371 000 and the transverse share 1 part in 6 371 000 at 1 metre from a crumb near Earth's surface; that a uniform ball's free-fall time does not depend on its width, so 'a wider cloud pulls harder but has farther to fall, and the two changes balance exactly'; and that where the drifts add to zero the egg shape built up later shrinks the ball on its own, while the drifts still add to zero.",
+    "The dust way now uses a ball 4 metres across. The proposed visual falling-ring-of-crumbs should show the same size, and its sketch should place one crumb on each side of the centre crumb along the line and two in each direction across it, matching the seven-crumb setup.",
+    "The entry-rung overlap with volume-preserving-tidal-deformation that the writer reported is untouched: both notes now teach the egg-keeps-its-volume picture, and this one also names 'volume'. An editor should decide which note owns the picture.",
+    "My snapshot command overwrote the scratchpad file snapshots/notes-curvature/ricci-tensor.before-novice.json, which held the pre-novice state of the build that the writer discarded. My own pre-review copy is snapshots/notes-curvature/ricci-tensor.before-novice-rev1.json, and the discarded build itself survives in ricci-tensor.before-writer-rerun.json and ricci-tensor.before-rebuild.json."
+   ],
+   "rereads": [
+    {
+     "date": "2026-09-13",
+     "revision": 4,
+     "read": [
+      "note_diff.py snapshots/notes-curvature/ricci-tensor.before-physics.json -> knowledge/concepts/curvature/ricci-tensor.json --rungs entry,working (3 changed strings, all entry)",
+      "$.ways_in[add-up-the-three-drifts].explanation",
+      "$.ways_in[crumbs-among-dust-draw-together].explanation",
+      "$.ways_in[crumbs-among-dust-draw-together].takeaway"
+     ],
+     "stumbles": [
+      {
+       "quote": "But the crumbs already let go are now moving.",
+       "problem": "Had to reread the sentence to parse it. 'the crumbs already let go' reads at first as a subject followed by a verb ('the crumbs already let go of something'), and only the word 'are' forces a second pass.",
+       "rewrite": "But the crumbs you let go at the start are now moving."
+      },
+      {
+       "quote": "They are stretching the ball along the line toward Earth's centre and narrowing it across that line, and that motion by itself slowly shrinks the room the ball takes up.",
+       "problem": "Thirty words carrying two things at once: what the moving crumbs are doing, and a claim that this shrinks the room the ball takes up. The shrinking is a surprise with no reason, no count and no test behind it, and it appears to contradict the clay in this way's try_it, where a tenth minus a twentieth minus a twentieth is zero and the room never changed. Nothing tells the reader that the shrinking is a step taken on trust (rule 17: the way's own idea is the total of the three drifts, and this arrives as a second idea).",
+       "rewrite": "They keep stretching the ball along the line toward Earth's centre, and keep narrowing it across that line. Take on trust that this ongoing motion, by itself, slowly shrinks the room the ball takes up."
+      },
+      {
+       "quote": "So the total counts only what is right among the crumbs, and nothing farther out.",
+       "problem": "'right' is doing double duty. This note uses 'right' as a direction word throughout ('three directions at right angles'), and the sentence sits between 'farther out', 'toward the middle' and 'farther from the middle', so 'right among the crumbs' first reads as a direction rather than as 'exactly among'.",
+       "rewrite": "So the total counts only what is there among the crumbs, and nothing farther out."
+      },
+      {
+       "quote": "Dust, water or rock filling the space among the crumbs adds a drift toward the centre crumb in every direction.",
+       "problem": "Two readings, and the wrong one comes first: 'a drift toward the centre crumb in every direction' sounds like one drift pointing every way at once, rather than every crumb drifting inward whichever way it sits from the centre. Ten words of subject also arrive before the verb, which is a lot for the sentence a reader is meant to say back.",
+       "rewrite": "Dust, water or rock among the crumbs gives each crumb an extra drift toward the centre crumb."
+      }
+     ],
+     "fixes": [
+      "Entry way 'Add up the three drifts': split the 30-word sentence about the crumbs already moving into three short ones, fixed the 'crumbs already let go' parse, and said that the later shrinking is taken on trust, the phrase this note already uses for the two dust facts. The claim is unchanged: the ongoing stretching and narrowing, by itself, slowly shrinks the room the ball takes up.",
+      "Entry way 'Crumbs among dust draw together': 'what is right among the crumbs' became 'what is there among the crumbs', so 'right' is left as a direction word only. Scope unchanged: the total counts what is there among the crumbs and nothing farther out.",
+      "Entry way 'Crumbs among dust draw together' takeaway: recast so 'in every direction' cannot be read as one drift pointing every way ('gives each crumb an extra drift toward the centre crumb'); saying it of each crumb covers every direction in fewer words and keeps the takeaway inside its 240-character limit. The claim is the physics review's: the matter adds an inward drift for every crumb, whatever else is going on.",
+      "Left unchanged: 'just over 1.0002' (a novice can check 1.0001 times 1.0001 by hand and see why 'just over' is there), and 'Let go of fresh crumbs at any later moment' (letting go of a crumb you are holding is already letting it go at rest relative to the cabin).",
+      "Budget: entry way explanations went 1,058 to 1,066 words against the 1,000 cap, inside the 10 per cent review allowance, and the other way fields fell from 710 to 707 words; nothing was dropped."
+     ]
+    }
+   ]
+  },
+  "physics": {
+   "verdict": "fixed",
+   "date": "2026-09-13",
+   "reviewed_revision": 4,
+   "verification": [
+    {
+     "claim": "Ricci slot convention R_munu = R^rho_{mu rho nu}, symmetry, and uniqueness of the single trace.",
+     "method": "Re-derived from the conventions Riemann row: g^{rho sigma}R_{rho sigma mu nu}=0 by first-pair antisymmetry; upper index against the fourth slot gives R^rho_{sigma nu rho} = -R_{sigma nu}; second slot against third gives -R_{rho nu}, against fourth +R_{rho mu}; symmetry R_{sigma nu}=g^{rho lambda}R_{lambda sigma rho nu}=g^{rho lambda}R_{rho nu lambda sigma}=R_{nu sigma}.",
+     "result": "Correct as written in key_equations/ricci-as-contraction, ways_in/the-total-is-a-trace and checks/every-trace-is-ricci. The dependence of pair exchange on metric compatibility plus zero torsion is stated correctly."
+    },
+    {
+     "claim": "Coordinate-free Ric(Y,Z) = tr(X -> R(X,Z)Y) has components R_{sigma nu} = R^rho_{sigma rho nu}.",
+     "method": "Wrote [R(X,Z)Y]^rho = R^rho_{sigma mu nu} Y^sigma X^mu Z^nu from the conventions commutator row, then contracted rho with mu.",
+     "result": "Correct; the slot assignment in ways_in/the-trace-of-the-curvature-operator reproduces the course Ricci exactly, with no sign flip."
+    },
+    {
+     "claim": "Tidal matrix E_ij = c^2 R^{i-hat}_{0-hat j-hat 0-hat} and the trace identity sum_i lambda_i = R_{mu nu}u^mu u^nu.",
+     "method": "Substituted u^mu = c delta^mu_{0-hat} into the conventions geodesic-deviation row D^2 xi^mu/dtau^2 = -R^mu_{nu rho sigma} u^nu xi^rho u^sigma; added the vanishing rho = 0-hat term.",
+     "result": "Correct, including the sign that a positive eigenvalue draws that direction inward, and the total of the drifts being -sum lambda_i."
+    },
+    {
+     "claim": "Initial volume law d^2 deltaV/dtau^2 = -R_{mu nu}u^mu u^nu deltaV at release.",
+     "method": "Re-worked derivations/volume-law-from-deviation step by step, then re-derived it independently from the Raychaudhuri trace with theta = sigma = omega = 0 at release.",
+     "result": "Both routes agree. The O(tau^3) remainder and the 'at that instant only' condition are correct."
+    },
+    {
+     "claim": "Raychaudhuri equation and the transport equation for B_{mu nu} = nabla_nu u_mu.",
+     "method": "Derived u^lambda nabla_lambda B_{mu nu} = -B_{mu lambda}B^lambda_nu - R_{sigma mu lambda nu}u^sigma u^lambda using the course commutator on a covector, then traced with g^{mu nu}, checking g^{mu nu}R_{sigma mu lambda nu} = R_{sigma lambda} by pair exchange.",
+     "result": "Correct, including the signs -theta^2/3 - sigma.sigma + omega.omega - R_{mu nu}u^mu u^nu and theta = d ln deltaV/dtau."
+    },
+    {
+     "claim": "Perfect-fluid focusing R_{mu nu}u^mu u^nu = 4 pi G (rho + 3p/c^2) - Lambda c^2.",
+     "method": "Inverted G_{mu nu} + Lambda g_{mu nu} = 8 pi G T_{mu nu}/c^4 to R_{mu nu} = kappa(T_{mu nu} - T g_{mu nu}/2) + Lambda g_{mu nu}, then used the conventions perfect-fluid row with u.u = -c^2: T_{mu nu}u^mu u^nu = rho c^4 and T = -rho c^2 + 3p.",
+     "result": "Correct, factor for factor, including the sign that positive Lambda defocuses."
+    },
+    {
+     "claim": "Weak-field R_00 = nabla^2 Phi / c^2 = 4 pi G rho / c^2 with x^0 = ct.",
+     "method": "Computed Gamma^i_{00} = (1/c^2) partial_i Phi from g_00 = -(1 + 2Phi/c^2) in the conventions weak-field row, then R_00 = partial_i Gamma^i_{00}.",
+     "result": "Correct and positive; consistent with the perfect-fluid formula at p = 0, Lambda = 0."
+    },
+    {
+     "claim": "Entry drifts near Earth: 0.154 mm out along the line and 0.077 mm in across it, per metre, in 10 s.",
+     "method": "python: 2GM/R^3 = 3.0828e-6 s^-2 and GM/R^3 = 1.5414e-6 s^-2 with GM = 3.986004418e14 m^3 s^-2, R = 6371 km; d = a t^2 / 2.",
+     "result": "0.15414 mm and 0.07707 mm. Matches 'about 15 hundredths' and '7 and a half hundredths', and their signed total is zero."
+    },
+    {
+     "claim": "The novice reviewer's factor-of-two count: squaring doubles a small share, so 2 parts in 6 371 000 along the line and 1 part in 6 371 000 across it.",
+     "method": "python: exact (R/(R-1))^2 - 1 = 3.1392e-7 against 2/6.371e6 = 3.1392e-7; transverse tilt sin(1 m / R) = 1.5696e-7 against 1/6.371e6. Cross-checked g x 2/R = 3.0828e-6 s^-2 against 2GM/R^3.",
+     "result": "Correct in size and sense. One literal slip fixed: 1.0001 x 1.0001 = 1.00020001, so 'is 1.0002' became 'is just over 1.0002'."
+    },
+    {
+     "claim": "Working-rung conversion: a drift of 0.154 mm in 10 s at 1 m is 3.08e-6 m s^-2 per metre, and 2d/t^2 is the right rule for release from rest.",
+     "method": "python: 2 x 1.54e-4 / 100 = 3.08e-6.",
+     "result": "Correct."
+    },
+    {
+     "claim": "Try-it clay block: 10 x 2 x 2 cm pressed to 11 cm long with square sides gives about 1.9 cm.",
+     "method": "python: sqrt(40/11) = 1.9069 cm; fractional changes +0.100, -0.0465, -0.0465.",
+     "result": "Correct, and the volume is exactly conserved, so the tenth-minus-two-twentieths arithmetic lands where the text says."
+    },
+    {
+     "claim": "Entry problem missing-drift-near-the-moon: 47 thousandths of a mm across implies 94 thousandths outward along the line.",
+     "method": "python with GM_Moon = 4.90487e12 m^3 s^-2, R = 1737.4 km: transverse 0.04676 mm, radial 0.09353 mm in 10 s.",
+     "result": "Both quoted values correct; the signed numeric answer 0.094 mm at 5 per cent is comfortable."
+    },
+    {
+     "claim": "Dust way: drift 14 thousandths of a mm at 1 m in 10 s at water density, and collapse in about 35 minutes however wide the cloud.",
+     "method": "python: (4 pi/3) G rho r = 2.7957e-7 m s^-2 gives 0.013979 mm; free-fall time sqrt(3 pi / 32 G rho) = 2100.7 s = 35.01 min, independent of radius.",
+     "result": "Both correct. The added sentence 'a wider cloud pulls its dust harder, but that dust also has farther to fall, and the two changes balance exactly' is exact: g scales as r and the distance as r, so the time scales as sqrt(r/g), a constant."
+    },
+    {
+     "claim": "Novice rewrite: '8 times as much dust, each bit pulling 4 times less, so twice the pull', and 'twice as dense doubles the drift'.",
+     "method": "Checked against g(r) = (4 pi/3) G rho r: linear in r and in rho.",
+     "result": "Correct, and it matches the numbers in checks/denser-dust-faster (0.028 mm in both cases)."
+    },
+    {
+     "claim": "Cosmological-constant bound: empty space wins only below about 7 hydrogen atoms per cubic metre.",
+     "method": "python: Lambda c^2 = 3 Omega_Lambda H_0^2 = 9.80e-36 s^-2 with H_0 = 67.4 km/s/Mpc; rho = Lambda c^2 / (4 pi G) = 1.169e-26 kg m^-3, divided by 1.6735e-27 kg.",
+     "result": "6.99 atoms per cubic metre. Correct, and Lambda c^2 is about 1e-35 s^-2 as the gradiometer way says."
+    },
+    {
+     "claim": "GOCE numbers: -2.74e-6 s^-2 radial and +1.37e-6 s^-2 horizontal at r = 6626 km, with the rotation adding -2 Omega^2 = -2.74e-6 s^-2 to the raw diagonal sum.",
+     "method": "python for the gradients. Derived the rotating-frame term: for a rigid gradiometer the measured tensor is V + Omega^2 + Omega-dot, with (Omega^2)_ij = omega_i omega_j - omega^2 delta_ij, whose trace is -2 omega^2 and Omega-dot traceless; Omega^2 = GM/r^3 on a circular orbit.",
+     "result": "Both gradients and the -2 Omega^2 trace term are correct, and the two happen to be equal in size, as the text says. This answers the writer's open item on the rotation term."
+    },
+    {
+     "claim": "Lambda c^2 is about 30 orders of magnitude below near-Earth tidal gradients.",
+     "method": "python: 3.08e-6 / 9.80e-36 = 3.1e29.",
+     "result": "Correct."
+    },
+    {
+     "claim": "Worked example: Ricci tensor and scalar of a sphere of radius a.",
+     "method": "Recomputed R^theta_{phi theta phi} from Gamma^theta_{phi phi} = -sin theta cos theta and Gamma^phi_{theta phi} = cot theta with the course Riemann formula, then repeated every raise, lower and contraction of the example.",
+     "result": "R^theta_{phi theta phi} = sin^2 theta, R_{theta theta} = 1, R_{phi phi} = sin^2 theta, R_{mu nu} = g_{mu nu}/a^2 and R = +2/a^2, matching the conventions sphere row. Sign calibration of the slot choice confirmed."
+    },
+    {
+     "claim": "checks/egg-keeps-its-volume: +2, -1, -1 parts in ten thousand leave the volume unchanged to 3 parts in 100 million.",
+     "method": "python: 1.0002 x 0.9999 x 0.9999 = 0.99999997, a change of -3.00e-8.",
+     "result": "Correct. A cube has four edges in each direction, so 'four along, eight across' is right."
+    },
+    {
+     "claim": "checks/tunnel-through-the-earth: zero trace, 1.54e-6 m s^-2 together along the tunnel and 0.77e-6 m s^-2 apart across it.",
+     "method": "Superposed a uniform ball (Hessian (4 pi/3) G rho delta_ij) with a removed long cylinder (2 pi G rho across the axis, 0 along it); python with rho = 5510 kg m^-3.",
+     "result": "(4 pi/3) G rho = 1.5404e-6 s^-2 and (2 pi/3) G rho = 7.702e-7 s^-2; the three entries are (+4 pi/3, -2 pi/3, -2 pi/3) G rho and sum to zero. Signs of both numeric answers correct."
+    },
+    {
+     "claim": "checks/vacuum-table-with-zero-ricci: the six-entry table q(-2,1,1,-1,-1,2) has zero Ricci and Kretschmann 48 q^2.",
+     "method": "Contracted with eta^{a c} by hand for each diagonal component; counted four index orders per pair for the Kretschmann sum, checking that raising a pair of hatted indices squares each sign.",
+     "result": "All four diagonal components vanish, Kretschmann = 4 q^2 (4+1+1+1+1+4) = 48 q^2, and this is the Schwarzschild pattern with q = GM/c^2 r^3, whose known Kretschmann is 48 G^2 M^2 / c^4 r^6. Correct."
+    },
+    {
+     "claim": "checks/sheared-ball-loses-volume: volume ratio cosh(sqrt2 s) cos^2 s = 1 - s^4/2 + O(s^6), 0.971 at s = 0.5 and 0.636 at s = 1.",
+     "method": "Solved each axis from L'' = -lambda L with zero initial rate; series-expanded the product by hand; python for the two values.",
+     "result": "0.970846 and 0.635870. Series correct: the s^2 term cancels because the trace is zero, leaving -s^4/2."
+    },
+    {
+     "claim": "problems/water-density-dust-ball: 4 pi G rho = 8.39e-7 s^-2 and 0.15 per cent of the volume lost in 60 s.",
+     "method": "python: 4 pi G rho = 8.3872e-7 s^-2; half of that times 3600 s^2 = 1.5097e-3; Newtonian cross-check V = V_0(1 - 2 pi G rho t^2) gives the identical number.",
+     "result": "Correct, and the two routes agree exactly as the solution claims."
+    },
+    {
+     "claim": "problems/accelerating-universe-focusing: R_00 = -3 a-double-dot/(a c^2), contraction 3 q_0 H_0^2 = -7.6e-36 s^-2.",
+     "method": "Recomputed Gamma^0_{ij} and Gamma^i_{0j} for the flat FLRW metric with x^0 = ct, then R^i_{0i0} from the course formula; python for H_0 = 67.4 km/s/Mpc and q_0 = Omega_m/2 - Omega_Lambda.",
+     "result": "H_0 = 2.184e-18 s^-1, q_0 = -0.5275, 3 q_0 H_0^2 = -7.550e-36 s^-2, ratio to H_0^2 = -1.5825. Every quoted value correct, and the comoving tidal matrix -(a-double-dot/a) delta_ij has the right sign for particles accelerating apart."
+    },
+    {
+     "claim": "problems/all-observers-zero-trace: the polarization proof.",
+     "method": "Worked each step: openness of the timelike cone, the quadratic in epsilon, vanishing coefficients, polarization identity.",
+     "result": "Valid. Symmetry of S is used and is available, since Ricci is symmetric for the Levi-Civita connection."
+    },
+    {
+     "claim": "Sectional-curvature sums: Ric(e1,e1) = sum_{i>=2} K(e1,e_i) in Riemannian signature, and Ric(u,u) = -sum_i K(u,e_i) for unit timelike u.",
+     "method": "Expanded both in an orthonormal basis using the conventions sectional-curvature row, tracking the negative denominator g(u,u)g(e_i,e_i) on timelike planes.",
+     "result": "Both correct, including the minus sign in the Lorentzian case and the note's remark that the behaviour, not the sign of K, is what matches."
+    },
+    {
+     "claim": "Normal-coordinate volume element sqrt(det g) = 1 - R_{ij}x^i x^j / 6 + O(x^3).",
+     "method": "From g_ij = delta_ij - R_{ikjl}x^k x^l / 3, took the trace and the square root.",
+     "result": "Correct, and it is stated for Riemannian normal coordinates, as it must be."
+    },
+    {
+     "claim": "Trace-reversal notation trap: for a null k, R_{mu nu}k^mu k^nu is common to the half- and quarter-trace versions.",
+     "method": "Contracted R_{mu nu} - c R g_{mu nu} with a null vector for c = 1/2 and c = 1/4.",
+     "result": "Correct: g_{mu nu}k^mu k^nu = 0 kills the trace term either way. G_{mu nu} trace -R in four dimensions is also correct."
+    },
+    {
+     "claim": "Prerequisite graph is direct and acyclic.",
+     "method": "Built the whole vault graph from note prerequisites (registry entries where no note exists) and ran a depth-first cycle scan.",
+     "result": "Six cycles found, every one of them through the single edge ricci-tensor -> relativistic-tidal-tensor, because that note (physics-reviewed, revision 4) lists ricci-tensor as a working prerequisite. Dropping that one edge here makes the entire vault graph acyclic."
+    },
+    {
+     "claim": "Reference: Rummel, Yi, Stummer (2011), GOCE gravitational gradiometry, Journal of Geodesy 85, 777-790.",
+     "method": "Publisher record for doi:10.1007/s00190-011-0500-0.",
+     "result": "Confirmed; verified set true."
+    },
+    {
+     "claim": "Reference: Aghanim, Akrami, Ashdown, Aumont and others (2020), Planck 2018 results. VI. Cosmological parameters, A&A 641, A6.",
+     "method": "Publisher record for doi:10.1051/0004-6361/201833910 and arXiv:1807.06209; checked the four expanded given names against the author list and the quoted H_0 = 67.4, Omega_m = 0.315, Omega_Lambda = 0.685.",
+     "result": "Confirmed, including the parameter values; verified set true."
+    },
+    {
+     "claim": "Reference: Ricci-Curbastro and Levi-Civita (1900), Methodes de calcul differentiel absolu et leurs applications, Mathematische Annalen 54, 125-201.",
+     "method": "Publisher record for doi:10.1007/BF01454201 and the EuDML record.",
+     "result": "Confirmed, volume and pages exact. The publisher dates volume 54 to 1900 while some indexes give 1901; kept 1900. The history line credits the memoir with the calculus and says only that the contracted tensor carries Ricci's name, which is the correct scope."
+    },
+    {
+     "claim": "Reference: Einstein (1915), Die Feldgleichungen der Gravitation, Sitzungsberichte (Berlin), 844-847, and the claim about the earlier November 1915 trace condition.",
+     "method": "Bibliographic record (1915SPAW.......844E) and the session date of 25 November 1915; checked the scope of the earlier November papers, which set a Ricci-type tensor proportional to the energy-momentum tensor under the hypothesis that its trace vanishes.",
+     "result": "Confirmed in venue, pages, date and scope; verified set true."
+    },
+    {
+     "claim": "Reference: Raychaudhuri (1955), Relativistic cosmology. I, Physical Review 98, 1123-1126.",
+     "method": "Publisher record for doi:10.1103/PhysRev.98.1123.",
+     "result": "Confirmed; verified set true."
+    },
+    {
+     "claim": "References: Hamilton (1982) JDG 17, 255-306; Perelman (2002) arXiv:math/0211159; Lott and Villani (2009) Ann. Math. 169, 903-991; Sturm (2006) Acta Math. 196, 65-131; McCann (2020) Camb. J. Math. 8(3), 609-681; Penrose (1965) PRL 14, 57-59.",
+     "method": "Publisher or repository record for each doi or arXiv id, checking authors, year, title, venue and pages.",
+     "result": "All six confirmed; verified set true. Added the confirmed arXiv ids math/0412127 (Lott and Villani) and 1808.01536 (McCann). Penrose's stated hypotheses (non-compact Cauchy surface, closed trapped surface, null convergence) are the theorem's actual hypotheses."
+    },
+    {
+     "claim": "Observation scope: GOCE measured from about 255 km, lower near the end, over 2009-2013, for gradients with periods of about 10 to 200 s.",
+     "method": "Checked the altitude, mission dates and the measurement bandwidth of 5 to 100 mHz against the reference.",
+     "result": "Consistent; the period range is the reciprocal of that bandwidth, and the three accurate diagonal components are the ones the trace statement uses."
+    }
+   ],
+   "counterexamples": [
+    "Crumbs let go inside a tank of water at Earth's surface: the matter term (4 pi/3) G rho_water = 2.8e-7 s^-2 is swamped by Earth's radial tide 3.08e-6 s^-2, so the crumbs along the line toward Earth's centre still drift apart. This falsified the entry takeaway 'all three drifts point toward the centre crumb' wherever water or rock fills the space; the takeaway now says the matter adds an inward drift in every direction, which is true in every such setting. The trace, and so the shrinking, is unaffected.",
+    "A trace-free tide held on for a long time (eigenvalues (-2,1,1)/tau_0^2): the accumulated fractional length changes are cosh(sqrt2 s) - 1 and cos s - 1 twice, which sum to +0.259 at s = 1, not zero, while the volume ratio is 0.636. This falsified 'over much longer times the drifts still add to zero' read as accumulated drifts, and also the claim that the built-up egg shape shrinks the ball: a shape at rest shrinks nothing, the shear rate does. Both sentences were rewritten.",
+    "Empty space with a cosmological constant and no matter: R_{mu nu}u^mu u^nu = -Lambda c^2, not zero. This falsified 'the total counts only the matter right among the crumbs, and nothing else' as entry prose that must stand without the simplifies note; it now says 'only what is right among the crumbs, and nothing farther out', which keeps the locality point and stays true.",
+    "Schwarzschild vacuum, a strong field: Ricci vanishes while Kretschmann is 48 q^2, so 'zero total' never means flat. Held by checks/vacuum-table-with-zero-ricci and by the entry misconception.",
+    "A tunnel through a uniform Earth, matter all around but none at the event: trace zero, tides (+4 pi/3, -2 pi/3, -2 pi/3) G rho. Held; this is the intended counterexample to 'matter nearby counts'.",
+    "The non-relativistic limit: R_00 -> nabla^2 Phi / c^2 = 4 pi G rho / c^2, and the perfect-fluid formula with p = 0, Lambda = 0 gives the same 4 pi G rho. Consistent.",
+    "A non-static case, the accelerating universe: R_{mu nu}u^mu u^nu = -3 a-double-dot/a < 0 today, so the contraction can be negative and ordinary matter alone cannot produce it. Held by the problem and the observation.",
+    "A massless case, null vectors: the Lambda term and the trace term both drop out of R_{mu nu}k^mu k^nu. Held, and it is what the trace-reversal notation trap says.",
+    "A different observer at the same event: the polarization argument shows the tidal traces of all freely falling observers fix Ric, so no observer can see a zero trace where another sees a nonzero one. Held by the formal problem.",
+    "A connection with torsion or with nabla g nonzero: pair exchange fails, other traces become new tensors and Ric acquires an antisymmetric part. Held; the formal check asks for exactly this and answers it correctly.",
+    "Low dimensions: in two dimensions Ric = R g / 2 carries all of Riemann and in three dimensions Ric and g determine it, so 'Ricci cannot see everything' is a four-dimensional statement. The formal way scopes it correctly.",
+    "A ball released with shear or expansion already present: the volume law fails at once, which is why its conditions name theta = sigma = omega = 0 at release. Held.",
+    "An infinitely wide dust cloud, the first what-if against 'however wide it is': the free-fall time sqrt(3 pi / 32 G rho) does not contain the radius at all, so the claim survives every width. Held."
+   ],
+   "fixes": [
+    "Entry way 'Add up the three drifts': replaced 'Over much longer times the drifts still add to zero, but the egg shape that has built up starts to shrink the ball on its own.' Read as accumulated drifts the first half is false (they sum to +0.259 of a length at s = 1 for a trace-free tide), and a built-up shape shrinks nothing by itself; it is the ongoing stretching and narrowing that does. The text now says fresh crumbs let go at any later moment still have drifts that add to zero, and that the crumbs already moving are what slowly shrinks the room.",
+    "Entry way 'Add up the three drifts': '1.0001 times 1.0001 is 1.0002' became 'is just over 1.0002'. The product is 1.00020001, and the doubling point the sentence makes survives the one extra word.",
+    "Entry way 'Add up the three drifts': dropped 'Near a planet, with nothing among the crumbs, the total comes out zero as closely as anyone can measure.' This is the sentence the novice reviewer nominated as lowest value, and the satellite sentence right after it carries the same claim with a measurement. It pays for most of the words the two accuracy fixes above needed; entry way explanations go from 1,044 to 1,058 words against the 1,000 cap, inside the 10 per cent review allowance.",
+    "Entry way 'Among dust, the ball starts to shrink', takeaway: 'all three drifts point toward the centre crumb' was false wherever another body's tide dominates, for instance crumbs in water at Earth's surface. It now reads 'Dust, water or rock filling the space among the crumbs adds a drift toward the centre crumb in every direction', which is true in every setting and keeps the same one-line picture within the 240-character takeaway limit. The body of the way, which is explicitly set at the middle of a dust cloud far from any planet, needed no change.",
+    "Entry way 'Among dust, the ball starts to shrink': 'the total counts only the matter right among the crumbs, and nothing else' became 'only what is right among the crumbs, and nothing farther out', because the cosmological constant also enters the total and entry prose has to stand without the simplifies note.",
+    "Structure: removed relativistic-tidal-tensor from prerequisites and from the assumes of 'The total is a trace of the Riemann tensor'. That note lists ricci-tensor as its own working prerequisite, and a cycle scan showed this single edge produced every cycle in the vault's prerequisite graph. The working way already takes the geodesic deviation equation on trust and builds the tidal matrix in place, so nothing in the prose depends on the removed prerequisite. Added relativistic-tidal-tensor to leads_to instead.",
+    "References: verified all ten and set verified true on each; added the confirmed arXiv ids math/0412127 and 1808.01536. No reference needed correcting or removing."
+   ],
+   "concerns": [
+    "The registry still lags the note for poisson-equation-for-gravity and riemann-curvature-operator, and now also needs relativistic-tidal-tensor dropped; sync_registry.py should be run once this note is published. Registry prerequisites for ricci-tensor currently list only riemann-curvature-tensor, tensor-contraction and symmetries-of-the-riemann-tensor.",
+    "The cycle I broke on this side is really a disagreement between two notes. relativistic-tidal-tensor (physics-reviewed, revision 4) lists ricci-tensor as a working prerequisite for 'the trace of the tidal tensor is the Ricci tensor'. That direction is the defensible one, so I removed the reverse edge here rather than edit a reviewed note, but an editor should confirm the ordering rather than have a later writer restore it.",
+    "Both visuals are still proposals with no component contract. falling-ring-of-crumbs needs the seven-crumb setup and the 4-metre dust ball the entry ways now use, and six-entry-curvature-table needs the q(-2,1,1,-1,-1,2) preset that checks/vacuum-table-with-zero-ricci calls the Schwarzschild pattern.",
+    "Course conventions still fix no symbol for the tidal matrix. The note uses E_ij, consistently with the rest of the curvature domain, but the conventions file should adopt it.",
+    "The entry-rung overlap with volume-preserving-tidal-deformation that both earlier stages reported is unchanged; nothing I fixed touches it, and an editor still has to decide which note owns the egg-keeps-its-volume picture.",
+    "Entry way explanations sit at 1,058 words against the 1,000 cap after these fixes, inside the review allowance. If an editor wants them under the cap, the next lowest-value sentence is the clay try-it's closing 'A tenth minus a twentieth minus a twentieth is zero, and the room the clay takes up never changed', whose arithmetic the way already stated."
+   ],
+   "diff_checks": [
+    {
+     "date": "2026-09-13",
+     "revision": 4,
+     "verification": [
+      {
+       "claim": "ways_in/add-up-the-three-drifts explanation: 'But the crumbs you let go at the start are now moving.' (was 'But the crumbs already let go are now moving.')",
+       "method": "Compared the two sentences against the way's own setup, where the seven crumbs are released simultaneously, each at rest relative to the cabin, and their separations then evolve by geodesic deviation. Checked that 'at the start' names the same release moment the paragraph contrasts with 'any later moment'.",
+       "result": "True and identical in content. Crumbs released at rest relative to the cabin acquire non-zero velocity relative to it as soon as the tide acts, so 'are now moving' is right, and the rewrite only removes the parse ambiguity of 'already let go'."
+      },
+      {
+       "claim": "ways_in/add-up-the-three-drifts explanation: 'They keep stretching the ball along the line toward Earth's centre, and keep narrowing it across that line.'",
+       "method": "Integrated the linear deviation equation for the way's scenario with A = GM/r^3 = 1.5414e-6 s^-2 at Earth's surface: radial separation x(t) = 1 + A t^2, transverse y(t) = z(t) = 1 - A t^2/2, both monotone while the cabin falls. Checked the sense against the note's stated convention that a drift away from the centre crumb is positive.",
+       "result": "True throughout the fall the way describes, and the same claim as the old clause. The radial stretch and transverse narrowing keep their signs (and grow, since r decreases), so 'keep' is right. The pattern is the local tidal one, diag(+2A, -A, -A) in a freely falling non-rotating frame, consistent with the satellite sentence that follows."
+      },
+      {
+       "claim": "ways_in/add-up-the-three-drifts explanation, new sentence: 'Take on trust that this ongoing motion, by itself, slowly shrinks the room the ball takes up.'",
+       "method": "Raychaudhuri in vacuum with no rotation: dtheta/dtau = -theta^2/3 - sigma.sigma, and theta = sigma = 0 at release, so the first non-zero effect is the shear term alone. Cross-checked by direct integration, including the fall of the centre crumb: x = 1 + u + (5/12)u^2, y = z = 1 - u/2 - u^2/12 with u = A t^2 gives ln(xyz) = -u^2/2, hence theta = -2 A^2 t^3, matching -sigma.sigma = -6 A^2 t^2 integrated. Python: after 10 s at Earth's surface the volume is down by 1.188e-8, i.e. about one part in a hundred million.",
+       "result": "True. The shrink is real, second order in time, and driven by the shear alone in vacuum, so 'by itself' and 'slowly' are both correct. 'Take on trust' is the right label: the volume law in this note fixes only the initial volume acceleration, so a novice cannot check the later shrink at entry. Consistent with misconceptions/volume-law-holds-forever ('Shear built up by a trace-free tide reduces the volume later') and with checks/egg-keeps-its-volume, whose answer already records the tiny product 1.0002 x 0.9999 x 0.9999 = 0.99999997."
+      },
+      {
+       "claim": "ways_in/crumbs-among-dust-draw-together explanation: 'So the total counts only what is there among the crumbs, and nothing farther out.' (was 'only what is right among the crumbs')",
+       "method": "Checked the wider claim against Einstein's equation, which makes R_{mu nu} algebraic in T_{mu nu} at the same event, so the total R_{mu nu}u^mu u^nu = 4 pi G(rho + 3p/c^2) - Lambda c^2 depends on no distant source. Tried the standard counterexamples: a shell of dust farther out (its Newtonian pull cancels, and it adds no Ricci at the crumbs); a passing gravitational wave (Weyl, not Ricci); radiation rather than dust among the crumbs (rho + 3p/c^2 = 2 rho_rad, still local).",
+       "result": "True, and the rewrite widens nothing it should not: 'what is there' covers pressure and radiation as well as rest mass, while the vacuum-energy piece stays in this way's simplifies. Consistent with misconceptions/matter-nearby-counts."
+      },
+      {
+       "claim": "ways_in/crumbs-among-dust-draw-together takeaway: 'Dust, water or rock among the crumbs gives each crumb an extra drift toward the centre crumb.' (was 'adds a drift toward the centre crumb in every direction')",
+       "method": "Split the potential of the region into the uniform-density part and an external harmonic part: the local uniform density rho adds exactly -(4 pi G rho/3) xi_i to the deviation of a crumb at separation xi, which is inward and isotropic. Checked the relativistic version for a comoving perfect fluid, where the deviation is xi-double-dot = -(4 pi G/3)(rho + 3p/c^2) xi in every direction. Counterexamples tried: negative pressure (excluded by naming dust, water or rock, and covered by this way's simplifies), strong field and non-static matter (rho + 3p/c^2 stays positive), matter only farther out (adds nothing).",
+       "result": "Equally true and the same physics. Saying it of each crumb carries the isotropy the old 'in every direction' carried, because this way's recap has the crumbs marking a small ball around the centre crumb. The extra drift is proportional to how far out a crumb sits, as the way's own sentence 'Each crumb is pulled toward the middle in proportion to how far out it sits' states, so the centre crumb's zero is the degenerate case of the same rule, not an exception to it."
+      },
+      {
+       "claim": "Numbers standing next to the changed sentences, rechecked because the changed text leans on them: the 15 and 7.5 hundredths of a millimetre drifts, the 14 thousandths of a millimetre in dust as dense as water, the 35-minute collapse, and the 7 hydrogen atoms per cubic metre.",
+       "method": "Python with G = 6.674e-11: A = GM/r^3 = 1.5414e-6 s^-2 gives 0.1541 mm and 0.0771 mm in 10 s; (4 pi G rho/3) with rho = 1000 kg/m^3 gives 0.01398 mm in 10 s and a free-fall time sqrt(3 pi/(32 G rho)) = 35.01 min; the crossover density 2 rho_Lambda = 1.186e-26 kg/m^3 is 7.09 hydrogen masses per cubic metre.",
+       "result": "All unchanged numbers confirmed, so the reworded sentences sit on correct arithmetic."
+      },
+      {
+       "claim": "The re-read's open worry that the unchanged try_it now contradicts the new shrinking sentence, because 1.1 x 0.95 x 0.95 = 0.9927.",
+       "method": "Modelling clay is incompressible, so the honest comparison is the volume-preserving width: 11 w^2 = 40 gives w = 1.9069 cm, which reads as 1.9 cm on the millimetre ruler the try_it specifies, and 11 x 1.9069^2 = 40.00 exactly. The 0.7 per cent comes from treating a rounded ruler reading as exact.",
+       "result": "No error, and no contradiction with the new sentence. The clay really does keep its volume, and the first-order sum rule gets that right to the ruler's precision; the second-order shrink the new sentence names is a property of the falling crumbs, not of the clay. Left unchanged, since editing it would only restate what the ruler already scopes."
+      }
+     ],
+     "fixes": [
+      "No errors found in the three changed entry strings, so nothing was edited and the revision stays at 4. No novice sign-off is needed.",
+      "review.physics.reviewed_revision raised from 3 to 4, which clears the expected validator warning.",
+      "Left for an editor, unchanged from the physics review: the registry lag for poisson-equation-for-gravity and riemann-curvature-operator (run sync_registry.py); both visuals still proposals without component contracts; no course-conventions symbol for the tidal matrix; and the entry-rung overlap with volume-preserving-tidal-deformation."
+     ]
+    }
+   ]
+  }
+ }
 }

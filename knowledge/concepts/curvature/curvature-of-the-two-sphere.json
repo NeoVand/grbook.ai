@@ -1,0 +1,1446 @@
+{
+	"schema_version": 2,
+	"id": "curvature-of-the-two-sphere",
+	"title": "Curvature of the 2-sphere",
+	"tagline": "A round ball curves equally everywhere, and more gently the bigger it is",
+	"domain": "curvature",
+	"tier": "core",
+	"status": "draft",
+	"revision": 1,
+	"updated": "2026-09-13",
+	"aliases": [
+		"curvature of a sphere",
+		"curvature of the round sphere"
+	],
+	"summary": "A smooth, round ball curves equally strongly at every spot, because it looks the same after any roll. How strongly depends only on its size: a ball twice as wide curves a quarter as strongly, since its curving goes with 1 divided by the radius times itself. So someone who never leaves the ball can find its radius from how an arrow carried around a small loop of known area comes back turned.",
+	"objectives": [
+		{
+			"id": "explain-every-spot-alike",
+			"rung": "entry",
+			"can_do": "Explain why a smooth, round ball curves equally strongly at every spot, whatever lines are painted on it.",
+			"evidenced_by": [
+				"checks/same-loop-anywhere"
+			]
+		},
+		{
+			"id": "predict-size-scaling",
+			"rung": "entry",
+			"can_do": "Predict how the turn around a loop of fixed area changes when the ball's radius changes.",
+			"evidenced_by": [
+				"checks/double-the-ball"
+			]
+		},
+		{
+			"id": "find-radius-from-a-turn",
+			"rung": "entry",
+			"can_do": "Estimate a ball's radius from the turn of a loop and the area on the walker's left.",
+			"evidenced_by": [
+				"problems/radius-of-a-small-moon"
+			]
+		},
+		{
+			"id": "compute-sphere-curvature",
+			"rung": "working",
+			"can_do": "Compute the Christoffel symbols, Riemann component, Gaussian curvature, Ricci tensor and Ricci scalar of a sphere from a metric.",
+			"evidenced_by": [
+				"problems/hat-box-coordinates",
+				"checks/soap-bubble-numbers"
+			]
+		},
+		{
+			"id": "separate-components-from-curvature",
+			"rung": "working",
+			"can_do": "Distinguish coordinate artefacts, such as a varying component or an infinite Christoffel symbol, from the sphere's constant curvature.",
+			"evidenced_by": [
+				"checks/sin-squared-varies",
+				"checks/christoffels-at-the-pole"
+			]
+		},
+		{
+			"id": "calibrate-signs-on-the-sphere",
+			"rung": "working",
+			"can_do": "Use the sphere to diagnose the sign conventions of a curvature formula.",
+			"evidenced_by": [
+				"checks/stranger-gets-a-minus-sign"
+			]
+		},
+		{
+			"id": "prove-constancy-from-symmetry",
+			"rung": "formal",
+			"can_do": "Prove from rotational symmetry and Gauss–Bonnet that the sphere has constant curvature 1 over a squared.",
+			"evidenced_by": [
+				"checks/symmetry-fixes-the-curvature"
+			]
+		},
+		{
+			"id": "state-rigidity-hypotheses",
+			"rung": "formal",
+			"can_do": "State which surfaces have constant positive curvature, and which hypotheses make the round sphere the only one.",
+			"evidenced_by": [
+				"checks/closed-surfaces-with-constant-curvature",
+				"problems/spindle-with-two-tips"
+			]
+		}
+	],
+	"ways_in": [
+		{
+			"id": "every-spot-alike",
+			"title": "Every spot of a round ball is alike",
+			"kind": "picture",
+			"rung": "entry",
+			"question": "Does a round ball curve more strongly at some spots than at others?",
+			"continues": [],
+			"gist": null,
+			"recap": "The arrow test: press a cardboard arrow against the ground and walk a loop, a path that ends where it began. Never let the arrow swing left or right. Back at the start, compare its direction with its starting direction. On a ball, most loops bring it back turned.",
+			"explanation": "Picture a huge globe, a smooth, round ball with lines painted on it. The lines crowd together near the North Pole. Does the ball curve more strongly there?\n\nUse the arrow test to find out. Push a peg into the ground near the North Pole and tie a string to it. Walk once around the peg, keeping the string tight and the peg on your left. Say your arrow comes back turned 3 degrees toward your left.\n\nNow move the peg to a spot near the equator. Walk around it the same way, with the same string. The arrow comes back turned 3 degrees toward your left again.\n\nHere is why. Imagine rolling the whole globe until the new peg sits where the old peg was. A smooth, round ball looks and feels exactly the same after any roll. Only the painted lines have moved, and the arrow test never uses them. So the second walk is the first walk over again, with the same result. The same holds for any two spots.\n\nSo a round ball curves equally strongly at every spot. The crowded lines near the North Pole are only labels.\n\nAn egg is different. Its pointed end curves more strongly than its middle, so rolling an egg changes what lies under the peg. The same walk around a peg then gives different turns at different spots.\n\nEarth is close to a round ball, but it is slightly flattened. Its curving is about 1.3 percent weaker at the poles than at the equator. Walking around a peg on a string 1 kilometre long turns the arrow by only about 4 millionths of a degree anywhere on Earth. So nobody notices the turn, let alone the difference.",
+			"try_it": "Hold a smooth ball with no seams, such as a plastic ball. Close your eyes while a friend rolls it in your hands, then feel it all over. You cannot tell how it was rolled. Try again with a hard-boiled egg: the pointed end tells you at once.",
+			"takeaway": "A round ball looks the same after any roll, so a walk around a peg gives the same turn at every spot: the ball curves equally strongly everywhere.",
+			"picture": null,
+			"simplifies": null,
+			"assumes": [
+				"holonomy"
+			],
+			"visuals": [
+				{
+					"id": "one-loop-on-two-balls",
+					"preset": null,
+					"tour": null
+				}
+			],
+			"refs": [
+				"checks/same-loop-anywhere"
+			]
+		},
+		{
+			"id": "double-the-ball",
+			"title": "A ball twice as wide curves a quarter as strongly",
+			"kind": "calculation",
+			"rung": "entry",
+			"question": "How does the strength of a ball's curving depend on its size?",
+			"continues": [
+				"every-spot-alike"
+			],
+			"gist": null,
+			"recap": "The arrow test: walk a loop, a path that ends where it began, carrying a cardboard arrow that never swings left or right. On a smooth, round ball, a loop that keeps a small piece of the ball on your left brings the arrow back turned toward your left. In full turns, the turn is twice the fraction of the ball in that piece.",
+			"explanation": "Take two smooth, round balls. One has a radius of 10 centimetres. The other is twice as wide, with a radius of 20 centimetres.\n\nOn each ball, walk a small loop that keeps 14 square centimetres on your left, a little more than a postage stamp. Carry a cardboard arrow that never swings. On the smaller ball, the arrow comes back turned 8 degrees toward your left. What happens on the bigger ball?\n\nThe turn depends on the fraction of the ball on your left, so compare the two whole surfaces. A ball's surface is about 12.57 times its radius times itself. Doubling the radius makes the radius times itself four times as big. So the bigger ball has four times as much surface.\n\nThe same 14 square centimetres is therefore a quarter of the fraction it was on the smaller ball. The turn is twice that fraction, so the turn is a quarter as big too: 2 degrees.\n\nDivide a small loop's turn by the area it keeps on your left, and you get a measure of how strongly the ball curves. On the bigger ball this measure is a quarter as big. Double the radius again, and it drops to a quarter again. So the strength of a ball's curving goes with 1 divided by the radius times itself.\n\nThat number, 1 divided by the radius times itself, is called the ball's Gaussian curvature.\n\nEarth's radius is about 6,371 kilometres, so its Gaussian curvature is tiny. A loop that keeps 1 square kilometre on your left turns the arrow by only about 1.4 millionths of a degree. That is why nobody notices Earth's curving on a walk.",
+			"try_it": null,
+			"takeaway": "On a ball twice as wide, the same small loop turns the arrow a quarter as much, so a ball's curving goes with 1 divided by the radius times itself.",
+			"picture": null,
+			"simplifies": null,
+			"assumes": [
+				"holonomy",
+				"gaussian-curvature"
+			],
+			"visuals": [
+				{
+					"id": "one-loop-on-two-balls",
+					"preset": null,
+					"tour": null
+				}
+			],
+			"refs": [
+				"checks/double-the-ball"
+			]
+		},
+		{
+			"id": "find-the-radius-without-leaving",
+			"title": "Find the radius without leaving the ball",
+			"kind": "operational",
+			"rung": "entry",
+			"question": "How can someone who never leaves a ball find out how big it is?",
+			"continues": [
+				"double-the-ball"
+			],
+			"gist": null,
+			"recap": "The arrow test: walk a loop, a path that ends where it began, carrying a cardboard arrow that never swings left or right. On a smooth, round ball, a loop that keeps a small piece of the ball on your left brings the arrow back turned toward your left. In full turns, the turn is twice the fraction of the ball in that piece.",
+			"explanation": "Imagine an explorer on a small, smooth, round planet. She cannot fly, and she has never seen the planet from outside. Can she find its radius?\n\nShe walks a loop, carrying a cardboard arrow that never swings. It comes back turned 1 degree toward her left. She also measures the piece of ground on her left. She marks it out in squares 1 kilometre on each side and counts them. It covers 1,000 square kilometres.\n\nStep one: find the fraction. A full turn is 360 degrees, so her turn is one 360th of a full turn. The turn, in full turns, is twice the fraction of the planet on her left. So that fraction is one 720th.\n\nStep two: find the whole surface. Her 1,000 square kilometres is one 720th of it. So the whole surface is 720 times 1,000, which is 720,000 square kilometres.\n\nStep three: find the radius. A ball's surface is about 12.57 times its radius times itself. Dividing 720,000 by 12.57 gives about 57,300. The radius is the number that gives 57,300 when multiplied by itself, which is about 239 kilometres.\n\nThe same steps work on Earth. Take a loop whose piece on the left covers 51,000 square kilometres, about the size of Costa Rica. It turns the arrow by 72 thousandths of a degree, about the angle across a pencil lead held at arm's length. Running the three steps on that turn gives Earth's radius, about 6,370 kilometres. A turn that small needs very careful instruments, which is why nobody notices it.",
+			"try_it": null,
+			"takeaway": "Measure a loop's turn and the area on your left: the turn gives the fraction of the ball, the fraction gives the whole surface, and the surface gives the radius.",
+			"picture": null,
+			"simplifies": null,
+			"assumes": [
+				"holonomy"
+			],
+			"visuals": [
+				{
+					"id": "carry-an-arrow-around-a-loop",
+					"preset": null,
+					"tour": null
+				}
+			],
+			"refs": [
+				"problems/radius-of-a-small-moon"
+			]
+		},
+		{
+			"id": "curvature-from-the-metric",
+			"title": "One number from the distance rule",
+			"kind": "calculation",
+			"rung": "working",
+			"question": "How do the Christoffel symbols, Riemann tensor, Ricci tensor and Ricci scalar of a sphere follow from its metric?",
+			"continues": [
+				"double-the-ball"
+			],
+			"gist": null,
+			"recap": null,
+			"explanation": "In \"A ball twice as wide curves a quarter as strongly\", doubling a ball's radius cut its curving to a quarter. The metric turns that scaling into exact components. On a sphere of radius $a$, with colatitude $\\theta$, the angle from the North Pole measured at the centre, and longitude $\\phi$,\n\n$$ds^2 = a^2\\left(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2\\right).$$\n\nOnly $g_{\\phi\\phi} = a^2\\sin^2\\theta$ varies, and only with $\\theta$. So the Christoffel formula leaves two nonzero symbols, $\\Gamma^\\theta{}_{\\phi\\phi} = -\\sin\\theta\\cos\\theta$ and $\\Gamma^\\phi{}_{\\theta\\phi} = \\Gamma^\\phi{}_{\\phi\\theta} = \\cot\\theta$. Neither contains $a$, because each term has one metric factor and one inverse-metric factor.\n\nThe derivation \"The sphere's curvature from its metric\" feeds these into the course Riemann formula. The derivative term gives $\\sin^2\\theta - \\cos^2\\theta$, one product term adds $\\cos^2\\theta$, and\n\n$$R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta.$$\n\nIn two dimensions each antisymmetric index pair has a single independent value, $\\theta\\phi$, so this is the only independent component. Lowering gives $R_{\\theta\\phi\\theta\\phi} = a^2\\sin^2\\theta$, and every other component is plus or minus this, or zero.\n\nThe factor $\\sin^2\\theta$ does not mean the curving varies. The basis vector $\\partial_\\phi$ has length $a\\sin\\theta$, so divide by the squared area of the basis cell. The Gaussian curvature is\n\n$$K = \\frac{R_{\\theta\\phi\\theta\\phi}}{g_{\\theta\\theta}\\,g_{\\phi\\phi}} = \\frac{1}{a^2},$$\n\nthe same at every point and equal to the orthonormal component $R_{\\hat\\theta\\hat\\phi\\hat\\theta\\hat\\phi}$. Its units, inverse length squared, are the quarter-for-double scaling.\n\nEvery contraction follows. The whole tensor is $R_{\\mu\\nu\\rho\\sigma} = (g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho})/a^2$, so $R_{\\mu\\nu} = g_{\\mu\\nu}/a^2$, which in components is $R_{\\theta\\theta} = 1$ and $R_{\\phi\\phi} = \\sin^2\\theta$. Tracing with the inverse metric gives $R = 2/a^2$, twice $K$, as on every surface. For Earth, $a = 6371$ km gives $K = 2.46\\times10^{-14}$ m$^{-2}$.\n\nTwo features make this the standard calibration. The same formula applied to the flat plane in polar coordinates, $dr^2 + r^2d\\phi^2$, must give zero, although its Christoffel symbols are not zero. And the sign is known in advance: a small loop keeping a region on the walker's left returns vectors rotated toward the left, by $K$ times the area. So the course conventions must give $R^\\theta{}_{\\phi\\theta\\phi} > 0$, $K > 0$ and $R = +2/a^2$.",
+			"try_it": null,
+			"takeaway": "On a sphere of radius a, the single independent Riemann component gives a Gaussian curvature of 1 over a squared everywhere, a Ricci tensor equal to the metric over a squared, and a Ricci scalar of 2 over a squared.",
+			"picture": null,
+			"simplifies": "Uses the chart $(\\theta, \\phi)$, which fails at the poles; the invariant results hold there too.",
+			"assumes": [
+				"two-sphere-metric",
+				"christoffel-symbols",
+				"riemann-curvature-tensor",
+				"ricci-scalar"
+			],
+			"visuals": [],
+			"refs": [
+				"derivations/sphere-curvature-from-metric",
+				"checks/sin-squared-varies",
+				"checks/stranger-gets-a-minus-sign"
+			]
+		},
+		{
+			"id": "three-measurements-one-number",
+			"title": "Three insider measurements, one number",
+			"kind": "operational",
+			"rung": "working",
+			"question": "Which measurements made on a sphere read off its curvature, and why do they all agree?",
+			"continues": [
+				"find-the-radius-without-leaving",
+				"curvature-from-the-metric"
+			],
+			"gist": null,
+			"recap": null,
+			"explanation": "The explorer in \"Find the radius without leaving the ball\" read her planet's radius from one turn and one area. With $K = 1/a^2$ from \"One number from the distance rule\", three instruments used on the surface give the same radius.\n\n- *A carried arrow.* A simple loop bounding a region of area $A$ on the walker's left returns a vector rotated toward the left by $\\Delta\\alpha = KA = A/a^2$, modulo $2\\pi$. This is the local Gauss–Bonnet theorem with constant $K$, taken on trust here. The explorer used it in full turns, $A/2\\pi a^2$.\n- *A theodolite.* A triangle of great-circle arcs has angles summing to more than $\\pi$ by the same amount, $\\alpha_1 + \\alpha_2 + \\alpha_3 - \\pi = A/a^2$.\n- *A tape measure.* Put the centre of a ring at the North Pole. The points at distance $\\rho$ from it, measured along the surface, lie at colatitude $\\theta = \\rho/a$, so the metric gives the ring length $C = 2\\pi a\\sin(\\rho/a)$. For a small ring the fraction missing from $2\\pi\\rho$ is $\\rho^2/6a^2 = K\\rho^2/6$.\n\nThe worked example \"Earth, read three ways\" puts in numbers. A geodesic triangle of 10,000 km² on Earth has an excess of 50.8 arcseconds, where one arcsecond is $1/3600$ of a degree, and a ring of radius 100 km is 25.8 m short.\n\nWhy must they agree? Each reading is $K$ times a geometric size: an area for the first two, $\\rho^2/6$ for the third. On a general surface a small ring reads $K$ at its centre, while a loop adds $K$ up over its region, so readings taken on different patches disagree. On the sphere $K$ is the same everywhere, so they agree for every size and position. The tape measure even works for large rings: solving $C = 2\\pi a\\sin(\\rho/a)$ for $a$ uses one ring, and the ring shrinks back to a point at $\\rho = \\pi a$, the far pole.\n\nReal Earth is close to this model. It is flattened by about one part in 298, and its $K$ is 1.35% larger at the equator than at the poles, so precise surveys use an ellipsoid. The observation \"Earth's size and curvature from geodesy\" gives the numbers.",
+			"try_it": null,
+			"takeaway": "Arrow rotation, angle excess and ring shortfall on a sphere are each K times a geometric size, and because K is the same everywhere they all return the same radius.",
+			"picture": null,
+			"simplifies": "Treats Earth as a perfect sphere with smooth ground.",
+			"assumes": [
+				"holonomy",
+				"angular-excess",
+				"two-sphere-metric"
+			],
+			"visuals": [
+				{
+					"id": "paced-ring-on-a-ball-and-a-plain",
+					"preset": null,
+					"tour": null
+				}
+			],
+			"refs": [
+				"worked_examples/earth-read-three-ways",
+				"observations/earth-from-geodesy"
+			]
+		},
+		{
+			"id": "round-sphere-as-a-space-form",
+			"title": "The round sphere as a space form",
+			"kind": "structure",
+			"rung": "formal",
+			"question": "What fixes the sphere's curvature without coordinates, and which theorems single the sphere out?",
+			"continues": [
+				"curvature-from-the-metric"
+			],
+			"gist": null,
+			"recap": null,
+			"explanation": "The components of \"One number from the distance rule\" came from one chart. Here the same number is found without coordinates and placed among the theorems that use it. Only lengths enter, so setting $G = c = 1$ changes nothing. Let $S^2_a = \\{x \\in \\mathbb{R}^3 : |x| = a\\}$ carry the metric $g$ induced from the Euclidean one. The chart $(\\theta, \\phi)$ covers $S^2_a$ minus a closed half great circle joining the poles; the vanishing of $g_{\\phi\\phi}$ at $\\theta = 0, \\pi$ is a failure of the chart, not of the metric.\n\n*Cartan's computation.* On the chart take the orthonormal coframe $e^1 = a\\,d\\theta$, $e^2 = a\\sin\\theta\\,d\\phi$, oriented by the outward normal. The derivation \"The sphere by Cartan's method\" solves the torsion-free structure equation for $\\omega^1{}_2 = -\\cos\\theta\\,d\\phi$ and finds\n\n$$\\Omega^1{}_2 = d\\omega^1{}_2 = \\frac{1}{a^2}\\,e^1\\wedge e^2,$$\n\nso $R^1{}_{212} = 1/a^2$. Under a change of oriented orthonormal frame $\\Omega^1{}_2$ is invariant, because $SO(2)$ is abelian. So $\\Omega^1{}_2 = K\\,dA$ is a smooth global two-form, even where the chart fails.\n\n*Symmetry does it without computation.* $SO(3)$ acts on $S^2_a$ by isometries, transitively on points and, through the stabilizer $SO(2)$, on unit tangent vectors. Isometries preserve $K$, so $K$ is constant. On any surface $R_{\\mu\\nu\\rho\\sigma} = K(g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho})$. Hence $R_{\\mu\\nu} = Kg_{\\mu\\nu}$, $R = 2K$, the Einstein tensor vanishes identically, and the Kretschmann scalar is $4K^2$. The three Killing fields spanning $\\mathfrak{so}(3)$ reach the maximum $n(n+1)/2$ for $n = 2$, so the sphere is maximally symmetric. The value follows from the Gauss–Bonnet theorem, $\\int K\\,dA = 2\\pi\\chi(S^2) = 4\\pi$, over the area $4\\pi a^2$.\n\n*Rigidity.* These standard results, stated without proof, each need their hypotheses.\n\n- Minding: surfaces with the same constant $K$ are locally isometric, so every small patch with $K = 1/a^2$ is isometric to a piece of $S^2_a$.\n- Killing–Hopf: a complete connected surface with $K \\equiv 1/a^2$ is isometric to $S^2_a$ or to the real projective plane $S^2_a/\\{\\pm1\\}$.\n- Liebmann: a compact connected smooth surface in $\\mathbb{R}^3$ with constant $K$ is a round sphere.\n- Bonnet–Myers: a complete surface with $K \\ge 1/a^2$ has diameter at most $\\pi a$, and by Cheng's theorem equality forces an isometry with $S^2_a$.\n\n*Limits.* Drop smoothness and constant $K$ survives with cone points: the spindle $d\\rho^2 + b^2\\sin^2(\\rho/a)\\,d\\phi^2$ with $0 < b < a$ has $K = 1/a^2$ away from two tips, which carry the rest of the $4\\pi$. Drop compactness and $K$ no longer fixes the shape in $\\mathbb{R}^3$: surfaces of revolution with profile radius $b\\cos(s/a)$, $b \\neq a$, have $K = 1/a^2$ and are locally isometric to $S^2_a$, yet they are not pieces of round spheres. In spacetime, the orbits of a spherically symmetric metric are round spheres $r^2\\,d\\Omega^2$ with $K = 1/r^2$, whatever the curvature of the spacetime around them; that is what defines the areal radius $r$.",
+			"try_it": null,
+			"takeaway": "Rotational symmetry makes the sphere's curvature constant and Gauss–Bonnet fixes it at 1 over a squared; with smoothness and completeness, that curvature allows only the round sphere and its projective quotient.",
+			"picture": null,
+			"simplifies": null,
+			"assumes": [
+				"isometry",
+				"levi-civita-connection"
+			],
+			"visuals": [],
+			"refs": [
+				"derivations/sphere-by-cartan",
+				"checks/symmetry-fixes-the-curvature",
+				"checks/closed-surfaces-with-constant-curvature",
+				"problems/spindle-with-two-tips"
+			]
+		}
+	],
+	"glossary": [
+		{
+			"id": "loop",
+			"term": "loop",
+			"forms": [
+				"loops"
+			],
+			"say_as": null,
+			"concept": null,
+			"plain_definition": "A path that ends exactly where it began."
+		},
+		{
+			"id": "swing",
+			"term": "swing",
+			"forms": [
+				"swings",
+				"swinging",
+				"swung"
+			],
+			"say_as": null,
+			"concept": null,
+			"plain_definition": "To change which way the arrow points, left or right, while it lies against the ground. In the arrow test the arrow never swings."
+		},
+		{
+			"id": "gaussian-curvature",
+			"term": "Gaussian curvature",
+			"forms": [],
+			"say_as": "GOW-see-un",
+			"concept": "gaussian-curvature",
+			"plain_definition": "A number that says how strongly a surface curves at a spot. For a round ball it is the same at every spot: multiply the radius by itself and divide 1 by the result."
+		}
+	],
+	"pronunciations": [
+		{
+			"written": "Riemann",
+			"spoken": "REE-mahn"
+		},
+		{
+			"written": "Ricci",
+			"spoken": "REE-chee"
+		},
+		{
+			"written": "Christoffel",
+			"spoken": "kris-TOFF-ul"
+		},
+		{
+			"written": "Gauss–Bonnet",
+			"spoken": "GOWSS bon-AY"
+		},
+		{
+			"written": "Liebmann",
+			"spoken": "LEEB-mahn"
+		}
+	],
+	"prerequisites": [
+		{
+			"id": "riemann-curvature-tensor",
+			"why": "The sphere's curvature is how a carried arrow comes back changed, recorded by the tensor's single independent component.",
+			"needed_for": "entry"
+		},
+		{
+			"id": "holonomy",
+			"why": "The entry ways use the rule that a loop's turn on a round ball is twice the fraction of the ball on the walker's left.",
+			"needed_for": "entry"
+		},
+		{
+			"id": "gaussian-curvature",
+			"why": "The ball's one number, 1 over the radius squared, is its Gaussian curvature.",
+			"needed_for": "entry"
+		},
+		{
+			"id": "two-sphere-metric",
+			"why": "The calculation starts from the sphere's line element.",
+			"needed_for": "working"
+		},
+		{
+			"id": "ricci-scalar",
+			"why": "The sphere's Ricci scalar, 2 over the radius squared, is the trace computed here.",
+			"needed_for": "working"
+		},
+		{
+			"id": "isometry",
+			"why": "Rotations are isometries of the sphere, which forces its curvature to be constant.",
+			"needed_for": "formal"
+		}
+	],
+	"leads_to": [
+		{
+			"id": "space-of-constant-curvature",
+			"why": "The sphere is the two-dimensional positive case of $R_{\\mu\\nu\\rho\\sigma} = K(g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho})$ with constant $K$."
+		},
+		{
+			"id": "three-sphere",
+			"why": "The same calculation one dimension up has three planes at each point and gives $R = 6/a^2$."
+		},
+		{
+			"id": "areal-radius",
+			"why": "Symmetry spheres of spherically symmetric spacetimes are round with $K = 1/r^2$, which defines $r$ by area."
+		}
+	],
+	"related": [
+		{
+			"id": "curvature-sign-conventions",
+			"relation": "the sphere calibrates its sign choices"
+		},
+		{
+			"id": "angular-excess",
+			"relation": "on a sphere the excess is area over radius squared"
+		},
+		{
+			"id": "circumference-to-radius-test",
+			"relation": "rings on a sphere have length $2\\pi a\\sin(\\rho/a)$"
+		},
+		{
+			"id": "cartan-method-for-curvature",
+			"relation": "the sphere is its first curved example"
+		}
+	],
+	"key_equations": [
+		{
+			"id": "sphere-line-element",
+			"name": "Line element of a sphere",
+			"rung": "working",
+			"latex": "ds^2 = a^2\\left(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2\\right)",
+			"meaning": "Distances on a sphere of radius $a$, in colatitude and longitude.",
+			"symbols": [
+				{
+					"symbol": "a",
+					"meaning": "radius of the sphere",
+					"say": "a, the radius"
+				},
+				{
+					"symbol": "\\theta",
+					"meaning": "colatitude, the angle from the North Pole measured at the centre",
+					"say": "theta, the colatitude"
+				},
+				{
+					"symbol": "\\phi",
+					"meaning": "longitude",
+					"say": "phi, the longitude"
+				}
+			],
+			"conditions": "$0 < \\theta < \\pi$; the chart fails at the poles, the geometry does not.",
+			"say_aloud": "d s squared equals a squared times, d theta squared plus sine squared theta d phi squared.",
+			"justified_by": "two-sphere-metric"
+		},
+		{
+			"id": "sphere-riemann-component",
+			"name": "The one independent component and the Gaussian curvature",
+			"rung": "working",
+			"latex": "R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta,\\qquad K = \\frac{R_{\\theta\\phi\\theta\\phi}}{g_{\\theta\\theta}\\,g_{\\phi\\phi}} = \\frac{1}{a^2}",
+			"meaning": "The coordinate component varies with $\\theta$, but the Gaussian curvature it gives is the same at every point.",
+			"symbols": [
+				{
+					"symbol": "R^\\theta{}_{\\phi\\theta\\phi}",
+					"meaning": "Riemann component in the course convention and the coordinate basis",
+					"say": "R theta phi theta phi"
+				},
+				{
+					"symbol": "K",
+					"meaning": "Gaussian curvature",
+					"say": "K"
+				}
+			],
+			"conditions": "Course Riemann convention; coordinate basis of the line element.",
+			"say_aloud": "R theta phi theta phi equals sine squared theta, and the Gaussian curvature is one over a squared.",
+			"justified_by": "derivations/sphere-curvature-from-metric"
+		},
+		{
+			"id": "sphere-curvature-tensors",
+			"name": "Riemann, Ricci and scalar curvature of a sphere",
+			"rung": "working",
+			"latex": "R_{\\mu\\nu\\rho\\sigma} = \\frac{1}{a^2}\\left(g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho}\\right),\\qquad R_{\\mu\\nu} = \\frac{g_{\\mu\\nu}}{a^2},\\qquad R = \\frac{2}{a^2}",
+			"meaning": "Every curvature tensor of the sphere is the metric times one number.",
+			"symbols": [
+				{
+					"symbol": "R_{\\mu\\nu\\rho\\sigma}",
+					"meaning": "lowered Riemann tensor",
+					"say": "the Riemann tensor"
+				},
+				{
+					"symbol": "R_{\\mu\\nu}",
+					"meaning": "Ricci tensor, $R^\\rho{}_{\\mu\\rho\\nu}$",
+					"say": "the Ricci tensor"
+				},
+				{
+					"symbol": "R",
+					"meaning": "Ricci scalar",
+					"say": "the Ricci scalar"
+				}
+			],
+			"conditions": "Course conventions; holds in every basis.",
+			"say_aloud": "The Riemann tensor is one over a squared times g g minus g g, the Ricci tensor is the metric over a squared, and the Ricci scalar is two over a squared.",
+			"justified_by": "derivations/sphere-curvature-from-metric"
+		},
+		{
+			"id": "sphere-area-rule",
+			"name": "Turn around a loop on a sphere",
+			"rung": "working",
+			"latex": "\\Delta\\alpha = K A = \\frac{A}{a^2} \\pmod{2\\pi}",
+			"meaning": "A loop bounding area $A$ on the walker's left returns vectors rotated by $A/a^2$; for a geodesic triangle this equals the angle excess.",
+			"symbols": [
+				{
+					"symbol": "\\Delta\\alpha",
+					"meaning": "rotation of the returned vector, positive toward the walker's left",
+					"say": "the turn"
+				},
+				{
+					"symbol": "A",
+					"meaning": "area of the region on the walker's left",
+					"say": "the area"
+				}
+			],
+			"conditions": "Simple loop on a sphere of radius $a$; modulo $2\\pi$.",
+			"say_aloud": "The turn is the area on the walker's left divided by a squared.",
+			"justified_by": "holonomy"
+		},
+		{
+			"id": "ring-length-on-a-sphere",
+			"name": "Length of a ring on a sphere",
+			"rung": "working",
+			"latex": "C(\\rho) = 2\\pi a\\sin\\frac{\\rho}{a} = 2\\pi\\rho\\left(1 - \\frac{K\\rho^2}{6} + \\dots\\right)",
+			"meaning": "A ring whose points lie at distance $\\rho$ from a centre, measured along the sphere, is shorter than $2\\pi\\rho$.",
+			"symbols": [
+				{
+					"symbol": "\\rho",
+					"meaning": "distance from the centre, measured along the surface",
+					"say": "rho"
+				},
+				{
+					"symbol": "C",
+					"meaning": "length of the ring",
+					"say": "C"
+				}
+			],
+			"conditions": "$0 \\le \\rho \\le \\pi a$; the series is for $\\rho \\ll a$.",
+			"say_aloud": "C of rho equals two pi a sine of rho over a, which is two pi rho times one minus K rho squared over six, plus smaller terms.",
+			"justified_by": "two-sphere-metric"
+		},
+		{
+			"id": "sphere-curvature-two-form",
+			"name": "Curvature two-form of a sphere",
+			"rung": "formal",
+			"latex": "\\Omega^1{}_2 = d\\omega^1{}_2 = \\frac{1}{a^2}\\,e^1\\wedge e^2,\\qquad e^1 = a\\,d\\theta,\\quad e^2 = a\\sin\\theta\\,d\\phi",
+			"meaning": "In an oriented orthonormal coframe the whole curvature of the sphere is one two-form, $K$ times the area form.",
+			"symbols": [
+				{
+					"symbol": "\\Omega^1{}_2",
+					"meaning": "curvature two-form, $\\tfrac12 R^1{}_{2cd}\\,e^c\\wedge e^d$",
+					"say": "omega one two, the curvature form"
+				},
+				{
+					"symbol": "\\omega^1{}_2",
+					"meaning": "connection one-form of the Levi-Civita connection",
+					"say": "little omega one two"
+				},
+				{
+					"symbol": "e^1, e^2",
+					"meaning": "orthonormal coframe",
+					"say": "e one and e two"
+				}
+			],
+			"conditions": "Levi-Civita connection; the same two-form in every oriented orthonormal frame.",
+			"say_aloud": "Capital omega one two equals d of little omega one two, which is one over a squared times e one wedge e two.",
+			"justified_by": "derivations/sphere-by-cartan"
+		}
+	],
+	"derivations": [
+		{
+			"id": "sphere-curvature-from-metric",
+			"title": "The sphere's curvature from its metric",
+			"rung": "working",
+			"goal": "Starting from $ds^2 = a^2(d\\theta^2 + \\sin^2\\theta\\,d\\phi^2)$, find $R^\\theta{}_{\\phi\\theta\\phi}$, $K$, $R_{\\mu\\nu}$ and $R$ with the course conventions.",
+			"steps": [
+				"Read off $g_{\\theta\\theta} = a^2$, $g_{\\phi\\phi} = a^2\\sin^2\\theta$ and $g_{\\theta\\phi} = 0$, so $g^{\\theta\\theta} = 1/a^2$ and $g^{\\phi\\phi} = 1/(a^2\\sin^2\\theta)$.",
+				"The only nonzero metric derivative is $\\partial_\\theta g_{\\phi\\phi} = 2a^2\\sin\\theta\\cos\\theta$.",
+				"$\\Gamma^\\theta{}_{\\phi\\phi} = -\\tfrac12 g^{\\theta\\theta}\\partial_\\theta g_{\\phi\\phi} = -\\sin\\theta\\cos\\theta$.",
+				"$\\Gamma^\\phi{}_{\\theta\\phi} = \\Gamma^\\phi{}_{\\phi\\theta} = \\tfrac12 g^{\\phi\\phi}\\partial_\\theta g_{\\phi\\phi} = \\cot\\theta$. Every other symbol contains a vanishing derivative, so it is zero.",
+				"Write the course formula: $R^\\theta{}_{\\phi\\theta\\phi} = \\partial_\\theta\\Gamma^\\theta{}_{\\phi\\phi} - \\partial_\\phi\\Gamma^\\theta{}_{\\theta\\phi} + \\Gamma^\\theta{}_{\\theta\\lambda}\\Gamma^\\lambda{}_{\\phi\\phi} - \\Gamma^\\theta{}_{\\phi\\lambda}\\Gamma^\\lambda{}_{\\theta\\phi}$.",
+				"First term: $\\partial_\\theta(-\\sin\\theta\\cos\\theta) = \\sin^2\\theta - \\cos^2\\theta$. Second term: $\\Gamma^\\theta{}_{\\theta\\phi} = 0$, so it vanishes.",
+				"Third term: $\\Gamma^\\theta{}_{\\theta\\theta} = \\Gamma^\\theta{}_{\\theta\\phi} = 0$, so it vanishes. Fourth term: only $\\lambda = \\phi$ survives, giving $-\\Gamma^\\theta{}_{\\phi\\phi}\\Gamma^\\phi{}_{\\theta\\phi} = \\sin\\theta\\cos\\theta\\cot\\theta = \\cos^2\\theta$.",
+				"Add: $R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$. Lower with $g_{\\theta\\theta}$: $R_{\\theta\\phi\\theta\\phi} = a^2\\sin^2\\theta$.",
+				"In two dimensions the pair antisymmetries leave one independent component: $R_{\\phi\\theta\\phi\\theta} = R_{\\theta\\phi\\theta\\phi}$ and $R_{\\theta\\phi\\phi\\theta} = R_{\\phi\\theta\\theta\\phi} = -R_{\\theta\\phi\\theta\\phi}$.",
+				"Divide by $g_{\\theta\\theta}g_{\\phi\\phi} = a^4\\sin^2\\theta$: $K = 1/a^2$. The tensor $g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho}$ has the same symmetries and equals $a^4\\sin^2\\theta$ for $\\theta\\phi\\theta\\phi$, so $R_{\\mu\\nu\\rho\\sigma} = K(g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho})$.",
+				"Contract: $R_{\\mu\\nu} = g^{\\rho\\sigma}R_{\\rho\\mu\\sigma\\nu} = K(2g_{\\mu\\nu} - g_{\\mu\\nu}) = g_{\\mu\\nu}/a^2$, so $R_{\\theta\\theta} = 1$, $R_{\\phi\\phi} = \\sin^2\\theta$ and $R_{\\theta\\phi} = 0$.",
+				"Trace: $R = g^{\\mu\\nu}R_{\\mu\\nu} = 2K = 2/a^2$."
+			],
+			"result": "$R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$, $K = 1/a^2$, $R_{\\mu\\nu} = g_{\\mu\\nu}/a^2$ and $R = 2/a^2$, all positive in the course conventions."
+		},
+		{
+			"id": "sphere-by-cartan",
+			"title": "The sphere by Cartan's method",
+			"rung": "formal",
+			"goal": "Find the curvature two-form of $S^2_a$ in the coframe $e^1 = a\\,d\\theta$, $e^2 = a\\sin\\theta\\,d\\phi$, with $\\nabla e_b = \\omega^a{}_b\\otimes e_a$ and $\\Omega^a{}_b = d\\omega^a{}_b + \\omega^a{}_c\\wedge\\omega^c{}_b = \\tfrac12R^a{}_{bcd}\\,e^c\\wedge e^d$.",
+			"steps": [
+				"Exterior derivatives: $de^1 = 0$ and $de^2 = a\\cos\\theta\\,d\\theta\\wedge d\\phi$.",
+				"Metric compatibility in an orthonormal frame makes $\\omega_{ab} = -\\omega_{ba}$, and torsion-freeness gives $de^a = -\\omega^a{}_b\\wedge e^b$.",
+				"Try $\\omega^2{}_1 = \\cos\\theta\\,d\\phi$: then $-\\omega^2{}_1\\wedge e^1 = a\\cos\\theta\\,d\\theta\\wedge d\\phi = de^2$ and $-\\omega^1{}_2\\wedge e^2 = a\\sin\\theta\\cos\\theta\\,d\\phi\\wedge d\\phi = 0 = de^1$. The solution is unique, so $\\omega^1{}_2 = -\\cos\\theta\\,d\\phi$.",
+				"The quadratic term $\\omega^1{}_c\\wedge\\omega^c{}_2$ contains $\\omega^1{}_1$ or $\\omega^2{}_2$, both zero, so $\\Omega^1{}_2 = d\\omega^1{}_2 = \\sin\\theta\\,d\\theta\\wedge d\\phi$.",
+				"Since $e^1\\wedge e^2 = a^2\\sin\\theta\\,d\\theta\\wedge d\\phi$, $\\Omega^1{}_2 = a^{-2}\\,e^1\\wedge e^2$, which is $R^1{}_{212}\\,e^1\\wedge e^2$."
+			],
+			"result": "$R^1{}_{212} = K = 1/a^2$, the orthonormal component found from the Christoffel symbols."
+		}
+	],
+	"worked_examples": [
+		{
+			"id": "earth-read-three-ways",
+			"title": "Earth, read three ways",
+			"rung": "working",
+			"problem": "Treat Earth as a sphere of radius 6371 km. Find $K$ and $R$ in SI units. Then predict (a) the angle excess of a geodesic triangle of area 10,000 km², (b) the shortfall of a ring of radius 100 km measured along the ground, and (c) the radius a surveyor would infer from an excess of 50.8 arcseconds on that triangle.",
+			"steps": [
+				"$K = 1/a^2 = 1/(6.371\\times10^{6}\\ \\text{m})^2 = 2.464\\times10^{-14}$ m$^{-2}$, and $R = 2K = 4.93\\times10^{-14}$ m$^{-2}$.",
+				"(a) The excess is $KA = 2.464\\times10^{-14}\\ \\text{m}^{-2}\\times10^{10}\\ \\text{m}^2 = 2.464\\times10^{-4}$ rad. One radian is 206,265 arcseconds, so the excess is 50.8 arcseconds.",
+				"(b) $\\rho/a = 0.015696$, and $2\\pi\\rho - 2\\pi a\\sin(\\rho/a) = 25.8$ m, which matches $\\pi\\rho^3/3a^2 = 25.8$ m: a fraction $4.1\\times10^{-5} = K\\rho^2/6$.",
+				"(c) $a = \\sqrt{A/\\Delta\\alpha} = \\sqrt{10^{10}\\ \\text{m}^2/2.463\\times10^{-4}} = 6.37\\times10^{6}$ m."
+			],
+			"answer": "$K = 2.46\\times10^{-14}$ m$^{-2}$ and $R = 4.93\\times10^{-14}$ m$^{-2}$; (a) 50.8 arcseconds; (b) 25.8 m; (c) about 6370 km.",
+			"takeaway": "One number, $1/a^2$, predicts every insider measurement on a sphere, and any one of them gives back $a$."
+		}
+	],
+	"problems": [
+		{
+			"id": "radius-of-a-small-moon",
+			"rung": "entry",
+			"difficulty": 2,
+			"type": "estimate",
+			"statement": "An explorer on a smooth, round moon walks a loop that keeps 2,000 square kilometres on her left. Her cardboard arrow never swings, and it comes back turned 3 degrees toward her left. A ball's surface is about 12.57 times its radius times itself. How big is the moon's radius?",
+			"statement_spoken": null,
+			"hints": [
+				"What fraction of a full turn is 3 degrees? The fraction of the moon on her left is half of that.",
+				"Her 2,000 square kilometres is that fraction of the whole surface."
+			],
+			"answer": "About 195 kilometres.",
+			"key_points": [
+				"The fraction of the moon on her left is one 240th",
+				"The whole surface is 480,000 square kilometres",
+				"The radius is about 195 kilometres"
+			],
+			"numeric": [
+				{
+					"quantity": "radius of the moon",
+					"value": 195.4,
+					"unit": "km",
+					"sign": "magnitude",
+					"abs_tol": null,
+					"rel_tol": 0.02,
+					"modulo": null
+				}
+			],
+			"solution": [
+				"A full turn is 360 degrees, so 3 degrees is one 120th of a full turn.",
+				"The turn in full turns is twice the fraction of the moon on her left. So that fraction is one 240th.",
+				"The whole surface is 240 times 2,000 square kilometres, which is 480,000 square kilometres.",
+				"Dividing 480,000 by 12.57 gives about 38,200. So the radius times itself is about 38,200 square kilometres.",
+				"The number that gives 38,200 when multiplied by itself is about 195. So the radius is about 195 kilometres."
+			],
+			"targets": []
+		},
+		{
+			"id": "hat-box-coordinates",
+			"rung": "working",
+			"difficulty": 2,
+			"type": "calculation",
+			"statement": "Label points of a sphere of radius $a$ by their height $z = a\\cos\\theta$ above the equatorial plane and their longitude $\\phi$, so that $ds^2 = \\dfrac{a^2\\,dz^2}{a^2 - z^2} + (a^2 - z^2)\\,d\\phi^2$ for $|z| < a$. Find the nonzero Christoffel symbols and $R^z{}_{\\phi z\\phi}$, then $K$ and $R$. Show that bands of equal height have equal area, as Archimedes found.",
+			"statement_spoken": "Label points of a sphere of radius a by their height z, equal to a cos theta, and their longitude phi, so that d s squared equals a squared d z squared over a squared minus z squared, plus a squared minus z squared times d phi squared. Find the nonzero Christoffel symbols and the Riemann component R z phi z phi, then the Gaussian curvature and the Ricci scalar. Show that bands of equal height have equal area, as Archimedes found.",
+			"hints": [
+				"Only $g_{zz}$ and $g_{\\phi\\phi}$ are nonzero, and both depend only on $z$.",
+				"In the Riemann component, check which of the two product terms survive."
+			],
+			"answer": "$\\Gamma^z{}_{zz} = z/(a^2 - z^2)$, $\\Gamma^z{}_{\\phi\\phi} = z(a^2 - z^2)/a^2$, $\\Gamma^\\phi{}_{z\\phi} = -z/(a^2 - z^2)$; $R^z{}_{\\phi z\\phi} = (a^2 - z^2)/a^2$, so $K = 1/a^2$ and $R = 2/a^2$. The area element is $a\\,dz\\,d\\phi$.",
+			"key_points": [
+				"The component varies with z but K is one over a squared",
+				"Both product terms contribute z squared over a squared",
+				"The area element a dz dphi does not depend on z"
+			],
+			"numeric": null,
+			"solution": [
+				"$\\Gamma^z{}_{zz} = \\tfrac12 g^{zz}\\partial_z g_{zz} = \\tfrac12\\,\\dfrac{a^2 - z^2}{a^2}\\cdot\\dfrac{2a^2z}{(a^2 - z^2)^2} = \\dfrac{z}{a^2 - z^2}$.",
+				"$\\Gamma^z{}_{\\phi\\phi} = -\\tfrac12 g^{zz}\\partial_z g_{\\phi\\phi} = z(a^2 - z^2)/a^2$ and $\\Gamma^\\phi{}_{z\\phi} = \\tfrac12 g^{\\phi\\phi}\\partial_z g_{\\phi\\phi} = -z/(a^2 - z^2)$.",
+				"$R^z{}_{\\phi z\\phi} = \\partial_z\\Gamma^z{}_{\\phi\\phi} + \\Gamma^z{}_{zz}\\Gamma^z{}_{\\phi\\phi} - \\Gamma^z{}_{\\phi\\phi}\\Gamma^\\phi{}_{z\\phi} = \\dfrac{a^2 - 3z^2}{a^2} + \\dfrac{z^2}{a^2} + \\dfrac{z^2}{a^2} = \\dfrac{a^2 - z^2}{a^2}$.",
+				"$K = g_{zz}R^z{}_{\\phi z\\phi}/(g_{zz}g_{\\phi\\phi}) = R^z{}_{\\phi z\\phi}/g_{\\phi\\phi} = 1/a^2$, and $R = 2K = 2/a^2$, as in $(\\theta, \\phi)$.",
+				"$\\sqrt{g_{zz}g_{\\phi\\phi}} = a$, so the band between heights $z_1$ and $z_2$ has area $2\\pi a(z_2 - z_1)$, the area of the matching band of the cylinder of radius $a$."
+			],
+			"targets": [
+				"varying-component-means-varying-curvature"
+			]
+		},
+		{
+			"id": "spindle-with-two-tips",
+			"rung": "formal",
+			"difficulty": 3,
+			"type": "proof",
+			"statement": "For $0 < b < a$, the metric $ds^2 = d\\rho^2 + b^2\\sin^2(\\rho/a)\\,d\\phi^2$, with $0 < \\rho < \\pi a$ and $\\phi$ of period $2\\pi$, describes a spindle. (a) Show that $K = 1/a^2$ away from the tips. (b) Show that each tip is a cone point and find its deficit angle. (c) Verify the Gauss–Bonnet balance $\\int K\\,dA + \\sum\\delta = 4\\pi$, and explain why the spindle does not contradict the rigidity of the round sphere.",
+			"statement_spoken": "For b between zero and a, the metric d s squared equals d rho squared plus b squared sine squared of rho over a, d phi squared, with rho between zero and pi a and phi of period two pi, describes a spindle. Show that the Gaussian curvature is one over a squared away from the tips, show that each tip is a cone point and find its deficit angle, and verify that the total curvature plus the deficits equals four pi. Explain why the spindle does not contradict the rigidity of the round sphere.",
+			"hints": [
+				"With $e^1 = d\\rho$ and $e^2 = f\\,d\\phi$, show that $\\Omega^1{}_2 = -(f''/f)\\,e^1\\wedge e^2$.",
+				"Compare the circumference of a small circle $\\rho = \\epsilon$ with $2\\pi\\epsilon$."
+			],
+			"answer": "$K = -f''/f = 1/a^2$; each tip has total angle $2\\pi b/a$ and deficit $2\\pi(1 - b/a)$; $\\int K\\,dA = 4\\pi b/a$ and the two deficits add $4\\pi - 4\\pi b/a$. The rigidity theorems assume a smooth complete metric, which the tips violate.",
+			"key_points": [
+				"Gaussian curvature one over a squared away from the tips",
+				"Deficit two pi times one minus b over a at each tip",
+				"The tips supply the curvature missing from four pi",
+				"Rigidity needs smoothness at every point"
+			],
+			"numeric": null,
+			"solution": [
+				"With $f = b\\sin(\\rho/a)$, $e^1 = d\\rho$ and $e^2 = f\\,d\\phi$, the structure equation gives $\\omega^1{}_2 = -f'\\,d\\phi$, so $\\Omega^1{}_2 = -f''\\,d\\rho\\wedge d\\phi = -(f''/f)\\,e^1\\wedge e^2$ and $K = -f''/f = 1/a^2$.",
+				"A circle $\\rho = \\epsilon$ has length $2\\pi b\\sin(\\epsilon/a) = 2\\pi(b/a)\\epsilon + O(\\epsilon^3)$, as on a flat cone of total angle $2\\pi b/a$, so the tip is a cone point with deficit $\\delta = 2\\pi(1 - b/a)$. The tip $\\rho = \\pi a$ is the same by the symmetry $\\rho \\to \\pi a - \\rho$.",
+				"$\\int K\\,dA = a^{-2}\\int_0^{2\\pi}\\!\\int_0^{\\pi a} b\\sin(\\rho/a)\\,d\\rho\\,d\\phi = a^{-2}\\cdot 2\\pi\\cdot 2ab = 4\\pi b/a$.",
+				"Adding $2\\delta = 4\\pi - 4\\pi b/a$ gives $4\\pi = 2\\pi\\chi(S^2)$. For $b = a/2$: $2\\pi$ from the smooth part and $\\pi$ from each tip.",
+				"Killing–Hopf and Liebmann assume a smooth metric at every point. At the tips the metric is not smooth, so the spindle is a sphere topologically with constant $K$ only on an incomplete smooth part, and no theorem is contradicted. For $b = a$ the deficits vanish and the round sphere returns."
+			],
+			"targets": [
+				"constant-k-means-round-sphere"
+			]
+		}
+	],
+	"observations": [
+		{
+			"id": "earth-from-geodesy",
+			"rung": "working",
+			"phenomenon": "Earth's size and curvature from geodesy, as summarized by the GRS80 reference ellipsoid",
+			"connection": "Treated as a sphere of the ellipsoid's mean radius, Earth's surface has $K = 1/a^2$ and $R = 2/a^2$. The ellipsoid's flattening makes $K$ vary with latitude, which is why the sphere is a first model rather than a survey standard.",
+			"numbers": "Equatorial radius 6378.137 km and flattening $1/298.257$ give a mean radius of 6371.0 km, so $K = 2.464\\times10^{-14}$ m$^{-2}$ and $R = 4.927\\times10^{-14}$ m$^{-2}$. On the ellipsoid $K$ runs from $2.442\\times10^{-14}$ m$^{-2}$ at the poles to $2.475\\times10^{-14}$ m$^{-2}$ at the equator.",
+			"status": "measured",
+			"reference": {
+				"authors": [
+					"Helmut Moritz"
+				],
+				"more_authors": false,
+				"year": 1980,
+				"title": "Geodetic Reference System 1980",
+				"venue": "Bulletin Géodésique 54, 395–405",
+				"doi": "10.1007/BF02521480",
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			}
+		},
+		{
+			"id": "foucault-pendulum-turn",
+			"rung": "working",
+			"phenomenon": "The daily turning of a Foucault pendulum's swing plane",
+			"connection": "For slow rotation and small swings, Earth's rotation carries the swing plane around its circle of latitude $\\lambda$ without swinging, so it returns rotated by $K$ times the area of the polar cap on the walker's left. With $K = 1/a^2$ and cap area $2\\pi a^2(1 - \\sin\\lambda)$, the radius cancels: a counterclockwise rotation by $2\\pi(1 - \\sin\\lambda)$, seen from above the North Pole, which is the observed clockwise turn by $2\\pi\\sin\\lambda$ per sidereal day in the northern hemisphere.",
+			"numbers": "Paris, latitude $48.85^\\circ$: $360^\\circ\\sin\\lambda = 271^\\circ$ per sidereal day, about $11.3^\\circ$ per hour.",
+			"status": "measured",
+			"reference": {
+				"authors": [
+					"Léon Foucault"
+				],
+				"more_authors": false,
+				"year": 1851,
+				"title": "Démonstration physique du mouvement de rotation de la Terre au moyen du pendule",
+				"venue": "Comptes rendus hebdomadaires des séances de l'Académie des sciences 32, 135–138",
+				"doi": null,
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			}
+		}
+	],
+	"teaching_arc": [
+		{
+			"id": "predict-at-a-new-spot",
+			"rung": "entry",
+			"step": "Predict at a new spot",
+			"move": "Run the peg walk near the North Pole, ask for a prediction near the equator, then explain the answer by rolling the ball.",
+			"why": "It separates the ball from the labels painted on it.",
+			"uses": [
+				"ways_in/every-spot-alike",
+				"checks/same-loop-anywhere"
+			],
+			"visual": {
+				"id": "one-loop-on-two-balls",
+				"preset": null,
+				"tour": null
+			},
+			"predict": "If you walk around the same peg with the same string near the equator, will the arrow come back turned more, less, or the same?"
+		},
+		{
+			"id": "double-the-ball",
+			"rung": "entry",
+			"step": "Double the ball",
+			"move": "Ask for the turn on a ball twice as wide, then count surface to reach a quarter.",
+			"why": "The quarter, not a half, is the heart of 1 over the radius squared.",
+			"uses": [
+				"ways_in/double-the-ball",
+				"checks/double-the-ball"
+			],
+			"visual": {
+				"id": "one-loop-on-two-balls",
+				"preset": null,
+				"tour": null
+			},
+			"predict": "If the ball is twice as wide, how does the turn around the same small loop change?"
+		},
+		{
+			"id": "radius-from-inside",
+			"rung": "entry",
+			"step": "Measure the radius from inside",
+			"move": "Work the explorer's three steps, then set the moon problem.",
+			"why": "It turns the curving number into a measurement of size.",
+			"uses": [
+				"ways_in/find-the-radius-without-leaving",
+				"problems/radius-of-a-small-moon"
+			],
+			"visual": null,
+			"predict": null
+		},
+		{
+			"id": "compute-and-read",
+			"rung": "working",
+			"step": "Compute from the metric",
+			"move": "Derive the Riemann component, then confront the sine-squared and pole traps.",
+			"why": "The sphere is where students first meet coordinate artefacts in curvature.",
+			"uses": [
+				"derivations/sphere-curvature-from-metric",
+				"checks/sin-squared-varies",
+				"checks/christoffels-at-the-pole"
+			],
+			"visual": null,
+			"predict": "Does sine squared theta mean the sphere curves less near its poles?"
+		},
+		{
+			"id": "instruments-agree",
+			"rung": "working",
+			"step": "Check against measurements",
+			"move": "Compare the arrow, the triangle and the ring on Earth, then diagnose a stranger's sign.",
+			"why": "Independent readings that agree are what make the sphere the calibration geometry.",
+			"uses": [
+				"ways_in/three-measurements-one-number",
+				"worked_examples/earth-read-three-ways",
+				"checks/stranger-gets-a-minus-sign"
+			],
+			"visual": {
+				"id": "paced-ring-on-a-ball-and-a-plain",
+				"preset": null,
+				"tour": null
+			},
+			"predict": null
+		},
+		{
+			"id": "symmetry-and-rigidity",
+			"rung": "formal",
+			"step": "Prove it without coordinates",
+			"move": "Derive constancy from symmetry, then test the rigidity theorems on the projective plane and the spindle.",
+			"why": "It shows which hypotheses make the sphere unique.",
+			"uses": [
+				"ways_in/round-sphere-as-a-space-form",
+				"checks/closed-surfaces-with-constant-curvature",
+				"problems/spindle-with-two-tips"
+			],
+			"visual": null,
+			"predict": null
+		}
+	],
+	"analogies": [],
+	"misconceptions": [
+		{
+			"id": "poles-curve-more",
+			"rung": "entry",
+			"belief": "A globe curves more strongly near its North Pole, where the painted lines crowd together.",
+			"why_tempting": "On a globe the lines bunch up at the poles, as if something special happens there.",
+			"correction": "The painted lines are only labels. A round ball looks the same after any roll, so the same walk gives the same turn at every spot.",
+			"diagnosed_by": [
+				"same-loop-anywhere"
+			]
+		},
+		{
+			"id": "twice-as-wide-half-as-curved",
+			"rung": "entry",
+			"belief": "A ball twice as wide curves half as strongly.",
+			"why_tempting": "A circle twice as wide bends half as sharply.",
+			"correction": "The turn follows the fraction of the ball's surface, and the surface grows with the radius times itself. So a ball twice as wide curves a quarter as strongly.",
+			"diagnosed_by": [
+				"double-the-ball"
+			]
+		},
+		{
+			"id": "varying-component-means-varying-curvature",
+			"rung": "working",
+			"belief": "The Riemann component in theta and phi is sine squared theta, so the sphere curves most at its equator and not at all at its poles.",
+			"why_tempting": "Components are the numbers students compute, and this one visibly changes with latitude.",
+			"correction": "A coordinate component carries the lengths of its basis vectors, and the longitude basis vector shrinks toward the poles. Dividing that out gives one over a squared everywhere.",
+			"diagnosed_by": [
+				"sin-squared-varies"
+			]
+		},
+		{
+			"id": "pole-is-singular",
+			"rung": "working",
+			"belief": "The sphere's geometry breaks down at the poles, because a Christoffel symbol there is infinite.",
+			"why_tempting": "Infinite coefficients usually signal something physical.",
+			"correction": "The coordinates fail at the poles, not the sphere. The curvature invariants stay constant there, and rotated coordinates make every Christoffel symbol finite.",
+			"diagnosed_by": [
+				"christoffels-at-the-pole"
+			]
+		},
+		{
+			"id": "ricci-scalar-equals-k",
+			"rung": "working",
+			"belief": "The Ricci scalar of a sphere is its curvature, one over the radius squared.",
+			"why_tempting": "Both are single numbers called curvature.",
+			"correction": "On a surface the Ricci scalar is twice the Gaussian curvature, two over the radius squared. The rotation around a small loop is set by the Gaussian curvature.",
+			"diagnosed_by": [
+				"soap-bubble-numbers"
+			]
+		},
+		{
+			"id": "negative-sphere-means-mistake",
+			"rung": "working",
+			"belief": "Any formula that gives a sphere a negative Riemann component or Ricci scalar is wrong.",
+			"why_tempting": "The course gives a sphere positive values, and a sphere obviously curves one way.",
+			"correction": "The printed sign depends on the Riemann sign, the Ricci contraction and the metric's overall sign. Only after matching those conventions does a negative value signal an error.",
+			"diagnosed_by": [
+				"stranger-gets-a-minus-sign"
+			]
+		},
+		{
+			"id": "constant-k-means-round-sphere",
+			"rung": "formal",
+			"belief": "Any closed surface with curvature one over a squared at every point is a round sphere of radius a.",
+			"why_tempting": "Constant curvature seems to fix the shape completely.",
+			"correction": "It holds for smooth, compact, orientable surfaces without boundary. The projective plane is another compact case, and cone points allow spindles.",
+			"diagnosed_by": [
+				"closed-surfaces-with-constant-curvature"
+			]
+		}
+	],
+	"checks": [
+		{
+			"id": "same-loop-anywhere",
+			"rung": "entry",
+			"format": "predict",
+			"question": "On a huge, smooth, round globe, you push a peg into the ground near the North Pole and tie a 5-metre string to it. You walk once around the peg, keeping the string tight and the peg on your left. Your cardboard arrow never swings, and it comes back turned 3 degrees toward your left. Then you move the peg to a spot near the equator and walk around it the same way, with the same string. How does the arrow come back?",
+			"question_spoken": null,
+			"answer": "Turned 3 degrees toward your left again. Imagine rolling the whole globe until the new peg sits where the old peg was. A smooth, round ball looks and feels the same after any roll. Only the painted lines move, and the arrow test never uses them. So the second walk is the first walk over again, with the same turn. The lines crowding near the North Pole do not make the ball curve more strongly there.",
+			"key_points": [
+				"It comes back turned 3 degrees toward your left",
+				"Rolling the ball brings the new peg onto the old spot",
+				"A round ball looks the same after any roll, and the painted lines do not matter"
+			],
+			"numeric": [
+				{
+					"quantity": "turn toward the walker's left",
+					"value": 3,
+					"unit": "deg",
+					"sign": "signed",
+					"abs_tol": 0.5,
+					"rel_tol": null,
+					"modulo": 360
+				}
+			],
+			"hints": [
+				"Could you roll the globe so the new peg lands where the old peg was?",
+				"Does the arrow test use the painted lines?"
+			],
+			"targets": [
+				"poles-curve-more"
+			],
+			"visual": {
+				"id": "one-loop-on-two-balls",
+				"preset": null,
+				"tour": null
+			}
+		},
+		{
+			"id": "double-the-ball",
+			"rung": "entry",
+			"format": "numeric",
+			"question": "On a smooth, round ball with a radius of 10 centimetres, you walk a small loop that keeps 14 square centimetres on your left. Your cardboard arrow never swings, and it comes back turned 8 degrees toward your left. Now you walk a loop that keeps the same 14 square centimetres on your left, on a ball with a radius of 20 centimetres. How far does the arrow come back turned?",
+			"question_spoken": null,
+			"answer": "About 2 degrees toward your left. The turn, in full turns, is twice the fraction of the ball on your left. A ball's surface is about 12.57 times its radius times itself. Doubling the radius makes the radius times itself four times as big, so the bigger ball has four times the surface. So the same 14 square centimetres is a quarter of the fraction it was, and the turn is a quarter of 8 degrees. It is not 4 degrees, because the surface grows with the radius times itself, not with the radius.",
+			"key_points": [
+				"About 2 degrees toward your left",
+				"The bigger ball has four times the surface",
+				"The same area is a quarter of the fraction, so a quarter of the turn"
+			],
+			"numeric": [
+				{
+					"quantity": "turn toward the walker's left",
+					"value": 2,
+					"unit": "deg",
+					"sign": "signed",
+					"abs_tol": 0.3,
+					"rel_tol": null,
+					"modulo": 360
+				}
+			],
+			"hints": [
+				"How much more surface does a ball twice as wide have?"
+			],
+			"targets": [
+				"twice-as-wide-half-as-curved"
+			],
+			"visual": {
+				"id": "one-loop-on-two-balls",
+				"preset": null,
+				"tour": null
+			}
+		},
+		{
+			"id": "sin-squared-varies",
+			"rung": "working",
+			"format": "evaluate-claim",
+			"question": "On a sphere of radius $a$, $R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$. A student says: this is largest on the equator and zero at the poles, so the sphere curves most strongly at its equator and not at all at its poles. Evaluate the claim.",
+			"question_spoken": "On a sphere of radius a, the Riemann component R theta phi theta phi equals sine squared theta. A student says this is largest on the equator and zero at the poles, so the sphere curves most strongly at its equator and not at all at its poles. Evaluate the claim.",
+			"answer": "The claim is wrong. A coordinate component carries the lengths of the basis vectors it is taken on, and $\\partial_\\phi$ has length $a\\sin\\theta$, which shrinks to zero at the poles. The Gaussian curvature divides this out: $K = R_{\\theta\\phi\\theta\\phi}/(g_{\\theta\\theta}g_{\\phi\\phi}) = a^2\\sin^2\\theta/(a^4\\sin^2\\theta) = 1/a^2$ at every $\\theta$, equal to the orthonormal component. Rotations carry any point of the sphere to any other and preserve the metric, so no point can curve more strongly than another. A small coordinate cell confirms it: its turn, $K$ times its area $a^2\\sin\\theta\\,\\delta\\theta\\,\\delta\\phi$, shrinks near the poles only because the cell does.",
+			"key_points": [
+				"Coordinate components carry basis-vector lengths",
+				"K equals one over a squared at every point",
+				"Rotational symmetry rules out a special point"
+			],
+			"numeric": null,
+			"hints": [
+				"How long is the basis vector along $\\phi$ at colatitude $\\theta$?"
+			],
+			"targets": [
+				"varying-component-means-varying-curvature"
+			],
+			"visual": null
+		},
+		{
+			"id": "christoffels-at-the-pole",
+			"rung": "working",
+			"format": "evaluate-claim",
+			"question": "On the sphere, $\\Gamma^\\phi{}_{\\theta\\phi} = \\cot\\theta$ grows without bound as $\\theta \\to 0$. A classmate concludes that the sphere's geometry is singular at the North Pole. Evaluate the conclusion.",
+			"question_spoken": "On the sphere, the Christoffel symbol gamma phi theta phi equals cotangent theta, which grows without bound as theta goes to zero. A classmate concludes that the sphere's geometry is singular at the North Pole. Evaluate the conclusion.",
+			"answer": "The conclusion is wrong: the chart fails there, not the geometry. At $\\theta = 0$ every value of $\\phi$ names the same point and $g_{\\phi\\phi} = a^2\\sin^2\\theta$ vanishes, just as polar coordinates on a flat plane give $\\Gamma^\\phi{}_{r\\phi} = 1/r$ at the origin. Christoffel symbols are not tensors, so their growth alone says nothing about the geometry. The invariants stay finite and constant as $\\theta \\to 0$: $K = 1/a^2$ and $R = 2/a^2$. Rotating the sphere so that the old North Pole lies on the new equator makes every Christoffel symbol finite there.",
+			"key_points": [
+				"The coordinates fail at the pole",
+				"Christoffel symbols are not tensors",
+				"K and R stay constant at the pole"
+			],
+			"numeric": null,
+			"hints": [
+				"What does the flat plane in polar coordinates do at its origin?"
+			],
+			"targets": [
+				"pole-is-singular"
+			],
+			"visual": null
+		},
+		{
+			"id": "soap-bubble-numbers",
+			"rung": "working",
+			"format": "numeric",
+			"question": "A soap bubble has radius 4.0 cm. Treating its film as a sphere, find its Gaussian curvature and Ricci scalar in SI units, and the angle by which a vector carried around a small loop enclosing 1.0 cm² returns rotated.",
+			"question_spoken": null,
+			"answer": "$K = 1/a^2 = 1/(0.040\\ \\text{m})^2 = 625$ m$^{-2}$, and $R = 2K = 1250$ m$^{-2}$. For a small loop the rotation is $KA = 625\\ \\text{m}^{-2}\\times1.0\\times10^{-4}\\ \\text{m}^2 = 0.0625$ rad, about $3.6^\\circ$ toward the walker's left. Using $R$ in place of $K$ would double the rotation, because on a surface the Ricci scalar is twice the Gaussian curvature.",
+			"key_points": [
+				"K is 625 per square metre",
+				"R is twice K, 1250 per square metre",
+				"The rotation is K times the area, 0.0625 radians"
+			],
+			"numeric": [
+				{
+					"quantity": "Gaussian curvature",
+					"value": 625,
+					"unit": "m^-2",
+					"sign": "magnitude",
+					"abs_tol": null,
+					"rel_tol": 0.02,
+					"modulo": null
+				},
+				{
+					"quantity": "Ricci scalar",
+					"value": 1250,
+					"unit": "m^-2",
+					"sign": "magnitude",
+					"abs_tol": null,
+					"rel_tol": 0.02,
+					"modulo": null
+				},
+				{
+					"quantity": "rotation",
+					"value": 0.0625,
+					"unit": "rad",
+					"sign": "magnitude",
+					"abs_tol": null,
+					"rel_tol": 0.03,
+					"modulo": null
+				}
+			],
+			"hints": [
+				"Convert the radius and the area to metres first."
+			],
+			"targets": [
+				"ricci-scalar-equals-k"
+			],
+			"visual": null
+		},
+		{
+			"id": "stranger-gets-a-minus-sign",
+			"rung": "working",
+			"format": "evaluate-claim",
+			"question": "A formula sheet reports that a sphere of radius $a$ has $R^\\theta{}_{\\phi\\theta\\phi} = -\\sin^2\\theta$ and $R = -2/a^2$. A student decides the sheet is wrong. Evaluate the decision, and say what to check.",
+			"question_spoken": "A formula sheet reports that a sphere of radius a has R theta phi theta phi equal to minus sine squared theta, and Ricci scalar minus two over a squared. A student decides the sheet is wrong. Evaluate the decision, and say what to check.",
+			"answer": "The sheet is not necessarily wrong. What happens on the sphere is fixed: a small loop with its region on the walker's left returns vectors rotated toward the left, and rings come out short. How that is written depends on conventions. A Riemann tensor defined with the opposite overall sign flips $R^\\theta{}_{\\phi\\theta\\phi}$ and $R$ together, which matches this sheet. Contracting a different pair of slots, or writing the metric with an overall minus sign, flips $R$ but leaves $R^\\theta{}_{\\phi\\theta\\phi}$ unchanged. So read the sheet's definitions of the Riemann tensor, the Ricci contraction and the metric, and run the flat plane in polar coordinates, which must give zero in every convention. Only if the definitions match the course's is the sign an error.",
+			"key_points": [
+				"The observed rotation fixes the geometry, not the printed sign",
+				"An opposite Riemann sign flips both printed values",
+				"Check the definitions and the flat-plane control before calling it an error"
+			],
+			"numeric": null,
+			"hints": [
+				"Which convention change flips the Riemann component itself?"
+			],
+			"targets": [
+				"negative-sphere-means-mistake"
+			],
+			"visual": null
+		},
+		{
+			"id": "symmetry-fixes-the-curvature",
+			"rung": "formal",
+			"format": "derive",
+			"question": "Without computing any connection, show that the round sphere $S^2_a \\subset \\mathbb{R}^3$ has constant Gaussian curvature, that $R_{\\mu\\nu\\rho\\sigma} = K(g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho})$, and that $K = 1/a^2$. Which step fails for a round 3-sphere, and what replaces it?",
+			"question_spoken": "Without computing any connection, show that the round two-sphere of radius a has constant Gaussian curvature, that its Riemann tensor is K times g g minus g g, and that K equals one over a squared. Which step fails for a round three-sphere, and what replaces it?",
+			"answer": "Rotations in $SO(3)$ restrict to isometries of the induced metric and act transitively on $S^2_a$. The Gaussian curvature is determined by the metric, so isometries preserve it, and $K$ is constant. In two dimensions the space of 2-planes at a point is a single plane, so the Riemann tensor is fixed by one number; $K(g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho})$ has the Riemann symmetries and the right sectional curvature, so it equals $R_{\\mu\\nu\\rho\\sigma}$. Gauss–Bonnet gives $K\\cdot4\\pi a^2 = 2\\pi\\chi(S^2) = 4\\pi$, so $K = 1/a^2$. On a round 3-sphere transitivity on points makes only scalar invariants constant. Each point has a family of 2-planes, so one needs the isotropy group $SO(3)$ acting transitively on those planes to make every sectional curvature equal. The value then comes from a great 2-sphere, which is totally geodesic with $K = 1/a^2$, giving $R = 6/a^2$.",
+			"key_points": [
+				"Isometries act transitively and preserve K",
+				"In two dimensions one number fixes the Riemann tensor",
+				"Gauss–Bonnet fixes K at one over a squared",
+				"In three dimensions isotropy on 2-planes is also needed"
+			],
+			"numeric": null,
+			"hints": [
+				"Does an isometry change the Gaussian curvature?",
+				"How many 2-planes does a tangent space of dimension 2 contain?"
+			],
+			"targets": [],
+			"visual": null
+		},
+		{
+			"id": "closed-surfaces-with-constant-curvature",
+			"rung": "formal",
+			"format": "evaluate-claim",
+			"question": "Evaluate the claim: \"A compact surface whose Gaussian curvature is $1/a^2$ at every point is a round sphere of radius $a$.\" Give hypotheses under which it holds, and the other possibilities.",
+			"question_spoken": "Evaluate the claim: a compact surface whose Gaussian curvature is one over a squared at every point is a round sphere of radius a. Give hypotheses under which it holds, and the other possibilities.",
+			"answer": "As stated it is false. For a compact smooth surface without boundary, Gauss–Bonnet gives $2\\pi\\chi = \\int K\\,dA = A/a^2 > 0$, so $\\chi = 2$ or $\\chi = 1$. A compact surface is complete, so by Killing–Hopf it is $S^2_a$, with area $4\\pi a^2$, or the real projective plane $S^2_a/\\{\\pm1\\}$, with area $2\\pi a^2$, which is non-orientable. So the claim holds for compact orientable smooth surfaces without boundary; for surfaces in $\\mathbb{R}^3$, where the projective plane cannot occur, it is Liebmann's theorem. A compact surface with boundary, such as a hemisphere, fails at once. Smoothness is also needed: a spindle $d\\rho^2 + b^2\\sin^2(\\rho/a)\\,d\\phi^2$ with $b < a$ has $K = 1/a^2$ except at two cone points.",
+			"key_points": [
+				"Gauss–Bonnet allows Euler characteristic 2 or 1",
+				"The projective plane is the other compact case",
+				"Orientability, no boundary and smoothness make the claim true"
+			],
+			"numeric": null,
+			"hints": [
+				"What does Gauss–Bonnet say about the Euler characteristic?"
+			],
+			"targets": [
+				"constant-k-means-round-sphere"
+			],
+			"visual": null
+		}
+	],
+	"notation_traps": [
+		{
+			"id": "sphere-angles",
+			"issue": "Which angle is theta and which is phi on a sphere",
+			"course_choice": "$\\theta$ is colatitude, measured from the North Pole with $0 \\le \\theta \\le \\pi$, and $\\phi$ is longitude, so $d\\Omega^2 = d\\theta^2 + \\sin^2\\theta\\,d\\phi^2$ and $a$ names the sphere's radius, not a scale factor.",
+			"variants": "Some texts, especially in mathematics, swap the letters and use $\\phi$ for colatitude; geography uses latitude $\\lambda = \\pi/2 - \\theta$, so $\\cos\\lambda$ replaces $\\sin\\theta$."
+		},
+		{
+			"id": "sign-of-sphere-curvature",
+			"issue": "Printed sign of the sphere's curvature",
+			"course_choice": "$R^\\theta{}_{\\phi\\theta\\phi} = +\\sin^2\\theta$, $K = +1/a^2$ and $R = +2/a^2$.",
+			"variants": "Texts with the opposite overall Riemann sign print $-\\sin^2\\theta$ and $R = -2/a^2$; texts that contract another pair of slots keep the component but print $R = -2/a^2$."
+		}
+	],
+	"visuals": [
+		{
+			"id": "one-loop-on-two-balls",
+			"role": "The entry picture: one loop of fixed area on balls of different sizes and at different spots, showing equal turns everywhere and a quarter of the turn on a ball twice as wide.",
+			"priority": "flagship",
+			"sketch": "Two smooth balls side by side with radius sliders, each carrying a loop of the same area in square centimetres. Play carries an arrow around both loops; on completion readouts give each turn, the turn divided by the area, and 1 over the radius squared. A roll control moves one loop to any spot and heading while its readouts stay fixed, and an egg toggle breaks that. A plot of turn per area against radius on logarithmic axes shows a line of slope $-2$."
+		},
+		{
+			"id": "carry-an-arrow-around-a-loop",
+			"role": "The arrow test on a ball, with the radius slider and the area over radius squared readout behind the explorer's measurement.",
+			"priority": "core",
+			"sketch": null
+		},
+		{
+			"id": "paced-ring-on-a-ball-and-a-plain",
+			"role": "The tape-measure reading of the sphere's curvature.",
+			"priority": "supporting",
+			"sketch": "This concept adds a readout of the radius recovered from one ring by solving $C = 2\\pi a\\sin(\\rho/a)$, which matches the ball's radius for every string length up to the far pole, where the ring shrinks to a point."
+		}
+	],
+	"tutor_moves": {
+		"opening_questions": [
+			{
+				"id": "tennis-ball-and-beach-ball",
+				"question": "Picture a tennis ball and a beach ball ten times as wide, both smooth and round. On each one, you walk the same small loop, about the size of a fingernail, carrying a cardboard arrow that never swings. On which ball does the arrow come back turned more, and about how many times more?",
+				"invites": "prediction"
+			},
+			{
+				"id": "size-without-leaving",
+				"question": "If you lived on a huge round ball and could never leave it or see it from outside, how could you find out how big it is?",
+				"invites": "reflection"
+			}
+		],
+		"if_stuck": [
+			{
+				"id": "cannot-reach-the-radius",
+				"symptom": "The learner cannot turn a measured turn into a radius.",
+				"move": "Split the task into the explorer's three steps, fraction, whole surface, radius, and do one step per exchange.",
+				"misconception": null,
+				"uses": [
+					"ways_in/find-the-radius-without-leaving"
+				]
+			},
+			{
+				"id": "lost-in-the-four-terms",
+				"symptom": "The learner loses track of the four terms of the Riemann component.",
+				"move": "Write the four terms in a column, cross out those containing a zero Christoffel symbol, and evaluate the two that remain.",
+				"misconception": null,
+				"uses": [
+					"derivations/sphere-curvature-from-metric"
+				]
+			},
+			{
+				"id": "expects-the-pole-to-be-special",
+				"symptom": "The learner expects the North Pole to curve differently.",
+				"move": "Have the learner imagine rolling the ball until the second peg lands on the first.",
+				"misconception": "poles-curve-more",
+				"uses": [
+					"checks/same-loop-anywhere"
+				]
+			}
+		],
+		"common_questions": [
+			{
+				"id": "is-earth-the-same-everywhere",
+				"rung": "entry",
+				"question": "Is Earth's curving really the same everywhere?",
+				"answer": "Nearly. Earth spins, so it bulges slightly at the equator and is flattened at the poles. That makes its curving about one and a third percent stronger at the equator than at the poles. Hills and valleys add bumps of their own, but on the scale of whole countries Earth is very close to a round ball.",
+				"uses": [
+					"observations/earth-from-geodesy"
+				]
+			},
+			{
+				"id": "why-a-quarter-not-a-half",
+				"rung": "entry",
+				"question": "Why does a ball twice as wide curve a quarter as strongly, and not half as strongly?",
+				"answer": "Because the turn follows area, and area grows with the radius times itself. A ball twice as wide has four times the surface. So a loop of fixed size keeps a quarter of the fraction of that ball on your left, and the arrow turns a quarter as much. A single curved line is different: a circle twice as wide bends half as sharply, because its length grows only with the radius.",
+				"uses": [
+					"ways_in/double-the-ball",
+					"checks/double-the-ball"
+				]
+			},
+			{
+				"id": "why-the-sphere-is-the-test",
+				"rung": "working",
+				"question": "Why is the sphere the standard test for curvature formulas?",
+				"answer": "Its answer is known before any calculation: symmetry makes $K$ constant, the area rule or Gauss–Bonnet fixes $K = 1/a^2$, and the direction arrows rotate fixes the sign. It also has a nonzero product term and a coordinate singularity at the poles, so it exercises every part of the formula. Pair it with the flat plane in polar coordinates, which must give zero.",
+				"uses": [
+					"ways_in/curvature-from-the-metric",
+					"checks/stranger-gets-a-minus-sign"
+				]
+			}
+		],
+		"voice_notes": "At entry say \"the radius times itself\", not \"radius squared\". Read colatitude as \"the angle from the North Pole\".",
+		"level_switching": [
+			{
+				"to_rung": "working",
+				"signals": [
+					"asks for the formula behind the quarter",
+					"mentions a metric or Christoffel symbols"
+				],
+				"move": "Go to the metric calculation and the soap-bubble check.",
+				"uses": [
+					"ways_in/curvature-from-the-metric",
+					"checks/soap-bubble-numbers"
+				]
+			},
+			{
+				"to_rung": "formal",
+				"signals": [
+					"asks why the answer must be constant without computing",
+					"asks which closed surfaces have constant curvature"
+				],
+				"move": "Use the symmetry argument, then the rigidity theorems and the spindle.",
+				"uses": [
+					"ways_in/round-sphere-as-a-space-form",
+					"problems/spindle-with-two-tips"
+				]
+			},
+			{
+				"to_rung": "research",
+				"signals": [
+					"asks about black-hole horizons, Ricci flow or quasi-local energy"
+				],
+				"move": "Open the research horizon.",
+				"uses": [
+					"research_horizon/horizon-geometry",
+					"research_horizon/ricci-flow-on-the-sphere"
+				]
+			}
+		]
+	},
+	"history": [
+		{
+			"id": "gauss-1827",
+			"people": [
+				"Carl Friedrich Gauss"
+			],
+			"year": 1827,
+			"work": {
+				"authors": [
+					"Carl Friedrich Gauss"
+				],
+				"more_authors": false,
+				"year": 1828,
+				"title": "Disquisitiones generales circa superficies curvas",
+				"venue": "Commentationes Societatis Regiae Scientiarum Gottingensis Recentiores 6, 99–146",
+				"doi": null,
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			},
+			"contribution": "Measured a surface's curvature by the area its normals sweep, which gives $1/a^2$ for a sphere, and proved that this number depends only on lengths along the surface."
+		},
+		{
+			"id": "minding-1839",
+			"people": [
+				"Ferdinand Minding"
+			],
+			"year": 1839,
+			"work": null,
+			"contribution": "Showed that surfaces with the same constant curvature are locally isometric, so every patch with curvature $1/a^2$ matches a piece of a sphere of radius $a$."
+		},
+		{
+			"id": "riemann-1854",
+			"people": [
+				"Bernhard Riemann"
+			],
+			"year": 1854,
+			"work": {
+				"authors": [
+					"Bernhard Riemann"
+				],
+				"more_authors": false,
+				"year": 1868,
+				"title": "Ueber die Hypothesen, welche der Geometrie zu Grunde liegen",
+				"venue": "Abhandlungen der Königlichen Gesellschaft der Wissenschaften zu Göttingen 13, 133–150",
+				"doi": null,
+				"arxiv": null,
+				"kind": "paper",
+				"verified": false
+			},
+			"contribution": "In his 1854 lecture, published in 1868, extended curvature to spaces of any dimension and described spaces of constant positive curvature, of which the sphere is the two-dimensional case."
+		},
+		{
+			"id": "liebmann-1899",
+			"people": [
+				"Heinrich Liebmann"
+			],
+			"year": 1899,
+			"work": null,
+			"contribution": "Proved that a closed surface in ordinary space with constant Gaussian curvature is a round sphere."
+		}
+	],
+	"research_horizon": [
+		{
+			"id": "ricci-flow-on-the-sphere",
+			"topic": "Ricci flow on the two-sphere",
+			"connection": "Ricci flow evolves a metric by $\\partial_t g_{\\mu\\nu} = -2R_{\\mu\\nu}$, which on a surface is $-2Kg_{\\mu\\nu}$. Hamilton showed that, with the area held fixed, a metric of positive curvature on the sphere flows to the round metric of constant $K$, and Chow removed the positivity assumption. Hamilton's programme in three dimensions led to Perelman's proof of the Poincaré conjecture.",
+			"references": [
+				{
+					"authors": [
+						"Richard S. Hamilton"
+					],
+					"more_authors": false,
+					"year": 1988,
+					"title": "The Ricci flow on surfaces",
+					"venue": "Mathematics and General Relativity, Contemporary Mathematics 71, 237–262, American Mathematical Society",
+					"doi": null,
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				},
+				{
+					"authors": [
+						"Bennett Chow"
+					],
+					"more_authors": false,
+					"year": 1991,
+					"title": "The Ricci flow on the 2-sphere",
+					"venue": "Journal of Differential Geometry 33, 325–334",
+					"doi": null,
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				}
+			]
+		},
+		{
+			"id": "horizon-geometry",
+			"topic": "Intrinsic geometry of black-hole horizons",
+			"connection": "Hawking showed that cross-sections of the event horizon of a stationary black hole are two-spheres, under the dominant energy condition. For Schwarzschild the cross-section is round, with $K = 1/4M^2$ in $G = c = 1$ units. Smarr found that the Kerr horizon is not round: its Gaussian curvature turns negative near the poles once $J/M^2 > \\sqrt3/2$, while its total stays $4\\pi$, as Gauss–Bonnet requires.",
+			"references": [
+				{
+					"authors": [
+						"Stephen W. Hawking"
+					],
+					"more_authors": false,
+					"year": 1972,
+					"title": "Black holes in general relativity",
+					"venue": "Communications in Mathematical Physics 25, 152–166",
+					"doi": null,
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				},
+				{
+					"authors": [
+						"Larry Smarr"
+					],
+					"more_authors": false,
+					"year": 1973,
+					"title": "Surface geometry of charged rotating black holes",
+					"venue": "Physical Review D 7, 289–295",
+					"doi": null,
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				}
+			]
+		},
+		{
+			"id": "embedding-and-quasi-local-energy",
+			"topic": "Embedding spheres and quasi-local energy",
+			"connection": "Weyl asked whether every metric on the sphere with $K > 0$ is realized by a convex surface in $\\mathbb{R}^3$, and Nirenberg proved it. Brown and York use such embeddings as the reference for the quasi-local energy inside a closed two-surface. For a round sphere of areal radius $r$ in Schwarzschild, with $G = c = 1$, their energy is $r\\,(1 - \\sqrt{1 - 2M/r})$.",
+			"references": [
+				{
+					"authors": [
+						"Louis Nirenberg"
+					],
+					"more_authors": false,
+					"year": 1953,
+					"title": "The Weyl and Minkowski problems in differential geometry in the large",
+					"venue": "Communications on Pure and Applied Mathematics 6, 337–394",
+					"doi": null,
+					"arxiv": null,
+					"kind": "paper",
+					"verified": false
+				},
+				{
+					"authors": [
+						"J. David Brown",
+						"James W. York"
+					],
+					"more_authors": false,
+					"year": 1993,
+					"title": "Quasilocal energy and conserved charges derived from the gravitational action",
+					"venue": "Physical Review D 47, 1407–1419",
+					"doi": null,
+					"arxiv": "gr-qc/9209012",
+					"kind": "paper",
+					"verified": false
+				}
+			]
+		}
+	],
+	"retired_ids": [],
+	"provenance": {
+		"source_units": [
+			"gifted-amateur/ch11",
+			"gifted-amateur/ch36",
+			"gifted-amateur/ch30"
+		],
+		"legacy_assets": [
+			"manuscript-section-8-4-8-6-flatness-count-sphere-curvature",
+			"manuscript-section-24-3-calculation-checklist"
+		]
+	}
+}

@@ -1,376 +1,609 @@
 ---
 type: "concept"
+schema_version: 2
 id: "ricci-scalar"
 title: "Ricci scalar"
+tagline: "One number for a spot: the missing fractions of three rings at right angles, added up"
 domain: "curvature"
 tier: "core"
-aliases: ["scalar curvature", "curvature scalar", "R"]
-prerequisites: ["ricci-tensor", "inverse-metric"]
-leads_to: ["einstein-tensor", "einstein-hilbert-action", "curvature-of-the-two-sphere", "curvature-of-the-flrw-metric", "trace-reversed-einstein-equations", "weyl-tensor"]
-sources: ["dinverno:ch06", "gifted-amateur:ch11", "gifted-amateur:ch13", "gifted-amateur:ch36", "legacy:design-doc-misconception-diagnostics", "legacy:lesson-a-curved-universe-capstone", "legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature", "schutz:ch06", "schutz:ch07"]
-review: "fixed"
+status: "novice-reviewed"
+revision: 2
+updated: "2026-09-13"
+aliases: ["scalar curvature", "curvature scalar"]
+prerequisites: ["circumference-to-radius-test", "ricci-tensor", "inverse-metric", "gaussian-curvature"]
+leads_to: ["einstein-tensor", "einstein-hilbert-action", "trace-reversed-einstein-equations", "weyl-tensor", "curvature-of-the-flrw-metric", "hamiltonian-constraint"]
+visuals: ["three-rings-around-a-spot", "paced-ring-on-a-ball-and-a-plain", "six-entry-curvature-table"]
 ---
 
 # Ricci scalar
 
-> The Ricci scalar is the single number left after tracing the Ricci tensor with the inverse metric, so every observer and every coordinate system agrees on its value at a point. For a sphere of radius a it equals 2 over a squared, twice the Gaussian curvature, and in four-dimensional spacetime Einstein's equation fixes it locally by the trace of the matter's energy-momentum. It is a handy but very incomplete curvature detector: it vanishes outside every black hole and throughout a radiation-filled universe, both of which are curved.
+*One number for a spot: the missing fractions of three rings at right angles, added up*
 
-## Explanations by level
+`ricci-scalar` · curvature · core · novice-reviewed (revision 2)
 
-### Intuition
+**Needs:** [[circumference-to-radius-test]] (entry) · [[ricci-tensor]] (working) · [[inverse-metric]] (working) · [[gaussian-curvature]] (working)  
+**Opens:** [[einstein-tensor]] · [[einstein-hilbert-action]] · [[trace-reversed-einstein-equations]] · [[weyl-tensor]] · [[curvature-of-the-flrw-metric]] · [[hamiltonian-constraint]]  
+**Related:** [[kretschmann-scalar]] · [[sectional-curvature]] · [[space-of-constant-curvature]] · [[trace-of-stress-energy-tensor]] · [[curvature-sign-conventions]]  
+**Visuals:** ★ [[three-rings-around-a-spot]] · [[paced-ring-on-a-ball-and-a-plain]] · [[six-entry-curvature-table]]
 
-Picture an ant on a surface that marks out a small circle by walking the same short distance from a centre point in every direction, then measures the circle's circumference. On a flat table the circumference is exactly two pi times the radius. On a globe it comes out a little short, and on a saddle or a potato-crisp shape it comes out a little long. The Ricci scalar packages that shortfall or excess into one number for each point: positive on the globe, negative on the saddle, zero on the table. Because it is built only from distances measured on the surface, the ant needs no map and no outside view, and any two ants using different maps get the same number. A smaller globe bends more sharply, so its number is larger. For a two-dimensional surface this one number tells the whole story of curvature at a point. For three-dimensional space and four-dimensional spacetime it is only a grand total over many directions, and very different curvatures can total zero: the space around a black hole has a Ricci scalar of zero even though its tides can tear things apart. Its sign is also partly a naming convention in spacetime.
+> Pick a spot in curved space and draw three small rings around it, each at right angles to the other two. Compare each ring with the length it would have where nothing is curved: one can come out short, another too long. Turning the three rings together changes how far each one is short or too long, but never their total. The Ricci scalar measures that total. Above a planet that does not spin, the total is zero, as people at rest there measure it, even though space is curved.
 
-**Picture to hold:** Small circles drawn on a globe, a table and a saddle, each with its measured circumference compared against two pi times the radius, and a colour showing positive, zero or negative scalar curvature.
+## You will be able to
 
-**Assumes:** [[curvature]], [[intrinsic-geometry]], [[circumference-to-radius-test]]
+**Entry**
+- Explain why the ring total of three rings at right angles, and not a single ring, gives one number for a spot. `objectives/explain-the-ring-total` ← `checks/rings-above-a-planet`, `checks/tip-the-cage`
+- Predict how the matter at a spot, and not the matter around it, changes the ring total. `objectives/predict-the-matter-total` ← `checks/cave-in-the-rock`, `problems/rings-in-rock`
 
-### Working
+**Working**
+- Compute the Ricci scalar from the Ricci tensor with the inverse metric, or from the curvatures of planes at right angles. `objectives/compute-the-trace` ← `checks/sphere-diagonal-sum`
+- Use the trace of Einstein's equation to find the Ricci scalar of a fluid or an expanding universe. `objectives/trace-einsteins-equation` ← `checks/radiation-universe`, `problems/today-universe`
 
-Contract the Ricci tensor with the inverse metric: R = g^{mu nu} R_{mu nu}, which amounts to tracing the Riemann tensor twice. The inverse metric is essential; summing diagonal components of R_{mu nu} is wrong except in an orthonormal frame with a Euclidean metric. For a sphere of radius a, R_{theta theta} = 1 and R_{phi phi} = sin^2 theta, and with g^{theta theta} = 1/a^2 and g^{phi phi} = 1/(a^2 sin^2 theta) you get R = 1/a^2 + 1/a^2 = 2/a^2, the same everywhere on the sphere. In two dimensions R = 2K, where K is the Gaussian curvature, and a small geodesic circle of radius s has circumference 2 pi s (1 - R s^2/12 + ...). A space of constant curvature K in n dimensions has R = n(n-1)K: 6/a^2 for a 3-sphere of radius a, 12K in four dimensions. Because R is a scalar, its value does not change between coordinate and orthonormal frames, even though Ricci components do. In spacetime, tracing Einstein's equation G_{mu nu} + Lambda g_{mu nu} = 8 pi G T_{mu nu} with g^{mu nu} (using g^{mu nu} g_{mu nu} = 4) gives R = 4 Lambda - 8 pi G T. For a perfect fluid T = -rho + 3p, so R = 8 pi G (rho - 3p) + 4 Lambda: positive for dust, zero for radiation, 4 Lambda for pure vacuum energy. For the FLRW universe R = 6(a''/a + (a'/a)^2 + k/a^2). Outside a star or black hole R = 0, yet the Kretschmann scalar is 48 M^2/r^6, so R = 0 does not mean flat.
+**Formal**
+- State how the scalar curvature scales and changes sign, and what a vanishing value fails to imply. `objectives/state-what-the-scalar-misses` ← `checks/constant-scalar-not-homogeneous`, `checks/scaling-and-sign`
+- Prove the small-ball volume law from the normal-coordinate expansion of the metric. `objectives/prove-the-volume-law` ← `problems/ball-volume-law`
 
-**Picture to hold:** A trace machine: feed in the Ricci tensor and the inverse metric, get out one invariant number per event, with calibration cards (sphere 2/a^2, dust 8 pi G rho, radiation 0, Schwarzschild 0).
+## Ways in
 
-**Assumes:** [[ricci-tensor]], [[inverse-metric]], [[gaussian-curvature]], [[scalar-invariant]], [[einstein-field-equations]]
+### 1. Three rings around one spot · entry · picture
 
-### Formal
+*How can one number describe the curving at a spot, when rings drawn there at different angles come out differently?*
 
-The Ricci scalar of a (pseudo-)Riemannian manifold (M, g) with its Levi-Civita connection is the smooth function R = g^{mu nu} R_{mu nu}, with R_{mu nu} = R^rho_{mu rho nu} in the course convention and signature (-,+,+,+). It is a (0,0) tensor, hence invariant under diffeomorphisms, and in any chart it depends on g, its first derivatives and linearly on its second derivatives. Under g -> -g it changes sign; under a constant rescaling g -> c^2 g it scales as R -> R/c^2, so it carries units of inverse length squared. Geometric meaning on a Riemannian manifold: the volume of a small geodesic ball of radius r obeys Vol = omega_n r^n [1 - R r^2/(6(n+2)) + O(r^4)], so R measures the leading-order deficit of volume relative to flat space. Dimension dependence: for n = 2, R_{mu nu rho sigma} = (R/2)(g_{mu rho} g_{nu sigma} - g_{mu sigma} g_{nu rho}) and the Einstein tensor vanishes identically; for n = 3 the trace of the Einstein tensor is -R/2; for n = 4 it is -R. A space of constant curvature, R_{mu nu rho sigma} = K(g_{mu rho} g_{nu sigma} - g_{mu sigma} g_{nu rho}), has R = n(n-1)K; an Einstein space R_{mu nu} = lambda g_{mu nu} with n > 2 has constant R = n lambda by the contracted Bianchi identity nabla_mu R^mu_nu = (1/2) nabla_nu R. Constant R is necessary but not sufficient for maximal symmetry. Under a conformal change of a 3-metric gamma = psi^4 hat-gamma, R = psi^{-4} hat-R - 8 psi^{-5} hat-D^2 psi, which makes the Hamiltonian constraint an elliptic equation for psi. R is the Lagrangian density of the Einstein-Hilbert action S = (1/16 pi G) integral (R - 2 Lambda) sqrt(-g) d^4x, whose metric variation yields G_{mu nu} + Lambda g_{mu nu} = 8 pi G T_{mu nu}. Linearized about flat space, g = eta + h, it reads R = d_mu d_nu h^{mu nu} - Box h. As a curvature detector R is weak: it vanishes for all Ricci-flat spacetimes, and even the full set of polynomial curvature invariants vanishes for plane gravitational waves.
+**Recap:** The ring test: measure out the same distance from a centre in every direction, for example with a tight string, and draw the ring through the far ends. On flat ground that ring is about 6.28 times the string, which is called its playground length. On a ball it comes out short, and near a swim ring's hole it comes out too long. The missing fraction is how far a ring falls short of its playground length, divided by that playground length. A ring that comes out too long has a negative missing fraction. Double the string, and the missing fraction becomes about four times as big.
 
-**Picture to hold:** One invariant function on spacetime sitting at the bottom of a ladder Riemann -> Ricci -> R, where each step keeps less information, and feeding upward into the Einstein-Hilbert action.
+On a ball, the ring test is done on the ball's surface. Space has no such surface, so here the rings are drawn in the space itself. Stretch tight strings of the same length from one spot, mark their far ends, and draw the ring through those marks. Strings a kilometre long are far longer than anything anyone has built, so treat all of this as a thought experiment.
 
-**Assumes:** [[ricci-tensor]], [[inverse-metric]], [[contracted-bianchi-identity]], [[space-of-constant-curvature]], [[einstein-hilbert-action]], [[conformally-related-metrics]]
+Picture a planet with Earth's mass and size, with no air and no spin. Pick a spot in the space 2 kilometres above that planet's ground. A tower reaches the spot, and you stand on it at rest relative to the planet.
 
-## Prerequisites
+From the spot, take one flat sheet of directions, like the flat top of a table passing through the spot. Stretch a tight string 1 kilometre from the spot along each direction in that sheet in turn, and mark its far end. The ring through those marks is that sheet's ring. A sheet through the spot can be angled in many ways, and how it is angled is called its tilt. Sheets at different tilts give rings that can come out differently.
 
-- [[ricci-tensor]] — The Ricci scalar is the metric trace of the Ricci tensor.
-- [[inverse-metric]] — Tracing a two-index covariant tensor requires g^{mu nu}.
+Now take three sheets at right angles to each other, and draw the ring of each, like three hoops fixed into a cage. Hold the cage so that one ring lies level, like a hoop lying on a floor. The line from the spot straight down to the planet's centre then passes through the middle of that level ring, at a right angle to it. The other two rings stand upright, like two wheels. That same line lies flat inside each upright ring, running from its top edge, through the spot, to its bottom edge.
 
-## Leads to
+Einstein's theory of gravity, which we take on trust here, says how the rings come out. The level ring comes out short. Each upright ring comes out too long, by half as much as the level ring comes out short. The amounts are tiny, so count them in parts in a billion billion. The level ring's missing fraction is about 6 parts in a billion billion, and each upright ring's missing fraction is about minus 3 parts.
 
-- [[einstein-tensor]] — The Einstein tensor subtracts half the Ricci scalar times the metric from Ricci.
-- [[einstein-hilbert-action]] — The gravitational Lagrangian density is sqrt(-g) R.
-- [[curvature-of-the-two-sphere]] — The sphere's R = 2/a^2 is the standard worked value and calibration.
-- [[curvature-of-the-flrw-metric]] — R = 6(a''/a + H^2 + k/a^2) summarises spacetime curvature of the expanding universe.
-- [[trace-reversed-einstein-equations]] — Tracing the field equation gives R = 4 Lambda - 8 pi G T, the step used to trace-reverse.
-- [[weyl-tensor]] — The scalar appears in the terms removed from Riemann to leave the Weyl tensor.
+Adding the three missing fractions gives 6 minus 3 minus 3, which is zero. That sum is called the ring total.
 
-## Related
+Now turn the whole cage. Lay an imaginary axle through the two points where the level ring crosses one upright ring, and turn the cage an eighth of a turn around that axle. Those two rings end up tipped halfway between level and upright. For a ring tipped exactly halfway, the theory gives the amount halfway between 6 parts and minus 3 parts, which is 1 and a half parts. The axle runs through the middle of the third ring at a right angle to it, so that ring only spins where it stands. Its tilt does not change, so it stays at minus 3 parts. The ring total is 1 and a half plus 1 and a half minus 3, which is zero again.
 
-- [[gaussian-curvature]] — In two dimensions R = 2K.
-- [[kretschmann-scalar]] — A different curvature invariant that stays non-zero where R vanishes, used to locate genuine singularities.
-- [[scalar-invariant]] — R is the simplest curvature scalar and the prototype of a coordinate-independent diagnostic.
-- [[space-of-constant-curvature]] — Constant curvature K gives R = n(n-1)K.
-- [[contracted-bianchi-identity]] — Relates the divergence of Ricci to the gradient of R.
-- [[circumference-to-radius-test]] — The circle circumference deficit measures R/12 in two dimensions.
-- [[coordinate-singularity]] — Invariants like R distinguish coordinate artefacts from curvature, with limits.
-- [[trace-of-stress-energy-tensor]] — In four dimensions R is fixed locally by T.
-- [[de-sitter-spacetime]] — Pure vacuum energy gives constant R = 4 Lambda = 12 H^2.
-- [[hamiltonian-constraint]] — The scalar curvature of a spatial slice enters the constraint on initial data.
-- [[curvature-sign-conventions]] — The sign of R flips with the metric signature and with the Riemann or Ricci sign choice.
+Turn the cage a quarter turn around the same axle instead, and those same two rings trade places. The ring that was level now stands upright, at minus 3 parts, and the one that was upright now lies level, at 6 parts. The third ring still reads minus 3 parts, so the ring total is zero once more.
+
+Turn the cage any other way and the ring total is the same, which we take on trust here. So the ring total belongs to the spot, not to the way you hold the cage. The number that measures it is called the Ricci scalar of space at that spot. It is positive where the three rings come out short in total, and negative where they come out too long.
+
+At this spot the Ricci scalar of space is zero, yet space here is curved: not one of the three rings has its playground length. The level ring is short by 6 parts in a billion billion. That ring is 6.3 kilometres long, and the whole of it is short by less than a thousandth of the width of an atom. So nobody notices.
+
+**Try it:** Cut three strips of card, bend each into a hoop, and tape them into a cage with each hoop at right angles to the other two. Hold the cage with one hoop level. Pick an upright hoop, and lay a pencil across the cage so that it touches the two points where the level hoop crosses that upright hoop. Hold the pencil still and turn the cage an eighth of a turn around it. You should see those two hoops end up halfway between level and upright, while the third hoop only spins where it stands.
+
+**Takeaway:** Around one spot, small rings at different tilts can come out short or too long. Take three rings at right angles, and the total of their missing fractions is the same however you turn them. The Ricci scalar measures that ring total.
+
+*What this leaves out:* The zero total and the halfway amount hold exactly only for strings far shorter than the distance to the planet's centre; with 1-kilometre strings the difference is far too small to matter.
+
+*Builds on:* [[circumference-to-radius-test]]<br>*Visuals:* [[three-rings-around-a-spot]]<br>*See:* `checks/tip-the-cage`
+
+### 2. Matter right there sets the total · entry · operational
+
+*What decides the ring total when matter fills the spot?*
+
+**Recap:** Draw three small rings around one spot, each at right angles to the other two, with tight strings of the same length. Compare each ring with its playground length, about 6.28 times the string, and count its missing fraction in parts in a billion billion. A ring that comes out too long counts as negative. Adding the three missing fractions gives the ring total. Turning the three rings together changes how each ring comes out, but never the ring total. The Ricci scalar of space at the spot measures that total.
+
+In "Three rings around one spot" the rings sat in empty space above a planet, and their ring total was zero. Now put matter at the spot itself.
+
+Picture a huge, still ocean on a planet that does not spin. Divers hang at rest in the water, 3 kilometres down, with the same cage of three rings and strings 1 kilometre long. Every ring stays in the water.
+
+This time the ring total is not zero. The three rings together come out short, by about 3 parts in a billion billion.
+
+Einstein's theory, taken on trust here, says what sets the ring total. The water, the divers and the planet are all at rest relative to one another, and nothing changes with time. In such a place the ring total at a spot is set only by the mass in each cubic metre right at that spot.
+
+So the water at the spot decides the ring total. The rest of the planet still changes how each single ring comes out, but it cannot change the ring total. Put twice as much mass in each cubic metre, and the ring total doubles. In rock that holds three times as much mass in each cubic metre as water, the ring total is three times as big.
+
+Now picture a cave in that rock, wide enough for the whole cage, with its air pumped out. At a spot in the middle of the cave the ring total is zero again, because no matter is there.
+
+The amounts stay tiny. All three rings together fall short by less than a thousandth of the width of an atom, so nobody notices.
+
+**Takeaway:** Where matter is at rest and nothing changes with time, the ring total at a spot is set by the mass in each cubic metre right there. Nothing farther away changes that total.
+
+*What this leaves out:* This holds for ordinary matter at rest, measured by people at rest in it, where nothing changes with time. Where matter moves relative to those people, the motion changes the ring total as well. In a universe whose galaxies grow farther apart, the mass at the spot does not fix the total either.
+
+*Continues:* `ways_in/three-rings-around-one-spot`<br>*Builds on:* [[circumference-to-radius-test]]<br>*Visuals:* [[three-rings-around-a-spot]]<br>*See:* `checks/cave-in-the-rock`, `problems/rings-in-rock`
+
+### 3. Trace the Ricci tensor with the inverse metric · working · calculation
+
+*How is the Ricci scalar computed, and why does the ring total not depend on the tilt of the cage?*
+
+The ring total of "Three rings around one spot" did not depend on the tilt of the cage, which is the mark of a trace. The Ricci scalar is the trace of the Ricci tensor $R_{\mu\nu} = R^\rho{}_{\mu\rho\nu}$:
+
+$$R = g^{\mu\nu}R_{\mu\nu}.$$
+
+A trace pairs an upper index with a lower one, so one index of $R_{\mu\nu}$ must first be raised with the inverse metric. No index is left free, so $R$ is a scalar: every coordinate system and every frame give the same value at a point. In an orthonormal frame of a positive-definite metric the inverse metric is the identity, and the trace is the plain diagonal sum $\sum_iR_{\hat\imath\hat\imath}$; in other frames the plain sum generally gives a different number. An orthonormal frame of spacetime has $g^{\hat0\hat0} = -1$, which puts a minus sign on the time entry.
+
+To tie the trace to rings, take an $n$-dimensional space with a positive-definite metric and an orthonormal basis $e_1, \dots, e_n$ at a point. The geodesics leaving that point tangent to the plane of $e_i$ and $e_j$ sweep out a small surface, whose Gaussian curvature at the point is the sectional curvature $K(e_i, e_j)$. The derivation "Sum over planes" gives
+
+$$R = 2\sum_{i<j}K(e_i, e_j).$$
+
+The left side does not depend on the basis, so neither does the sum. In two dimensions there is one plane, so $R = 2K$. A space of constant curvature $K$ has $n(n-1)/2$ planes, so $R = n(n-1)K$, which is $6/a^2$ for a round 3-sphere of radius $a$.
+
+Each ring of the entry picture is a geodesic circle of radius $s$ in one of these planes, and its missing fraction is $Ks^2/6$. So in three dimensions the three rings miss a total fraction
+
+$$\frac{s^2}{6}\big(K_{12} + K_{13} + K_{23}\big) = \frac{R\,s^2}{12}$$
+
+to leading order in $s$: the tilt-independent ring total.
+
+In the space around a static spherical mass $M$, as measured by observers at rest, the plane across the radial direction has $K = 2GM/c^2r^3$, and each plane containing that direction has $K = -GM/c^2r^3$, stated here without derivation. These three add to zero, so $R = 0$ outside the mass. At Earth's surface $GM/c^2r^3 = 1.72\times10^{-23}\ \mathrm{m^{-2}}$, so a level ring with $s = 1$ km has missing fraction $5.7\times10^{-18}$, the entry picture's 6 parts in a billion billion.
+
+**Takeaway:** The Ricci scalar is the Ricci tensor traced with the inverse metric, and in a positive-definite space it is twice the sum of the curvatures of any set of planes at right angles.
+
+*What this leaves out:* The ring law keeps only the leading order in the string length.
+
+*Continues:* `ways_in/three-rings-around-one-spot`<br>*Builds on:* [[ricci-tensor]], [[inverse-metric]], [[gaussian-curvature]], [[circumference-to-radius-test]]<br>*Visuals:* [[paced-ring-on-a-ball-and-a-plain]]<br>*See:* `derivations/plane-sum-rule`, `worked_examples/sphere-in-two-frames`, `checks/sphere-diagonal-sum`
+
+### 4. What matter fixes in spacetime · working · operational
+
+*What fixes the Ricci scalar of spacetime, and what value do cosmologists measure for it today?*
+
+The divers in "Matter right there sets the total" found that the matter at a spot fixes the ring total of the space around them. Spacetime has a Ricci scalar too, the trace $R = g^{\mu\nu}R_{\mu\nu}$ of its four-dimensional Ricci tensor, and matter fixes it through Einstein's equation, taken on trust here:
+
+$$R_{\mu\nu} - \tfrac12Rg_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4}T_{\mu\nu}.$$
+
+The derivation "Trace the field equation" contracts this with $g^{\mu\nu}$ one move at a time and reaches
+
+$$R = 4\Lambda - \frac{8\pi G}{c^4}T = \frac{8\pi G}{c^2}\Big(\rho - \frac{3p}{c^2}\Big) + 4\Lambda,$$
+
+the second form holding for a perfect fluid of mass density $\rho$ and pressure $p$. The relation is algebraic, so $R$ at an event is fixed by the matter at that event alone.
+
+- Water, whose pressure is negligible here: $R = 8\pi G\rho/c^2 = 1.87\times10^{-23}\ \mathrm{m^{-2}}$. The divers' rings read the spatial value ${}^{(3)}R = 16\pi G\rho/c^2$, twice as large, because a slice of a static spacetime carries a scalar curvature of its own. The way "What the scalar curvature fixes and misses" gets that value from the Gauss equation on a time-symmetric slice, which every static slice is.
+- Radiation, with $p = \rho c^2/3$: $R = 0$, although it carries energy and curves spacetime.
+- Vacuum energy alone: $R = 4\Lambda$.
+- Empty space with $\Lambda = 0$: $R = 0$, as outside every star and black hole.
+
+Cosmologists read today's value from the expansion. For a spatially flat universe with scale factor $a(t)$, $R = (6/c^2)(\ddot a/a + \dot a^2/a^2)$, stated here without derivation. With the Hubble rate $H = \dot a/a$ and the deceleration parameter $q = -\ddot a\,a/\dot a^2$ this is $R = 6H^2(1-q)/c^2$. The microwave-background values $H_0 = 67.4\ \mathrm{km\,s^{-1}\,Mpc^{-1}}$, with $1\ \mathrm{Mpc} = 3.086\times10^{22}$ m, and the density fractions $\Omega_{\rm m} = 0.315$ and $\Omega_\Lambda = 0.685$ give $q_0 = \Omega_{\rm m}/2 - \Omega_\Lambda = -0.53$ and $R_0 = 4.9\times10^{-52}\ \mathrm{m^{-2}}$, about 90 per cent of it from $\Lambda$. The trace formula agrees.
+
+The comoving slices of that universe carry almost no scalar curvature of their own, yet $R_0$ is not zero. Motion enters the spacetime total, which is why the entry rung keeps to matter at rest.
+
+**Takeaway:** Tracing Einstein's equation ties the spacetime Ricci scalar at each event to the matter there: density counts once, pressure three times with the opposite sign, and the cosmological constant adds a fixed amount.
+
+*What this leaves out:* Uses a perfect fluid, and for today's value a spatially flat universe with radiation left out, which does not change the scalar.
+
+*Continues:* `ways_in/matter-right-there-sets-the-total`, `ways_in/trace-with-the-inverse-metric`<br>*Builds on:* [[ricci-tensor]], [[tensor-contraction]]<br>*Visuals:* [[six-entry-curvature-table]]<br>*See:* `derivations/trace-the-field-equation`, `observations/today-universe-scalar`, `checks/radiation-universe`, `problems/today-universe`, `ways_in/scalar-curvature-on-a-manifold`
+
+### 5. What the scalar curvature fixes and misses · formal · structure
+
+*What does the scalar curvature determine on a manifold, and what can it not certify?*
+
+The trace $R = g^{\mu\nu}R_{\mu\nu}$ of "Trace the Ricci tensor with the inverse metric" is defined on any $n$-dimensional pseudo-Riemannian manifold $(M, g)$ with its Levi-Civita connection; set $G = c = 1$. Writing $\mathrm{Ric}(Y,Z) = \operatorname{tr}\big(X \mapsto \mathcal R(X,Z)Y\big)$, the scalar curvature is the smooth function $R = \operatorname{tr}_g\mathrm{Ric} = g^{\mu\nu}R_{\mu\nu}$. Raising an index needs a metric, so unlike $\mathrm{Ric}$ it is not defined for a bare affine connection.
+
+*Invariance and scaling.* For a diffeomorphism $\varphi$, the scalar curvature of $\varphi^*g$ is $R\circ\varphi$, so $R$ carries no coordinate information. In a chart it depends on $g$, on its first derivatives, and linearly on its second derivatives. Under $g \to \lambda^2g$ with constant $\lambda > 0$, and under $g \to -g$, the Christoffel symbols are unchanged, and with them $R^\rho{}_{\sigma\mu\nu}$ and $R_{\mu\nu}$; only $g^{\mu\nu}$ changes, by $\lambda^{-2}$ or by $-1$. So $R$ has dimensions of inverse length squared, and its sign for a given spacetime is fixed only once the signature is fixed.
+
+*Dimension.* For $n = 2$, $R_{\mu\nu\rho\sigma} = \tfrac R2(g_{\mu\rho}g_{\nu\sigma} - g_{\mu\sigma}g_{\nu\rho})$: the scalar is the whole curvature, and $R_{\mu\nu} - \tfrac12Rg_{\mu\nu}$ vanishes identically. For $n = 3$ the Ricci tensor and the metric determine the Riemann tensor. For $n \ge 3$ the contracted Bianchi identity $\nabla^\mu R_{\mu\nu} = \tfrac12\nabla_\nu R$ makes $R = n\lambda$ constant on a connected manifold for every Einstein metric $\mathrm{Ric} = \lambda g$. The converse fails: constant $R$ implies neither the Einstein condition nor homogeneity.
+
+*Volumes.* In Riemannian normal coordinates at $p$, $\sqrt{\det g} = 1 - \tfrac16R_{ij}x^ix^j + O(|x|^3)$. Below the injectivity radius the geodesic ball is the coordinate ball, and integrating gives
+
+$$\mathrm{Vol}\,B_r(p) = \omega_nr^n\Big[1 - \frac{R(p)\,r^2}{6(n+2)} + O(r^4)\Big],$$
+
+with $\omega_n$ the volume of the unit ball in $\mathbb R^n$; the geodesic sphere's area carries the factor $1 - R\,r^2/6n$ instead. Positive $R$ at a point means small balls around it hold less volume than flat balls of the same radius. Lorentzian signature has no such balls, so this reading does not carry over directly, although small causal diamonds do carry curvature information.
+
+*Initial data.* Let $\Sigma$ be a spacelike hypersurface with unit normal $n^\mu$, extrinsic curvature $K_{ij}$ and intrinsic scalar curvature ${}^{(3)}R$. The Gauss equation gives the Hamiltonian constraint ${}^{(3)}R + K^2 - K_{ij}K^{ij} = 2G_{\mu\nu}n^\mu n^\nu$, which Einstein's equation with $\Lambda = 0$ sets equal to $16\pi T_{\mu\nu}n^\mu n^\nu$. On a time-symmetric slice, where $K_{ij} = 0$, this reads ${}^{(3)}R = 16\pi T_{\mu\nu}n^\mu n^\nu$, and the two scalars differ by ${}^{(3)}R - R = 2R_{\mu\nu}n^\mu n^\nu$. Every static slice is time-symmetric, which is the case the entry rings measure. Non-negative energy density then gives ${}^{(3)}R \ge 0$, the hypothesis of the positive mass theorem.
+
+*Action.* $R$ is the Lagrangian of the Einstein-Hilbert action $S = \tfrac1{16\pi}\int(R - 2\Lambda)\sqrt{-g}\,d^4x$, whose metric variation gives $G_{\mu\nu} + \Lambda g_{\mu\nu} = 8\pi T_{\mu\nu}$. Second derivatives of the metric enter $R$ linearly and gather into a total divergence, so the field equations stay second order.
+
+*Limits.* In four dimensions $R$ is one function against the Riemann tensor's twenty. It vanishes on every Ricci-flat metric, the curved Schwarzschild exterior included. For a plane gravitational wave every polynomial curvature invariant vanishes. So in Lorentzian signature neither a vanishing $R$ nor vanishing polynomial invariants can certify flatness.
+
+**Takeaway:** Scalar curvature is the metric trace of Ricci and scales as inverse length squared. It fixes the volume deficit of small balls and, on a time-symmetric slice, the energy density; alone it certifies neither flatness nor homogeneity.
+
+*What this leaves out:* Assumes smooth metrics, and the volume law holds below the injectivity radius.
+
+*Continues:* `ways_in/trace-with-the-inverse-metric`, `ways_in/what-matter-sets-in-spacetime`<br>*Builds on:* [[riemann-tensor-in-normal-coordinates]], [[levi-civita-connection]]<br>*See:* `problems/ball-volume-law`, `checks/constant-scalar-not-homogeneous`, `checks/scaling-and-sign`
+
+## Glossary
+
+| Term | Say | In plain words | Concept |
+| --- | --- | --- | --- |
+| ring test | — | Measure out the same distance from a centre in every direction with a tight string, draw the ring through the far ends, and compare its length with its playground length. | [[circumference-to-radius-test]] |
+| playground length | — | The length a ring would have where nothing is curved: about 6.28 times the distance measured out from the centre. | — |
+| missing fraction | — | How far a ring falls short of its playground length, divided by that playground length. Too long counts as negative. | [[circumference-to-radius-test]] |
+| ring total | — | The missing fractions of three rings around one spot, each at right angles to the other two, added together. A ring that comes out too long counts as negative. | [[ricci-scalar]] |
+| tilt | — | A flat sheet of directions through a spot can be angled in many ways, like the top of a box or one of its sides. How such a sheet is angled is called its tilt. | [[sectional-curvature]] |
+| curved | — | Space or a surface is curved at a spot when small rings drawn there do not all have their playground length. | [[curvature]] |
+| Ricci scalar | REE-chee SKAY-ler | One number at each spot of space. It measures the ring total there: the missing fractions of three small rings around the spot, each at right angles to the other two, added up, whatever their tilt. Scalar means a single number. | [[ricci-scalar]] |
+| Ricci tensor | REE-chee TEN-ser | A table of numbers kept at each place, made from the bigger table that describes the curving there. Let go of a small ball of crumbs at rest inside a cabin falling freely: the Ricci tensor gives the total of the amounts by which those crumbs drift apart or together. | [[ricci-tensor]] |
 
 ## Key equations
 
-### Definition
+### Ricci scalar · working
 
 $$
-R = g^{\mu\nu}R_{\mu\nu} = g^{\mu\nu}g^{\alpha\beta}R_{\alpha\mu\beta\nu}
+R = g^{\mu\nu}R_{\mu\nu} = g^{\mu\nu}R^\rho{}_{\mu\rho\nu}
 $$
 
-Trace the Ricci tensor with the inverse metric; equivalently a double contraction of Riemann. The result is a scalar field. *(SCH ch06 §6.6 Eq. 6.92 p.162; GA ch11 §11.5 eqn 11.27 p.127; DIV ch06 §6.12 (6.85) p.106)*
+The Ricci scalar is the trace of the Ricci tensor, taken with the inverse metric.
 
-**Convention:** Signature (-,+,+,+) and Ricci on the first and third Riemann slots; in (+,-,-,-) the same spacetime has the opposite sign of R.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $R$ | the Ricci scalar, in inverse length squared | the Ricci scalar |
+| $g^{\mu\nu}$ | the inverse metric | the inverse metric |
+| $R_{\mu\nu}$ | the Ricci tensor in the course contraction | the Ricci tensor |
 
-### Sphere of radius a
+**Holds when:** Any metric with its Levi-Civita connection, in the course contraction, so a sphere of radius $a$ has $R = +2/a^2$.  
+**Say it:** “The Ricci scalar is the Ricci tensor traced with the inverse metric.”  
+**Justified by:** `stated`
 
-$$
-R = g^{\theta\theta}R_{\theta\theta} + g^{\phi\phi}R_{\phi\phi} = \frac{1}{a^2} + \frac{\sin^2\theta}{a^2\sin^2\theta} = \frac{2}{a^2}
-$$
-
-Constant over the sphere and larger for smaller spheres; the same value in orthonormal and coordinate frames. *(GA ch11 Example 11.8 eqn 11.36 p.128; GA ch36 Example 36.4 p.381; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
-
-**Convention:** A positive-definite metric: the value is +2/a^2 in all three books.
-
-### Two dimensions: scalar curvature and Gaussian curvature
+### Sum over planes at right angles · working
 
 $$
-R = 2K,\qquad R_{\mu\nu\rho\sigma} = \frac{R}{2}\left(g_{\mu\rho}g_{\nu\sigma} - g_{\mu\sigma}g_{\nu\rho}\right),\qquad C(s) = 2\pi s\left(1 - \frac{R\,s^2}{12} + \dots\right)
+R = 2\sum_{i<j}K(e_i, e_j)
 $$
 
-On a surface one number fixes the whole curvature tensor; the circumference of a small geodesic circle falls short of 2 pi s by an amount set by R. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature; GA ch36 Example 36.4 p.381)*
+In a space with a positive-definite metric, the Ricci scalar is twice the sum of the sectional curvatures of the planes spanned by any orthonormal basis.
 
-**Convention:** K here is Gaussian curvature, not the Kretschmann scalar or a tidal matrix.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $e_1, \dots, e_n$ | an orthonormal basis at the point | the basis vectors |
+| $K(e_i, e_j)$ | sectional curvature of the plane of $e_i$ and $e_j$ | the curvature of that plane |
 
-### Constant curvature in n dimensions
+**Holds when:** Positive-definite metric; any orthonormal basis at the point. Gives $R = 2K$ for $n = 2$ and $R = n(n-1)K$ at constant curvature.  
+**Say it:** “The Ricci scalar is twice the sum of the curvatures of the planes spanned by an orthonormal basis.”  
+**Justified by:** `derivations/plane-sum-rule`
 
-$$
-R_{\mu\nu} = (n-1)K\,g_{\mu\nu},\qquad R = n(n-1)K\quad(\;{}^{(3)}R = 6K,\ \ R_{4D} = 12K\;)
-$$
-
-A maximally symmetric space is summarised by one constant; the factor grows with dimension. *(GA ch16 §16.1 eqn 16.4 p.170; DIV ch25 §25.9 (25.57) p.527; GA ch49 §49.7 eqn 49.48 p.540)*
-
-**Convention:** d'Inverno writes K = R/12 in four dimensions with signature (+,-,-,-), so its de Sitter K and R are negative; in the course de Sitter has K = H^2 > 0.
-
-### Trace of Einstein's equation
+### Total missing fraction of three rings · working
 
 $$
-R = 4\Lambda - 8\pi G\,T,\qquad T = g^{\mu\nu}T_{\mu\nu} = -\rho + 3p\ \text{(perfect fluid)}
+\sum_{\text{3 rings}}\frac{2\pi s - C}{2\pi s} = \frac{R\,s^2}{12} + O(s^3)
 $$
 
-In four dimensions the scalar curvature at an event is set algebraically by the local trace of energy-momentum: 8 pi G rho for dust, zero for radiation, 4 Lambda for vacuum energy. *(GA ch13 Example 13.5 p.148; GA ch13 §13.4 p.148; legacy:lesson-a-curved-universe-capstone)*
+In three dimensions the missing fractions of three small geodesic circles in planes at right angles add up to the Ricci scalar times the radius squared over twelve.
 
-**Convention:** Gifted Amateur writes R = -8 pi G T with Lambda = 0. Restore c^4 in 8 pi G/c^4.
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $s$ | geodesic radius of each circle, the string length | the string length |
+| $C$ | length of each circle, measured along it | the ring length |
 
-### FLRW scalar curvature
+**Holds when:** Three-dimensional Riemannian space; circles in three mutually orthogonal planes through the point; leading order in $s$.  
+**Say it:** “The missing fractions of the three rings add up to the Ricci scalar times the string length squared, over twelve.”  
+**Justified by:** `derivations/plane-sum-rule`
 
-$$
-R = 6\left(\frac{\ddot a}{a} + \frac{\dot a^2}{a^2} + \frac{k}{a^2}\right)
-$$
-
-Spacetime curvature of the expanding universe; non-zero even when k = 0, so a spatially flat universe is not flat spacetime. *(GA ch15 Example 15.3 eqn 15.27 p.165; GA ch16 §16.1 p.171; GA ch16 §16.2 p.174; GA ch36 Example 36.5 p.383)*
-
-**Convention:** Gifted Amateur's margin prints 2k/a in the spatial Ricci component; the correct 2k/a^2 is needed for this trace.
-
-### Contracted Bianchi identity
+### Trace of Einstein's equation · working
 
 $$
-\nabla_\mu R^\mu{}_\nu = \tfrac12\,\nabla_\nu R
+R = 4\Lambda - \frac{8\pi G}{c^4}T = \frac{8\pi G}{c^2}\Big(\rho - \frac{3p}{c^2}\Big) + 4\Lambda
 $$
 
-Twice the divergence of Ricci is the gradient of the scalar curvature; this is what makes R_{mu nu} - (1/2) R g_{mu nu} divergence-free. *(GA ch13 §13.3 eqn 13.29 p.146; SCH ch06 §6.6 Eq. 6.97 p.163)*
+In four dimensions the spacetime Ricci scalar at an event is fixed by the trace of the energy-momentum tensor there.
 
-### Einstein-Hilbert action
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $T$ | trace $g^{\mu\nu}T_{\mu\nu}$ of the energy-momentum tensor | the trace of the energy-momentum tensor |
+| $\rho,\ p$ | mass density and pressure of a perfect fluid | the density and the pressure |
+| $\Lambda$ | the cosmological constant | lambda |
+
+**Holds when:** Einstein's equation in the course convention, four dimensions, $x^0 = ct$; the second form for a perfect fluid.  
+**Say it:** “R equals four lambda minus eight pi G over c to the fourth, times the trace of the energy-momentum tensor.”  
+**Justified by:** `derivations/trace-the-field-equation`
+
+### Volume of a small geodesic ball · formal
 
 $$
-S = \frac{1}{16\pi G}\int (R - 2\Lambda)\sqrt{-g}\,d^4x + S_{\mathrm{matter}}
+\mathrm{Vol}\,B_r(p) = \omega_n r^n\left[1 - \frac{R(p)\,r^2}{6(n+2)} + O(r^4)\right]
 $$
 
-The scalar curvature, weighted by the invariant volume element, is the simplest gravitational Lagrangian; varying the metric gives Einstein's equation. *(GA ch40 §40.4 eqn 40.36 p.434; DIV ch13 §13.3 (13.7) p.220; legacy:manuscript-chapter-14-einstein-hilbert-action)*
+Positive scalar curvature makes small geodesic balls hold less volume than flat balls of the same radius.
 
-**Convention:** d'Inverno, in (+,-,-,-), writes the density (R + 2 Lambda) sqrt(-g) + 2 kappa L_M; the flipped sign of R is matched by its matter Lagrangian convention. In SI with x^0 = ct the prefactor is c^3/(16 pi G).
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $\omega_n$ | volume of the unit ball in $\mathbb R^n$ | the volume of the flat unit ball |
+| $r$ | geodesic radius of the ball | the radius |
 
-## Conventions across the books
+**Holds when:** Smooth Riemannian manifold of dimension $n$; $r$ below the injectivity radius at $p$.  
+**Say it:** “The volume of a small ball is the flat volume times one minus the Ricci scalar times r squared, over six times n plus two.”  
+**Justified by:** `riemann-tensor-in-normal-coordinates`
 
-| Issue | Schutz | Gifted Amateur | d'Inverno | Course choice |
-| --- | --- | --- | --- | --- |
-| Sign of R for Lorentzian spacetimes (signature dependence) | (-,+,+,+) with MTW Riemann and Ricci (ch06 §6.6 p.162); a sphere has positive R. | (-,+,+,+); de Sitter has K = +1/alpha^2 and R > 0 (ch49 §49.7 p.540). | (+,-,-,-). Same Riemann and Ricci conventions, so R = g^ab R_ab has the opposite sign for the same spacetime (dust gives R < 0); ch25 relates K = R/12 but labels the positive-K case de Sitter, inconsistent with its own signature (p.527). | (-,+,+,+): dust R = +8 pi G rho, de Sitter R = +4 Lambda. Quote the signature whenever a sign of R is stated. |
-| Name and symbol clashes | 'Ricci scalar' R (Eq. 6.92); in cosmology R(t) is the scale factor (ch13 §13.2 p.423). | 'Ricci scalar' R; scale factor a(t); in ch21 R also names an areal-radius function and a stellar radius. | 'curvature scalar or Ricci scalar' R (6.85); R(t) is the scale factor in ch24-26, overloaded with the Ricci scalar in §25.9. | R is reserved for the Ricci scalar; the scale factor is a(t); spatial scalar curvature is written ^(3)R. |
-| Trace relation between R and matter | Not written out in the cited Schutz units; its (-,+,+,+) signature and MTW curvature conventions give the course relation and dust R > 0. | R = -8 pi G T with signature (-,+,+,+), so dust (T = -rho) has R = +8 pi G rho (ch13 §13.4 p.148). | Field equations G_ab = 8 pi T_ab with (+,-,-,-): the same trace relation holds, but dust has T = +rho, giving R = -8 pi rho (G = 1). | R = 4 Lambda - 8 pi G T with T = -rho + 3p for a perfect fluid. |
-| Sign of the Lambda term in the Lagrangian density | No action principle in the Schutz units cited for this concept. | S_EH = integral d^4x sqrt(-g) R (eqn 40.36 p.434), without a Lambda term in that equation. | L = (R + 2 Lambda) sqrt(-g) + 2 kappa L_M (13.7 p.220), matching its G_ab - Lambda g_ab = 8 pi T_ab. | (1/16 pi G)(R - 2 Lambda) sqrt(-g), matching G + Lambda g = 8 pi G T. |
-| Sign of the induced spatial metric used for the scalar curvature of a slice | Uses a positive-definite 3-metric and the trace of the 3D Einstein tensor, G = -R/2, to impose constant curvature (ch13 §13.2 p.424). | Positive-definite spatial metric gamma: ^(3)R = 6K for a constant-curvature 3-space (ch16 eqn 16.4 p.170). | The induced metric h_ab inherits the negative spatial signs of (+,-,-,-); switching to gamma = -h flips ^(3)R, and the dossier flags a resulting sign inconsistency in the Hamiltonian constraint (ch14 §14.4 p.244, §14.11 p.254). | Always compute ^(3)R with the positive-definite induced metric gamma_ij: a 3-sphere of radius a has ^(3)R = 6/a^2, and the Hamiltonian constraint reads ^(3)R + (K^i_i)^2 - K_ij K^ij = 16 pi G rho. |
-| Which trace formula is displayed | Trace of Ricci with the inverse metric, also displayed as a double contraction of the all-lower Riemann tensor (Eq. 6.92). | R = g^{mu nu} R_{mu nu} in ch11 (eqn 11.27) and R = g_{mu nu} R^{mu nu} in ch13 (eqn 13.7); equivalent. | R = g^ab R_ab (6.85). | R = g^{mu nu} R_{mu nu}; any placement works provided one index is up and one down in each contracted pair. |
+## Derivations
 
-## How the sources teach it
+### Sum over planes · working
 
-### schutz
+**Goal:** Show that $R = 2\sum_{i<j}K(e_i,e_j)$ for any orthonormal basis of a positive-definite space, and find the total missing fraction of three small rings.
 
-**Route:** Defines the scalar in one line right after the Ricci tensor, also as a double contraction of Riemann, and uses it immediately when contracting the Bianchi identities twice to reach the Einstein tensor. In ch07 the scalar reappears as the ingredient of a rival conservation law that agrees with special relativity yet would let curvature create particles, illustrating why the equivalence principle needs care. Later (ch13) a constant curvature scalar is imposed on a spherically symmetric 3-metric to derive the homogeneous cosmological spatial metric.
+1. In an orthonormal basis $g^{\hat\imath\hat\jmath} = \delta^{ij}$, so $R = \sum_iR_{\hat\imath\hat\imath}$.
+2. The course contraction gives $R_{\hat\imath\hat\imath} = \sum_jR^{\hat\jmath}{}_{\hat\imath\hat\jmath\hat\imath} = \sum_jR_{\hat\jmath\hat\imath\hat\jmath\hat\imath}$, since lowering changes nothing in this basis.
+3. The term $j = i$ vanishes, because the Riemann tensor is antisymmetric in its last two indices.
+4. Antisymmetry in each index pair gives $R_{\hat\jmath\hat\imath\hat\jmath\hat\imath} = R_{\hat\imath\hat\jmath\hat\imath\hat\jmath}$, which is the sectional curvature $K(e_i, e_j)$ of the course convention, its denominator being $1$ here.
+5. So $R = \sum_i\sum_{j\ne i}K(e_i,e_j) = 2\sum_{i<j}K(e_i,e_j)$. The left side is a scalar, so the sum is the same for every orthonormal basis.
+6. In three dimensions the small-ring law gives the circle of geodesic radius $s$ in the plane of $e_i$ and $e_j$ a missing fraction $K(e_i,e_j)s^2/6$.
+7. Adding the three circles gives $\tfrac{s^2}{6}(K_{12} + K_{13} + K_{23}) = \tfrac{s^2}{6}\cdot\tfrac R2 = \tfrac{Rs^2}{12}$.
 
-**Representation:** Component definitions and index manipulation in ch06; physical arguments in ch07; a derivation reusing stellar-structure formulas in ch13.
+**Result:** $R = 2\sum_{i<j}K(e_i,e_j)$, so $R = 2K$ in two dimensions and $R = n(n-1)K$ at constant curvature; three rings at right angles miss a total fraction $Rs^2/12$ to leading order.
 
-**Strengths:** Shows R as a working part of the divergence-free Einstein tensor, and the ch13 derivation is an elegant use of a single scalar condition.
+### Trace the field equation · working
 
-**Weaknesses:** No geometric meaning or worked value appears where R is defined (the sphere value is left to the reader), and the ch13 claim that a constant scalar suffices for homogeneity is not proven. *(SCH ch06 §6.6 Eq. 6.92 p.162; SCH ch06 §6.6 p.163; SCH ch07 §7.1 p.173; SCH ch13 §13.2 p.424)*
+**Goal:** Express the spacetime Ricci scalar through the matter at an event by tracing Einstein's equation.
 
-### gifted-amateur
+1. Start from Einstein's equation in the course convention, $R_{\mu\nu} - \tfrac12Rg_{\mu\nu} + \Lambda g_{\mu\nu} = \dfrac{8\pi G}{c^4}T_{\mu\nu}$, taken on trust.
+2. Contract with $g^{\mu\nu}$, using $g^{\mu\nu}R_{\mu\nu} = R$, $g^{\mu\nu}g_{\mu\nu} = \delta^\mu{}_\mu = 4$ and $T = g^{\mu\nu}T_{\mu\nu}$: this gives $R - 2R + 4\Lambda = \dfrac{8\pi G}{c^4}T$.
+3. Solve for the scalar: $R = 4\Lambda - \dfrac{8\pi G}{c^4}T$.
+4. For a perfect fluid $T^{\mu\nu} = (\rho + p/c^2)u^\mu u^\nu + pg^{\mu\nu}$, and $u_\mu u^\mu = -c^2$ gives $T = -(\rho c^2 + p) + 4p = -\rho c^2 + 3p$.
+5. Substitute: $R = \dfrac{8\pi G}{c^2}\Big(\rho - \dfrac{3p}{c^2}\Big) + 4\Lambda$.
 
-**Route:** Introduces the scalar in ch11 as a further contraction of Ricci, reminding readers that the metric must be used for a trace, and computes the sphere's value 2/a^2. Ch13 recaps it, shows that the rejected Ricci-equals-matter guess would force R to be constant, and traces the correct field equation to get R = -8 pi G T. Ch15 and ch36 compute R for the expanding universe and stress that it is the same in orthonormal and coordinate frames. Ch26 uses invariants to show a horizon is not a curvature singularity, and ch40 makes R the Lagrangian of the Einstein-Hilbert action.
-
-**Representation:** Worked component calculations, orthonormal frames and Cartan forms, trace manipulations, and margin reference tables.
-
-**Strengths:** Concrete values early, explicit frame independence, and the trace trick that makes vacuum and radiation cases immediate.
-
-**Weaknesses:** Does not connect 2/a^2 to Gaussian curvature, angle excess or circle deficits; the printed Robertson-Walker Ricci component carries a 2k/a typo; the warning that R = 0 does not mean flat is left implicit. *(GA ch11 §11.5 p.127; GA ch11 Example 11.8 p.128; GA ch13 §13.3 p.146; GA ch13 Example 13.5 p.148; GA ch15 Example 15.3 p.164; GA ch36 Example 36.4 p.381; GA ch26 §26.1 p.273; GA ch40 §40.4 p.434)*
-
-### dinverno
-
-**Route:** Ch06 names it 'curvature scalar or Ricci scalar' in one line as the final contraction before defining the Einstein tensor. The scalar then serves many later purposes: the Lagrangian with cosmological term in ch13, the conformal transformation of a slice's scalar curvature in the ch14 initial-data method, a coordinate-independent test of singularities in ch17, and the constant-curvature relation K = R/12 in ch25.
-
-**Representation:** Terse boxed definitions, variational formulae, and invariant-based arguments.
-
-**Strengths:** Shows the breadth of roles one scalar plays, from actions to numerical-relativity initial data and singularity diagnosis.
-
-**Weaknesses:** No geometric meaning or example value in ch06; the (+,-,-,-) signature gives signs of R opposite to most modern texts; R collides with the scale factor R(t); sign slips appear for the de Sitter constant and for ^(3)R with the flipped induced metric. *(DIV ch06 §6.12 p.106; DIV ch13 §13.3 p.220; DIV ch14 §14.12 p.258; DIV ch17 §17.2 p.323; DIV ch25 §25.9 p.527)*
-
-### legacy
-
-**Route:** The earlier course computes the sphere's Ricci tensor and scalar, uses R = 2/a^2 to fix the sign convention, and shows the circumference deficit of geodesic circles. Its Ricci/Weyl chapter states the one-way implication chain Riemann = 0 implies Ricci = 0 implies R = 0. A diagnostic task contrasts N(z) = 1 + az/c^2 (flat) with N = e^{kz} (R = -2k^2), and the cosmology capstone gives R = 4/(3t^2) for dust while the radiation model has R = 0 yet is curved. A calculation checklist uses calibration geometries with known R.
-
-**Representation:** Worked derivations, calibration tables, predict-then-check diagnostics and a multi-stage capstone project.
-
-**Strengths:** Treats R as a tool with explicit limits, supplies memorable counterexamples, and ties values to checkable numbers.
-
-**Weaknesses:** The geodesic-ball interpretation in higher dimensions is not given; the invariants discussion is split across chapters. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature; legacy:manuscript-chapter-09-ricci-weyl-einstein; legacy:design-doc-misconception-diagnostics; legacy:lesson-a-curved-universe-capstone; legacy:manuscript-section-24-3-calculation-checklist; legacy:manuscript-section-10-curvature-invariants-and-summary-table)*
-
-## Recommended teaching path
-
-1. **1. Motivating question** — Ask: can a surface-bound ant, with only a tape measure, find one number telling how curved its world is at a point? Let the learner predict what happens to the circumference of a small circle on a globe and on a saddle. *Why:* An operational, coordinate-free test gives the scalar a meaning before its formula, and it fills the gap left by books that never link R to measurements. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature; GA ch11 §11.6 p.128)*
-2. **2. Picture** — Use the surface explorer to draw geodesic circles on a sphere, paraboloid, saddle and cylinder, reading the circumference deficit and the colour-coded R = 2K. Close by tying the deficit to the loop picture: on a surface a vector carried around a small loop turns by the enclosed area times R/2. *Why:* Seeing that the cylinder reads zero and the saddle reads negative fixes intrinsic meaning and sign in one session. *(GA ch36 Ex 36.4 p.385; legacy:scene-3d-parallel-transport-loop; legacy:manuscript-chapter-08-curvature-holonomy)*
-3. **3. Formalism: trace with the inverse metric** — Define R = g^{mu nu} R_{mu nu}, compute the sphere value 2/a^2 from the Ricci components, and redo it in an orthonormal frame to show the scalar does not change while components do. *Why:* Combines the calculation learners must be able to do with the idea of invariance, and pre-empts the error of summing diagonal components. *(GA ch11 Example 11.8 p.128; GA ch36 Example 36.4 p.381; SCH ch06 §6.6 p.162)*
-4. **4. Check: dimension and constant curvature** — Derive R = 2K in two dimensions, then R = n(n-1)K for constant curvature (6/a^2 for a 3-sphere, 12K in four dimensions). Have the learner compute R at the tip of a paraboloid. *Why:* Prevents the belief that R equals Gaussian curvature in general and builds a stock of reference values. *(GA ch16 §16.1 p.170; DIV ch25 §25.9 p.527; GA ch36 Ex 36.4 p.385)*
-5. **5. Spacetime: matter fixes R** — Trace Einstein's equation to R = 4 Lambda - 8 pi G T. Tabulate dust, radiation, vacuum energy; compute R(t) for a matter-dominated universe and confirm R = 8 pi G rho. *Why:* Shows R's physical content in four dimensions and gives immediate, checkable numbers. *(GA ch13 Example 13.5 p.148; GA ch15 Example 15.3 p.164; legacy:lesson-a-curved-universe-capstone)*
-6. **6. Limits of a single number** — Show three curved spacetimes with R = 0 (Schwarzschild exterior, radiation FLRW, a plane wave) and one position-dependent clock rate that is flat (N = 1 + az) versus one that is curved (N = e^{kz}, R = -2k^2). Introduce the Kretschmann scalar as a complementary invariant. *Why:* Blocks the 'R = 0 means flat' slogan and teaches that invariants, not metric components, decide curvature, while no single invariant decides everything. *(legacy:design-doc-misconception-diagnostics; GA ch26 §26.1 p.273; DIV ch17 §17.2 p.323; legacy:manuscript-section-10-curvature-invariants-and-summary-table)*
-7. **7. Application: the action** — Present the Einstein-Hilbert action as the spacetime integral of R, and note the contracted Bianchi identity that makes R_{mu nu} - (1/2) R g_{mu nu} conserved. *Why:* Connects the scalar to the field equations from a second direction and motivates why the trace term in the Einstein tensor has the coefficient one half. *(GA ch40 §40.4 p.434; DIV ch13 §13.3 p.220; SCH ch06 §6.6 p.163)*
-
-## Analogies
-
-- **Flattening a paper disc onto a curved surface** (intuition): Press a flat paper disc onto a ball and its rim has too much paper, so it crumples; press it onto a saddle and its rim has too little, so it tears. The Ricci scalar measures that mismatch between the surface's small circles and flat ones. *Limits:* The paper picture uses an outside, extrinsic view of what is an intrinsic quantity; in four-dimensional spacetime there are no such circles to press, and there R also has a convention-dependent sign. *(legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature)*
-- **A thermometer reading versus the full weather map** (intuition): The Ricci scalar is like the temperature at a point: one number everyone agrees on. The Riemann tensor is the whole weather map with winds and pressures in every direction. Very different weather can share the same temperature. *Limits:* Unlike temperature, R can be negative, is not an average of anything physical in general, and a zero reading says nothing about how violent the 'weather' (tides) is. *(legacy:manuscript-chapter-09-ricci-weyl-einstein)*
-- **The bottom line of a set of accounts** (working): Riemann lists every curvature entry, Ricci subtotals them by row, and R is the final bottom line. A bottom line of zero can hide large, cancelling entries, as in the Schwarzschild curvature table. *Limits:* The entries are combined with metric signs that depend on the signature, and some information (the Weyl part) is lost already at the Ricci stage, not only at the last step. *(legacy:lesson-contract-curvature-by-hand)*
-
-## Misconceptions
-
-- **If the Ricci scalar is zero, spacetime is flat.** — Riemann = 0 implies Ricci = 0 implies R = 0, with no converse. The Schwarzschild exterior, a radiation-dominated universe and gravitational plane waves all have R = 0 but non-zero Riemann curvature. *Why tempting:* A single invariant called 'the curvature scalar' sounds like it should capture curvature, and on two-dimensional surfaces it does. *Diagnostic:* A radiation-dominated universe has a(t) proportional to t^(1/2). Compute R. Is this spacetime flat? *(legacy:manuscript-chapter-09-ricci-weyl-einstein; legacy:lesson-a-curved-universe-capstone; legacy:practice-set-misconception-checks)*
-- **Because Ricci components change between orthonormal and coordinate frames, the Ricci scalar changes too.** — Components change by frame factors (on a sphere, 1/a^2 in an orthonormal frame versus 1 and sin^2 theta in coordinates), but the full trace R is a scalar and is identical in every frame. *Why tempting:* After watching many curvature numbers change with the frame, learners generalise to all of them. *Diagnostic:* On a sphere, R_{theta-hat theta-hat} = 1/a^2 in the orthonormal frame and R_{theta theta} = 1 in coordinates. What is R in each frame? *(GA ch36 §36.4 p.382)*
-- **You can get R by adding the diagonal components of R_{mu nu}.** — The trace needs the inverse metric: R = g^{mu nu} R_{mu nu}. Only in an orthonormal frame of a positive-definite metric does it reduce to a plain sum; in spacetime the time component enters with a minus sign. *Why tempting:* In linear algebra a trace is the sum of diagonal entries. *Diagnostic:* For the sphere, adding R_{theta theta} + R_{phi phi} gives 1 + sin^2 theta. Why is that not the scalar curvature, and what is? *(GA ch11 §11.5 p.127; GA ch11 Example 11.8 p.128)*
-- **A space with the same Ricci scalar everywhere must be homogeneous or maximally symmetric.** — Constant R is necessary for maximal symmetry but not sufficient. Schwarzschild has R = 0 everywhere and is not homogeneous; Einstein spaces with R_{mu nu} = lambda g_{mu nu} need not have constant curvature. *Why tempting:* Deriving the FLRW spatial metric by imposing a constant curvature scalar suggests the condition is enough by itself. *Diagnostic:* Schwarzschild spacetime has R = 0 at every point. Does it look the same at every point? *(SCH ch13 §13.2 p.424)*
-- **The Ricci scalar equals the Gaussian curvature, or R = 2K in every dimension.** — R = 2K only in two dimensions. A space of constant sectional curvature K has R = n(n-1)K: 6K in three dimensions and 12K in four. *Why tempting:* The sphere example is two-dimensional and the factor 2 looks universal. *Diagnostic:* A 3-sphere of radius a has sectional curvature 1/a^2 in every plane. What is its Ricci scalar? *(GA ch16 §16.1 eqn 16.4 p.170; DIV ch25 §25.9 p.527)*
-- **Position-dependent clock rates, or metric components that vary or blow up, prove the spacetime is curved or singular.** — Only invariants decide. The metric -(1 + az)^2 dt^2 + dz^2 has varying clock rates but R = 0 and is flat (Rindler); -e^{2kz} dt^2 + dz^2 has R = -2k^2. Schwarzschild components blow up at r = 2M while invariants stay finite there. *Why tempting:* Gravitational time dilation is often introduced as the signature of gravity. *Diagnostic:* For ds^2 = -N(z)^2 dt^2 + dz^2 one finds R = -2N''/N. Which of N = 1 + az and N = e^{kz} is curved? *(legacy:design-doc-misconception-diagnostics; DIV ch17 §17.2 p.323; GA ch26 §26.1 p.273)*
-- **Reaching a constant Ricci scalar is by itself what rules out the Ricci-equals-matter field equation.** — A constant R is not unphysical. The problem is that the guess ties R to the trace of T, so the trace of T would have to be the same everywhere, which real matter distributions violate. *Why tempting:* The derivation arrives at 'R is constant' first, which looks like the punchline. *Diagnostic:* Under the guess R_{mu nu} = kappa T_{mu nu}, what would a constant R imply about the matter density inside and outside a star? *(GA ch13 §13.3 p.146)*
-
-## Thought experiments
-
-- **A rival law in which curvature creates particles**: Replace ordinary conservation of particle number by a law whose divergence equals a constant times the square of the Ricci scalar. In flat spacetime R = 0, so the law agrees with every special-relativistic experiment. *Lesson:* Laws that differ only by curvature terms cannot be told apart by flat-spacetime physics; choosing the minimal coupling is an extra physical assumption, and R is the simplest curvature scalar such terms could use. *(SCH ch07 §7.1 p.173)*
-
-## Visualizations
-
-### Scalar curvature surface explorer · interactive-3d · high priority
-
-A gallery of surfaces (sphere, paraboloid, saddle, torus, pseudosphere, cylinder) coloured by R = 2K. The learner drops a small geodesic circle anywhere and compares its measured circumference and area with flat values.
-
-**Interaction:** Learner picks a surface, adjusts its parameters (sphere radius, paraboloid steepness, torus radii), and drags a circle centre and radius. Readouts: exact R at the centre, circumference deficit 1 - C/(2 pi s), and the estimate R_est = 12(1 - C/(2 pi s))/s^2 converging to R as s shrinks.
-
-**Model:** Gaussian curvature from each surface's metric (sphere 1/a^2; paraboloid z = a r^2/2 gives K = a^2/(1 + a^2 r^2)^2; torus K = cos v/(r(R0 + r cos v)); pseudosphere -1/c^2); geodesic circles by integrating geodesics from the centre; C(s) = 2 pi s(1 - K s^2/6 + ...).
-
-**Inspired by:** GA ch36 Ex 36.4 p.385; GA ch11 Example 11.8 p.128; legacy:manuscript-section-8-4-8-6-flatness-count-sphere-curvature
-
-**Legacy assets:** scene-3d-parallel-transport-loop, manuscript-section-8-4-8-6-flatness-count-sphere-curvature
-
-### Invariants versus coordinate artefacts · interactive-plot · medium priority
-
-Metric cards (polar plane, Rindler, N = e^{kz}, Schwarzschild in Schwarzschild and ingoing coordinates, a plane wave) with plots of metric components and of R and the Kretschmann scalar along a line.
-
-**Interaction:** Learner switches card and chart. Metric components spike or vary between charts while R and Kretschmann curves stay identical; the Schwarzschild card shows R = 0 everywhere while Kretschmann rises as 48 M^2/r^6; the plane-wave card shows both invariants at zero despite non-zero curvature components.
-
-**Model:** Closed-form or finite-difference curvature from each metric: R = -2N''/N for the 2D lapse metrics; Schwarzschild R = 0, Kretschmann 48 M^2/r^6; plane wave all polynomial invariants zero.
-
-**Inspired by:** GA ch26 §26.1 p.273; DIV ch17 §17.2 p.323; legacy:design-doc-misconception-diagnostics
-
-**Legacy assets:** engine-independent-curvature-checker, manuscript-section-10-curvature-invariants-and-summary-table
-
-### What sets R? A source picker · interactive-2d · medium priority
-
-Choose a mix of dust, radiation, stiff matter and vacuum energy; the panel shows T, its trace, R = 4 Lambda - 8 pi G T, and a plot of R(t) for the corresponding flat FLRW history.
-
-**Interaction:** Learner adjusts component densities or picks a single fluid. Radiation drives R to zero while the expansion curve stays curved (a'' non-zero); vacuum energy pins R at 4 Lambda; dust gives R = 4/(3t^2).
-
-**Model:** Perfect fluids with p = w rho, T = -rho + 3p; flat Friedmann evolution; R = 6(a''/a + H^2) compared with 4 Lambda - 8 pi G T at every time.
-
-**Inspired by:** GA ch13 §13.4 p.148; GA ch15 Example 15.3 p.164; legacy:lesson-a-curved-universe-capstone
-
-**Legacy assets:** lesson-a-curved-universe-capstone
+**Result:** $R = 4\Lambda - 8\pi GT/c^4$; dust gives $8\pi G\rho/c^2$, radiation with $p = \rho c^2/3$ gives $0$, and vacuum energy alone gives $4\Lambda$.
 
 ## Worked examples
 
-- **Scalar curvature of the sphere** (working): From Christoffel symbols to Riemann to Ricci, then the trace with g^{theta theta} = 1/a^2 and g^{phi phi} = 1/(a^2 sin^2 theta) gives R = 2/a^2, constant and growing as the sphere shrinks. *(GA ch11 Example 11.8 p.128)*
-- **Same sphere, two frames** (working): Cartan's method in an orthonormal coframe gives Ricci components 1/a^2; converted to coordinates they become 1 and sin^2 theta, but the scalar is 2/a^2 either way. *(GA ch36 Example 36.4 p.381)*
-- **Tracing the field equation** (working): Contracting with g^{mu nu} and using g^{mu nu} g_{mu nu} = 4 gives R = -8 pi G T, which lets the equation be rewritten with Ricci alone. *(GA ch13 Example 13.5 p.148)*
-- **Scalar curvature of the flat expanding universe** (formal): Orthonormal-frame Ricci components combine to R = 6(a''/a + a'^2/a^2): flat spatial slices, curved spacetime. *(GA ch15 Example 15.3 p.164; GA ch36 Example 36.5 p.382)*
-- **Homogeneous 3-spaces from a constant curvature scalar** (working): Setting the trace of the 3D Einstein tensor of a spherical 3-metric to a constant and requiring regularity at the centre yields the k = +1, 0, -1 spatial metrics. *(SCH ch13 §13.2 p.424)*
-- **Constant-curvature spacetime** (working): Contracting R_abcd = K(g_ac g_bd - g_ad g_bc) gives R_bd = 3K g_bd and R = 12K, so maximal symmetry makes the spacetime a vacuum with a cosmological constant. *(DIV ch25 §25.9 p.527)*
-- **A matter-dominated universe, end to end** (working): For a proportional to t^(2/3): R = 4/(3t^2), matching 8 pi G rho with rho = 1/(6 pi G t^2); the radiation model a proportional to t^(1/2) has R = 0 but is curved. *(legacy:lesson-a-curved-universe-capstone)*
-- **Clock rates without curvature** (working): For ds^2 = -N(z)^2 dt^2 + dz^2 the scalar curvature is -2N''/N, so a linear N is flat and an exponential N is curved. *(legacy:design-doc-misconception-diagnostics)*
-- **Kaluza-Klein reduction of the scalar curvature** (formal): The five-dimensional scalar curvature of a block metric splits into the four-dimensional one minus a quarter of the Maxwell invariant, so one action contains gravity and electromagnetism. *(GA ch48 Example 48.1 p.523)*
+### The sphere in two frames · working
 
-## Exercises
+**Problem:** For a sphere of radius $a$, with metric $a^2(d\theta^2 + \sin^2\theta\,d\phi^2)$, find the Ricci scalar from the coordinate components of the Ricci tensor, then from its orthonormal components, and compare.
 
-- (intro) Show that contracting the Einstein tensor with the metric gives minus the Ricci scalar. *Skill:* Tracing with the metric in four dimensions. *(GA ch13 Ex 13.3 p.150)*
-- (standard) Find the metric of a sphere and its inverse, compute its Riemann tensor from the single 2D component, then contract to the scalar curvature. *Skill:* The full sphere calculation including the inverse metric. *(SCH ch06 Ex 6.28 p.167; SCH ch06 Ex 6.29 p.167)*
-- (standard) Compute Riemann, Ricci and scalar curvature for a paraboloid-shaped surface and see where curvature is largest. *Skill:* Position-dependent scalar curvature on a surface. *(GA ch36 Ex 36.4 p.385)*
-- (challenging) For a 2D metric whose coordinate lines meet at a variable angle, compute the curvature and show that constant scalar curvature leads to the sine-Gordon equation. *Skill:* Scalar curvature as a differential condition on a metric function. *(GA ch15 Ex 15.4)*
-- (standard) From the Robertson-Walker metric, compute the scalar curvature of a constant-time slice and show it is 6k divided by the square of the scale factor. *Skill:* Spatial scalar curvature and the sign of k. *(DIV ch25 Ex 25.10)*
-- (challenging) For the closed Robertson-Walker universe, find the curvature 2-forms, the Ricci scalar and the orthonormal Einstein components. *Skill:* Four-dimensional Cartan computation ending in R. *(GA ch36 Ex 36.7 p.385)*
+1. The inverse metric is $g^{\theta\theta} = 1/a^2$ and $g^{\phi\phi} = 1/(a^2\sin^2\theta)$.
+2. The Christoffel symbols $\Gamma^\theta{}_{\phi\phi} = -\sin\theta\cos\theta$ and $\Gamma^\phi{}_{\theta\phi} = \cot\theta$ give $R^\theta{}_{\phi\theta\phi} = \sin^2\theta$ and $R^\phi{}_{\theta\phi\theta} = 1$.
+3. Contract: $R_{\theta\theta} = R^\phi{}_{\theta\phi\theta} = 1$, $R_{\phi\phi} = R^\theta{}_{\phi\theta\phi} = \sin^2\theta$, and $R_{\theta\phi} = 0$.
+4. Trace with the inverse metric: $R = 1/a^2 + \sin^2\theta/(a^2\sin^2\theta) = 2/a^2$.
+5. In the orthonormal frame $e_{\hat\theta} = \partial_\theta/a$ and $e_{\hat\phi} = \partial_\phi/(a\sin\theta)$, the components are $R_{\hat\theta\hat\theta} = R_{\hat\phi\hat\phi} = 1/a^2$, and the inverse metric is the identity, so $R = 2/a^2$ again.
 
-## Checks for understanding
+**Answer:** $R = 2/a^2$ in both frames, constant over the sphere and positive, although the components differ: $1$ and $\sin^2\theta$ in coordinates, $1/a^2$ each in the orthonormal frame.
 
-- **Q (intuition):** An ant walks out a small circle of radius 10 cm on a curved surface and finds its circumference slightly larger than 2 pi times 10 cm. Is the scalar curvature at the centre positive, negative or zero? What kind of surface might it be on?
-  - **A:** Negative. A circumference larger than the flat value means small circles have 'extra room', which happens on saddle-shaped surfaces; on a globe it would be smaller (positive R), and on a flat sheet or a cylinder it would be exactly 2 pi s (R = 0).
-- **Q (working):** Compute the Ricci scalar of a sphere of radius 2 m and of a sphere of radius 1 m. Why does the smaller sphere have the larger value?
-  - **A:** R = 2/a^2 gives 0.5 m^-2 for a = 2 m and 2 m^-2 for a = 1 m. A smaller sphere turns more sharply over a given distance, so small circles fall shorter of 2 pi s; curvature scales as one over length squared.
-- **Q (working):** A radiation-dominated flat universe has a(t) proportional to t^(1/2). Compute its Ricci scalar and decide whether spacetime is flat.
-  - **A:** a'/a = 1/(2t) and a''/a = -1/(4t^2), so R = 6(a''/a + a'^2/a^2) = 6(-1/4 + 1/4)/t^2 = 0, consistent with T = -rho + 3p = 0 for radiation. Spacetime is not flat: a'' is non-zero, the Riemann components such as R^t-hat_{i-hat t-hat i-hat} proportional to a''/a do not vanish, and freely falling comoving observers decelerate apart. *(targets: If the Ricci scalar is zero, spacetime is flat.)*
-- **Q (working):** For a matter-dominated flat universe a proportional to t^(2/3), find R(t) and check it against the trace of Einstein's equation with Lambda = 0.
-  - **A:** a'/a = 2/(3t), a''/a = -2/(9t^2), so R = 6(-2/9 + 4/9)/t^2 = 4/(3t^2). The Friedmann equation H^2 = 8 pi G rho/3 gives rho = 1/(6 pi G t^2), and R = -8 pi G T = 8 pi G rho = 8/(6 t^2) = 4/(3t^2), in agreement.
-- **Q (formal):** For the two-dimensional spacetime ds^2 = -N(z)^2 dt^2 + dz^2, the scalar curvature is R = -2N''/N. Which of N = 1 + az and N = e^{kz} describes a curved spacetime, and what does this say about using clock rates to detect curvature?
-  - **A:** N = 1 + az has N'' = 0, so R = 0; in two dimensions that means the full curvature vanishes and the spacetime is flat (it is Rindler's accelerated frame). N = e^{kz} gives R = -2k^2, a genuinely curved spacetime. Both have position-dependent clock rates, so varying clock rates alone do not prove curvature; an invariant must be checked. *(targets: Position-dependent clock rates, or metric components that vary or blow up, prove the spacetime is curved or singular.)*
-- **Q (formal):** Show that replacing g_{mu nu} by -g_{mu nu} changes the sign of R, and explain why d'Inverno's dust has R < 0 while the course's dust has R > 0.
-  - **A:** Christoffel symbols, the mixed Riemann tensor and R_{mu nu} are unchanged by g -> -g, but R = g^{mu nu} R_{mu nu} contains one inverse metric, which flips. Physically the same trace relation R = -8 pi G T holds in both, but in (+,-,-,-) dust has T = +rho, giving R = -8 pi G rho, whereas in (-,+,+,+) T = -rho and R = +8 pi G rho.
+**Takeaway:** Components depend on the basis; the trace with the inverse metric does not. The positive value on a sphere calibrates the sign convention.
 
-## Applications
+## Problems
 
-- **Einstein-Hilbert action and modified gravity**: sqrt(-g) R is the gravitational Lagrangian of general relativity; many alternative theories replace R by a function of R or add curvature-squared terms. Key numbers: Prefactor 1/(16 pi G) with c = 1, or c^3/(16 pi G) with x^0 = ct in SI *(GA ch40 §40.4 p.434; legacy:manuscript-chapter-14-einstein-hilbert-action)*
-- **Telling coordinate from physical singularities**: Curvature invariants are the same in every chart. Where metric components blow up but invariants stay finite, the problem is the coordinates; R alone is insufficient in vacuum (it is zero), so the Kretschmann scalar is used. Key numbers: Schwarzschild: R = 0 everywhere; Kretschmann 48 M^2/r^6, equal to 3/(4 M^4) (finite) at r = 2M and divergent at r = 0 *(DIV ch17 §17.2 p.323; GA ch26 §26.1 p.273)*
-- **Cosmology**: R(t) tracks how far the universe is from being a vacuum or radiation era; it vanishes in the radiation era and approaches 4 Lambda at late times, and a constant spatial scalar curvature characterises the homogeneous spatial slices. Key numbers: Dust: R = 4/(3t^2); de Sitter: R = 12 H^2 *(GA ch15 Example 15.3 p.164; SCH ch13 §13.2 p.424; legacy:lesson-a-curved-universe-capstone)*
-- **Initial data for numerical relativity**: The scalar curvature of a spatial slice enters the Hamiltonian constraint; writing the slice metric as psi^4 times a background turns the constraint into an elliptic equation for psi. *(DIV ch14 §14.12 p.258; legacy:manuscript-section-20-2-constraints-and-dof)*
+### `rings-in-rock` · entry · difficulty 1 · estimate
 
-## Tutor guidance
+Divers at rest in a still ocean draw three small rings around one spot, each at right angles to the other two, with strings 1 kilometre long. Their three rings come out short in total by about 3 parts in a billion billion, so their ring total is 3 parts. Deep inside a planet that does not spin, people at rest draw the same three rings inside solid rock that holds 3 times as much mass in each cubic metre as water. Imagine strings that pass through the rock without disturbing it. About how big is their ring total?
 
-**Opening questions**
+**Hints**
 
-- If you could measure only distances along a surface, how might you tell whether it is curved at a point?
-- What would you expect the circumference of a small circle on a globe to be, compared with two pi times its radius?
-- If one number summarised curvature at a point, what kinds of curvature might it miss?
+1. What happens to the ring total when the mass in each cubic metre doubles?
+
+**Answer:** About 9 parts in a billion billion, three times the divers' ring total.
+
+**Must contain:** About 9 parts in a billion billion; The ring total grows in step with the mass in each cubic metre; Only the matter at the spot counts
+
+**Numeric:** total missing fraction of the three rings = 9.3e-18 1 (magnitude, ±15%)
+
+**Solution**
+
+1. Where matter is at rest and nothing changes with time, the ring total at a spot is set only by the mass in each cubic metre right there.
+2. Doubling that mass doubles the ring total, so the total grows in step with the mass in each cubic metre.
+3. The rock holds 3 times as much mass in each cubic metre as water, so the ring total is 3 times 3 parts, about 9 parts in a billion billion.
+
+### `today-universe` · working · difficulty 2 · estimate
+
+Treat today's universe as spatially flat, with $H_0 = 67.4\ \mathrm{km\,s^{-1}\,Mpc^{-1}}$, matter density fraction $\Omega_{\rm m} = 0.315$, cosmological-constant density fraction $\Omega_\Lambda = 0.685$, and negligible radiation. Find today's Ricci scalar in $\mathrm{m^{-2}}$ in two ways: from the trace of Einstein's equation, and from $R = 6H^2(1-q)/c^2$ with $q_0 = \Omega_{\rm m}/2 - \Omega_\Lambda$. What share comes from the cosmological constant?
+
+**Hints**
+
+1. Convert $H_0$ to $\mathrm{s^{-1}}$ with $1\ \mathrm{Mpc} = 3.0857\times10^{22}$ m.
+2. The critical density is $3H_0^2/8\pi G$, so $\Lambda = 3\Omega_\Lambda H_0^2/c^2$.
+
+**Answer:** $R_0 \approx 4.9\times10^{-52}\ \mathrm{m^{-2}}$ both ways, with about 90 per cent of it from the cosmological constant.
+
+**Must contain:** Today's Ricci scalar is about 4.9 times ten to the minus 52 per square metre; Both routes agree; About 90 per cent comes from the cosmological constant
+
+**Numeric:** today's Ricci scalar = 4.87e-52 m^-2 (magnitude, ±3%); share from the cosmological constant = 0.897 1 (magnitude, ±0.02)
+
+**Solution**
+
+1. $H_0 = 67.4\times10^{3}/3.0857\times10^{22} = 2.184\times10^{-18}\ \mathrm{s^{-1}}$, so $H_0^2/c^2 = 5.309\times10^{-53}\ \mathrm{m^{-2}}$.
+2. Matter: $\rho_{\rm m} = 3\Omega_{\rm m}H_0^2/8\pi G$, so $8\pi G\rho_{\rm m}/c^2 = 3\Omega_{\rm m}H_0^2/c^2 = 5.02\times10^{-53}\ \mathrm{m^{-2}}$, its pressure being negligible.
+3. Vacuum energy: $\Lambda = 3\Omega_\Lambda H_0^2/c^2 = 1.091\times10^{-52}\ \mathrm{m^{-2}}$, so $4\Lambda = 4.36\times10^{-52}\ \mathrm{m^{-2}}$.
+4. Trace: $R_0 = 5.02\times10^{-53} + 4.36\times10^{-52} = 4.87\times10^{-52}\ \mathrm{m^{-2}}$.
+5. Expansion: $q_0 = 0.1575 - 0.685 = -0.5275$, so $R_0 = 6\times5.309\times10^{-53}\times1.5275 = 4.87\times10^{-52}\ \mathrm{m^{-2}}$, the same.
+6. The share from $\Lambda$ is $4.36/4.87 = 0.90$.
+
+### `ball-volume-law` · formal · difficulty 3 · proof
+
+In Riemannian normal coordinates at $p$ on an $n$-dimensional Riemannian manifold, $\sqrt{\det g} = 1 - \tfrac16R_{ij}x^ix^j + c_{ijk}x^ix^jx^k + O(|x|^4)$. Prove that the geodesic ball of radius $r$ has volume $\omega_nr^n\big[1 - R(p)r^2/6(n+2) + O(r^4)\big]$, with $\omega_n$ the volume of the unit ball in $\mathbb R^n$. Check the coefficient on a round 3-sphere of radius $a$.
+
+**Hints**
+
+1. Below the injectivity radius the geodesic ball is the coordinate ball in normal coordinates.
+2. Use rotational symmetry to evaluate the second moment of the ball.
+
+**Answer:** $\int_{|x|<r}x^ix^j\,d^nx = \delta^{ij}\omega_nr^{n+2}/(n+2)$ and the cubic terms integrate to zero, so $\mathrm{Vol} = \omega_nr^n[1 - R(p)r^2/6(n+2) + O(r^4)]$. On the 3-sphere $\mathrm{Vol} = \pi a^3(2\chi - \sin2\chi)$ with $\chi = r/a$ expands to $\tfrac43\pi r^3(1 - r^2/5a^2)$, matching $R/30 = 1/5a^2$.
+
+**Must contain:** The geodesic ball is the coordinate ball in normal coordinates; Odd terms integrate to zero over the ball; The second moment of the ball supplies the factor one over n plus two; The three-sphere confirms the coefficient
+
+**Solution**
+
+1. For $r$ below the injectivity radius, the radial geodesics from $p$ are the straight lines $x = tv$ with $|v| = 1$ at unit speed, so $B_r(p)$ is the coordinate ball $|x| < r$ and $\mathrm{Vol} = \int_{|x|<r}\sqrt{\det g}\,d^nx$.
+2. The constant term gives $\omega_nr^n$. The cubic terms are odd under $x \to -x$, so they integrate to zero, and the quartic remainder contributes $O(r^{n+4})$.
+3. By rotational symmetry $\int_{|x|<r}x^ix^j\,d^nx = \tfrac{\delta^{ij}}{n}\int_0^r\rho^2\,n\omega_n\rho^{n-1}\,d\rho = \delta^{ij}\,\omega_nr^{n+2}/(n+2)$, using $n\omega_n\rho^{n-1}$ for the area of the sphere of radius $\rho$.
+4. In normal coordinates $g_{ij}(p) = \delta_{ij}$, so $R_{ij}\delta^{ij} = R(p)$, and the quadratic term contributes $-\tfrac16R(p)\,\omega_nr^{n+2}/(n+2)$.
+5. Collecting terms, $\mathrm{Vol}\,B_r(p) = \omega_nr^n\big[1 - R(p)r^2/6(n+2) + O(r^4)\big]$.
+6. On the 3-sphere, $\mathrm{Vol} = 4\pi a^3\int_0^{\chi}\sin^2u\,du = \pi a^3(2\chi - \sin2\chi) = \tfrac43\pi r^3\big(1 - \chi^2/5 + O(\chi^4)\big)$. With $n = 3$ and $R = 6/a^2$ the law predicts $1 - r^2/5a^2$, which agrees.
+
+## Observations
+
+- **The expansion history of the universe, measured through the cosmic microwave background** (measured, working). For a spatially flat universe the spacetime Ricci scalar today is $R_0 = 6H_0^2(1-q_0)/c^2$, which the trace of Einstein's equation writes as $3\Omega_{\rm m}H_0^2/c^2 + 4\Lambda$. Radiation, whose energy-momentum trace vanishes, adds nothing to it. *Numbers:* With $H_0 = 67.4\ \mathrm{km\,s^{-1}\,Mpc^{-1}}$, $\Omega_{\rm m} = 0.315$ and $\Omega_\Lambda = 0.685$: $q_0 = -0.53$ and $R_0 \approx 4.9\times10^{-52}\ \mathrm{m^{-2}}$, about 90 per cent of it from the cosmological constant. *Reference:* Nabila Aghanim, Yashar Akrami, Mark Ashdown, Jonathan Aumont and others (2020), *Planck 2018 results. VI. Cosmological parameters*, Astronomy & Astrophysics 641, A6, doi:10.1051/0004-6361/201833910 _(unverified)_
+- **The spatial flatness of the universe on the largest scales** (measured, working). A comoving slice of the course FLRW metric has its own scalar curvature ${}^{(3)}R = 6k/a^2$, which the curvature density fraction writes as $-6\Omega_kH_0^2/c^2$. Microwave-background and baryon-acoustic data bound $\Omega_k$ near zero, so this is a direct measurement of a Ricci scalar, here the one belonging to space alone rather than to spacetime. *Numbers:* $\Omega_k = 0.0007 \pm 0.0019$ gives ${}^{(3)}R = (-2.2 \pm 6.1)\times10^{-55}\ \mathrm{m^{-2}}$, consistent with zero and below $1.5\times10^{-54}\ \mathrm{m^{-2}}$ in size; the spacetime value $R_0$ is about 340 times that bound. *Reference:* Nabila Aghanim, Yashar Akrami, Mark Ashdown, Jonathan Aumont and others (2020), *Planck 2018 results. VI. Cosmological parameters*, Astronomy & Astrophysics 641, A6, doi:10.1051/0004-6361/201833910 _(unverified)_
+
+## Teaching arc
+
+1. **Ask for one number, then turn the cage** (entry). Draw the three rings above a planet, add their missing fractions, then tip the cage and add again. *Why:* Single rings change while the total holds still: the idea of a trace. *Predict:* When you turn the three rings together, will their ring total change? *Visual:* [[three-rings-around-a-spot]] *Uses:* `ways_in/three-rings-around-one-spot`, `checks/rings-above-a-planet`, `checks/tip-the-cage`
+2. **Add matter at the spot** (entry). Fill the spot with water, then with rock, then empty out a cave in the rock. *Why:* It separates the matter at the spot from the matter around it. *Visual:* [[three-rings-around-a-spot]] *Uses:* `ways_in/matter-right-there-sets-the-total`, `checks/cave-in-the-rock`
+3. **Trace, sum over planes, calibrate** (working). Define the trace, derive the sum over planes, and calibrate on the sphere. *Why:* The sum over planes explains why the ring total ignores the tilt. *Predict:* Can you get the scalar by adding the diagonal of the Ricci tensor in coordinates? *Visual:* [[paced-ring-on-a-ball-and-a-plain]] *Uses:* `ways_in/trace-with-the-inverse-metric`, `derivations/plane-sum-rule`, `worked_examples/sphere-in-two-frames`, `checks/sphere-diagonal-sum`
+4. **Trace Einstein's equation** (working). Trace the field equation, tabulate water, radiation and vacuum energy, then read today's value. *Why:* It blocks the belief that a vanishing scalar means flat spacetime. *Predict:* Light carries energy. Does a universe full of light have a positive Ricci scalar? *Visual:* [[six-entry-curvature-table]] *Uses:* `ways_in/what-matter-sets-in-spacetime`, `checks/radiation-universe`, `problems/today-universe`
+5. **Mark the limits** (formal). Prove the small-ball volume law, then show what a vanishing scalar fails to imply. *Why:* Graduate use needs the exact meaning and the blind spots. *Uses:* `ways_in/scalar-curvature-on-a-manifold`, `problems/ball-volume-law`, `checks/constant-scalar-not-homogeneous`
+
+## Misconceptions
+
+### “If the ring total is zero, space there is not curved.” · entry · `zero-means-flat`
+
+- **Why it is tempting:** On flat ground every ring has its playground length.
+- **What is true:** A zero ring total only means the short and the long amounts cancel. Above a planet one ring is short, two are too long, and space is curved.
+- **Exposed by:** `checks/rings-above-a-planet`
+
+### “If I turn the three rings, their ring total changes too.” · entry · `tilt-changes-total`
+
+- **Why it is tempting:** Each single ring really does change when the cage is turned.
+- **What is true:** Turning the cage changes how each ring comes out, but never the ring total. That is why the total belongs to the spot.
+- **Exposed by:** `checks/tip-the-cage`
+
+### “In an empty cave inside a planet, the rock all around must still make the rings come out short.” · entry · `surrounding-matter-counts`
+
+- **Why it is tempting:** That rock does change how each single ring comes out.
+- **What is true:** Where matter is at rest and nothing changes, only the mass right at the spot sets the ring total. An empty cave has none there.
+- **Exposed by:** `checks/cave-in-the-rock`
+
+### “You get the Ricci scalar by adding up the diagonal components of the Ricci tensor.” · working · `diagonal-sum`
+
+- **Why it is tempting:** In linear algebra a trace is the sum of the diagonal entries.
+- **What is true:** A trace pairs an upper index with a lower one, so the inverse metric weights each component. The plain sum works in an orthonormal frame of a positive-definite metric, and generally not elsewhere.
+- **Exposed by:** `checks/sphere-diagonal-sum`
+
+### “A spacetime whose Ricci scalar vanishes everywhere, such as a radiation universe, is flat.” · working · `zero-scalar-flat-spacetime`
+
+- **Why it is tempting:** A curvature scalar sounds as though it measures all of the curvature.
+- **What is true:** The scalar is one trace of the Riemann tensor. A radiation universe and the space outside a star both have zero scalar and real tidal curvature.
+- **Exposed by:** `checks/radiation-universe`
+
+### “The Ricci scalar is always twice the Gaussian curvature.” · working · `twice-gaussian-everywhere`
+
+- **Why it is tempting:** The first example anyone meets is a two-dimensional sphere, where it does hold.
+- **What is true:** The factor two holds only in two dimensions. Constant curvature gives six times the curvature in three dimensions and twelve times in four.
+- **Exposed by:** `checks/sphere-diagonal-sum`
+
+### “If the Ricci scalar is the same everywhere, the spacetime looks the same everywhere.” · formal · `constant-means-homogeneous`
+
+- **Why it is tempting:** Homogeneous spacetimes do have constant scalar curvature.
+- **What is true:** Constant scalar curvature is necessary for homogeneity, not sufficient. The Schwarzschild exterior has zero scalar everywhere, yet its tidal strength falls with distance.
+- **Exposed by:** `checks/constant-scalar-not-homogeneous`
+
+## Checks
+
+1. **Entry · predict** `checks/rings-above-a-planet`. You stand at rest on a tall tower above a round planet that does not spin, in airless space. Around one spot you draw three small rings, each at right angles to the other two. One ring lies level, like a hoop on a floor, and the other two stand upright. The level ring comes out short by 4 parts in a billion billion of its playground length, and each upright ring comes out too long by 2 parts. What is their ring total? Does it mean space at the spot is not curved?
+   - **Hints:** A ring that comes out too long counts as negative. / Does any single ring have its playground length?
+   - **Answer:** The ring total is zero, and yet space at the spot is curved. A ring that comes out too long has a negative missing fraction, so the total is 4 minus 2 minus 2, which is zero. So the Ricci scalar of space at the spot is zero. But not one of the three rings has its playground length: one comes out short and two come out too long. A zero ring total only means that the short amount and the long amounts cancel.
+   - **Must contain:** The ring total is zero; Single rings are short or too long, so space is curved; A zero total means the amounts cancel
+   - **Numeric:** total missing fraction, in parts in a billion billion = 0 1 (signed, ±0.1)
+   - **Targets:** `zero-means-flat`
+   - **Visual:** [[three-rings-around-a-spot]]
+2. **Entry · numeric** `checks/tip-the-cage`. Above the same planet, the level ring comes out short by 4 parts in a billion billion, and each upright ring comes out too long by 2 parts. Lay an imaginary axle through the two points where the level ring crosses one upright ring. Now turn the whole cage an eighth of a turn around that axle. The ring that was level and that upright ring each come out short by 1 part. How does the third ring come out?
+   - **Hints:** What was the ring total before the turn?
+   - **Answer:** It comes out too long by 2 parts, just as before. The ring total does not depend on how the cage is turned, so it is zero after the turn as it was before. The two tipped rings are short by 1 part each, which is 2 parts short together. So the third ring must be too long by 2 parts to bring the ring total back to zero. That agrees with what the third ring does. The axle runs through its middle at a right angle, so the ring only spins where it stands. Its tilt does not change, so it comes out as before.
+   - **Must contain:** The third ring is too long by 2 parts; The ring total is zero before and after the turn; Turning changes single rings, not the ring total
+   - **Numeric:** third ring's missing fraction, in parts in a billion billion = -2 1 (signed, ±0.1)
+   - **Targets:** `tilt-changes-total`
+   - **Visual:** [[three-rings-around-a-spot]]
+3. **Entry · predict** `checks/cave-in-the-rock`. Deep inside a planet that does not spin, a cave wide enough to hold a whole cage of three rings has had its air pumped out. Solid rock surrounds it, and nothing moves or changes. People at rest inside draw three small rings at right angles around a spot in the middle of the cave. Is their ring total zero, or do the rings come out short in total?
+   - **Hints:** Which matter sets the ring total: the matter around the spot, or the matter at it?
+   - **Answer:** The ring total is zero. Where matter is at rest and nothing changes with time, the ring total at a spot is set only by the mass in each cubic metre right at that spot. The spot sits in the empty cave, so no mass is there. The rock around the cave can still change how each single ring comes out, but it cannot change the ring total.
+   - **Must contain:** The ring total is zero; Only the mass at the spot sets the ring total; The rock around changes single rings, not the ring total
+   - **Numeric:** total missing fraction, in parts in a billion billion = 0 1 (signed, ±0.1)
+   - **Targets:** `surrounding-matter-counts`
+   - **Visual:** [[three-rings-around-a-spot]]
+4. **Working · evaluate-claim** `checks/sphere-diagonal-sum`. A student computes the Ricci tensor of a sphere of radius $a$ in coordinates $(\theta, \phi)$ as $R_{\theta\theta} = 1$ and $R_{\phi\phi} = \sin^2\theta$, adds them to get $R = 1 + \sin^2\theta$, and says that the Ricci scalar is always twice the Gaussian curvature. Evaluate both claims.
+   - **Hints:** What are the two components of the inverse metric? / How many planes does an orthonormal basis span in three dimensions?
+   - **Answer:** Both are wrong. A trace pairs an upper index with a lower one, so each component must be weighted by the inverse metric, $1/a^2$ for $\theta\theta$ and $1/(a^2\sin^2\theta)$ for $\phi\phi$. That gives $R = 1/a^2 + \sin^2\theta/(a^2\sin^2\theta) = 2/a^2$. The student's sum cannot be the scalar: it varies with $\theta$ on a sphere that looks the same at every point, and it lacks the units of inverse length squared. A plain diagonal sum does give the scalar in an orthonormal frame, where $R_{\hat\theta\hat\theta} = R_{\hat\phi\hat\phi} = 1/a^2$; in other frames it generally does not. The factor two is also special to two dimensions: by the sum over planes, constant curvature $K$ in $n$ dimensions gives $R = n(n-1)K$, so a round 3-sphere of radius $a$ has $R = 6/a^2$.
+   - **Must contain:** The trace needs the inverse metric; The value is two over a squared; A plain sum varies over a uniform sphere; Twice the Gaussian curvature holds only in two dimensions
+   - **Targets:** `diagonal-sum`, `twice-gaussian-everywhere`
+5. **Working · explain** `checks/radiation-universe`. A spatially flat universe filled with radiation has scale factor $a(t) \propto t^{1/2}$. Use $R = (6/c^2)(\ddot a/a + \dot a^2/a^2)$ to find its Ricci scalar. Is this spacetime flat?
+   - **Hints:** Differentiate $t^{1/2}$ twice. / Which components set the relative acceleration of comoving particles?
+   - **Answer:** $R = 0$, but the spacetime is curved. With $a \propto t^{1/2}$, $\dot a/a = 1/2t$ and $\ddot a/a = -1/4t^2$, so $R = (6/c^2)(-1/4 + 1/4)/t^2 = 0$. That agrees with the trace of Einstein's equation, because radiation has $T = -\rho c^2 + 3p = 0$. The spacetime is not flat: $\ddot a \neq 0$, so neighbouring comoving particles decelerate relative to one another, and the tidal components $R^{\hat\imath}{}_{\hat0\hat\imath\hat0} = -\ddot a/ac^2 = 1/4c^2t^2$, with no sum over $i$, do not vanish.
+   - **Must contain:** The Ricci scalar is zero; Radiation has zero energy-momentum trace; The expansion decelerates, so tidal curvature is not zero
+   - **Targets:** `zero-scalar-flat-spacetime`
+6. **Formal · explain** `checks/constant-scalar-not-homogeneous`. With $G = c = 1$, the Schwarzschild exterior has $R = 0$ at every event. Does a constant Ricci scalar make a spacetime homogeneous?
+   - **Hints:** Which invariant takes different values at different radii?
+   - **Answer:** No. Schwarzschild is not homogeneous: its Kretschmann scalar $48M^2/r^6$ takes different values at different $r$, and an isometry would have to preserve it. A constant scalar is necessary for homogeneity, not sufficient. Every Ricci-flat metric has constant scalar curvature, however little symmetry it has.
+   - **Must contain:** A constant scalar does not imply homogeneity; The Kretschmann scalar separates Schwarzschild events; Ricci-flat metrics all have constant scalar curvature
+   - **Targets:** `constant-means-homogeneous`
+7. **Formal · derive** `checks/scaling-and-sign`. Show how $R$ changes under $g_{\mu\nu} \to \lambda^2g_{\mu\nu}$ with constant $\lambda > 0$, and under $g_{\mu\nu} \to -g_{\mu\nu}$. In signature $(+,-,-,-)$, with the same curvature definitions and $G = c = 1$, dust gives $R = -8\pi\rho$. Is that different dust?
+   - **Hints:** Count the factors of the metric and its inverse in the Christoffel symbols.
+   - **Answer:** Each Christoffel symbol holds one inverse metric and one derivative of the metric, so both changes leave it alone, and with it $R^\rho{}_{\sigma\mu\nu}$ and $R_{\mu\nu}$. Only $g^{\mu\nu}$ changes, by $\lambda^{-2}$ or by $-1$. So $R \to \lambda^{-2}R$, which is why $R$ has units of inverse length squared, and $R \to -R$. It is the same dust. Tracing the field equation gives $R = -8\pi T$ in both signatures, but $T = g_{\mu\nu}T^{\mu\nu} = -\rho$ in the course signature and $+\rho$ in the other, so the scalar is $+8\pi\rho$ in one and $-8\pi\rho$ in the other.
+   - **Must contain:** Christoffel, Riemann and Ricci components are unchanged; R scales as one over lambda squared and flips sign with the metric; The sign of R means something only with the signature
+
+## Notation traps
+
+| Issue | Course choice | Variants you will meet |
+| --- | --- | --- |
+| Sign of the Ricci scalar for the same spacetime | Signature $(-,+,+,+)$ with $R_{\mu\nu} = R^\rho{}_{\mu\rho\nu}$ and $R = g^{\mu\nu}R_{\mu\nu}$: a sphere of radius $a$ has $R = +2/a^2$, dust $R = +8\pi G\rho/c^2$, and vacuum energy alone $R = +4\Lambda$. | Some texts use signature $(+,-,-,-)$, which flips $R$ for the same spacetime, so dust has $R < 0$; others flip the sign of the Riemann or the Ricci tensor. Calibrate on the sphere and on dust. |
+| The letter R for the scalar, the scale factor and radii | $R$ is the Ricci scalar and $a(t)$ the scale factor; where $a$ is a sphere's radius, no scale factor appears beside it. | Some texts write the scale factor as $R(t)$ beside the scalar curvature $R$, or write the scalar as $S$. |
+
+## Visuals
+
+- ★ [[three-rings-around-a-spot]] (flagship): The central picture: three rings at right angles around one spot, whose single missing fractions change with the tilt while their total does not. *Sketch:* A cage of three rings drawn with weightless strings around a spot in the space 2 kilometres above an airless planet that does not spin, measured by people at rest. Readouts give each ring's missing fraction in parts in a billion billion, too long counted as negative, and their total. An axle handle turns the cage and the three readouts change while the total stays fixed. A matter switch fills the spot with water or rock, or makes it an empty cave in rock, and the total follows the mass in each cubic metre at the spot. A round three-sphere preset makes all three rings equal.
+- [[paced-ring-on-a-ball-and-a-plain]] (supporting): The single-ring test that each ring of the cage repeats. *Sketch:* This concept adds a readout of twice the Gaussian curvature, labelled as the Ricci scalar of the surface, beside the missing fraction.
+- [[six-entry-curvature-table]] (supporting): Curvature entries whose Ricci scalar is zero although the entries are not. *Sketch:* This concept adds a readout of the Ricci scalar as the trace of the Ricci readouts, with the time entry counted negatively, and highlights tables with nonzero entries whose scalar vanishes.
+
+## Tutor moves
+
+**Open with**
+
+- Imagine drawing small rings with tight strings in the empty space just above a planet, while you stand at rest on a tall tower. One ring comes out a little short and another a little too long. Count how much each ring is short, counting a ring that comes out too long as negative. For three rings at right angles, could those three amounts add up to zero? *(prediction)*
+- Picture a cave deep inside a planet, wide enough to hold three big rings at right angles, with its air pumped out. Add up how much each ring comes out short, counting a ring that comes out too long as negative. Would that total be zero there, or would the rock around make the rings come out short in total? *(prediction)*
+
+**If the learner is stuck**
+
+- *The learner insists that turning the rings changes the total.* → Tip the cage one step at a time with the linked check's numbers, adding the three missing fractions as you go. *Uses:* `checks/tip-the-cage`
+- *The learner is lost in the contraction.* → Work the sphere in the orthonormal frame first, where the trace is a plain diagonal sum, then in coordinates. *Uses:* `worked_examples/sphere-in-two-frames`
 
 **Common questions**
 
-- *Why do I need the inverse metric? Isn't a trace just the sum of the diagonal?* — A trace pairs an upper index with a lower one. R_{mu nu} has two lower indices, so one must be raised with g^{mu nu} first. In an orthonormal Euclidean frame that reduces to adding diagonal entries; in coordinates or in spacetime it does not.
-- *If R is invariant, why not use it to find black-hole singularities?* — Outside and inside a Schwarzschild black hole R is exactly zero, because the spacetime is Ricci-flat. It cannot see that curvature. The Kretschmann scalar R_{mu nu rho sigma} R^{mu nu rho sigma} = 48 M^2/r^6 does, staying finite at the horizon and diverging at r = 0.
-- *What are the units of the Ricci scalar?* — Inverse length squared, like the 2/a^2 of a sphere. In SI with x^0 = ct, the trace equation reads R = 4 Lambda - (8 pi G/c^4) T, with T an energy density.
-- *What does a negative Ricci scalar mean?* — On a surface or in space, small circles and balls have more circumference or volume than flat ones, as on a saddle or in hyperbolic space. In spacetime the sign depends on the signature convention and on the matter content, for example R = 8 pi G(rho - 3p) with Lambda = 0, which is negative for matter with p > rho/3.
-- *Why is R a good Lagrangian for gravity?* — It is the simplest scalar built from the metric that contains second derivatives, and the second-derivative terms combine into a total divergence, so its variation gives second-order field equations: Einstein's equation.
+- *Do space and time together have a Ricci scalar as well?* (entry) Yes, and it is a different number. Space and time together have their own Ricci tensor, the table that totals the drifts of a small ball of crumbs falling freely. Combining its entries into one number gives the Ricci scalar of space and time. Inside still water that number comes out half as big as the one for space alone. Light is the odd case: a region filled with light carries plenty of energy, yet its number comes out zero, and seeing why takes Einstein's equation. *Uses:* `ways_in/what-matter-sets-in-spacetime`, `ricci-tensor/ways_in/add-up-the-three-drifts`
+- *If the total can be zero where space is curved, why use it at all?* (entry) Because it belongs to the spot. You need not choose a tilt, and everyone at rest there gets the same number, however they hold the cage. Einstein's theory also ties that number straight to the matter at the spot, which no single ring does. It is a good first reading, not a full description: to tell curved from flat you still need the single rings. *Uses:* `ways_in/three-rings-around-one-spot`, `ways_in/matter-right-there-sets-the-total`
 
-**Pitfalls when explaining**
+**Switching levels**
 
-- Do not call R 'the curvature' of spacetime; call it one scalar summary and always pair 'R = 0' with 'not necessarily flat'.
-- Do not state R = 2K outside two dimensions.
-- State the signature when quoting a sign of R for a spacetime; d'Inverno's values have the opposite sign.
-- Do not let the symbol R double as the scale factor in a lesson; use a(t).
-- When computing, do not skip the inverse metric even when the Ricci tensor looks diagonal.
+- To working when: asks how the total is computed; is at home with indices. Go to the trace with the inverse metric, the sum over planes and the sphere. *Uses:* `ways_in/trace-with-the-inverse-metric`, `worked_examples/sphere-in-two-frames`
+- To formal when: asks what the scalar determines or misses; asks about actions or initial data. Go to the structure way and the volume law. *Uses:* `ways_in/scalar-curvature-on-a-manifold`, `problems/ball-volume-law`
+- To research when: asks about mass theorems, modified gravity or inflation. Open the research horizon. *Uses:* `research_horizon/scalar-curvature-and-positive-mass`, `research_horizon/beyond-the-einstein-hilbert-action`
 
-**When to show a demo**
+**Pronunciations:** Ricci → REE-chee; Riemann → REE-mahn; Kretschmann → KRETCH-mahn; Levi-Civita → LEH-vee CHEE-vee-tah; Yamabe → yah-MAH-beh; Starobinsky → stah-roh-BIN-skee
 
-- Open the surface explorer when introducing the concept: drop a circle on the sphere, then the saddle, then the cylinder to show R positive, negative and zero.
-- After computing 2/a^2, use the explorer's radius slider to show R growing as the sphere shrinks.
-- When discussing R = 0 versus flat, switch the source picker to pure radiation and show R(t) at zero while the expansion still decelerates.
-- When discussing singularities, open the invariants demo on the Schwarzschild card to contrast R = 0 with the rising Kretschmann curve.
+**Voice notes:** Say ring amounts as signed parts in a billion billion, too long counted as negative. Never say a bare letter R.
 
-**Saying it aloud:** Say R = g^{mu nu} R_{mu nu} as 'R equals g upper mu nu times R lower mu nu: the Ricci tensor traced with the inverse metric'. Say the sphere value as 'two over a squared'. Say the trace equation as 'R equals four Lambda minus eight pi G times the trace of T'. Say the FLRW result as 'six times, a double-dot over a, plus a-dot over a squared, plus k over a squared'. Never read 'R' alone without saying 'Ricci scalar' the first time in a lesson.
+## History
 
-## Sources
+- **Gregorio Ricci-Curbastro, Tullio Levi-Civita (1900).** Set out the absolute differential calculus and its contractions of the Riemann tensor; both the contracted tensor and its trace carry Ricci's name. Gregorio Ricci-Curbastro, Tullio Levi-Civita (1900), *Méthodes de calcul différentiel absolu et leurs applications*, Mathematische Annalen 54, 125–201, doi:10.1007/BF01454201 _(unverified)_
+- **Albert Einstein (1915).** Added the trace term to the field equations, which is what ties the scalar curvature at an event to the trace of the matter there. Albert Einstein (1915), *Die Feldgleichungen der Gravitation*, Sitzungsberichte der Königlich Preußischen Akademie der Wissenschaften (Berlin), 844–847 _(unverified)_
+- **David Hilbert (1915).** Derived gravitational field equations from a variational principle whose gravitational part is the scalar curvature weighted by the volume element. David Hilbert (1915), *Die Grundlagen der Physik (Erste Mitteilung)*, Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse 1915, 395–407 _(unverified)_
 
-- schutz ch06 (developed): p.162 §6.6
-- schutz ch07 (mention): p.173 §7.1
-- gifted-amateur ch11 (developed): p.127 §11.5, p.128 §11.6
-- gifted-amateur ch13 (revisited): p.142 §13.1, p.146 §13.3, p.148 §13.4
-- gifted-amateur ch36 (revisited): p.382 §36.4, p.383 §36.4
-- dinverno ch06 (core): p.106 §6.12
-- legacy manuscript-section-8-4-8-6-flatness-count-sphere-curvature (developed)
-- legacy lesson-a-curved-universe-capstone (revisited)
-- legacy design-doc-misconception-diagnostics (mention)
+## Research horizon
 
-## Review
+- **Scalar curvature and positive mass.** On time-symmetric initial data the Hamiltonian constraint sets the slice's own scalar curvature to $16\pi$ times the energy density, so non-negative energy gives non-negative scalar curvature. Schoen and Yau proved that a complete asymptotically flat 3-manifold with non-negative scalar curvature has non-negative mass, zero only for flat space, and Witten gave a spinor proof. Rigidity results for scalar curvature remain an active area of geometric analysis. Richard Schoen, Shing-Tung Yau (1979), *On the proof of the positive mass conjecture in general relativity*, Communications in Mathematical Physics 65, 45–76, doi:10.1007/BF01940959 _(unverified)_; Edward Witten (1981), *A new proof of the positive energy theorem*, Communications in Mathematical Physics 80, 381–402, doi:10.1007/BF01208277 _(unverified)_
+- **Replacing the scalar in the action.** Replacing $R$ by a function $f(R)$ in the gravitational action adds a scalar degree of freedom, which Solar System tests and cosmology constrain tightly. Starobinsky's model, usually written now as $f(R) = R + R^2/6M^2$, drives inflation with a small tensor-to-scalar ratio that current bounds allow, while its predicted spectral tilt sits a little below the most recent combined microwave-background measurements. Alexei A. Starobinsky (1980), *A new type of isotropic cosmological models without singularity*, Physics Letters B 91, 99–102, doi:10.1016/0370-2693(80)90670-X _(unverified)_; Thomas P. Sotiriou, Valerio Faraoni (2010), *f(R) theories of gravity*, Reviews of Modern Physics 82, 451–497, doi:10.1103/RevModPhys.82.451 _(unverified)_
+- **Prescribing constant scalar curvature.** The Yamabe problem asks whether every compact Riemannian metric of dimension at least three can be rescaled pointwise to one of constant scalar curvature. The rescaled scalar obeys a nonlinear elliptic equation, and Schoen completed the proof using the positive mass theorem. The same conformal transformation law underlies the conformal method that numerical relativity uses to solve the Hamiltonian constraint for initial data. Hidehiko Yamabe (1960), *On a deformation of Riemannian structures on compact manifolds*, Osaka Mathematical Journal 12, 21–37 _(unverified)_; Richard Schoen (1984), *Conformal deformation of a Riemannian metric to constant scalar curvature*, Journal of Differential Geometry 20, 479–495, doi:10.4310/jdg/1214439291 _(unverified)_; John M. Lee, Thomas H. Parker (1987), *The Yamabe problem*, Bulletin of the American Mathematical Society 17, 37–91, doi:10.1090/S0273-0979-1987-15514-5 _(unverified)_
 
-**Verdict:** fixed
+## Review: novice
+
+**Verdict:** fixed (2026-09-13, revision 2)
+
+**Retell attempt:** You pick a spot in space, stretch strings a kilometre long out in every direction of one flat sheet, and compare the ring through their ends with the 6.28 times the string it would have on a playground. Do that for three sheets at right angles. Above an airless planet the level ring is short by 6 parts in a billion billion and the two upright ones are too long by 3 each, so they add to zero, and that zero is the Ricci scalar even though space there really is curved. Turning the cage moves the three numbers around but the total stays put. Put matter at the spot, water or rock, and the total is no longer zero; it follows the mass in each cubic metre right there and nothing else, so in an empty cave inside rock it is zero again. What I could not say back: what exactly is being added up, because the note kept saying 'the total of three rings' and I first thought that meant adding their lengths; why it says nobody could do this and then has me standing on a tower doing it; whether a tilt is the sheet itself or the angle of the sheet, since the text and the glossary say different things; and whether the line down to the planet's centre goes through the middle of an upright ring in the same way it goes through the middle of the level one.
+
+**Stumbles (21)**
+
+- “One number for a spot: the total of three rings at right angles”: The tagline never says what is totalled, so the first reading is that the three ring lengths are added. 'At right angles' also has no reference: to each other.
+- “One ring can come out short and another too long. Tilting the rings can change each one, but never their total.”: Short compared with what is not said in the summary, 'each one' has no noun, and 'their total' again never says what is added.
+- “Imagine drawing rings in empty space itself, not on any ground. Nobody could do this, so treat it as a thought experiment.”: This contradicts the next paragraphs, where you stand on a tower and do exactly this with strings, and it leaves out the step that matters: with no ground to draw on, how is the ring drawn at all?
+- “Measure out 1 kilometre along every direction in that sheet, and draw the ring through the far ends.”: A step is left implicit: in space, with no ground, how do you measure out a kilometre along a direction? The recap's tight string never comes back.
+- “Such a sheet is called a tilt.”: One word in two senses: here a tilt is the sheet, while the glossary says a tilt is the way a sheet is angled. The reader cannot tell which thing 'tilt' names.
+- “The other two rings stand upright, like wheels, and that line runs down the middle of each.”: 'Runs down the middle' is used for the level ring, where the line crosses at a right angle, and for the upright rings, where the line lies inside the ring. The difference between the two is the whole point of the picture, and this wording hides it.
+- “The third ring only spins in its own place on the axle, so its tilt does not change”: The third ring does not lie on the axle: the axle crosses it at a right angle through its middle. Without that, the reader cannot picture why this ring is the one that does not tip.
+- “Turn the cage any other way and the total is the same, which we take on trust here.”: A surprising claim with nothing the reader can check. One extra turn they can work out themselves backs it, instead of a second appeal to trust.
+- “Spread along its 6.3 kilometres, that is less than a thousandth of the width of an atom.”: Reread: 'spread along' makes it sound like an amount per kilometre of ring, when it is the whole shortfall of the whole ring.
+- “push a pencil through the two points where the level hoop crosses it”: A rule the reader cannot physically follow: a pencil cannot be pushed through the two points where two card hoops cross. Also 'tipped the same way' does not say by how much.
+- “The zero total and the halfway amount are exact only for very small rings”: Small compared with what is not said, and the reader's first what-if is a bigger ring.
+- “What decides the total of the three rings when matter fills the spot?”: Same ambiguity as the tagline, repeated through the second way, its recap, its takeaway, the checks, the misconceptions, the problem and the opening questions: the thing being added has no name.
+- “Nothing farther away changes it.”: 'It' could be the total or the mass in each cubic metre named in the sentence before.
+- “Where matter moves, or where space expands, the motion changes the total as well.”: 'Space expands' never says what is compared with what, which is the wording trap the guide names.
+- “tilt: The way a flat sheet of directions is angled at a spot, like the bottom or a side of a box.”: The example names sheets (the bottom, a side), not angles, so it pulls against the definition it is meant to illustrate.
+- “Ricci tensor: A smaller table made from the table that describes the curving at a place. It gives the total of the drifts of a small ball of crumbs let go at rest in a falling cabin.”: The Ricci tensor is now a working prerequisite, so an entry reader has not met the curvature table, the drifts, or the falling cabin. Every noun in this definition is undefined for the reader who meets it here.
+- “you need not choose a tilt, and everyone gets the same answer”: A measurement with no measurer. People moving through the spot do not slice space the way the divers and the tower do, and they do not get this number.
+- “where light fills a region it is zero”: A surprising claim with no reason and no test within two sentences, dropped at the end of a spoken answer.
+- “could three rings at right angles add up to zero?”: Rings do not add up; their missing fractions do. Both opening questions put the sum to the learner without saying what is summed.
+- “The trace of "Trace the Ricci tensor with the inverse metric" is defined on any $n$-dimensional pseudo-Riemannian manifold”: Climbing to the formal way, the first sentence reads as though a way had a trace. The quantity being continued is not named.
+- “The divers' rings read the spatial value $16\pi G\rho/c^2$, twice as large, because a slice of a static spacetime carries a scalar curvature of its own.”: A jump on the ladder: the factor of two between the space value the entry rings measure and the spacetime value is asserted at the working rung with nowhere to go for it, although the formal way derives it.
 
 **Fixes**
 
-- Filled two null Schutz convention entries (trace relation; Lambda term in the Lagrangian) with checked statements: derived from Schutz's confirmed conventions, and noting the absence of an action principle in the cited units.
-- Removed a GA ch35 ref that did not support the 'constant R implies maximal symmetry' misconception.
-- Teaching step 2 now links the circle deficit to loop holonomy (turning angle = area times R/2 in 2D), closing the gap flagged in the GA ch11 dossier, with the legacy holonomy chapter cited.
-- Added the linearized scalar curvature to the formal level (d'Inverno ch21 evidence) and the GA ch16 'flat space is not flat spacetime' ref to the FLRW equation.
+- Named the quantity the whole entry rung is about: 'ring total', introduced in its own sentence in "Three rings around one spot", added to the glossary, and used in place of 'the total of the three rings', 'their total' and 'each one' throughout the summary, both entry ways, the three entry checks, the entry problem, the entry misconceptions, the entry objective, the opening questions, the teaching arc and the working way that continues them.
+- Rewrote the opening of "Three rings around one spot" so that the thought experiment is the kilometre-long strings, not the drawing of rings in space, which the rest of the way has the reader do.
+- Made 'tilt' one word for one idea: the sheet is a sheet, and its tilt is how it is angled. The glossary now matches the prose.
+- Separated how the line to the planet's centre meets a level ring (through the middle at a right angle) from how it meets an upright ring (lying flat inside it, top edge to bottom edge), and gave the axle its relation to the third ring.
+- Added a quarter-turn paragraph the reader can check by hand, so the claim that any turn gives the same total rests on a worked case as well as on trust.
+- Made the try-it doable: a pencil laid across the cage instead of pushed through the crossing points, and 'halfway between level and upright' instead of 'tipped the same way'.
+- Gave the entry-visible Ricci tensor glossary entry a self-contained picture, since the Ricci tensor is now only a working prerequisite.
+- Scoped 'everyone gets the same answer' to everyone at rest at the spot, and replaced the 'space expands' clause with galaxies growing farther apart.
+- Bridges for the climbing reader: the formal way now names $R = g^{\mu\nu}R_{\mu\nu}$ in its first sentence, and the working spacetime way points at the Gauss-equation route to the slice value ${}^{(3)}R = 16\pi G\rho/c^2$, with the address added to its refs.
+- Nothing was dropped or compressed. Entry explanations went from 800 to 987 words against the core cap of 1000, extras 640 to 693 of 800, tutoring 2638 to 2797 of 3300, total 7860 of 9500.
 
 **Concerns**
 
-- Worked and verified: sphere 2/a^2, C(s) = 2 pi s(1 - R s^2/12), geodesic-ball volume coefficient R/(6(n+2)), R = n(n-1)K, trace R = 4 Lambda - 8 pi G T, FLRW R and the dust (4/(3t^2)) and radiation (0) checks, R = -2N''/N for the lapse metric, Kretschmann 3/(4M^4) at r = 2M, conformal 3-metric formula, paraboloid and torus Gaussian curvatures.
-- The statement that d'Inverno's flipped sign of R is compensated by its matter-Lagrangian convention is an inference from (13.7) and (13.5), not a quoted remark.
-- Exercise refs GA Ex 15.4 and DIV Ex 25.10 still lack page numbers.
+- Physics to confirm, not novice wording: the entry way states that a ring tipped exactly halfway between level and upright gives the amount halfway between the level and upright amounts, and the new quarter-turn paragraph states that the two rings simply trade amounts. Both follow from the sectional curvature of the plane spanned by the fixed axle direction and a direction turned by an angle, which varies as the square of a cosine; the eighth-turn and quarter-turn cases are the two the entry rung quotes, and both are exact for that reason. Check that the trade-places claim is right for the cage as described.
+- The entry claim that, where matter is at rest and nothing changes with time, only the mass in each cubic metre at the spot sets the ring total still counts field energy as mass; simplifies scopes it to ordinary matter at rest. Left for the physics review, as the writer asked.
+- Conventions gaps are unchanged and still open: no symbol is fixed in course-conventions.md for a spacelike slice's own scalar curvature (the note writes ${}^{(3)}R$, now also in the working way), for extrinsic curvature $K_{ij}$, for the density fractions $\Omega_{\rm m}$, $\Omega_\Lambda$, $\Omega_k$, for the deceleration parameter $q$, or for the volume of the unit ball $\omega_n$.
+- The flagship visual proposal three-rings-around-a-spot should use the same words as this note: 'ring total' for the summed readout, and a tilt as how a sheet is angled. The sketch was not edited in this review.
+- The entry way now names two ways of turning the cage (an eighth of a turn and a quarter turn). If a later reviewer finds this is one idea too many for one way, the quarter turn is the piece to move, not the eighth turn, which the try-it and checks/tip-the-cage both use.

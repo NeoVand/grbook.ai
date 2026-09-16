@@ -188,7 +188,10 @@
 			"summary": "Intrinsic curvature is detectable from within a space by its own distance and parallelism measurements; extrinsic curvature describes only how the space bends inside a larger one. A paper cylinder is extrinsically curved but intrinsically flat (it unrolls without stretching), while a sphere is intrinsically curved, and GR curvature is always the intrinsic kind.",
 			"prerequisites": [
 				"curvature",
-				"intrinsic-geometry"
+				"intrinsic-geometry",
+				"curvature-of-a-curve",
+				"embedding",
+				"levi-civita-connection"
 			],
 			"related": [
 				{
@@ -321,7 +324,8 @@
 			"summary": "The angles of a triangle made of geodesics add up to more than pi on a positively curved surface and less than pi on a negatively curved one, and the difference equals the integrated Gaussian curvature over its area. On a sphere of radius R the excess is A/R^2 (Girard's theorem); on a hyperbolic plane of curvature -1/R^2 the deficit is A/R^2 (Lambert).",
 			"prerequisites": [
 				"curvature",
-				"great-circle-geodesics"
+				"great-circle-geodesics",
+				"gaussian-curvature"
 			],
 			"related": [
 				{
@@ -465,9 +469,12 @@
 			"tier": "advanced",
 			"summary": "For a surface in flat 3-space with basis vectors e_mu = dX/dx^mu and unit normal n, the derivative of a basis vector splits into a tangential connection part and a normal part K_mu nu n (Gauss's formula); K_mu nu is the second fundamental form, the quadratic term of the surface's height above its tangent plane. The first fundamental form is simply the induced metric g_mu nu = e_mu . e_nu.",
 			"prerequisites": [
+				"parametrized-surface",
 				"induced-metric",
 				"christoffel-symbols",
-				"parametrized-surface"
+				"eigenvalues-and-eigenvectors",
+				"intrinsic-versus-extrinsic-curvature",
+				"riemann-curvature-tensor"
 			],
 			"related": [
 				{
@@ -510,8 +517,11 @@
 			"tier": "advanced",
 			"summary": "A curve lying in a surface has a curvature vector dt/ds that splits into a part along the surface normal, the normal curvature kappa_n = K_mu nu t^mu t^nu (fixed by the tangent direction alone), and a part in the tangent plane, the geodesic curvature, which is intrinsic and vanishes exactly for the surface's geodesics.",
 			"prerequisites": [
+				"curvature-of-a-curve",
 				"second-fundamental-form",
-				"curvature-of-a-curve"
+				"geodesic",
+				"levi-civita-connection",
+				"connection-one-forms"
 			],
 			"related": [],
 			"sources": [
@@ -581,7 +591,9 @@
 			"summary": "Gaussian curvature K is a single number at each point of a surface that measures its intrinsic curvature: K = k1 k2, equal to the area swept by the unit normal on the unit sphere per unit surface area (Gauss map), and in two dimensions it is the only independent Riemann component, R_1212 = K g. A sphere of radius R has K = 1/R^2, a plane 0, and a hyperbolic plane a negative value.",
 			"prerequisites": [
 				"intrinsic-versus-extrinsic-curvature",
-				"metric-tensor"
+				"curvature-of-a-curve",
+				"metric-tensor",
+				"riemann-curvature-tensor"
 			],
 			"related": [
 				{
@@ -645,7 +657,8 @@
 			"summary": "Gauss's remarkable theorem: the Gaussian curvature of a surface, although first defined through its bending in 3-space, can be computed from the metric components and their first and second derivatives alone. It is therefore unchanged by bending without stretching and measurable by inhabitants of the surface.",
 			"prerequisites": [
 				"gaussian-curvature",
-				"intrinsic-geometry"
+				"intrinsic-geometry",
+				"riemann-curvature-tensor"
 			],
 			"related": [
 				{
@@ -681,7 +694,11 @@
 			"summary": "On a curved manifold, carrying a vector parallel to itself from one point to another gives a result that depends on the route, so there are no globally parallel vector fields and no absolute way to compare or add vectors at separated events. On a sphere, a vector taken round a triangle with two corners on the equator and one at the pole comes back turned by 90 degrees.",
 			"prerequisites": [
 				"parallel-transport",
-				"curvature"
+				"curvature",
+				"christoffel-symbols",
+				"four-momentum",
+				"levi-civita-connection",
+				"simply-connected-space"
 			],
 			"related": [
 				{
@@ -996,7 +1013,10 @@
 			"summary": "For vector fields u and v the curvature operator R(u,v) = [nabla_u, nabla_v] - nabla_[u,v] is a linear map on vectors that contains no derivatives of the vector it acts on; its components are the Riemann tensor, R(u,v)w = R^a_bcd w^b u^c v^d e_a. The Lie-bracket term corrects for the failure of the displacement loop to close.",
 			"prerequisites": [
 				"riemann-curvature-tensor",
-				"lie-bracket"
+				"covariant-derivative",
+				"lie-bracket",
+				"holonomy",
+				"levi-civita-connection"
 			],
 			"related": [
 				{
@@ -1159,7 +1179,10 @@
 			"summary": "At a point where coordinates are locally inertial (metric Minkowskian and Christoffel symbols zero), the lowered Riemann tensor is a signed sum of four second derivatives of the metric, and the metric near the point is g_mn = eta_mn - (1/3) R_manb x^a x^b + O(x^3). Coordinate freedom can remove the metric's value and first derivatives but leaves exactly 20 combinations of second derivatives, which are the curvature.",
 			"prerequisites": [
 				"riemann-curvature-tensor",
+				"tidal-force",
 				"local-flatness-theorem",
+				"christoffel-symbols-from-the-metric",
+				"covariance-of-tensor-equations",
 				"riemann-normal-coordinates"
 			],
 			"related": [
@@ -1223,9 +1246,11 @@
 			"tier": "core",
 			"summary": "With all indices lowered and the metric (Levi-Civita) connection, R_abcd is antisymmetric in its first pair (ab), antisymmetric in its last pair (cd), and symmetric under exchanging the two pairs. These hold in every basis and make many components vanish or equal each other.",
 			"prerequisites": [
+				"riemann-curvature-tensor",
 				"riemann-tensor-in-normal-coordinates",
 				"symmetric-and-antisymmetric-tensors",
-				"raising-and-lowering-indices"
+				"raising-and-lowering-indices",
+				"covariance-of-tensor-equations"
 			],
 			"related": [
 				{
@@ -1357,7 +1382,9 @@
 			"summary": "The symmetries cut the n^4 components of the Riemann tensor to n^2(n^2-1)/12 independent ones: 1 in two dimensions, 6 in three and 20 in four. In four dimensions the pair symmetries leave a symmetric 6x6 array (21 entries) and the cyclic identity removes one more; the 20 match the second metric derivatives that no coordinate change can remove.",
 			"prerequisites": [
 				"symmetries-of-the-riemann-tensor",
-				"cyclic-identity"
+				"cyclic-identity",
+				"gaussian-curvature",
+				"ricci-tensor"
 			],
 			"related": [],
 			"sources": [
@@ -1429,8 +1456,12 @@
 			"tier": "core",
 			"summary": "A manifold is flat, meaning coordinates exist in which the metric components are constant (Euclidean or Minkowskian) and parallel transport is path independent, if and only if its Riemann tensor vanishes everywhere. Nonzero Christoffel symbols alone prove nothing, since curvilinear coordinates produce them in flat space.",
 			"prerequisites": [
+				"path-dependence-of-parallel-transport",
+				"holonomy",
 				"riemann-curvature-tensor",
-				"path-dependence-of-parallel-transport"
+				"flat-metric",
+				"rindler-coordinates",
+				"simply-connected-space"
 			],
 			"related": [
 				{
@@ -1505,7 +1536,11 @@
 			"summary": "A vector field that is covariantly constant everywhere, nabla_b V^a = 0, can exist only if the mixed second derivatives agree, which requires R^a_bcd V^b = 0; conversely, if the Riemann tensor vanishes on a simply connected region, such fields exist through every vector at a point. This is the step that turns small-loop holonomy into the flatness criterion.",
 			"prerequisites": [
 				"ricci-identity",
-				"partial-derivative"
+				"partial-derivative",
+				"geodesic-deviation-equation",
+				"holonomy",
+				"lie-bracket",
+				"simply-connected-space"
 			],
 			"related": [],
 			"sources": [
@@ -1591,7 +1626,9 @@
 			"prerequisites": [
 				"riemann-curvature-tensor",
 				"tensor-contraction",
-				"symmetries-of-the-riemann-tensor"
+				"symmetries-of-the-riemann-tensor",
+				"poisson-equation-for-gravity",
+				"riemann-curvature-operator"
 			],
 			"related": [
 				{
@@ -1778,8 +1815,12 @@
 			"tier": "core",
 			"summary": "The differential Bianchi identity says that the covariant derivative of the Riemann tensor, cycled over the derivative index and the last two indices, sums to zero: nabla_e R_abcd + nabla_c R_abde + nabla_d R_abec = 0, for every metric. Geometrically it expresses that the boundary of a boundary is zero, the gravitational counterpart of dF = 0.",
 			"prerequisites": [
+				"riemann-curvature-tensor",
 				"riemann-tensor-in-normal-coordinates",
-				"symmetries-of-the-riemann-tensor"
+				"symmetries-of-the-riemann-tensor",
+				"covariant-derivative-of-a-tensor",
+				"holonomy",
+				"torsion-free-connection"
 			],
 			"related": [
 				{
@@ -1846,7 +1887,10 @@
 			"prerequisites": [
 				"bianchi-identity",
 				"ricci-tensor",
-				"metric-compatibility"
+				"ricci-scalar",
+				"metric-compatibility",
+				"levi-civita-connection",
+				"diffeomorphism-invariance"
 			],
 			"related": [
 				{
@@ -2584,7 +2628,11 @@
 			"summary": "The equivalence problem asks whether two metrics given in different coordinates describe the same geometry, i.e. are related by a coordinate transformation. It is settled by comparing coordinate-independent curvature data (invariant classification), a task usually done with computer algebra; the Schwarzschild solution was rediscovered many times for lack of such tools.",
 			"prerequisites": [
 				"riemann-curvature-tensor",
-				"diffeomorphism"
+				"diffeomorphism",
+				"gaussian-curvature",
+				"kretschmann-scalar",
+				"isometry",
+				"orthonormal-frame"
 			],
 			"related": [
 				{
@@ -2631,7 +2679,10 @@
 			"summary": "Cartan showed that two metrics are equivalent if the components of the Riemann tensor and its covariant derivatives agree in suitably fixed frames; Karlhede's staged procedure fixes the frame step by step and stops when no new invariant information or frame freedom appears, needing at most seven derivatives in general and five in vacuum.",
 			"prerequisites": [
 				"equivalence-problem",
-				"orthonormal-frame"
+				"orthonormal-frame",
+				"gaussian-curvature",
+				"isometry-group",
+				"petrov-classification"
 			],
 			"related": [],
 			"sources": [
@@ -2676,7 +2727,10 @@
 				"geodesic",
 				"affine-parameter",
 				"congruence-of-curves",
-				"lie-dragging"
+				"lie-dragging",
+				"lie-bracket",
+				"riemann-curvature-tensor",
+				"killing-vector"
 			],
 			"related": [],
 			"sources": [
@@ -2744,7 +2798,8 @@
 			"summary": "In Newtonian gravity two nearby free particles with separation eta obey d^2 eta^i/dt^2 = -(d_i d_j Phi) eta^j to first order: their relative acceleration is the tidal tensor (Hessian of the potential) acting on the separation. It is the template that the relativistic geodesic deviation equation reproduces.",
 			"prerequisites": [
 				"newtonian-tidal-tensor",
-				"taylor-series"
+				"taylor-series",
+				"poisson-equation-for-gravity"
 			],
 			"related": [
 				{
@@ -2782,10 +2837,11 @@
 			"tier": "core",
 			"summary": "For neighbouring geodesics with tangent u and deviation vector xi, the relative acceleration is D^2 xi^a/dtau^2 = -R^a_bcd u^b xi^c u^d: curvature alone makes initially parallel free-fall paths converge or diverge. In a parallel-propagated frame on one geodesic it becomes d^2 xi^i/dtau^2 = -R^i_0j0 xi^j, the exact relativistic form of the Newtonian tidal equation.",
 			"prerequisites": [
-				"riemann-curvature-tensor",
 				"deviation-vector",
+				"riemann-curvature-tensor",
 				"ricci-identity",
-				"geodesic-equation"
+				"geodesic-equation",
+				"ricci-tensor"
 			],
 			"related": [
 				{
@@ -2920,7 +2976,12 @@
 			"summary": "Contracting the Riemann tensor twice with an observer's four-velocity, K^a_b = R^a_cbd u^c u^d, gives a symmetric spatial tensor that maps separation to relative acceleration; its frame components R^i_0j0 (the electric part of curvature) replace the Newtonian Hessian of the potential. Positive eigenvalues act like spring constants pulling particles together, negative ones push them apart, and its trace is R_ab u^a u^b.",
 			"prerequisites": [
 				"geodesic-deviation-equation",
-				"orthonormal-frame"
+				"orthonormal-frame",
+				"newtonian-tidal-tensor",
+				"ricci-tensor",
+				"lorentz-transformation",
+				"einstein-field-equations",
+				"weyl-tensor"
 			],
 			"related": [
 				{

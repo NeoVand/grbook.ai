@@ -1,0 +1,564 @@
+---
+type: "concept"
+schema_version: 2
+id: "frenet-serret-equations"
+title: "Frenet–Serret equations"
+tagline: "How a path in space bends and twists, and the two numbers that describe it"
+domain: "curvature"
+tier: "prerequisite"
+status: "physics-reviewed"
+revision: 8
+updated: "2026-09-13"
+aliases: ["Serret–Frenet equations", "Frenet formulas"]
+prerequisites: ["curvature-of-a-curve"]
+leads_to: ["fermi-walker-transport", "connection-one-forms"]
+visuals: ["three-sticks-ride-a-spring"]
+---
+
+# Frenet–Serret equations
+
+*How a path in space bends and twists, and the two numbers that describe it*
+
+`frenet-serret-equations` · curvature · prerequisite · physics-reviewed (revision 8)
+
+**Needs:** [[curvature-of-a-curve]] (entry)  
+**Opens:** [[fermi-walker-transport]] · [[connection-one-forms]]  
+**Related:** [[torsion-tensor]]  
+**Visuals:** ★ [[three-sticks-ride-a-spring]]
+
+> Ride a bead along a bending wire, and its direction of travel turns. The turn per metre is the curvature. A path in space can also climb out of the flat sheet that best fits each of its bends, like the coils of a spring. How many degrees that sheet tips per metre along the path is the torsion. Take a path that bends at every place along it. Its curvature and its torsion at every place fix its shape, once you also know which way each tip goes.
+
+## You will be able to
+
+**Entry**
+- Explain why a flat ring has no torsion but a spring does. `objectives/explain-torsion-with-a-card` ← `checks/wiggle-on-a-page`
+- Predict the shape a drone flies from steady turn and tip instructions. `objectives/rebuild-a-path-from-two-numbers` ← `problems/drone-circle`
+
+**Working**
+- Derive the Frenet–Serret equations, and find how the frame changes when a curve is walked the other way. `objectives/derive-the-frame-equations` ← `checks/walk-the-helix-backwards`
+- Compute the curvature and torsion of a helix from its radius and climb. `objectives/compute-helix-curvature-and-torsion` ← `checks/spiral-ramp`
+
+**Formal**
+- Prove that, where curvature stays positive, curvature and torsion fix a space curve up to a proper rigid motion. `objectives/prove-rigid-motion-uniqueness` ← `problems/same-numbers-rigid-motion`
+
+## Ways in
+
+### 1. The sheet a bend lies in · entry · operational
+
+*What number tells a flat ring from a spring with equally sharp bends?*
+
+**Recap:** The curvature of a path is how many degrees your direction of travel turns per metre along it. The osculating circle at a place is the circle that matches the bend best there.
+
+Take a metal ring, and a metal spring whose coils are the same size as the ring. The coils climb only gently, so each coil is almost a flat circle. So the spring and the ring have nearly the same curvature. Yet the ring rests on a table, while the spring climbs. What number tells them apart?
+
+Pick one place on a bending wire, and look at a very short piece of wire around it. Any three points lie in one flat sheet, which is why a three-legged stool never wobbles. So three points close together on that short piece fix a flat sheet, and the piece lies almost exactly in it. This sheet is the one that best fits the bend there, and it holds the osculating circle.
+
+Rest a small card against the wire like a tiny shelf, with the short piece of wire on its face, bend and all. The card then lies in that sheet, reaching toward the inner side of the bend. This sheet is called the osculating plane at that place.
+
+Now slide the card along the ring, keeping it in the osculating plane. Every piece of the ring lies on the table, so the card stays level, like the table top, the whole way.
+
+Do the same on the spring. The spring keeps climbing out of the sheet that fits each bend, so the card must tip as you slide it. It tips about the line of the wire, the way a boat tips from side to side about the line from its front to its back. The number of degrees the card tips per metre along the path is called the torsion.
+
+A ring has zero torsion. Any path that lies in one flat sheet has zero torsion too, at each of its bends, however sharp.
+
+On a big, gentle spiral, torsion is too small to notice. Picture a spiral ramp in a car park that circles 15 metres from its centre and climbs 3 metres per full circle. A calculation, taken on trust here, gives a torsion of only about 0.12 degrees per metre. So along a car's length of 4 metres, the osculating plane tips by about half a degree.
+
+**Try it:** Wind two long pipe cleaners, twisted end to end, loosely around a drinks can, climbing about 5 centimetres per coil, and slide the coil off. Bend another pipe cleaner into a ring lying on a table. Push a toothpick through the middle of a card about 2 centimetres square, at right angles to the card. Hold the card against the ring like a tiny shelf reaching toward the ring's centre, and slide it around. The toothpick stays upright the whole way. Stand the spring on the table, and slide the card around it too, with the shelf reaching toward the spring's empty middle. The toothpick leans a little away from upright, and the side it leans toward keeps moving around the room as you go, because the card keeps tipping.
+
+**Takeaway:** Torsion is how many degrees per metre the sheet that best fits a bend tips along a path; a path lying in one flat sheet has none at any of its bends.
+
+*Builds on:* [[curvature-of-a-curve]]<br>*Visuals:* [[three-sticks-ride-a-spring]]<br>*See:* `checks/wiggle-on-a-page`
+
+### 2. Three sticks ride along · entry · picture
+
+*How does a set of three directions change along a bending path?*
+
+**Recap:** The osculating plane is the flat sheet that best fits a bend at one place. The torsion is how many degrees that sheet tips per metre along the path.
+
+Imagine a bead sliding along a bent wire. It carries three short sticks, glued together like the three edges at one corner of a box, each at right angles to the other two. As it slides, the bead keeps the sticks aimed by three rules. The ahead stick points along the direction of travel. The bend stick points toward the inner side of the bend, the side the wire turns toward. The third stick points out of the osculating plane, at right angles to it.
+
+Your right hand picks which side of the sheet the third stick points to. Point your right thumb along the ahead stick and your right index finger along the bend stick. Hold your middle finger at right angles to both, and the middle finger points along the third stick. For a ring lying on a table, travelled anticlockwise as seen from above the table, the third stick points at the ceiling. This set of three sticks is called the Frenet frame of the path.
+
+Any small change in how the set is aimed is a mix of three small spins, one about each stick. An aircraft pilot uses the same three: the nose swings left or right, the nose rises or dips, and the wings roll.
+
+First, the set spins about the third stick, so that the ahead stick turns toward the bend stick. Bending means exactly this turn. The third stick is its hinge, like the hinge of a door. The curvature gives the degrees of this turn per metre.
+
+Second, the set spins about the ahead stick. The bend stick lies in the osculating plane and the third stick is at right angles to that plane, so when the plane tips, both sticks tip with it. The torsion gives the degrees of this tip per metre.
+
+Third, the set never spins about the bend stick. Such a spin would move the ahead stick toward the third stick. But the bend stick is aimed at exactly the side the ahead stick turns toward. So the ahead stick never moves toward the third stick.
+
+This means the curvature and the torsion say everything about how the three sticks change. The rules that say this exactly are called the Frenet–Serret equations. They need a bend: on a straight stretch the wire has no inner side, so the bend stick has no aim.
+
+**Takeaway:** As the bead slides, its three sticks turn about the third stick by the curvature, tip about the ahead stick by the torsion, and never spin about the bend stick.
+
+*Continues:* `ways_in/sheet-a-bend-lies-in`<br>*Visuals:* [[three-sticks-ride-a-spring]]
+
+### 3. Two numbers rebuild the path · entry · calculation
+
+*Do the curvature and torsion at every place fix the path?*
+
+**Recap:** The Frenet frame is three sticks at right angles. The ahead stick points along the direction of travel. The bend stick points toward the inner side of the bend. The third stick is at right angles to both, on the side the right-hand rule picks: right thumb ahead, index finger toward the bend, middle finger along the third stick. The set turns about the third stick by the curvature, and tips about the ahead stick by the torsion.
+
+Imagine a tiny drone carrying the three sticks. It flies one centimetre at a time, along its ahead stick. After each centimetre, it reads two numbers from its instructions, a turn and a tip. First it turns: it spins the set about the third stick, so the ahead stick moves toward the bend stick by the turn's degrees. Then it tips: it spins the set about the ahead stick by the tip's degrees. A tip moves the bend stick toward the side the third stick points to, and a tip written with a minus sign moves it toward the other side.
+
+Give the drone a turn of 3.6 degrees and no tip, every centimetre. A turn leaves the third stick where it was, so without tips every turn stays in the same sheet. After 100 centimetres it has turned 360 degrees, a full turn. The 100 steps are equal, with equal turns between them, so they make a regular shape with 100 sides. That shape closes, just as 4 equal steps with a quarter turn after each make a square. So the drone is back at its start, heading the way it began, after flying almost a circle 100 centimetres around.
+
+Now add a tip of 2 degrees every centimetre. Each tip moves the sheet of the next turn. Every centimetre repeats the same turn and tip, just as each step of a spiral staircase repeats the step before it. So the drone winds around a spring shape, moving steadily along the spring, and never returns to its start.
+
+Make the steps shorter and shorter, and the corners smooth out into a bending path. The turn per metre becomes the curvature, and the tip per metre becomes the torsion. So the curvature and torsion at every place, with the sign of each tip, fix the shape of the path. They do not fix where it starts, or which way the drone's sticks first point.
+
+**Takeaway:** For a path that bends at every place, the curvature and torsion at every place, with the sign of each tip, fix its shape. They do not fix where it starts or which way the three sticks first point.
+
+*Continues:* `ways_in/three-sticks-ride-along`<br>*Visuals:* [[three-sticks-ride-a-spring]]<br>*See:* `problems/drone-circle`
+
+### 4. Differentiate the three directions · working · calculation
+
+*Which equations govern the Frenet frame?*
+
+The three sticks of "Three sticks ride along" become three unit vectors. Describe a curve in space by its position $\mathbf r(s)$, with $s$ the arc length. The unit tangent $\hat{\mathbf T} = d\mathbf r/ds$ is the ahead stick. Where $\kappa > 0$, $d\hat{\mathbf T}/ds = \kappa\hat{\mathbf N}$ defines the principal normal $\hat{\mathbf N}$, the bend stick. The binormal $\hat{\mathbf B} = \hat{\mathbf T}\times\hat{\mathbf N}$ is the third stick. So the three form a right-handed orthonormal triad, the Frenet frame.
+
+The derivation "Frenet–Serret from orthonormality" shows that $d\hat{\mathbf B}/ds$ is parallel to $\hat{\mathbf N}$, and its coefficient defines the torsion $\tau$. Together,
+
+$$\frac{d}{ds}\begin{pmatrix}\hat{\mathbf T}\\ \hat{\mathbf N}\\ \hat{\mathbf B}\end{pmatrix} = \begin{pmatrix}0&\kappa&0\\-\kappa&0&\tau\\0&-\tau&0\end{pmatrix}\begin{pmatrix}\hat{\mathbf T}\\ \hat{\mathbf N}\\ \hat{\mathbf B}\end{pmatrix}.$$
+
+The matrix is antisymmetric because the frame stays orthonormal. For example, differentiating $\hat{\mathbf T}\cdot\hat{\mathbf N} = 0$ gives $\hat{\mathbf T}'\cdot\hat{\mathbf N} = -\hat{\mathbf T}\cdot\hat{\mathbf N}'$, and differentiating each unit length gives a zero on the diagonal. Antisymmetry leaves three independent entries. One of them is zero, because $\hat{\mathbf T}'$ has no $\hat{\mathbf B}$ part: $\hat{\mathbf N}$ was defined as the direction $\hat{\mathbf T}$ turns toward. That zero is the sticks never spinning about the bend stick.
+
+The minus sign in $d\hat{\mathbf B}/ds = -\tau\hat{\mathbf N}$ is chosen so that a right-handed helix, coiled like an ordinary screw thread, has $\tau > 0$. In the matrix, $\hat{\mathbf N}' = -\kappa\hat{\mathbf T} + \tau\hat{\mathbf B}$, so $\tau > 0$ moves the bend stick toward the third stick: the positive tip of "Two numbers rebuild the path". For $\mathbf r = (a\cos t, a\sin t, bt)$ with $a > 0$, the derivation "Curvature and torsion of a helix" gives
+
+$$\kappa = \frac{a}{a^2+b^2},\qquad \tau = \frac{b}{a^2+b^2}.$$
+
+The torsion is positive for $b > 0$ and negative for the mirror image, $b < 0$. A mirror reflection keeps $\kappa$ but reverses the sign of $\tau$, because it reverses the cross product that defines $\hat{\mathbf B}$; so the signs of the tips decide which of two mirror-image shapes the drone of "Two numbers rebuild the path" flies. With $b = 0$ the helix is a circle, with $\kappa = 1/a$ and $\tau = 0$. Like curvature, torsion has units of inverse length, and one radian per metre is $57.3^\circ$ per metre. Where $\kappa > 0$, torsion that vanishes everywhere makes $\hat{\mathbf B}$ constant, and the curve then lies in one plane.
+
+**Takeaway:** Keeping the frame orthonormal makes its derivative an antisymmetric matrix whose entries are the curvature, the torsion and one zero.
+
+*Continues:* `ways_in/three-sticks-ride-along`<br>*See:* `derivations/frenet-serret-from-orthonormality`, `derivations/curvature-and-torsion-of-a-helix`, `checks/spiral-ramp`
+
+### 5. The frame turns like a rigid body · working · bridge
+
+*What rotation does the Frenet–Serret matrix describe?*
+
+The antisymmetric matrix of "Differentiate the three directions" is a rotation rate. Define the Darboux vector $\boldsymbol\omega = \tau\hat{\mathbf T} + \kappa\hat{\mathbf B}$. Working out the three cross products shows that each frame vector $\mathbf e$ obeys $d\mathbf e/ds = \boldsymbol\omega\times\mathbf e$. That is how the axes of a rigid body change, $d\mathbf e/dt = \boldsymbol\Omega\times\mathbf e$, with angular velocity $\boldsymbol\Omega$. So per unit length the frame spins about $\hat{\mathbf B}$ at rate $\kappa$ and about $\hat{\mathbf T}$ at rate $\tau$, and never about $\hat{\mathbf N}$. A bead moving at speed $v$ along the curve carries the frame with angular velocity $v\boldsymbol\omega$.
+
+Part of that spin is a choice. Any orthonormal frame with one vector along $\hat{\mathbf T}$ must spin about $\hat{\mathbf B}$ at rate $\kappa$ to keep that vector along the curve, but its spin about $\hat{\mathbf T}$ is free. The frame that does not spin about $\hat{\mathbf T}$ at all, with $\boldsymbol\omega_0 = \kappa\hat{\mathbf B}$, is the rotation-minimizing frame; its rule is the Euclidean form of Fermi–Walker transport. Relative to it, the Frenet normal spins about $\hat{\mathbf T}$ at rate $\tau$.
+
+Light tells the two frames apart. In a coiled single-mode optical fibre with negligible birefringence, the polarization direction follows the rotation-minimizing frame. So its angle from $\hat{\mathbf N}$, measured toward $\hat{\mathbf B}$, changes at rate $-\tau$. On a uniform helix, point the axis so that $\hat{\mathbf T}$ circles it anticlockwise as seen from the axis tip, and let $\theta$ be the fixed angle between $\hat{\mathbf T}$ and that axis. Along one turn, $\int\tau\,ds = 2\pi\cos\theta$, and the Frenet frame returns to itself. The polarization therefore returns rotated by $-2\pi\cos\theta$, which equals, modulo $2\pi$, the solid angle $2\pi(1-\cos\theta)$ traced by $\hat{\mathbf T}$ on the sphere of directions.
+
+**Takeaway:** The Frenet frame turns like a rigid body, about the binormal at the curvature and about the tangent at the torsion.
+
+*Continues:* `ways_in/differentiate-the-three-directions`<br>*See:* `observations/coiled-fibre-polarization`
+
+### 6. What curvature and torsion determine · formal · structure
+
+*When do curvature and torsion determine a space curve?*
+
+The drone of "Two numbers rebuild the path" is a theorem. *Fundamental theorem of space curves:* for smooth $\kappa, \tau: I \to \mathbb R$ with $\kappa > 0$, there is a smooth unit-speed curve $\gamma: I \to \mathbb R^3$ with curvature $\kappa$ and torsion $\tau$, and any two such curves differ by a proper rigid motion $\mathbf x \mapsto Q\mathbf x + \mathbf c$ with $Q \in SO(3)$.
+
+*Sketch.* Put the frame vectors in the rows of $F(s)$, so the Frenet–Serret equations read $F' = AF$ with $A$ antisymmetric. The linear system has a unique solution for each $F(s_0) \in SO(3)$. Since $A + A^{\mathsf T} = 0$, the constant $FF^{\mathsf T} = 1$ solves the equation for $FF^{\mathsf T}$, so the rows stay orthonormal and right-handed. Integrating the first row gives $\gamma$. For two solutions, $(F_1^{\mathsf T}F_2)' = F_1^{\mathsf T}(A^{\mathsf T} + A)F_2 = 0$, so one constant rotation relates the frames, and the curves differ by it and a translation. A reflection reverses the sign of $\tau$.
+
+*Limits.* The hypothesis $\kappa > 0$ is essential. For example, where $\kappa$ vanishes on an interval, $\hat{\mathbf N}$ and $\tau$ are undefined there, and the part of the curve beyond that straight segment can be rotated about the segment's line without changing $\kappa$ or $\tau$ anywhere they are defined. A given curve needs three derivatives for $\tau$ to exist. In $\mathbb R^n$, a curve whose first $n-1$ derivatives are independent has $n-1$ curvatures and a tridiagonal antisymmetric matrix. In a Riemannian manifold, $d/ds$ becomes $\nabla_{\hat{\mathbf T}}$.
+
+**Takeaway:** With curvature positive, curvature and torsion fix a space curve up to a proper rigid motion.
+
+*Continues:* `ways_in/two-numbers-rebuild-the-path`, `ways_in/differentiate-the-three-directions`<br>*See:* `problems/same-numbers-rigid-motion`
+
+## Glossary
+
+| Term | Say | In plain words | Concept |
+| --- | --- | --- | --- |
+| curvature | — | How sharply a path bends at a place: the degrees your direction of travel turns per metre along it. | [[curvature-of-a-curve]] |
+| osculating plane | OSS-kyuh-lay-ting plane | The flat sheet that best fits a bend at one place on a path. It holds the osculating circle there. | [[frenet-serret-equations]] |
+| torsion | TOR-shun | How many degrees the osculating plane tips per metre along a path. A path lying in one flat sheet has none. | [[frenet-serret-equations]] |
+| Frenet frame | fruh-NAY frame | Three directions at right angles carried along a bending path: ahead, toward the inner side of the bend, and a third at right angles to both, picked by the right-hand rule. | [[frenet-serret-equations]] |
+| right-hand rule | — | A way of picking one of the two sides of a sheet with your right hand. Point your thumb along the first direction and your index finger along the second. Your middle finger, held at right angles to both, then points to the side the rule picks. | — |
+| Frenet–Serret equations | fruh-NAY seh-RAY equations | The rules for how the Frenet frame changes along a path, set by the curvature and the torsion. | [[frenet-serret-equations]] |
+
+## Key equations
+
+### Frenet–Serret equations · working
+
+$$
+\frac{d}{ds}\begin{pmatrix}\hat{\mathbf T}\\ \hat{\mathbf N}\\ \hat{\mathbf B}\end{pmatrix} = \begin{pmatrix}0&\kappa&0\\-\kappa&0&\tau\\0&-\tau&0\end{pmatrix}\begin{pmatrix}\hat{\mathbf T}\\ \hat{\mathbf N}\\ \hat{\mathbf B}\end{pmatrix}
+$$
+
+Along a curve, the tangent turns toward the normal at rate $\kappa$, the binormal tips toward minus the normal at rate $\tau$, and the normal takes the balancing parts.
+
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $\hat{\mathbf T},\ \hat{\mathbf N},\ \hat{\mathbf B}$ | unit tangent, principal normal, binormal | T, N, B |
+| $\kappa$ | curvature, $\kappa > 0$ | kappa |
+| $\tau$ | torsion, positive for a right-handed helix | tau |
+| $s$ | arc length | s |
+
+**Holds when:** Unit-speed curve in $\mathbb R^3$ with three continuous derivatives and $\kappa > 0$; $\hat{\mathbf B} = \hat{\mathbf T}\times\hat{\mathbf N}$.  
+**Say it:** “T prime is kappa N; N prime is minus kappa T plus tau B; B prime is minus tau N.”  
+**Justified by:** `derivations/frenet-serret-from-orthonormality`
+
+### Curvature and torsion of a helix · working
+
+$$
+\kappa = \frac{a}{a^2+b^2},\qquad \tau = \frac{b}{a^2+b^2}
+$$
+
+A helix of radius $a$ that climbs $2\pi b$ per turn has constant curvature and torsion.
+
+| Symbol | Meaning | Say |
+| --- | --- | --- |
+| $a$ | radius of the helix | a |
+| $b$ | climb per radian of turn; positive for a right-handed helix | b |
+
+**Holds when:** Helix $\mathbf r(t) = (a\cos t, a\sin t, bt)$ with $a > 0$.  
+**Say it:** “Kappa is a over a squared plus b squared, and tau is b over the same.”  
+**Justified by:** `derivations/curvature-and-torsion-of-a-helix`
+
+## Derivations
+
+### Frenet–Serret from orthonormality · working
+
+**Goal:** Starting from $\hat{\mathbf T}' = \kappa\hat{\mathbf N}$ and $\hat{\mathbf B} = \hat{\mathbf T}\times\hat{\mathbf N}$, with primes for $d/ds$, show that $\hat{\mathbf B}' = -\tau\hat{\mathbf N}$ and $\hat{\mathbf N}' = -\kappa\hat{\mathbf T} + \tau\hat{\mathbf B}$.
+
+1. Differentiate $\hat{\mathbf B}\cdot\hat{\mathbf B} = 1$: $\hat{\mathbf B}\cdot\hat{\mathbf B}' = 0$, so $\hat{\mathbf B}'$ has no $\hat{\mathbf B}$ part.
+2. Differentiate $\hat{\mathbf B}\cdot\hat{\mathbf T} = 0$: $\hat{\mathbf B}'\cdot\hat{\mathbf T} = -\hat{\mathbf B}\cdot\hat{\mathbf T}' = -\kappa\,\hat{\mathbf B}\cdot\hat{\mathbf N} = 0$, so $\hat{\mathbf B}'$ has no $\hat{\mathbf T}$ part.
+3. So $\hat{\mathbf B}'$ lies along $\hat{\mathbf N}$; define $\tau$ by $\hat{\mathbf B}' = -\tau\hat{\mathbf N}$.
+4. The triad is right-handed, so $\hat{\mathbf N} = \hat{\mathbf B}\times\hat{\mathbf T}$, and the product rule gives $\hat{\mathbf N}' = \hat{\mathbf B}'\times\hat{\mathbf T} + \hat{\mathbf B}\times\hat{\mathbf T}'$.
+5. Substitute: $\hat{\mathbf N}' = -\tau\,\hat{\mathbf N}\times\hat{\mathbf T} + \kappa\,\hat{\mathbf B}\times\hat{\mathbf N} = \tau\hat{\mathbf B} - \kappa\hat{\mathbf T}$, using $\hat{\mathbf N}\times\hat{\mathbf T} = -\hat{\mathbf B}$ and $\hat{\mathbf B}\times\hat{\mathbf N} = -\hat{\mathbf T}$.
+
+**Result:** $\hat{\mathbf T}' = \kappa\hat{\mathbf N}$, $\hat{\mathbf N}' = -\kappa\hat{\mathbf T} + \tau\hat{\mathbf B}$, $\hat{\mathbf B}' = -\tau\hat{\mathbf N}$: the Frenet–Serret equations.
+
+### Curvature and torsion of a helix · working
+
+**Goal:** For $\mathbf r(t) = (a\cos t, a\sin t, bt)$ with $a > 0$, show $\kappa = a/(a^2+b^2)$ and $\tau = b/(a^2+b^2)$.
+
+1. $|d\mathbf r/dt| = \sqrt{a^2+b^2} \equiv c$, so $s = ct$ and $\hat{\mathbf T} = (-a\sin t, a\cos t, b)/c$.
+2. $d\hat{\mathbf T}/ds = (1/c)\,d\hat{\mathbf T}/dt = -(a/c^2)(\cos t, \sin t, 0)$, so $\kappa = a/c^2$ and $\hat{\mathbf N} = -(\cos t, \sin t, 0)$, pointing at the axis.
+3. $\hat{\mathbf B} = \hat{\mathbf T}\times\hat{\mathbf N} = (b\sin t, -b\cos t, a)/c$.
+4. $d\hat{\mathbf B}/ds = (b/c^2)(\cos t, \sin t, 0) = -(b/c^2)\hat{\mathbf N}$, so $\tau = b/c^2$.
+
+**Result:** $\kappa = a/(a^2+b^2)$ and $\tau = b/(a^2+b^2)$, both constant; $\tau > 0$ exactly when the helix is right-handed.
+
+## Problems
+
+### `drone-circle` · entry · difficulty 1 · calculation
+
+A drone carries the three sticks. Its instructions: fly 5 centimetres along the ahead stick, then turn with no tip. The turn spins the set about the third stick, so that the ahead stick moves 9 degrees toward the bend stick. It repeats this again and again. (a) After how many centimetres is it first heading the way it started? (b) Its path is almost a circle. The distance around a circle is about 6.28 times its radius. About how far is each point of the path from the circle's centre? (c) A second drone follows the same instructions, but also tips 3 degrees after every turn. Does it come back to its start?
+
+**Hints**
+
+1. How many 9-degree turns make one full turn?
+
+**Answer:** (a) After 200 centimetres. (b) About 32 centimetres. (c) No: it winds around a spring shape and moves steadily away along it.
+
+**Must contain:** 40 turns of 9 degrees make a full turn, after 200 centimetres; Radius about 32 centimetres; With a steady tip the drone flies a spring shape and never returns
+
+**Numeric:** distance flown before heading the starting way again = 200 cm (magnitude, ±1); distance from the centre = 31.8 cm (magnitude, ±0.5)
+
+**Solution**
+
+1. One full turn is 360 degrees. Each turn is 9 degrees, so a full turn takes 360 divided by 9, which is 40 turns.
+2. Each turn follows 5 centimetres of flight, so the drone flies 40 times 5, which is 200 centimetres, before it heads the way it started.
+3. With no tip, every turn stays in one sheet. The 40 equal steps with equal turns make a regular 40-sided shape, which closes into almost a circle 200 centimetres around. Its radius is 200 divided by 6.28, about 32 centimetres.
+4. With a tip of 3 degrees, each tip moves the sheet of the next turn. Every step repeats the same turn and tip, like the steps of a spiral staircase. So the drone winds around a spring shape and moves steadily along it, never returning to its start.
+
+### `same-numbers-rigid-motion` · formal · difficulty 3 · proof
+
+Let $\gamma_1, \gamma_2: I \to \mathbb R^3$ be smooth unit-speed curves with the same $\kappa(s) > 0$ and $\tau(s)$. Show that $\gamma_2 = Q\gamma_1 + \mathbf c$ for a constant $Q \in SO(3)$ and $\mathbf c \in \mathbb R^3$.
+
+**Hints**
+
+1. Put each frame in the rows of a matrix $F_i$ and differentiate $F_1^{\mathsf T}F_2$.
+
+**Answer:** $F_1^{\mathsf T}F_2$ is constant, so the frames differ by one rotation $Q$, and integrating the tangents gives $\gamma_2 = Q\gamma_1 + \mathbf c$.
+
+**Must contain:** F1 transpose F2 has zero derivative because A is antisymmetric; Integrating the rotated tangents gives the rigid motion
+
+**Solution**
+
+1. Write $F_i(s)$ for the matrix whose rows are $\hat{\mathbf T}_i, \hat{\mathbf N}_i, \hat{\mathbf B}_i$. The Frenet–Serret equations read $F_i' = AF_i$ with the same antisymmetric $A(s)$ for both curves.
+2. $(F_1^{\mathsf T}F_2)' = (AF_1)^{\mathsf T}F_2 + F_1^{\mathsf T}AF_2 = F_1^{\mathsf T}(A^{\mathsf T} + A)F_2 = 0$, so $R = F_1^{\mathsf T}F_2$ is constant. Both frames are right-handed orthonormal, so $R \in SO(3)$.
+3. $F_2 = F_1R$ says each row of $F_2$ is the matching row of $F_1$ acted on by $Q = R^{\mathsf T}$; in particular $\gamma_2' = Q\gamma_1'$. Integrating gives $\gamma_2 = Q\gamma_1 + \mathbf c$.
+
+## Observations
+
+- **Rotation of light's polarization in a helically coiled optical fibre** (measured, working). In a single-mode fibre wound into a helix, the polarization is carried without spinning about the fibre, so relative to the Frenet frame it turns at the rate $-\tau$. After whole turns of a uniform helix, whose Frenet frame returns to itself, the polarization comes back rotated by the solid angle traced by the fibre's direction, modulo a full turn. *Numbers:* For a fibre making $45^\circ$ with the helix axis, the torsion adds up to $360^\circ\cos 45^\circ = 254.6^\circ$ per turn, and the predicted rotation per turn is $105.4^\circ = 360^\circ - 254.6^\circ$, a solid angle of $1.84$ steradians. *Reference:* Akira Tomita, Raymond Y. Chiao (1986), *Observation of Berry's topological phase by use of an optical fiber*, Physical Review Letters 57, 937–940, doi:10.1103/PhysRevLett.57.937
+
+## Teaching arc
+
+1. **Slide a card along a ring and a spring** (entry). Ask for a prediction, then slide the card; name the card's tip per metre the torsion. *Why:* Separates twisting from bending, which learners merge. *Visual:* [[three-sticks-ride-a-spring]] *Uses:* `ways_in/sheet-a-bend-lies-in`, `checks/wiggle-on-a-page`
+2. **Ride the sticks, then fly the drone** (entry). Name the two spins of the sticks and the spin that never happens, then rebuild a circle and a spring from turn-and-tip instructions. *Why:* Shows that two numbers carry the whole shape. *Visual:* [[three-sticks-ride-a-spring]] *Uses:* `ways_in/three-sticks-ride-along`, `ways_in/two-numbers-rebuild-the-path`, `problems/drone-circle`
+3. **Derive and compute** (working). Derive the equations from orthonormality, then compute the helix and the ramp. *Why:* The one zero in the matrix is the picture's never-turn rule. *Uses:* `ways_in/differentiate-the-three-directions`, `derivations/frenet-serret-from-orthonormality`, `checks/spiral-ramp`
+
+## Misconceptions
+
+### “A path with lots of sharp bends must have a lot of torsion.” · entry · `sharp-bends-mean-torsion`
+
+- **Why it is tempting:** Both bending and twisting make a path look less straight.
+- **What is true:** Torsion measures how the sheet of the bend tips, not how sharp the bend is. A wiggly line drawn on a flat page bends sharply but never leaves its sheet.
+- **Exposed by:** `checks/wiggle-on-a-page`
+
+### “Walking a curve the other way flips the sign of its torsion.” · working · `reversal-flips-torsion`
+
+- **Why it is tempting:** Signed curvature of a plane curve does flip when the curve is walked the other way.
+- **What is true:** Reversal flips the tangent and the binormal together, so their relation to the normal, and the torsion, is unchanged. Handedness belongs to the shape, not to the direction of travel.
+- **Exposed by:** `checks/walk-the-helix-backwards`
+
+## Checks
+
+1. **Entry · explain** `checks/wiggle-on-a-page`. On a flat sheet of paper, you draw a smooth wiggly line with many sharp bends. Next to it lies a metal spring whose coils climb gently. Which of the two paths has torsion, and why?
+   - **Hints:** Where does a card held in the osculating plane of a bend of the drawn line lie?
+   - **Answer:** Only the spring. Every bend of the drawn line lies in the paper. So a card held in the osculating plane of any bend lies on the paper, and it never tips as you slide it along. That means the line's torsion is zero at every place where it bends, however sharp its bends are. The spring keeps climbing out of the sheet that fits each bend, so its card tips, and the spring has torsion.
+   - **Must contain:** Only the spring has torsion; Every bend of the drawn line lies in the paper, so the card never tips
+   - **Numeric:** degrees the card tips over any 1 metre along the drawn line = 0 deg (magnitude, ±0.01)
+   - **Targets:** `sharp-bends-mean-torsion`
+   - **Visual:** [[three-sticks-ride-a-spring]]
+2. **Working · numeric** `checks/spiral-ramp`. Model the centre line of a spiral ramp as a helix of radius 15.0 m that climbs 3.0 m per full turn. Over 4.0 m along the ramp, by how many degrees in total does the unit tangent turn, and by how many degrees in total does the osculating plane tip?
+   - **Hints:** Write the helix as $(a\cos t, a\sin t, bt)$; how far does it climb per full turn?
+   - **Answer:** The climb per radian is $b = 3.0\ \text{m}/2\pi = 0.477$ m, so $a^2 + b^2 = 225.2\ \text{m}^2$. Then $\kappa = 15.0/225.2\ \text{m}^{-1} = 0.0666\ \text{m}^{-1}$, which is $3.82^\circ$ per metre, and $\tau = 0.477/225.2\ \text{m}^{-1} = 0.00212\ \text{m}^{-1}$, which is $0.121^\circ$ per metre. Both are constant, so over 4.0 m the tangent turns $15.3^\circ$ and the osculating plane tips $0.49^\circ$.
+   - **Must contain:** Curvature 3.82 and torsion 0.121 degrees per metre, from b equal to the climb per turn over two pi; Over 4 metres, 15.3 degrees of turn and 0.49 degrees of tip
+   - **Numeric:** turn of the unit tangent over 4.0 m = 15.26 deg (magnitude, ±2%); tip of the osculating plane over 4.0 m = 0.486 deg (magnitude, ±3%)
+3. **Working · evaluate-claim** `checks/walk-the-helix-backwards`. A student walks a right-handed helix in the direction opposite to the one she first used. She says its torsion changes sign, just as the signed curvature of a plane curve flips when the curve is walked the other way. Evaluate the claim.
+   - **Hints:** Write the new tangent, normal and binormal in terms of the old ones.
+   - **Answer:** The claim is wrong. Write the helix as $(a\cos t, a\sin t, bt)$ with $b > 0$, so $\tau = b/(a^2+b^2)$, and walk it with $\sigma = -s$. The new tangent is $-\hat{\mathbf T}$. Its derivative is $d(-\hat{\mathbf T})/d\sigma = d\hat{\mathbf T}/ds = \kappa\hat{\mathbf N}$, so the normal and $\kappa$ are unchanged. The new binormal is $(-\hat{\mathbf T})\times\hat{\mathbf N} = -\hat{\mathbf B}$, and $d(-\hat{\mathbf B})/d\sigma = d\hat{\mathbf B}/ds = -\tau\hat{\mathbf N}$, so the torsion is still $+b/(a^2+b^2)$. A plane curve's signed curvature is measured against a normal chosen a different way: take the tangent and turn it a quarter turn in the sense chosen for the plane. The tangent's derivative with respect to the walk's own arc length is then the signed curvature times that turned tangent. Reversing the walk flips the turned tangent along with the tangent, while that derivative is the same vector for either direction of travel, so the signed curvature flips. Torsion is measured against $\hat{\mathbf N}$ instead, and the bend itself fixes $\hat{\mathbf N}$, so $\hat{\mathbf N}$ does not flip. The sign changes for torsion come in a pair, one from flipping $\hat{\mathbf B}$ and one from reversing the parameter, and the pair cancels.
+   - **Must contain:** Tangent and binormal both flip, the normal does not; Curvature and torsion are unchanged, since handedness belongs to the shape
+   - **Targets:** `reversal-flips-torsion`
+
+## Visuals
+
+- ★ [[three-sticks-ride-a-spring]] (flagship): Shows the osculating plane tipping and the frame's two turns, then rebuilds paths from curvature and torsion. *Sketch:* A 3D wire (ring, spring, mirror spring, or drawn path) with a bead carrying three sticks and a card for the osculating plane, with turn and tip readouts per metre. A rebuild mode flies a drone from curvature and torsion sliders; flipping the tip's sign draws the mirror spring.
+
+## Tutor moves
+
+**Open with**
+
+- Picture a flat metal ring and a gently climbing spring with coils the same size. Slide a small card along each, held like a tiny shelf with the wire on its face, reaching toward the inner side of the bend. On which one will the card tip? *(prediction)*
+
+**If the learner is stuck**
+
+- *The learner mixes up which stick is which.* → Use the right hand: thumb ahead, index finger toward the bend, middle finger for the third stick. *Uses:* `ways_in/three-sticks-ride-along`
+
+**Common questions**
+
+- *Is this the torsion that general relativity sets to zero?* (working) No. That torsion belongs to a connection, the rule for carrying vectors, and the connection of general relativity has none. The torsion of a curve measures how one curve leaves its osculating plane in flat space. *Uses:* `ways_in/differentiate-the-three-directions`
+
+**Switching levels**
+
+- To working when: asks for the equations. Derive them from orthonormality, then compute the ramp. *Uses:* `ways_in/differentiate-the-three-directions`, `checks/spiral-ramp`
+- To formal when: asks whether the two numbers always fix the curve. State the fundamental theorem and its failure where curvature vanishes. *Uses:* `ways_in/what-curvature-and-torsion-determine`, `problems/same-numbers-rigid-motion`
+
+**Pronunciations:** Frenet → fruh-NAY; Serret → seh-RAY; Darboux → dar-BOO; τ → tau, rhymes with cow
+
+## History
+
+- **Jean Frédéric Frenet (1847).** Derived six of the nine formulas for the frame's components in his 1847 doctoral thesis, before vector notation existed; an extract appeared in 1852. Frédéric Frenet (1852), *Sur les courbes à double courbure*, Journal de Mathématiques Pures et Appliquées 17, 437–447
+- **Joseph Alfred Serret (1851).** Published all nine of those component formulas independently, a year before the extract of the 1847 thesis appeared. Joseph Alfred Serret (1851), *Sur quelques formules relatives à la théorie des courbes à double courbure*, Journal de Mathématiques Pures et Appliquées 16, 193–207
+
+## Review: novice
+
+**Verdict:** fixed (2026-09-13, revision 8)
+
+**Retell attempt:** Second novice pass, reading revision 4. Torsion is the second number, after curvature. You rest a little card against a wire so the bend lies on its face, then slide it: on a flat ring the card never tips, on a spring it keeps tipping, and the degrees of tip per metre is the torsion. A bead carries three sticks at right angles, one ahead, one into the bend, and a third on the side my right hand picks; as it slides, the set turns about the third stick by the curvature, tips about the ahead stick by the torsion, and never spins about the bend stick, because the bend stick is aimed exactly where the ahead stick is going. A drone told to fly one centimetre and turn 3.6 degrees comes back to its start, because 100 equal steps with equal turns make a 100-sided shape that closes; add a 2-degree tip each time and it winds off into a spring instead. So the turn and the tip at every place, with which way each tip goes, fix the shape but not where you start or how the sticks first point. Things I was unsure of: what the sticks were 'aimed like this' before I had read the three rules; whether one pipe cleaner really makes a spring I can stand on the table, and what the 'middle of the coil' is; whether a straight wire has zero torsion or none to speak of; where the 'right-hand rule' that the recap names was explained; and whether the card 'lying flat' meant lying in a sheet or lying level.
+
+First pass, reading revision 2. You slide a card along a ring and along a spring. On the ring the card stays flat, but on the spring it tips over, and the degrees it tips per metre is the torsion; a line drawn on flat paper has none. A bead carries three sticks at right angles: one ahead, one toward the bend, and a third from my right hand's middle finger. They turn by the curvature and tip by the torsion, and somehow never turn about the bend stick, which I did not really follow. A drone turning 3.6 degrees every centimetre flies a circle back to its start, and adding a tip makes a spring that never comes back, so the two numbers fix the shape but not where it starts. I was not sure how to hold the card against a spring, why a bend lies in one sheet at all, why the drone lands exactly on its start, whether turning only the ahead stick breaks the right angles, or what tipping 'opposite ways' means.
+
+**Stumbles (34)**
+
+- “Near that place, the wire bends within one flat sheet, the sheet that holds the osculating circle there.”: A surprising claim with no reason: a spring does not lie in any flat sheet, so why would a piece of it?
+- “Hold a small card so that a short piece of wire around that place lies along its face.”: A rule the reader cannot physically follow: laying a card against the outside of a coil puts it in the wrong sheet, and nothing says which way the card reaches.
+- “so the card must tip over as you slide it”: 'Tip over' suggests the card ends up falling over or upside down, but its tip is a steady rate; the same phrase appears in the summary, glossary, try-it and check.
+- “On the spring it tips over steadily.”: The try-it does not say what the reader will actually see from outside: on a helix the card keeps the same small slope while its lean goes around, so 'tips over steadily' is not what appears.
+- “Wind a pipe cleaner three times around a thick marker pen”: A coil one centimetre across leaves no room to hold a card reaching toward its middle.
+- “Torsion is often too small to notice.”: A general sentence that fails for the first what-if: the reader's own pipe-cleaner spring tips very visibly.
+- “So does every path that lies in one flat sheet, wherever it bends and however sharply.”: First what-if: a drawn S has a place where it switches sides and a straight stretch has no bend, so no sheet fits there.
+- “The third stick points out of the osculating plane.”: Out toward which side? The side is fixed only by the next paragraph, and no example says where it points.
+- “glued together at right angles”: Three sticks each at right angles to both others is hard to picture from the words alone.
+- “The glued sticks can only turn together, and any small turn of the set is a mix of turns about its three sticks.”: 'Turn' is used both for any rotation and for the curvature's turn, and the claim that every change splits into three is given no reason.
+- “Second, the whole set tips about the ahead stick, because the osculating plane tips.”: A step left implicit: why must the sticks follow the plane?
+- “But the bend stick is, by its aim, the direction the ahead stick turns toward. So the ahead stick has no turn toward the third stick.”: Reread twice; 'by its aim' is opaque.
+- “It turns its ahead stick toward its bend stick by the first number of degrees, the curvature.”: Turning only the ahead stick would break the right angles; and a turn per centimetre is not yet the curvature in degrees per metre.
+- “it reads two numbers from a list ... So the two lists fix the shape of the flight.”: One list or two? Two words for one set of instructions.
+- “Each turn stays within the same sheet.”: Step left implicit.
+- “So it heads the way it started, and it is back at its start.”: Surprise with no reason: heading the starting way does not by itself bring you back to the start.
+- “Repeating the same turn and tip, the drone climbs away along a spring shape and never returns to its start.”: Surprise with no reason, and 'climbs' has no up.
+- “So the two lists fix the shape of the flight.”: A jump from a drone with corners to a smooth path's curvature and torsion.
+- “Two drones with the same lists, tipping the same way, fly the same shape, only moved and turned. Two drones that tip by the same amounts but opposite ways fly mirror-image shapes.”: 'Turned' in a third sense; 'opposite ways' has no reference; the mirror claim has no reason; and the mirror idea is a second new idea in this way (rule 17).
+- “its curvature and torsion, with the way each tip goes, fix its shape”: Reread; 'with the way each tip goes' is hard to parse (summary and takeaway).
+- “turn the ahead stick 9 degrees toward the bend stick, with no tip”: Same broken-right-angle rule as the way; and the objective mentions tips while no entry item uses one.
+- “About how far is the path from its centre?”: 'Its' could be the path's or the drone's.
+- “torsion of the drawn line, in degrees of tip per metre”: The numeric unit is degrees, but the quantity is a rate per metre.
+- “So the line's torsion is zero, however sharp its bends are.”: Same what-if as the way: no sheet fits where the line switches sides.
+- “For a path that bends at every place, the curvature and the torsion at every place fix its shape, once you also know which way each tip goes.”: A sentence I reread: 'at every place' appears twice, and on the first reading I attached the second one to the bending instead of to the two numbers.
+- “Yet the ring lies flat on a table, while the spring climbs. ... so the card lies flat, like the table top, the whole way. ... a card held in the osculating plane of any bend lies flat on the paper”: One word in two senses: 'flat' is the flat sheet a bend lies in, and also lying level on a table. I stopped to work out which sense 'the card lies flat' meant, since the card does lie in a flat sheet even on the spring. The check answer says the same thing a third time.
+- “You can hold a small card in that sheet. Rest the card against the wire like a tiny shelf, with the short piece of wire on its face, bend and all.”: A step left implicit: the first sentence claims the card can be held in the sheet before saying how, so I reread to check whether holding it as a shelf really puts it in that sheet.
+- “A ring has zero torsion. So does every path that lies in one flat sheet, at every place where it bends, however sharply.”: Ambiguous: the trailing 'at every place where it bends' can attach either to lying in the sheet or to having zero torsion, and 'So does' makes me carry 'has zero torsion' forward from the sentence before.
+- “Torsion is how many degrees per metre the sheet that best fits a bend tips along a path; a path lying in one flat sheet has none.”: A general sentence that fails for the first what-if: a straight wire lies in a flat sheet, but it has no bend, so no sheet fits it and there is nothing to tip. The explanation scopes this to places where the path bends; the takeaway does not.
+- “Wind a long pipe cleaner loosely around a drinks can, climbing about 5 centimetres per coil, and slide it off.”: A rule I could not physically follow: a pipe cleaner is about 30 centimetres, and one coil around a drinks can already uses about 21 of them, so one gives barely a single coil, which will not stand on the table as a spring.
+- “Stand the spring on the table, and do the same on it, with the shelf reaching toward the middle of the coil.”: A direction without its reference, and a vague 'the same': 'the middle of the coil' reads as the middle of the coil's length rather than the empty space the can filled, and I had to decide whether 'the same' was the holding or the sliding.
+- “As it slides, the bead keeps the sticks aimed like this.”: An ambiguous 'this' that points forward: the three sentences it means come after it, so I looked back for it first.
+- “The Frenet frame is three sticks at right angles: the ahead stick, the bend stick toward the inner side of the bend, and a third stick picked by the right-hand rule.”: An undefined name: this recap and the glossary's Frenet frame entry both say 'the right-hand rule', but no entry way names it. 'Three sticks ride along' gives the thumb, index finger and middle finger procedure without calling it anything.
+- “Give it a turn of 3.6 degrees and no tip, every centimetre.”: An ambiguous 'it' opening a paragraph: the nearest nouns are the tip, the bend stick and the side, so I went back to find the drone.
+
+**Fixes**
+
+- Summary: split the first sentence, 'best fits' for the sheet, 'tips' not 'tips over', and the sign scope reworded.
+- Sheet a bend lies in: three-point stool reason for the osculating plane; card held as a shelf reaching toward the inner side; 'tip' throughout; scoped 'at every place where it bends'; ramp sentence scoped to big gentle spirals; try-it rebuilt with a drinks-can coil and a toothpick, saying what the reader sees.
+- Three sticks ride along: box-corner picture; right-hand rule introduced as picking the side, with a ring-on-a-table example; 'spin' as the general word with the aircraft reason; reason the sticks tip with the plane; third-spin paragraph rewritten; takeaway names all three spins.
+- Two numbers rebuild the path: turn and tip defined as spins of the whole set; positive tip defined physically (bend stick toward the third stick); reason the no-tip flight closes (regular 100-sided shape, like a square); spiral-staircase reason for the spring; bridge from shrinking steps to curvature and torsion; 'instructions' as the one word; takeaway split.
+- Moved the mirror-image statement out of the entry rung (rule 17) into Differentiate the three directions, which now also links positive torsion to the entry rung's positive tip.
+- drone-circle problem: turn stated as a spin of the set; 'the circle's centre'; added part (c) with a 3-degree tip so an entry item uses a tip (checked with python: minimum distance from start about 57 cm after step 20 over 400 steps).
+- wiggle-on-a-page check: card 'held in the osculating plane', scoped zero torsion, numeric quantity matches its degree unit.
+- Glossary, opening question and teaching arc: 'tips' not 'tips over', 'best fits', right-hand rule named in the Frenet frame entry.
+- Budget: entry way explanations grew from 800 to under 1,100 words, inside the review allowance. To stay there, dropped from the entry ways: the mirror-image paragraph (moved to working), a duplicate sentence about two drones with the same instructions, a sentence saying a computer draws the spring, the ramp's comparison curvature of nearly 4 degrees per metre, and the sentence 'The glued sticks can only move together'.
+- Second novice pass over revision 4 (2026-09-13), giving revision 5. Ten stumbles fixed, all at the entry rung; no working or formal text, and no check, problem or numeric answer, changed.
+- Summary: split in two, so 'at every place' says once which paths are meant and once where the two numbers are read.
+- Sheet a bend lies in: 'lies flat' became 'rests' and 'stays level', and the wiggle-on-a-page answer says the card 'lies on the paper', so 'flat' now only ever describes a sheet; the card is rested as a shelf first and found to lie in the sheet after; the zero-torsion sentence names its own subject and pins its scope to the bends; the takeaway scopes 'has none' to a path's bends, which a straight wire has none of.
+- Sheet a bend lies in, try-it: two pipe cleaners twisted end to end, so the coil is long enough to stand on the table; 'another pipe cleaner' for the ring, since the first two are used; the shelf reaches toward the spring's empty middle, and the card is slid rather than 'the same' being done.
+- Three sticks ride along: 'aimed like this' became 'aimed by three rules', which points at the three sentences that follow.
+- Two numbers rebuild the path: 'Give it' became 'Give the drone'; the recap restates the right-hand rule as thumb, index finger and middle finger, in five short sentences instead of one long one.
+- Glossary: added 'right-hand rule', the one name the entry reading used that nothing defined.
+- Ladder: each later way still opens by naming the way it continues, and no working or formal symbol moved; nothing was added at those rungs.
+- Budget: entry way explanations went from 1,100 to 1,098 words and way fields from 452 to 490, against caps of 1,000 and 450, both inside the review allowance. Nothing was dropped and no sentence was compressed; the only sentence removed, 'You can hold a small card in that sheet', is a claim the two rewritten sentences make.
+
+**Concerns**
+
+- Entry way explanations stand at 1,098 words and way fields at 490, against caps of 1,000 and 450. Both sit inside the 10 per cent review allowance with almost no room left, so the next stage has to drop an item before it can add a sentence.
+- 'Three sticks ride along' still gives the right-hand procedure without naming it; the name is defined in the glossary and restated in the recap of 'Two numbers rebuild the path' instead. Naming it in the way costs about ten entry words, and the only sentence cheap enough to drop for them is the aircraft-pilot line, which is the sole backing for 'a mix of three small spins'.
+- No entry check or problem tests handedness or mirror images; the absolute sign of torsion still starts at the working rung.
+- The conventions file still has no row for space-curve symbols and the sign of a curve's torsion, and tau is reserved there for proper time; until it does, notation_traps has to stay empty.
+- A teenager's next what-if, 'does stretching a spring give it more torsion?', is unanswered at any rung: b/(a^2+b^2) rises to 1/(2a) at b = a and then falls, so the honest answer is 'up to a point'. A working check could use it.
+- The visual three-sticks-ride-a-spring is still only a sketch. The built component should stand the coil on its end and show the shelf-shaped card with its toothpick, as the try-it now does; with the try-it's drinks can (radius about 3.3 centimetres) and 5 centimetres of climb per coil, the toothpick leans about 13.5 degrees from upright.
+- Status dropped from physics-reviewed to novice-reviewed: revision 5 changes nine entry-rung strings, which the physics stage should cover with a diff check.
+
+**Re-read** (2026-09-13, revision 4): 4 stumbles in 6 changed passages
+
+- “They do not fix where it starts, or which way its sticks first point.”: Pronoun: 'its' follows 'the shape of the path', but a path has no sticks; the sticks are the drone's, so the reader has to reread to decide whose they are (rule 11).
+- “They do not fix where it starts or which way its sticks first point.”: Same pronoun problem in the takeaway, which has no drone: 'its sticks' reads as sticks belonging to the path.
+- “Along one turn of a uniform helix whose direction makes angle $\theta$ with the axis direction about which $\hat{\mathbf T}$ circles anticlockwise, seen from that direction's tip, $\int\tau\,ds = 2\pi\cos\theta$, and the Frenet frame returns to itself.”: Reread several times: three nested qualifiers ('whose direction', 'about which', 'seen from that direction's tip') stack before the result, and 'the helix's direction' is not a single direction.
+- “then rebuild a circle and a spring from turn and tip lists”: Two words for one thing: the drone way now reads its numbers from 'instructions', and the earlier novice review removed 'lists' for that reason.
+- Fix: Two numbers rebuild the path: 'which way its sticks first point' became 'which way the drone's sticks first point' in the explanation (now 1,100 entry words, exactly at the limit, inside the review allowance; 'where the path starts' was tried and left out because it would pass the allowance, and 'it' can only be the path, since a shape does not start), and 'its sticks' became 'the three sticks' in the takeaway. Claim unchanged.
+- Fix: The frame turns like a rigid body: the helix-angle sentence split in two, orienting the axis first and then defining theta as the angle between T and that axis; same orientation, angle and result.
+- Fix: Teaching arc sticks-then-drone: 'turn and tip lists' became 'turn-and-tip instructions'.
+- Fix: Read without stumbles: the try-it 'Stand the spring on the table' sentence, and 'never spinning about the bend stick' and 'the Euclidean form of Fermi–Walker transport' at the working rung.
+- Fix: Revision bumped from 3 to 4; nothing dropped.
+
+**Re-read** (2026-09-13, revision 7): 3 stumbles in 3 changed passages
+
+- “Signed plane curvature is measured against the normal got by turning the tangent a quarter turn in the plane's chosen sense; that normal flips with the tangent while $\hat{\mathbf T}'$ does not, so the sign flips.”: "The normal" now names two different vectors in neighbouring sentences, this one and $\hat{\mathbf N}$, and only a description tells them apart. "Got by" reads as a squeezed phrase, and the prime in $\hat{\mathbf T}'$ has no parameter attached, in an answer that has just been working with two of them, $s$ and $\sigma$.
+- “that normal flips with the tangent while $\hat{\mathbf T}'$ does not, so the sign flips”: A step taken on trust. The conclusion needs the relation that ties the two vectors together, and the answer writes that relation out for the space frame but not here, so the reader has to supply the missing link.
+- “Torsion is measured against $\hat{\mathbf N}$, which the bend itself fixes and which does not flip, and the two sign changes, from flipping $\hat{\mathbf B}$ and from reversing the parameter, cancel.”: One thirty-word sentence, nested inside four commas, asks the reader to hold two new ideas at once: which vector torsion is measured against, and which two sign changes cancel. The comma-nested list also hides what the two changes belong to.
+- Fix: checks/walk-the-helix-backwards, answer: rewrote the two closing sentences as five, fixing wording only. The plane-curve normal is now introduced as "a different normal" and built in front of the reader (the tangent turned a quarter turn in the sense chosen for the plane), so it is never confused with $\hat{\mathbf N}$; the relation that makes the conclusion follow is now written out; and the bare prime is replaced by "the tangent's derivative", since the answer is juggling $s$ and $\sigma$.
+- Fix: checks/walk-the-helix-backwards, answer: split the thirty-word torsion sentence into two, one for the vector torsion is measured against and one for the pair of cancelling sign changes.
+- Fix: No claim changed. The verdict, the algebra, the key points, the sign of every vector and the scope of every statement are the ones the physics stage left: the plane-curve normal still flips with the tangent, the tangent's derivative is still the same vector either way, $\hat{\mathbf N}$ still does not flip, and the two torsion sign changes still cancel.
+- Fix: Budget: the rewrite adds about 24 words to the tutoring bucket, which stays inside its cap of 1,200 for a prerequisite note, so the review's ten per cent allowance was not needed and nothing was dropped or compressed.
+- Fix: Left alone: the two history contributions the same stage rewrote. They carry no rung, they read cleanly in the history list where both appear together, and every word of their scope is an accuracy claim that is not mine to reword.
+
+**Re-read** (2026-09-13, revision 8): 0 stumbles in 2 changed passages
+
+- Fix: Sign-off read, no edit to any learner-visible text. All three changed sentences read cleanly at the working rung: "a normal chosen a different way" is followed at once by the rule that makes it (take the tangent and turn it a quarter turn in the sense chosen for the plane), so the reader never has to guess how this vector differs from $\hat{\mathbf N}$; naming the parameter once, "with respect to the walk's own arc length", picks up the $\sigma = -s$ walk set out earlier in the same answer; and "that derivative" in the closing sentence has exactly one candidate in the sentence before it.
+- Fix: Revision 8 signed; review.novice.reviewed_revision set to 8. Nothing dropped, nothing compressed, no budget allowance used.
+
+## Review: physics
+
+**Verdict:** fixed (2026-09-13, revision 8)
+
+**Verification**
+
+- Frenet–Serret matrix T'=kN, N'=-kT+tB, B'=-tN with B=TxN.: Re-derived every step of frenet-serret-from-orthonormality by hand (BxT=N, NxT=-B, BxN=-T); checked the antisymmetry argument and that the zero entry is the absence of a B part in T'. → Correct; signs and derivation steps agree.
+- Helix (a cos t, a sin t, bt), a>0: k=a/(a^2+b^2), t=b/(a^2+b^2), N points at the axis, B=(b sin t,-b cos t,a)/c; t>0 exactly for a right-handed helix.: Hand computation of each step; python torsion formula (r'xr'').r'''/|r'xr''|^2 at a=b=1. → Correct; python gives tau=0.5=b/(a^2+b^2).
+- Mirror reflection keeps k and reverses the sign of t; walking the curve backwards keeps both.: Reflection M with det -1 gives B_new=-MB; python torsion formula for z-mirrored and reversed helix; hand check of the walk-the-helix-backwards answer. → Correct: mirror -0.5, reversed +0.5; check answer and misconception correction accurate.
+- Right-hand rule and ring example: thumb T, index N, middle finger B; ring travelled anticlockwise seen from above has B toward the ceiling.: T x N for T=(-sin,cos,0), N=-(cos,sin,0) in python. → Correct: B=(0,0,1).
+- Entry spins: a turn (spin about the third stick) moves the ahead stick toward the bend stick; a positive tip (spin about the ahead stick) moves the bend stick toward the third stick; no spin about the bend stick.: Rodrigues rotations in python; compared with Darboux vector w=tT+kB (wxT=kN, wxN=tB-kT, wxB=-tN). → Correct in sense and consistent with N'=-kT+tB for t>0. Aircraft yaw/pitch/roll reason: any infinitesimal rotation decomposes along three orthogonal axes; accurate.
+- Darboux vector w=tT+kB, frame changes as de/ds = w x e; for a helix w=(0,0,1/c).: Hand cross products; python at a=b=1. → Correct; the frame spins rigidly about the helix axis.
+- Rotation-minimizing frame w0=kB is the Euclidean form of Fermi–Walker transport; polarization angle from N toward B changes at rate -t.: For U=cos(phi)N+sin(phi)B with U'=-k(N.U)T, solved for phi'; compared with Euclidean FW rule dV/ds=(V.T)T'-(V.T')T. → phi'=-tau. 'Fermi–Walker transport in flat space' was ambiguous (FW is defined on spacetime worldlines); now 'the Euclidean form of'.
+- Fibre: over one helix turn integral of t ds = 2 pi cos(theta); polarization returns rotated by -2 pi cos(theta) = 2 pi(1-cos theta) mod 2 pi; 45 degrees gives 254.6, 105.4 degrees and 1.84 sr.: RK4 transport of U over one turn of a=b=1 helix in python; atan2 of U.B, U.N; plain arithmetic. → Numerical angle 105.4416 degrees, matching 360-254.5584. Sense holds only with theta measured from the axis direction T circles anticlockwise about (reversing the walk flips cos theta but not tau); qualifier added. Holonomy sense agrees with the conventions orientation row (cap on the left, normal T).
+- Drone: 3.6 degrees per centimetre with no tip closes after 100 cm heading as at start; drone-circle 40 turns, 200 cm, radius about 32 cm; with tips (2 or 3 degrees) the path is a spring that never returns.: Discrete simulation in python with body-frame rotations (turn about B, then tip about T). → 100-gon and 40-gon close exactly; 40-gon radius 31.86 cm (answer 31.8, tol 0.5 accepted). Tipped drones drift steadily (distance 634 cm after 400 steps of 5 cm; 1457 cm after 3000 steps of 1 cm). Continuum limit k=3.6 deg/cm, t=2 deg/cm is a helix of nonzero pitch.
+- Spiral ramp: a=15.0 m, climb 3.0 m per turn: b=0.477 m, a^2+b^2=225.2 m^2, k=3.82 deg/m, t=0.121 deg/m, over 4 m 15.3 and 0.49 degrees; entry 'about 0.12 degrees per metre' and 'about half a degree'.: python. → Correct: 3.8159, 0.12146, 15.263, 0.4858. Numeric tolerances fine.
+- Try-it: coil on a drinks can (radius about 3.3 cm), 5 cm climb per coil: toothpick (binormal) leans about 13.6 degrees from upright and its lean direction goes round; about 84 degrees of tip per coil.: Binormal of helix a=3.3, b=5/2pi: tan(lean)=b/a; tip per coil 360 b/c; |dB/ds|=t so the lean direction moves at the torsion rate. → 13.56 degrees and 84.4 degrees; a 13.6-degree lean shifts the tip of a toothpick sticking out 6 cm by about 1.4 cm, easy to see. The lean is only 'from upright' if the coil stands on its end, so the try-it now says to stand the spring on the table. The lean always points backward along the travel direction for this coil, so 'moves around the room' is true.
+- Entry: 'Any three points lie in one flat sheet'; three nearby points of a bending piece fix the osculating plane; paths in one sheet have zero torsion at every place where they bend.: Geometry: plane through three non-collinear points; osculating plane as limit; B constant for plane curves. → Accurate; the scope 'where it bends' excludes collinear points.
+- Rebuild claim: curvature and torsion with sign fix the shape, not 'where it starts or which way it first heads'.: Counterexample: same instructions, same start and heading, bend stick first aimed differently. → That drone flies the same shape rotated about the first heading, so start and heading do not fix the path; rewritten 'which way its sticks first point'.
+- Fundamental theorem and proof sketch: F'=AF, FF^T=1 preserved, (F1^T F2)'=0; failure where k vanishes on an interval; C^3 needed; R^n generalization; nabla_T on Riemannian manifolds.: Hand check of each identity; uniqueness of linear ODE solutions for X'=AX+XA^T. → Correct. Objective now carries the k>0 hypothesis.
+- Reference: Tomita and Chiao, Phys. Rev. Lett. 57, 937–940 (1986), doi 10.1103/PhysRevLett.57.937.: WebSearch: ADS and Mindat records. → Confirmed; verified true. Helical single-mode fibre, rotation equal to momentum-space solid angle: observation status measured is right.
+- Reference: F. Frenet, Sur les courbes à double courbure, J. Math. Pures Appl. 17, 437–447 (1852), extract of his 1847 thesis.: WebSearch: Numdam JMPA_1852_1_17__437_0. → Confirmed; verified true.
+- Reference: J.-A. Serret, Sur quelques formules relatives à la théorie des courbes à double courbure, J. Math. Pures Appl. 16, 193–207 (1851).: WebSearch: Numdam JMPA_1851_1_16__193_0 and EUDML. → Confirmed; verified true. History contributions claim no priority, so their scope is safe.
+- Revision-5 entry rewrite, sheet-a-bend-lies-in: 'Yet the ring rests on a table, while the spring climbs'; 'The card then lies in that sheet, reaching toward the inner side of the bend'; 'Every piece of the ring lies on the table, so the card stays level, like the table top, the whole way'.: Checked each against the geometry: for a circle in the table plane the osculating plane is that plane, so a card carrying a short piece of the wire on its face is horizontal at every place; checked that resting the card as a shelf with the bend on its face does put it in the osculating plane, since the plane is the limit of planes through three nearby points of the wire. → Accurate. 'Stays level' is the same claim as the old 'lies flat' with the word 'flat' freed for sheets, and it is true only because the ring lies in a horizontal plane, which the sentence says.
+- Revision-5 entry rewrite: 'Any path that lies in one flat sheet has zero torsion too, at each of its bends, however sharp', and the takeaway's 'a path lying in one flat sheet has none at any of its bends'.: Plane curve: B is the constant unit normal of the plane wherever kappa > 0, so dB/ds = 0 and tau = 0. Tried the drawn S-curve (an inflection, where kappa = 0 and no osculating plane is fixed) and a straight stretch (no bend at all) against the new scope. → Accurate and correctly scoped: both counterexamples fall outside 'at each of its bends' / 'at any of its bends', which the earlier unscoped wording did not exclude.
+- Revision-5 summary split: 'Take a path that bends at every place along it. Its curvature and its torsion at every place fix its shape, once you also know which way each tip goes.': Compared with the fundamental theorem in what-curvature-and-torsion-determine: kappa > 0 everywhere plus tau fixes the curve up to a proper rigid motion, and the sign of tau separates the two mirror images. → Accurate; the split changes no claim. 'Bends at every place' carries the kappa > 0 hypothesis and 'which way each tip goes' carries the sign of the torsion.
+- New glossary entry 'right-hand rule': thumb along the first direction, index finger along the second, middle finger at right angles to both points to the side the rule picks; and the same procedure restated in the recap of two-numbers-rebuild-the-path (thumb ahead, index toward the bend, middle finger along the third stick).: Python cross product for the ring travelled anticlockwise seen from above the table: T = (-sin t, cos t, 0), N = -(cos t, sin t, 0), T x N. → Correct: T x N = (0, 0, 1), the ceiling, matching the note's ring example and B = T x N. The rule as worded picks a unique direction whenever the two named directions are at right angles, which is the only way the note uses it.
+- Revision-5 try-it: two long pipe cleaners twisted end to end, wound round a drinks can climbing about 5 centimetres per coil, stood on the table; the toothpick through the card leans a little from upright and its lean goes round.: Python with can radius 3.3 cm and b = 5/(2 pi) cm: arc length per coil 2 pi sqrt(a^2+b^2); binormal lean acos(a/sqrt(a^2+b^2)); horizontal part of B dotted with the horizontal part of T. → Doable and accurate: 21.3 cm of wire per coil, so two 30 cm pipe cleaners give about 2.5 coils and a spring about 13 cm tall that stands on end. The toothpick leans 13.6 degrees, its lean points backward along the travel direction and turns 84 degrees per coil, so 'a little' and 'keeps moving around the room' are both right.
+- Revision-5 wording changes with no quantitative content: 'aimed by three rules' (three-sticks-ride-along), 'Give the drone a turn of 3.6 degrees' (two-numbers-rebuild-the-path), and 'lies on the paper' in the wiggle-on-a-page answer.: Read each in context and checked that the referents and the claims are the ones the old sentences made. → No claim changed. The wiggle-on-a-page numeric answer (0 degrees of tip per metre, abs_tol 0.01) still matches its text.
+- Reason given for the contrast in checks/walk-the-helix-backwards: why signed plane curvature flips under reversal while torsion does not.: Reversal with sigma = -s. Plane curve with signed curvature defined by T' = k n, n the tangent turned a quarter turn in the plane's chosen sense: T' is unchanged by the reversal while n flips, so k flips. Space curve: B flips with T, the parameter flips too, and N is unchanged, so dB/d(sigma) = dB/ds = -tau N and tau is unchanged. → The fact was right, the reason was not: 'measured against a fixed normal' would, read literally, predict no sign change at all, since T' does not flip. Rewritten to name the normal that actually flips and the two cancelling sign changes for torsion.
+- History scope: what Frenet's 1847 thesis and Serret's 1851 paper each contained.: WebSearch of biographical and archival records (MacTutor biographies of Frenet and Serret; Numdam items JMPA_1852_1_17__437_0 and JMPA_1851_1_16__193_0). → Frenet's thesis gave six of the nine component formulas, written before vector notation; Serret gave all nine in 1851, a year before the 1852 extract of the thesis. 'Derived the equations' and 'published the same equations' were too broad; both contributions rewritten with that scope, and neither claims priority.
+- All three references, re-confirmed at this revision: Tomita and Chiao, Phys. Rev. Lett. 57, 937-940 (1986), doi 10.1103/PhysRevLett.57.937; Frenet, J. Math. Pures Appl. 17, 437-447 (1852); Serret, J. Math. Pures Appl. 16, 193-207 (1851).: WebSearch: ADS and the publisher record for the first; Numdam for the other two. → All three confirmed as recorded, including volumes and page ranges; verified stays true.
+- Numbers unchanged since revision 4, recomputed independently at this revision: helix kappa = a/(a^2+b^2) and tau = b/(a^2+b^2); the spiral ramp; the drone paths; the fibre.: Python: torsion from (r' x r'').r'''/|r' x r''|^2 for several helices; ramp arithmetic; discrete rigid-motion simulation of the drone (turn about B, then tip about T); RK4 transport of a rotation-minimizing vector over one turn of a helix. → All reproduce the note: ramp kappa 3.816 deg/m and tau 0.1215 deg/m, giving 15.26 and 0.486 degrees over 4 m; the 100-gon and the 40-gon close exactly, and the tipped drones drift away without returning (6312 cm after 4000 steps of 5 cm); the fibre's transported vector returns at 105.4416 degrees from N toward B, matching 360 - 360 cos 45 and the solid angle 1.840 sr.
+
+**Counterexamples tried**
+
+- Straight segment inside a bending path: the bend stick and torsion are undefined there and the far part can be rotated about the segment's line; covered by 'They need a bend', the takeaway scope 'bends at every place', and the formal Limits.
+- Drawn S-curve on paper: at the inflection no sheet is fixed; scoped by 'at every place where it bends'. Survives.
+- Mirror-image helix: same curvature, opposite torsion; handled by 'with the sign of each tip' at entry and the reflection sentence at working.
+- Helix walked backwards: torsion unchanged; but the fibre formula's cos theta flips, so the axis orientation had to be stated. Fixed.
+- Same start point and heading, different initial bend-stick direction: breaks 'do not fix where it starts, or which way it first heads' as an implied complete list; rewritten.
+- Coil lying on its side: 'the toothpick leans from upright' fails; try-it now stands the spring on its end.
+- Circle (b=0) and nearly flat coil: tau=0 and kappa about 1/a, consistent with the ring and gentle-spring claims.
+- Three collinear points: lie in many sheets; the note uses three points only on a bending piece, so the osculating plane claim holds.
+- Three collinear points, against 'Any three points lie in one flat sheet': they lie in many sheets, so the sentence is true only as an existence claim. The note uses uniqueness only in the next sentence, which is about three points on a bending piece, so the argument survives; recorded as a concern rather than rewritten, because a scoping clause would push the entry rung past its review allowance.
+- A plane curve with an inflection, against the revision-5 zero-torsion sentences: at the inflection kappa = 0 and no osculating plane is fixed. Excluded by the new scope 'at each of its bends'.
+- A straight wire, against the takeaway 'a path lying in one flat sheet has none at any of its bends': it has no bend, so nothing is claimed. Survives.
+- A coil lying on its side, against the revision-5 try-it: the try-it still says to stand the spring on the table, so 'leans away from upright' keeps its reference. Survives.
+- A ring and a spring of the same coil size, against 'nearly the same curvature': for a 5 cm climb on a 3.3 cm radius the curvature is 5.5 per cent below 1/a, and the way scopes the claim to coils that climb only gently. Survives.
+- A left-handed helix (b < 0) against the new glossary right-hand rule and the recap: the rule fixes B = T x N whatever the handedness, and only the sign of tau changes. Survives.
+- A plane curve walked backwards, against the rewritten reason in walk-the-helix-backwards: signed curvature flips, torsion of a space curve does not. Both now follow from the sentence as written.
+
+**Fixes**
+
+- Try-it (entry): 'Stand the spring on the table' so 'leans away from upright' has a reference.
+- Two numbers rebuild the path (entry explanation and takeaway): 'which way it first heads' became 'which way its sticks first point', since heading alone leaves a rotation about the first heading free.
+- Differentiate the three directions (working): 'never turning about the bend stick' became 'never spinning', matching the entry meaning of turn.
+- The frame turns like a rigid body (working): 'Fermi–Walker transport in flat space' became 'the Euclidean form of Fermi–Walker transport'; 'turns about T' became 'spins about T'; the helix angle theta is now measured from the axis direction T circles anticlockwise about, which fixes the sign of the polarization rotation.
+- Formal objective: added the hypothesis that curvature stays positive.
+- Teaching arc sticks-then-drone: 'three turns' became two spins and the spin that never happens.
+- leads_to fermi-walker-transport: reason reworded so the gyroscope clause and the frame clause each say what they describe.
+- Set verified true on the three confirmed references. Revision bumped to 3 for the six learner-visible changes listed by note_diff.py.
+- checks/walk-the-helix-backwards (working): the closing reason rewritten. 'Signed plane curvature flips because it is measured against a fixed normal' names a normal that does not flip, which would predict no sign change; the answer now names the normal got by turning the tangent a quarter turn in the plane's chosen sense, which does flip while the tangent's derivative does not, and says that for torsion the flips of the binormal and of the parameter cancel against an unchanged normal. The verdict on the student's claim, the key points and the numbers are unchanged.
+- history (reader): both contributions rescoped to what each work contained, after checking the archival records. Frenet's entry now says he derived six of the nine component formulas in the 1847 thesis, before vector notation existed, with an extract in 1852; Serret's says he published all nine of those formulas independently, a year before that extract. Neither claims priority, so the open question about earlier equivalent formulas is untouched.
+
+**Concerns**
+
+- Carried forward and still open: the conventions file has no row for space-curve notation (unit tangent, principal normal, binormal, curvature, torsion) or for the sign of a curve's torsion, and it reserves tau for proper time. The note uses tau only for torsion and takes the standard choice that a right-handed helix has positive torsion, but notation_traps must stay empty until the conventions file makes the choice.
+- Budget is the binding constraint: entry way explanations stand at 1,098 words against a cap of 1,000 and other way fields at 490 against 450, both inside the 10 per cent review allowance with 2 and 5 words spare. This pass added no entry words; the next stage must drop an item before it can add an entry sentence.
+- The summary now runs to six sentences, against the guide's two or three for a summary. No accuracy problem, and no room at the entry rung to shorten without losing a step; flagged for an editor.
+- Carried forward: no entry check or problem tests handedness or mirror images, and 'does stretching a spring give it more torsion?' is unanswered at any rung. Recomputed here: tau = b/(a^2+b^2) rises to 1/(2a) at b = a and falls after that, so for a 3.3 cm coil the largest torsion is 0.152 per cm, reached when the climb per turn is 2 pi a, about 21 cm. A working check could use it; the tutoring budget has about 120 words spare.
+- Carried forward, numbers re-checked: the visual three-sticks-ride-a-spring is still a sketch. A built component should stand the coil on its end and show the shelf-shaped card with its toothpick, which for the try-it's drinks can (radius about 3.3 cm, 5 cm of climb per coil) leans 13.6 degrees from upright and turns 84 degrees per coil.
+
+**Diff check** (2026-09-13, revision 4)
+
+- Working, frame-turns-like-a-rigid-body: the split helix sentence points the axis so that T circles it anticlockwise as seen from the axis tip, defines theta as the fixed angle between T and that axis, and gives integral of tau ds over one turn = 2 pi cos theta with the Frenet frame returning to itself.: Compared with the revision-3 sentence for orientation, angle and result. Hand check for (a cos t, a sin t, bt): T=(-a sin t, a cos t, b)/c circles +z anticlockwise seen from above, cos theta=b/c, tau=b/c^2, one turn has length 2 pi c. Python quadrature of the torsion formula over one turn for a=b=1, for a=2 and b=-0.5, and for the x-mirrored helix, with the axis chosen by the sign of (T x T')_z. → Correct and unchanged in meaning. The quadrature equals 2 pi cos theta in all three cases (4.44288, -1.52390, -4.44288), so the sign convention holds for left-handed helices, where theta exceeds 90 degrees. 'Fixed angle' is true on a uniform helix. The polarization sentence that follows is unchanged.
+- Entry, two-numbers-rebuild-the-path explanation and takeaway: curvature and torsion do not fix where the path starts or which way the drone's sticks (the three sticks) first point.: Read in context against the fundamental theorem in what-curvature-and-torsion-determine: solutions differ by a translation and one proper rotation of the initial frame; the right-hand rule already fixes the third stick from the first two. → Correct. The new wording names the frame explicitly and claims the same as before: starting place and starting aim of the frame are free, which is exactly the rigid-motion freedom.
+- Teaching arc sticks-then-drone: rebuild a circle and a spring from turn-and-tip instructions.: Compared with the drone way, where the drone reads a turn and a tip from its instructions each centimetre. → Correct; wording change only, consistent with the way it points to.
+
+**Diff check** (2026-09-13, revision 6)
+
+- Revision-5 entry rewrite, sheet-a-bend-lies-in: 'Yet the ring rests on a table, while the spring climbs'; 'The card then lies in that sheet, reaching toward the inner side of the bend'; 'Every piece of the ring lies on the table, so the card stays level, like the table top, the whole way'.: Checked each against the geometry: for a circle in the table plane the osculating plane is that plane, so a card carrying a short piece of the wire on its face is horizontal at every place; checked that resting the card as a shelf with the bend on its face does put it in the osculating plane, since the plane is the limit of planes through three nearby points of the wire. → Accurate. 'Stays level' is the same claim as the old 'lies flat' with the word 'flat' freed for sheets, and it is true only because the ring lies in a horizontal plane, which the sentence says.
+- Revision-5 entry rewrite: 'Any path that lies in one flat sheet has zero torsion too, at each of its bends, however sharp', and the takeaway's 'a path lying in one flat sheet has none at any of its bends'.: Plane curve: B is the constant unit normal of the plane wherever kappa > 0, so dB/ds = 0 and tau = 0. Tried the drawn S-curve (an inflection, where kappa = 0 and no osculating plane is fixed) and a straight stretch (no bend at all) against the new scope. → Accurate and correctly scoped: both counterexamples fall outside 'at each of its bends' / 'at any of its bends', which the earlier unscoped wording did not exclude.
+- Revision-5 summary split: 'Take a path that bends at every place along it. Its curvature and its torsion at every place fix its shape, once you also know which way each tip goes.': Compared with the fundamental theorem in what-curvature-and-torsion-determine: kappa > 0 everywhere plus tau fixes the curve up to a proper rigid motion, and the sign of tau separates the two mirror images. → Accurate; the split changes no claim. 'Bends at every place' carries the kappa > 0 hypothesis and 'which way each tip goes' carries the sign of the torsion.
+- New glossary entry 'right-hand rule': thumb along the first direction, index finger along the second, middle finger at right angles to both points to the side the rule picks; and the same procedure restated in the recap of two-numbers-rebuild-the-path (thumb ahead, index toward the bend, middle finger along the third stick).: Python cross product for the ring travelled anticlockwise seen from above the table: T = (-sin t, cos t, 0), N = -(cos t, sin t, 0), T x N. → Correct: T x N = (0, 0, 1), the ceiling, matching the note's ring example and B = T x N. The rule as worded picks a unique direction whenever the two named directions are at right angles, which is the only way the note uses it.
+- Revision-5 try-it: two long pipe cleaners twisted end to end, wound round a drinks can climbing about 5 centimetres per coil, stood on the table; the toothpick through the card leans a little from upright and its lean goes round.: Python with can radius 3.3 cm and b = 5/(2 pi) cm: arc length per coil 2 pi sqrt(a^2+b^2); binormal lean acos(a/sqrt(a^2+b^2)); horizontal part of B dotted with the horizontal part of T. → Doable and accurate: 21.3 cm of wire per coil, so two 30 cm pipe cleaners give about 2.5 coils and a spring about 13 cm tall that stands on end. The toothpick leans 13.6 degrees, its lean points backward along the travel direction and turns 84 degrees per coil, so 'a little' and 'keeps moving around the room' are both right.
+- Revision-5 wording changes with no quantitative content: 'aimed by three rules' (three-sticks-ride-along), 'Give the drone a turn of 3.6 degrees' (two-numbers-rebuild-the-path), and 'lies on the paper' in the wiggle-on-a-page answer.: Read each in context and checked that the referents and the claims are the ones the old sentences made. → No claim changed. The wiggle-on-a-page numeric answer (0 degrees of tip per metre, abs_tol 0.01) still matches its text.
+- Reason given for the contrast in checks/walk-the-helix-backwards: why signed plane curvature flips under reversal while torsion does not.: Reversal with sigma = -s. Plane curve with signed curvature defined by T' = k n, n the tangent turned a quarter turn in the plane's chosen sense: T' is unchanged by the reversal while n flips, so k flips. Space curve: B flips with T, the parameter flips too, and N is unchanged, so dB/d(sigma) = dB/ds = -tau N and tau is unchanged. → The fact was right, the reason was not: 'measured against a fixed normal' would, read literally, predict no sign change at all, since T' does not flip. Rewritten to name the normal that actually flips and the two cancelling sign changes for torsion.
+- History scope: what Frenet's 1847 thesis and Serret's 1851 paper each contained.: WebSearch of biographical and archival records (MacTutor biographies of Frenet and Serret; Numdam items JMPA_1852_1_17__437_0 and JMPA_1851_1_16__193_0). → Frenet's thesis gave six of the nine component formulas, written before vector notation; Serret gave all nine in 1851, a year before the 1852 extract of the thesis. 'Derived the equations' and 'published the same equations' were too broad; both contributions rewritten with that scope, and neither claims priority.
+- All three references, re-confirmed at this revision: Tomita and Chiao, Phys. Rev. Lett. 57, 937-940 (1986), doi 10.1103/PhysRevLett.57.937; Frenet, J. Math. Pures Appl. 17, 437-447 (1852); Serret, J. Math. Pures Appl. 16, 193-207 (1851).: WebSearch: ADS and the publisher record for the first; Numdam for the other two. → All three confirmed as recorded, including volumes and page ranges; verified stays true.
+- Numbers unchanged since revision 4, recomputed independently at this revision: helix kappa = a/(a^2+b^2) and tau = b/(a^2+b^2); the spiral ramp; the drone paths; the fibre.: Python: torsion from (r' x r'').r'''/|r' x r''|^2 for several helices; ramp arithmetic; discrete rigid-motion simulation of the drone (turn about B, then tip about T); RK4 transport of a rotation-minimizing vector over one turn of a helix. → All reproduce the note: ramp kappa 3.816 deg/m and tau 0.1215 deg/m, giving 15.26 and 0.486 degrees over 4 m; the 100-gon and the 40-gon close exactly, and the tipped drones drift away without returning (6312 cm after 4000 steps of 5 cm); the fibre's transported vector returns at 105.4416 degrees from N toward B, matching 360 - 360 cos 45 and the solid angle 1.840 sr.
+- Fix: Diff check of the ten revision-5 strings from the second novice pass (summary, three entry way fields, one takeaway, the try-it, one recap, the wiggle-on-a-page answer and the new right-hand-rule glossary entry): every one is accurate, and none changed a number, a sign or a scope for the worse. No entry text was edited, so the entry budget is unchanged.
+- Fix: Two accuracy fixes outside the diff, found while re-reading the whole note as referee: the reason clause in checks/walk-the-helix-backwards and the scope of the two history contributions. Both are recorded in the review's fixes.
+
+**Diff check** (2026-09-13, revision 8)
+
+- Scope of this diff check: note_diff.py from the before-reread snapshot (revision 6) to revision 7 lists exactly one changed learner-visible string, the closing five sentences of checks/walk-the-helix-backwards at the working rung. With --rungs entry,working the same single string is listed, so no entry-rung text changed and nothing else in the note is in scope.: python3 knowledge/_tools/note_diff.py <before-reread snapshot> <note>, with and without --rungs entry,working; read the whole check answer, its key_points, hints and targets, and the misconception reversal-flips-torsion, in context. → Scope confirmed: one working-rung string, five new sentences replacing two.
+- The unchanged algebra the new sentences rest on: for the helix (a cos t, a sin t, b t) with a > 0 and b > 0, walking with sigma = -s flips the tangent and the binormal, leaves the principal normal and kappa alone, and leaves tau = b/(a^2+b^2) positive.: python3 with exact first, second and third derivatives of the helix, evaluated at the same geometric point for both directions of travel (parameters +0.37 and -0.37), using kappa = |r' x r''|/|r'|^3 and tau = (r' x r'') . r'''/|r' x r''|^2, with a = 2.0 and b = 0.7; the frame compared component by component. → Confirmed. kappa = 0.445434298 and tau = 0.155902004 for both directions, matching a/(a^2+b^2) and b/(a^2+b^2). T_rev + T_fwd = 0, N_rev - N_fwd = 0, B_rev + B_fwd = 0 to machine precision. The note's Frenet matrix convention B' = -tau N is the one used.
+- New sentence: the plane curve's reference vector is the tangent turned a quarter turn in the sense chosen for the plane, the tangent's derivative equals the signed curvature times that turned tangent, reversing the walk flips the turned tangent while that derivative is unchanged, so the signed curvature flips.: python3 on y = x^2/2 walked both ways, compared at the same point (parameters +0.6 and -0.6), with the plane's orientation held fixed so the quarter turn is the same operator for both walks; computed the tangent, the turned tangent, the signed curvature (r1 x r2)/|r1|^3 and dT/ds for each walk. → Confirmed. The tangent and the turned tangent both flip; dT/ds = (-0.324395, +0.540657) for both directions, the same vector; the signed curvature goes from +0.630510 to -0.630510. The identity signed curvature times turned tangent = dT/ds holds to machine precision for both walks.
+- New sentence, checked against the old one it replaced: 'measured against a different normal'.: Read as a claim about vectors. Where kappa > 0 the turned tangent equals the principal normal N when the curve bends toward the walker's left in the plane's chosen sense, and equals -N otherwise, so the two are the same vector for half of all plane walks. → Error found. The old sentence claimed only that the reference vector is built by turning the tangent; the rewrite added a claim that the vector differs from N, which is false whenever the bend goes the way the plane's sense turns. Fixed to 'a normal chosen a different way', which claims what was intended, that the rule of choice differs, and is true in every case.
+- New sentence: 'the tangent's derivative is the same vector for either direction of travel'.: Checked which parameter the derivative is taken against. The claim holds only when each walk's derivative is taken along that walk's own arc length; against a single fixed arc length s the reversed tangent's derivative is -dT/ds, so the claim would be false. → Under-specified as written. Fixed by naming the parameter once, 'with respect to the walk's own arc length', and then referring back with 'that derivative'. This matches the sigma = -s computation earlier in the same answer and the final sentence's 'reversing the parameter'.
+- The sign bookkeeping the last two sentences state: torsion is read against N, which the bend fixes and which does not flip, and the two sign changes for torsion, from flipping B and from reversing the parameter, cancel.: Hand check in the note's conventions. Reversed frame: d(-B)/d(sigma) = (-1)(-1) dB/ds = -tau N, and the Frenet rule in the new parameter reads d(B_sigma)/d(sigma) = -tau_sigma N_sigma with N_sigma = N, so tau_sigma = tau. Compared with the plane case, where the reference vector flips once and the two changes on the derivative cancel, leaving one net flip. → Correct and unchanged in meaning from the pre-reread sentence. The two accounts are consistent: one flip of the reference vector for signed curvature, none for torsion.
+- Conditions on the general sentences. Torsion is defined only where kappa > 0.: Checked key_equations/frenet-serret-matrix, whose conditions row already states 'Unit-speed curve in R^3 with three continuous derivatives and kappa > 0; B = T x N'. Tried an inflection (kappa = 0, no principal normal) and a straight stretch against the changed sentences. → Covered by the note's stated conditions and by the check's own setting, a helix with a > 0, where kappa is constant and positive. No extra scoping clause needed in the answer.
+- Consistency with the rest of the note and with course conventions.: Compared the changed sentences with misconceptions/reversal-flips-torsion, with the check's key_points and question, and with the conventions file's orientation-and-rotation-sense row (a positive rotation turns toward the walker's left with the head along the chosen normal). → Consistent. The quarter turn 'in the sense chosen for the plane' is the conventions file's positive sense. course-conventions.md still fixes no row for space-curve notation or for the sign of a curve's torsion, so notation_traps stays empty; carried forward, not introduced here.
+- Fix: checks/walk-the-helix-backwards answer, working rung: 'measured against a different normal' became 'measured against a normal chosen a different way'. The rewrite had turned a statement about how the vector is built into a statement that it is a different vector from the principal normal, which is false whenever the curve bends the way the plane's chosen sense turns.
+- Fix: checks/walk-the-helix-backwards answer, working rung: 'The tangent's derivative is then the signed curvature times that turned tangent' became 'The tangent's derivative with respect to the walk's own arc length is then the signed curvature times that turned tangent', so the invariance claimed in the next sentence is pinned to a parameter.
+- Fix: checks/walk-the-helix-backwards answer, working rung: 'while the tangent's derivative is the same vector' became 'while that derivative is the same vector', pointing at the derivative just named rather than repeating it unscoped.
+- Fix: No claim changed. The verdict on the student, the helix algebra, the numbers, the key points and every sign are the ones the previous stages left. Nothing was dropped and no sentence was compressed; the answer grew by nine words, so the tutoring bucket goes from 1,133 to about 1,142 against a prerequisite cap of 1,200.
