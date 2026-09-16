@@ -237,10 +237,13 @@ async function runBatch(b) {
     }
     let checkIds = b.ids
     if (MODE !== 'conform') {
-      out.novice = await slot(2, () => agent(novicePrompt(b, prior), { label: `novice:${tag}`, phase: 'Novice review', schema: REVIEW_SCHEMA, effort: 'high' }))
-      b.ids.forEach((id) => release[id]())
-      if (!out.novice) return ((out.stopped = 'novice'), out)
-      out.physics = await slot(3, () => agent(physicsPrompt(b, out.novice), { label: `physics:${tag}`, phase: 'Physics review', schema: REVIEW_SCHEMA, effort: 'high' }))
+      // batch.start = "physics" skips the novice review for a note that is already novice-reviewed.
+      if (b.start !== 'physics') {
+        out.novice = await slot(2, () => agent(novicePrompt(b, prior), { label: `novice:${tag}`, phase: 'Novice review', schema: REVIEW_SCHEMA, effort: 'high' }))
+        b.ids.forEach((id) => release[id]())
+        if (!out.novice) return ((out.stopped = 'novice'), out)
+      }
+      out.physics = await slot(3, () => agent(physicsPrompt(b, out.novice || prior), { label: `physics:${tag}`, phase: 'Physics review', schema: REVIEW_SCHEMA, effort: 'high' }))
       if (!out.physics) return ((out.stopped = 'physics'), out)
       prior = out.physics
       checkIds = items(out.physics).filter((x) => (x.learner_changes || 0) > 0).map((x) => x.id)
