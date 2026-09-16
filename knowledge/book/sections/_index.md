@@ -138,8 +138,8 @@
 | [[holonomy-and-the-riemann-tensor]] Holonomy and the Riemann tensor | main | working | physics-reviewed (rev 4) | 9575 |
 | [[symmetries-and-identities]] Symmetries and identities of the Riemann tensor | main | working | physics-reviewed (rev 4) | 9365 |
 | [[ricci-bianchi-and-einstein-tensors]] Ricci, Bianchi and Einstein | main | working | physics-reviewed (rev 4) | 8845 |
-| Constant curvature, the Weyl tensor and invariants | advanced | formal | — | |
-| Geodesic deviation and tides | main | working | — | |
+| [[constant-curvature-weyl-and-invariants]] Constant curvature, the Weyl tensor and invariants | advanced | formal | physics-reviewed (rev 3) | 7602 |
+| [[geodesic-deviation-and-tides]] Geodesic deviation and tides | main | working | physics-reviewed (rev 4) | 8861 |
 
 ### 13. Differential forms and frames
 

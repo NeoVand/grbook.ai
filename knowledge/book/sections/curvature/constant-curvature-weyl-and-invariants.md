@@ -1,0 +1,275 @@
+# Constant curvature, the Weyl tensor and invariants
+
+`curvature/constant-curvature-weyl-and-invariants` · advanced track · formal depth · physics-reviewed · revision 3 · 2026-09-16
+
+Teaches: `sectional-curvature`, `curvature-of-the-two-sphere`, `space-of-constant-curvature`, `einstein-space`, `ricci-flat-spacetime`, `weyl-tensor`, `weyl-criterion-for-conformal-flatness`, `weyl-tensor-field-equation`, `kretschmann-scalar`, `equivalence-problem`, `cartan-karlhede-algorithm`
+
+Builds on: `curves-and-surfaces-in-space`, `holonomy-and-the-riemann-tensor`, `symmetries-and-identities`, `ricci-bianchi-and-einstein-tensors`
+
+**One number per plane, the sectional curvature, carries the whole Riemann tensor. One value on every plane is constant curvature; Einstein and Ricci-flat spacetimes fix only the traces, and the Weyl tensor is what they leave free. Scalars built from curvature can prove a singularity but cannot certify a geometry; Cartan's frame components can.**
+
+A colleague hands you a line element, with $G = c = 1$ throughout this section:
+
+$$ds^2 = -\left(\frac{1 - M/2\rho}{1 + M/2\rho}\right)^2 dt^2 + \left(1 + \frac{M}{2\rho}\right)^4\left(d\rho^2 + \rho^2\,d\Omega^2\right).$$
+
+It is static and spherically symmetric, and she says it is a new vacuum solution. Nothing in it looks like the Schwarzschild metric of the course conventions, yet two metrics that describe one geometry can look nothing alike. *Symmetries and identities of the Riemann tensor* left twenty curvature components at each event, and *Ricci, Bianchi and Einstein* traced ten of them into the Ricci tensor. This section asks what those twenty numbers say without coordinates, and which combinations of them can decide whether her metric is new. The last part answers her.
+
+## One number per plane: sectional curvature
+
+Let $(M, g)$ be a smooth manifold of dimension $n \ge 2$ with a metric of any signature and its Levi-Civita connection, and write $\mathrm{Rm}(X,Y,Z,W) = R_{\mu\nu\rho\sigma}X^\mu Y^\nu Z^\rho W^\sigma$ with the lowered tensor of *Symmetries and identities of the Riemann tensor*. For vectors $X, Y$ at a point put $Q(X,Y) = g(X,X)\,g(Y,Y) - g(X,Y)^2$, the squared area of the parallelogram they span. A plane $\Pi \subset T_pM$ is *nondegenerate* when $Q \ne 0$ on a basis of it; in Riemannian signature every plane is. Its *sectional curvature* is $K(\Pi) = \mathrm{Rm}(X,Y,X,Y)/Q(X,Y)$, independent of the basis because numerator and denominator are both antisymmetric and bilinear in the pair. On a surface it is the Gaussian curvature of *Curves and surfaces in space*.
+
+*Planes fix the tensor.* Call a tensor with the pair antisymmetries, pair exchange and the cyclic identity an algebraic curvature tensor. If such a $T$ has $T(X,Y,X,Y) = 0$ for all $X, Y$, polarizing in $X$ and then in $Y$ gives $T(X,Y,Z,W) = -T(X,W,Z,Y)$; with the antisymmetries, $T$ is then invariant under cyclic permutation of its last three slots, and the cyclic identity gives $3T = 0$. So the values on nondegenerate planes, which are dense among all planes, carry the whole Riemann tensor.
+
+*Sign in spacetime.* With signature $(-,+,+,+)$, a plane spanned by a unit timelike $u$ and a spacelike $\xi \perp u$ has $Q = -g(\xi,\xi)$. Contracting the geodesic deviation equation of the course conventions with $\xi_\mu$ gives $g(\xi, D^2\xi/d\tau^2) = -\mathrm{Rm}(\xi,u,\xi,u) = -\mathrm{Rm}(u,\xi,u,\xi)$ by the two pair antisymmetries, and $\mathrm{Rm}(u,\xi,u,\xi) = K(u,\xi)\,Q$, so
+
+$$g\!\left(\xi, \frac{D^2\xi}{d\tau^2}\right) = +K(u,\xi)\,g(\xi,\xi).$$
+
+On a timelike plane, positive sectional curvature drives free-fall neighbours apart, the opposite of converging geodesics on a sphere. The sign of $K$ is the course's convention; the behaviour is not.
+
+*The sectional curvature of a plane is the Riemann tensor fed the plane's basis twice over its squared area; it fixes the whole tensor, and on a timelike plane positive K drives free-fall neighbours apart.*
+
+## The sphere, and one value on every plane
+
+The round sphere $S^2_a$ of radius $a$ calibrates every sign in this chapter. *Ricci, Bianchi and Einstein* found $R = 2/a^2$ from a chart; here the number comes without one. The rotation group $SO(3)$ acts on $S^2_a$ by isometries, transitively on unit tangent vectors, and isometries preserve $K$, so $K$ is constant. On any surface the single independent component forces $R_{\rho\sigma\mu\nu} = K(g_{\rho\mu}g_{\sigma\nu} - g_{\rho\nu}g_{\sigma\mu})$, whence $R_{\mu\nu} = Kg_{\mu\nu}$ and $R = 2K$. The Gauss–Bonnet theorem, stated here, gives $\int K\,dA = 2\pi\chi(S^2) = 4\pi$; dividing by the area $4\pi a^2$ gives $K = 1/a^2$ and $R = 2/a^2$, positive as the conventions demand. The chart's $R^\theta{}_{\phi\theta\phi} = \sin^2\theta$ varies with $\theta$; $K = R_{\theta\phi\theta\phi}/(g_{\theta\theta}g_{\phi\phi}) = 1/a^2$ does not.
+
+A *space of constant curvature* is a connected $(M,g)$, of any dimension and signature, with
+
+$$R_{\rho\sigma\mu\nu} = K\,(g_{\rho\mu}g_{\sigma\nu} - g_{\rho\nu}g_{\sigma\mu}),\qquad K \text{ constant}.$$
+
+The right side is an algebraic curvature tensor with sectional curvature $K$ on every nondegenerate plane, so by the reconstruction from planes the form holds at a point exactly when all planes there share one value $K(p)$. Contracting with $g^{\rho\mu}$ gives $R_{\sigma\nu} = (n-1)K\,g_{\sigma\nu}$ and $R = n(n-1)K$.
+
+*Schur's lemma.* If the form holds at every point with a function $K(p)$ and $n \ge 3$, then $K$ is constant: the contracted Bianchi identity $\nabla^\mu R_{\mu\nu} = \tfrac12\nabla_\nu R$ of *Ricci, Bianchi and Einstein* reads $(n-1)\,\partial_\nu K = \tfrac12 n(n-1)\,\partial_\nu K$, so $(n-1)(n-2)\,\partial_\nu K = 0$. For $n = 2$ the factor vanishes and the hypothesis is empty: every surface has the form, and an egg's $K$ varies.
+
+*Models.* The complete simply connected Riemannian models are the sphere, Euclidean space and hyperbolic space. The Lorentzian models with $K \ne 0$ are *de Sitter spacetime*, the hyperboloid $-T^2 + X_1^2 + \dots + X_n^2 = \alpha^2$ in flat $\mathbb R^{1,n}$ with $K = +1/\alpha^2$, simply connected for $n \ge 3$, and *anti-de Sitter spacetime* with $K = -1/\alpha^2$. The anti-de Sitter hyperboloid in $\mathbb R^{2,n-1}$ has closed timelike curves; its universal cover is the simply connected model. In four dimensions $G_{\mu\nu} = 3Kg_{\mu\nu} - 6Kg_{\mu\nu} = -3Kg_{\mu\nu}$, so de Sitter solves the empty-space equation with $\Lambda = 3K$, and by the sign result its free-fall neighbours separate.
+
+*Symmetry and Gauss–Bonnet give the sphere K equal to one over a squared with no chart; constant curvature means one value on every plane, constant by Schur's lemma for n at least three, and de Sitter has Lambda equal to three K.*
+
+## Einstein spaces and Ricci-flat regions
+
+Constant curvature fixes all $n^2(n^2-1)/12$ components with one number. An *Einstein space* fixes only the traces: a connected $(M,g)$ with $R_{\mu\nu} = \lambda\,g_{\mu\nu}$ for a constant $\lambda$, zero allowed. Suppose only $R_{\mu\nu} = f\,g_{\mu\nu}$ for a function $f$. Then $R = nf$, and the contracted Bianchi identity gives $\partial_\nu f = \tfrac n2\,\partial_\nu f$, so $(n-2)\,\partial_\nu f = 0$: for $n \ge 3$ the pointwise condition already makes $f$ constant, by the mechanism of Schur's lemma. For $n = 2$ every metric has $R_{\mu\nu} = \tfrac12R\,g_{\mu\nu}$, so the definition must demand a constant. Tracing $G_{\mu\nu} + \Lambda g_{\mu\nu} = 0$ gives $R = 2n\Lambda/(n-2)$ and $\lambda = 2\Lambda/(n-2)$; in four dimensions $\lambda = \Lambda$, so an Einstein spacetime is exactly an empty-space solution with cosmological constant.
+
+A region is *Ricci-flat* when $R_{\mu\nu} = 0$ on an open set: the case $\lambda = 0$, and for $n = 4$ the vacuum equation with $\Lambda = 0$, since $G_{\mu\nu} = 0$ and $R_{\mu\nu} = 0$ are equivalent by the trace. Flat implies Ricci-flat implies scalar-flat, and neither converse holds for $n \ge 4$: the Schwarzschild exterior is Ricci-flat with $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma} = 48M^2/r^6$ (stated), so its tides survive with zero trace, and a radiation-filled universe without cosmological constant is scalar-flat but not Ricci-flat. In two and three dimensions Ricci-flat already means flat: a surface has $R_{\rho\sigma\mu\nu} = \tfrac12R\,(g_{\rho\mu}g_{\sigma\nu} - g_{\rho\nu}g_{\sigma\mu})$, and in three dimensions the six Riemann components are an algebraic function of the six Ricci components, so nothing survives a vanishing Ricci tensor.
+
+*An Einstein space has Ricci equal to a constant times the metric, forced constant for n at least three and equal to Lambda in four dimensions; Ricci-flat is the case zero, flat in two and three dimensions and curved from four on, as outside a star.*
+
+## The Weyl tensor: what the traces leave free
+
+For $n \ge 3$ define the *Schouten tensor* $P_{\mu\nu} = \frac{1}{n-2}\big(R_{\mu\nu} - \frac{R}{2(n-1)}\,g_{\mu\nu}\big)$, with trace $P = R/(2(n-1))$, and the *Weyl tensor* $C_{\rho\sigma\mu\nu}$ as the remainder in
+
+$$R_{\rho\sigma\mu\nu} = C_{\rho\sigma\mu\nu} + g_{\rho\mu}P_{\sigma\nu} - g_{\rho\nu}P_{\sigma\mu} - g_{\sigma\mu}P_{\rho\nu} + g_{\sigma\nu}P_{\rho\mu}.$$
+
+Contracting $g^{\rho\mu}$ over the four metric terms gives $(n-2)P_{\sigma\nu} + g_{\sigma\nu}P = R_{\sigma\nu}$, so $C$ is trace-free on every pair of slots, and it inherits the Riemann symmetries because the metric terms have them. For $n = 4$ the Schouten terms carry $\tfrac12 R_{\mu\nu}$ and $-\tfrac1{12}R\,g_{\mu\nu}$.
+
+*Counting.* The map sending a symmetric $h_{\mu\nu}$ to $g_{\rho\mu}h_{\sigma\nu} - g_{\rho\nu}h_{\sigma\mu} - g_{\sigma\mu}h_{\rho\nu} + g_{\sigma\nu}h_{\rho\mu}$ is injective for $n \ge 3$, since its Ricci trace $(n-2)h_{\mu\nu} + (g^{\alpha\beta}h_{\alpha\beta})\,g_{\mu\nu}$ determines $h$, and its image, of dimension $n(n+1)/2$, is orthogonal to the trace-free tensors. So the $n^2(n^2-1)/12$ components split into $n(n+1)/2$ Ricci and $n(n+1)(n+2)(n-3)/12$ Weyl components: none for $n = 3$ and ten of the twenty for $n = 4$. Those ten are what Einstein's equation, which fixes $R_{\mu\nu}$ at an event from the matter there, leaves free.
+
+*Einstein spaces again.* If $R_{\mu\nu} = \lambda g_{\mu\nu}$ then $P_{\mu\nu} = \lambda g_{\mu\nu}/(2(n-1))$ and the four metric terms collapse to
+
+$$R_{\rho\sigma\mu\nu} = C_{\rho\sigma\mu\nu} + \frac{\lambda}{n-1}\big(g_{\rho\mu}g_{\sigma\nu} - g_{\rho\nu}g_{\sigma\mu}\big),$$
+
+a constant-curvature part with $K = \lambda/(n-1)$ plus a free Weyl tensor. So an Einstein space has constant curvature exactly when $C = 0$, and a Ricci-flat region has $R_{\rho\sigma\mu\nu} = C_{\rho\sigma\mu\nu}$.
+
+*Conformal invariance.* Under $\tilde g_{\mu\nu} = \Omega^2 g_{\mu\nu}$ with $\Omega > 0$, the Riemann tensor changes by $\Omega^2$ times a term of the metric-times-symmetric-tensor form, built from derivatives of $\ln\Omega$ (stated). That term is Weyl-free, so $\tilde C^\rho{}_{\sigma\mu\nu} = C^\rho{}_{\sigma\mu\nu}$ with one index up, and the vanishing of $C$ is a property of the conformal class of $g$.
+
+*The Weyl tensor is the trace-free remainder of the Riemann tensor after the Schouten terms: zero in three dimensions, ten of the twenty components in four, the whole curvature of a Ricci-flat region, and unchanged with one index up by any rescaling of the metric.*
+
+## When the Weyl tensor vanishes: conformal flatness
+
+A metric is *locally conformally flat* if every point has a neighbourhood with a positive function $\Omega$ for which $\Omega^2 g$ is flat.
+
+**Theorem (Weyl, Schouten).** For $n \ge 4$, $g$ is locally conformally flat if and only if $C^\rho{}_{\sigma\mu\nu} = 0$. For $n = 3$, where $C \equiv 0$, the criterion is the vanishing of the *Cotton tensor* $\mathcal C_{\sigma\mu\nu} = \nabla_\mu P_{\nu\sigma} - \nabla_\nu P_{\mu\sigma}$. For $n = 2$ every metric qualifies.
+
+Necessity is conformal invariance: a flat metric has $\tilde C = 0$, hence $C = 0$. Sufficiency, sketched: write $\Omega = e^\sigma$. The Schouten tensor transforms as $\tilde P_{\mu\nu} = P_{\mu\nu} - \nabla_\mu\nabla_\nu\sigma + \nabla_\mu\sigma\,\nabla_\nu\sigma - \tfrac12 g_{\mu\nu}\,\nabla_\lambda\sigma\nabla^\lambda\sigma$ (stated). With $C = 0$ the rescaled curvature is built from $\tilde P$ alone, so by injectivity $\tilde g$ is flat exactly when $\tilde P = 0$: a first-order system $\nabla_\nu W_\mu = S_{\mu\nu}(W, x)$ for $W_\mu = \nabla_\mu\sigma$ with $S$ symmetric. By the Frobenius theorem it has a local solution exactly when the second derivatives of $W$ commute as the Ricci identity demands; substituting the system, every term in $W$ cancels and what remains is $\mathcal C_{\sigma\mu\nu} = 0$. The divergence identity $\nabla^\rho C_{\rho\sigma\mu\nu} = (n-3)\,\mathcal C_{\sigma\mu\nu}$, derived in the part on the Weyl field equation, makes that automatic for $n \ge 4$; then $\sigma$ exists locally, and the flatness criterion of *Symmetries and identities of the Riemann tensor* supplies coordinates in which $\tilde g$ is constant. For $n = 3$ the identity reads $0 = 0$ and the Cotton condition stands alone.
+
+*Edges.* The criterion concerns an open set: $C = 0$ at one event, or on one hypersurface, gives nothing. The Schwarzschild slice $t = \text{const}$, with three-metric $dr^2/(1 - 2M/r) + r^2 d\Omega^2$, is conformally flat, since $r = \rho(1 + M/2\rho)^2$ turns it into $(1 + M/2\rho)^4(d\rho^2 + \rho^2 d\Omega^2)$, while the spacetime's Weyl tensor never vanishes. Conformally flat is not flat: a Robertson–Walker universe is conformally flat with $R_{\mu\nu} \ne 0$. With an Einstein condition, $C = 0$ leaves the constant-curvature form with $K = \lambda/(n-1)$; with $\lambda = 0$ it leaves nothing, so no curved Ricci-flat region is conformally flat, and a black hole exterior is such a region.
+
+*In four or more dimensions a metric is locally conformally flat exactly when its Weyl tensor vanishes on an open set; the flattening equation is integrable when the Cotton tensor vanishes, which the divergence identity makes automatic.*
+
+## How the Weyl tensor propagates: the divergence equation
+
+Split into Weyl and Ricci parts, the Bianchi identity becomes a field equation for $C$ alone. Contract the second Bianchi identity of *Ricci, Bianchi and Einstein* once: $\nabla^\rho R_{\rho\sigma\mu\nu} = \nabla_\mu R_{\sigma\nu} - \nabla_\nu R_{\sigma\mu}$. Insert the decomposition. On the left the metric terms contribute $\nabla_\mu P_{\sigma\nu} - \nabla_\nu P_{\sigma\mu} - g_{\sigma\mu}\nabla^\rho P_{\rho\nu} + g_{\sigma\nu}\nabla^\rho P_{\rho\mu}$, and the twice-contracted identity $\nabla^\rho R_{\rho\nu} = \tfrac12\nabla_\nu R$ gives $\nabla^\rho P_{\rho\nu} = \nabla_\nu P$. On the right, $R_{\sigma\nu} = (n-2)P_{\sigma\nu} + g_{\sigma\nu}P$. The pure-trace terms cancel between the two sides, leaving
+
+$$\nabla^\rho C_{\rho\sigma\mu\nu} = (n-3)\big(\nabla_\mu P_{\nu\sigma} - \nabla_\nu P_{\mu\sigma}\big) = (n-3)\,\mathcal C_{\sigma\mu\nu}.$$
+
+Only metric compatibility, zero torsion and $n \ge 3$ were used. In four dimensions the right side is the *Weyl current* $J_{\sigma\mu\nu}$, which Einstein's equation writes as $8\pi\big(\nabla_{[\mu}T_{\nu]\sigma} - \tfrac13\,g_{\sigma[\nu}\nabla_{\mu]}T\big)$ with $T = g^{\alpha\beta}T_{\alpha\beta}$; a cosmological constant drops out because $\nabla g = 0$. Curvature that the matter at an event does not fix is sourced where matter, or its motion, changes, and handed on through empty space: the closest gravitational analogue of Maxwell's equations with a current. $J$ is antisymmetric in $\mu\nu$, has zero cyclic sum and is trace-free, sixteen components in four dimensions; the other four components of the once-contracted identity are $\nabla^\mu G_{\mu\nu} = 0$, so the Weyl equation carries no conservation law.
+
+In an Einstein space $P_{\mu\nu}$ is a constant times $g_{\mu\nu}$, so $J = 0$ and $\nabla^\rho C_{\rho\sigma\mu\nu} = 0$: the vacuum Bianchi identity, which makes Weyl curvature propagate, forces the $M/r^3$ fall-off of static spherical tides and, linearized, gives $\Box C_{\rho\sigma\mu\nu} = 0$, the wave equation of gravitational radiation.
+
+*The once-contracted Bianchi identity says the divergence of the Weyl tensor is n minus three times the Cotton tensor: in four dimensions a current built from derivatives of the stress-energy tensor, zero in every Einstein space.*
+
+## Scalar invariants: what they certify
+
+A *scalar polynomial curvature invariant* is a complete contraction, with $g$, $g^{-1}$ and possibly $\epsilon$, of a polynomial in the Riemann tensor and finitely many of its covariant derivatives. The simplest quadratic one is the *Kretschmann scalar* $\mathcal K = R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}$, written $\mathcal K$ and never $K$, which is a sectional curvature in this section. The Weyl part is orthogonal to the metric terms of the decomposition, and the squared norm of the metric-times-$h$ combination is $4(n-2)\,h_{\mu\nu}h^{\mu\nu} + 4(g^{\alpha\beta}h_{\alpha\beta})^2$; with $h = P$ and $n = 4$,
+
+$$\mathcal K = C_{\mu\nu\rho\sigma}C^{\mu\nu\rho\sigma} + 2R_{\mu\nu}R^{\mu\nu} - \tfrac13 R^2.$$
+
+In a Ricci-flat region $\mathcal K$ is the squared norm of the Weyl tensor; in constant curvature it is $2n(n-1)K^2$. For Schwarzschild, $\mathcal K = 48M^2/r^6$, in SI $48G^2M^2/c^4r^6$: finite at $r = 2M$, where the coordinate component $g_{rr}$ diverges, and unbounded as $r \to 0$.
+
+*Theorem.* If some invariant built from the Riemann tensor alone is unbounded along an inextendible causal geodesic of finite affine length, then no extension of the spacetime with a metric of class $C^2$ continues that geodesic to a point. Sketch: in such an extension the frame components of curvature are continuous, hence bounded near the endpoint, and so is every polynomial in them. Radial infall reaches $r = 0$ at finite proper time with $\mathcal K \to \infty$: a curvature singularity in this precise sense.
+
+*What invariants miss.* In Riemannian signature $\mathcal K$ is a sum of squares in an orthonormal frame, zero exactly where the Riemann tensor is. In Lorentzian signature the frame expansion has negative terms, and the vacuum plane wave $ds^2 = -2\,du\,dv + dx^2 + dy^2 + A(u)(x^2 - y^2)\,du^2$, with $R_{uxux} = -A$ and $R_{uyuy} = A$, has real tides and $R_{uu} = 0$, yet every scalar invariant of every order vanishes, because $g^{uu} = 0$ forces each $u$ slot to pair with a $v$ slot that no nonzero component has. Bounded invariants certify no regularity, vanishing ones no flatness, and equal ones no equivalence.
+
+*The Kretschmann scalar is the Weyl norm plus Ricci terms; an invariant unbounded along a finite geodesic proves a singularity, but in Lorentzian signature bounded invariants prove no regularity and vanishing ones no flatness.*
+
+## Deciding a geometry: the equivalence problem
+
+The *equivalence problem* asks whether two metrics $g$ on $M$ and $\bar g$ on $\bar M$, of equal dimension and signature, are locally equivalent at $(p, \bar p)$: whether some diffeomorphism $\phi$ between neighbourhoods has $\phi(p) = \bar p$ and $\phi^*\bar g = g$, an overdetermined system for $n$ unknown functions. Scalar invariants give necessary conditions, $I = \bar I\circ\phi$ for each, so unequal ranges rule an equivalence out and matching values locate corresponding points. That settles the colleague's metric. Her symmetry spheres have area $4\pi\rho^2(1 + M/2\rho)^4$, so the areal radius is $r = \rho(1 + M/2\rho)^2$, with $dr = (1 + M/2\rho)(1 - M/2\rho)\,d\rho$ and $1 - 2M/r = (1 - M/2\rho)^2/(1 + M/2\rho)^2$. Substituting, $dr^2/(1 - 2M/r) = (1 + M/2\rho)^4 d\rho^2$, and her line element is the Schwarzschild metric of the conventions, term by term, on $\rho > M/2$, with the horizon at $\rho = M/2$, where $dr/d\rho = 0$. She has rediscovered Schwarzschild in isotropic coordinates.
+
+Scalars cannot always decide, as the plane wave shows; Cartan's method compares components in frames. On the orthonormal frame bundle $F \to M$, of dimension $N = n(n+1)/2$, the frame components of $R, \nabla R, \dots, \nabla^qR$ are functions, the *Cartan invariants* of order $q$; let $t_q$ be the number of functionally independent ones. An isometry lifts to $F$ and matches them all. Conversely, with the regularity hypotheses on trust: if each $t_k$ is constant near $p$ and $\bar p$, the metrics are locally equivalent exactly when both sequences first stall at the same $q$, the components up to order $q$ are the same functions of corresponding independent invariants, and some frames over $p$ and $\bar p$ give equal components up to that order.
+
+The *Cartan–Karlhede algorithm* makes this finite in practice. At order zero, bring the Weyl and Ricci parts to a normal form fixed by their algebraic type; the frames that do so form a subbundle whose structure group $H_0$, the isotropy group of the curvature, has dimension $s_0$. At each further order use $H_{q-1}$ to normalize the new components, giving $H_q \subseteq H_{q-1}$. Stop at the first $q \ge 1$ with $t_q = t_{q-1}$ and $s_q = s_{q-1}$ and put $p = q - 1$: after a stall every connection component outside $H_p$ and every frame derivative of an invariant is already a function of the $t_p$ independent ones, so no higher order adds anything. The local isometry group then has dimension $n - t_p + s_p$. For four-dimensional spacetimes the established bound on that order, on trust here, is seven derivatives. The plane wave, with no frame in which its curvature vanishes, is separated from Minkowski spacetime at order zero.
+
+*Two metrics are locally equivalent exactly when their frame components of curvature and its derivatives agree as functions and at some frames; the Cartan–Karlhede algorithm fixes frames order by order, stops when the counts stall, and reads the isometry dimension off them.*
+
+## Key equations
+
+**Sectional curvature of a plane** (stated)
+
+$$K(\Pi) = \frac{R_{\mu\nu\rho\sigma}X^\mu Y^\nu X^\rho Y^\sigma}{g(X,X)\,g(Y,Y) - g(X,Y)^2}$$
+
+The curvature of the nondegenerate plane spanned by $X$ and $Y$: the Riemann tensor fed the pair twice, over the squared area they span. A sphere of radius $a$ has $K = +1/a^2$; a timelike plane has a negative denominator. Definition, as in the course conventions.
+
+- $K(\Pi)$: sectional curvature of the plane
+- $X^\mu, Y^\nu$: any basis of the plane
+
+Say: The sectional curvature of a plane equals the Riemann tensor contracted with X, Y, X, Y, divided by the squared area of the parallelogram that X and Y span.
+
+**Constant curvature and its traces** (derived-here)
+
+$$R_{\rho\sigma\mu\nu} = K\,(g_{\rho\mu}g_{\sigma\nu} - g_{\rho\nu}g_{\sigma\mu}),\qquad R_{\mu\nu} = (n-1)K\,g_{\mu\nu},\qquad R = n(n-1)K$$
+
+Definition of constant curvature, with its once- and twice-contracted forms derived in the text. In four dimensions $G_{\mu\nu} = -3K\,g_{\mu\nu}$, so de Sitter has $\Lambda = 3K$.
+
+- $K$: the common sectional curvature of every plane at every point
+- $n$: dimension of the space
+
+Say: The Riemann tensor equals K times g rho mu g sigma nu minus g rho nu g sigma mu; the Ricci tensor is n minus one times K times the metric, and the Ricci scalar is n times n minus one times K.
+
+**Ricci decomposition and the Weyl tensor** (stated)
+
+$$R_{\rho\sigma\mu\nu} = C_{\rho\sigma\mu\nu} + g_{\rho\mu}P_{\sigma\nu} - g_{\rho\nu}P_{\sigma\mu} - g_{\sigma\mu}P_{\rho\nu} + g_{\sigma\nu}P_{\rho\mu},\qquad P_{\mu\nu} = \frac{1}{n-2}\Big(R_{\mu\nu} - \frac{R}{2(n-1)}\,g_{\mu\nu}\Big)$$
+
+Definition of the Weyl tensor $C$ as what remains of the Riemann tensor after the Schouten terms; contracting confirms that $C$ is trace-free. For $n \ge 3$.
+
+- $C_{\rho\sigma\mu\nu}$: Weyl tensor, the trace-free part of the Riemann tensor
+- $P_{\mu\nu}$: Schouten tensor, the trace part packaged for n dimensions
+
+Say: The Riemann tensor equals the Weyl tensor plus four metric-times-Schouten terms, where the Schouten tensor is one over n minus two times the Ricci tensor minus the Ricci scalar over two n minus two times the metric.
+
+**Divergence of the Weyl tensor** (derived-here)
+
+$$\nabla^\rho C_{\rho\sigma\mu\nu} = (n-3)\big(\nabla_\mu P_{\nu\sigma} - \nabla_\nu P_{\mu\sigma}\big)$$
+
+The once-contracted Bianchi identity of *Ricci, Bianchi and Einstein* with the Ricci part moved to the right, derived in the text: the divergence of the Weyl tensor is $n - 3$ times the Cotton tensor, the Weyl current in four dimensions, zero in every Einstein space.
+
+- $\nabla^\rho C_{\rho\sigma\mu\nu}$: divergence of the Weyl tensor on its first slot
+- $\nabla_\mu P_{\nu\sigma} - \nabla_\nu P_{\mu\sigma}$: Cotton tensor, the antisymmetrized derivative of the Schouten tensor
+
+Say: The divergence of the Weyl tensor equals n minus three times the Cotton tensor, the derivative of the Schouten tensor antisymmetrized in mu and nu.
+
+## Checks
+
+**two-spheres-side-by-side** (numeric): Take the Riemannian product of two round spheres of the same radius $a$. The Riemann tensor of a product vanishes whenever a slot pair mixes the two factors. Find the Einstein constant $\lambda$, the sectional curvature of a plane spanned by one vector tangent to each factor, and $C_{\mu\nu\rho\sigma}C^{\mu\nu\rho\sigma}$. Is the product a space of constant curvature?
+
+Answer: Each factor has $R_{\mu\nu} = g_{\mu\nu}/a^2$ and the mixed components vanish, so $R_{\mu\nu} = (1/a^2)g_{\mu\nu}$: Einstein with $\lambda = 1/a^2$, $R = 4/a^2$. A plane with $X$ tangent to one sphere and $Y$ to the other has $\mathrm{Rm}(X,Y,X,Y) = 0$, so $K = 0$, while planes inside a factor have $K = 1/a^2$: not constant curvature. $\mathcal K = 4/a^4 + 4/a^4 = 8/a^4$ and $R_{\mu\nu}R^{\mu\nu} = 4/a^4$, so $C\cdot C = 8/a^4 - 8/a^4 + 16/(3a^4) = 16/(3a^4) \ne 0$, as the Weyl remainder of an Einstein space without constant curvature must be.
+
+Key points: Ricci is the metric over a squared on both factors, so lambda a squared equals one; A mixed plane has sectional curvature zero, so not constant curvature, and the Weyl norm times a to the fourth is sixteen thirds
+
+Numeric: Einstein constant times a squared = 1 1; sectional curvature of a mixed plane times a squared = 0 1; Weyl tensor squared times a to the fourth = 5.333 1
+
+**curvature-length-at-the-horizon** (numeric): A Schwarzschild black hole has ten solar masses. Find the curvature length $\mathcal K^{-1/4}$ at its horizon in kilometres and the ratio of $\mathcal K$ at $r = 2M$ to its value at $r = 4M$. The component $g_{rr}$ diverges at $r = 2M$: what does that prove, and what would prove the horizon regular?
+
+Answer: At $r = 2GM/c^2$, $\mathcal K = 48G^2M^2/(c^4r^6) = 3c^8/(4G^4M^4)$, and with $GM/c^2 = 14.77\,\mathrm{km}$ the curvature length is $\mathcal K^{-1/4} = (4/3)^{1/4}\,GM/c^2 = 15.9\,\mathrm{km}$, comparable to the hole's size. Since $\mathcal K \propto r^{-6}$, the ratio is $2^6 = 64$. A diverging component proves nothing, because components are not invariants; a finite $\mathcal K$ proves nothing either, because bounded invariants do not imply extendibility. Regularity is proved by the ingoing Eddington–Finkelstein chart, in which the metric is analytic and nondegenerate across $r = 2M$.
+
+Key points: Curvature length about fifteen point nine kilometres, finite; ratio sixty-four between r equals two M and four M; Neither a diverging component nor a finite invariant decides regularity; an analytic chart across the horizon does
+
+Numeric: curvature length, Kretschmann to the minus one quarter, at the horizon = 15.9 km; ratio of Kretschmann at two M to Kretschmann at four M = 64 1
+
+**plane-wave-versus-minkowski** (explain): For the vacuum plane wave $ds^2 = -2\,du\,dv + dx^2 + dy^2 + A(u)(x^2 - y^2)\,du^2$ with $A \ne 0$, explain why every scalar polynomial curvature invariant vanishes, whether any list of them can distinguish it from Minkowski spacetime, and what the Cartan–Karlhede algorithm finds at order zero. Which hypothesis of the Riemannian statement that zero Kretschmann scalar means flat fails here?
+
+Answer: The nonzero components, $R_{uxux} = -A$ and $R_{uyuy} = A$ up to symmetries, carry $u$ slots and no $v$ slot, while $g^{uu} = 0$ and $g^{uv} = -1$ force every $u$ slot in a contraction to pair with a $v$ slot; so every term of every invariant, at every derivative order, has a zero factor, and the wave shares all scalar invariants with Minkowski spacetime. The algorithm uses frame components: the Riemann tensor is nonzero in every frame, so no Lorentz transformation brings it to Minkowski's normal form, and the two are separated at order zero. The Riemannian argument needs a positive-definite metric, so that $\mathcal K$ is a sum of squares; here the frame expansion has negative terms.
+
+Key points: g upper u u is zero, so every contraction needs a v slot that no nonzero component has; scalars cannot decide; Frame components are nonzero, so the algorithm separates the wave at order zero; positive-definiteness is the failed hypothesis
+
+## Misconceptions
+
+- **einstein-means-constant-curvature**: "A Ricci tensor proportional to the metric means constant curvature, as it does in three dimensions." — The Einstein condition fixes only the traces; from four dimensions on a free Weyl tensor remains, as in the product of two spheres, and constant curvature needs it to vanish too. (diagnosed by two-spheres-side-by-side)
+- **diverging-component-means-singular**: "A metric or curvature component that diverges at the horizon shows that spacetime is singular there." — Components depend on the chart; the Kretschmann scalar is finite at the horizon, regularity is proved by a chart analytic across it, and only an unbounded invariant along a finite geodesic proves a singularity. (diagnosed by curvature-length-at-the-horizon)
+- **zero-scalars-mean-flat**: "If every scalar curvature invariant vanishes, or matches Minkowski's, the spacetime is flat, so scalar invariants decide equivalence." — In Lorentzian signature a plane wave is curved with every scalar invariant zero; equivalence is decided by frame components of curvature and its derivatives. (diagnosed by plane-wave-versus-minkowski)
+
+## Glossary
+
+- **sectional curvature**: The curvature of one plane at a point: the Riemann tensor fed the plane's basis twice, over the squared area it spans. (`sectional-curvature`)
+- **space of constant curvature**: A connected space whose sectional curvature has one value on every plane at every point. (`space-of-constant-curvature`)
+- **Einstein space**: A connected space whose Ricci tensor is a constant times the metric, zero allowed. (`einstein-space`)
+- **Ricci-flat**: Having zero Ricci tensor on an open set; flat in two and three dimensions, with a free Weyl tensor from four on. (`ricci-flat-spacetime`)
+- **Weyl tensor**: The trace-free part of the Riemann tensor: zero in three dimensions, ten components in four, conformally invariant with one index up. (`weyl-tensor`)
+- **locally conformally flat**: Said of a metric that near every point equals a positive function squared times a flat metric. (`weyl-criterion-for-conformal-flatness`)
+- **Kretschmann scalar**: The Riemann tensor fully contracted with itself, written in script K; finite at the Schwarzschild horizon and unbounded at the centre. (`kretschmann-scalar`)
+- **equivalence problem**: The question of whether two metrics written in different coordinates describe the same geometry near given points. (`equivalence-problem`)
+- **Cartan–Karlhede algorithm**: The staged procedure that normalizes curvature and its derivatives order by order, fixing the frame, and stops when no new invariant or frame fixing appears. (`cartan-karlhede-algorithm`)
+
+## Visuals
+
+- `curvature-fingerprint-curves` (flagship): Invariants as fingerprints: spun surfaces that share, or fail to share, the curve of squared curvature gradient against curvature. Sketch: A spun surface $d\rho^2 + f(\rho)^2d\phi^2$ chosen from presets, with $K = -f''/f$ at a draggable point, beside a plot of $|\nabla K|^2$ against $K$ traced as the point moves; locally isometric surfaces trace one curve, and readouts give $t_0, t_1, t_2$ and the isometry dimension.
+
+## Tutor
+
+Opening question: Picture the empty space just outside a star. Every freely falling observer there measures a tidal trace of zero, so the Ricci tensor vanishes. Predict: is the spacetime flat, and if not, how many of the twenty curvature numbers at an event can still be nonzero?
+
+- Q: Why does positive sectional curvature push free-fall neighbours apart in spacetime, when on a sphere it pulls geodesics together? A: The sectional curvature divides the Riemann tensor by the squared area of the plane, and with the course signature a plane containing a timelike direction has negative squared area. So the same Riemann tensor that focuses geodesics on a spacelike plane, as on a sphere, defocuses them on a timelike plane: contracting the deviation equation with the separation gives plus K times the squared separation. In de Sitter spacetime, where K is positive, neighbours released at rest separate.
+- Q: If the Kretschmann scalar is finite at the horizon, is that what proves the horizon is regular? A: No. A finite invariant rules nothing out: geodesics can end at a conical defect, or in singular plane waves, with every invariant bounded or even zero. The Kretschmann scalar proves the opposite direction: where it is unbounded along a geodesic of finite length, as at the Schwarzschild centre, no extension with a twice differentiable metric exists. Regularity at the horizon is proved by the ingoing Eddington-Finkelstein chart, in which the metric is analytic there.
+
+## Further
+
+- **The Weyl tensor and the criterion for conformal flatness.** Weyl introduced the conformal curvature tensor in 1918; Schouten proved in 1921 (Mathematische Zeitschrift 11, 58–88) that its vanishing suffices for conformal flatness in four or more dimensions. Hermann Weyl (1918), Reine Infinitesimalgeometrie
+
+## Review: novice
+
+Verdict fixed (2026-09-16, revision 3)
+
+Retell attempt: 
+
+0 stumbles
+
+
+Fixes:
+- none
+
+Concerns:
+- none
+
+## Review: physics
+
+Verdict fixed (2026-09-16, revision 3)
+
+15 verification items, 10 counterexamples
+
+- Sectional-curvature sign on a timelike plane: g(xi, D^2 xi/dtau^2) = +K g(xi,xi): Correct; wording fixed (pair exchange does not give the step, the antisymmetries do). Agrees with the conventions row: pairs that draw together have K < 0
+- Sphere: R^theta_phi theta phi = sin^2 theta, K = 1/a^2, R = 2/a^2; constant-curvature traces R_mn = (n-1)K g, R = n(n-1)K; G = -3K g and Lambda = 3K in n = 4: R_thphthph/(g g) = 0.2500, R = 0.5000, R^th_phthph = sin^2 theta to 1e-6; all traces confirmed
+- Schur mechanism: (n-2) d_nu f = 0 from the contracted Bianchi identity; lambda = 2 Lambda/(n-2), R = 2n Lambda/(n-2): Confirmed; n = 4 gives lambda = Lambda
+- Schouten trace P = R/(2(n-1)); decomposition contracts to R_mn; P = lambda g/(2(n-1)) in an Einstein space, giving K = lambda/(n-1); n = 4 Schouten terms R_mn/2 - R g/12; Weyl count n(n+1)(n+2)(n-3)/12: Confirmed: 0 Weyl components for n = 3, 10 for n = 4, 35 for n = 5
+- Divergence identity div C = (n-3)(nabla_mu P_nu sigma - nabla_nu P_mu sigma), with div P_nu = nabla_nu P: Confirmed, including the cancellation of the pure-trace terms
+- Weyl current in n = 4: J = 8 pi (nabla_[mu T_nu] sigma - (1/3) g_sigma[nu nabla_mu] T), Lambda dropping out; 16 components; the other four components of the once-contracted identity are div G = 0: P = 4 pi T_mn - (4 pi/3) T g + (Lambda/6) g, so the stated coefficients 8 pi times 1/2 and 8 pi times 1/6 are right; 16 + 4 = 20 independent components of the once-contracted identity
+- |g wedge h|^2 = 4(n-2)|h|^2 + 4 (tr h)^2 and the split Kretschmann = |C|^2 + 2|Ric|^2 - R^2/3 in n = 4; constant curvature gives 2n(n-1)K^2: Identity holds to 1e-14 (10.7456 both ways); split confirmed; 24 = 2n(n-1) for K = 1, n = 4
+- Schwarzschild Kretschmann 48 M^2/r^6 and Ricci-flatness; the isotropic line element of the opening is Schwarzschild with r = rho(1 + M/2rho)^2: 0.0030720 vs 0.003072; 0.0103551 vs 0.0103551; Ricci < 1e-6; dr/drho = (1 + M/2rho)(1 - M/2rho) and 1 - 2M/r = ((1 - M/2rho)/(1 + M/2rho))^2 confirmed
+- Vacuum plane wave: R_uxux = -A, R_uyuy = +A, R_uu = 0, Kretschmann 0, g^uu = 0, g^uv = -1: R_uxux = -0.7000, R_uyuy = +0.7000, Ricci < 1e-10, Kretschmann 0, g^uu = 0, g^uv = -1 (g^vv = -H, which the argument does not need)
+- Check two-spheres-side-by-side: lambda a^2 = 1, mixed-plane K = 0, |C|^2 a^4 = 16/3: 5.3333, matching the numeric field 5.333 within rel_tol 0.01
+- Check curvature-length-at-the-horizon: 15.9 km for ten solar masses, ratio 64: 15.871 km, within rel_tol 0.02 of 15.9; ratio 64 exactly; Kretschmann at the horizon 1.58e-17 m^-4
+- Check plane-wave-versus-minkowski: reasoning, order-zero separation: Answer and key points correct; the Riemannian sum-of-squares hypothesis is the one that fails
+- Cartan theorem stall order and the isometry dimension n - t_p + s_p: The theorem paragraph asked for order q + 1, one more than the algorithm paragraph and than needed; changed to order q. The seven-derivative bound is a later refinement for four-dimensional spacetimes, so the sentence no longer attributes it to Karlhede
+- Earlier-section references: contracted Bianchi identity, R = 2/a^2 from a chart, flatness criterion: contracted-bianchi-identity and integrability-condition (zero curvature means flat) exist there; R = 2/a^2 is stated there; titles used in the prose match the section files
+- References: Weyl 1918, Math. Z. 2, 384-411, DOI 10.1007/BF01199420 confirmed by the Springer landing page; Schouten 1921, Math. Z. 11, 58-88 confirmed bibliographically but its DOI could not be confirmed, so the entry was removed and the attribution kept in the note
+
+Fixes:
+- Part one: the step Rm(xi,u,xi,u) = Rm(u,xi,u,xi) follows from the two pair antisymmetries, not from pair exchange.
+- Part two: the anti-de Sitter hyperboloid is not simply connected and de Sitter is not for n = 2; the models sentence now names the universal cover and scopes de Sitter to n >= 3.
+- Part three: the radiation universe is scalar-flat only without a cosmological constant; in two and three dimensions only Ricci-flat-implies-flat collapses, not the whole ladder.
+- Part four: the Ricci trace of the metric-times-h map determines h rather than returning it.
+- Part five: no curved Ricci-flat region is conformally flat, with a black hole exterior as the instance, instead of the looser claim about every black hole exterior.
+- Part eight: Cartan comparison needs the components up to order q, not q + 1, matching the algorithm paragraph; the seven-derivative bound is no longer attributed to Karlhede.
+- Further: Weyl 1918 verified; Schouten 1921 reference dropped (DOI unconfirmed), attribution kept in the note. This also brings the total under the 80 percent draft line.
+
+Concerns:
+- Conventions not fixed in course-conventions.md and used here from the notes: Weyl decomposition with plus metric-times-Schouten terms, Cotton tensor as nabla_mu P_nu sigma minus nabla_nu P_mu sigma, the Weyl current with that sign, and Omega^2 g for a conformal rescaling. All are internally consistent and re-derived; they should be added to the conventions file.
+- The frontier concept cartan-karlhede-algorithm has one paragraph and no check of its own; the proposed visual curvature-fingerprint-curves carries its only interactive treatment.
+- Cartan theorem regularity hypotheses, the seven-derivative bound and the VSI property of every derivative order for the plane wave are taken on trust and said to be.

@@ -6,8 +6,7 @@ export const meta = {
     { title: 'Write', detail: 'write one catalog entry per agent: params, presets, readouts, tours, model and tests' },
     { title: 'Novice read', detail: 'a beginner reads the tours, readout speech, labels and caption' },
     { title: 'Physics review', detail: 'recompute the model and every test, check states, branches, claims and links' },
-    { title: 'Re-read', detail: 'the beginner reads speech changed after the novice read' },
-    { title: 'Diff check', detail: 'the physicist checks text changed after the physics review' },
+    { title: 'Post-review check', detail: 'one agent reads speech changed after the reviews with the novice lens, then the physics lens, and signs' },
   ],
 }
 
@@ -18,6 +17,8 @@ const domain = args && args.domain
 const DATE = (args && args.date) || 'unknown-date'
 const SNAP = args && args.snap_dir
 const GROUP = (args && args.group_size) || 1
+const PRIORITIES = (args && args.priorities) || ['flagship', 'core']
+const MAX_VISUALS = (args && args.max_visuals) || 10
 if (!domain) throw new Error('args.domain is required')
 if (!SNAP) throw new Error('args.snap_dir is required: a directory outside the repository for snapshots')
 
@@ -112,7 +113,7 @@ TASK: Plan the catalog entries for visuals proposed in domain "${domain}".
 2. Group proposals that describe the same picture, even under different names or in other domains, and match any proposal an existing catalog entry already covers.
 3. For each group, choose one canonical id that names the picture, not the concept (guide section 10), and decide kind and priority.
 4. Edit every section in ${KB}/book/sections/ and every concept note in ${KB}/concepts/ that uses a non-canonical or already-covered id: change the id everywhere in that file, keep the most informative sketch, validate (validate.py section or concept), and re-render (render_section.py or render_concept.py). Visual ids are not learner-visible prose, so do not bump the note's revision and do not edit any prose.
-5. Return the NEW catalog entries to write. For each, give every concept it serves across all domains, and the proposal ids it merges.`,
+5. Return the NEW catalog entries to write, most valuable first: only priorities ${JSON.stringify(PRIORITIES)}, at most ${MAX_VISUALS} entries (the rest stay proposals for a later run; list them in problems). For each, give every concept it serves across all domains, and the proposal ids it merges.`,
     { label: `plan:${domain}`, phase: 'Plan', schema: PLAN_SCHEMA, effort: 'high' },
   ),
 )
@@ -165,25 +166,15 @@ For each visual ${KB}/visuals/<id>.json:
 7. Run python3 ${T}/note_diff.py ${SNAP}/<id>.before-physics.json ${KB}/visuals/<id>.json. Count the changed strings among the ${LEARNER_TEXT}. If there are any, bump revision by exactly 1; the warning that review.novice covers an older revision is then expected, because a re-read follows. Set review.physics.reviewed_revision to the visual's revision. Fix every other warning, validate, render.
 Return the summary object with errors_fixed and learner_changes per visual.`
 
-const rereadPrompt = (g, ids, p) => `${CONTEXT}
+const postcheckPrompt = (g, ids, p) => `${CONTEXT}
 
-TASK: You are the NOVICE READER doing a RE-READ of spoken and displayed text that the physics review changed. Visuals: ${ids.join(', ')}. The physics reviewer reported: ${JSON.stringify(p || {})}
+TASK: You are the POST-REVIEW CHECKER for these visuals: ${ids.join(', ')}. Spoken or displayed text changed after the novice read must get both lenses; you apply them to exactly the changed text. The physics reviewer reported: ${JSON.stringify(p || {})}
 For each visual:
-1. Copy it to ${SNAP}/<id>.before-reread.json before editing.
-2. Run python3 ${T}/note_diff.py ${SNAP}/<id>.before-physics.json ${KB}/visuals/<id>.json and read every changed string among the ${LEARNER_TEXT}, inside its beat or readout, with the persona of the novice read.
-3. Record stumbles as {quote, problem, rewrite}. Fix wording only; never change a claim, number, sign or state. Put any other proposal in concerns.
-4. Append {date "${DATE}", revision, read, stumbles, fixes} to review.novice.rereads. If you changed text, bump revision by exactly 1 first. Set review.novice.reviewed_revision to the visual's revision. If you edited, the warning that review.physics covers an older revision is expected, because a diff check follows. Validate, render.
-Return the summary object with stumbles and edited per visual.`
-
-const diffcheckPrompt = (g, ids, r) => `${CONTEXT}
-
-TASK: You are the ADVERSARIAL PHYSICS REVIEWER doing a DIFF CHECK of wording the re-read changed. Visuals: ${ids.join(', ')}. The re-read reported: ${JSON.stringify(r || {})}
-For each visual:
-1. Run python3 ${T}/note_diff.py ${SNAP}/<id>.before-reread.json ${KB}/visuals/<id>.json.
-2. Check that every changed line claims exactly what it did before, or something equally true at its rung, with its sense, branch, frame and conditions intact.
-3. Fix errors with the simplest true wording. If you change text, bump revision by exactly 1 and list the changed lines in problems, because the novice stage will lag one revision.
-4. Append {date "${DATE}", revision, verification, fixes} to review.physics.diff_checks and set review.physics.reviewed_revision to the visual's revision. Validate, render.
-Return the summary object with edited per visual.`
+1. Copy it to ${SNAP}/<id>.before-postcheck.json. Run python3 ${T}/note_diff.py ${SNAP}/<id>.before-physics.json ${KB}/visuals/<id>.json and keep only the changed strings among the ${LEARNER_TEXT}.
+2. NOVICE PASS: as a curious 16-year-old (working-rung tours: a second-year undergraduate) who has read the served sections, read each changed line inside its beat or readout. Record stumbles as {quote, problem, rewrite}; fix wording only, in one pass; never change a claim, number, sign or state.
+3. PHYSICS PASS: as the adversarial physicist, check every changed line, including your rewrites, claims exactly what it did or something equally true, with sense, branch and state intact. Fix errors with the simplest true wording, then read your fixes once more as the novice.
+4. If you changed text, bump revision by exactly 1. Append {date "${DATE}", revision, read, stumbles, fixes} to review.novice.rereads and {date "${DATE}", revision, verification, fixes} to review.physics.diff_checks; set both reviewed_revision fields to the visual's revision. Validate until OK, render.
+Return the summary object with stumbles, errors_fixed and edited per visual.`
 
 const byId = (r) => (r && Array.isArray(r.visuals) ? r.visuals : [])
 async function runGroup(g) {
@@ -195,15 +186,10 @@ async function runGroup(g) {
   if (!out.novice) return ((out.stopped = 'novice read'), out)
   out.physics = await slot(4, () => agent(physicsPrompt(g, out.novice), { label: `physics:${tag}`, phase: 'Physics review', schema: DONE_SCHEMA, effort: 'high' }))
   if (!out.physics) return ((out.stopped = 'physics review'), out)
-  const rereadIds = byId(out.physics).filter((x) => (x.learner_changes || 0) > 0).map((x) => x.id)
-  if (rereadIds.length) {
-    out.reread = await slot(5, () => agent(rereadPrompt(g, rereadIds, out.physics), { label: `reread:${tag}`, phase: 'Re-read', schema: DONE_SCHEMA, effort: 'high' }))
-    if (!out.reread) return ((out.stopped = 're-read'), out)
-  }
-  const checkIds = byId(out.reread).filter((x) => x.edited).map((x) => x.id)
-  if (checkIds.length) {
-    out.diffcheck = await slot(6, () => agent(diffcheckPrompt(g, checkIds, out.reread), { label: `diffcheck:${tag}`, phase: 'Diff check', schema: DONE_SCHEMA, effort: 'high' }))
-    if (!out.diffcheck) return ((out.stopped = 'diff check'), out)
+  const ids = byId(out.physics).filter((x) => (x.learner_changes || 0) > 0).map((x) => x.id)
+  if (ids.length) {
+    out.postcheck = await slot(5, () => agent(postcheckPrompt(g, ids, out.physics), { label: `postcheck:${tag}`, phase: 'Post-review check', schema: DONE_SCHEMA, effort: 'medium' }))
+    if (!out.postcheck) return ((out.stopped = 'post-review check'), out)
   }
   return out
 }
@@ -216,7 +202,6 @@ return {
   plan_problems: (plan && plan.problems) || [],
   finished: done.filter((r) => !r.stopped).flatMap((r) => r.ids),
   stopped: [...done.filter((r) => r.stopped).map((r) => `${r.ids.join('+')}: stopped at ${r.stopped}`), ...groups.map((g, i) => (results[i] ? null : `${g.map((x) => x.id).join('+')}: crashed`)).filter(Boolean)],
-  lagging_novice: done.flatMap((r) => byId(r.diffcheck).filter((x) => x.edited).map((x) => x.id)),
-  stages: done.flatMap((r) => ['write', 'novice', 'physics', 'reread', 'diffcheck'].flatMap((s) => byId(r[s]).map((x) => ({ stage: s, ...x })))),
-  problems: [...problems('write'), ...problems('novice'), ...problems('physics'), ...problems('reread'), ...problems('diffcheck')],
+  stages: done.flatMap((r) => ['write', 'novice', 'physics', 'postcheck'].flatMap((s) => byId(r[s]).map((x) => ({ stage: s, ...x })))),
+  problems: [...problems('write'), ...problems('novice'), ...problems('physics'), ...problems('postcheck')],
 }
