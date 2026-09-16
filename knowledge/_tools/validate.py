@@ -1017,22 +1017,31 @@ def visual_warnings(d, path):
 	for r in d['design_rules']:
 		if r['misconception']:
 			concept_refs.append((f'design_rules/{r["id"]}', r['misconception']))
+	sections = outline_sections()
 	for where, addr in concept_refs:
 		m = ADDRESS.match(addr)
 		cid, coll, item = m.groups() if m else (None, None, None)
-		if not cid or cid not in reg:
-			warns.append(f'{where}: "{addr}" names an unknown concept')
+		if not cid or (cid not in reg and cid not in sections):
+			warns.append(f'{where}: "{addr}" names an unknown concept or section')
 			continue
-		other = v2_note(cid)
-		if other and item not in item_maps(other).get(coll, {}):
+		other = v2_note(cid) if cid in reg else section_file(cid)
+		if other and item not in {x['id'] for x in other.get(coll, [])}:
 			warns.append(f'{where}: "{addr}" does not resolve')
+	listing = set()
+	for f in (KB / 'book' / 'sections').glob('*/*.json'):
+		try:
+			sec = json.loads(f.read_text())
+		except (OSError, json.JSONDecodeError):
+			continue
+		if d['id'] in {v['id'] for v in sec.get('visuals', [])}:
+			listing |= set(sec.get('teaches', []))
 	for s in d['serves']:
 		if s['concept'] not in reg:
 			warns.append(f'serves: "{s["concept"]}" is not a registry concept id')
-		else:
+		elif s['concept'] not in listing:
 			other = v2_note(s['concept'])
 			if other and d['id'] not in {v['id'] for v in other['visuals']}:
-				warns.append(f'serves "{s["concept"]}", whose note does not list this visual')
+				warns.append(f'serves "{s["concept"]}", but neither its note nor a section teaching it lists this visual')
 	links = [('builds_on', v) for v in d['builds_on']] + [('leads_to', v) for v in d['leads_to']]
 	if d['variant_of']:
 		links.append(('variant_of', d['variant_of']))
@@ -1066,8 +1075,8 @@ def visual_warnings(d, path):
 	return warns, notes
 
 
-SECTION_BUDGETS = {'entry': (1200, 2500), 'working': (1500, 3200), 'formal': (1500, 3200), 'research': (1200, 3000)}
-SECTION_TOTAL = 5000
+SECTION_BUDGETS = {'entry': (1200, 3000), 'working': (1500, 3200), 'formal': (1500, 3200), 'research': (1200, 3000)}
+SECTION_TOTAL = 5500
 
 
 @lru_cache(maxsize=None)
@@ -1082,6 +1091,15 @@ def outline_sections():
 			for s in ch['sections']:
 				out[s['id']] = dict(s, chapter=ch['id'])
 	return out
+
+
+def section_file(sid):
+	for f in (KB / 'book' / 'sections').glob(f'*/{sid}.json'):
+		try:
+			return json.loads(f.read_text())
+		except (OSError, json.JSONDecodeError):
+			return None
+	return None
 
 
 def section_warnings(d, path):

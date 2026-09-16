@@ -37,6 +37,9 @@ Ricci scalar, and $G_{\mu\nu} = +8\pi G T_{\mu\nu}/c^4$.
 | Linearized gravity | $g_{\mu\nu} = \eta_{\mu\nu} + h_{\mu\nu}$, $\bar h_{\mu\nu} = h_{\mu\nu} - \tfrac12 \eta_{\mu\nu} h$; Lorenz gauge $\partial^\mu \bar h_{\mu\nu} = 0$ gives $\Box \bar h_{\mu\nu} = -16\pi G T_{\mu\nu}/c^4$ |
 | Levi-Civita tensor | $\epsilon_{0123} = +\sqrt{-g}$ in right-handed coordinates ($x^0$ future-directed, $(x^1, x^2, x^3)$ right-handed), so $\epsilon^{0123} = -1/\sqrt{-g}$ |
 | Sectional curvature sign | $K(X,Y) = R_{\mu\nu\rho\sigma}X^\mu Y^\nu X^\rho Y^\sigma / \big(g(X,X)g(Y,Y) - g(X,Y)^2\big)$, so a sphere has $K = +1/a^2$. For a timelike plane the denominator is negative, so free-fall pairs that draw together have $K < 0$ there, the opposite of converging geodesics on a sphere. A note that compares tides to a ball says it compares behaviour, not the sign of $K$. |
+| Extrinsic curvature of a hypersurface | $K_{\mu\nu} = -h_\mu{}^\alpha h_\nu{}^\beta \nabla_\alpha n_\beta$ with $n$ the unit normal (future-pointing for spacelike slices, outward for closed surfaces). For a surface embedded in flat space this is $K_{\mu\nu} = n\cdot\partial_\mu\partial_\nu X$: positive where the surface bends toward $n$. A round sphere of radius $R$ with outward normal has $K_{\mu\nu} = -h_{\mu\nu}/R$; an expanding FLRW slice has $K_{ij} = -H h_{ij}$ and $K = -3H$. Weingarten: $\partial_\mu n = -K^\lambda{}_\mu e_\lambda$. Some texts use the opposite sign ($K_{\mu\nu} = h\nabla n$); record it as a notation trap. |
+| Curves in space | Frenet–Serret with $T' = \kappa N$, $N' = -\kappa T + \tau B$, $B' = -\tau N$, $\kappa \ge 0$, and $B = T\times N$; a right-handed helix has $\tau > 0$. Geodesic curvature on a surface is signed with left $= n\times T$ positive. |
+| The letter $K$ | $K$ without indices is the Gaussian curvature (sphere $+1/a^2$). $K_{\mu\nu}$ with indices is the extrinsic curvature, and its trace is written $K$ only in 3+1 sections, where Gaussian curvature does not appear. The Kretschmann scalar is written $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}$ or $\mathcal K$, never $K$. |
 | Orientation and rotation sense | On an oriented surface, a positive rotation turns a walker's direction of travel toward the walker's left, with "left" defined with the walker's head along the chosen unit normal. Seen from the side the normal points to, that is counterclockwise. The holonomy angle of a simple loop bounding a region $S$ on the walker's left is positive in this sense and equals $\iint_S K\,dA$ modulo $2\pi$. This holds whatever the size of $S$: the reversed octant loop on a sphere has $7\pi/2 \equiv -\pi/2$, a turn to the walker's right. Notes state the branch they quote; demos use $(-180^\circ, 180^\circ]$. |
 
 ## Derivatives
@@ -109,5 +112,7 @@ Ricci scalar, and $G_{\mu\nu} = +8\pi G T_{\mu\nu}/c^4$.
 - **Speak equations in words.** Each equation carries `say_aloud` and `symbols[].say`; the tutor never reads raw LaTeX.
 - **One symbol, one meaning within a note.** Scope symbols that are commonly reused: $K$ for Gaussian curvature versus
   the Kretschmann scalar, $a$ for a radius versus the scale factor.
+- **Entry vocabulary for geodesics.** At entry depth a geodesic is a *straight walk* (on a surface) or a *straight
+  path* (in spacetime); "straight line" is reserved for flat planes. The working rung introduces the word geodesic.
 - **Name the frame or basis** when a statement holds only in one, for example "in an orthonormal frame the connection
   one-forms commute in two dimensions".

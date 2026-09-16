@@ -37,6 +37,19 @@ def main(argv):
 			p = proposed.setdefault(v['id'], {'used_by': []})
 			p['used_by'].append({'concept': d['id'], 'domain': d['domain'], 'priority': v['priority'], 'role': v['role'], 'sketch': v['sketch']})
 
+	for f in sorted((KB / 'book' / 'sections').glob('*/*.json')):
+		if domain and f.parent.name != domain:
+			continue
+		try:
+			d = json.loads(f.read_text())
+		except json.JSONDecodeError:
+			continue
+		for v in d.get('visuals', []):
+			if v['id'] in catalog:
+				continue
+			p = proposed.setdefault(v['id'], {'used_by': []})
+			p['used_by'].append({'concept': f"section {d['id']}", 'domain': f"book/{d['chapter']}", 'priority': v['priority'], 'role': v['role'], 'sketch': v['sketch']})
+
 	def match(vid, blob):
 		return not grep or grep in (vid + ' ' + json.dumps(blob)).lower()
 
