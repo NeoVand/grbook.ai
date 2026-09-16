@@ -44,7 +44,10 @@ BINDING DOCUMENTS (read completely first): ${KB}/_meta/writing-guide.md, especia
 
 TOOLS:
 - Visual ids: python3 ${T}/visual_ids.py [--missing] [--domain <id>] [--grep <word>] [--json]
-- Concept notes: ${KB}/concepts/<domain>/<id>.json. Figure ideas from the textbook study: python3 ${T}/concept_evidence.py --id <concept>, section "Figures and redesign ideas", with image paths under ${ROOT}/book-sources/ that you may view for inspiration only; never reproduce or name them.
+- Book sections (the unit of writing; a visual serves the concepts a section teaches): ${KB}/book/sections/<chapter>/<id>.json, indexed by ${KB}/book/outline.json. Read a section's summary, the part teaching a concept, its checks, misconceptions and the visual's sketch with ONE python one-liner; never read whole section files.
+- Concept notes where they exist: python3 ${T}/note_digest.py [--ways entry,working] <concept> [...]. Never read a note file directly.
+- COUNT YOUR TOOL CALLS. Every call re-reads your whole context, so cost tracks the number of calls. A writer needs about 25 calls, a reviewer about 25. Compute all test expectations in ONE python script; write the entry in ONE Write call; apply all validator fixes in ONE pass; at most three validate-then-fix rounds; validator output through head -60; render once at the end; never re-read a file.
+- Figure ideas from the textbook study, only for concepts with neither a section nor a note: python3 ${T}/concept_evidence.py --id <concept>, section "Figures and redesign ideas", with image paths under ${ROOT}/book-sources/ that you may view for inspiration only; never reproduce or name them.
 - Earlier course assets (demos, labs, figures; reuse encouraged): ${KB}/sources/legacy/*.json
 - Numbers: python3 (no numpy or sympy; write plain python)
 - Changed text: python3 ${T}/note_diff.py <before.json> <after.json> lists strings that differ, tagged by the rung of the tour or item that holds them ("none" for readouts, labels, model and design rules).
@@ -108,7 +111,7 @@ TASK: Plan the catalog entries for visuals proposed in domain "${domain}".
 1. Run visual_ids.py --missing --domain ${domain}, and visual_ids.py for the whole catalog. Read each proposal's sketch in its note.
 2. Group proposals that describe the same picture, even under different names or in other domains, and match any proposal an existing catalog entry already covers.
 3. For each group, choose one canonical id that names the picture, not the concept (guide section 10), and decide kind and priority.
-4. Edit every concept note in ${KB}/concepts/ that uses a non-canonical or already-covered id: change the id everywhere in that note, keep the most informative sketch, validate, and re-render. Visual ids are not learner-visible prose, so do not bump the note's revision and do not edit any prose.
+4. Edit every section in ${KB}/book/sections/ and every concept note in ${KB}/concepts/ that uses a non-canonical or already-covered id: change the id everywhere in that file, keep the most informative sketch, validate (validate.py section or concept), and re-render (render_section.py or render_concept.py). Visual ids are not learner-visible prose, so do not bump the note's revision and do not edit any prose.
 5. Return the NEW catalog entries to write. For each, give every concept it serves across all domains, and the proposal ids it merges.`,
     { label: `plan:${domain}`, phase: 'Plan', schema: PLAN_SCHEMA, effort: 'high' },
   ),
@@ -122,18 +125,18 @@ const writePrompt = (g) => `${CONTEXT}
 
 TASK: Write catalog entries for these planned visuals: ${JSON.stringify(g)}.
 For each visual:
-1. Read the note of every concept it serves: the sketch, the entry ways, the misconceptions, the checks and problems. Read their figure evidence and any matching legacy assets.
+1. For every concept it serves, read the section that teaches it (summary, the part teaching the concept, its checks and misconceptions, and this visual's sketch) and the note digest where a note exists. Read figure evidence only for concepts with neither. Read matching legacy assets when the evidence names one.
 2. Design the component contract (guide section 10), following the exemplar field by field:
    - title, kind, priority, rungs, makes_visible, a plain caption in picture, print_figure for the book, and variants from a static card up;
    - params: typed (enum, number, integer, boolean, path, progress), with options, ranges, steps, units, defaults, effect, and available_when constraints on params and options so only combinations that make sense can be chosen;
    - presets: named states (param id to value, no preset key); every state that a tour, a test or a note reference uses must be a declared preset whose combination is available;
    - readouts: label, unit from the validator's unit table, sense for every signed quantity stated intrinsically as in course conventions, range as the reported branch (angles use (-180, 180]), decimals, visible_when, and say plus say_negative templates in speech format;
-   - tours: one tour per served concept and rung where a guided walk helps, with at least 3 beats. Each beat gives rung, state (a preset id plus overrides), animate or null, await, predict (the question asked before the reveal) or null, check (the concept check or problem the prediction evidences, which must exist in that note) or null, show for authors, say in first person naming what is on screen by colour and line style with directions relative to the path and no skipped step, and describe for a listener who cannot see. Entry-rung beats obey the novice contract;
-   - design_rules: each rule says what it prevents, with the misconception address <concept>/misconceptions/<id> it guards against, or null;
+   - tours: one tour per served concept and rung where a guided walk helps, with at least 3 beats. Each beat gives rung, state (a preset id plus overrides), animate or null, await, predict (the question asked before the reveal) or null, check (the check the prediction evidences: <concept>/checks/<id> in a note or <section-id>/checks/<id> in a section; it must exist) or null, show for authors, say in first person naming what is on screen by colour and line style with directions relative to the path and no skipped step, and describe for a listener who cannot see. Entry-rung beats obey the novice contract;
+   - design_rules: each rule says what it prevents, with the misconception address it guards against (<concept>/misconceptions/<id> in a note or <section-id>/misconceptions/<id> in a section), or null;
    - model: a summary, equations in course conventions with say lines and conditions, the numerical method, and tests. Each test gives a full state (progress 1 when a readout appears only on completion), expected readout values with tolerances computed with python3, and the readouts that must stay hidden. Cover every preset used by a tour, both signs and both branches of every signed readout, limits (flat case zero, small-size leading order), and at least one boundary case;
    - serves (every concept, with how it uses the visual), builds_on, leads_to and variant_of using existing or planned ids, accessibility (summary, static_alt, keyboard), starting_material and provenance.
 3. Set status "proposed", revision 1, and updated "${DATE}". Write ${KB}/visuals/<id>.json. Validate until OK, then render.
-4. In each served note, make sure visuals[] lists the id. Where a way, arc step or check of that note already cites this visual, you may set its preset and tour to declared ids. Do not edit note prose. Validate and re-render each note you touched.
+4. In each section that teaches a served concept, and in each served note, make sure visuals[] lists the id (a catalog visual needs no sketch). Do not edit prose. Validate and re-render each file you touched.
 Return the summary object.`
 
 const novicePrompt = (g, w) => `${CONTEXT}
