@@ -40,7 +40,7 @@ async function slot(priority, fn) {
 
 const CONTEXT = `CONTEXT: grbook.ai is a general relativity book and interactive learning experience with a live voice AI tutor and 2D/3D demos, for learners from zero to research level. Visuals (diagrams, widgets, animations, 3D demos) form their own network in ${KB}/visuals/<id>.json, linked to concepts and to each other. Developers build components from these entries, the tests compile into unit tests, and the tutor speaks the tours and readouts aloud, so every state must be buildable, every expected value correct, and every spoken line clear to its rung. Today's date: ${DATE}.
 
-BINDING DOCUMENTS (read completely first): ${KB}/_meta/writing-guide.md, especially sections 1 (books as teachers only), 3 (depth ladder), 4 (novice contract, including rule 17), 5 (accuracy contract), 6 (text formats), 8 (lifecycle), 10 (visuals and the component contract) and 11 (reviews); the schema ${KB}/_schemas/visual.schema.json; ${KB}/notation/course-conventions.md; and the exemplar ${KB}/visuals/carry-an-arrow-around-a-loop.json with the note it serves, ${KB}/concepts/curvature/holonomy.json.
+BINDING DOCUMENTS (read once, completely, before starting): the standard card ${KB}/_meta/standard-card.md (sections 4, 5, 6 and 10 bind every spoken line and every model); the schema ${KB}/_schemas/visual.schema.json; ${KB}/notation/course-conventions.md; and the exemplar visual ${KB}/visuals/carry-an-arrow-around-a-loop.json. Open the full guide ${KB}/_meta/writing-guide.md only at the section a validator warning names. Do not read the holonomy note; use its digest.
 
 TOOLS:
 - Visual ids: python3 ${T}/visual_ids.py [--missing] [--domain <id>] [--grep <word>] [--json]
@@ -108,7 +108,7 @@ const plan = await slot(1, () =>
     `${CONTEXT}
 
 TASK: Plan the catalog entries for visuals proposed in domain "${domain}".
-1. Run visual_ids.py --missing --domain ${domain}, and visual_ids.py for the whole catalog. Read each proposal's sketch in its note.
+1. Run visual_ids.py --missing --domain ${domain}, and visual_ids.py for the whole catalog. Read each proposal's sketch where it is listed (visual_ids.py prints it).
 2. Group proposals that describe the same picture, even under different names or in other domains, and match any proposal an existing catalog entry already covers.
 3. For each group, choose one canonical id that names the picture, not the concept (guide section 10), and decide kind and priority.
 4. Edit every section in ${KB}/book/sections/ and every concept note in ${KB}/concepts/ that uses a non-canonical or already-covered id: change the id everywhere in that file, keep the most informative sketch, validate (validate.py section or concept), and re-render (render_section.py or render_concept.py). Visual ids are not learner-visible prose, so do not bump the note's revision and do not edit any prose.
