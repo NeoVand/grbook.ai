@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Print a compact digest of concept notes, for agents that must connect to a note without reading all of it.
 
-Usage: python3 knowledge/_tools/note_digest.py <concept-id> [...]   (ids from any domain; missing notes are reported)
+Usage: python3 knowledge/_tools/note_digest.py [--ways entry,working] <concept-id> [...]
+
+--ways prints the full explanation, try_it and takeaway of the ways at those rungs, after each digest.
 
 A digest is a few hundred words: title, tier, status, summary, glossary terms with their plain definitions, each way
 (rung, kind, title, question, takeaway), key equation names with LaTeX, check and problem ids by rung, and the
@@ -14,7 +16,7 @@ from pathlib import Path
 CONCEPTS = Path(__file__).resolve().parents[1] / 'concepts'
 
 
-def digest(cid):
+def digest(cid, ways=()):
 	hits = list(CONCEPTS.glob(f'*/{cid}.json'))
 	if not hits:
 		return f'## {cid}\nno note yet (registry entry only)\n'
@@ -32,6 +34,9 @@ def digest(cid):
 	if d['misconceptions']:
 		o += ['Misconceptions: ' + '; '.join(f"{m['id']}: \"{m['belief']}\"" for m in d['misconceptions'])]
 	o += ['Prerequisites: ' + ', '.join(f"{p['id']} ({p['needed_for']})" for p in d['prerequisites']), 'Visuals: ' + ', '.join(v['id'] for v in d['visuals']), '']
+	for w in d['ways_in']:
+		if w['rung'] in ways:
+			o += [f"### way {w['id']} [{w['rung']}] {w['title']}", w['explanation'], '', f"Try it: {w['try_it']}" if w.get('try_it') else '', f"Takeaway: {w['takeaway']}", '']
 	return '\n'.join(o)
 
 
@@ -39,4 +44,10 @@ if __name__ == '__main__':
 	if len(sys.argv) < 2:
 		print(__doc__)
 		sys.exit(2)
-	print('\n'.join(digest(c) for c in sys.argv[1:]))
+	args = sys.argv[1:]
+	ways = ()
+	if '--ways' in args:
+		i = args.index('--ways')
+		ways = tuple(args[i + 1].split(','))
+		del args[i : i + 2]
+	print('\n'.join(digest(c, ways) for c in args))

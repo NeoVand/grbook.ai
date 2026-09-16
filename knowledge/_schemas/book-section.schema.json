@@ -1,0 +1,988 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "grbook.ai book section",
+	"description": "One section of the book: the unit of writing. It teaches a cluster of registry concepts at one depth, in reading order. Generated once from concept-note.schema.json definitions; edit in place.",
+	"type": "object",
+	"required": [
+		"schema_version",
+		"id",
+		"chapter",
+		"title",
+		"track",
+		"depth",
+		"status",
+		"revision",
+		"updated",
+		"teaches",
+		"builds_on",
+		"summary",
+		"opening",
+		"parts",
+		"key_equations",
+		"worked_examples",
+		"checks",
+		"misconceptions",
+		"glossary",
+		"visuals",
+		"tutor",
+		"further",
+		"retired_ids",
+		"provenance"
+	],
+	"additionalProperties": false,
+	"properties": {
+		"schema_version": {
+			"const": 1
+		},
+		"id": {
+			"$ref": "#/definitions/kebab"
+		},
+		"chapter": {
+			"$ref": "#/definitions/kebab"
+		},
+		"title": {
+			"type": "string",
+			"x-format": "plain",
+			"minLength": 3,
+			"maxLength": 90
+		},
+		"track": {
+			"enum": [
+				"main",
+				"advanced",
+				"reference"
+			]
+		},
+		"depth": {
+			"$ref": "#/definitions/rung"
+		},
+		"status": {
+			"enum": [
+				"draft",
+				"novice-reviewed",
+				"physics-reviewed",
+				"published"
+			]
+		},
+		"revision": {
+			"type": "integer",
+			"minimum": 1
+		},
+		"updated": {
+			"$ref": "#/definitions/date"
+		},
+		"teaches": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"$ref": "#/definitions/kebab"
+			},
+			"description": "Registry concepts this section teaches, exactly as the outline lists them"
+		},
+		"builds_on": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/kebab"
+			},
+			"description": "Earlier sections the reader must have read"
+		},
+		"summary": {
+			"type": "string",
+			"x-format": "plain",
+			"minLength": 80,
+			"maxLength": 500,
+			"description": "The section in one breath, speakable at its depth"
+		},
+		"opening": {
+			"type": "string",
+			"x-format": "md",
+			"minLength": 60,
+			"description": "The concrete scene, puzzle or question that opens the section"
+		},
+		"parts": {
+			"type": "array",
+			"minItems": 2,
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"heading",
+					"teaches",
+					"text",
+					"takeaway"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"$ref": "#/definitions/item_id"
+					},
+					"heading": {
+						"type": "string",
+						"x-format": "plain",
+						"maxLength": 80
+					},
+					"teaches": {
+						"type": "array",
+						"items": {
+							"$ref": "#/definitions/kebab"
+						},
+						"description": "Concepts this part introduces (subset of the section teaches)"
+					},
+					"text": {
+						"type": "string",
+						"x-format": "md",
+						"minLength": 200
+					},
+					"takeaway": {
+						"type": "string",
+						"x-format": "plain",
+						"maxLength": 400,
+						"description": "The sentence the reader should be able to say back"
+					}
+				}
+			}
+		},
+		"key_equations": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"name",
+					"latex",
+					"meaning",
+					"symbols",
+					"say_aloud",
+					"justified"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"$ref": "#/definitions/item_id"
+					},
+					"name": {
+						"type": "string",
+						"x-format": "plain",
+						"maxLength": 80
+					},
+					"latex": {
+						"type": "string",
+						"x-format": "latex"
+					},
+					"meaning": {
+						"type": "string",
+						"x-format": "md"
+					},
+					"symbols": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"required": [
+								"symbol",
+								"meaning",
+								"say"
+							],
+							"additionalProperties": false,
+							"properties": {
+								"symbol": {
+									"type": "string",
+									"x-format": "latex"
+								},
+								"meaning": {
+									"type": "string",
+									"x-format": "plain"
+								},
+								"say": {
+									"type": "string",
+									"x-format": "speech"
+								}
+							}
+						}
+					},
+					"say_aloud": {
+						"type": "string",
+						"x-format": "speech"
+					},
+					"justified": {
+						"enum": [
+							"derived-here",
+							"earlier-section",
+							"stated"
+						]
+					}
+				}
+			}
+		},
+		"worked_examples": {
+			"type": "array",
+			"maxItems": 3,
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"problem",
+					"steps",
+					"answer",
+					"takeaway"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"$ref": "#/definitions/item_id"
+					},
+					"problem": {
+						"type": "string",
+						"x-format": "md"
+					},
+					"steps": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"type": "string",
+							"x-format": "md"
+						}
+					},
+					"answer": {
+						"type": "string",
+						"x-format": "md"
+					},
+					"takeaway": {
+						"type": "string",
+						"x-format": "plain"
+					}
+				}
+			}
+		},
+		"checks": {
+			"type": "array",
+			"minItems": 3,
+			"maxItems": 8,
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"format",
+					"question",
+					"question_spoken",
+					"answer",
+					"key_points",
+					"numeric",
+					"targets"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"$ref": "#/definitions/item_id"
+					},
+					"format": {
+						"enum": [
+							"explain",
+							"predict",
+							"numeric",
+							"derive",
+							"compare"
+						]
+					},
+					"question": {
+						"type": "string",
+						"x-format": "md"
+					},
+					"question_spoken": {
+						"anyOf": [
+							{
+								"type": "string",
+								"x-format": "speech"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"answer": {
+						"type": "string",
+						"x-format": "md"
+					},
+					"key_points": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"type": "string",
+							"x-format": "plain"
+						}
+					},
+					"numeric": {
+						"anyOf": [
+							{
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/numeric_answer"
+								}
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"targets": {
+						"type": "array",
+						"items": {
+							"$ref": "#/definitions/item_id"
+						},
+						"description": "Misconception ids this check exposes"
+					}
+				}
+			}
+		},
+		"misconceptions": {
+			"type": "array",
+			"maxItems": 6,
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"belief",
+					"correction",
+					"diagnosed_by"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"$ref": "#/definitions/item_id"
+					},
+					"belief": {
+						"type": "string",
+						"x-format": "plain"
+					},
+					"correction": {
+						"type": "string",
+						"x-format": "plain"
+					},
+					"diagnosed_by": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"$ref": "#/definitions/item_id"
+						}
+					}
+				}
+			}
+		},
+		"glossary": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"term",
+					"plain_definition",
+					"concept"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"$ref": "#/definitions/item_id"
+					},
+					"term": {
+						"type": "string",
+						"x-format": "plain"
+					},
+					"plain_definition": {
+						"type": "string",
+						"x-format": "plain"
+					},
+					"concept": {
+						"anyOf": [
+							{
+								"$ref": "#/definitions/kebab"
+							},
+							{
+								"type": "null"
+							}
+						]
+					}
+				}
+			}
+		},
+		"visuals": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"role",
+					"priority",
+					"sketch"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"$ref": "#/definitions/kebab"
+					},
+					"role": {
+						"type": "string",
+						"x-format": "md"
+					},
+					"priority": {
+						"enum": [
+							"flagship",
+							"core",
+							"supporting"
+						]
+					},
+					"sketch": {
+						"anyOf": [
+							{
+								"type": "string",
+								"x-format": "md"
+							},
+							{
+								"type": "null"
+							}
+						]
+					}
+				}
+			}
+		},
+		"tutor": {
+			"type": "object",
+			"required": [
+				"opening_question",
+				"common_questions"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"opening_question": {
+					"type": "string",
+					"x-format": "speech",
+					"description": "Names its setting and invites a prediction"
+				},
+				"common_questions": {
+					"type": "array",
+					"maxItems": 5,
+					"items": {
+						"type": "object",
+						"required": [
+							"id",
+							"question",
+							"answer"
+						],
+						"additionalProperties": false,
+						"properties": {
+							"id": {
+								"$ref": "#/definitions/item_id"
+							},
+							"question": {
+								"type": "string",
+								"x-format": "speech"
+							},
+							"answer": {
+								"type": "string",
+								"x-format": "speech"
+							}
+						}
+					}
+				}
+			}
+		},
+		"further": {
+			"type": "array",
+			"maxItems": 4,
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"topic",
+					"note",
+					"references"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"$ref": "#/definitions/item_id"
+					},
+					"topic": {
+						"type": "string",
+						"x-format": "plain"
+					},
+					"note": {
+						"type": "string",
+						"x-format": "md"
+					},
+					"references": {
+						"type": "array",
+						"items": {
+							"$ref": "#/definitions/reference"
+						}
+					}
+				}
+			},
+			"description": "Pointers beyond the section: landmark papers and reviews, mainly for advanced and research depth"
+		},
+		"retired_ids": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [
+					"collection",
+					"id"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"collection": {
+						"type": "string"
+					},
+					"id": {
+						"$ref": "#/definitions/item_id"
+					}
+				}
+			}
+		},
+		"provenance": {
+			"type": "object",
+			"x-audience": "internal",
+			"required": [
+				"notes_used",
+				"source_units",
+				"legacy_assets"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"notes_used": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/kebab"
+					}
+				},
+				"source_units": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"legacy_assets": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"review": {
+			"type": "object",
+			"x-audience": "internal",
+			"additionalProperties": false,
+			"properties": {
+				"novice": {
+					"$ref": "#/definitions/novice_stage"
+				},
+				"physics": {
+					"$ref": "#/definitions/physics_stage"
+				}
+			}
+		}
+	},
+	"definitions": {
+		"kebab": {
+			"type": "string",
+			"pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+		},
+		"item_id": {
+			"type": "string",
+			"pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+			"maxLength": 60,
+			"description": "Permanent once published: change the text, never the id"
+		},
+		"date": {
+			"type": "string",
+			"pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+		},
+		"rung": {
+			"enum": [
+				"entry",
+				"working",
+				"formal",
+				"research"
+			]
+		},
+		"numeric_answer": {
+			"type": "object",
+			"required": [
+				"quantity",
+				"value",
+				"unit",
+				"sign",
+				"abs_tol",
+				"rel_tol",
+				"modulo"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"quantity": {
+					"type": "string",
+					"x-format": "plain"
+				},
+				"value": {
+					"type": "number"
+				},
+				"unit": {
+					"type": "string",
+					"description": "A unit from the validator's unit table, e.g. rad, deg, turn, km, km^2, m, s, yr, kg, M_sun, Hz, eV, mas/yr, 1"
+				},
+				"sign": {
+					"enum": [
+						"signed",
+						"magnitude"
+					],
+					"description": "signed: positive in the note's stated sense"
+				},
+				"abs_tol": {
+					"type": [
+						"number",
+						"null"
+					],
+					"minimum": 0
+				},
+				"rel_tol": {
+					"type": [
+						"number",
+						"null"
+					],
+					"minimum": 0
+				},
+				"modulo": {
+					"type": [
+						"number",
+						"null"
+					],
+					"description": "Period for angles or phases, in the answer's unit (e.g. 360 for deg)"
+				}
+			}
+		},
+		"reference": {
+			"type": "object",
+			"required": [
+				"authors",
+				"more_authors",
+				"year",
+				"title",
+				"venue",
+				"doi",
+				"arxiv",
+				"kind",
+				"verified"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"authors": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "string"
+					},
+					"description": "Real names only, never 'et al.'"
+				},
+				"more_authors": {
+					"type": "boolean",
+					"description": "true when authors lists only the first few"
+				},
+				"year": {
+					"type": "integer",
+					"minimum": -600,
+					"maximum": 2100
+				},
+				"title": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"venue": {
+					"type": [
+						"string",
+						"null"
+					],
+					"description": "Journal with volume and pages, publisher, or institution"
+				},
+				"doi": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"arxiv": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"kind": {
+					"enum": [
+						"paper",
+						"review",
+						"book",
+						"lecture-notes",
+						"thesis",
+						"talk"
+					]
+				},
+				"verified": {
+					"type": "boolean",
+					"description": "true only after the physics reviewer confirmed authors, year, title, and venue against a reliable record"
+				}
+			}
+		},
+		"novice_stage": {
+			"type": "object",
+			"required": [
+				"verdict",
+				"date",
+				"reviewed_revision",
+				"retell_attempt",
+				"stumbles",
+				"fixes",
+				"concerns"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"verdict": {
+					"enum": [
+						"accurate",
+						"fixed",
+						"needs-attention"
+					]
+				},
+				"date": {
+					"$ref": "#/definitions/date"
+				},
+				"reviewed_revision": {
+					"type": "integer",
+					"minimum": 1
+				},
+				"retell_attempt": {
+					"type": "string",
+					"description": "The persona's retelling after one reading, before fixes"
+				},
+				"rereads": {
+					"type": "array",
+					"description": "Later novice readings of learner-visible text that another stage changed after this review",
+					"items": {
+						"type": "object",
+						"required": [
+							"date",
+							"revision",
+							"read",
+							"stumbles",
+							"fixes"
+						],
+						"additionalProperties": false,
+						"properties": {
+							"date": {
+								"$ref": "#/definitions/date"
+							},
+							"revision": {
+								"type": "integer",
+								"minimum": 1,
+								"description": "The note revision after this re-read"
+							},
+							"read": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								},
+								"description": "Paths of the changed text that was read, as note_diff.py prints them"
+							},
+							"stumbles": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"required": [
+										"quote",
+										"problem",
+										"rewrite"
+									],
+									"additionalProperties": false,
+									"properties": {
+										"quote": {
+											"type": "string"
+										},
+										"problem": {
+											"type": "string"
+										},
+										"rewrite": {
+											"type": "string"
+										}
+									}
+								}
+							},
+							"fixes": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"stumbles": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [
+							"quote",
+							"problem",
+							"rewrite"
+						],
+						"additionalProperties": false,
+						"properties": {
+							"quote": {
+								"type": "string"
+							},
+							"problem": {
+								"type": "string"
+							},
+							"rewrite": {
+								"type": "string"
+							}
+						}
+					}
+				},
+				"fixes": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"concerns": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"physics_stage": {
+			"type": "object",
+			"required": [
+				"verdict",
+				"date",
+				"reviewed_revision",
+				"verification",
+				"counterexamples",
+				"fixes",
+				"concerns"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"verdict": {
+					"enum": [
+						"accurate",
+						"fixed",
+						"needs-attention"
+					]
+				},
+				"date": {
+					"$ref": "#/definitions/date"
+				},
+				"reviewed_revision": {
+					"type": "integer",
+					"minimum": 1
+				},
+				"verification": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [
+							"claim",
+							"method",
+							"result"
+						],
+						"additionalProperties": false,
+						"properties": {
+							"claim": {
+								"type": "string"
+							},
+							"method": {
+								"type": "string"
+							},
+							"result": {
+								"type": "string"
+							}
+						}
+					}
+				},
+				"counterexamples": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Standard counterexamples tried against the note's general statements, and the outcome"
+				},
+				"diff_checks": {
+					"type": "array",
+					"description": "Later accuracy checks of learner-visible text that another stage changed after this review",
+					"items": {
+						"type": "object",
+						"required": [
+							"date",
+							"revision",
+							"verification",
+							"fixes"
+						],
+						"additionalProperties": false,
+						"properties": {
+							"date": {
+								"$ref": "#/definitions/date"
+							},
+							"revision": {
+								"type": "integer",
+								"minimum": 1,
+								"description": "The note revision after this check"
+							},
+							"verification": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"required": [
+										"claim",
+										"method",
+										"result"
+									],
+									"additionalProperties": false,
+									"properties": {
+										"claim": {
+											"type": "string"
+										},
+										"method": {
+											"type": "string"
+										},
+										"result": {
+											"type": "string"
+										}
+									}
+								}
+							},
+							"fixes": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"fixes": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"concerns": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}

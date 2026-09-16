@@ -5,6 +5,7 @@ Usage:
   python3 knowledge/_tools/validate.py dossier <sources/<book>/chapters/<unit>.json> [...]
   python3 knowledge/_tools/validate.py concept <concepts/<domain>/<id>.json> [...]
   python3 knowledge/_tools/validate.py visual <visuals/<id>.json> [...]
+  python3 knowledge/_tools/validate.py section <book/sections/<chapter>/<id>.json> [...]
   python3 knowledge/_tools/validate.py all          (every v2 concept note and visual, plus cross-checks)
   python3 knowledge/_tools/validate.py schema <schema.json> <file.json> [...]
 
@@ -1065,7 +1066,142 @@ def visual_warnings(d, path):
 	return warns, notes
 
 
+SECTION_BUDGETS = {'entry': (1200, 2500), 'working': (1500, 3200), 'formal': (1500, 3200), 'research': (1200, 3000)}
+SECTION_TOTAL = 5000
+
+
+@lru_cache(maxsize=None)
+def outline_sections():
+	try:
+		o = json.loads((KB / 'book' / 'outline.json').read_text())
+	except OSError:
+		return {}
+	out = {}
+	for p in o['parts']:
+		for ch in p['chapters']:
+			for s in ch['sections']:
+				out[s['id']] = dict(s, chapter=ch['id'])
+	return out
+
+
+def section_warnings(d, path):
+	warns, notes = [], []
+	reg, out = registry_entries(), outline_sections()
+	sid, p = d['id'], Path(path)
+	if p.stem != sid:
+		warns.append(f'file name should be {sid}.json')
+	if p.parent.name != d['chapter']:
+		warns.append(f'the file should live in book/sections/{d["chapter"]}/')
+	spec = out.get(sid)
+	if not spec:
+		warns.append(f'section "{sid}" is not in book/outline.json')
+	else:
+		for k in ('chapter', 'track', 'depth'):
+			if d[k] != spec[k]:
+				warns.append(f'{k} should be "{spec[k]}" as in the outline')
+		if set(d['teaches']) != set(spec['concepts']):
+			warns.append(f'teaches differs from the outline: missing {sorted(set(spec["concepts"]) - set(d["teaches"]))}, extra {sorted(set(d["teaches"]) - set(spec["concepts"]))}')
+	for c in d['teaches']:
+		if c not in reg:
+			warns.append(f'teaches: "{c}" is not a registry concept id')
+	for b in d['builds_on']:
+		if b not in out:
+			warns.append(f'builds_on: "{b}" is not an outline section id')
+		elif b == sid:
+			warns.append('a section cannot build on itself')
+	taught = set()
+	for part in d['parts']:
+		for c in part['teaches']:
+			if c not in d['teaches']:
+				warns.append(f'parts/{part["id"]}: teaches "{c}", which is not in the section\'s teaches')
+			taught.add(c)
+	untaught = sorted(set(d['teaches']) - taught)
+	if untaught:
+		warns.append(f'no part teaches {untaught}; list each concept under the part that introduces it')
+	for coll in ('parts', 'key_equations', 'worked_examples', 'checks', 'misconceptions', 'glossary', 'visuals', 'further'):
+		ids = [x['id'] for x in d[coll]]
+		dups = sorted({i for i in ids if ids.count(i) > 1})
+		if dups:
+			warns.append(f'{coll}: duplicate ids {dups}')
+	mis = {m['id']: m for m in d['misconceptions']}
+	chk = {c['id']: c for c in d['checks']}
+	for m in mis.values():
+		for c in m['diagnosed_by']:
+			if c not in chk:
+				warns.append(f'misconceptions/{m["id"]}: diagnosed_by "{c}" is not a check id')
+			elif m['id'] not in chk[c]['targets']:
+				warns.append(f'misconceptions/{m["id"]}: check "{c}" must list it in targets')
+		if len(sentences(m['correction'])) > 2:
+			warns.append(f'misconceptions/{m["id"]}: correction has more than two sentences')
+	for c in chk.values():
+		for t in c['targets']:
+			if t not in mis:
+				warns.append(f'checks/{c["id"]}: target "{t}" is not a misconception id')
+		if '$' in c['question'] and not c['question_spoken']:
+			warns.append(f'checks/{c["id"]}: the question contains math, so give question_spoken')
+		if c['format'] == 'numeric' and not c['numeric']:
+			warns.append(f'checks/{c["id"]}: numeric checks need numeric answers')
+		warns += numeric_warnings(f'checks/{c["id"]}', c['numeric'])
+	for g in d['glossary']:
+		if g['concept'] and g['concept'] not in reg:
+			warns.append(f'glossary/{g["id"]}: concept "{g["concept"]}" is not a registry id')
+	for v in d['visuals']:
+		if not catalog_visual(v['id']):
+			if v['sketch']:
+				notes.append(f'visual "{v["id"]}" is proposed (not in knowledge/visuals/ yet)')
+			else:
+				warns.append(f'visual "{v["id"]}" is not in knowledge/visuals/; give it a sketch')
+	if d['track'] == 'main' and not d['visuals']:
+		warns.append('a main-track section needs at least one visual (catalog id or proposal with a sketch)')
+	if d['depth'] in ('formal', 'research') and not d['further']:
+		notes.append('formal and research sections usually give further reading')
+	# Novice contract at entry depth; at working depth only the wording traps and sentence length of takeaways.
+	entry = [('summary', d['summary'], 1), ('opening', d['opening'], 3)]
+	entry += [(f'parts/{x["id"]}.text', x['text'], 3) for x in d['parts']] + [(f'parts/{x["id"]}.takeaway', x['takeaway'], 1) for x in d['parts']]
+	entry += [(f'glossary/{g["id"]}', g['plain_definition'], 1) for g in d['glossary']]
+	entry += [(f'checks/{c["id"]}.question', c['question'], 1) for c in d['checks']] + [(f'checks/{c["id"]}.answer', c['answer'], 2) for c in d['checks']]
+	entry += [(f'misconceptions/{m["id"]}.{k}', m[k], 0) for m in d['misconceptions'] for k in ('belief', 'correction')]
+	if d['depth'] == 'entry':
+		for label, text, max_math in entry:
+			warns += novice_warnings(label, text, max_math)
+		defined = ' | '.join(g['term'].lower() for g in d['glossary'])
+		blob = ' '.join(plain(t) for label, t, _ in entry if not label.startswith('glossary')).lower()
+		undefined = [t for t in TECHNICAL if re.search(rf'\b{re.escape(t.lower())}(s|es)?\b', blob) and t.lower() not in defined]
+		if undefined:
+			warns.append(f'entry reading uses technical words the glossary does not define: {undefined}')
+	warns += format_warnings()
+	prose = wc([d['opening']] + [x['text'] for x in d['parts']] + [x['takeaway'] for x in d['parts']])
+	total = wc(d)
+	lo, hi = SECTION_BUDGETS[d['depth']]
+	draft = d['status'] == 'draft'
+	if prose < lo:
+		warns.append(f'prose: {prose} words, under the {d["depth"]} minimum of {lo}')
+	for label, n, cap in (('prose', prose, hi), ('total', total, SECTION_TOTAL)):
+		limit = int(cap * (DRAFT_HEADROOM if draft else REVIEW_ALLOWANCE))
+		if n > limit:
+			warns.append(f'{label}: {n} words, over {limit} ({"80% of the cap for a draft" if draft else "the cap plus the 10% review allowance"}; cap {cap}); drop the lowest-value item, never compress')
+	review = d.get('review') or {}
+	status = d['status']
+	if status in ('novice-reviewed', 'physics-reviewed', 'published') and d['depth'] in ('entry', 'working') and 'novice' not in review:
+		warns.append(f'status "{status}" requires review.novice at {d["depth"]} depth')
+	if status in ('physics-reviewed', 'published'):
+		if 'physics' not in review:
+			warns.append(f'status "{status}" requires review.physics')
+		elif review['physics']['verdict'] == 'needs-attention':
+			warns.append(f'status "{status}" is not allowed with a physics verdict of needs-attention')
+		unverified = [f'further/{x["id"]}' for x in d['further'] for r in x['references'] if not r['verified']]
+		if unverified:
+			warns.append(f'unverified references after physics review: {sorted(set(unverified))}')
+	for stage, r in review.items():
+		if r['reviewed_revision'] != d['revision'] and status != 'draft':
+			warns.append(f'review.{stage} covers revision {r["reviewed_revision"]}, but the section is at revision {d["revision"]}; review again')
+	warns += common_lints(d)
+	notes.append(f'{total} words (prose {prose}); {len(d["parts"])} parts, {len(d["checks"])} checks, {len(d["key_equations"])} equations, {len(d["visuals"])} visuals; status {status}')
+	return warns, notes
+
+
 MODES = {
+	'section': ('book-section.schema.json', section_warnings),
 	'dossier': ('chapter-dossier.schema.json', dossier_warnings),
 	'concept': ('concept-note.schema.json', concept_warnings),
 	'visual': ('visual.schema.json', visual_warnings),
