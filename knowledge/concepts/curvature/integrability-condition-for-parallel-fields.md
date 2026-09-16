@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["condition for a globally parallel vector field", "integrable connection condition"]
 prerequisites: ["ricci-identity", "partial-derivative", "geodesic-deviation-equation", "holonomy", "lie-bracket", "simply-connected-space"]
 leads_to: ["flatness-criterion", "brinkmann-coordinates", "exact-plane-gravitational-wave"]
-visuals: ["painted-arrows-that-must-match", "falling-ring-of-crumbs", "paper-cone-with-a-missing-wedge"]
+visuals: ["painted-arrows-that-must-match", "falling-ring-of-crumbs", "carry-an-arrow-around-a-loop"]
 ---
 
 # Integrability condition for parallel fields
@@ -24,7 +24,7 @@ visuals: ["painted-arrows-that-must-match", "falling-ring-of-crumbs", "paper-con
 **Needs:** [[ricci-identity]] (entry) · [[partial-derivative]] (working) · [[geodesic-deviation-equation]] (working) · [[holonomy]] (formal) · [[lie-bracket]] (formal) · [[simply-connected-space]] (formal)  
 **Opens:** [[flatness-criterion]] · [[brinkmann-coordinates]] · [[exact-plane-gravitational-wave]]  
 **Related:** [[poincare-lemma]] · [[killing-vector-ricci-identity]] · [[torsion-tensor]] · [[gauge-parallel-transport]] · [[local-geometry-versus-global-topology]]  
-**Visuals:** ★ [[painted-arrows-that-must-match]] · [[falling-ring-of-crumbs]] · [[paper-cone-with-a-missing-wedge]]
+**Visuals:** ★ [[painted-arrows-that-must-match]] · [[falling-ring-of-crumbs]] · [[carry-an-arrow-around-a-loop]]
 
 > Picture an arrow painted on every spot of the ground. Lay a cardboard copy on top of one of them, pointing the same way, and carry it anywhere, never letting it swing to your left or right. The painting is perfect if the copy always lands on the arrow painted where it stops. Flat ground allows a perfect painting. A ball allows none, even on a tiny patch, because a small loop there turns a carried copy. Every small loop must bring copies back matching: that is the integrability condition.
 
@@ -177,7 +177,7 @@ For the Levi-Civita connection, $T = 0$ and $\nabla g = 0$ keep $g(e_a,e_b)$ con
 
 *What this leaves out:* Surfaces idealized as exactly flat, with the cone's tip removed.
 
-*Continues:* `ways_in/when-flatness-is-enough`<br>*Builds on:* [[holonomy]], [[simply-connected-space]]<br>*Visuals:* [[paper-cone-with-a-missing-wedge]]<br>*See:* `checks/mobius-and-cylinder`, `worked_examples/parallel-field-on-a-cone`
+*Continues:* `ways_in/when-flatness-is-enough`<br>*Builds on:* [[holonomy]], [[simply-connected-space]]<br>*Visuals:* [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`)<br>*See:* `checks/mobius-and-cylinder`, `worked_examples/parallel-field-on-a-cone`
 
 ### 6. Parallel tensors and special holonomy · research · structure
 
@@ -409,7 +409,7 @@ Take the plane-fronted wave $ds^2 = H(u,x,y)\,du^2 + 2\,du\,dv + dx^2 + dy^2$ in
 2. **Break it with a loop, then size it** (entry). Carry one copy around a small loop, meet the equator objection, and put a number on the turn. *Why:* The equator shows that one good loop is not enough; the number shows why painted ground looks perfect. *Predict:* The equator brings a carried arrow back matching. Can the whole ball be painted perfectly? *Uses:* `checks/equator-loop-matches`, `checks/tiny-patch-on-earth`
 3. **Differentiate twice** (working). Derive the condition from mixed partials, then solve the flat plane in polar coordinates as a control. *Why:* The control separates curved coordinate lines from curved space. *Predict:* Polar coordinates on a flat plane have nonzero Christoffel symbols. Can a parallel field live there? *Uses:* `ways_in/mixed-partials-pin-the-curvature-to-the-field`, `derivations/mixed-partials-give-curvature`, `checks/polar-plane-field`
 4. **Measure the failure** (working). Show that a parallel four-velocity means no tides, then read a gravity gradient as a failed condition. *Why:* It connects an existence theorem to a laboratory reading. *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/tides-rule-out-a-parallel-four-velocity`, `observations/atom-gradiometer`, `problems/gradiometer-verdict`
-5. **Mark every hypothesis** (formal). State the Frobenius result, then break it at one point, around a missing tip, and with torsion. *Why:* Each counterexample pins one hypothesis to its job. *Predict:* Every piece of a flat Möbius band is flat. Does every vector at a point extend over the whole band? *Visual:* [[paper-cone-with-a-missing-wedge]] *Uses:* `ways_in/when-flatness-is-enough`, `ways_in/topology-and-torsion`, `checks/flat-at-one-point`, `checks/mobius-and-cylinder`
+5. **Mark every hypothesis** (formal). State the Frobenius result, then break it at one point, around a missing tip, and with torsion. *Why:* Each counterexample pins one hypothesis to its job. *Predict:* Every piece of a flat Möbius band is flat. Does every vector at a point extend over the whole band? *Visual:* [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`) *Uses:* `ways_in/when-flatness-is-enough`, `ways_in/topology-and-torsion`, `checks/flat-at-one-point`, `checks/mobius-and-cylinder`
 6. **Generalize to parallel tensors** (research). Present the holonomy principle, then test it on a product of two spheres and on a plane wave. *Why:* Parallel objects organize the special geometries. *Uses:* `ways_in/parallel-tensors-and-special-holonomy`, `checks/reducible-without-parallel-vector`, `problems/brinkmann-wave-fields`
 
 ## Misconceptions
@@ -518,7 +518,7 @@ Take the plane-fronted wave $ds^2 = H(u,x,y)\,du^2 + 2\,du\,dv + dx^2 + dy^2$ in
 
 - ★ [[painted-arrows-that-must-match]] (flagship): Flagship: a perfect painting succeeds on flat ground and fails on a ball, with the failure located on loops. *Sketch:* A patch of flat ground, a tube, a round ball, a saddle or a paper cone. The learner drops one arrow and spreads carried copies along chosen paths, painting as they go. Where two painted rows meet, a marker gives the angle between them, and a shaded map gives each small loop's turn. Floor and tube stay at zero; on the ball every small loop turns the copy toward the walker's left, growing with the area of the piece on that side; on the cone only paths passing on opposite sides of the tip disagree.
 - [[falling-ring-of-crumbs]] (supporting): Tides as the measured failure of a parallel four-velocity. *Sketch:* A ring of freely falling crumbs near a mass stretches along the line to the centre and squeezes across it, with sliders for mass and distance and a readout of relative acceleration per unit separation; a switch to flat spacetime leaves the ring unchanged.
-- [[paper-cone-with-a-missing-wedge]] (supporting): Flat but not simply connected: parallel fields on slit pieces, none all the way around the tip. *Sketch:* Cut a wedge of adjustable angle from a flat sheet and glue it into a cone, with the unrolled sheet beside it. Loops that avoid the tip return the arrow unchanged; a loop winding n times around it returns the arrow rotated by n times the wedge angle.
+- [[carry-an-arrow-around-a-loop]] (supporting): Flat but not simply connected: parallel fields on slit pieces, none all the way around the tip. *Sketch:* Cut a wedge of adjustable angle from a flat sheet and glue it into a cone, with the unrolled sheet beside it. Loops that avoid the tip return the arrow unchanged; a loop winding n times around it returns the arrow rotated by n times the wedge angle.
 
 ## Tutor moves
 

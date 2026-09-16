@@ -12,7 +12,7 @@ updated: "2026-09-16"
 aliases: ["insider viewpoint", "intrinsic description of geometry"]
 prerequisites: ["manifold", "metric-tensor"]
 leads_to: ["intrinsic-versus-extrinsic-curvature", "theorema-egregium"]
-visuals: ["paced-ring-on-a-ball-and-a-plain", "curl-a-page-with-a-triangle"]
+visuals: ["paced-ring-on-a-ball-and-a-plain", "paper-rolled-into-a-tube-and-a-cone"]
 ---
 
 # Intrinsic viewpoint on geometry
@@ -24,7 +24,7 @@ visuals: ["paced-ring-on-a-ball-and-a-plain", "curl-a-page-with-a-triangle"]
 **Needs:** [[manifold]] (formal) · [[metric-tensor]] (working)  
 **Opens:** [[intrinsic-versus-extrinsic-curvature]] · [[theorema-egregium]]  
 **Related:** [[embedding]] · [[circumference-to-radius-test]] · [[holonomy]]  
-**Visuals:** ★ [[paced-ring-on-a-ball-and-a-plain]] · [[curl-a-page-with-a-triangle]]
+**Visuals:** ★ [[paced-ring-on-a-ball-and-a-plain]] · [[paper-rolled-into-a-tube-and-a-cone]]
 
 > An ant that can never leave a ball can still measure distances and angles along its surface. Those measurements alone show that the ball is not a flat plain. A sheet of paper curled into a trough, like half of a pipe, without stretching, gives an ant living on it exactly the same measurements as the flat sheet did. Describing a surface, or space itself, only through such measurements is the intrinsic viewpoint. It is the only viewpoint available for space and time, which nobody can step outside.
 
@@ -119,7 +119,7 @@ A ball is different. On a ball, a ring comes out shorter than 6.28 times the dis
 
 *What this leaves out:* Taping the two edges together into a tube is a further step. It stretches nothing, so every small piece of the tube keeps the measurements of flat paper. But an ant who walks straight around the tube comes back to where she started, which a straight walk on a flat sheet never does.
 
-*Continues:* `ways_in/a-world-you-cannot-leave`, `ways_in/surveyors-pace-out-a-ring`<br>*Visuals:* [[curl-a-page-with-a-triangle]]<br>*See:* `checks/curled-triangle`, `problems/party-hat-ring`
+*Continues:* `ways_in/a-world-you-cannot-leave`, `ways_in/surveyors-pace-out-a-ring`<br>*Visuals:* [[paper-rolled-into-a-tube-and-a-cone]]<br>*See:* `checks/curled-triangle`, `problems/party-hat-ring`
 
 ### 4. The distance rule holds the whole geometry · working · calculation
 
@@ -334,7 +334,7 @@ The catenoid $\mathbf X(u,v) = (\cosh u\cos v, \cosh u\sin v, u)$ and the helico
 
 1. **Set the insider's rules** (entry). Put the learner in the ant's place and sort measurements into those made along the ground and those that need the outside. *Why:* The principle is a rule about which measurements count. *Uses:* `ways_in/a-world-you-cannot-leave`
 2. **Run the ring test** (entry). Have the learner predict the equator ring on a globe, then count it. *Why:* A surprise found with a tape measure alone shows that insiders can detect their world's shape. *Visual:* [[paced-ring-on-a-ball-and-a-plain]] *Uses:* `ways_in/surveyors-pace-out-a-ring`, `checks/ring-on-a-small-moon`
-3. **Curl the page** (entry). Curl a sheet with a drawn triangle and let the learner remeasure it. *Why:* The control separates what insiders measure from what only looks curved. *Predict:* After the sheet is curled, will the ant's measured triangle change? *Visual:* [[curl-a-page-with-a-triangle]] *Uses:* `ways_in/curl-the-page`, `checks/curled-triangle`
+3. **Curl the page** (entry). Curl a sheet with a drawn triangle and let the learner remeasure it. *Why:* The control separates what insiders measure from what only looks curved. *Predict:* After the sheet is curled, will the ant's measured triangle change? *Visual:* [[paper-rolled-into-a-tube-and-a-cone]] *Uses:* `ways_in/curl-the-page`, `checks/curled-triangle`
 4. **Compute from the distance rule** (working). Derive the ring length from the sphere's rule, then measure the Sun's curving of space the same way. *Why:* The rule, not the picture, carries the geometry, and gravity is tested this way. *Uses:* `ways_in/the-distance-rule-holds-it-all`, `problems/find-the-planet-radius`, `ways_in/rulers-and-rings-around-the-sun`
 
 ## Misconceptions
@@ -384,7 +384,7 @@ The catenoid $\mathbf X(u,v) = (\cosh u\cos v, \cosh u\sin v, u)$ and the helico
    - **Must contain:** The ant measures the same lengths and the same square corner; Curling does not stretch or squash the paper
    - **Numeric:** side measured by the ant = 8 cm (magnitude, ±0.1)
    - **Targets:** `looks-bent-so-curved`
-   - **Visual:** [[curl-a-page-with-a-triangle]]
+   - **Visual:** [[paper-rolled-into-a-tube-and-a-cone]]
 3. **Entry · evaluate-claim** `checks/curved-into-what`. In a science video, someone says: "Einstein's theory of gravity says space is curved. So space must be curved into some extra direction we cannot see." Evaluate the claim, using the surveyors who pace out a ring.
    - **Hints:** Did the surveyors' ring test ever need to leave the surface?
    - **Answer:** The first part is right: the theory describes space and time as curved. The second part does not follow. The surveyors' ball does sit in a room, but their ring test never used the room. They found that their world is not a flat plain with only a tape measure along the ground. So their test works the same whether or not an outside direction exists. People inside space could run the same kind of test, laying out a ring with rulers and measuring it. General relativity describes the curving of space and time through measurements made from within, and it uses no extra direction.
@@ -408,7 +408,7 @@ The catenoid $\mathbf X(u,v) = (\cosh u\cos v, \cosh u\sin v, u)$ and the helico
 ## Visuals
 
 - ★ [[paced-ring-on-a-ball-and-a-plain]] (flagship): The ring test, with the outside view that can be hidden. *Sketch:* Walkers leave a centre on a ball, a plain or a curled sheet. A radius slider grows the ring; a notebook panel shows radius, ring length and their ratio. Hiding the outside view leaves only the notebook, which still tells ball from plain but not curled sheet from plain.
-- [[curl-a-page-with-a-triangle]] (core): Curling without stretching keeps every insider measurement. *Sketch:* A slider curls a sheet with a drawn triangle into a trough; the outside view is labelled 'looks bent'. Side and angle readouts along the paper stay fixed; a gap-through-the-air readout, marked outsider only, changes.
+- [[paper-rolled-into-a-tube-and-a-cone]] (core): Curling without stretching keeps every insider measurement. *Sketch:* A slider curls a sheet with a drawn triangle into a trough; the outside view is labelled 'looks bent'. Side and angle readouts along the paper stay fixed; a gap-through-the-air readout, marked outsider only, changes.
 
 ## Tutor moves
 

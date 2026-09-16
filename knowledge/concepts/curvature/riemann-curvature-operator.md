@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["curvature operator", "curvature endomorphism"]
 prerequisites: ["riemann-curvature-tensor", "covariant-derivative", "lie-bracket", "holonomy", "levi-civita-connection"]
 leads_to: ["curvature-2-form", "geodesic-deviation-equation", "sectional-curvature", "bundle-curvature", "integrability-condition-for-parallel-fields"]
-visuals: ["four-legs-that-do-not-close", "falling-ring-of-crumbs"]
+visuals: ["four-legs-around-a-tiny-loop", "falling-ring-of-crumbs"]
 ---
 
 # Riemann curvature operator
@@ -24,7 +24,7 @@ visuals: ["four-legs-that-do-not-close", "falling-ring-of-crumbs"]
 **Needs:** [[riemann-curvature-tensor]] (entry) · [[covariant-derivative]] (working) · [[lie-bracket]] (working) · [[holonomy]] (working) · [[levi-civita-connection]] (formal)  
 **Opens:** [[curvature-2-form]] · [[geodesic-deviation-equation]] · [[sectional-curvature]] · [[bundle-curvature]] · [[integrability-condition-for-parallel-fields]]  
 **Related:** [[ricci-identity]] · [[torsion-tensor]] · [[gauge-field-strength]] · [[second-exterior-covariant-derivative]]  
-**Visuals:** ★ [[four-legs-that-do-not-close]] · [[falling-ring-of-crumbs]]
+**Visuals:** ★ [[four-legs-around-a-tiny-loop]] · [[falling-ring-of-crumbs]]
 
 > Follow two walking instructions, then each one in reverse, and you can miss your starting spot even on flat ground. The curvature operator takes a tiny fraction of each instruction and adds a short closing walk, so the path ends where it began. Then it reports how an arrow carried around that loop, never swinging, comes back changed. On flat ground the arrow always comes back matching its start, so any change comes from curving.
 
@@ -76,7 +76,7 @@ Earth's ground is gently curved. A finished loop around one square metre of it t
 
 *What this leaves out:* For instructions of other lengths, or not at right angles, the recipe's answer also grows with the instructions' lengths and with how close to a right angle they are.
 
-*Builds on:* [[parallel-transport]]<br>*Visuals:* [[four-legs-that-do-not-close]]<br>*See:* `checks/playground-gap`, `problems/bigger-steps`
+*Builds on:* [[parallel-transport]]<br>*Visuals:* [[four-legs-around-a-tiny-loop]]<br>*See:* `checks/playground-gap`, `problems/bigger-steps`
 
 ### 2. Two orders, minus the gap · working · calculation
 
@@ -106,7 +106,7 @@ Take this on trust from the small-loop law of holonomy: the loop's oriented area
 
 *What this leaves out:* Keeps the leading order in the loop size; the definition and its pointwise character hold for any connection.
 
-*Continues:* `ways_in/instructions-that-miss-the-start`<br>*Builds on:* [[covariant-derivative]], [[lie-bracket]], [[holonomy]]<br>*Visuals:* [[four-legs-that-do-not-close]]<br>*See:* `derivations/coordinate-fields-give-components`, `checks/polar-unit-frame`, `problems/sphere-unit-frame`
+*Continues:* `ways_in/instructions-that-miss-the-start`<br>*Builds on:* [[covariant-derivative]], [[lie-bracket]], [[holonomy]]<br>*Visuals:* [[four-legs-around-a-tiny-loop]]<br>*See:* `derivations/coordinate-fields-give-components`, `checks/polar-unit-frame`, `problems/sphere-unit-frame`
 
 ### 3. Falling test masses read the operator · working · operational
 
@@ -470,9 +470,9 @@ In a frame with $\nabla_{e_c}e_b = \Gamma^a{}_{cb}e_a$ and $[e_c,e_d] = C^e{}_{c
 
 ## Teaching arc
 
-1. **Walk instructions that miss the start** (entry). Ask for a prediction about the playground walk, then explain the overshoot with two spokes from the pole. *Why:* The gap is the surprise that motivates the closing walk. *Predict:* If you walk away from the pole, around it, toward it, and back around it the other way, do you end where you began? *Visual:* [[four-legs-that-do-not-close]] *Uses:* `ways_in/instructions-that-miss-the-start`, `checks/playground-gap`
-2. **Close the loop and test the ground** (entry). Finish the loop with the closing walk, run the arrow test on flat ground, then swap the instructions on a ball. *Why:* It separates what the instructions do from what the ground does. *Predict:* On flat ground, after the closing walk, will the arrow come back matching its start? *Visual:* [[four-legs-that-do-not-close]] *Uses:* `checks/friend-on-a-flat-floor`, `checks/swap-the-instructions`
-3. **Compute the fake and the fix** (working). Compute the bare commutator for the polar unit fields, then the bracket term, then repeat on a sphere. *Why:* A nonzero commutator on a flat plane cures the habit of dropping the bracket. *Predict:* On a flat plane, can two covariant derivatives taken in two orders disagree? *Visual:* [[four-legs-that-do-not-close]] *Uses:* `ways_in/two-orders-minus-the-gap`, `checks/polar-unit-frame`, `problems/sphere-unit-frame`
+1. **Walk instructions that miss the start** (entry). Ask for a prediction about the playground walk, then explain the overshoot with two spokes from the pole. *Why:* The gap is the surprise that motivates the closing walk. *Predict:* If you walk away from the pole, around it, toward it, and back around it the other way, do you end where you began? *Visual:* [[four-legs-around-a-tiny-loop]] *Uses:* `ways_in/instructions-that-miss-the-start`, `checks/playground-gap`
+2. **Close the loop and test the ground** (entry). Finish the loop with the closing walk, run the arrow test on flat ground, then swap the instructions on a ball. *Why:* It separates what the instructions do from what the ground does. *Predict:* On flat ground, after the closing walk, will the arrow come back matching its start? *Visual:* [[four-legs-around-a-tiny-loop]] *Uses:* `checks/friend-on-a-flat-floor`, `checks/swap-the-instructions`
+3. **Compute the fake and the fix** (working). Compute the bare commutator for the polar unit fields, then the bracket term, then repeat on a sphere. *Why:* A nonzero commutator on a flat plane cures the habit of dropping the bracket. *Predict:* On a flat plane, can two covariant derivatives taken in two orders disagree? *Visual:* [[four-legs-around-a-tiny-loop]] *Uses:* `ways_in/two-orders-minus-the-gap`, `checks/polar-unit-frame`, `problems/sphere-unit-frame`
 4. **Read tides from the operator** (working). Derive geodesic deviation in operator form and evaluate the tidal map at Earth's surface. *Why:* It shows why commuting fields make the operator the natural language for measurements. *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/tides-read-one-slot`, `derivations/deviation-from-the-operator`, `checks/tidal-map-at-earth`
 5. **Sort properties by hypothesis** (formal). Present the operator as an endomorphism-valued 2-form and sort its properties by the hypotheses they need. *Why:* Torsion, frames and gauge bundles each remove a different hypothesis. *Uses:* `ways_in/endomorphism-valued-two-form`, `checks/torsion-and-the-operator`, `problems/skew-and-cyclic`
 6. **Separate the two curvature operators** (research). Contrast the endomorphism with the operator on bivectors and test the complex projective plane. *Why:* The shared name hides a strict hierarchy of sign conditions. *Uses:* `ways_in/which-curvature-operator`, `checks/positive-sectional-not-enough`
@@ -522,13 +522,13 @@ In a frame with $\nabla_{e_c}e_b = \Gamma^a{}_{cb}e_a$ and $[e_c,e_d] = C^e{}_{c
    - **Answer:** No. Your last walk carries you about 17 centimetres past your starting spot. After A you are 6 metres from the pole, so you do B on the circle 6 metres out. A in reverse takes you in to 5 metres, along the spoke through the end of B. Between that spoke and the one through your start, the circle 5 metres out is 5 sixths as long as the circle 6 metres out. So B in reverse needs only 5 sixths of a metre to reach your starting spot. Walking a full metre overshoots by one sixth of a metre, about 17 centimetres.
    - **Must contain:** You do not end at the start; B is walked 6 metres out, but B in reverse only 5 metres out; The overshoot is one sixth of a metre, about 17 centimetres
    - **Numeric:** distance past the starting spot = 16.7 cm (magnitude, ±10%)
-   - **Visual:** [[four-legs-that-do-not-close]]
+   - **Visual:** [[four-legs-around-a-tiny-loop]]
 2. **Entry · evaluate-claim** `checks/friend-on-a-flat-floor`. On a flat playground, Maya follows two walking instructions, A then B. Then she follows A in reverse and B in reverse, and ends 3 centimetres from her starting spot. She says this proves the ground is curved. Is she right? What test would settle it?
    - **Hints:** What happened in the playground with the pole, where the ground was flat?
    - **Answer:** No. In the playground with the pole, instructions A and B and their reverses leave a 9-centimetre gap, although the ground is flat. The gap comes from the instructions: 1 metre around the pole takes you further around it when you are closer to it. To test the ground, Maya walks the last 3 centimetres to finish the loop. Then she carries a cardboard arrow around the finished loop, never letting it swing. On curved ground, a small finished loop would bring the arrow back turned. On this flat playground it comes back matching its start, so her gap was never a sign of curving.
    - **Must contain:** No, the gap does not show curving; Instructions alone can leave a gap on flat ground; Finish the loop with a closing walk and run the arrow test
    - **Targets:** `gap-means-curving`
-   - **Visual:** [[four-legs-that-do-not-close]]
+   - **Visual:** [[four-legs-around-a-tiny-loop]]
 3. **Entry · predict** `checks/swap-the-instructions`. On a smooth ball, you follow two short instructions: A, then B, then A in reverse, then B in reverse, and you finish with the closing walk. A fresh cardboard arrow, carried without swinging, comes back turned 2 degrees toward your left. You set the arrow back to its starting direction. Now, from the same spot, you do B first: B, then A, then B in reverse, then A in reverse, and the closing walk. How does the arrow come back this time?
    - **Hints:** List the corners of each trip in order.
    - **Answer:** Turned about 2 degrees toward your right. Call the spots where you stop one instruction and start the next your corners. On the first trip the corners in order are: after A; after A and B; and after A, B and A in reverse. On the second trip they are: after B; after B and A; and after B, A and B in reverse. Two facts let you match the corners up, and both hold because the instructions are short. First, swapping two of the walks moves where you end by only a small gap, like the 9 centimetres in the playground. Second, a walk followed by its own reverse brings you back to where that walk began. Now match them. The first trip's third corner is after A, B and A in reverse. Swapping its first two walks makes it after B, A and A in reverse. That is just after B, the second trip's first corner. The first trip's second corner is after A and B. Swapping those two walks makes it after B and A, the second trip's second corner. The second trip's third corner is after B, A and B in reverse. Swapping its first two walks makes it after A, B and B in reverse. That is just after A, the first trip's first corner. So the second trip visits nearly the same three corners as the first, in the opposite order. It walks nearly the same small loop the other way, and walking a loop the other way turns the arrow by the same amount the other way.
@@ -541,7 +541,7 @@ In a frame with $\nabla_{e_c}e_b = \Gamma^a{}_{cb}e_a$ and $[e_c,e_d] = C^e{}_{c
    - **Must contain:** The bracket is minus e theta hat over r; The bracket term equals the bare commutator; The curvature operator is zero, so the plane is flat
    - **Numeric:** e theta hat component of the bracket term = -0.25 m^-2 (signed, ±0.01); e theta hat component of the curvature operator acting on w = 0 m^-2 (signed, ±1e-06)
    - **Targets:** `bare-commutator-is-curvature`
-   - **Visual:** [[four-legs-that-do-not-close]]
+   - **Visual:** [[four-legs-around-a-tiny-loop]]
 5. **Working · numeric** `checks/tidal-map-at-earth`. Two freely falling test masses at Earth's surface are 1 m apart along the local vertical, with $GM = 3.986\times10^{14}\ \mathrm{m^3\,s^{-2}}$ and $r = 6371$ km. Use $D^2\xi/d\tau^2 = -\mathcal{R}(\xi,u)u$, whose map $\xi \mapsto \mathcal{R}(\xi,u)u$ has matrix $\partial_i\partial_j\Phi$ in the weak field. Find their relative acceleration and the trace of the map. A student writes $-\mathcal{R}(u,\xi)u$ instead: what does the student predict?
    - **Hints:** The second derivative of $-GM/r$ along the radial direction is $-2GM/r^3$.
    - **Answer:** Along the vertical, $\partial_z^2(-GM/r) = -2GM/r^3 = -3.08\times10^{-6}\ \mathrm{s^{-2}}$, so $D^2\xi/d\tau^2 = +3.08\times10^{-6}\ \mathrm{m\,s^{-2}}$ for $\xi = 1$ m: the masses accelerate apart. Each horizontal eigenvalue is $+GM/r^3 = +1.54\times10^{-6}\ \mathrm{s^{-2}}$, so the trace is $-2 + 1 + 1 = 0$ in units of $GM/r^3$, as vacuum requires. Because $\mathcal{R}(u,\xi)u = -\mathcal{R}(\xi,u)u$, the student predicts the vertical pair accelerating together at the same rate, the wrong sign.
@@ -574,7 +574,7 @@ In a frame with $\nabla_{e_c}e_b = \Gamma^a{}_{cb}e_a$ and $[e_c,e_d] = C^e{}_{c
 
 ## Visuals
 
-- ★ [[four-legs-that-do-not-close]] (flagship): Shows the gap left by two instruction fields, the closing walk, and the arrow's change around the closed loop. *Sketch:* A flat plane with a pole, a sphere, or a saddle. The learner picks two instruction fields (a coordinate pair, the unit polar pair, or unit fields on the sphere) and a step size. The walker follows the first field, the second, and both back; the gap appears and the closing walk is drawn. A carried arrow shows its change only once the loop closes. Readouts compare gap over step squared with the bracket, and arrow change over step squared with minus the operator, beside the bare commutator. It proves the gap belongs to the fields, while the change around the closed loop belongs to the curvature: zero on the plane for every pair of fields.
+- ★ [[four-legs-around-a-tiny-loop]] (flagship): Shows the gap left by two instruction fields, the closing walk, and the arrow's change around the closed loop. *Sketch:* A flat plane with a pole, a sphere, or a saddle. The learner picks two instruction fields (a coordinate pair, the unit polar pair, or unit fields on the sphere) and a step size. The walker follows the first field, the second, and both back; the gap appears and the closing walk is drawn. A carried arrow shows its change only once the loop closes. Readouts compare gap over step squared with the bracket, and arrow change over step squared with minus the operator, beside the bare commutator. It proves the gap belongs to the fields, while the change around the closed loop belongs to the curvature: zero on the plane for every pair of fields.
 - [[falling-ring-of-crumbs]] (supporting): Shows the map from separations to relative accelerations that falling test masses read. *Sketch:* A ring of freely falling crumbs near a mass stretches along the line to the centre and squeezes across it. Sliders for mass and distance; readouts of the eigenvalues in units of GM over r cubed, minus two, one and one, and their zero sum.
 
 ## Tutor moves

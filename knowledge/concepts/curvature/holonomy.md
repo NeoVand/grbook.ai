@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["holonomy of parallel transport", "loop holonomy"]
 prerequisites: ["path-dependence-of-parallel-transport", "gaussian-curvature", "angular-excess", "riemann-curvature-tensor", "levi-civita-connection", "lie-bracket"]
 leads_to: ["flatness-criterion", "riemann-curvature-operator", "bianchi-identity", "gauge-field-strength", "cosmic-string", "geodetic-precession"]
-visuals: ["carry-an-arrow-around-a-loop", "shrink-the-loop-to-find-riemann", "paper-cone-with-a-missing-wedge", "arrow-around-a-circle-of-latitude", "cube-of-small-loops"]
+visuals: ["carry-an-arrow-around-a-loop", "four-legs-around-a-tiny-loop", "cube-of-small-loops"]
 ---
 
 # Holonomy
@@ -24,7 +24,7 @@ visuals: ["carry-an-arrow-around-a-loop", "shrink-the-loop-to-find-riemann", "pa
 **Needs:** [[path-dependence-of-parallel-transport]] (entry) · [[gaussian-curvature]] (working) · [[angular-excess]] (working) · [[riemann-curvature-tensor]] (working) · [[levi-civita-connection]] (formal) · [[lie-bracket]] (formal)  
 **Opens:** [[flatness-criterion]] · [[riemann-curvature-operator]] · [[bianchi-identity]] · [[gauge-field-strength]] · [[cosmic-string]] · [[geodetic-precession]]  
 **Related:** [[parallel-transport]] · [[intrinsic-versus-extrinsic-curvature]] · [[curvature-of-the-two-sphere]] · [[gauge-parallel-transport]] · [[loop-quantum-gravity]]  
-**Visuals:** ★ [[carry-an-arrow-around-a-loop]] · [[shrink-the-loop-to-find-riemann]] · [[paper-cone-with-a-missing-wedge]] · [[arrow-around-a-circle-of-latitude]] · [[cube-of-small-loops]]
+**Visuals:** ★ [[carry-an-arrow-around-a-loop]] · [[four-legs-around-a-tiny-loop]] · [[cube-of-small-loops]]
 
 > Carry an arrow around a loop, a path that ends where it began, and never let the arrow swing left or right. On a flat floor it always comes back matching its start. On a ball, most loops bring it back turned. That turn is the loop's holonomy, and it lets someone who lives on a surface find out that the surface is curved without leaving it.
 
@@ -141,7 +141,7 @@ Two special cases are worth owning. For a triangle whose sides are geodesics, th
 
 *What this leaves out:* In more than two dimensions, rotations about different axes do not commute, so in general this simple area rule holds only for small loops, to leading order.
 
-*Continues:* `ways_in/the-ball-on-your-left`<br>*Builds on:* [[gaussian-curvature]], [[angular-excess]]<br>*Visuals:* [[carry-an-arrow-around-a-loop]] (preset `octant-half-area`), [[arrow-around-a-circle-of-latitude]]<br>*See:* `checks/latitude-30-north`
+*Continues:* `ways_in/the-ball-on-your-left`<br>*Builds on:* [[gaussian-curvature]], [[angular-excess]]<br>*Visuals:* [[carry-an-arrow-around-a-loop]] (preset `octant-half-area`), [[carry-an-arrow-around-a-loop]] (preset `latitude-circle`)<br>*See:* `checks/latitude-30-north`
 
 ### 5. Shrink the loop and the Riemann tensor appears · working · calculation
 
@@ -166,7 +166,7 @@ So the Riemann tensor is a machine. Feed it a small oriented patch, the two edge
 
 *What this leaves out:* Keeps only the leading order in the loop's size, for the torsion-free, metric-compatible connection of general relativity.
 
-*Continues:* `ways_in/turn-equals-enclosed-curving`<br>*Builds on:* [[riemann-curvature-tensor]]<br>*Visuals:* [[shrink-the-loop-to-find-riemann]]<br>*See:* `derivations/small-loop-law-from-transport`, `worked_examples/unit-sphere-cell`
+*Continues:* `ways_in/turn-equals-enclosed-curving`<br>*Builds on:* [[riemann-curvature-tensor]]<br>*Visuals:* [[four-legs-around-a-tiny-loop]]<br>*See:* `derivations/small-loop-law-from-transport`, `worked_examples/unit-sphere-cell`
 
 ### 6. A gyroscope measures it in orbit · working · operational
 
@@ -226,7 +226,7 @@ The same structure appears in gravity; set $G = c = 1$. Outside an idealized, in
 
 *What this leaves out:* Idealizes the tip as a point and the string as infinitely thin.
 
-*Continues:* `ways_in/bent-is-not-curved`, `ways_in/turn-equals-enclosed-curving`<br>*Visuals:* [[paper-cone-with-a-missing-wedge]]<br>*See:* `checks/cone-holonomy-group`
+*Continues:* `ways_in/bent-is-not-curved`, `ways_in/turn-equals-enclosed-curving`<br>*Visuals:* [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`)<br>*See:* `checks/cone-holonomy-group`
 
 ## Glossary
 
@@ -501,9 +501,9 @@ On a sphere of radius $a$, compute the holonomy of the circle at colatitude $\th
 1. **Ask the insider question** (entry). Ask how someone who can never leave a ball, or look at it from outside, could find out that it is curved. *Why:* It frames holonomy as a test made without leaving, the only kind available for the universe. *Uses:* `ways_in/walk-a-loop-on-a-ball`
 2. **Show one surprise and two controls** (entry). Run the North Pole walk after a prediction, and explain its quarter turn as twice one eighth, the fraction of the ball on the walker's left. Then run the square on a flat floor and the loop around a tube. *Why:* The controls rule out the corners and mere bending as explanations. *Predict:* When the arrow gets back to the North Pole, will it point the way it did when you set off? *Visual:* [[carry-an-arrow-around-a-loop]] (preset `octant`, tour `holonomy-first-walk`) *Uses:* `checks/octant-walk-prediction`, `ways_in/the-ball-on-your-left`, `checks/square-on-a-floor`, `ways_in/bent-is-not-curved`
 3. **Discover the area rule** (working). Resize and reverse the loop, and tabulate the turn against area over radius squared. *Why:* Learners find proportionality, the sign flip, and the role of the radius themselves. *Predict:* If the loop fences off half as much of the ball, what happens to the turn? *Visual:* [[carry-an-arrow-around-a-loop]] (preset `octant-half-area`) *Uses:* `ways_in/turn-equals-enclosed-curving`, `checks/triangle-on-a-big-sphere`
-4. **Shrink the loop to reach the Riemann tensor** (working). Derive the small-loop law and read off each feature. *Why:* Each feature of the formula explains a slot of the Riemann tensor. *Predict:* If you swap the order of the two edges, what happens to the change in the vector? *Visual:* [[shrink-the-loop-to-find-riemann]] *Uses:* `ways_in/shrink-the-loop-to-find-riemann`, `derivations/small-loop-law-from-transport`, `problems/small-loop-cell-other-vector`
+4. **Shrink the loop to reach the Riemann tensor** (working). Derive the small-loop law and read off each feature. *Why:* Each feature of the formula explains a slot of the Riemann tensor. *Predict:* If you swap the order of the two edges, what happens to the change in the vector? *Visual:* [[four-legs-around-a-tiny-loop]] *Uses:* `ways_in/shrink-the-loop-to-find-riemann`, `derivations/small-loop-law-from-transport`, `problems/small-loop-cell-other-vector`
 5. **Measure it in orbit** (working). Connect the arrow rule to a freely falling gyroscope and Gravity Probe B. *Why:* It turns a geometric picture into a measurement of the space around Earth. *Uses:* `ways_in/a-gyroscope-measures-it`, `observations/gravity-probe-b-geodetic`
-6. **Mark the limits** (formal). Carry a vector around a paper cone's tip, then separate restricted from full holonomy. *Why:* It prevents the belief that flatness along a loop always means no rotation. *Predict:* Every patch of this cone away from the tip is flat. Will a loop around the tip bring the arrow back unturned? *Visual:* [[paper-cone-with-a-missing-wedge]] *Uses:* `ways_in/loops-around-tips-and-holes`, `checks/cone-holonomy-group`
+6. **Mark the limits** (formal). Carry a vector around a paper cone's tip, then separate restricted from full holonomy. *Why:* It prevents the belief that flatness along a loop always means no rotation. *Predict:* Every patch of this cone away from the tip is flat. Will a loop around the tip bring the arrow back unturned? *Visual:* [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`) *Uses:* `ways_in/loops-around-tips-and-holes`, `checks/cone-holonomy-group`
 
 ## Analogies
 
@@ -608,7 +608,7 @@ In the course convention a charged quantum field carried around a loop is multip
    - **Answer:** The colatitude is 60°. The polar cap on the walker's left has area $2\pi a^2(1-\cos 60^\circ) = \pi a^2$, so the turn is $\pi$: a half turn. The circle is not a geodesic, yet the area rule still gives its turn exactly.
    - **Must contain:** Colatitude 60 degrees; Cap area is pi times the radius squared; The turn is a half turn
    - **Numeric:** turn = 3.1416 rad (magnitude, ±0.03)
-   - **Visual:** [[arrow-around-a-circle-of-latitude]]
+   - **Visual:** [[carry-an-arrow-around-a-loop]] (preset `latitude-circle`)
 7. **Working · evaluate-claim** `checks/halfway-readout`. A demo shows the arrow halfway around the North Pole loop, with a readout saying 'turned 45° so far'. Evaluate the readout.
    - **Hints:** Relative to what would the 45° be measured?
    - **Answer:** The readout has no meaning as a holonomy. On a curved surface, arrows at different points can be compared only by carrying one to the other, and different routes give different answers. The turn is defined when the loop closes, where the starting arrow and the returned arrow sit at the same point.
@@ -623,7 +623,7 @@ In the course convention a charged quantum field carried around a loop is multip
    - **Answer:** The punctured cone is flat, so every contractible loop has trivial holonomy: the restricted group is trivial. A loop winding $n$ times around the missing tip gives a rotation by $n\delta$, so the full group is the subgroup of $SO(2)$ generated by the rotation by $\delta$, finite and cyclic when $\delta/2\pi$ is rational and dense otherwise. So vanishing curvature guarantees trivial holonomy only for contractible loops within the flat region.
    - **Must contain:** Restricted holonomy is trivial because the cone is flat; Full holonomy is generated by the rotation by delta; Only contractible loops in a flat region are guaranteed trivial holonomy
    - **Targets:** `flat-along-loop-means-no-turn`
-   - **Visual:** [[paper-cone-with-a-missing-wedge]]
+   - **Visual:** [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`)
 10. **Formal · explain** `checks/why-ordering-matters`. On the unit sphere, why can you not drop the path ordering $\mathcal{P}$ when computing the holonomy of a coordinate rectangle from the coordinate Christoffel matrices? What makes dropping it legitimate in two dimensions?
    - **Hints:** Write out $\Gamma_\theta$ and $\Gamma_\phi$ as 2 by 2 matrices and compute their commutator.
    - **Answer:** The coordinate matrices $\Gamma_\theta = \mathrm{diag}(0, \cot\theta)$ and $\Gamma_\phi$, with off-diagonal entries $-\sin\theta\cos\theta$ and $\cot\theta$, do not commute. So for the rectangle $\theta \in [0.5, 1.2]$, $\phi \in [0, 1]$ the ordered product gives the enclosed area, $29.52^\circ$, while the plain exponential gives neither that angle nor a length-preserving map. In an orthonormal frame on the whole region the connection is one $\mathfrak{so}(2)$-valued form whose values commute, so the ordering drops out and Stokes' theorem gives the area rule.
@@ -639,10 +639,8 @@ In the course convention a charged quantum field carried around a loop is multip
 
 ## Visuals
 
-- ★ [[carry-an-arrow-around-a-loop]] (flagship): The central experience: the North Pole walk with flat-floor and tube controls, loops to resize and reverse, and a turn readout that appears only when the loop closes.
-- [[shrink-the-loop-to-find-riemann]] (core): Connects the area rule to the Riemann tensor. *Sketch:* A coordinate parallelogram on a sphere patch, a saddle, or a polar-coordinate plane. The learner shrinks it and swaps the edge order; a log-log plot shows the vector's change against area with slope one, converging to the small-loop law, while the polar-coordinate plane stays at zero.
-- [[paper-cone-with-a-missing-wedge]] (core): Shows holonomy without local curvature. *Sketch:* Cut a wedge of adjustable angle from a flat sheet and glue it into a cone, with the unrolled sheet beside it. Loops that avoid the tip return the arrow unchanged; loops winding n times around it return it rotated by n times the wedge angle.
-- [[arrow-around-a-circle-of-latitude]] (supporting): The area rule for a curve that is not a geodesic, and the link to the Foucault pendulum. *Sketch:* Drag the latitude and play one lap. Plot the returned rotation against latitude in its two equivalent forms, counterclockwise $2\pi(1-\sin\lambda)$ and clockwise $2\pi\sin\lambda$, showing they are one rotation, with the Foucault pendulum's turn per sidereal day on the second.
+- ★ [[carry-an-arrow-around-a-loop]] (flagship): The central experience: the North Pole walk with flat-floor and tube controls, loops to resize and reverse, and a turn readout that appears only when the loop closes. *Sketch:* Drag the latitude and play one lap. Plot the returned rotation against latitude in its two equivalent forms, counterclockwise $2\pi(1-\sin\lambda)$ and clockwise $2\pi\sin\lambda$, showing they are one rotation, with the Foucault pendulum's turn per sidereal day on the second.
+- [[four-legs-around-a-tiny-loop]] (core): Connects the area rule to the Riemann tensor. *Sketch:* A coordinate parallelogram on a sphere patch, a saddle, or a polar-coordinate plane. The learner shrinks it and swaps the edge order; a log-log plot shows the vector's change against area with slope one, converging to the small-loop law, while the polar-coordinate plane stays at zero.
 - [[cube-of-small-loops]] (supporting): Geometric picture of the second Bianchi identity. *Sketch:* A small cube whose six faces are walked as loops, each face's rotation carried to a common corner along the edges; the sum cancels through third order in the cube's size.
 
 ## Tutor moves

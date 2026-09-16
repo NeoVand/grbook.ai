@@ -12,7 +12,7 @@ updated: "2026-09-16"
 aliases: ["curvature of a sphere", "curvature of the round sphere"]
 prerequisites: ["riemann-curvature-tensor", "holonomy", "gaussian-curvature", "two-sphere-metric", "ricci-scalar", "isometry"]
 leads_to: ["space-of-constant-curvature", "three-sphere", "areal-radius"]
-visuals: ["one-loop-on-two-balls", "carry-an-arrow-around-a-loop", "paced-ring-on-a-ball-and-a-plain"]
+visuals: ["carry-an-arrow-around-a-loop", "paced-ring-on-a-ball-and-a-plain"]
 ---
 
 # Curvature of the 2-sphere
@@ -24,7 +24,7 @@ visuals: ["one-loop-on-two-balls", "carry-an-arrow-around-a-loop", "paced-ring-o
 **Needs:** [[riemann-curvature-tensor]] (working) · [[holonomy]] (entry) · [[gaussian-curvature]] (entry) · [[two-sphere-metric]] (working) · [[ricci-scalar]] (working) · [[isometry]] (formal)  
 **Opens:** [[space-of-constant-curvature]] · [[three-sphere]] · [[areal-radius]]  
 **Related:** [[curvature-sign-conventions]] · [[angular-excess]] · [[circumference-to-radius-test]] · [[cartan-method-for-curvature]]  
-**Visuals:** ★ [[one-loop-on-two-balls]] · [[carry-an-arrow-around-a-loop]] · [[paced-ring-on-a-ball-and-a-plain]]
+**Visuals:** ★ [[carry-an-arrow-around-a-loop]] · [[paced-ring-on-a-ball-and-a-plain]]
 
 > A smooth, round ball curves equally strongly at every spot, because it looks the same after any roll. Its curving is 1 divided by the radius times itself, so a ball twice as wide curves a quarter as strongly. So someone who never leaves the ball can find its radius from a small loop's area and its arrow's turn.
 
@@ -70,7 +70,7 @@ Earth is close to a round ball, but it is slightly flattened. Its curving is abo
 
 **Takeaway:** A round ball looks the same after any roll, so a walk around a peg gives the same turn at every spot: the ball curves equally strongly everywhere.
 
-*Builds on:* [[holonomy]]<br>*Visuals:* [[one-loop-on-two-balls]]<br>*See:* `checks/same-loop-anywhere`
+*Builds on:* [[holonomy]]<br>*Visuals:* [[carry-an-arrow-around-a-loop]]<br>*See:* `checks/same-loop-anywhere`
 
 ### 2. A ball twice as wide curves a quarter as strongly · entry · calculation
 
@@ -94,7 +94,7 @@ Earth's radius is about 6,371 kilometres, so its Gaussian curvature is tiny. A l
 
 **Takeaway:** On a ball twice as wide, the same small loop turns the arrow a quarter as much, so a ball's Gaussian curvature is 1 divided by the radius times itself.
 
-*Continues:* `ways_in/every-spot-alike`<br>*Builds on:* [[holonomy]], [[gaussian-curvature]]<br>*Visuals:* [[one-loop-on-two-balls]]<br>*See:* `checks/double-the-ball`
+*Continues:* `ways_in/every-spot-alike`<br>*Builds on:* [[holonomy]], [[gaussian-curvature]]<br>*Visuals:* [[carry-an-arrow-around-a-loop]]<br>*See:* `checks/double-the-ball`
 
 ### 3. Find the radius without leaving the ball · entry · operational
 
@@ -441,8 +441,8 @@ For $0 < b < a$, the metric $ds^2 = d\rho^2 + b^2\sin^2(\rho/a)\,d\phi^2$, with 
 
 ## Teaching arc
 
-1. **Predict at a new spot** (entry). Run the peg walk near the North Pole, ask for a prediction near the equator, then explain the answer by rolling the ball. *Why:* It separates the ball from the labels painted on it. *Predict:* If you walk around the same peg with the same string near the equator, will the arrow come back turned more, less, or the same? *Visual:* [[one-loop-on-two-balls]] *Uses:* `ways_in/every-spot-alike`, `checks/same-loop-anywhere`
-2. **Double the ball** (entry). Ask for the turn on a ball twice as wide, then count surface to reach a quarter. *Why:* The quarter, not a half, is the heart of 1 over the radius squared. *Predict:* If the ball is twice as wide, how does the turn around the same small loop change? *Visual:* [[one-loop-on-two-balls]] *Uses:* `ways_in/double-the-ball`, `checks/double-the-ball`
+1. **Predict at a new spot** (entry). Run the peg walk near the North Pole, ask for a prediction near the equator, then explain the answer by rolling the ball. *Why:* It separates the ball from the labels painted on it. *Predict:* If you walk around the same peg with the same string near the equator, will the arrow come back turned more, less, or the same? *Visual:* [[carry-an-arrow-around-a-loop]] *Uses:* `ways_in/every-spot-alike`, `checks/same-loop-anywhere`
+2. **Double the ball** (entry). Ask for the turn on a ball twice as wide, then count surface to reach a quarter. *Why:* The quarter, not a half, is the heart of 1 over the radius squared. *Predict:* If the ball is twice as wide, how does the turn around the same small loop change? *Visual:* [[carry-an-arrow-around-a-loop]] *Uses:* `ways_in/double-the-ball`, `checks/double-the-ball`
 3. **Measure the radius from inside** (entry). Work the explorer's three steps, then set the moon problem. *Why:* It turns the curving number into a measurement of size. *Uses:* `ways_in/find-the-radius-without-leaving`, `problems/radius-of-a-small-moon`
 4. **Compute from the metric** (working). Derive the Riemann component, then confront the sine-squared and pole traps. *Why:* The sphere is where students first meet coordinate artefacts in curvature. *Predict:* Does sine squared theta mean the sphere curves less near its poles? *Uses:* `derivations/sphere-curvature-from-metric`, `checks/sin-squared-varies`, `checks/christoffels-at-the-pole`
 5. **Check against measurements** (working). Compare the arrow, the triangle and the ring on Earth, then diagnose a stranger's sign. *Why:* Independent readings that agree are what make the sphere the calibration geometry. *Visual:* [[paced-ring-on-a-ball-and-a-plain]] *Uses:* `ways_in/three-measurements-one-number`, `worked_examples/earth-read-three-ways`, `checks/stranger-gets-a-minus-sign`
@@ -500,14 +500,14 @@ For $0 < b < a$, the metric $ds^2 = d\rho^2 + b^2\sin^2(\rho/a)\,d\phi^2$, with 
    - **Must contain:** It comes back turned 3 degrees toward your left; Rolling the ball brings the new peg onto the old spot; A round ball looks the same after any roll, and the painted lines do not matter
    - **Numeric:** turn toward the walker's left = 3 deg (signed, ±0.5, mod 360)
    - **Targets:** `poles-curve-more`
-   - **Visual:** [[one-loop-on-two-balls]]
+   - **Visual:** [[carry-an-arrow-around-a-loop]]
 2. **Entry · numeric** `checks/double-the-ball`. On a smooth, round ball with a radius of 10 centimetres, you walk a small loop that keeps 14 square centimetres on your left. Your cardboard arrow never swings, and it comes back turned 8 degrees toward your left. Now you walk a loop that keeps the same 14 square centimetres on your left, on a ball with a radius of 20 centimetres. How far does the arrow come back turned?
    - **Hints:** How much more surface does a ball twice as wide have?
    - **Answer:** About 2 degrees toward your left. The turn, in full turns, is twice the fraction of the ball on your left. A ball's surface area is about 12.57 times its radius times itself. Doubling the radius makes the radius times itself four times as big, so the bigger ball has four times the surface area. So the same 14 square centimetres is a quarter of the fraction it was, and the turn is a quarter of 8 degrees. It is not 4 degrees, because the surface area grows with the radius times itself, not with the radius.
    - **Must contain:** About 2 degrees toward your left; The bigger ball has four times the surface area; The same area is a quarter of the fraction, so a quarter of the turn
    - **Numeric:** turn toward the walker's left = 2 deg (signed, ±0.3, mod 360)
    - **Targets:** `twice-as-wide-half-as-curved`
-   - **Visual:** [[one-loop-on-two-balls]]
+   - **Visual:** [[carry-an-arrow-around-a-loop]]
 3. **Working · evaluate-claim** `checks/sin-squared-varies`. On a sphere of radius $a$, $R^\theta{}_{\phi\theta\phi} = \sin^2\theta$. A student says: this is largest on the equator and zero at the poles, so the sphere curves most strongly at its equator and not at all at its poles. Evaluate the claim.
    - **Hints:** How long is the basis vector along $\phi$ at colatitude $\theta$?
    - **Answer:** The claim is wrong. A coordinate component carries the lengths of the basis vectors it is taken on, and $\partial_\phi$ has length $a\sin\theta$, which shrinks to zero at the poles. The Gaussian curvature divides this out: $K = R_{\theta\phi\theta\phi}/(g_{\theta\theta}g_{\phi\phi}) = a^2\sin^2\theta/(a^4\sin^2\theta) = 1/a^2$ at every $\theta$, equal to the orthonormal component. Rotations carry any point of the sphere to any other and preserve the metric, so no point can curve more strongly than another. A small coordinate cell confirms it: its turn, $K$ times its area $a^2\sin\theta\,\delta\theta\,\delta\phi$, shrinks near the poles only because the cell does.
@@ -548,8 +548,7 @@ For $0 < b < a$, the metric $ds^2 = d\rho^2 + b^2\sin^2(\rho/a)\,d\phi^2$, with 
 
 ## Visuals
 
-- ★ [[one-loop-on-two-balls]] (flagship): The entry picture: one loop of fixed area on balls of different sizes and at different spots, showing equal turns everywhere and a quarter of the turn on a ball twice as wide. *Sketch:* Two smooth balls side by side with radius sliders, each carrying a loop of the same area in square centimetres. Play carries an arrow around both loops; on completion readouts give each turn, the turn divided by the area, and 1 over the radius squared. A roll control moves one loop to any spot and heading while its readouts stay fixed, and an egg toggle breaks that. A plot of turn per area against radius on logarithmic axes shows a line of slope $-2$.
-- [[carry-an-arrow-around-a-loop]] (core): The arrow test on a ball, with the radius slider and the area over radius squared readout behind the explorer's measurement.
+- ★ [[carry-an-arrow-around-a-loop]] (flagship): The entry picture: one loop of fixed area on balls of different sizes and at different spots, showing equal turns everywhere and a quarter of the turn on a ball twice as wide. *Sketch:* Two smooth balls side by side with radius sliders, each carrying a loop of the same area in square centimetres. Play carries an arrow around both loops; on completion readouts give each turn, the turn divided by the area, and 1 over the radius squared. A roll control moves one loop to any spot and heading while its readouts stay fixed, and an egg toggle breaks that. A plot of turn per area against radius on logarithmic axes shows a line of slope $-2$.
 - [[paced-ring-on-a-ball-and-a-plain]] (supporting): The tape-measure reading of the sphere's curvature. *Sketch:* This concept adds a readout of the radius recovered from one ring by solving $C = 2\pi a\sin(\rho/a)$, which matches the ball's radius for every string length up to the far pole, where the ring shrinks to a point.
 
 ## Tutor moves

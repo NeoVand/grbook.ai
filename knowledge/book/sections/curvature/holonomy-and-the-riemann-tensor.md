@@ -201,7 +201,8 @@ Numeric: holonomy of loop A, positive toward the walker's left = 60 deg; holonom
 ## Visuals
 
 - `carry-an-arrow-around-a-loop` (flagship): Flagship: two routes to one spot on a globe, the octant loop walked both ways, and a cone whose tip a loop can enclose or avoid.
-- `shrink-the-loop-to-find-riemann` (core): Connects the area rule to the Riemann tensor: a coordinate cell that shrinks while the change per unit area settles to the component. Sketch: A coordinate parallelogram on a sphere patch, a saddle or the polar-coordinate plane, with a carried arrow. A slider shrinks the cell; a log-log plot of the arrow's change against edge length shows slope two, and the change over the cell's area settles to the printed component, zero on the polar plane. A button swaps the edge order and flips the sign.
+- `four-legs-around-a-tiny-loop` (core): Connects the area rule to the Riemann tensor: a coordinate cell that shrinks while the change per unit area settles to the component. Sketch: A coordinate parallelogram on a sphere patch, a saddle or the polar-coordinate plane, with a carried arrow. A slider shrinks the cell; a log-log plot of the arrow's change against edge length shows slope two, and the change over the cell's area settles to the printed component, zero on the polar plane. A button swaps the edge order and flips the sign.
+- `paced-ring-on-a-ball-and-a-plain` (supporting): The flat map drawn from one spot, exact along every straight walk and short around every circle, with the missing fraction quadrupling when the walk doubles.
 
 ## Tutor
 

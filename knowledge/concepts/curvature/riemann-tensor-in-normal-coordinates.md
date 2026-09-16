@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["Riemann tensor in a local inertial frame", "metric expansion in Riemann normal coordinates", "curvature as irremovable second derivatives of the metric"]
 prerequisites: ["riemann-curvature-tensor", "tidal-force", "local-flatness-theorem", "christoffel-symbols-from-the-metric", "covariance-of-tensor-equations", "riemann-normal-coordinates"]
 leads_to: ["symmetries-of-the-riemann-tensor", "number-of-independent-riemann-components", "bianchi-identity", "linearized-riemann-tensor", "relativistic-tidal-tensor"]
-visuals: ["straight-walks-from-one-spot", "falling-ring-of-crumbs", "four-terms-that-cancel"]
+visuals: ["paced-ring-on-a-ball-and-a-plain", "falling-ring-of-crumbs", "four-terms-that-cancel"]
 ---
 
 # Riemann tensor in normal coordinates
@@ -24,7 +24,7 @@ visuals: ["straight-walks-from-one-spot", "falling-ring-of-crumbs", "four-terms-
 **Needs:** [[riemann-curvature-tensor]] (entry) · [[tidal-force]] (entry) · [[local-flatness-theorem]] (working) · [[christoffel-symbols-from-the-metric]] (working) · [[covariance-of-tensor-equations]] (working) · [[riemann-normal-coordinates]] (working)  
 **Opens:** [[symmetries-of-the-riemann-tensor]] · [[number-of-independent-riemann-components]] · [[bianchi-identity]] · [[linearized-riemann-tensor]] · [[relativistic-tidal-tensor]]  
 **Related:** [[local-inertial-frame]] · [[geodesic-coordinates]] · [[circumference-to-radius-test]] · [[geodesic-deviation-equation]] · [[newtonian-tidal-tensor]]  
-**Visuals:** ★ [[straight-walks-from-one-spot]] · [[falling-ring-of-crumbs]] · [[four-terms-that-cancel]]
+**Visuals:** ★ [[paced-ring-on-a-ball-and-a-plain]] · [[falling-ring-of-crumbs]] · [[four-terms-that-cancel]]
 
 > Stand on a huge ball and walk straight out from one spot in every direction. Draw each walk on a flat map at its true length, and mark where each one ends. Near the spot the map is almost perfect, but the circle through the marks is shorter on the ground than on the map. No flat map can remove that shortfall, because it is the ball's curving. A room falling freely near Earth is similar: nothing at its centre shows gravity, but crumbs away from its centre drift a little.
 
@@ -74,7 +74,7 @@ Labelling each place by the direction and the length of the straight walk that r
 
 *What this leaves out:* On a saddle-shaped surface the ground circles come out too long instead of too short.
 
-*Visuals:* [[straight-walks-from-one-spot]]<br>*See:* `problems/twice-as-far`
+*Visuals:* [[paced-ring-on-a-ball-and-a-plain]]<br>*See:* `problems/twice-as-far`
 
 ### 2. No map can hide the short circles · entry · contrast
 
@@ -96,7 +96,7 @@ On a ball, the short circles are built into the ground. The shortfall that no fl
 
 **Takeaway:** No flat map of a patch of a ball keeps every distance correct, because a tape finds the short circles; that leftover error is the ball's curving.
 
-*Continues:* `ways_in/a-map-drawn-from-one-spot`<br>*Visuals:* [[straight-walks-from-one-spot]]<br>*See:* `checks/a-cleverer-map-maker`
+*Continues:* `ways_in/a-map-drawn-from-one-spot`<br>*Visuals:* [[paced-ring-on-a-ball-and-a-plain]]<br>*See:* `checks/a-cleverer-map-maker`
 
 ### 3. A falling room works like the map from one spot · entry · operational
 
@@ -172,7 +172,7 @@ The expansion also says how far a freely falling laboratory looks special-relati
 
 *What this leaves out:* Leading order in the distance from the origin; higher orders involve derivatives of the curvature.
 
-*Continues:* `ways_in/only-second-derivatives-survive`, `ways_in/a-map-drawn-from-one-spot`<br>*Builds on:* [[riemann-normal-coordinates]]<br>*Visuals:* [[straight-walks-from-one-spot]]<br>*See:* `worked_examples/sphere-in-normal-coordinates`, `problems/circles-from-the-expansion`
+*Continues:* `ways_in/only-second-derivatives-survive`, `ways_in/a-map-drawn-from-one-spot`<br>*Builds on:* [[riemann-normal-coordinates]]<br>*Visuals:* [[paced-ring-on-a-ball-and-a-plain]]<br>*See:* `worked_examples/sphere-in-normal-coordinates`, `problems/circles-from-the-expansion`
 
 ### 6. Normal coordinates, precisely · formal · structure
 
@@ -426,7 +426,7 @@ On a Riemannian manifold of dimension $n$, show that in normal coordinates $\sqr
 
 ## Teaching arc
 
-1. **Draw a map from one spot** (entry). Build the map from straight walks on a ball, then ask for a prediction about the circle reached by walking from the North Pole to the equator. *Why:* The equator makes the short circles undeniable before any small numbers appear. *Predict:* Walking straight from the North Pole to the equator in every direction, will the circle you reach be longer or shorter than on a flat field? *Visual:* [[straight-walks-from-one-spot]] *Uses:* `ways_in/a-map-drawn-from-one-spot`, `problems/twice-as-far`
+1. **Draw a map from one spot** (entry). Build the map from straight walks on a ball, then ask for a prediction about the circle reached by walking from the North Pole to the equator. *Why:* The equator makes the short circles undeniable before any small numbers appear. *Predict:* Walking straight from the North Pole to the equator in every direction, will the circle you reach be longer or shorter than on a flat field? *Visual:* [[paced-ring-on-a-ball-and-a-plain]] *Uses:* `ways_in/a-map-drawn-from-one-spot`, `problems/twice-as-far`
 2. **Try to fix the map** (entry). Let the learner propose a cleverer map, then run the tape argument. *Why:* Separating drawing errors from ground errors is what makes the leftover mean curving. *Predict:* Could a cleverer map-maker draw ten kilometres around her door on Earth with every distance correct? *Uses:* `ways_in/no-map-can-hide-the-short-circles`, `checks/a-cleverer-map-maker`
 3. **Fall with the room** (entry). Carry the map idea to a freely falling room: nothing shows gravity at its centre, but crumbs farther out drift a little. *Why:* It turns the picture into the equivalence principle and its limit. *Predict:* In a falling room, will a crumb two metres from the centre stay put, drift like the one at one metre, or drift twice as far? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/a-falling-room-is-the-best-map`, `checks/crumbs-in-a-falling-room`
 4. **Set the connection to zero at a point** (working). Derive the four-term formula and run the polar plane where it fails, then state the minus one third expansion and work the sphere. *Why:* The success and the failure together fix both the formula and its condition. *Predict:* Applied to the flat plane in polar coordinates, will the four-term formula give zero? *Visual:* [[four-terms-that-cancel]] *Uses:* `ways_in/only-second-derivatives-survive`, `checks/four-terms-in-polar-coordinates`, `ways_in/the-metric-near-a-point`, `worked_examples/sphere-in-normal-coordinates`
@@ -522,7 +522,7 @@ On a Riemannian manifold of dimension $n$, show that in normal coordinates $\sqr
 
 ## Visuals
 
-- ★ [[straight-walks-from-one-spot]] (flagship): The entry picture made measurable: straight walks from one spot, the flat map drawn from them, and circles whose ground length falls short. *Sketch:* Split view: geodesics fanned from a draggable spot on a ball, saddle, flat field or tube, beside the flat map where they are straight rays. Dragging the walking distance $r$ updates the ground and map lengths of the circle and the fraction short, with $Kr^2/6$ beside it: the fraction quadruples when $r$ doubles, stays zero on the tube, turns negative on the saddle, and the map folds past the antipode.
+- ★ [[paced-ring-on-a-ball-and-a-plain]] (flagship): The entry picture made measurable: straight walks from one spot, the flat map drawn from them, and circles whose ground length falls short. *Sketch:* Split view: geodesics fanned from a draggable spot on a ball, saddle, flat field or tube, beside the flat map where they are straight rays. Dragging the walking distance $r$ updates the ground and map lengths of the circle and the fraction short, with $Kr^2/6$ beside it: the fraction quadruples when $r$ doubles, stays zero on the tube, turns negative on the saddle, and the map folds past the antipode.
 - [[falling-ring-of-crumbs]] (core): Shows what a freely falling room removes, gravity at its centre, and the drift it leaves farther out. *Sketch:* A ring of freely falling crumbs near a mass stretches along the line to the centre and squeezes across it, while the centre crumb stays put. Sliders for mass and distance; readouts of the tidal entries.
 - [[four-terms-that-cancel]] (supporting): Shows the Christoffel products that the four-term formula leaves out when the metric's first derivatives do not vanish. *Sketch:* Pick a metric and a point, such as the plane in polar coordinates or a sphere in normal coordinates. Each lowered Riemann component splits into its four second-derivative terms and its Christoffel products, with numbers; the products vanish only where the metric's first derivatives do.
 

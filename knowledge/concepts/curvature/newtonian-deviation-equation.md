@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["Newtonian equation of deviation", "Newtonian tidal equation"]
 prerequisites: ["newtonian-tidal-tensor", "taylor-series", "poisson-equation-for-gravity"]
 leads_to: ["geodesic-deviation-equation", "tidal-derivation-of-vacuum-field-equations"]
-visuals: ["gap-between-two-falling-marbles", "two-tilted-orbits-crossing"]
+visuals: ["falling-ring-of-crumbs", "two-tilted-orbits-crossing"]
 ---
 
 # Newtonian deviation equation
@@ -24,7 +24,7 @@ visuals: ["gap-between-two-falling-marbles", "two-tilted-orbits-crossing"]
 **Needs:** [[newtonian-tidal-tensor]] (entry) · [[taylor-series]] (entry) · [[poisson-equation-for-gravity]] (formal)  
 **Opens:** [[geodesic-deviation-equation]] · [[tidal-derivation-of-vacuum-field-equations]]  
 **Related:** [[tidal-force]]  
-**Visuals:** ★ [[gap-between-two-falling-marbles]] · [[two-tilted-orbits-crossing]]
+**Visuals:** ★ [[falling-ring-of-crumbs]] · [[two-tilted-orbits-crossing]]
 
 > When two nearby objects fall freely together, their gap changes only if gravity pulls on them differently. For a small gap, that difference in pull is in proportion to the gap. The Newtonian deviation equation turns this into a rule that predicts the gap, and Einstein's theory of gravity uses a rule of the same shape.
 
@@ -63,7 +63,7 @@ How slowly does the gap grow? The fall lasts almost five seconds, and each marbl
 
 **Takeaway:** Two marbles that fall freely together keep their gap unless Earth pulls on them differently; only the difference between the two pulls changes the gap.
 
-*Visuals:* [[gap-between-two-falling-marbles]]<br>*See:* `checks/marbles-in-a-falling-capsule`
+*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `checks/marbles-in-a-falling-capsule`
 
 ### 2. Twice the gap, twice the difference · entry · calculation
 
@@ -89,7 +89,7 @@ The same rule compares the Sun and the Moon. Outside any round body, take two ob
 
 **Takeaway:** For a small gap, the difference in pull on two falling neighbours is in proportion to the gap, so the gap itself sets the difference in pull that widens or narrows it.
 
-*Continues:* `ways_in/ride-along-and-measure-the-gap`<br>*Builds on:* [[newtonian-tidal-tensor]], [[taylor-series]]<br>*Visuals:* [[gap-between-two-falling-marbles]]<br>*See:* `checks/sun-or-moon`, `observations/tides-follow-the-moon`
+*Continues:* `ways_in/ride-along-and-measure-the-gap`<br>*Builds on:* [[newtonian-tidal-tensor]], [[taylor-series]]<br>*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `checks/sun-or-moon`, `observations/tides-follow-the-moon`
 
 ### 3. Neighbours in orbit swing through each other · entry · picture
 
@@ -141,7 +141,7 @@ Two limits come with the equation. The separation joins the two particles at one
 
 *What this leaves out:* Assumes a non-rotating frame, test particles whose own gravity is negligible, and no forces other than gravity.
 
-*Continues:* `ways_in/twice-the-gap-twice-the-difference`, `ways_in/neighbours-in-orbit-swing`<br>*Builds on:* [[newtonian-tidal-tensor]], [[taylor-series]]<br>*Visuals:* [[gap-between-two-falling-marbles]]<br>*See:* `derivations/subtract-two-equations-of-motion`, `worked_examples/swing-period-of-neighbouring-orbits`
+*Continues:* `ways_in/twice-the-gap-twice-the-difference`, `ways_in/neighbours-in-orbit-swing`<br>*Builds on:* [[newtonian-tidal-tensor]], [[taylor-series]]<br>*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `derivations/subtract-two-equations-of-motion`, `worked_examples/swing-period-of-neighbouring-orbits`
 
 ### 5. A gradiometer reads the equation backwards · working · operational
 
@@ -332,7 +332,7 @@ A reference body moves on a circular orbit about a spherical mass $M$ with angul
 
 ## Teaching arc
 
-1. **Pose the floating marbles question** (entry). Ask whether marbles floating in a falling capsule can drift, then give the shared-pull argument. *Why:* It separates falling together from gravity being switched off. *Predict:* Will the gap between two marbles floating in a falling capsule change? *Visual:* [[gap-between-two-falling-marbles]] *Uses:* `checks/marbles-in-a-falling-capsule`, `ways_in/ride-along-and-measure-the-gap`
+1. **Pose the floating marbles question** (entry). Ask whether marbles floating in a falling capsule can drift, then give the shared-pull argument. *Why:* It separates falling together from gravity being switched off. *Predict:* Will the gap between two marbles floating in a falling capsule change? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `checks/marbles-in-a-falling-capsule`, `ways_in/ride-along-and-measure-the-gap`
 2. **Size the difference** (entry). Double the gap, then compare the Sun and the Moon. *Why:* The pull itself turns out not to matter, only its change across the gap. *Predict:* The Sun pulls Earth far harder than the Moon. Which raises the bigger tides? *Uses:* `ways_in/twice-the-gap-twice-the-difference`, `checks/sun-or-moon`
 3. **Watch the sideways swing** (entry). Show two tilted orbits and ask when the pebbles meet. *Why:* A swing instead of a collision is the equation at work. *Visual:* [[two-tilted-orbits-crossing]] *Uses:* `ways_in/neighbours-in-orbit-swing`, `checks/when-is-the-gap-widest-again`
 4. **Derive, solve and bound** (working). Derive the equation by subtraction, solve it for a point mass, and find where first order fails. *Why:* The subtraction shows why only the Hessian survives. *Uses:* `derivations/subtract-two-equations-of-motion`, `worked_examples/swing-period-of-neighbouring-orbits`, `checks/near-side-and-far-side`
@@ -377,7 +377,7 @@ A reference body moves on a circular orbit about a spherical mass $M$ with angul
    - **Answer:** No, it grows very slightly. The marbles float because they fall together with the capsule, not because gravity is switched off. Earth keeps pulling on both. The lower marble is nearer Earth's centre, so Earth pulls it a little harder. The lower marble therefore gains speed a little faster than the upper marble, and the gap slowly grows.
    - **Must contain:** The gap grows very slightly; Floating means falling together, and the lower marble is pulled a little harder
    - **Targets:** `floating-means-no-gravity`
-   - **Visual:** [[gap-between-two-falling-marbles]]
+   - **Visual:** [[falling-ring-of-crumbs]]
 2. **Entry · numeric** `checks/sun-or-moon`. The Sun pulls on Earth about 180 times harder than the Moon does, but it is about 390 times farther away. Take the gap from Earth's centre to the ocean facing each body. Whose difference in pull across that gap is bigger, and roughly how many times bigger?
    - **Hints:** Across the same gap, how does a body's difference in pull depend on its distance?
    - **Answer:** The Moon's, about twice as big. Take two objects a small gap apart on the line to a body. The body pulls harder on the nearer object, by a fraction: twice the gap divided by the body's distance. Here that gap runs from Earth's centre to the ocean, and it is the same for both bodies. So the Sun's fraction is 390 times smaller, and the Sun's pull is 180 times bigger. The Sun's difference in pull is therefore about 180 divided by 390, one half, of the Moon's.
@@ -416,7 +416,7 @@ A reference body moves on a circular orbit about a spherical mass $M$ with angul
 
 ## Visuals
 
-- ★ [[gap-between-two-falling-marbles]] (flagship): The central experience: two falling neighbours, their exact gap, and the prediction. *Sketch:* Two marbles near a planet, one above the other or side by side, with sliders for gap, height and time. The exact gap is plotted beside the deviation-equation prediction; enlarging the gap shows where they part.
+- ★ [[falling-ring-of-crumbs]] (flagship): The central experience: two falling neighbours, their exact gap, and the prediction. *Sketch:* Two marbles near a planet, one above the other or side by side, with sliders for gap, height and time. The exact gap is plotted beside the deviation-equation prediction; enlarging the gap shows where they part.
 - [[two-tilted-orbits-crossing]] (core): The sideways swing as two tilted orbits. *Sketch:* Two equal circles around a planet, one tilted by a small adjustable angle, a pebble on each. One lap shows the gap closing at a crossing and reopening on the other side, beside a cosine plot.
 
 ## Tutor moves

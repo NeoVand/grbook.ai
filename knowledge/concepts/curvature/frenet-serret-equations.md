@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["Serret–Frenet equations", "Frenet formulas"]
 prerequisites: ["curvature-of-a-curve"]
 leads_to: ["fermi-walker-transport", "connection-one-forms"]
-visuals: ["three-sticks-ride-a-spring"]
+visuals: ["best-fit-circle-along-a-bend"]
 ---
 
 # Frenet–Serret equations
@@ -24,7 +24,7 @@ visuals: ["three-sticks-ride-a-spring"]
 **Needs:** [[curvature-of-a-curve]] (entry)  
 **Opens:** [[fermi-walker-transport]] · [[connection-one-forms]]  
 **Related:** [[torsion-tensor]]  
-**Visuals:** ★ [[three-sticks-ride-a-spring]]
+**Visuals:** ★ [[best-fit-circle-along-a-bend]]
 
 > Ride a bead along a bending wire, and its direction of travel turns. The turn per metre is the curvature. A path in space can also climb out of the flat sheet that best fits each of its bends, like the coils of a spring. How many degrees that sheet tips per metre along the path is the torsion. Take a path that bends at every place along it. Its curvature and its torsion at every place fix its shape, once you also know which way each tip goes.
 
@@ -67,7 +67,7 @@ On a big, gentle spiral, torsion is too small to notice. Picture a spiral ramp i
 
 **Takeaway:** Torsion is how many degrees per metre the sheet that best fits a bend tips along a path; a path lying in one flat sheet has none at any of its bends.
 
-*Builds on:* [[curvature-of-a-curve]]<br>*Visuals:* [[three-sticks-ride-a-spring]]<br>*See:* `checks/wiggle-on-a-page`
+*Builds on:* [[curvature-of-a-curve]]<br>*Visuals:* [[best-fit-circle-along-a-bend]]<br>*See:* `checks/wiggle-on-a-page`
 
 ### 2. Three sticks ride along · entry · picture
 
@@ -91,7 +91,7 @@ This means the curvature and the torsion say everything about how the three stic
 
 **Takeaway:** As the bead slides, its three sticks turn about the third stick by the curvature, tip about the ahead stick by the torsion, and never spin about the bend stick.
 
-*Continues:* `ways_in/sheet-a-bend-lies-in`<br>*Visuals:* [[three-sticks-ride-a-spring]]
+*Continues:* `ways_in/sheet-a-bend-lies-in`<br>*Visuals:* [[best-fit-circle-along-a-bend]]
 
 ### 3. Two numbers rebuild the path · entry · calculation
 
@@ -109,7 +109,7 @@ Make the steps shorter and shorter, and the corners smooth out into a bending pa
 
 **Takeaway:** For a path that bends at every place, the curvature and torsion at every place, with the sign of each tip, fix its shape. They do not fix where it starts or which way the three sticks first point.
 
-*Continues:* `ways_in/three-sticks-ride-along`<br>*Visuals:* [[three-sticks-ride-a-spring]]<br>*See:* `problems/drone-circle`
+*Continues:* `ways_in/three-sticks-ride-along`<br>*Visuals:* [[best-fit-circle-along-a-bend]]<br>*See:* `problems/drone-circle`
 
 ### 4. Differentiate the three directions · working · calculation
 
@@ -282,8 +282,8 @@ Let $\gamma_1, \gamma_2: I \to \mathbb R^3$ be smooth unit-speed curves with the
 
 ## Teaching arc
 
-1. **Slide a card along a ring and a spring** (entry). Ask for a prediction, then slide the card; name the card's tip per metre the torsion. *Why:* Separates twisting from bending, which learners merge. *Visual:* [[three-sticks-ride-a-spring]] *Uses:* `ways_in/sheet-a-bend-lies-in`, `checks/wiggle-on-a-page`
-2. **Ride the sticks, then fly the drone** (entry). Name the two spins of the sticks and the spin that never happens, then rebuild a circle and a spring from turn-and-tip instructions. *Why:* Shows that two numbers carry the whole shape. *Visual:* [[three-sticks-ride-a-spring]] *Uses:* `ways_in/three-sticks-ride-along`, `ways_in/two-numbers-rebuild-the-path`, `problems/drone-circle`
+1. **Slide a card along a ring and a spring** (entry). Ask for a prediction, then slide the card; name the card's tip per metre the torsion. *Why:* Separates twisting from bending, which learners merge. *Visual:* [[best-fit-circle-along-a-bend]] *Uses:* `ways_in/sheet-a-bend-lies-in`, `checks/wiggle-on-a-page`
+2. **Ride the sticks, then fly the drone** (entry). Name the two spins of the sticks and the spin that never happens, then rebuild a circle and a spring from turn-and-tip instructions. *Why:* Shows that two numbers carry the whole shape. *Visual:* [[best-fit-circle-along-a-bend]] *Uses:* `ways_in/three-sticks-ride-along`, `ways_in/two-numbers-rebuild-the-path`, `problems/drone-circle`
 3. **Derive and compute** (working). Derive the equations from orthonormality, then compute the helix and the ramp. *Why:* The one zero in the matrix is the picture's never-turn rule. *Uses:* `ways_in/differentiate-the-three-directions`, `derivations/frenet-serret-from-orthonormality`, `checks/spiral-ramp`
 
 ## Misconceptions
@@ -308,7 +308,7 @@ Let $\gamma_1, \gamma_2: I \to \mathbb R^3$ be smooth unit-speed curves with the
    - **Must contain:** Only the spring has torsion; Every bend of the drawn line lies in the paper, so the card never tips
    - **Numeric:** degrees the card tips over any 1 metre along the drawn line = 0 deg (magnitude, ±0.01)
    - **Targets:** `sharp-bends-mean-torsion`
-   - **Visual:** [[three-sticks-ride-a-spring]]
+   - **Visual:** [[best-fit-circle-along-a-bend]]
 2. **Working · numeric** `checks/spiral-ramp`. Model the centre line of a spiral ramp as a helix of radius 15.0 m that climbs 3.0 m per full turn. Over 4.0 m along the ramp, by how many degrees in total does the unit tangent turn, and by how many degrees in total does the osculating plane tip?
    - **Hints:** Write the helix as $(a\cos t, a\sin t, bt)$; how far does it climb per full turn?
    - **Answer:** The climb per radian is $b = 3.0\ \text{m}/2\pi = 0.477$ m, so $a^2 + b^2 = 225.2\ \text{m}^2$. Then $\kappa = 15.0/225.2\ \text{m}^{-1} = 0.0666\ \text{m}^{-1}$, which is $3.82^\circ$ per metre, and $\tau = 0.477/225.2\ \text{m}^{-1} = 0.00212\ \text{m}^{-1}$, which is $0.121^\circ$ per metre. Both are constant, so over 4.0 m the tangent turns $15.3^\circ$ and the osculating plane tips $0.49^\circ$.
@@ -322,7 +322,7 @@ Let $\gamma_1, \gamma_2: I \to \mathbb R^3$ be smooth unit-speed curves with the
 
 ## Visuals
 
-- ★ [[three-sticks-ride-a-spring]] (flagship): Shows the osculating plane tipping and the frame's two turns, then rebuilds paths from curvature and torsion. *Sketch:* A 3D wire (ring, spring, mirror spring, or drawn path) with a bead carrying three sticks and a card for the osculating plane, with turn and tip readouts per metre. A rebuild mode flies a drone from curvature and torsion sliders; flipping the tip's sign draws the mirror spring.
+- ★ [[best-fit-circle-along-a-bend]] (flagship): Shows the osculating plane tipping and the frame's two turns, then rebuilds paths from curvature and torsion. *Sketch:* A 3D wire (ring, spring, mirror spring, or drawn path) with a bead carrying three sticks and a card for the osculating plane, with turn and tip readouts per metre. A rebuild mode flies a drone from curvature and torsion sliders; flipping the tip's sign draws the mirror spring.
 
 ## Tutor moves
 

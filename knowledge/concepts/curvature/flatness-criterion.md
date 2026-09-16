@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["flatness theorem", "metric flatness theorem"]
 prerequisites: ["path-dependence-of-parallel-transport", "holonomy", "riemann-curvature-tensor", "flat-metric", "rindler-coordinates", "simply-connected-space"]
 leads_to: ["ricci-flat-spacetime", "equivalence-problem", "weyl-criterion-for-conformal-flatness", "cosmic-string", "milne-universe"]
-visuals: ["paper-rolled-into-a-tube-and-a-cone", "carry-an-arrow-around-a-loop", "falling-ring-of-crumbs", "lamp-and-detector-in-a-rocket", "four-terms-that-cancel", "paper-cone-with-a-missing-wedge"]
+visuals: ["paper-rolled-into-a-tube-and-a-cone", "carry-an-arrow-around-a-loop", "falling-ring-of-crumbs", "lamp-and-detector-in-a-rocket", "four-terms-that-cancel"]
 ---
 
 # Flatness criterion
@@ -24,7 +24,7 @@ visuals: ["paper-rolled-into-a-tube-and-a-cone", "carry-an-arrow-around-a-loop",
 **Needs:** [[path-dependence-of-parallel-transport]] (entry) · [[holonomy]] (entry) · [[riemann-curvature-tensor]] (entry) · [[flat-metric]] (working) · [[rindler-coordinates]] (working) · [[simply-connected-space]] (formal)  
 **Opens:** [[ricci-flat-spacetime]] · [[equivalence-problem]] · [[weyl-criterion-for-conformal-flatness]] · [[cosmic-string]] · [[milne-universe]]  
 **Related:** [[integrability-condition-for-parallel-fields]] · [[local-flatness-theorem]] · [[nonzero-christoffel-symbols-in-flat-space]] · [[torsion-tensor]] · [[gravitational-redshift]]  
-**Visuals:** ★ [[paper-rolled-into-a-tube-and-a-cone]] · [[carry-an-arrow-around-a-loop]] · [[falling-ring-of-crumbs]] · [[lamp-and-detector-in-a-rocket]] · [[four-terms-that-cancel]] · [[paper-cone-with-a-missing-wedge]]
+**Visuals:** ★ [[paper-rolled-into-a-tube-and-a-cone]] · [[carry-an-arrow-around-a-loop]] · [[falling-ring-of-crumbs]] · [[lamp-and-detector-in-a-rocket]] · [[four-terms-that-cancel]]
 
 > Squared paper covers a small patch of ground with no holes, without stretching or tearing, exactly when its small loops bring carried arrows back matching. The Riemann curvature tensor records how small loops turn carried arrows. So a region is flat exactly when that tensor is zero throughout it. A pull alone does not show curved spacetime. But a drift between balls let go side by side in a non-spinning cabin does.
 
@@ -202,7 +202,7 @@ The flat charts of "Flat charts from a parallel coframe" exist near each point o
 
 *What this leaves out:* Idealizes the cone's tip and the string as an exact point and line.
 
-*Continues:* `ways_in/flat-charts-from-a-parallel-coframe`<br>*Builds on:* [[holonomy]], [[simply-connected-space]]<br>*Visuals:* [[paper-cone-with-a-missing-wedge]]<br>*See:* `checks/ricci-flat-by-dimension`, `checks/cone-torus-verdict`
+*Continues:* `ways_in/flat-charts-from-a-parallel-coframe`<br>*Builds on:* [[holonomy]], [[simply-connected-space]]<br>*Visuals:* [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`)<br>*See:* `checks/ricci-flat-by-dimension`, `checks/cone-torus-verdict`
 
 ## Glossary
 
@@ -383,7 +383,7 @@ With $G = c = 1$, take $ds^2 = -dt^2 + a(t)^2d\chi^2$ for $t > 0$. (a) Show that
 2. **Rocket or planet** (entry). Drop two balls side by side in a rocket and on Earth after a prediction. *Why:* It separates a pull, which flat spacetime can fake, from a drift, which it cannot. *Predict:* In the speeding-up rocket, do two balls let go side by side land closer together than they started? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/rocket-or-planet`, `checks/rocket-drop`
 3. **Unmask a disguised plane** (working). Compute the curvature of a metric whose Christoffel symbols are nonzero everywhere. *Why:* Seeing the terms cancel ends reading curvature from Christoffel symbols. *Predict:* Every Christoffel symbol here is nonzero. Is the surface curved? *Visual:* [[four-terms-that-cancel]] *Uses:* `ways_in/constant-metric-exactly-when-riemann-vanishes`, `worked_examples/plane-with-constant-christoffel-symbols`, `checks/which-surfaces-are-flat`
 4. **Clocks without curvature** (working). Bend the clock-rate profile; curvature appears only when the profile stops being straight. *Why:* It ties the criterion to measured redshift and tides. *Predict:* If clocks at the top of a tower tick faster, must spacetime there be curved? *Visual:* [[lamp-and-detector-in-a-rocket]] *Uses:* `ways_in/clock-rates-without-curvature`, `checks/tower-clocks-claim`, `observations/pound-rebka-tower`
-5. **Prove it and mark its edges** (formal). Prove the theorem with a parallel coframe, then test it on the cone, the torus and a connection with torsion. *Why:* Graduate readers need each hypothesis tied to a counterexample. *Visual:* [[paper-cone-with-a-missing-wedge]] *Uses:* `ways_in/flat-charts-from-a-parallel-coframe`, `ways_in/where-the-criterion-stops`, `checks/cone-torus-verdict`
+5. **Prove it and mark its edges** (formal). Prove the theorem with a parallel coframe, then test it on the cone, the torus and a connection with torsion. *Why:* Graduate readers need each hypothesis tied to a counterexample. *Visual:* [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`) *Uses:* `ways_in/flat-charts-from-a-parallel-coframe`, `ways_in/where-the-criterion-stops`, `checks/cone-torus-verdict`
 
 ## Misconceptions
 
@@ -471,7 +471,7 @@ With $G = c = 1$, take $ds^2 = -dt^2 + a(t)^2d\chi^2$ for $t > 0$. (a) Show that
    - **Answer:** Both parts fail globally, though the local statements hold: by the criterion, every point of each surface has a neighbourhood isometric to a disk in $\mathbb R^2$. The flat torus is compact, and a nonempty open subset of $\mathbb R^2$ never is, so no isometry onto one exists; its holonomy is trivial, because the parallel frame $\partial_x, \partial_y$ of the plane passes to the quotient. The punctured cone, made by removing a wedge of angle $\delta$ with $0 < \delta < 2\pi$, is not simply connected. A loop winding once around the missing tip returns vectors rotated by $\delta$, so it is not isometric to any open subset of $\mathbb R^2$, where every loop has trivial holonomy. Zero curvature guarantees trivial holonomy only for loops that shrink to a point within the flat region.
    - **Must contain:** Local isometry to the plane holds near every point; The torus is compact, so it is not an open subset of the plane, though its holonomy is trivial; The punctured cone has holonomy generated by the rotation through the wedge angle
    - **Targets:** `one-flat-grid-everywhere`
-   - **Visual:** [[paper-cone-with-a-missing-wedge]]
+   - **Visual:** [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`)
 
 ## Notation traps
 
@@ -483,11 +483,10 @@ With $G = c = 1$, take $ds^2 = -dt^2 + a(t)^2d\chi^2$ for $t > 0$. (a) Show that
 ## Visuals
 
 - ★ [[paper-rolled-into-a-tube-and-a-cone]] (flagship): The paper test beside the arrow test. *Sketch:* This concept adds a ball and a cube corner. Readouts give the stretch squared paper needs at a chosen spot and the turn of a small loop there: both zero on the tube and the cone's side, both nonzero on the ball, the cone's tip and the corner.
-- [[carry-an-arrow-around-a-loop]] (core): Flat floor, tube and cone controls for the small-loop test.
+- [[carry-an-arrow-around-a-loop]] (core): Flat floor, tube and cone controls for the small-loop test. *Sketch:* Cut a wedge of adjustable angle from a flat sheet and glue it into a cone. Loops that avoid the tip return the arrow unchanged; a loop around the tip returns it rotated by the wedge angle.
 - [[falling-ring-of-crumbs]] (core): Rocket or planet: balls dropped side by side. *Sketch:* This concept adds a windowless cabin that switches between a rocket speeding up far from every mass and a room on a planet. Two balls dropped side by side land the same distance apart in the rocket and, with the change magnified, closer on the planet.
 - [[lamp-and-detector-in-a-rocket]] (core): Redshift without curvature. *Sketch:* This concept adds a plot of clock rate against height that the learner bends, with readouts of the floor-to-ceiling frequency ratio, the acceleration needed at each height, and the curvature component, zero whenever the plot is straight.
 - [[four-terms-that-cancel]] (supporting): Christoffel terms cancelling for disguised flat metrics. *Sketch:* This concept adds the log-polar plane, whose Christoffel symbols are constant and nonzero, and the clock-rate metric with a profile the learner bends.
-- [[paper-cone-with-a-missing-wedge]] (supporting): Flat on every patch, yet not globally trivial. *Sketch:* Cut a wedge of adjustable angle from a flat sheet and glue it into a cone. Loops that avoid the tip return the arrow unchanged; a loop around the tip returns it rotated by the wedge angle.
 
 ## Tutor moves
 

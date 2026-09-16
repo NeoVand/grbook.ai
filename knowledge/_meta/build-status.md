@@ -64,8 +64,20 @@ Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and ru
      the cap); conventions rows for the sign of the second fundamental form, the torsion sign and the K symbol
      overload; "straight walk" as the entry word for geodesic; registry prerequisites that contradict the outline
      order (intrinsic-geometry, second-fundamental-form); angular-excess never proved at working depth.
-6. **Next.** Fix the open items, then chapters in reading order, main track first; visuals per chapter after its
-   sections, with `gr-visuals-v2.js` retargeted at sections.
+6. **Curvature chapter: 7 of 7 sections done** (`sections-curvature-rest`, `wf_a3ebae42-ea6`). All validate OK.
+   The open items the pilot flagged are fixed: conventions rows (extrinsic curvature, Frenet-Serret, the letter K,
+   the tidal tensor, the entry word "straight walk"), entry sections raised to 3,000 prose words, three forward
+   prerequisite edges removed, and the visuals workflow retargeted at sections.
+7. **Curvature visuals: stopped by the monthly spend limit (2026-09-16),** run `wf_7fa26aba-f7b`. The planner merged
+   58 proposals into 8 to write and folded 3 into the existing flagship; its full merge list and the remaining
+   canonical ids are in the run output. State of the catalog (6 entries):
+   - `two-walkers-set-off-side-by-side`, `card-touching-a-curved-patch`, `paper-rolled-into-a-tube-and-a-cone`:
+     specified, both reviews at the current revision (the last two were signed off by the editor, not an agent).
+   - `paced-ring-on-a-ball-and-a-plain`: novice-read, needs the physics review.
+   - `four-legs-around-a-tiny-loop`: writer's draft, unreviewed, wording and symbol warnings cleaned by hand.
+   - `falling-ring-of-crumbs`, `six-entry-curvature-table`, `twenty-of-256-slots`: not written.
+   Resume with `gr-visuals-v2.js` (it re-plans from the proposals) once budget allows.
+8. **Next.** Chapters in reading order, main track first; visuals per chapter after its sections.
 
 ## App follow-ups from the engineer critique
 

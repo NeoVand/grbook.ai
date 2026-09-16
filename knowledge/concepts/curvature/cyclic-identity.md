@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["first Bianchi identity", "algebraic Bianchi identity"]
 prerequisites: ["symmetries-of-the-riemann-tensor", "torsion-free-connection"]
 leads_to: ["number-of-independent-riemann-components", "weyl-tensor", "killing-vector-ricci-identity", "sectional-curvature"]
-visuals: ["three-trips-at-a-cube-corner", "two-routes-that-meet", "twenty-of-256-slots"]
+visuals: ["cube-of-small-loops", "four-legs-around-a-tiny-loop", "twenty-of-256-slots"]
 ---
 
 # Cyclic (first Bianchi) identity
@@ -24,7 +24,7 @@ visuals: ["three-trips-at-a-cube-corner", "two-routes-that-meet", "twenty-of-256
 **Needs:** [[symmetries-of-the-riemann-tensor]] (entry) · [[torsion-free-connection]] (entry)  
 **Opens:** [[number-of-independent-riemann-components]] · [[weyl-tensor]] · [[killing-vector-ricci-identity]] · [[sectional-curvature]]  
 **Related:** [[bianchi-identity]] · [[torsion-tensor]] · [[ricci-identity]] · [[cartan-first-structure-equation]] · [[ricci-tensor]]  
-**Visuals:** ★ [[three-trips-at-a-cube-corner]] · [[two-routes-that-meet]] · [[twenty-of-256-slots]]
+**Visuals:** ★ [[cube-of-small-loops]] · [[four-legs-around-a-tiny-loop]] · [[twenty-of-256-slots]]
 
 > At a corner of a tiny cube in a curved space, point an arrow along each edge in turn. Carry it around the face made by the other two edges, never letting it swing. When the arrow and the edges move one place around a ring of the three directions, the three changes add up to nothing in every space general relativity uses. In ordinary space this fourth rule of the curvature table adds nothing new. In space and time it cuts 21 different numbers to 20.
 
@@ -78,7 +78,7 @@ Near Earth the changes are far too small to notice. Just above Earth's surface, 
 
 *What this leaves out:* The rule is exact for the tiny loops the curvature table describes; for bigger faces the changes balance only nearly. The Earth number describes the space around Earth at one moment, for someone at rest relative to Earth.
 
-*Builds on:* [[symmetries-of-the-riemann-tensor]]<br>*Visuals:* [[three-trips-at-a-cube-corner]]<br>*See:* `checks/third-trip-at-a-cube-corner`
+*Builds on:* [[symmetries-of-the-riemann-tensor]]<br>*Visuals:* [[cube-of-small-loops]]<br>*See:* `checks/third-trip-at-a-cube-corner`
 
 ### 2. Walks that close · entry · contrast
 
@@ -108,7 +108,7 @@ In a space with twist the pieces need not cancel. There the three changes can fa
 
 *What this leaves out:* The eighth and the quarter are reached more and more closely as the arrows get shorter. A ball's gap need not be exactly an eighth for arrows of any given length.
 
-*Continues:* `ways_in/three-trips-at-a-cube-corner`<br>*Builds on:* [[torsion-free-connection]]<br>*Visuals:* [[two-routes-that-meet]]<br>*See:* `checks/a-space-with-twist`, `ways_in/the-identity-in-components`
+*Continues:* `ways_in/three-trips-at-a-cube-corner`<br>*Builds on:* [[torsion-free-connection]]<br>*Visuals:* [[four-legs-around-a-tiny-loop]]<br>*See:* `checks/a-space-with-twist`, `ways_in/the-identity-in-components`
 
 ### 3. When the fourth rule cuts the count · entry · calculation
 
@@ -394,8 +394,8 @@ Let $R_{\rho\sigma\mu\nu}$ on an $n$-dimensional space be antisymmetric in $\rho
 
 ## Teaching arc
 
-1. **Predict the third trip** (entry). Run two of the three trips, ask where the third arrow's tip returns, then lay the changes tip to tail. *Why:* It shows the identity as a balance before any index appears. *Predict:* After two trips, can you say where the third arrow's tip will come back? *Visual:* [[three-trips-at-a-cube-corner]] *Uses:* `ways_in/three-trips-at-a-cube-corner`, `checks/third-trip-at-a-cube-corner`
-2. **Ask what the balance needs** (entry). Walk the two routes, then ask whether the balance survives in a space with twist. *Why:* It locates the one assumption the identity rests on: zero twist. *Predict:* If the two routes ended a small gap apart, would the three changes still add up to nothing? *Visual:* [[two-routes-that-meet]] *Uses:* `ways_in/walks-that-close`, `checks/a-space-with-twist`
+1. **Predict the third trip** (entry). Run two of the three trips, ask where the third arrow's tip returns, then lay the changes tip to tail. *Why:* It shows the identity as a balance before any index appears. *Predict:* After two trips, can you say where the third arrow's tip will come back? *Visual:* [[cube-of-small-loops]] *Uses:* `ways_in/three-trips-at-a-cube-corner`, `checks/third-trip-at-a-cube-corner`
+2. **Ask what the balance needs** (entry). Walk the two routes, then ask whether the balance survives in a space with twist. *Why:* It locates the one assumption the identity rests on: zero twist. *Predict:* If the two routes ended a small gap apart, would the three changes still add up to nothing? *Visual:* [[four-legs-around-a-tiny-loop]] *Uses:* `ways_in/walks-that-close`, `checks/a-space-with-twist`
 3. **Count where it bites** (entry). Count what the rule removes in space, in space and time, and in a five-direction world. *Why:* The rule matters only when four different directions exist. *Predict:* Will a fourth true rule shrink the six numbers of ordinary space? *Visual:* [[twenty-of-256-slots]] *Uses:* `ways_in/when-the-fourth-rule-cuts-the-count`, `checks/fourth-rule-in-space`, `problems/five-direction-world`
 4. **Cancel the terms** (working). Work the symmetric example, then cancel the twelve terms and correct a wrong reordering. *Why:* The example shows the pairing the general proof repeats. *Uses:* `worked_examples/a-symmetric-connection-passes`, `derivations/twelve-terms-cancel-in-pairs`, `checks/three-entries-and-a-wrong-sum`
 5. **Restore the torsion** (formal). Keep torsion in the operator proof, test the lopsided connection, and find what the identity removes. *Why:* It separates what needs zero torsion from what needs a metric. *Uses:* `ways_in/first-bianchi-for-any-connection`, `checks/a-lopsided-connection`, `problems/the-cyclic-sum-map`
@@ -440,7 +440,7 @@ Let $R_{\rho\sigma\mu\nu}$ on an $n$-dimensional space be antisymmetric in $\rho
    - **Must contain:** The three changes add up to nothing; 3 thousandths of a millimetre backward, opposite to ahead; 2 thousandths of a millimetre down, opposite to up
    - **Numeric:** step backward, opposite to ahead = 0.003 mm (magnitude, ±5%); step down, opposite to up = 0.002 mm (magnitude, ±5%)
    - **Targets:** `three-trips-are-unrelated`
-   - **Visual:** [[three-trips-at-a-cube-corner]]
+   - **Visual:** [[cube-of-small-loops]]
 2. **Entry · explain** `checks/fourth-rule-in-space`. In space there are three directions. There the three earlier rules leave 6 different numbers in the curvature table: walking a loop the other way flips the change, the lean rule, and the mirror rule. A friend says the fourth rule, the cyclic identity, removes one more, leaving 5. In space and time, with four directions, the other rules leave 21. Is your friend right about space? How many numbers remain in space and time?
    - **Hints:** In space, can all four choices of direction be different?
    - **Answer:** No: 6 numbers remain in space, and 20 in space and time. The fourth rule keeps the reading direction fixed and moves the other three choices around a ring. In space there are only three directions, so the reading direction repeats one of the three that move. For such entries the three earlier rules already make the sum zero. So the fourth rule adds no new link, and 6 numbers remain. In space and time, the reading direction can be time while ahead, left and up move around the ring. The other rules do not tie those three entries together, so the fourth rule adds one link, and 21 becomes 20.
@@ -453,7 +453,7 @@ Let $R_{\rho\sigma\mu\nu}$ on an $n$-dimensional space be antisymmetric in $\rho
    - **Answer:** The claim is too strong. The three trips' changes split into six pieces that cancel in pairs. Each pair cancels only because four-sided walks close up, with the two routes ending at the same spot. Here the gap keeps pace with the area between the routes, so it is twist, and the walks do not close up. Then the pieces need not cancel, and the three changes can fail to add up to nothing. The rule does hold in every space without twist, including the spaces of general relativity.
    - **Must contain:** The cancellation needs the two routes to end together; With a gap the pieces need not cancel; The rule holds wherever there is no twist
    - **Targets:** `holds-in-every-space`
-   - **Visual:** [[two-routes-that-meet]]
+   - **Visual:** [[four-legs-around-a-tiny-loop]]
 4. **Working · numeric** `checks/three-entries-and-a-wrong-sum`. At an event, in an orthonormal frame, $R_{\hat 0\hat 1\hat 2\hat 3} = 3.0\times10^{-27}\ \mathrm{m^{-2}}$ and $R_{\hat 0\hat 2\hat 3\hat 1} = -1.0\times10^{-27}\ \mathrm{m^{-2}}$. Find $R_{\hat 0\hat 3\hat 1\hat 2}$. A classmate instead sets $R_{\hat 0\hat 1\hat 2\hat 3} + R_{\hat 0\hat 2\hat 1\hat 3} + R_{\hat 0\hat 3\hat 1\hat 2} = 0$. What does she get, and is either value plus or minus one of the given components?
    - **Hints:** List the three cyclic orders of 1, 2 and 3. / Rewrite the classmate's middle term with last-pair antisymmetry.
    - **Answer:** The cyclic orders of 123 are 123, 231 and 312, so $R_{\hat 0\hat 3\hat 1\hat 2} = -(3.0 - 1.0)\times10^{-27} = -2.0\times10^{-27}\ \mathrm{m^{-2}}$. The classmate's 213 is an odd reordering. Antisymmetry in the last pair gives $R_{\hat 0\hat 2\hat 1\hat 3} = -R_{\hat 0\hat 2\hat 3\hat 1} = +1.0\times10^{-27}\ \mathrm{m^{-2}}$, so she gets $-4.0\times10^{-27}\ \mathrm{m^{-2}}$, which differs from the correct value by $2R_{\hat 0\hat 2\hat 3\hat 1}$. Neither value is plus or minus a given component, because the identity links three components rather than pairing two.
@@ -483,8 +483,8 @@ Let $R_{\rho\sigma\mu\nu}$ on an $n$-dimensional space be antisymmetric in $\rho
 
 ## Visuals
 
-- ★ [[three-trips-at-a-cube-corner]] (flagship): The entry picture: three trips around the faces at a cube corner, with the returned changes laid tip to tail. *Sketch:* A small cube at a point of a curved three-dimensional space, chosen from presets: a space whose curving differs by tilt, with the cube turned so its faces are not the tilts of greatest and least curving and the changes are not zero; a round space, where every change is zero however the cube is turned; and flat space. A ring of labels ahead, left, up turns one place per trip while a fresh arrow is carried around each face. Each returned change is drawn at the corner, magnified by a stated factor, and a tip-to-tail panel adds the three and closes. A twist control, marked as not allowed in general relativity, adds a twist that varies from spot to spot, and the tip-to-tail panel no longer closes. A wrong-order toggle walks one face backwards, flipping its change. A space-and-time preset swaps the up edge for a time edge, so the three trips run along time, ahead and left; there the parts of the three changes read toward up are the one link the three earlier rules do not already give, and a toggle shows those rules leaving that part free.
-- [[two-routes-that-meet]] (supporting): Shows the closing four-sided walk that zero twist guarantees. *Sketch:* Two short arrows at a spot on a flat floor, a ball, or a made-up space with twist. Route one walks along the first arrow carrying the second, then along the carried second; route two swaps them. A log-log plot shows the gap between the two ends against the area between the routes as the arrows shrink: on the floor the gap is zero, on the ball it shrinks faster than the area, and with twist it shrinks in proportion to the area.
+- ★ [[cube-of-small-loops]] (flagship): The entry picture: three trips around the faces at a cube corner, with the returned changes laid tip to tail. *Sketch:* A small cube at a point of a curved three-dimensional space, chosen from presets: a space whose curving differs by tilt, with the cube turned so its faces are not the tilts of greatest and least curving and the changes are not zero; a round space, where every change is zero however the cube is turned; and flat space. A ring of labels ahead, left, up turns one place per trip while a fresh arrow is carried around each face. Each returned change is drawn at the corner, magnified by a stated factor, and a tip-to-tail panel adds the three and closes. A twist control, marked as not allowed in general relativity, adds a twist that varies from spot to spot, and the tip-to-tail panel no longer closes. A wrong-order toggle walks one face backwards, flipping its change. A space-and-time preset swaps the up edge for a time edge, so the three trips run along time, ahead and left; there the parts of the three changes read toward up are the one link the three earlier rules do not already give, and a toggle shows those rules leaving that part free.
+- [[four-legs-around-a-tiny-loop]] (supporting): Shows the closing four-sided walk that zero twist guarantees. *Sketch:* Two short arrows at a spot on a flat floor, a ball, or a made-up space with twist. Route one walks along the first arrow carrying the second, then along the carried second; route two swaps them. A log-log plot shows the gap between the two ends against the area between the routes as the arrows shrink: on the floor the gap is zero, on the ball it shrinks faster than the area, and with twist it shrinks in proportion to the area.
 - [[twenty-of-256-slots]] (core): Counts what the rules leave, and isolates the cyclic links. *Sketch:* A grid of all index combinations with a dimension selector for 2, 3, 4 and 5. Applying last-pair antisymmetry, first-pair antisymmetry, pair exchange and the cyclic identity in turn greys out zero slots, links partners with signs, and ends at 1, 6, 20 or 50. In the last step the three components linked by each group of four distinct indices light up together.
 
 ## Tutor moves

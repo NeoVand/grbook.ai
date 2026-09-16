@@ -211,6 +211,7 @@ Key points: g upper u u is zero, so every contraction needs a v slot that no non
 ## Visuals
 
 - `curvature-fingerprint-curves` (flagship): Invariants as fingerprints: spun surfaces that share, or fail to share, the curve of squared curvature gradient against curvature. Sketch: A spun surface $d\rho^2 + f(\rho)^2d\phi^2$ chosen from presets, with $K = -f''/f$ at a draggable point, beside a plot of $|\nabla K|^2$ against $K$ traced as the point moves; locally isometric surfaces trace one curve, and readouts give $t_0, t_1, t_2$ and the isometry dimension.
+- `paced-ring-on-a-ball-and-a-plain` (supporting): The ring test at every spot in survey mode, uniform on a ball, a plain and a tube and varying on an egg, with the hyperbolic disc map's rings.
 
 ## Tutor
 

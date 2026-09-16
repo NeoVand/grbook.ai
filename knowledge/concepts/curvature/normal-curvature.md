@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["normal curvature", "geodesic curvature"]
 prerequisites: ["curvature-of-a-curve", "second-fundamental-form", "geodesic", "levi-civita-connection", "connection-one-forms"]
 leads_to: ["principal-curvatures", "geodetic-precession", "photon-sphere"]
-visuals: ["bend-arrow-split-on-a-surface", "arrow-around-a-circle-of-latitude"]
+visuals: ["bend-arrow-split-on-a-surface", "carry-an-arrow-around-a-loop"]
 ---
 
 # Normal and geodesic curvature
@@ -24,7 +24,7 @@ visuals: ["bend-arrow-split-on-a-surface", "arrow-around-a-circle-of-latitude"]
 **Needs:** [[curvature-of-a-curve]] (entry) · [[second-fundamental-form]] (working) · [[geodesic]] (working) · [[levi-civita-connection]] (formal) · [[connection-one-forms]] (formal)  
 **Opens:** [[principal-curvatures]] · [[geodetic-precession]] · [[photon-sphere]]  
 **Related:** [[holonomy]] · [[gaussian-curvature]] · [[frenet-serret-equations]] · [[extrinsic-curvature-of-a-hypersurface]] · [[black-hole-shadow]]  
-**Visuals:** ★ [[bend-arrow-split-on-a-surface]] · [[arrow-around-a-circle-of-latitude]]
+**Visuals:** ★ [[bend-arrow-split-on-a-surface]] · [[carry-an-arrow-around-a-loop]]
 
 > Walk on a smooth, round ball without ever steering, and your path still bends, seen from far away, outside the ball. The part of a path's bend that comes from the ground curving away beneath your feet is called normal curvature. Steer to your left or right, and your direction of travel also turns along the ground. The part that comes from steering is called geodesic curvature, and a walk that never steers has none.
 
@@ -163,7 +163,7 @@ The same frame shows that a parallel vector's angle to $T$ changes at the rate $
 
 *What this leaves out:* Surfaces are $C^2$ and, for signed $\kappa_g$, oriented; the Gauss–Bonnet statement is for a region homeomorphic to a disk.
 
-*Continues:* `ways_in/split-the-bend-into-perpendicular-parts`<br>*Builds on:* [[levi-civita-connection]], [[connection-one-forms]]<br>*Visuals:* [[arrow-around-a-circle-of-latitude]]<br>*See:* `derivations/geodesic-curvature-from-the-frame-angle`, `checks/circle-on-a-rolled-sheet`, `checks/asymptotic-directions-at-a-saddle`, `problems/gauss-bonnet-from-the-frame-angle`
+*Continues:* `ways_in/split-the-bend-into-perpendicular-parts`<br>*Builds on:* [[levi-civita-connection]], [[connection-one-forms]]<br>*Visuals:* [[carry-an-arrow-around-a-loop]] (preset `latitude-circle`)<br>*See:* `derivations/geodesic-curvature-from-the-frame-angle`, `checks/circle-on-a-rolled-sheet`, `checks/asymptotic-directions-at-a-saddle`, `problems/gauss-bonnet-from-the-frame-angle`
 
 ### 6. Light that skims a sphere · research · bridge
 
@@ -424,7 +424,7 @@ With $G = c = 1$, the equatorial optical metric of Schwarzschild is $d\tilde s^2
 2. **Add steering** (entry). Put the ladybird on a small ring, then compare a cycle path's steering with the bend Earth's ground gives. *Why:* The second part of the bend appears only when the walker steers. *Predict:* Must a ladybird on a small ring around one point of a ball steer to stay on it? *Visual:* [[bend-arrow-split-on-a-surface]] *Uses:* `ways_in/steering-bends-the-path-along-the-ground`, `checks/small-ring-on-a-ball`, `problems/cycle-path-on-earth`
 3. **Resolve the curvature vector** (working). Derive the split, then test the adding claim and the tilted circle. *Why:* Learners see that the normal part belongs to the direction and the parts add in quadrature. *Predict:* A small circle on a ball bends more sharply than a great circle in the same direction. Is its normal curvature bigger? *Uses:* `ways_in/split-the-bend-into-perpendicular-parts`, `derivations/split-of-the-bend`, `checks/ring-split-on-a-ball`, `checks/tilted-circle-claim`
 4. **Unroll a spiral** (working). Wind tape slantwise on a can, then unroll the can. *Why:* It shows a curve bent in space with zero geodesic curvature. *Predict:* Does a spiral of tape around a can steer? *Visual:* [[bend-arrow-split-on-a-surface]] *Uses:* `checks/spiral-tape-on-a-can`
-5. **Prove what is intrinsic, then integrate** (formal). Roll a sheet with a drawn circle, then derive Gauss–Bonnet from the frame angle. *Why:* It ties geodesic curvature to the metric and to holonomy. *Visual:* [[arrow-around-a-circle-of-latitude]] *Uses:* `ways_in/curves-on-a-hypersurface`, `checks/circle-on-a-rolled-sheet`, `problems/gauss-bonnet-from-the-frame-angle`
+5. **Prove what is intrinsic, then integrate** (formal). Roll a sheet with a drawn circle, then derive Gauss–Bonnet from the frame angle. *Why:* It ties geodesic curvature to the metric and to holonomy. *Visual:* [[carry-an-arrow-around-a-loop]] (preset `latitude-circle`) *Uses:* `ways_in/curves-on-a-hypersurface`, `checks/circle-on-a-rolled-sheet`, `problems/gauss-bonnet-from-the-frame-angle`
 6. **Skim a black hole** (research). Compute null normal curvature on spheres around a black hole, then the optical circle. *Why:* Both methods locate the photon sphere. *Uses:* `ways_in/light-that-skims-a-sphere`, `checks/photon-sphere-from-null-normal-curvature`, `problems/optical-circle-at-three-m`
 
 ## Misconceptions
@@ -532,7 +532,7 @@ With $G = c = 1$, the equatorial optical metric of Schwarzschild is $d\tilde s^2
 ## Visuals
 
 - ★ [[bend-arrow-split-on-a-surface]] (flagship): The central picture: a path's bend arrow split into a part toward the surface and a steering part along it. *Sketch:* A ball, a drinks can, a saddle or a flat floor with a walker on a path. Presets: a straight walk around the ball's middle, a small ring, a spiral on the can, a line through the saddle at $45^\circ$. The bend arrow splits into an arrow along the normal and an arrow along the ground to the walker's left, with dials for both and for the whole bend, and a right-triangle inset. At a fixed point, a heading dial changes only the normal arrow, following Euler's formula; a steering slider changes only the sideways arrow. An unroll button flattens the can, and the spiral's sideways arrow stays zero. It proves that the normal part belongs to the heading and the steering part to the metric.
-- [[arrow-around-a-circle-of-latitude]] (supporting): Integrated geodesic curvature of a latitude circle and the returned rotation add up with the enclosed curvature to a full turn. *Sketch:* Drag the latitude and play one lap. Show the arrow's returned rotation, the integrated steering $2\pi\cos\theta_0$, and the cap's curvature $2\pi(1-\cos\theta_0)$ as two arcs that close a full circle.
+- [[carry-an-arrow-around-a-loop]] (supporting): Integrated geodesic curvature of a latitude circle and the returned rotation add up with the enclosed curvature to a full turn. *Sketch:* Drag the latitude and play one lap. Show the arrow's returned rotation, the integrated steering $2\pi\cos\theta_0$, and the cap's curvature $2\pi(1-\cos\theta_0)$ as two arcs that close a full circle.
 
 ## Tutor moves
 

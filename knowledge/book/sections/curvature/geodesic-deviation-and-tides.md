@@ -226,6 +226,7 @@ Numeric: fractional volume change of the ball at the planet's centre after 10 s 
 ## Visuals
 
 - `falling-ring-of-crumbs` (flagship): The flagship: a ball of free test particles released at rest in a falling cabin, with the tidal matrix, its main directions and a volume meter read live. Sketch: A cabin falling near a spherical mass, holding a ball of crumbs around a centre crumb, with the line to the centre of the mass marked. After release the ball becomes an egg; readouts show the three eigenvalues of the tidal matrix in the observer's gyroscope frame, the fractional change of each axis, their sum, and the volume. Presets: Earth's surface (eigenvalues minus 2, 1, 1 times 1.54 times ten to the minus 6 per second squared), inside a uniform planet (three equal eigenvalues, volume meter falls) and the surface of a neutron star. Design rule: the volume meter sits beside the shape so that a reader cannot take the egg for a shrinking ball.
+- `two-walkers-set-off-side-by-side` (supporting): Two straight walkers on a ball with a string at matching counts: the deviation vector and its along-path piece, and the printed readings at equal stretches whose extra per stretch is the geodesic deviation equation in finite steps.
 
 ## Tutor
 

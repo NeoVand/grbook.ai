@@ -12,7 +12,7 @@ updated: "2026-09-16"
 aliases: ["curvature of a two-plane", "two-plane curvature"]
 prerequisites: ["gaussian-curvature", "riemann-curvature-tensor", "geodesic-deviation-equation"]
 leads_to: ["space-of-constant-curvature", "einstein-space", "einstein-tensor", "conjugate-point", "curvature-of-the-flrw-metric"]
-visuals: ["ring-in-each-tilt-of-the-ball-building", "falling-ring-of-crumbs", "three-rings-around-a-spot"]
+visuals: ["tilt-a-plane-in-the-ball-building", "falling-ring-of-crumbs", "three-rings-around-a-spot"]
 ---
 
 # Sectional curvature
@@ -24,7 +24,7 @@ visuals: ["ring-in-each-tilt-of-the-ball-building", "falling-ring-of-crumbs", "t
 **Needs:** [[gaussian-curvature]] (entry) · [[riemann-curvature-tensor]] (entry) · [[geodesic-deviation-equation]] (working)  
 **Opens:** [[space-of-constant-curvature]] · [[einstein-space]] · [[einstein-tensor]] · [[conjugate-point]] · [[curvature-of-the-flrw-metric]]  
 **Related:** [[ricci-tensor]] · [[ricci-scalar]] · [[relativistic-tidal-tensor]] · [[riemann-curvature-operator]] · [[holonomy]]  
-**Visuals:** ★ [[ring-in-each-tilt-of-the-ball-building]] · [[falling-ring-of-crumbs]] · [[three-rings-around-a-spot]]
+**Visuals:** ★ [[tilt-a-plane-in-the-ball-building]] · [[falling-ring-of-crumbs]] · [[three-rings-around-a-spot]]
 
 > In a space with three or more directions, a small flat piece at one spot can lie at many tilts, like a box's bottom, front or side. Run the ring test using only straight walks that set off in one tilt. The ring gives that tilt its own number for how strongly space curves there. That number is the tilt's sectional curvature, and different tilts at one spot can give different numbers.
 
@@ -80,7 +80,7 @@ Those shafts make a tube, which unrolls flat without stretching. On the unrolled
 
 *What this leaves out:* A tilt between level and upright gives a ring whose length falls between those two. For tilts other than level and upright, the ring gives that tilt's number only when the distance walked is very short.
 
-*Builds on:* [[gaussian-curvature]], [[riemann-curvature-tensor]]<br>*Visuals:* [[ring-in-each-tilt-of-the-ball-building]]<br>*See:* `checks/upright-ring-length`
+*Builds on:* [[gaussian-curvature]], [[riemann-curvature-tensor]]<br>*Visuals:* [[tilt-a-plane-in-the-ball-building]]<br>*See:* `checks/upright-ring-length`
 
 ### 2. One ring does not settle a spot · entry · contrast
 
@@ -100,7 +100,7 @@ Real space has tilts too. Take space as people standing on the ground measure it
 
 *What this leaves out:* The numbers quoted for real space are what general relativity predicts for a ball-shaped Earth that does not spin.
 
-*Continues:* `ways_in/two-rings-at-one-spot`<br>*Builds on:* [[gaussian-curvature]]<br>*Visuals:* [[ring-in-each-tilt-of-the-ball-building]]<br>*See:* `checks/one-flat-ring`
+*Continues:* `ways_in/two-rings-at-one-spot`<br>*Builds on:* [[gaussian-curvature]]<br>*Visuals:* [[tilt-a-plane-in-the-ball-building]]<br>*See:* `checks/one-flat-ring`
 
 ### 3. One formula for any plane · working · calculation
 
@@ -125,7 +125,7 @@ For an orthonormal basis of a positive-definite space, contracting the definitio
 
 *What this leaves out:* The Ricci sums as written hold for positive-definite metrics; the ring and loop readings hold to leading order in size.
 
-*Continues:* `ways_in/two-rings-at-one-spot`, `ways_in/one-ring-does-not-settle-a-spot`<br>*Builds on:* [[riemann-curvature-tensor]], [[gaussian-curvature]]<br>*Visuals:* [[ring-in-each-tilt-of-the-ball-building]]<br>*See:* `worked_examples/slanted-plane-in-the-ball-building`, `checks/sphere-coordinate-component`
+*Continues:* `ways_in/two-rings-at-one-spot`, `ways_in/one-ring-does-not-settle-a-spot`<br>*Builds on:* [[riemann-curvature-tensor]], [[gaussian-curvature]]<br>*Visuals:* [[tilt-a-plane-in-the-ball-building]]<br>*See:* `worked_examples/slanted-plane-in-the-ball-building`, `checks/sphere-coordinate-component`
 
 ### 4. Tides and matter read planes in spacetime · working · operational
 
@@ -473,7 +473,7 @@ Let $(M,g)$ be four-dimensional, Riemannian or Lorentzian. Prove that $R_{\mu\nu
 ## Teaching arc
 
 1. **Ask about tilts** (entry). Ask whether one small ring can say how curved space is at a spot where rings lie in many tilts. *Why:* It separates a spot from a tilt before any formula. *Uses:* `ways_in/two-rings-at-one-spot`
-2. **Compare two tilts at one spot** (entry). In the ball building, have the learner predict the upright ring, then weigh the claim that it proves flatness. *Why:* Two rings at one spot make plane dependence visible. *Predict:* Will a small ring in an upright tilt come out short, like the ring along the floor? *Visual:* [[ring-in-each-tilt-of-the-ball-building]] *Uses:* `checks/upright-ring-length`, `ways_in/one-ring-does-not-settle-a-spot`, `checks/one-flat-ring`
+2. **Compare two tilts at one spot** (entry). In the ball building, have the learner predict the upright ring, then weigh the claim that it proves flatness. *Why:* Two rings at one spot make plane dependence visible. *Predict:* Will a small ring in an upright tilt come out short, like the ring along the floor? *Visual:* [[tilt-a-plane-in-the-ball-building]] *Uses:* `checks/upright-ring-length`, `ways_in/one-ring-does-not-settle-a-spot`, `checks/one-flat-ring`
 3. **Compute a plane's curvature** (working). Write the definition, divide a sphere's coordinate component by its denominator, then tilt a plane. *Why:* The denominator is where component work goes wrong. *Uses:* `ways_in/one-formula-for-any-plane`, `checks/sphere-coordinate-component`, `worked_examples/slanted-plane-in-the-ball-building`
 4. **Read planes in spacetime** (working). Relate tidal drift to timelike planes, flag the reversed sign, then add three spatial planes. *Why:* It ties the definition to measurement and to Einstein's equation. *Predict:* Test masses one above the other drift apart as they fall. Is the curvature of their plane positive or negative? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/tides-and-matter-read-planes`, `checks/radial-pair-in-a-falling-cabin`, `checks/three-planes-in-water`
 5. **Recover the tensor, then use bounds** (formal). Recover the tensor from plane values, test Schur's lemma and planes near a light cone, then use bounds. *Why:* It gives the theorem, its limits and its main use. *Uses:* `ways_in/planes-fix-the-curvature-tensor`, `checks/schur-on-a-surface`, `checks/planes-near-a-light-cone`, `ways_in/bounds-on-planes-steer-geodesics`
@@ -531,7 +531,7 @@ Let $(M,g)$ be four-dimensional, Riemannian or Lorentzian. Prove that $R_{\mu\nu
    - **Must contain:** About 12.6 metres, the playground length; The walks keep to a tube, which unrolls flat without stretching
    - **Numeric:** ring length = 12.57 m (magnitude, ±2%)
    - **Targets:** `one-ring-settles-the-spot`
-   - **Visual:** [[ring-in-each-tilt-of-the-ball-building]]
+   - **Visual:** [[tilt-a-plane-in-the-ball-building]]
 2. **Entry · evaluate-claim** `checks/one-flat-ring`. In the building whose floors are copies of one ball's surface, a friend runs the ring test at a spot in an upright tilt. Her ring is 6.28 times the distance she walked. She says: "So space at this spot is flat." Is she right?
    - **Hints:** What happens to a ring in the level tilt there?
    - **Answer:** No. She tested only one tilt. Every height in the building is alike, so a straight walk gains the same height for each metre it covers. In the level tilt at her spot, every walk sets off gaining no height, so it never gains any. Those walks stay on the floor, and that floor is a ball's surface. So the level ring there comes out short, and the level tilt's sectional curvature is not zero. Space at a spot is flat exactly when every tilt there has sectional curvature zero. So her ring shows only that her upright tilt has sectional curvature zero.
@@ -581,7 +581,7 @@ Let $(M,g)$ be four-dimensional, Riemannian or Lorentzian. Prove that $R_{\mu\nu
 
 ## Visuals
 
-- ★ [[ring-in-each-tilt-of-the-ball-building]] (flagship): The entry picture made measurable: one ring per tilt at a single point. *Sketch:* The ball building drawn as a stack of identical ball-shaped floors threaded by lift lines. At one point the learner turns a handle to tilt a plane from level to upright and sets a string length. Straight walks in that plane sweep a small sheet, and the ring through their ends appears with readouts of its length, missing fraction and sectional curvature: $1/a^2$ level, $0$ upright, half at $45^\circ$. An unroll button lays the upright sheet flat.
+- ★ [[tilt-a-plane-in-the-ball-building]] (flagship): The entry picture made measurable: one ring per tilt at a single point. *Sketch:* The ball building drawn as a stack of identical ball-shaped floors threaded by lift lines. At one point the learner turns a handle to tilt a plane from level to upright and sets a string length. Straight walks in that plane sweep a small sheet, and the ring through their ends appears with readouts of its length, missing fraction and sectional curvature: $1/a^2$ level, $0$ upright, half at $45^\circ$. An unroll button lays the upright sheet flat.
 - [[falling-ring-of-crumbs]] (supporting): Tidal drift read as the curvature of planes containing the four-velocity. *Sketch:* This concept adds a plane selector through the centre crumb: for each separation direction, a readout of the sectional curvature of the plane of fall and that direction, positive where crumbs drift apart and negative where they draw together.
 - [[three-rings-around-a-spot]] (supporting): Single planes differ while three perpendicular planes keep a fixed sum. *Sketch:* This concept adds each ring's sectional curvature beside the sum, which stays zero as the cage turns, and a density slider that fills the space with matter and raises the sum to eight pi G rho over c squared.
 

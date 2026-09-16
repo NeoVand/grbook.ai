@@ -8,9 +8,9 @@ priority: "flagship"
 status: "proposed"
 revision: 4
 rungs: ["entry", "working"]
-serves: ["parallel-transport", "path-dependence-of-parallel-transport", "holonomy", "gaussian-curvature", "angular-excess", "intrinsic-versus-extrinsic-curvature", "curvature-of-the-two-sphere", "flatness-criterion"]
+serves: ["parallel-transport", "path-dependence-of-parallel-transport", "holonomy", "gaussian-curvature", "angular-excess", "intrinsic-versus-extrinsic-curvature", "curvature-of-the-two-sphere", "flatness-criterion", "integrability-condition-for-parallel-fields", "normal-curvature"]
 builds_on: ["slide-an-arrow-along-a-path"]
-leads_to: ["shrink-the-loop-to-find-riemann", "paper-cone-with-a-missing-wedge", "arrow-around-a-circle-of-latitude"]
+leads_to: ["four-legs-around-a-tiny-loop"]
 ---
 
 # Carry an arrow around a loop
@@ -223,11 +223,13 @@ Holds when: Over $|x|, |y| \le 0.5R$; the square loop is the projection of the s
 - [[intrinsic-versus-extrinsic-curvature]]: the tube and its unrolled view
 - [[curvature-of-the-two-sphere]]: the radius slider and the area over radius squared readout
 - [[flatness-criterion]]: the flat floor, tube, and cone cases
+- [[integrability-condition-for-parallel-fields]]: the cone presets: loops that avoid the tip return the arrow unchanged, loops around the tip turn it by the wedge angle times the windings
+- [[normal-curvature]]: the circle-of-latitude preset, whose turn is the area rule for a loop that is not a straight walk
 
 ## In the visual network
 
 - **Builds on:** [[slide-an-arrow-along-a-path]]
-- **Leads to:** [[shrink-the-loop-to-find-riemann]], [[paper-cone-with-a-missing-wedge]], [[arrow-around-a-circle-of-latitude]]
+- **Leads to:** [[four-legs-around-a-tiny-loop]]
 
 ## Accessibility
 

@@ -202,6 +202,7 @@ Numeric: the source's R theta phi theta phi at the equator = -1 1
 
 - `twenty-of-256-slots` (flagship): The count made visible: the 256 slots of the spacetime Riemann tensor collapsing under each rule to a symmetric 6 by 6 array of pairs and then to 20 survivors. Sketch: A grid of the 256 index slots with toggles that apply one rule at a time: each antisymmetry greys the repeated-index slots and pairs the rest with a sign, pair exchange folds the 6 by 6 array of pairs onto its diagonal, and the cyclic identity links the slots 0123, 0231 and 0312 with a readout of their sum.
 - `painted-arrows-that-must-match` (core): The parallel-field test: a painting of arrows that succeeds on flat ground and fails on every patch of a ball, with the failure located on loops. Sketch: A patch of flat ground, a paper tube, a ball or a paper cone. The learner drops one arrow and spreads carried copies along chosen paths; where two routes deliver different copies the arrows double and the loop between them lights up with its turn as a readout.
+- `paper-rolled-into-a-tube-and-a-cone` (supporting): The paper test beside the arrow test: squared paper fits a tube and a cone and the carried arrow returns matching, while a ball, a cone's tip and a cube's corner fail both.
 
 ## Tutor
 

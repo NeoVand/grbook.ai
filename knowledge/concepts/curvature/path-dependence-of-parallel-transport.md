@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["route dependence of parallel transport", "non-integrability of parallel transport"]
 prerequisites: ["parallel-transport", "curvature", "christoffel-symbols", "four-momentum", "levi-civita-connection", "simply-connected-space"]
 leads_to: ["holonomy", "riemann-curvature-tensor", "flatness-criterion", "integrability-condition-for-parallel-fields", "global-energy-momentum-conservation"]
-visuals: ["carry-an-arrow-around-a-loop", "light-through-a-coiled-fibre", "painted-arrows-that-must-match", "paper-cone-with-a-missing-wedge", "polar-grid-arrow-on-two-routes"]
+visuals: ["carry-an-arrow-around-a-loop", "light-through-a-coiled-fibre", "painted-arrows-that-must-match", "polar-grid-arrow-on-two-routes"]
 ---
 
 # Path dependence of parallel transport
@@ -24,7 +24,7 @@ visuals: ["carry-an-arrow-around-a-loop", "light-through-a-coiled-fibre", "paint
 **Needs:** [[parallel-transport]] (entry) · [[curvature]] (entry) · [[christoffel-symbols]] (working) · [[four-momentum]] (working) · [[levi-civita-connection]] (formal) · [[simply-connected-space]] (formal)  
 **Opens:** [[holonomy]] · [[riemann-curvature-tensor]] · [[flatness-criterion]] · [[integrability-condition-for-parallel-fields]] · [[global-energy-momentum-conservation]]  
 **Related:** [[angular-excess]] · [[intrinsic-versus-extrinsic-curvature]] · [[nonzero-christoffel-symbols-in-flat-space]] · [[local-inertial-frame]] · [[torsion-tensor]] · [[gauge-parallel-transport]]  
-**Visuals:** ★ [[carry-an-arrow-around-a-loop]] · [[light-through-a-coiled-fibre]] · [[painted-arrows-that-must-match]] · [[paper-cone-with-a-missing-wedge]] · [[polar-grid-arrow-on-two-routes]]
+**Visuals:** ★ [[carry-an-arrow-around-a-loop]] · [[light-through-a-coiled-fibre]] · [[painted-arrows-that-must-match]] · [[polar-grid-arrow-on-two-routes]]
 
 > Two friends start together with matching arrows and carry them to the same spot by different routes, never letting the arrows swing. On a flat floor the arrows always arrive matching. On a ball they can arrive pointing different ways, a quarter turn apart for one pair of routes. So on a ball, whether two distant arrows point the same way has no single answer: it can depend on the route along which one is carried to the other.
 
@@ -418,7 +418,7 @@ Let $\nabla$ be a smooth connection on $TM$ with $R = 0$ on an open set $U$. Let
 3. **Find what sets the size** (entry). Split the piece between the routes with a middle route. *Why:* It turns one example into a rule with an everyday number. *Predict:* If one sixteenth of the ball lies between the routes, how far apart do the arrows arrive? *Uses:* `ways_in/size-follows-the-piece`, `checks/one-sixteenth-of-the-ball`
 4. **Compute the mismatch** (working). Derive the small-cell mismatch, solve the sphere strip, then separate changing components from a changed vector. *Why:* It ties the picture to the Riemann tensor. *Predict:* If you swap which edge comes first, what happens to the mismatch? *Uses:* `derivations/two-routes-around-a-cell`, `worked_examples/quarter-sphere-strip`, `checks/polar-components-change`
 5. **Name what special relativity loses** (working). Try to build a grid of parallel axes, then to add two stars' four-momenta. *Why:* It explains why only local frames and local laws survive. *Visual:* [[painted-arrows-that-must-match]] *Uses:* `ways_in/no-grid-and-no-total`, `checks/adding-two-momenta`
-6. **State the theorem and break its hypotheses** (formal). Prove route independence from zero curvature with cells, then remove simple connectivity with the cone. *Why:* Each hypothesis gets a picture of its failure. *Predict:* Every patch of this cone away from the tip is flat. Will routes on opposite sides of the tip agree? *Visual:* [[paper-cone-with-a-missing-wedge]] *Uses:* `ways_in/integrable-exactly-when-flat`, `problems/homotopy-cells-give-path-independence`, `checks/cone-opposite-sides`
+6. **State the theorem and break its hypotheses** (formal). Prove route independence from zero curvature with cells, then remove simple connectivity with the cone. *Why:* Each hypothesis gets a picture of its failure. *Predict:* Every patch of this cone away from the tip is flat. Will routes on opposite sides of the tip agree? *Visual:* [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`) *Uses:* `ways_in/integrable-exactly-when-flat`, `problems/homotopy-cells-give-path-independence`, `checks/cone-opposite-sides`
 
 ## Misconceptions
 
@@ -499,7 +499,7 @@ Let $\nabla$ be a smooth connection on $TM$ with $R = 0$ on an open set $U$. Let
    - **Answer:** No. Out along one route and back along the other is a loop winding once around the missing tip. Unrolled, that loop runs from one cut edge to the other, and gluing the edges rotates vectors by $\delta$. So if $\gamma_1$ is the route for which the loop out along $\gamma_1$ and back along $\gamma_2$ keeps the tip on the walker's left, $P_{\gamma_1}v$ is $P_{\gamma_2}v$ rotated by $+\delta$ modulo $2\pi$, counterclockwise seen from the side the normal points to. The punctured cone has $R = 0$ but is not simply connected, so the hypothesis of part (ii) fails. Part (i) still holds: routes in the same endpoint-fixed homotopy class deliver the same vector.
    - **Must contain:** The routes disagree by a rotation through the wedge angle; The punctured cone is flat but not simply connected, yet homotopic routes still agree
    - **Targets:** `flat-means-routes-agree`
-   - **Visual:** [[paper-cone-with-a-missing-wedge]]
+   - **Visual:** [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`)
 8. **Formal · explain** `checks/boost-between-routes`. In a curved spacetime, a unit timelike vector $u$ at $p$ is carried to $q$ along two routes, giving $u_1$ and $u_2$. Show that $u_2$ is the image of $u_1$ under a Lorentz transformation, and say whether routes around a small cell can make it a boost.
    - **Hints:** Which components of the change would mix $e_{\hat t}$ with a space direction?
    - **Answer:** Levi-Civita transport preserves $g$, so $P_{\gamma_2}P_{\gamma_1}^{-1}$ is an isometry of $T_qM$ taking $u_1$ to $u_2$: a Lorentz transformation. For a small cell, $u_1 - u_2 = -R^\rho{}_{\sigma\mu\nu}u^\sigma a^\mu b^\nu$ to second order. In an orthonormal frame with $u = e_{\hat t}$, its $\hat x$ component is $-R^{\hat x}{}_{\hat t\mu\nu}a^\mu b^\nu$, a change of the time direction toward $e_{\hat x}$, which is a boost. Outside a spherical mass, with $G = c = 1$, $R^{\hat r}{}_{\hat t\hat t\hat r} = 2M/r^3 \neq 0$, so a cell spanned by a time step and a radial step gives a boost of rapidity about $2M\,\delta t\,\delta r/r^3$, for a proper time step $\delta t$ and a proper radial step $\delta r$.
@@ -515,10 +515,9 @@ Let $\nabla$ be a smooth connection on $TM$ with $R = 0$ on an open set $U$. Let
 
 ## Visuals
 
-- ★ [[carry-an-arrow-around-a-loop]] (flagship): Its two-routes preset shows twin arrows meeting a quarter turn apart on a ball.
+- ★ [[carry-an-arrow-around-a-loop]] (flagship): Its two-routes preset shows twin arrows meeting a quarter turn apart on a ball. *Sketch:* A cone glued from a sheet with an adjustable missing wedge, the unrolled sheet beside it. Routes on the same side of the tip deliver matching arrows; routes on opposite sides disagree by the wedge angle.
 - [[light-through-a-coiled-fibre]] (core): Connects route dependence to a laboratory measurement of polarization. *Sketch:* A straight and a helical fibre with the same entry and exit directions, beside the sphere of directions where the helix traces a circle. A pitch slider changes the circle; a polarimeter dial at the exits shows the relative rotation beside the enclosed solid angle, and flipping the handedness flips its sense.
 - [[painted-arrows-that-must-match]] (supporting): Shows the failed grid of parallel axes as a consequence of two routes disagreeing. *Sketch:* A patch of floor, tube or ball filled with carried copies of one arrow along two sweeping orders. Where the fillings disagree the arrows double with a shaded wedge, which never appears on the floor or tube and grows with area on the ball.
-- [[paper-cone-with-a-missing-wedge]] (supporting): Flat but not simply connected: routes on opposite sides of the tip disagree. *Sketch:* A cone glued from a sheet with an adjustable missing wedge, the unrolled sheet beside it. Routes on the same side of the tip deliver matching arrows; routes on opposite sides disagree by the wedge angle.
 - [[polar-grid-arrow-on-two-routes]] (supporting): Separates changing components from a changed vector. *Sketch:* A flat plane with a polar grid and two draggable routes. Plots show each arrow's polar components changing and its Cartesian components constant; the arrows coincide at the endpoint. A switch moves the construction onto a sphere patch, where they differ.
 
 ## Tutor moves
