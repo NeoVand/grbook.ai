@@ -49,7 +49,23 @@ Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and ru
    - **Fixed for the next domain, not yet measured:** writers and reviewers now get an explicit call budget (about
      25 and 30), must batch numbers into one script and validator fixes into one pass, and write the note in one
      Write call. Expect this to matter more than anything else; measure it on the first domain that runs.
-4. **Domain by domain.** Notes, then that domain's visuals; the remaining domains follow taxonomy order.
+4. **Pivot to book sections (2026-09-16).** The owner rejected the per-concept vault as the unit of work: 1,370 notes
+   would be 10.4M words, 13 times the three source books. The section is now the unit of writing
+   (`book/outline.json`: 25 chapters, 164 sections, every concept placed once; `book/section-guide.md`;
+   `_schemas/book-section.schema.json`; `validate.py section`; `render_section.py`; `_workflows/gr-book-sections.js`).
+   The 53 concept notes stay as reviewed source material (`note_digest.py --ways`).
+5. **Section pilot: done.** The 5 main-track sections of the curvature chapter (`sections-curvature-pilot`,
+   `wf_8c66aab1-001`, 20 agents, 2.7 h, sequential so each builds on the last). All validate OK with both reviews.
+   - Cost (output + new context + cached reads/10): **3.5M per section, 0.45M per concept**, against 11.4M per
+     concept for notes. Writers made 44 calls (184 before). Whole book at this rate: about 0.6B, not 15B.
+   - Reviews still catch real errors: a Möbius-band counterexample to "holonomy is a rotation", a false claim that
+     no protractor reads a 22-arcsecond excess, a wrong term pairing in the Riemann symmetry argument.
+   - Open before the next chapter: six entry concepts do not fit the entry prose cap (split the section or raise
+     the cap); conventions rows for the sign of the second fundamental form, the torsion sign and the K symbol
+     overload; "straight walk" as the entry word for geodesic; registry prerequisites that contradict the outline
+     order (intrinsic-geometry, second-fundamental-form); angular-excess never proved at working depth.
+6. **Next.** Fix the open items, then chapters in reading order, main track first; visuals per chapter after its
+   sections, with `gr-visuals-v2.js` retargeted at sections.
 
 ## App follow-ups from the engineer critique
 

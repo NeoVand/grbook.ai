@@ -1,0 +1,679 @@
+{
+  "schema_version": 1,
+  "id": "symmetries-and-identities",
+  "chapter": "curvature",
+  "title": "Symmetries and identities of the Riemann tensor",
+  "track": "main",
+  "depth": "working",
+  "status": "physics-reviewed",
+  "revision": 4,
+  "updated": "2026-09-16",
+  "teaches": [
+    "symmetries-of-the-riemann-tensor",
+    "cyclic-identity",
+    "number-of-independent-riemann-components",
+    "flatness-criterion",
+    "integrability-condition-for-parallel-fields",
+    "curvature-sign-conventions"
+  ],
+  "builds_on": [
+    "holonomy-and-the-riemann-tensor",
+    "curves-and-surfaces-in-space",
+    "curved-surfaces",
+    "the-levi-civita-connection",
+    "the-covariant-derivative",
+    "symmetry-levi-civita-and-the-metric",
+    "tensors-as-machines",
+    "local-flatness",
+    "accelerated-observers",
+    "the-interval-and-causality",
+    "the-metric",
+    "vector-calculus"
+  ],
+  "summary": "With its first index lowered, the Riemann tensor changes sign when either index pair is swapped, keeps its value when the two pairs trade places, and sums to zero over the cyclic orders of its last three slots. Those rules leave one independent number on a surface, six in space and twenty in spacetime. The tensor vanishes on a region exactly when the region is flat, and another author's table of Riemann components must be calibrated on a ball before its signs are trusted.",
+  "opening": "Take a sphere of radius $a$ with the coordinates $\\theta$ from the pole and $\\phi$ around it, as in *The metric*, and work out every component of its Riemann tensor from the Christoffel formula of *Holonomy and the Riemann tensor*. There are $2^4 = 16$ components. Twelve are zero. The other four are $R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$, $R^\\theta{}_{\\phi\\phi\\theta} = -\\sin^2\\theta$, $R^\\phi{}_{\\theta\\theta\\phi} = -1$ and $R^\\phi{}_{\\theta\\phi\\theta} = 1$. Lower the first index with the metric and all four become $\\pm a^2\\sin^2\\theta$: one number in four disguises. In spacetime the same tensor has $4^4 = 256$ components at every event. This section asks how many of those are disguises of one another, what it means when every one of them is zero, and how to read another author's table of components whose signs differ from ours.",
+  "parts": [
+    {
+      "id": "three-rules-for-the-lowered-tensor",
+      "heading": "Three rules for the lowered tensor",
+      "teaches": [
+        "symmetries-of-the-riemann-tensor"
+      ],
+      "text": "The disguises come off when the first index is lowered, $R_{\\rho\\sigma\\mu\\nu} = g_{\\rho\\lambda}R^\\lambda{}_{\\sigma\\mu\\nu}$. Pick any event $P$ and use coordinates in which the metric's first derivatives vanish there, as *Local flatness* allows. Every Christoffel symbol is then zero at $P$, so the Christoffel formula keeps only its two derivative terms, $R^\\rho{}_{\\sigma\\mu\\nu} = \\partial_\\mu\\Gamma^\\rho{}_{\\nu\\sigma} - \\partial_\\nu\\Gamma^\\rho{}_{\\mu\\sigma}$. Lowering $\\rho$ moves $g_{\\rho\\lambda}$ through the derivatives, because its own derivatives vanish at $P$, and $g_{\\rho\\lambda}\\Gamma^\\lambda{}_{\\nu\\sigma} = \\tfrac12(\\partial_\\nu g_{\\rho\\sigma} + \\partial_\\sigma g_{\\rho\\nu} - \\partial_\\rho g_{\\nu\\sigma})$. Of the six second derivatives that appear, the two $\\partial_\\mu\\partial_\\nu g_{\\rho\\sigma}$ terms, one from each half, cancel, and what remains is\n\n$$R_{\\rho\\sigma\\mu\\nu} = \\tfrac12\\big(\\partial_\\mu\\partial_\\sigma g_{\\rho\\nu} + \\partial_\\nu\\partial_\\rho g_{\\sigma\\mu} - \\partial_\\mu\\partial_\\rho g_{\\sigma\\nu} - \\partial_\\nu\\partial_\\sigma g_{\\rho\\mu}\\big)\\quad\\text{at } P.$$\n\nNow read the symmetries off this sum. Swap $\\rho$ with $\\sigma$: the first term becomes minus the third and the second becomes minus the fourth, so the sum changes sign. Swap $\\mu$ with $\\nu$: the first term becomes minus the fourth and the second becomes minus the third, with the same result. Trade the pair $\\rho\\sigma$ for the pair $\\mu\\nu$: because $g_{\\rho\\nu} = g_{\\nu\\rho}$ and partial derivatives commute, the first two terms trade places and the last two land on themselves, so the sum is unchanged. So at $P$, in these coordinates,\n\n$$R_{\\rho\\sigma\\mu\\nu} = -R_{\\sigma\\rho\\mu\\nu} = -R_{\\rho\\sigma\\nu\\mu} = R_{\\mu\\nu\\rho\\sigma}.$$\n\nEach rule says that a certain tensor, such as $R_{\\rho\\sigma\\mu\\nu} + R_{\\sigma\\rho\\mu\\nu}$, has every component zero in one basis, and a tensor with every component zero in one basis has every component zero in all of them, as *Tensors as machines* showed. Since $P$ was any event, the three rules hold at every event, in every coordinate system and every basis. Call them antisymmetry in the first pair, antisymmetry in the last pair, and pair exchange. The last-pair rule needs no lowering at all: the Christoffel formula for $R^\\rho{}_{\\sigma\\mu\\nu}$ turns into its own negative under $\\mu \\leftrightarrow \\nu$, so the mixed tensor obeys it too, whatever the connection. The first-pair rule is different: it holds only with both indices of the pair at the same level, because raising one of them brings a metric factor that the other does not carry.",
+      "takeaway": "With its first index lowered by the metric, the Riemann tensor changes sign when either index pair is swapped and keeps its value when the two pairs trade places, at every event and in every basis."
+    },
+    {
+      "id": "the-cyclic-identity",
+      "heading": "A fourth rule: the cyclic identity",
+      "teaches": [
+        "cyclic-identity"
+      ],
+      "text": "One more relation hides among the components. Keep the first index up and move the other three one place around a ring, $\\sigma \\to \\mu \\to \\nu \\to \\sigma$. The three components so related add to zero:\n\n$$R^\\rho{}_{\\sigma\\mu\\nu} + R^\\rho{}_{\\mu\\nu\\sigma} + R^\\rho{}_{\\nu\\sigma\\mu} = 0.$$\n\nThis is the cyclic identity, also called the first Bianchi identity. To prove it, add the three cyclic copies of the Christoffel formula. The six derivative terms group into $\\partial_\\mu(\\Gamma^\\rho{}_{\\nu\\sigma} - \\Gamma^\\rho{}_{\\sigma\\nu})$ and two more brackets like it with $\\partial_\\nu$ and $\\partial_\\sigma$ in front, and the six products group into $\\Gamma^\\rho{}_{\\mu\\lambda}(\\Gamma^\\lambda{}_{\\nu\\sigma} - \\Gamma^\\lambda{}_{\\sigma\\nu})$ and two more like it. Every bracket is a Christoffel symbol minus the same symbol with its lower indices swapped, which vanishes for the torsion-free connections of *The Levi-Civita connection*. So the identity uses $\\Gamma^\\lambda{}_{\\mu\\nu} = \\Gamma^\\lambda{}_{\\nu\\mu}$ and nothing else, and needs no metric.\n\nWhen does the identity say something new? If two of $\\sigma$, $\\mu$, $\\nu$ are equal, antisymmetry in the last pair makes the sum vanish on its own: with $\\mu = \\nu$ the first term is zero and the other two are opposites. Now lower $\\rho$ and let it equal one of the other three, say $\\rho = \\sigma = 1$, $\\mu = 2$, $\\nu = 3$. Then $R_{1123} = 0$, and $R_{1312} = R_{1213} = -R_{1231}$ by pair exchange and last-pair antisymmetry, so the sum is $0 + R_{1231} - R_{1231}$: zero already. A new condition therefore needs four different indices, which a surface and three-dimensional space cannot supply. Spacetime has exactly one set of four, and the one new condition is\n\n$$R_{0123} + R_{0231} + R_{0312} = 0,$$\n\nwhich links three different components, so that any two of them fix the third.",
+      "takeaway": "Summed over the three cyclic orders of its last three indices, the Riemann tensor gives zero; the rule needs only a torsion-free connection, and it adds a new relation only among components with four different indices."
+    },
+    {
+      "id": "counting-the-survivors",
+      "heading": "Counting the survivors",
+      "teaches": [
+        "number-of-independent-riemann-components"
+      ],
+      "text": "The rules turn a count of components into a count of index pairs. Antisymmetry kills every component with a repeated index inside a pair and fixes the rest by their unordered pairs, so in $n$ dimensions each pair is one of $N = n(n-1)/2$ choices, and the tensor becomes an $N \\times N$ array $R_{AB}$, with $A$ standing for the first pair and $B$ for the last. Pair exchange makes the array symmetric, like a times table, which leaves $N(N+1)/2$ entries: the $N$ on the diagonal and half of the rest. The cyclic identity then removes one number for each set of four different indices, $\\binom{n}{4}$ in all, because a set gives the same relation whichever of its four indices is placed in the first slot, and different sets involve different entries. Altogether the number of independent components is\n\n$$N_R(n) = \\frac{N(N+1)}{2} - \\binom{n}{4} = \\frac{n^2(n^2-1)}{12},$$\n\nwhich is $0$, $1$, $6$, $20$ and $50$ for $n = 1$ to $5$. A surface keeps one number. Space keeps six. Spacetime keeps twenty: the $21$ entries of a symmetric $6 \\times 6$ array, less the one cyclic relation. These twenty are exactly the second derivatives of the metric that Riemann normal coordinates cannot remove, as *Holonomy and the Riemann tensor* found: what a freely falling frame cannot hide.\n\nOn a surface the one survivor is the Gaussian curvature $K$ of *Curves and surfaces in space*. *Holonomy and the Riemann tensor* found that a small loop with its region on the walker's left turns a carried vector toward the left by $K$ times the enclosed area, and its small-loop law gives that same turn as $-R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$. In an orthonormal basis with $e_1$ along the first edge and $e_2$ to its left, take $V = e_1$, a first edge of length $\\ell_1$ along $e_1$ and a second of length $\\ell_2$ along $e_2$. The turn moves $e_1$ toward $e_2$ by $K\\ell_1\\ell_2$, so $\\Delta V^{\\hat 2} = K\\ell_1\\ell_2$. The law gives $\\Delta V^{\\hat 2} = -R^{\\hat2}{}_{\\hat1\\hat1\\hat2}\\,\\ell_1\\ell_2 = R_{\\hat1\\hat2\\hat1\\hat2}\\,\\ell_1\\ell_2$, by antisymmetry in the first pair. Matching the two gives $R_{\\hat1\\hat2\\hat1\\hat2} = K$. Under a change of surface coordinates $R_{1212}$ and $\\det g$ pick up the same factor, the squared Jacobian determinant, because each is antisymmetric in two pairs of indices and in two dimensions each antisymmetric pair transforms by the Jacobian determinant. So in any coordinates\n\n$$R_{1212} = K\\det g,\\qquad R_{\\rho\\sigma\\mu\\nu} = K\\big(g_{\\rho\\mu}g_{\\sigma\\nu} - g_{\\rho\\nu}g_{\\sigma\\mu}\\big).$$\n\nThe second form follows from the first: the four rules leave one number on a surface, the tensor $g_{\\rho\\mu}g_{\\sigma\\nu} - g_{\\rho\\nu}g_{\\sigma\\mu}$ obeys all four, and its $1212$ component is $\\det g$, so the whole tensor is $K$ times it. On the sphere of the opening, $R_{\\theta\\phi\\theta\\phi} = a^2\\sin^2\\theta$ and $\\det g = a^4\\sin^2\\theta$, so $K = 1/a^2$, the number the ring test reads.",
+      "takeaway": "The pair rules make the Riemann tensor a symmetric array over index pairs and the cyclic identity removes one entry per set of four different indices: one number on a surface, six in space and twenty in spacetime, the second metric derivatives that no coordinates can remove."
+    },
+    {
+      "id": "when-a-field-can-be-parallel-everywhere",
+      "heading": "When can a vector field be parallel everywhere?",
+      "teaches": [
+        "integrability-condition-for-parallel-fields"
+      ],
+      "text": "A table of zeros ought to mean flat, and the tool that proves it is a vector field whose carried copies match it everywhere. Picture an arrow painted at every point of a region and a cardboard copy of one of them carried along any path by parallel transport. The painting is a parallel field if the copy always lands on the arrow painted where it stops. In components, $V$ is parallel along every curve, so\n\n$$\\nabla_\\nu V^\\rho = \\partial_\\nu V^\\rho + \\Gamma^\\rho{}_{\\nu\\sigma}V^\\sigma = 0.$$\n\nThese are $n^2$ equations for $n$ unknown functions, so they cannot always be solved. They fix every first derivative, $\\partial_\\nu V^\\rho = -\\Gamma^\\rho{}_{\\nu\\sigma}V^\\sigma$, and the second derivatives they imply must agree: $\\partial_\\mu\\partial_\\nu V^\\rho$ must equal $\\partial_\\nu\\partial_\\mu V^\\rho$. Rather than differentiate the Christoffel symbols by hand, use the covariant form of the same mismatch, the Ricci identity of *Holonomy and the Riemann tensor*, $[\\nabla_\\mu,\\nabla_\\nu]V^\\rho = R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma$. For a parallel field its left side is zero, because every $\\nabla_\\nu V^\\rho$ is zero and so is the covariant derivative of zero, in either order. So a parallel field must satisfy the integrability condition\n\n$$R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma = 0.$$\n\nRead it at one event as linear algebra: for every choice of the loop pair $\\mu\\nu$, the matrix $R^\\rho{}_{\\sigma\\mu\\nu}$ must send $V$ to zero. Two consequences follow.\n\n- A parallel frame, meaning $n$ independent parallel fields, needs every such matrix to vanish, so it needs $R^\\rho{}_{\\sigma\\mu\\nu} = 0$ throughout the region.\n- On a surface even one parallel field forces the curvature to vanish. With $R_{\\rho\\sigma\\mu\\nu} = K(g_{\\rho\\mu}g_{\\sigma\\nu} - g_{\\rho\\nu}g_{\\sigma\\mu})$ the condition reads $K(\\delta^\\rho{}_\\mu V_\\nu - \\delta^\\rho{}_\\nu V_\\mu) = 0$. Taking $\\rho = \\mu = 1$ and $\\nu = 2$ gives $KV_2 = 0$; taking $\\rho = \\nu = 2$ and $\\mu = 1$ gives $KV_1 = 0$. Parallel transport along any curve is invertible, because carrying the copy back along the same curve undoes it, so a parallel field that is nonzero at one point is nonzero on the whole connected region, and then $K = 0$ throughout it. A sphere carries no parallel field on any patch, however small. On Earth, ignoring hills, a loop around one square kilometre still turns a carried copy by $A/R_\\oplus^2 = 2.5\\times10^{-8}$ radians, about $1.4$ millionths of a degree, and no patch is small enough to make such turns zero.\n\nThe condition is necessary. The converse, from zero curvature back to parallel fields, needs the region to be simply connected, meaning that every loop in it can be shrunk to a point without leaving the region. A paper cone with its tip removed is not simply connected: a loop around the missing tip turns a carried vector by the angle of the wedge that was cut from the flat sheet to make the cone, although $R^\\rho{}_{\\sigma\\mu\\nu} = 0$ at every point of the cone away from the tip. If $R^\\rho{}_{\\sigma\\mu\\nu} = 0$ on a simply connected region, a parallel field passes through every vector at any point of it. That converse is taken on trust here; *Zero curvature means flat* uses it.",
+      "takeaway": "A vector field that is parallel everywhere must be sent to zero by the Riemann tensor on every loop plane; a full parallel frame needs zero curvature, a surface needs zero Gaussian curvature even for one field, and zero curvature on a simply connected region gives such fields back."
+    },
+    {
+      "id": "zero-curvature-means-flat",
+      "heading": "Zero curvature means flat",
+      "teaches": [
+        "flatness-criterion"
+      ],
+      "text": "Call a metric flat on an open region $U$ if every point of $U$ has coordinates nearby in which $g_{\\mu\\nu} = \\eta_{\\mu\\nu}$, or $\\delta_{ij}$ for a positive-definite metric: the squared paper of *Curved surfaces*, written as a coordinate grid. For the Levi-Civita connection the flatness criterion says\n\n$$R^\\rho{}_{\\sigma\\mu\\nu} = 0 \\text{ on } U \\iff g \\text{ is flat on } U.$$\n\n*Flat gives zero.* In constant-metric coordinates every derivative of $g_{\\mu\\nu}$ vanishes on an open set, so every Christoffel symbol vanishes there, and so do their derivatives. Every term of the Christoffel formula is then zero, and a tensor that is zero in one coordinate system is zero in all. The open set matters: at a single event, free-fall coordinates make every Christoffel symbol vanish in any spacetime, as *Local flatness* showed, and the derivatives $\\partial\\Gamma$ that survive there carry the curvature.\n\n*Zero gives flat.* Take a point of $U$ and a small coordinate ball around it, which is simply connected. By *When can a vector field be parallel everywhere?*, an orthonormal basis at the point spreads to $n$ parallel fields $e_{(a)}$, and they stay orthonormal because transport preserves inner products. Their dual one-forms $\\omega^{(a)}$, defined by $\\omega^{(a)}(e_{(b)}) = \\delta^a{}_b$, are parallel too, because those contractions are constants and transport preserves contractions. Because the connection is torsion-free, a parallel one-form is curl-free: $\\partial_\\mu\\omega_\\nu - \\partial_\\nu\\omega_\\mu = (\\Gamma^\\lambda{}_{\\mu\\nu} - \\Gamma^\\lambda{}_{\\nu\\mu})\\omega_\\lambda = 0$. A curl-free one-form on a small ball is a gradient, $\\omega^{(a)}{}_\\mu = \\partial_\\mu X^{(a)}$, taken on trust here beyond the three-dimensional case of *Vector calculus*. The $n$ functions $X^{(a)}$ serve as coordinates, because their differentials $dX^{(a)} = \\omega^{(a)}$ are independent, and the coordinate basis dual to those differentials is the frame $e_{(a)}$ itself, so $g_{ab} = g(e_{(a)}, e_{(b)}) = \\eta_{ab}$, or $\\delta_{ab}$, everywhere on the ball.\n\nThe criterion is about the Riemann tensor on a region, and two things that look like curvature are not.\n\n- *Christoffel symbols that do not vanish.* Polar coordinates on a plane have $\\Gamma^r{}_{\\phi\\phi} = -r$, as *The covariant derivative* found, and the plane is flat.\n- *Metric coefficients that change from place to place.* The accelerating rocket of *Accelerated observers*, $ds^2 = -(1 + gx/c^2)^2c^2dt^2 + dx^2 + dy^2 + dz^2$, has a $g_{00}$ that changes with height, clocks that tick at different rates at different heights, and no curvature at all: with $N(x) = 1 + gx/c^2$ for the coefficient of $c\\,dt$, the check *A rocket's clocks* finds $R^x{}_{0x0} = NN'' = 0$ because $N$ is linear in $x$. For any metric of the form $ds^2 = -N(x)^2c^2dt^2 + dx^2 + dy^2 + dz^2$, curvature needs the clock-rate profile $N(x)$ to bend, not merely to slope.",
+      "takeaway": "The Riemann tensor vanishes on a region exactly when coordinates near each of its points make the metric constant; nonzero Christoffel symbols, metric coefficients that vary from place to place, and Christoffel symbols that vanish at a single event prove nothing either way."
+    },
+    {
+      "id": "reading-a-strangers-table",
+      "heading": "Reading another author's table",
+      "teaches": [
+        "curvature-sign-conventions"
+      ],
+      "text": "Open two books on gravity and the same sphere can have Riemann components of opposite sign, with neither author wrong. A sign convention is a choice about which way counts as plus; it changes how a result is written and never what a carried arrow does. Two such choices touch the Riemann tensor itself, and the course has fixed both: the signature $(-,+,+,+)$ of *The interval and causality*, and the Riemann tensor defined by the Christoffel formula, so that $[\\nabla_\\mu,\\nabla_\\nu]V^\\rho = R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma$. A third choice, which index pair to contract, arises when the tensor is traced in *Ricci, Bianchi and Einstein tensors*. A source may also list the four slots in a different order; that is a relabelling, not a sign, so match its slots to the course's before reading off any sign.\n\nDescribe a source by two signs relative to the course. Its metric is $\\tilde g_{\\mu\\nu} = s_g\\,g_{\\mu\\nu}$, and its Riemann tensor is $s_R$ times the course expression built from its own Christoffel symbols. Follow each switch through. A Christoffel symbol holds one inverse metric and one derivative of the metric, so under $g \\to -g$ both factors change sign and $\\Gamma^\\lambda{}_{\\mu\\nu}$ is unchanged. The mixed tensor is built from $\\Gamma$ alone, so it carries only $s_R$; lowering an index brings one more metric factor, and with it one $s_g$:\n\n$$\\tilde R^\\rho{}_{\\sigma\\mu\\nu} = s_R\\,R^\\rho{}_{\\sigma\\mu\\nu},\\qquad \\tilde R_{\\rho\\sigma\\mu\\nu} = s_g s_R\\,R_{\\rho\\sigma\\mu\\nu}.$$\n\nThe sign $s_g$ can be read off the source's signature. To find its $s_R$, calibrate on a ball, whose behaviour no convention can change: walkers who start parallel draw together, and a loop walked with its region on the walker's left brings a carried arrow back turned toward the left. With the course conventions that turn gave $R_{\\hat1\\hat2\\hat1\\hat2} = K = +1/a^2$ in *Counting the survivors*. A source with $s_R = -1$ writes the small-loop law with a plus sign, $\\Delta V^\\rho = +\\tilde R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$, and finds $\\tilde R_{\\theta\\phi\\theta\\phi} = -a^2\\sin^2\\theta$ for the same ball; in its table a saddle then comes out positive.",
+      "takeaway": "Two sign choices touch the Riemann tensor, the signature and the overall sign of its definition; the mixed tensor carries the Riemann sign alone and the lowered one carries both, so read the signature off a source's metric and calibrate its Riemann sign on a ball before borrowing a formula."
+    }
+  ],
+  "key_equations": [
+    {
+      "id": "pair-symmetries",
+      "name": "Pair symmetries of the Riemann tensor",
+      "latex": "R_{\\rho\\sigma\\mu\\nu} = -R_{\\sigma\\rho\\mu\\nu} = -R_{\\rho\\sigma\\nu\\mu} = R_{\\mu\\nu\\rho\\sigma}",
+      "meaning": "The lowered Riemann tensor changes sign when the first pair is swapped, changes sign when the last pair is swapped, and is unchanged when the two pairs trade places. The last-pair rule holds for any connection; the first-pair rule needs the metric connection, and both indices of a pair must sit at the same level.",
+      "symbols": [
+        {
+          "symbol": "R_{\\rho\\sigma\\mu\\nu}",
+          "meaning": "Riemann tensor with all four indices down",
+          "say": "R with all indices down"
+        }
+      ],
+      "say_aloud": "R rho sigma mu nu equals minus R sigma rho mu nu, equals minus R rho sigma nu mu, and equals R mu nu rho sigma.",
+      "justified": "derived-here"
+    },
+    {
+      "id": "cyclic-identity",
+      "name": "Cyclic identity",
+      "latex": "R^\\rho{}_{\\sigma\\mu\\nu} + R^\\rho{}_{\\mu\\nu\\sigma} + R^\\rho{}_{\\nu\\sigma\\mu} = 0",
+      "meaning": "Summed over the three cyclic orders of its last three indices, the Riemann tensor vanishes. It follows from the symmetry of the Christoffel symbols in their lower indices alone, and for the Levi-Civita connection it adds a new relation only among components with four different indices.",
+      "symbols": [
+        {
+          "symbol": "R^\\rho{}_{\\sigma\\mu\\nu}",
+          "meaning": "Riemann tensor with its first index up",
+          "say": "R rho sigma mu nu"
+        }
+      ],
+      "say_aloud": "R rho sigma mu nu, plus R rho mu nu sigma, plus R rho nu sigma mu, equals zero.",
+      "justified": "derived-here"
+    },
+    {
+      "id": "riemann-component-count",
+      "name": "Number of independent Riemann components",
+      "latex": "N_R(n) = \\frac{N(N+1)}{2} - \\binom{n}{4} = \\frac{n^2(n^2-1)}{12},\\qquad N = \\frac{n(n-1)}{2}",
+      "meaning": "The pair symmetries leave a symmetric array over the $N$ index pairs, and the cyclic identity removes one entry for each set of four different indices: $0$, $1$, $6$, $20$ and $50$ for $n = 1$ to $5$.",
+      "symbols": [
+        {
+          "symbol": "N_R(n)",
+          "meaning": "number of independent Riemann components in n dimensions",
+          "say": "the number of independent components"
+        },
+        {
+          "symbol": "\\binom{n}{4}",
+          "meaning": "number of ways to choose four different indices",
+          "say": "n choose four"
+        }
+      ],
+      "say_aloud": "The number of independent components equals N times N plus one over two, minus n choose four, which simplifies to n squared times n squared minus one, over twelve.",
+      "justified": "derived-here"
+    },
+    {
+      "id": "integrability-condition",
+      "name": "Integrability condition for a parallel field",
+      "latex": "\\nabla_\\nu V^\\rho = 0 \\;\\Rightarrow\\; R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma = 0",
+      "meaning": "A vector field that is parallel in every direction must be sent to zero by the Riemann tensor for every loop plane, because the Ricci identity gives the mismatch of its mixed second derivatives and a parallel field has none.",
+      "symbols": [
+        {
+          "symbol": "V^\\rho",
+          "meaning": "components of the parallel vector field",
+          "say": "V rho"
+        }
+      ],
+      "say_aloud": "If nabla nu of V rho is zero everywhere, then R rho sigma mu nu times V sigma is zero.",
+      "justified": "derived-here"
+    }
+  ],
+  "worked_examples": [],
+  "checks": [
+    {
+      "id": "mixed-index-partner",
+      "format": "numeric",
+      "question": "On a sphere of radius $a$, with $\\theta$ measured from the pole, $R^\\theta{}_{\\phi\\theta\\phi} = \\sin^2\\theta$. A student applies antisymmetry in the first pair and writes $R^\\phi{}_{\\theta\\theta\\phi} = -\\sin^2\\theta$. Find the correct value of $R^\\phi{}_{\\theta\\theta\\phi}$ and say what went wrong.",
+      "question_spoken": "On a sphere of radius a, with theta measured from the pole, the component R theta phi theta phi, first index up, equals sine squared theta. A student applies antisymmetry in the first pair and writes R phi theta theta phi equals minus sine squared theta. Find the correct value of R phi theta theta phi and say what went wrong.",
+      "answer": "$R^\\phi{}_{\\theta\\theta\\phi} = -1$. Antisymmetry in the first pair holds for the tensor with both first-pair indices down. Lower $\\theta$ in the given component: $R_{\\theta\\phi\\theta\\phi} = g_{\\theta\\theta}\\sin^2\\theta = a^2\\sin^2\\theta$. Then $R_{\\phi\\theta\\theta\\phi} = -a^2\\sin^2\\theta$, and raising $\\phi$ divides by $g_{\\phi\\phi} = a^2\\sin^2\\theta$, which gives $-1$. The student treated the raised index as if it carried the same metric factor as the lowered one.",
+      "key_points": [
+        "Both indices of a pair must sit at the same level; the value is minus one everywhere"
+      ],
+      "numeric": [
+        {
+          "quantity": "R phi theta theta phi",
+          "value": -1,
+          "unit": "1",
+          "sign": "signed",
+          "abs_tol": 0.01,
+          "rel_tol": null,
+          "modulo": null
+        }
+      ],
+      "targets": [
+        "mixed-tensor-antisymmetric"
+      ]
+    },
+    {
+      "id": "a-rockets-clocks",
+      "format": "derive",
+      "question": "The accelerating rocket of *Accelerated observers* has the metric $ds^2 = -N(x)^2c^2dt^2 + dx^2$ with $N = 1 + gx/c^2$, the $dy^2 + dz^2$ terms changing nothing here, so clocks at height $h$ above the floor tick faster than floor clocks by the factor $1 + gh/c^2$. Show that $R^x{}_{0x0} = NN''$ for any $N(x)$, evaluate it for the rocket, and then for a cabin in which every height needs the same proper acceleration $g$ to stay put.",
+      "question_spoken": "The accelerating rocket has the metric minus N of x squared, c squared d t squared, plus d x squared, with N equal to one plus g x over c squared, so clocks at height h above the floor tick faster than floor clocks by the factor one plus g h over c squared. Show that the component R x zero x zero equals N times the second derivative of N, for any N of x. Evaluate it for the rocket, and then for a cabin in which every height needs the same proper acceleration g to stay put.",
+      "answer": "With $x^0 = ct$, $g_{00} = -N^2$ and $g_{xx} = 1$, the nonzero Christoffel symbols are $\\Gamma^x{}_{00} = -\\tfrac12 g^{xx}\\partial_x g_{00} = NN'$ and $\\Gamma^0{}_{0x} = \\tfrac12 g^{00}\\partial_x g_{00} = N'/N$. In the course formula for $R^x{}_{0x0}$ the terms containing $\\Gamma^x{}_{x0}$ and $\\Gamma^x{}_{xx}$ vanish, leaving $\\partial_x\\Gamma^x{}_{00} - \\Gamma^x{}_{00}\\Gamma^0{}_{x0} = (NN')' - N'^2 = NN''$, the one independent component in two dimensions. For the rocket $N$ is linear, so $R^x{}_{0x0} = 0$: flat, whatever the clocks do. An observer held at fixed $x$ has $u^0 = c/N$ and needs the proper acceleration $a^x = \\Gamma^x{}_{00}(u^0)^2 = c^2N'/N$; requiring this to equal $g$ at every height gives $N = e^{gx/c^2}$ and $R^x{}_{0x0} = (g/c^2)^2e^{2gx/c^2}$, which at $x = 0$ with $g = 9.81\\ \\mathrm{m\\,s^{-2}}$ is $1.19\\times10^{-32}\\ \\mathrm{m^{-2}}$: tiny, but curved.",
+      "key_points": [
+        "R x 0 x 0 equals N times N double prime: zero for the rocket's linear N, nonzero when the needed acceleration is the same at every height"
+      ],
+      "numeric": [
+        {
+          "quantity": "R x 0 x 0 for the rocket, in inverse square metres",
+          "value": 0,
+          "unit": "1",
+          "sign": "signed",
+          "abs_tol": 1e-35,
+          "rel_tol": null,
+          "modulo": null
+        },
+        {
+          "quantity": "R x 0 x 0 at the floor of the cabin with the same acceleration at every height, in inverse square metres",
+          "value": 1.19e-32,
+          "unit": "1",
+          "sign": "signed",
+          "abs_tol": null,
+          "rel_tol": 0.05,
+          "modulo": null
+        }
+      ],
+      "targets": [
+        "christoffels-mean-curvature"
+      ]
+    },
+    {
+      "id": "count-in-five-dimensions",
+      "format": "numeric",
+      "question": "In five dimensions, a student counts the index pairs of the lowered Riemann tensor, builds the symmetric array over them, and reports the array's number of entries as the number of independent components. What number does the student report, what is the correct number, and what was left out?",
+      "question_spoken": "In five dimensions, a student counts the index pairs of the lowered Riemann tensor, builds the symmetric array over them, and reports the array's number of entries as the number of independent components. What number does the student report, what is the correct number, and what was left out?",
+      "answer": "The student reports $55$; the correct number is $50$; the cyclic identity was left out. With $n = 5$ there are $N = 5 \\cdot 4/2 = 10$ unordered pairs, and a symmetric $10 \\times 10$ array has $N(N+1)/2 = 55$ entries. The cyclic identity adds one relation for each set of four different indices, and five indices give $\\binom{5}{4} = 5$ such sets, so $55 - 5 = 50$, which matches $n^2(n^2-1)/12 = 25 \\cdot 24/12 = 50$. The student's count would be right only if the cyclic identity said nothing new, as it does on a surface and in space.",
+      "key_points": [
+        "Ten pairs give a symmetric array with 55 entries",
+        "The cyclic identity removes one number per set of four different indices, five sets in five dimensions, leaving 50"
+      ],
+      "numeric": [
+        {
+          "quantity": "the student's count",
+          "value": 55,
+          "unit": "1",
+          "sign": "signed",
+          "abs_tol": 0.5,
+          "rel_tol": null,
+          "modulo": null
+        },
+        {
+          "quantity": "independent components in five dimensions",
+          "value": 50,
+          "unit": "1",
+          "sign": "signed",
+          "abs_tol": 0.5,
+          "rel_tol": null,
+          "modulo": null
+        }
+      ],
+      "targets": [
+        "pair-rules-finish-the-count"
+      ]
+    },
+    {
+      "id": "a-strangers-sphere",
+      "format": "predict",
+      "question": "A source writes the small-loop law as $\\Delta V^\\rho = +R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma a^\\mu b^\\nu$, with the same slot order as the course, and uses the signature $(+,-,-,-)$. What does it give for $R^\\theta{}_{\\phi\\theta\\phi}$ on a sphere of radius $a$ at $\\theta = 90^\\circ$? For a spacetime, do its lowered components $\\tilde R_{\\rho\\sigma\\mu\\nu}$ agree with the course's or not?",
+      "question_spoken": "A source writes the small-loop law with a plus sign in front of the Riemann tensor, in the same slot order as the course, and uses the signature plus minus minus minus. What does it give for R theta phi theta phi, first index up, on a sphere at the equator? And for a spacetime, do its lowered Riemann components agree with the course's or not?",
+      "answer": "Its $R^\\theta{}_{\\phi\\theta\\phi}$ is $-1$ at $\\theta = 90^\\circ$, and its lowered spacetime components agree with the course's. The plus sign in the loop law means $s_R = -1$, so every mixed component is the course's with the sign flipped: $-\\sin^2\\theta$, which is $-1$ at the equator. The sphere's metric is positive definite for both, so the source's $R_{\\theta\\phi\\theta\\phi}$ is $-a^2$ there. In spacetime the signature switch gives $s_g = -1$, and lowered components carry $s_gs_R = +1$, so they match the course's even though the mixed ones are opposite. Neither source is wrong: the arrow turns the same way in both.",
+      "key_points": [
+        "The Riemann sign is minus one, and lowered components carry the product of both signs, plus one here"
+      ],
+      "numeric": [
+        {
+          "quantity": "the source's R theta phi theta phi at the equator",
+          "value": -1,
+          "unit": "1",
+          "sign": "signed",
+          "abs_tol": 0.01,
+          "rel_tol": null,
+          "modulo": null
+        }
+      ],
+      "targets": [
+        "opposite-sign-means-mistake"
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "id": "mixed-tensor-antisymmetric",
+      "belief": "The Riemann tensor with its first index up is antisymmetric in its first two indices, like the lowered one.",
+      "correction": "Antisymmetry in the first pair holds with both indices down. Raising one brings a metric factor the other does not carry; on a sphere the theta-phi-theta-phi mixed component is sine squared theta while the phi-theta-theta-phi one is minus one.",
+      "diagnosed_by": [
+        "mixed-index-partner"
+      ]
+    },
+    {
+      "id": "pair-rules-finish-the-count",
+      "belief": "The two antisymmetries and pair exchange finish the count, so spacetime keeps the 21 entries of a symmetric 6 by 6 array.",
+      "correction": "The cyclic identity removes one more number for each set of four different indices: none on a surface or in space, one in spacetime, which leaves 20, and five in five dimensions, which leaves 50.",
+      "diagnosed_by": [
+        "count-in-five-dimensions"
+      ]
+    },
+    {
+      "id": "christoffels-mean-curvature",
+      "belief": "Nonzero Christoffel symbols, or metric coefficients that vary from place to place, mean the space is curved.",
+      "correction": "Polar coordinates on a plane and the accelerating rocket have both, with zero Riemann tensor. Only the Riemann tensor decides, and it must vanish on a region, not merely at an event.",
+      "diagnosed_by": [
+        "a-rockets-clocks"
+      ]
+    },
+    {
+      "id": "opposite-sign-means-mistake",
+      "belief": "If two sources give the same sphere Riemann components of opposite sign, one of them has made a mistake.",
+      "correction": "Which way counts as plus is a convention. Calibrate each source on a ball, where walkers draw together whatever the signs, and translate before comparing.",
+      "diagnosed_by": [
+        "a-strangers-sphere"
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "id": "pair-antisymmetry",
+      "term": "pair antisymmetry",
+      "plain_definition": "Swapping the two indices of the first pair, or of the last pair, of the lowered Riemann tensor changes its sign; trading the two pairs, called pair exchange, leaves it unchanged.",
+      "concept": "symmetries-of-the-riemann-tensor"
+    },
+    {
+      "id": "cyclic-identity",
+      "term": "cyclic identity",
+      "plain_definition": "The Riemann tensor summed over the three cyclic orders of its last three indices is zero; also called the first Bianchi identity.",
+      "concept": "cyclic-identity"
+    },
+    {
+      "id": "parallel-field",
+      "term": "parallel field",
+      "plain_definition": "A vector field whose covariant derivative vanishes in every direction, so that a copy carried along any path matches the field where it stops.",
+      "concept": "integrability-condition-for-parallel-fields"
+    },
+    {
+      "id": "integrability-condition",
+      "term": "integrability condition",
+      "plain_definition": "The requirement that the Riemann tensor send a vector to zero on every loop plane, which any vector field that is parallel everywhere must satisfy.",
+      "concept": "integrability-condition-for-parallel-fields"
+    },
+    {
+      "id": "simply-connected",
+      "term": "simply connected",
+      "plain_definition": "A region in which every closed loop can be shrunk to a point without leaving the region; a plane or a ball is, a cone with its tip removed is not.",
+      "concept": "integrability-condition-for-parallel-fields"
+    },
+    {
+      "id": "flatness-criterion",
+      "term": "flatness criterion",
+      "plain_definition": "The theorem that the Riemann tensor vanishes on a region exactly when every point of the region has nearby coordinates with constant metric components.",
+      "concept": "flatness-criterion"
+    },
+    {
+      "id": "sign-convention",
+      "term": "sign convention",
+      "plain_definition": "A choice about which way counts as plus when a result is written down; it changes the writing, never what is measured.",
+      "concept": "curvature-sign-conventions"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "twenty-of-256-slots",
+      "role": "The count made visible: the 256 slots of the spacetime Riemann tensor collapsing under each rule to a symmetric 6 by 6 array of pairs and then to 20 survivors.",
+      "priority": "flagship",
+      "sketch": "A grid of the 256 index slots with toggles that apply one rule at a time: each antisymmetry greys the repeated-index slots and pairs the rest with a sign, pair exchange folds the 6 by 6 array of pairs onto its diagonal, and the cyclic identity links the slots 0123, 0231 and 0312 with a readout of their sum."
+    },
+    {
+      "id": "painted-arrows-that-must-match",
+      "role": "The parallel-field test: a painting of arrows that succeeds on flat ground and fails on every patch of a ball, with the failure located on loops.",
+      "priority": "core",
+      "sketch": "A patch of flat ground, a paper tube, a ball or a paper cone. The learner drops one arrow and spreads carried copies along chosen paths; where two routes deliver different copies the arrows double and the loop between them lights up with its turn as a readout."
+    }
+  ],
+  "tutor": {
+    "opening_question": "Picture the Riemann tensor of a sphere written out in the usual angle coordinates: sixteen components. Before computing any of them, how many do you expect to be zero, and how many different numbers do you expect the rest to hold? Then guess the same two counts for spacetime, where there are two hundred and fifty-six.",
+    "common_questions": [
+      {
+        "id": "why-lower-the-index",
+        "question": "Why do the symmetries need the first index lowered?",
+        "answer": "Because two of the rules compare the slot that holds the carried vector with the slot where its change is read, and those slots match only when both sit at the same level. With one index up and one down, raising and lowering bring different metric factors, so the components are not simply negatives of each other. On a sphere the mixed component is sine squared theta, while its would-be partner is minus one."
+      },
+      {
+        "id": "which-sign-is-right",
+        "question": "If books disagree about the sign of the Riemann tensor, which one is right?",
+        "answer": "Both. The sign is a convention, like choosing whether a turn to the left counts as plus. Find what a book gives for a ball, where walkers who start parallel always draw together, and translate. Then remember that lowering an index also brings the signature into play, so read the signature off the book's metric too."
+      }
+    ]
+  },
+  "further": [],
+  "retired_ids": [],
+  "provenance": {
+    "notes_used": [
+      "symmetries-of-the-riemann-tensor",
+      "cyclic-identity",
+      "number-of-independent-riemann-components",
+      "flatness-criterion",
+      "integrability-condition-for-parallel-fields",
+      "curvature-sign-conventions"
+    ],
+    "source_units": [],
+    "legacy_assets": []
+  },
+  "review": {
+    "novice": {
+      "verdict": "fixed",
+      "date": "2026-09-16",
+      "reviewed_revision": 4,
+      "retell_attempt": "Lower the first index of the Riemann tensor with the metric and three rules appear: swap the first two indices and it changes sign, swap the last two and it changes sign, trade the two pairs and nothing changes. You prove them at any one event in the coordinates where the metric's first derivatives vanish, because the tensor is then half a signed sum of four second derivatives of the metric and the rules can be read off that sum; they are statements that a tensor is zero, so they hold in every basis. A fourth rule, the cyclic identity, says the sum over the three cyclic orders of the last three indices is zero; it uses only the symmetry of the Christoffel symbols in their lower indices, and it says something new only when all four indices differ, so only in spacetime, where it is one relation among R 0123, R 0231 and R 0312. Counting: the pair rules make the tensor a symmetric array over index pairs, N equal to n(n-1)/2 of them, so N(N+1)/2 entries, minus n choose 4 for the cyclic identity: one number on a surface, six in space, twenty in spacetime, and the twenty are the second derivatives of the metric that a falling frame cannot remove. On a surface the one number is the Gaussian curvature, R 1212 equals K times det g. A parallel field is a painting of arrows that a carried copy always matches; it must be sent to zero by the Riemann tensor on every loop plane, so a full parallel frame needs zero curvature, and on a surface even one parallel field forces K to vanish, so no patch of a sphere, however small, carries one. Going back from zero curvature to parallel fields needs a simply connected region, a cone with its tip removed being the counterexample, and is taken on trust. The flatness criterion: the Riemann tensor is zero on a region exactly when coordinates near each point make the metric constant. Flat gives zero because every Christoffel symbol vanishes on an open set; zero gives flat by spreading an orthonormal frame as parallel fields, whose dual one-forms are curl-free and so are gradients of functions that serve as the flat coordinates. Nonzero Christoffel symbols, as in polar coordinates, and metric coefficients that vary from place to place, as in the rocket, are not curvature; the rocket's clock rates slope but do not bend. Sign conventions: two switches touch the Riemann tensor, the signature and the overall sign of the definition; Christoffel symbols do not feel the signature, so the mixed tensor carries only the Riemann sign and the lowered tensor carries both; calibrate another author's sign on a ball, where the course gets R 1212 equal to plus K. Things I could not say back after one reading: why swapping rho and sigma sends the first term to the fourth, when my own try landed it on the third; why R 1212 and det g pick up the same factor; how matching the turn and the loop law gives plus K rather than minus K; why the dual one-forms are parallel and why the functions X are coordinates; what a wedge angle is; and what 'sufficiency' was sufficient for.",
+      "stumbles": [
+        {
+          "quote": "Swap $\\rho$ with $\\sigma$: the first term becomes the fourth and the second becomes the third, so the sum changes sign. Swap $\\mu$ with $\\nu$: the same trades happen",
+          "problem": "Doing the swap by hand, the first term becomes minus the third and the second minus the fourth; the fourth-and-third pairing belongs to the mu-nu swap, so 'the same trades' is also wrong. I reread three times.",
+          "rewrite": "Swap rho with sigma: the first term becomes minus the third and the second becomes minus the fourth, so the sum changes sign. Swap mu with nu: the first term becomes minus the fourth and the second becomes minus the third, with the same result."
+        },
+        {
+          "quote": "Of the six second derivatives that appear, two cancel",
+          "problem": "Which two is left implicit, and the reader must redo the expansion to find them.",
+          "rewrite": "the two partial mu partial nu g rho sigma terms, one from each half, cancel"
+        },
+        {
+          "quote": "with $\\mu = \\nu$ the first term is zero and the other two are opposites",
+          "problem": "This uses last-pair antisymmetry for the tensor with its first index up, but the part before derived all three rules only for the lowered tensor; the key equation's meaning says the last-pair rule holds for any connection, and the text never says why.",
+          "rewrite": "Added to the first part: the Christoffel formula turns into its own negative under mu and nu swapped, so the mixed tensor obeys the last-pair rule too, whatever the connection; the first-pair rule holds only with both indices at the same level."
+        },
+        {
+          "quote": "whichever of its four indices is lowered",
+          "problem": "The lowered index is always the first one; the sentence means whichever index sits in the first slot.",
+          "rewrite": "whichever of its four indices is placed in the first slot"
+        },
+        {
+          "quote": "matching the two for $V = e_1$ gives $R_{\\hat1\\hat2\\hat1\\hat2} = K$",
+          "problem": "The matching step is left implicit and the sign is the whole point; my own attempt came out as minus K until I used first-pair antisymmetry.",
+          "rewrite": "The turn moves e1 toward e2 by K times the two edge lengths, so Delta V in the 2 direction is K l1 l2; the law gives minus R 2 112 l1 l2, which is R 1212 l1 l2 by antisymmetry in the first pair; matching gives R 1212 = K."
+        },
+        {
+          "quote": "pick up the same squared Jacobian factor",
+          "problem": "A surprising claim with no reason: why should a Riemann component transform like a determinant?",
+          "rewrite": "because each is antisymmetric in two pairs of indices and in two dimensions each antisymmetric pair transforms by the Jacobian determinant"
+        },
+        {
+          "quote": "The Ricci identity of *Holonomy and the Riemann tensor* says what the disagreement would be",
+          "problem": "The sentence before it talks about mixed partial derivatives disagreeing, then the Ricci identity is about covariant derivatives; the switch is unexplained.",
+          "rewrite": "Rather than differentiate the Christoffel symbols by hand, use the covariant form of the same mismatch, the Ricci identity."
+        },
+        {
+          "quote": "On a surface even one field is too much.",
+          "problem": "'Too much' for what? The idea is that one parallel field already forces zero curvature.",
+          "rewrite": "On a surface even one parallel field forces the curvature to vanish."
+        },
+        {
+          "quote": "Sufficiency needs the region to be simply connected",
+          "problem": "Sufficiency of what for what? The condition R V = 0 at a point is never sufficient; the converse being discussed is from zero curvature to parallel fields.",
+          "rewrite": "The converse, from zero curvature back to parallel fields, needs the region to be simply connected"
+        },
+        {
+          "quote": "turns a vector by the wedge angle",
+          "problem": "'Wedge angle' is never defined; the cone was only ever a paper cone.",
+          "rewrite": "turns a carried vector by the angle of the wedge that was cut from the flat sheet to make the cone"
+        },
+        {
+          "quote": "Their dual one-forms $\\omega^{(a)}$ are parallel too",
+          "problem": "Why are they parallel? A step left implicit.",
+          "rewrite": "defined by omega a of e b equals delta a b, are parallel too, because those contractions are constants and transport preserves contractions"
+        },
+        {
+          "quote": "In the coordinates $X^{(a)}$ the coordinate basis is the frame $e_{(a)}$ itself",
+          "problem": "Two steps implicit: why the n functions are coordinates at all, and why their coordinate basis is the frame.",
+          "rewrite": "The n functions X serve as coordinates because their differentials, the omega, are independent; the coordinate basis dual to those differentials is the frame itself, so g ab equals eta ab, or delta ab."
+        },
+        {
+          "quote": "finds $R^x{}_{0x0} = NN'' = 0$ for its linear $N$",
+          "problem": "N is used in the part without being defined there; it is defined only in the check.",
+          "rewrite": "with N(x) = 1 + g x over c squared for the coefficient of c dt, ... because N is linear in x"
+        },
+        {
+          "quote": "a stranger's table of curvature",
+          "problem": "'Stranger' and 'table' are metaphors the summary uses before the reader meets them; the part itself says 'two books'.",
+          "rewrite": "another author's table of Riemann components"
+        },
+        {
+          "quote": "The signature $s_g$ can be read off the source's metric.",
+          "problem": "s_g is a sign, not the signature; the two words were used for one idea.",
+          "rewrite": "The sign s_g can be read off the source's signature."
+        },
+        {
+          "quote": "simply connected",
+          "problem": "A new technical term introduced in a part, used again in the next part, and absent from the glossary.",
+          "rewrite": "Glossary entry added, with the plane and ball as examples and the cone with its tip removed as the counterexample."
+        }
+      ],
+      "fixes": [
+        "Corrected the term-tracking in the first-pair and last-pair swaps of the four-term formula (first becomes minus the third and second minus the fourth under rho-sigma; first-fourth and second-third under mu-nu) and named the two cancelling terms.",
+        "Added to the first part that the last-pair rule holds for the mixed tensor and any connection, and that the first-pair rule needs both indices at the same level, which the cyclic-identity part and the first check rely on.",
+        "Made the calibration R 1212 = K explicit with edge lengths l1 and l2 and the first-pair antisymmetry step, and gave the reason R 1212 and det g share the squared Jacobian determinant.",
+        "Reworded the parallel-field part: bridge from mixed partials to the Ricci identity, 'even one parallel field forces the curvature to vanish', the converse named instead of 'sufficiency', and the cone's wedge angle defined.",
+        "Made the zero-gives-flat argument explicit: why the dual one-forms are parallel, why the functions X are coordinates, and eta or delta for the metric; defined N in the rocket paragraph.",
+        "Replaced 'stranger's table' with 'another author's table' in the summary, opening and part heading; 'sign s_g' read off the 'signature'.",
+        "Added the check count-in-five-dimensions (55 versus 50) with the misconception pair-rules-finish-the-count, as the writer suggested, using the review allowance; added glossary entries for integrability condition and simply connected.",
+        "Revision 1 to 2; status novice-reviewed."
+      ],
+      "concerns": [
+        "The back-references to unwritten sections (The metric, Local flatness, Tensors as machines, The Levi-Civita connection, The covariant derivative, Vector calculus, Accelerated observers, The interval and causality) could not be checked; the reader is assumed to know one-forms, dual bases, contractions, curl-free means gradient in three dimensions, the polar Christoffel symbol and the rocket metric from them.",
+        "The physics reviewer should re-check the corrected term-tracking in the first part and the sign chain in the R 1212 = K calibration (course small-loop law with the minus sign, region on the walker's left).",
+        "The rocket check's numeric answers use unit '1' with the unit named in the quantity string, because the unit table has no inverse square metre.",
+        "The two converse statements taken on trust (parallel fields from zero curvature on a simply connected region; curl-free one-forms are gradients on a ball) remain unproved at this depth."
+      ],
+      "rereads": [
+        {
+          "date": "2026-09-16",
+          "revision": 4,
+          "read": [
+            "$.builds_on[10]",
+            "$.builds_on[11]",
+            "$.parts[counting-the-survivors].text",
+            "$.parts[reading-a-strangers-table].text",
+            "$.parts[when-a-field-can-be-parallel-everywhere].text",
+            "$.parts[zero-curvature-means-flat].text"
+          ],
+          "stumbles": [
+            {
+              "quote": "Parallel transport along any curve is invertible, so a parallel field that is nonzero at one point is nonzero on the whole connected region",
+              "problem": "The step from 'invertible' to 'nonzero everywhere' is asserted without saying why transport is invertible; a reader who has only carried copies forward has no reason to hand.",
+              "rewrite": "Parallel transport along any curve is invertible, because carrying the copy back along the same curve undoes it, so a parallel field that is nonzero at one point is nonzero on the whole connected region, and then K = 0 throughout it."
+            },
+            {
+              "quote": "For a metric of this form, curvature needs the clock-rate profile $N(x)$ to bend, not merely to slope.",
+              "problem": "'This form' points back at the rocket line element with its specific N; the reader cannot tell whether the scope is that one metric or the family with a general N(x).",
+              "rewrite": "For any metric of the form ds^2 = -N(x)^2 c^2 dt^2 + dx^2 + dy^2 + dz^2, curvature needs the clock-rate profile N(x) to bend, not merely to slope."
+            }
+          ],
+          "fixes": [
+            "Gave the reason parallel transport is invertible (walking the curve back undoes it).",
+            "Named the metric family -N(x)^2 c^2 dt^2 + dx^2 + dy^2 + dz^2 explicitly instead of 'a metric of this form'."
+          ]
+        }
+      ]
+    },
+    "physics": {
+      "verdict": "fixed",
+      "date": "2026-09-16",
+      "reviewed_revision": 4,
+      "verification": [
+        {
+          "claim": "Sphere Riemann components in the opening: R^th_ph th ph = sin^2 th, R^th_ph ph th = -sin^2 th, R^ph_th th ph = -1, R^ph_th ph th = 1, twelve of sixteen zero, lowered values +-a^2 sin^2 th",
+          "method": "Finite-difference Riemann tensor from the metric diag(a^2, a^2 sin^2 th) with the course Christoffel formula, a = 2, th = 1.1",
+          "result": "All four values match to 1e-6; exactly 4 nonzero components; R_thphthph / det g = 0.25 = 1/a^2"
+        },
+        {
+          "claim": "Four-term formula for R_rsmn at a point with vanishing first derivatives, and its term tracking under rho-sigma swap (T1 -> -T3, T2 -> -T4), mu-nu swap (T1 -> -T4, T2 -> -T3) and pair exchange (T1 <-> T2, T3 and T4 fixed)",
+          "method": "Re-derived by hand from g_rl Gamma^l_ns = (1/2)(d_n g_rs + d_s g_rn - d_r g_ns), then tested numerically with random symmetric second-derivative arrays in four dimensions",
+          "result": "Formula and all three swap statements confirmed; the reader reviewer's corrected pairing is right; the formula also satisfies the cyclic identity"
+        },
+        {
+          "claim": "Cyclic identity proof groups derivative and product terms into torsion brackets; with two equal indices among sigma, mu, nu, or with rho equal to one of them, it follows from the pair rules; R_1312 = R_1213 = -R_1231",
+          "method": "Hand expansion of the three cyclic copies of the Christoffel formula; index bookkeeping of the lowered cases",
+          "result": "Confirmed"
+        },
+        {
+          "claim": "Independent components N(N+1)/2 - C(n,4) = n^2(n^2-1)/12 = 1, 6, 20, 50 for n = 2..5, and pair rules alone give 1, 6, 21, 55",
+          "method": "Rank of the full constraint system (both antisymmetries, pair exchange, cyclic identity) on n^4 unknowns by Gaussian elimination in pure python",
+          "result": "Free components 1, 6, 20, 50 exactly; pairs-only counts 1, 6, 21, 55; the check count-in-five-dimensions is right"
+        },
+        {
+          "claim": "Calibration R_1212 (hatted) = K from the course small-loop law with the minus sign and the holonomy section's left-turn rule",
+          "method": "Sign chain: Delta V^2 = K l1 l2 for V = e1, region on the left; law gives -R^2_112 l1 l2 = +R_1212 l1 l2 by first-pair antisymmetry in an orthonormal basis; consistent with the sphere giving K = +1/a^2 and with the course convention that a sphere has positive curvature",
+          "result": "Confirmed; the course small-loop law matches the standard holonomy formula for the course Riemann definition"
+        },
+        {
+          "claim": "R_1212 = K det g in any coordinates and R_rsmn = K(g_rm g_sn - g_rn g_sm); its 1212 component is det g",
+          "method": "Jacobian-determinant transformation of doubly antisymmetric objects in two dimensions; numeric check with a non-diagonal metric",
+          "result": "Confirmed"
+        },
+        {
+          "claim": "Integrability condition R^r_smn V^s = 0 from the Ricci identity; on a surface it reads K(delta^r_m V_n - delta^r_n V_m) = 0, giving K V_2 = 0 and K V_1 = 0",
+          "method": "Hand contraction with the K(gg - gg) form",
+          "result": "Confirmed; the argument that V stays nonzero was fixed (see fixes)"
+        },
+        {
+          "claim": "Earth loop of one square kilometre turns a carried vector by A/R^2 = 2.5e-8 rad, about 1.4 millionths of a degree",
+          "method": "python3 with R = 6371 km",
+          "result": "2.46e-8 rad = 1.41e-6 degrees"
+        },
+        {
+          "claim": "Rocket check: Gamma^x_00 = N N', Gamma^0_0x = N'/N, R^x_0x0 = N N''; zero for N = 1 + g x/c^2; proper acceleration c^2 N'/N; N = exp(g x/c^2) gives (g/c^2)^2 exp(2 g x/c^2) = 1.19e-32 m^-2 at x = 0",
+          "method": "Hand derivation with the course Christoffel and Riemann formulas; finite-difference check of R^x_0x0 = N N'' for a quadratic N; python3 for the number",
+          "result": "Confirmed: finite difference 0.52320 versus N N'' = 0.5232; (9.81/c^2)^2 = 1.191e-32; the sign agrees with the course convention since the exponential-N metric is two-dimensional anti-de Sitter with negative Ricci scalar -2 N''/N"
+        },
+        {
+          "claim": "Polar coordinates on the plane: Gamma^r_phph = -r and Riemann zero",
+          "method": "Finite-difference Christoffel and Riemann for diag(1, r^2)",
+          "result": "Gamma^r_phph = -1.70 at r = 1.7; max Riemann component 1e-7 (discretisation)"
+        },
+        {
+          "claim": "Zero gives flat: dual one-forms of a parallel frame are parallel; a parallel one-form is curl-free for a torsion-free connection; curl-free on a ball gives a gradient; the differentials are independent so the functions are coordinates and their coordinate basis is the frame",
+          "method": "Leibniz rule for contractions, Christoffel antisymmetry of the curl, Poincare lemma, inverse function theorem",
+          "result": "Confirmed; both trusted steps are named as such in the text"
+        },
+        {
+          "claim": "Sign conventions: Christoffel symbols unchanged under g -> -g; mixed Riemann carries s_R, lowered carries s_g s_R; a source with a plus-sign loop law has s_R = -1 and gets -a^2 sin^2 th on the sphere; check a-strangers-sphere gives -1 mixed at the equator and lowered spacetime components that agree",
+          "method": "Hand substitution into the Christoffel formula and the loop law",
+          "result": "Confirmed"
+        },
+        {
+          "claim": "Check mixed-index-partner: R^ph_th th ph = -1 from lowering, first-pair antisymmetry and raising with g^phph = 1/(a^2 sin^2 th)",
+          "method": "Hand computation and the numeric sphere tensor",
+          "result": "Confirmed, -1.0000007 numerically"
+        },
+        {
+          "claim": "Statements borrowed from earlier sections (small-loop law with minus sign, Christoffel formula, Ricci identity, four-second-derivative form at a point, twenty second derivatives left by normal coordinates, left-turn rule, K as det of the second fundamental form over det g)",
+          "method": "Read the summaries, takeaways and key equations of Holonomy and the Riemann tensor and Curves and surfaces in space",
+          "result": "All present with the same signs and slot order"
+        }
+      ],
+      "counterexamples": [
+        "Cone tip: a cone with its tip removed has zero Riemann tensor yet no global parallel field (holonomy equal to the wedge angle around the missing tip); the text uses it as the failure of the converse and requires simple connectivity. Consistent.",
+        "Hole and Mobius band: a flat Mobius band is flat but not simply connected, and transport around its core loop returns a transverse vector reversed, so no global parallel frame exists though R = 0 everywhere; the converse in the text is scoped to simply connected regions. Consistent.",
+        "Bent-but-flat surface: a paper tube has R = 0 and admits parallel fields; the flatness criterion and the second visual treat it as flat. Consistent.",
+        "Lorentzian null vector: the old argument that g(V,V) constant keeps a parallel field nonzero fails for a null V in spacetime; replaced by the invertibility of parallel transport, which holds for any signature.",
+        "Connection with torsion: the cyclic identity fails, and the text scopes it to torsion-free connections; the last-pair antisymmetry survives, as the text says.",
+        "Great circle and region larger than half a closed surface: the calibration uses only small loops, and the Earth loop is a small loop; no branch issue arises.",
+        "One dimension: N_R(1) = 0, as listed.",
+        "Non-static metric and other observers: the flatness criterion is a tensor statement and is coordinate independent; the rocket example is coordinate-dependent only in its Christoffel symbols and metric coefficients, as the text says.",
+        "Mixed index positions: R^ph_th th ph = -1 versus R^th_ph th ph = sin^2 th shows the first-pair rule fails with one index up, as the first check tests."
+      ],
+      "fixes": [
+        "Parallel-field part: the claim that a parallel field nonzero at one point stays nonzero was justified by constancy of g(V,V), which fails for null vectors in a Lorentzian metric; replaced by the invertibility of parallel transport along any curve, which holds in every signature.",
+        "Flatness part: scoped the sentence about clock-rate profiles to metrics of the form -N(x)^2 c^2 dt^2 + dx^2 and named N(x); wrote 'coordinate ball' where a solid coordinate ball, not the surface of a ball, is meant.",
+        "Counting part: named the quantity as the number of independent components where the formula is introduced, so the concept is introduced by name.",
+        "Sign-convention part: added that a source may order the four slots differently, which is a relabelling and not a sign, so slots must be matched before signs are read.",
+        "builds_on: added the-metric and vector-calculus, which the opening and the zero-gives-flat argument name.",
+        "Status physics-reviewed; revision 2 to 3."
+      ],
+      "concerns": [
+        "Eight named earlier sections (The metric, Local flatness, Tensors as machines, The Levi-Civita connection, The covariant derivative, Vector calculus, Accelerated observers, The interval and causality) are not yet written; the section assumes from them the Riemann-normal-coordinate result, the zero-in-one-basis argument, torsion-freeness, the polar Christoffel symbol, the Rindler metric, one-forms and dual bases, and the three-dimensional curl-free-means-gradient result. Their short names differ slightly from the outline titles.",
+        "Two results are taken on trust at this depth and said to be: parallel fields from zero curvature on a simply connected region, and curl-free one-forms are gradients on a coordinate ball.",
+        "The rocket check reports inverse square metres with unit '1', since the unit table has no inverse square metre.",
+        "The text mentions no slot-order convention beyond the new sentence; sources that write the loop pair first (R_mn rs) need relabelling before the s_R test."
+      ],
+      "diff_checks": [
+        {
+          "date": "2026-09-16",
+          "revision": 4,
+          "verification": [
+            {
+              "claim": "Parallel transport along a curve is an invertible linear map, so a parallel field on a connected region is nonzero everywhere if nonzero at one point.",
+              "method": "Transport solves a linear ODE with unique solutions; transport along the reversed curve is the inverse; on a connected region any two points are joined by a curve, and the field's value at the end is the transported value from the start. Holds in any signature, including for null vectors.",
+              "result": "Confirmed; the added reason (carrying back along the same curve undoes it) is the inverse map."
+            },
+            {
+              "claim": "Then K = 0 throughout the region.",
+              "method": "KV_1 = 0 and KV_2 = 0 with (V_1, V_2) nonzero at every point.",
+              "result": "Confirmed."
+            },
+            {
+              "claim": "A source's different slot order is a relabelling, not a sign, and must be matched before comparing signs.",
+              "method": "Checked the two common reorderings: loop pair written first is pair exchange, no sign by pair symmetry; summed index in the first slot gives S_{rho sigma mu nu} = R_{sigma rho mu nu}, which is minus the course entry at the same positions but equal to the course entry with the slots matched, so a naive comparison would misread it as s_R = -1.",
+              "result": "Confirmed; the instruction to match slots first is exactly what prevents the misreading."
+            },
+            {
+              "claim": "For ds^2 = -N(x)^2 c^2 dt^2 + dx^2 + dy^2 + dz^2 the only curvature is R^x_{0x0} = N N'', so curvature needs N to bend.",
+              "method": "Gamma^x_{00} = N N', Gamma^0_{0x} = N'/N; R^x_{0x0} = (N N')' - Gamma^x_{00} Gamma^0_{x0} = N'^2 + N N'' - N'^2 = N N''; every other independent component involves only t and x and is proportional to N''.",
+              "result": "Confirmed; the scoped sentence is true for the whole family, and the rocket N = 1 + gx/c^2 gives zero."
+            },
+            {
+              "claim": "A small coordinate ball is simply connected.",
+              "method": "A ball in R^n is contractible.",
+              "result": "Confirmed."
+            },
+            {
+              "claim": "N_R(n) = n^2(n^2-1)/12 gives 0, 1, 6, 20, 50; Earth square-kilometre loop turns a copy by 2.5e-8 rad, 1.4 millionths of a degree.",
+              "method": "python3: n^2(n^2-1)/12 for n = 1..5; 1e6 m^2 / (6.371e6 m)^2 = 2.46e-8 rad = 1.41e-6 degrees.",
+              "result": "Confirmed."
+            },
+            {
+              "claim": "builds_on additions the-metric and vector-calculus.",
+              "method": "Both sections are named in the text (the metric in the flatness definition, Vector calculus for the curl-free-is-gradient step).",
+              "result": "Consistent."
+            }
+          ],
+          "fixes": []
+        }
+      ]
+    }
+  }
+}

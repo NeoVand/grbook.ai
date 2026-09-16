@@ -1,0 +1,320 @@
+# Ricci, Bianchi and Einstein
+
+`curvature/ricci-bianchi-and-einstein-tensors` · main track · working depth · physics-reviewed · revision 4 · 2026-09-16
+
+Teaches: `ricci-tensor`, `ricci-scalar`, `bianchi-identity`, `contracted-bianchi-identity`, `einstein-tensor`
+
+Builds on: `holonomy-and-the-riemann-tensor`, `symmetries-and-identities`, `the-levi-civita-connection`, `the-newtonian-limit`, `newtonian-gravity-as-a-field`, `conservation-in-curved-spacetime`
+
+**Adding up the Riemann tensor in one fixed way gives the Ricci tensor, whose reading for a freely falling observer is the total of the tides, and one more trace gives the Ricci scalar. The Bianchi identity says curvature cannot change from place to place in just any way. Contracting it twice shows that one combination, the Einstein tensor, balances like a conserved flow in every spacetime, and only the factor one half achieves that.**
+
+A satellite circles Earth 255 kilometres up, with a small thruster cancelling the drag of the thin air there, so that it falls freely. Inside, six accelerometers sit in three pairs, each pair half a metre apart along one of three perpendicular axes. Each pair's difference in readings, divided by its separation, is one entry of what this section calls the tidal matrix at the satellite. Along the line to Earth's centre that entry reads about $-2.74\times10^{-6}\ \mathrm{s^{-2}}$: two free masses on that line drift apart. Across it, each of the two entries reads about $+1.37\times10^{-6}\ \mathrm{s^{-2}}$: free masses side by side drift together. Once the satellite's own turning, once per orbit, is allowed for, because accelerometers fixed in a turning satellite also feel its spin, the three entries add to zero within the instrument's noise.
+
+Each entry is a component of the Riemann tensor of *Holonomy and the Riemann tensor*, their sum has a name of its own, and Einstein's law of gravity is built from it.
+
+## The trace of the tides: the Ricci tensor
+
+Give a freely falling observer an orthonormal frame whose space axes are held by gyroscopes, with hats on frame indices as in the course conventions. *Newtonian gravity as a field* gave the relative acceleration of two free particles separated by $\xi^j$ as $-\partial_i\partial_j\Phi\,\xi^j$, and the satellite's accelerometer pairs read that matrix $\partial_i\partial_j\Phi$. In curved spacetime the same readings are Riemann components. The tidal matrix is
+
+$$E_{ij} = c^2R^{\hat\imath}{}_{\hat0\hat\jmath\hat0},\qquad \ddot\xi^{\hat\imath} = -E_{ij}\,\xi^{\hat\jmath},$$
+
+taken on trust here and derived in *Geodesic deviation and tides*. Newton agrees: in the weak static field of *The Newtonian limit and the weak-field metric*, $g_{00} = -(1 + 2\Phi/c^2)$ gives $\Gamma^i{}_{00} = \partial_i\Phi/c^2$ to first order, every $\partial_0$ vanishes, and the course formula for the Riemann tensor leaves $c^2R^i{}_{0j0} = \partial_j\partial_i\Phi$, with coordinate and frame components agreeing at that order.
+
+The satellite added the three diagonal entries. In index language that is a contraction of the Riemann tensor's upper index with its third slot. The result is called the Ricci tensor:
+
+$$R_{\mu\nu} = R^\rho{}_{\mu\rho\nu}.$$
+
+For the observer, whose four-velocity has the single frame component $u^{\hat0} = c$, $R_{\mu\nu}u^\mu u^\nu = c^2\sum_\rho R^{\hat\rho}{}_{\hat0\hat\rho\hat0}$. The $\rho = \hat0$ term vanishes because the last two slots are antisymmetric, so the sum runs over the three space axes and is $E_{11} + E_{22} + E_{33}$, the trace of the tidal matrix.
+
+The Ricci tensor is symmetric. Lowering the upper index gives $R_{\mu\nu} = g^{\rho\sigma}R_{\sigma\mu\rho\nu}$, and pair exchange from *Symmetries and identities of the Riemann tensor* turns $R_{\sigma\mu\rho\nu}$ into $R_{\rho\nu\sigma\mu}$, whose contraction on the same slots is $R_{\nu\mu}$. So in four dimensions it holds ten independent numbers out of the Riemann tensor's twenty, and since each index pair is antisymmetric, every other contraction is zero or $\pm R_{\mu\nu}$.
+
+The trace measures volume. Release a small ball of free particles at rest relative to the observer. Each edge of the ball along an eigendirection of the symmetric matrix $E_{ij}$, with eigenvalue $\lambda_i$, obeys $\ddot L_i = -\lambda_iL_i$, and small fractional changes of three edges add, so the ball's volume $V$ obeys
+
+$$V(\tau) \approx V(0)\Big(1 - \tfrac12R_{\mu\nu}u^\mu u^\nu\,\tau^2\Big)$$
+
+for small proper time $\tau$. A positive $R_{\mu\nu}u^\mu u^\nu$ makes the ball start to shrink. Zero means its volume holds at second order in $\tau$ even while the ball turns into an egg: above Earth the eigenvalues are $-2, +1, +1$ in units of $GM/r^3$, the ball stretches along the line to Earth's centre and narrows across it, and its volume holds. Inside ordinary matter the trace is positive. Tracing the weak-field result and using Poisson's equation from *Newtonian gravity as a field* gives $c^2R_{00} = \nabla^2\Phi = 4\pi G\rho$, so for a ball of free particles let go at rest inside a dust cloud as dense as water, $\rho = 1000$ kg per cubic metre, $c^2R_{00} = 8.4\times10^{-7}\ \mathrm{s^{-2}}$, and its volume is down by half that times $\tau^2$: about four parts in ten million after one second. Outside matter the trace is zero, and every other Ricci component turns out to vanish there too, as *Finding the field equations* will show, while the tides remain: a vanishing Ricci tensor is not flatness. (A cosmological constant, met at the end of this section, would shift the trace near Earth by about $10^{-35}\ \mathrm{s^{-2}}$, far below any instrument's noise.)
+
+*The Ricci tensor contracts the Riemann tensor's upper index with its third slot; it is symmetric, holds ten of the twenty components, and its reading for a freely falling observer is the trace of the tidal matrix, which sets whether a small ball of free particles starts to change volume.*
+
+## One number for a point: the Ricci scalar
+
+Contract once more and no index is left. The Ricci scalar is
+
+$$R = g^{\mu\nu}R_{\mu\nu},$$
+
+the Ricci tensor traced with the inverse metric of *The metric*. With no free index it is a scalar: every coordinate system and every frame at a point give the same number, with units of inverse length squared.
+
+The inverse metric matters. In an orthonormal frame of a positive-definite metric, one where every nonzero vector has positive length squared, as on a surface, the inverse metric is the identity and $R$ is the plain sum of the diagonal Ricci components. In an orthonormal frame of spacetime $g^{\hat0\hat0} = -1$, so $R = -R_{\hat0\hat0} + R_{\hat1\hat1} + R_{\hat2\hat2} + R_{\hat3\hat3}$: the time entry counts with the opposite sign. In general coordinates the plain diagonal sum means nothing. On a sphere of radius $a$, the course formula with the sphere's Christoffel symbols $\Gamma^\theta{}_{\phi\phi} = -\sin\theta\cos\theta$ and $\Gamma^\phi{}_{\theta\phi} = \cot\theta$ gives $R^\theta{}_{\phi\theta\phi} = \sin^2\theta$, hence $R_{\theta\theta} = 1$ and $R_{\phi\phi} = \sin^2\theta$; their plain sum $1 + \sin^2\theta$ changes with latitude although the sphere is the same everywhere, while the trace with $g^{\mu\nu}$ gives
+
+$$R = \frac{2}{a^2}$$
+
+at every point, positive, as the course conventions fix it. On any surface the Riemann tensor has one independent component, and $R_{1212}$ divided by the determinant of the metric is the Gaussian curvature $K$ of *Curves and surfaces in space*: on the sphere, $a^2\sin^2\theta$ over $a^4\sin^2\theta$ is $1/a^2$. That one component fixes the whole lowered tensor as $R_{\sigma\mu\rho\nu} = K(g_{\sigma\rho}g_{\mu\nu} - g_{\sigma\nu}g_{\mu\rho})$; tracing once gives $R_{\mu\nu} = Kg_{\mu\nu}$ and tracing again gives $R = 2K$ on every surface, so the Ricci scalar of a surface is twice the number the ring test of *Curved surfaces* reads. Flat space gives $R = 0$, but above Earth every Ricci component vanishes too, so $R = 0$ does not give flat space. In this chapter the Ricci scalar's main job is to be the grand total that the Einstein tensor subtracts.
+
+*The Ricci scalar is the Ricci tensor traced with the inverse metric, one coordinate-free number at each point; a sphere of radius a has R equal to two over a squared, twice its Gaussian curvature, and R equal to zero does not mean flat.*
+
+## A rule for how curvature changes: the Bianchi identity
+
+The Riemann tensor at one point obeys the four rules of *Symmetries and identities of the Riemann tensor*. Its change from point to point obeys one more.
+
+Picture a tiny box in a curved space, with a home corner and edges of coordinate length $\epsilon$ along three coordinate axes $x^\lambda$, $x^\mu$, $x^\nu$, right-handed in that order; in spacetime, take any three of the four axes. Carry a vector $V$ around each of its six faces, each walked counterclockwise as seen from outside the box, going out and back along an edge to reach the three faces the home corner does not touch. By the small-loop rule of *Holonomy and the Riemann tensor*, the far face across the $x^\lambda$ edges, with edges along $x^\mu$ and $x^\nu$ in cyclic order, changes the vector by $-\epsilon^2R^\rho{}_{\sigma\mu\nu}V^\sigma$ evaluated at the centre of that face. The opposite face, seen from outside, is walked with its edges in the other order, so it gives $+\epsilon^2R^\rho{}_{\sigma\mu\nu}V^\sigma$ evaluated at its own centre, a distance $\epsilon$ back along $x^\lambda$. In coordinates whose Christoffel symbols vanish at the home corner the pair leaves $-\epsilon^3\,\nabla_\lambda R^\rho{}_{\sigma\mu\nu}V^\sigma$. Every edge of the box belongs to two faces and is walked once in each direction, so joined end to end the six trips make one walk that retraces every step and returns the vector unchanged. To order $\epsilon^3$ the six changes simply add, so the three pairs must add to zero:
+
+$$\nabla_\lambda R^\rho{}_{\sigma\mu\nu} + \nabla_\mu R^\rho{}_{\sigma\nu\lambda} + \nabla_\nu R^\rho{}_{\sigma\lambda\mu} = 0.$$
+
+This is the Bianchi identity. The vector slots $\rho\sigma$ stay fixed while the derivative index cycles with the two loop-edge slots.
+
+A proof in components takes four moves. At any point $P$ choose Riemann normal coordinates, in which every Christoffel symbol vanishes at $P$, as *Holonomy and the Riemann tensor* did. There $\nabla_\lambda$ acts as $\partial_\lambda$. In the course formula for $R^\rho{}_{\sigma\mu\nu}$ the products of two Christoffel symbols have zero derivative at $P$, because each term of that derivative keeps one undifferentiated factor. What remains of $\nabla_\lambda R^\rho{}_{\sigma\mu\nu}$ is $\partial_\lambda\partial_\mu\Gamma^\rho{}_{\nu\sigma} - \partial_\lambda\partial_\nu\Gamma^\rho{}_{\mu\sigma}$. Cycling $\lambda,\mu,\nu$ gives six terms that cancel in pairs because partial derivatives commute. The cyclic sum is a tensor, so components that vanish at $P$ in one chart vanish in every chart, and $P$ was arbitrary.
+
+Two remarks. First, the proof needed only that the Christoffel symbols can be made to vanish at a point, which any torsion-free connection allows; the metric played no part. So the identity holds however space is curved and whatever fills it. It is an identity, a consequence of how curvature is built, not a law that an experiment could break. Second, if two of $\lambda,\mu,\nu$ coincide the sum vanishes by last-pair antisymmetry alone, so on a surface the identity says nothing, and the Gaussian curvature may vary from place to place as it pleases.
+
+*The covariant derivative of the Riemann tensor, cycled over the derivative index and the two loop-edge slots, sums to zero for every torsion-free connection; it is an identity, proved where the Christoffel symbols vanish, and it says nothing on a surface.*
+
+## Contract it twice: a tensor that balances
+
+The Bianchi identity holds slot by slot, and adding some of its many equations gives a shorter rule. The worked example "Contracting the Bianchi identity twice" takes six moves. Setting $\lambda = \rho$ and summing gives the once-contracted form
+
+$$\nabla_\rho R^\rho{}_{\sigma\mu\nu} = \nabla_\mu R_{\sigma\nu} - \nabla_\nu R_{\sigma\mu},$$
+
+which still needs no metric. Contracting again with $g^{\sigma\mu}$ uses two facts: from *The Levi-Civita connection*, that the metric passes through $\nabla$, and from *Symmetries and identities of the Riemann tensor*, that the lowered Riemann tensor is antisymmetric in its first pair. The result is
+
+$$\nabla_\mu R^\mu{}_\nu = \tfrac12\nabla_\nu R.$$
+
+The divergence of the Ricci tensor is half the gradient of the Ricci scalar. Since $\nabla_\mu(R\,\delta^\mu{}_\nu) = \nabla_\nu R$, the two sides combine into one tensor with zero divergence:
+
+$$\nabla_\mu G^{\mu\nu} = 0,\qquad G_{\mu\nu} = R_{\mu\nu} - \tfrac12R\,g_{\mu\nu}.$$
+
+This is the contracted Bianchi identity, and $G_{\mu\nu}$ is the Einstein tensor. It is four equations, one for each $\nu$, and it holds for every metric, because it was made by adding up an identity.
+
+What zero divergence says was set out in *Conservation in curved spacetime* for $\nabla_\mu T^{\mu\nu} = 0$. In a freely falling frame at a point, where the Christoffel symbols vanish, it reads $\partial_\mu T^{\mu\nu} = 0$: each $T^{0\nu}$ is a density that changes only by the flow of its fluxes $T^{i\nu}$ through the walls of a small box carried by the observer, like water through a hose. The same words now apply to $G^{\mu\nu}$, which is symmetric, so the divergence may be taken on either index: each $G^{0\nu}$ changes only by the flow of the $G^{i\nu}$. The Einstein tensor balances in every smoothly curved spacetime, before any matter is mentioned.
+
+Why exactly one half? Try a candidate $R_{\mu\nu} + B\,R\,g_{\mu\nu}$ with a constant $B$. Its divergence is $\nabla_\mu R^\mu{}_\nu + B\,\nabla_\nu R = (\tfrac12 + B)\nabla_\nu R$. Most metrics have a varying $R$, so only $B = -\tfrac12$ works for all of them. A term $\Lambda g_{\mu\nu}$ with constant $\Lambda$ may still be added, since $\nabla g = 0$: the identity fixes the half but cannot forbid $\Lambda$.
+
+*Contracting the Bianchi identity twice makes the divergence of the Ricci tensor half the gradient of the Ricci scalar, so the Einstein tensor, Ricci minus half the Ricci scalar times the metric, is divergence-free for every metric: it balances like a conserved flow, and only the factor one half achieves this.*
+
+## The Einstein tensor
+
+The tensor that balances deserves a closer look:
+
+$$G_{\mu\nu} = R_{\mu\nu} - \tfrac12R\,g_{\mu\nu}.$$
+
+It is symmetric because both terms are, so it holds ten components, and it has units of inverse length squared. Trace it with $g^{\mu\nu}$, using $g^{\mu\nu}g_{\mu\nu} = 4$ in four dimensions: its trace is $g^{\mu\nu}G_{\mu\nu} = R - 2R = -R$. The map from $R_{\mu\nu}$ to $G_{\mu\nu}$ flips the sign of the trace and leaves the trace-free part, $R_{\mu\nu} - \tfrac14R\,g_{\mu\nu}$, alone, which is why it is called trace reversal. Applied twice it gives back what it started with, so $R_{\mu\nu} = G_{\mu\nu} - \tfrac12\big(g^{\alpha\beta}G_{\alpha\beta}\big)g_{\mu\nu}$: the Einstein tensor carries exactly the information of the Ricci tensor, sorted differently.
+
+In an orthonormal frame the metric supplies the signs: $G_{\hat0\hat0} = R_{\hat0\hat0} + \tfrac12R$ and $G_{\hat\imath\hat\imath} = R_{\hat\imath\hat\imath} - \tfrac12R$, while off-diagonal components are copied unchanged. Now write the observer's own component in terms of the six Riemann components of the form $R_{\hat a\hat b\hat a\hat b}$ with $a < b$, one for each pair of frame axes; of the twenty components, only these six enter the diagonal Ricci components. The three with a time index are the tidal diagonal, $R_{\hat0\hat\imath\hat0\hat\imath} = E_{ii}/c^2$ by pair exchange. The three with two space indices belong to the observer's space planes; each is what the ring test of *Curved surfaces* reads on the small surface swept out by geodesics leaving the point in that plane, taken on trust here. The definitions give $R_{\hat0\hat0} = \sum_iR_{\hat0\hat\imath\hat0\hat\imath}$ and $R_{\hat\imath\hat\imath} = -R_{\hat0\hat\imath\hat0\hat\imath} + \sum_{j\neq i}R_{\hat\imath\hat\jmath\hat\imath\hat\jmath}$, the minus sign coming from $g^{\hat0\hat0}$, so $R = -2\sum_iR_{\hat0\hat\imath\hat0\hat\imath} + 2\sum_{i<j}R_{\hat\imath\hat\jmath\hat\imath\hat\jmath}$ and
+
+$$G_{\hat0\hat0} = R_{\hat0\hat0} + \tfrac12R = R_{\hat1\hat2\hat1\hat2} + R_{\hat2\hat3\hat2\hat3} + R_{\hat3\hat1\hat3\hat1}.$$
+
+The tides have cancelled out. The Ricci reading for an observer adds the three tides; the Einstein reading adds the three space planes instead.
+
+Outside a spherical mass $M$, for an observer held at rest (a slowly moving observer, such as the orbiting satellite, reads the same six numbers up to corrections of order $v^2/c^2$), with $m = GM/c^2$ and in units of $m/r^3$, the six components are $R_{\hat t\hat r\hat t\hat r} = -2$, $R_{\hat t\hat\theta\hat t\hat\theta} = R_{\hat t\hat\phi\hat t\hat\phi} = +1$, $R_{\hat r\hat\theta\hat r\hat\theta} = R_{\hat r\hat\phi\hat r\hat\phi} = -1$ and $R_{\hat\theta\hat\phi\hat\theta\hat\phi} = +2$, stated here without derivation. Then $R_{\hat t\hat t} = -2 + 1 + 1 = 0$ and $G_{\hat t\hat t} = -1 - 1 + 2 = 0$: the tides add to zero and so do the planes, while every one of the six components is nonzero. The same six numbers give $R_{\hat r\hat r} = 2 - 1 - 1 = 0$ and $R_{\hat\theta\hat\theta} = R_{\hat\phi\hat\phi} = -1 - 1 + 2 = 0$, so $R = 0$ and every diagonal Einstein component is zero; the off-diagonal ones vanish too, as *Finding the field equations* will show. The Einstein tensor vanishes there, and spacetime is not flat.
+
+Why this is the tensor gravity needs: Einstein's equation, stated here and derived in *Finding the field equations*, sets $G_{\mu\nu} + \Lambda g_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu}$. Take the divergence of both sides. The left side vanishes identically, so the equation is consistent only with a conserved source, $\nabla_\mu T^{\mu\nu} = 0$, which matter obeys. The tempting first guess $R_{\mu\nu} = \kappa T_{\mu\nu}$ fails this test: with a conserved source its divergence forces $\nabla_\nu R = 0$, so the trace $T = R/\kappa$ would be the same inside the Sun and in the near-empty space around it, and no star could exist: for slow matter the trace is close to minus the rest-energy density $\rho c^2$, so a constant trace would mean the same density everywhere.
+
+*The Einstein tensor is the Ricci tensor with its trace reversed; an observer's own component adds the curvatures of their three space planes instead of the three tides, it vanishes outside a spherical mass where the Riemann tensor does not, and its zero divergence is what lets Einstein's equation face a conserved source.*
+
+## Key equations
+
+**Ricci tensor** (derived-here)
+
+$$R_{\mu\nu} = R^\rho{}_{\mu\rho\nu} = R_{\nu\mu}$$
+
+The Ricci tensor contracts the upper index of the Riemann tensor with its third slot. Pair exchange makes it symmetric, and every other contraction is zero or minus this one. For an observer with four-velocity $u^\mu$, $R_{\mu\nu}u^\mu u^\nu$ is the trace of the tidal matrix.
+
+- $R_{\mu\nu}$: Ricci tensor
+- $R^\rho{}_{\mu\rho\nu}$: Riemann tensor with its upper index contracted against its third slot
+
+Say: The Ricci tensor R mu nu is the Riemann tensor R rho mu rho nu summed over rho, and it is symmetric in mu and nu.
+
+**Ricci scalar** (derived-here)
+
+$$R = g^{\mu\nu}R_{\mu\nu}$$
+
+The Ricci scalar traces the Ricci tensor with the inverse metric, so it is the same in every coordinate system; a sphere of radius $a$ has $R = 2/a^2$, which fixes the sign convention.
+
+- $R$: Ricci scalar
+- $g^{\mu\nu}$: inverse metric
+
+Say: The Ricci scalar R is the inverse metric g upper mu nu times the Ricci tensor R mu nu, summed over both indices.
+
+**Bianchi identity** (derived-here)
+
+$$\nabla_\lambda R^\rho{}_{\sigma\mu\nu} + \nabla_\mu R^\rho{}_{\sigma\nu\lambda} + \nabla_\nu R^\rho{}_{\sigma\lambda\mu} = 0$$
+
+The covariant derivative of the Riemann tensor, summed over the three cyclic orders of the derivative index and the last two slots, vanishes. It holds for every torsion-free connection, with or without a metric, and constrains how curvature changes from point to point.
+
+- $\nabla_\lambda$: covariant derivative along the lambda direction
+- $R^\rho{}_{\sigma\mu\nu}$: Riemann tensor
+
+Say: Nabla lambda of R rho sigma mu nu, plus nabla mu of R rho sigma nu lambda, plus nabla nu of R rho sigma lambda mu, equals zero.
+
+**Contracted Bianchi identity and the Einstein tensor** (derived-here)
+
+$$\nabla_\mu R^\mu{}_\nu = \tfrac12\nabla_\nu R\quad\Longleftrightarrow\quad \nabla_\mu G^{\mu\nu} = 0,\qquad G_{\mu\nu} = R_{\mu\nu} - \tfrac12R\,g_{\mu\nu}$$
+
+Contracting the Bianchi identity on its upper index and then with the inverse metric makes the divergence of the Ricci tensor half the gradient of the Ricci scalar, for every metric. Moved to one side, this says that the Einstein tensor, the Ricci tensor with half its trace times the metric taken off, has zero divergence identically. Its own trace is $-R$ in four dimensions, so it is the trace reversal of the Ricci tensor.
+
+- $\nabla_\mu R^\mu{}_\nu$: divergence of the Ricci tensor
+- $G_{\mu\nu}$: Einstein tensor
+- $g_{\mu\nu}$: metric
+
+Say: The divergence of the Ricci tensor, nabla mu of R upper mu lower nu, equals one half of nabla nu of R; equivalently the Einstein tensor G mu nu, which is R mu nu minus one half R times g mu nu, has zero divergence.
+
+**An observer's own Einstein component** (derived-here)
+
+$$G_{\hat0\hat0} = R_{\hat1\hat2\hat1\hat2} + R_{\hat2\hat3\hat2\hat3} + R_{\hat3\hat1\hat3\hat1}$$
+
+In an observer's orthonormal frame the time-time Einstein component adds the three Riemann components of the observer's space planes; the three tidal components cancel out. The Ricci component $R_{\hat0\hat0}$ adds the three tides instead.
+
+- $G_{\hat0\hat0}$: time-time Einstein component in the observer's frame
+- $R_{\hat1\hat2\hat1\hat2}$: Riemann component of the plane of frame axes one and two
+
+Say: G zero zero, in the observer's own frame, equals R one two one two plus R two three two three plus R three one three one.
+
+## Worked examples
+
+**contracting-the-bianchi-identity-twice.** Starting from the Bianchi identity for the Levi-Civita connection, show that $\nabla_\mu R^\mu{}_\nu = \tfrac12\nabla_\nu R$, and hence that $\nabla_\mu G^\mu{}_\nu = 0$.
+
+1. Set $\lambda = \rho$ in $\nabla_\lambda R^\rho{}_{\sigma\mu\nu} + \nabla_\mu R^\rho{}_{\sigma\nu\lambda} + \nabla_\nu R^\rho{}_{\sigma\lambda\mu} = 0$ and sum: $\nabla_\rho R^\rho{}_{\sigma\mu\nu} + \nabla_\mu R^\rho{}_{\sigma\nu\rho} + \nabla_\nu R^\rho{}_{\sigma\rho\mu} = 0$.
+2. Last-pair antisymmetry gives $R^\rho{}_{\sigma\nu\rho} = -R^\rho{}_{\sigma\rho\nu} = -R_{\sigma\nu}$, and $R^\rho{}_{\sigma\rho\mu} = R_{\sigma\mu}$, so $\nabla_\rho R^\rho{}_{\sigma\mu\nu} = \nabla_\mu R_{\sigma\nu} - \nabla_\nu R_{\sigma\mu}$.
+3. Contract with $g^{\sigma\mu}$. Metric compatibility lets it pass through each $\nabla$, so the right side becomes $\nabla_\mu R^\mu{}_\nu - \nabla_\nu R$.
+4. On the left, lower the first index: $g^{\sigma\mu}R^\rho{}_{\sigma\mu\nu} = g^{\rho\alpha}g^{\sigma\mu}R_{\alpha\sigma\mu\nu}$. First-pair antisymmetry turns $R_{\alpha\sigma\mu\nu}$ into $-R_{\sigma\alpha\mu\nu}$, whose contraction with $g^{\sigma\mu}$ is $-R_{\alpha\nu}$, so the left side is $-\nabla_\rho R^\rho{}_\nu$.
+5. Together: $-\nabla_\rho R^\rho{}_\nu = \nabla_\mu R^\mu{}_\nu - \nabla_\nu R$, so $2\nabla_\mu R^\mu{}_\nu = \nabla_\nu R$.
+6. Since $\nabla_\mu(R\,\delta^\mu{}_\nu) = \nabla_\nu R$, this is $\nabla_\mu\big(R^\mu{}_\nu - \tfrac12R\,\delta^\mu{}_\nu\big) = 0$, the divergence of $G^\mu{}_\nu$.
+
+Answer: $\nabla_\mu R^\mu{}_\nu = \tfrac12\nabla_\nu R$ and $\nabla_\mu G^\mu{}_\nu = 0$ for every metric.
+
+*Two contractions, one using no metric and one using metric compatibility, turn the Bianchi identity into the vanishing divergence of the Einstein tensor.*
+
+## Checks
+
+**gradiometer-in-a-higher-orbit** (numeric): A gradiometer falls freely in a circular orbit 400 km above Earth's surface, at a radius of 6771 km, with its axes held by gyroscopes. Take Newton's constant times Earth's mass as 3.986 times 10 to the 14 cubic metres per second squared. Find the relative acceleration of two free masses 1 m apart along the line to Earth's centre, and of two free masses 1 m apart across that line, and the sum of the three diagonal tidal entries. What is the time-time Ricci component in the gradiometer's frame, and is the Riemann tensor zero there?
+
+Answer: $GM/r^3 = 1.284\times10^{-6}\ \mathrm{s^{-2}}$. Along the line, $E_{rr} = -2GM/r^3$, so the masses accelerate apart at $2.57\times10^{-6}\ \mathrm{m\,s^{-2}}$; across it, the entry is $+GM/r^3$, so they accelerate together at $1.28\times10^{-6}\ \mathrm{m\,s^{-2}}$. The diagonal sum is $-2 + 1 + 1 = 0$ in units of $GM/r^3$, so $R_{00} = 0$: the satellite is outside matter and Poisson's equation gives $\nabla^2\Phi = 0$. The Riemann tensor is not zero, because the entries themselves are its components and they are not zero: a vanishing Ricci tensor is not flatness.
+
+Key points: Radial entry minus two GM over r cubed, transverse entries plus GM over r cubed, sum zero; R zero zero vanishes outside matter while the Riemann components do not, so the spacetime is curved
+
+Numeric: relative acceleration of two masses 1 m apart along the line to Earth's centre = 2.568e-06 m/s^2; relative acceleration of two masses 1 m apart across the line = 1.284e-06 m/s^2; R zero zero = 0 m^-2
+
+**an-egg-and-the-bianchi-identity** (explain): The Gaussian curvature of an egg is larger at its pointed end than at its blunt end. A friend says this contradicts the Bianchi identity, which forbids curvature from changing from place to place. Does it? And in three or four dimensions, does the identity forbid the Riemann tensor from varying?
+
+Answer: No, twice over. On a surface the identity is empty: its three cycled indices $\lambda,\mu,\nu$ must be chosen from two values, so two coincide, and last-pair antisymmetry makes the sum vanish whatever $K$ does. In three or four dimensions the identity ties together the rates at which different components change in different directions; it never forbids change. Above Earth the tides weaken with height, and the identity is satisfied all the way up.
+
+Key points: In two dimensions two of the three cycled indices coincide, so the identity says nothing; In higher dimensions the identity ties rates of change together; it does not forbid variation
+
+**find-the-half** (derive): Take the candidate tensor: the Ricci tensor, plus a constant B times the Ricci scalar times the metric, plus a constant lambda times the metric. Using the twice-contracted Bianchi identity and metric compatibility, find its divergence. For which B does it vanish on every spacetime, and what does the identity say about lambda?
+
+Answer: Call the candidate $H_{\mu\nu}$. Its divergence is $\nabla^\mu H_{\mu\nu} = \nabla_\mu R^\mu{}_\nu + B\,\nabla_\nu R + 0 = (\tfrac12 + B)\nabla_\nu R$, because $\nabla g = 0$ pulls the metric through the derivative of the $B$ term and kills the $\Lambda$ term. On a spacetime where $R$ varies this vanishes only for $B = -\tfrac12$, which gives the Einstein tensor. $\Lambda$ is left free: the identity fixes the half but says nothing about the cosmological constant.
+
+Key points: The divergence is one half plus B times the gradient of R, so B must be minus one half; The lambda term is divergence-free by metric compatibility, so the identity cannot fix lambda
+
+Numeric: B = -0.5 1
+
+**six-numbers-two-readings** (numeric): In an observer's orthonormal frame at one event, in some unit of inverse length squared, the six components are: zero one zero one equals 3, zero two zero two equals minus 1, zero three zero three equals minus 1, one two one two equals 1, two three two three equals 2, and three one three one equals 1. Find the time-time Ricci component and the time-time Einstein component. A friend says the strong tide along axis one must make the Einstein reading large. Is that right?
+
+Answer: $R_{\hat0\hat0} = \sum_iR_{\hat\imath\hat0\hat\imath\hat0} = 3 - 1 - 1 = 1$, and $G_{\hat0\hat0} = R_{\hat1\hat2\hat1\hat2} + R_{\hat2\hat3\hat2\hat3} + R_{\hat3\hat1\hat3\hat1} = 1 + 2 + 1 = 4$. The tides do not enter $G_{\hat0\hat0}$ at all: in $R_{\hat0\hat0} + \tfrac12R$ they cancel exactly, leaving the three space planes.
+
+Key points: The Ricci reading is three minus one minus one, which is one; The Einstein reading is one plus two plus one, which is four, from the space planes only; The tides cancel in the Einstein reading, so a strong tide says nothing about it
+
+Numeric: R zero zero hat = 1 1; G zero zero hat = 4 1
+
+## Misconceptions
+
+- **zero-ricci-means-flat**: "If the Ricci tensor vanishes at an event, spacetime is flat there." — The Ricci tensor holds ten of the Riemann tensor's twenty components. Outside Earth every Ricci component is zero while the tidal components are not, so the spacetime is curved. (diagnosed by gradiometer-in-a-higher-orbit)
+- **the-half-is-a-detail**: "The one half in the Einstein tensor is a matter of taste; any multiple of the Ricci scalar times the metric would do." — A candidate with coefficient B has divergence one half plus B times the gradient of the Ricci scalar, which vanishes on every spacetime only for B equal to minus one half. (diagnosed by find-the-half)
+- **bianchi-forbids-varying-curvature**: "The Bianchi identity forbids curvature from changing from place to place." — It ties the rates of change of different components in different directions together, and on a surface it says nothing at all. Curvature may vary; only certain patterns of variation are ruled out. (diagnosed by an-egg-and-the-bianchi-identity)
+- **tides-set-the-einstein-reading**: "Where the tides are strong, an observer's own Einstein component must be large." — The tides cancel out of the time-time Einstein component, which adds the curvatures of the observer's three space planes. Outside a spherical mass the tides are strong and that component is zero. (diagnosed by six-numbers-two-readings)
+
+## Glossary
+
+- **tidal matrix**: The symmetric matrix that turns the separation of two nearby free particles into their relative acceleration, with a minus sign; in curved spacetime its entries are c squared times Riemann components in the observer's frame. (`relativistic-tidal-tensor`)
+- **Ricci tensor**: The contraction of the Riemann tensor's upper index with its third slot: a symmetric tensor with ten components in four dimensions, whose reading for an observer is the trace of the tidal matrix. (`ricci-tensor`)
+- **Ricci scalar**: The Ricci tensor traced with the inverse metric: one coordinate-independent number at each point, positive on a sphere and twice the Gaussian curvature on any surface. (`ricci-scalar`)
+- **Bianchi identity**: The rule that the covariant derivative of the Riemann tensor, summed over the three cyclic orders of the derivative index and the last two slots, is zero, for every torsion-free connection. (`bianchi-identity`)
+- **contracted Bianchi identity**: The rule, obtained by contracting the Bianchi identity twice, that the Einstein tensor has zero divergence for every metric. (`contracted-bianchi-identity`)
+- **Einstein tensor**: The Ricci tensor minus half the Ricci scalar times the metric: symmetric, divergence-free, and the geometric side of Einstein's equation. (`einstein-tensor`)
+- **trace reversal**: The map that takes a symmetric tensor to itself minus half its trace times the metric; in four dimensions it flips the sign of the trace, leaves the trace-free part alone, and undoes itself when applied twice. (`einstein-tensor`)
+
+## Visuals
+
+- `six-entry-curvature-table` (core): The six orthonormal Riemann components at one event as tiles, with Ricci readouts that light the three tiles feeding each diagonal component and Einstein readouts that light the three tiles leaving that direction out. Sketch: Six sliders set $R_{\hat a\hat b\hat a\hat b}$ for the six pairs of frame axes. Readouts show $R_{\hat0\hat0}$, $R$ and $G_{\hat0\hat0}$; selecting a readout highlights its three tiles with their signs. Presets: the exterior of a spherical mass, where every Ricci and Einstein readout is zero while all six tiles are not, and the six numbers of the check "Six numbers, two readings".
+- `cube-of-small-loops` (core): The Bianchi identity as six face trips around a tiny box, with the three opposite-face leftovers and their sum held at zero. Sketch: A small cube floats in a chosen curved three-dimensional space. Each face is walked counterclockwise as seen from outside, the returned vector's change is drawn, opposite faces are paired into leftovers, and a readout shows the three leftovers and their sum as the cube shrinks.
+- `falling-ring-of-crumbs` (supporting): A gradiometer above a round planet: the tidal matrix, its diagonal sum labelled as the Ricci reading, and the readings at neighbouring heights that the Bianchi identity ties together. Sketch: A ball of freely falling crumbs beside a planet with readouts of the three principal drifts and their total. A height slider shows $E_{xx}$ weakening upward and $E_{xz}$ changing sideways at the same rate; a density slider fills the space with dust and the total turns positive.
+
+## Tutor
+
+Opening question: Picture a satellite falling freely around Earth with three pairs of accelerometers: one pair along the line to Earth's centre and two pairs across it. Each pair reads how fast two free masses drift apart or together. The pair along the line reads apart. What do the two pairs across it read, and what do you expect the three readings to add up to?
+
+- Q: If the Ricci tensor is zero, is the spacetime flat? A: No. The Ricci tensor keeps ten of the twenty Riemann components. Outside Earth all ten are zero, yet a ball of free particles is still stretched along the line to Earth's centre and squeezed across it. Flat means every Riemann component vanishes.
+- Q: Why did Einstein not simply set the Ricci tensor equal to a constant times the stress-energy tensor? A: Because the stress-energy tensor is conserved and the Ricci tensor is not divergence-free. Its divergence is half the gradient of the Ricci scalar, so that guess would force the Ricci scalar, and with it the trace of the stress-energy, to be the same everywhere, inside the Sun and in empty space. Taking off half the Ricci scalar times the metric gives a tensor whose divergence vanishes identically.
+- Q: What does the Bianchi identity actually say, in words? A: Carry a vector around each of the six faces of a tiny box. Opposite faces almost cancel, and what is left of each pair is how the curvature changes across the box in that direction. Joining the six trips retraces every step, so the three leftovers must add to zero. That ties together how the curvature changes in different directions; it never forbids curvature from changing, and on a surface it says nothing at all.
+
+## Review: novice
+
+Verdict fixed (2026-09-16, revision 4)
+
+Retell attempt: Sum the Riemann tensor over its upper index and third slot and you get the Ricci tensor; for a freely falling observer its time-time component is the sum of the three tidal entries, so it says whether a small ball of free particles starts to shrink. Trace it again with the inverse metric and you get the Ricci scalar, which is 2 over a squared on a sphere and twice the Gaussian curvature; zero Ricci does not mean flat because outside Earth the tides remain. The Bianchi identity is a cyclic sum of covariant derivatives of Riemann that vanishes, proved by walking a vector around the six faces of a tiny box; it is empty on a surface. Contracting it twice gives div Ricci equals half grad R, so Ricci minus half R times the metric is divergence-free; only the half works, and Lambda is still allowed. That combination is the Einstein tensor; its time-time component adds the three space-plane curvatures instead of the tides, it vanishes outside a spherical mass, and its zero divergence is why Einstein's equation can face a conserved source. This matches every takeaway; the stumbles were local.
+
+18 stumbles
+
+- “is one entry of the tidal matrix at the satellite.”: 'Tidal matrix' is used as a known name before the section introduces it; the reader knows the second-derivative matrix but not this name.
+- “Once the satellite's own turning, once per orbit, is allowed for, the three entries add to zero”: A surprising step with no reason: why does the satellite's turning change accelerometer readings?
+- “the volume obeys δV(τ) ≈ δV(0)(...)”: δ reads as 'change in', so δV(0) looked like a change at time zero and needed a reread.
+- “starts to shrink at the rate set by 8.4e-7 s^-2”: 'Rate set by' is not a measurement; the reader cannot say what the ball does after one second.
+- “In an orthonormal frame of a positive-definite metric g^{ij} is the identity”: Needed a reread for the missing pause, and 'positive-definite' is a term no earlier section gave.
+- “Tracing twice then gives R = 2K on every surface”: Step left implicit: from one component R_1212 = K det g to R = 2K takes two traces the reader could not do.
+- “so the six changes cancel to this order.”: Rule stated without its reason; why walking every edge both ways makes the changes cancel is the whole point.
+- “The proof takes four moves.”: The box picture had just read as the proof, so 'the proof' seemed to announce a second, different thing.
+- “Two remarks. The proof needed only ... Second,”: The first remark is not marked, so 'Second' sent the reader back to find 'First'.
+- “uses two facts from *The Levi-Civita connection*: the metric passes through ∇, and the lowered Riemann tensor is antisymmetric in its first pair.”: First-pair antisymmetry was given by *Symmetries and identities*, not by the connection section.
+- “G ≡ g^{μν}G_{μν} = R − 2R = −R”: G already means Newton's constant in this section (GM/c^2 on the same page); one symbol for two ideas.
+- “leaves the trace-free part alone”: 'Trace-free part' is undefined.
+- “in terms of the six Riemann components R_abab with a < b”: The reader has twenty components in mind; 'the six' read as a contradiction until it was clear these are a subset.
+- “Outside a spherical mass M, for an observer held at rest”: The section's observer had been falling freely; the reader could not tell whether the six numbers depend on that.
+- “The Einstein tensor vanishes there, and spacetime is not flat.”: Only G_tt had been computed; the general claim came without the check the reader could do with the same six numbers.
+- “and no star could exist.”: A surprise with its reason skipped: why does a constant trace forbid a star?
+- “∇^μ H_μν = ... (check 'find-the-half')”: H_μν is never named; the question is math-free so the answer must introduce the symbol.
+- “glossary: no entry for 'tidal matrix' or 'trace reversal'”: Two terms the section introduces are missing from the glossary.
+
+Fixes:
+- Applied every rewrite above in place.
+- Restored the r1 check 'an-egg-and-the-bianchi-identity' and its misconception 'bianchi-forbids-varying-curvature' (the Bianchi part had no check), with the E_xz claim dropped from the answer since the section does not derive it.
+- Added a spoken tutor question on what the Bianchi identity says in words.
+- Revision 1 to 2; status novice-reviewed.
+
+Concerns:
+- The tidal matrix and its sign convention (E_ij = c^2 R^i_0j0, radial entry negative means stretching) still have no row in course-conventions.md.
+- The Schwarzschild orthonormal Riemann components and the plane-sum reading of G_00 are taken on trust; the physics reviewer should confirm the six numbers and their signs against the course Riemann sign.
+- Four builds_on sections (the-levi-civita-connection, the-newtonian-limit, newtonian-gravity-as-a-field, conservation-in-curved-spacetime) are not yet written; the back-references assume what they will say, notably that 'Newtonian gravity as a field' gives the relative acceleration as minus the second-derivative matrix of Phi times the separation.
+- The section symbol G for Newton's constant and G_mu_nu for the Einstein tensor coexist; the bare trace symbol was removed, but a course choice for the Einstein tensor's trace is still missing.
+
+## Review: physics
+
+Verdict fixed (2026-09-16, revision 4)
+
+16 verification items, 9 counterexamples
+
+- Tidal matrix E_ij = c^2 R^i_0j0 with relative acceleration -E_ij xi^j follows from the course geodesic-deviation equation with u = (c,0,0,0) in the observer's orthonormal frame: confirmed; sign and index placement agree
+- Weak static field g_00 = -(1+2Phi/c^2) gives Gamma^i_00 = d_i Phi/c^2 and c^2 R^i_0j0 = d_j d_i Phi at first order: R^x_0x0 = -7.4025e-5 against -2M/r^3 = -7.4074e-5, R^y_0y0 = 3.7000e-5 against M/r^3 = 3.7037e-5 (discretisation and second-order terms); confirmed
+- Ricci symmetry via pair exchange; other contractions are 0 or +-R_mu nu; R_mu nu u u = sum E_ii; ball volume V(1 - R_uu tau^2/2): confirmed
+- Opening numbers at 255 km: -2.74e-6 and +1.37e-6 s^-2; check gradiometer-in-a-higher-orbit at r = 6771 km: 2.568e-6 and 1.284e-6 m/s^2; dust as dense as water: c^2 R_00 = 8.4e-7 s^-2, volume down 4.2e-7 after 1 s: 1.3702e-6, 1.2840e-6, 8.387e-7, 4.19e-7; all agree within the stated tolerances. Thin air at 400 km (3e-12 kg/m^3) gives R_00 about 3e-38 m^-2, inside the check's abs_tol of 1e-30
+- Sphere: R^theta_phi theta phi = sin^2 theta, R_theta theta = 1, R_phi phi = sin^2 theta, R = 2/a^2, K = R_1212/det g = 1/a^2; R_sigma mu rho nu = K(g g - g g) traces to R = 2K: 0.708072 vs sin^2 = 0.708073, R = 0.500001 vs 0.5, K = 0.250000; confirmed
+- Bianchi identity: box pairing sign, cyclic pattern, component proof in normal coordinates, torsion-free suffices, empty in two dimensions: confirmed after adding the handedness the cyclic-order claim needs and evaluating each face at its centre so both faces are read at O(eps^3)
+- Contracted Bianchi: nabla_rho R^rho_sigma mu nu = nabla_mu R_sigma nu - nabla_nu R_sigma mu (no metric); with g^sigma mu and first-pair antisymmetry, 2 nabla_mu R^mu_nu = nabla_nu R; candidate R + B R g has divergence (1/2 + B) grad R: confirmed
+- Trace of G is -R in four dimensions; trace reversal is an involution; G_00 = R_00 + R/2 and G_ii = R_ii - R/2 in an orthonormal frame; G_00 = R_1212 + R_2323 + R_3131: confirmed
+- Schwarzschild static orthonormal components in units m/r^3: R_trtr = -2, R_t theta t theta = R_t phi t phi = +1, R_r theta r theta = R_r phi r phi = -1, R_theta phi theta phi = +2; all Ricci and Einstein components vanish: -2.00000, +1.00000, +1.00000, -1.00000, -1.00000, +1.99998 times 1e-3; Ricci components below 5e-8, R and G_00 below 3e-8; confirmed with the course Riemann sign
+- A slowly moving observer reads the six numbers up to O(v^2/c^2): confirmed
+- Sectional reading of R_ijij as the ring-test curvature of the geodesic surface of that plane: confirmed; consistent with the Flamm slice having K = -m/r^3
+- Trace of the stress-energy of slow matter is close to -rho c^2: confirmed
+- Six-numbers check: R_00 = 1, G_00 = 4; find-the-half: B = -1/2: confirmed
+- Sketch of falling-ring-of-crumbs: d_z E_xx equals d_x E_xz: confirmed (author-facing)
+- Structure: teaches equals the outline list; each concept named in its part; builds_on are real earlier main-track sections (positions 10, 37, 45, 58, 68, 69 before 70) whose outline concept lists cover what is assumed (newtonian-tidal-tensor and poisson-equation-for-gravity, weak-field-metric, metric-compatibility, covariant-conservation-of-energy-momentum); forward titles Geodesic deviation and tides, Finding the field equations exist; checks and misconceptions link both ways; glossary concepts exist in the registry; no book named: confirmed
+- Earlier sections supply pair exchange, first-pair antisymmetry, twenty components, Riemann normal coordinates, small-loop rule, Gaussian curvature and the ring test: confirmed
+
+Fixes:
+- Part 'The trace of the tides': 'Inside matter the trace is not zero' scoped to ordinary matter, where it is positive; the vacuum trace claim now notes the cosmological-constant shift (about 1e-35 s^-2 near Earth) it ignores.
+- Part 'A rule for how curvature changes': the box's three axes are named and taken right-handed in cyclic order, with a note that in spacetime any three of the four axes serve; each face's curvature is evaluated at the face's centre so both faces of a pair are read consistently at order epsilon cubed.
+- Revision 2 to 3; status physics-reviewed.
+
+Concerns:
+- course-conventions.md has no row for the tidal matrix symbol and sign (E_ij = c^2 R^i_0j0, radial entry negative means stretching); the registry note for relativistic-tidal-tensor writes K^a_b = R^a_cbd u^c u^d instead. A conventions row is needed before Geodesic deviation and tides is written; the section's choice is consistent with the course geodesic-deviation equation.
+- No course symbol for the trace of the Einstein tensor; the section writes g^{mu nu} G_{mu nu} out in full, which is safe.
+- Four builds_on sections (the-levi-civita-connection, the-newtonian-limit, newtonian-gravity-as-a-field, conservation-in-curved-spacetime) are in the outline but not yet written; the back-references match their outline concept lists. Newtonian gravity as a field is entry depth, so this section is the first to write the tidal matrix and Poisson's equation in symbols; the writer of that section should give both in words with the same signs.
+- The identification of R_ijij with the ring-test curvature of the geodesic surface of the plane is stated on trust; a later section should derive it or it should be dropped if none does.

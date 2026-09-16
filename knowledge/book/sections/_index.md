@@ -133,11 +133,11 @@
 
 | Section | Track | Depth | Status | Words |
 | --- | --- | --- | --- | --- |
-| [[curved-surfaces]] Curved surfaces | main | entry | draft (rev 1) | 607 |
-| Curves and surfaces in space | main | working | — | |
-| Holonomy and the Riemann tensor | main | working | — | |
-| Symmetries and identities of the Riemann tensor | main | working | — | |
-| Ricci, Bianchi and Einstein | main | working | — | |
+| [[curved-surfaces]] Curved surfaces | main | entry | physics-reviewed (rev 4) | 8769 |
+| [[curves-and-surfaces-in-space]] Curves and surfaces in space | main | working | physics-reviewed (rev 3) | 10275 |
+| [[holonomy-and-the-riemann-tensor]] Holonomy and the Riemann tensor | main | working | physics-reviewed (rev 4) | 9575 |
+| [[symmetries-and-identities]] Symmetries and identities of the Riemann tensor | main | working | physics-reviewed (rev 4) | 9365 |
+| [[ricci-bianchi-and-einstein-tensors]] Ricci, Bianchi and Einstein | main | working | physics-reviewed (rev 4) | 8845 |
 | Constant curvature, the Weyl tensor and invariants | advanced | formal | — | |
 | Geodesic deviation and tides | main | working | — | |
 
