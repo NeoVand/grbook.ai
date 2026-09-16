@@ -1,0 +1,2370 @@
+{
+	"schema_version": 2,
+	"id": "cube-of-small-loops",
+	"title": "Cube of small loops",
+	"kind": "interactive-3d",
+	"priority": "flagship",
+	"status": "proposed",
+	"revision": 2,
+	"updated": "2026-09-16",
+	"component": null,
+	"rungs": [
+		"entry",
+		"working",
+		"formal",
+		"research"
+	],
+	"makes_visible": "One tiny box carries both curvature identities. Walk its three corner faces, each carrying the edge its own face lacks, and the three changes add to nothing: the cyclic identity. Walk all six faces the same way round seen from outside, pair them off, and the three leftovers add to nothing: the Bianchi identity. Each single face is a small loop, so the whole picture rests on holonomy. Splitting every face change into its Ricci part and its Weyl part turns the same box into the Weyl divergence equation, whose source is the change in the matter, not the matter itself.",
+	"picture": {
+		"caption": "Carry an arrow around each face of a tiny box without letting it swing, and the changes cancel in two different ways.",
+		"composition": "A small translucent box floats in a shaded field of curvature. Its twelve edges are solid lines; the face being walked is tinted and carries small arrowheads showing the walking direction. The carried arrow is drawn in orange at the home corner, with a faded copy at each step. Beside the box, the returned changes are laid tip to tail as short bars on a stub axis, one colour per face or per opposite pair and each bar labelled with its number, with the running total at the end. A split toggle draws every bar as a pale room-changing stub plus a solid shape-changing stub. Readouts appear only when a face trip closes.",
+		"elements": [
+			{
+				"element": "Translucent box with twelve solid edges",
+				"depicts": "the tiny region of space and time whose faces are the loops"
+			},
+			{
+				"element": "Tinted face with arrowheads",
+				"depicts": "the loop being walked and the direction it is walked in"
+			},
+			{
+				"element": "Orange carried arrow with faded copies",
+				"depicts": "the arrow carried without swinging"
+			},
+			{
+				"element": "Short bars laid tip to tail on a stub axis",
+				"depicts": "the changes each trip brings back, and their running total"
+			},
+			{
+				"element": "Pale and solid halves of each bar",
+				"depicts": "the room-changing part and the shape-changing part of one face change"
+			},
+			{
+				"element": "Readouts: face change, corner sum, leftover, leftover sum, shrink slope",
+				"depicts": "the two identities as numbers, shown only once a trip closes"
+			}
+		]
+	},
+	"print_figure": {
+		"description": "Two panels sharing one small box. Left: the three faces meeting at the home corner, each with the arrow that points along the edge that face lacks, and the three returned changes laid tip to tail closing on the starting point. Right: all six faces, paired into three opposite pairs by colour, with the three leftover bars laid tip to tail and closing on the starting point.",
+		"labels": [
+			"home corner",
+			"first edge",
+			"second edge",
+			"third edge",
+			"three corner trips",
+			"three leftovers",
+			"total: nothing"
+		],
+		"aspect": "2:1",
+		"alt_text": "A tiny box in curved space. Three trips around the faces at one corner give three changes that close into a triangle, and the three leftovers from opposite faces close into a triangle as well."
+	},
+	"variants": [
+		{
+			"id": "static-card",
+			"form": "static",
+			"description": "The print figure as an SVG card: the corner triple and the six-face pairing side by side, used when 3D cannot run.",
+			"fallback": true
+		},
+		{
+			"id": "flattened-net",
+			"form": "interactive-2d",
+			"description": "The box opened out as a flat net, with each face's trip and returned change drawn on its own tile and the shared edges marked, so the cancellation of edges can be followed by eye.",
+			"fallback": false
+		},
+		{
+			"id": "full-3d",
+			"form": "interactive-3d",
+			"description": "The whole demonstration: a choice of space and time, a choice of three axes for the box, both carry rules, the edge-length slider, the split toggle, and every readout.",
+			"fallback": false
+		}
+	],
+	"params": [
+		{
+			"id": "spacetime",
+			"label": "Space and time",
+			"type": "enum",
+			"options": [
+				{
+					"value": "minkowski",
+					"label": "Flat, with nothing in it",
+					"available_when": null
+				},
+				{
+					"value": "de-sitter",
+					"label": "Same curving everywhere",
+					"available_when": null
+				},
+				{
+					"value": "plane-wave",
+					"label": "A ripple passing through",
+					"available_when": null
+				},
+				{
+					"value": "point-mass",
+					"label": "Outside a round star",
+					"available_when": null
+				},
+				{
+					"value": "star-inside",
+					"label": "Inside a round star",
+					"available_when": null
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "plane-wave",
+			"available_when": null,
+			"effect": "Chooses the geometry the box sits in. Flat gives zero everywhere; same-curving-everywhere has $\\nabla R = 0$, so every leftover is zero on its own; the ripple is a linearized plane wave running along $z$, the only choice with components carrying four different directions; outside a round star is Ricci-flat with curvature changing in every direction; inside a round star adds a Ricci part and a nonzero Weyl current."
+		},
+		{
+			"id": "cube-axes",
+			"label": "Box edges run along",
+			"type": "enum",
+			"options": [
+				{
+					"value": "xyz",
+					"label": "The three space directions",
+					"available_when": null
+				},
+				{
+					"value": "txy",
+					"label": "Time, then the x and y directions",
+					"available_when": null
+				},
+				{
+					"value": "txz",
+					"label": "Time, then x across the ripple and z along it",
+					"available_when": null
+				},
+				{
+					"value": "tyz",
+					"label": "Time, then the y and z directions",
+					"available_when": null
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "xyz",
+			"available_when": null,
+			"effect": "Picks the three of the four spacetime directions the box's edges run along, in the order listed. Writing them $(a, b, c)$, the three faces that touch the home corner are $(b, c)$, then $(c, a)$, then $(a, b)$, and opposite pair number one is the pair stacked along $a$, pair two along $b$, pair three along $c$."
+		},
+		{
+			"id": "faces",
+			"label": "Faces walked",
+			"type": "enum",
+			"options": [
+				{
+					"value": "home-three",
+					"label": "The three faces at the home corner",
+					"available_when": null
+				},
+				{
+					"value": "all-six",
+					"label": "All six faces, in opposite pairs",
+					"available_when": null
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "all-six",
+			"available_when": null,
+			"effect": "Three corner faces show the cyclic identity; all six, paired off, show the Bianchi identity."
+		},
+		{
+			"id": "carry-rule",
+			"label": "Which arrow is carried",
+			"type": "enum",
+			"options": [
+				{
+					"value": "fixed",
+					"label": "The same arrow on every face",
+					"available_when": null
+				},
+				{
+					"value": "missing-edge",
+					"label": "On each face, the edge that face lacks",
+					"available_when": {
+						"faces": [
+							"home-three"
+						]
+					}
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "fixed",
+			"available_when": null,
+			"effect": "The fixed rule carries one chosen arrow around every face. The missing-edge rule carries, on each corner face, the arrow pointing along the box edge that face does not use; that is the rule the cyclic identity needs, so it is offered only with the three corner faces."
+		},
+		{
+			"id": "carried-axis",
+			"label": "Carried arrow points along",
+			"type": "enum",
+			"options": [
+				{
+					"value": "t",
+					"label": "Time",
+					"available_when": null
+				},
+				{
+					"value": "x",
+					"label": "The x direction",
+					"available_when": null
+				},
+				{
+					"value": "y",
+					"label": "The y direction",
+					"available_when": null
+				},
+				{
+					"value": "z",
+					"label": "The z direction",
+					"available_when": null
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "t",
+			"available_when": {
+				"carry-rule": [
+					"fixed"
+				]
+			},
+			"effect": "Sets the unit frame vector carried around every face when the fixed carry rule is chosen."
+		},
+		{
+			"id": "read-axis",
+			"label": "Reading direction",
+			"type": "enum",
+			"options": [
+				{
+					"value": "t",
+					"label": "Time",
+					"available_when": null
+				},
+				{
+					"value": "x",
+					"label": "The x direction",
+					"available_when": null
+				},
+				{
+					"value": "y",
+					"label": "The y direction",
+					"available_when": null
+				},
+				{
+					"value": "z",
+					"label": "The z direction",
+					"available_when": null
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "t",
+			"available_when": null,
+			"effect": "The frame direction whose component of each returned change the readouts report. Choosing a direction the box's edges do not run along is what makes the cyclic sum a new condition."
+		},
+		{
+			"id": "highlight",
+			"label": "Highlighted face or pair",
+			"type": "integer",
+			"options": null,
+			"min": 1,
+			"max": 3,
+			"step": 1,
+			"unit": null,
+			"default": 1,
+			"available_when": null,
+			"effect": "Picks which of the three corner faces, or which of the three opposite pairs, the face and leftover readouts report."
+		},
+		{
+			"id": "edge",
+			"label": "Box edge",
+			"type": "number",
+			"options": null,
+			"min": 0.005,
+			"max": 0.5,
+			"step": 0.005,
+			"unit": "scene units",
+			"default": 0.1,
+			"available_when": null,
+			"effect": "The coordinate length of every edge of the box. Drawn changes scale with it; the per-unit-area and per-unit-volume readouts are extrapolated to zero edge and do not."
+		},
+		{
+			"id": "progress",
+			"label": "Walk progress",
+			"type": "progress",
+			"options": null,
+			"min": 0,
+			"max": 1,
+			"step": 0.01,
+			"unit": null,
+			"default": 0,
+			"available_when": null,
+			"effect": "Moves the arrow through the chosen face trips in order; readouts marked on-complete appear only at 1."
+		},
+		{
+			"id": "split",
+			"label": "Split each change",
+			"type": "boolean",
+			"options": null,
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": false,
+			"available_when": null,
+			"effect": "Draws every returned change as a room-changing part built from the Ricci tensor and the metric, plus a shape-changing part built from the Weyl tensor."
+		},
+		{
+			"id": "curvature-radius",
+			"label": "Curvature radius",
+			"type": "number",
+			"options": null,
+			"min": 0.5,
+			"max": 20,
+			"step": 0.5,
+			"unit": "scene units",
+			"default": 2,
+			"available_when": {
+				"spacetime": [
+					"de-sitter"
+				]
+			},
+			"effect": "The length $L$ of the same-curving-everywhere choice, whose Riemann tensor is $L^{-2}(g_{\\mu\\rho}g_{\\nu\\sigma} - g_{\\mu\\sigma}g_{\\nu\\rho})$."
+		},
+		{
+			"id": "plus-amplitude",
+			"label": "Stretch amplitude",
+			"type": "number",
+			"options": null,
+			"min": 0,
+			"max": 0.2,
+			"step": 0.01,
+			"unit": null,
+			"default": 0.1,
+			"available_when": {
+				"spacetime": [
+					"plane-wave"
+				]
+			},
+			"effect": "The amplitude of the plus polarization of the ripple, which stretches along $x$ while squeezing along $y$."
+		},
+		{
+			"id": "cross-amplitude",
+			"label": "Diagonal amplitude",
+			"type": "number",
+			"options": null,
+			"min": 0,
+			"max": 0.2,
+			"step": 0.01,
+			"unit": null,
+			"default": 0.1,
+			"available_when": {
+				"spacetime": [
+					"plane-wave"
+				]
+			},
+			"effect": "The amplitude of the cross polarization of the ripple. It alone gives the components whose four directions all differ, so setting it to zero empties the cyclic sum."
+		},
+		{
+			"id": "wave-phase",
+			"label": "Ripple phase at the box",
+			"type": "number",
+			"options": null,
+			"min": 0,
+			"max": 345,
+			"step": 15,
+			"unit": "deg",
+			"default": 45,
+			"available_when": {
+				"spacetime": [
+					"plane-wave"
+				]
+			},
+			"effect": "The phase $\\omega(t - z)$ of the ripple at the home corner, with $\\omega = 1$ per scene unit. At zero phase the curvature vanishes while its rate of change does not."
+		},
+		{
+			"id": "mass",
+			"label": "Star mass",
+			"type": "number",
+			"options": null,
+			"min": 0.1,
+			"max": 2,
+			"step": 0.1,
+			"unit": "scene units",
+			"default": 1,
+			"available_when": {
+				"spacetime": [
+					"point-mass",
+					"star-inside"
+				]
+			},
+			"effect": "The star's mass in geometrized units, where a mass is a length."
+		},
+		{
+			"id": "mass-distance",
+			"label": "Distance from the star's centre",
+			"type": "number",
+			"options": null,
+			"min": 1,
+			"max": 50,
+			"step": 1,
+			"unit": "scene units",
+			"default": 10,
+			"available_when": {
+				"spacetime": [
+					"point-mass",
+					"star-inside"
+				]
+			},
+			"effect": "How far the home corner sits from the centre. The centre lies in the fixed direction with components two sevenths, three sevenths and six sevenths from the home corner, chosen off every box axis so that no component is zero by symmetry alone."
+		},
+		{
+			"id": "star-radius",
+			"label": "Star radius",
+			"type": "number",
+			"options": null,
+			"min": 2,
+			"max": 20,
+			"step": 1,
+			"unit": "scene units",
+			"default": 3,
+			"available_when": {
+				"spacetime": [
+					"star-inside"
+				]
+			},
+			"effect": "The radius $R$ of a star whose density falls straight to zero at the surface, $\\rho(r) = (3M/\\pi R^3)(1 - r/R)$."
+		}
+	],
+	"presets": [
+		{
+			"id": "flat-cube",
+			"label": "A box in flat space and time",
+			"state": {
+				"spacetime": "minkowski",
+				"cube-axes": "xyz",
+				"faces": "all-six",
+				"carry-rule": "fixed",
+				"carried-axis": "t",
+				"read-axis": "t",
+				"highlight": 1,
+				"edge": 0.1
+			}
+		},
+		{
+			"id": "de-sitter-face",
+			"label": "One face where the curving is the same everywhere",
+			"state": {
+				"spacetime": "de-sitter",
+				"curvature-radius": 2,
+				"cube-axes": "xyz",
+				"faces": "home-three",
+				"carry-rule": "fixed",
+				"carried-axis": "x",
+				"read-axis": "y",
+				"highlight": 3,
+				"edge": 0.1
+			}
+		},
+		{
+			"id": "de-sitter-corner",
+			"label": "Three corner trips where the curving is the same everywhere",
+			"state": {
+				"spacetime": "de-sitter",
+				"curvature-radius": 2,
+				"cube-axes": "xyz",
+				"faces": "home-three",
+				"carry-rule": "missing-edge",
+				"read-axis": "t",
+				"highlight": 1,
+				"edge": 0.1
+			}
+		},
+		{
+			"id": "de-sitter-cube",
+			"label": "All six faces where the curving is the same everywhere",
+			"state": {
+				"spacetime": "de-sitter",
+				"curvature-radius": 2,
+				"cube-axes": "xyz",
+				"faces": "all-six",
+				"carry-rule": "fixed",
+				"carried-axis": "x",
+				"read-axis": "y",
+				"highlight": 1,
+				"edge": 0.1
+			}
+		},
+		{
+			"id": "wave-corner",
+			"label": "Three corner trips in a passing ripple",
+			"state": {
+				"spacetime": "plane-wave",
+				"plus-amplitude": 0.1,
+				"cross-amplitude": 0.1,
+				"wave-phase": 45,
+				"cube-axes": "xyz",
+				"faces": "home-three",
+				"carry-rule": "missing-edge",
+				"read-axis": "t",
+				"highlight": 1,
+				"edge": 0.05
+			}
+		},
+		{
+			"id": "wave-cube",
+			"label": "All six faces in a passing ripple",
+			"state": {
+				"spacetime": "plane-wave",
+				"plus-amplitude": 0.1,
+				"cross-amplitude": 0.1,
+				"wave-phase": 45,
+				"cube-axes": "txz",
+				"faces": "all-six",
+				"carry-rule": "fixed",
+				"carried-axis": "y",
+				"read-axis": "t",
+				"highlight": 1,
+				"edge": 0.05
+			}
+		},
+		{
+			"id": "wave-at-zero-phase",
+			"label": "A ripple caught where its curving passes through zero at the box",
+			"state": {
+				"spacetime": "plane-wave",
+				"plus-amplitude": 0.1,
+				"cross-amplitude": 0.1,
+				"wave-phase": 0,
+				"cube-axes": "txz",
+				"faces": "all-six",
+				"carry-rule": "fixed",
+				"carried-axis": "y",
+				"read-axis": "t",
+				"highlight": 1,
+				"edge": 0.05
+			}
+		},
+		{
+			"id": "point-mass-cube",
+			"label": "All six faces outside a round star",
+			"state": {
+				"spacetime": "point-mass",
+				"mass": 1,
+				"mass-distance": 10,
+				"cube-axes": "xyz",
+				"faces": "all-six",
+				"carry-rule": "fixed",
+				"carried-axis": "x",
+				"read-axis": "y",
+				"highlight": 1,
+				"edge": 0.1
+			}
+		},
+		{
+			"id": "star-cube",
+			"label": "All six faces inside a round star",
+			"state": {
+				"spacetime": "star-inside",
+				"mass": 1,
+				"star-radius": 3,
+				"mass-distance": 1,
+				"cube-axes": "xyz",
+				"faces": "all-six",
+				"carry-rule": "fixed",
+				"carried-axis": "x",
+				"read-axis": "y",
+				"highlight": 1,
+				"edge": 0.1,
+				"split": true
+			}
+		}
+	],
+	"readouts": [
+		{
+			"id": "face-turn",
+			"label": "Turn on the highlighted face",
+			"unit": "deg",
+			"sense": "positive when the arrow turns from the face's first edge toward its second edge, which is toward the walker's left with the walker's head along the first edge crossed into the second",
+			"range": [
+				-180,
+				180
+			],
+			"decimals": 6,
+			"visible_when": "on-demand",
+			"say": "the arrow came back turned {abs} degrees from the first edge toward the second",
+			"say_negative": "the arrow came back turned {abs} degrees from the second edge toward the first"
+		},
+		{
+			"id": "face-coefficient",
+			"label": "Change per unit area on the highlighted face",
+			"unit": "per scene unit squared",
+			"sense": "positive when the arrow's tip moves along the reading direction",
+			"range": null,
+			"decimals": 8,
+			"visible_when": "on-complete",
+			"say": "the change per unit area is {abs} along the reading direction",
+			"say_negative": "the change per unit area is {abs} against the reading direction"
+		},
+		{
+			"id": "corner-sum",
+			"label": "Sum over the three corner faces",
+			"unit": "per scene unit squared",
+			"sense": "positive when the total moves along the reading direction",
+			"range": null,
+			"decimals": 12,
+			"visible_when": "on-complete",
+			"say": "measured along the reading direction, the three corner trips add to {abs}",
+			"say_negative": "measured along the reading direction, the three corner trips add to minus {abs}"
+		},
+		{
+			"id": "leftover",
+			"label": "Leftover of the highlighted opposite pair",
+			"unit": "per scene unit cubed",
+			"sense": "positive when what is left over moves along the reading direction",
+			"range": null,
+			"decimals": 8,
+			"visible_when": "on-complete",
+			"say": "this pair leaves over {abs} per unit volume along the reading direction",
+			"say_negative": "this pair leaves over {abs} per unit volume against the reading direction"
+		},
+		{
+			"id": "leftover-sum",
+			"label": "Sum of the three leftovers",
+			"unit": "per scene unit cubed",
+			"sense": "positive when the total moves along the reading direction",
+			"range": null,
+			"decimals": 12,
+			"visible_when": "on-complete",
+			"say": "measured along the reading direction, the three leftovers add to {abs}",
+			"say_negative": "measured along the reading direction, the three leftovers add to minus {abs}"
+		},
+		{
+			"id": "shrink-slope",
+			"label": "Shrink slope",
+			"unit": null,
+			"sense": null,
+			"range": [
+				0,
+				6
+			],
+			"decimals": 3,
+			"visible_when": "on-demand",
+			"say": "the highlighted change falls off as the box edge to the power {value}",
+			"say_negative": null
+		},
+		{
+			"id": "ricci-part",
+			"label": "Room-changing part of the face change",
+			"unit": "per scene unit squared",
+			"sense": "positive when this part moves the arrow's tip along the reading direction",
+			"range": null,
+			"decimals": 8,
+			"visible_when": "on-demand",
+			"say": "the room-changing part is {abs} along the reading direction",
+			"say_negative": "the room-changing part is {abs} against the reading direction"
+		},
+		{
+			"id": "weyl-part",
+			"label": "Shape-changing part of the face change",
+			"unit": "per scene unit squared",
+			"sense": "positive when this part moves the arrow's tip along the reading direction",
+			"range": null,
+			"decimals": 8,
+			"visible_when": "on-demand",
+			"say": "the shape-changing part is {abs} along the reading direction",
+			"say_negative": "the shape-changing part is {abs} against the reading direction"
+		},
+		{
+			"id": "weyl-divergence",
+			"label": "Divergence of the Weyl tensor",
+			"unit": "per scene unit cubed",
+			"sense": "positive when the component taken with the reading direction and the highlighted face's two edges, in the order the face is walked, is positive",
+			"range": null,
+			"decimals": 8,
+			"visible_when": "on-demand",
+			"say": "the divergence of the shape-changing table reads {abs}",
+			"say_negative": "the divergence of the shape-changing table reads minus {abs}"
+		},
+		{
+			"id": "weyl-current",
+			"label": "Weyl current",
+			"unit": "per scene unit cubed",
+			"sense": "positive when the component taken with the reading direction and the highlighted face's two edges, in the order the face is walked, is positive",
+			"range": null,
+			"decimals": 8,
+			"visible_when": "on-demand",
+			"say": "the current built from the change in the matter reads {abs}",
+			"say_negative": "the current built from the change in the matter reads minus {abs}"
+		}
+	],
+	"tours": [
+		{
+			"id": "six-loops-around-a-box",
+			"for_concept": "bianchi-identity",
+			"rung": "entry",
+			"beats": [
+				{
+					"id": "meet-the-box",
+					"rung": "entry",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 0
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "A tiny box floating in the space around a star, with one orange arrow resting at the home corner.",
+					"say": "Here is a tiny box floating in the space around a star. Its twelve edges are drawn as solid lines. One corner is marked, and I call it the home corner. An orange arrow rests there. I will carry that arrow around each face in turn, and I will never let it swing.",
+					"describe": "A small box hangs in the curved space near a star. One corner is marked as home, and a single arrow rests at that corner."
+				},
+				{
+					"id": "predict-the-total",
+					"rung": "entry",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 0
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "I walk each of the six faces the same way round, seen from outside the box. What do the six changes add up to?",
+					"check": "bianchi-identity/checks/the-sixth-trip",
+					"show": "The same view, paused, with the six faces briefly tinted one after another.",
+					"say": "Guess before I walk. I go around every one of the six faces, each the same way round, seen from outside the box. Each trip brings the arrow back a little changed. What do the six changes add up to?",
+					"describe": "The box waits with the arrow at the home corner. Each of the six faces lights up in turn, so you can count them."
+				},
+				{
+					"id": "walk-the-six",
+					"rung": "entry",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 0
+					},
+					"animate": {
+						"param": "progress",
+						"to": 1,
+						"seconds": 14
+					},
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The arrow travels around all six faces in order; a short bar is laid tip to tail for each returned change.",
+					"say": "Watch the arrow go round, face after face. A short bar appears for each trip, laid tip to tail beside the box. Every edge of the box belongs to two faces. I walk each edge once one way and once the other way. So every step one way is undone by the same step the other way, and the six bars close back on the starting point, where the first bar began. They add up to nothing.",
+					"describe": "The arrow travels around six faces in turn. Six short bars are laid end to end beside the box, and the last one ends where the first one began."
+				},
+				{
+					"id": "pair-the-opposite-faces",
+					"rung": "entry",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 1,
+						"highlight": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Only the highlighted opposite pair is tinted; its two bars are drawn nose to nose with the small leftover between them.",
+					"say": "Now take just one pair of faces that sit opposite each other. Seen from one and the same side of the box, they are walked opposite ways round. So their two bars nearly cancel. What is left between them is small, and the leftover readout gives it. This pair leaves over about one and a half ten-thousandths per unit of volume.",
+					"describe": "Two opposite faces of the box are tinted. Their bars point almost exactly against each other, and a short gap remains between the tips."
+				},
+				{
+					"id": "three-leftovers",
+					"rung": "entry",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "bianchi-identity/checks/leftover-of-the-third-pair",
+					"show": "All three pairs tinted in three colours and labelled one, two and three; the three leftover bars laid tip to tail in the same order, closing on the starting point.",
+					"say": "A box has three pairs of opposite faces, so there are three leftovers. Two of them point one way and the third points back the other way. Laid tip to tail, the three close on the starting point. They add up to nothing. That is the rule, and it is called the Bianchi identity.",
+					"describe": "Three leftover bars, in three colours and labelled one, two and three, are laid end to end. Two point one way and the third points back, and the last tip lands on the first tail."
+				},
+				{
+					"id": "try-to-break-it",
+					"rung": "entry",
+					"state": {
+						"preset": "wave-cube",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "bianchi-identity/checks/an-experiment-to-break-it",
+					"show": "The same six-face walk in a passing ripple; the three leftovers again close on the starting point.",
+					"say": "Try another choice from the space and time list. Here a ripple of curving is passing through the box. The three leftovers are different numbers now, and they still close on the starting point. No space in the list breaks the rule. The reason is that every edge of the box belongs to two faces, and the two trips walk it opposite ways. That is true of any box in any space, so no experiment could ever catch the rule failing.",
+					"describe": "The box now sits in a passing ripple. The three leftover bars have different lengths from before, and they still close on the starting point."
+				},
+				{
+					"id": "shrink-the-box",
+					"rung": "working",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 1,
+						"highlight": 1
+					},
+					"animate": {
+						"param": "edge",
+						"to": 0.01,
+						"seconds": 5
+					},
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The box shrinks while the shrink-slope readout settles; the drawn bars shorten sharply while the per-unit readouts hold still.",
+					"say": "Now I shrink the box. One face's change falls off as the square of the edge, so the shrink slope reads two. A pair's leftover falls off as the cube, so its slope reads three. Divide each one by the area or by the volume it belongs to, and the readouts hold still: those are the numbers the identity is really about.",
+					"describe": "The box shrinks steadily. The drawn bars shorten much faster than the box does, while the per-unit readouts stay at the same values."
+				}
+			]
+		},
+		{
+			"id": "leftovers-in-components",
+			"for_concept": "bianchi-identity",
+			"rung": "working",
+			"beats": [
+				{
+					"id": "name-the-three-leftovers",
+					"rung": "working",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Each leftover bar labelled with the derivative index and the two face-edge indices it carries.",
+					"say": "Each opposite pair sits across one box axis. Pair one is stacked along x and its faces have edges along y and z. Its leftover per unit volume is minus the covariant derivative along x of the Riemann component whose slots are the reading direction, the carried direction, and then y and z. The other two pairs give the same expression with x, y and z moved one place around a ring.",
+					"describe": "Three leftover bars, one for each box axis. Each is labelled by the direction the pair is stacked along and by the two directions its faces span."
+				},
+				{
+					"id": "does-it-forbid-change",
+					"rung": "working",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 1,
+						"highlight": 2
+					},
+					"animate": {
+						"param": "mass-distance",
+						"to": 20,
+						"seconds": 4
+					},
+					"await": "prediction",
+					"predict": "I move the box twice as far from the star, so the curvature there is eight times weaker. Does the identity stop the curvature from changing from place to place?",
+					"check": "ricci-bianchi-and-einstein-tensors/checks/an-egg-and-the-bianchi-identity",
+					"show": "The box drifts outward; every leftover shrinks in size while their sum stays pinned at zero.",
+					"say": "I move the box twice as far from the star. The curvature there is eight times weaker, so every leftover shrinks. Predict first: does the identity forbid the curvature from changing from place to place? The identity ties the three rates of change to each other. It never forbids curvature from changing from place to place.",
+					"describe": "The box drifts outward from the star. All three leftover bars shrink together, and the readout for their sum stays at zero."
+				},
+				{
+					"id": "constant-curvature-kills-each-one",
+					"rung": "working",
+					"state": {
+						"preset": "de-sitter-cube",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Same-curving-everywhere: each face change is large, every leftover bar has zero length.",
+					"say": "Switch to the space whose curving is the same everywhere. Each single face still changes the arrow, and the face readout is a quarter per unit area. Every leftover is zero on its own, not just the sum, because the covariant derivative of the Riemann tensor vanishes. A zero sum does not mean uniform curving; uniform curving means three separate zeros.",
+					"describe": "In the space with the same curving everywhere, each face still changes the arrow, and all three leftover bars have no length at all."
+				},
+				{
+					"id": "curvature-zero-leftovers-not",
+					"rung": "formal",
+					"state": {
+						"preset": "wave-at-zero-phase",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The ripple caught at zero phase: every face bar has zero length while two leftover bars do not.",
+					"say": "Here is the opposite case. I catch the ripple at the phase where its curvature passes through zero at the home corner. Every face change is zero, so no single loop turns the arrow at all. Two of the three leftovers are one twentieth per unit volume, one along the reading direction and one against it, and the third is zero. The identity constrains the derivative of the curvature, not the curvature.",
+					"describe": "The ripple is caught at the moment its curvature vanishes at the box. No face changes the arrow, yet two of the three leftovers are still there and cancel each other."
+				},
+				{
+					"id": "which-identity-is-this",
+					"rung": "formal",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "bianchi-identity/checks/which-identity-at-one-point",
+					"show": "The control switches to the three corner faces and the missing-edge carry rule; the readouts change from leftovers to face changes.",
+					"say": "One more thing to keep straight. The switch to the three corner faces, with each face carrying the edge it lacks, gives a different rule. That one holds at a single event and needs no derivative at all. The six-face rule needs the curvature at two nearby places, one per face of each pair. They are two separate identities that share one box.",
+					"describe": "The demonstration switches to three faces at one corner. The readouts now report face changes at one event, not leftovers across the box."
+				}
+			]
+		},
+		{
+			"id": "three-trips-at-a-cube-corner",
+			"for_concept": "cyclic-identity",
+			"rung": "entry",
+			"beats": [
+				{
+					"id": "three-faces-meet-here",
+					"rung": "entry",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 0
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Only the three faces touching the home corner are drawn; the three edges leaving that corner are thickened.",
+					"say": "Look at one corner of this tiny box, and I call it the home corner. Three edges leave it, and I have made them thick. Three faces meet there, and each face is made by two of those edges. So every face leaves one of the three edges out.",
+					"describe": "At one corner of the box, three thick edges leave in three directions. Three faces meet there, and each uses two of the three edges."
+				},
+				{
+					"id": "the-missing-edge-rule",
+					"rung": "entry",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 0
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "For each of the three faces in turn, an arrow appears pointing along the edge that face leaves out.",
+					"say": "Here is the rule for which arrow to carry. On each face I point the arrow along the edge that face leaves out. So from trip to trip, the arrow and the two edges each step on to the next of the three directions, and after three trips they are back where they started. Nothing else changes.",
+					"describe": "Each of the three faces is shown with its own arrow. The arrow always points along the one edge that face does not use."
+				},
+				{
+					"id": "predict-the-third-trip",
+					"rung": "entry",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 0.67
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "The first two trips are done, and their changes are the same size and point opposite ways. What will the third trip bring back?",
+					"check": "cyclic-identity/checks/third-trip-at-a-cube-corner",
+					"show": "Two bars drawn nose to nose, the third face tinted and waiting.",
+					"say": "Two trips are done. Their two bars are the same length and point opposite ways, so laid tip to tail they already close. The third face is tinted and waiting. Guess what the third trip will bring back.",
+					"describe": "Two bars of the same length point opposite ways and already close on each other. The third face is tinted and has not been walked."
+				},
+				{
+					"id": "lay-them-tip-to-tail",
+					"rung": "entry",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 0.67
+					},
+					"animate": {
+						"param": "progress",
+						"to": 1,
+						"seconds": 4
+					},
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The third trip runs and brings back nothing; the three bars close on the starting point and the corner-sum readout stays at zero.",
+					"say": "The third trip leaves the arrow exactly as it set off, so its bar has no length. All three bars laid tip to tail close on the starting point. In every space that general relativity uses, those three changes add up to nothing. Curvature is a table of numbers with rules it must obey, and this is the fourth of them.",
+					"describe": "The third trip leaves the arrow as it was. The three bars laid end to end finish exactly where they started, and the sum readout stays at zero."
+				},
+				{
+					"id": "why-they-cancel",
+					"rung": "entry",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "cyclic-identity/checks/a-space-with-twist",
+					"show": "A ghost overlay of two short two-step routes from the corner, meeting at the far end with no gap.",
+					"say": "The reason is that tiny four-sided walks close up. Go a short way along one edge and then along a second, or take the same two steps in the other order. In every space general relativity uses, both routes end at the same spot. In some other spaces the two routes miss, by a gap that grows in step with the area of the little walk. Such a space is said to have twist, and there these three changes need not cancel.",
+					"describe": "Two short two-step routes leave the corner in opposite orders. Both end at the same spot, with no gap between them."
+				},
+				{
+					"id": "nothing-new-in-space",
+					"rung": "entry",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 1,
+						"read-axis": "z"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "cyclic-identity/checks/fourth-rule-in-space",
+					"show": "The reading direction switches to a direction the box's edges already run along; a badge reads only three different directions.",
+					"say": "Each change is measured along one chosen direction, and so far that direction has been time. Now I measure along one of the box's own edge directions instead. A badge lights up to say that only three different directions are in play. The three numbers still add up to nothing, and the earlier rules of the table already forced that. So in ordinary space the fourth rule adds nothing new.",
+					"describe": "The reading direction is switched to one of the box's own edge directions. The three numbers still add to nothing, and a badge says only three directions are in play."
+				}
+			]
+		},
+		{
+			"id": "the-one-new-link",
+			"for_concept": "cyclic-identity",
+			"rung": "working",
+			"beats": [
+				{
+					"id": "read-along-a-box-axis",
+					"rung": "working",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 1,
+						"read-axis": "z"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Reading direction z, cube axes x, y, z; the three corner numbers printed with their index strings.",
+					"say": "Take the box edges along x, y and z, and read the changes along z. The three numbers are the Riemann components with first index z and last three x, y, z moved one place around a ring. The third has a repeated first pair, so antisymmetry makes it zero. The other two are forced to be opposite by pair exchange and last-pair antisymmetry. The sum was already fixed at zero.",
+					"describe": "With the reading direction along one of the box's own edges, one of the three numbers is zero and the other two are exact opposites."
+				},
+				{
+					"id": "read-along-the-fourth",
+					"rung": "working",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "I switch the reading direction to time, which the box's edges do not run along. Do the earlier rules of the table still force these three numbers to add to nothing?",
+					"check": "cyclic-identity/checks/three-entries-and-a-wrong-sum",
+					"show": "Reading direction time; a badge reads four different directions; the three components printed as the components with time, x, y and z.",
+					"say": "Now I read along time, which the box's edges do not run along. All four directions differ, and the badge says so. These three numbers are the components with time first and then x, y, z moved one place around a ring. Nothing earlier in the table relates them. Their sum is the one genuinely new condition, and in spacetime there is exactly one such set of four directions.",
+					"describe": "The reading direction is switched to time. A badge says all four directions differ, and the three numbers are now unrelated by the earlier rules."
+				},
+				{
+					"id": "two-numbers-fix-the-third",
+					"rung": "working",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 1,
+						"highlight": 3
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "symmetries-and-identities/checks/count-in-five-dimensions",
+					"show": "The third corner bar highlighted with its value, and the other two shown as the numbers that fix it.",
+					"say": "Look at the third bar. The first two corner trips give plus and minus thirty-five thousandths per unit area, so the identity forces the third to be zero, and the readout agrees. In this ripple it is zero because the curvature is of the pure radiative kind, but it is the identity that ties any two of the three to the third. That one link is what cuts twenty-one numbers to twenty.",
+					"describe": "The third bar is highlighted and has no length. The other two have equal and opposite lengths, which is what forces the third to be zero."
+				},
+				{
+					"id": "switch-off-the-diagonal",
+					"rung": "working",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 1,
+						"cross-amplitude": 0
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The ripple with only the stretch polarization: all three corner bars vanish while the face turns stay.",
+					"say": "Turn the diagonal polarization of the ripple down to zero. All three corner numbers drop to zero, because only the diagonal polarization gives components whose four directions all differ. Each face still turns the arrow, so the face turn readout is unchanged. An empty identity and an uncurved space are not the same thing.",
+					"describe": "With only the stretching polarization left, all three corner numbers are zero, while each single face still turns the arrow as before."
+				}
+			]
+		},
+		{
+			"id": "one-face-is-one-small-loop",
+			"for_concept": "holonomy",
+			"rung": "working",
+			"beats": [
+				{
+					"id": "one-face-one-loop",
+					"rung": "working",
+					"state": {
+						"preset": "de-sitter-face",
+						"progress": 0
+					},
+					"animate": {
+						"param": "progress",
+						"to": 1,
+						"seconds": 5
+					},
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "A single face of the box walked as a four-legged loop; the returned arrow drawn solid orange against the grey dashed start arrow.",
+					"say": "Before the box, take one face on its own. It is a four-legged loop, walked out along the first edge, along the second, back along the first, back along the second. I carry the arrow around it without letting it swing. Back at the home corner, the grey dashed arrow is the start and the solid orange arrow is the return. Here the turn is fourteen hundredths of a degree, from the first edge toward the second.",
+					"describe": "One face of the box is walked as a small four-legged loop. At the corner, a dashed arrow shows the start and a solid arrow shows the return, a small angle apart."
+				},
+				{
+					"id": "no-running-angle",
+					"rung": "working",
+					"state": {
+						"preset": "de-sitter-face",
+						"progress": 0.5
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "holonomy/checks/halfway-readout",
+					"show": "The walk paused halfway; every change readout is blank.",
+					"say": "Pause halfway. Every change readout goes blank, and that is deliberate. Halfway round, the carried arrow and the arrow at the home corner sit at different places, and on a curved manifold there is no route-free way to compare them. A turn exists only once the loop closes.",
+					"describe": "The walk is paused halfway round the face. All the change readouts are blank until the loop closes."
+				},
+				{
+					"id": "area-and-tilt",
+					"rung": "working",
+					"state": {
+						"preset": "de-sitter-face",
+						"progress": 1,
+						"curvature-radius": 1
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "I halve the curvature radius, which quadruples the curvature. What happens to the change per unit area and to the turn on the face?",
+					"check": "holonomy/problems/small-loop-cell-other-vector",
+					"show": "Curvature radius halved; the face coefficient jumps from a quarter to one and the turn from fourteen to fifty-seven hundredths of a degree.",
+					"say": "I halve the curvature radius, so the curvature is four times larger. The change per unit area goes from a quarter to one, and the turn goes from fourteen hundredths to fifty-seven hundredths of a degree. The change is minus the Riemann component with the carried direction and the face's two edges, times the area, and the small-loop law is exactly that.",
+					"describe": "The curvature radius is halved. Both the change per unit area and the turn on the face grow four times larger."
+				},
+				{
+					"id": "two-tilts-in-a-ripple",
+					"rung": "working",
+					"state": {
+						"preset": "wave-corner",
+						"progress": 1,
+						"highlight": 2
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Two faces of the ripple box side by side, their turns equal in size and opposite in sign.",
+					"say": "A single number per loop is not enough once loops can be tilted many ways. In this ripple, the face spanned by y then z turns the arrow five thousandths of a degree from the second edge toward the first, and the face spanned by z then x turns it the same amount the other way. Same box, same event, opposite turns: that is why curvature needs a table and not a number.",
+					"describe": "Two faces of the same box turn the arrow by the same amount in opposite senses, at the same event."
+				},
+				{
+					"id": "a-flat-box",
+					"rung": "working",
+					"state": {
+						"preset": "flat-cube",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The flat case: every bar has zero length and every change readout reads zero.",
+					"say": "Switch to flat space and time with nothing in it. Every face returns the arrow exactly as it set off, every bar has no length, and every change readout reads zero. That is the control the rest of the picture is measured against.",
+					"describe": "In flat space and time, every face returns the arrow unchanged and every change readout is zero."
+				}
+			]
+		},
+		{
+			"id": "what-empty-space-passes-on",
+			"for_concept": "weyl-tensor-field-equation",
+			"rung": "working",
+			"beats": [
+				{
+					"id": "split-inside-the-star",
+					"rung": "working",
+					"state": {
+						"preset": "star-cube",
+						"progress": 1,
+						"highlight": 3
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Inside the star with the split on: the highlighted face bar drawn as a long pale room-changing stub plus a short solid shape-changing stub.",
+					"say": "The box now sits one third of the way out inside a round star. The split is on, so each face bar is drawn in two pieces. On the highlighted face, the pale room-changing piece is about two tenths per unit area and the solid shape-changing piece is about fifteen thousandths. The pale piece is built from the Ricci tensor and the metric, and the matter right at the box sets it.",
+					"describe": "Inside the star, the highlighted face change splits into a long pale piece set by the matter at the box and a much shorter solid piece."
+				},
+				{
+					"id": "step-outside",
+					"rung": "working",
+					"state": {
+						"preset": "point-mass-cube",
+						"progress": 1,
+						"highlight": 3,
+						"split": true
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "I move the box outside the star, where no matter sits. Which of the two pieces of each face change survives?",
+					"check": "weyl-tensor-field-equation/checks/which-equation-propagates",
+					"show": "Outside the star: every pale room-changing stub has zero length while the solid shape-changing stubs remain.",
+					"say": "Now I move the box outside the star, where no matter sits. Predict first. Every pale room-changing piece drops to zero, because the Ricci tensor vanishes in vacuum. The solid shape-changing pieces stay: twelve ten-thousandths per unit area on this face. Shape change survives where matter does not.",
+					"describe": "Outside the star, the pale pieces of every bar vanish and only the solid shape-changing pieces are left."
+				},
+				{
+					"id": "the-current-is-the-change",
+					"rung": "working",
+					"state": {
+						"preset": "star-cube",
+						"progress": 1,
+						"highlight": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Two readouts side by side: the divergence of the Weyl tensor and the current built from derivatives of the stress-energy tensor, both reading the same number.",
+					"say": "Two readouts now appear side by side. One is the divergence of the shape-changing table for this face. The other is the current built from how the matter changes from place to place. Inside the star both read four hundred and twenty-three ten-thousandths. Outside the star both read zero, although the shape-changing table itself is not zero there. The source is the change in the matter, not the matter.",
+					"describe": "Two readouts agree exactly: the divergence of the shape-changing table and the current built from the way the matter changes."
+				},
+				{
+					"id": "both-signs",
+					"rung": "working",
+					"state": {
+						"preset": "star-cube",
+						"progress": 1,
+						"highlight": 3
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The third pair highlighted; both readouts now negative and still equal.",
+					"say": "Highlight the third pair instead. Both readouts turn negative together, at minus one hundred and forty-one ten-thousandths, and they still match each other exactly. The equation is a component equation, so its sign follows the reading direction and the order the face is walked in, not the strength of the matter.",
+					"describe": "With the third pair highlighted, both readouts are negative and still equal to each other."
+				},
+				{
+					"id": "the-identity-behind-it",
+					"rung": "formal",
+					"state": {
+						"preset": "star-cube",
+						"progress": 1,
+						"highlight": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "weyl-tensor-field-equation/checks/current-is-conserved",
+					"show": "The six-face leftovers redrawn beside the two readouts, with the once-contracted form written out.",
+					"say": "Where does the equation come from? It is the six-face rule with one index contracted and the Weyl and Ricci parts separated. Contracting the box rule once gives the divergence of the Riemann tensor in terms of derivatives of the Ricci tensor. Inserting the split cancels every pure-trace term, and what is left is the divergence of the Weyl tensor equal to the Cotton tensor. A cosmological constant drops out, because the covariant derivative of the metric vanishes.",
+					"describe": "The three leftover bars are drawn beside the two readouts, to show that the equation is the same box rule with one index contracted."
+				},
+				{
+					"id": "the-radiative-case",
+					"rung": "research",
+					"state": {
+						"preset": "wave-cube",
+						"progress": 1
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The ripple box: Ricci and current readouts at zero, the leftovers nonzero and cancelling.",
+					"say": "Last, the case with no matter anywhere. In the passing ripple the Ricci part is zero everywhere, so the current is zero and the divergence of the Weyl tensor is zero. The leftovers are still there and still cancel. That vacuum equation is what makes shape-changing curvature propagate, and linearized it is the wave equation whose solutions these ripples are. Split by an observer it becomes a Maxwell-like pair for the electric and magnetic parts of the Weyl tensor.",
+					"describe": "In the passing ripple, the matter readouts all sit at zero while the leftovers remain and cancel each other."
+				}
+			]
+		}
+	],
+	"design_rules": [
+		{
+			"id": "no-total-before-the-last-face",
+			"rule": "Show no sum, leftover, or face change while a trip is in progress; the readouts appear only when a face trip closes.",
+			"because": "Two arrows at different places on a curved manifold cannot be compared without naming a route, so a running angle is not a number the picture has.",
+			"misconception": "holonomy/misconceptions/running-angle-halfway"
+		},
+		{
+			"id": "each-leftover-beside-the-sum",
+			"rule": "Always draw the three leftover bars individually beside their total; never show the total alone.",
+			"because": "A zero total invites the reading that nothing varies across the box, when in fact each leftover is usually nonzero and only their sum cancels.",
+			"misconception": "bianchi-identity/misconceptions/zero-total-means-uniform-curving"
+		},
+		{
+			"id": "two-identities-two-controls",
+			"rule": "Keep the three-corner-faces setting with the missing-edge carry rule on one control and the six-face setting on another, and label each with the identity it shows.",
+			"because": "The cyclic identity holds at one event with no derivative; the Bianchi identity compares two nearby events. Sharing a box makes them easy to merge.",
+			"misconception": "bianchi-identity/misconceptions/same-as-cyclic-identity"
+		},
+		{
+			"id": "frame-components-labelled-as-such",
+			"rule": "Label every readout as a component in the stated orthonormal frame, and never offer a coordinate chart in which the readouts are claimed to be special.",
+			"because": "The short proof runs in coordinates where the connection vanishes at a point, which invites the belief that the identity itself needs such coordinates.",
+			"misconception": "bianchi-identity/misconceptions/only-in-special-coordinates"
+		},
+		{
+			"id": "every-space-in-the-list-obeys-it",
+			"rule": "Keep the sum readouts pinned at zero for every space, every box orientation, every carried arrow and every edge length, with no parameter anywhere that can make them nonzero.",
+			"because": "A control that could break the sum would teach that the identity is a law of nature an experiment might catch failing.",
+			"misconception": "bianchi-identity/misconceptions/identity-is-a-law-of-nature"
+		},
+		{
+			"id": "three-corner-trips-as-one-object",
+			"rule": "Draw the three corner trips in one colour ramp, lay their bars tip to tail, and animate the arrow and the two edges rotating together one place around the ring between trips.",
+			"because": "Three separate faces with three different arrows look like three unrelated experiments unless the shared ring is visible.",
+			"misconception": "cyclic-identity/misconceptions/three-trips-are-unrelated"
+		},
+		{
+			"id": "badge-the-number-of-directions",
+			"rule": "Show a badge saying whether the reading direction and the three box axes are four different directions or only three, and say in the badge whether the sum is a new condition.",
+			"because": "Without it, a zero sum read along a box axis looks like the same fresh result as the zero sum read along the fourth direction.",
+			"misconception": "cyclic-identity/misconceptions/rule-cuts-the-space-count"
+		},
+		{
+			"id": "current-tracks-the-gradient",
+			"rule": "Draw the density profile beside the current readout, with a marker at the box, so the current is always seen next to the slope of the matter rather than its amount.",
+			"because": "The current is built from derivatives of the stress-energy tensor, so it can vanish in the densest place and be large where there is little matter.",
+			"misconception": "weyl-tensor-field-equation/misconceptions/source-is-matter-not-its-change"
+		},
+		{
+			"id": "split-shows-both-halves",
+			"rule": "When the split is on, always draw both halves of every bar, including halves of zero length, and keep their scale shared.",
+			"because": "Hiding the empty half lets the room-changing part look strongest where the matter is densest and lets the shape-changing part look absent in vacuum.",
+			"misconception": "weyl-tensor-field-equation/misconceptions/stretch-is-strongest-where-matter-is"
+		},
+		{
+			"id": "hide-the-turn-on-a-time-face",
+			"rule": "Hide the face-turn readout whenever the highlighted face has one edge along time, and say why in its place.",
+			"because": "Transport around such a face is a boost, not a rotation, so an angle in degrees would be the wrong kind of number.",
+			"misconception": null
+		},
+		{
+			"id": "path-relative-narration",
+			"rule": "Name every direction by the box's own edges and the named reading direction, never by where the viewer's camera sits.",
+			"because": "The box can be rotated freely in the scene, so screen-relative words would change meaning between beats.",
+			"misconception": "holonomy/misconceptions/never-swung-so-never-turned"
+		}
+	],
+	"model": {
+		"summary": "Every preset is an analytic metric whose Riemann tensor and its covariant derivative are known in closed form in one orthonormal frame at the home corner, so no chart-dependent step enters the readouts. The arrow is carried by integrating the transport equation around each face loop. Readouts quoted per unit area or per unit volume are extrapolated to zero edge length, so they equal the frame components exactly; the face turn is the measured angle at the chosen edge length, reported on the branch from minus 180 degrees, exclusive, to 180 degrees. The four weak-field presets are linearized, exact to first order in the mass or the amplitude; the frame correction to a curvature component is second order and is dropped.",
+		"equations": [
+			{
+				"id": "small-loop-law",
+				"label": "One face is one small loop",
+				"latex": "\\Delta V^\\rho = -R^\\rho{}_{\\sigma\\mu\\nu}\\,V^\\sigma a^\\mu b^\\nu",
+				"say": "walking out along the first edge, along the second, back along the first and back along the second changes the carried arrow by minus the Riemann tensor contracted with the arrow and the two edges",
+				"conditions": "Leading order in the edge length; $a$ is the face's first edge and $b$ its second, in the order walked."
+			},
+			{
+				"id": "cyclic-identity",
+				"label": "Three corner trips",
+				"latex": "R^\\rho{}_{\\sigma\\mu\\nu} + R^\\rho{}_{\\mu\\nu\\sigma} + R^\\rho{}_{\\nu\\sigma\\mu} = 0",
+				"say": "the Riemann tensor summed over the three cyclic orders of its last three slots vanishes",
+				"conditions": "Any torsion-free connection. With box edges $(a, b, c)$ and each face carrying the edge it lacks, the three corner face changes are these three terms."
+			},
+			{
+				"id": "bianchi-identity",
+				"label": "Three opposite-face leftovers",
+				"latex": "\\nabla_\\lambda R^\\rho{}_{\\sigma\\mu\\nu} + \\nabla_\\mu R^\\rho{}_{\\sigma\\nu\\lambda} + \\nabla_\\nu R^\\rho{}_{\\sigma\\lambda\\mu} = 0",
+				"say": "the covariant derivative of the Riemann tensor, cycled over the derivative slot and the two loop-edge slots, vanishes",
+				"conditions": "Any torsion-free connection. The pair stacked along $\\lambda$, whose faces span $\\mu$ and $\\nu$, leaves over $-\\epsilon^3\\nabla_\\lambda R^\\rho{}_{\\sigma\\mu\\nu}V^\\sigma$."
+			},
+			{
+				"id": "weyl-split",
+				"label": "Room-changing and shape-changing parts",
+				"latex": "R_{\\mu\\nu\\rho\\sigma} = C_{\\mu\\nu\\rho\\sigma} + \\big(g_{\\mu[\\rho}R_{\\sigma]\\nu} - g_{\\nu[\\rho}R_{\\sigma]\\mu}\\big) - \\tfrac13 R\\, g_{\\mu[\\rho}g_{\\sigma]\\nu}",
+				"say": "in four dimensions the Riemann tensor is the Weyl tensor plus terms built from the metric and the Ricci tensor",
+				"conditions": "Four dimensions; square brackets are antisymmetrization with weight one half."
+			},
+			{
+				"id": "weyl-divergence-equation",
+				"label": "The Weyl field equation",
+				"latex": "\\nabla^\\rho C_{\\rho\\sigma\\mu\\nu} = (n-3)\\big(\\nabla_\\mu P_{\\nu\\sigma} - \\nabla_\\nu P_{\\mu\\sigma}\\big),\\qquad P_{\\mu\\nu} = \\frac{1}{n-2}\\Big(R_{\\mu\\nu} - \\frac{R}{2(n-1)}g_{\\mu\\nu}\\Big)",
+				"say": "the divergence of the Weyl tensor equals n minus three times the Cotton tensor, built from derivatives of the Schouten tensor",
+				"conditions": "Metric compatibility, zero torsion and $n \\ge 3$. In four dimensions the right side is the Weyl current, which Einstein's equation writes from derivatives of the stress-energy tensor."
+			},
+			{
+				"id": "linearized-wave",
+				"label": "The passing ripple",
+				"latex": "h_{ij} = H_{ij}\\,\\sin\\!\\big(\\omega(t-z)\\big),\\qquad R_{\\mu\\nu\\rho\\sigma} = \\tfrac12 f''\\big(\\ell_\\nu \\ell_\\rho H_{\\mu\\sigma} + \\ell_\\mu \\ell_\\sigma H_{\\nu\\rho} - \\ell_\\nu \\ell_\\sigma H_{\\mu\\rho} - \\ell_\\mu \\ell_\\rho H_{\\nu\\sigma}\\big)",
+				"say": "the ripple is a transverse traceless wave running along z, whose Riemann tensor is built from the wave covector and the polarization matrix times the second derivative of the profile",
+				"conditions": "First order in the amplitude; $\\ell_\\mu = (1, 0, 0, -1)$, $H_{xx} = -H_{yy} = A_+$, $H_{xy} = H_{yx} = A_\\times$, and $\\nabla_\\lambda R = \\tfrac12 f''' \\ell_\\lambda(\\cdots)$ with the same bracket."
+			},
+			{
+				"id": "weak-static-field",
+				"label": "The two star presets",
+				"latex": "g_{00} = -(1 + 2\\Phi),\\quad g_{ij} = (1 - 2\\Phi)\\delta_{ij},\\qquad \\nabla^2\\Phi = 4\\pi\\rho",
+				"say": "outside and inside the star the metric is the weak static field of a potential whose Laplacian is four pi times the density",
+				"conditions": "First order in $\\Phi$; outside, $\\Phi = -M/r$ with $\\nabla^2\\Phi = 0$; inside, $\\rho(r) = (3M/\\pi R^3)(1 - r/R)$ gives $\\Phi'(r) = M(4r/R^3 - 3r^2/R^4)$."
+			}
+		],
+		"method": "Riemann and its covariant derivative are assembled in closed form at the home corner: exactly for the constant-curvature preset, and from second and third partial derivatives of $h_{\\mu\\nu}$ for the linearized presets, where covariant derivatives equal partial ones to first order. The orthonormal frame is the coordinate basis, whose correction is second order. Face changes come from fourth-order Runge-Kutta integration of the transport equation around each face loop; the per-unit readouts are Richardson extrapolations over a halving sequence of edge lengths, and the shrink slope is a least-squares fit of the logarithm of the drawn change against the logarithm of the edge length. Every preset is checked against the two identities, against the trace-free property of the Weyl tensor, and against the equality of the Weyl divergence with the Cotton tensor before it is offered.",
+		"tests": [
+			{
+				"id": "flat-gives-zero",
+				"state": {
+					"preset": "flat-cube",
+					"progress": 1
+				},
+				"expect": [
+					{
+						"readout": "face-turn",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-coefficient",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-part",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-part",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-divergence",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-current",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The flat limit: nothing anywhere."
+			},
+			{
+				"id": "nothing-while-walking",
+				"state": {
+					"preset": "point-mass-cube",
+					"progress": 0.5
+				},
+				"expect": [],
+				"expect_hidden": [
+					"face-coefficient",
+					"corner-sum",
+					"leftover",
+					"leftover-sum"
+				],
+				"note": "Design rule no-total-before-the-last-face."
+			},
+			{
+				"id": "constant-curvature-face",
+				"state": {
+					"preset": "de-sitter-face",
+					"progress": 1
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0.25,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "corner-sum",
+						"value": 0.25,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-part",
+						"value": 0.25,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-part",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": 0.143239448783,
+						"abs_tol": null,
+						"rel_tol": 0.01
+					},
+					{
+						"readout": "shrink-slope",
+						"value": 2,
+						"abs_tol": 0.02,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Curvature radius 2 gives $K = 1/4$ per unit area, and the turn is $\\epsilon^2 K = 0.0025$ radians, which is $0.1432394488$ degrees. The space is conformally flat, so the whole change is its room-changing part. The face turn carries a relative tolerance covering the fourth-order correction to the small-loop law at edge $0.1$."
+			},
+			{
+				"id": "constant-curvature-face-reversed",
+				"state": {
+					"preset": "de-sitter-face",
+					"progress": 1,
+					"carried-axis": "y",
+					"read-axis": "x"
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": -0.25,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "corner-sum",
+						"value": -0.25,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-part",
+						"value": -0.25,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Swapping the carried and reading directions reverses the sign, because the small-loop change is antisymmetric in those two slots on this face."
+			},
+			{
+				"id": "constant-curvature-stronger",
+				"state": {
+					"preset": "de-sitter-face",
+					"progress": 1,
+					"curvature-radius": 1
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": 0.572957795131,
+						"abs_tol": null,
+						"rel_tol": 0.01
+					}
+				],
+				"expect_hidden": [],
+				"note": "Quartering the curvature radius squared quadruples both readouts."
+			},
+			{
+				"id": "smallest-box",
+				"state": {
+					"preset": "de-sitter-face",
+					"progress": 1,
+					"edge": 0.01
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0.25,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": 0.00143239448783,
+						"abs_tol": null,
+						"rel_tol": 0.001
+					}
+				],
+				"expect_hidden": [],
+				"note": "Boundary case at the smallest edge on the grid. The turn falls by a hundred while the per-unit-area readout does not move at all."
+			},
+			{
+				"id": "constant-curvature-leftovers-vanish",
+				"state": {
+					"preset": "de-sitter-cube",
+					"progress": 1
+				},
+				"expect": [
+					{
+						"readout": "leftover",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-divergence",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-current",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Constant curvature has $\\nabla R = 0$, so each leftover vanishes on its own; an Einstein space has no Weyl current."
+			},
+			{
+				"id": "constant-curvature-corner-sum",
+				"state": {
+					"preset": "de-sitter-corner",
+					"progress": 1
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "corner-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": 0.143239448783,
+						"abs_tol": null,
+						"rel_tol": 0.01
+					}
+				],
+				"expect_hidden": [],
+				"note": "For constant curvature every cyclic term vanishes by itself, since a component with four different slots is built only from products of metric deltas. The face still turns the arrow."
+			},
+			{
+				"id": "ripple-corner-first-term",
+				"state": {
+					"preset": "wave-corner",
+					"progress": 1,
+					"highlight": 1
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0.0353553390593274,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "corner-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": -0.00506427927838,
+						"abs_tol": null,
+						"rel_tol": 0.01
+					},
+					{
+						"readout": "shrink-slope",
+						"value": 2,
+						"abs_tol": 0.02,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The first corner term is $-R^t{}_{xyz} = \\tfrac12 |f''| A_\\times$ with $f'' = -\\sin 45^\\circ$ and $A_\\times = 0.1$, so $0.03535533906$. Its face, spanned by $y$ then $z$, turns the arrow the other way, by $\\epsilon^2 R_{yzyz}$ with $\\epsilon = 0.05$."
+			},
+			{
+				"id": "ripple-corner-second-term",
+				"state": {
+					"preset": "wave-corner",
+					"progress": 1,
+					"highlight": 2
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": -0.0353553390593274,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": 0.00506427927838,
+						"abs_tol": null,
+						"rel_tol": 0.01
+					}
+				],
+				"expect_hidden": [],
+				"note": "The second corner term is the exact opposite of the first, and its face turns the arrow the opposite way as well: both signs of both readouts appear on one box."
+			},
+			{
+				"id": "ripple-corner-third-term",
+				"state": {
+					"preset": "wave-corner",
+					"progress": 1,
+					"highlight": 3
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The third term is zero because a linearized plane wave is of the purely radiative kind, which has no component with slots $t$, $z$, $x$, $y$ in that pattern."
+			},
+			{
+				"id": "ripple-corner-read-along-a-box-axis",
+				"state": {
+					"preset": "wave-corner",
+					"progress": 1,
+					"read-axis": "z"
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0.0353553390593274,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "corner-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Reading along a box axis leaves only three different directions, so the sum is forced to zero by the earlier symmetries alone. The component is still the same number here."
+			},
+			{
+				"id": "ripple-corner-without-the-diagonal",
+				"state": {
+					"preset": "wave-corner",
+					"progress": 1,
+					"cross-amplitude": 0
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "corner-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": -0.00506427927838,
+						"abs_tol": null,
+						"rel_tol": 0.01
+					}
+				],
+				"expect_hidden": [],
+				"note": "Boundary case: with only the stretch polarization there is no component whose four slots all differ, so every cyclic term is zero while the face still turns the arrow."
+			},
+			{
+				"id": "ripple-leftovers",
+				"state": {
+					"preset": "wave-cube",
+					"progress": 1,
+					"highlight": 1
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0.0353553390593274,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover",
+						"value": 0.0353553390593274,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "shrink-slope",
+						"value": 3,
+						"abs_tol": 0.02,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-current",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "With the box edges along time, $x$ and $z$ and the arrow along $y$, the pair stacked along time leaves over $\\tfrac12 |f'''| A_\\times = 0.03535533906$ at phase 45 degrees, where $f''' = -\\cos 45^\\circ$."
+			},
+			{
+				"id": "ripple-leftover-other-sign-and-hidden-turn",
+				"state": {
+					"preset": "wave-cube",
+					"progress": 1,
+					"highlight": 3
+				},
+				"expect": [
+					{
+						"readout": "leftover",
+						"value": -0.0353553390593274,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [
+					"face-turn"
+				],
+				"note": "The third pair's leftover is the exact opposite of the first, and the second pair's is zero, so the three add to nothing. This pair's faces are spanned by time and $x$, so transport around them is a boost and the turn readout is hidden."
+			},
+			{
+				"id": "ripple-at-zero-curvature",
+				"state": {
+					"preset": "wave-at-zero-phase",
+					"progress": 1,
+					"highlight": 1
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover",
+						"value": 0.05,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Boundary case: at zero phase $f'' = 0$ and $f''' = -1$, so the curvature vanishes at the home corner while its derivative does not. Every face change is zero and the first leftover is $\\tfrac12 A_\\times = 0.05$."
+			},
+			{
+				"id": "outside-a-star-three-leftovers",
+				"state": {
+					"preset": "point-mass-cube",
+					"progress": 1,
+					"highlight": 1
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0.00073469387755102,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover",
+						"value": 0.000152186588921283,
+						"abs_tol": 1e-13,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover-sum",
+						"value": 0,
+						"abs_tol": 1e-14,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-part",
+						"value": 0,
+						"abs_tol": 1e-14,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-part",
+						"value": 0.00073469387755102,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-divergence",
+						"value": 0,
+						"abs_tol": 1e-14,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-current",
+						"value": 0,
+						"abs_tol": 1e-14,
+						"rel_tol": null
+					},
+					{
+						"readout": "shrink-slope",
+						"value": 3,
+						"abs_tol": 0.02,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Mass 1 at distance 10 in the direction with components two, three and six sevenths, box edges along $x$, $y$, $z$, arrow along $x$, read along $y$. The three leftovers are $0.000152186588921$, $0.0000209912536443$ and $-0.000173177842566$, which add to zero. Vacuum, so the whole change is its shape-changing part and the current vanishes."
+			},
+			{
+				"id": "outside-a-star-third-leftover",
+				"state": {
+					"preset": "point-mass-cube",
+					"progress": 1,
+					"highlight": 3
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0.00120408163265306,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover",
+						"value": -0.000173177842565598,
+						"abs_tol": 1e-13,
+						"rel_tol": null
+					},
+					{
+						"readout": "face-turn",
+						"value": 0.000689887957402,
+						"abs_tol": null,
+						"rel_tol": 0.01
+					}
+				],
+				"expect_hidden": [],
+				"note": "The third leftover carries the opposite sign to the other two, which is how three nonzero numbers can add to nothing."
+			},
+			{
+				"id": "inside-a-star-split",
+				"state": {
+					"preset": "star-cube",
+					"progress": 1,
+					"highlight": 3
+				},
+				"expect": [
+					{
+						"readout": "face-coefficient",
+						"value": 0.212396069538927,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-part",
+						"value": 0.197530864197531,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-part",
+						"value": 0.0148652053413958,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover",
+						"value": -0.0550696469063816,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover-sum",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-divergence",
+						"value": -0.0141093474426808,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-current",
+						"value": -0.0141093474426808,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Mass 1, radius 3, box at distance 1 from the centre. The room-changing part is $16/81 = 0.197530864198$, and the two Weyl readouts must agree to the last figure, since one is computed from the Weyl tensor and the other from the Schouten tensor. Both signs of both appear across this preset."
+			},
+			{
+				"id": "inside-a-star-positive-current",
+				"state": {
+					"preset": "star-cube",
+					"progress": 1,
+					"highlight": 1
+				},
+				"expect": [
+					{
+						"readout": "ricci-part",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-part",
+						"value": 0.0090702947845805,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover",
+						"value": 0.0291545189504373,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-divergence",
+						"value": 0.0423280423280423,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-current",
+						"value": 0.0423280423280423,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The same star, first pair highlighted: the current is positive here and negative on the third pair, and its value $24/567$ comes from the density gradient, not the density."
+			},
+			{
+				"id": "inside-a-star-reversed-slots",
+				"state": {
+					"preset": "star-cube",
+					"progress": 1,
+					"highlight": 3,
+					"carried-axis": "y",
+					"read-axis": "x"
+				},
+				"expect": [
+					{
+						"readout": "ricci-part",
+						"value": -0.197530864197531,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-part",
+						"value": -0.0148652053413958,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "leftover",
+						"value": 0.0550696469063816,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-divergence",
+						"value": 0.0211640211640212,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-current",
+						"value": 0.0211640211640212,
+						"abs_tol": 1e-10,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Swapping the carried and reading directions flips every face and leftover readout. The divergence readout changes value as well as sign, because its first slot is the reading direction of a tensor with no symmetry between those slots."
+			}
+		]
+	},
+	"serves": [
+		{
+			"concept": "bianchi-identity",
+			"uses": "the six-face walk, the pairing of opposite faces, the three leftover bars and the sum readout that no control can move off zero"
+		},
+		{
+			"concept": "cyclic-identity",
+			"uses": "the three corner faces with the missing-edge carry rule, and the badge that says whether the reading direction makes four different directions"
+		},
+		{
+			"concept": "holonomy",
+			"uses": "each single face as a small loop, with the face turn, the blank readouts while the walk is in progress, and the shrink slope of two"
+		},
+		{
+			"concept": "weyl-tensor-field-equation",
+			"uses": "the split of every face change into a room-changing and a shape-changing part, and the pair of readouts showing the Weyl divergence beside the current built from the change in the matter"
+		}
+	],
+	"builds_on": [
+		"carry-an-arrow-around-a-loop",
+		"four-legs-around-a-tiny-loop"
+	],
+	"leads_to": [
+		"falling-ring-of-crumbs",
+		"twenty-of-256-slots"
+	],
+	"variant_of": null,
+	"accessibility": {
+		"summary": "Every beat says which face is being walked, which edge the arrow points along, and where each returned change points relative to the named reading direction. Every number is announced in words with its sense. The three corner trips and the three opposite pairs are distinguished by bar position and by label as well as by colour, and every control works from the keyboard.",
+		"static_alt": "A tiny box in curved space. Three trips around the faces at one corner give three changes that close into a triangle, and the three leftovers from opposite faces close into a triangle as well.",
+		"keyboard": [
+			{
+				"key": "Space",
+				"action": "play or pause the walk"
+			},
+			{
+				"key": "Left and Right arrows",
+				"action": "scrub through the face trips"
+			},
+			{
+				"key": "1 to 3",
+				"action": "highlight the first, second or third face or opposite pair"
+			},
+			{
+				"key": "F",
+				"action": "switch between the three corner faces and all six"
+			},
+			{
+				"key": "C",
+				"action": "switch the carry rule between one fixed arrow and the missing edge"
+			},
+			{
+				"key": "R",
+				"action": "step the reading direction through time, x, y and z"
+			},
+			{
+				"key": "S",
+				"action": "turn the room-changing and shape-changing split on or off"
+			},
+			{
+				"key": "Comma and full stop",
+				"action": "shrink or grow the box edge"
+			}
+		]
+	},
+	"starting_material": {
+		"legacy_assets": [
+			"engine-independent-curvature-checker",
+			"lab-riemann-independent-components",
+			"scene-3d-parallel-transport-loop",
+			"manuscript-section-09-bianchi-einstein-tensor",
+			"figure-ricci-weyl"
+		],
+		"notes": "The earlier course's finite-difference curvature checker already builds Riemann, Ricci and Weyl from an arbitrary four-dimensional metric, and becomes the independent oracle the unit tests compare the closed-form presets against. Its transport loop scene supplies the arrow-carrying code. The Ricci-versus-Weyl figure becomes the split legend. New work: the box geometry with its face ordering and carry rules, the Richardson extrapolation behind the per-unit readouts, the Weyl current readout, and the badge counting how many different directions are in play."
+	},
+	"provenance": {
+		"source_units": [],
+		"figure_images": []
+	},
+	"review": {
+		"novice": {
+			"verdict": "fixed",
+			"date": "2026-09-16",
+			"reviewed_revision": 1,
+			"retell_attempt": "A tiny box floats near a star. You carry an arrow around each of its six faces, never letting it swing, and each trip brings the arrow back a bit changed. Each change is drawn as a short bar. Every edge of the box belongs to two faces and gets walked once each way, so the six bars close up and add to nothing. Then you take the faces in opposite pairs. The two faces of a pair are walked opposite ways round, so their bars nearly cancel and leave a small bit over. Three pairs means three leftovers: two point one way, the third points back, and laid end to end they close up too. That is the Bianchi identity, and no choice of space in the list breaks it. The other tour uses only the three faces at the home corner. Each of those faces leaves out one of the three edges at that corner, and on each face you carry the arrow along the edge that face leaves out. The first two trips give equal and opposite changes and the third brings back nothing, so the three add to nothing again. That is the cyclic identity, and the reason is that a tiny four-sided walk really does close up. What I could not say back: what 'reading the changes in a direction' means, since nothing told me the changes were being measured along anything; what number 'fifteen hundredths of a thousandth per unit of room' is; and what the first three rules of 'the curvature table' are, so I do not know what the fourth rule is fourth of. I was also stuck on one thing that seemed to contradict itself: one beat says all six faces are walked the same way round seen from outside the box, and a later beat says two opposite faces are walked opposite ways round seen from outside the box.",
+			"stumbles": [
+				{
+					"quote": "Seen from outside the box, they are walked opposite ways round.",
+					"problem": "Three beats earlier the tutor said all six faces are walked the same way round, seen from outside the box. With the same reference named both times, the two sentences contradict each other and I could not tell which one to believe.",
+					"rewrite": "Seen from one and the same side of the box, they are walked opposite ways round."
+				},
+				{
+					"quote": "So the six trips retrace every step, and the six bars close back on the starting point.",
+					"problem": "\"Retrace\" sounds like walking the same steps the same way again, which is the opposite of the cancelling that is meant. And \"the starting point\" is a place on the bar chain that has not been named, so I looked back at the box corner instead.",
+					"rewrite": "So every step one way is undone by the same step the other way, and the six bars close back on the starting point, where the first bar began."
+				},
+				{
+					"quote": "This pair leaves over about fifteen hundredths of a thousandth per unit of room.",
+					"problem": "I had to do two divisions in my head to find out how big that number is. \"Per unit of room\" is also a third name for one idea: the readout says \"per unit volume\", and \"room-changing\" is used later for something else entirely.",
+					"rewrite": "This pair leaves over about one and a half ten-thousandths per unit of volume."
+				},
+				{
+					"quote": "What is left between them is small, and the readout gives it.",
+					"problem": "There are ten readouts on screen and the line does not say which one to look at.",
+					"rewrite": "What is left between them is small, and the leftover readout gives it."
+				},
+				{
+					"quote": "The reason is only that a box's edges are shared, so no experiment could ever catch the rule failing.",
+					"problem": "\"A box's edges are shared\" does not say shared with what, and the word \"only\" made me read the reason as an excuse. The jump from shared edges to \"no experiment could ever\" is one step too big.",
+					"rewrite": "The reason is that every edge of the box belongs to two faces, and the two trips walk it opposite ways. That is true of any box in any space, so no experiment could ever catch the rule failing."
+				},
+				{
+					"quote": "All three pairs tinted in three colours; the three leftover bars laid tip to tail, closing on the starting point.",
+					"problem": "The three pairs and their three bars are told apart by colour alone, so I could not match a bar to a pair, and neither could anyone reading this in one colour.",
+					"rewrite": "All three pairs tinted in three colours and labelled one, two and three; the three leftover bars laid tip to tail in the same order, closing on the starting point."
+				},
+				{
+					"quote": "A face leaves out exactly one edge: the one that is not part of it.",
+					"problem": "The sentence says the same thing twice and teaches nothing: the edge that is left out is the one that is not part of the face.",
+					"rewrite": "So every face leaves one of the three edges out."
+				},
+				{
+					"quote": "Look at the home corner of this tiny box.",
+					"problem": "This tour opens with \"the home corner\" as if I already knew which corner that is; nothing in this tour has named it.",
+					"rewrite": "Look at one corner of this tiny box, and I call it the home corner."
+				},
+				{
+					"quote": "So from trip to trip, the arrow and the two edges all move one place around a ring of the three directions.",
+					"problem": "There is no ring on screen, and I could not picture directions moving around one. I could not tell whether the ring closes after three trips.",
+					"rewrite": "So from trip to trip, the arrow and the two edges each step on to the next of the three directions, and after three trips they are back where they started."
+				},
+				{
+					"quote": "The third trip brings back nothing at all.",
+					"problem": "\"Brings back nothing\" first sounded to me as if the arrow did not come back, rather than coming back unchanged.",
+					"rewrite": "The third trip leaves the arrow exactly as it set off, so its bar has no length."
+				},
+				{
+					"quote": "That is the fourth rule of the curvature table.",
+					"problem": "No curvature table and no first three rules have been mentioned, so \"the fourth rule\" has nothing to be fourth of.",
+					"rewrite": "Curvature is a table of numbers with rules it must obey, and this is the fourth of them."
+				},
+				{
+					"quote": "A space where they miss by a gap that keeps pace with the area has twist, and there these three changes need not cancel.",
+					"problem": "One sentence carries a new word, a condition on the size of a gap, and a consequence. \"Keeps pace with the area\" was the part I could not picture.",
+					"rewrite": "In some other spaces the two routes miss, by a gap that grows in step with the area of the little walk. Such a space is said to have twist, and there these three changes need not cancel."
+				},
+				{
+					"quote": "Now I read the changes in a direction the box's edges already run along.",
+					"problem": "This is the first time the tour says the changes are read along any direction at all. Until here I thought each number was just the length of a bar, so \"in a direction\" arrived with nothing behind it, and I did not know what direction had been used before.",
+					"rewrite": "Each change is measured along one chosen direction, and so far that direction has been time. Now I measure along one of the box's own edge directions instead."
+				},
+				{
+					"quote": "Every face returns the arrow exactly as it set off, every bar has no length, and every readout reads zero.",
+					"problem": "Not every readout reads zero here: the shrink slope is a power, not a change, and a shrink slope of zero would mean the change does not shrink at all.",
+					"rewrite": "Every face returns the arrow exactly as it set off, every bar has no length, and every change readout reads zero."
+				},
+				{
+					"quote": "The solid shape-changing pieces stay: one twelve ten-thousandths per unit area on this face.",
+					"problem": "\"One twelve ten-thousandths\" is not a number I can say or hear. The test for this state gives twelve ten-thousandths, so the stray \"one\" only garbles it.",
+					"rewrite": "The solid shape-changing pieces stay: twelve ten-thousandths per unit area on this face."
+				},
+				{
+					"quote": "the three corner trips add to {abs} along the reading direction",
+					"problem": "This sum is zero in every state the demonstration can reach, so what the tutor always says aloud is \"add to zero along the reading direction\", which gives a direction to a zero. The same goes for the sum of the three leftovers.",
+					"rewrite": "measured along the reading direction, the three corner trips add to {abs}"
+				},
+				{
+					"quote": "Time, and the other pair",
+					"problem": "I could not work out which pair is \"the other\" one, because the option above it says only \"two space directions\" without saying which two.",
+					"rewrite": "Time, then the y and z directions, with the option above it reading \"Time, then the x and y directions\"."
+				},
+				{
+					"quote": "A ripple caught at zero curving",
+					"problem": "The label sounds as if the ripple has no curving anywhere, when the beat says its curving passes through zero just at the box.",
+					"rewrite": "A ripple caught where its curving passes through zero at the box"
+				},
+				{
+					"quote": "Its leftover per unit volume is minus the covariant derivative along x of the Riemann component with the carried direction and then y and z.",
+					"problem": "Three slots are named for a tensor that has four; the reading direction, which the readout actually reports, is left out of the list.",
+					"rewrite": "Its leftover per unit volume is minus the covariant derivative along x of the Riemann component whose slots are the reading direction, the carried direction, and then y and z."
+				},
+				{
+					"quote": "Predict what happens to the sum.",
+					"problem": "The written prediction asks whether the identity stops the curvature from changing from place to place, but the spoken prompt asks about the sum instead, and the sum was already said to stay at zero. The two prompts do not match.",
+					"rewrite": "Predict first: does the identity forbid the curvature from changing from place to place?"
+				},
+				{
+					"quote": "Each single face still changes the arrow, so the face readout is a quarter per unit area.",
+					"problem": "The \"so\" promises that the value follows from the face changing the arrow, and it does not; only the curvature radius fixes the quarter.",
+					"rewrite": "Each single face still changes the arrow, and the face readout is a quarter per unit area."
+				}
+			],
+			"fixes": [
+				"Removed the contradiction between the six faces being walked the same way round seen from outside the box and the opposite pair being walked opposite ways: the pair beat now says \"seen from one and the same side of the box\".",
+				"Replaced \"retrace every step\" with \"every step one way is undone by the same step the other way\", and said once where the starting point of the bar chain is.",
+				"Gave the entry number in one unit word: \"one and a half ten-thousandths per unit of volume\" in place of \"fifteen hundredths of a thousandth per unit of room\", and used \"volume\" in the shrink beat too, so \"room\" is left to mean only the room-changing part.",
+				"Named the readout being quoted in the opposite-pair beat.",
+				"Spelled out the shared-edge reason in the try-to-break-it beat instead of asserting it, and named the control as the space and time list.",
+				"Added number labels beside the three colours for the three pairs, in the beat, its description and the picture composition.",
+				"Rewrote the circular sentence about the edge a face leaves out, and introduced the home corner in the corner tour before using the name.",
+				"Replaced the unexplained \"ring of the three directions\" with a step-to-the-next-direction sentence that says it closes after three trips.",
+				"Replaced \"brings back nothing at all\" with a line that says the arrow comes back unchanged and its bar has no length.",
+				"Gave \"the fourth rule of the curvature table\" a table to be the fourth rule of.",
+				"Split the torsion sentence so \"twist\" gets its own sentence, and replaced \"keeps pace with the area\" with \"grows in step with the area of the little walk\".",
+				"Said in the entry corner tour that each change is measured along a chosen direction, and that the direction so far has been time, before switching it to a box edge direction.",
+				"Narrowed \"every readout reads zero\" in the flat beat to \"every change readout\", since the shrink slope is not a change.",
+				"Removed the stray \"one\" from \"one twelve ten-thousandths\".",
+				"Reworded the two sums that are identically zero so the direction qualifies the measurement rather than the value: \"measured along the reading direction, the three corner trips add to {abs}\", with a matching minus form.",
+				"Made the three time-plus-two-space box axis labels name their directions.",
+				"Renamed the zero-phase preset so it does not read as a ripple with no curving anywhere.",
+				"Added the reading direction to the list of slots in the working leftover formula.",
+				"Matched the spoken prediction prompt to the written prediction in the move-the-box-outward beat.",
+				"Replaced a false \"so\" with \"and\" in the constant-curvature beat."
+			],
+			"concerns": [
+				"The entry tours quote every number in scene units (per unit of area, per unit of volume) with no everyday anchor and never say why daily life hides the effect, which the novice contract asks for. A number tied to something a 16-year-old can picture would need a new state or a new beat, so I have not invented one.",
+				"The entry tour for the Bianchi identity draws each returned change as a bar with a length and a direction, but every readout is one component along the reading direction, and the entry tour never says so. The corner tour now says it in one sentence; the six-face tour would need a beat of its own to say it properly.",
+				"The shrink-slope readout has no sensible value in the flat preset, where the change is exactly zero and no power fits it. Its range starts at 0, and a spoken \"falls off as the box edge to the power zero\" would claim the change does not shrink. Either hide the readout when the change is zero or give it a stated blank.",
+				"\"Room-changing\" (the Ricci part) and \"per unit of room\" (per unit volume) were two senses of one word. I moved the measure to \"volume\" everywhere it is spoken, but the compound \"room-changing\" still means volume-changing, so a later stage may want to rename it \"volume-changing\" throughout.",
+				"The \"Divergence of the Weyl tensor\" readout label is the only learner-visible place that uses the technical name; every beat calls it \"the divergence of the shape-changing table\". The label should probably match the spoken phrase.",
+				"The corner-sum readout is labelled and spoken as a sum over three corner faces, but it is shown and tested in states where only one face is highlighted and in all-six states as well. It is not clear from the wording what it reports when the six-face setting is on.",
+				"The entry beat that asks for a prediction about the six changes comes before anything on screen has shown what one trip does, so the only ground for a guess is the entry way the reader has already read. A short first trip before the prediction would make it a prediction rather than a guess."
+			]
+		}
+	}
+}

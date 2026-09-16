@@ -203,6 +203,9 @@ Numeric: holonomy of loop A, positive toward the walker's left = 60 deg; holonom
 - `carry-an-arrow-around-a-loop` (flagship): Flagship: two routes to one spot on a globe, the octant loop walked both ways, and a cone whose tip a loop can enclose or avoid.
 - `four-legs-around-a-tiny-loop` (core): Connects the area rule to the Riemann tensor: a coordinate cell that shrinks while the change per unit area settles to the component. Sketch: A coordinate parallelogram on a sphere patch, a saddle or the polar-coordinate plane, with a carried arrow. A slider shrinks the cell; a log-log plot of the arrow's change against edge length shows slope two, and the change over the cell's area settles to the printed component, zero on the polar plane. A button swaps the edge order and flips the sign.
 - `paced-ring-on-a-ball-and-a-plain` (supporting): The flat map drawn from one spot, exact along every straight walk and short around every circle, with the missing fraction quadrupling when the walk doubles.
+- `twenty-of-256-slots` (supporting): The count behind the small-loop law: the 256 index slots of the spacetime table collapsing under the four rules to the twenty numbers a freely falling frame cannot hide.
+- `cube-of-small-loops` (supporting): Each face of a tiny box as one small loop, with the turn, the blank readouts mid-walk, and the shrink slope of two.
+- `falling-ring-of-crumbs` (core): The measured face of the tensor: a falling cabin whose centre crumb hangs still while crumbs one metre out drift, so the drift divided by the separation is an entry of the table.
 
 ## Tutor
 

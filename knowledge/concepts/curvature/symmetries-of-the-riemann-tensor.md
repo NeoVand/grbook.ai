@@ -532,7 +532,7 @@ Let $R_{\rho\sigma\mu\nu}$ be antisymmetric in $\rho\sigma$ and in $\mu\nu$, and
 
 - ★ [[tips-of-a-turning-cross]] (flagship): The lean rule made visible: two equal arrows at right angles turn as one piece, with equal and opposite leans. *Sketch:* Two equal arrows taped at a right angle, on a ball's surface or in space. The learner carries them around a tiny loop or tips the pair by a small angle about any axis. A large tip about an axis in the arrows' own plane makes both tips lean toward each other, so the readouts must show that the leans differ only at second order in the angle. Readouts show each tip's lean toward the other arrow and its much smaller slip along itself. A squash control, marked as not allowed for carried arrows, bends the right angle and breaks the equality.
 - [[falling-ring-of-crumbs]] (core): Tidal drift with no whirlpool: the mirror rule seen in falling crumbs. *Sketch:* Adds two chosen directions, a table of the sideways drifts, and a readout of net forward drift around the ring, which stays zero. A switch shows an invented whirlpool table, where a crumb carried around the ring gains energy every lap.
-- [[twenty-of-256-slots]] (core): Counts what the rules leave: 1, 6 or 20. *Sketch:* A grid of all index combinations with a dimension selector for 2, 3 and 4. Applying last-pair antisymmetry, first-pair antisymmetry, pair exchange and the cyclic identity in turn greys out zero slots, links partners with signs, and ends at 1, 6 or 20.
+- [[twenty-of-256-slots]] (core): Counts what the rules leave: 1, 6 or 20.
 
 ## Tutor moves
 

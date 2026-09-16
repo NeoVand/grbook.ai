@@ -212,6 +212,10 @@ Key points: g upper u u is zero, so every contraction needs a v slot that no non
 
 - `curvature-fingerprint-curves` (flagship): Invariants as fingerprints: spun surfaces that share, or fail to share, the curve of squared curvature gradient against curvature. Sketch: A spun surface $d\rho^2 + f(\rho)^2d\phi^2$ chosen from presets, with $K = -f''/f$ at a draggable point, beside a plot of $|\nabla K|^2$ against $K$ traced as the point moves; locally isometric surfaces trace one curve, and readouts give $t_0, t_1, t_2$ and the isometry dimension.
 - `paced-ring-on-a-ball-and-a-plain` (supporting): The ring test at every spot in survey mode, uniform on a ball, a plain and a tube and varying on an egg, with the hyperbolic disc map's rings.
+- `six-entry-curvature-table` (flagship): Einstein spaces, Ricci-flat regions, the Weyl remainder and the Kretschmann scalar as patterns in one six-number table at one event.
+- `twenty-of-256-slots` (supporting): The Ricci and Weyl shares of the surviving count as the dimension changes: six and none in three dimensions, ten and ten in four, fifteen and thirty-five in five.
+- `cube-of-small-loops` (supporting): The box rule split into a room-changing and a shape-changing part, with the Weyl divergence beside the current built from the change in the matter.
+- `falling-ring-of-crumbs` (core): One falling cabin's tides read three ways: as the sectional curvatures of planes of fall, as a trace-free leftover when the drift total is zero, and as a curvature length that stays ordinary at a horizon.
 
 ## Tutor
 

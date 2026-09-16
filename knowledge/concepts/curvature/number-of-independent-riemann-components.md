@@ -591,7 +591,7 @@ Let $R_{\rho\sigma\mu\nu}$ be any tensor with the pair antisymmetries, pair exch
 
 ## Visuals
 
-- ★ [[twenty-of-256-slots]] (flagship): Flagship: the sieve to 0, 1, 6, 20 or 50. *Sketch:* A grid of all index combinations with a dimension selector for 1 to 5. Applying the pair antisymmetries, pair exchange and the cyclic identity in turn greys out zero slots, links partners with signs, and ends at 0, 1, 6, 20 or 50. This concept adds a times-table view of the pair grid, a counter for $N(N+1)/2 - \binom n4$, and an overlay lighting the 6 numbers a tide meter reads.
+- ★ [[twenty-of-256-slots]] (flagship): Flagship: the sieve to 0, 1, 6, 20 or 50.
 - [[coordinate-knobs-and-metric-dials]] (core): The coordinate-freedom count, order by order. *Sketch:* Three rows for the metric's values, first and second derivatives at a point, each a bar of metric numbers beside a bar of coordinate-change numbers, with a dimension slider from 1 to 5. In four dimensions the rows read 10 against 16 (6 Lorentz parameters spare), 40 against 40, and 100 against 80 (20 survivors, equal to the Riemann count).
 - [[falling-ring-of-crumbs]] (supporting): The tide meter: 9 readings, 6 different numbers, 6 of the 20. *Sketch:* A ring of freely falling crumbs near a mass stretches along the line to the centre and squeezes across it. This concept adds a three-arm tide meter whose 3-by-3 table of readings lights mirror pairs together, with counters for 9 readings, 6 numbers and 6 of 20.
 

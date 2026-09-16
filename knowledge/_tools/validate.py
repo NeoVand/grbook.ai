@@ -997,8 +997,12 @@ def visual_warnings(d, path):
 				warns.append(f'{where}: give abs_tol or rel_tol')
 			if e['value'] == 0 and e['abs_tol'] is None:
 				warns.append(f'{where}: a zero expectation needs abs_tol')
-			if r['range'] and not (r['range'][0] < e['value'] <= r['range'][1]):
-				warns.append(f'{where}: expected {e["value"]} is outside the readout range {r["range"]}')
+			if r['range']:
+				lo, hi = r['range']
+				# An angle branch is symmetric, (-180, 180], so its lower end is exclusive; every other range includes both ends.
+				ok = (lo < e['value'] <= hi) if lo == -hi and lo < 0 else (lo <= e['value'] <= hi)
+				if not ok:
+					warns.append(f'{where}: expected {e["value"]} is outside the readout range {r["range"]}')
 			if r['visible_when'] == 'on-complete' and progress_params and any(s.get(pp, 0) < 1 for pp in progress_params):
 				warns.append(f'{where}: readout "{r["id"]}" appears only on completion; set progress to 1')
 		for h in t['expect_hidden']:

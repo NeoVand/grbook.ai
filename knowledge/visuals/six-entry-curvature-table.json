@@ -1,0 +1,2948 @@
+{
+	"schema_version": 2,
+	"id": "six-entry-curvature-table",
+	"title": "Six-entry curvature table",
+	"kind": "interactive-2d",
+	"priority": "flagship",
+	"status": "specified",
+	"revision": 3,
+	"updated": "2026-09-16",
+	"component": null,
+	"rungs": [
+		"working",
+		"formal"
+	],
+	"makes_visible": "Curvature at one event, in one freely falling observer's orthonormal frame, laid out as six numbers: one for each pair of frame axes. Selecting a readout lights the cells it adds and shows the sign each cell enters with. The Ricci reading adds the three cells that pair the time axis with a space axis; the observer's own Einstein reading adds the three that leave the time axis out, so the tides cancel from it entirely. The same six cells make the Ricci scalar, the Weyl remainder and the Kretschmann scalar, so a learner can hold every trace-and-remainder statement of the chapter in one picture: outside a star every Ricci readout is zero while no cell is, an expanding universe has a zero Weyl table, and one table can be an Einstein space without having constant curvature.",
+	"picture": {
+		"caption": "Curvature at one place and moment, written as six numbers, with a switch that lights the numbers each reading adds up.",
+		"composition": "A four-by-four grid fills the panel, its rows and columns labelled with the observer's four frame axes. The six cells above the diagonal carry the numbers; each is a slider with a large numeral. Cells that pair the time axis with a space axis have a blue border; cells that pair two space axes have a green border. A positive number sits on an orange fill with a plus badge, a negative number on a violet fill with a minus badge, and the fill deepens with size. The diagonal cells are grey and hatched, because a plane needs two different directions. The cells under the diagonal are faint mirror copies. A one-line note runs along the bottom edge of the grid, saying what the table cannot hold. A readout strip runs under the grid; selecting one readout draws a thick yellow ring around the cells it adds and prints the sign each cell enters with on the ring. A second, smaller grid with a dashed border appears beside the first when the Weyl table is asked for.",
+		"elements": [
+			{
+				"element": "Four-by-four grid with frame axis labels",
+				"depicts": "the planes an observer can pick out at one event, one cell per pair of axes"
+			},
+			{
+				"element": "Blue-bordered cells in the time row",
+				"depicts": "the three tidal entries a gradiometer reads"
+			},
+			{
+				"element": "Green-bordered cells among the space axes",
+				"depicts": "the three space-plane entries a ring test reads"
+			},
+			{
+				"element": "Grey hatched cells on the diagonal",
+				"depicts": "pairs that name no plane, so they hold nothing"
+			},
+			{
+				"element": "Thick yellow ring with plus and minus badges",
+				"depicts": "which cells a chosen readout adds, and with which sign"
+			},
+			{
+				"element": "Dashed second grid",
+				"depicts": "the Weyl table: the same six cells with their trace parts taken out"
+			},
+			{
+				"element": "Readout strip",
+				"depicts": "the Ricci components, the Ricci scalar, the Einstein components, the Einstein mismatch and the invariants"
+			}
+		]
+	},
+	"print_figure": {
+		"description": "Two panels sharing one filled table, the curvature outside a spherical mass in units of the tidal scale: the time row reads minus two, plus one, plus one and the space planes read plus two, minus one, minus one. Left panel: the three blue time cells are ringed with their plus signs and the Ricci readout under them reads zero. Right panel: the three green space cells are ringed and the Einstein readout under them reads zero, while the Kretschmann readout reads forty-eight. A caption line states that no cell is zero.",
+		"labels": [
+			"time",
+			"toward the centre",
+			"across",
+			"Ricci reading",
+			"Einstein reading",
+			"Kretschmann scalar",
+			"zero",
+			"forty-eight"
+		],
+		"aspect": "2:1",
+		"alt_text": "One six-number curvature table shown twice. In the first copy the three time cells are ringed and their total reads zero. In the second the three space-plane cells are ringed and their total also reads zero, while no cell in the table is zero."
+	},
+	"variants": [
+		{
+			"id": "static-card",
+			"form": "static",
+			"description": "The print figure as an SVG card: the star-exterior table with both readings ringed and both totals zero.",
+			"fallback": true
+		},
+		{
+			"id": "full-table",
+			"form": "interactive-2d",
+			"description": "The full widget: six sliders, source presets, readout highlighting, the Weyl table and the invariant readouts.",
+			"fallback": false
+		},
+		{
+			"id": "fall-off-plot",
+			"form": "plot",
+			"description": "A companion plot for the star exterior: the size of each cell and of the Kretschmann scalar against distance, on logarithmic axes, showing the inverse cube and the inverse sixth power.",
+			"fallback": false
+		}
+	],
+	"params": [
+		{
+			"id": "source",
+			"label": "Where the numbers come from",
+			"type": "enum",
+			"options": [
+				{
+					"value": "table",
+					"label": "Set six numbers by hand",
+					"available_when": null
+				},
+				{
+					"value": "schwarzschild",
+					"label": "Outside a spherical mass",
+					"available_when": null
+				},
+				{
+					"value": "vacuum-family",
+					"label": "Any empty-space table, from two sliders",
+					"available_when": null
+				},
+				{
+					"value": "expanding-universe",
+					"label": "An expanding universe at one moment",
+					"available_when": null
+				},
+				{
+					"value": "constant-curvature",
+					"label": "One value on every plane",
+					"available_when": null
+				},
+				{
+					"value": "two-factor",
+					"label": "Two curved factors side by side",
+					"available_when": null
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "table",
+			"available_when": null,
+			"effect": "Chooses whether the six entries are typed in or filled from a closed formula. Every source fills the same six cells, so the readouts never change their meaning."
+		},
+		{
+			"id": "r-01",
+			"label": "Time and x plane",
+			"type": "number",
+			"options": null,
+			"min": -5,
+			"max": 5,
+			"step": 0.1,
+			"unit": "1",
+			"default": 0,
+			"available_when": {
+				"source": [
+					"table"
+				]
+			},
+			"effect": "Sets $R_{\\hat0\\hat1\\hat0\\hat1}$, the tidal entry along the first space axis, in the table's own curvature unit."
+		},
+		{
+			"id": "r-02",
+			"label": "Time and y plane",
+			"type": "number",
+			"options": null,
+			"min": -5,
+			"max": 5,
+			"step": 0.1,
+			"unit": "1",
+			"default": 0,
+			"available_when": {
+				"source": [
+					"table"
+				]
+			},
+			"effect": "Sets $R_{\\hat0\\hat2\\hat0\\hat2}$, the tidal entry along the second space axis."
+		},
+		{
+			"id": "r-03",
+			"label": "Time and z plane",
+			"type": "number",
+			"options": null,
+			"min": -5,
+			"max": 5,
+			"step": 0.1,
+			"unit": "1",
+			"default": 0,
+			"available_when": {
+				"source": [
+					"table"
+				]
+			},
+			"effect": "Sets $R_{\\hat0\\hat3\\hat0\\hat3}$, the tidal entry along the third space axis."
+		},
+		{
+			"id": "r-12",
+			"label": "x and y plane",
+			"type": "number",
+			"options": null,
+			"min": -5,
+			"max": 5,
+			"step": 0.1,
+			"unit": "1",
+			"default": 0,
+			"available_when": {
+				"source": [
+					"table"
+				]
+			},
+			"effect": "Sets $R_{\\hat1\\hat2\\hat1\\hat2}$, the curvature of the space plane spanned by the first two space axes."
+		},
+		{
+			"id": "r-13",
+			"label": "z and x plane",
+			"type": "number",
+			"options": null,
+			"min": -5,
+			"max": 5,
+			"step": 0.1,
+			"unit": "1",
+			"default": 0,
+			"available_when": {
+				"source": [
+					"table"
+				]
+			},
+			"effect": "Sets $R_{\\hat3\\hat1\\hat3\\hat1}$, the curvature of the space plane that leaves the second space axis out."
+		},
+		{
+			"id": "r-23",
+			"label": "y and z plane",
+			"type": "number",
+			"options": null,
+			"min": -5,
+			"max": 5,
+			"step": 0.1,
+			"unit": "1",
+			"default": 0,
+			"available_when": {
+				"source": [
+					"table"
+				]
+			},
+			"effect": "Sets $R_{\\hat2\\hat3\\hat2\\hat3}$, the curvature of the space plane that leaves the first space axis out."
+		},
+		{
+			"id": "radius",
+			"label": "Distance, in horizon radii",
+			"type": "number",
+			"options": null,
+			"min": 1,
+			"max": 8,
+			"step": 0.25,
+			"unit": "1",
+			"default": 1,
+			"available_when": {
+				"source": [
+					"schwarzschild"
+				]
+			},
+			"effect": "Moves the observer outward. Every entry scales as the inverse cube of this distance, so the whole table at distance one is the pattern $(-2, 1, 1)$ for the time cells and $(2, -1, -1)$ for the space cells."
+		},
+		{
+			"id": "tide-one",
+			"label": "First free tide",
+			"type": "number",
+			"options": null,
+			"min": -5,
+			"max": 5,
+			"step": 0.1,
+			"unit": "1",
+			"default": -2,
+			"available_when": {
+				"source": [
+					"vacuum-family"
+				]
+			},
+			"effect": "Sets the first tidal entry of an empty-space table. The third is minus the sum of the first two, and each space cell is minus the time cell that uses the other two axes, so every Ricci readout stays at zero."
+		},
+		{
+			"id": "tide-two",
+			"label": "Second free tide",
+			"type": "number",
+			"options": null,
+			"min": -5,
+			"max": 5,
+			"step": 0.1,
+			"unit": "1",
+			"default": 1,
+			"available_when": {
+				"source": [
+					"vacuum-family"
+				]
+			},
+			"effect": "Sets the second tidal entry of an empty-space table. These two sliders reach every Ricci-flat table this widget can hold."
+		},
+		{
+			"id": "equation-of-state",
+			"label": "What fills the universe",
+			"type": "enum",
+			"options": [
+				{
+					"value": "dust",
+					"label": "Dust, with no pressure",
+					"available_when": null
+				},
+				{
+					"value": "radiation",
+					"label": "Radiation",
+					"available_when": null
+				},
+				{
+					"value": "stiff",
+					"label": "Stiff matter, pressure equal to energy density",
+					"available_when": null
+				},
+				{
+					"value": "vacuum-energy",
+					"label": "Vacuum energy only",
+					"available_when": null
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "dust",
+			"available_when": {
+				"source": [
+					"expanding-universe"
+				]
+			},
+			"effect": "Chooses the pressure-to-density ratio $w$ of a spatially flat expanding universe. In units of the Hubble rate squared, each time cell is $(1 + 3w)/2$ and each space cell is one."
+		},
+		{
+			"id": "sectional-k",
+			"label": "Curvature of a curved plane",
+			"type": "number",
+			"options": null,
+			"min": -3,
+			"max": 3,
+			"step": 0.25,
+			"unit": "1",
+			"default": 1,
+			"available_when": {
+				"source": [
+					"constant-curvature",
+					"two-factor"
+				]
+			},
+			"effect": "Sets $K$. With one value on every plane, each time cell is $-K$ and each space cell is $+K$. With two curved factors, only the time-and-x cell and the y-and-z cell are filled, at $-K$ and $+K$."
+		},
+		{
+			"id": "highlight",
+			"label": "Light the cells a readout adds",
+			"type": "enum",
+			"options": [
+				{
+					"value": "none",
+					"label": "No highlight",
+					"available_when": null
+				},
+				{
+					"value": "ricci-time-time",
+					"label": "The observer's Ricci reading",
+					"available_when": null
+				},
+				{
+					"value": "ricci-x-x",
+					"label": "The Ricci component along x",
+					"available_when": null
+				},
+				{
+					"value": "ricci-scalar",
+					"label": "The Ricci scalar",
+					"available_when": null
+				},
+				{
+					"value": "einstein-time-time",
+					"label": "The observer's Einstein reading",
+					"available_when": null
+				},
+				{
+					"value": "einstein-x-x",
+					"label": "The Einstein component along x",
+					"available_when": null
+				},
+				{
+					"value": "weyl-time-x",
+					"label": "The Weyl entry in the time and x cell",
+					"available_when": null
+				},
+				{
+					"value": "kretschmann",
+					"label": "The Kretschmann scalar",
+					"available_when": null
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "none",
+			"available_when": null,
+			"effect": "Rings the cells the chosen readout adds and prints the sign each one enters with. Cells left out stay fully visible and unringed. Choosing the Weyl entry turns the Weyl grid on, and choosing the Kretschmann scalar turns the scalar readouts on, so the readout being explained is always on screen."
+		},
+		{
+			"id": "show-weyl",
+			"label": "Show the Weyl table",
+			"type": "boolean",
+			"options": null,
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": false,
+			"available_when": null,
+			"effect": "Draws a second, dashed grid holding the same six cells with their trace parts removed, and reveals the Weyl readouts."
+		},
+		{
+			"id": "invariants",
+			"label": "Show the scalar readouts",
+			"type": "boolean",
+			"options": null,
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": false,
+			"available_when": null,
+			"effect": "Reveals the Kretschmann scalar, the squared Ricci tensor, the Ricci quotient and the check on the decomposition identity."
+		},
+		{
+			"id": "axis-names",
+			"label": "Names for the four axes",
+			"type": "enum",
+			"options": [
+				{
+					"value": "axes",
+					"label": "Time, x, y, z",
+					"available_when": null
+				},
+				{
+					"value": "star",
+					"label": "Time, toward the centre, and two across",
+					"available_when": {
+						"source": [
+							"schwarzschild",
+							"vacuum-family"
+						]
+					}
+				},
+				{
+					"value": "comoving",
+					"label": "Time, and three comoving directions",
+					"available_when": {
+						"source": [
+							"expanding-universe"
+						]
+					}
+				},
+				{
+					"value": "factors",
+					"label": "The two directions of each factor",
+					"available_when": {
+						"source": [
+							"two-factor"
+						]
+					}
+				}
+			],
+			"min": null,
+			"max": null,
+			"step": null,
+			"unit": null,
+			"default": "axes",
+			"available_when": null,
+			"effect": "Relabels the rows and columns. The numbers and the readouts never change, because the frame is the same. If the source changes to one the chosen names do not fit, the names fall back to time, x, y and z."
+		}
+	],
+	"presets": [
+		{
+			"id": "flat",
+			"label": "Flat: every cell zero",
+			"state": {
+				"source": "table",
+				"r-01": 0,
+				"r-02": 0,
+				"r-03": 0,
+				"r-12": 0,
+				"r-13": 0,
+				"r-23": 0
+			}
+		},
+		{
+			"id": "six-numbers",
+			"label": "Six numbers, two readings",
+			"state": {
+				"source": "table",
+				"r-01": 3,
+				"r-02": -1,
+				"r-03": -1,
+				"r-12": 1,
+				"r-13": 1,
+				"r-23": 2
+			}
+		},
+		{
+			"id": "inside-still-water",
+			"label": "Inside still water, in units of four pi G rho over three",
+			"state": {
+				"source": "table",
+				"r-01": 1,
+				"r-02": 1,
+				"r-03": 1,
+				"r-12": 2,
+				"r-13": 2,
+				"r-23": 2
+			}
+		},
+		{
+			"id": "tides-only",
+			"label": "The star's tides with the space planes emptied",
+			"state": {
+				"source": "table",
+				"r-01": -2,
+				"r-02": 1,
+				"r-03": 1,
+				"r-12": 0,
+				"r-13": 0,
+				"r-23": 0
+			}
+		},
+		{
+			"id": "outside-a-star",
+			"label": "Outside a spherical mass, at the horizon radius",
+			"state": {
+				"source": "schwarzschild",
+				"radius": 1
+			}
+		},
+		{
+			"id": "outside-a-star-far",
+			"label": "Outside a spherical mass, at twice the horizon radius",
+			"state": {
+				"source": "schwarzschild",
+				"radius": 2
+			}
+		},
+		{
+			"id": "vacuum-two-sliders",
+			"label": "Another empty-space table",
+			"state": {
+				"source": "vacuum-family",
+				"tide-one": 1,
+				"tide-two": 1
+			}
+		},
+		{
+			"id": "dust-universe",
+			"label": "Expanding dust universe, in units of the Hubble rate squared",
+			"state": {
+				"source": "expanding-universe",
+				"equation-of-state": "dust"
+			}
+		},
+		{
+			"id": "radiation-universe",
+			"label": "Expanding radiation universe",
+			"state": {
+				"source": "expanding-universe",
+				"equation-of-state": "radiation"
+			}
+		},
+		{
+			"id": "stiff-universe",
+			"label": "Expanding stiff-matter universe",
+			"state": {
+				"source": "expanding-universe",
+				"equation-of-state": "stiff"
+			}
+		},
+		{
+			"id": "de-sitter",
+			"label": "One value on every plane, positive",
+			"state": {
+				"source": "constant-curvature",
+				"sectional-k": 1
+			}
+		},
+		{
+			"id": "anti-de-sitter",
+			"label": "One value on every plane, negative",
+			"state": {
+				"source": "constant-curvature",
+				"sectional-k": -1
+			}
+		},
+		{
+			"id": "two-curved-factors",
+			"label": "Two curved factors side by side, positive",
+			"state": {
+				"source": "two-factor",
+				"sectional-k": 1
+			}
+		},
+		{
+			"id": "two-curved-factors-flipped",
+			"label": "Two curved factors side by side, negative",
+			"state": {
+				"source": "two-factor",
+				"sectional-k": -1
+			}
+		}
+	],
+	"readouts": [
+		{
+			"id": "ricci-time-time",
+			"label": "Ricci reading for this observer",
+			"unit": "1",
+			"sense": "positive when a small ball of free particles let go at rest starts to lose volume",
+			"range": [
+				-15,
+				15
+			],
+			"decimals": 3,
+			"visible_when": "always",
+			"say": "the observer's Ricci reading is {value}",
+			"say_negative": "the observer's Ricci reading is minus {abs}"
+		},
+		{
+			"id": "ricci-x-x",
+			"label": "Ricci component along x",
+			"unit": "1",
+			"sense": "positive when the two space planes that contain the x axis outweigh the tide along x",
+			"range": [
+				-15,
+				15
+			],
+			"decimals": 3,
+			"visible_when": "always",
+			"say": "the Ricci component along x is {value}",
+			"say_negative": "the Ricci component along x is minus {abs}"
+		},
+		{
+			"id": "ricci-scalar",
+			"label": "Ricci scalar",
+			"unit": "1",
+			"sense": "positive when the space planes outweigh the tides, as on a sphere",
+			"range": [
+				-60,
+				60
+			],
+			"decimals": 3,
+			"visible_when": "always",
+			"say": "the Ricci scalar is {value}",
+			"say_negative": "the Ricci scalar is minus {abs}"
+		},
+		{
+			"id": "einstein-time-time",
+			"label": "Einstein reading for this observer",
+			"unit": "1",
+			"sense": "positive when the three space planes add to a positive curvature, which for matter at rest means positive energy density",
+			"range": [
+				-15,
+				15
+			],
+			"decimals": 3,
+			"visible_when": "always",
+			"say": "the observer's Einstein reading is {value}",
+			"say_negative": "the observer's Einstein reading is minus {abs}"
+		},
+		{
+			"id": "einstein-x-x",
+			"label": "Einstein component along x",
+			"unit": "1",
+			"sense": "positive when the two tides that leave the x axis out outweigh the space plane that leaves it out, which for a fluid at rest means positive pressure",
+			"range": [
+				-15,
+				15
+			],
+			"decimals": 3,
+			"visible_when": "always",
+			"say": "the Einstein component along x is {value}",
+			"say_negative": "the Einstein component along x is minus {abs}"
+		},
+		{
+			"id": "einstein-mismatch",
+			"label": "Einstein mismatch",
+			"unit": "1",
+			"sense": null,
+			"range": [
+				0,
+				10
+			],
+			"decimals": 3,
+			"visible_when": "always",
+			"say": "the largest mismatch between a time cell and the space cell that uses the other two axes measures {value}, so this is an Einstein space only when that mismatch reads zero",
+			"say_negative": null
+		},
+		{
+			"id": "einstein-constant",
+			"label": "Ricci quotient",
+			"unit": "1",
+			"sense": "positive when the Ricci scalar is positive; with the mismatch at zero that means the Ricci tensor is a positive multiple of the metric, as in de Sitter spacetime",
+			"range": [
+				-15,
+				15
+			],
+			"decimals": 3,
+			"visible_when": "on-demand",
+			"say": "the Ricci quotient is {value}, and it is the Einstein constant only while the mismatch reads zero",
+			"say_negative": "the Ricci quotient is minus {abs}, and it is the Einstein constant only while the mismatch reads zero"
+		},
+		{
+			"id": "weyl-time-x",
+			"label": "Weyl entry in the time and x cell",
+			"unit": "1",
+			"sense": "positive when the Weyl remainder draws a falling pair together along the x axis, the same way a positive tidal entry there does",
+			"range": [
+				-6.7,
+				6.7
+			],
+			"decimals": 3,
+			"visible_when": "on-demand",
+			"say": "the Weyl entry in the time and x cell is {value}",
+			"say_negative": "the Weyl entry in the time and x cell is minus {abs}"
+		},
+		{
+			"id": "weyl-norm",
+			"label": "Weyl tensor squared",
+			"unit": "1",
+			"sense": null,
+			"range": [
+				0,
+				1200
+			],
+			"decimals": 3,
+			"visible_when": "on-demand",
+			"say": "the Weyl tensor squared is {value}",
+			"say_negative": null
+		},
+		{
+			"id": "kretschmann",
+			"label": "Kretschmann scalar",
+			"unit": "1",
+			"sense": null,
+			"range": [
+				0,
+				1200
+			],
+			"decimals": 3,
+			"visible_when": "on-demand",
+			"say": "the Kretschmann scalar is {value}",
+			"say_negative": null
+		},
+		{
+			"id": "ricci-norm",
+			"label": "Ricci tensor squared",
+			"unit": "1",
+			"sense": null,
+			"range": [
+				0,
+				900
+			],
+			"decimals": 3,
+			"visible_when": "on-demand",
+			"say": "the Ricci tensor squared is {value}",
+			"say_negative": null
+		},
+		{
+			"id": "decomposition-check",
+			"label": "Decomposition check",
+			"unit": "1",
+			"sense": null,
+			"range": null,
+			"decimals": 9,
+			"visible_when": "on-demand",
+			"say": "the decomposition check is {value}, the size of a difference that must stay at zero",
+			"say_negative": null
+		}
+	],
+	"tours": [
+		{
+			"id": "the-ricci-reading",
+			"for_concept": "ricci-tensor",
+			"rung": "working",
+			"beats": [
+				{
+					"id": "meet-the-table",
+					"rung": "working",
+					"state": {
+						"preset": "six-numbers"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The four-by-four grid filled with the check values three, minus one, minus one on the time row and one, one, two among the space planes. No highlight ring.",
+					"say": "This is the curvature at one event, read in one freely falling observer's orthonormal frame. The grid has one row and one column for each of the observer's four axes: time, x, y and z. Only the six cells with two different axes carry a number, because a plane needs two directions, so the diagonal cells are grey and hatched. The three cells with a blue border pair the time axis with a space axis. The three with a green border pair two space axes. An orange fill with a plus badge means the number is positive, and a violet fill with a minus badge means it is negative.",
+					"describe": "A four by four table of curvature numbers. Three of them pair time with a space direction and read three, minus one and minus one. Three pair two space directions: two in the y and z cell, and one in each of the other two."
+				},
+				{
+					"id": "light-the-tides",
+					"rung": "working",
+					"state": {
+						"preset": "six-numbers",
+						"highlight": "ricci-time-time"
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "The three blue cells in the time row are now ringed, each with a plus badge on the ring. Before I add them, what does the observer's Ricci reading come to?",
+					"check": "ricci-bianchi-and-einstein-tensors/checks/six-numbers-two-readings",
+					"show": "Yellow rings on the three blue time cells, each ring badged plus. The Ricci readout is covered.",
+					"say": "I select the observer's Ricci reading, and a thick yellow ring appears on exactly the three blue cells in the time row. Each ring carries a plus badge, so all three enter with the same sign. The green cells stay unringed and fully visible. Before I add them, what does the reading come to?",
+					"describe": "The three time cells are ringed and each enters with a plus. They read three, minus one and minus one."
+				},
+				{
+					"id": "read-the-total",
+					"rung": "working",
+					"state": {
+						"preset": "six-numbers",
+						"highlight": "ricci-time-time"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The same rings with the Ricci readout uncovered at one.",
+					"say": "Three, take away one, take away one, leaves one. That single number is the whole of what the Ricci tensor says to this observer: the total of the three tidal drifts in a small ball of free particles let go at rest. It is positive here, so the ball starts to lose volume.",
+					"describe": "The Ricci reading shows one. It is the total of the three tidal drifts."
+				},
+				{
+					"id": "outside-a-star",
+					"rung": "working",
+					"state": {
+						"preset": "outside-a-star",
+						"highlight": "ricci-time-time"
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "Every one of the six cells is filled and none of them is zero. Will the three ringed tides add to zero, or to something else?",
+					"check": "ricci-tensor/checks/vacuum-table-with-zero-ricci",
+					"show": "The star-exterior table with minus two, plus one, plus one ringed in the time row. Every cell is filled and none is zero.",
+					"say": "Now the numbers come from an observer falling freely toward a spherical mass, in units of the tidal scale at that observer's distance. Distance is counted in horizon radii. A star's surface sits well outside one horizon radius, so at distance one the mass is a black hole and the observer is falling through its horizon. An observer held at a fixed distance reads the same six numbers, because moving straight toward or away from the mass changes none of them. The ringed time cells read minus two, plus one and plus one. Every one of the six cells is filled, and none of them is zero. Will the three ringed numbers add to zero, or to something else?",
+					"describe": "Outside a spherical mass the three tidal entries read minus two, plus one and plus one, and all six cells carry numbers."
+				},
+				{
+					"id": "zero-without-flatness",
+					"rung": "working",
+					"state": {
+						"preset": "outside-a-star",
+						"highlight": "ricci-time-time"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The same table with the Ricci readout uncovered at zero and every cell still filled and coloured.",
+					"say": "Minus two, plus one, plus one is zero. The reading is zero and the table is not. Nothing dims, nothing greys out: the six numbers are still there, and a ball of free particles still turns into an egg. A zero Ricci reading says the ball keeps its volume, not that the curvature has gone.",
+					"describe": "The Ricci reading is zero while all six cells still carry numbers."
+				},
+				{
+					"id": "inside-matter",
+					"rung": "working",
+					"state": {
+						"preset": "inside-still-water",
+						"highlight": "ricci-time-time"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The still-water table with all three time cells at one, ringed, and the Ricci readout at three.",
+					"say": "Here the observer is inside a great body of still water instead, at rest in the water and falling with it. The numbers are in units of four pi G rho over three. The water's own pressure is far too small to change any cell, so the table drops it. Now the three ringed time cells all read one, and the reading is three. Among matter the tides no longer cancel, and the ball of free particles starts to shrink.",
+					"describe": "Inside still water the three tidal entries are all one and the Ricci reading is three."
+				}
+			]
+		},
+		{
+			"id": "one-number-for-the-event",
+			"for_concept": "ricci-scalar",
+			"rung": "working",
+			"beats": [
+				{
+					"id": "light-every-cell",
+					"rung": "working",
+					"state": {
+						"preset": "six-numbers",
+						"highlight": "ricci-scalar"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "All six cells ringed. The three blue time cells carry minus badges on their rings, the three green space cells carry plus badges. The Ricci scalar readout reads six.",
+					"say": "I select the Ricci scalar, and now every one of the six cells is ringed. Look at the badges on the rings. The three green space cells each carry a plus, but the three blue time cells each carry a minus. The inverse metric puts that minus there, because the time entry of the metric has the opposite sign. Each pair of axes also enters the total twice, once in each order, and that is where both twos come from. Twice the space total, take away twice the time total, gives six.",
+					"describe": "All six cells are ringed. The three space cells enter with a plus and the three time cells with a minus. The Ricci scalar reads six."
+				},
+				{
+					"id": "never-the-plain-sum",
+					"rung": "working",
+					"state": {
+						"preset": "de-sitter",
+						"highlight": "ricci-scalar"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Constant curvature with the value one: every time cell minus one, every space cell plus one, and the Ricci scalar at twelve.",
+					"say": "Here is a spacetime with one and the same curvature on every plane. Each blue time cell reads minus one and each green space cell reads plus one. A plain diagonal sum of those six numbers would be zero. The scalar reads twelve instead, because the three time cells enter with a minus sign, and twelve is the right answer for four dimensions with the value one.",
+					"describe": "Every time cell is minus one and every space cell is plus one, and the Ricci scalar reads twelve."
+				},
+				{
+					"id": "predict-the-radiation-scalar",
+					"rung": "working",
+					"state": {
+						"preset": "radiation-universe",
+						"highlight": "ricci-scalar"
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "In this expanding radiation universe all six cells read one, in units of the Hubble rate squared. What does the Ricci scalar come to?",
+					"check": "ricci-scalar/checks/radiation-universe",
+					"show": "The radiation table with every cell at one, all six ringed, three minus badges and three plus badges.",
+					"say": "Now I fill the table from an expanding universe of radiation at one moment, in units of the Hubble rate squared. All six cells read one. The three time cells are ringed with a minus and the three space cells with a plus. What does the Ricci scalar come to?",
+					"describe": "In the radiation universe all six cells read one, the three time cells entering with a minus and the three space cells with a plus."
+				},
+				{
+					"id": "scalar-flat-is-not-empty",
+					"rung": "working",
+					"state": {
+						"preset": "radiation-universe",
+						"highlight": "ricci-scalar"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The same table with the Ricci scalar readout at zero and the Ricci reading readout at three.",
+					"say": "The scalar reads zero. The three minuses cancel the three pluses exactly. And yet the Ricci reading beside it says three, so the space is full of radiation and the tides are real. A zero scalar is one number cancelling, not an empty region.",
+					"describe": "The Ricci scalar reads zero while the Ricci reading reads three in the same radiation universe."
+				},
+				{
+					"id": "the-other-sign",
+					"rung": "working",
+					"state": {
+						"preset": "stiff-universe",
+						"highlight": "ricci-scalar"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The stiff-matter table with time cells at two and space cells at one, and the Ricci scalar at minus six.",
+					"say": "I stiffen the matter until its pressure matches its energy density. The blue time cells rise to two while the green space cells stay at one, and the scalar swings to minus six. So the scalar takes either sign, and its sign tells you which of the two totals is winning, not whether the region is curved.",
+					"describe": "With stiff matter the time cells read two and the space cells one, and the Ricci scalar reads minus six."
+				}
+			]
+		},
+		{
+			"id": "the-einstein-reading",
+			"for_concept": "einstein-tensor",
+			"rung": "working",
+			"beats": [
+				{
+					"id": "light-the-space-planes",
+					"rung": "working",
+					"state": {
+						"preset": "six-numbers",
+						"highlight": "einstein-time-time"
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "The three green space cells are ringed, each with a plus badge, and the blue time cells are not ringed at all. What does the observer's Einstein reading come to?",
+					"check": "einstein-tensor/checks/rings-not-tides",
+					"show": "Yellow rings on the three green space cells only, each badged plus. The blue time cells stay unringed. The Einstein readout is covered.",
+					"say": "Same table, and now I select the observer's Einstein reading. The ring jumps to the other three cells. The green space cells are ringed, each with a plus badge, and the three blue time cells are not ringed at all. The tides have dropped out. Before I add them, what does the reading come to?",
+					"describe": "Only the three space cells are ringed, reading two in the y and z cell and one in each of the other two. The time cells are not ringed."
+				},
+				{
+					"id": "the-tides-cancelled",
+					"rung": "working",
+					"state": {
+						"preset": "six-numbers",
+						"highlight": "einstein-time-time"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The same rings with the Einstein readout uncovered at four.",
+					"say": "Two in the y and z cell, and one in each of the other two, make four. This is what trace reversal does at the observer's own component: the Ricci reading adds the three tides, and the Einstein reading adds the three space planes instead. Half the Ricci scalar cancels the tides away exactly, which is why the strong tide of three in the time and x cell buys the Einstein reading nothing.",
+					"describe": "The Einstein reading is four, the total of the three space planes."
+				},
+				{
+					"id": "strong-tides-zero-reading",
+					"rung": "working",
+					"state": {
+						"preset": "outside-a-star",
+						"highlight": "einstein-time-time"
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "Outside a spherical mass the tides are strong enough to stretch a falling body, and they are not ringed. The ringed green cells read plus two in the y and z cell and minus one in each of the other two. Will the Einstein reading be large?",
+					"check": "einstein-tensor/checks/zero-einstein-not-flat",
+					"show": "The star-exterior table with only the three green space cells ringed, reading plus two, minus one, minus one.",
+					"say": "Outside a spherical mass the blue time cells hold tides strong enough to stretch a falling body, and they are unringed. The ringed green cells read plus two in the y and z cell and minus one in each of the other two. Will the Einstein reading be large?",
+					"describe": "Outside a spherical mass the three ringed space cells read plus two in the y and z cell and minus one in each of the other two."
+				},
+				{
+					"id": "vacuum-reading",
+					"rung": "working",
+					"state": {
+						"preset": "outside-a-star",
+						"highlight": "einstein-time-time"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The same table with the Einstein readout uncovered at zero.",
+					"say": "Zero. Two, take away one, take away one. Einstein's equation ties this reading to the energy density the observer measures, and outside the star there is none. The tides say nothing about it either way.",
+					"describe": "The Einstein reading outside the star is zero, while all six cells still carry numbers."
+				},
+				{
+					"id": "leave-one-direction-out",
+					"rung": "working",
+					"state": {
+						"preset": "six-numbers",
+						"highlight": "einstein-x-x"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Rings on the time and y cell, the time and z cell, and the y and z cell. Their badges read plus, plus and minus. The Einstein component along x reads minus four.",
+					"say": "The pattern carries to the other diagonal components. I select the Einstein component along x, and the ring lands on the three cells that leave the x axis out: the time and y cell, the time and z cell, and the y and z cell. The first two carry a plus badge and the third a minus. Minus one, minus one, take away two, gives minus four.",
+					"describe": "The three cells that leave the x axis out are ringed, and the Einstein component along x reads minus four."
+				},
+				{
+					"id": "the-expanding-reading",
+					"rung": "working",
+					"state": {
+						"preset": "dust-universe",
+						"highlight": "einstein-time-time"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "einstein-tensor/checks/flat-universe-not-zero",
+					"show": "The dust universe table with time cells at one half and space cells at one, the three green cells ringed, and the Einstein readout at three.",
+					"say": "Here is an expanding dust universe at one moment, in units of the Hubble rate squared. The three ringed green space cells each read one, and the reading is three. That is the first Friedmann equation, standing in the table: three times the Hubble rate squared equals eight pi G times the density. Space here is flat in the sense that a ruler survey finds no shortfall, yet the reading is not zero, because these are curvatures of spacetime planes.",
+					"describe": "In the expanding dust universe each space cell reads one and the Einstein reading is three."
+				}
+			]
+		},
+		{
+			"id": "vacuum-without-flatness",
+			"for_concept": "ricci-flat-spacetime",
+			"rung": "formal",
+			"beats": [
+				{
+					"id": "every-ricci-readout-zero",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The star-exterior table with no highlight. Ricci reading zero, Ricci component along x zero, Ricci scalar zero, Einstein reading zero, Einstein component along x zero.",
+					"say": "Outside a spherical mass, every Ricci readout on the strip reads zero at once: the observer's reading, the component along x, and the scalar. Because the trace reversal is its own inverse, the Einstein readouts are zero as well. This is a Ricci-flat region, and in four dimensions that is exactly the vacuum equation without a cosmological constant.",
+					"describe": "Outside a spherical mass every Ricci and Einstein readout reads zero, while the three time cells read minus two, one and one, and the space cells read two in the y and z cell and minus one in each of the other two."
+				},
+				{
+					"id": "what-survives",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star",
+						"invariants": true,
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "The scalar readouts are now on. With every Ricci readout at zero, will the Kretschmann scalar be zero too?",
+					"check": "ricci-flat-spacetime/checks/four-regions-two-tests",
+					"show": "The same table with the invariant strip and the dashed Weyl grid revealed. The Kretschmann readout is covered.",
+					"say": "I turn on the scalar readouts and the dashed Weyl grid beside the table. Every entry of the dashed grid matches the entry in the same place in the full grid, because a Ricci-flat table has nothing to subtract. With every Ricci readout at zero, will the Kretschmann scalar be zero too?",
+					"describe": "The dashed Weyl grid holds the same six numbers as the full grid, and the scalar readouts are switched on."
+				},
+				{
+					"id": "forty-eight",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star",
+						"invariants": true,
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Kretschmann readout at forty-eight, Weyl tensor squared at forty-eight, Ricci tensor squared at zero.",
+					"say": "Forty-eight. The Kretschmann scalar and the Weyl tensor squared both read forty-eight and the Ricci tensor squared reads zero, because in a Ricci-flat region the whole Riemann tensor is its Weyl part. In two and three dimensions this could not happen, since there Ricci-flat already forces flat. From four dimensions on, the traces leave something over.",
+					"describe": "The Kretschmann scalar and the Weyl tensor squared both read forty-eight while the Ricci tensor squared reads zero."
+				},
+				{
+					"id": "a-whole-family",
+					"rung": "formal",
+					"state": {
+						"preset": "vacuum-two-sliders",
+						"invariants": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The two-slider vacuum table reading one, one, minus two on the time row, with minus one in the y and z cell, minus one in the z and x cell and two in the x and y cell. All Ricci readouts zero, Kretschmann forty-eight.",
+					"say": "Two sliders reach every empty-space table this widget can hold. I set both to one, and the third tidal cell follows to minus two while each green cell takes minus the blue cell that uses the other two axes. Every Ricci readout is still zero. This particular setting is the star's own table with the strong tide turned onto the z axis, which is why the Kretschmann scalar is forty-eight again. Move either slider and you leave that table, with every Ricci readout still at zero.",
+					"describe": "A second empty-space table, with the tidal entries one, one and minus two, again has every Ricci readout at zero."
+				},
+				{
+					"id": "scalar-flat-is-weaker",
+					"rung": "formal",
+					"state": {
+						"preset": "radiation-universe",
+						"invariants": true
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "This radiation universe has a Ricci scalar of zero. Does that make it Ricci-flat?",
+					"check": "ricci-flat-spacetime/checks/radiation-universe-is-scalar-flat",
+					"show": "The radiation table with every cell at one, Ricci scalar zero, Ricci reading three.",
+					"say": "Now compare a different region. This expanding radiation universe has a Ricci scalar of zero, the same value the star's exterior gives. Does that make it Ricci-flat?",
+					"describe": "The radiation universe has every cell at one and a Ricci scalar of zero."
+				},
+				{
+					"id": "the-ladder",
+					"rung": "formal",
+					"state": {
+						"preset": "flat",
+						"invariants": true,
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Every cell zero, every readout zero, the dashed Weyl grid empty.",
+					"say": "No. The radiation universe keeps a Ricci reading of three, so it is scalar-flat and not Ricci-flat. Flat is the strictest of the three conditions, and here it is: I empty every cell, and now every readout on the strip is zero and the dashed Weyl grid is empty as well. Flat gives Ricci-flat gives scalar-flat, and neither arrow runs backwards from four dimensions on.",
+					"describe": "With every cell emptied, every readout reads zero and the Weyl grid is empty."
+				}
+			]
+		},
+		{
+			"id": "einstein-without-constant-curvature",
+			"for_concept": "einstein-space",
+			"rung": "formal",
+			"beats": [
+				{
+					"id": "the-mismatch-readout",
+					"rung": "formal",
+					"state": {
+						"preset": "de-sitter",
+						"invariants": true,
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Constant curvature at one. Einstein mismatch zero, Ricci quotient three, Weyl tensor squared zero, dashed Weyl grid empty.",
+					"say": "The Einstein mismatch readout takes each blue time cell, adds the green cell that uses the other two axes, and reports the largest size it finds. It reads zero exactly when the Ricci tensor is a constant times the metric. Here every time cell is minus one and every space cell is plus one, so each pair cancels and the mismatch is zero. The Ricci quotient beside it reads three. In four dimensions a zero mismatch means the matter at this event can only be vacuum energy, and the quotient is the cosmological constant that goes with it. The dashed Weyl grid is empty.",
+					"describe": "With one value on every plane the Einstein mismatch is zero, the Ricci quotient is three, and the Weyl grid is empty."
+				},
+				{
+					"id": "two-curved-factors",
+					"rung": "formal",
+					"state": {
+						"preset": "two-curved-factors",
+						"invariants": true,
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "Only two cells are filled: the time and x cell at minus one, and the y and z cell at plus one. Every plane that mixes the two pairs reads zero. Is this an Einstein space, and does it have constant curvature?",
+					"check": "constant-curvature-weyl-and-invariants/checks/two-spheres-side-by-side",
+					"show": "Two curved factors: only the time and x cell at minus one and the y and z cell at plus one are filled, in orange and violet. The other four cells are empty. Readouts covered.",
+					"say": "Now I build a spacetime out of two curved factors set side by side, with equal curvature radii. Only two cells are filled: the time and x cell at minus one, on a violet fill, and the y and z cell at plus one, on an orange fill. Every plane that takes one direction from each factor reads zero, so those four cells are empty. Is this an Einstein space, and does it have constant curvature?",
+					"describe": "Only two cells carry numbers, minus one and plus one, and the four mixed cells are empty."
+				},
+				{
+					"id": "einstein-yes-constant-no",
+					"rung": "formal",
+					"state": {
+						"preset": "two-curved-factors",
+						"invariants": true,
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Einstein mismatch zero, Ricci quotient one, Weyl tensor squared five point three three three, dashed Weyl grid with entries minus two thirds, one third, one third and their opposites.",
+					"say": "Einstein yes, constant curvature no. The mismatch is zero and the Ricci quotient reads one, so the Ricci tensor is the metric times one. But the four empty cells are planes with zero curvature sitting beside two planes with curvature of size one, so the planes do not share a value. The dashed Weyl grid proves it: the Weyl tensor squared reads five point three three three, which is sixteen thirds. The Einstein condition fixes only the traces, and from four dimensions on a free Weyl tensor is left over.",
+					"describe": "The Einstein mismatch is zero, the Ricci quotient is one, and the Weyl tensor squared is sixteen thirds."
+				},
+				{
+					"id": "flip-the-sign",
+					"rung": "formal",
+					"state": {
+						"preset": "two-curved-factors-flipped",
+						"invariants": true,
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Two curved factors with the curvature at minus one: time and x cell plus one, y and z cell minus one, Ricci quotient minus one, Weyl tensor squared five point three three three.",
+					"say": "I flip the curvature of both factors to minus one. The two filled cells swap colour: the time and x cell turns orange at plus one and the y and z cell turns violet at minus one. The mismatch is still zero and the quotient is now minus one, so this is an Einstein space with a negative constant. The Weyl tensor squared has not moved from sixteen thirds, because it does not know the sign.",
+					"describe": "With both factors negative the Ricci quotient reads minus one and the Weyl tensor squared is still sixteen thirds."
+				},
+				{
+					"id": "zero-counts",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star",
+						"invariants": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": "einstein-space/checks/schwarzschild-is-an-einstein-space",
+					"show": "The star-exterior table with Einstein mismatch zero and Ricci quotient zero.",
+					"say": "The star's exterior is an Einstein space too. Its mismatch reads zero and its quotient reads zero, and zero is an allowed constant. Every Ricci-flat region is an Einstein space with the constant set to nothing.",
+					"describe": "Outside the star the Einstein mismatch is zero and the Ricci quotient is zero."
+				},
+				{
+					"id": "not-every-table",
+					"rung": "formal",
+					"state": {
+						"preset": "dust-universe",
+						"invariants": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The dust universe table with the Einstein mismatch at one point five.",
+					"say": "The expanding dust universe is the other way round. Each time cell reads one half and each space cell reads one, so every pair adds to one and a half instead of cancelling, and the mismatch reads one and a half. Its Ricci tensor is not a constant times the metric, so it is no Einstein space, however smooth and symmetric the universe looks.",
+					"describe": "In the dust universe every time and space pair adds to one and a half, so the Einstein mismatch is one and a half."
+				}
+			]
+		},
+		{
+			"id": "what-the-traces-leave-free",
+			"for_concept": "weyl-tensor",
+			"rung": "formal",
+			"beats": [
+				{
+					"id": "subtract-the-traces",
+					"rung": "formal",
+					"state": {
+						"preset": "six-numbers",
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The check table with the dashed Weyl grid beside it, holding one, minus one half, minus one half in the time row and their opposites among the space planes.",
+					"say": "The dashed grid beside the table holds the Weyl tensor: the same six cells with their trace parts taken out. Two things are worth watching in it. Its three time entries always add to zero, because the Weyl tensor is trace-free on every pair of slots. And each green space entry in the dashed grid is minus the blue time entry that uses the other two axes, so the whole dashed grid runs on two free numbers.",
+					"describe": "A second dashed grid holds the Weyl entries. Its three time entries add to zero and each space entry is minus the time entry that uses the other two axes."
+				},
+				{
+					"id": "vacuum-leaves-everything",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star",
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "Outside the star every Ricci readout is zero. What will the dashed Weyl grid hold?",
+					"check": "weyl-tensor/checks/vacuum-leftover",
+					"show": "The star-exterior table with the dashed grid covered.",
+					"say": "Outside a spherical mass every Ricci readout is zero, so there is nothing to subtract. What will the dashed Weyl grid hold?",
+					"describe": "The star-exterior table is on screen with the Weyl grid hidden."
+				},
+				{
+					"id": "all-of-it",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star",
+						"show-weyl": true,
+						"invariants": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The dashed Weyl grid matching the full grid cell for cell: minus two, one and one in the time row, and two in the y and z cell with minus one in each of the other two. Weyl tensor squared forty-eight.",
+					"say": "All of it. Every dashed cell matches the cell in the same place in the full grid, and the Weyl tensor squared equals the Kretschmann scalar at forty-eight. Einstein's equation fixes the Ricci tensor at an event from the matter there. Ten of the twenty components are what it leaves free, and outside a star they are the entire curvature.",
+					"describe": "The Weyl grid matches the full grid cell for cell and the Weyl tensor squared reads forty-eight."
+				},
+				{
+					"id": "expanding-leaves-nothing",
+					"rung": "formal",
+					"state": {
+						"preset": "dust-universe",
+						"show-weyl": true,
+						"invariants": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "The dust universe table with the dashed Weyl grid empty and the Weyl tensor squared at zero.",
+					"say": "The expanding dust universe is the mirror case. Its time cells read one half and its space cells read one, and none of them is zero, yet the dashed grid is completely empty and the Weyl tensor squared reads zero. The curvature here is all trace and no remainder, which is another way of saying the universe is conformally flat: a rescaling of the metric makes it flat.",
+					"describe": "In the dust universe the Weyl grid is empty and the Weyl tensor squared reads zero, although the six cells are not zero."
+				},
+				{
+					"id": "both-parts-at-once",
+					"rung": "formal",
+					"state": {
+						"preset": "tides-only",
+						"show-weyl": true,
+						"invariants": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Time cells minus two, one, one with the space cells emptied. Ricci reading zero, Ricci component along x two, Weyl tensor squared twelve, Ricci tensor squared six.",
+					"say": "Most tables are a mixture. I keep the star's three tides and empty the space planes by hand. The Ricci reading still comes to zero, but the component along x reads two, so the Ricci tensor has not vanished. Both parts are alive here: the Weyl tensor squared reads twelve and the Ricci tensor squared reads six. This table is neither a vacuum nor a conformally flat universe.",
+					"describe": "With the space planes emptied the Ricci component along x reads two, the Weyl tensor squared reads twelve and the Ricci tensor squared reads six."
+				},
+				{
+					"id": "rescaling-does-not-touch-it",
+					"rung": "formal",
+					"state": {
+						"preset": "de-sitter",
+						"show-weyl": true,
+						"invariants": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Constant curvature at one, dashed Weyl grid empty, Weyl tensor squared zero.",
+					"say": "One last case. With one and the same value on every plane, the dashed grid empties again. That is the whole content of the statement that an Einstein space has constant curvature exactly when its Weyl tensor vanishes. And the Weyl tensor with one index raised is the part of the curvature that any rescaling of the metric leaves alone, which is why an empty dashed grid marks a conformally flat geometry.",
+					"describe": "With one value on every plane the Weyl grid is empty and the Weyl tensor squared is zero."
+				}
+			]
+		},
+		{
+			"id": "adding-up-the-squares",
+			"for_concept": "kretschmann-scalar",
+			"rung": "formal",
+			"beats": [
+				{
+					"id": "square-every-cell",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star",
+						"invariants": true,
+						"highlight": "kretschmann"
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "Every one of the six cells is ringed, each badged plus, because every cell enters squared. The three time cells read minus two, one and one, and the space cells read two in the y and z cell and minus one in each of the other two. What does the Kretschmann scalar come to?",
+					"check": "kretschmann-scalar/checks/ricci-zero-outside-a-star",
+					"show": "The star-exterior table with all six cells ringed and every badge a plus. The Kretschmann readout is covered.",
+					"say": "I select the Kretschmann scalar, and all six cells are ringed with a plus badge each, because every cell enters squared and no sign survives. For a table like this one, with no entry pairing two different planes, the scalar is simply four times the total of the six squares. The three time cells read minus two, one and one, and the space cells read two in the y and z cell and minus one in each of the other two. What does it come to?",
+					"describe": "All six cells are ringed with a plus badge. The three time cells read minus two, one and one, and the space cells read two in the y and z cell and minus one in each of the other two."
+				},
+				{
+					"id": "forty-eight-again",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star",
+						"invariants": true,
+						"highlight": "kretschmann"
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Kretschmann readout at forty-eight.",
+					"say": "Four, one, one, four, one, one add to twelve, and four times twelve is forty-eight. That is the number behind the standard result for a spherical mass: forty-eight times the square of the mass length over the sixth power of the distance. The mass length is big G times the mass, divided by c squared. The readout is a single number that every observer at this event agrees on, unlike any one cell of the table.",
+					"describe": "The Kretschmann scalar outside the star reads forty-eight."
+				},
+				{
+					"id": "move-out",
+					"rung": "formal",
+					"state": {
+						"preset": "outside-a-star",
+						"invariants": true
+					},
+					"animate": {
+						"param": "radius",
+						"to": 2,
+						"seconds": 4
+					},
+					"await": "none",
+					"predict": null,
+					"check": "constant-curvature-weyl-and-invariants/checks/curvature-length-at-the-horizon",
+					"show": "The radius slider sliding from one to two while every cell shrinks by a factor of eight and the Kretschmann readout falls from forty-eight to nought point seven five.",
+					"say": "Now I slide the observer out from the horizon radius to twice that distance. Every cell shrinks by a factor of eight, because each one falls off as the inverse cube. The Kretschmann readout falls by eight squared, from forty-eight to nought point seven five: a ratio of sixty-four. Nothing here blows up or breaks at the horizon radius, even though the usual radial metric coefficient does.",
+					"describe": "As the observer moves from the horizon radius to twice that distance, every cell shrinks eightfold and the Kretschmann scalar falls from forty-eight to nought point seven five."
+				},
+				{
+					"id": "the-split",
+					"rung": "formal",
+					"state": {
+						"preset": "two-curved-factors",
+						"invariants": true,
+						"show-weyl": true
+					},
+					"animate": null,
+					"await": "none",
+					"predict": null,
+					"check": null,
+					"show": "Two curved factors: Kretschmann eight, Weyl tensor squared five point three three three, Ricci tensor squared four, Ricci scalar four, decomposition check zero.",
+					"say": "The scalar splits into a Weyl piece and Ricci pieces. Here are the two curved factors: the Kretschmann scalar reads eight, the Weyl tensor squared reads sixteen thirds, the Ricci tensor squared reads four and the Ricci scalar reads four. Sixteen thirds, plus twice four, take away a third of four squared, is eight. The decomposition check at the end of the strip recomputes that difference on its own and must stay at zero.",
+					"describe": "For the two curved factors the Kretschmann scalar is eight, the Weyl tensor squared is sixteen thirds, the Ricci tensor squared is four, and the decomposition check reads zero."
+				},
+				{
+					"id": "what-this-table-cannot-hold",
+					"rung": "formal",
+					"state": {
+						"preset": "flat",
+						"invariants": true
+					},
+					"animate": null,
+					"await": "prediction",
+					"predict": "The Kretschmann readout is zero here. In this widget, does a zero reading force every cell to be zero? And would you expect that to hold in every spacetime?",
+					"check": "constant-curvature-weyl-and-invariants/checks/plane-wave-versus-minkowski",
+					"show": "Every cell empty, every readout zero, with the note along the bottom edge about what the table leaves out.",
+					"say": "Last, the empty table, with every readout at zero. In this widget a zero reading does force every cell to zero, because the scalar here is four times a total of squares. Read the note along the bottom edge of the table before you carry that away. This table holds only the six entries that pair a plane with itself, and no entry pairing two different planes, so it cannot be given a passing gravitational wave. Such a spacetime has real tides and every scalar invariant zero, and no widget of six sliders will show you that.",
+					"describe": "The table is empty and every readout is zero. A note along the bottom edge says the table cannot hold a passing gravitational wave."
+				}
+			]
+		}
+	],
+	"design_rules": [
+		{
+			"id": "never-dim-a-cell-for-a-zero-readout",
+			"rule": "Never blank, grey or dim a cell because a readout that adds it has come out zero. Cells change only when their own number changes.",
+			"because": "Outside a spherical mass every Ricci and Einstein readout is zero while all six cells are filled and none is zero, and that contrast is the whole lesson.",
+			"misconception": "ricci-bianchi-and-einstein-tensors/misconceptions/zero-ricci-means-flat"
+		},
+		{
+			"id": "tides-stay-unringed-for-the-einstein-reading",
+			"rule": "When the observer's Einstein reading is selected, the three time cells take no ring and no badge, even when they hold the largest numbers in the table.",
+			"because": "The tides cancel exactly out of that component, and a ring on them would say the opposite.",
+			"misconception": "ricci-bianchi-and-einstein-tensors/misconceptions/tides-set-the-einstein-reading"
+		},
+		{
+			"id": "show-the-minus-on-the-time-cells",
+			"rule": "Whenever the Ricci scalar is selected, print a minus badge on each of the three time cells and a plus badge on each of the three space cells.",
+			"because": "The inverse metric supplies the minus; a plain diagonal sum of the six numbers is not the scalar and in general coordinates means nothing at all.",
+			"misconception": "ricci-scalar/misconceptions/diagonal-sum"
+		},
+		{
+			"id": "keep-the-weyl-grid-beside-every-einstein-state",
+			"rule": "In any state whose Einstein mismatch reads zero, keep the dashed Weyl grid one click away and never let the mismatch readout alone be presented as a verdict on the geometry.",
+			"because": "An Einstein space with a nonzero Weyl tensor, such as two curved factors side by side, is the standard counterexample to reading the Einstein condition as constant curvature.",
+			"misconception": "constant-curvature-weyl-and-invariants/misconceptions/einstein-means-constant-curvature"
+		},
+		{
+			"id": "name-the-frame-and-the-event",
+			"rule": "Keep a standing line on the table saying that these are components in one observer's orthonormal frame at one event, and mark which readouts every observer agrees on.",
+			"because": "A cell is a component and can be made to grow or shrink by changing observer or chart, while the scalar readouts cannot; taking a component for a verdict on the geometry is the mistake behind reading a diverging chart component as a singularity.",
+			"misconception": "constant-curvature-weyl-and-invariants/misconceptions/diverging-component-means-singular"
+		},
+		{
+			"id": "say-what-the-table-leaves-out",
+			"rule": "Print along the bottom edge of the table that it holds only the six entries pairing a plane with itself, so no passing gravitational wave can be entered, and never claim that a zero invariant readout means flat.",
+			"because": "A vacuum plane wave has real tides and every scalar invariant zero, which no combination of these six sliders can produce; without the note the widget would teach that zero invariants mean flat.",
+			"misconception": "constant-curvature-weyl-and-invariants/misconceptions/zero-scalars-mean-flat"
+		},
+		{
+			"id": "sign-by-badge-not-only-colour",
+			"rule": "Carry the sign of every cell and of every ring on a plus or minus badge as well as in the fill colour.",
+			"because": "Colour alone fails for colour-blind learners and in print, and the sign of a cell is the point of most of the readouts.",
+			"misconception": null
+		}
+	],
+	"model": {
+		"summary": "The widget holds one algebraic curvature tensor at one event, in one orthonormal frame with signature minus, plus, plus, plus. Its six sliders are the components $R_{\\hat a\\hat b\\hat a\\hat b}$ for the six pairs of frame axes; every component pairing two different planes is held at zero. That restriction is consistent: with the mixed components gone, the first Bianchi identity reduces to a sum of three of them and is satisfied automatically, so any six numbers give a legitimate curvature tensor. The restriction also makes the Ricci tensor diagonal and the Weyl tensor purely electric. Every readout is a polynomial in the six numbers, computed in closed form. The numbers carry no fixed physical unit: each preset names the curvature scale its numbers are measured in, and the scalar readouts are in that scale squared. Cells from different sources are therefore not comparable in size, and no line may call one source's tides the strongest in the widget.",
+		"equations": [
+			{
+				"id": "the-six-entries",
+				"label": "The six entries",
+				"latex": "R_{\\hat a\\hat b\\hat a\\hat b},\\qquad \\hat a < \\hat b,\\qquad R_{\\hat a\\hat b\\hat c\\hat d} = 0 \\ \\text{whenever} \\ \\{\\hat a\\hat b\\} \\neq \\{\\hat c\\hat d\\}",
+				"say": "the table holds the six components that pair a plane with itself, and every component pairing two different planes is zero",
+				"conditions": "One event, one orthonormal frame, signature minus plus plus plus. The first Bianchi identity in four dimensions has one independent component, $R_{\\hat0[\\hat1\\hat2\\hat3]}$, which is built from the discarded mixed components, so it holds for any six numbers."
+			},
+			{
+				"id": "ricci-from-the-table",
+				"label": "Ricci components from the table",
+				"latex": "R_{\\hat0\\hat0} = \\sum_i R_{\\hat0\\hat\\imath\\hat0\\hat\\imath},\\qquad R_{\\hat\\imath\\hat\\imath} = -R_{\\hat0\\hat\\imath\\hat0\\hat\\imath} + \\sum_{j \\neq i} R_{\\hat\\imath\\hat\\jmath\\hat\\imath\\hat\\jmath}",
+				"say": "the observer's Ricci component adds the three time cells; a space Ricci component takes away its own time cell and adds the two space planes that contain its axis",
+				"conditions": "The minus sign comes from the time entry of the inverse frame metric. Off-diagonal Ricci components vanish because the mixed curvature components do."
+			},
+			{
+				"id": "scalar-from-the-table",
+				"label": "Ricci scalar from the table",
+				"latex": "R = -2\\sum_i R_{\\hat0\\hat\\imath\\hat0\\hat\\imath} + 2\\sum_{i<j} R_{\\hat\\imath\\hat\\jmath\\hat\\imath\\hat\\jmath}",
+				"say": "the Ricci scalar is twice the total of the three space planes, take away twice the total of the three time cells",
+				"conditions": "Trace with the inverse metric, not a plain diagonal sum."
+			},
+			{
+				"id": "einstein-from-the-table",
+				"label": "Einstein components from the table",
+				"latex": "G_{\\hat0\\hat0} = R_{\\hat1\\hat2\\hat1\\hat2} + R_{\\hat2\\hat3\\hat2\\hat3} + R_{\\hat3\\hat1\\hat3\\hat1},\\qquad G_{\\hat1\\hat1} = R_{\\hat0\\hat2\\hat0\\hat2} + R_{\\hat0\\hat3\\hat0\\hat3} - R_{\\hat2\\hat3\\hat2\\hat3}",
+				"say": "the observer's Einstein component adds the three space planes; the component along the first space axis adds the two time cells that leave that axis out and takes away the space plane that leaves it out",
+				"conditions": "Each diagonal Einstein component draws on exactly the three cells that leave its own axis out. Follows from trace reversal, $G_{\\mu\\nu} = R_{\\mu\\nu} - \\tfrac12 R g_{\\mu\\nu}$."
+			},
+			{
+				"id": "einstein-condition",
+				"label": "When the table is an Einstein space",
+				"latex": "R_{\\mu\\nu} = \\lambda\\,g_{\\mu\\nu} \\iff R_{\\hat0\\hat\\imath\\hat0\\hat\\imath} + R_{\\hat\\jmath\\hat k\\hat\\jmath\\hat k} = 0 \\ \\text{for each} \\ i, \\qquad \\lambda = -\\sum_i R_{\\hat0\\hat\\imath\\hat0\\hat\\imath} = \\tfrac14 R",
+				"say": "the table is an Einstein space exactly when each time cell cancels the space cell across from it, and then the Einstein constant is minus the total of the time cells, which is a quarter of the Ricci scalar",
+				"conditions": "Here $\\{j,k\\}$ is the pair of space axes left over by $i$. The mismatch readout reports the largest size of $R_{\\hat0\\hat\\imath\\hat0\\hat\\imath} + R_{\\hat\\jmath\\hat k\\hat\\jmath\\hat k}$; the quotient readout reports $R/4$ whether or not the mismatch is zero."
+			},
+			{
+				"id": "weyl-from-the-table",
+				"label": "Weyl entries from the table",
+				"latex": "C_{\\hat0\\hat\\imath\\hat0\\hat\\imath} = \\tfrac12\\big(R_{\\hat0\\hat\\imath\\hat0\\hat\\imath} - R_{\\hat\\jmath\\hat k\\hat\\jmath\\hat k}\\big) - \\tfrac16\\Big(\\sum_m R_{\\hat0\\hat m\\hat0\\hat m} - \\sum_{m<n} R_{\\hat m\\hat n\\hat m\\hat n}\\Big),\\qquad C_{\\hat\\jmath\\hat k\\hat\\jmath\\hat k} = -C_{\\hat0\\hat\\imath\\hat0\\hat\\imath}",
+				"say": "each Weyl time entry is half the difference between its own cell and the cell across from it, less a sixth of the difference of the two totals; the space entry across from it is its opposite",
+				"conditions": "From the Schouten decomposition in four dimensions. The three Weyl time entries add to zero, so the dashed grid has two free numbers. The Weyl tensor here has no magnetic part, because the mixed components vanish."
+			},
+			{
+				"id": "kretschmann-from-the-table",
+				"label": "Kretschmann scalar from the table",
+				"latex": "\\mathcal K = R_{\\mu\\nu\\rho\\sigma}R^{\\mu\\nu\\rho\\sigma} = 4\\sum_{\\hat a < \\hat b}\\big(R_{\\hat a\\hat b\\hat a\\hat b}\\big)^2",
+				"say": "the Kretschmann scalar is four times the total of the six cells squared",
+				"conditions": "Each unordered pair contributes four index arrangements, and raising the indices of these components costs no sign because each time index appears twice. The plain total of squares holds only for tables of this restricted shape; in general the frame expansion has negative terms."
+			},
+			{
+				"id": "invariant-split",
+				"label": "How the scalars split",
+				"latex": "\\mathcal K = C_{\\mu\\nu\\rho\\sigma}C^{\\mu\\nu\\rho\\sigma} + 2R_{\\mu\\nu}R^{\\mu\\nu} - \\tfrac13 R^2",
+				"say": "the Kretschmann scalar is the Weyl tensor squared, plus twice the Ricci tensor squared, less a third of the Ricci scalar squared",
+				"conditions": "Four dimensions. The decomposition-check readout is the size of the difference between the two sides, computed from the six entries along two independent routes."
+			},
+			{
+				"id": "star-exterior-entries",
+				"label": "Outside a spherical mass",
+				"latex": "\\big(R_{\\hat t\\hat r\\hat t\\hat r}, R_{\\hat t\\hat\\theta\\hat t\\hat\\theta}, R_{\\hat t\\hat\\phi\\hat t\\hat\\phi}, R_{\\hat\\theta\\hat\\phi\\hat\\theta\\hat\\phi}, R_{\\hat\\phi\\hat r\\hat\\phi\\hat r}, R_{\\hat r\\hat\\theta\\hat r\\hat\\theta}\\big) = \\frac{m}{r^3}\\,(-2, 1, 1, 2, -1, -1),\\qquad m = \\frac{GM}{c^2}",
+				"say": "outside a spherical mass the six cells are minus two, one, one, two, minus one and minus one, all times the mass length over the distance cubed",
+				"conditions": "Every observer moving radially reads the same six numbers, at rest or falling at any speed, because a boost in the time-and-radial plane leaves each of them unchanged; a transverse boost changes them at order $v^2/c^2$ and above. At the horizon radius there is no static observer, so the preset at distance one is read by a freely falling one. The widget measures the distance in horizon radii $2m$ and states the entries in units of the value at that radius, so every cell falls off as the inverse cube of the distance slider."
+			},
+			{
+				"id": "expanding-universe-entries",
+				"label": "A spatially flat expanding universe",
+				"latex": "R_{\\hat0\\hat\\imath\\hat0\\hat\\imath} = -\\frac{\\ddot a}{a} = \\frac{1+3w}{2}H^2,\\qquad R_{\\hat\\imath\\hat\\jmath\\hat\\imath\\hat\\jmath} = \\frac{\\dot a^2}{a^2} = H^2",
+				"say": "in a spatially flat expanding universe each time cell is one plus three times the pressure ratio, all over two, and each space cell is one, both in units of the Hubble rate squared",
+				"conditions": "Comoving orthonormal frame, zero spatial curvature, pressure $p = w\\rho c^2$. Dust gives one half and one; radiation gives one and one; stiff matter gives two and one; vacuum energy gives minus one and one, which is the constant-curvature case."
+			},
+			{
+				"id": "constant-curvature-entries",
+				"label": "One value on every plane, and two curved factors",
+				"latex": "R_{\\hat0\\hat\\imath\\hat0\\hat\\imath} = -K,\\quad R_{\\hat\\imath\\hat\\jmath\\hat\\imath\\hat\\jmath} = K; \\qquad \\text{two factors:}\\ R_{\\hat0\\hat1\\hat0\\hat1} = -K,\\ R_{\\hat2\\hat3\\hat2\\hat3} = K,\\ \\text{rest zero}",
+				"say": "with one value on every plane each time cell is minus the curvature and each space cell is the curvature; with two curved factors only the time and x cell and the y and z cell are filled",
+				"conditions": "The constant-curvature form follows from $R_{\\rho\\sigma\\mu\\nu} = K(g_{\\rho\\mu}g_{\\sigma\\nu} - g_{\\rho\\nu}g_{\\sigma\\mu})$, so the time cells pick up the sign of $g_{\\hat0\\hat0}$. The two-factor source is the Lorentzian product of a two-dimensional de Sitter factor and a sphere of the same radius, whose Riemann tensor vanishes on every plane mixing the factors; it shares $\\lambda$, $\\mathcal K$ and the Weyl norm with the Riemannian product of two equal spheres. For $K < 0$ the two factors are the Lorentzian and Riemannian hyperbolic planes instead, with $\\lambda = K$."
+			}
+		],
+		"method": "Closed-form algebra: no integration and no linear solve. A source fills a six-vector of entries; every readout is then a polynomial in that vector, evaluated in double precision. The decomposition check is computed twice, once as four times the total of squares and once as the Weyl norm plus the Ricci terms, and the readout reports the size of their difference, so an error in either route shows up as a nonzero reading. Values are rendered rounded to each readout's declared decimals but compared at full precision in the tests.",
+		"tests": [
+			{
+				"id": "flat-table-reads-zero",
+				"state": {
+					"preset": "flat",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-constant",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					},
+					{
+						"readout": "decomposition-check",
+						"value": 0,
+						"abs_tol": 1e-12,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The flat limit: an empty table must make every readout, including both remainders, read exactly zero."
+			},
+			{
+				"id": "six-numbers-two-readings",
+				"state": {
+					"preset": "six-numbers",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 4,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": -1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": -4,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 6,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 5,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-constant",
+						"value": 1.5,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 12,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 68,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 34,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "decomposition-check",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The section's own check: three, minus one, minus one on the time row gives a Ricci reading of one, and one, two, one among the space planes gives an Einstein reading of four."
+			},
+			{
+				"id": "scalars-hidden-until-asked",
+				"state": {
+					"preset": "six-numbers"
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 4,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [
+					"einstein-constant",
+					"weyl-time-x",
+					"weyl-norm",
+					"kretschmann",
+					"ricci-norm",
+					"decomposition-check"
+				],
+				"note": "With both switches off, the six always-visible readouts show and the six on-demand ones do not."
+			},
+			{
+				"id": "outside-a-star-at-the-horizon",
+				"state": {
+					"preset": "outside-a-star",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-constant",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": -2,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 48,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 48,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "decomposition-check",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Ricci-flat and not flat: every Ricci and Einstein readout zero, the Weyl table equal to the full table, and the standard forty-eight for the Kretschmann scalar."
+			},
+			{
+				"id": "star-fall-off-is-inverse-sixth-power",
+				"state": {
+					"preset": "outside-a-star-far",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "kretschmann",
+						"value": 0.75,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 0.75,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": -0.25,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-time-time",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Doubling the distance divides every cell by eight and the Kretschmann scalar by sixty-four: forty-eight over sixty-four is nought point seven five."
+			},
+			{
+				"id": "another-vacuum-table",
+				"state": {
+					"preset": "vacuum-two-sliders",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 48,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The two-slider vacuum family with both sliders at one gives the tidal entries one, one, minus two and again every Ricci readout zero; the positive branch of the Weyl entry."
+			},
+			{
+				"id": "dust-universe",
+				"state": {
+					"preset": "dust-universe",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 1.5,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 1.5,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 1.5,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 15,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 9,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "decomposition-check",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "In units of the Hubble rate squared: time cells one half, space cells one. The Einstein reading of three is the first Friedmann equation, the Weyl table is empty, and zero pressure shows as a zero Einstein component along x."
+			},
+			{
+				"id": "radiation-universe-is-scalar-flat",
+				"state": {
+					"preset": "radiation-universe",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-scalar",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-time-time",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 2,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 24,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 12,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Scalar-flat and not Ricci-flat: the scalar reads zero while the Ricci reading reads three. The Einstein component along x is one, which is eight pi G times the radiation pressure."
+			},
+			{
+				"id": "stiff-matter-negative-scalar",
+				"state": {
+					"preset": "stiff-universe",
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-scalar",
+						"value": -6,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-time-time",
+						"value": 6,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-constant",
+						"value": -1.5,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 60,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 36,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [
+					"weyl-time-x",
+					"weyl-norm"
+				],
+				"note": "The negative branch of the Ricci scalar and of the Ricci quotient, with the Weyl readouts left hidden because the Weyl switch is off."
+			},
+			{
+				"id": "one-value-on-every-plane",
+				"state": {
+					"preset": "de-sitter",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": -3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 12,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": -3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-constant",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 24,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 36,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "decomposition-check",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "Constant curvature with the value one: the negative branch of the Ricci reading, a quotient of three matching the cosmological constant three times the curvature, an empty Weyl table, and the Kretschmann value two times four times three."
+			},
+			{
+				"id": "negative-constant-curvature",
+				"state": {
+					"preset": "anti-de-sitter",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": -3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": -12,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": -3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-constant",
+						"value": -3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 24,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The negative branch of the Ricci scalar, the Einstein reading and the Ricci quotient. The Kretschmann scalar does not change sign with the curvature."
+			},
+			{
+				"id": "einstein-but-not-constant-curvature",
+				"state": {
+					"preset": "two-curved-factors",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": -1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 4,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": -1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-constant",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": -0.6666666667,
+						"abs_tol": 1e-08,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 5.3333333333,
+						"abs_tol": 1e-08,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 8,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 4,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "decomposition-check",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The counterexample the chapter needs: mismatch zero with a Weyl norm of sixteen thirds. Same three numbers as the Riemannian product of two equal spheres, where the check gives lambda times a squared equal to one and the Weyl norm times a to the fourth equal to sixteen thirds."
+			},
+			{
+				"id": "two-factors-with-the-sign-flipped",
+				"state": {
+					"preset": "two-curved-factors-flipped",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": -4,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": -1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-constant",
+						"value": -1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": 0.6666666667,
+						"abs_tol": 1e-08,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 5.3333333333,
+						"abs_tol": 1e-08,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 8,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The positive branch of the Weyl entry and the negative branch of the Einstein reading, with the two quadratic invariants unchanged."
+			},
+			{
+				"id": "tides-with-empty-space-planes",
+				"state": {
+					"preset": "tides-only",
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 2,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 2,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 2,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": -1,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-norm",
+						"value": 12,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 24,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 6,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "decomposition-check",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "A mixed table: the Ricci reading and the Ricci scalar are both zero while the Ricci tensor squared is six, so zero on two readouts does not empty the Ricci tensor."
+			},
+			{
+				"id": "inside-still-water",
+				"state": {
+					"preset": "inside-still-water",
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 6,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 6,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 3,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 60,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [
+					"weyl-time-x",
+					"weyl-norm"
+				],
+				"note": "In units of four pi G rho over three the Ricci reading is three, which is four pi G rho, and the Einstein reading is six, which is eight pi G rho; the pressure of water is dropped, so the Einstein component along x reads zero."
+			},
+			{
+				"id": "every-slider-at-the-top-of-its-range",
+				"state": {
+					"preset": "flat",
+					"r-01": 5,
+					"r-02": 5,
+					"r-03": 5,
+					"r-12": 5,
+					"r-13": 5,
+					"r-23": 5,
+					"show-weyl": true,
+					"invariants": true
+				},
+				"expect": [
+					{
+						"readout": "ricci-time-time",
+						"value": 15,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-x-x",
+						"value": 5,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-scalar",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-time-time",
+						"value": 15,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-x-x",
+						"value": 5,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "einstein-mismatch",
+						"value": 10,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "weyl-time-x",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "kretschmann",
+						"value": 600,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "ricci-norm",
+						"value": 300,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					},
+					{
+						"readout": "decomposition-check",
+						"value": 0,
+						"abs_tol": 1e-09,
+						"rel_tol": null
+					}
+				],
+				"expect_hidden": [],
+				"note": "The boundary case: every slider at its maximum. The Ricci reading and the Einstein reading both reach fifteen, the Kretschmann scalar reaches six hundred, and the readout ranges must hold these without clipping."
+			}
+		]
+	},
+	"serves": [
+		{
+			"concept": "ricci-tensor",
+			"uses": "the highlight that rings the three time cells with their signs, and the challenge of finding a table with every Ricci readout zero and no cell zero"
+		},
+		{
+			"concept": "ricci-scalar",
+			"uses": "the highlight that rings all six cells with a minus badge on the three time cells, and the radiation and stiff-matter presets, where nonzero cells give a zero and a negative scalar"
+		},
+		{
+			"concept": "einstein-tensor",
+			"uses": "the Einstein readouts, whose highlight rings the three cells that leave the chosen axis out, next to the Ricci readouts on the same table"
+		},
+		{
+			"concept": "ricci-flat-spacetime",
+			"uses": "the two-slider vacuum source, which reaches every Ricci-flat table the widget can hold, next to the radiation universe, which is scalar-flat but not Ricci-flat"
+		},
+		{
+			"concept": "einstein-space",
+			"uses": "the Einstein mismatch and Ricci quotient readouts, with the two-curved-factors preset as an Einstein space that has no constant curvature"
+		},
+		{
+			"concept": "weyl-tensor",
+			"uses": "the dashed Weyl grid: equal to the full table outside a star, empty in an expanding universe, and nonzero with a proportional Ricci tensor for two curved factors"
+		},
+		{
+			"concept": "kretschmann-scalar",
+			"uses": "the highlight that rings all six cells with a plus badge because each enters squared, the distance slider showing the inverse sixth power, and the decomposition check"
+		}
+	],
+	"builds_on": [
+		"four-legs-around-a-tiny-loop",
+		"falling-ring-of-crumbs"
+	],
+	"leads_to": [
+		"cube-of-small-loops",
+		"three-gauges-on-a-falling-probe",
+		"circles-behind-a-see-through-star"
+	],
+	"variant_of": null,
+	"accessibility": {
+		"summary": "Every cell is announced as its pair of axis names, its number and its sign word, never by colour alone. Selecting a readout announces which cells it adds and the sign each one enters with, then the total. The Weyl grid and the scalar readouts are separate switches, so a screen reader is never given twelve numbers at once. Every slider, switch and readout is reachable from the keyboard, and each readout can be spoken on demand without changing the state.",
+		"static_alt": "A four by four table of curvature numbers for one observer at one event. Six cells carry numbers: three pair the time axis with a space axis and three pair two space axes. Readouts under the table give the Ricci components, the Ricci scalar, the Einstein components and the scalar invariants.",
+		"keyboard": [
+			{
+				"key": "Tab and Shift Tab",
+				"action": "move between the six cells, the switches and the readouts"
+			},
+			{
+				"key": "Up and Down arrows",
+				"action": "change the selected cell by one step"
+			},
+			{
+				"key": "Page Up and Page Down",
+				"action": "change the selected cell by ten steps"
+			},
+			{
+				"key": "1 to 6",
+				"action": "choose the source: six numbers by hand, a star's exterior, the vacuum family, an expanding universe, one value on every plane, or two curved factors"
+			},
+			{
+				"key": "H",
+				"action": "cycle the readout whose cells are ringed"
+			},
+			{
+				"key": "W",
+				"action": "show or hide the Weyl grid"
+			},
+			{
+				"key": "S",
+				"action": "show or hide the scalar readouts"
+			},
+			{
+				"key": "Enter",
+				"action": "speak the selected readout, its cells and their signs"
+			}
+		]
+	},
+	"starting_material": {
+		"legacy_assets": [
+			"lesson-contract-curvature-by-hand",
+			"manuscript-section-10-curvature-invariants-and-summary-table",
+			"manuscript-chapter-10-tides-geodesic-deviation"
+		],
+		"notes": "The earlier course already asked for this widget in prose: a six-entry table with sliders and live Ricci, scalar, Weyl and Kretschmann readouts, plus a find-a-vacuum challenge. Its worked star-exterior arithmetic becomes the flagship preset and the static card, and its summary table of what each geometric object measures becomes the readout strip's labels. New work: the highlight-with-signs mechanic, the Einstein mismatch and Ricci quotient readouts, the closed-form sources, and the decomposition check."
+	},
+	"provenance": {
+		"source_units": [],
+		"figure_images": []
+	},
+	"review": {
+		"novice": {
+			"verdict": "fixed",
+			"date": "2026-09-16",
+			"reviewed_revision": 1,
+			"retell_attempt": "This visual has no entry tour, so I read the first working tour as a strong second-year undergraduate. Here is what I would say back. Curvature at one event, for one observer, is six numbers, one for each pair of that observer's four axes. The diagonal pairs hold nothing, because a plane needs two different directions. Three of the six pair the time axis with a space axis, and those are the tides. Three pair two space axes. The observer's Ricci reading is the total of the three time cells. In the first table they read three, minus one and minus one, so the reading is one, and because it is positive a small ball of free particles let go at rest starts to lose volume. Outside a spherical mass the three time cells read minus two, plus one and plus one, so they total zero while all six cells are still filled and none of them is zero. The ball keeps its volume but still stretches into an egg, so a zero Ricci reading is not the same as no curvature. Inside still water all three time cells read one, the reading is three, and the ball shrinks. Two things I could not keep straight. The observer was freely falling at the start and then static outside the star, and I did not know whether that was one observer or a new one. And the tutor sometimes named cells only by colour, so I was not sure whether the three blue cells and the three cells in the time row were the same three.",
+			"stumbles": [
+				{
+					"quote": "The three blue cells are now ringed, each with a plus badge on the ring.",
+					"problem": "The three cells are picked out by colour alone. If I cannot separate blue from green, or if the ring has already changed the colour I am looking at, I do not know which three cells to add. The say line of the same beat gives the second cue, the time row, but the prediction I am being asked for does not.",
+					"rewrite": "The three blue cells in the time row are now ringed, each with a plus badge on the ring."
+				},
+				{
+					"quote": "Now the numbers come from a static observer outside a spherical mass, in units of the tidal scale there.",
+					"problem": "The first beat told me these are components in one freely falling observer's frame. Now the observer is static, with no word about the swap, so I do not know whether the six numbers still belong to the same measurer. And the tidal scale is tied to there, which does not say which distance it belongs to, when the whole point of the next tour is that the scale changes as the observer moves out.",
+					"rewrite": "Now the numbers come from an observer outside a spherical mass, held at a fixed distance from it, in units of the tidal scale at that distance."
+				},
+				{
+					"quote": "Three of them are ringed with a minus and three with a plus.",
+					"problem": "I am asked to predict the scalar right after this, and I cannot tell which three carry the minus. Every cell reads one here, so the answer happens not to depend on it, but I do not know that while I am predicting.",
+					"rewrite": "The three time cells are ringed with a minus and the three space cells with a plus."
+				},
+				{
+					"quote": "One plus two plus one is four.",
+					"problem": "The same beat's description lists the three space cells as one, one and two. Reading along the grid I see one, one, two, and I hear one, two, one, so I lose track of which cell holds which number while I am checking the sum.",
+					"rewrite": "One plus one plus two is four."
+				},
+				{
+					"quote": "The ringed green cells read plus two, minus one and minus one.",
+					"problem": "Read along the grid the three space cells go minus one, minus one, plus two, so the spoken order does not match the order on screen and I cannot tell which cell holds the plus two. Naming the cell fixes it without changing the order.",
+					"rewrite": "The ringed green cells read plus two in the y and z cell and minus one in each of the other two."
+				},
+				{
+					"quote": "Every entry of the dashed grid matches the entry across from it in the full grid, because a Ricci-flat table has nothing to subtract.",
+					"problem": "Across from it is used in two different senses in this visual. Here it means the same position in the other grid; elsewhere it means the cell built from the other two axes. On top of that, the grid itself has faint mirror copies below the diagonal, so across could just as well mean the mirror cell. Three readings of one phrase.",
+					"rewrite": "Every entry of the dashed grid matches the entry in the same place in the full grid, because a Ricci-flat table has nothing to subtract."
+				},
+				{
+					"quote": "the third tidal cell follows to minus two while each green cell takes minus the blue cell across from it",
+					"problem": "Same phrase, the other sense: here across from it means the space cell built from the two axes the time cell leaves out, not the cell in the same place in another grid and not the mirror copy. The pairing is never named, and it is the pairing the whole vacuum family rests on.",
+					"rewrite": "the third tidal cell follows to minus two while each green cell takes minus the blue cell that uses the other two axes"
+				},
+				{
+					"quote": "The Einstein mismatch readout takes each blue time cell, adds the green cell across from it, and reports the largest size it finds.",
+					"problem": "This is the definition of the readout, so the ambiguous phrase is doing the most work here of anywhere. I cannot pair the cells up with certainty, and the mismatch is the whole test the next four beats turn on.",
+					"rewrite": "The Einstein mismatch readout takes each blue time cell, adds the green cell that uses the other two axes, and reports the largest size it finds."
+				},
+				{
+					"quote": "the largest mismatch between a time cell and the space cell across from it is {value}, so this is an Einstein space only when that reads zero",
+					"problem": "The spoken readout carries the same ambiguous pairing, and that reads zero leaves the noun open, so I am not sure whether that is the mismatch or the space cell.",
+					"rewrite": "the largest mismatch between a time cell and the space cell that uses the other two axes is {value}, so this is an Einstein space only when that mismatch reads zero"
+				},
+				{
+					"quote": "And each green entry in the dashed grid is minus the blue entry across from it, so the whole dashed grid runs on two free numbers.",
+					"problem": "The same pairing again, and the cells are named by colour with no second cue, although the description of this beat calls them space entries and time entries.",
+					"rewrite": "And each green space entry in the dashed grid is minus the blue time entry that uses the other two axes, so the whole dashed grid runs on two free numbers."
+				},
+				{
+					"quote": "Here is the rung one step down the ladder.",
+					"problem": "Two problems in one sentence. There has been no ladder yet, so I do not know what is being stepped down. And calling it a step down tells me the answer to the question at the end of the same beat, which is whether a zero Ricci scalar makes a region Ricci-flat, before I have a chance to answer.",
+					"rewrite": "Now compare a different region."
+				},
+				{
+					"quote": "Flat is the strictest rung of the three, and here it is",
+					"problem": "Rung is being used as a picture that was never set up, and the project uses the same word for the depth levels of the writing, so it pulls two ways.",
+					"rewrite": "Flat is the strictest of the three conditions, and here it is"
+				},
+				{
+					"quote": "The cells read minus two, one, one, two, minus one and minus one.",
+					"problem": "Six numbers in a row with no break. I have to guess where the time cells stop and the space cells start, and the space three are not in the order I read them off the grid.",
+					"rewrite": "The three time cells read minus two, one and one, and the three space cells read two, minus one and minus one."
+				},
+				{
+					"quote": "Sixteen thirds, plus twice four, take away a third of sixteen, is eight.",
+					"problem": "The sixteen appears from nowhere. The line just told me the Ricci scalar reads four, and I have to square it silently to get the sixteen. That is the one step in the arithmetic that is not on screen.",
+					"rewrite": "Sixteen thirds, plus twice four, take away a third of four squared, is eight."
+				},
+				{
+					"quote": "In this widget, does a zero reading force every cell to be zero, and does it do so in general?",
+					"problem": "The first half I can answer from the screen, since the scalar here is four times a total of squares. The second half I cannot: nothing I have been shown says anything about spacetimes this table cannot hold, and the answer arrives only in the tutor's next sentence. Asking it as a prediction makes me think I have missed something.",
+					"rewrite": "In this widget, does a zero reading force every cell to be zero? And would you expect that to hold in every spacetime?"
+				}
+			],
+			"fixes": [
+				"Gave the three time cells a position cue as well as their colour wherever a prediction turns on picking them out: tour the-ricci-reading beat light-the-tides, tour one-number-for-the-event beat predict-the-radiation-scalar, tour the-einstein-reading beat the-expanding-reading, tour what-the-traces-leave-free beat subtract-the-traces.",
+				"Named the measurer in tour the-ricci-reading beat outside-a-star as an observer held at a fixed distance, and tied the tidal scale to that distance rather than to there.",
+				"Replaced across from it throughout. Where it meant the corresponding cell of the other grid it now reads in the same place in the full grid; where it meant the complementary pair it now reads the cell that uses the other two axes. Changed in tours vacuum-without-flatness, einstein-without-constant-curvature and what-the-traces-leave-free, and in the spoken template of the einstein-mismatch readout.",
+				"Put the spoken order of the three space cells back in step with the grid in tour the-einstein-reading beat the-tides-cancelled, and named the cell holding the plus two in beat strong-tides-zero-reading rather than reordering the numbers.",
+				"Broke the six-number lists into the three time cells and the three space cells in tour vacuum-without-flatness beat every-ricci-readout-zero and tour adding-up-the-squares beat square-every-cell.",
+				"Removed the ladder picture where it had not been set up, in tour vacuum-without-flatness beats scalar-flat-is-weaker and the-ladder, and with it the sentence that gave away the answer to that beat's own question.",
+				"Made the squaring step explicit in tour adding-up-the-squares beat the-split.",
+				"Turned the second half of the prediction in tour adding-up-the-squares beat what-this-table-cannot-hold into an invitation to guess, since nothing on screen can settle it."
+			],
+			"concerns": [
+				"Who the observer is changes without notice. The title line and tour the-ricci-reading beat meet-the-table say these are components in one freely falling observer's orthonormal frame, then beat outside-a-star uses an observer held at a fixed distance and beat inside-matter one floating in still water. Either fix one observer for the widget or add a sentence saying that these frames read the same six numbers here, which is a claim I cannot make myself.",
+				"Two superlatives look false as written. Tour the-ricci-reading beat outside-a-star says these three tides are as strong as any in the widget and tour the-einstein-reading beat strong-tides-zero-reading says the blue time cells hold the strongest tides in this widget, but the six-numbers table shown two beats earlier in the same tour has a tidal cell of three against this table's minus two, and the hand-set source reaches further still. The claim needs narrowing, perhaps to the strongest tides of any source with a formula behind it.",
+				"The three space cells are spoken in two different orders. Grid order, x and y then z and x then y and z, is used in tour the-ricci-reading beat meet-the-table and tour the-einstein-reading beat light-the-space-planes; partner order, each space cell beside the time cell it completes, is used in tour vacuum-without-flatness and tour adding-up-the-squares. Settle one order and say once which it is. While checking this I found that the show line of tour vacuum-without-flatness beat a-whole-family lists the vacuum space planes as minus one, minus one, two, where grid order gives two, minus one, minus one; the show lines are author text so I left them alone.",
+				"Please confirm, as physics reviewer, that in the star-exterior preset the plus two sits in the y and z cell. My rewrite of tour the-einstein-reading beat strong-tides-zero-reading now states it, on the strength of the partner-order list in tour vacuum-without-flatness beat every-ricci-readout-zero and of the axis names option that calls the x axis toward the centre.",
+				"The presets and the radius slider speak of the horizon radius while the prose speaks of a spherical mass. A reader who pictures a star will ask how the observer stands at the star's horizon radius. Either name the scale without the word horizon or say that the exterior table is the same for a star and for a black hole.",
+				"The factor of two in the Ricci scalar is never accounted for. Tour one-number-for-the-event beat light-every-cell explains where the minus sign comes from, but twice the space total and twice the time total arrive unexplained, and that is the first thing I wanted to ask.",
+				"Spoken numbers and printed numbers disagree in precision. The Weyl tensor squared, the Kretschmann scalar and the Ricci tensor squared carry four decimals, so their templates would speak forty-eight point zero zero zero zero, while the beats speak five point three three three for a value the strip prints as 5.3333.",
+				"The decomposition check has no say_negative, although it is a signed difference rather than a total of squares. A small negative round-off would leave the tutor with no line to read.",
+				"Tour adding-up-the-squares beat what-this-table-cannot-hold and the design rule say-what-the-table-leaves-out both send the reader to a note along the edge of the table without saying which edge, so the tutor cannot point at it and I did not know where to look."
+			]
+		},
+		"physics": {
+			"verdict": "fixed",
+			"date": "2026-09-16",
+			"reviewed_revision": 3,
+			"verification": [
+				{
+					"claim": "Ricci, scalar, Einstein, Weyl, Kretschmann and the two norms follow from the six entries as the model's equations state, in an orthonormal frame with signature minus plus plus plus.",
+					"method": "Built the full four-index tensor from the six pair-diagonal entries with all Riemann symmetries, contracted with the inverse frame metric for Ricci and the scalar, formed the Weyl tensor from the four-dimensional Schouten formula, and squared each tensor with raised indices. No closed form from the entry was reused.",
+					"result": "Every closed form matches: $R_{\\hat0\\hat0}=\\sum_i R_{\\hat0\\hat\\imath\\hat0\\hat\\imath}$, $R=-2\\sum t+2\\sum s$, $G_{\\hat0\\hat0}=\\sum s$, $G_{\\hat1\\hat1}=t_2+t_3-s_1$, and the stated Weyl entries. Kretschmann equals four times the total of the six squares, as claimed."
+				},
+				{
+					"claim": "All eighteen tests, including the hidden-readout lists.",
+					"method": "Recomputed every expected value from the independent implementation for each test's resolved state, compared at the declared tolerance, and recomputed visibility from the show-weyl and invariants switches.",
+					"result": "Zero mismatches. Every asserted readout is visible in its state and every expect_hidden readout is genuinely switched off."
+				},
+				{
+					"claim": "The table is an Einstein space exactly when each time cell cancels the space cell that uses the other two axes, and then the constant is a quarter of the Ricci scalar.",
+					"method": "Solved $R_{\\hat\\imath\\hat\\imath}=\\lambda$ and $R_{\\hat0\\hat0}=-\\lambda$ for the three mismatches $m_i=t_i+s_i$.",
+					"result": "The three equations give $m_1=m_2=m_3$ and $2m_1=0$, so all three vanish; then $s_i=-t_i$, $R=-4\\sum t$ and $\\lambda=-\\sum t=R/4$. Confirmed."
+				},
+				{
+					"claim": "Two sliders reach every Ricci-flat table this widget can hold.",
+					"method": "Imposed $R_{\\hat0\\hat0}=0$ and $R_{\\hat\\imath\\hat\\imath}=0$ on the six entries.",
+					"result": "They force $\\sum t=0$ and $s_i=-t_i$, exactly two free numbers. The claim holds, and the third tidal cell the source derives is minus the sum of the first two."
+				},
+				{
+					"claim": "Outside a spherical mass the six cells are minus two, one, one for the time row and two, minus one, minus one for the partner space planes, in units of the mass length over the distance cubed, giving forty-eight for the Kretschmann scalar.",
+					"method": "Compared against the tidal-tensor row of course conventions, $\\mathcal E = (GM/r^3)\\mathrm{diag}(-2,1,1)$ with $\\mathcal E_{ij}=c^2R_{\\hat\\imath\\hat0\\hat\\jmath\\hat0}$, then formed the Ricci trace and the Kretschmann scalar.",
+					"result": "Signs and placement agree; every Ricci and Einstein readout is zero and $\\mathcal K = 48m^2/r^6$ with $m=GM/c^2$. The plus two sits in the y and z cell, the partner of the radial time cell, which answers the novice reviewer's request for confirmation."
+				},
+				{
+					"claim": "The star-exterior numbers do not depend on whether the observer is held at a fixed distance or falling.",
+					"method": "Transformed the full tensor by a boost in the time-and-radial plane at speeds zero point three, zero point six and zero point nine, and by a transverse boost at zero point six.",
+					"result": "The radial boost leaves all six entries unchanged to machine precision at every speed; the transverse boost changes four of them. The old condition line, which allowed only slow motion, was both too weak and wrong about which direction matters."
+				},
+				{
+					"claim": "A spatially flat expanding universe has time cells $(1+3w)/2$ and space cells one, in units of the Hubble rate squared.",
+					"method": "Checked $R_{\\hat0\\hat\\imath\\hat0\\hat\\imath}=-\\ddot a/a$ against the acceleration equation and $R_{\\hat\\imath\\hat\\jmath\\hat\\imath\\hat\\jmath}=\\dot a^2/a^2$, then read the Einstein components back as the two Friedmann equations.",
+					"result": "Dust one half, radiation one, stiff two, vacuum energy minus one, all with space cells one. The Einstein reading is three for every equation of state, which is the first Friedmann equation, and the component along x is three w, which is the pressure. Confirmed."
+				},
+				{
+					"claim": "Two curved factors of equal radius are an Einstein space with no constant curvature, and share $\\lambda$, the Kretschmann scalar and the Weyl norm with the product of two equal spheres.",
+					"method": "Evaluated the widget's table and, separately, the Riemannian product of two unit spheres with a positive-definite metric.",
+					"result": "Both give $\\lambda=1$, $R=4$, $\\mathcal K=8$ and a Weyl norm of sixteen thirds, with sectional curvature one on the two factor planes and zero on the four mixed planes. Confirmed, and the served check agrees."
+				},
+				{
+					"claim": "The decomposition identity, Kretschmann equals the Weyl norm plus twice the Ricci norm less a third of the scalar squared.",
+					"method": "Computed both sides independently for every preset and every counterexample state.",
+					"result": "The difference is zero to machine precision everywhere, so the check readout is a genuine second route and not a restatement."
+				},
+				{
+					"claim": "Discarding every mixed component leaves a legitimate curvature tensor.",
+					"method": "Checked the first Bianchi identity on the assembled tensor for all index choices.",
+					"result": "The only independent content in four dimensions is the totally antisymmetric part, which is built from components with four distinct indices; with those gone it holds for any six numbers. The model summary is correct."
+				},
+				{
+					"claim": "Every readout stays inside its declared range, and every param range, step and default is reachable.",
+					"method": "Swept all six hand sliders over their range and every other source over its extremes, and resolved every preset and tour state against the available_when constraints.",
+					"result": "Ricci and Einstein readouts touch plus or minus fifteen, the scalar plus or minus sixty and the Weyl entry plus or minus twenty thirds, all inside their declared ranges. Four readouts that are non-negative by construction had no declared range; ranges were added. No preset, tour state or test uses an unavailable param."
+				},
+				{
+					"claim": "Each beat's check address exists in the note it names and is evidenced by that beat.",
+					"method": "Resolved all fourteen check addresses and all six misconception addresses against the concept notes, and read each item's answer against the beat's prediction or action.",
+					"result": "All twenty resolve. Each prediction is the question the check asks, or the action the check's answer describes; the design rules match the corrections of the misconceptions they name."
+				}
+			],
+			"counterexamples": [
+				"Flat case: every cell zero makes all twelve readouts zero, including both remainders, and the Weyl grid empty. The tour's closing beat is right that in this widget a zero Kretschmann reading does force every cell to zero.",
+				"Every hand slider at plus five, and at minus five: the Ricci and Einstein readings reach plus or minus fifteen and the Kretschmann scalar six hundred, with the Ricci scalar at zero because the two totals are equal. Ranges hold.",
+				"Largest Ricci scalar: time cells minus five and space cells plus five gives sixty, the declared limit exactly, with a Ricci norm of nine hundred.",
+				"Strongest and weakest field of the star source: distance one gives forty-eight and distance eight gives two ten-thousandths, the inverse sixth power over a factor of two hundred and sixty-two thousand. Nothing diverges at the horizon radius.",
+				"Both directions of every signed source: constant curvature at plus and minus three, two curved factors at plus and minus one, and the vacuum family at plus and minus five each. The Kretschmann scalar and the Weyl norm never change sign, as the beats claim.",
+				"Degenerate settings: constant curvature at zero, two curved factors at zero, and the vacuum family with both sliders at zero all collapse to the flat table, which is consistent, since each is a genuine flat limit.",
+				"Vacuum energy as the equation of state reproduces the constant-curvature table with the value one, confirming the conditions line on the expanding-universe equation.",
+				"The mismatch readout reports a size, not a signed maximum: the tides-only preset has mismatches minus two, one and one, and the readout reads two while the largest signed mismatch is one. The spoken template was reworded to match.",
+				"A table can have a nonzero Ricci quotient and a nonzero mismatch at once: the six-numbers preset reads one and a half and five. The quotient's spoken line already warns that it is the Einstein constant only while the mismatch reads zero.",
+				"Transverse boost on the star table: four of the six entries move, so the frame really does have to be named. A radial boost moves none."
+			],
+			"fixes": [
+				"Corrected the sense of the Weyl entry readout: a positive tidal entry draws a falling pair together, it does not stretch it, since geodesic deviation carries a minus sign. The old line said stretches.",
+				"Replaced the circular sense of the Ricci component along x, which said only that the entry matches the sign of the metric entry, with what its sign actually reports: whether the two space planes containing the x axis outweigh the tide along x.",
+				"Reworded the Einstein mismatch readout so that it speaks a size. It reports the largest size of a mismatch, and the tides-only preset shows that this differs from the largest signed mismatch.",
+				"Scoped the sense of the Ricci quotient: the readout is a quarter of the Ricci scalar in every state, so it is positive whenever the scalar is, and it reports a multiple of the metric only while the mismatch is zero.",
+				"Said in the decomposition check's spoken line that it is the size of a difference, which is why it has no negative branch.",
+				"Cut both false superlatives. Tour the-ricci-reading beat outside-a-star and tour the-einstein-reading beat strong-tides-zero-reading claimed the star's tides were the strongest in the widget, while the hand table reaches five against the star's two; worse, each source states its numbers in its own curvature scale, so sizes are not comparable across sources at all. Both lines now say the tides are strong enough to stretch a falling body, and the model summary records the rule.",
+				"Fixed the observer. The widget's frame is a freely falling observer throughout: falling toward the mass in tour the-ricci-reading beat outside-a-star, and at rest in the water and falling with it in beat inside-matter. A boost in the time-and-radial plane leaves all six star entries unchanged at any speed, so the beat can now say that an observer held at a fixed distance reads the same table, which is the claim the novice reviewer asked for and could not make.",
+				"Said that the distance slider counts horizon radii and that a star's surface sits well outside one of them, so distance one is a black hole and the observer there is falling through the horizon. That also removes the impossible static observer at the horizon radius, and the equation's conditions now state the exact boost rule in place of a wrong slow-motion caveat.",
+				"Settled the order of the three space cells by naming the cell that carries the odd value everywhere the three differ, rather than picking one of the three orders in circulation. Changed in tour the-ricci-reading beat meet-the-table, tour the-einstein-reading beats light-the-space-planes and the-tides-cancelled, tour vacuum-without-flatness beats every-ricci-readout-zero and a-whole-family, tour what-the-traces-leave-free beat all-of-it, and tour adding-up-the-squares beat square-every-cell.",
+				"Corrected tour vacuum-without-flatness beat a-whole-family. With both sliders at one the table is the star's own table with the strong tide turned onto the z axis, so it is not a different vacuum and the shared Kretschmann value of forty-eight is not a coincidence. The beat now says so and points at the sliders for the rest of the family.",
+				"Scoped the cosmological-constant claim in tour einstein-without-constant-curvature beat the-mismatch-readout: a zero mismatch means the matter at that event can only be vacuum energy, and the quotient is the constant that goes with it.",
+				"Removed a false causal link in tour what-the-traces-leave-free beat rescaling-does-not-touch-it. The conformal invariance of the Weyl tensor with one index raised is not a consequence of the Einstein-space theorem; the beat now states each separately and joins them to the empty dashed grid.",
+				"Made the Kretschmann result dimensionally right in tour adding-up-the-squares beat forty-eight-again: forty-eight times the square of the mass length, with the mass length spelled out as big G times the mass over c squared.",
+				"Explained the two twos in the Ricci scalar, which the novice reviewer asked for: each pair of axes enters the total once in each order. Added to tour one-number-for-the-event beat light-every-cell.",
+				"Named the edge: the note about what the table cannot hold runs along the bottom edge, in the design rule, in tour adding-up-the-squares beat what-this-table-cannot-hold, and now in the picture composition so it can be built.",
+				"Made the fall-off plot buildable: cells take both signs, so a logarithmic axis must carry their size.",
+				"Gave the four non-negative readouts that had no declared range one, and cut the Kretschmann, Weyl-norm and Ricci-norm readouts from four decimals to three, so the tutor speaks five point three three three rather than forty-eight point zero zero zero zero.",
+				"Cleaned two author-facing gaps: the axis-name option now falls back to time, x, y and z when the source changes under it, and the last across from it, in the first vacuum slider's effect, is now the cell that uses the other two axes."
+			],
+			"concerns": [
+				"The two leads_to entries three-gauges-on-a-falling-probe and circles-behind-a-see-through-star are still not in the catalog. They are forward links to visuals the chapter plans, so removing them would lose real intent; the warning should clear when those entries are written.",
+				"The decomposition check keeps nine decimals, because its job is to show a residual, so its spoken line would read a long string of zeros. A builder may prefer to leave it unspoken and show it only in the strip.",
+				"The still-water preset drops the pressure of water, which is right to about thirteen decimal places, but it also means the water is pressureless and so cannot be held up by anything. The table is the same as the dust universe's, scaled by two. If a later revision wants a genuinely static fluid, the pressure terms would have to enter the Einstein component along x."
+			]
+		}
+	}
+}

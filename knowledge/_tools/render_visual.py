@@ -23,7 +23,7 @@ def state(s):
 
 
 def constraint(c):
-	return '; '.join(f"{k} in {', '.join(v)}" for k, v in (c or {}).items())
+	return '; '.join(f"{k} in {', '.join(str(x) for x in v)}" for k, v in (c or {}).items())
 
 
 def render(d):

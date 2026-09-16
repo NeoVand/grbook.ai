@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["Riemann tensor", "curvature tensor", "Riemann-Christoffel tensor"]
 prerequisites: ["parallel-transport", "path-dependence-of-parallel-transport", "tidal-force", "christoffel-symbols", "covariant-derivative", "tensor", "newtonian-tidal-tensor", "lie-bracket", "levi-civita-connection"]
 leads_to: ["symmetries-of-the-riemann-tensor", "number-of-independent-riemann-components", "ricci-tensor", "geodesic-deviation-equation", "flatness-criterion", "ricci-identity", "riemann-tensor-in-normal-coordinates", "weyl-tensor", "kretschmann-scalar", "linearized-riemann-tensor", "curvature-sign-conventions", "bianchi-identity"]
-visuals: ["tilt-a-plane-in-the-ball-building", "falling-ring-of-crumbs", "four-legs-around-a-tiny-loop", "four-terms-that-cancel", "twenty-of-256-slots"]
+visuals: ["tilt-a-plane-in-the-ball-building", "falling-ring-of-crumbs", "four-legs-around-a-tiny-loop", "cross-off-matching-terms", "twenty-of-256-slots"]
 ---
 
 # Riemann curvature tensor
@@ -24,7 +24,7 @@ visuals: ["tilt-a-plane-in-the-ball-building", "falling-ring-of-crumbs", "four-l
 **Needs:** [[parallel-transport]] (entry) · [[path-dependence-of-parallel-transport]] (entry) · [[tidal-force]] (entry) · [[christoffel-symbols]] (working) · [[covariant-derivative]] (working) · [[tensor]] (working) · [[newtonian-tidal-tensor]] (working) · [[lie-bracket]] (formal) · [[levi-civita-connection]] (formal)  
 **Opens:** [[symmetries-of-the-riemann-tensor]] · [[number-of-independent-riemann-components]] · [[ricci-tensor]] · [[geodesic-deviation-equation]] · [[flatness-criterion]] · [[ricci-identity]] · [[riemann-tensor-in-normal-coordinates]] · [[weyl-tensor]] · [[kretschmann-scalar]] · [[linearized-riemann-tensor]] · [[curvature-sign-conventions]] · [[bianchi-identity]]  
 **Related:** [[holonomy]] · [[nonzero-christoffel-symbols-in-flat-space]] · [[gaussian-curvature]] · [[local-flatness-theorem]] · [[gauge-field-strength]] · [[curvature-2-form]]  
-**Visuals:** ★ [[tilt-a-plane-in-the-ball-building]] · [[falling-ring-of-crumbs]] · [[four-legs-around-a-tiny-loop]] · [[four-terms-that-cancel]] · [[twenty-of-256-slots]]
+**Visuals:** ★ [[tilt-a-plane-in-the-ball-building]] · [[falling-ring-of-crumbs]] · [[four-legs-around-a-tiny-loop]] · [[cross-off-matching-terms]] · [[twenty-of-256-slots]]
 
 > Carry an arrow around a tiny loop without letting it swing. The Riemann curvature tensor records how the arrow comes back changed, for every tilt of the loop and every starting direction. In a space with three or more directions, one number is not always enough to describe the curving at a place. So the Riemann curvature tensor is a table kept at every place. The same table sets how neighbouring falling objects drift together or apart.
 
@@ -160,7 +160,7 @@ Flat spacetime described by observers at rest in a uniformly accelerating rocket
 
 **Takeaway:** Nonzero Christoffel symbols can come from curved coordinate lines alone; the Riemann tensor is zero in every coordinate system exactly when it is zero in one.
 
-*Continues:* `ways_in/slots-of-the-table`<br>*Builds on:* [[christoffel-symbols]], [[tensor]]<br>*Visuals:* [[four-terms-that-cancel]]<br>*See:* `checks/polar-plane-zero`, `worked_examples/multi-storey-ball-world`
+*Continues:* `ways_in/slots-of-the-table`<br>*Builds on:* [[christoffel-symbols]], [[tensor]]<br>*Visuals:* [[cross-off-matching-terms]]<br>*See:* `checks/polar-plane-zero`, `worked_examples/multi-storey-ball-world`
 
 ### 5. Tidal accelerations measure it · working · operational
 
@@ -528,7 +528,7 @@ Show that $\mathcal{R}(fX,Y)Z = f\,\mathcal{R}(X,Y)Z$ and $\mathcal{R}(X,Y)(fZ) 
 1. **Ask whether one number is enough** (entry). Recall the ball, then walk the two loops of the multi-storey ball world after a prediction. *Why:* The tilt dependence is what makes a table necessary. *Predict:* At the same spot, will a loop on the floor and a loop that rides the lift turn the arrow by the same amount? *Visual:* [[tilt-a-plane-in-the-ball-building]] *Uses:* `ways_in/a-table-of-turns`, `checks/two-tilts-in-the-building`
 2. **Drop two pairs of balls** (entry). Predict the side-by-side drift and the drift of balls lined up toward Earth's centre, then compare with walkers on a ball and a crisp. *Why:* It shows the table as something measured, and that free fall does not remove it. *Predict:* Two balls dropped side by side in a tube with no air: does the gap stay the same? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/falling-side-by-side`, `checks/side-by-side-drop`
 3. **Give each index a job** (working). Read the small-loop law slot by slot, then write the component formula and its matrix form. *Why:* Slots make the antisymmetry and the tensor property visible before the algebra. *Predict:* If you swap the two edges of the tiny loop, what happens to the change? *Visual:* [[four-legs-around-a-tiny-loop]] *Uses:* `ways_in/slots-of-the-table`, `checks/swap-the-edges`
-4. **Run the flat control** (working). Compute the polar plane, then the multi-storey ball world. *Why:* Watching derivative and product terms cancel defeats the belief that Christoffel symbols signal curvature. *Predict:* Polar coordinates have nonzero Christoffel symbols. Will the plane's Riemann tensor be zero? *Visual:* [[four-terms-that-cancel]] *Uses:* `checks/polar-plane-zero`, `worked_examples/multi-storey-ball-world`
+4. **Run the flat control** (working). Compute the polar plane, then the multi-storey ball world. *Why:* Watching derivative and product terms cancel defeats the belief that Christoffel symbols signal curvature. *Predict:* Polar coordinates have nonzero Christoffel symbols. Will the plane's Riemann tensor be zero? *Visual:* [[cross-off-matching-terms]] *Uses:* `checks/polar-plane-zero`, `worked_examples/multi-storey-ball-world`
 5. **Measure it with tides** (working). Derive the weak-field components and connect them to gradiometers and gravitational-wave detectors. *Why:* It turns the tensor into instrument readings with units. *Uses:* `ways_in/tides-measure-it`, `checks/vacuum-tides`, `observations/gw150914-arm-response`
 6. **Define it without coordinates and count it** (formal). Present the curvature operator, its symmetries and the coordinate-freedom count. *Why:* Graduate work needs a frame-independent definition and the meaning of the twenty components. *Uses:* `ways_in/curvature-operator`, `ways_in/twenty-numbers-coordinates-cannot-remove`, `checks/count-and-meaning`
 
@@ -626,7 +626,7 @@ With the course gauge derivative $D_\mu = \partial_\mu - i(q/\hbar)A_\mu$, $[D_\
    - **Must contain:** Derivative term minus one; Product term plus one; Riemann is zero, so the plane is flat; Christoffel symbols do not decide
    - **Numeric:** R upper r lower phi r phi = 0 1 (signed, ±1e-06)
    - **Targets:** `christoffels-mean-curvature`
-   - **Visual:** [[four-terms-that-cancel]]
+   - **Visual:** [[cross-off-matching-terms]]
 5. **Working · predict** `checks/swap-the-edges`. A tiny parallelogram has edges $a^\mu$ and $b^\nu$, and $\Delta V^\rho = -R^\rho{}_{\sigma\mu\nu}V^\sigma a^\mu b^\nu$. Predict the change when (i) the edges are swapped, (ii) $b = 2a$, (iii) the edge $a$ is doubled.
    - **Hints:** What is the area of a parallelogram with parallel edges?
    - **Answer:** (i) It flips sign: swapping the edges walks the loop the other way, and $R^\rho{}_{\sigma\mu\nu} = -R^\rho{}_{\sigma\nu\mu}$. (ii) It is zero: $a^\mu a^\nu$ is symmetric while the tensor is antisymmetric in $\mu\nu$, and the parallelogram has no area. (iii) It doubles, by linearity in each edge.
@@ -673,8 +673,8 @@ With the course gauge derivative $D_\mu = \partial_\mu - i(q/\hbar)A_\mu$, $[D_\
 - ★ [[tilt-a-plane-in-the-ball-building]] (flagship): Shows that at one point the returned change depends on the loop's tilt and the arrow's direction, filling a table. *Sketch:* A point in the multi-storey ball world: a stack of identical sphere surfaces, with a lift at every point joining it to the matching point on the next floor. The learner turns a handle to tilt a tiny square loop and picks the arrow's starting direction; the arrow is carried around and the change appears in a growing table. Tilts containing the lift direction give zero for every arrow; the tilt along the floor turns floor arrows by an amount proportional to area and leaves an arrow along the lift shaft unchanged. It proves that one number cannot describe curvature with three directions.
 - [[falling-ring-of-crumbs]] (core): Tidal drift of freely falling particles as a reading of the tensor. *Sketch:* A ring or ball of freely falling crumbs near a mass stretches along the line to the centre and squeezes across it. Sliders for mass and distance, presets for Earth, a neutron star and a black hole; readouts of the entries $(-2, 1, 1)GM/r^3c^2$ and their zero sum. It proves that free fall leaves tides.
 - [[four-legs-around-a-tiny-loop]] (core): Connects the small-loop law to the index slots. *Sketch:* A coordinate parallelogram on a sphere patch, a saddle, or a polar-coordinate plane. The learner shrinks it and swaps the edge order; a log-log plot shows the change against area with slope one, converging to the small-loop law, while the polar-coordinate plane stays at zero.
-- [[four-terms-that-cancel]] (supporting): Shows derivative and product terms cancelling for flat metrics. *Sketch:* Pick a metric (polar plane, sphere, hyperbolic plane, accelerating-rocket coordinates) and a point. Each Riemann component expands into its four terms with numerical values; nonzero Christoffel symbols light up while flat metrics sum to zero.
-- [[twenty-of-256-slots]] (supporting): Counts independent components. *Sketch:* A grid of all index combinations. Applying pair antisymmetry, pair exchange and the cyclic identity in turn greys out dependent slots and links partners with signs, ending at 1, 6 or 20 for dimension 2, 3 or 4.
+- [[cross-off-matching-terms]] (supporting): Shows derivative and product terms cancelling for flat metrics. *Sketch:* Pick a metric (polar plane, sphere, hyperbolic plane, accelerating-rocket coordinates) and a point. Each Riemann component expands into its four terms with numerical values; nonzero Christoffel symbols light up while flat metrics sum to zero.
+- [[twenty-of-256-slots]] (supporting): Counts independent components.
 
 ## Tutor moves
 

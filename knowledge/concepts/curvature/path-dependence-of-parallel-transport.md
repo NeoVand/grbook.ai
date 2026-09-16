@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["route dependence of parallel transport", "non-integrability of parallel transport"]
 prerequisites: ["parallel-transport", "curvature", "christoffel-symbols", "four-momentum", "levi-civita-connection", "simply-connected-space"]
 leads_to: ["holonomy", "riemann-curvature-tensor", "flatness-criterion", "integrability-condition-for-parallel-fields", "global-energy-momentum-conservation"]
-visuals: ["carry-an-arrow-around-a-loop", "light-through-a-coiled-fibre", "painted-arrows-that-must-match", "polar-grid-arrow-on-two-routes"]
+visuals: ["carry-an-arrow-around-a-loop", "light-through-a-coiled-fibre", "painted-arrows-that-must-match", "two-grids-on-one-playground"]
 ---
 
 # Path dependence of parallel transport
@@ -24,7 +24,7 @@ visuals: ["carry-an-arrow-around-a-loop", "light-through-a-coiled-fibre", "paint
 **Needs:** [[parallel-transport]] (entry) · [[curvature]] (entry) · [[christoffel-symbols]] (working) · [[four-momentum]] (working) · [[levi-civita-connection]] (formal) · [[simply-connected-space]] (formal)  
 **Opens:** [[holonomy]] · [[riemann-curvature-tensor]] · [[flatness-criterion]] · [[integrability-condition-for-parallel-fields]] · [[global-energy-momentum-conservation]]  
 **Related:** [[angular-excess]] · [[intrinsic-versus-extrinsic-curvature]] · [[nonzero-christoffel-symbols-in-flat-space]] · [[local-inertial-frame]] · [[torsion-tensor]] · [[gauge-parallel-transport]]  
-**Visuals:** ★ [[carry-an-arrow-around-a-loop]] · [[light-through-a-coiled-fibre]] · [[painted-arrows-that-must-match]] · [[polar-grid-arrow-on-two-routes]]
+**Visuals:** ★ [[carry-an-arrow-around-a-loop]] · [[light-through-a-coiled-fibre]] · [[painted-arrows-that-must-match]] · [[two-grids-on-one-playground]]
 
 > Two friends start together with matching arrows and carry them to the same spot by different routes, never letting the arrows swing. On a flat floor the arrows always arrive matching. On a ball they can arrive pointing different ways, a quarter turn apart for one pair of routes. So on a ball, whether two distant arrows point the same way has no single answer: it can depend on the route along which one is carried to the other.
 
@@ -488,7 +488,7 @@ Let $\nabla$ be a smooth connection on $TM$ with $R = 0$ on an open set $U$. Let
    - **Answer:** The claim is wrong. At the start $\partial_x = \partial_r$, so $(V^r, V^\phi) = (1, 0)$. Along the circle the transport equation gives $dV^r/d\phi = rV^\phi$ and $dV^\phi/d\phi = -V^r/r$, solved at $r = 1$ by $V^r = \cos\phi$ and $V^\phi = -\sin\phi$. At the end that is $(0, -1)$, and there $\partial_\phi = -\partial_x$, so the vector is $\partial_x$ again. In Cartesian coordinates every Christoffel symbol vanishes, so any other route also delivers $\partial_x$. The components changed only because the polar basis turns; the delivered vector is the same for every route.
    - **Must contain:** Components change because the polar basis turns; Every route on the plane delivers the same vector
    - **Targets:** `changing-components-mean-path-dependence`
-   - **Visual:** [[polar-grid-arrow-on-two-routes]]
+   - **Visual:** [[two-grids-on-one-playground]]
 6. **Working · evaluate-claim** `checks/adding-two-momenta`. Two stars orbit a black hole on opposite sides. A student defines their total four-momentum by adding the components of the two stars' four-momenta in Schwarzschild coordinates. Evaluate this definition.
    - **Hints:** At which event does each four-momentum live?
    - **Answer:** It has no invariant meaning. Each four-momentum lives in the tangent space at its own event. Adding components from two events in one chart gives an answer that changes with the chart, because vector components transform with different matrices at the two events. A geometric sum would first carry one vector to the other's event, but routes passing on different sides of the black hole deliver different vectors, since spacetime between them is curved. What can be added are scalars: for stars light enough not to disturb the geometry, the energies $E_{(i)} = -\xi\cdot p_{(i)}$ built from the static Killing vector $\xi$ are numbers, and their sum is conserved.
@@ -518,7 +518,7 @@ Let $\nabla$ be a smooth connection on $TM$ with $R = 0$ on an open set $U$. Let
 - ★ [[carry-an-arrow-around-a-loop]] (flagship): Its two-routes preset shows twin arrows meeting a quarter turn apart on a ball. *Sketch:* A cone glued from a sheet with an adjustable missing wedge, the unrolled sheet beside it. Routes on the same side of the tip deliver matching arrows; routes on opposite sides disagree by the wedge angle.
 - [[light-through-a-coiled-fibre]] (core): Connects route dependence to a laboratory measurement of polarization. *Sketch:* A straight and a helical fibre with the same entry and exit directions, beside the sphere of directions where the helix traces a circle. A pitch slider changes the circle; a polarimeter dial at the exits shows the relative rotation beside the enclosed solid angle, and flipping the handedness flips its sense.
 - [[painted-arrows-that-must-match]] (supporting): Shows the failed grid of parallel axes as a consequence of two routes disagreeing. *Sketch:* A patch of floor, tube or ball filled with carried copies of one arrow along two sweeping orders. Where the fillings disagree the arrows double with a shaded wedge, which never appears on the floor or tube and grows with area on the ball.
-- [[polar-grid-arrow-on-two-routes]] (supporting): Separates changing components from a changed vector. *Sketch:* A flat plane with a polar grid and two draggable routes. Plots show each arrow's polar components changing and its Cartesian components constant; the arrows coincide at the endpoint. A switch moves the construction onto a sphere patch, where they differ.
+- [[two-grids-on-one-playground]] (supporting): Separates changing components from a changed vector. *Sketch:* A flat plane with a polar grid and two draggable routes. Plots show each arrow's polar components changing and its Cartesian components constant; the arrows coincide at the endpoint. A switch moves the construction onto a sphere patch, where they differ.
 
 ## Tutor moves
 

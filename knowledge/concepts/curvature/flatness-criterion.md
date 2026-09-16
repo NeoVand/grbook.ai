@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["flatness theorem", "metric flatness theorem"]
 prerequisites: ["path-dependence-of-parallel-transport", "holonomy", "riemann-curvature-tensor", "flat-metric", "rindler-coordinates", "simply-connected-space"]
 leads_to: ["ricci-flat-spacetime", "equivalence-problem", "weyl-criterion-for-conformal-flatness", "cosmic-string", "milne-universe"]
-visuals: ["paper-rolled-into-a-tube-and-a-cone", "carry-an-arrow-around-a-loop", "falling-ring-of-crumbs", "lamp-and-detector-in-a-rocket", "four-terms-that-cancel"]
+visuals: ["paper-rolled-into-a-tube-and-a-cone", "carry-an-arrow-around-a-loop", "falling-ring-of-crumbs", "lamp-and-detector-in-a-rocket", "cross-off-matching-terms"]
 ---
 
 # Flatness criterion
@@ -24,7 +24,7 @@ visuals: ["paper-rolled-into-a-tube-and-a-cone", "carry-an-arrow-around-a-loop",
 **Needs:** [[path-dependence-of-parallel-transport]] (entry) · [[holonomy]] (entry) · [[riemann-curvature-tensor]] (entry) · [[flat-metric]] (working) · [[rindler-coordinates]] (working) · [[simply-connected-space]] (formal)  
 **Opens:** [[ricci-flat-spacetime]] · [[equivalence-problem]] · [[weyl-criterion-for-conformal-flatness]] · [[cosmic-string]] · [[milne-universe]]  
 **Related:** [[integrability-condition-for-parallel-fields]] · [[local-flatness-theorem]] · [[nonzero-christoffel-symbols-in-flat-space]] · [[torsion-tensor]] · [[gravitational-redshift]]  
-**Visuals:** ★ [[paper-rolled-into-a-tube-and-a-cone]] · [[carry-an-arrow-around-a-loop]] · [[falling-ring-of-crumbs]] · [[lamp-and-detector-in-a-rocket]] · [[four-terms-that-cancel]]
+**Visuals:** ★ [[paper-rolled-into-a-tube-and-a-cone]] · [[carry-an-arrow-around-a-loop]] · [[falling-ring-of-crumbs]] · [[lamp-and-detector-in-a-rocket]] · [[cross-off-matching-terms]]
 
 > Squared paper covers a small patch of ground with no holes, without stretching or tearing, exactly when its small loops bring carried arrows back matching. The Riemann curvature tensor records how small loops turn carried arrows. So a region is flat exactly when that tensor is zero throughout it. A pull alone does not show curved spacetime. But a drift between balls let go side by side in a non-spinning cabin does.
 
@@ -142,7 +142,7 @@ The open set matters. At a single event, coordinates can make every $\Gamma$ van
 
 *What this leaves out:* Smooth metrics and the Levi-Civita connection only.
 
-*Continues:* `ways_in/squared-paper-or-small-loops`, `ways_in/drawing-squared-paper-with-arrows`<br>*Builds on:* [[flat-metric]], [[christoffel-symbols]], [[riemann-curvature-tensor]]<br>*Visuals:* [[four-terms-that-cancel]]<br>*See:* `derivations/zero-curvature-to-constant-metric`, `worked_examples/plane-with-constant-christoffel-symbols`, `checks/christoffels-vanish-at-one-event`
+*Continues:* `ways_in/squared-paper-or-small-loops`, `ways_in/drawing-squared-paper-with-arrows`<br>*Builds on:* [[flat-metric]], [[christoffel-symbols]], [[riemann-curvature-tensor]]<br>*Visuals:* [[cross-off-matching-terms]]<br>*See:* `derivations/zero-curvature-to-constant-metric`, `worked_examples/plane-with-constant-christoffel-symbols`, `checks/christoffels-vanish-at-one-event`
 
 ### 5. Clock rates and acceleration without curvature · working · operational
 
@@ -167,7 +167,7 @@ So redshift between heights, and the acceleration needed to stay put, decide not
 
 *What this leaves out:* Static metrics of this one form; a general spacetime needs every Riemann component.
 
-*Continues:* `ways_in/rocket-or-planet`, `ways_in/constant-metric-exactly-when-riemann-vanishes`<br>*Builds on:* [[rindler-coordinates]]<br>*Visuals:* [[lamp-and-detector-in-a-rocket]], [[four-terms-that-cancel]]<br>*See:* `problems/clock-rate-curvature`, `observations/pound-rebka-tower`, `checks/tower-clocks-claim`
+*Continues:* `ways_in/rocket-or-planet`, `ways_in/constant-metric-exactly-when-riemann-vanishes`<br>*Builds on:* [[rindler-coordinates]]<br>*Visuals:* [[lamp-and-detector-in-a-rocket]], [[cross-off-matching-terms]]<br>*See:* `problems/clock-rate-curvature`, `observations/pound-rebka-tower`, `checks/tower-clocks-claim`
 
 ### 6. Flat charts from a parallel coframe · formal · structure
 
@@ -381,7 +381,7 @@ With $G = c = 1$, take $ds^2 = -dt^2 + a(t)^2d\chi^2$ for $t > 0$. (a) Show that
 
 1. **Test flat ground two ways** (entry). Press a paper square onto a can and an orange, then run the arrow test on both. *Why:* The criterion becomes the agreement of two checks the learner can picture. *Predict:* Can a stamp-sized square of paper lie perfectly against a ball? *Visual:* [[paper-rolled-into-a-tube-and-a-cone]] *Uses:* `ways_in/squared-paper-or-small-loops`, `ways_in/drawing-squared-paper-with-arrows`, `checks/shrink-the-patch`
 2. **Rocket or planet** (entry). Drop two balls side by side in a rocket and on Earth after a prediction. *Why:* It separates a pull, which flat spacetime can fake, from a drift, which it cannot. *Predict:* In the speeding-up rocket, do two balls let go side by side land closer together than they started? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/rocket-or-planet`, `checks/rocket-drop`
-3. **Unmask a disguised plane** (working). Compute the curvature of a metric whose Christoffel symbols are nonzero everywhere. *Why:* Seeing the terms cancel ends reading curvature from Christoffel symbols. *Predict:* Every Christoffel symbol here is nonzero. Is the surface curved? *Visual:* [[four-terms-that-cancel]] *Uses:* `ways_in/constant-metric-exactly-when-riemann-vanishes`, `worked_examples/plane-with-constant-christoffel-symbols`, `checks/which-surfaces-are-flat`
+3. **Unmask a disguised plane** (working). Compute the curvature of a metric whose Christoffel symbols are nonzero everywhere. *Why:* Seeing the terms cancel ends reading curvature from Christoffel symbols. *Predict:* Every Christoffel symbol here is nonzero. Is the surface curved? *Visual:* [[cross-off-matching-terms]] *Uses:* `ways_in/constant-metric-exactly-when-riemann-vanishes`, `worked_examples/plane-with-constant-christoffel-symbols`, `checks/which-surfaces-are-flat`
 4. **Clocks without curvature** (working). Bend the clock-rate profile; curvature appears only when the profile stops being straight. *Why:* It ties the criterion to measured redshift and tides. *Predict:* If clocks at the top of a tower tick faster, must spacetime there be curved? *Visual:* [[lamp-and-detector-in-a-rocket]] *Uses:* `ways_in/clock-rates-without-curvature`, `checks/tower-clocks-claim`, `observations/pound-rebka-tower`
 5. **Prove it and mark its edges** (formal). Prove the theorem with a parallel coframe, then test it on the cone, the torus and a connection with torsion. *Why:* Graduate readers need each hypothesis tied to a counterexample. *Visual:* [[carry-an-arrow-around-a-loop]] (preset `cone-around-tip`) *Uses:* `ways_in/flat-charts-from-a-parallel-coframe`, `ways_in/where-the-criterion-stops`, `checks/cone-torus-verdict`
 
@@ -448,7 +448,7 @@ With $G = c = 1$, take $ds^2 = -dt^2 + a(t)^2d\chi^2$ for $t > 0$. (a) Show that
    - **Answer:** $f = r + 3$ has $f'' = 0$, so $R^r{}_{\phi r\phi} = 0$ and the surface is flat, although $\Gamma^r{}_{\phi\phi} = -(r + 3)$ and $\Gamma^\phi{}_{r\phi} = 1/(r + 3)$ are nonzero. With $\rho = r + 3$ the metric becomes $d\rho^2 + \rho^2d\phi^2$ with $\rho > 3$: the plane in polar coordinates, outside a disk of radius 3. $f = \sinh r$ gives $R^r{}_{\phi r\phi} = -\sinh^2 r \neq 0$, and Gaussian curvature $-f''/f = -1$, so that surface is curved.
    - **Must contain:** Flatness is decided by f double prime, not by the Christoffel symbols; r plus 3 gives the flat plane outside a disk; sinh r gives a curved surface with Gaussian curvature minus one
    - **Targets:** `christoffels-mean-curvature`
-   - **Visual:** [[four-terms-that-cancel]]
+   - **Visual:** [[cross-off-matching-terms]]
 4. **Working · evaluate-claim** `checks/tower-clocks-claim`. Light sent up a 22.5 m tower arrives with fractional frequency shift $-gh/c^2$. A student says: "This measured redshift proves that spacetime near Earth is curved." Compute the shift, and evaluate the claim using $ds^2 = -(1 + gx/c^2)^2c^2dt^2 + dx^2$.
    - **Hints:** Compute $N''$ for the given metric.
    - **Answer:** $gh/c^2 = 9.81 \times 22.5/(2.998\times10^8)^2 = 2.46\times10^{-15}$, so the shift is $-2.46\times10^{-15}$. The given metric has $N = 1 + gx/c^2$, so $N'' = 0$ and $R^x{}_{0x0} = NN'' = 0$: it is a rocket in flat spacetime. Its static observers find $f_{\rm r}/f_{\rm e} = 1/(1 + gh/c^2)$, the same shift to this order. So the redshift alone cannot prove curvature. The tidal gradient, $R^z{}_{0z0} = -3.43\times10^{-23}\ \mathrm{m^{-2}}$ at Earth's surface, does.
@@ -486,7 +486,7 @@ With $G = c = 1$, take $ds^2 = -dt^2 + a(t)^2d\chi^2$ for $t > 0$. (a) Show that
 - [[carry-an-arrow-around-a-loop]] (core): Flat floor, tube and cone controls for the small-loop test. *Sketch:* Cut a wedge of adjustable angle from a flat sheet and glue it into a cone. Loops that avoid the tip return the arrow unchanged; a loop around the tip returns it rotated by the wedge angle.
 - [[falling-ring-of-crumbs]] (core): Rocket or planet: balls dropped side by side. *Sketch:* This concept adds a windowless cabin that switches between a rocket speeding up far from every mass and a room on a planet. Two balls dropped side by side land the same distance apart in the rocket and, with the change magnified, closer on the planet.
 - [[lamp-and-detector-in-a-rocket]] (core): Redshift without curvature. *Sketch:* This concept adds a plot of clock rate against height that the learner bends, with readouts of the floor-to-ceiling frequency ratio, the acceleration needed at each height, and the curvature component, zero whenever the plot is straight.
-- [[four-terms-that-cancel]] (supporting): Christoffel terms cancelling for disguised flat metrics. *Sketch:* This concept adds the log-polar plane, whose Christoffel symbols are constant and nonzero, and the clock-rate metric with a profile the learner bends.
+- [[cross-off-matching-terms]] (supporting): Christoffel terms cancelling for disguised flat metrics. *Sketch:* This concept adds the log-polar plane, whose Christoffel symbols are constant and nonzero, and the clock-rate metric with a profile the learner bends.
 
 ## Tutor moves
 

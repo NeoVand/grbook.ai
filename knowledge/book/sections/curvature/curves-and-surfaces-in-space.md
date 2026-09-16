@@ -232,6 +232,7 @@ Numeric: radius of the steering circle, one over the geodesic curvature = 3.75 m
 - `bend-arrow-split-on-a-surface` (supporting): A surface curve's curvature vector split live into its normal part and its steering part, on a ball, a can, a saddle and a flat floor. Sketch: A walker moves along a path on a chosen surface; the curvature vector is drawn as an arrow and split into a part along the normal and a part in the tangent plane, with readouts of $\kappa$, $\kappa_n$ and $\kappa_g$ and a check that the squares add. Presets: the equator and a circle of latitude on a ball, a small ring on a ball, a helix around a can, and a straight line on the floor; the geodesic-curvature readout drops to zero exactly on straight walks.
 - `paper-rolled-into-a-tube-and-a-cone` (supporting): Separates the metric, unchanged by rolling, from the second fundamental form, which changes sign with the normal and grows toward a cone's tip while the product of the bends stays zero.
 - `paced-ring-on-a-ball-and-a-plain` (supporting): The ring test whose number Gauss proved intrinsic: the small-ring curvature estimate beside the product of bends, and the tube whose rings keep their length under bending.
+- `best-fit-circle-along-a-bend` (flagship): The turn per metre and the osculating circle made into instruments, with the Frenet frame and the osculating plane riding a coil, and a rebuild mode that flies a path from a constant curvature and torsion.
 
 ## Tutor
 

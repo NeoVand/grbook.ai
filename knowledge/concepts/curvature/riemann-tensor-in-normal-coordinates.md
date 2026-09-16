@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["Riemann tensor in a local inertial frame", "metric expansion in Riemann normal coordinates", "curvature as irremovable second derivatives of the metric"]
 prerequisites: ["riemann-curvature-tensor", "tidal-force", "local-flatness-theorem", "christoffel-symbols-from-the-metric", "covariance-of-tensor-equations", "riemann-normal-coordinates"]
 leads_to: ["symmetries-of-the-riemann-tensor", "number-of-independent-riemann-components", "bianchi-identity", "linearized-riemann-tensor", "relativistic-tidal-tensor"]
-visuals: ["paced-ring-on-a-ball-and-a-plain", "falling-ring-of-crumbs", "four-terms-that-cancel"]
+visuals: ["paced-ring-on-a-ball-and-a-plain", "falling-ring-of-crumbs", "cross-off-matching-terms"]
 ---
 
 # Riemann tensor in normal coordinates
@@ -24,7 +24,7 @@ visuals: ["paced-ring-on-a-ball-and-a-plain", "falling-ring-of-crumbs", "four-te
 **Needs:** [[riemann-curvature-tensor]] (entry) · [[tidal-force]] (entry) · [[local-flatness-theorem]] (working) · [[christoffel-symbols-from-the-metric]] (working) · [[covariance-of-tensor-equations]] (working) · [[riemann-normal-coordinates]] (working)  
 **Opens:** [[symmetries-of-the-riemann-tensor]] · [[number-of-independent-riemann-components]] · [[bianchi-identity]] · [[linearized-riemann-tensor]] · [[relativistic-tidal-tensor]]  
 **Related:** [[local-inertial-frame]] · [[geodesic-coordinates]] · [[circumference-to-radius-test]] · [[geodesic-deviation-equation]] · [[newtonian-tidal-tensor]]  
-**Visuals:** ★ [[paced-ring-on-a-ball-and-a-plain]] · [[falling-ring-of-crumbs]] · [[four-terms-that-cancel]]
+**Visuals:** ★ [[paced-ring-on-a-ball-and-a-plain]] · [[falling-ring-of-crumbs]] · [[cross-off-matching-terms]]
 
 > Stand on a huge ball and walk straight out from one spot in every direction. Draw each walk on a flat map at its true length, and mark where each one ends. Near the spot the map is almost perfect, but the circle through the marks is shorter on the ground than on the map. No flat map can remove that shortfall, because it is the ball's curving. A room falling freely near Earth is similar: nothing at its centre shows gravity, but crumbs away from its centre drift a little.
 
@@ -150,7 +150,7 @@ For a freely falling observer this is the equivalence principle made quantitativ
 
 *What this leaves out:* Uses the torsion-free, metric-compatible connection of general relativity.
 
-*Continues:* `ways_in/no-map-can-hide-the-short-circles`, `ways_in/a-map-drawn-from-one-spot`<br>*Builds on:* [[local-flatness-theorem]], [[christoffel-symbols-from-the-metric]], [[covariance-of-tensor-equations]]<br>*Visuals:* [[four-terms-that-cancel]]<br>*See:* `derivations/lowered-riemann-from-the-metric`, `checks/four-terms-in-polar-coordinates`
+*Continues:* `ways_in/no-map-can-hide-the-short-circles`, `ways_in/a-map-drawn-from-one-spot`<br>*Builds on:* [[local-flatness-theorem]], [[christoffel-symbols-from-the-metric]], [[covariance-of-tensor-equations]]<br>*Visuals:* [[cross-off-matching-terms]]<br>*See:* `derivations/lowered-riemann-from-the-metric`, `checks/four-terms-in-polar-coordinates`
 
 ### 5. The metric near a point · working · calculation
 
@@ -429,7 +429,7 @@ On a Riemannian manifold of dimension $n$, show that in normal coordinates $\sqr
 1. **Draw a map from one spot** (entry). Build the map from straight walks on a ball, then ask for a prediction about the circle reached by walking from the North Pole to the equator. *Why:* The equator makes the short circles undeniable before any small numbers appear. *Predict:* Walking straight from the North Pole to the equator in every direction, will the circle you reach be longer or shorter than on a flat field? *Visual:* [[paced-ring-on-a-ball-and-a-plain]] *Uses:* `ways_in/a-map-drawn-from-one-spot`, `problems/twice-as-far`
 2. **Try to fix the map** (entry). Let the learner propose a cleverer map, then run the tape argument. *Why:* Separating drawing errors from ground errors is what makes the leftover mean curving. *Predict:* Could a cleverer map-maker draw ten kilometres around her door on Earth with every distance correct? *Uses:* `ways_in/no-map-can-hide-the-short-circles`, `checks/a-cleverer-map-maker`
 3. **Fall with the room** (entry). Carry the map idea to a freely falling room: nothing shows gravity at its centre, but crumbs farther out drift a little. *Why:* It turns the picture into the equivalence principle and its limit. *Predict:* In a falling room, will a crumb two metres from the centre stay put, drift like the one at one metre, or drift twice as far? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/a-falling-room-is-the-best-map`, `checks/crumbs-in-a-falling-room`
-4. **Set the connection to zero at a point** (working). Derive the four-term formula and run the polar plane where it fails, then state the minus one third expansion and work the sphere. *Why:* The success and the failure together fix both the formula and its condition. *Predict:* Applied to the flat plane in polar coordinates, will the four-term formula give zero? *Visual:* [[four-terms-that-cancel]] *Uses:* `ways_in/only-second-derivatives-survive`, `checks/four-terms-in-polar-coordinates`, `ways_in/the-metric-near-a-point`, `worked_examples/sphere-in-normal-coordinates`
+4. **Set the connection to zero at a point** (working). Derive the four-term formula and run the polar plane where it fails, then state the minus one third expansion and work the sphere. *Why:* The success and the failure together fix both the formula and its condition. *Predict:* Applied to the flat plane in polar coordinates, will the four-term formula give zero? *Visual:* [[cross-off-matching-terms]] *Uses:* `ways_in/only-second-derivatives-survive`, `checks/four-terms-in-polar-coordinates`, `ways_in/the-metric-near-a-point`, `worked_examples/sphere-in-normal-coordinates`
 5. **Prove the expansion and mark its limits** (formal). Prove the one third from radial geodesics, then ask when second derivatives can vanish and how far the coordinates reach. *Why:* Graduate readers need the hypotheses and the failure modes, not only the formula. *Uses:* `ways_in/normal-coordinates-precisely`, `derivations/one-third-from-radial-geodesics`, `checks/when-second-derivatives-can-vanish`, `checks/how-far-normal-coordinates-reach`
 
 ## Misconceptions
@@ -496,7 +496,7 @@ On a Riemannian manifold of dimension $n$, show that in normal coordinates $\sqr
    - **Must contain:** The four terms alone give minus one; The first derivatives of the metric do not vanish in polar coordinates; The Christoffel products add plus one, for a true value of zero
    - **Numeric:** four-term value = -1 1 (signed, ±0.01); true value of R r phi r phi = 0 1 (signed, ±1e-06)
    - **Targets:** `four-term-formula-works-everywhere`
-   - **Visual:** [[four-terms-that-cancel]]
+   - **Visual:** [[cross-off-matching-terms]]
 5. **Formal · derive** `checks/when-second-derivatives-can-vanish`. Prove that at a point $p$ there are coordinates with $\partial_\lambda g_{\mu\nu}(p) = 0$ and $\partial_\kappa\partial_\lambda g_{\mu\nu}(p) = 0$ if and only if $R_{\alpha\beta\mu\nu}(p) = 0$. Does $R = 0$ at the single point $p$ make the metric flat near $p$?
    - **Hints:** For the forward direction, which formula applies when $\partial g(p) = 0$? / For the converse, use the normal-coordinate derivatives.
    - **Answer:** If both sets of derivatives vanish, the four-term formula applies because $\partial g(p) = 0$, and every term is a second derivative, so $R(p) = 0$ in those coordinates and hence in all. Conversely, if $R(p) = 0$, Riemann normal coordinates give $\partial g(p) = 0$ and $\partial_\alpha\partial_\beta g_{\mu\nu}(p) = -\tfrac13(R_{\mu\alpha\nu\beta} + R_{\mu\beta\nu\alpha}) = 0$. A zero at one point is not flatness: the higher-order terms involve covariant derivatives of $R$ at $p$, which need not vanish. On a surface of revolution whose curvature near its pole is $K = r^2/b^4$, with $r$ the geodesic distance and $b$ a constant length, $K(p) = 0$, yet circles of radius $r$ are short by the fraction $r^4/20b^4$.
@@ -524,7 +524,7 @@ On a Riemannian manifold of dimension $n$, show that in normal coordinates $\sqr
 
 - ★ [[paced-ring-on-a-ball-and-a-plain]] (flagship): The entry picture made measurable: straight walks from one spot, the flat map drawn from them, and circles whose ground length falls short. *Sketch:* Split view: geodesics fanned from a draggable spot on a ball, saddle, flat field or tube, beside the flat map where they are straight rays. Dragging the walking distance $r$ updates the ground and map lengths of the circle and the fraction short, with $Kr^2/6$ beside it: the fraction quadruples when $r$ doubles, stays zero on the tube, turns negative on the saddle, and the map folds past the antipode.
 - [[falling-ring-of-crumbs]] (core): Shows what a freely falling room removes, gravity at its centre, and the drift it leaves farther out. *Sketch:* A ring of freely falling crumbs near a mass stretches along the line to the centre and squeezes across it, while the centre crumb stays put. Sliders for mass and distance; readouts of the tidal entries.
-- [[four-terms-that-cancel]] (supporting): Shows the Christoffel products that the four-term formula leaves out when the metric's first derivatives do not vanish. *Sketch:* Pick a metric and a point, such as the plane in polar coordinates or a sphere in normal coordinates. Each lowered Riemann component splits into its four second-derivative terms and its Christoffel products, with numbers; the products vanish only where the metric's first derivatives do.
+- [[cross-off-matching-terms]] (supporting): Shows the Christoffel products that the four-term formula leaves out when the metric's first derivatives do not vanish. *Sketch:* Pick a metric and a point, such as the plane in polar coordinates or a sphere in normal coordinates. Each lowered Riemann component splits into its four second-derivative terms and its Christoffel products, with numbers; the products vanish only where the metric's first derivatives do.
 
 ## Tutor moves
 
@@ -681,7 +681,7 @@ On a Riemannian manifold of dimension $n$, show that in normal coordinates $\sqr
 - Entry way explanations are at 1,096 words against the 1,000-word cap and the 1,100-word review ceiling, inherited from the novice round. Any further entry addition has to drop something first.
 - tidal-force is listed as a direct prerequisite but is already a registry prerequisite of riemann-curvature-tensor, so it is not strictly direct; the falling-room way's 'assumes' would still be satisfied through riemann-curvature-tensor. christoffel-symbols-from-the-metric and covariance-of-tensor-equations are genuine additions not in the registry. An editor or sync_registry.py should settle this.
 - The notes for tidal-force, local-flatness-theorem and riemann-normal-coordinates still do not exist, so the entry recaps and glossary wording could not be matched to their entry ways.
-- The three visuals (straight-walks-from-one-spot, falling-ring-of-crumbs, four-terms-that-cancel) are proposals with sketches, not yet in knowledge/visuals/.
+- The three visuals (straight-walks-from-one-spot, falling-ring-of-crumbs, cross-off-matching-terms) are proposals with sketches, not yet in knowledge/visuals/.
 - The falling-room entry way still has no working-rung way climbing from it; only the atom-gradiometer observation connects it to R^z_0z0.
 - The check's drifts are the Newtonian similar-triangles values (7.69e-5 m and 1.54e-4 m); the exact linearized tidal values are 0.2 percent larger, well inside the 10 percent tolerance.
 - The entry falling room ignores Earth's rotation, as its simplifies says. Over a 490 metre drop the room is deflected sideways by about a quarter of a metre relative to the shaft, which moves room and crumbs together and does not change the drift relative to the room's centre at the precision quoted.
