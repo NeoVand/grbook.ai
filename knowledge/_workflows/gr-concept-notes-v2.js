@@ -58,7 +58,9 @@ Open the full guide ${KB}/_meta/writing-guide.md only at the section a validator
 KEEP YOUR CONTEXT SMALL (this matters as much as the work):
 - Never read another concept note in full. Use python3 ${T}/note_digest.py <id> [...] for prerequisites and neighbours (a few hundred words each).
 - Never read a source chapter or dossier in full. To check one equation or argument, grep ${ROOT}/book-sources/_chapters/<book>/<unit>.md for it and read at most 40 lines around the hit.
-- Read your own note once. Fix it with targeted Edit calls, never by rewriting the whole file, and never through a builder script.
+- COUNT YOUR TOOL CALLS. Every call re-reads your whole context, so cost tracks the number of calls, not their size. A writer needs about 25 calls in total, a reviewer about 30. Fifty is a sign you are working one sentence at a time.
+- Batch every mechanical step. Compute all numbers in ONE python script, not one per number. Apply all fixes from a validator run in ONE pass: a single python script that edits the JSON, or a few Edit calls, never dozens.
+- Write or rewrite the whole note in ONE Write call. Read your own note once. At most three validate-then-fix rounds.
 - Run the validator with its output piped through head -60. Render once, at the end, and do not read the rendered file.
 - Do not re-read files you have already read.
 
@@ -168,7 +170,7 @@ For each note ${note(b)}:
 3. Recompute every number with python3, in one or two scripts rather than many small runs. Work every check, worked example, and problem to its final answer, and check each numeric field and tolerance.
 4. Check the conditions of every universal sentence at every rung, including the friendly entry sentences and the novice reviewer's rewrites. Check the sense and branch of every angle, phase, or rotation. Check every "equals" and "differs by" claim, and every analogy that relates quantities, with signs, numerically where possible. A false simplification becomes an equally simple true sentence, never a jargon-heavy one.
 5. Try the standard counterexamples of the domain against each general statement (card section 5), and record them.
-6. Verify every reference with one WebSearch each (authors, year, title, venue, doi or arxiv); do not fetch pages. Set "verified": true only when confirmed. Correct details you can confirm. Remove references you cannot confirm. Check history claims for scope: what exactly was first, and in what setting.
+6. Verify every reference with one WebSearch each (authors, year, title, venue, doi or arxiv); do not fetch pages, and do not search a reference twice. Set "verified": true only when confirmed. Correct details you can confirm. Remove references you cannot confirm. Check history claims for scope: what exactly was first, and in what setting.
 7. Check structure: prerequisites are direct and acyclic, and assumes and justified_by are consistent; the formal rung is graduate level, with at least two formal checks and one formal problem where the tier requires a formal rung; the research rung and horizon are accurate and current; observations are real, with correct numbers; visual ids and presets exist or are proposed with sketches; nothing mentions or copies the source books.
 8. Set status "physics-reviewed" (only with a verdict of accurate or fixed). Add review.physics with verdict, date "${DATE}", verification (claim, method, result for each equation, number, analogy relation, and reference checked), counterexamples, fixes, and concerns.
 9. Run python3 ${T}/note_diff.py ${SNAP}/<ID>.before-physics.json ${note(b)} --rungs entry,working. If it lists any change, bump revision by exactly 1. Set review.physics.reviewed_revision to the note's revision. A post-review check of exactly those changes follows, so the one warning that review.novice covers an older revision is expected; fix every other warning. Render once.

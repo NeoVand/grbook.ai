@@ -12,7 +12,7 @@ updated: "2026-09-13"
 aliases: ["Gauss curvature"]
 prerequisites: ["intrinsic-versus-extrinsic-curvature", "curvature-of-a-curve", "metric-tensor", "riemann-curvature-tensor"]
 leads_to: ["theorema-egregium", "sectional-curvature", "angular-excess", "holonomy", "space-of-constant-curvature"]
-visuals: ["paced-ring-on-a-ball-and-a-plain", "card-touching-a-curved-patch"]
+visuals: ["carry-an-arrow-around-a-loop", "paced-ring-on-a-ball-and-a-plain", "card-touching-a-curved-patch"]
 ---
 
 # Gaussian curvature
@@ -24,7 +24,7 @@ visuals: ["paced-ring-on-a-ball-and-a-plain", "card-touching-a-curved-patch"]
 **Needs:** [[intrinsic-versus-extrinsic-curvature]] (entry) · [[curvature-of-a-curve]] (entry) · [[metric-tensor]] (working) · [[riemann-curvature-tensor]] (formal)  
 **Opens:** [[theorema-egregium]] · [[sectional-curvature]] · [[angular-excess]] · [[holonomy]] · [[space-of-constant-curvature]]  
 **Related:** [[principal-curvatures]] · [[circumference-to-radius-test]] · [[ricci-scalar]]  
-**Visuals:** [[paced-ring-on-a-ball-and-a-plain]] · [[card-touching-a-curved-patch]]
+**Visuals:** [[carry-an-arrow-around-a-loop]] · [[paced-ring-on-a-ball-and-a-plain]] · [[card-touching-a-curved-patch]]
 
 > At each spot of a smooth surface, one number, the Gaussian curvature, says how strongly the surface curves. It is positive where the surface curves like a ball, zero on flat paper, and negative on a saddle. An ant can measure it with small rings, and an outsider by multiplying two bends.
 
@@ -411,6 +411,7 @@ Let $\Sigma \subset \mathbb R^3$ be an oriented smooth surface with unit normal 
 
 ## Visuals
 
+- [[carry-an-arrow-around-a-loop]] (supporting): The area readouts on the ball and the saddle's opposite turn.
 - [[paced-ring-on-a-ball-and-a-plain]] (core): Matching balls for spots of an egg. *Sketch:* Adds an egg mode: a short ring at a chosen spot, the ball whose ring falls short by the same fraction, and that ball's radius and Gaussian curvature.
 - [[card-touching-a-curved-patch]] (core): Two bends multiplied give the ring test's number. *Sketch:* Adds a product readout: one over the two best-fit radii multiplied, signed by faces, beside the ring-test value, on an egg, a can, a crisp and a soap-film waist.
 

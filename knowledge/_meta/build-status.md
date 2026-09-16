@@ -36,18 +36,19 @@ Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and ru
    - Convention gaps the writers reported are now rows in `notation/course-conventions.md`.
    - Open process issues: writers treat caps as targets; physics fixes change entry text after the novice review
      without a revision bump or re-read.
-3. **Curvature notes: 38 of 46 complete, run paused for usage limits (2026-09-16).** The run `notes-curvature`
-   (`wf_72b3e7cb-34e`, resumable) wrote 44 concepts one per writer. State when paused:
-   - 34 concepts physics-reviewed with every stage signed; 3 more (deviation-vector, intrinsic-geometry,
-     parallel-postulate) need only the novice sign-off of a diff-check wording change;
-   - sectional-curvature and space-of-constant-curvature are novice-reviewed, awaiting physics review;
-     curvature-of-the-two-sphere is a draft awaiting both reviews;
-   - einstein-tensor (old draft), einstein-space, ricci-flat-spacetime, weyl-tensor,
-     weyl-criterion-for-conformal-flatness and weyl-tensor-field-equation are not written.
-   - Cost: about 340 agents at roughly 200k tokens each, far above the pilot estimate, because the re-read,
-     diff-check and sign-off stages fire for most notes and every agent re-reads the guide and the exemplar.
-     Before the next domain: merge the post-review stages into one agent, give agents a short standard card
-     instead of the full guide and exemplar, and batch writers.
+3. **Curvature: all 46 notes written and reviewed (2026-09-16).** Two runs: `notes-curvature`
+   (`wf_72b3e7cb-34e`, stopped twice by usage limits, 351 agents) and `notes-curvature-finish`
+   (`wf_aee171b5-d10`, 35 agents) which restarted each unfinished note at its own stage (`batch.start`).
+   Every note validates; registry prerequisites synced; indexes rebuilt.
+   - **Cost, measured both ways (output + new context + a tenth of cached reads):** old pipeline median 11.4M per
+     concept, new pipeline mean 11.7M. The cuts did not pay off.
+   - **Why:** cost tracks the NUMBER of tool calls, not bytes read, because every call re-reads the agent's whole
+     context. The reading cuts (standard card, exemplar excerpt, note digests) worked on the review side (the merged
+     post-review check costs about a third of the three stages it replaced), but the writer rule "fix with targeted
+     edits, never rewrite the file" tripled writer calls from 66 to 184, and writers are over half the cost.
+   - **Fixed for the next domain, not yet measured:** writers and reviewers now get an explicit call budget (about
+     25 and 30), must batch numbers into one script and validator fixes into one pass, and write the note in one
+     Write call. Expect this to matter more than anything else; measure it on the first domain that runs.
 4. **Domain by domain.** Notes, then that domain's visuals; the remaining domains follow taxonomy order.
 
 ## App follow-ups from the engineer critique

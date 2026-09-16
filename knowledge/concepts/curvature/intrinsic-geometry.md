@@ -7,8 +7,8 @@ tagline: "Describing a space using only measurements made without leaving it"
 domain: "curvature"
 tier: "foundation"
 status: "physics-reviewed"
-revision: 5
-updated: "2026-09-13"
+revision: 6
+updated: "2026-09-16"
 aliases: ["insider viewpoint", "intrinsic description of geometry"]
 prerequisites: ["manifold", "metric-tensor"]
 leads_to: ["intrinsic-versus-extrinsic-curvature", "theorema-egregium"]
@@ -19,7 +19,7 @@ visuals: ["paced-ring-on-a-ball-and-a-plain", "curl-a-page-with-a-triangle"]
 
 *Describing a space using only measurements made without leaving it*
 
-`intrinsic-geometry` · curvature · foundation · physics-reviewed (revision 5)
+`intrinsic-geometry` · curvature · foundation · physics-reviewed (revision 6)
 
 **Needs:** [[manifold]] (formal) · [[metric-tensor]] (working)  
 **Opens:** [[intrinsic-versus-extrinsic-curvature]] · [[theorema-egregium]]  
@@ -401,7 +401,7 @@ The catenoid $\mathbf X(u,v) = (\cosh u\cos v, \cosh u\sin v, u)$ and the helico
    - **Must contain:** K and geodesic distance are preserved by isometries; Mean curvature is zero on the plane but not on the cylinder
 6. **Formal · explain** `checks/plane-or-cylinder`. A flat plane and a flat cylinder are locally isometric. Can insiders, using only measurements within the surface, tell which one they live on? What does the answer say about local intrinsic data?
    - **Hints:** Unroll the cylinder onto a strip with its two edges identified.
-   - **Answer:** Yes. On a cylinder of circumference $L$, a geodesic that sets off perpendicular to the cylinder's length runs around it and returns to its starting point, in its starting direction, after length $L$; a geodesic that sets off at any other angle is a helix that never returns, and no geodesic on the plane returns. This test is intrinsic but global. Local isometry fixes curvature and all local geometry, not topology or the global distance function.
+   - **Answer:** Yes. On a cylinder of circumference $L$, a geodesic that sets off perpendicular to the cylinder's axis runs once around it and returns to its starting point, in its starting direction, after length $L$. A geodesic that sets off along the axis is a straight line and one at any other angle is a helix; neither returns, and no geodesic on the plane returns. This test is intrinsic but global. Local isometry fixes curvature and all local geometry, not topology or the global distance function.
    - **Must contain:** Yes, by a geodesic around the cylinder that closes; Local intrinsic data do not fix global structure
    - **Targets:** `local-metric-fixes-shape`
 
@@ -439,7 +439,7 @@ The catenoid $\mathbf X(u,v) = (\cosh u\cos v, \cosh u\sin v, u)$ and the helico
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 4)
+**Verdict:** fixed (2026-09-13, revision 6)
 
 **Retell attempt:** An ant stuck on a ball can't look at it from outside, but she can measure distances along the ground and angles with a protractor. Everything she gets from those is the intrinsic geometry. Surveyors walk the same distance out in every direction and measure the ring: from the North Pole, 10,000 kilometres gets you to the equator, which is 40,000 kilometres around instead of 62,800, so they know their world isn't flat. I don't see why walking straight from the pole follows the lines on a globe, how you measure a ring that is just a bunch of separate marks, or why the ring comes out short. If you curl paper into a trough the ant measures the same triangle because nothing stretched, so curling doesn't count. Einstein says space and time are curved but not into an extra direction, and I don't really get what 'curve into' means or how you would do a ring test in space.
 
@@ -504,9 +504,16 @@ The catenoid $\mathbf X(u,v) = (\cosh u\cos v, \cosh u\sin v, u)$ and the helico
 - Fix: The looks-bent-so-curved why_tempting change reads cleanly against the belief and correction; no edit.
 - Fix: Bumped the revision to 4.
 
+**Re-read** (2026-09-16, revision 6): 1 stumbles in 3 changed passages
+
+- “a geodesic that sets off perpendicular to the cylinder's length runs around it and returns to its starting point, in its starting direction, after length $L$; a geodesic that sets off at any other angle is a helix that never returns”: 'The cylinder's length' sits next to 'after length $L$', so 'length' carries two senses in one sentence (a direction and a number), and the long semicolon sentence packs three cases into one breath.
+- Fix: Plane-or-cylinder check answer: 'the cylinder's length' became 'the cylinder's axis', 'runs around it' became 'runs once around it', and the semicolon sentence was split into two; the physics pass changed the helix clause at the same time.
+- Fix: The $\tfrac{1}{2R}$ typesetting change in the mean-curvature check and the isometries way reads cleanly; no edit.
+- Fix: Bumped the revision to 6.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 5)
+**Verdict:** fixed (2026-09-13, revision 6)
 
 **Verification**
 
@@ -606,3 +613,9 @@ The catenoid $\mathbf X(u,v) = (\cosh u\cos v, \cosh u\sin v, u)$ and the helico
 **Diff check** (2026-09-13, revision 4)
 
 - Funnel-drawing answer (working), reworded: 'The drawn marble copies how a real marble rolls on a real funnel, and that marble rolls only because Earth's gravity pulls it down, so the picture uses gravity to explain gravity.': Compared with the revision-3 sentence claim by claim, read in the context of the question (a marble rolling toward the centre, planets 'roll downhill'), and tried what-ifs: a marble pushed sideways on a funnel with no gravity; which object 'uses gravity to explain gravity'; consistency with the depth sentence and the time-warping sentence that follow. → Same claim as before, now with clearer reference. In the question's scope, rolling toward the centre or downhill, a real marble does so only because gravity pulls it down the slope; with no gravity a pushed marble would only coast along the surface and not fall inward. The subject that uses gravity to explain gravity is now 'the picture', which is the correct target. Consistent with the rest of the answer and its key points. No change needed.
+
+**Diff check** (2026-09-16, revision 6)
+
+- Mean curvature of a cylinder of radius $R$ is $\tfrac{1}{2R}$ in magnitude, $0$ on the plane (mean-curvature check answer and isometries way).: Principal curvatures $1/R$ and $0$ on the cylinder, $0$ and $0$ on the plane; $H$ is their average; computed in python3. Course conventions fix no sign for $H$, so 'in magnitude' is the right scope. → $H = 1/(2R)$ and $0$; the change is typesetting only ($1/2R \to \tfrac{1}{2R}$), which also removes the reading $(1/2)R$. Correct.
+- On a cylinder of circumference $L$, the geodesic perpendicular to the axis closes after length $L$ in its starting direction; a geodesic at any other angle is a helix that never returns; no plane geodesic returns.: Unrolled the cylinder to a strip with edges identified; a geodesic at angle $\alpha$ from the axis has axial coordinate $s\cos\alpha$ and angular coordinate $s\sin\alpha/R$; checked the cases $\alpha = \pi/2$, generic $\alpha$, and $\alpha = 0$ in python3. → $\alpha = \pi/2$: closed circle of length $2\pi R = L$, direction preserved. Generic $\alpha$: helix, axial coordinate strictly monotonic, never returns. $\alpha = 0$: a straight ruling, not a helix, and it never returns; the added sentence called every non-perpendicular geodesic a helix, which is false for the ruling. Fixed by naming the straight line separately. Plane geodesics are straight lines and never return. Consistent with the key points and with the 'closed geodesics in only one direction' sentence of the isometries way.
+- Fix: Plane-or-cylinder check answer: 'a geodesic that sets off at any other angle is a helix that never returns' became 'A geodesic that sets off along the axis is a straight line and one at any other angle is a helix; neither returns', so the axial geodesic is no longer called a helix.

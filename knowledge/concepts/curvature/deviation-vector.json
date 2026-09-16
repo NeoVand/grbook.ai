@@ -1446,7 +1446,7 @@
   "novice": {
    "verdict": "fixed",
    "date": "2026-09-13",
-   "reviewed_revision": 6,
+   "reviewed_revision": 7,
    "retell_attempt": "Two friends, Asha and Ben, walk without ever steering and count their one-metre steps. Between them you imagine a stretchy string joining the spots they reach at the same count, and that string is the deviation vector, with an arrowhead at Ben's end. On flat ground it stays one metre long. On a ball the size of Earth, starting on the equator and facing the North Pole, their two lines close up: two thirds of the way the string is 50 centimetres, and at the pole it is nothing. A stiff cardboard arrow that Asha carries does not shrink, because it is tied only to her. I was told the two friends each follow one of the lines printed on a globe, and that puzzled me, because the lines on my globe are hundreds of kilometres apart and these two friends are one metre apart. If Ben starts three metres behind, the string is about 3.2 metres long but the paths are still one metre apart: three metres of the string lies along the path and one metre runs across it, and only the across part says how far apart the paths are. When they tried that start on the ball I could not picture where Ben stood, because 'three metres behind the equator' does not say which side of it. And the small-print line said 'for friends one metre apart', when the two friends in that walk are 3.2 metres apart, so I did not know which distance the tiny number belonged to.",
    "stumbles": [
     {
@@ -1551,6 +1551,25 @@
       }
      ],
      "fixes": []
+    },
+    {
+     "date": "2026-09-16",
+     "revision": 7,
+     "read": [
+      "$.summary",
+      "$.tagline",
+      "$.ways_in[string-between-two-walkers].explanation",
+      "$.ways_in[string-between-two-walkers].takeaway",
+      "$.ways_in[three-steps-behind-the-line].explanation",
+      "$.ways_in[three-steps-behind-the-line].simplifies",
+      "$.ways_in[variation-fields-and-jacobi-fields].explanation",
+      "$.ways_in[variation-fields-and-jacobi-fields].picture",
+      "$.checks[counting-deviation-fields].answer"
+     ],
+     "stumbles": [],
+     "fixes": [
+      "No wording changed. Read each changed sentence inside its paragraph as the novice: the globe-lines sentence now says the friends' lines are only one metre apart, Ben's ball start names the side of the equator he stands on, and the simplifies bound names the paths' one-metre distance, so the three stumbles of the earlier retell no longer occur. The formal renaming of the reparametrization constants to a and b, read as a second-year undergraduate, keeps them apart from the alpha and beta of g(u, xi)."
+     ]
     }
    ]
   },
@@ -1721,6 +1740,28 @@
      "fixes": [
       "Entry, 'Three steps behind the line' simplifies: 'For friends this close on an Earth-sized ball, ...' now reads 'For friends one metre apart on an Earth-sized ball, ...'. The bound of a thousandth of a millimetre holds for the way's one-metre friends but not for the 'few metres apart' that 'this close' pointed back to."
      ]
+    },
+    {
+     "date": "2026-09-16",
+     "revision": 7,
+     "verification": [
+      {
+       "claim": "Entry, 'Three steps behind the line' simplifies: for paths one metre apart on an Earth-sized ball, moving Ben's start three metres back changes the sideways part by less than a thousandth of a millimetre.",
+       "method": "python3: radius 6371 km, meridian paths one metre apart at the equator, Ben three metres behind; change of the across-path arc 1 m (cos(lat - 3/R) - cos lat) at Asha's latitude, at 60 degrees and at the pole.",
+       "result": "0.00041 mm at 60 degrees and 0.00047 mm at the pole, both under the stated bound; the rescoping to 'paths one metre apart' matches the quantity the earlier check bounded. Accurate."
+      },
+      {
+       "claim": "Entry, 'A string between two walkers': walking straight from the equator facing the North Pole, each friend follows a line from the equator to the North Pole, like the lines printed on a globe but only one metre apart at the equator; Ben's ball start is one metre to Asha's right and three metres behind her on the side of the equator away from the North Pole.",
+       "method": "Meridians are great circles, hence geodesics of the sphere; a walker facing the pole on the equator has the meridian as her straight path. Checked that 'right' is referenced to facing the North Pole and that 'behind' is fixed by naming the side of the equator.",
+       "result": "Accurate; same claims as before, with the one-metre spacing and the side of the equator made explicit."
+      },
+      {
+       "claim": "Formal: the fields (a + b lambda) u come from x(lambda + a s, s) and x((1 + b s) lambda, s); on a unit-speed timelike geodesic g(u, xi) = -(a + b lambda), so alpha = -a and beta = -b; they solve the Jacobi equation because D_lambda^2 u = 0 and R(u, u) u = 0.",
+       "method": "Hand algebra: d/ds of x(lambda + a s, s) at s = 0 gives a u, and of x((1 + b s) lambda, s) gives b lambda u, both affine reparametrizations so the members stay affinely parametrized geodesics; g(u, (a + b lambda) u) = (a + b lambda) g(u, u) = -(a + b lambda) with signature (-,+,+,+); D_lambda of a linear multiple of the parallel u is constant, so its second derivative vanishes, and R(u, u) = 0 by antisymmetry.",
+       "result": "Accurate. The renaming to a, b removes the clash with the alpha, beta of g(u, xi) = alpha + beta lambda in the same way, and the summary 'starting to count further back' matches the a-term within the equal-steps scope stated earlier in the summary."
+      }
+     ],
+     "fixes": []
     }
    ]
   }

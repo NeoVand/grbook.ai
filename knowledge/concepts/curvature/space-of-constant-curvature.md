@@ -6,9 +6,9 @@ title: "Space of constant curvature"
 tagline: "A world whose curving, measured with small rings, is the same at every spot"
 domain: "curvature"
 tier: "core"
-status: "novice-reviewed"
-revision: 3
-updated: "2026-09-13"
+status: "physics-reviewed"
+revision: 5
+updated: "2026-09-16"
 aliases: ["maximally symmetric space", "constant-curvature space", "spacetime of constant curvature"]
 prerequisites: ["gaussian-curvature", "riemann-curvature-tensor", "ricci-scalar", "contracted-bianchi-identity", "killing-vector"]
 leads_to: ["robertson-walker-metric", "de-sitter-spacetime", "anti-de-sitter-spacetime", "cosmic-topology"]
@@ -19,7 +19,7 @@ visuals: ["slide-a-patch-across-a-ball-and-an-egg", "paced-ring-on-a-ball-and-a-
 
 *A world whose curving, measured with small rings, is the same at every spot*
 
-`space-of-constant-curvature` · curvature · core · novice-reviewed (revision 3)
+`space-of-constant-curvature` · curvature · core · physics-reviewed (revision 5)
 
 **Needs:** [[gaussian-curvature]] (entry) · [[riemann-curvature-tensor]] (working) · [[ricci-scalar]] (working) · [[contracted-bianchi-identity]] (formal) · [[killing-vector]] (formal)  
 **Opens:** [[robertson-walker-metric]] · [[de-sitter-spacetime]] · [[anti-de-sitter-spacetime]] · [[cosmic-topology]]  
@@ -187,7 +187,7 @@ $$\theta = \frac{L}{\mathrm{sn}_K(D)}.$$
 
 Positive curvature makes the ruler look larger than in flat space, and negative curvature makes it look smaller, by a fraction of about $KD^2/6$. So the ruler must be very far away.
 
-Cosmology supplies one. If the universe is homogeneous and isotropic, space at each cosmic time is a space of constant curvature, $K = k/a(t)^2$ in the Robertson–Walker metric. Sound waves in the early plasma left a preferred spacing, about 144 megaparsecs in today's units (1 Mpc $= 3.086\times10^{22}$ m), seen in the microwave background and in galaxy clustering. In conformal time $\eta$, with $c\,d\eta = c\,dt/a$, the metric is $a^2$ times a static metric. An overall factor like this changes neither the paths of light rays nor angles at the observer, so the formula holds with $L$, $D$ and $K$ all taken on today's slice.
+Cosmology supplies one. If the universe is homogeneous and isotropic, space at each cosmic time is a space of constant curvature, $K = k/a(t)^2$ in the Robertson–Walker metric. Sound waves in the early plasma left a preferred spacing, seen in the microwave background and in galaxy clustering. At the release of the microwave background that spacing is about 144 megaparsecs in today's units (1 Mpc $= 3.086\times10^{22}$ m); the slightly later epoch that galaxy clustering records gives about 147 megaparsecs. In conformal time $\eta$, with $c\,d\eta = c\,dt/a$, the metric is $a^2$ times a static metric. An overall factor like this changes neither the paths of light rays nor angles at the observer, so the formula holds with $L$, $D$ and $K$ all taken on today's slice.
 
 The microwave background shows this ruler at about 13,900 Mpc, with its angle measured to 0.03 per cent. Alone, that angle cannot separate curvature from other unknowns of the expansion history. Combined with galaxy clustering it gives $\Omega_K = -Kc^2/H_0^2 = 0.001 \pm 0.002$, consistent with flat space. In this definition a positive $\Omega_K$ means negative curvature.
 
@@ -211,7 +211,7 @@ The tensor form of "One number fills the whole curvature table" follows from sym
 
 *Local uniqueness.* In Riemannian signature, Jacobi fields along unit-speed geodesics from $p$ obey $J'' + KJ = 0$, so $J = \mathrm{sn}_K(\rho)E$ with $E$ parallel, and the metric in normal coordinates is forced to be $d\rho^2 + \mathrm{sn}_K(\rho)^2 d\Omega^2_{n-1}$. Two spaces of equal $n$ and $K$ are therefore locally isometric, taking any point and orthonormal frame to any other (Minding for surfaces).
 
-*Global limits.* The complete simply connected models are the sphere of radius $1/\sqrt K$, Euclidean space, and hyperbolic space, the sheet $T > 0$ of $-T^2 + |X|^2 = -1/|K|$ in Minkowski space. Every other complete example is a quotient of one by a discrete group acting freely (Killing–Hopf theorem): a flat torus, real projective space, a compact hyperbolic manifold. Quotients keep the local geometry but lose global Killing fields; a flat $n$-torus has only $n$. By Hilbert's theorem, no complete surface of constant negative curvature is isometrically immersed in $\mathbb{R}^3$.
+*Global limits.* The complete simply connected models are the sphere of radius $1/\sqrt K$, Euclidean space, and hyperbolic space, the sheet $T > 0$ of $-T^2 + |X|^2 = -1/|K|$ in Minkowski space. Every other complete connected Riemannian example is a quotient of one by a discrete group acting freely (Killing–Hopf theorem): a flat torus, real projective space, a compact hyperbolic manifold. Quotients keep the local geometry but lose global Killing fields; a flat $n$-torus has only $n$. By Hilbert's theorem, no complete surface of constant negative curvature is isometrically immersed in $\mathbb{R}^3$.
 
 **Takeaway:** Pointwise isotropic curvature is constant in three or more dimensions, constant curvature is local maximal symmetry, and K together with dimension and signature fixes the geometry locally but not globally.
 
@@ -223,9 +223,9 @@ The tensor form of "One number fills the whole curvature table" follows from sym
 
 The Riemannian models of "Isotropy forces constancy" have Lorentzian twins. With $G = c = 1$, de Sitter spacetime is the hyperboloid $-T^2 + X_1^2 + \dots + X_n^2 = \alpha^2$ in $\mathbb{R}^{1,n}$, with $K = +1/\alpha^2$. Anti-de Sitter is $-T^2 - U^2 + X_1^2 + \dots + X_{n-1}^2 = -\alpha^2$ in $\mathbb{R}^{2,n-1}$, with $K = -1/\alpha^2$; its closed timelike curves disappear in the universal cover. Their isometry groups $O(1,n)$ and $O(2,n-1)$ have dimension $n(n+1)/2$, like the Poincaré group. In four dimensions $\Lambda = 3K$.
 
-*Sign.* For unit timelike $u$ and $\xi \perp u$, the course deviation equation gives $D^2\xi^\mu/d\tau^2 = +K\xi^\mu$ (check "Falling apart in de Sitter"). Free-fall neighbours in de Sitter separate, with e-folding time $\alpha$ at late times; in anti-de Sitter they oscillate and refocus. Spacelike geodesics in de Sitter converge, as on a sphere, because a timelike plane has a negative area factor.
+*Sign.* For unit timelike $u$ and $\xi \perp u$, the course deviation equation gives $D^2\xi^\mu/d\tau^2 = +K\xi^\mu$ (check "Falling apart in de Sitter"). Free-fall neighbours in de Sitter separate, with e-folding time $\alpha$ at late times; in anti-de Sitter they oscillate and refocus. Spacelike geodesics in de Sitter whose separation lies in a spacelike plane converge, as on a sphere, because that plane has a positive area factor; the sign flips for free-fall neighbours because a timelike plane has a negative one.
 
-*Constant spatial curvature.* A Robertson–Walker spacetime has slices of constant curvature $k/a(t)^2$, yet it has constant spacetime curvature only when empty apart from a cosmological constant: de Sitter, anti-de Sitter, Minkowski or the Milne universe. The flat-sliced Einstein–de Sitter universe is curved, while de Sitter admits slicings with $k = +1$, $0$ and $-1$.
+*Constant spatial curvature.* A Robertson–Walker spacetime has slices of constant curvature $k/a(t)^2$, yet it has constant spacetime curvature only when empty apart from a cosmological constant: de Sitter, anti-de Sitter, Minkowski or the Milne universe. The flat-sliced Einstein–de Sitter universe is a curved spacetime that is not of constant curvature, while de Sitter admits slicings with $k = +1$, $0$ and $-1$.
 
 *Einstein spaces.* $R_{\mu\nu} = \lambda g_{\mu\nu}$ constrains only the traces. For $n \ge 3$, constant curvature is exactly an Einstein space with vanishing Weyl tensor; in three dimensions the two coincide, but Ricci-flat Schwarzschild has Kretschmann scalar $48M^2/r^6$.
 
@@ -473,8 +473,8 @@ On a connected manifold of dimension $n$ with its Levi-Civita connection and the
 
 ## Observations
 
-- **Earth's Gaussian curvature varies over its surface** (measured, working). Earth's spin flattens it, so its ground is close to, but not exactly, a surface of constant curvature. Geodetic surveys give the principal radii of curvature at each latitude, and their product gives $K = 1/MN$. The variation is small enough that a sphere of radius 6371 km serves most estimates. *Numbers:* GRS80 ellipsoid: $K = 2.475\times10^{-14}$ m$^{-2}$ at the equator, matching radius 6356.8 km, and $2.442\times10^{-14}$ m$^{-2}$ at the poles, matching radius 6399.6 km: 1.35 per cent apart. *Reference:* Helmut Moritz (1980), *Geodetic Reference System 1980*, Bulletin Géodésique 54, 395–405, doi:10.1007/BF02521480 _(unverified)_
-- **The spatial curvature of the universe, from the cosmic microwave background combined with baryon acoustic oscillations in galaxy clustering** (measured, working). In a homogeneous, isotropic universe each spatial slice is a space of constant curvature, so the angle of the sound-horizon ruler measures $\mathrm{sn}_K$ at the distance of the last-scattering surface. Galaxy clustering at lower redshift breaks the degeneracy between curvature and the expansion history. The result is consistent with flat slices. *Numbers:* $\Omega_K = 0.001 \pm 0.002$ (68 per cent), with $\Omega_K = -K_0c^2/H_0^2$ positive for negative curvature. Taking two standard deviations and $H_0 = 67.4$ km s$^{-1}$ Mpc$^{-1}$, the curvature radius exceeds about $63{,}000$ Mpc, against about $13{,}900$ Mpc to the last-scattering surface. *Reference:* N. Aghanim, Y. Akrami, M. Ashdown, J. Aumont and others (2020), *Planck 2018 results. VI. Cosmological parameters*, Astronomy & Astrophysics 641, A6, doi:10.1051/0004-6361/201833910 _(unverified)_
+- **Earth's Gaussian curvature varies over its surface** (measured, working). Earth's spin flattens it, so its ground is close to, but not exactly, a surface of constant curvature. Geodetic surveys give the principal radii of curvature at each latitude, and their product gives $K = 1/MN$. The variation is small enough that a sphere of radius 6371 km serves most estimates. *Numbers:* GRS80 ellipsoid: $K = 2.475\times10^{-14}$ m$^{-2}$ at the equator, matching radius 6356.8 km, and $2.442\times10^{-14}$ m$^{-2}$ at the poles, matching radius 6399.6 km: 1.35 per cent apart. *Reference:* Helmut Moritz (1980), *Geodetic Reference System 1980*, Bulletin Géodésique 54, 395–405, doi:10.1007/BF02521480
+- **The spatial curvature of the universe, from the cosmic microwave background combined with baryon acoustic oscillations in galaxy clustering** (measured, working). In a homogeneous, isotropic universe each spatial slice is a space of constant curvature, so the angle of the sound-horizon ruler measures $\mathrm{sn}_K$ at the distance of the last-scattering surface. Galaxy clustering at lower redshift breaks the degeneracy between curvature and the expansion history. The result is consistent with flat slices. *Numbers:* $\Omega_K = 0.001 \pm 0.002$ (68 per cent), with $\Omega_K = -K_0c^2/H_0^2$ positive for negative curvature. Taking two standard deviations and $H_0 = 67.4$ km s$^{-1}$ Mpc$^{-1}$, the curvature radius exceeds about $63{,}000$ Mpc, against about $13{,}900$ Mpc to the last-scattering surface. *Reference:* N. Aghanim, Y. Akrami, M. Ashdown, J. Aumont and others (2020), *Planck 2018 results. VI. Cosmological parameters*, Astronomy & Astrophysics 641, A6, doi:10.1051/0004-6361/201833910
 
 ## Teaching arc
 
@@ -619,21 +619,21 @@ On a connected manifold of dimension $n$ with its Levi-Civita connection and the
 ## History
 
 - **Ferdinand Minding (1839).** Showed that surfaces of equal constant Gaussian curvature are locally isometric.
-- **Bernhard Riemann (1854).** In his 1854 lecture, published in 1868, described spaces of constant curvature in any dimension and wrote their metric as a position-dependent multiple of the flat one. Bernhard Riemann (1868), *Über die Hypothesen, welche der Geometrie zu Grunde liegen*, Abhandlungen der Königlichen Gesellschaft der Wissenschaften zu Göttingen 13, 133–150 _(unverified)_
+- **Bernhard Riemann (1854).** In his 1854 lecture, published in 1868, described spaces of constant curvature in any dimension and wrote their metric as a position-dependent multiple of the flat one. Bernhard Riemann (1868), *Über die Hypothesen, welche der Geometrie zu Grunde liegen*, Abhandlungen der Königlichen Gesellschaft der Wissenschaften zu Göttingen 13, 133–150
 - **Eugenio Beltrami (1868).** Showed that surfaces of constant negative curvature carry, locally, the non-Euclidean geometry of Bolyai and Lobachevsky.
 - **Friedrich Schur (1886).** Proved that curvature which is the same for every plane at each point is constant, in three or more dimensions.
-- **David Hilbert (1901).** Proved that no complete surface of constant negative curvature can be isometrically immersed in three-dimensional Euclidean space. David Hilbert (1901), *Über Flächen von constanter Gaussscher Krümmung*, Transactions of the American Mathematical Society 2, 87–99 _(unverified)_
-- **Willem de Sitter (1917).** Found the empty universe with a cosmological constant now called de Sitter spacetime. Willem de Sitter (1917), *On Einstein's theory of gravitation and its astronomical consequences. Third paper*, Monthly Notices of the Royal Astronomical Society 78, 3–28 _(unverified)_
+- **David Hilbert (1901).** Proved that no complete surface of constant negative curvature can be isometrically immersed in three-dimensional Euclidean space. David Hilbert (1901), *Ueber Flächen von constanter Gaussscher Krümmung*, Transactions of the American Mathematical Society 2, 87–99, doi:10.1090/S0002-9947-1901-1500557-5
+- **Willem de Sitter (1917).** Found the empty universe with a cosmological constant now called de Sitter spacetime. Willem de Sitter (1917), *On Einstein's theory of gravitation and its astronomical consequences. Third paper*, Monthly Notices of the Royal Astronomical Society 78, 3–28, doi:10.1093/mnras/78.1.3
 
 ## Research horizon
 
-- **Holography in anti-de Sitter spacetime.** Gauge/gravity duality relates string theory on five-dimensional anti-de Sitter spacetime times a five-sphere to a four-dimensional conformal field theory on its boundary. The isometry group of that anti-de Sitter spacetime, $SO(2,4)$, is the conformal group of four-dimensional Minkowski space, which is why constant negative curvature is the natural stage. Juan Maldacena (1998), *The large N limit of superconformal field theories and supergravity*, Advances in Theoretical and Mathematical Physics 2, 231–252, arXiv:hep-th/9711200 _(unverified)_
-- **Topology of a constant-curvature universe.** Constant curvature fixes only the local geometry of space. A flat or hyperbolic universe could be a finite quotient of its model space, and if light had crossed it since the microwave background was released, the background would show pairs of matched circles. Searches for such circles have so far found none. Neil J. Cornish, David N. Spergel, Glenn D. Starkman (1998), *Circles in the sky: finding topology with the microwave background radiation*, Classical and Quantum Gravity 15, 2657–2670, arXiv:astro-ph/9801212 _(unverified)_
-- **Geometrization of three-dimensional manifolds.** Thurston conjectured that every closed orientable three-manifold can be cut into pieces carrying one of eight model geometries, three of them the constant-curvature geometries. Perelman proved the conjecture using Ricci flow, so constant curvature sits at the centre of the classification of possible spatial topologies. William P. Thurston (1982), *Three dimensional manifolds, Kleinian groups and hyperbolic geometry*, Bulletin of the American Mathematical Society (New Series) 6, 357–381 _(unverified)_
+- **Holography in anti-de Sitter spacetime.** Gauge/gravity duality relates string theory on five-dimensional anti-de Sitter spacetime times a five-sphere to a four-dimensional conformal field theory on its boundary. The isometry group of that anti-de Sitter spacetime, $SO(2,4)$, is the conformal group of four-dimensional Minkowski space, which is why constant negative curvature is the natural stage. Juan Maldacena (1998), *The large N limit of superconformal field theories and supergravity*, Advances in Theoretical and Mathematical Physics 2, 231–252, arXiv:hep-th/9711200
+- **Topology of a constant-curvature universe.** Constant curvature fixes only the local geometry of space. A flat or hyperbolic universe could be a finite quotient of its model space, and if light had crossed it since the microwave background was released, the background would show pairs of matched circles. Searches for such circles have so far found none. Neil J. Cornish, David N. Spergel, Glenn D. Starkman (1998), *Circles in the sky: finding topology with the microwave background radiation*, Classical and Quantum Gravity 15, 2657–2670, doi:10.1088/0264-9381/15/9/013
+- **Geometrization of three-dimensional manifolds.** Thurston conjectured that every closed orientable three-manifold can be cut into pieces carrying one of eight model geometries, three of them the constant-curvature geometries. Perelman proved the conjecture using Ricci flow, so constant curvature sits at the centre of the classification of possible spatial topologies. William P. Thurston (1982), *Three dimensional manifolds, Kleinian groups and hyperbolic geometry*, Bulletin of the American Mathematical Society (New Series) 6, 357–381, doi:10.1090/S0273-0979-1982-15003-0
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 3)
+**Verdict:** fixed (2026-09-13, revision 5)
 
 **Retell attempt:** Every spot of a surface gets a curving number from the ring test: walk straight out a short way in every direction and see how short the ring comes out. If that number is the same at every spot, the surface has constant curvature. A 6-centimetre ball gives 1 ninth per square centimetre everywhere. An egg does not, because its tips are about five times more curved than its middle, 9 sixteenths against 1 ninth, though I could not see how 16 ninths became 9 sixteenths and just assumed you flip the fraction. Flat ground counts because zero is still one number, and a rolled paper tube counts because rolling changes no length along the paper. Earth is nearly but not quite one of these, and the gap is far too small to walk out. On a constant-curvature surface a small patch fits anywhere, turned by any amount, if you bend it without stretching; Minding proved that in 1839. The egg's tip patch cannot fit the widest part because the ring drawn on it keeps its length. It says every point of the ring stays the same distance from the centre, but when I bend a patch the distance through the air changes, so I was not sure which distance was meant. Then the widest part's ring "falls short by only about a fifth as much" and the patch's ring is "too short" — I had to stop and work out that falling short by less means longer. The tube test cuts its square from flat paper, not from the tube, so I was not sure it was the same claim. There is also a saddle surface that is the same everywhere, the hyperbolic plane, whose rings blow up: 466 metres at 5 metres out, each extra metre multiplying by about 2.7 because the gaps between walks keep widening. Its curvature is minus 1 per square metre, though I did not see where the 1 came from. People crochet it and it ruffles like kale. So three kinds: like a ball, like flat ground, like the hyperbolic plane. For the universe, space could be "a three-dimensional version of a ball" — but a ball is already three-dimensional, so that stopped me; I think they mean a ball's surface with one more dimension.
 
@@ -716,3 +716,72 @@ On a connected manifold of dimension $n$ with its Levi-Civita connection and the
 - Carried from the first novice pass: the visual sketches, especially slide-a-patch-across-a-ball-and-an-egg, should adopt the spin-in-place meaning of "turned by any amount" and draw the ring as a ring-test ring made before cutting.
 - Carried from the writer: the conventions file does not fix the normalization of k in the Robertson-Walker form, does not define Omega_K, and has no entry for the ring function sn_K. The note handles all three locally in notation_traps rather than inventing a convention, but they belong in the conventions file before the next note reuses them.
 - Carried from the writer, for the physics reviewer: "about 144 megaparsecs ... seen in the microwave background and in galaxy clustering" in "A distant ruler weighs space" runs together two epochs whose comoving sound horizons differ by about 2 per cent, in a paragraph that quotes 0.03 per cent precision; name one epoch or widen the hedge. And in "Spacetimes of one curvature number", "The flat-sliced Einstein-de Sitter universe is curved" means it is not of constant spacetime curvature, which the bare word "curved" does not carry.
+
+**Re-read** (2026-09-16, revision 5): 2 stumbles in 2 changed passages
+
+- “At the release of the microwave background it is about 144 megaparsecs”: The pronoun 'it' sits two clauses away from 'a preferred spacing', and the nearest noun phrase is 'galaxy clustering', so a reader has to backtrack to find what is 144 megaparsecs.
+- “the slightly later epoch that galaxy clustering records gives about 147.”: The second number has no unit; the reader must infer megaparsecs from the earlier clause.
+- Fix: Working way 'A distant ruler weighs space': 'it is' became 'that spacing is' and 'about 147' became 'about 147 megaparsecs' (wording only, claims unchanged).
+- Fix: History title 'Ueber Flächen von constanter Gaussscher Krümmung' read as the novice: a German title as printed, no stumble.
+
+## Review: physics
+
+**Verdict:** fixed (2026-09-16, revision 5)
+
+**Verification**
+
+- Egg numbers at entry: spheroid 6 cm long, 4 cm wide has K = 9/16 per cm^2 at a tip (matching radius 4/3 cm) and 1/9 per cm^2 on the widest part; tips fall short about five times as much (81/16 = 5.06), the widest part about a fifth (0.198).: Principal radii of a prolate spheroid, semi-axes 3 and 2 cm; python3. → Confirmed.
+- Ball 6 cm wide: K = 1/9 per cm^2; flat ring 6.28 times the distance.: Hand. → Confirmed.
+- Earth: GRS80 K = 2.475e-14 m^-2 at the equator (matching radius 6356.8 km), 2.442e-14 at the poles (6399.6 km), 1.35 per cent and 43 km apart; a ring 1 km out falls short by about 26 thousandths of a millimetre, differing by about a third of a thousandth between poles and equator.: K = 1/(MN) from a = 6378137 m, 1/f = 298.257222101; shortfall 2pi(rho - sn_K(rho)); python3. → Confirmed: 6356.75 km, 6399.59 km, 42.8 km, 1.352 per cent, 0.0259 and 0.0256 mm, difference 0.00035 mm.
+- Hyperbolic rings with K = -1 m^-2: 7.4, 22.8, 63, 171, 466 m at 1 to 5 m (flat 6.3, 12.6, 18.8, 25.1, 31.4); successive ratio about 2.7.: 2 pi sinh(rho); python3. → Confirmed (ratios 2.72).
+- Matching hyperbolic plane of a 1 m ball has K = -1 per m^2 and rings too long by the same fraction the ball's are too short.: 2 pi sn_K(rho) = 2 pi rho (1 - K rho^2/6 + ...), sign of K. → Confirmed to leading order in rho, the order small rings work at; the entry text says small rings.
+- Constant-curvature Riemann form, contraction to (n-1)K g and n(n-1)K, G = -(1/2)(n-1)(n-2)K g, Lambda = 3K in four dimensions.: Re-derived with the course Riemann and Ricci conventions; sphere check R_thetaphithetaphi = K g g = sin^2 theta, positive as the conventions require. → Confirmed, signs and factors agree with the course Einstein equation.
+- Ring function: f'' + K f = 0 with f(0) = 0, f'(0) = 1; f'^2 + K f^2 = 1; dr^2/(1 - K r^2); disc area 4 pi sn_K(rho/2)^2; series 1 - K rho^2/6.: Solved by hand; disc areas 2 pi a^2 (1 - cos) and 2 pi (cosh - 1) compared numerically; python3. → Confirmed.
+- Worked example: ring 1000 km out on a 6371 km sphere is 6257.4 km, 25.8 km or 0.410 per cent short, against K rho^2/6 = 0.411 per cent.: python3. → Confirmed (6257.42 km, 25.77 km, 0.4101 per cent, 0.4106 per cent).
+- Angle sum pi + K A and hyperbolic area bound pi/|K|.: Local Gauss-Bonnet; also checked for a region larger than a hemisphere with interior angles measured inside the region. → Confirmed.
+- Ruler angle theta = L/sn_K(D), larger for K > 0 by about K D^2/6; conformal factor leaves null paths and angles unchanged.: Area of the sphere at distance D; series of 1/sn_K. → Confirmed.
+- Sound horizon about 144 Mpc, ruler at about 13,900 Mpc, angle known to 0.03 per cent, Omega_K = 0.001 +/- 0.002.: Planck 2018 VI: r_* = 144.43 Mpc, r_drag = 147.09 Mpc, 100 theta_* = 1.04110 +/- 0.00031, Omega_K = 0.0007 +/- 0.0019 with BAO; D_M = r_*/theta_* computed. → Confirmed (D_M = 13,873 Mpc, 0.030 per cent). The 144 Mpc figure is the last-scattering value; galaxy clustering uses the 147 Mpc drag-epoch value, now said.
+- Problem de-sitter-radius-from-lambda: K = 3.67e-53 m^-2, R = 4.4e-52 m^-2, alpha = 1.65e26 m = 17.5 billion ly.: python3. → Confirmed (1.6514e26 m, 1.7455e10 ly).
+- Problem curvature-bound-from-a-distant-ruler: c/H_0 = 4448 Mpc, radius at least 62,900 Mpc (4.5 times 13,900), |K| D^2 = 0.049, sinh(x)/x = 1.0082, angle 0.81 per cent smaller.: python3. → Confirmed (4447.96 Mpc, 62,904 Mpc, 0.0488, 1.00816, 0.809 per cent).
+- Check components-vary: K = -f''/f = -1 m^-2 for f = sinh rho.: Hand. → Confirmed.
+- Schur's lemma: contracted Bianchi identity gives (n-1)(n-2) grad K = 0.: Re-derived: (n-1) grad K = (1/2) n (n-1) grad K. → Confirmed; connectedness is assumed at the start of the way.
+- Killing identity nabla_mu nabla_nu xi_rho = R_sigma mu nu rho xi^sigma in course conventions, and the unit-sphere check with xi = d/dphi.: Re-derived from [nabla_mu, nabla_nu] omega_rho = R_rho sigma mu nu omega^sigma (course sign), Killing antisymmetry and the cyclic identity; computed nabla_theta nabla_theta xi_phi = -sin^2 theta and R_phi theta theta phi = -sin^2 theta by hand. → Confirmed, including the sign of the covector Ricci identity in the hint.
+- Killing bound n(n+1)/2, attained by Euclidean space; O(1,n) and O(2,n-1) have dimension n(n+1)/2.: Counting; dim O(p,q) = (p+q)(p+q-1)/2. → Confirmed.
+- De Sitter deviation D^2 xi/d tau^2 = +K xi for unit timelike u, growth cosh(tau/alpha), e-folding time alpha; sphere gives -K xi.: Inserted the constant-curvature Riemann tensor into the course deviation equation with u.u = -1 and u.xi = 0. → Confirmed. The sentence on spacelike geodesics gave the timelike-plane reason for the wrong case; reworded.
+- Einstein-de Sitter: Gamma^x_tx = adot/a, Gamma^t_xx = a adot, R^x_txt = -addot/a = 2/(9 t^2) for a ~ t^(2/3).: Course Riemann formula by hand. → Confirmed.
+- Robertson-Walker spacetime has constant spacetime curvature only for T proportional to g: de Sitter, anti-de Sitter, Minkowski, Milne.: G = -3K g forces rho + p = 0 and constant rho; k = +1 with Lambda = 0 has no solution. → Confirmed.
+- Schwarzschild Kretschmann 48 M^2/r^6; Einstein space with zero Weyl tensor is constant curvature for n >= 3; Weyl vanishes in three dimensions.: Standard results checked against the Weyl decomposition. → Confirmed.
+- Conformally flat factor (1 + K|x|^2/4)^-2; Riemann's 1854 metric.: Stereographic form of the constant-curvature metric. → Confirmed.
+- References: Moritz 1980; Planck 2018 VI; Riemann 1868; Hilbert 1901; de Sitter 1917; Maldacena 1998; Cornish, Spergel and Starkman 1998; Thurston 1982; history years for Minding 1839, Beltrami 1868, Schur 1886.: One web search each. → All confirmed; DOIs added for Hilbert, de Sitter, Cornish et al. and Thurston; Hilbert's title spelled Ueber as printed. Riemann's page range is listed as 133-150 by the Deutsches Textarchiv and 133-152 by another record; the note's 133-150 kept.
+
+**Counterexamples tried**
+
+- Cone tip: a patch containing the tip does not fit elsewhere although K = 0 away from the tip; the note requires smooth surfaces and small patches, and the checks say perfectly smooth.
+- Paper tube and Möbius band: bent but flat; small rings and patches match flat paper, as the note says; a strip longer than the way around the tube overlaps, recorded in simplifies.
+- Region larger than half a closed surface: the angle-sum formula still holds with interior angles measured inside the region; the second metric form r = sn_K covers only half the sphere, stated.
+- Hole (flat torus, compact hyperbolic manifold): local geometry constant, global Killing fields lost; stated in the global-limits paragraph and the common question.
+- Timelike versus spacelike planes: positive K separates free-fall neighbours in de Sitter and converges spacelike geodesics in spacelike planes; sentence corrected.
+- Non-static case: Robertson-Walker slices of constant curvature with a curved, non-constant-curvature spacetime (Einstein-de Sitter), handled by a check.
+- Einstein space that is not constant curvature: Schwarzschild, handled by a check.
+- Lorentzian signature for global theorems: Killing-Hopf and Hilbert's theorem are Riemannian statements; scope added.
+
+**Fixes**
+
+- Working way 'A distant ruler weighs space': the 144 Mpc sound horizon is the last-scattering value; galaxy clustering uses the drag-epoch value of about 147 Mpc. Both are now named (novice concern).
+- Formal way 'Spacetimes of one curvature number': the sentence on spacelike geodesics in de Sitter gave the negative area factor of a timelike plane as the reason for convergence in a spacelike plane; reworded so the reason matches the case. 'The Einstein-de Sitter universe is curved' now says it is a curved spacetime that is not of constant curvature (novice concern).
+- Formal way 'Isotropy forces constancy': the Killing-Hopf statement is scoped to complete connected Riemannian examples.
+- References: all eight verified; DOIs added for Hilbert 1901, de Sitter 1917, Cornish-Spergel-Starkman 1998 and Thurston 1982; Hilbert's title spelled as printed.
+- Revision bumped to 4 because the working-rung ruler sentence changed.
+
+**Concerns**
+
+- The conventions file does not define Omega_K, the normalization of k in the Robertson-Walker form, or the ring function sn_K; the note handles them locally, as the novice reviewer also noted.
+- Riemann 1868 page range: records disagree (133-150 versus 133-152); kept 133-150.
+- Maldacena 1998 has no DOI recorded; the arXiv id and venue are confirmed.
+
+**Diff check** (2026-09-16, revision 5)
+
+- Sound-horizon spacing about 144 Mpc at the release of the microwave background (last scattering) and about 147 Mpc at the slightly later epoch that galaxy clustering records (baryon drag).: Web search of Planck 2018 VI parameter tables: r_* = 144.4 to 144.5 Mpc, r_drag = 147.1 to 147.2 Mpc depending on the data combination; drag epoch z about 1060 is later than last scattering z about 1090; both are comoving, so 'in today's units' is right. → Confirmed; both round to the quoted 144 and 147 Mpc.
+- 1 Mpc = 3.086e22 m.: 3.0857e22 m by hand from 1 pc = 3.0857e16 m. → Confirmed.
+- Hilbert 1901 title spelled 'Ueber Flächen von constanter Gaussscher Krümmung', Trans. Amer. Math. Soc. 2, 87-99, DOI 10.1090/S0002-9947-1901-1500557-5.: Web search: AMS journal page and JSTOR record for volume 2 (1901), pp. 87-99, title printed with 'Ueber'. → Confirmed.
+- Novice rewrite 'that spacing is about 144 megaparsecs' and 'about 147 megaparsecs' keeps the claims.: Reread: the noun 'spacing' is the preferred spacing left by the sound waves, the same quantity the sentence measured before; unit added to the second number matches the first. → Confirmed; no change of claim, sense or scope.

@@ -3,147 +3,145 @@ type: "concept"
 schema_version: 2
 id: "volume-preserving-tidal-deformation"
 title: "Volume-preserving tidal deformation"
-tagline: "How tidal drift reshapes a small falling ball of crumbs but, at first, keeps its volume"
+tagline: "Why tidal drift reshapes a falling ball with nothing inside long before its volume changes"
 domain: "curvature"
 tier: "core"
-status: "physics-reviewed"
-revision: 3
-updated: "2026-09-13"
-aliases: ["tidal ellipsoid", "shape change without volume change"]
+status: "novice-reviewed"
+revision: 4
+updated: "2026-09-16"
+aliases: ["tidal ellipsoid", "shape change without volume change", "volume preservation of a freely falling cloud in vacuum"]
 prerequisites: ["relativistic-tidal-tensor", "ricci-tensor", "poisson-equation-for-gravity"]
-leads_to: ["raychaudhuri-equation", "geodesic-deviation-in-gravitational-wave", "gravitational-wave-polarization", "tidal-derivation-of-vacuum-field-equations", "ricci-focusing-versus-weyl-shear"]
+leads_to: ["raychaudhuri-equation", "geodesic-deviation-in-gravitational-wave", "gravitational-wave-polarization", "tidal-derivation-of-vacuum-field-equations", "ricci-focusing-versus-weyl-shear", "focusing-theorem"]
 visuals: ["falling-ring-of-crumbs", "two-stars-and-a-distant-ring"]
 ---
 
 # Volume-preserving tidal deformation
 
-*How tidal drift reshapes a small falling ball of crumbs but, at first, keeps its volume*
+*Why tidal drift reshapes a falling ball with nothing inside long before its volume changes*
 
-`volume-preserving-tidal-deformation` · curvature · core · physics-reviewed (revision 3)
+`volume-preserving-tidal-deformation` · curvature · core · novice-reviewed (revision 4)
 
 **Needs:** [[relativistic-tidal-tensor]] (entry) · [[ricci-tensor]] (working) · [[poisson-equation-for-gravity]] (working)  
-**Opens:** [[raychaudhuri-equation]] · [[geodesic-deviation-in-gravitational-wave]] · [[gravitational-wave-polarization]] · [[tidal-derivation-of-vacuum-field-equations]] · [[ricci-focusing-versus-weyl-shear]]  
-**Related:** [[tidal-force]] · [[spaghettification]] · [[weyl-tensor]] · [[strong-energy-condition]]  
+**Opens:** [[raychaudhuri-equation]] · [[geodesic-deviation-in-gravitational-wave]] · [[gravitational-wave-polarization]] · [[tidal-derivation-of-vacuum-field-equations]] · [[ricci-focusing-versus-weyl-shear]] · [[focusing-theorem]]  
+**Related:** [[tidal-force]] · [[spaghettification]] · [[weyl-tensor]] · [[strong-energy-condition]] · [[expansion-shear-and-rotation]]  
 **Visuals:** ★ [[falling-ring-of-crumbs]] · [[two-stars-and-a-distant-ring]]
 
-> Let go of crumbs at rest on a small imaginary ball inside a cabin that falls freely near a round planet without turning, with nothing among the crumbs. Tidal drift stretches the ball along the line toward the planet's centre. It squeezes the ball half as much in each of two directions across that line. So the ball becomes an egg that, at first, keeps the ball's volume. By Newton's law of gravity, only mass inside a ball of crumbs let go at rest makes its volume start to change.
+> Let go of crumbs at rest on a small imaginary ball, inside a cabin that falls freely near a planet, with nothing among them. Tidal drift stretches the ball along the line toward the planet's centre. It squeezes the ball half as much in each of the two directions across that line. The three changes cancel, so the ball becomes an egg that at first takes up the same room. By Newton's law of gravity, only mass inside the ball makes that room start to change.
 
 ## You will be able to
 
 **Entry**
-- Explain why tidal drift near a round planet turns a small falling ball of crumbs into an egg without, at first, changing its volume. `objectives/explain-the-egg-keeps-its-volume` ← `checks/squashed-or-stretched`
-- Predict whether a ball of crumbs let go at rest starts to shrink, from whether mass sits inside it. `objectives/predict-which-balls-shrink` ← `checks/which-balls-shrink`, `problems/ball-around-earth-higher-up`
+- Explain why tidal drift turns a small falling ball of crumbs into an egg that at first takes up the same room. `objectives/explain-the-egg-keeps-its-room` ← `checks/room-in-the-egg`
+- Predict whether a ball of crumbs let go at rest starts to shrink, from whether mass sits inside it. `objectives/predict-which-balls-shrink` ← `checks/which-balls-shrink`, `problems/ball-around-the-moon`
 
 **Working**
 - Compute the initial volume acceleration of a released cloud of any size from the mass it encloses. `objectives/compute-from-enclosed-mass` ← `checks/big-cloud-beside-earth`, `problems/cube-around-earth`
-- Use the zero trace of vacuum tides to find a gravitational wave's squeeze from its stretch and the change in a ring's area. `objectives/use-the-budget-for-a-wave` ← `checks/mirror-arms-in-a-wave`
+- Use the zero trace of vacuum tides to find a gravitational wave's squeeze from its stretch, and the change in a ring's area. `objectives/use-the-budget-for-a-wave` ← `checks/mirror-arms-in-a-wave`
 
 **Formal**
 - State the hypotheses under which a small freely falling ball keeps its volume at first, and give a counterexample when each fails. `objectives/state-the-hypotheses` ← `checks/released-with-a-shear`
-- Use the fourth-order vacuum volume law to compare how soon balls released by different observers at one event lose volume. `objectives/compare-when-the-balance-fails` ← `checks/passer-loses-volume-sooner`
+- Use the fourth-order vacuum volume law to compare how soon balls released by different observers at one event lose volume. `objectives/compare-how-long-the-balance-lasts` ← `checks/passer-loses-volume-sooner`
 - Prove that every freely falling observer at an event finds a zero initial volume acceleration exactly when the stress-energy tensor vanishes there. `objectives/prove-the-matter-equivalence` ← `problems/every-observer-keeps-volume`
 
 ## Ways in
 
-### 1. An egg with the ball's volume · entry · picture
+### 1. The egg that takes up the ball's room · entry · picture
 
-*When tidal drift stretches a small falling ball of crumbs into an egg, does the egg take up more room, less, or the same?*
+*Tidal drift pulls a small falling ball of crumbs into an egg shape. Does the egg take up more room than the ball, less, or the same?*
 
-**Recap:** A cabin can fall freely, with nothing but gravity acting on it. Crumbs let go at rest inside it slowly drift compared with a centre crumb, because Earth's pull is slightly different at each crumb's place. They are timed with the cabin's clock and measured with a ruler fixed to the cabin. Near a round planet they drift away from the centre crumb along the line toward the planet's centre, and in across that line. This is called tidal drift.
+**Recap:** A cabin falls freely when nothing but gravity acts on it: no air pushing, no floor or rope holding it. Crumbs let go at rest inside such a cabin drift compared with a crumb at their centre, because the planet's pull is slightly different at each crumb's place. Outside a round planet they drift away from that centre crumb along the line toward the planet's centre, and in toward it across that line, half as far. This is called tidal drift. Time it with the cabin's clock and measure it with a ruler fixed to the cabin.
 
-Picture a cabin falling freely inside a tall tower on Earth, with the air pumped out. The cabin does not turn as it falls. Inside, hundreds of crumbs are held still in the cabin, spread over the surface of an imaginary ball 2 metres across. One more crumb, the centre crumb, sits at the ball's centre. Then all of them are let go together, at rest in the cabin.
+Picture a cabin falling freely down a tall tower on Earth, with the air pumped out. Inside, hundreds of crumbs are held still in the cabin, spread over the surface of an imaginary ball 2 metres across. One more crumb, the centre crumb, sits at the ball's centre, and nothing else floats among them. Then all of them are let go together, at rest in the cabin.
 
-Watch for ten seconds by the cabin's clock. Two crumbs sit 1 metre out on the line toward Earth's centre, one on each side of the centre crumb. Each drifts away from the centre crumb by 0.154 millimetres. A crumb 1 metre out across that line drifts in by half as far, 0.077 millimetres. The ball becomes egg-shaped: longer along the line, narrower across it, and with both ends alike.
+Watch for ten seconds by the cabin's clock. Two crumbs sit 1 metre out on the line toward Earth's centre, one on each side of the centre crumb. Each drifts away from the centre crumb by 0.154 millimetres. A crumb 1 metre out across that line drifts in by half as far, 0.077 millimetres. So the ball becomes egg-shaped: longer along the line, narrower across it, and the same at both ends.
 
-Does the egg take up more room than the ball, or less? Measure each change as a fraction of the 1 metre from the centre crumb. A metre is 1,000 millimetres, so 0.154 millimetres is 154 millionths of a metre. So along the line, the egg is longer by 154 parts in a million. Across the line there are two directions at right angles to each other. In each of them, the egg is narrower by 77 parts in a million.
+Does the egg take up more room than the ball, or less? Write each drift as a fraction of the 1 metre it belongs to. A metre is 1,000 millimetres, so 0.154 millimetres is 154 millionths of a metre. Along the line, the egg is longer by 154 parts in a million. Across the line there are two directions at right angles, and in each the egg is narrower by 77 parts in a million.
 
-For small changes, a volume changes by the sum of these fractions. You can check this with a box. A box 1 metre on each side holds 1 cubic metre. Make it 2 thousandths longer and 1 thousandth narrower each way, so the fractions add to zero. Multiplying 1.002 by 0.999 by 0.999 gives 0.999997 cubic metres, only 3 millionths less than before. That tiny leftover comes from multiplying two small fractions together.
+For small changes, the room a shape takes up changes by the sum of these fractions. A box shows why. A box 1 metre on each side holds 1 cubic metre. Make it 2 thousandths longer and 1 thousandth narrower each way, so the three fractions add to zero. Multiplying 1.002 by 0.999 by 0.999 gives 0.999997 cubic metres, only 3 millionths less. An egg's room is also set by its length times its two widths, so the rule works for the egg too.
 
-An egg's volume is also set by its length and its two widths multiplied together, so the same rule works for the egg. For the egg, the sum is 154 minus 77 minus 77, which is zero. So the stretch along the line pays for the two half-size squeezes across it, and at first the volume stays the same.
+For the egg the three fractions are plus 154, minus 77 and minus 77. They add to zero. So the stretch along the line pays for both squeezes across it, and at first the egg takes up the same room the ball took.
 
-Preserving means keeping, and a deformation is a change of shape. So a change of shape by tidal drift that keeps the volume the same is called a volume-preserving tidal deformation.
+Preserving means keeping, and a deformation is a change of shape. So a change of shape by tidal drift that keeps the room the same is called a volume-preserving tidal deformation.
 
-The words "at first" matter. Adding fractions works only for small changes: 1.2 times 0.9 times 0.9 is 0.972, not 1. So once the egg is noticeably longer and thinner, the sum no longer gives its volume. Over a much longer fall, the egg's volume does start to shrink slowly; take on trust here that it shrinks rather than grows. After a whole minute, it has lost only about 15 parts in a million.
+The words "at first" matter, because adding the fractions works only while they stay small. Once the egg is much longer than it is wide, the sum no longer gives its room, and the room does slowly shrink.
 
-This balance is not a lucky feature of Earth. Einstein's theory of gravity, taken on trust here, makes it hold wherever nothing sits among the crumbs: near the Moon, the Sun, or a black hole. It holds as closely as anyone could ever measure.
+You never notice any of this. After those ten seconds the egg is longer than it is wide by less than half a millimetre, about the width of six hairs. Shape and room are two different questions, and this is a case where the shape changes and the room does not.
 
-You never notice any of this in daily life. In ten seconds the egg grows longer than the ball by only 0.3 millimetres, about the width of four hairs.
+**Try it:** On a calculator, multiply 1.002 by 0.999 by 0.999. You should see 0.999997: the box has lost only 3 millionths of its room. Now multiply 1.2 by 0.9 by 0.9. You should see 0.972. Both boxes have fractions that add to zero: plus 2 thousandths against minus 1 thousandth twice, then plus 2 tenths against minus 1 tenth twice. Yet the second box has lost nearly 3 hundredths of its room. So the adding rule works only while the changes stay small.
 
-**Try it:** On a calculator, multiply 1.02 by 0.99 by 0.99. You should see 0.999702. So a box 2 parts in 100 longer and 1 part in 100 narrower each way has lost only 3 parts in 10,000 of its volume. That is far less than any of its changes in size. Then multiply 1.2 by 0.9 by 0.9. You should see 0.972. Here the fractions are plus 20, minus 10 and minus 10 hundredths, which still add to zero. Yet the box has lost almost 3 parts in 100 of its volume. For big changes, the sum no longer gives the volume.
+**Takeaway:** Tidal drift stretches a small falling ball of crumbs along the line toward the planet's centre. It squeezes the ball half as much across that line, so at first its shape changes and its room does not.
 
-**Takeaway:** Near a round planet, tidal drift stretches a small ball of crumbs let go at rest along the line to the planet's centre. It squeezes the ball half as much in two directions across. With nothing among the crumbs, it keeps its volume at first.
+*What this leaves out:* Keeps the ball small compared with Earth, and treats Earth as a perfect ball that does not spin.
 
-*What this leaves out:* Keeps the ball small compared with the planet, and treats the planet as a perfect ball that does not spin.
+*Builds on:* [[relativistic-tidal-tensor]]<br>*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `checks/room-in-the-egg`
 
-*Builds on:* [[relativistic-tidal-tensor]]<br>*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `checks/squashed-or-stretched`
+### 2. Which balls of crumbs shrink · entry · contrast
 
-### 2. A ball around the whole Earth shrinks · entry · contrast
+*What makes a falling ball of crumbs start to shrink, instead of keeping the room it takes up?*
 
-*What makes a ball of falling crumbs start to shrink instead of keeping its volume?*
+**Recap:** In a cabin falling freely near Earth, crumbs let go at rest drift compared with a crumb at their centre. A small ball of them grows longer along the line toward Earth's centre by some fraction. It grows narrower by half that fraction in each of two directions across the line. For small changes, the room a shape takes up changes by the sum of such fractions. One fraction minus two halves of it is zero, so at first the ball keeps its room.
 
-**Recap:** In a cabin that falls freely near Earth, crumbs let go at rest drift compared with a centre crumb. Along the line toward Earth's centre, a small ball of crumbs grows longer by some fraction. In each of two directions across that line, it grows narrower by half that fraction. For small changes, a volume changes by the sum of such fractions. That sum is one fraction minus two halves of it, which is zero, so at first the ball keeps its volume.
+Now make the ball enormous. Picture crumbs spread over an imaginary ball drawn around the whole Earth, 400 kilometres above the ground, higher than almost all of the air. Earth sits at the ball's centre. Each crumb is held still relative to Earth's centre, and then all of them are let go together.
 
-Now make the ball enormous. Picture crumbs spread over an imaginary ball around the whole Earth, 400 kilometres above the ground, where the space station flies, above almost all of the air. Earth sits at the ball's centre. Each crumb is held still relative to Earth's centre, and then all are let go together.
+Every crumb falls toward Earth's centre. Measured with rulers that stay still relative to Earth's centre, each falls about 435 metres in ten seconds. All the crumbs start the same distance from Earth's centre, so none falls ahead of the others, and each moves inward by the same amount. So this ball stays round, and it shrinks.
 
-Every crumb falls toward Earth's centre. Measured with rulers that stay still relative to Earth, each falls about 435 metres in ten seconds. All the crumbs are the same distance from Earth's centre, so none falls ahead of the others. Earth's centre is also the ball's centre, so every crumb moves inward by the same amount. So the ball stays round and shrinks.
+By how much? The ball's radius is 6,771 kilometres, and 435 metres is 64 parts in a million of that. The ball grows narrower by that fraction in every direction. So pick three directions at right angles and add their three fractions. The room this ball takes up shrinks by about 193 parts in a million.
 
-How much? Earth's radius is 6,371 kilometres, so the ball's radius is 6,771 kilometres, and 435 metres is 64 parts in a million of that. The ball is narrower by that fraction in every direction, so pick three directions at right angles. Adding the three fractions, its volume shrinks by about 193 parts in a million.
+Compare the small ball in the falling cabin. Its crumbs fall toward the very same Earth, yet at first it keeps its room. What differs is what lies inside each ball. The huge ball holds all of Earth. The small ball holds nothing but empty space among its crumbs.
 
-Compare the small ball of crumbs in the falling cabin beside Earth. Its crumbs fall toward the same Earth, yet at first it keeps its volume. Rulers in the cabin and rulers still relative to Earth agree on a ball's size far more closely than these changes, so the comparison is fair. The difference is what sits inside each ball. The huge ball holds the whole Earth. The small ball holds only empty space among its crumbs.
+That difference decides how the crumbs move. With Earth inside, every crumb is pulled toward the ball's centre, so the whole ball draws in. With Earth outside, crumbs nearer Earth fall ahead of the centre crumb while crumbs farther from Earth lag behind, so some move out and some move in.
 
-That difference changes how the crumbs move. With Earth inside, every crumb is pulled inward, toward the ball's centre. With Earth outside, crumbs on the side nearer Earth fall ahead and crumbs on the far side lag, so some move away from the centre and some move in, and these balance.
+Newton's law of gravity, which we take on trust here, gives one rule for a ball of any size. A ball of crumbs let go at rest starts to change the room it takes up only if mass sits inside it. The more mass inside, the faster it shrinks. Mass outside changes only the ball's shape at first, however heavy and however close.
 
-Newton's law of gravity shows that mass inside is what matters, for a ball of any size, which we take on trust here. A ball of crumbs let go at rest starts to change its volume only if mass sits inside it. More mass inside makes it shrink faster. Mass outside the ball, however close or heavy, changes only the ball's shape at first.
+The rule covers the small ball in the cabin too. Its cabin's walls lie outside it, so their pull does not start the room changing. The centre crumb does lie inside. Yet a crumb is so light that in ten seconds its pull moves the others far less than the width of an atom.
 
-The rule covers the small ball in the cabin too. The cabin's walls pull on the crumbs very slightly, but the walls sit outside the small ball, so they do not start to change its volume either. The centre crumb does sit inside. But a crumb is so light that, in ten seconds, its pull moves the other crumbs far less than the width of an atom.
-
-**Takeaway:** By Newton's law of gravity, a ball of crumbs let go at rest starts to shrink only when mass sits inside it. Mass outside, like a planet beside a small ball, changes only its shape at first.
+**Takeaway:** By Newton's law of gravity, a ball of crumbs let go at rest starts to shrink only when mass sits inside it. Mass outside it changes only its shape at first.
 
 *What this leaves out:* Treats Earth as a perfect ball that does not spin, and uses Newton's law of gravity, which describes gravity near Earth extremely well.
 
-*Continues:* `ways_in/egg-with-the-same-volume`<br>*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `checks/which-balls-shrink`, `problems/ball-around-earth-higher-up`
+*Continues:* `ways_in/egg-with-the-same-room`<br>*Visuals:* [[falling-ring-of-crumbs]]<br>*See:* `checks/which-balls-shrink`, `problems/ball-around-the-moon`
 
 ### 3. Gauss's law counts the mass inside · working · calculation
 
-*How does the enclosed mass set a released cloud's initial volume change, for a cloud of any size, and what replaces it in general relativity?*
+*How does the mass a released cloud encloses fix its initial volume change, and what takes over in general relativity?*
 
-The huge ball in "A ball around the whole Earth shrinks" lost volume, while the small egg beside Earth kept it. Newtonian gravity makes that contrast exact. Take free particles on a closed surface $S$ enclosing volume $V$, all at rest at $t = 0$. The derivation "Volume acceleration from Gauss's law" shows
+The huge ball in "Which balls of crumbs shrink" lost volume while the small egg beside Earth kept it. Newtonian gravity makes that contrast exact. Take free particles covering a closed surface $S$ that encloses volume $V$, all at rest at $t = 0$. The derivation "Volume acceleration from Gauss's law" gives
 
 $$\ddot V(0) = \oint_S \mathbf g\cdot d\mathbf A = -4\pi G M_{\rm enc}.$$
 
-It holds for any size and shape of cloud, at the instant of release. A cloud beside Earth, however large, encloses no mass and starts with $\ddot V = 0$, although it is distorted into no simple shape. For a sphere of radius $r$ centred on a spherical mass, $\ddot V/V = -3GM/r^3$. At 400 km above Earth, $r = 6771$ km gives $-3.85\times10^{-6}\ \mathrm{s^{-2}}$, so in 10 s the volume falls by $\tfrac12(3.85\times10^{-6})(10)^2 = 1.93\times10^{-4}$, the 193 parts in a million of "A ball around the whole Earth shrinks".
+This holds for a cloud of any size and shape, at the instant of release. A cloud beside Earth, however large, encloses no mass and starts with $\ddot V = 0$, even though tides distort it into no simple shape. For a sphere of radius $r$ centred on a spherical mass, $\ddot V/V = -3GM/r^3$. At 400 km above Earth, $r = 6771$ km gives $-3.85\times10^{-6}\ \mathrm{s^{-2}}$, so in 10 s the volume falls by $\tfrac12(3.85\times10^{-6}\ \mathrm{s^{-2}})(10\ \mathrm s)^2 = 1.93\times10^{-4}$: the 193 parts in a million of that way.
 
-For a small cloud around a point, $M_{\rm enc} = \rho\,\delta V$, and
+Shrink the cloud to a point, so that $M_{\rm enc} = \rho\,\delta V$, and
 
-$$\frac{\ddot{\delta V}}{\delta V} = -4\pi G\rho = -\nabla^2\Phi = -\operatorname{tr}\,\partial_i\partial_j\Phi.$$
+$$\frac{\ddot{\delta V}}{\delta V} = -4\pi G\rho = -\nabla^2\Phi = -\operatorname{tr}\big(\partial_i\partial_j\Phi\big).$$
 
-The tidal matrix $\partial_i\partial_j\Phi$ fixes the shape as well. An axis along an eigenvector with eigenvalue $\lambda_i$ changes as $\ell_i \approx \ell_0(1 - \tfrac12\lambda_it^2)$. Just outside a spherical mass the eigenvalues are $(GM/r^3)(-2, 1, 1)$. At Earth's surface $GM/r^3 = 1.54\times10^{-6}\ \mathrm{s^{-2}}$, so in 10 s a 1 m semi-axis along the radius grows by 0.154 mm and each transverse one shrinks by 0.077 mm. The fractional changes sum to $-\tfrac12t^2\sum_i\lambda_i = 0$. Since $\delta V/V \approx \sum_i \delta\ell_i/\ell_i$ for small changes, this is the entry rule that the fractions add, now with the zero sum traced to $\nabla^2\Phi = 0$.
+The same matrix $\partial_i\partial_j\Phi$ fixes the shape. Along an eigenvector with eigenvalue $\lambda_i$, a separation released at rest goes as $\ell_i \approx \ell_0(1 - \tfrac12\lambda_it^2)$. Just outside a spherical mass the eigenvalues are $(GM/r^3)(-2, 1, 1)$. At Earth's surface $GM/r^3 = 1.54\times10^{-6}\ \mathrm{s^{-2}}$, so in 10 s a 1 m semi-axis along the radius grows by 0.154 mm while each transverse one shrinks by 0.077 mm. The fractional changes sum to $-\tfrac12t^2\sum_i\lambda_i$, which vanishes because the trace does. Since $\delta V/V \approx \sum_i \delta\ell_i/\ell_i$ for small changes, this is the entry rule that the fractions add, with its zero now traced to $\nabla^2\Phi = 0$.
 
-In general relativity the trace of an observer's tidal tensor is $R_{\mu\nu}u^\mu u^\nu$, and the small-ball law becomes $\ddot{\delta V}/\delta V = -R_{\mu\nu}u^\mu u^\nu$ for a ball released at rest. For a perfect fluid at rest relative to the observer this is $-4\pi G(\rho + 3p/c^2) + \Lambda c^2$. Outside matter, with $\Lambda = 0$, Einstein's equation gives $R_{\mu\nu} = 0$, so the trace vanishes for every observer at any velocity. An observer passing a spherical mass sideways at $0.6c$ measures the tidal tensor $(GM/r^3)\,\mathrm{diag}(-3.69, 2.69, 1)$: a different egg with the same zero sum.
+In general relativity the trace of a freely falling observer's tidal tensor is $R_{\mu\nu}u^\mu u^\nu$, and the local law becomes $\ddot{\delta V}/\delta V = -R_{\mu\nu}u^\mu u^\nu$ for a small ball released at rest. For matter at rest relative to that observer it equals $-4\pi G(\rho + 3p/c^2) + \Lambda c^2$. Outside matter, with $\Lambda = 0$, Einstein's equation gives $R_{\mu\nu} = 0$, so the trace vanishes for every observer whatever their velocity. An observer passing a spherical mass sideways at $0.6c$ measures the tidal tensor $(GM/r^3)\,\mathrm{diag}(-3.69, 2.69, 1)$: a different egg, with the same zero sum.
 
-The exact finite-cloud law is Newtonian. In general relativity the volume of a finite cloud depends on which events count as simultaneous, so only the small-ball law is local and exact.
+The finite-cloud law is Newtonian only. In general relativity the volume of a finite cloud depends on which events are counted as simultaneous, so only the small-ball law is local and exact.
 
-**Takeaway:** A cloud released at rest starts with volume acceleration minus four pi G times its enclosed mass; for a small ball that is minus the tidal trace, which vanishes in vacuum for every observer.
+**Takeaway:** A cloud released at rest starts with volume acceleration minus four pi G times the mass it encloses; for a small ball that is minus the trace of the tides, which vanishes in vacuum for every observer.
 
-*What this leaves out:* The finite-cloud law assumes Newtonian gravity; the general-relativistic law keeps only the leading order in the ball's size and in time.
+*What this leaves out:* The finite-cloud law assumes Newtonian gravity; the relativistic law keeps only the leading order in the ball's size and in the time since release.
 
-*Continues:* `ways_in/ball-around-the-whole-earth`, `ways_in/egg-with-the-same-volume`<br>*Builds on:* [[ricci-tensor]], [[poisson-equation-for-gravity]]<br>*See:* `derivations/volume-acceleration-from-gauss`, `checks/big-cloud-beside-earth`, `problems/cube-around-earth`
+*Continues:* `ways_in/balls-that-shrink`, `ways_in/egg-with-the-same-room`<br>*Builds on:* [[ricci-tensor]], [[poisson-equation-for-gravity]]<br>*See:* `derivations/volume-acceleration-from-gauss`, `checks/big-cloud-beside-earth`, `problems/cube-around-earth`
 
 ### 4. A ring of mirrors in a gravitational wave · working · operational
 
-*How does the zero trace of vacuum tides show up in a gravitational wave, and what can a detector measure of it?*
+*What does the zero trace of vacuum tides look like in a gravitational wave, and what can a detector measure of it?*
 
-The zero trace in "Gauss's law counts the mass inside" holds for every tide in vacuum, including one that travels. Far from its source, a gravitational wave is such a tide. Take on trust here that a plane wave of plus polarization moving along $z$ gives a freely falling observer the tidal tensor $-\tfrac12\ddot h_+\,\mathrm{diag}(1, -1, 0)$ in her $x, y, z$ axes. Free masses at separation $L$, at rest before the wave arrives, then move to first order in $h_+$ as
+The zero trace in "Gauss's law counts the mass inside" holds for every tide in vacuum, including one that travels. Far from its source a gravitational wave is such a tide. Take on trust here that a plane wave of plus polarization travelling along $z$ gives a freely falling observer the tidal tensor $-\tfrac12\ddot h_+\,\mathrm{diag}(1, -1, 0)$ in her $x, y, z$ axes. Free masses a distance $L$ apart, at rest before the wave arrives, then move to first order in $h_+$ as
 
 $$\frac{\delta L_x}{L} = +\frac{h_+}{2},\qquad \frac{\delta L_y}{L} = -\frac{h_+}{2},\qquad \frac{\delta L_z}{L} = 0.$$
 
-The budget is now one stretch for one equal squeeze, in the plane across the wave, instead of one stretch for two half-size squeezes. The fractional changes sum to zero at every moment, not only at release. So a ring of free masses in the $xy$ plane keeps its area, and a small ball its volume, to first order in $h_+$; the area factor is $1 - h_+^2/4$. The cross polarization does the same along axes turned by $45^\circ$.
+The budget is now one stretch against one equal squeeze, in the plane across the wave, instead of one stretch against two half-size squeezes. These fractional changes sum to zero at every moment, not only at release, because the wave's tidal tensor stays trace-free as it goes by. So a ring of free masses in the $xy$ plane keeps its area, and a small ball its volume, to first order in $h_+$; the product of the two first-order length factors is $1 - h_+^2/4$. The cross polarization does the same along axes turned by $45^\circ$.
 
-A laser interferometer uses the mirrors at the ends of two perpendicular arms as free masses. At the signal's frequencies each suspended mirror moves freely along its arm, and the instrument measures $\delta L_x - \delta L_y$, which is $h_+L$ for a plus wave arriving along $z$. For GW150914 the peak strain was $1.0\times10^{-21}$. Each 4 km arm of LIGO therefore changed by about $2\times10^{-18}$ m, and the difference was about $4\times10^{-18}$ m, some 400 times smaller than a proton's width.
+A laser interferometer uses the mirrors hanging at the ends of two perpendicular arms as free masses. At the frequencies of a signal each suspended mirror moves freely along its arm, and the instrument measures $\delta L_x - \delta L_y$, which is $h_+L$ for a plus wave arriving along $z$. GW150914 reached a peak strain of about $1.0\times10^{-21}$. Each 4 km arm therefore changed by about $2\times10^{-18}$ m, and the difference by about $4\times10^{-18}$ m, some 400 times smaller than a proton's width.
 
-A single detector measures only this difference. By itself it cannot tell an area-preserving wave from a breathing wave, which stretches both directions together and changes a ring's area, as some alternatives to general relativity predict. Detectors with different orientations respond to each pattern differently, so a network can test which patterns the signal contains.
+One detector measures only that difference. By itself it cannot tell an area-preserving wave from a breathing wave, which would stretch both transverse directions together and change a ring's area, as some alternatives to general relativity predict. Detectors pointed differently respond to the two patterns differently, so a network can test which patterns a signal carries.
 
-**Takeaway:** A gravitational wave stretches one direction across its path and squeezes the perpendicular one equally, so rings and small balls of free masses keep their area and volume to first order.
+**Takeaway:** A gravitational wave stretches one direction across its path and squeezes the perpendicular one by the same fraction, so a ring or a ball of free masses keeps its area or volume to first order in the strain.
 
 *What this leaves out:* Keeps first order in the strain, for masses much closer together than a wavelength and a wave arriving along one axis.
 
@@ -153,29 +151,29 @@ A single detector measures only this difference. By itself it cannot tell an are
 
 *Under exactly which hypotheses does a small freely falling ball keep its volume, and for how long?*
 
-The small-ball law in "Gauss's law counts the mass inside" is the first term of an exact evolution equation. Set $G = c = 1$. Let $u$ be a timelike geodesic congruence near an event $p$, with $B_{\mu\nu} = \nabla_\nu u_\mu$ split into expansion $\theta$, shear $\sigma_{\mu\nu}$ and rotation $\omega_{\mu\nu}$. For a small ball of its geodesics $\theta = d\ln\delta V/d\tau$, and the Raychaudhuri equation reads
+The small-ball law in "Gauss's law counts the mass inside" is the first term of an exact evolution equation. Set $G = c = 1$. Let $u$ be a timelike geodesic congruence near an event $p$, and split $B_{\mu\nu} = \nabla_\nu u_\mu$ into expansion $\theta$, shear $\sigma_{\mu\nu}$ and rotation $\omega_{\mu\nu}$. For a small ball of its geodesics $\theta = d\ln\delta V/d\tau$, and the Raychaudhuri equation reads
 
 $$\frac{d\theta}{d\tau} = -\frac{\theta^2}{3} - \sigma_{\alpha\beta}\sigma^{\alpha\beta} + \omega_{\alpha\beta}\omega^{\alpha\beta} - R_{\mu\nu}u^\mu u^\nu.$$
 
-*Proposition.* Suppose (i) the ball is released at rest, $B_{\mu\nu}(0) = 0$; (ii) $R_{\mu\nu} = 0$ along its worldlines, which Einstein's equation gives in vacuum with $\Lambda = 0$; (iii) its size $\ell$ is small compared with the curvature radius and with the length over which curvature varies. Then
+*Proposition.* Suppose (i) the ball is released at rest, so $B_{\mu\nu}(0) = 0$; (ii) $R_{\mu\nu} = 0$ along its worldlines, which Einstein's equation gives in vacuum with $\Lambda = 0$; (iii) the ball's size $\ell$ is small compared with the curvature radius and with the length over which the curvature changes. Then
 
 $$\ln\frac{\delta V}{\delta V_0} = -\tfrac{1}{12}E_{ij}E_{ij}\,\tau^4 + O(\tau^5),$$
 
-where $E_{ij} = R_{\hat\imath\hat 0\hat\jmath\hat 0}$ at $p$ in a parallel-propagated orthonormal frame, here the electric part of the Weyl tensor. *Sketch:* $\dot B = -B^2 - E$ with $B(0) = 0$ gives $B \approx -E\tau$; the zero trace removes the $\tau^2$ and $\tau^3$ terms of $\ln\delta V$, and the growing shear drives $\dot\theta \approx -E_{ij}E_{ij}\tau^2$. The derivation "Fourth-order volume loss in vacuum" gives the steps.
+where $E_{ij} = R_{\hat\imath\hat 0\hat\jmath\hat 0}$ at $p$ in a parallel-propagated orthonormal frame; in vacuum this is the electric part of the Weyl tensor. *Sketch.* $\dot B = -B^2 - E$ with $B(0) = 0$ gives $B = -E\tau + O(\tau^2)$. The zero trace then kills the $\tau^2$ and $\tau^3$ terms of $\ln\delta V$, while the shear that grows meanwhile drives $\dot\theta = -E_{ij}E_{ij}\tau^2 + O(\tau^3)$. The derivation "Fourth-order volume loss in vacuum" gives every step.
 
-Each hypothesis is needed.
+Each hypothesis earns its place.
 
-- *Release at rest.* A ball released with pure shear has $\ddot{\delta V}/\delta V = -\sigma_{\alpha\beta}\sigma^{\alpha\beta}$ at once, even in flat spacetime. An initial expansion changes the volume at first order, and rotation opposes focusing.
-- *Vacuum with $\Lambda = 0$.* With $R_{\mu\nu} = \Lambda g_{\mu\nu}$, $R_{\mu\nu}u^\mu u^\nu = -\Lambda$, so a released ball starts to grow at $\ddot{\delta V}/\delta V = +\Lambda$, about $1\times10^{-35}\ \mathrm{s^{-2}}$ in SI today.
-- *Smallness.* The deviation equation is first order in $\ell$; where the tidal field varies over a length $L$, corrections of relative order $\ell/L$ appear. Newtonian gravity alone gives the exact finite law $\ddot V(0) = -4\pi M_{\rm enc}$.
+- *Release at rest.* A ball released with pure shear has $\ddot{\delta V}/\delta V = -\sigma_{\alpha\beta}\sigma^{\alpha\beta}$ from the start, even in flat spacetime. A nonzero initial expansion changes the volume already at first order in $\tau$, and rotation opposes the focusing.
+- *Vacuum with $\Lambda = 0$.* With $R_{\mu\nu} = \Lambda g_{\mu\nu}$ one has $R_{\mu\nu}u^\mu u^\nu = -\Lambda$, so a ball released at rest starts to grow at $\ddot{\delta V}/\delta V = +\Lambda$, about $1\times10^{-35}\ \mathrm{s^{-2}}$ in SI for today's value.
+- *Smallness.* The deviation equation keeps only first order in $\ell$, so corrections of relative order $\ell/L$ appear where the tidal field varies over a length $L$. Newtonian gravity alone has an exact finite-cloud law, $\ddot V(0) = -4\pi M_{\rm enc}$.
 
-*Observers.* With $\Lambda = 0$, $R_{\mu\nu} = 8\pi(T_{\mu\nu} - \tfrac12Tg_{\mu\nu})$, and this trace reversal is invertible in four dimensions. A symmetric tensor that vanishes on every timelike vector vanishes. So every freely falling observer at $p$ finds a zero initial volume acceleration exactly when $T_{\mu\nu}(p) = 0$. The fourth-order coefficient is not shared: $E_{ij}E_{ij}$ changes under boosts, so observers at one event who agree that the volume starts unchanged disagree on how long it stays nearly so. In vacuum the Kretschmann scalar is $R_{\alpha\beta\gamma\delta}R^{\alpha\beta\gamma\delta} = 8(E_{ij}E_{ij} - B_{ij}B_{ij})$, with $B_{ij}$ the magnetic part of the Weyl tensor. So only that difference is invariant: a static observer outside a spherical mass has $B = 0$ and $E_{ij}E_{ij} = 6M^2/r^6$, and a boosted observer's larger $E_{ij}E_{ij}$ comes with a nonzero $B_{ij}$.
+*What observers share.* With $\Lambda = 0$, $R_{\mu\nu} = 8\pi(T_{\mu\nu} - \tfrac12 Tg_{\mu\nu})$, and this trace reversal is invertible in four dimensions. A symmetric tensor that vanishes on every timelike vector vanishes. So every freely falling observer at $p$ finds a zero initial volume acceleration exactly when $T_{\mu\nu}(p) = 0$. The fourth-order coefficient is not shared: $E_{ij}E_{ij}$ changes under boosts, so observers who agree that a released ball starts with an unchanged volume disagree on how long it stays nearly unchanged. In vacuum the Kretschmann scalar is $R_{\alpha\beta\gamma\delta}R^{\alpha\beta\gamma\delta} = 8(E_{ij}E_{ij} - B_{ij}B_{ij})$, with $B_{ij}$ the magnetic part of the Weyl tensor, so only that difference is invariant. A static observer outside a spherical mass has $B_{ij} = 0$ and $E_{ij}E_{ij} = 6M^2/r^6$, and a boosted observer's larger $E_{ij}E_{ij}$ comes with a nonzero $B_{ij}$.
 
-*Light.* The same argument applies to a thin bundle of null geodesics with vanishing initial expansion and shear. In vacuum there is no Ricci term, so its cross-sectional area is constant through third order in the affine parameter; the Weyl tensor acts only by building shear, which then focuses the beam.
+*Light.* The same argument runs for a thin bundle of null geodesics with vanishing initial expansion and shear. In vacuum the Ricci term drops out of the focusing equation, so the bundle's cross-sectional area is unchanged through third order in the affine parameter; the Weyl tensor acts only by building shear, which then focuses the bundle.
 
-**Takeaway:** In vacuum with no cosmological constant, a small ball released at rest keeps its volume through third order in proper time; shear from the Weyl tensor removes volume at fourth order.
+**Takeaway:** In vacuum with no cosmological constant, a small ball released at rest keeps its volume through third order in proper time, and the shear that the Weyl tensor builds removes volume at fourth order.
 
-*Picture:* A small sphere of geodesics released at rest: its principal axes follow the eigenvectors of the electric Weyl tensor, its volume curve is flat through third order, and it bends down at fourth order as shear builds.
+*Picture:* A small sphere of geodesics released at rest: its axes follow the eigenvectors of the electric Weyl tensor, its volume curve is flat through third order, and it bends down at fourth order as the shear builds.
 
 *What this leaves out:* Uses the Levi-Civita connection in four dimensions and a nonrotating, parallel-propagated frame.
 
@@ -186,9 +184,10 @@ Each hypothesis is needed.
 | Term | Say | In plain words | Concept |
 | --- | --- | --- | --- |
 | fall freely | — | To move with nothing but gravity acting: no air pushing, and no floor or rope holding you. | [[free-fall]] |
-| tidal drift | — | The slow drift of neighbouring freely falling objects apart or together, because gravity pulls them slightly differently. Near a round planet they drift apart along the line toward its centre and together across it. | [[tidal-force]] |
+| tidal drift | — | The slow drift of neighbouring freely falling objects apart or together, because gravity pulls them slightly differently. Outside a round planet they drift apart along the line toward its centre and together across that line. | [[tidal-force]] |
+| centre crumb | — | The crumb at the centre of a ball of crumbs. Every other crumb's drift is measured against it, because it is the one the falling cabin keeps pace with. | — |
 | volume | — | The amount of room something takes up. | — |
-| volume-preserving tidal deformation | VOL-yoom pri-ZUR-ving TIE-dul dee-for-MAY-shun | A change of shape caused by tidal drift that keeps the volume the same, like a small ball of crumbs becoming an egg that takes up the same room. Preserving means keeping; a deformation is a change of shape. | [[volume-preserving-tidal-deformation]] |
+| volume-preserving tidal deformation | VOL-yoom pri-ZUR-ving TIE-dul dee-for-MAY-shun | A change of shape caused by tidal drift that keeps the volume the same, like a small ball of crumbs becoming an egg that takes up the same room. Preserving means keeping, and a deformation is a change of shape. | [[volume-preserving-tidal-deformation]] |
 
 ## Key equations
 
@@ -203,10 +202,10 @@ A cloud of free particles released at rest starts to change its volume at a rate
 | Symbol | Meaning | Say |
 | --- | --- | --- |
 | $V$ | volume enclosed by the surface of free particles | the volume |
-| $\mathbf g$ | gravitational field at the particles | g |
+| $\mathbf g$ | gravitational field at the particles | the gravitational field |
 | $M_{\rm enc}$ | mass inside the surface | the enclosed mass |
 
-**Holds when:** Newtonian gravity; every particle on the surface at rest at $t = 0$; any size and shape; valid at that instant.  
+**Holds when:** Newtonian gravity; every particle of the surface at rest at $t = 0$; any size and shape; valid at that instant only.  
 **Say it:** “At release, the second time derivative of the volume is minus four pi G times the enclosed mass.”  
 **Justified by:** `derivations/volume-acceleration-from-gauss`
 
@@ -216,16 +215,16 @@ $$
 \left.\frac{\ddot{\delta V}}{\delta V}\right|_{\tau = 0} = -R_{\mu\nu}u^\mu u^\nu
 $$
 
-A small ball released at rest starts to lose volume at a rate set by the trace of the tides, which is zero in vacuum.
+A small ball released at rest starts to change its volume at a rate set by the trace of the tides, which is zero in vacuum.
 
 | Symbol | Meaning | Say |
 | --- | --- | --- |
 | $\delta V$ | volume of the small ball | the small volume |
-| $u^\mu$ | four-velocity of the central particle, $u_\mu u^\mu = -c^2$ | the four-velocity |
+| $u^\mu$ | four-velocity of the central particle, with $u_\mu u^\mu = -c^2$ | the four-velocity |
 | $R_{\mu\nu}$ | Ricci tensor in the course convention | the Ricci tensor |
 
-**Holds when:** Small ball released at rest; that instant only. Weak static field: $R_{\mu\nu}u^\mu u^\nu \approx 4\pi G\rho$.  
-**Say it:** “At release, the small volume's second derivative over the volume is minus the Ricci tensor contracted twice with the four-velocity.”  
+**Holds when:** Small ball released at rest, at that instant only. For matter at rest relative to the observer the right side is $-4\pi G(\rho + 3p/c^2) + \Lambda c^2$; a weak static field gives $-4\pi G\rho$.  
+**Say it:** “At release, the small volume's second derivative divided by the volume is minus the Ricci tensor contracted twice with the four-velocity.”  
 **Justified by:** `ricci-tensor`
 
 ### Free masses in a plus-polarized wave · working
@@ -234,14 +233,14 @@ $$
 \frac{\delta L_x}{L} = +\frac{h_+}{2},\qquad \frac{\delta L_y}{L} = -\frac{h_+}{2},\qquad \frac{\delta L_z}{L} = 0
 $$
 
-A wave moving along $z$ stretches one transverse direction by as much as it squeezes the other, and does nothing along its path.
+A wave travelling along $z$ stretches one transverse direction by as much as it squeezes the other, and does nothing along its path.
 
 | Symbol | Meaning | Say |
 | --- | --- | --- |
 | $h_+$ | plus-polarization strain of the wave | h plus |
-| $L$ | separation of two free masses before the wave arrives | L |
+| $L$ | separation of two free masses before the wave arrives | the separation |
 
-**Holds when:** Plane wave along $z$; free masses at rest before it arrives and much closer than a wavelength; first order in $h_+$; course polarization convention.  
+**Holds when:** Plane wave along $z$ with the course polarization convention; free masses at rest before it arrives and much closer together than a wavelength; first order in $h_+$.  
 **Say it:** “The fractional change along x is plus h plus over two, along y minus h plus over two, and along z zero.”  
 **Justified by:** `stated`
 
@@ -251,14 +250,15 @@ $$
 \ln\frac{\delta V}{\delta V_0} = -\tfrac{1}{12}E_{ij}E_{ij}\,\tau^4 + O(\tau^5)
 $$
 
-In vacuum a small ball released at rest loses volume first at fourth order in proper time, at a rate set by the square of the tides.
+In vacuum, a small ball released at rest first loses volume at fourth order in proper time, at a rate set by the square of the tides.
 
 | Symbol | Meaning | Say |
 | --- | --- | --- |
-| $E_{ij}$ | tidal tensor $R_{\hat\imath\hat 0\hat\jmath\hat 0}$ at release, the electric Weyl tensor in vacuum ($G = c = 1$) | E i j |
+| $E_{ij}$ | tidal tensor $R_{\hat\imath\hat 0\hat\jmath\hat 0}$ at release, which in vacuum is the electric part of the Weyl tensor ($G = c = 1$) | E i j |
 | $\tau$ | proper time of the central particle | tau |
+| $\delta V_0$ | the ball's volume at release | the volume at release |
 
-**Holds when:** Released at rest; $R_{\mu\nu} = 0$ along the worldlines; ball small; parallel-propagated orthonormal frame.  
+**Holds when:** Released at rest; $R_{\mu\nu} = 0$ along the worldlines; ball small compared with the curvature radius; parallel-propagated orthonormal frame.  
 **Say it:** “The log of the volume ratio is minus one twelfth of E i j E i j times tau to the fourth.”  
 **Justified by:** `derivations/fourth-order-loss-in-vacuum`
 
@@ -266,26 +266,26 @@ In vacuum a small ball released at rest loses volume first at fourth order in pr
 
 ### Volume acceleration from Gauss's law · working
 
-**Goal:** Show that a Newtonian cloud of free particles released at rest has $\ddot V(0) = -4\pi G M_{\rm enc}$, and $\ddot{\delta V}/\delta V = -4\pi G\rho$ when it is small.
+**Goal:** Show that a Newtonian cloud of free particles released at rest has $\ddot V(0) = -4\pi G M_{\rm enc}$, and $\ddot{\delta V}/\delta V = -4\pi G\rho$ when the cloud is small.
 
-1. The particles on the closed surface $S$ move with velocity $\mathbf v$, so the enclosed volume changes as $\dot V = \oint_S \mathbf v\cdot d\mathbf A$.
+1. The particles covering the closed surface $S$ move with velocity $\mathbf v$, so the enclosed volume changes as $\dot V = \oint_S \mathbf v\cdot d\mathbf A$.
 2. Differentiate, following the particles: $\ddot V = \oint_S \dot{\mathbf v}\cdot d\mathbf A + \oint_S \mathbf v\cdot\frac{d}{dt}(d\mathbf A)$.
-3. At $t = 0$ every particle is at rest, so the second integral vanishes, and $\dot{\mathbf v} = \mathbf g$: $\ddot V(0) = \oint_S \mathbf g\cdot d\mathbf A$.
-4. Gauss's law for gravity, $\nabla\cdot\mathbf g = -4\pi G\rho$, with the divergence theorem gives $\oint_S \mathbf g\cdot d\mathbf A = -4\pi G M_{\rm enc}$.
-5. For a small cloud around a point, $M_{\rm enc} = \rho\,\delta V$, so $\ddot{\delta V}/\delta V = -4\pi G\rho = -\nabla^2\Phi$, minus the trace of the tidal matrix $\partial_i\partial_j\Phi$.
+3. At $t = 0$ every particle is at rest, so the second integral vanishes, and $\dot{\mathbf v} = \mathbf g$ because the particles are free. Hence $\ddot V(0) = \oint_S \mathbf g\cdot d\mathbf A$.
+4. Gauss's law for gravity is $\nabla\cdot\mathbf g = -4\pi G\rho$, so the divergence theorem gives $\oint_S \mathbf g\cdot d\mathbf A = -4\pi G M_{\rm enc}$.
+5. For a small cloud around a point, $M_{\rm enc} = \rho\,\delta V$, so $\ddot{\delta V}/\delta V = -4\pi G\rho = -\nabla^2\Phi$, which is minus the trace of the tidal matrix $\partial_i\partial_j\Phi$.
 
-**Result:** $\ddot V(0) = -4\pi G M_{\rm enc}$ for any released cloud, and $\ddot{\delta V}/\delta V = -4\pi G\rho$ for a small one; both vanish where the cloud encloses no mass.
+**Result:** $\ddot V(0) = -4\pi G M_{\rm enc}$ for a released cloud of any size, and $\ddot{\delta V}/\delta V = -4\pi G\rho$ for a small one; both vanish where the cloud encloses no mass.
 
 ### Fourth-order volume loss in vacuum · formal
 
 **Goal:** With $G = c = 1$, show that a small ball released at rest where $R_{\mu\nu} = 0$ has $\ln(\delta V/\delta V_0) = -\tfrac1{12}E_{ij}E_{ij}\tau^4 + O(\tau^5)$.
 
 1. In a parallel-propagated orthonormal frame along the central geodesic, $B_{ij} = \nabla_j u_i$ obeys $\dot B_{ij} = -B_{ik}B_{kj} - E_{ij}$, with $E_{ij} = R_{\hat\imath\hat 0\hat\jmath\hat 0}$.
-2. Released at rest, $B(0) = 0$. Since $B^2 = O(\tau^2)$, integrating once gives $B = -E(0)\tau + O(\tau^2)$. $B$ stays symmetric, so the rotation stays zero.
-3. Take the trace. $\operatorname{tr}E = R_{\hat 0\hat 0} = 0$ along the worldline, so $\dot\theta = -B_{ik}B_{ki} = -E_{ij}(0)E_{ij}(0)\,\tau^2 + O(\tau^3)$.
+2. Released at rest means $B(0) = 0$. Then $B^2 = O(\tau^2)$, so integrating once gives $B_{ij} = -E_{ij}(0)\,\tau + O(\tau^2)$. $B$ stays symmetric, so the rotation stays zero.
+3. Take the trace. In vacuum $\operatorname{tr}E = R_{\hat 0\hat 0} = 0$ along the worldline, so $\dot\theta = -B_{ik}B_{ki} = -E_{ij}(0)E_{ij}(0)\,\tau^2 + O(\tau^3)$.
 4. Integrate with $\theta(0) = 0$: $\theta = -\tfrac13E_{ij}E_{ij}\tau^3 + O(\tau^4)$.
-5. With $\theta = d\ln\delta V/d\tau$, integrate again: $\ln(\delta V/\delta V_0) = -\tfrac1{12}E_{ij}E_{ij}\tau^4 + O(\tau^5)$.
-6. Check with a constant tide $E = \mathrm{diag}(-2, 1, 1)/\tau_0^2$: the axes are $\cosh(\sqrt2\,s)$ and $\cos s$ with $s = \tau/\tau_0$, and $\cosh(\sqrt2\,s)\cos^2s = 1 - \tfrac12s^4 + O(s^6)$, while $\tfrac1{12}E_{ij}E_{ij} = \tfrac{6}{12}$.
+5. With $\theta = d\ln\delta V/d\tau$, integrate once more: $\ln(\delta V/\delta V_0) = -\tfrac1{12}E_{ij}E_{ij}\tau^4 + O(\tau^5)$.
+6. Check it against an exactly constant tide $E = \mathrm{diag}(-2, 1, 1)/\tau_0^2$. The axes then go as $\cosh(\sqrt2\,s)$ and $\cos s$ with $s = \tau/\tau_0$, and $\cosh(\sqrt2\,s)\cos^2 s = 1 - \tfrac12 s^4 + O(s^6)$, while $\tfrac1{12}E_{ij}E_{ij} = \tfrac{6}{12}$ in the same units.
 
 **Result:** $\ln(\delta V/\delta V_0) = -\tfrac1{12}E_{ij}E_{ij}\tau^4 + O(\tau^5)$: no change through third order, then a loss set by the square of the trace-free tide.
 
@@ -293,229 +293,248 @@ In vacuum a small ball released at rest loses volume first at fourth order in pr
 
 ### A one-minute fall near Earth · working
 
-**Problem:** A nonrotating cabin is dropped from rest high above Earth, in vacuum, and a small ball of free particles is released at rest inside it. Treat the tidal eigenvalues as constant at $(GM/r^3)(-2, 1, 1)$ with $GM/r^3 = 1.54\times10^{-6}\ \mathrm{s^{-2}}$. Find the fractional changes of the ball's axes and of its volume after 60 s.
+**Problem:** A nonrotating cabin falls freely from rest high above Earth, in vacuum, and a small ball of free particles is released at rest inside it. Take the tidal eigenvalues as constant at $(GM/r^3)(-2, 1, 1)$ with $GM/r^3 = 1.54\times10^{-6}\ \mathrm{s^{-2}}$. Find the fractional changes of the ball's semi-axes and of its volume after 60 s, and compare them.
 
-1. Along an eigen-direction with eigenvalue $\lambda$, a separation released at rest obeys $\ddot\ell = -\lambda\ell$. With $q = GM/r^3$, the radial axis grows as $\cosh(\sqrt{2q}\,t)$ and each transverse axis shrinks as $\cos(\sqrt q\,t)$.
-2. $\sqrt q\,t = (1.2415\times10^{-3}\ \mathrm{s^{-1}})(60\ \mathrm s) = 0.07449$, so $\cosh(\sqrt2 \times 0.07449) = \cosh(0.10535) = 1.005554$ and $\cos(0.07449) = 0.997227$.
-3. The radial axis is longer by 0.555 per cent and each transverse axis shorter by 0.277 per cent, an axis ratio of 1.0084.
-4. The volume ratio is $1.005554 \times 0.997227^2 = 0.9999846$, a loss of $1.54\times10^{-5}$.
-5. At order $t^2$ the fractional axis changes, $+qt^2$ and $-\tfrac12qt^2$ twice, sum to zero. The whole loss comes from order $t^4$: $\tfrac12q^2t^4 = 1.54\times10^{-5}$.
-6. In 60 s the cabin falls about 17.7 km, which changes $GM/r^3$ by less than 1 per cent, so constant eigenvalues are adequate at this precision.
+1. Along an eigen-direction with eigenvalue $\lambda$, a separation released at rest obeys $\ddot\ell = -\lambda\ell$. Writing $q = GM/r^3$, the radial semi-axis grows as $\cosh(\sqrt{2q}\,t)$ and each transverse semi-axis shrinks as $\cos(\sqrt q\,t)$.
+2. $\sqrt q\,t = (1.2415\times10^{-3}\ \mathrm{s^{-1}})(60\ \mathrm s) = 0.074492$, so $\cosh(\sqrt2\times0.074492) = \cosh(0.105347) = 1.005554$ and $\cos(0.074492) = 0.997227$.
+3. The radial semi-axis is longer by 0.555 per cent and each transverse one shorter by 0.277 per cent, so the egg is longer than it is wide by 0.835 per cent.
+4. The volume ratio is $1.005554\times0.997227^2 = 0.9999846$, a loss of $1.54\times10^{-5}$.
+5. At order $t^2$ the fractional axis changes are $+qt^2$ once and $-\tfrac12qt^2$ twice, which sum to zero. The whole loss therefore comes from order $t^4$, and $\tfrac12q^2t^4 = 1.54\times10^{-5}$ matches.
+6. In 60 s the cabin falls about 17.7 km, which changes $q$ by under 1 per cent, so constant eigenvalues are good enough at this precision.
 
-**Answer:** Radial axis $+0.555$ per cent, each transverse axis $-0.277$ per cent; volume $-1.54\times10^{-5}$, about 15 parts in a million.
+**Answer:** Radial semi-axis $+0.555$ per cent, each transverse semi-axis $-0.277$ per cent, volume $-1.54\times10^{-5}$. The shape changes about 540 times more than the volume.
 
-**Takeaway:** The zero trace cancels the volume change at order $t^2$, so the shape changes several hundred times more than the volume in the first minute.
+**Takeaway:** The zero trace cancels the volume change at order $t^2$, so in the first minute the ball's shape changes hundreds of times more than its volume.
 
 ## Problems
 
-### `ball-around-earth-higher-up` · entry · difficulty 1 · calculation
+### `ball-around-the-moon` · entry · difficulty 1 · calculation
 
-Crumbs are spread over a huge imaginary ball around the whole Earth, 1,000 kilometres above the ground, so the ball's radius is 7,371 kilometres. All are let go at rest. In ten seconds each crumb falls 367 metres toward Earth's centre, measured with rulers that stay still relative to Earth. By about how many parts in a million does the ball's volume shrink? Why does a small ball of crumbs beside Earth not shrink at first?
+Crumbs are spread over a huge imaginary ball drawn around the whole Moon, 100 kilometres above its surface, so the ball's radius is 1,837 kilometres. All of them are let go at rest, with nothing holding them and no air among them. In ten seconds each crumb falls about 73 metres toward the Moon's centre. The rulers that measure this stay still relative to the Moon's centre. By about how many parts in a million does the room this ball takes up shrink? And why does a small ball of crumbs let go at rest just above the Moon's surface not shrink at first?
 
 **Hints**
 
-1. What fraction of the ball's radius is 367 metres?
-2. The ball stays round. In how many directions at right angles does it shrink by that fraction?
+1. What fraction of the ball's radius is 73 metres?
+2. The ball stays round. In how many directions at right angles does it grow narrower by that fraction?
 
-**Answer:** About 150 parts in a million, or 0.015 per cent. The huge ball holds all of Earth's mass, while a small ball beside Earth holds none.
+**Answer:** About 120 parts in a million. The huge ball holds the whole Moon, while a small ball above the Moon's surface holds no mass at all.
 
-**Must contain:** The radius shrinks by about 50 parts in a million; Three directions add to about 150 parts in a million; Only the huge ball has mass inside
+**Must contain:** The radius shrinks by about 40 parts in a million; Three directions at right angles add to about 120 parts in a million; Only the huge ball has mass inside it
 
-**Numeric:** fraction of the ball's volume lost in ten seconds = 0.0149 percent (magnitude, ±5%)
+**Numeric:** fraction of the ball's volume lost in ten seconds = 0.000119 1 (magnitude, ±8%)
 
 **Solution**
 
-1. The radius shrinks by 367 metres out of 7,371,000 metres. That is 367 divided by 7,371,000, about 50 parts in a million.
-2. Every crumb falls the same distance toward Earth's centre, so the ball stays round. It is narrower by 50 parts in a million in each of three directions at right angles.
-3. For small changes, the volume changes by the sum of the three fractions: about 150 parts in a million. That is 15 parts in 100,000, or 0.015 per cent.
-4. A small ball beside Earth holds none of Earth's mass. Its stretch along the line toward Earth's centre balances its two squeezes across that line, so at first it keeps its volume.
+1. The radius shrinks by 73 metres out of 1,837,000 metres. That is 73 divided by 1,837,000, about 40 parts in a million.
+2. Every crumb falls the same distance toward the Moon's centre, so the ball stays round. It grows narrower by about 40 parts in a million in each of three directions at right angles.
+3. For small changes the room a shape takes up changes by the sum of the three fractions: about 120 parts in a million.
+4. A small ball just above the Moon's surface holds nothing but empty space among its crumbs. Its stretch along the line toward the Moon's centre balances its two squeezes across that line, so at first it keeps its room.
 
 **Targets:** `mass-nearby-shrinks-the-ball`
 
 ### `cube-around-earth` · working · difficulty 2 · calculation
 
-A cube of free particles 100,000 km on each side, centred on Earth, is released at rest; the Moon lies outside it. Using Gauss's law with $GM_\oplus = 3.986\times10^{14}\ \mathrm{m^3\,s^{-2}}$, find $\ddot V/V$ at release and the fraction of the cube's volume lost in the first 60 s. Would a sphere of the same volume centred on Earth start any differently?
+A cube of free particles 100,000 km on each side, centred on Earth, is released from rest; the Moon lies well outside it. With $GM_\oplus = 3.986\times10^{14}\ \mathrm{m^3\,s^{-2}}$, find $\ddot V/V$ at release and the fraction of the cube's volume lost in the first 60 s. Would a sphere of the same volume centred on Earth start any differently?
 
 **Hints**
 
-1. At release, the volume acceleration depends only on the enclosed mass.
+1. At release the volume acceleration depends only on the mass the surface encloses.
 
-**Answer:** $\ddot V/V = -5.01\times10^{-9}\ \mathrm{s^{-2}}$, and the cube loses $9.0\times10^{-6}$ of its volume in 60 s. A sphere of the same volume around Earth starts identically; only the two shapes distort differently.
+**Answer:** $\ddot V/V = -5.01\times10^{-9}\ \mathrm{s^{-2}}$, and the cube loses about $9.0\times10^{-6}$ of its volume in the first 60 s. A sphere of the same volume centred on Earth starts identically; only the way the two distort differs.
 
-**Must contain:** The volume acceleration is minus four pi G M, about minus 5.01e-9 per second squared per volume; About 9.0e-6 of the volume is lost in 60 seconds; Any shape of the same volume starts the same
+**Must contain:** The volume acceleration is minus four pi G times Earth's mass; Divided by the volume it is about minus 5.01 times ten to the minus nine per second squared; About 9.0 millionths of the volume is lost in 60 seconds; Any shape of the same volume around the same enclosed mass starts the same
 
 **Numeric:** fraction of the cube's volume lost in 60 s = 9e-06 1 (magnitude, ±3%)
 
 **Solution**
 
-1. The cube's corners are $\sqrt3 \times 50{,}000 \approx 86{,}600$ km from Earth's centre, well inside the Moon's orbit of about 384,000 km, so the enclosed mass is Earth's alone.
-2. Released at rest, $\ddot V(0) = -4\pi GM_\oplus = -4\pi(3.986\times10^{14}) = -5.009\times10^{15}\ \mathrm{m^3\,s^{-2}}$.
+1. The cube's corners sit $\sqrt3\times50{,}000 \approx 86{,}600$ km from Earth's centre, well inside the Moon's orbit of about 384,000 km, so the enclosed mass is Earth's alone.
+2. Released at rest, $\ddot V(0) = -4\pi GM_\oplus = -4\pi(3.986\times10^{14}\ \mathrm{m^3\,s^{-2}}) = -5.009\times10^{15}\ \mathrm{m^3\,s^{-2}}$.
 3. $V = (1.0\times10^{8}\ \mathrm m)^3 = 1.0\times10^{24}\ \mathrm{m^3}$, so $\ddot V/V = -5.01\times10^{-9}\ \mathrm{s^{-2}}$.
-4. For a short time $\Delta V/V \approx \tfrac12(\ddot V/V)t^2 = -\tfrac12(5.01\times10^{-9})(3600) = -9.0\times10^{-6}$. The particles fall at most about 300 m in that time, at the face centres, less than a hundred-thousandth of the cube's half-width, so the short-time form is accurate.
+4. For a short time $\Delta V/V \approx \tfrac12(\ddot V/V)t^2 = -\tfrac12(5.01\times10^{-9}\ \mathrm{s^{-2}})(3600\ \mathrm{s^2}) = -9.0\times10^{-6}$. The face-centre particles fall only about 300 m in that time, under a hundred-thousandth of the cube's half-width, so the short-time form is accurate.
 5. The law depends only on the enclosed mass, so a sphere of equal volume centred on Earth has the same $\ddot V(0)$ and loses the same fraction at first.
 
 ### `every-observer-keeps-volume` · formal · difficulty 2 · proof
 
-Set $G = c = 1$ and $\Lambda = 0$. Prove that at an event $x$, every freely falling observer's small ball released at rest has $\ddot{\delta V}(0) = 0$ if and only if $T_{\mu\nu}(x) = 0$. Then show that one observer's zero is not enough, using a perfect fluid with pressure $P = -\rho/3$.
+Set $G = c = 1$ and $\Lambda = 0$. Prove that at an event $x$ every freely falling observer's small ball released at rest has $\ddot{\delta V}(0) = 0$ if and only if $T_{\mu\nu}(x) = 0$. Then show that one observer's zero is not enough, using a perfect fluid with pressure $P = -\rho/3$.
 
 **Hints**
 
-1. Use the initial volume law, then the trace-reversed Einstein equation.
+1. Start from the initial volume law, then use the trace-reversed Einstein equation.
 2. A symmetric bilinear form that vanishes on every timelike vector vanishes.
 
 **Answer:** Every observer finds zero exactly when $R_{\mu\nu}(x) = 0$, which with $\Lambda = 0$ holds exactly when $T_{\mu\nu}(x) = 0$. For the fluid, the comoving observer finds $R_{\mu\nu}u^\mu u^\nu = 4\pi(\rho + 3P) = 0$, while an observer moving relative to it with Lorentz factor $\gamma$ finds $\tfrac{16\pi}{3}\rho(\gamma^2 - 1) > 0$.
 
-**Must contain:** Zero for every timelike vector forces the Ricci tensor to vanish; Trace reversal is invertible, so zero Ricci means zero stress-energy; The fluid gives zero only for its own observer
+**Must contain:** Vanishing on every timelike vector forces the Ricci tensor to vanish; Trace reversal is invertible in four dimensions, so zero Ricci means zero stress-energy; The fluid with pressure minus one third of its density gives zero only for its own comoving observer
 
 **Solution**
 
 1. For a ball released at rest the initial volume law gives $\ddot{\delta V}/\delta V = -R_{\mu\nu}u^\mu u^\nu$ for the observer with unit four-velocity $u$.
-2. If $T_{\mu\nu}(x) = 0$, Einstein's equation $R_{\mu\nu} = 8\pi(T_{\mu\nu} - \tfrac12Tg_{\mu\nu})$ gives $R_{\mu\nu}(x) = 0$, so every observer finds zero.
-3. Conversely, suppose $R_{\mu\nu}u^\mu u^\nu = 0$ for every unit timelike $u$, hence by scaling for every timelike vector. For timelike $u$ and any $v$, $u + \epsilon v$ is timelike for small $|\epsilon|$, so $2\epsilon R(u,v) + \epsilon^2R(v,v) = 0$ on an interval, and $R(v,v) = 0$ for every $v$. Polarization gives $R_{\mu\nu}(x) = 0$.
-4. Tracing, $R = -8\pi T$, so $T = 0$, and then $T_{\mu\nu} = R_{\mu\nu}/8\pi + \tfrac12Tg_{\mu\nu} = 0$.
-5. For the fluid, $T_{\mu\nu}u'^\mu u'^\nu = (\rho + P)\gamma^2 - P$ and $T = -\rho + 3P$, so $R_{\mu\nu}u'^\mu u'^\nu = 8\pi\big[(\rho + P)\gamma^2 - \tfrac12\rho + \tfrac12P\big]$.
-6. With $P = -\rho/3$ this is $8\pi\cdot\tfrac23\rho(\gamma^2 - 1) = \tfrac{16\pi}{3}\rho(\gamma^2 - 1)$: zero for the comoving observer, $\gamma = 1$, and positive for every other, although $T_{\mu\nu} \neq 0$.
+2. If $T_{\mu\nu}(x) = 0$ then Einstein's equation in its trace-reversed form, $R_{\mu\nu} = 8\pi(T_{\mu\nu} - \tfrac12Tg_{\mu\nu})$, gives $R_{\mu\nu}(x) = 0$, so every observer finds zero.
+3. Conversely, suppose $R_{\mu\nu}u^\mu u^\nu = 0$ for every unit timelike $u$, hence by scaling for every timelike vector. For timelike $u$ and any $v$, the vector $u + \epsilon v$ is timelike for small $|\epsilon|$, so $2\epsilon R(u,v) + \epsilon^2R(v,v) = 0$ on an interval of $\epsilon$, which forces $R(v,v) = 0$ for every $v$. Polarization then gives $R_{\mu\nu}(x) = 0$.
+4. Taking the trace of the trace-reversed equation gives $R = -8\pi T$, so $T = 0$, and then $T_{\mu\nu} = R_{\mu\nu}/8\pi + \tfrac12Tg_{\mu\nu} = 0$.
+5. For the perfect fluid, $T_{\mu\nu}u'^\mu u'^\nu = (\rho + P)\gamma^2 - P$ and $T = -\rho + 3P$, so $R_{\mu\nu}u'^\mu u'^\nu = 8\pi\big[(\rho + P)\gamma^2 - \tfrac12\rho + \tfrac12P\big]$.
+6. With $P = -\rho/3$ this is $8\pi\cdot\tfrac23\rho(\gamma^2 - 1) = \tfrac{16\pi}{3}\rho(\gamma^2 - 1)$: zero for the comoving observer, where $\gamma = 1$, and positive for every other one, although $T_{\mu\nu} \neq 0$.
 
 ## Observations
 
-- **Gravity gradients above Earth measured by the GOCE satellite, 2009 to 2013** (measured, working). GOCE carried three perpendicular pairs of accelerometers whose differences give the Newtonian tidal matrix of a freely falling instrument. Once the satellite's own rotation is removed, the three diagonal gradients add to zero within the instrument's noise, for gradients varying with periods of about 10 to 200 s. That zero sum is the volume budget of a small released ball, measured in orbit outside Earth's mass. *Numbers:* About 255 km up, for a spherical Earth: $-2.74\times10^{-6}\ \mathrm{s^{-2}}$ along the radius and $+1.37\times10^{-6}\ \mathrm{s^{-2}}$ along each horizontal axis in the course sign. A 1 m semi-axis released at rest there would grow by 0.137 mm radially and shrink by 0.069 mm horizontally in 10 s. *Reference:* Reiner Rummel, Weiyong Yi, Claudia Stummer (2011), *GOCE gravitational gradiometry*, Journal of Geodesy 85, 777–790, doi:10.1007/s00190-011-0500-0
-- **A polarization test with GW170814, the first gravitational-wave signal recorded by three detectors** (measured, working). The two LIGO detectors and Virgo point their arms in different directions, so they respond differently to general relativity's area-preserving tensor waves and to breathing scalar waves that would change a ring's area. Comparing the three responses, the analysis favoured a purely tensor polarization over purely vector and purely scalar alternatives. *Numbers:* Reported Bayes factors of about 200 for purely tensor against purely vector polarization, and about 1000 against purely scalar. *Reference:* B. P. Abbott, R. Abbott, T. D. Abbott and others (2017), *GW170814: A Three-Detector Observation of Gravitational Waves from a Binary Black Hole Coalescence*, Physical Review Letters 119, 141101, doi:10.1103/PhysRevLett.119.141101
+- **Gravity gradients above Earth measured by the GOCE satellite from 2009 to 2013** (measured, working). GOCE carried three perpendicular pairs of accelerometers whose differences give the Newtonian tidal matrix of a freely falling instrument. Once the satellite's own rotation is taken out, the three diagonal gradients add to zero within the instrument's noise across its measurement band. That zero sum is the volume budget of a small released ball, checked in orbit outside Earth's mass. *Numbers:* About 255 km up, for a spherical Earth, the diagonal entries are $-2.74\times10^{-6}\ \mathrm{s^{-2}}$ along the radius and $+1.37\times10^{-6}\ \mathrm{s^{-2}}$ along each horizontal axis, in the sign convention where a stretch is negative. A 1 m semi-axis released at rest there would grow by 0.137 mm along the radius and shrink by 0.069 mm across it in 10 s. *Reference:* Reiner Rummel, Weiyong Yi, Claudia Stummer (2011), *GOCE gravitational gradiometry*, Journal of Geodesy 85, 777-790, doi:10.1007/s00190-011-0500-0 _(unverified)_
+- **A polarization test with GW170814, the first gravitational-wave signal recorded by three detectors** (measured, working). The two LIGO detectors and Virgo point their arms in different directions, so they respond differently to the area-preserving tensor waves of general relativity and to breathing scalar waves, which would change a ring's area. Comparing the three responses, the analysis favoured a purely tensor polarization over purely vector and purely scalar alternatives. *Numbers:* Reported Bayes factors of about 200 for purely tensor against purely vector polarization, and about 1000 against purely scalar. *Reference:* B. P. Abbott, R. Abbott, T. D. Abbott and others (2017), *GW170814: A Three-Detector Observation of Gravitational Waves from a Binary Black Hole Coalescence*, Physical Review Letters 119, 141101, doi:10.1103/PhysRevLett.119.141101 _(unverified)_
 
 ## Teaching arc
 
-1. **Predict the egg's volume** (entry). Ask for a prediction, then add the three fractional changes and test the adding rule on a calculator. *Why:* The visible stretch makes an unchanged volume a real surprise. *Predict:* When tidal drift stretches the ball into an egg, does the egg take up more room, less room, or the same? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/egg-with-the-same-volume`, `checks/squashed-or-stretched`
-2. **Put the planet inside the ball** (entry). Swap the small ball for a huge ball around the whole Earth, then sort the three balls of the choice check. *Why:* It isolates mass inside the ball as the only thing that starts to change its volume. *Predict:* A huge ball of crumbs around the whole Earth is let go. Does it keep its volume at first, like the small one? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/ball-around-the-whole-earth`, `checks/which-balls-shrink`
-3. **Count the mass inside, then ride a wave** (working). Derive the release law from Gauss's law, test it on a large cloud beside Earth, then read a wave's equal stretch and squeeze. *Why:* One flux argument covers every size, and the wave balances one squeeze instead of two. *Predict:* As a gravitational wave squeezes a ring of free masses into an oval, does the area inside the ring change? *Visual:* [[two-stars-and-a-distant-ring]] *Uses:* `derivations/volume-acceleration-from-gauss`, `checks/big-cloud-beside-earth`, `ways_in/ring-of-mirrors-in-a-gravitational-wave`, `checks/mirror-arms-in-a-wave`
-4. **Break each hypothesis** (formal). Run the Raychaudhuri argument to fourth order, break two hypotheses, then compare two observers at one event. *Why:* Graduate readers need what the statement assumes and how long it lasts. *Predict:* In empty flat spacetime, does a small ball released with a gentle shear keep its volume at first? *Uses:* `ways_in/volume-and-shear-of-a-released-ball`, `checks/released-with-a-shear`, `checks/passer-loses-volume-sooner`
+1. **Predict the egg's room** (entry). Ask for a prediction, then add the three fractional changes and test the adding rule on a calculator. *Why:* The visible stretch makes an unchanged room a real surprise. *Predict:* When tidal drift stretches the ball into an egg, does the egg take up more room, less, or the same? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/egg-with-the-same-room`, `checks/room-in-the-egg`
+2. **Put the planet inside the ball** (entry). Swap the small ball for a huge ball drawn around the whole Earth, then sort the three balls of the choice check. *Why:* It isolates mass inside the ball as the only thing that starts the volume changing. *Predict:* A huge ball of crumbs drawn around the whole Earth is let go at rest. Does it keep its room, like the small one? *Visual:* [[falling-ring-of-crumbs]] *Uses:* `ways_in/balls-that-shrink`, `checks/which-balls-shrink`
+3. **Count the mass inside** (working). Derive the release law from Gauss's law, then test it on a large cloud beside Earth that encloses nothing. *Why:* One flux argument covers every size and shape, unlike the small-ball picture. *Predict:* A cloud 20,000 km across is released beside Earth, with Earth outside it. Does it start to lose volume? *Uses:* `derivations/volume-acceleration-from-gauss`, `ways_in/gauss-law-counts-the-mass-inside`, `checks/big-cloud-beside-earth`
+4. **Ride a gravitational wave** (working). Read the wave's equal stretch and squeeze off its trace-free tidal tensor, then work the detector arms. *Why:* The same budget appears with one squeeze instead of two, and it is measured. *Predict:* As a gravitational wave squeezes a ring of free masses into an oval, does the area inside the ring change? *Visual:* [[two-stars-and-a-distant-ring]] *Uses:* `ways_in/ring-of-mirrors-in-a-gravitational-wave`, `checks/mirror-arms-in-a-wave`, `observations/gw170814-polarization-test`
+5. **Break each hypothesis** (formal). Run the Raychaudhuri argument to fourth order, break two hypotheses, then compare two observers at one event. *Why:* Graduate readers need what the statement assumes and how long it lasts. *Predict:* In empty flat spacetime, does a small ball released with a gentle shear keep its volume at first? *Uses:* `ways_in/volume-and-shear-of-a-released-ball`, `checks/released-with-a-shear`, `checks/passer-loses-volume-sooner`
+
+## Analogies
+
+### A drop of dye in a slowly stirred glass of water · working
+
+Stir a glass of water gently and add a drop of dye. The blob is drawn out into a long thin ribbon, yet the amount of water in it never changes. In a fluid the fractional rate at which a small blob's volume changes is $\partial_iv_i$, the trace of the velocity-gradient matrix $\partial_iv_j$. Water resists compression, so stirring sets up only flows of zero trace, leaving the trace-free part to do all the reshaping. A released ball of test particles splits the same way.
+
+| In the analogy | Stands for |
+| --- | --- |
+| the dye blob | the small ball of test particles |
+| the velocity-gradient matrix $\partial_iv_j$ of the flow | the matrix $B_{ij}$ of the particles' relative velocities |
+| its trace, held at zero by the liquid | the expansion $\theta$, held at zero to leading order in vacuum |
+| the trace-free shear of the flow | the trace-free tides, the electric Weyl tensor in vacuum |
+
+*Limits:* Water's trace is zero at every moment, so the blob's volume is conserved exactly. Gravity fixes only the trace of the tides, which sets how fast the expansion changes rather than the expansion itself, so the shear the tides build takes volume away at fourth order in proper time. Diffusion also blurs the dye, with no counterpart here.
 
 ## Misconceptions
 
 ### “Gravity pulls everything together, so tidal drift squashes a falling ball of crumbs and makes it smaller.” · entry · `tides-squash-the-ball`
 
 - **Why it is tempting:** Gravity attracts, so any change it causes seems to pull things in.
-- **What is true:** Near a round planet, the stretch along the line toward the planet's centre equals the two squeezes across that line added together. So a small ball let go at rest at first changes shape without changing volume.
-- **Exposed by:** `checks/squashed-or-stretched`
+- **What is true:** The stretch along the line toward the planet's centre equals the two squeezes across that line added together. So a small ball let go at rest changes shape at first without changing its room.
+- **Exposed by:** `checks/room-in-the-egg`
 
-### “A heavy planet right beside a ball of crumbs squeezes it harder, so the ball must lose volume.” · entry · `mass-nearby-shrinks-the-ball`
+### “A heavy planet right beside a ball of crumbs squeezes it harder, so that ball must lose room.” · entry · `mass-nearby-shrinks-the-ball`
 
 - **Why it is tempting:** Bigger drifts look like a stronger squeeze.
-- **What is true:** A heavier planet makes the stretch and both squeezes bigger together, so they still balance. Only mass inside the ball makes its volume start to change.
+- **What is true:** A heavier planet makes the stretch and both squeezes bigger together, so they still add to zero. Only mass inside the ball starts its room changing.
 - **Exposed by:** `checks/which-balls-shrink`
 
-### “Only a tiny cloud keeps its volume; a big cloud beside Earth must start to shrink because its near side is pulled much harder.” · working · `big-cloud-must-shrink`
+### “Only a tiny cloud keeps its volume; a big cloud beside Earth must shrink, because its near side is pulled much harder.” · working · `big-cloud-must-shrink`
 
-- **Why it is tempting:** The volume budget is usually derived only for small balls.
-- **What is true:** In Newtonian gravity a cloud of any size released at rest starts with volume acceleration minus four pi G times the mass it encloses. With no mass inside, only its shape starts to change.
+- **Why it is tempting:** The volume budget is usually derived only for a small ball, so its scope looks narrow.
+- **What is true:** In Newtonian gravity a released cloud of any size starts with volume acceleration minus four pi G times the mass inside it. With none inside, only its shape starts to change.
 - **Exposed by:** `checks/big-cloud-beside-earth`
 
 ### “A gravitational wave squeezes a ring of free masses into an oval, so the area inside the ring shrinks and grows as the wave passes.” · working · `wave-changes-area`
 
-- **Why it is tempting:** Pictures of the wave show the ring squashed.
-- **What is true:** The ring stretches along one direction by exactly as much as it squeezes along the perpendicular one, so its area stays the same to first order in the strain. Changing the area would need a breathing polarization, which general relativity does not have.
+- **Why it is tempting:** Pictures of a passing wave show the ring squashed, and a squashed ring looks smaller.
+- **What is true:** The ring stretches along one direction by the fraction it squeezes along the perpendicular one, so its area holds to first order in the strain. Changing it would take a breathing polarization, which general relativity does not have.
 - **Exposed by:** `checks/mirror-arms-in-a-wave`
 
-### “In any vacuum region, a small ball of free particles keeps its volume at first, however it is released.” · formal · `vacuum-always-keeps-volume`
+### “In any vacuum region a small ball of free particles keeps its volume at first, however it is released.” · formal · `vacuum-always-keeps-volume`
 
 - **Why it is tempting:** Vacuum tides are trace-free, and the slogan usually drops the conditions on the release and on the cosmological constant.
-- **What is true:** A ball released with shear loses volume at once, even in flat spacetime. A positive cosmological constant makes a ball released at rest grow.
+- **What is true:** A ball released with shear loses volume at once, even in flat spacetime. A positive cosmological constant makes a ball released at rest start to grow.
 - **Exposed by:** `checks/released-with-a-shear`
 
 ### “Observers at one event who agree that a released ball keeps its volume at first also agree on how long it stays nearly unchanged.” · formal · `balance-lasts-equally-for-all`
 
 - **Why it is tempting:** The zero trace holds for every observer, so the whole volume history seems observer-independent.
-- **What is true:** The fourth-order loss is set by the square of the electric Weyl tensor, which changes under boosts. A ball released by an observer moving sideways past a mass loses volume sooner.
+- **What is true:** The fourth-order loss is set by the square of the electric Weyl tensor, which changes under boosts. A ball released by an observer passing a mass sideways loses volume sooner.
 - **Exposed by:** `checks/passer-loses-volume-sooner`
 
 ## Checks
 
-1. **Entry · predict** `checks/squashed-or-stretched`. In a cabin falling freely near Earth without turning, crumbs are spread over an imaginary ball 2 metres across, with a centre crumb at its centre and nothing else among them. All are let go at rest. A friend says gravity pulls everything together, so tidal drift will squash the ball and make it smaller. In ten seconds by the cabin's clock, a crumb 1 metre out along the line toward Earth's centre drifts away from the centre crumb by 0.154 millimetres. A crumb 1 metre out across that line drifts in by 0.077 millimetres. What happens to the ball's volume in those ten seconds?
-   - **Hints:** Write each drift as a fraction of 1 metre. / Add the three fractions, counting narrower as negative.
-   - **Answer:** The volume stays the same. The leftover from multiplying small fractions is less than 2 parts in 100 million. The friend is right that Earth pulls every crumb. But inside the falling cabin only differences in pull show, and they stretch the ball as well as squeeze it. Along the line toward Earth's centre, the ball grows longer by 154 parts in a million, because 0.154 millimetres is that fraction of 1 metre, which is 1,000 millimetres. Across the line, it grows narrower by 77 parts in a million in each of two directions at right angles. For small changes, the volume changes by the sum of these fractions. So the change is 154 minus 77 minus 77, which is zero. The ball becomes egg-shaped, but in these ten seconds it keeps its volume.
-   - **Must contain:** The volume stays the same; Plus 154, minus 77, minus 77 parts in a million; Small fractional changes add
-   - **Numeric:** change in the ball's volume after ten seconds = 0 percent (signed, ±0.001)
+1. **Entry · predict** `checks/room-in-the-egg`. Crumbs are let go at rest on an imaginary ball 2 metres across, around a centre crumb, in a cabin falling freely above a planet. Nothing else is among them. In one minute a crumb 1 metre out along the line toward the planet's centre drifts away from the centre crumb by 0.60 millimetres. A crumb 1 metre out across that line drifts in by 0.30 millimetres. A friend says gravity pulls everything together, so the ball must end up taking less room. Is the friend right?
+   - **Hints:** Write each drift as a fraction of 1 metre, then add the three, counting narrower as negative.
+   - **Answer:** No. Inside a falling cabin only the differences in pull show, and they stretch the ball as well as squeeze it. A metre is 1,000 millimetres, so 0.60 millimetres is 600 millionths of a metre. Along the line the ball is longer by 600 parts in a million. Across it, in each of two directions, the ball is narrower by 300 parts in a million. For small changes the room changes by the sum of those fractions. Since 600 minus 300 minus 300 is zero, the room stays the same, to better than one part in a million.
+   - **Must contain:** The room stays the same; Plus 600, minus 300 and minus 300 parts in a million add to zero
+   - **Numeric:** fractional change in the room the ball takes up = 0 1 (signed, ±1e-06)
    - **Targets:** `tides-squash-the-ball`
    - **Visual:** [[falling-ring-of-crumbs]]
-2. **Entry · choice** `checks/which-balls-shrink`. Three balls of crumbs are each let go at rest, with no air among or around the crumbs. Ball A is 2 metres across, beside a planet 8 times as heavy as Earth. It sits where every drift is 8 times as big as near Earth's surface. Ball B is 2 metres across, just above the Moon's surface. Ball C is a huge ball around the whole Moon, 100 kilometres above its surface. Which balls start to shrink?
+2. **Entry · choice** `checks/which-balls-shrink`. Three balls of crumbs are let go at rest, with no air among them. Ball A is 2 metres across, beside a planet where every drift is 8 times as big as near Earth's surface. Ball B is 2 metres across, just above the Moon's surface. Ball C is drawn around the whole Moon, 100 kilometres above its surface. Which start to shrink?
    - **Hints:** Which of the three balls has any mass inside it?
-   - **Answer:** Only ball C. A ball of crumbs let go at rest starts to change its volume only if mass sits inside it. Ball A holds nothing but empty space. Its planet makes the stretch along the line 8 times as big, but it makes both squeezes across the line 8 times as big too, so they still add up to zero. Ball B is the same, with smaller drifts from the Moon. Ball C holds the whole Moon. Every one of its crumbs falls toward the Moon's centre, so the ball stays round and shrinks.
-   - **Must contain:** Only ball C shrinks; Only mass inside a ball changes its volume; Bigger drifts still add up to zero
+   - **Answer:** Only ball C. A ball of crumbs let go at rest starts to change the room it takes up only if mass sits inside it. Ball A holds nothing but empty space. Its planet makes the stretch 8 times as big, but it makes both squeezes 8 times as big too, so the three fractions still add to zero. Ball B is the same, with the Moon's smaller drifts. Ball C holds the whole Moon, so each of its crumbs falls toward the Moon's centre by the same amount and the ball shrinks.
+   - **Must contain:** Only ball C shrinks; Only mass inside a ball starts its room changing, and bigger drifts still add to zero
    - **Targets:** `mass-nearby-shrinks-the-ball`
-3. **Working · evaluate-claim** `checks/big-cloud-beside-earth`. A spherical cloud of free particles 20,000 km across is centred 20,000 km from Earth's centre, so Earth lies outside it. All its particles are released at rest. Claim: the side nearer Earth is pulled much harder than the far side, so the cloud must start to lose volume. Treat Earth as a point mass and use Newtonian gravity. Evaluate the claim, and say what does start to change.
-   - **Hints:** At release, what does Gauss's law say about the flux of g through the cloud's surface?
-   - **Answer:** The claim is false. At release every particle is at rest, so the second derivative of the enclosed volume is the flux of the gravitational field through the cloud's surface, $\ddot V(0) = \oint \mathbf g\cdot d\mathbf A$. Gauss's law makes that flux $-4\pi G M_{\rm enc}$, and the cloud encloses no mass, so $\ddot V(0) = 0$ exactly, whatever the cloud's size. The near side does accelerate toward Earth faster than the centre, but the far side lags behind it and the sides converge toward Earth, and these cancel in the flux. The cloud's shape starts to change: it lengthens toward Earth and narrows across, and because the tidal field varies strongly across a cloud this large, it does not become a simple ellipsoid.
-   - **Must contain:** At release the volume acceleration is the flux of g; Gauss's law makes that flux zero with no mass inside; Only the shape starts to change
+3. **Working · evaluate-claim** `checks/big-cloud-beside-earth`. A spherical cloud of free particles 20,000 km across is centred 20,000 km from Earth's centre, so Earth lies outside it, and every particle is released from rest. Claim: the near side is pulled much harder than the far side, so the cloud must start to lose volume. Treat Earth as a Newtonian point mass. Evaluate the claim, and say what does start to change.
+   - **Hints:** At release, what does Gauss's law say about the flux of the gravitational field through the cloud's surface?
+   - **Answer:** The claim is false. At release every particle is at rest, so $\ddot V(0) = \oint_S \mathbf g\cdot d\mathbf A$, the flux of the field through the surface. Gauss's law makes that flux $-4\pi G M_{\rm enc}$, and this cloud encloses no mass, so $\ddot V(0) = 0$ exactly, whatever its size. The near side does accelerate faster than the centre, but the far side lags behind it and the sides converge, and these cancel in the flux. The shape is what changes: the cloud lengthens toward Earth and narrows across, and since the tidal field varies strongly over a cloud this large, that shape is not a simple ellipsoid.
+   - **Must contain:** At release the volume acceleration is the flux of the field, which Gauss's law makes zero with no mass inside; Only the shape starts to change, and not into a simple ellipsoid
    - **Targets:** `big-cloud-must-shrink`
-4. **Working · numeric** `checks/mirror-arms-in-a-wave`. A plus-polarized gravitational wave arrives along the $z$ axis of a freely falling observer. At one instant it has lengthened a 4 km row of free masses along $x$ by $2.0\times10^{-18}$ m. By how much has it changed rows of the same length along $y$ and along $z$? By what fraction has the area of a ring of free masses in the $xy$ plane changed, to first order in the strain?
-   - **Hints:** Find the strain from the change along x. / Multiply the fractional changes along x and y to get the area factor.
-   - **Answer:** Along $x$, $\delta L_x/L = h_+/2 = 2.0\times10^{-18}/4000 = 5\times10^{-22}$, so $h_+ = 1.0\times10^{-21}$. Along $y$ the wave gives $\delta L_y/L = -h_+/2$, so the row shortens by $2.0\times10^{-18}$ m. Along $z$, the direction of travel, nothing changes. The ring's area scales as $(1 + h_+/2)(1 - h_+/2) = 1 - h_+^2/4$, so to first order its area is unchanged; the second-order change, $2.5\times10^{-43}$, is far beyond any measurement. The tidal tensor of the wave is trace-free, the vacuum budget with one stretch balanced by one equal squeeze.
-   - **Must contain:** The y row shortens by 2.0e-18 metres; The z row does not change; The ring's area is unchanged to first order
+4. **Working · numeric** `checks/mirror-arms-in-a-wave`. A plus-polarized gravitational wave arrives along the $z$ axis of a freely falling observer. At one instant it has lengthened a 4 km row of free masses along $x$ by $2.0\times10^{-18}$ m. How do equal rows along $y$ and $z$ change, and by what fraction does the area of a ring in the $xy$ plane change, to first order in the strain?
+   - **Hints:** Find the strain from the change along $x$, then multiply the fractional changes along $x$ and $y$.
+   - **Answer:** $\delta L_x/L = h_+/2 = (2.0\times10^{-18}\ \mathrm m)/(4000\ \mathrm m) = 5.0\times10^{-22}$, so $h_+ = 1.0\times10^{-21}$. Since $\delta L_y/L = -h_+/2$, the row along $y$ shortens by $2.0\times10^{-18}$ m, and along the direction of travel nothing changes. The area scales as $(1 + h_+/2)(1 - h_+/2) = 1 - h_+^2/4$, unchanged to first order; the leftover $h_+^2/4 = 2.5\times10^{-43}$ is far beyond any measurement. That is the vacuum budget, one stretch against one equal squeeze, because the wave's tidal tensor is trace-free.
+   - **Must contain:** The row along y shortens by the same amount that x lengthened, and z does not change; The ring's area is unchanged to first order in the strain
    - **Numeric:** change in the row along y = -2e-18 m (signed, ±2%); change in the row along z = 0 m (signed, ±1e-20); first-order fractional change in the ring's area = 0 1 (signed, ±1e-30)
    - **Targets:** `wave-changes-area`
    - **Visual:** [[two-stars-and-a-distant-ring]]
-5. **Formal · evaluate-claim** `checks/released-with-a-shear`. Claim: in any vacuum region, a small ball of free particles keeps its volume at first. Test it with two cases. (a) In flat spacetime, a ball is released with velocity field $v_i = S_{ij}x_j$, where $S = \mathrm{diag}(s, -s, 0)$ and $s = 1.0\times10^{-3}\ \mathrm{s^{-1}}$; find its volume ratio after 60 s. (b) In de Sitter spacetime, $R_{\mu\nu} = \Lambda g_{\mu\nu}$, a ball is released at rest. Which hypotheses of the volume statement fail?
-   - **Hints:** With no forces, write each particle's position at time t and take the determinant. / Contract $R_{\mu\nu} = \Lambda g_{\mu\nu}$ twice with a unit timelike vector.
-   - **Answer:** The claim is false in both cases. (a) No forces act, so each particle moves as $x(t) = (1 + St)x_0$ and $V/V_0 = \det(1 + St) = (1 + st)(1 - st) = 1 - s^2t^2$. After 60 s this is $1 - 0.0036 = 0.9964$, and $\ddot V/V = -2s^2 = -2\times10^{-6}\ \mathrm{s^{-2}}$ from the start, comparable to Earth's tidal entries. The Raychaudhuri equation agrees: $\theta = 0$, $\omega = 0$, $R_{\mu\nu} = 0$, and $\sigma_{\alpha\beta}\sigma^{\alpha\beta} = 2s^2$, so $\dot\theta = -2s^2$. The failed hypothesis is release at rest, $B_{\mu\nu}(0) = 0$. (b) Here $R_{\mu\nu}u^\mu u^\nu = \Lambda g_{\mu\nu}u^\mu u^\nu = -\Lambda c^2$, so $\ddot{\delta V}/\delta V = +\Lambda c^2$: the ball starts to grow, at about $1\times10^{-35}\ \mathrm{s^{-2}}$ for today's value. The failed hypothesis is $R_{\mu\nu} = 0$, which vacuum gives only when $\Lambda = 0$.
-   - **Must contain:** The sheared ball's volume ratio is 0.9964 after 60 seconds; Shear removes volume at once, even with zero curvature; A positive cosmological constant makes a released ball grow
+5. **Formal · evaluate-claim** `checks/released-with-a-shear`. Claim: in any vacuum region a small ball of free particles keeps its volume at first. Test it twice. (a) In flat spacetime a ball is released with $v_i = S_{ij}x_j$, where $S = \mathrm{diag}(s, -s, 0)$ and $s = 1.0\times10^{-3}\ \mathrm{s^{-1}}$; find its volume ratio after 60 s. (b) In de Sitter spacetime, where $R_{\mu\nu} = \Lambda g_{\mu\nu}$, a ball is released at rest. Which hypothesis fails in each case?
+   - **Hints:** With no forces, write each particle's position at time $t$ and take the determinant.
+   - **Answer:** It fails both times. (a) No forces act, so $x(t) = (1 + St)x_0$ and $V/V_0 = \det(1 + St) = (1 + st)(1 - st) = 1 - s^2t^2 = 0.9964$ after 60 s. So $\ddot V/V = -2s^2 = -2\times10^{-6}\ \mathrm{s^{-2}}$ from the start, comparable with Earth's tidal entries. Raychaudhuri agrees: with $\theta = \omega = 0$, $R_{\mu\nu} = 0$ and $\sigma_{\alpha\beta}\sigma^{\alpha\beta} = 2s^2$, $\dot\theta = -2s^2$. Release at rest is the hypothesis that fails. (b) Here $R_{\mu\nu}u^\mu u^\nu = -\Lambda c^2$, so $\ddot{\delta V}/\delta V = +\Lambda c^2$ and the ball starts to grow, at about $1\times10^{-35}\ \mathrm{s^{-2}}$ today. Here $R_{\mu\nu} = 0$ fails, since vacuum gives it only when $\Lambda = 0$.
+   - **Must contain:** The sheared ball's volume ratio is 0.9964 after 60 seconds; Shear removes volume at once, even with zero curvature, and a positive cosmological constant makes a released ball grow
    - **Numeric:** volume ratio of the sheared ball after 60 s = 0.9964 1 (magnitude, ±0.05%)
    - **Targets:** `vacuum-always-keeps-volume`
-6. **Formal · numeric** `checks/passer-loses-volume-sooner`. Set $G = c = 1$. Just outside a spherical mass, a freely falling observer momentarily at rest relative to it measures the tidal tensor $q\,\mathrm{diag}(-2, 1, 1)$, and one passing sideways at $\beta = 0.6$ measures $q\,\mathrm{diag}(-3.6875, 2.6875, 1)$. Each releases a small ball at rest. Find $E_{ij}E_{ij}$ for each, and the ratio of the passer's time to the other's for the same small volume loss.
-   - **Hints:** Square and add the diagonal entries. / Hold the loss fixed and solve the fourth-order law for the time.
-   - **Answer:** Both traces vanish, $-2 + 1 + 1 = 0$ and $-3.6875 + 2.6875 + 1 = 0$, so both balls keep their volume through third order in proper time. The fourth-order law $\ln(\delta V/\delta V_0) = -\tfrac1{12}E_{ij}E_{ij}\tau^4$ then separates them. For the observer at rest, $E_{ij}E_{ij} = (4 + 1 + 1)q^2 = 6q^2$. For the passer, $E_{ij}E_{ij} = (13.598 + 7.223 + 1)q^2 = 21.82q^2$. A given small loss needs $\tau^4 \propto 1/E_{ij}E_{ij}$, so the passer's time is $(6/21.82)^{1/4} = 0.724$ of the other's. The passer's ball loses volume sooner, because $E_{ij}E_{ij}$ is not invariant under boosts, although the zero trace is.
-   - **Must contain:** Both traces vanish; E i j E i j is 6 and 21.82 in units of q squared; The time ratio is 0.724
-   - **Numeric:** E i j E i j for the passer in units of q squared = 21.82 1 (magnitude, ±1%); ratio of the passer's time to the resting observer's time = 0.724 1 (magnitude, ±1%)
+6. **Formal · numeric** `checks/passer-loses-volume-sooner`. Set $G = c = 1$. Just outside a spherical mass, a freely falling observer momentarily at rest measures the tidal tensor $q\,\mathrm{diag}(-2, 1, 1)$, with $q = M/r^3$ and the first axis along the radius. One passing sideways at $\beta = 0.6$ measures $q\,\mathrm{diag}(-3.6875, 2.6875, 1)$, her second axis along her motion. Each releases a small ball at rest. Find $E_{ij}E_{ij}$ for each, and the ratio of their proper times for the same small fractional volume loss.
+   - **Hints:** Square and add the diagonal entries, then hold the fractional loss fixed and solve for the proper time.
+   - **Answer:** Both traces vanish, $-2 + 1 + 1 = 0$ and $-3.6875 + 2.6875 + 1 = 0$, so both balls keep their volume through third order in proper time. The fourth-order law $\ln(\delta V/\delta V_0) = -\tfrac1{12}E_{ij}E_{ij}\tau^4$ separates them. At rest $E_{ij}E_{ij} = (4 + 1 + 1)q^2 = 6q^2$; for the passer, $(13.598 + 7.223 + 1)q^2 = 21.82q^2$. A fixed small loss needs $\tau^4 \propto 1/E_{ij}E_{ij}$, so her proper time is $(6/21.82)^{1/4} = 0.724$ of his. Her ball loses volume sooner, because $E_{ij}E_{ij}$ is not invariant under boosts although its vanishing trace is.
+   - **Must contain:** Both tidal tensors have vanishing trace; E i j E i j is 6 and about 21.82 in units of q squared; The ratio of the times is about 0.724
+   - **Numeric:** E i j E i j for the passer in units of q squared = 21.82 1 (magnitude, ±1%); ratio of the passer's proper time to the resting observer's = 0.724 1 (magnitude, ±1%)
    - **Targets:** `balance-lasts-equally-for-all`
 
 ## Notation traps
 
 | Issue | Course choice | Variants you will meet |
 | --- | --- | --- |
-| What the strain of a gravitational wave measures | With $h^{\rm TT}_{ij} = h_+e^+_{ij} + h_\times e^\times_{ij}$, free masses along $\mathbf p$ change separation by $\delta L/L = h_+/2$, and arms along $\mathbf p$ and $\mathbf q$ read $(\delta L_x - \delta L_y)/L = h_+$ for a wave along $\mathbf n$. | Detector papers call $(\delta L_x - \delta L_y)/L$ the strain $h(t)$ and sometimes describe one arm as changing by $hL$, twice the single-arm change for an optimally oriented plus wave. |
+| What the strain of a gravitational wave measures | With $h^{\rm TT}_{ij} = h_+e^+_{ij} + h_\times e^\times_{ij}$ and $e^+_{ij} = p_ip_j - q_iq_j$, free masses along $\mathbf p$ change their separation by $\delta L/L = h_+/2$, and arms along $\mathbf p$ and $\mathbf q$ give $(\delta L_x - \delta L_y)/L = h_+$ for a wave arriving along $\mathbf n$. | Detector papers call the difference $(\delta L_x - \delta L_y)/L$ the strain $h(t)$, and sometimes describe one arm as changing by $hL$, twice the single-arm change for an optimally oriented plus wave. Always say whether a quoted strain is one arm or the difference. |
 
 ## Visuals
 
-- ★ [[falling-ring-of-crumbs]] (flagship): The central picture: a small ball of falling crumbs becomes an egg whose volume meter stays flat at first, beside a ball around the whole planet that shrinks. *Sketch:* This concept adds a volume meter and a size switch. Presets: a small ball beside the planet, a large cloud beside it that does not contain it, and a ball around the whole planet. Readouts give the fractional stretch along the line, each squeeze across it, their sum, and the volume ratio. A time slider runs past the first minute so the slow fourth-order loss shows. For formal readers, a shear-at-release toggle and a cosmological-constant slider break the balance.
-- [[two-stars-and-a-distant-ring]] (supporting): The zero trace in a wave: a distant ring of free masses stretches one way and squeezes the other equally, keeping its area. *Sketch:* This concept adds an area readout for the distant ring, fractional stretch readouts along two perpendicular axes with their sum, and a switch to an invented breathing wave that grows and shrinks the ring evenly, the only case in which the area readout moves.
+- ★ [[falling-ring-of-crumbs]] (flagship): The central picture: a falling ball of crumbs becomes an egg whose volume meter stays flat at first, beside a ball drawn around the whole planet, which shrinks. *Sketch:* This concept adds a volume meter and a size switch. Presets: a small ball beside the planet, a large cloud beside it that does not contain it, and a ball drawn around the whole planet. Readouts give the fractional stretch along the line to the planet's centre, each squeeze across it, their sum, and the volume ratio. A time slider runs past the first minute, so the slow fourth-order loss shows while the sum stays at zero. A shear-at-release toggle and a cosmological-constant slider break the balance one hypothesis at a time.
+- [[two-stars-and-a-distant-ring]] (supporting): The zero trace in a travelling tide: a distant ring of free masses stretches one way and squeezes the other equally, so its area holds. *Sketch:* This concept adds an area readout for the distant ring, fractional stretch readouts along two perpendicular axes with their sum, and a switch to an invented breathing wave that grows and shrinks the ring evenly. The area readout moves only in that invented case.
 
 ## Tutor moves
 
 **Open with**
 
-- Picture a small ball of crumbs let go at rest inside a cabin that falls freely near Earth, with nothing among the crumbs. Tidal drift stretches it into an egg shape. Does the egg take up more room than the ball, less room, or the same? *(prediction)*
-- Now picture crumbs spread over a huge ball around the whole Earth, high above the air, all let go at rest. Does this ball keep its volume at first, like the small one? *(prediction)*
+- Picture a small ball of crumbs let go at rest inside a cabin that falls freely near Earth, with nothing among the crumbs. Tidal drift stretches it into an egg shape. Does the egg take up more room than the ball, less, or the same? *(prediction)*
+- Now picture crumbs spread over a huge ball drawn around the whole Earth, high above the air, all let go at rest. Does this ball keep its room at first, like the small one? *(prediction)*
 
 **If the learner is stuck**
 
-- *The learner does not believe that small fractional changes of length and widths add up to the change in volume.* → Multiply out 1.002 by 0.999 by 0.999, then 1.2 by 0.9 by 0.9, and compare each with the sum of the fractions. *Uses:* `ways_in/egg-with-the-same-volume`
+- *The learner does not believe that small fractional changes of a length and two widths add up to the change in the room.* → Multiply out 1.002 by 0.999 by 0.999, then 1.2 by 0.9 by 0.9, and compare each with the sum of its fractions. *Uses:* `ways_in/egg-with-the-same-room`
+- *The learner accepts that the fractions add to zero but cannot see why a nearby planet does nothing to the room.* → Take the ball's near side and far side one at a time, and have the learner say which way each crumb moves compared with the centre crumb. *Uses:* `ways_in/balls-that-shrink`, `checks/which-balls-shrink`
+- *The learner answers a question about the room with a statement about the shape, or the other way round.* → Ask for both answers separately, in numbers: how much longer than wide the egg is, and by what fraction its room changed. *Uses:* `worked_examples/one-minute-fall-near-earth`
 
 **Common questions**
 
-- *Does the egg keep its volume forever?* (entry) No, only at first. As the egg keeps growing longer and thinner, the balance slowly fails, and its volume starts to shrink. Near Earth this is very slow. After a whole minute of falling freely near Earth, in a cabin that does not turn, the egg is longer than the ball by about half of one per cent. Yet its volume has shrunk by only about 15 parts in a million. *Uses:* `ways_in/egg-with-the-same-volume`, `worked_examples/one-minute-fall-near-earth`
+- *Does the egg keep the room it takes up forever?* (entry) No, only at first. As the egg grows longer and thinner, the rule that the fractions add stops working, and the room does start to shrink. Near Earth that is very slow. After a whole minute of falling freely, the egg is longer than it is wide by about eight parts in a thousand. Yet its room has shrunk by only about fifteen parts in a million. *Uses:* `ways_in/egg-with-the-same-room`, `worked_examples/one-minute-fall-near-earth`
+- *Is the volume law exact, or only a first approximation?* (working) Two statements are in play. In Newtonian gravity $\ddot V(0) = -4\pi G M_{\rm enc}$ is exact for a released cloud of any size and shape, but only at the instant of release. In general relativity the exact statement is local: $\ddot{\delta V}/\delta V = -R_{\mu\nu}u^\mu u^\nu$ holds in the limit of a small ball, because a finite cloud's volume depends on which events count as simultaneous. Past the first instant the Raychaudhuri equation takes over. *Uses:* `ways_in/gauss-law-counts-the-mass-inside`, `ways_in/volume-and-shear-of-a-released-ball`
 
 **Switching levels**
 
-- To working when: asks for a formula for the volume change; asks whether gravitational waves do the same. Derive the release law from Gauss's law, then read the stretch and squeeze of a wave. *Uses:* `ways_in/gauss-law-counts-the-mass-inside`, `ways_in/ring-of-mirrors-in-a-gravitational-wave`
-- To formal when: asks how long the volume stays constant; asks what exactly released at rest means. Give the Raychaudhuri argument to fourth order, then break each hypothesis with the sheared ball. *Uses:* `ways_in/volume-and-shear-of-a-released-ball`, `checks/released-with-a-shear`
+- To working when: asks for a formula for the volume change; asks whether a cloud has to be small for the rule to hold. Derive the release law from Gauss's law, then read off a wave's equal stretch and squeeze. *Uses:* `ways_in/gauss-law-counts-the-mass-inside`, `ways_in/ring-of-mirrors-in-a-gravitational-wave`
+- To formal when: asks how long the volume stays constant; asks what exactly released at rest means. Give the Raychaudhuri argument to fourth order, then break each hypothesis with the sheared ball and the cosmological constant. *Uses:* `ways_in/volume-and-shear-of-a-released-ball`, `checks/released-with-a-shear`
 - To research when: asks about visualizing black-hole mergers, weak lensing, or testing general relativity with wave polarizations. Open the research horizon. *Uses:* `research_horizon/tidal-tendex-lines`, `research_horizon/lensing-convergence-and-shear`, `research_horizon/polarization-tests`
 
-**Pronunciations:** Ricci → REE-chee; Weyl → VILE; Raychaudhuri → ray-CHOWD-hoo-ree; Poisson → pwah-SOHN; GOCE → GOH-chay; LIGO → LIE-go
+**Pronunciations:** Ricci → REE-chee; Weyl → VILE; Raychaudhuri → ray-CHOWD-hoo-ree; Poisson → pwah-SOHN; Kretschmann → KRETCH-mahn; GOCE → GOH-chay; LIGO → LIE-go; Virgo → VUR-go
 
-**Voice notes:** At entry, say 'at first' whenever the balance is stated.
+**Voice notes:** At entry, say "at first" every time the balance is stated, and keep "room" for the everyday word and "volume" for the named one.
 
 ## History
 
-- **Siméon Denis Poisson (1813).** Extended Laplace's equation for the gravitational potential to points inside matter, in modern notation $\nabla^2\Phi = 4\pi G\rho$: the Newtonian statement that the trace of the tides is set by the local density.
-- **Albert Einstein (1915).** Gave the final field equations, whose vacuum form $R_{\mu\nu} = 0$ makes the tidal trace vanish for every freely falling observer outside matter. Albert Einstein (1915), *Die Feldgleichungen der Gravitation*, Sitzungsberichte der Königlich Preußischen Akademie der Wissenschaften (Berlin), 844–847
-- **Amal Kumar Raychaudhuri (1955).** Derived, for the freely falling dust of a cosmological model, the evolution equation for the expansion of its worldlines, with separate terms for shear, rotation and the Ricci tensor. Amal Kumar Raychaudhuri (1955), *Relativistic cosmology. I*, Physical Review 98, 1123–1126, doi:10.1103/PhysRev.98.1123
+- **Simeon Denis Poisson (1813).** Extended Laplace's equation for the gravitational potential to points inside matter, in modern notation $\nabla^2\Phi = 4\pi G\rho$: the Newtonian statement that the trace of the tides is set by the local density.
+- **Albert Einstein (1915).** Gave the final field equations, whose vacuum form $R_{\mu\nu} = 0$ makes the tidal trace vanish for every freely falling observer outside matter. Albert Einstein (1915), *Die Feldgleichungen der Gravitation*, Sitzungsberichte der Koeniglich Preussischen Akademie der Wissenschaften (Berlin), 844-847 _(unverified)_
+- **Amal Kumar Raychaudhuri (1955).** Derived, for the freely falling dust of a cosmological model, the evolution equation for the expansion of its worldlines, with separate terms for shear, rotation and the Ricci tensor. Amal Kumar Raychaudhuri (1955), *Relativistic cosmology. I*, Physical Review 98, 1123-1126, doi:10.1103/PhysRev.98.1123 _(unverified)_
 
 ## Research horizon
 
-- **Tidal tendex lines.** In vacuum the tidal tensor is trace-free at every event, so along its three eigen-directions a stretch is always balanced by squeezes. Drawing the eigenvector fields as tendex lines, labelled by their eigenvalues, maps where merging black holes stretch and squeeze nearby matter, and how those patterns leave as gravitational waves. Robert Owen, Jeandrew Brink, Yanbei Chen, Jeffrey D. Kaplan and others (2011), *Frame-dragging vortexes and tidal tendexes attached to colliding black holes: visualizing the curvature of spacetime*, Physical Review Letters 106, 151101, doi:10.1103/PhysRevLett.106.151101
-- **Convergence and shear of light beams.** For a narrow bundle of light rays, matter inside the beam focuses it directly through the Ricci term, while mass beside the beam enters only through the Weyl term, which shears the beam's cross-section: the light-ray version of the egg. Weak-lensing surveys measure that shear in the images of background galaxies to map mass, including dark matter, lying beside the lines of sight. Matthias Bartelmann, Peter Schneider (2001), *Weak gravitational lensing*, Physics Reports 340, 291–472, doi:10.1016/S0370-1573(00)00082-X
-- **Testing the polarizations of gravitational waves.** General relativity allows only two polarizations, both transverse and trace-free, so a ring of free masses keeps its area. General metric theories allow up to six, including a breathing mode that changes the area. Networks of differently oriented detectors compare each signal with these patterns, beginning with GW170814. Clifford M. Will (2014), *The Confrontation between General Relativity and Experiment*, Living Reviews in Relativity 17, 4, doi:10.12942/lrr-2014-4; B. P. Abbott, R. Abbott, T. D. Abbott and others (2017), *GW170814: A Three-Detector Observation of Gravitational Waves from a Binary Black Hole Coalescence*, Physical Review Letters 119, 141101, doi:10.1103/PhysRevLett.119.141101
+- **Tidal tendex lines.** In vacuum the tidal tensor is trace-free at every event, so along its three eigen-directions a stretch is always paid for by squeezes. Drawing the eigenvector fields as tendex lines, labelled by their eigenvalues, maps where merging black holes stretch and squeeze nearby matter, and how those patterns travel away as gravitational waves. Robert Owen, Jeandrew Brink, Yanbei Chen, Jeffrey D. Kaplan and others (2011), *Frame-dragging vortexes and tidal tendexes attached to colliding black holes: visualizing the curvature of spacetime*, Physical Review Letters 106, 151101, doi:10.1103/PhysRevLett.106.151101 _(unverified)_
+- **Convergence and shear of light beams.** For a narrow bundle of light rays, matter inside the beam focuses it through the Ricci term, while mass beside the beam enters only through the Weyl term, which shears the beam's cross-section: the light-ray twin of the egg. Weak-lensing surveys measure that shear in the shapes of background galaxies to map mass, dark matter included, lying beside the lines of sight. Matthias Bartelmann, Peter Schneider (2001), *Weak gravitational lensing*, Physics Reports 340, 291-472, doi:10.1016/S0370-1573(00)00082-X _(unverified)_
+- **Testing the polarizations of gravitational waves.** General relativity allows only two polarizations, both transverse and trace-free, so a ring of free masses keeps its area. General metric theories allow up to six, including a breathing mode that changes the area. Networks of differently oriented detectors compare each signal with these patterns, a programme that began with the first three-detector event. Clifford M. Will (2014), *The Confrontation between General Relativity and Experiment*, Living Reviews in Relativity 17, 4, doi:10.12942/lrr-2014-4 _(unverified)_; B. P. Abbott, R. Abbott, T. D. Abbott and others (2017), *GW170814: A Three-Detector Observation of Gravitational Waves from a Binary Black Hole Coalescence*, Physical Review Letters 119, 141101, doi:10.1103/PhysRevLett.119.141101 _(unverified)_
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 4)
 
 **Retell attempt:** In a cabin falling freely down a tower, you let go of crumbs on a ball 2 metres across. In ten seconds the ones along the line to Earth's centre drift out 0.154 millimetres and the ones across drift in half as far, so the ball turns into an egg. You turn those into parts in a million and add: 154 minus 77 minus 77 is zero, so the egg takes up the same room at first, which you can check by multiplying on a calculator. A giant ball around the whole Earth does shrink, because Earth is inside it; mass outside only changes the shape. I wasn't sure whether the crumbs fill the ball or sit on its outside, how millimetres became parts in a million, why adding fractions works for an egg when the check used a box, why the egg later shrinks instead of growing, and whether the centre crumb counts as mass inside.
 
@@ -572,69 +591,77 @@ Set $G = c = 1$ and $\Lambda = 0$. Prove that at an event $x$, every freely fall
 - The 'egg' shape is a symmetric oval (both ends alike); the proposed visual falling-ring-of-crumbs should draw it that way, not as a real egg with one pointed end.
 - Carried over from drafting: the conventions file has no symbols for an observer's tidal tensor or the electric and magnetic Weyl parts, and the GW170814 Bayes factors and the Bartelmann and Schneider reference still need checking.
 
+**Re-read** (2026-09-16, revision 4): 18 stumbles in 30 changed passages
+
+- “Why tidal drift changes a falling ball's shape long before it changes its volume”: Unscoped: the note's own huge ball around Earth changes its volume at once and its shape not at all.
+- “Near a round planet they drift away from that centre crumb ... and in toward it from across that line, half as far.”: 'Near' includes inside the planet, where the half-as-far rule fails; 'in toward it from across' is a reread.
+- “A small ball of them grows longer along the line toward Earth's centre by some fraction, and narrower by half that fraction in each of two directions across the line.”: Thirty-word sentence pushed the recap's average past 20 words (validator warning).
+- “The centre crumb sits at the ball's centre, and nothing else floats among them.”: 'The centre crumb' arrives as if already known; the term is new here (rule 4).
+- “An egg's room is also its length times its two widths”: Read literally it is false: an egg's room is about half that product. The rule needs only that the room is set by the product.
+- “at first the egg takes up exactly the room the ball took”: 'Exactly' contradicts the box check two sentences earlier, which left 3 millionths over.
+- “Both boxes have fractions that add to zero, plus 2 against minus 1 twice”: The two boxes use thousandths and tenths; 'plus 2 against minus 1' names neither, and the 32-word sentence needed a reread.
+- “Measured from Earth's centre, each falls about 435 metres in ten seconds.”: A measurement without its instrument (rule 7): measured with what, held still relative to what?
+- “crumbs nearer Earth fall ahead of the centre crumb while crumbs farther from it lag behind”: 'It' could be Earth or the centre crumb.
+- “By Newton's law of gravity, which we take on trust here, this holds for a ball of any size.”: 'This' points at the previous sentence about crumbs moving out and in, but the rule it means comes next.
+- “Its cabin's walls lie outside it, so their pull does not count.”: 'Does not count' toward what? The rule is about starting the room changing.
+- “In ten seconds each crumb falls about 73 metres toward the Moon's centre, measured from the Moon's centre.”: No instrument for the measurement (rule 7).
+- “a small ball of crumbs floating just above the Moon's surface”: 'Floating' suggests the crumbs hover; they are let go at rest and fall.
+- “In one minute a crumb 1 metre out along the line toward the planet's centre drifts away by 0.60 millimetres, and one 1 metre out across that line drifts in by 0.30 millimetres.”: Thirty-five-word sentence (validator warning); 'drifts away' from what; 'one 1 metre' reads as a typo.
+- “A metre is 1,000 millimetres, so the ball is longer by 600 parts in a million along the line, and narrower by 300 parts in a million across it in each of two directions.”: Thirty-five-word sentence (validator warning) that skips the step from 0.60 millimetres to 600 millionths.
+- “Ball C is drawn around the whole Moon, 100 kilometres up.”: 'Up' from where (rule 6)?
+- “After a whole minute of falling freely, the egg is longer than it is wide by about eight parts in a thousand, yet its room has shrunk by only about fifteen parts in a million.”: Thirty-five-word sentence (validator warning).
+- “At release, what does Gauss's law say about the flux through the cloud's surface?”: Working rung: flux of what? The key point names the field.
+- Fix: Entry: scoped the tagline to a ball with nothing inside; recap of the egg way says 'Outside a round planet'; introduced the centre crumb as a new term; 'set by its length times its two widths'; dropped 'exactly'; try_it names thousandths and tenths and is split in two; whole-Earth way names the rulers, replaces 'it' with 'Earth', replaces the dangling 'this' and 'does not count'; Moon problem names the rulers and replaces 'floating' with 'let go at rest'; ball C is 100 kilometres above the Moon's surface; the three 35-word sentences in room-in-the-egg and does-it-last and the 30-word recap sentence were split without dropping words.
+- Fix: Working: the big-cloud hint names the gravitational field; the wave way no longer calls 1 - h^2/4 the exact area factor; the mirror-arms answer calls 2.5e-43 the leftover of the first-order product; 17.6 km became 17.7 km in the one-minute example.
+- Fix: No claim was changed except where the physics pass required it (tagline scope, 'exactly', 'exact area factor', 17.7 km). Entry way explanations 867 words, extras 700, within the caps.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 3)
+**Verdict:** fixed (2026-09-16, revision 4)
 
 **Verification**
 
-- Entry drifts: a 1 m semi-axis released at rest near Earth's surface moves +0.154 mm along the line to the centre and -0.077 mm across it in 10 s; the 2 m ball grows 0.3 mm longer.: python: q = GM/R^3 with GM = 3.986e14, R = 6.371e6 gives 1.5414e-6 s^-2; radial q t^2, transverse q t^2/2, from eigenvalues (-2,1,1)q of the Newtonian tidal matrix. → 0.1541 mm and 0.0771 mm; length gain 0.308 mm, about four 77-micrometre hairs. Correct.
-- Box arithmetic: 1.002 x 0.999 x 0.999 = 0.999997; 1.02 x 0.99 x 0.99 = 0.999702; 1.2 x 0.9 x 0.9 = 0.972.: python → Correct.
-- Check squashed-or-stretched: leftover under 2 parts in 100 million.: python: (1+154e-6)(1-77e-6)^2 - 1; also the exact constant-tide volume cosh(sqrt(2q) t) cos^2(sqrt(q) t) at t = 10 s. → Product of rounded fractions -1.78e-8; true fourth-order tidal loss -1.19e-8 (= q^2 t^4 / 2). Both under 2e-8, so the statement is true either way. Numeric 0 percent with tolerance 0.001 percent is fine.
-- Entry: over a longer fall the volume shrinks rather than grows.: Raychaudhuri in vacuum with theta(0) = 0, omega = 0: d theta/d tau = -theta^2/3 - sigma^2 <= 0, so theta <= 0 for all later times; fourth-order term -E_ij E_ij tau^4/12 < 0. → Correct for every later time before a caustic, for a nonrotating release. A release in a cabin turning with Earth adds growth 2 Omega^2 in the volume acceleration (+0.53 ppm in 10 s, +19 ppm in 60 s), which would reverse the one-minute figure; fixed by saying the cabin does not turn.
-- Entry and worked example: after one minute the egg has lost about 15 parts in a million; radial axis +0.555 per cent, transverse -0.277 per cent, axis ratio 1.0084.: python with q = 1.54e-6 and q = 1.5414e-6: cosh(sqrt2 x), cos x, x = sqrt(q) 60; compared with q^2 t^4 / 2. → Volume ratio 0.9999846 (loss 1.54e-5); axes 1.005554, 0.997227; ratio 1.0084; fourth-order estimate 1.54e-5. Fall 17.7 km changes GM/r^3 by 0.83 per cent. Correct.
-- Centre crumb: its pull moves the other crumbs far less than an atom's width in 10 s.: python: G m t^2 / (2 r^2) with m = 1 mg, r = 1 m; Newtonian volume effect -4 pi G m over V = 4.19 m^3. → Displacement 3.3e-15 m (atoms ~1e-10 m); fractional volume change ~1e-14 in 10 s. Correct.
-- Rulers in the cabin and rulers still relative to Earth agree on the ball's size far more closely than 193 ppm.: Order of magnitude of relativistic ruler differences: GM/rc^2 ~ 7e-10, v^2/c^2 for a 98 m/s fall ~ 1e-13. → Correct; the Newtonian comparison is fair.
-- Whole-Earth ball at 400 km: each crumb falls 435 m in 10 s, 64 ppm of 6,771 km, volume -193 ppm; working form -3GM/r^3 = -3.85e-6 s^-2.: python: g = GM/r^2, g t^2/2; 1-(1-f)^3; -4 pi G M / (4 pi r^3 / 3). → 434.7 m; 64.2 ppm; 192.6 ppm; 3.852e-6 s^-2 and 1.93e-4 in 10 s. Correct.
-- Problem ball-around-earth-higher-up: 367 m fall at 7,371 km radius, about 150 ppm, 0.0149 percent.: python → 366.8 m; 49.8 ppm; 149.3 ppm = 0.01493 percent. Numeric within tolerance. Correct.
-- Summary and ways: by Newton's law, only mass inside a ball let go at rest starts to change its volume; mass outside changes only its shape at first; more mass inside shrinks it faster.: Material-surface derivation: dV/dt = flux of v, second derivative at rest = flux of g = -4 pi G M_enc (divergence theorem); third derivative also vanishes at release for a static field since v and its gradients vanish. → Correct for any size and shape, Newtonian, release at rest in a nonrotating frame. Einstein-theory exception (Lambda) is outside the Newtonian scope; the egg way's "as closely as anyone could ever measure" covers Lambda c^2 ~ 1e-35 s^-2 (5e-34 fractional in 10 s). Accepted.
-- Derivation volume-acceleration-from-gauss, steps 1-5.: Re-derived by hand; Poisson nabla^2 Phi = 4 pi G rho, g = -grad Phi. → Correct signs; small cloud gives -4 pi G rho = -tr d_i d_j Phi.
-- Tidal eigenvalues (GM/r^3)(-2,1,1) and axis law l = l0(1 - lambda t^2 / 2).: Second derivatives of -GM/r; l'' = -lambda l. → Correct.
-- GR trace: E^mu_mu = R_{nu sigma} u^nu u^sigma with the course geodesic-deviation sign; perfect fluid at rest gives 4 pi G(rho + 3p/c^2) - Lambda c^2.: Contracted the conventions deviation equation; trace-reversed Einstein equation with Lambda: R_mn = kappa(T_mn - T g_mn/2) + Lambda g_mn, T_mn u u = rho c^4, T = -rho c^2 + 3p, g_mn u u = -c^2. → Correct: volume law -R u u = -4 pi G(rho + 3p/c^2) + Lambda c^2, as the note states.
-- Boosted observer at beta = 0.6 sideways past a spherical mass measures q diag(-3.6875, 2.6875, 1); E_ij E_ij = 21.82 q^2; time ratio 0.724.: Orthonormal Schwarzschild Riemann (R_trtr = -2q, R_tthetattheta = R_tphitphi = q, R_thetaphithetaphi = 2q, R_rthetartheta = R_rphirphi = -q; checked Ricci-flat). Boost u = gamma(e_t + beta e_phi): E'_rr = gamma^2(-2q - beta^2 q), E'_thetatheta = gamma^2(q + 2 beta^2 q), E'_phiphi = q; python. → -3.6875 q, 2.6875 q, 1 q (the unit entry is along the motion); sum of squares 21.8203; (6/21.82)^(1/4) = 0.7241. Correct.
-- Kretschmann in vacuum 8(E.E - B.B); static observer E.E = 6M^2/r^6.: 48 M^2/r^6 / 8 = 6. → Correct.
-- Derivation fourth-order-loss-in-vacuum, including the constant-tide check cosh(sqrt2 s) cos^2 s = 1 - s^4/2.: Hand series: B-dot = -B^2 - E from xi-dot = B xi; trace; tr E-dot = 0 removes tau^3; series of cosh and cos^2. → (1 + s^2 + s^4/6)(1 - s^2 + s^4/3) = 1 - s^4/2; E.E/12 = 1/2. Correct.
-- Formal: sheared release in flat spacetime gives V/V0 = 1 - s^2 t^2 = 0.9964 at 60 s, V''/V = -2 s^2, sigma.sigma = 2 s^2.: Straight-line motion and determinant; python. → Correct.
-- Formal: Lambda gives +Lambda c^2 about 1e-35 s^-2.: python: 3 H0^2 Omega_Lambda with H0 = 67.4 km/s/Mpc, Omega_Lambda = 0.685. → 9.8e-36 s^-2. Correct.
-- Problem every-observer-keeps-volume: polarization argument and fluid with P = -rho/3 giving (16 pi/3) rho (gamma^2 - 1).: Hand algebra: T_mn u'u' = (rho + P) gamma^2 - P, T = -rho + 3P, g(u',u') = -1. → Correct, including the interval argument for R(v,v) = 0.
-- Light bundle: area constant through third order in affine parameter in vacuum.: Sachs equations: sigma ~ C lambda, theta-dot ~ -|C|^2 lambda^2, ln A ~ -|C|^2 lambda^4/12. → Correct.
-- Problem cube-around-earth: V''/V = -5.01e-9 s^-2, loss 9.0e-6 in 60 s; corners inside the Moon's orbit; short-time form accurate.: python: 4 pi GM / 1e24; half of that times 3600; free-fall distances at 50,000 km and 86,600 km from Earth's centre. → Rates correct. The solution said the corner particles fall about 0.1 m; they fall 96 m, and face-centre particles 287 m. Fixed; the short-time form remains accurate (287 m is 6e-6 of the half-width).
-- Gravitational wave: tidal tensor -h+-double-dot diag(1,-1,0)/2, delta L_x / L = +h+/2; check mirror-arms-in-a-wave h+ = 1.0e-21, y row -2.0e-18 m, area factor 1 - h+^2/4 = 1 - 2.5e-43.: Linearized course Riemann R_i0j0 = -h_ij,00 / 2 in TT gauge; deviation equation; python. → Signs and numbers correct.
-- GW150914: peak strain 1.0e-21; 4 km arms change by about 2e-18 m, difference 4e-18 m, about 400 times smaller than a proton.: python with proton diameter 1.68e-15 m; strain as (dLx - dLy)/L per the notation trap. → Ratio 420. Correct as stated.
-- GOCE: 255 km altitude, radial -2.74e-6 s^-2, horizontal +1.37e-6 s^-2, 0.137 mm and 0.069 mm in 10 s; measurement band periods 10 to 200 s.: python: GM/r^3 at r = 6,626 km; band 5 to 100 mHz. → 1.370e-6 s^-2; 0.137 mm, 0.0685 mm. Correct. The band scoping also excludes the static self-gravity of the spacecraft.
-- References: Rummel, Yi, Stummer 2011 J. Geod. 85, 777-790; Abbott et al. 2017 PRL 119, 141101; Owen, Brink, Chen, Kaplan et al. 2011 PRL 106, 151101; Bartelmann and Schneider 2001 Phys. Rep. 340, 291-472; Raychaudhuri 1955 Phys. Rev. 98, 1123-1126; Will 2014 Living Rev. Relativ. 17, 4.: Crossref API records for each DOI (web search budget was exhausted in this session). → All authors, years, titles, venues and pages confirmed; Bartelmann and Schneider DOI 10.1016/S0370-1573(00)00082-X and arXiv astro-ph/9912508 added. Set verified.
-- Einstein 1915, Die Feldgleichungen der Gravitation, Sitzungsberichte (Berlin) 844-847.: Standard bibliographic record (25 November 1915 session), same record as elsewhere in the vault. → Confirmed; no DOI. Set verified.
-- GW170814 Bayes factors about 200 (tensor vs vector) and 1000 (tensor vs scalar).: Compared with the published abstract as recalled and the internal study dossier. → Consistent: 200 and 1000. Accepted.
+- Egg way and checks: 0.154 mm and 0.077 mm drifts at 1 m in 10 s near Earth's surface; egg longer than wide by under half a millimetre.: python3: q = GM/r^3 = 1.541e-6 s^-2 at r = 6371 km; q t^2 = 1.54e-4 m; half for transverse; 2(1+154e-6) - 2(1-77e-6) = 0.462 mm. → Correct; 0.462 mm is about six hairs of 70 micrometres.
+- Box checks: 1.002 x 0.999 x 0.999 = 0.999997 (3 millionths lost) and 1.2 x 0.9 x 0.9 = 0.972.: python3. → 0.999997002 and 0.972; correct.
+- room-in-the-egg: +600, -300, -300 parts in a million leave the room unchanged to better than one part in a million.: python3: 1.0006 x 0.9997^2 - 1 = -2.7e-7. → Correct; numeric answer 0 with abs_tol 1e-6 matches.
+- Whole-Earth way: 435 m fall in 10 s at 400 km, 64 parts in a million of 6,771 km, 193 parts in a million of the volume; working way's -3.85e-6 s^-2 and 1.93e-4.: python3: g = GM/r^2 = 8.694 m/s^2, half g t^2 = 434.7 m; 3 x 434.7/6.771e6 = 1.926e-4; 3GM/r^3 = 3.852e-6 s^-2. → Correct.
+- ball-around-the-moon: 73 m fall in 10 s at 1,837 km from the Moon's centre; about 40 then 120 parts in a million.: python3 with GM_moon = 4.9048e12 m^3 s^-2: g = 1.453 m/s^2, fall 72.7 m, 73/1.837e6 = 3.97e-5, times 3 = 1.19e-4. → Correct; numeric 1.19e-4 with rel_tol 0.08 matches.
+- which-balls-shrink: only ball C shrinks; a planet 8 times the drifts scales stretch and both squeezes alike.: Release law: V''(0) = -4 pi G M_enc for any released cloud; the tidal matrix scales with GM/r^3 and stays trace-free. → Correct.
+- cube-around-earth: V''(0) = -5.009e15 m^3 s^-2, V''/V = -5.01e-9 s^-2, 9.0e-6 lost in 60 s, corners at 86,600 km, face centres fall about 300 m.: python3: -4 pi x 3.986e14; /1e24; half x 5.01e-9 x 3600; sqrt(3) x 50,000; half x GM/(5e7)^2 x 3600 = 287 m. → Correct; 287 m is 5.7e-6 of the half-width, under a hundred-thousandth.
+- one-minute-fall-near-earth: sqrt(q) t = 0.074492, cosh(0.105347) = 1.005554, cos = 0.997227, egg longer than wide by 0.835 per cent, volume loss 1.54e-5, ratio about 540, cabin falls 17.7 km.: python3 with q = 1.5414e-6 s^-2: values 1.0055542, 0.9972268, 0.0083506, 1.537e-5 (series 0.5 q^2 t^4 = 1.540e-5), ratio 543, half g t^2 = 17,676 m. → All correct except the fall distance: 17.7 km, not 17.6 km; fixed. Either value changes q by 0.84 per cent, under 1 per cent as stated.
+- GOCE numbers: -2.74e-6 and +1.37e-6 s^-2 at 255 km in the convention where a stretch is negative; 0.137 mm and 0.069 mm in 10 s.: python3: GM/r^3 at r = 6626 km = 1.370e-6 s^-2; radial entry -2GM/r^3; 1 m x 1.37e-6 x 100 s^2. → Correct; sign matches the course tidal matrix, radial eigenvalue of d_i d_j Phi negative outside a mass.
+- small-ball-volume-law conditions: for matter at rest relative to the observer, -R_mu nu u^mu u^nu = -4 pi G (rho + 3p/c^2) + Lambda c^2.: Hand algebra from R_mu nu = (8 pi G/c^4)(T_mu nu - T g_mu nu/2) + Lambda g_mu nu with the course perfect fluid: T_mu nu u u = rho c^4, T = -rho c^2 + 3p, g_mu nu u u = -c^2. → Correct, including the sign of the Lambda term and the units (Lambda c^2 in s^-2).
+- Boosted observer at 0.6c sideways past a spherical mass sees (GM/r^3) diag(-3.69, 2.69, 1).: Transverse boost of the Schwarzschild electric Weyl tensor: diag(-(2 + 3 gamma^2 beta^2), 1 + 3 gamma^2 beta^2, 1) with gamma^2 beta^2 = 0.5625. → -3.6875, 2.6875, 1; trace zero; correct.
+- mirror-arms-in-a-wave: h_+ = 1.0e-21 from 2.0e-18 m over 4000 m; y row shortens by the same; area factor 1 - h^2/4 with leftover 2.5e-43; 4e-18 m is about 400 proton widths smaller.: python3: 2e-18/4000 = 5e-22; h^2/4 = 2.5e-43; 1.7e-15/4e-18 = 425. → Arithmetic correct. 'The exact area factor' was overstated: the length law is first order in h_+, and the exact TT-gauge proper lengths give a different second-order term (about h^2/2), so the way now calls it the product of the two first-order factors and the check calls 2.5e-43 the leftover of that product.
+- Tidal tensor of a plus wave -(1/2) h''_+ diag(1,-1,0) and the length law delta L/L = +-h_+/2, 0.: Geodesic deviation in TT gauge xi''_i = (1/2) h''_ij xi_j, with the course sign E_ij = R_i0j0 so xi'' = -E xi; integrate twice from rest. → Consistent with the course convention; unchanged claim.
+- Dye analogy: fractional volume rate of a fluid blob is d_i v_i; incompressible stirring is trace-free; volume loss of a released ball is fourth order in proper time.: Continuity equation; Raychaudhuri with theta(0) = 0, sigma proportional to tau, theta' = -sigma^2 - R_uu, so theta ~ tau^3 and delta V ~ tau^4; matches 0.5 q^2 t^4. → Correct. B_ij, theta and the electric Weyl tensor are defined at the formal rung of this note, so the working-rung mapping leans upward; noted as a concern.
+- Release law derivation: V' = surface integral of v, V''(0) = flux of g, Gauss gives -4 pi G M_enc, small-cloud limit -nabla^2 Phi.: Re-derived: Reynolds transport with particles at rest at t = 0, divergence theorem, Poisson equation with the course potential. → Correct.
 
 **Counterexamples tried**
 
-- Cabin turning with Earth (once a day): crumbs at rest in the cabin share its rotation, and the vorticity term adds 2 Omega^2 = 1.06e-8 s^-2 of volume growth, +19 ppm in a minute, larger than the 15 ppm tidal loss. Broke the entry one-minute claim; fixed by a non-turning cabin in the egg way, summary, first check, common question and worked example.
-- Lumpy, non-round planet or moon: the stretch is not along the line to the centre and the squeezes are not half as big, although the volume is still kept. Broke the summary, objective, egg takeaway and misconception wording "near a planet"; now "near a round planet".
-- Crumbs thrown outward (initial expansion) or released with shear in flat spacetime: volume changes at once; entry text scoped to "let go at rest", formal way and check released-with-a-shear cover it.
-- Positive cosmological constant: a ball released at rest in empty space grows at Lambda c^2 ~ 1e-35 s^-2. Entry statements are scoped to Newton's law, and the egg way's "as closely as anyone could ever measure" is true (5e-34 in 10 s).
-- Large cloud beside Earth (not small): Newtonian volume acceleration still zero at release; in GR the finite-cloud volume is slicing dependent, as the working way says.
-- Strong field, near a black hole: small-ball trace still zero in vacuum; ball must be small compared with the curvature radius, as the formal proposition states.
-- Different observer at the same event (boost at 0.6c): the trace stays zero, E_ij E_ij changes from 6 to 21.82 q^2; handled by check passer-loses-volume-sooner.
-- Non-static vacuum (gravitational wave): trace-free at all times; area kept to first order only, second order 1 - h^2/4, as stated.
-- Massless case (light bundle): no Ricci focusing in vacuum, shear focusing at fourth order; stated.
-- Non-vacuum fluid with rho + 3P = 0: comoving observer finds zero, others do not; problem every-observer-keeps-volume.
-- Centre crumb and cabin walls as mass: walls outside, crumb inside but negligible (3e-15 m in 10 s). Statement true.
-- Whole-Earth ball with the real, slightly flattened Earth: stays nearly round and shrinks by nearly 193 ppm; covered by simplifies and "about".
+- Ball with mass inside (huge ball around Earth or Moon): breaks the old tagline 'changes a falling ball's shape long before it changes its volume'; tagline now says 'with nothing inside'.
+- Crumbs inside a planet: 'Near a round planet' drift rule fails there, so the egg recap now says 'Outside a round planet' as the glossary does.
+- Cosmological constant: an empty ball's volume does change at second order in time; the entry rung attributes the rule to Newton's law, and the working way gives the Lambda c^2 term, so the scope holds.
+- Crumbs thrown outward instead of released at rest: every changed rule keeps 'let go at rest' or 'released at rest'.
+- Boosted observer in vacuum: trace still zero (checked with the 0.6c numbers).
+- Cabin walls and the centre crumb as mass inside or outside: the whole-Earth way answers both; the centre crumb's pull moves a neighbour by about 3e-15 m in 10 s for a milligram crumb.
 
 **Fixes**
 
-- Summary, first entry objective, egg-way takeaway and the tides-squash-the-ball correction: "near a planet" became "near a round planet", since the line-and-half-squeeze picture needs a round planet.
-- Egg-way takeaway: after adding 'round', split into short sentences and said 'the line to the planet's centre' to stay within 32 words per sentence and 240 characters; meaning unchanged.
-- Egg way: added "The cabin does not turn as it falls." A cabin turning with Earth would add about 19 ppm of growth per minute, overturning the one-minute shrink figure. Summary, check squashed-or-stretched, the common question and the worked example (nonrotating cabin) say the same. Entry explanations now about 999 words, under the cap; nothing dropped.
-- Problem cube-around-earth, step 4: replaced "the corner particles fall only about 0.1 m" (true value 96 m, and 287 m at face centres) with "at most about 300 m ... less than a hundred-thousandth of the cube's half-width".
-- History, Raychaudhuri 1955: scoped to the freely falling dust of a cosmological model.
-- All references set verified after Crossref confirmation; added DOI and arXiv id for Bartelmann and Schneider 2001.
-- Bumped the revision to 3.
+- Tagline scoped to a ball with nothing inside.
+- Egg way: 'exactly the room' became 'the same room'; 'is also its length times its two widths' became 'is also set by'; recap 'Near a round planet' became 'Outside a round planet'.
+- Wave way and mirror-arms check: 1 - h^2/4 is now the product of the two first-order length factors, and 2.5e-43 its leftover, not 'the exact area factor' or 'the second-order change'.
+- One-minute example: 17.6 km became 17.7 km.
 
 **Concerns**
 
-- Novice re-read needed for the changed entry sentences: summary, objective, egg-way explanation and takeaway, first check question. The phrase "does not turn" should be checked for a reader who might ask "turn relative to what?".
-- Registry prerequisites list only relativistic-tidal-tensor and ricci-tensor; poisson-equation-for-gravity is a registry id (no note yet), is a direct, acyclic prerequisite for the working Gauss-law way, and should be synced with sync_registry.py.
-- The conventions file has no symbols for an observer's tidal tensor or the electric and magnetic Weyl parts; this note uses E_ij = R_{i0j0} and B_ij, which should be added there before other notes use them.
-- The egg is a symmetric oval with both ends alike to leading order in the ball's size; the proposed visual falling-ring-of-crumbs should draw it that way.
-- Web search was unavailable (session budget exhausted); references were confirmed through Crossref DOI records instead, and the GW170814 Bayes factors from the published abstract as known, not re-read in this session.
+- This note reached the post-review checker at revision 1, status draft, with no review block, although the before-physics snapshot was revision 2, novice-reviewed, with a full novice record. The physics stage evidently rewrote the file wholesale and dropped the metadata. The novice record was restored from the snapshot, the revision set to 4 (2 novice, 3 physics, 4 this check), the status restored to novice-reviewed, and this physics record written from the post-review check alone. An editor should decide whether the physics stage's own verdict can be signed; the prior run's 27-item physics record (snapshot prior-run, revision 3) covers older text and was not restored.
+- The dye analogy at working rung maps onto B_ij, the expansion theta and the electric Weyl tensor, which this note defines only at the formal rung.
+- Carried over: the conventions file has no symbols for an observer's tidal tensor or the electric and magnetic Weyl parts; registry prerequisites lack poisson-equation-for-gravity (validator note).
+
+**Diff check** (2026-09-16, revision 4)
+
+- All entry and working numbers changed by the physics review (drifts, box products, 435 m, 193 ppm, 73 m, 120 ppm, cube, one-minute example, GOCE, LIGO arms, boosted tidal tensor).: Recomputed with python3 as listed in the verification array. → All correct except 17.6 km (should be 17.7 km); fixed.
+- Changed general sentences: tagline, egg-way rule sentences, release law, small-ball law with pressure and Lambda, wave area statement, dye analogy.: Conditions, frames and counterexamples checked as recorded; hand algebra for the Lambda term and the boost. → Tagline needed the 'nothing inside' scope; 'exactly' and 'exact area factor' overstated; 'Near a round planet' needed 'Outside'. Fixed; every other changed sentence is accurate within its scope.
+- Novice rewrites made in this check.: Re-read each as the adversarial physicist. → None changes a claim; all remain true.
+- Fix: Tagline scope; 'the same room'; 'set by its length times its two widths'; 'Outside a round planet'; 'product of the two first-order length factors'; 'the leftover h_+^2/4'; 17.7 km.

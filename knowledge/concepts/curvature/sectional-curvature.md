@@ -6,9 +6,9 @@ title: "Sectional curvature"
 tagline: "How strongly space curves in one tilt at a single spot"
 domain: "curvature"
 tier: "advanced"
-status: "novice-reviewed"
-revision: 2
-updated: "2026-09-13"
+status: "physics-reviewed"
+revision: 4
+updated: "2026-09-16"
 aliases: ["curvature of a two-plane", "two-plane curvature"]
 prerequisites: ["gaussian-curvature", "riemann-curvature-tensor", "geodesic-deviation-equation"]
 leads_to: ["space-of-constant-curvature", "einstein-space", "einstein-tensor", "conjugate-point", "curvature-of-the-flrw-metric"]
@@ -19,7 +19,7 @@ visuals: ["ring-in-each-tilt-of-the-ball-building", "falling-ring-of-crumbs", "t
 
 *How strongly space curves in one tilt at a single spot*
 
-`sectional-curvature` · curvature · advanced · novice-reviewed (revision 2)
+`sectional-curvature` · curvature · advanced · physics-reviewed (revision 4)
 
 **Needs:** [[gaussian-curvature]] (entry) · [[riemann-curvature-tensor]] (entry) · [[geodesic-deviation-equation]] (working)  
 **Opens:** [[space-of-constant-curvature]] · [[einstein-space]] · [[einstein-tensor]] · [[conjugate-point]] · [[curvature-of-the-flrw-metric]]  
@@ -42,7 +42,7 @@ visuals: ["ring-in-each-tilt-of-the-ball-building", "falling-ring-of-crumbs", "t
 
 **Formal**
 - State Schur's lemma and explain why it says nothing in two dimensions. `objectives/apply-schur-and-its-limits` ← `checks/schur-on-a-surface`
-- Show that sectional curvature at an event of a curved spacetime is unbounded near degenerate planes. `objectives/explain-unbounded-lorentzian-planes` ← `checks/planes-near-a-light-cone`
+- Show that sectional curvature at an event where a spacetime's curvature is not constant is unbounded near degenerate planes. `objectives/explain-unbounded-lorentzian-planes` ← `checks/planes-near-a-light-cone`
 - Prove that a four-dimensional metric is Einstein exactly when orthogonal planes have equal curvature. `objectives/prove-einstein-planes-pair` ← `problems/einstein-spaces-pair-orthogonal-planes`
 
 **Research**
@@ -70,7 +70,7 @@ Every height here is alike, so nothing can make a walk gain more height at one h
 
 Run the ring test in the level tilt. Each walk sets off gaining no height, so it never gains any. Those walks stay on the floor, which is a ball's surface, so the ring comes out short.
 
-Now run the test in an upright tilt. Each walk rises or sinks steadily while heading along one floor direction, or its opposite. Every floor is an exact copy, so at any height you can say which place on the ball you are at. That place moves as you walk, and it never steers: steering it would mean steering yourself. So every walk keeps to the lift shafts through one straight path around the ball. That path runs through your start along that floor direction.
+Now run the test in an upright tilt. Each walk's movement along the floor, if any, runs along one floor direction or its opposite. Every floor is an exact copy, so at any height you can say which place on the ball you are at. As you walk, that place moves along the ball, or stays put, and it never steers: steering it would mean steering yourself. So every walk keeps to the lift shafts through one straight path around the ball. That path runs through your start along that floor direction.
 
 Those shafts make a tube, which unrolls flat without stretching. On the unrolled sheet every mark still sits the same distance from the centre, so the ring is an ordinary circle of playground length.
 
@@ -94,7 +94,7 @@ Turn each tilt's ring into a number, exactly as for a surface: find the matching
 
 So space at a spot is flat exactly when every tilt there has sectional curvature zero. One ring never settles that, because it tests only one tilt.
 
-Real space has tilts too. Take space as people standing on the ground measure it, all at one moment by their clocks. There a level tilt's straight walks do not keep to the ground: a walk that sets off level rises away from it. One kilometre out from a spot just above the ground, that ring falls short by less than a thousandth of an atom's width. An upright ring there comes out too long.
+Real space has tilts too. Take space as people standing on the ground measure it, all at one moment by their clocks. There a straight walk that sets off level rises away from the ground. One kilometre out from a spot just above the ground, the level ring falls short by less than a thousandth of an atom's width. An upright ring there comes out too long.
 
 **Takeaway:** Each tilt at a spot has its own sectional curvature, so space at that spot is flat exactly when every tilt there gives zero.
 
@@ -467,8 +467,8 @@ Let $(M,g)$ be four-dimensional, Riemannian or Lorentzian. Prove that $R_{\mu\nu
 
 ## Observations
 
-- **Gravity gradients measured by the GOCE satellite, 2009 to 2013** (measured, working). GOCE's gradiometer measured relative accelerations of test masses inside the freely falling satellite. Its radial entry, for masses separated along the line to Earth's centre, becomes through $\ddot\xi = c^2K(u,e)\,\xi$ the sectional curvature of the plane of the satellite's four-velocity and that line. The masses accelerate apart, so this plane has $K > 0$, the sign a sphere has, although on a sphere neighbours converge. *Numbers:* For a spherical Earth at $r = 6626$ km: $2GM/r^3 = 2.74\times10^{-6}$ s$^{-2}$ apart, so $K(u,e_r) = +3.05\times10^{-23}$ m$^{-2}$. *Reference:* Reiner Rummel, Weiyong Yi, Claudia Stummer (2011), *GOCE gravitational gradiometry*, Journal of Geodesy 85, 777–790, doi:10.1007/s00190-011-0500-0 _(unverified)_
-- **The curvature of space at one cosmic time, from the Planck satellite's maps combined with galaxy clustering** (measured, working). In the standard cosmological model each slice of constant cosmic time has the same sectional curvature for every plane at every point, $K = -\Omega_KH_0^2/c^2$ today in the slice's own geometry. The measurement bounds that one number. *Numbers:* $\Omega_K = 0.001 \pm 0.002$ at 68% confidence with $H_0 = 67.4$ km s$^{-1}$ Mpc$^{-1}$, so $K$ lies between $-1.6\times10^{-55}$ and $+5\times10^{-56}$ m$^{-2}$, against $2.5\times10^{-14}$ m$^{-2}$ for Earth's ground. *Reference:* N. Aghanim, Y. Akrami, M. Ashdown, J. Aumont and others (2020), *Planck 2018 results. VI. Cosmological parameters*, Astronomy & Astrophysics 641, A6, doi:10.1051/0004-6361/201833910 _(unverified)_
+- **Gravity gradients measured by the GOCE satellite, 2009 to 2013** (measured, working). GOCE's gradiometer measured relative accelerations of test masses inside the freely falling satellite. Its radial entry, for masses separated along the line to Earth's centre, becomes through $\ddot\xi = c^2K(u,e)\,\xi$ the sectional curvature of the plane of the satellite's four-velocity and that line. The masses accelerate apart, so this plane has $K > 0$, the sign a sphere has, although on a sphere neighbours converge. *Numbers:* For a spherical Earth at $r = 6626$ km: $2GM/r^3 = 2.74\times10^{-6}$ s$^{-2}$ apart, so $K(u,e_r) = +3.05\times10^{-23}$ m$^{-2}$. *Reference:* Reiner Rummel, Weiyong Yi, Claudia Stummer (2011), *GOCE gravitational gradiometry*, Journal of Geodesy 85, 777–790, doi:10.1007/s00190-011-0500-0
+- **The curvature of space at one cosmic time, from the Planck satellite's maps combined with galaxy clustering** (measured, working). In the standard cosmological model each slice of constant cosmic time has the same sectional curvature for every plane at every point, $K = -\Omega_KH_0^2/c^2$ today in the slice's own geometry. The measurement bounds that one number. *Numbers:* $\Omega_K = 0.001 \pm 0.002$ at 68% confidence with $H_0 = 67.4$ km s$^{-1}$ Mpc$^{-1}$, so $K$ lies between $-1.6\times10^{-55}$ and $+5\times10^{-56}$ m$^{-2}$, against $2.5\times10^{-14}$ m$^{-2}$ for Earth's ground. *Reference:* N. Aghanim, Y. Akrami, M. Ashdown, J. Aumont and others (2020), *Planck 2018 results. VI. Cosmological parameters*, Astronomy & Astrophysics 641, A6, doi:10.1051/0004-6361/201833910
 
 ## Teaching arc
 
@@ -527,7 +527,7 @@ Let $(M,g)$ be four-dimensional, Riemannian or Lorentzian. Prove that $R_{\mu\nu
 
 1. **Entry · predict** `checks/upright-ring-length`. In a made-up building, every floor is an exact copy of the surface of one ball 6 metres across. Lift shafts join each spot to its copies, and there is a floor at every height. At one spot you run the ring test in an upright tilt, walking 2 metres out. That tilt is set by the upward direction and one floor direction. About how long is the ring?
    - **Hints:** Which surface do the walks in an upright tilt keep to?
-   - **Answer:** About 12.6 metres, its playground length, which is 6.28 times 2 metres. Every walk in an upright tilt rises or sinks steadily while heading along one floor direction, or its opposite. Every floor is an exact copy of the same ball. So at any height you can say which place on the ball you are at, and that place never steers as you walk. So every walk keeps to the lift shafts through one straight path around the ball. That is the path through your start along that floor direction. Those shafts make a tube, and a tube unrolls flat without stretching. On the unrolled sheet every mark still sits 2 metres from the centre, so the ring is an ordinary circle. A ring walked 2 metres out in the level tilt instead would stay on the floor, which is a ball's surface, so it would come out short, about 11.7 metres.
+   - **Answer:** About 12.6 metres, its playground length, which is 6.28 times 2 metres. Every walk in an upright tilt rises or sinks by the same amount for each metre it covers, and the level walk does neither. Each walk's movement along the floor, if any, runs along one floor direction or its opposite. Every floor is an exact copy of the same ball. So at any height you can say which place on the ball you are at, and that place never steers as you walk. So every walk keeps to the lift shafts through one straight path around the ball. That is the path through your start along that floor direction. Those shafts make a tube, and a tube unrolls flat without stretching. On the unrolled sheet every mark still sits 2 metres from the centre, so the ring is an ordinary circle. A ring walked 2 metres out in the level tilt instead would stay on the floor, which is a ball's surface, so it would come out short, about 11.7 metres.
    - **Must contain:** About 12.6 metres, the playground length; The walks keep to a tube, which unrolls flat without stretching
    - **Numeric:** ring length = 12.57 m (magnitude, ±2%)
    - **Targets:** `one-ring-settles-the-spot`
@@ -614,21 +614,21 @@ Let $(M,g)$ be four-dimensional, Riemannian or Lorentzian. Prove that $R_{\mu\nu
 
 ## History
 
-- **Bernhard Riemann (1854).** In his 1854 inaugural lecture, published in 1868, described curvature at a point through the Gaussian curvatures of surfaces formed by geodesics leaving it along a surface direction, and counted $n(n-1)/2$ such functions as the metric data coordinates cannot remove. Bernhard Riemann (1868), *Über die Hypothesen, welche der Geometrie zu Grunde liegen*, Abhandlungen der Königlichen Gesellschaft der Wissenschaften zu Göttingen 13, 133–150 _(unverified)_
+- **Bernhard Riemann (1854).** In his 1854 inaugural lecture, published in 1868, described curvature at a point through the Gaussian curvatures of surfaces formed by geodesics leaving it along a surface direction, and counted $n(n-1)/2$ such functions as the metric data coordinates cannot remove. Bernhard Riemann (1868), *Über die Hypothesen, welche der Geometrie zu Grunde liegen*, Abhandlungen der Königlichen Gesellschaft der Wissenschaften zu Göttingen 13, 133–152
 - **Friedrich Schur (1886).** Proved that if the curvature at each point of a connected space of three or more dimensions is the same for all surface directions, it is the same at every point.
-- **Harry Ernest Rauch (1951).** Compared Jacobi fields under bounds on sectional curvature, and used the comparison for the first pinching theorem: sufficiently pinched compact simply connected manifolds are homeomorphic to spheres. H. E. Rauch (1951), *A contribution to differential geometry in the large*, Annals of Mathematics 54, 38–55 _(unverified)_
+- **Harry Ernest Rauch (1951).** Compared Jacobi fields under bounds on sectional curvature, and used the comparison for the first pinching theorem: sufficiently pinched compact simply connected manifolds are homeomorphic to spheres. H. E. Rauch (1951), *A contribution to differential geometry in the large*, Annals of Mathematics 54, 38–55
 - **Ravindra S. Kulkarni (1979).** Showed that for an indefinite metric in three or more dimensions, sectional curvature bounded on one side at a point must be constant there.
 
 ## Research horizon
 
-- **Topology under positive or nonnegative sectional curvature.** The soul theorem reduces complete noncompact manifolds with $K \ge 0$ to bundles over compact souls. Compact positively curved examples are so rare that Hopf's questions about $S^2\times S^2$ and about Euler characteristics remain open, and current work classifies positively curved manifolds with large symmetry groups. Jeff Cheeger, Detlef Gromoll (1972), *On the structure of complete manifolds of nonnegative curvature*, Annals of Mathematics 96, 413–443 _(unverified)_; Burkhard Wilking (2007), *Nonnegatively and positively curved manifolds*, Surveys in Differential Geometry 11, 25–62 _(unverified)_
-- **Pinched curvature and Ricci flow.** Pinching hypotheses bound the ratio of the largest to the smallest sectional curvature at each point. Ricci flow turned the topological quarter-pinched sphere theorem into a differentiable one, and the same machinery drives current work on weaker pinching and on which curvature conditions the flow preserves. Simon Brendle, Richard Schoen (2009), *Manifolds with 1/4-pinched curvature are space forms*, Journal of the American Mathematical Society 22, 287–307, doi:10.1090/S0894-0347-08-00613-9 _(unverified)_
-- **Curvature bounds without smoothness.** Alexandrov spaces define a lower curvature bound by comparing geodesic triangles with triangles on a surface of constant curvature, which for smooth Riemannian manifolds is a lower bound on sectional curvature. Their structure theory describes Gromov–Hausdorff limits and collapse. Yuri Burago, Mikhail Gromov, Grigori Perelman (1992), *A. D. Alexandrov spaces with curvature bounded below*, Russian Mathematical Surveys 47(2), 1–58 _(unverified)_
-- **Comparison geometry in spacetime.** Because one-sided bounds on all planes force constant curvature in indefinite signature, spacetime comparison theorems bound $\mathrm{Rm}(X,Y,X,Y)$ against $k\,Q(X,Y)$, a condition whose direction reverses between spacelike and timelike planes. Lorentzian length spaces carry timelike triangle comparison to spacetimes too rough for a Riemann tensor. Lars Andersson, Ralph Howard (1998), *Comparison and rigidity theorems in semi-Riemannian geometry*, Communications in Analysis and Geometry 6, 819–877 _(unverified)_; Michael Kunzinger, Clemens Sämann (2018), *Lorentzian length spaces*, Annals of Global Analysis and Geometry 54, 399–447, arXiv:1711.08990 _(unverified)_
+- **Topology under positive or nonnegative sectional curvature.** The soul theorem reduces complete noncompact manifolds with $K \ge 0$ to bundles over compact souls. Compact positively curved examples are so rare that Hopf's questions about $S^2\times S^2$ and about Euler characteristics remain open, and current work classifies positively curved manifolds with large symmetry groups. Jeff Cheeger, Detlef Gromoll (1972), *On the structure of complete manifolds of nonnegative curvature*, Annals of Mathematics 96, 413–443, doi:10.2307/1970819; Burkhard Wilking (2007), *Nonnegatively and positively curved manifolds*, Surveys in Differential Geometry 11, 25–62
+- **Pinched curvature and Ricci flow.** Pinching hypotheses bound the ratio of the largest to the smallest sectional curvature at each point. Ricci flow turned the topological quarter-pinched sphere theorem into a differentiable one, and the same machinery drives current work on weaker pinching and on which curvature conditions the flow preserves. Simon Brendle, Richard Schoen (2009), *Manifolds with 1/4-pinched curvature are space forms*, Journal of the American Mathematical Society 22, 287–307, doi:10.1090/S0894-0347-08-00613-9
+- **Curvature bounds without smoothness.** Alexandrov spaces define a lower curvature bound by comparing geodesic triangles with triangles on a surface of constant curvature, which for smooth Riemannian manifolds is a lower bound on sectional curvature. Their structure theory describes Gromov–Hausdorff limits and collapse. Yuri Burago, Mikhail Gromov, Grigori Perelman (1992), *A. D. Alexandrov spaces with curvature bounded below*, Russian Mathematical Surveys 47(2), 1–58
+- **Comparison geometry in spacetime.** Because one-sided bounds on all planes force constant curvature in indefinite signature, spacetime comparison theorems bound $\mathrm{Rm}(X,Y,X,Y)$ against $k\,Q(X,Y)$, a condition whose direction reverses between spacelike and timelike planes. Lorentzian length spaces carry timelike triangle comparison to spacetimes too rough for a Riemann tensor. Lars Andersson, Ralph Howard (1998), *Comparison and rigidity theorems in semi-Riemannian geometry*, Communications in Analysis and Geometry 6, 819–877, arXiv:dg-ga/9707020; Michael Kunzinger, Clemens Sämann (2018), *Lorentzian length spaces*, Annals of Global Analysis and Geometry 54, 399–447, doi:10.1007/s10455-018-9633-1
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 2)
+**Verdict:** fixed (2026-09-13, revision 4)
 
 **Retell attempt:** There is a made-up building where every floor is the surface of the same huge ball, with lifts joining the copies of a spot. At one spot you pick a tilt, level like the bottom of a box or upright like the front, and do the ring test only in that tilt. Level comes out short, because you stay on the ball. Upright comes out normal length, because the walks stay on a tube and a tube unrolls flat. I had to reread the upright part: I cannot see why "that spot never steers", or how unrolling makes the ring exactly 6.28 times the walk. The ring test says walk out in every direction, but with three directions to move in that marks a whole ball of end points, not a ring, so I am not sure which walks count. Walking straight is "never changing how much height you gain with each step", which I could follow in the building but not on a hill. Each tilt gets its own number, the sectional curvature, and space is flat only if every tilt gives zero. Then something about real space: a level ring walked one kilometre out falls short by less than a thousandth of the width of an atom. But I just read that a one-kilometre ring on Earth's ground is short by about half a hair's width, so I do not know which is right, or whether I am walking on the ground or not. And "flat-paper length" is new to me; the earlier note called it the playground length.
 
@@ -681,3 +681,72 @@ Let $(M,g)$ be four-dimensional, Riemannian or Lorentzian. Prove that $R_{\mu\nu
 - The registry lists only gaussian-curvature and riemann-curvature-tensor as prerequisites; the note adds geodesic-deviation-equation at the working rung, which sync_registry.py should pick up now that the note is reviewed.
 - All three visuals are proposals, not catalog entries. ring-in-each-tilt-of-the-ball-building is new to this note; falling-ring-of-crumbs and three-rings-around-a-spot are proposed by other curvature notes and this note only adds a mode to each.
 - A schema v2 note at revision 2, status novice-reviewed, existed before the writer stage was rerun, and its review record was lost in the rebuild. This review reads the rerun draft from scratch. The earlier files are at /private/tmp/claude-501/-Users-neo-repos-general-relativity/bdf94c63-cbec-4edd-ba4c-fe7299d5507b/scratchpad/snapshots/notes-curvature/sectional-curvature.before.json and .before-writer-rerun2.json, and this stage's own starting point at sectional-curvature.before-novice.json.
+
+**Re-read** (2026-09-16, revision 4): 2 stumbles in 3 changed passages
+
+- “Every walk in an upright tilt keeps a steady rate of rising or sinking, which may be zero.”: "Steady rate" reads as a speed, height gained per second, but nobody in the check is timing the walk; the way says height gained per metre covered.
+- “Its movement along the floor, if any, runs along one floor direction or its opposite.”: "Its" opens the sentence right after "which may be zero", so the noun it stands for is not unmistakable.
+- Fix: Reworded the two rewritten sentences of checks/upright-ring-length.answer as in the stumbles; the claims are unchanged. The three changed sentences in ways_in/two-rings-at-one-spot and ways_in/one-ring-does-not-settle-a-spot read cleanly and were left as they are.
+
+## Review: physics
+
+**Verdict:** fixed (2026-09-16, revision 4)
+
+**Verification**
+
+- Definition K(Π) = Rm(X,Y,X,Y)/Q(X,Y) depends only on the plane; sphere of radius a has R_θφθφ = a² sin²θ and K = +1/a².: Hand: under X' = aX + bY, Y' = cX + dY both numerator and Q pick up (ad − bc)². R^θ_φθφ = sin²θ on the unit sphere from the course Christoffel symbols; lowering and scaling gives a² sin²θ over a⁴ sin²θ. Python for the check at a = 2 m, θ = 30°: Rm = 1 m², Q = 20 − 16 = 4 m⁴, K = 0.25 m⁻²; dropping g(X,Y)² gives 0.05. → Correct, sign matches the conventions row (sphere positive).
+- Ring law C = 2πℓ(1 − Kℓ²/6 + O(ℓ³)); entry numbers 12.6 cm vs 11.8 cm (tube 20 cm around), 12.6 m vs 11.7 m (ball 6 m across, 2 m walked).: Expansion of 2πa sin(ℓ/a); python: tube ring 12.566, sphere ring 11.756 cm; upright 12.566, level 11.656 m. The geodesic surface tangent to Π is geodesic at p, so its Gaussian curvature there is K(Π). → Correct; the true remainder is O(ℓ⁴), so O(ℓ³) holds.
+- Ball building S²(a) × R: plane tilted by α from level has K = cos²α/a²; a slanted ring at finite walk length lies between the level and upright rings.: Hand from the product structure (every orthonormal component with a lift index vanishes). Python: length of the curve of geodesic end points in the product metric for a = 3 m, ℓ = 2 m at α = 0, 15, 30, 45, 60, 75, 90°: 11.656, 11.717, 11.885, 12.113, 12.340, 12.506, 12.566 m, monotone. → Correct; the entry simplifies sentence 'falls between those two' holds at the check's own numbers.
+- Loop reading ΔV^2̂ = −R^2̂_1̂1̂2̂ δ² = +Kδ², a rotation from e₁ toward e₂.: Hand: in an orthonormal positive-definite frame R^2̂_1̂1̂2̂ = R_2̂1̂1̂2̂ = −R_1̂2̂1̂2̂ = −K; agrees with the holonomy note's unit-sphere cell. → Correct.
+- Ric(e_a,e_a) = Σ_{b≠a} K(e_a,e_b), R = 2Σ_{a<b} K; ball building R = 2/a², round 3-sphere of radius √3 a has R = 2/a².: Hand contraction; python for the two scalars. → Correct.
+- Tides: ξ̈ = +c²K(u,e)ξ; near a spherical mass K(u,e_r) = +2GM/c²r³, K(u,e_⊥) = −GM/c²r³; Earth surface +3.43e−23 and −1.72e−23 m⁻²; cabin at r = 6771 km 2.57e−6 s⁻² and +2.857e−23 m⁻²; GOCE r = 6626 km 2.74e−6 s⁻² and +3.05e−23 m⁻².: Hand: contract the course deviation equation with e_μ; Q(u,e) = −c². Cross-checked against Schwarzschild orthonormal components R_t̂r̂t̂r̂ = −2m/r³, R_t̂θ̂t̂θ̂ = +m/r³, which give K(t̂,r̂) = +2m/r³ and K(t̂,θ̂) = −m/r³. Python for every number with GM_E = 3.986004e14 m³ s⁻². → All correct to the quoted digits; the deviation-equation and tidal-tensor notes use the same signs.
+- Static slice outside a non-rotating star is totally geodesic; K_level = (1 − f′²)/f² = 2GM/c²r³ and K_up = −f″/f = −GM/c²r³; neutron star 1.4 M_⊙, 12 km: +2.393e−9 and −1.196e−9 m⁻², sphere radius 20.4 km.: Hand: time-reflection symmetry kills the extrinsic curvature, Gauss equation then equates slice and spacetime plane curvatures; warped-product formulas for ds² + f(s)²dΩ². Python: GM/c² = 2067.2 m, GM/c²r³ = 1.1963e−9 m⁻², sphere radius 20 444 m. → Correct.
+- Derivation 'Energy density from three planes': G(û,û) = K₁₂ + K₂₃ + K₃₁ = 8πGρ/c² + Λ; water 1.87e−23 m⁻².: Hand through all eight steps, including the ε signs, the a = b term, the double count in R, the sign of Λ from G + Λg = 8πG T/c⁴ with g(û,û) = −1, and T(û,û) = ρc² from the course perfect fluid. Python: 8πG·1000/c² = 1.866e−23 m⁻². → Correct.
+- Derivation 'Recover the tensor from its planes': mixed derivative equals 6 Rm(X,Y,Z,W).: Hand: coefficient of xy in B(X + xZ, Y + yW) has the four terms listed; pair exchange pairs them; the Z↔W swap, last-pair antisymmetry and the cyclic identity Rm(X,Y,Z,W) + Rm(X,Z,W,Y) + Rm(X,W,Y,Z) = 0 turn the bracket into Rm(X,Y,Z,W); 4 + 2 = 6. → Correct at every step.
+- Schur: R = K̄(g g − g g) gives Ric = (n−1)K̄ g, G = (n−1)(1 − n/2)K̄ g, and ∇^μG_μν = 0 forces K̄ constant for n ≥ 3; for n = 3, K(Π) = −G(N,N).: Hand contraction and the n = 3 basis count G(e₃,e₃) = (K₁₃ + K₂₃) − (K₁₂ + K₁₃ + K₂₃). → Correct.
+- Four dimensions: Ric = λg exactly when K(Π) = K(Π^⊥) for every nondegenerate plane, in either signature.: Hand: S₁ + S₂ − S₃ − S₄ = 2(K₁₂ − K₃₄); converse makes all S_b equal in every orthonormal basis; checked that in Lorentzian signature two unit vectors always admit a unit spacelike vector orthogonal to both, so bases sharing a vector chain any two together; Schwarzschild pairs 2, −1, −1 sum to zero. → Correct; the proof sketch in the problem is sound.
+- Planes near a light cone: K = (m/r³)(1 + 2w²)/(w² − 1), −148.75 at w = 0.99, +151.25 at w = 1.01, numerator 3m/r³ at w = 1.: Hand for numerator and denominator (R_φ̂t̂φ̂t̂ = K(φ̂,t̂) g_φ̂φ̂ g_t̂t̂ = +m/r³); python for the values. → Correct.
+- Rauch, Bonnet–Myers and Synge statements; I(V,V) ≤ (L/2)(π²/L² − k).: Hand: ∫₀^L cos²(πℓ/L) dℓ = ∫₀^L sin²(πℓ/L) dℓ = L/2 (python check 1.5 at L = 3); hypotheses compared with the standard theorems (completeness, simply connected for Cartan–Hadamard, orientable and even-dimensional for Synge). → Correct.
+- Refocusing problem: K = 0.0025 m⁻², meeting at ℓ = πa/cosβ = 62.83 m, floor distance 31.42 m, rise 54.41 m; the other perpendicular direction spans a flat plane.: Hand: E is the unit normal to the great circle within S², parallel along γ in the product, so J = jE with j″ = −Kj; python for the numbers. → Correct.
+- Planck: K = −Ω_K H₀²/c² lies between −1.6e−55 and +5e−56 m⁻² for Ω_K = 0.001 ± 0.002, H₀ = 67.4 km s⁻¹ Mpc⁻¹; Earth's ground 2.5e−14 m⁻².: Python: H₀²/c² = 5.31e−53 m⁻², Ω_K from −0.001 to +0.003 gives +5.3e−56 to −1.59e−55; 1/R_E² = 2.46e−14 m⁻². Sign from FLRW slice curvature k/a² = −Ω_K H₀²/c². → Correct.
+- Entry real-space paragraph: a level straight walk in the static slice rises away from the ground; a 1 km level ring falls short by under a thousandth of an atom's width; an upright ring comes out too long.: Hand: slice geodesic tangent to r = r₀ obeys (dr/ds)² = (1 − 2GM/rc²)(1 − r₀²/r²) ≥ 0 only for r ≥ r₀, so r₀ is a minimum. Python: shortfall πKℓ³/3 = 3.59e−14 m against 1e−13 m; K_up < 0 gives an excess of 1.8e−14 m. → Correct.
+- Research-rung facts: known compact simply connected positively curved examples beyond the rank-one symmetric spaces lie in dimensions 6, 7, 12, 13 and 24; Hopf's two questions open; quarter pinching sharp by CP^n; Preissmann, soul theorem, Gromov's Betti bound, Alexandrov and CAT(k) spaces, Kulkarni's theorem for n ≥ 3.: Checked against the standard literature (Wallach, Aloff–Wallach, Eschenburg, Bazaikin, Berger spaces; Grove–Verdiani–Ziller and Dearricott in dimension 7). → Accurate and current as of 2026.
+- References: Riemann 1868, Rauch 1951, Rummel–Yi–Stummer 2011, Planck 2018 VI, Cheeger–Gromoll 1972, Wilking 2007, Brendle–Schoen 2009, Burago–Gromov–Perelman 1992, Andersson–Howard 1998, Kunzinger–Sämann 2018.: One web search each for authors, year, title, venue, pages and identifiers. → All confirmed. Riemann's pages corrected to 133–152; DOIs added for Cheeger–Gromoll (10.2307/1970819) and Kunzinger–Sämann (10.1007/s10455-018-9633-1), arXiv dg-ga/9707020 added for Andersson–Howard; verified set to true on all ten.
+
+**Counterexamples tried**
+
+- de Sitter spacetime: curved, yet every plane has the same K and the values are bounded. It broke the objective 'sectional curvature at an event of a curved spacetime is unbounded', which now reads 'where a spacetime's curvature is not constant'; the way, check and misconception already carried that scope.
+- A walk straight up a lift shaft, and the one level walk inside an upright tilt: both broke 'each walk rises or sinks steadily while heading along one floor direction', since one heads along no floor direction and the other neither rises nor sinks. Rewritten in the way and the check answer so that only the floor movement, if any, is constrained; the steady height gain was already established for every straight walk.
+- Product S² × R: K ≥ 0 with zero planes and infinite diameter, consistent with Bonnet–Myers needing k > 0; used as the note's own example.
+- Flat torus and RP^{2n}: Cartan–Hadamard needs simply connected, Synge needs orientable; both hypotheses are stated.
+- Two-dimensional Lorentzian surface: one plane per point, so Kulkarni's theorem is scoped to n ≥ 3 in the way; the takeaway's 'any one-sided bound forces constant curvature at p' is vacuously true there.
+- Metric connection with torsion: cyclic identity fails and plane values no longer fix the curvature; the formal way says so.
+- Rotating star or Kerr: the t = const slice is not totally geodesic, so the slice and spacetime plane curvatures differ; the working way and problem are scoped to a non-rotating star.
+- Inside matter: the three-plane sum is 8πGρ/c² + Λ rather than zero, and Λ is 29 orders below the water term; the check states both.
+- Coordinate basis on the sphere: R_θφθφ = a² sin²θ is not K; the working check and misconception cover it.
+
+**Fixes**
+
+- Entry way 'Two rings at one spot': the upright-tilt sentence now constrains only the floor movement of each walk, and the place-on-the-ball sentence allows the place to stay put, so both hold for a walk straight up a shaft and for the level walk in that tilt.
+- Entry way 'One ring does not settle a spot': the real-space sentence shortened to 'There a straight walk that sets off level rises away from the ground', and 'that ring' named as 'the level ring', keeping the entry explanations inside the review allowance.
+- Check 'upright-ring-length': the same upright-tilt sentence rewritten as two sentences with the zero-rate case included.
+- Objective 'explain-unbounded-lorentzian-planes' rescoped from 'a curved spacetime' to 'where a spacetime's curvature is not constant'.
+- References: Riemann pages 133–152; DOI or arXiv identifiers added where confirmed; verified true on all ten.
+- Revision bumped to 3 for the learner-visible entry changes; status physics-reviewed.
+
+**Concerns**
+
+- Course conventions still fix only the index form of the Riemann tensor; the index-free slot order Rm(X,Y,Z,W) = R_μνρσ X^μ Y^ν Z^ρ W^σ is defined inside the formal way. The conventions file should adopt it before other notes need it.
+- The entry changes above must get the novice lens on exactly those sentences; the validator's warning that review.novice covers revision 2 is expected.
+- Entry explanations stand at about 434 words against the 400 cap, inside the review allowance but with no room left.
+- analogies remains empty; the budget leaves no room to restore the writer's moment-of-inertia analogy.
+- All three visuals are proposals with sketches; none is in the catalog yet.
+- The registry lists only two prerequisites; sync_registry.py should add geodesic-deviation-equation at the working rung.
+
+**Diff check** (2026-09-16, revision 4)
+
+- In the ball building (sphere times a line), a straight walk gains the same height for each metre it covers, zero for the level walk and one metre per metre up a shaft.: Product metric: the vertical component of a geodesic's unit tangent is constant along it; checked the level, slanting and shaft cases. → True; the reworded check sentence keeps this claim.
+- A walk in an upright tilt keeps to the shafts through one straight path around the ball, its floor movement running along that floor direction or its opposite, or staying put.: The projection of a product-metric geodesic to the sphere is a great circle traversed at constant speed, or a point when the walk is vertical; its initial tangent is the tilt's floor direction. → True for every walk of the tilt, including the level walk and the shaft walk.
+- In the space measured by people standing on the ground, at one moment by their clocks, a straight walk that sets off level rises away from the ground.: Clairaut's relation on the Flamm paraboloid: a spatial geodesic tangent to the sphere r = r0 keeps r sin(psi) = r0, so r is at least r0 along it for r0 > 2GM/c^2; the level tangential plane also has K = +2GM/(c^2 r^3) > 0, consistent with a short level ring. → True; also true for a round Earth in flat space, so the sentence marks a contrast with the building, not evidence of curvature on its own.
+- One kilometre out from a spot just above Earth's ground, the level ring falls short by less than a thousandth of an atom's width.: python3: K = 2GM/(c^2 r^3) = 3.43e-23 per square metre; shortfall = pi K s^3 / 3 = 3.6e-14 m for s = 1000 m, against 1e-13 m. → Holds.
+- Check numbers: playground length 12.6 m for a 2 m walk; level ring on a 6 m ball about 11.7 m.: python3: 2 pi 2 = 12.57; 2 pi 3 sin(2/3) = 11.66. → Both agree with the stated values and tolerance.

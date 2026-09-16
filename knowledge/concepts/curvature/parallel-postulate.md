@@ -7,7 +7,7 @@ tagline: "Why straight lines that start parallel keep their gap on flat ground b
 domain: "curvature"
 tier: "foundation"
 status: "physics-reviewed"
-revision: 9
+revision: 10
 updated: "2026-09-13"
 aliases: ["Euclid's fifth postulate", "parallel axiom"]
 prerequisites: ["euclidean-space"]
@@ -19,7 +19,7 @@ visuals: ["two-walkers-set-off-side-by-side"]
 
 *Why straight lines that start parallel keep their gap on flat ground but meet on a ball*
 
-`parallel-postulate` · curvature · foundation · physics-reviewed (revision 9)
+`parallel-postulate` · curvature · foundation · physics-reviewed (revision 10)
 
 **Needs:** [[euclidean-space]] (entry)  
 **Opens:** [[curvature]] · [[geodesic-deviation-equation]]  
@@ -336,7 +336,7 @@ In neutral geometry, prove that two distinct lines $m$ and $n$ perpendicular to 
 ### “Parallel lines staying parallel is pure logic, so it must hold in every space.” · entry · `postulate-is-just-logic`
 
 - **Why it is tempting:** The rule feels as certain as every other fact of school geometry.
-- **What is true:** A geometry that keeps Euclid's other rules, but in which straight lines that start parallel spread apart, stays free of contradiction as long as flat geometry does. So the rule cannot be proved from those rules, and on a ball the rule fails outright.
+- **What is true:** Mathematicians worked out a geometry that keeps Euclid's other rules, but in which straight lines that start parallel spread apart. That geometry stays free of contradiction as long as flat geometry does, so the rule cannot be proved from those rules; on a ball the rule fails outright as well.
 - **Exposed by:** `checks/must-be-pure-logic`
 
 ### “On a sphere the gap closes at a steady rate, so halfway to the meeting point half of it is gone.” · working · `gap-closes-steadily`
@@ -373,7 +373,7 @@ In neutral geometry, prove that two distinct lines $m$ and $n$ perpendicular to 
 3. **Entry · evaluate-claim** `checks/must-be-pure-logic`. A classmate says: "Straight lines that start parallel must stay parallel. That is pure logic, so it is true in every space." Is the classmate right?
    - **Hints:** What happened when mathematicians tried to prove the rule? / What happens to straight lines that start parallel on a ball?
    - **Answer:** No. For about two thousand years, mathematicians tried to prove the rule from Euclid's other starting rules, and every attempt failed. Lobachevsky and Bolyai then worked out a geometry that keeps the other rules, but in which such lines spread apart. That geometry can be drawn inside a flat disc, so any contradiction in it would also be a contradiction in ordinary flat geometry. So logic alone cannot settle the rule. The rule also fails on a ball, so it is not true in every space. Whether the space we live in obeys it has to be measured.
-   - **Must contain:** No; The rule cannot be proved from the other starting rules; A geometry that keeps the other rules but makes such lines spread apart can be drawn in a flat disc, so it stays free of contradiction as long as flat geometry does; The rule fails on a ball, so it is not true in every space, and whether the space we live in obeys it must be measured
+   - **Must contain:** No; The rule cannot be proved from the other starting rules; A geometry that keeps the other starting rules but makes such lines spread apart can be drawn in a flat disc, so it stays free of contradiction as long as flat geometry does; The rule fails on a ball, so it is not true in every space, and whether the space we live in obeys it must be measured
    - **Targets:** `postulate-is-just-logic`
 4. **Working · numeric** `checks/ships-halfway-to-meeting`. Two ships start on the equator 200 km apart and sail along geodesics that leave it at right angles, toward the same side. Treat Earth as a sphere of radius 6371 km. What is their gap when each has sailed half the distance to their meeting point? Is it half the starting gap?
    - **Hints:** Where do they meet? Use $D = D_0\cos(s/a)$.
@@ -426,7 +426,7 @@ In neutral geometry, prove that two distinct lines $m$ and $n$ perpendicular to 
 
 ## Review: novice
 
-**Verdict:** fixed (2026-09-13, revision 8)
+**Verdict:** fixed (2026-09-13, revision 10)
 
 **Retell attempt:** Two friends stand 10 metres apart and walk forward without steering. On flat ground they stay 10 metres apart forever, and that is Euclid's parallel postulate. On a ball, if they start on the equator facing the North Pole, they meet at the Pole, however far apart they started, and on Earth the closing is far too slow to notice, a tenth of a millimetre over 10 kilometres. I am not sure what 'face the same way' means on a ball: if we start halfway to the North Pole, both facing it, do we still walk a quarter of the way around? And why is the Pole a quarter of the way around? Runners in lanes keep the same gap, but they steer, so that does not count. Nobody could prove the rule for two thousand years; two mathematicians made a geometry without it, and some map inside a disc showed it has no contradictions, but I did not see why a map proves that, or what the sentence about inner angles meant. So you have to measure. I also wondered why the ball does not already show the rule cannot be proved.
 
@@ -528,9 +528,18 @@ In neutral geometry, prove that two distinct lines $m$ and $n$ perpendicular to 
 - “So the rule cannot be proved from those rules, and on a ball the rule fails outright.”: 'So' can be heard as covering both halves, so the ball arrives as a second thing that follows from the geometry just described, or as more evidence for it in the same breath. That is the very step the note corrects at formal rung, where a learner takes the ball to be the case that shows the rule unprovable. The ball is a separate fact, and nothing in the sentence marks it as separate.
 - “A geometry that keeps the other rules but makes such lines spread apart can be drawn in a flat disc, so it stays free of contradiction as long as flat geometry does”: One idea now has two names inside one list of key points: the key point before this one says 'the other starting rules', and this one says 'the other rules'. A learner marking her own answer cannot tell whether the shorter name means something wider than the starting rules.
 
+**Re-read** (2026-09-16, revision 10): 3 stumbles in 4 changed passages
+
+- “A geometry that keeps Euclid's other rules, but in which straight lines that start parallel spread apart, stays free of contradiction as long as flat geometry does.”: Read twice. The subject 'A geometry' waits nineteen words for its verb 'stays', and by then I had lost what was staying free of contradiction. The re-read at revision 9 recorded this stumble but left the text as it was.
+- “So the rule cannot be proved from those rules, and on a ball the rule fails outright.”: 'So' seems to cover both halves, so the ball sounds like something that follows from the spreading geometry, which is the mix-up the note warns against elsewhere. The ball is a separate fact.
+- “A geometry that keeps the other rules but makes such lines spread apart”: The key point before it says 'the other starting rules'; this one says 'the other rules', so I wondered whether the shorter name meant something wider.
+- Fix: Correction: now 'Mathematicians worked out a geometry that keeps Euclid's other rules, but in which straight lines that start parallel spread apart. That geometry stays free of contradiction as long as flat geometry does, so the rule cannot be proved from those rules; on a ball the rule fails outright as well.' Two sentences of 20 and 30 words; 'worked out' matches the check answer; 'as well' marks the ball as a separate fact; no claim changed.
+- Fix: Key point: 'the other rules' became 'the other starting rules', matching the key point before it and the check's answer.
+- Fix: Revision bumped to 10.
+
 ## Review: physics
 
-**Verdict:** fixed (2026-09-13, revision 9)
+**Verdict:** fixed (2026-09-13, revision 10)
 
 **Verification**
 
@@ -644,3 +653,11 @@ In neutral geometry, prove that two distinct lines $m$ and $n$ perpendicular to 
 - Fix: misconceptions[postulate-is-just-logic].correction: was 'The rule cannot be proved from Euclid's other rules, because a geometry in which the rule is false stays free of contradiction as long as flat geometry does. On a ball the rule fails outright.' Now 'A geometry that keeps Euclid's other rules, but in which straight lines that start parallel spread apart, stays free of contradiction as long as flat geometry does. So the rule cannot be proved from those rules, and on a ball the rule fails outright.' The missing hypothesis is restored, and naming the spreading case keeps the ball out of it. Still two sentences, 27 and 17 words, both under the 32-word ceiling; nothing else was shortened.
 - Fix: checks[must-be-pure-logic].key_points[3]: was 'A geometry without the rule can be drawn in a flat disc, so it has no contradiction unless flat geometry does'. Dropping the rule gives neutral geometry, which the flat plane already models, so that key point credits an answer that misses the step independence needs. Now 'A geometry that keeps the other rules but makes such lines spread apart can be drawn in a flat disc, so it stays free of contradiction as long as flat geometry does', matching the check's own answer and the corrected misconception. Out of the diff's three strings, and recorded here because it is the same claim slip.
 - Fix: No other fix. The two working-rung changes and the added cone sentence stand as the re-read left them.
+
+**Diff check** (2026-09-16, revision 10)
+
+- Correction, sentence 1: 'Mathematicians worked out a geometry that keeps Euclid's other rules, but in which straight lines that start parallel spread apart.': The hyperbolic plane satisfies Euclid's first four postulates under the modern reading and denies the fifth. Two geodesics leaving a common geodesic at right angles on the same side, a gap $D_0$ apart, have gap $\sinh d = \sinh D_0 \cosh s$ at arclength $s$ (unit $K = -1$); python3 for $D_0 = 0.1$: $d = 0.100, 0.154, 0.369, 0.887$ at $s = 0, 1, 2, 3$, growing, and matching the Jacobi field $D_0\cosh s$ to first order in the gap. Lobachevsky (1829) and Bolyai (1832) did work it out, as the history way and the check answer already say. → Accurate. 'Worked out' is the check answer's own verb, so it names the same fact.
+- Correction, sentence 2: 'That geometry stays free of contradiction as long as flat geometry does, so the rule cannot be proved from those rules; on a ball the rule fails outright as well.': Relative consistency is what the disc drawing gives: a contradiction in hyperbolic geometry would be a contradiction about circles and lines in the Euclidean plane. Independence follows: a proof of the fifth from the other four would hold in the disc model, where the fifth is false. The ball: great circles leaving the equator at right angles meet at the pole, $D_0\cos s = 0$ at $s = \pi/2$ (python3), so the rule fails there. 'As well' marks the ball as an added fact, not a consequence of the disc argument, which is the point of misconceptions/sphere-shows-independence. → Accurate; the hypothesis 'keeps Euclid's other rules' is still attached to the geometry that carries the independence claim, and the ball is kept out of that claim.
+- checks[must-be-pure-logic].key_points[2]: 'keeps the other starting rules'.: Compared with the check's answer ('Euclid's other starting rules') and with key_points[1]. → Same claim in the note's own name for it.
+- Counterexamples on the changed general sentences.: Ball (breaks the first postulate as the note reads it, so not a geometry that 'keeps Euclid's other rules'); flat cylinder and cone (keep the rule for lines that start parallel away from the tip, so not the spreading geometry); neutral geometry with the fifth merely dropped (the flat plane models it, so it does not by itself show independence, which is why the sentence names the spreading case). → Each is either excluded by the hypothesis or consistent with the sentence.
+- Fix: None beyond the novice rewrites, which were read again as the physicist and as the novice; no claim, number or scope changed.
