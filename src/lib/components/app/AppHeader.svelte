@@ -8,7 +8,8 @@
 	let { user }: { user: { name: string; email: string } | null } = $props();
 
 	const links = [
-		{ href: '/learn', label: 'Learn', exact: true },
+		{ href: '/read', label: 'The book', exact: false },
+		{ href: '/learn', label: 'Study notes', exact: true },
 		{ href: '/learn/search', label: 'Search', exact: false }
 	];
 
