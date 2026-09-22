@@ -144,13 +144,22 @@ export function gapAt(state: State, s: number): number {
 	}
 }
 
+/**
+ * Where a walk on the swim ring stands around the tube, measured from the outer equator. Both walks cross the top
+ * of the tube, in opposite directions, which is what the picture shows and what the caption says. Either choice
+ * gives the same cos psi, so the gap law and the curvature do not depend on it; only the drawing does.
+ */
+function tubeAngle(start: StartCircle, s: number, r: number): number {
+	return start === 'inner' ? Math.PI - s / r : s / r;
+}
+
 /** Gaussian curvature where the walkers stand, per square metre. Zero on both flat worlds. */
 export function curvatureAt(state: State, s: number): number {
 	const world = WORLDS[state.world];
 	if (world.shape === 'plane' || world.shape === 'tube') return 0;
 	if (world.shape === 'sphere') return 1 / world.radius ** 2;
 	const { centre: Rc, tube: r } = RING;
-	const psi = state.startCircle === 'inner' ? Math.PI + s / r : s / r;
+	const psi = tubeAngle(state.startCircle, s, r);
 	return Math.cos(psi) / (r * (Rc + r * Math.cos(psi)));
 }
 
@@ -238,7 +247,7 @@ export function walkerAt(state: State, s: number, offset: number): Point {
 		}
 		case 'torus': {
 			const { centre: Rc, tube: r } = RING;
-			const psi = state.startCircle === 'inner' ? Math.PI + s / r : s / r;
+			const psi = tubeAngle(state.startCircle, s, r);
 			const ringRadius = Rc + r * Math.cos(psi);
 			const angle = offset / ringRadius;
 			return [ringRadius * Math.sin(angle), r * Math.sin(psi), ringRadius * Math.cos(angle)];

@@ -41,7 +41,7 @@
 		orange: 0xd97706,
 		tape: 0x2c6a5c,
 		surfaceLight: 0xe8eae4,
-		surfaceDark: 0x2a322f,
+		surfaceDark: 0x3c4744,
 		lineLight: 0x9aa39d,
 		lineDark: 0x5c6763
 	};
@@ -57,35 +57,50 @@
 				: 0.35
 	);
 
-	function line(points: [number, number, number][], color: number, width = 2) {
-		const geometry = new THREE.BufferGeometry().setFromPoints(
-			points.map((p) => new THREE.Vector3(p[0] / unit, p[1] / unit, p[2] / unit))
+	/**
+	 * A path drawn as a solid tube. WebGL ignores line widths, so a one-pixel line is invisible against a shaded
+	 * surface; a tube of real radius reads as a stripe painted on the world, and the surface is pushed back a
+	 * fraction (polygonOffset) so the stripe never fights it for the same pixels.
+	 */
+	function stripe(points: [number, number, number][], color: number, radius = 0.012) {
+		const seen = points
+			.map((p) => new THREE.Vector3(p[0] / unit, p[1] / unit, p[2] / unit))
+			.filter((v, i, all) => i === 0 || v.distanceTo(all[i - 1]) > 1e-6);
+		if (seen.length < 2) return new THREE.Group();
+		const path = new THREE.CatmullRomCurve3(seen);
+		return new THREE.Mesh(
+			new THREE.TubeGeometry(path, Math.min(240, seen.length * 2), radius, 8, false),
+			new THREE.MeshStandardMaterial({ color, roughness: 0.45, metalness: 0.05 })
 		);
-		return new THREE.Line(geometry, new THREE.LineBasicMaterial({ color, linewidth: width }));
 	}
 
 	function marker(at: [number, number, number], color: number) {
-		const mesh = new THREE.Mesh(
-			new THREE.SphereGeometry(0.035, 16, 16),
-			new THREE.MeshStandardMaterial({ color, roughness: 0.4 })
+		const dot = new THREE.Mesh(
+			new THREE.SphereGeometry(0.038, 24, 16),
+			new THREE.MeshStandardMaterial({ color, roughness: 0.35, metalness: 0.1 })
 		);
-		mesh.position.set(at[0] / unit, at[1] / unit, at[2] / unit);
-		return mesh;
+		// Lifted a whisker along the outward normal so a walker sits on the world rather than half inside it.
+		const out = new THREE.Vector3(at[0] / unit, at[1] / unit, at[2] / unit);
+		const lift = world.shape === 'plane' ? new THREE.Vector3(0, 1, 0) : out.clone().normalize();
+		dot.position.copy(out).addScaledVector(lift, 0.02);
+		return dot;
 	}
 
 	function surface(): THREE.Object3D {
 		const material = new THREE.MeshStandardMaterial({
 			color: dark() ? PALETTE.surfaceDark : PALETTE.surfaceLight,
-			roughness: 0.95,
-			metalness: 0,
+			roughness: 0.78,
+			metalness: 0.02,
 			side: THREE.DoubleSide,
-			transparent: true,
-			opacity: 0.92
+			// Pushed a fraction away from the camera so the stripes painted on it always win the depth test.
+			polygonOffset: true,
+			polygonOffsetFactor: 2,
+			polygonOffsetUnits: 2
 		});
 		const wire = new THREE.LineBasicMaterial({
 			color: dark() ? PALETTE.lineDark : PALETTE.lineLight,
 			transparent: true,
-			opacity: 0.35
+			opacity: dark() ? 0.45 : 0.55
 		});
 		const holder = new THREE.Group();
 		if (world.shape === 'plane') {
@@ -137,6 +152,31 @@
 		return holder;
 	}
 
+	/**
+	 * Points the camera at the walk rather than at the world's centre, so the two trails sit in the middle of the
+	 * frame on every world. Called when the world changes and never while the reader is turning it themselves.
+	 */
+	function aimCamera() {
+		if (!camera || !controls) return;
+		const mid = walkerAt(view, world.walk / 2, view.gap / 2);
+		const at = new THREE.Vector3(mid[0] / unit, mid[1] / unit, mid[2] / unit);
+		if (world.shape === 'plane' || world.shape === 'tube') {
+			// Flat worlds are looked at from above and to one side; the walk runs away down the -z axis.
+			controls.target.set(0, 0, at.z);
+			camera.position.set(1.3, 1.7, at.z + 2.0);
+		} else {
+			// On a ball or a ring the camera moves out along the surface's own outward direction at the halfway
+			// point, so the reader faces the stretch of world the walkers cross.
+			const out = at.clone().normalize();
+			controls.target.set(0, 0, 0);
+			camera.position
+				.copy(out)
+				.multiplyScalar(world.shape === 'torus' ? 2.35 : 2.9)
+				.add(new THREE.Vector3(0.45, 0.1, 0.45));
+		}
+		controls.update();
+	}
+
 	/** Rebuilds the trails, the tape, the tick marks and the two walkers from the model. */
 	function draw() {
 		if (!group) return;
@@ -144,18 +184,15 @@
 		group.add(surface());
 
 		const { blue, orange } = trails(view);
-		group.add(
-			line(blue, PALETTE.blue),
-			line(orange, PALETTE.orange),
-			line(tape(view), PALETTE.tape, 3)
-		);
+		group.add(stripe(blue, PALETTE.blue), stripe(orange, PALETTE.orange));
+		group.add(stripe(tape(view), PALETTE.tape, 0.016));
 
-		// White ticks across the walk, so the reader can count stretches.
+		// Ticks across the walk, so the reader can count stretches and watch them close in.
 		const walked = view.progress * world.walk;
 		for (const at of stretchMarks(view)) {
 			if (at > walked + 1e-9) continue;
 			const across = Array.from({ length: 9 }, (_, i) => walkerAt(view, at, (view.gap * i) / 8));
-			group.add(line(across, dark() ? 0x8f9a94 : 0xffffff, 1));
+			group.add(stripe(across, dark() ? 0xcdd6d1 : 0xffffff, 0.007));
 		}
 
 		group.add(marker(walkerAt(view, walked, 0), PALETTE.blue));
@@ -179,13 +216,17 @@
 		controls = new OrbitControls(camera, canvas);
 		controls.enableDamping = true;
 		controls.enablePan = false;
-		scene.add(new THREE.AmbientLight(0xffffff, 1.5));
-		const key = new THREE.DirectionalLight(0xffffff, 1.6);
+		// A key light and a dimmer fill from the far side, so a ball reads as a ball and not a flat disc.
+		scene.add(new THREE.HemisphereLight(0xffffff, 0x4a5350, 0.8));
+		const key = new THREE.DirectionalLight(0xffffff, 1.5);
 		key.position.set(3, 4, 2);
-		scene.add(key);
+		const fill = new THREE.DirectionalLight(0xffffff, 0.45);
+		fill.position.set(-3, -1, -2.5);
+		scene.add(key, fill);
 		group = new THREE.Group();
 		scene.add(group);
 		ready = true;
+		aimCamera();
 		draw();
 
 		const resize = () => {
@@ -226,6 +267,7 @@
 		const preset = id === 'swim-ring' ? 'swim-ring-inner' : id === 'earth' ? 'earth-equator' : id;
 		view = { ...view, ...PRESETS[preset], progress: 0 };
 		playing = false;
+		aimCamera();
 	}
 
 	const pct = (x: number) => `${x.toFixed(x < 10 ? 2 : 1)}%`;
