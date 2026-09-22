@@ -1,9 +1,10 @@
 # Vault build status and how to resume
 
-Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and run with the Workflow tool
+Last updated 2026-09-22. Workflow scripts live in `knowledge/_workflows/` and run with the Workflow tool
 (`scriptPath` plus `args`).
 
-**Pacing rule:** at most 5 agents in flight, one workflow at a time.
+**Pacing rule:** one agent at a time near the usage limits, one workflow at a time; estimate the tokens
+and get the owner's go before every run.
 
 ## Done
 
@@ -88,8 +89,42 @@ Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and ru
    code. Building it found one real bug the spec had anticipated: at a ball's pole the gap is 6e-17 rather than 0,
    so the extra-per-stretch readout divided by it; spheres now use the closed form.
    Lesson: a spec of this shape is buildable without its author present, and the tests are worth the trouble.
-10. **Next.** Chapters in reading order, main track first; visuals per chapter after its sections. The remaining
-   curvature visuals (6 partly reviewed, 3 unwritten) are listed above.
+10. **Two agents a section (2026-09-22).** The owner chose the cheaper pipeline. `gr-book-sections.js` is now a
+   writer plus one reviewer that applies the reader lens, then the adversarial physics lens, then re-reads its own
+   physics fixes as the reader. That last step is what the separate post-review check used to do; inside one agent
+   the gap it closed never opens. The reader pass now also covers formal and research depth (a graduate reader who
+   knows no notation the book has not introduced), which the four-stage pipeline skipped. `start` is now
+   `write` | `review`.
+11. **Chapter 1 written: Measurement, mechanics and Newtonian gravity** (`sections-mechanics-and-gravity`,
+   `wf_a43f104d-a91`, 12 agents, 2.8 h, sequential, no failures). All 6 sections validate OK at
+   `physics-reviewed`; 13 of 164 sections are written (34,205 words).
+   - **Cost: 2.15M per section** (output + new context + cached reads/10), against 3.5M with four agents: a 39%
+     cut, and better than the 2.5M estimate. Writers 15-22 calls (~0.7M), reviewers 29-50 calls (~1.4M).
+   - The review still earns its place. In `rotating-frames` alone it caught a ball rolled across a turntable
+     described as going straight in the ground frame (contact friction curves it), a centrifugal force defined by
+     the body's own ground speed rather than the frame's rotation, a rider told to add Coriolis but not
+     centrifugal, and a jet's clock claimed to fall behind when the altitude term is three times larger and of the
+     opposite sign. `newtonian-gravity-as-a-field` had the potential defined as a positive climb-out energy and
+     then called negative in four places.
+   - **Blocking before the next mechanics or orbits section: `notation/course-conventions.md` fixes nothing for
+     elementary mechanics, analytical mechanics or Newtonian orbits.** Six sections each had to invent their own:
+     p = m v, F = m a, U against the field potential Phi, whether vectors are bold, joules and newtons at entry
+     depth, q^a colliding with the file's Latin i,j for space, overdot, L = T - V, p_a, the signed forms of
+     Gauss's law and Poisson's equation, a value for G, the gravitational field symbol g colliding with the metric
+     and with surface gravity, and the orbit symbol set (mu, M, a against the scale factor, e, l, v_esc).
+   - Outline fixes the writers and reviewers both asked for: `heaviside-lorentz-units` and `natural-units` cannot
+     be graded in `units-and-dimensions` (move to `maxwells-equations` and `the-planck-scale-and-quantum-fields`);
+     `geometrized-units` needs G three sections before `newtonian-gravity-as-a-field` teaches it;
+     `absolute-space` argues where the rest of `newtons-laws-and-inertial-frames` measures, and belongs in
+     `rotating-frames` with Mach; `conservative-force` and `conservation-of-mechanical-energy` belong with the
+     Lagrangian section; `hamilton-jacobi-equation` is taught as a preview; `negative-specific-heat` fits a
+     stellar-structure section better than `kepler-orbits`.
+   - `validate.py` UNITS lacks `kg m^2/s`, `J s` and `m^2/s`, so a conserved-angular-momentum check could not
+     carry its real numeric answer.
+   - 13 visuals were proposed with sketches and none is in the catalog yet.
+12. **Next.** Chapters in reading order (Part 0 toolkit or Part II `space-and-time` next), main track first;
+   visuals per chapter after its sections. The remaining curvature visuals (6 partly reviewed, 3 unwritten) are
+   listed above. Do the conventions rows in item 11 before writing another mechanics or orbits section.
 
 ## App follow-ups from the engineer critique
 
