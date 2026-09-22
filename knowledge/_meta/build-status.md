@@ -77,7 +77,19 @@ Last updated 2026-09-13. Workflow scripts live in `knowledge/_workflows/` and ru
    - `four-legs-around-a-tiny-loop`: writer's draft, unreviewed, wording and symbol warnings cleaned by hand.
    - `falling-ring-of-crumbs`, `six-entry-curvature-table`, `twenty-of-256-slots`: not written.
    Resume with `gr-visuals-v2.js` (it re-plans from the proposals) once budget allows.
-8. **Next.** Chapters in reading order, main track first; visuals per chapter after its sections.
+8. **The app serves the book (2026-09-22).** `scripts/build-book-index.ts` compiles the outline, the written
+   sections and the visual catalog into `src/lib/server/vault/generated/book.json`, dropping provenance, reviews and
+   sketches (`src/lib/server/book.spec.ts` fails if any of that, or a book name, reaches the runtime). Routes:
+   `/read` (all 25 chapters) and `/read/<chapter>/<section>` (the reading view, KaTeX rendered server-side). The
+   theme moved to paper-and-ink with Literata, Newsreader and IBM Plex Mono.
+9. **First demo built.** `two-walkers-set-off-side-by-side` is now a three.js component
+   (`src/lib/visuals/two-walkers/`), status `built` in the catalog. Its model is a separate module, and
+   `model.spec.ts` runs all 20 numerical tests from the catalog entry against it, so the book's promises test the
+   code. Building it found one real bug the spec had anticipated: at a ball's pole the gap is 6e-17 rather than 0,
+   so the extra-per-stretch readout divided by it; spheres now use the closed form.
+   Lesson: a spec of this shape is buildable without its author present, and the tests are worth the trouble.
+10. **Next.** Chapters in reading order, main track first; visuals per chapter after its sections. The remaining
+   curvature visuals (6 partly reviewed, 3 unwritten) are listed above.
 
 ## App follow-ups from the engineer critique
 

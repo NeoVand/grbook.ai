@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { DEPTH_LABEL } from '#lib/book/types.js';
+	import TwoWalkers from '#lib/visuals/two-walkers/TwoWalkers.svelte';
+
+	/** Built components, by catalog id. Everything else in the catalog shows as a specification card. */
+	const COMPONENTS = { 'two-walkers-set-off-side-by-side': TwoWalkers } as const;
+	const BUILT = new Set(Object.keys(COMPONENTS));
 
 	let { data } = $props();
 	const s = $derived(data.section);
@@ -139,10 +144,24 @@
 				</div>
 			{/if}
 
-			{#if s.visuals.length}
-				<h2 class="eyebrow mt-12">Figures and demos</h2>
+			{#if s.visuals.some((v) => BUILT.has(v.id))}
+				<h2 class="eyebrow mt-12">Try it</h2>
+				<div class="mt-3 space-y-4">
+					{#each s.visuals.filter((v) => BUILT.has(v.id)) as v (v.id)}
+						{@const Demo = COMPONENTS[v.id as keyof typeof COMPONENTS]}
+						<div>
+							<h3 class="font-heading text-[1.05rem] font-semibold">{v.catalog?.title ?? v.id}</h3>
+							<p class="mt-1 mb-3 text-[0.97rem] text-muted-foreground">{v.role}</p>
+							<Demo />
+						</div>
+					{/each}
+				</div>
+			{/if}
+
+			{#if s.visuals.some((v) => !BUILT.has(v.id))}
+				<h2 class="eyebrow mt-12">Figures still to build</h2>
 				<div class="mt-3 grid gap-3 sm:grid-cols-2">
-					{#each s.visuals as v (v.id)}
+					{#each s.visuals.filter((v) => !BUILT.has(v.id)) as v (v.id)}
 						<article class="rounded-md border border-border bg-card p-4">
 							<div class="flex flex-wrap items-baseline justify-between gap-2">
 								<h3 class="font-heading text-[1.02rem] font-semibold">
